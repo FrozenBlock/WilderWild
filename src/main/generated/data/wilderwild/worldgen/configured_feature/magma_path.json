@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:noise_path_feature",
+  "type": "frozenlib:noise_path_schedule_tick_feature",
   "config": {
     "is_3d": true,
     "max_threshold": -0.7,

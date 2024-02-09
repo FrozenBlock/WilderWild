@@ -140,11 +140,12 @@ public final class MagmaCaves extends FrozenBiome {
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+		BiomeDefaultFeatures.addFossilDecoration(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
 		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.MAGMA_LAVA_POOL.getKey());
 		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.LAVA_LAKE_EXTRA.getKey());
-		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.LAVA_SPRING_EXTRA.getKey());
+		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WilderMiscPlaced.LAVA_SPRING_EXTRA.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
@@ -154,10 +155,11 @@ public final class MagmaCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.FOSSIL_LAVA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.UPSIDE_DOWN_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MAGMA_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.OBSIDIAN_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.MAGMA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.FIRE_PATCH_MAGMA.getKey());
 	}
 

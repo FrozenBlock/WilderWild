@@ -134,10 +134,10 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
 
 	// MAGMA CAVES
-	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_MAGMA = register("ore_magma");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MAGMA_PATH = register("magma_path");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
@@ -889,13 +889,6 @@ public final class WilderMiscConfigured {
 		);
 
 		// MAGMA CAVES
-		ORE_MAGMA.makeAndSetHolder(Feature.ORE,
-			new OreConfiguration(
-				NATURAL_STONE,
-				Blocks.MAGMA_BLOCK.defaultBlockState(),
-				24
-			)
-		);
 
 		MAGMA_LAVA_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_LAVA_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
@@ -912,7 +905,7 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		MAGMA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+		MAGMA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_SCHEDULE_TICK_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 				10,
@@ -932,12 +925,28 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		MAGMA_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		MAGMA_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_SCHEDULE_TICK_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 				UniformInt.of(2, 6),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		OBSIDIAN_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_SCHEDULE_TICK_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
+				UniformInt.of(2, 4),
 				0.8F,
 				0.7F,
 				0.325F,
@@ -974,7 +983,7 @@ public final class WilderMiscConfigured {
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simplePatchConfiguration(
-				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
+				FrozenFeatures.SIMPLE_BLOCK_SCHEDULE_TICK_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
 			)
 		);
 

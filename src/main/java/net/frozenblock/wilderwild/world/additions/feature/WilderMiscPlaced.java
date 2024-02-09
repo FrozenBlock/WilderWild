@@ -110,12 +110,13 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
 	// MAGMA CAVES
 	public static final FrozenPlacedFeature MAGMA_LAVA_POOL = register("magma_lava_pool");
-	public static final FrozenPlacedFeature ORE_MAGMA = register("ore_magma");
 	public static final FrozenPlacedFeature MAGMA_PATH = register("magma_path");
 	public static final FrozenPlacedFeature MAGMA_DISK = register("magma_disk");
+	public static final FrozenPlacedFeature OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenPlacedFeature LAVA_SPRING_EXTRA = register("lava_spring_extra");
 	public static final FrozenPlacedFeature FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenPlacedFeature LAVA_LAKE_EXTRA = register("lava_lake_extra");
+	public static final FrozenPlacedFeature FOSSIL_LAVA = register("fossil_lava");
 	// OASIS
 	public static final FrozenPlacedFeature SAND_POOL = register("sand_pool");
 	public static final FrozenPlacedFeature MESSY_SAND_POOL = register("messy_sand_pool");
@@ -520,27 +521,27 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		ORE_MAGMA.makeAndSetHolder(WilderMiscConfigured.ORE_MAGMA.getHolder(),
-			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(0)))
-		);
-
 		MAGMA_PATH.makeAndSetHolder(WilderMiscConfigured.MAGMA_PATH.getHolder(),
-			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
+			modifiersWithCount(4, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)))
 		);
 
 		MAGMA_DISK.makeAndSetHolder(WilderMiscConfigured.MAGMA_DISK.getHolder(),
 			modifiersWithCount(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
 		);
 
+		OBSIDIAN_DISK.makeAndSetHolder(WilderMiscConfigured.OBSIDIAN_DISK.getHolder(),
+			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
+		);
+
 		LAVA_SPRING_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
-			CountPlacement.of(UniformInt.of(0, 2)),
+			CountPlacement.of(UniformInt.of(10, 23)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			BiomeFilter.biome()
 		);
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(WilderMiscConfigured.FIRE_PATCH_MAGMA.getHolder(),
-			CountPlacement.of(UniformInt.of(12, 20)),
+			CountPlacement.of(UniformInt.of(25, 40)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			BiomeFilter.biome()
@@ -550,6 +551,13 @@ public final class WilderMiscPlaced {
 			CountPlacement.of(UniformInt.of(0, 1)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			BiomeFilter.biome()
+		);
+
+		FOSSIL_LAVA.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.FOSSIL_DIAMONDS),
+			RarityFilter.onAverageOnceEvery(10),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
 			BiomeFilter.biome()
 		);
 

@@ -1,15 +1,9 @@
 {
-  "feature": "minecraft:spring_lava_overworld",
+  "feature": "wilderwild:obsidian_disk",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 23,
-          "min_inclusive": 10
-        }
-      }
+      "count": 1
     },
     {
       "type": "minecraft:in_square"

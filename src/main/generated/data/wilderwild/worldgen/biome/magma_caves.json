@@ -35,7 +35,6 @@
     [
       "wilderwild:magma_lava_pool",
       "wilderwild:lava_lake_extra",
-      "wilderwild:lava_spring_extra",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
@@ -45,7 +44,10 @@
       "wilderwild:fire_patch_magma"
     ],
     [
-      "minecraft:monster_room_deep"
+      "minecraft:fossil_upper",
+      "minecraft:fossil_lower",
+      "minecraft:monster_room_deep",
+      "wilderwild:fossil_lava"
     ],
     [],
     [],
@@ -78,14 +80,16 @@
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel",
-      "wilderwild:ore_magma"
+      "minecraft:disk_gravel"
     ],
     [
       "wilderwild:upside_down_magma",
-      "wilderwild:magma_disk"
+      "wilderwild:magma_disk",
+      "wilderwild:obsidian_disk"
     ],
-    [],
+    [
+      "wilderwild:lava_spring_extra"
+    ],
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",

@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:ore_magma",
+  "feature": "minecraft:fossil_diamonds",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
+      "type": "minecraft:rarity_filter",
+      "chance": 10
     },
     {
       "type": "minecraft:in_square"
@@ -13,7 +13,7 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 0
+          "absolute": -24
         },
         "min_inclusive": {
           "absolute": -54

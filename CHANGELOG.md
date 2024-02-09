@@ -7,6 +7,12 @@ Additions
     - Added the `Allow Snowlogging,` `Snowlog Blockades,` and `Natural Snowlogging` config options.
       - To prevent long load times due to excessive blockstates, `Snowlog Blockades` is off by default.
 
+  - Added the Magma Caves biome
+    - It set my house on fire. Great!
+    - A new, scorching underground biome consisting of sprawling Magma, and lots of Lava pools.
+    - Lava-related features generate more frequently in this biome.
+    - Fossils generate much more frequently in this biome.
+
 Bug Fixes & Changes
 ---
 
@@ -18,6 +24,7 @@ Bug Fixes & Changes
    - Tumbleweed will pass through Breezes.
      - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
+  - Fire now emits extra particles if on top of Magma.
   - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
   - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
     - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
