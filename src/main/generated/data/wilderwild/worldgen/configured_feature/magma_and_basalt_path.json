@@ -1,0 +1,13 @@
+{
+  "type": "frozenlib:combo_feature",
+  "config": {
+    "feature": {
+      "feature": "wilderwild:magma_path",
+      "placement": []
+    },
+    "second_feature": {
+      "feature": "wilderwild:basalt_paths",
+      "placement": []
+    }
+  }
+}

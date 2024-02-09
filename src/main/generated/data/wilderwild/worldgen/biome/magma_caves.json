@@ -26,6 +26,12 @@
       "replace_current_music": false,
       "sound": "wilderwild:music.overworld.jellyfish_caves"
     },
+    "particle": {
+      "options": {
+        "type": "minecraft:large_smoke"
+      },
+      "probability": 0.0015
+    },
     "sky_color": 8364543,
     "water_color": 9817343,
     "water_fog_color": 6069471
@@ -85,7 +91,8 @@
     [
       "wilderwild:upside_down_magma",
       "wilderwild:magma_disk",
-      "wilderwild:obsidian_disk"
+      "wilderwild:obsidian_disk",
+      "wilderwild:basalt_pile"
     ],
     [
       "wilderwild:lava_spring_extra"

@@ -115,6 +115,7 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenPlacedFeature LAVA_SPRING_EXTRA = register("lava_spring_extra");
 	public static final FrozenPlacedFeature FIRE_PATCH_MAGMA = register("fire_patch_magma");
+	public static final FrozenPlacedFeature BASALT_PILE = register("basalt_pile");
 	public static final FrozenPlacedFeature LAVA_LAKE_EXTRA = register("lava_lake_extra");
 	public static final FrozenPlacedFeature FOSSIL_LAVA = register("fossil_lava");
 	// OASIS
@@ -521,8 +522,8 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		MAGMA_PATH.makeAndSetHolder(WilderMiscConfigured.MAGMA_PATH.getHolder(),
-			modifiersWithCount(4, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)))
+		MAGMA_PATH.makeAndSetHolder(WilderMiscConfigured.MAGMA_AND_BASALT_PATH.getHolder(),
+			modifiersWithCount(8, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)))
 		);
 
 		MAGMA_DISK.makeAndSetHolder(WilderMiscConfigured.MAGMA_DISK.getHolder(),
@@ -544,6 +545,14 @@ public final class WilderMiscPlaced {
 			CountPlacement.of(UniformInt.of(25, 40)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			BiomeFilter.biome()
+		);
+
+		BASALT_PILE.makeAndSetHolder(WilderMiscConfigured.BASALT_PILE.getHolder(),
+			CountPlacement.of(UniformInt.of(3, 8)),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 

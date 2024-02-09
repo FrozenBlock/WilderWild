@@ -22,6 +22,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
@@ -136,11 +137,16 @@ public final class WilderMiscConfigured {
 	// MAGMA CAVES
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MAGMA_PATH = register("magma_path");
+	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BASALT_PATH_A = register("basalt_path_a");
+	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BASALT_PATH_B = register("basalt_path_b");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> BASALT_PATHS = register("basalt_paths");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_BASALT_PATH = register("magma_and_basalt_path");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
+	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> BASALT_PILE = register("basalt_pile");
 
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
@@ -908,11 +914,11 @@ public final class WilderMiscConfigured {
 		MAGMA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_SCHEDULE_TICK_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-				10,
+				14,
 				4,
-				0.025D,
-				-0.8D,
-				-0.7D,
+				0.0325D,
+				-0.275D,
+				-0.15D,
 				true,
 				true,
 				true,
@@ -922,6 +928,60 @@ public final class WilderMiscConfigured {
 					WilderBlockTags.MAGMA_REPLACEABLE
 				),
 				1F
+			)
+		);
+
+		BASALT_PATH_A.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+			new PathFeatureConfig(
+				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+				14,
+				4,
+				0.0325D,
+				-0.31D,
+				-0.275D,
+				true,
+				true,
+				true,
+				false,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WilderBlockTags.MAGMA_REPLACEABLE
+				),
+				1F
+			)
+		);
+
+		BASALT_PATH_B.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+			new PathFeatureConfig(
+				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+				14,
+				4,
+				0.0325D,
+				-0.15D,
+				-0.115D,
+				true,
+				true,
+				true,
+				false,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WilderBlockTags.MAGMA_REPLACEABLE
+				),
+				1F
+			)
+		);
+
+		BASALT_PATHS.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				PlacementUtils.inlinePlaced(BASALT_PATH_A.getHolder()),
+				PlacementUtils.inlinePlaced(BASALT_PATH_B.getHolder())
+			)
+		);
+
+		MAGMA_AND_BASALT_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				PlacementUtils.inlinePlaced(MAGMA_PATH.getHolder()),
+				PlacementUtils.inlinePlaced(BASALT_PATHS.getHolder())
 			)
 		);
 
@@ -984,6 +1044,12 @@ public final class WilderMiscConfigured {
 		FIRE_PATCH_MAGMA.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simplePatchConfiguration(
 				FrozenFeatures.SIMPLE_BLOCK_SCHEDULE_TICK_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
+			)
+		);
+
+		BASALT_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
+			new BlockPileConfiguration(
+				BlockStateProvider.simple(Blocks.BASALT)
 			)
 		);
 

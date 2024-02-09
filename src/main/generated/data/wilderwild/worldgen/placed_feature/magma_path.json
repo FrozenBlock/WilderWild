@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:magma_path",
+  "feature": "wilderwild:magma_and_basalt_path",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 4
+      "count": 8
     },
     {
       "type": "minecraft:in_square"

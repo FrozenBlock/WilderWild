@@ -25,11 +25,13 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.CavePlacements;
@@ -46,8 +48,8 @@ import java.util.function.Consumer;
 public final class MagmaCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.WARM, Temperature.HOT);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.NEUTRAL);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_4);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_2, Erosion.EROSION_4);
 	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.weirdnesses[3], Weirdness.weirdnesses[8]);
 	public static final float OFFSET = 0.000F;
 	public static final float TEMP = 1.0F;
@@ -115,7 +117,7 @@ public final class MagmaCaves extends FrozenBiome {
 
 	@Override
 	public @Nullable AmbientParticleSettings ambientParticleSettings() {
-		return null;
+		return new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.0015F);
 	}
 
 	@Override
@@ -159,6 +161,7 @@ public final class MagmaCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.UPSIDE_DOWN_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MAGMA_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.OBSIDIAN_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.BASALT_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.MAGMA_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.FIRE_PATCH_MAGMA.getKey());
 	}
@@ -170,7 +173,7 @@ public final class MagmaCaves extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		//if (WorldgenConfig.get().biomeGeneration.generateJellyfishCaves) {
+		if (WorldgenConfig.get().biomeGeneration.generateMagmaCaves) {
 			this.addBottomBiome(
 				parameters,
 				TEMPERATURE,
@@ -180,7 +183,7 @@ public final class MagmaCaves extends FrozenBiome {
 				WEIRDNESS,
 				OFFSET
 			);
-		//}
+		}
 	}
 
 }
