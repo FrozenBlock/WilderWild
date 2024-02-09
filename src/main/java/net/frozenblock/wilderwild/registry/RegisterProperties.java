@@ -61,6 +61,9 @@ public final class RegisterProperties {
 	//Scorched Sand
 	public static final BooleanProperty CRACKED = BooleanProperty.create("cracked");
 
+	//Geyser
+	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+
 	//Vanilla Blocks
 	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
 	public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor

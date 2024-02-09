@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
+import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
@@ -471,7 +472,7 @@ public final class RegisterBlocks {
 			.sounds(SoundType.SPONGE)
 	);
 
-	public static final Block OSTRICH_EGG = new OstrichEggBlock(
+	public static final OstrichEggBlock OSTRICH_EGG = new OstrichEggBlock(
 		FabricBlockSettings.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
@@ -488,6 +489,17 @@ public final class RegisterBlocks {
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(
 		FabricBlockSettings.create().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
 			.lightLevel(state -> state.getValue(RegisterProperties.DISPLAY_LIGHT))
+	);
+
+	public static final GeyserBlock GEYSER = new GeyserBlock(
+		FabricBlockSettings.create().mapColor(MapColor.TERRACOTTA_BROWN)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.requiresCorrectToolForDrops()
+			.lightLevel(blockState -> 2)
+			.strength(0.85F)
+			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
+			.hasPostProcess(Blocks::always)
+			.emissiveRendering(Blocks::always)
 	);
 
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
@@ -1033,6 +1045,8 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+
+		registerBlockAfter(Items.MAGMA_BLOCK, "geyser", GEYSER, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
 	public static void registerBlocks() {
