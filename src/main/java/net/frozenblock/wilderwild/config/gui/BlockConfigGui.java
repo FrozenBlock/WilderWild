@@ -48,8 +48,10 @@ public final class BlockConfigGui {
 		var modifiedStoneChest = modifiedConfig.stoneChest;
 		var termite = config.termite;
 		var modifiedTermite = modifiedConfig.termite;
-		var snowlogging = config.snowloggingConfig;
-		var modifiedSnowlogging = modifiedConfig.snowloggingConfig;
+		var snowlogging = config.snowlogging;
+		var modifiedSnowlogging = modifiedConfig.snowlogging;
+		var fire = config.fire;
+		var modifiedFire = modifiedConfig.fire;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -60,19 +62,6 @@ public final class BlockConfigGui {
 					.build(),
 				clazz,
 				"shriekerGargling",
-				configInstance
-			)
-		);
-
-		var soulFireSounds = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("soul_fire_sounds"), modifiedConfig.soulFireSounds)
-					.setDefaultValue(defaultConfig.soulFireSounds)
-					.setSaveConsumer(newValue -> config.soulFireSounds = newValue)
-					.setTooltip(tooltip("soul_fire_sounds"))
-					.build(),
-				clazz,
-				"soulFireSounds",
 				configInstance
 			)
 		);
@@ -256,35 +245,35 @@ public final class BlockConfigGui {
 
 		var allowSnowlogging = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("allow_snowlogging"), modifiedSnowlogging.snowlogging)
-				.setDefaultValue(defaultConfig.snowloggingConfig.snowlogging)
+				.setDefaultValue(defaultConfig.snowlogging.snowlogging)
 				.setSaveConsumer(newValue -> snowlogging.snowlogging = newValue)
 				.setTooltip(tooltip("allow_snowlogging"))
 				.requireRestart()
 				.build(),
-			stoneChest.getClass(),
+			snowlogging.getClass(),
 			"snowlogging",
 			configInstance
 		);
 
 		var snowlogWalls = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("snowlog_walls"), modifiedSnowlogging.snowlogWalls)
-				.setDefaultValue(defaultConfig.snowloggingConfig.snowlogWalls)
+				.setDefaultValue(defaultConfig.snowlogging.snowlogWalls)
 				.setSaveConsumer(newValue -> snowlogging.snowlogWalls = newValue)
 				.setTooltip(tooltip("snowlog_walls"))
 				.requireRestart()
 				.build(),
-			stoneChest.getClass(),
+			snowlogging.getClass(),
 			"snowlogWalls",
 			configInstance
 		);
 
 		var naturalSnowlogging = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("natural_snowlogging"), modifiedSnowlogging.naturalSnowlogging)
-				.setDefaultValue(defaultConfig.snowloggingConfig.naturalSnowlogging)
+				.setDefaultValue(defaultConfig.snowlogging.naturalSnowlogging)
 				.setSaveConsumer(newValue -> snowlogging.naturalSnowlogging = newValue)
 				.setTooltip(tooltip("natural_snowlogging"))
 				.build(),
-			stoneChest.getClass(),
+			snowlogging.getClass(),
 			"naturalSnowlogging",
 			configInstance
 		);
@@ -293,6 +282,36 @@ public final class BlockConfigGui {
 			false,
 			tooltip("snowlogging"),
 			allowSnowlogging, snowlogWalls, naturalSnowlogging
+		);
+
+		var extraMagmaParticles =
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("extra_magma_particles"), modifiedFire.extraMagmaParticles)
+					.setDefaultValue(defaultConfig.fire.extraMagmaParticles)
+					.setSaveConsumer(newValue -> config.fire.extraMagmaParticles = newValue)
+					.setTooltip(tooltip("extra_magma_particles"))
+					.build(),
+				fire.getClass(),
+				"extraMagmaParticles",
+				configInstance
+			);
+
+		var soulFireSounds =
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("soul_fire_sounds"), modifiedFire.soulFireSounds)
+					.setDefaultValue(defaultConfig.fire.soulFireSounds)
+					.setSaveConsumer(newValue -> config.fire.soulFireSounds = newValue)
+					.setTooltip(tooltip("soul_fire_sounds"))
+					.build(),
+				fire.getClass(),
+				"soulFireSounds",
+				configInstance
+		);
+
+		var fireCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("fire"),
+			false,
+			tooltip("snowlogging"),
+			extraMagmaParticles, soulFireSounds
 		);
 
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)

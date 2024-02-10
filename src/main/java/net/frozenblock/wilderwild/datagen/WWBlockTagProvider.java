@@ -382,6 +382,12 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.MINEABLE_WITH_HOE)
 			.addOptionalTag(BlockTags.WOOL);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CAN_PASS_THROUGH)
+			.addOptionalTag(BlockTags.TRAPDOORS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
 

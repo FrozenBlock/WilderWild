@@ -18,13 +18,14 @@
 
 package net.frozenblock.wilderwild.block.entity;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.GeyserBlock;
+import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -35,10 +36,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,30 +53,35 @@ public class GeyserBlockEntity extends BlockEntity {
 	private boolean hasRunFirstCheck = false;
 	private int tickUntilNextEvent;
 	private float eruptionProgress;
-	private GeyserStage geyserStage = GeyserStage.DORMANT;
 
 	public GeyserBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.GEYSER, pos, state);
 	}
 
-	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction, RandomSource random) {
+	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
+		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
+		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
+		Direction direction = state.getValue(GeyserBlock.FACING);
 		if (!this.hasRunFirstCheck) {
 			level.scheduleTick(pos, this.getBlockState().getBlock(), level.random.nextInt(20, 100));
 			this.hasRunFirstCheck = true;
 		} else if (!GeyserBlock.isInactive(geyserType)) {
-			if (this.geyserStage == GeyserStage.ERUPTING) {
+			if (geyserStage == GeyserStage.ERUPTING) {
+				if (this.eruptionProgress == 0F) {
+					this.tickUntilNextEvent = random.nextInt(20, 40);
+				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + 0.1F);
 				this.handleEruption(level, pos, geyserType, direction);
 			}
 			this.tickUntilNextEvent -= 1;
 			if (this.tickUntilNextEvent <= 0) {
-				this.advanceStage(random);
-				if (this.geyserStage == GeyserStage.ERUPTING) {
+				this.advanceStage(level, pos, state, geyserStage, random);
+				if (geyserStage == GeyserStage.ERUPTING) {
 					level.playSound(null, pos, geyserType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
 				}
 			}
 		} else {
-			this.setDormant(random);
+			this.setDormant(level, pos, state, random);
 		}
 		this.updateSync();
 	}
@@ -87,7 +93,10 @@ public class GeyserBlockEntity extends BlockEntity {
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < 5; i++) {
 			BlockState state = level.getBlockState(mutablePos.move(direction));
-			if (state.isFaceSturdy(level, mutablePos, direction.getOpposite(), SupportType.CENTER)) {
+			if (
+				(state.isFaceSturdy(level, mutablePos, direction.getOpposite(), SupportType.CENTER) && !state.is(WilderBlockTags.GEYSER_CAN_PASS_THROUGH))
+				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
+			) {
 				break;
 			}
 			boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
@@ -155,39 +164,40 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	public void advanceStage(RandomSource random) {
-		if (this.geyserStage == GeyserStage.DORMANT) {
-			this.setStageAndCooldown(GeyserStage.ACTIVE, random);
-		} else if (this.geyserStage == GeyserStage.ACTIVE) {
-			this.setStageAndCooldown(GeyserStage.ERUPTING, random);
-		} else if (this.geyserStage == GeyserStage.ERUPTING) {
+	public void advanceStage(Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
+		if (geyserStage == GeyserStage.DORMANT) {
+			this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
+		} else if (geyserStage == GeyserStage.ACTIVE) {
+			this.setStageAndCooldown(level, pos, state, GeyserStage.ERUPTING, random);
+		} else if (geyserStage == GeyserStage.ERUPTING) {
 			this.eruptionProgress = 0F;
-			this.setStageAndCooldown(GeyserStage.DORMANT, random);
+			this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
 		}
 	}
 
-	public void setDormant(RandomSource random) {
-		this.setStageAndCooldown(GeyserStage.DORMANT, random);
+	public void setDormant(Level level, BlockPos pos, BlockState state, RandomSource random) {
+		this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
 	}
 
-	public void setStageAndCooldown(GeyserStage geyserStage, RandomSource random) {
-		this.geyserStage = geyserStage;
+	public void setStageAndCooldown(@NotNull Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
+		level.setBlock(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage), Block.UPDATE_ALL);
 		if (geyserStage == GeyserStage.ACTIVE) {
 			this.tickUntilNextEvent = random.nextInt(100, 200);
-		} else if (geyserStage == GeyserStage.ERUPTING) {
-			this.tickUntilNextEvent = random.nextInt(20, 40);
-		} else {
-			this.tickUntilNextEvent = random.nextInt(300, 600);
+		} else if (geyserStage != GeyserStage.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly
+			this.tickUntilNextEvent = random.nextInt(400, 900);
 		}
 	}
 
-	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction, RandomSource random) {
+	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
+		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
+		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
+		Direction direction = state.getValue(GeyserBlock.FACING);
 		if (!GeyserBlock.isInactive(geyserType)) {
-			if (this.geyserStage == GeyserStage.DORMANT) {
+			if (geyserStage == GeyserStage.DORMANT) {
 				spawnDormantParticles(level, pos, geyserType, direction, random);
-			} else if (this.geyserStage == GeyserStage.ACTIVE) {
+			} else if (geyserStage == GeyserStage.ACTIVE) {
 				spawnActiveParticles(level, pos, geyserType, direction, random);
-			} else if (this.geyserStage == GeyserStage.ERUPTING) {
+			} else if (geyserStage == GeyserStage.ERUPTING) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + 0.1F);
 				this.handleEruption(level, pos, geyserType, direction);
 				spawnEruptionParticles(level, pos, geyserType, direction, random);
@@ -490,7 +500,6 @@ public class GeyserBlockEntity extends BlockEntity {
 		tag.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
 		tag.putInt("TicksUntilNextEvent", this.tickUntilNextEvent);
 		tag.putFloat("EruptionProgress", this.eruptionProgress);
-		tag.putString("GeyserStage", this.geyserStage.name());
 	}
 
 	@Override
@@ -499,31 +508,5 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.hasRunFirstCheck = tag.getBoolean("HasRunFirstCheck");
 		this.tickUntilNextEvent = tag.getInt("TicksUntilNextEvent");
 		this.eruptionProgress = tag.getFloat("EruptionProgress");
-		if (tag.contains("GeyserStage") && (Arrays.stream(GeyserStage.values()).anyMatch(geyserStage -> geyserStage.name().equals(tag.getString("GeyserStage"))))) {
-			this.geyserStage = GeyserStage.valueOf(tag.getString("GeyserStage"));
-		}
-	}
-
-	public enum GeyserStage implements StringRepresentable {
-		DORMANT("dormant"),
-		ACTIVE("active"),
-		ERUPTING("erupting");
-
-		private final String name;
-
-		GeyserStage(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public String toString() {
-			return this.name;
-		}
-
-		@Override
-		@NotNull
-		public String getSerializedName() {
-			return this.name;
-		}
 	}
 }

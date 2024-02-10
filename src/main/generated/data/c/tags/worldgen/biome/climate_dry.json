@@ -11,6 +11,7 @@
     {
       "id": "wilderwild:parched_forest",
       "required": false
-    }
+    },
+    "wilderwild:magmatic_caves"
   ]
 }

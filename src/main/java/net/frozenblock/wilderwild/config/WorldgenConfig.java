@@ -211,8 +211,8 @@ public final class WorldgenConfig {
 		@EntrySyncData("generateSnowyDyingMixedForest")
 		public boolean generateSnowyDyingMixedForest = true;
 
-		@EntrySyncData("generateMagmaCaves")
-		public boolean generateMagmaCaves = true;
+		@EntrySyncData("generateMagmaticCaves")
+		public boolean generateMagmaticCaves = true;
 	}
 
 	public static class WaterColors {

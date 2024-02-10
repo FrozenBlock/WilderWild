@@ -7,7 +7,9 @@
         "Name": "wilderwild:geyser",
         "Properties": {
           "facing": "up",
-          "geyser_type": "none"
+          "geyser_stage": "dormant",
+          "geyser_type": "none",
+          "natural": "true"
         }
       }
     }

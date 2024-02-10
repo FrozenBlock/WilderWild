@@ -45,7 +45,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
-public final class MagmaCaves extends FrozenBiome {
+public final class MagmaticCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.WARM, Temperature.HOT);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.NEUTRAL);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
@@ -58,7 +58,7 @@ public final class MagmaCaves extends FrozenBiome {
 	public static final int WATER_FOG_COLOR = 6069471;
 	public static final int FOG_COLOR = 0;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0F);
-	public static final MagmaCaves INSTANCE = new MagmaCaves();
+	public static final MagmaticCaves INSTANCE = new MagmaticCaves();
 
 	@Override
 	public String modID() {
@@ -67,7 +67,7 @@ public final class MagmaCaves extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "magma_caves";
+		return "magmatic_caves";
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public final class MagmaCaves extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateMagmaCaves) {
+		if (WorldgenConfig.get().biomeGeneration.generateMagmaticCaves) {
 			this.addBottomBiome(
 				parameters,
 				TEMPERATURE,

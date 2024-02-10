@@ -339,15 +339,15 @@ public final class WorldgenConfigGui {
 			"generateSnowyDyingMixedForest",
 			configInstance
 		);
-		var magmaCaves = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("generate_magma_caves"), modifiedBiomes.generateMagmaCaves)
-				.setDefaultValue(defaultConfig.biomeGeneration.generateMagmaCaves)
-				.setSaveConsumer(newValue -> biomes.generateMagmaCaves = newValue)
-				.setTooltip(tooltip("generate_magma_caves"))
+		var magmaticCaves = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_magmatic_caves"), modifiedBiomes.generateMagmaticCaves)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateMagmaticCaves)
+				.setSaveConsumer(newValue -> biomes.generateMagmaticCaves = newValue)
+				.setTooltip(tooltip("generate_magmatic_caves"))
 				.requireRestart()
 				.build(),
 			biomes.getClass(),
-			"generateMagmaCaves",
+			"generateMagmaticCaves",
 			configInstance
 		);
 
@@ -355,7 +355,7 @@ public final class WorldgenConfigGui {
 			false,
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
-			jellyfishCaves, magmaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
+			jellyfishCaves, magmaticCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
 			snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 

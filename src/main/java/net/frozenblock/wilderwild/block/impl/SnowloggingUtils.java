@@ -42,7 +42,7 @@ public class SnowloggingUtils {
 	public static final int MAX_LAYERS = 8;
 
 	public static boolean supportsSnowlogging(@NotNull BlockState state) {
-		if (!BlockConfig.get().snowloggingConfig.snowlogging) return false;
+		if (!BlockConfig.get().snowlogging.snowlogging) return false;
 		return state.hasProperty(SNOW_LAYERS);
 	}
 

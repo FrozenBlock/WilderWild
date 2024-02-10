@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.fire;
 
 import net.frozenblock.wilderwild.block.ScorchedBlock;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -50,9 +51,8 @@ public class FireBlockMixin {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$magmaSmoke(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		BlockState blockStateBelow = level.getBlockState(pos.below());
-		if (blockStateBelow.is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.275F) {
+		if (BlockConfig.get().fire.extraMagmaParticles && level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK)) {
+			if (random.nextFloat() <= 0.175F) {
 				level.sendParticles(
 					ParticleTypes.CAMPFIRE_COSY_SMOKE,
 					(double) pos.getX() + 0.5D,
@@ -66,7 +66,7 @@ public class FireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.8F) {
+			if (random.nextFloat() <= 0.7F) {
 				level.sendParticles(
 					ParticleTypes.LAVA,
 					(double) pos.getX() + 0.5D,
@@ -80,7 +80,7 @@ public class FireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.8F) {
+			if (random.nextFloat() <= 0.7F) {
 				level.sendParticles(
 					ParticleTypes.LARGE_SMOKE,
 					(double) pos.getX() + 0.5D,

@@ -16,7 +16,16 @@ Additions
 
   - Added the Geyser!
     - Will occasionally erupt, pushing entities in the direction it's facing.
-    - If covered by Lava, will set entities on fire.
+     - If covered by Lava, will set entities on fire.
+     - The Eruption of a Geyser lasts between one to two seconds.
+     - The Eruption will remain effective unless blocked.
+     - Eruptions that start in the air and move into a liquid, or that start in a liquid and move to the air or another liquid will be less effective past that point.
+     - If placed by a player, will not erupt naturally.
+     - Can be powered with Redstone to erupt.
+     - Added the `wilderwild:geyser_can_pass_through` tag to control what blocks an Eruption can safely pass through, regardless of block support shape.
+       - Currently contains the `minecraft:trapdoors` tag.
+     - Added the `wilderwild:geyser_cannot_pass_through` tag to control what blocks an Eruption can never pass through, regardless of block support shape.
+       - Currently contains the `c:glass_blocks` tag.
     - Requires a Stone Pickaxe or stronger to be obtained.
 
 Bug Fixes & Changes
@@ -31,6 +40,7 @@ Bug Fixes & Changes
      - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
   - Fire now emits extra particles if on top of Magma.
+    - Added the new `Extra Magma Particles` config option to control this.
   - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
   - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
     - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.

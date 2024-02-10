@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
+import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -32,7 +33,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -45,21 +45,28 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GeyserBlock extends BaseEntityBlock {
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = RegisterProperties.GEYSER_TYPE;
+	public static final EnumProperty<GeyserStage> GEYSER_STAGE = RegisterProperties.GEYSER_STAGE;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final BooleanProperty NATURAL = RegisterProperties.NATURAL;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
 	public GeyserBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.getStateDefinition().any().setValue(RegisterProperties.GEYSER_TYPE, GeyserType.NONE).setValue(FACING, Direction.UP));
+		this.registerDefaultState(this.getStateDefinition().any()
+			.setValue(GEYSER_TYPE, GeyserType.NONE)
+			.setValue(GEYSER_STAGE, GeyserStage.DORMANT)
+			.setValue(FACING, Direction.UP)
+			.setValue(NATURAL, true)
+		);
 	}
 
 	@NotNull
@@ -76,14 +83,29 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(GEYSER_TYPE, FACING);
+		builder.add(GEYSER_TYPE, GEYSER_STAGE, FACING, NATURAL);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext itemPlacementContext) {
-		Direction direction = itemPlacementContext.getClickedFace();
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		Direction direction = context.getClickedFace();
+		boolean hasSignal = context.getLevel().hasNeighborSignal(context.getClickedPos());
 		return this.defaultBlockState()
-			.setValue(FACING, direction);
+			.setValue(GEYSER_STAGE, hasSignal ? GeyserStage.ERUPTING : GeyserStage.DORMANT)
+			.setValue(FACING, direction)
+			.setValue(NATURAL, false);
+	}
+
+	@Override
+	protected void neighborChanged(BlockState blockState, @NotNull Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl) {
+		if (!level.isClientSide) {
+			boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
+			if (erupting != level.hasNeighborSignal(blockPos)) {
+				if (!erupting) {
+					level.setBlock(blockPos, blockState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING), Block.UPDATE_CLIENTS);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -162,18 +184,9 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
-			blockEntity.tickServer(worldx, pos, statex.getValue(GEYSER_TYPE), statex.getValue(FACING), worldx.random))
+			blockEntity.tickServer(worldx, pos, statex, worldx.random))
 			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
-			blockEntity.tickClient(worldx, pos, statex.getValue(GEYSER_TYPE), statex.getValue(FACING), worldx.random));
-	}
-
-	@Override
-	protected boolean isPathfindable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, PathComputationType pathComputationType) {
-		return false;
-	}
-
-	public static boolean isInactive(@NotNull BlockState state) {
-		return isInactive(state.getValue(GEYSER_TYPE));
+			blockEntity.tickClient(worldx, pos, statex, worldx.random));
 	}
 
 	public static boolean isInactive(GeyserType geyserType) {

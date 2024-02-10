@@ -39,7 +39,7 @@ public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.get().soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
+		if (BlockConfig.get().fire.soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
 				pos.getX() + 0.5,
 				pos.getY() + 0.5,
@@ -67,8 +67,8 @@ public class BaseFireBlockMixin {
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		BlockPos blockPos2,BlockState blockState2
 	) {
-		if (blockState2.is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.125F) {
+		if (BlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
+			if (random.nextFloat() <= 0.055F) {
 				level.addAlwaysVisibleParticle(
 					ParticleTypes.CAMPFIRE_COSY_SMOKE,
 					true,
@@ -81,7 +81,7 @@ public class BaseFireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.7F) {
+			if (random.nextFloat() <= 0.175F) {
 				level.addAlwaysVisibleParticle(
 					ParticleTypes.LAVA,
 					true,
@@ -94,7 +94,7 @@ public class BaseFireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.85F) {
+			if (random.nextFloat() <= 0.675F) {
 				level.addAlwaysVisibleParticle(
 					ParticleTypes.LARGE_SMOKE,
 					true,

@@ -29,6 +29,8 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_CAN_HIDE = bind("crab_can_hide");
 	public static final TagKey<Block> OSTRICH_BEAK_BURYABLE = bind("ostrich_beak_buryable");
+	public static final TagKey<Block> GEYSER_CAN_PASS_THROUGH = bind("geyser_can_pass_through");
+	public static final TagKey<Block> GEYSER_CANNOT_PASS_THROUGH = bind("geyser_cannot_pass_through");
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");

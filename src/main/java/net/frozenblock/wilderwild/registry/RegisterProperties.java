@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.impl.BubbleDirection;
 import net.frozenblock.wilderwild.block.impl.FlowerColor;
+import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -42,7 +43,7 @@ public final class RegisterProperties {
 	public static final IntegerProperty FUNGUS_STAGE = IntegerProperty.create("shelf_fungus_stage", 1, 4);
 
 	//Termite Mound
-	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
+	public static final BooleanProperty NATURAL = BooleanProperty.create("natural"); // Also used for Geysers
 	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
 	public static final BooleanProperty CAN_SPAWN_TERMITE = BooleanProperty.create("can_spawn_termites");
 
@@ -64,6 +65,7 @@ public final class RegisterProperties {
 
 	//Geyser
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
+	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);
 
 	//Vanilla Blocks
 	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker

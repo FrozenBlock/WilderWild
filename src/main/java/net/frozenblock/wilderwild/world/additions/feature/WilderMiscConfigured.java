@@ -921,12 +921,12 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.NOISE_PATH_FEATURE,
 						new PathFeatureConfig(
-							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 							14,
 							4,
 							0.0325D,
+							-0.275D,
 							-0.15D,
-							-0.115D,
 							true,
 							true,
 							true,

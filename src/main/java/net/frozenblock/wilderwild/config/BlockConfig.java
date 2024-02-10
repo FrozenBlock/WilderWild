@@ -54,13 +54,13 @@ public final class BlockConfig {
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
 	@CollapsibleObject
-	public final SnowloggingConfig snowloggingConfig = new SnowloggingConfig();
+	public final SnowloggingConfig snowlogging = new SnowloggingConfig();
+
+	@CollapsibleObject
+	public final FireConfig fire = new FireConfig();
 
 	@EntrySyncData("shriekerGargling")
 	public boolean shriekerGargling = true;
-
-	@EntrySyncData("soulFireSounds")
-	public boolean soulFireSounds = true;
 
 	@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean billboardTendrils = true;
@@ -179,6 +179,14 @@ public final class BlockConfig {
 
 		@EntrySyncData("mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;
+	}
+
+	public static class FireConfig {
+		@EntrySyncData(value = "soulFireSounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean soulFireSounds = true;
+
+		@EntrySyncData("extraMagmaParticles")
+		public boolean extraMagmaParticles = true;
 	}
 
 	public static class SnowloggingConfig {

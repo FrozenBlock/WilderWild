@@ -7,8 +7,8 @@
           "type": "frozenlib:noise_path_feature",
           "config": {
             "is_3d": true,
-            "max_threshold": -0.115,
-            "min_threshold": -0.15,
+            "max_threshold": -0.15,
+            "min_threshold": -0.275,
             "noise": 4,
             "noise_scale": 0.0325,
             "only_place_when_exposed": false,
@@ -19,11 +19,7 @@
             "state": {
               "type": "minecraft:simple_state_provider",
               "state": {
-                "Name": "minecraft:basalt",
-                "Properties": {
-                  "axis": "y",
-                  "termite_edible": "true"
-                }
+                "Name": "minecraft:magma_block"
               }
             },
             "use_y": true
