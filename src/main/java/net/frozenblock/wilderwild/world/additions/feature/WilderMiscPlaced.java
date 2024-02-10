@@ -563,7 +563,7 @@ public final class WilderMiscPlaced {
 		);
 
 		GEYSER_PILE.makeAndSetHolder(WilderMiscConfigured.GEYSER_PILE.getHolder(),
-			RarityFilter.onAverageOnceEvery(2),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
@@ -586,8 +586,8 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 4)),
+		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_GEYSER_COLUMN.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 3)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-16)),
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
@@ -595,7 +595,7 @@ public final class WilderMiscPlaced {
 		);
 
 		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(6, 12)),
+			CountPlacement.of(UniformInt.of(9, 15)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-16)),
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
@@ -618,7 +618,7 @@ public final class WilderMiscPlaced {
 		);
 
 		FOSSIL_LAVA.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.FOSSIL_DIAMONDS),
-			RarityFilter.onAverageOnceEvery(10),
+			RarityFilter.onAverageOnceEvery(13),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
 			BiomeFilter.biome()

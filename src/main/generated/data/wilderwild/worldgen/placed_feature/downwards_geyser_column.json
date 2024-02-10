@@ -1,12 +1,12 @@
 {
-  "feature": "wilderwild:downwards_basalt_column",
+  "feature": "wilderwild:downwards_geyser_column",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 4,
+          "max_inclusive": 3,
           "min_inclusive": 1
         }
       }

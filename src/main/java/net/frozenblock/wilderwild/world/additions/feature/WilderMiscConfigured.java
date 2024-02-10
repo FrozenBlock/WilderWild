@@ -137,10 +137,6 @@ public final class WilderMiscConfigured {
 
 	// MAGMA CAVES
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MAGMA_PATH = register("magma_path");
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BASALT_PATH_A = register("basalt_path_a");
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BASALT_PATH_B = register("basalt_path_b");
-	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> BASALT_PATHS = register("basalt_paths");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_BASALT_PATH = register("magma_and_basalt_path");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
@@ -919,80 +915,69 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		MAGMA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_SCHEDULE_TICK_FEATURE,
-			new PathFeatureConfig(
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-				14,
-				4,
-				0.0325D,
-				-0.275D,
-				-0.15D,
-				true,
-				true,
-				true,
-				false,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.MAGMA_REPLACEABLE
-				),
-				1F
-			)
-		);
-
-		BASALT_PATH_A.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(
-				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
-				14,
-				4,
-				0.0325D,
-				-0.31D,
-				-0.275D,
-				true,
-				true,
-				true,
-				false,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.MAGMA_REPLACEABLE
-				),
-				1F
-			)
-		);
-
-		BASALT_PATH_B.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(
-				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
-				14,
-				4,
-				0.0325D,
-				-0.15D,
-				-0.115D,
-				true,
-				true,
-				true,
-				false,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.MAGMA_REPLACEABLE
-				),
-				1F
-			)
-		);
-
-		BASALT_PATHS.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
-					PlacementUtils.inlinePlaced(BASALT_PATH_A.getHolder()),
-					PlacementUtils.inlinePlaced(BASALT_PATH_B.getHolder())
-				)
-			)
-		);
-
 		MAGMA_AND_BASALT_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
 			new ComboFeatureConfig(
 				List.of(
-					PlacementUtils.inlinePlaced(MAGMA_PATH.getHolder()),
-					PlacementUtils.inlinePlaced(BASALT_PATHS.getHolder())
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
+							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+							14,
+							4,
+							0.0325D,
+							-0.15D,
+							-0.115D,
+							true,
+							true,
+							true,
+							false,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WilderBlockTags.MAGMA_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
+							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+							14,
+							4,
+							0.0325D,
+							-0.31D,
+							-0.275D,
+							true,
+							true,
+							true,
+							false,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WilderBlockTags.MAGMA_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
+							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+							14,
+							4,
+							0.0325D,
+							-0.15D,
+							-0.115D,
+							true,
+							true,
+							true,
+							false,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WilderBlockTags.MAGMA_REPLACEABLE
+							),
+							1F
+						)
+					)
 				)
 			)
 		);
@@ -1115,7 +1100,7 @@ public final class WilderMiscConfigured {
 		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
 				RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
-				UniformInt.of(2, 6),
+				UniformInt.of(2, 4),
 				HolderSet.direct(
 					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
