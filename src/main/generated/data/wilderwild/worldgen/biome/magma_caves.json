@@ -49,7 +49,8 @@
       "wilderwild:magma_path",
       "wilderwild:fire_patch_magma",
       "wilderwild:geyser_up",
-      "wilderwild:geyser_down"
+      "wilderwild:geyser_down",
+      "wilderwild:downwards_geyser_column"
     ],
     [
       "minecraft:fossil_upper",

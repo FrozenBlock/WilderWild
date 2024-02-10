@@ -450,6 +450,8 @@
   "subtitles.block.tumbleweed.shear": "Tumbleweed cropped",
   "subtitles.block.prickly_pear.pick": "Prickly Pear picked",
   "subtitles.block.coconut.split": "Coconut splits",
+  "subtitles.block.geyser.active": "Geyser rumbles",
+  "subtitles.block.geyser.erupt": "Geyser erupts",
   "subtitles.entity.ancient_horn_vibration.blast": "Ancient Horn Vibration blasts",
   "subtitles.entity.ancient_horn_vibration.flyby": "Ancient Horn Vibration flies by",
   "subtitles.entity.ancient_horn_vibration.dissipate": "Ancient Horn Vibration dissipates",

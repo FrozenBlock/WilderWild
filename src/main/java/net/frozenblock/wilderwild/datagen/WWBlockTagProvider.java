@@ -623,7 +623,8 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(RegisterBlocks.NULL_BLOCK)
 			.add(RegisterBlocks.DISPLAY_LANTERN)
 			.add(RegisterBlocks.SCORCHED_SAND)
-			.add(RegisterBlocks.SCORCHED_RED_SAND);
+			.add(RegisterBlocks.SCORCHED_RED_SAND)
+			.add(RegisterBlocks.GEYSER);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.addOptionalTag(WilderBlockTags.MESOGLEA)
@@ -645,5 +646,8 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(RegisterBlocks.SMALL_SPONGE)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS)
 			.addOptionalTag(WilderBlockTags.NEMATOCYSTS);
+
+		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
+			.add(RegisterBlocks.GEYSER);
 	}
 }

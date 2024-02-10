@@ -177,7 +177,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (geyserStage == GeyserStage.ERUPTING) {
 			this.tickUntilNextEvent = random.nextInt(20, 40);
 		} else {
-			this.tickUntilNextEvent = random.nextInt(200, 400);
+			this.tickUntilNextEvent = random.nextInt(300, 600);
 		}
 	}
 

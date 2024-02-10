@@ -119,6 +119,7 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature GEYSER_PILE = register("geyser_pile");
 	public static final FrozenPlacedFeature GEYSER_UP = register("geyser_up");
 	public static final FrozenPlacedFeature GEYSER_DOWN = register("geyser_down");
+	public static final FrozenPlacedFeature DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
 	public static final FrozenPlacedFeature DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
 	public static final FrozenPlacedFeature BASALT_SPIKE = register("basalt_spike");
 	public static final FrozenPlacedFeature LAVA_LAKE_EXTRA = register("lava_lake_extra");
@@ -547,7 +548,7 @@ public final class WilderMiscPlaced {
 		);
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(WilderMiscConfigured.FIRE_PATCH_MAGMA.getHolder(),
-			CountPlacement.of(UniformInt.of(10, 16)),
+			CountPlacement.of(UniformInt.of(16, 24)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			BiomeFilter.biome()
@@ -578,15 +579,23 @@ public final class WilderMiscPlaced {
 		);
 
 		GEYSER_DOWN.makeAndSetHolder(WilderMiscConfigured.GEYSER_DOWN.getHolder(),
-			CountPlacement.of(UniformInt.of(2, 6)),
+			CountPlacement.of(UniformInt.of(3, 6)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
+		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 4)),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-16)),
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BiomeFilter.biome()
+		);
+
 		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(4, 12)),
+			CountPlacement.of(UniformInt.of(6, 12)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-16)),
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),

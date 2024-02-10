@@ -169,6 +169,7 @@ public final class MagmaCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.GEYSER_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GEYSER_UP.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GEYSER_DOWN.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.DOWNWARDS_GEYSER_COLUMN.getKey());
 	}
 
 	@Override
