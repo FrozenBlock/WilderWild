@@ -493,6 +493,7 @@ public final class RegisterBlocks {
 
 	public static final GeyserBlock GEYSER = new GeyserBlock(
 		FabricBlockSettings.create().mapColor(MapColor.TERRACOTTA_BROWN)
+			.sound(SoundType.BASALT)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)

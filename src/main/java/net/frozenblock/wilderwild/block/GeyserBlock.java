@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
-import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -29,6 +28,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -41,16 +41,22 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GeyserBlock extends BaseEntityBlock {
+	public static final EnumProperty<GeyserType> GEYSER_TYPE = RegisterProperties.GEYSER_TYPE;
+	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
 	public GeyserBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.getStateDefinition().any().setValue(RegisterProperties.GEYSER_TYPE, GeyserType.NONE));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(RegisterProperties.GEYSER_TYPE, GeyserType.NONE).setValue(FACING, Direction.UP));
 	}
 
 	@NotNull
@@ -67,16 +73,23 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(RegisterProperties.GEYSER_TYPE);
+		builder.add(GEYSER_TYPE, FACING);
+	}
+
+	@Override
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext itemPlacementContext) {
+		Direction direction = itemPlacementContext.getClickedFace();
+		return this.defaultBlockState()
+			.setValue(FACING, direction);
 	}
 
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (direction.equals(Direction.UP)) {
-			GeyserType geyserType = getGeyserTypeForPos(level, currentPos);
-			if (geyserType != state.getValue(RegisterProperties.GEYSER_TYPE)) {
-				state = state.setValue(RegisterProperties.GEYSER_TYPE, geyserType);
+		if (direction.equals(state.getValue(FACING))) {
+			GeyserType geyserType = getGeyserTypeForPos(level, state, currentPos);
+			if (geyserType != state.getValue(GEYSER_TYPE)) {
+				state = state.setValue(GEYSER_TYPE, geyserType);
 			}
 		}
 		return state;
@@ -87,14 +100,14 @@ public class GeyserBlock extends BaseEntityBlock {
 		super.onRemove(state, level, pos, newState, isMoving);
 	}
 
-	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos abovePos = pos.above();
-		BlockState state = level.getBlockState(abovePos);
-		if (state.is(Blocks.WATER)) {
+	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockState state, @NotNull BlockPos pos) {
+		BlockPos checkPos = pos.relative(state.getValue(FACING));
+		BlockState checkState = level.getBlockState(checkPos);
+		if (checkState.is(Blocks.WATER)) {
 			return GeyserType.WATER;
-		} else if (state.is(Blocks.LAVA)) {
+		} else if (checkState.is(Blocks.LAVA)) {
 			return GeyserType.LAVA;
-		} else if (state.isAir()) {
+		} else if (checkState.isAir()) {
 			return GeyserType.AIR;
 		}
 		return GeyserType.NONE;
@@ -102,27 +115,30 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		GeyserType geyserType = getGeyserTypeForPos(level, pos);
-		if (geyserType != state.getValue(RegisterProperties.GEYSER_TYPE)) {
-			level.setBlock(pos, state.setValue(RegisterProperties.GEYSER_TYPE, geyserType), UPDATE_ALL);
+		GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
+		if (geyserType != state.getValue(GEYSER_TYPE)) {
+			level.setBlock(pos, state.setValue(GEYSER_TYPE, geyserType), UPDATE_ALL);
 		}
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		GeyserType geyserType = blockState.getValue(RegisterProperties.GEYSER_TYPE);
+	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
+		GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
+		Direction direction = blockState.getValue(FACING);
 		if (!isInactive(geyserType)) {
-			int count = randomSource.nextInt(2, 5);
+			int count = random.nextInt(2, 5);
 			for (int i = 0; i < count; i++) {
-				level.addAlwaysVisibleParticle(
+				Vec3 particlePos = getParticlePos(blockPos, direction, random);
+				Vec3 particleVelocity = getParticleVelocity(direction, random, 0.003, 0.0010);
+				level.addParticle(
 					ParticleTypes.WHITE_SMOKE,
 					true,
-					(double) blockPos.getX() + 0.5D + randomSource.nextDouble() / 3D * (randomSource.nextBoolean() ? 1D : -1D),
-					blockPos.getY() + 1D,
-					(double) blockPos.getZ() + 0.5D + randomSource.nextDouble() / 3D * (randomSource.nextBoolean() ? 1D : -1D),
-					0D,
-					(randomSource.nextFloat() * 0.004D) + 0.003D,
-					0D
+					particlePos.x,
+					particlePos.y,
+					particlePos.z,
+					particleVelocity.x,
+					particleVelocity.y,
+					particleVelocity.z
 				);
 			}
 		}
@@ -136,8 +152,10 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex.getValue(RegisterProperties.GEYSER_TYPE), worldx.random))
-			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex.getValue(RegisterProperties.GEYSER_TYPE), worldx.random));
+		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
+			blockEntity.tickServer(worldx, pos, statex.getValue(GEYSER_TYPE), worldx.random))
+			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
+			blockEntity.tickClient(worldx, pos, statex.getValue(GEYSER_TYPE), statex.getValue(FACING), worldx.random));
 	}
 
 	@Override
@@ -146,10 +164,55 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	public static boolean isInactive(@NotNull BlockState state) {
-		return isInactive(state.getValue(RegisterProperties.GEYSER_TYPE));
+		return isInactive(state.getValue(GEYSER_TYPE));
 	}
 
 	public static boolean isInactive(GeyserType geyserType) {
 		return geyserType == GeyserType.NONE;
+	}
+
+	public static @NotNull Vec3 getParticleVelocity(@NotNull Direction direction, @NotNull RandomSource random, double min, double max) {
+		double difference = max - min;
+		double velocity = min + (random.nextDouble() * difference);
+		double x = direction.getStepX() * velocity;
+		double y = direction.getStepY() * velocity;
+		double z = direction.getStepZ() * velocity;
+		return new Vec3(x, y, z);
+	}
+
+	public static @NotNull Vec3 getParticlePos(BlockPos pos, Direction direction, RandomSource random) {
+		return Vec3.atLowerCornerOf(pos).add(
+			getParticleOffsetX(direction, random),
+			getParticleOffsetY(direction, random),
+			getParticleOffsetZ(direction, random)
+		);
+	}
+
+	private static double getRandomParticleOffset(@NotNull RandomSource random) {
+		return random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D);
+	}
+
+	private static double getParticleOffsetX(@NotNull Direction direction, RandomSource random) {
+		return switch (direction) {
+			case UP, DOWN, SOUTH, NORTH -> 0.5D + getRandomParticleOffset(random);
+			case EAST -> 1.05D;
+			case WEST -> -0.05D;
+		};
+	}
+
+	private static double getParticleOffsetY(@NotNull Direction direction, RandomSource random) {
+		return switch (direction) {
+			case DOWN -> -0.05D;
+			case UP -> 1.05D;
+			case NORTH, WEST, EAST, SOUTH -> 0.5D + getRandomParticleOffset(random);
+		};
+	}
+
+	private static double getParticleOffsetZ(@NotNull Direction direction, RandomSource random) {
+		return switch (direction) {
+			case UP, DOWN, EAST, WEST -> 0.5 + getRandomParticleOffset(random);
+			case NORTH -> -0.05D;
+			case SOUTH -> 1.05D;
+		};
 	}
 }
