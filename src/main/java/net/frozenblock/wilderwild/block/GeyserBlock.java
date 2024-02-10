@@ -29,6 +29,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -107,12 +108,14 @@ public class GeyserBlock extends BaseEntityBlock {
 		Direction direction = state.getValue(FACING);
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
-		if (checkState.is(Blocks.WATER)) {
-			return GeyserType.WATER;
-		} else if (checkState.is(Blocks.LAVA)) {
-			return GeyserType.LAVA;
-		} else if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
-			return GeyserType.AIR;
+		if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
+			if (checkState.getFluidState().is(FluidTags.WATER)) {
+				return GeyserType.WATER;
+			} else if (checkState.getFluidState().is(FluidTags.LAVA)) {
+				return GeyserType.LAVA;
+			} else {
+				return GeyserType.AIR;
+			}
 		}
 		return GeyserType.NONE;
 	}
