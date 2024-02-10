@@ -152,6 +152,12 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BASALT_COLUMN = register("basalt_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfiguration, ConfiguredFeature<ColumnFeatureConfiguration, ?>> BASALT_SPIKE = register("basalt_spike");
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> GEYSER_PILE = register("geyser_pile");
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_UP = register("geyser_up");
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_DOWN = register("geyser_down");
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_EAST = register("geyser_east");
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_NORTH = register("geyser_north");
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_SOUTH = register("geyser_south");
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_WEST = register("geyser_west");
 
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
@@ -1090,6 +1096,42 @@ public final class WilderMiscConfigured {
 		GEYSER_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
 			new BlockPileConfiguration(
 				BlockStateProvider.simple(RegisterBlocks.GEYSER)
+			)
+		);
+
+		GEYSER_UP.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER)
+			)
+		);
+
+		GEYSER_DOWN.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))
+			)
+		);
+
+		GEYSER_EAST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))
+			)
+		);
+
+		GEYSER_NORTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))
+			)
+		);
+
+		GEYSER_SOUTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))
+			)
+		);
+
+		GEYSER_WEST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))
 			)
 		);
 

@@ -47,7 +47,9 @@
     [
       "minecraft:amethyst_geode",
       "wilderwild:magma_path",
-      "wilderwild:fire_patch_magma"
+      "wilderwild:fire_patch_magma",
+      "wilderwild:geyser_up",
+      "wilderwild:geyser_down"
     ],
     [
       "minecraft:fossil_upper",

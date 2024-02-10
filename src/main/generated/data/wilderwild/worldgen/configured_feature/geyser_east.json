@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:block_pile",
+  "type": "minecraft:simple_block",
   "config": {
-    "state_provider": {
+    "to_place": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:geyser",
         "Properties": {
-          "facing": "up",
+          "facing": "east",
           "geyser_type": "none"
         }
       }

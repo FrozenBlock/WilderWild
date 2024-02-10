@@ -117,6 +117,8 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenPlacedFeature BASALT_PILE = register("basalt_pile");
 	public static final FrozenPlacedFeature GEYSER_PILE = register("geyser_pile");
+	public static final FrozenPlacedFeature GEYSER_UP = register("geyser_up");
+	public static final FrozenPlacedFeature GEYSER_DOWN = register("geyser_down");
 	public static final FrozenPlacedFeature DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
 	public static final FrozenPlacedFeature BASALT_SPIKE = register("basalt_spike");
 	public static final FrozenPlacedFeature LAVA_LAKE_EXTRA = register("lava_lake_extra");
@@ -545,7 +547,7 @@ public final class WilderMiscPlaced {
 		);
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(WilderMiscConfigured.FIRE_PATCH_MAGMA.getHolder(),
-			CountPlacement.of(UniformInt.of(25, 33)),
+			CountPlacement.of(UniformInt.of(10, 16)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			BiomeFilter.biome()
@@ -560,10 +562,26 @@ public final class WilderMiscPlaced {
 		);
 
 		GEYSER_PILE.makeAndSetHolder(WilderMiscConfigured.GEYSER_PILE.getHolder(),
-			CountPlacement.of(UniformInt.of(3, 6)),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_UP.makeAndSetHolder(WilderMiscConfigured.GEYSER_UP.getHolder(),
+			CountPlacement.of(UniformInt.of(4, 8)),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_DOWN.makeAndSetHolder(WilderMiscConfigured.GEYSER_DOWN.getHolder(),
+			CountPlacement.of(UniformInt.of(2, 6)),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
