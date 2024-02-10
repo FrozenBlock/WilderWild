@@ -981,15 +981,19 @@ public final class WilderMiscConfigured {
 
 		BASALT_PATHS.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
 			new ComboFeatureConfig(
-				PlacementUtils.inlinePlaced(BASALT_PATH_A.getHolder()),
-				PlacementUtils.inlinePlaced(BASALT_PATH_B.getHolder())
+				List.of(
+					PlacementUtils.inlinePlaced(BASALT_PATH_A.getHolder()),
+					PlacementUtils.inlinePlaced(BASALT_PATH_B.getHolder())
+				)
 			)
 		);
 
 		MAGMA_AND_BASALT_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
 			new ComboFeatureConfig(
-				PlacementUtils.inlinePlaced(MAGMA_PATH.getHolder()),
-				PlacementUtils.inlinePlaced(BASALT_PATHS.getHolder())
+				List.of(
+					PlacementUtils.inlinePlaced(MAGMA_PATH.getHolder()),
+					PlacementUtils.inlinePlaced(BASALT_PATHS.getHolder())
+				)
 			)
 		);
 

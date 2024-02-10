@@ -1,13 +1,15 @@
 {
   "type": "frozenlib:combo_feature",
   "config": {
-    "feature": {
-      "feature": "wilderwild:basalt_path_a",
-      "placement": []
-    },
-    "second_feature": {
-      "feature": "wilderwild:basalt_path_b",
-      "placement": []
-    }
+    "features": [
+      {
+        "feature": "wilderwild:basalt_path_a",
+        "placement": []
+      },
+      {
+        "feature": "wilderwild:basalt_path_b",
+        "placement": []
+      }
+    ]
   }
 }
