@@ -126,7 +126,13 @@ public class GeyserBlockEntity extends BlockEntity {
 				}
 				if (damagingEruption.intersects(boundingBox)) {
 					if (geyserType == GeyserType.LAVA) {
-						entity.igniteForTicks((int) (300D * intensity));
+						if (!entity.fireImmune()) {
+							entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
+							if (entity.getRemainingFireTicks() == 0) {
+								entity.igniteForTicks((int) (200 * intensity));
+							}
+							entity.hurt(level.damageSources().inFire(), 1F);
+						}
 					}
 				}
 			}
