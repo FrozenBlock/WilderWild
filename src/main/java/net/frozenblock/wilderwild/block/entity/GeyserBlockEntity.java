@@ -127,10 +127,7 @@ public class GeyserBlockEntity extends BlockEntity {
 				if (damagingEruption.intersects(boundingBox)) {
 					if (geyserType == GeyserType.LAVA) {
 						if (!entity.fireImmune()) {
-							entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
-							if (entity.getRemainingFireTicks() == 0) {
-								entity.igniteForTicks((int) (200 * intensity));
-							}
+							entity.igniteForTicks((int) (200 * intensity));
 							entity.hurt(level.damageSources().inFire(), 1F);
 						}
 					}
