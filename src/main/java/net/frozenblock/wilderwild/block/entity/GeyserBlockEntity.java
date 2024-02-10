@@ -62,6 +62,8 @@ public class GeyserBlockEntity extends BlockEntity {
 		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		Direction direction = state.getValue(GeyserBlock.FACING);
+		boolean natural = state.getValue(GeyserBlock.NATURAL);
+		
 		if (!this.hasRunFirstCheck) {
 			level.scheduleTick(pos, this.getBlockState().getBlock(), level.random.nextInt(20, 100));
 			this.hasRunFirstCheck = true;
@@ -76,7 +78,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			}
 			this.tickUntilNextEvent -= 1;
 			if (this.tickUntilNextEvent <= 0) {
-				this.advanceStage(level, pos, state, geyserStage, random);
+				this.advanceStage(level, pos, state, geyserStage, natural, random);
 			}
 		} else {
 			this.setDormant(level, pos, state, random);
@@ -162,14 +164,14 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	public void advanceStage(Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
-		if (geyserStage == GeyserStage.DORMANT) {
+	public void advanceStage(Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, boolean natural, RandomSource random) {
+		if (geyserStage == GeyserStage.ERUPTING || !natural) {
+			this.eruptionProgress = 0F;
+			this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
+		} else if (geyserStage == GeyserStage.DORMANT) {
 			this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
 		} else if (geyserStage == GeyserStage.ACTIVE) {
 			this.setStageAndCooldown(level, pos, state, GeyserStage.ERUPTING, random);
-		} else if (geyserStage == GeyserStage.ERUPTING) {
-			this.eruptionProgress = 0F;
-			this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
 		}
 	}
 

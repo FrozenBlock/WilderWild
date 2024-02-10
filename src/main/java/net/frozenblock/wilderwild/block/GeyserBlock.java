@@ -88,10 +88,15 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		Level level = context.getLevel();
+		BlockPos pos = context.getClickedPos();
 		Direction direction = context.getClickedFace();
-		boolean hasSignal = context.getLevel().hasNeighborSignal(context.getClickedPos());
+		GeyserType geyserType = getGeyserTypeForPos(level, direction, pos);
+		boolean canErupt = context.getLevel().hasNeighborSignal(context.getClickedPos()) && !isInactive(geyserType);
+
 		return this.defaultBlockState()
-			.setValue(GEYSER_STAGE, hasSignal ? GeyserStage.ERUPTING : GeyserStage.DORMANT)
+			.setValue(GEYSER_STAGE, canErupt ? GeyserStage.ERUPTING : GeyserStage.DORMANT)
+			.setValue(GEYSER_TYPE, geyserType)
 			.setValue(FACING, direction)
 			.setValue(NATURAL, false);
 	}
@@ -100,7 +105,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	protected void neighborChanged(BlockState blockState, @NotNull Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl) {
 		if (!level.isClientSide) {
 			boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
-			if (erupting != level.hasNeighborSignal(blockPos)) {
+			if (erupting != level.hasNeighborSignal(blockPos) && !isInactive(blockState.getValue(GEYSER_TYPE))) {
 				if (!erupting) {
 					level.setBlock(blockPos, blockState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING), Block.UPDATE_CLIENTS);
 				}
@@ -126,7 +131,10 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockState state, @NotNull BlockPos pos) {
-		Direction direction = state.getValue(FACING);
+		return getGeyserTypeForPos(level, state.getValue(FACING), pos);
+	}
+
+	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull Direction direction, @NotNull BlockPos pos) {
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
 		if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
@@ -170,7 +178,7 @@ public class GeyserBlock extends BaseEntityBlock {
 				);
 			}
 			if (random.nextFloat() <= 0.0085F) {
-				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_ACTIVE, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
+				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 			}
 		}
 	}

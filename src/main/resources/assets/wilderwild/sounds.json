@@ -2869,16 +2869,16 @@
     ],
     "subtitle": "subtitles.particle.mesoglea_drip.land"
   },
-  "block.geyser.active": {
+  "block.geyser.boil": {
     "sounds": [
-      "wilderwild:block/geyser/active1",
-      "wilderwild:block/geyser/active2",
-      "wilderwild:block/geyser/active3",
-      "wilderwild:block/geyser/active4",
-      "wilderwild:block/geyser/active5",
-      "wilderwild:block/geyser/active6"
+      "wilderwild:block/geyser/boil1",
+      "wilderwild:block/geyser/boil2",
+      "wilderwild:block/geyser/boil3",
+      "wilderwild:block/geyser/boil4",
+      "wilderwild:block/geyser/boil5",
+      "wilderwild:block/geyser/boil6"
     ],
-    "subtitle": "subtitles.block.geyser.active"
+    "subtitle": "subtitles.block.geyser.boil"
   },
   "block.geyser.erupt.air": {
     "sounds": [
