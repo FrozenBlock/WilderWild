@@ -111,7 +111,7 @@ public class GeyserBlock extends BaseEntityBlock {
 			return GeyserType.WATER;
 		} else if (checkState.is(Blocks.LAVA)) {
 			return GeyserType.LAVA;
-		} else if (checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
+		} else if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
 			return GeyserType.AIR;
 		}
 		return GeyserType.NONE;
