@@ -90,7 +90,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < 5; i++) {
 			BlockState state = level.getBlockState(mutablePos.move(direction));
-			if (!state.isFaceSturdy(level, mutablePos, direction.getOpposite(), SupportType.CENTER)) {
+			if (state.isFaceSturdy(level, mutablePos, direction.getOpposite(), SupportType.CENTER)) {
 				break;
 			}
 			boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
@@ -122,17 +122,15 @@ public class GeyserBlockEntity extends BlockEntity {
 			AABB boundingBox = entity.getBoundingBox();
 			if (eruption.intersects(boundingBox)) {
 				Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
-				double intensity = (5D - Math.min(entity.position().distanceTo(geyserStartPos), 5)) / 5D;
-				if (damagingEruption.intersects(boundingBox)) {
-					if (geyserType == GeyserType.LAVA) {
-						entity.igniteForTicks((int) (300 * intensity));
-					}
-				}
+				double intensity = (5D - Math.min(entity.position().distanceTo(geyserStartPos), 5D)) / 5D;
+				entity.addDeltaMovement(movement.scale(intensity * 0.1D));
 				if (effectiveEruption.intersects(boundingBox)) {
 					entity.addDeltaMovement(movement.scale(intensity * 0.3D));
 				}
-				if (eruption.intersects(boundingBox)) {
-					entity.addDeltaMovement(movement.scale(intensity * 0.1D));
+				if (damagingEruption.intersects(boundingBox)) {
+					if (geyserType == GeyserType.LAVA) {
+						entity.igniteForTicks((int) (300D * intensity));
+					}
 				}
 			}
 		}
