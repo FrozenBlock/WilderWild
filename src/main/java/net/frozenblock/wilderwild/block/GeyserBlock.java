@@ -23,10 +23,12 @@ import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -129,7 +131,7 @@ public class GeyserBlock extends BaseEntityBlock {
 			int count = random.nextInt(2, 5);
 			for (int i = 0; i < count; i++) {
 				Vec3 particlePos = getParticlePos(blockPos, direction, random);
-				Vec3 particleVelocity = getParticleVelocity(direction, random, 0.003, 0.0010);
+				Vec3 particleVelocity = getParticleVelocity(direction, random, 0.003D, 0.01D);
 				level.addParticle(
 					ParticleTypes.WHITE_SMOKE,
 					true,
@@ -140,6 +142,9 @@ public class GeyserBlock extends BaseEntityBlock {
 					particleVelocity.y,
 					particleVelocity.z
 				);
+			}
+			if (random.nextFloat() <= 0.0085F) {
+				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_ACTIVE, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 			}
 		}
 	}
@@ -153,7 +158,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
-			blockEntity.tickServer(worldx, pos, statex.getValue(GEYSER_TYPE), worldx.random))
+			blockEntity.tickServer(worldx, pos, statex.getValue(GEYSER_TYPE), statex.getValue(FACING), worldx.random))
 			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
 			blockEntity.tickClient(worldx, pos, statex.getValue(GEYSER_TYPE), statex.getValue(FACING), worldx.random));
 	}
@@ -180,11 +185,23 @@ public class GeyserBlock extends BaseEntityBlock {
 		return new Vec3(x, y, z);
 	}
 
+	public static @NotNull Vec3 getVelocityFromDistance(BlockPos pos, Direction direction, @NotNull Vec3 vec3, @NotNull RandomSource random, double max) {
+		return vec3.subtract(getParticlePosWithoutRandom(pos, direction, random)).scale(random.nextDouble() * max);
+	}
+
+	public static @NotNull Vec3 getParticlePosWithoutRandom(BlockPos pos, Direction direction, RandomSource random) {
+		return Vec3.atLowerCornerOf(pos).add(
+			getParticleOffsetX(direction, random, false),
+			getParticleOffsetY(direction, random, false),
+			getParticleOffsetZ(direction, random, false)
+		);
+	}
+
 	public static @NotNull Vec3 getParticlePos(BlockPos pos, Direction direction, RandomSource random) {
 		return Vec3.atLowerCornerOf(pos).add(
-			getParticleOffsetX(direction, random),
-			getParticleOffsetY(direction, random),
-			getParticleOffsetZ(direction, random)
+			getParticleOffsetX(direction, random, true),
+			getParticleOffsetY(direction, random, true),
+			getParticleOffsetZ(direction, random, true)
 		);
 	}
 
@@ -192,25 +209,25 @@ public class GeyserBlock extends BaseEntityBlock {
 		return random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D);
 	}
 
-	private static double getParticleOffsetX(@NotNull Direction direction, RandomSource random) {
+	private static double getParticleOffsetX(@NotNull Direction direction, RandomSource random, boolean useRandom) {
 		return switch (direction) {
-			case UP, DOWN, SOUTH, NORTH -> 0.5D + getRandomParticleOffset(random);
+			case UP, DOWN, SOUTH, NORTH -> 0.5D + (useRandom ? getRandomParticleOffset(random) : 0D);
 			case EAST -> 1.05D;
 			case WEST -> -0.05D;
 		};
 	}
 
-	private static double getParticleOffsetY(@NotNull Direction direction, RandomSource random) {
+	private static double getParticleOffsetY(@NotNull Direction direction, RandomSource random, boolean useRandom) {
 		return switch (direction) {
 			case DOWN -> -0.05D;
 			case UP -> 1.05D;
-			case NORTH, WEST, EAST, SOUTH -> 0.5D + getRandomParticleOffset(random);
+			case NORTH, WEST, EAST, SOUTH -> 0.5D + (useRandom ? getRandomParticleOffset(random) : 0D);
 		};
 	}
 
-	private static double getParticleOffsetZ(@NotNull Direction direction, RandomSource random) {
+	private static double getParticleOffsetZ(@NotNull Direction direction, RandomSource random, boolean useRandom) {
 		return switch (direction) {
-			case UP, DOWN, EAST, WEST -> 0.5 + getRandomParticleOffset(random);
+			case UP, DOWN, EAST, WEST -> 0.5D + (useRandom ? getRandomParticleOffset(random) : 0D);
 			case NORTH -> -0.05D;
 			case SOUTH -> 1.05D;
 		};

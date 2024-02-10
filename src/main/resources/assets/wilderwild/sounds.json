@@ -2868,5 +2868,34 @@
       "wilderwild:particle/mesoglea_drip/land5"
     ],
     "subtitle": "subtitles.particle.mesoglea_drip.land"
+  },
+  "block.geyser.active": {
+    "sounds": [
+      "wilderwild:block/geyser/active1",
+      "wilderwild:block/geyser/active2",
+      "wilderwild:block/geyser/active3",
+      "wilderwild:block/geyser/active4",
+      "wilderwild:block/geyser/active5",
+      "wilderwild:block/geyser/active6"
+    ],
+    "subtitle": "subtitles.block.geyser.active"
+  },
+  "block.geyser.erupt.air": {
+    "sounds": [
+      "wilderwild:block/geyser/erupt_air1",
+      "wilderwild:block/geyser/erupt_air2",
+      "wilderwild:block/geyser/erupt_air3",
+      "wilderwild:block/geyser/erupt_air4"
+    ],
+    "subtitle": "subtitles.block.geyser.erupt"
+  },
+  "block.geyser.erupt.lava": {
+    "sounds": [
+      "wilderwild:block/geyser/erupt_lava1",
+      "wilderwild:block/geyser/erupt_lava2",
+      "wilderwild:block/geyser/erupt_lava3",
+      "wilderwild:block/geyser/erupt_lava4"
+    ],
+    "subtitle": "subtitles.block.geyser.erupt"
   }
 }
