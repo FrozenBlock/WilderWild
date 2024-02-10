@@ -7,7 +7,7 @@ Additions
     - Added the `Allow Snowlogging,` `Snowlog Blockades,` and `Natural Snowlogging` config options.
       - To prevent long load times due to excessive blockstates, `Snowlog Blockades` is off by default.
 
-  - Added the Magma Caves biome
+  - Added the Magmatic Caves biome
     - It set my house on fire. Great!
     - A new, scorching underground biome consisting of sprawling Magma, Basalt, and Lava pools.
     - Lava-related features generate more frequently in this biome.
