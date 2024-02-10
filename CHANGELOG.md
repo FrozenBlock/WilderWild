@@ -9,9 +9,15 @@ Additions
 
   - Added the Magma Caves biome
     - It set my house on fire. Great!
-    - A new, scorching underground biome consisting of sprawling Magma, and lots of Lava pools.
+    - A new, scorching underground biome consisting of sprawling Magma, Basalt, and Lava pools.
     - Lava-related features generate more frequently in this biome.
     - Fossils generate much more frequently in this biome.
+    - Contains the new Geyser block
+
+  - Added the Geyser!
+    - Will occasionally erupt, pushing entities in the direction it's facing.
+    - If covered by Lava, will set entities on fire.
+    - Requires a Stone Pickaxe or stronger to be obtained.
 
 Bug Fixes & Changes
 ---
