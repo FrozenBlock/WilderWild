@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -103,13 +104,14 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockState state, @NotNull BlockPos pos) {
-		BlockPos checkPos = pos.relative(state.getValue(FACING));
+		Direction direction = state.getValue(FACING);
+		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
 		if (checkState.is(Blocks.WATER)) {
 			return GeyserType.WATER;
 		} else if (checkState.is(Blocks.LAVA)) {
 			return GeyserType.LAVA;
-		} else if (checkState.isAir()) {
+		} else if (checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
 			return GeyserType.AIR;
 		}
 		return GeyserType.NONE;
