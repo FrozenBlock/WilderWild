@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -134,9 +135,10 @@ public class GeyserBlockEntity extends BlockEntity {
 					entity.addDeltaMovement(movement.scale(intensity * 0.3D));
 				}
 				if (damagingEruption.intersects(boundingBox)) {
+					double damageIntensity = Math.max((5D - Math.min(entity.position().distanceTo(geyserStartPos), 5D)) / 5D, 0.5D);
 					if (geyserType == GeyserType.LAVA) {
 						if (!entity.fireImmune()) {
-							entity.igniteForTicks((int) (200 * intensity));
+							entity.igniteForTicks((int) (260 * damageIntensity));
 							entity.hurt(level.damageSources().inFire(), 1F);
 						}
 					}
@@ -200,7 +202,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			} else if (geyserStage == GeyserStage.ERUPTING) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + 0.1F);
 				this.handleEruption(level, pos, geyserType, direction);
-				spawnEruptionParticles(level, pos, geyserType, direction, random);
+				ClientMethodInteractionHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
 			}
 		}
 	}
@@ -257,14 +259,31 @@ public class GeyserBlockEntity extends BlockEntity {
 				}
 			}
 		} else {
-			if (random.nextFloat() <= 0.0575F) {
-				int count = random.nextInt(1, 2);
-				for (int i = 0; i < count; i++) {
+			if (geyserType == GeyserType.LAVA) {
+				if (random.nextFloat() <= 0.0575F) {
+					int count = random.nextInt(1, 2);
+					for (int i = 0; i < count; i++) {
+						Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+						Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.06D, 0.1D);
+						particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
+						level.addAlwaysVisibleParticle(
+							ParticleTypes.LARGE_SMOKE,
+							true,
+							particlePos.x,
+							particlePos.y,
+							particlePos.z,
+							particleVelocity.x,
+							particleVelocity.y,
+							particleVelocity.z
+						);
+					}
+				}
+				if (random.nextFloat() <= 0.0875F) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.06D, 0.1D);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.2D, 0.4D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
 					level.addAlwaysVisibleParticle(
-						ParticleTypes.LARGE_SMOKE,
+						ParticleTypes.FLAME,
 						true,
 						particlePos.x,
 						particlePos.y,
@@ -293,174 +312,11 @@ public class GeyserBlockEntity extends BlockEntity {
 					);
 				}
 			}
-			if (geyserType == GeyserType.LAVA) {
-				if (random.nextFloat() <= 0.0875F) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.2D, 0.4D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.LAVA,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x * 10D,
-						particleVelocity.y,
-						particleVelocity.z * 10D
-					);
-				}
-			}
 		}
 		if (random.nextFloat() <= 0.0375F) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.03D, 0.06D);
 			particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.05D));
-			level.addAlwaysVisibleParticle(
-				ParticleTypes.CAMPFIRE_COSY_SMOKE,
-				true,
-				particlePos.x,
-				particlePos.y,
-				particlePos.z,
-				particleVelocity.x,
-				particleVelocity.y,
-				particleVelocity.z
-			);
-		}
-	}
-
-	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
-		if (geyserType == GeyserType.WATER) {
-			if (random.nextFloat() <= 0.8F) {
-				int count = random.nextInt(1, 4);
-				for (int i = 0; i < count; i++) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 1.7D, 4D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.BUBBLE,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x,
-						particleVelocity.y,
-						particleVelocity.z
-					);
-				}
-			}
-			if (random.nextFloat() <= 0.8F) {
-				int count = random.nextInt(1, 6);
-				for (int i = 0; i < count; i++) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 4D, 6D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.SPLASH,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x,
-						particleVelocity.y,
-						particleVelocity.z
-					);
-				}
-			}
-		} else {
-			if (random.nextFloat() <= 0.8F) {
-				int count = random.nextInt(1, 4);
-				for (int i = 0; i < count; i++) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.2D, 0.9D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.LARGE_SMOKE,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x,
-						particleVelocity.y,
-						particleVelocity.z
-					);
-				}
-			}
-			if (random.nextFloat() <= 0.9F) {
-				int count = random.nextInt(1, 5);
-				for (int i = 0; i < count; i++) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.8D, 1.4D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.DUST_PLUME,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x,
-						particleVelocity.y,
-						particleVelocity.z
-					);
-				}
-			}
-			if (random.nextFloat() <= 0.9F) {
-				int count = random.nextInt(1, 5);
-				for (int i = 0; i < count; i++) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.4D, 0.7D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.CLOUD,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x,
-						particleVelocity.y,
-						particleVelocity.z
-					);
-				}
-			}
-			if (geyserType == GeyserType.LAVA) {
-				int count = random.nextInt(1, 5);
-				for (int i = 0; i < count; i++) {
-					if (random.nextFloat() <= 0.9F) {
-						Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-						Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.1D, 0.8D);
-						particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.225D));
-						level.addAlwaysVisibleParticle(
-							ParticleTypes.FLAME,
-							true,
-							particlePos.x,
-							particlePos.y,
-							particlePos.z,
-							particleVelocity.x,
-							particleVelocity.y,
-							particleVelocity.z
-						);
-					}
-				}
-				if (random.nextFloat() <= 0.2F) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.2D, 0.4D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
-					level.addAlwaysVisibleParticle(
-						ParticleTypes.LAVA,
-						true,
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x * 10D,
-						particleVelocity.y,
-						particleVelocity.z * 10D
-					);
-				}
-			}
-		}
-		if (random.nextFloat() <= 0.2F) {
-			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.1D, 0.3D);
-			particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
 			level.addAlwaysVisibleParticle(
 				ParticleTypes.CAMPFIRE_COSY_SMOKE,
 				true,

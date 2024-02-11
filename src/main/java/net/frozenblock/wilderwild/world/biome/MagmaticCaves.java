@@ -117,7 +117,7 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public @Nullable AmbientParticleSettings ambientParticleSettings() {
-		return new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.000875F);
+		return new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.00123F);
 	}
 
 	@Override

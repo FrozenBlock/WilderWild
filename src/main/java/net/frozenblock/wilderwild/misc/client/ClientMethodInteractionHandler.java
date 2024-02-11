@@ -16,12 +16,17 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.client.sound;
+package net.frozenblock.wilderwild.misc.client;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.block.impl.GeyserType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class ClientMethodInteractionHandler {
@@ -39,5 +44,9 @@ public class ClientMethodInteractionHandler {
 
 	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
 		ClientMethods.addTermiteSound(mound, termiteID, eating);
+	}
+
+	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
+		ClientMethods.spawnEruptionParticles(level, blockPos, geyserType, direction, random);
 	}
 }
