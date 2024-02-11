@@ -3083,5 +3083,59 @@
       "wilderwild:block/geyser/erupt_lava4"
     ],
     "subtitle": "subtitles.block.geyser.erupt"
+  },
+  "block.magma.break": {
+    "sounds": [
+      "wilderwild:block/magma/break1",
+      "wilderwild:block/magma/break2",
+      "wilderwild:block/magma/break3",
+      "wilderwild:block/magma/break4",
+      "wilderwild:block/magma/break5",
+      "wilderwild:block/magma/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.magma.fall": {
+    "sounds": [
+      "wilderwild:block/magma/step1",
+      "wilderwild:block/magma/step2",
+      "wilderwild:block/magma/step3",
+      "wilderwild:block/magma/step4",
+      "wilderwild:block/magma/step5",
+      "wilderwild:block/magma/step6"
+    ]
+  },
+  "block.magma.hit": {
+    "sounds": [
+      "wilderwild:block/magma/step1",
+      "wilderwild:block/magma/step2",
+      "wilderwild:block/magma/step3",
+      "wilderwild:block/magma/step4",
+      "wilderwild:block/magma/step5",
+      "wilderwild:block/magma/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.magma.place": {
+    "sounds": [
+      "wilderwild:block/magma/break1",
+      "wilderwild:block/magma/break2",
+      "wilderwild:block/magma/break3",
+      "wilderwild:block/magma/break4",
+      "wilderwild:block/magma/break5",
+      "wilderwild:block/magma/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.magma.step": {
+    "sounds": [
+      "wilderwild:block/magma/step1",
+      "wilderwild:block/magma/step2",
+      "wilderwild:block/magma/step3",
+      "wilderwild:block/magma/step4",
+      "wilderwild:block/magma/step5",
+      "wilderwild:block/magma/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

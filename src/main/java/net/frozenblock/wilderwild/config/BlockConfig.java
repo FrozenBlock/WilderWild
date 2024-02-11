@@ -116,6 +116,9 @@ public final class BlockConfig {
 		@EntrySyncData(value = "flowerSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean flowerSounds = true;
 
+		@EntrySyncData(value = "magmaSounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean magmaSounds = true;
+
 		@EntrySyncData(value = "saplingSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean saplingSounds = true;
 

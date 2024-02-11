@@ -107,6 +107,13 @@ public final class RegisterBlockSoundTypes {
 		RegisterSounds.BLOCK_GEYSER_HIT,
 		RegisterSounds.BLOCK_GEYSER_FALL
 	);
+	public static final SoundType MAGMA = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_MAGMA_BREAK,
+		RegisterSounds.BLOCK_MAGMA_STEP,
+		RegisterSounds.BLOCK_MAGMA_PLACE,
+		RegisterSounds.BLOCK_MAGMA_HIT,
+		RegisterSounds.BLOCK_MAGMA_FALL
+	);
 	public static final SoundType MESOGLEA = new SoundType(0.8F, 1.0F,
 		RegisterSounds.BLOCK_MESOGLEA_BREAK,
 		RegisterSounds.BLOCK_MESOGLEA_STEP,

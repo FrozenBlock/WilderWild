@@ -350,6 +350,12 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("flower_sounds"))
 			.build();
 
+		var magmaSounds = entryBuilder.startBooleanToggle(text("magma_sounds"), modifiedBlockSounds.magmaSounds)
+			.setDefaultValue(defaultConfig.blockSounds.magmaSounds)
+			.setSaveConsumer(newValue -> blockSounds.magmaSounds = newValue)
+			.setTooltip(tooltip("magma_sounds"))
+			.build();
+
 		var saplingSounds = entryBuilder.startBooleanToggle(text("sapling_sounds"), modifiedBlockSounds.saplingSounds)
 			.setDefaultValue(defaultConfig.blockSounds.saplingSounds)
 			.setSaveConsumer(newValue -> blockSounds.saplingSounds = newValue)
@@ -426,9 +432,9 @@ public final class BlockConfigGui {
 			false,
 			tooltip("block_sounds"),
 			cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
-			flowerSounds, saplingSounds, gravelSounds, iceSounds, frostedIceSounds, leafSounds,
-			lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
-			sugarCaneSounds, witherRoseSounds, sandstoneSounds
+			flowerSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
+			magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
+			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
 		);
 	}
 
