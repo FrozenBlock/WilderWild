@@ -294,15 +294,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(MOVE_STATE, MoveState.WALKING.name());
-		builder.define(TARGET_CLIMBING_ANIM_X, 0F);
-		builder.define(TARGET_CLIMBING_ANIM_Y, 0F);
-		builder.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
-		builder.define(DIGGING_TICKS, 0);
-		builder.define(FROM_BUCKET, false);
-		builder.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(MOVE_STATE, MoveState.WALKING.name());
+		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
+		this.entityData.define(TARGET_CLIMBING_ANIM_Y, 0F);
+		this.entityData.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
+		this.entityData.define(DIGGING_TICKS, 0);
+		this.entityData.define(FROM_BUCKET, false);
+		this.entityData.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
 	}
 
 	@Override

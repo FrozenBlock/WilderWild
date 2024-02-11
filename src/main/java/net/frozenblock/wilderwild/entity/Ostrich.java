@@ -159,13 +159,13 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(TARGET_BEAK_ANIM_PROGRESS, 0F);
-		builder.define(TARGET_STRAIGHT_PROGRESS, 0F);
-		builder.define(IS_ATTACKING, false);
-		builder.define(BEAK_COOLDOWN, 0);
-		builder.define(STUCK_TICKS, 0);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(TARGET_BEAK_ANIM_PROGRESS, 0F);
+		this.entityData.define(TARGET_STRAIGHT_PROGRESS, 0F);
+		this.entityData.define(IS_ATTACKING, false);
+		this.entityData.define(BEAK_COOLDOWN, 0);
+		this.entityData.define(STUCK_TICKS, 0);
 	}
 
 	@Override

@@ -475,11 +475,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(ITEM_STACK, ItemStack.EMPTY);
-		builder.define(ITEM_X, 0F);
-		builder.define(ITEM_Z, 0F);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(ITEM_STACK, ItemStack.EMPTY);
+		this.entityData.define(ITEM_X, 0F);
+		this.entityData.define(ITEM_Z, 0F);
 	}
 
 	@Nullable
