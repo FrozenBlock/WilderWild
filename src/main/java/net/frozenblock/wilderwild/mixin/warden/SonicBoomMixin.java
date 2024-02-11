@@ -19,8 +19,7 @@
 package net.frozenblock.wilderwild.mixin.warden;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -61,29 +60,15 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Unique
 	private boolean wilderWild$particlesEnded = false;
 
-	@ModifyVariable(
-		method = "method_43265",
-		at = @At(
-			value = "INVOKE_ASSIGN",
-			target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"
-		),
-		ordinal = 0
-	)
-	private static Vec3 wilderWild$modifyVec(Vec3 value, @Share("wilderWild$vec32") LocalRef<Vec3> vec32Ref) {
-		vec32Ref.set(value);
-		return value;
-	}
-
 	@ModifyVariable(method = "method_43265",
 		at = @At(
-			value = "CONSTANT",
-			args = "intValue=1",
-			shift = At.Shift.BY, by = 3
+			value = "INVOKE",
+			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
 		),
-		ordinal = 0
+		ordinal = 1
 	)
-	private static int wilderWild$modifyInt(int original, @Share("wilderWild$vec32") LocalRef<Vec3> vec32Ref) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Mth.floor(vec32Ref.get().length()) + 10 : original;
+	private static int wilderWild$modifyInt(int original, @Local(ordinal = 0) int length) {
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? length : original;
 	}
 
 	@Inject(
