@@ -71,7 +71,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (!GeyserBlock.isInactive(geyserType)) {
 			if (geyserStage == GeyserStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
-					this.tickUntilNextEvent = random.nextInt(20, 40);
+					this.tickUntilNextEvent = natural ? random.nextInt(20, 40) : 30;
 					level.playSound(null, pos, geyserType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + 0.1F);

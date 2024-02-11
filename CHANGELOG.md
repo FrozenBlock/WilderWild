@@ -39,6 +39,8 @@ Bug Fixes & Changes
    - Tumbleweed will pass through Breezes.
      - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
+  - Gave Magma a new set of sounds.
+    - Can be disabled with the `Magma Sounds` config.
   - Fire now emits extra particles if on top of Magma.
     - Added the new `Extra Magma Particles` config option to control this.
   - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
