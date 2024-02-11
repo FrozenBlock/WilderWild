@@ -2994,6 +2994,58 @@
     ],
     "subtitle": "subtitles.particle.mesoglea_drip.land"
   },
+  "block.geyser.break": {
+    "sounds": [
+      "wilderwild:block/geyser/break1",
+      "wilderwild:block/geyser/break2",
+      "wilderwild:block/geyser/break3",
+      "wilderwild:block/geyser/break4",
+      "wilderwild:block/geyser/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.geyser.fall": {
+    "sounds": [
+      "wilderwild:block/geyser/step1",
+      "wilderwild:block/geyser/step2",
+      "wilderwild:block/geyser/step3",
+      "wilderwild:block/geyser/step4",
+      "wilderwild:block/geyser/step5",
+      "wilderwild:block/geyser/step6"
+    ]
+  },
+  "block.geyser.hit": {
+    "sounds": [
+      "wilderwild:block/geyser/step1",
+      "wilderwild:block/geyser/step2",
+      "wilderwild:block/geyser/step3",
+      "wilderwild:block/geyser/step4",
+      "wilderwild:block/geyser/step5",
+      "wilderwild:block/geyser/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.geyser.place": {
+    "sounds": [
+      "wilderwild:block/geyser/break1",
+      "wilderwild:block/geyser/break2",
+      "wilderwild:block/geyser/break3",
+      "wilderwild:block/geyser/break4",
+      "wilderwild:block/geyser/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.geyser.step": {
+    "sounds": [
+      "wilderwild:block/geyser/step1",
+      "wilderwild:block/geyser/step2",
+      "wilderwild:block/geyser/step3",
+      "wilderwild:block/geyser/step4",
+      "wilderwild:block/geyser/step5",
+      "wilderwild:block/geyser/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.geyser.boil": {
     "sounds": [
       "wilderwild:block/geyser/boil1",

@@ -100,6 +100,13 @@ public final class RegisterBlockSoundTypes {
 		RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
 		RegisterSounds.BLOCK_ECHO_GLASS_FALL
 	);
+	public static final SoundType GEYSER = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_GEYSER_BREAK,
+		RegisterSounds.BLOCK_GEYSER_STEP,
+		RegisterSounds.BLOCK_GEYSER_PLACE,
+		RegisterSounds.BLOCK_GEYSER_HIT,
+		RegisterSounds.BLOCK_GEYSER_FALL
+	);
 	public static final SoundType MESOGLEA = new SoundType(0.8F, 1.0F,
 		RegisterSounds.BLOCK_MESOGLEA_BREAK,
 		RegisterSounds.BLOCK_MESOGLEA_STEP,

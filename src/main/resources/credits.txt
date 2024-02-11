@@ -129,6 +129,8 @@ https://freesound.org/people/Benboncan/sounds/113701/
 https://freesound.org/people/hanstimm/sounds/256869/
 https://freesound.org/people/junggle/sounds/274068/
 https://freesound.org/people/Fission9/sounds/474850/
+https://freesound.org/people/ilmari_freesound/sounds/663183/
+https://freesound.org/people/AugustSandberg/sounds/677716/
 
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.

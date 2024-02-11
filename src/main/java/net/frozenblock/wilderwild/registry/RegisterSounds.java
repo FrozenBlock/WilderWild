@@ -233,6 +233,11 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_PRICKLY_PEAR_PICK = register("block.prickly_pear.pick");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_CRACK = register("block.ostrich_egg.crack");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
+	public static final SoundEvent BLOCK_GEYSER_PLACE = register("block.geyser.place");
+	public static final SoundEvent BLOCK_GEYSER_HIT = register("block.geyser.hit");
+	public static final SoundEvent BLOCK_GEYSER_BREAK = register("block.geyser.break");
+	public static final SoundEvent BLOCK_GEYSER_STEP = register("block.geyser.step");
+	public static final SoundEvent BLOCK_GEYSER_FALL = register("block.geyser.fall");
 	public static final SoundEvent BLOCK_GEYSER_BOIL = register("block.geyser.boil");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_AIR = register("block.geyser.erupt.air");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_WATER = register("block.geyser.erupt.water");
