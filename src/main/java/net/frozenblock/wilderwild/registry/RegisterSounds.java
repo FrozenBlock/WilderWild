@@ -233,6 +233,7 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
 	public static final SoundEvent BLOCK_GEYSER_BOIL = register("block.geyser.boil");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_AIR = register("block.geyser.erupt.air");
+	public static final SoundEvent BLOCK_GEYSER_ERUPT_WATER = register("block.geyser.erupt.water");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_LAVA = register("block.geyser.erupt.lava");
 
 	//ENTITY

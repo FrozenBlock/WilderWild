@@ -2889,6 +2889,15 @@
     ],
     "subtitle": "subtitles.block.geyser.erupt"
   },
+  "block.geyser.erupt.water": {
+    "sounds": [
+      "wilderwild:block/geyser/erupt_water1",
+      "wilderwild:block/geyser/erupt_water2",
+      "wilderwild:block/geyser/erupt_water3",
+      "wilderwild:block/geyser/erupt_water4"
+    ],
+    "subtitle": "subtitles.block.geyser.erupt"
+  },
   "block.geyser.erupt.lava": {
     "sounds": [
       "wilderwild:block/geyser/erupt_lava1",

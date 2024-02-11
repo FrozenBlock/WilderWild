@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public enum GeyserType implements StringRepresentable {
 	NONE("none", SoundEvents.EMPTY),
 	AIR("air", RegisterSounds.BLOCK_GEYSER_ERUPT_AIR),
-	WATER("water", RegisterSounds.BLOCK_GEYSER_ERUPT_LAVA),
+	WATER("water", RegisterSounds.BLOCK_GEYSER_ERUPT_WATER),
 	LAVA("lava", RegisterSounds.BLOCK_GEYSER_ERUPT_LAVA);
 
 	private final String name;
