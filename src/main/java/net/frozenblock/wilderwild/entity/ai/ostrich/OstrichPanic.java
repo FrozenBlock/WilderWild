@@ -33,9 +33,8 @@ public class OstrichPanic extends AnimalPanic {
 
 	@Override
 	public void start(@NotNull ServerLevel level, @NotNull PathfinderMob entity, long gameTime) {
-		if (entity instanceof Ostrich ostrich) {
+		if (entity instanceof Ostrich ostrich)
 			ostrich.emergeBeak();
-		}
 
 		super.start(level, entity, gameTime);
 	}
