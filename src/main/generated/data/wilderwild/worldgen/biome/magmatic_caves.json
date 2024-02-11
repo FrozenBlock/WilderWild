@@ -30,7 +30,7 @@
       "options": {
         "type": "minecraft:large_smoke"
       },
-      "probability": 8.75E-4
+      "probability": 0.00123
     },
     "sky_color": 8364543,
     "water_color": 9817343,
