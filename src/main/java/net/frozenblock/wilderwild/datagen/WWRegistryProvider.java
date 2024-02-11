@@ -34,7 +34,7 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	protected void configure(@NotNull HolderLookup.Provider registries, @NotNull Entries entries) {
-		final var damageTypes = WWDataGenerator.asLookup(entries.getLookup(Registries.DAMAGE_TYPE));
+		final var damageTypes = registries.lookupOrThrow(Registries.DAMAGE_TYPE);
 
 		entries.addAll(damageTypes);
 

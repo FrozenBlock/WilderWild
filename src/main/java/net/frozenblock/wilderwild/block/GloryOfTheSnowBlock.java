@@ -52,7 +52,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<GloryOfTheSnowBlock> CODEC = simpleCodec(GloryOfTheSnowBlock::new);
 	public static final EnumProperty<FlowerColor> COLOR_STATE = RegisterProperties.FLOWER_COLOR;
@@ -102,6 +101,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		if (level instanceof ServerLevel) {
 			ItemStack itemStack = player.getItemInHand(hand);
 			if (hasColor(state) && itemStack.is(Items.SHEARS)) {
+				shear(level, pos, state, player);
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 				return InteractionResult.SUCCESS;
 			}

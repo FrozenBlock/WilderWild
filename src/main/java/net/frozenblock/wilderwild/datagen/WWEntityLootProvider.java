@@ -18,11 +18,13 @@
 
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -41,8 +43,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 
-	public WWEntityLootProvider(FabricDataOutput output) {
-		super(output, LootContextParamSets.ENTITY);
+	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(output, registryLookup, LootContextParamSets.ENTITY);
 	}
 
 	@Override

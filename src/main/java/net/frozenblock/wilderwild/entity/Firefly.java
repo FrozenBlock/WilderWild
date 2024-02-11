@@ -172,14 +172,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(FROM_BOTTLE, false);
-		this.entityData.define(FLICKERS, false);
-		this.entityData.define(AGE, 0);
-		this.entityData.define(ANIM_SCALE, 1.5F);
-		this.entityData.define(PREV_ANIM_SCALE, 1.5F);
-		this.entityData.define(COLOR, FireflyColor.ON.key().toString());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(FROM_BOTTLE, false);
+		builder.define(FLICKERS, false);
+		builder.define(AGE, 0);
+		builder.define(ANIM_SCALE, 1.5F);
+		builder.define(PREV_ANIM_SCALE, 1.5F);
+		builder.define(COLOR, FireflyColor.ON.key().toString());
 	}
 
 	@Override

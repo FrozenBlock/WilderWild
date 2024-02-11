@@ -722,11 +722,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(VARIANT, JellyfishVariant.PINK.key().toString());
-		this.entityData.define(CAN_REPRODUCE, false);
-		this.entityData.define(IS_BABY, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(VARIANT, JellyfishVariant.PINK.key().toString());
+		builder.define(CAN_REPRODUCE, false);
+		builder.define(IS_BABY, false);
 	}
 
 	@Override

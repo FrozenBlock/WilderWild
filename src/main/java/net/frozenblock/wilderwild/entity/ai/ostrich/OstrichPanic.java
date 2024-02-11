@@ -25,18 +25,16 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import org.jetbrains.annotations.NotNull;
 
-public class OstrichPanic extends AnimalPanic {
+public class OstrichPanic extends AnimalPanic<Ostrich> {
 
-	public OstrichPanic(float f, Predicate<PathfinderMob> shouldPanic) {
+	public OstrichPanic(float f, Predicate<Ostrich> shouldPanic) {
 		super(f, shouldPanic);
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull PathfinderMob entity, long gameTime) {
-		if (entity instanceof Ostrich ostrich) {
-			ostrich.emergeBeak();
-		}
+	public void start(@NotNull ServerLevel level, @NotNull Ostrich ostrich, long gameTime) {
+		ostrich.emergeBeak();
 
-		super.start(level, entity, gameTime);
+		super.start(level, ostrich, gameTime);
 	}
 }

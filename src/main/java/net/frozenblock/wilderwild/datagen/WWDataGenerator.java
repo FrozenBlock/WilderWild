@@ -36,10 +36,6 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
-	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
-		return (HolderLookup.RegistryLookup<T>) getter;
-	}
-
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
 		WilderFeatureFlags.init();
