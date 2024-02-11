@@ -78,6 +78,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		at = @At(
 			value = "CONSTANT",
 			args = "intValue=1",
+			ordinal = 0,
 			shift = At.Shift.BY, by = 3
 		)
 	)
