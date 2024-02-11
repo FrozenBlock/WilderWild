@@ -90,7 +90,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
-		Direction direction = context.getClickedFace();
+		Direction direction = context.getNearestLookingDirection().getOpposite();
 		GeyserType geyserType = getGeyserTypeForPos(level, direction, pos);
 		boolean canErupt = context.getLevel().hasNeighborSignal(context.getClickedPos()) && !isInactive(geyserType);
 
