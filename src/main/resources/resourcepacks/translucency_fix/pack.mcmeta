@@ -1,7 +1,0 @@
-{
-   "pack": {
-     "pack_format": 25,
-     "supported_formats": [15,16,17,18,19,20,21,22,23,24,25],
-     "description": "Fixes translucency on Nematocyst"
-   }
-}
