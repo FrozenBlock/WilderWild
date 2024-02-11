@@ -289,6 +289,109 @@
       }
     ]
   },
+  "ambient.magmatic_caves.additions": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil1",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil2",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil3",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil4",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil5",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil6",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt1",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt2",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt3",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt4",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt5",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt6",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt7",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt8",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water1",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water2",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water3",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water4",
+        "volume": 0.4,
+        "weight": 1
+      }
+    ]
+  },
+  "ambient.magmatic_caves.loop": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/ambience",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
   "ambient.generic_caves.loop": {
     "sounds": [
       {
@@ -2838,6 +2941,28 @@
         "stream": true,
         "volume": 0.8,
         "weight": 6
+      }
+    ]
+  },
+  "music.overworld.magmatic_caves": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event"
+      },
+      {
+        "name": "music/game/infinite_amethyst",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/crescent_dunes",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/an_ordinary_day",
+        "stream": true
       }
     ]
   },

@@ -38,6 +38,8 @@ public final class RegisterSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_JELLYFISH_CAVES_LOOP = registerForHolder("ambient.jellyfish_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_LOOP = registerForHolder("ambient.lush_caves.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_ADDITIONS = registerForHolder("ambient.magmatic_caves.additions");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_LOOP = registerForHolder("ambient.magmatic_caves.loop");
 	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
 
 	//BLOCK
@@ -322,6 +324,7 @@ public final class RegisterSounds {
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
 	private RegisterSounds() {
 		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");

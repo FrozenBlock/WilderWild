@@ -930,7 +930,7 @@ public final class WilderMiscConfigured {
 							true,
 							true,
 							true,
-							false,
+							true,
 							new HolderSet.Named<>(
 								BuiltInRegistries.BLOCK.holderOwner(),
 								WilderBlockTags.MAGMA_REPLACEABLE
@@ -950,7 +950,7 @@ public final class WilderMiscConfigured {
 							true,
 							true,
 							true,
-							false,
+							true,
 							new HolderSet.Named<>(
 								BuiltInRegistries.BLOCK.holderOwner(),
 								WilderBlockTags.MAGMA_REPLACEABLE
@@ -970,7 +970,7 @@ public final class WilderMiscConfigured {
 							true,
 							true,
 							true,
-							false,
+							true,
 							new HolderSet.Named<>(
 								BuiltInRegistries.BLOCK.holderOwner(),
 								WilderBlockTags.MAGMA_REPLACEABLE

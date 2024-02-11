@@ -117,12 +117,12 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public @Nullable AmbientParticleSettings ambientParticleSettings() {
-		return new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.0015F);
+		return new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.000875F);
 	}
 
 	@Override
 	public @NotNull Holder<SoundEvent> ambientLoopSound() {
-		return RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP;
+		return RegisterSounds.AMBIENT_MAGMATIC_CAVES_LOOP;
 	}
 
 	@Override
@@ -132,12 +132,12 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public @NotNull AmbientAdditionsSettings ambientAdditionsSound() {
-		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D);
+		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS, 0.005D);
 	}
 
 	@Override
 	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
+		return Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_MAGMATIC_CAVES);
 	}
 
 	@Override
