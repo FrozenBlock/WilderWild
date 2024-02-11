@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ShearsDispenseItemBehaviorMixin {
 
 	@WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Z"))
-	private static boolean wilderWild$execute(ServerLevel usedLevel, BlockPos pos, @NotNull Operation<Boolean> operation) {
+	private boolean wilderWild$execute(ServerLevel usedLevel, BlockPos pos, @NotNull Operation<Boolean> operation) {
 		return operation.call(usedLevel, pos) || wilderWild$tryShearMilkweed(usedLevel, pos) || wilderWild$tryShearGloryOfTheSnow(usedLevel, pos);
 	}
 

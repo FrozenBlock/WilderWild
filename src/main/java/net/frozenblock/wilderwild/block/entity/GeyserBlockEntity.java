@@ -63,7 +63,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		Direction direction = state.getValue(GeyserBlock.FACING);
 		boolean natural = state.getValue(GeyserBlock.NATURAL);
-		
+
 		if (!this.hasRunFirstCheck) {
 			level.scheduleTick(pos, this.getBlockState().getBlock(), level.random.nextInt(20, 100));
 			this.hasRunFirstCheck = true;

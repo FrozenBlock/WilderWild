@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,8 +32,9 @@ public class OstrichPanic extends AnimalPanic<Ostrich> {
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
-		entity.emergeBeak();
-		super.start(level, entity, gameTime);
+	public void start(@NotNull ServerLevel level, @NotNull Ostrich ostrich, long gameTime) {
+		ostrich.emergeBeak();
+
+		super.start(level, ostrich, gameTime);
 	}
 }

@@ -40,8 +40,8 @@ import java.util.concurrent.CompletableFuture;
 
 final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
-	WWBlockLootProvider(@NotNull FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(output, registryLookup);
+	WWBlockLootProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override

@@ -27,8 +27,8 @@ import java.util.concurrent.CompletableFuture;
 
 final class WWExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
 
-	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(output, registryLookup);
+	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override
