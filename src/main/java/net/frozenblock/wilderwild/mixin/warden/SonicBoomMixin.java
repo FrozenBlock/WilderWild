@@ -67,8 +67,8 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		),
 		ordinal = 1
 	)
-	private static int wilderWild$modifyInt(int original, @Local(ordinal = 0) int length) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? length : original;
+	private static int wilderWild$modifyInt(int original, @Local(ordinal = 0) int particleEnd) {
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? particleEnd : original;
 	}
 
 	@Inject(
