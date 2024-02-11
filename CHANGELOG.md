@@ -18,10 +18,11 @@ Additions
     - Will occasionally erupt, pushing entities in the direction it's facing.
      - If covered by Lava, will set entities on fire.
      - The Eruption of a Geyser lasts between one to two seconds.
-     - The Eruption will remain effective unless blocked.
+       - Can also be powered with Redstone to erupt.
+       - Eruption will last 30 ticks (one-and-a-half seconds) if triggered by Redstone.
+       - The Eruption will remain effective unless blocked.
      - Eruptions that start in the air and move into a liquid, or that start in a liquid and move to the air or another liquid will be less effective past that point.
      - If placed by a player, will not erupt naturally.
-     - Can be powered with Redstone to erupt.
      - Added the `wilderwild:geyser_can_pass_through` tag to control what blocks an Eruption can safely pass through, regardless of block support shape.
        - Currently contains the `minecraft:trapdoors` tag.
      - Added the `wilderwild:geyser_cannot_pass_through` tag to control what blocks an Eruption can never pass through, regardless of block support shape.
