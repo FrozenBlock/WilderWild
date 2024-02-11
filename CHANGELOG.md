@@ -8,3 +8,4 @@ Thank you!
 - Ostrich attacks can now damage and break Armor Stands.
 - Fixed the death message from an Ostrich's attack not displaying properly.
 - Fixed shears not snipping Glory of the Snow blocks
+- Updated zh_CN (Simplified Chinese) translation (Thanks to ioococ)
