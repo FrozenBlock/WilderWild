@@ -78,9 +78,9 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		at = @At(
 			value = "CONSTANT",
 			args = "intValue=1",
-			ordinal = 0,
 			shift = At.Shift.BY, by = 3
-		)
+		),
+		ordinal = 0
 	)
 	private static int wilderWild$modifyInt(int original, @Share("wilderWild$vec32") LocalRef<Vec3> vec32Ref) {
 		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Mth.floor(vec32Ref.get().length()) + 10 : original;
