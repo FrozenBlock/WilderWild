@@ -22,12 +22,12 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -161,23 +161,10 @@ public class GeyserBlock extends BaseEntityBlock {
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
 		GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
 		Direction direction = blockState.getValue(FACING);
+		boolean natural = blockState.getValue(NATURAL);
 		if (!isInactive(geyserType)) {
-			int count = random.nextInt(2, 5);
-			for (int i = 0; i < count; i++) {
-				Vec3 particlePos = getParticlePos(blockPos, direction, random);
-				Vec3 particleVelocity = getParticleVelocity(direction, random, 0.003D, 0.01D);
-				level.addParticle(
-					ParticleTypes.WHITE_SMOKE,
-					true,
-					particlePos.x,
-					particlePos.y,
-					particlePos.z,
-					particleVelocity.x,
-					particleVelocity.y,
-					particleVelocity.z
-				);
-			}
-			if (random.nextFloat() <= 0.0085F) {
+			ClientMethodInteractionHandler.spawnBaseGeyserParticles(blockPos, direction, natural, random);
+			if (natural ? random.nextFloat() <= 0.0085F : random.nextFloat() <= 0.002F) {
 				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 			}
 		}

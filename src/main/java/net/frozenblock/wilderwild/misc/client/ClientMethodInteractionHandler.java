@@ -46,6 +46,10 @@ public class ClientMethodInteractionHandler {
 		ClientMethods.addTermiteSound(mound, termiteID, eating);
 	}
 
+	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, boolean natural, RandomSource random) {
+		ClientMethods.spawnBaseGeyserParticles(blockPos, direction, natural, random);
+	}
+
 	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
 		ClientMethods.spawnEruptionParticles(level, blockPos, geyserType, direction, random);
 	}

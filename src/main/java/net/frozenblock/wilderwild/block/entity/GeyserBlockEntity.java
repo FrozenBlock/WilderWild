@@ -211,9 +211,9 @@ public class GeyserBlockEntity extends BlockEntity {
 		if (geyserType == GeyserType.WATER && random.nextFloat() <= 0.0235F) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.09D, 0.12D);
-			level.addAlwaysVisibleParticle(
+			level.addParticle(
 				ParticleTypes.BUBBLE,
-				true,
+				false,
 				particlePos.x,
 				particlePos.y,
 				particlePos.z,
@@ -225,9 +225,9 @@ public class GeyserBlockEntity extends BlockEntity {
 		if (random.nextFloat() <= 0.0125F) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.03D, 0.05D);
-			level.addAlwaysVisibleParticle(
+			level.addParticle(
 				ParticleTypes.CAMPFIRE_COSY_SMOKE,
-				true,
+				false,
 				particlePos.x,
 				particlePos.y,
 				particlePos.z,
@@ -246,9 +246,9 @@ public class GeyserBlockEntity extends BlockEntity {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.4D, 0.8D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
-					level.addAlwaysVisibleParticle(
+					level.addParticle(
 						ParticleTypes.BUBBLE,
-						true,
+						false,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -266,9 +266,9 @@ public class GeyserBlockEntity extends BlockEntity {
 						Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 						Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.06D, 0.1D);
 						particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
-						level.addAlwaysVisibleParticle(
+						level.addParticle(
 							ParticleTypes.LARGE_SMOKE,
-							true,
+							false,
 							particlePos.x,
 							particlePos.y,
 							particlePos.z,
@@ -282,7 +282,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.2D, 0.4D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
-					level.addAlwaysVisibleParticle(
+					level.addParticle(
 						ParticleTypes.FLAME,
 						true,
 						particlePos.x,
@@ -300,9 +300,9 @@ public class GeyserBlockEntity extends BlockEntity {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.06D, 0.4D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.1D));
-					level.addAlwaysVisibleParticle(
+					level.addParticle(
 						ParticleTypes.DUST_PLUME,
-						true,
+						false,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -319,7 +319,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.05D));
 			level.addAlwaysVisibleParticle(
 				ParticleTypes.CAMPFIRE_COSY_SMOKE,
-				true,
+				false,
 				particlePos.x,
 				particlePos.y,
 				particlePos.z,

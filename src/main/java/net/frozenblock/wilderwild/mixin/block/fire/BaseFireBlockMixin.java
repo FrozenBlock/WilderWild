@@ -68,23 +68,10 @@ public class BaseFireBlockMixin {
 		BlockPos blockPos2,BlockState blockState2
 	) {
 		if (BlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.055F) {
-				level.addAlwaysVisibleParticle(
-					ParticleTypes.CAMPFIRE_COSY_SMOKE,
-					true,
-					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
-					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					(random.nextDouble() - 0.5D) * 0.03D,
-					random.nextDouble() * 0.04D + 0.04D,
-					(random.nextDouble() - 0.5D) * 0.03D
-				);
-			}
-
-			if (random.nextFloat() <= 0.175F) {
-				level.addAlwaysVisibleParticle(
+			if (random.nextFloat() <= 0.155F) {
+				level.addParticle(
 					ParticleTypes.LAVA,
-					true,
+					false,
 					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
 					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
 					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
@@ -94,10 +81,10 @@ public class BaseFireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.675F) {
-				level.addAlwaysVisibleParticle(
+			if (random.nextFloat() <= 0.475F) {
+				level.addParticle(
 					ParticleTypes.LARGE_SMOKE,
-					true,
+					false,
 					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
 					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
 					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),

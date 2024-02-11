@@ -52,21 +52,7 @@ public class FireBlockMixin {
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$magmaSmoke(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
 		if (BlockConfig.get().fire.extraMagmaParticles && level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.175F) {
-				level.sendParticles(
-					ParticleTypes.CAMPFIRE_COSY_SMOKE,
-					(double) pos.getX() + 0.5D,
-					pos.getY() + 0.5D,
-					(double) pos.getZ() + 0.5D,
-					1,
-					random.nextDouble() / 3D,
-					random.nextDouble() * 0.5D,
-					random.nextDouble() / 3D,
-					(random.nextDouble() - 0.5D) * 0.03D
-				);
-			}
-
-			if (random.nextFloat() <= 0.7F) {
+			if (random.nextFloat() <= 0.45F) {
 				level.sendParticles(
 					ParticleTypes.LAVA,
 					(double) pos.getX() + 0.5D,

@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
@@ -70,6 +71,37 @@ public class ClientMethods {
 				client.getSoundManager().play(new TermiteSoundInstance<>(mound, termiteID, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.2F, 1F, true));
 			} else {
 				client.getSoundManager().play(new TermiteSoundInstance<>(mound, termiteID, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.2F, 1F, false));
+			}
+		}
+	}
+	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, boolean natural, RandomSource random) {
+		Minecraft client = Minecraft.getInstance();
+		ParticleStatus particleStatus = client.options.particles().get();
+		if (particleStatus == ParticleStatus.MINIMAL) {
+			return;
+		}
+		ParticleEngine particleEngine = client.particleEngine;
+		float chance = particleStatus == ParticleStatus.DECREASED ? 0.5F : 1F;
+
+		int count = natural ? random.nextInt(2, 5) : random.nextInt(0, 3);
+		for (int i = 0; i < count; i++) {
+			if (random.nextFloat() <= chance) {
+				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.003D, 0.01D);
+				Particle particle = particleEngine.createParticle(
+					ParticleTypes.WHITE_SMOKE,
+					particlePos.x,
+					particlePos.y,
+					particlePos.z,
+					particleVelocity.x,
+					particleVelocity.y,
+					particleVelocity.z
+				);
+				if (particle != null) {
+					particle.xd = particleVelocity.x;
+					particle.yd = particleVelocity.y;
+					particle.zd = particleVelocity.z;
+				}
 			}
 		}
 	}
@@ -180,7 +212,7 @@ public class ClientMethods {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.4D, 0.7D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
-					level.addAlwaysVisibleParticle(
+					level.addParticle(
 						ParticleTypes.CLOUD,
 						true,
 						particlePos.x,
@@ -192,21 +224,6 @@ public class ClientMethods {
 					);
 				}
 			}
-		}
-		if (random.nextFloat() <= 0.2F) {
-			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.1D, 0.3D);
-			particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
-			level.addAlwaysVisibleParticle(
-				ParticleTypes.CAMPFIRE_COSY_SMOKE,
-				true,
-				particlePos.x,
-				particlePos.y,
-				particlePos.z,
-				particleVelocity.x,
-				particleVelocity.y,
-				particleVelocity.z
-			);
 		}
 	}
 }
