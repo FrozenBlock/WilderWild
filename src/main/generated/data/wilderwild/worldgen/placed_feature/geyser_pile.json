@@ -2,8 +2,14 @@
   "feature": "wilderwild:geyser_pile",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 3
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 4,
+          "min_inclusive": 1
+        }
+      }
     },
     {
       "type": "minecraft:in_square"
@@ -13,10 +19,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": -12
+          "absolute": 256
         },
         "min_inclusive": {
-          "absolute": -54
+          "above_bottom": 0
         }
       }
     },

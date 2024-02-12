@@ -81,7 +81,7 @@ public class ClientMethods {
 			return;
 		}
 		ParticleEngine particleEngine = client.particleEngine;
-		float chance = particleStatus == ParticleStatus.DECREASED ? 0.5F : 1F;
+		float chance = particleStatus == ParticleStatus.DECREASED ? 0.3F : 1F;
 
 		int count = natural ? random.nextInt(2, 5) : random.nextInt(0, 3);
 		for (int i = 0; i < count; i++) {
@@ -108,6 +108,7 @@ public class ClientMethods {
 
 	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
 		Minecraft client = Minecraft.getInstance();
+		ParticleStatus particleStatus = client.options.particles().get();
 		ParticleEngine particleEngine = client.particleEngine;
 		if (geyserType == GeyserType.WATER) {
 			if (random.nextFloat() <= 0.8F) {
@@ -118,7 +119,7 @@ public class ClientMethods {
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
 					level.addParticle(
 						ParticleTypes.BUBBLE,
-						true,
+						random.nextBoolean(),
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -137,7 +138,7 @@ public class ClientMethods {
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
 					level.addParticle(
 						ParticleTypes.DUST_PLUME,
-						true,
+						false,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -157,7 +158,7 @@ public class ClientMethods {
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
 					level.addParticle(
 						ParticleTypes.LARGE_SMOKE,
-						true,
+						false,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -175,7 +176,7 @@ public class ClientMethods {
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.225D));
 					level.addAlwaysVisibleParticle(
 						ParticleTypes.FLAME,
-						true,
+						false,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -187,6 +188,11 @@ public class ClientMethods {
 			}
 			int lavaCount = random.nextInt(1, 3);
 			for (int i = 0; i < lavaCount; i++) {
+				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+					break;
+				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
+					break;
+				}
 				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.6D, 0.8D);
 				particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
@@ -214,7 +220,7 @@ public class ClientMethods {
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
 					level.addParticle(
 						ParticleTypes.CLOUD,
-						true,
+						random.nextBoolean(),
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,

@@ -529,91 +529,91 @@ public final class WilderMiscPlaced {
 		);
 
 		MAGMA_PATH.makeAndSetHolder(WilderMiscConfigured.MAGMA_AND_BASALT_PATH.getHolder(),
-			modifiersWithCount(8, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)))
+			modifiersWithCount(64, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		MAGMA_DISK.makeAndSetHolder(WilderMiscConfigured.MAGMA_DISK.getHolder(),
-			modifiersWithCount(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
+			modifiersWithCount(48, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		OBSIDIAN_DISK.makeAndSetHolder(WilderMiscConfigured.OBSIDIAN_DISK.getHolder(),
-			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
+			modifiersWithCount(8, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		LAVA_SPRING_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
-			CountPlacement.of(UniformInt.of(18, 25)),
+			CountPlacement.of(UniformInt.of(144, 200)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(WilderMiscConfigured.FIRE_PATCH_MAGMA.getHolder(),
-			CountPlacement.of(UniformInt.of(16, 24)),
+			CountPlacement.of(UniformInt.of(100, 170)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
 		BASALT_PILE.makeAndSetHolder(WilderMiscConfigured.BASALT_PILE.getHolder(),
-			CountPlacement.of(UniformInt.of(3, 8)),
+			CountPlacement.of(UniformInt.of(24, 64)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		GEYSER_PILE.makeAndSetHolder(WilderMiscConfigured.GEYSER_PILE.getHolder(),
-			RarityFilter.onAverageOnceEvery(3),
+			CountPlacement.of(UniformInt.of(1, 4)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		GEYSER_UP.makeAndSetHolder(WilderMiscConfigured.GEYSER_UP.getHolder(),
-			CountPlacement.of(UniformInt.of(4, 8)),
+			CountPlacement.of(UniformInt.of(32, 64)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		GEYSER_DOWN.makeAndSetHolder(WilderMiscConfigured.GEYSER_DOWN.getHolder(),
-			CountPlacement.of(UniformInt.of(3, 6)),
+			CountPlacement.of(UniformInt.of(24, 48)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_GEYSER_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 3)),
+			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-16)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(9, 15)),
+			CountPlacement.of(UniformInt.of(72, 120)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-16)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		BASALT_SPIKE.makeAndSetHolder(WilderMiscConfigured.BASALT_SPIKE.getHolder(),
-			CountPlacement.of(UniformInt.of(2, 5)),
+			CountPlacement.of(UniformInt.of(16, 40)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 
 		LAVA_LAKE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.LAKE_LAVA),
-			CountPlacement.of(UniformInt.of(0, 1)),
+			CountPlacement.of(UniformInt.of(0, 8)),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 

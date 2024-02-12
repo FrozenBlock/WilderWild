@@ -208,7 +208,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
-		if (geyserType == GeyserType.WATER && random.nextFloat() <= 0.0235F) {
+		if (geyserType == GeyserType.WATER && random.nextFloat() <= 0.0195F) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.09D, 0.12D);
 			level.addParticle(
@@ -222,7 +222,7 @@ public class GeyserBlockEntity extends BlockEntity {
 				particleVelocity.z
 			);
 		}
-		if (random.nextFloat() <= 0.0125F) {
+		if (random.nextFloat() <= 0.0075F) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.03D, 0.05D);
 			level.addParticle(

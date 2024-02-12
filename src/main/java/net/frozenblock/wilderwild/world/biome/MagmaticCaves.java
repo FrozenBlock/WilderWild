@@ -63,7 +63,7 @@ public final class MagmaticCaves extends FrozenBiome {
 	public static final int WATER_COLOR = 9817343;
 	public static final int WATER_FOG_COLOR = 6069471;
 	public static final int FOG_COLOR = 0;
-	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0F);
+	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MagmaticCaves INSTANCE = new MagmaticCaves();
 
 	@Override

@@ -1343,9 +1343,9 @@ public final class WilderPlacedFeatures {
 		);
 
 		UPSIDE_DOWN_MAGMA.makeAndSetHolder(WilderConfiguredFeatures.UPSIDE_DOWN_MAGMA.getHolder(),
-			CountPlacement.of(9),
+			CountPlacement.of(72),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
