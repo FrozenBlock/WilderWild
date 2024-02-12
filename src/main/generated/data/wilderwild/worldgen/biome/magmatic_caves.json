@@ -47,7 +47,6 @@
     [
       "minecraft:amethyst_geode",
       "wilderwild:magma_path",
-      "wilderwild:fire_patch_magma",
       "wilderwild:geyser_up",
       "wilderwild:geyser_down",
       "wilderwild:downwards_geyser_column"
@@ -98,6 +97,7 @@
       "wilderwild:basalt_pile",
       "wilderwild:basalt_spike",
       "wilderwild:downwards_basalt_column",
+      "wilderwild:fire_patch_magma",
       "wilderwild:geyser_pile"
     ],
     [
@@ -197,5 +197,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 1.0
+  "temperature": 2.0
 }
