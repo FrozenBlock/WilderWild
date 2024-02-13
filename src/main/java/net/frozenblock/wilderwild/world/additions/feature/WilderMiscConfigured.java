@@ -65,6 +65,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
@@ -151,6 +152,17 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_UP = register("geyser_up");
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_DOWN = register("geyser_down");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
+
+	// FROZEN CAVES
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_PATH = register("packed_ice_path");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> PACKED_ICE_DISK = register("packed_ice_disk");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> ICE_DISK = register("ice_disk");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_COLUMN = register("ice_column");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_ICE_COLUMN = register("downwards_ice_column");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_SPIKE = register("ice_spike");
+	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> ICE_PILE = register("ice_pile");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SNOW_DISK = register("snow_disk");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> POWDER_SNOW_DISK = register("powder_snow_disk");
 
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
@@ -919,8 +931,8 @@ public final class WilderMiscConfigured {
 			new ComboFeatureConfig(
 				List.of(
 					PlacementUtils.inlinePlaced(
-						FrozenFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
 							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 							14,
 							4,
@@ -931,16 +943,13 @@ public final class WilderMiscConfigured {
 							true,
 							true,
 							true,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WilderBlockTags.MAGMA_REPLACEABLE
-							),
+							WilderBlockTags.MAGMA_REPLACEABLE,
 							1F
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
 							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
 							14,
 							4,
@@ -951,16 +960,13 @@ public final class WilderMiscConfigured {
 							true,
 							true,
 							true,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WilderBlockTags.MAGMA_REPLACEABLE
-							),
+							WilderBlockTags.MAGMA_REPLACEABLE,
 							1F
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
 							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
 							14,
 							4,
@@ -971,10 +977,7 @@ public final class WilderMiscConfigured {
 							true,
 							true,
 							true,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WilderBlockTags.MAGMA_REPLACEABLE
-							),
+							WilderBlockTags.MAGMA_REPLACEABLE,
 							1F
 						)
 					)
@@ -1105,6 +1108,239 @@ public final class WilderMiscConfigured {
 					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
+			)
+		);
+
+		// FROZEN CAVES
+
+		PACKED_ICE_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							14,
+							4,
+							0.0325D,
+							0.55D,
+							0.7D,
+							true,
+							true,
+							true,
+							true,
+							WilderBlockTags.PACKED_ICE_REPLACEABLE,
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							14,
+							4,
+							0.0325D,
+							-0.7D,
+							-0.55D,
+							true,
+							true,
+							true,
+							true,
+							WilderBlockTags.PACKED_ICE_REPLACEABLE,
+							1F
+						)
+					)
+				)
+			)
+		);
+
+		PACKED_ICE_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.PACKED_ICE),
+				BlockStateProvider.simple(Blocks.PACKED_ICE),
+				UniformInt.of(4, 8),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		ICE_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.ICE),
+				BlockStateProvider.simple(Blocks.ICE),
+				UniformInt.of(2, 5),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		ICE_COLUMN.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(5, 13),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 5),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 5),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					)
+				)
+			)
+		);
+
+		DOWNWARDS_ICE_COLUMN.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(4, 9),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 6),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 6),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					)
+				)
+			)
+		);
+
+		ICE_SPIKE.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(4, 15),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 15),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 15),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 8),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 8),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+					)
+				)
+			)
+		);
+
+		ICE_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
+			new BlockPileConfiguration(
+				BlockStateProvider.simple(Blocks.ICE)
+			)
+		);
+
+		SNOW_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.SNOW_BLOCK),
+				BlockStateProvider.simple(Blocks.SNOW_BLOCK),
+				UniformInt.of(2, 5),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		POWDER_SNOW_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.POWDER_SNOW),
+				BlockStateProvider.simple(Blocks.POWDER_SNOW),
+				UniformInt.of(3, 8),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				WilderBlockTags.PACKED_ICE_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 

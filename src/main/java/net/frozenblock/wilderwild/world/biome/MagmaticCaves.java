@@ -35,7 +35,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
@@ -60,8 +59,8 @@ public final class MagmaticCaves extends FrozenBiome {
 	public static final float OFFSET = 0.000F;
 	public static final float TEMP = 2.0F;
 	public static final float DOWNFALL = 0.4F;
-	public static final int WATER_COLOR = 9817343;
-	public static final int WATER_FOG_COLOR = 6069471;
+	public static final int WATER_COLOR = 4566514;
+	public static final int WATER_FOG_COLOR = 267827;
 	public static final int FOG_COLOR = 0;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MagmaticCaves INSTANCE = new MagmaticCaves();
@@ -150,7 +149,7 @@ public final class MagmaticCaves extends FrozenBiome {
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addFossilDecoration(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
 		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.MAGMA_LAVA_POOL.getKey());
 		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.LAVA_LAKE_EXTRA.getKey());
 		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WilderMiscPlaced.LAVA_SPRING_EXTRA.getKey());

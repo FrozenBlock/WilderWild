@@ -33,8 +33,8 @@
       "probability": 0.00123
     },
     "sky_color": 7254527,
-    "water_color": 9817343,
-    "water_fog_color": 6069471
+    "water_color": 4566514,
+    "water_fog_color": 267827
   },
   "features": [
     [],
@@ -54,6 +54,7 @@
     [
       "minecraft:fossil_upper",
       "minecraft:fossil_lower",
+      "minecraft:monster_room",
       "minecraft:monster_room_deep",
       "wilderwild:fossil_lava"
     ],

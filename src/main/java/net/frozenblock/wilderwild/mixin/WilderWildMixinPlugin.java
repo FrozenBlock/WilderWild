@@ -96,6 +96,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.jellyfish")) return config.entity_jellyfish;
 		if (mixinClassName.contains("entity.lightning")) return config.entity_lightning;
 		if (mixinClassName.contains("entity.slime")) return config.entity_slime;
+		if (mixinClassName.contains("entity.stray")) return config.entity_stray;
 		if (mixinClassName.contains("entity.tumbleweed")) return config.entity_tumbleweed;
 		if (mixinClassName.contains("entity.turtle")) return config.entity_turtle;
 		if (mixinClassName.contains("entity.firework_rocket")) return config.entity_firework_rocket;

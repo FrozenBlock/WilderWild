@@ -28,7 +28,7 @@ Soro:
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
- - Textures (2.3)
+ - Textures (2.3+)
  - Crab in Bucket texture.
 
 Merp:
@@ -131,6 +131,17 @@ https://freesound.org/people/junggle/sounds/274068/
 https://freesound.org/people/Fission9/sounds/474850/
 https://freesound.org/people/ilmari_freesound/sounds/663183/
 https://freesound.org/people/AugustSandberg/sounds/677716/
+
+Frozen Caves Sounds:
+https://freesound.org/people/nlux/sounds/620967/
+https://freesound.org/people/radian/sounds/62982/
+https://freesound.org/people/Anthousai/sounds/398496/
+https://freesound.org/people/giddster/sounds/437336/
+https://freesound.org/people/Glitchedtones/sounds/380248/
+https://freesound.org/people/SDLx/sounds/211163/
+https://freesound.org/people/j_p_higgins/sounds/262634/
+https://freesound.org/people/dheming/sounds/268023/
+https://freesound.org/people/felix.blume/sounds/646589/
 
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.

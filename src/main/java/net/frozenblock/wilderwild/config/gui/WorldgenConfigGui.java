@@ -63,6 +63,19 @@ public final class WorldgenConfigGui {
 			)
 		);
 
+		var snowUnderMountains = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("snow_under_mountains"), modifiedConfig.snowUnderMountains)
+					.setDefaultValue(defaultConfig.snowUnderMountains)
+					.setSaveConsumer(newValue -> config.snowUnderMountains = newValue)
+					.setTooltip(tooltip("snow_under_mountains"))
+					.build(),
+				clazz,
+				"snowUnderMountains",
+				configInstance
+			)
+		);
+
 		var cypressWetlands = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), modifiedBiomes.generateCypressWetlands)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateCypressWetlands)
@@ -350,11 +363,22 @@ public final class WorldgenConfigGui {
 			"generateMagmaticCaves",
 			configInstance
 		);
+		var frozenCaves = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_frozen_caves"), modifiedBiomes.generateFrozenCaves)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateFrozenCaves)
+				.setSaveConsumer(newValue -> biomes.generateFrozenCaves = newValue)
+				.setTooltip(tooltip("generate_frozen_caves"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateFrozenCaves",
+			configInstance
+		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
-			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
+			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
 			jellyfishCaves, magmaticCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
 			snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);

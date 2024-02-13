@@ -68,7 +68,7 @@ public class BaseFireBlockMixin {
 		BlockPos blockPos2,BlockState blockState2
 	) {
 		if (BlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.155F) {
+			if (random.nextFloat() <= 0.015F) {
 				level.addParticle(
 					ParticleTypes.LAVA,
 					false,
@@ -81,7 +81,7 @@ public class BaseFireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.475F) {
+			if (random.nextFloat() <= 0.175F) {
 				level.addParticle(
 					ParticleTypes.LARGE_SMOKE,
 					false,

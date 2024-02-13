@@ -51,6 +51,7 @@
     "entity.lightning.LightningBoltMixin",
     "entity.slime.SlimeMixin",
     "entity.slime.SpawnPlacementsMixin",
+    "entity.stray.StrayMixin",
     "entity.tumbleweed.BlockBehaviourMixin",
     "entity.tumbleweed.EntityMixin",
     "entity.tumbleweed.LivingEntityMixin",

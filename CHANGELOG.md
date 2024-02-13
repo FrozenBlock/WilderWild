@@ -7,12 +7,13 @@ Additions
   - Added the `Allow Snowlogging,` `Snowlog Blockades,` and `Natural Snowlogging` config options.
     - To prevent long load times due to excessive blockstates, `Snowlog Blockades` is off by default.
 
-- Added the Magmatic Caves biome
+- Added the Magmatic Caves biome.
   - It set my house on fire. Great!
   - A new, scorching underground biome consisting of sprawling Magma, Basalt, and Lava pools.
   - Lava-related features generate more frequently in this biome.
   - Fossils generate much more frequently in this biome.
   - Contains the new Geyser block
+  - Generates in hotter areas of the world.
 
 - Added the Geyser!
   - Will occasionally erupt, pushing entities in the direction it's facing.
@@ -29,6 +30,14 @@ Additions
      - Currently contains the `c:glass_blocks` tag.
   - Requires a Stone Pickaxe or stronger to be obtained.
 
+- Added the Frozen Caves biome.
+  - Ice wasn't built in a day! Or was it?
+  - Consists of many icy and snowy blocks and a soft water color.
+  - Generates primarily under snowy mountain biomes, but may rarely be found elsewhere.
+    - Note that this does not impact Deep Dark generation whatsoever, as Frozen Caves will only generate above the Deep Dark.
+  - Strays will spawn here naturally.
+    - They can, however, be disabled by removing `wilderwild:frozen_caves` from the `wilderwild:strays_can_spawn_underground` tag.
+
 Bug Fixes & Changes
 ---
 
@@ -44,11 +53,15 @@ Bug Fixes & Changes
   - Can be disabled with the `Magma Sounds` config.
 - Fire now emits extra particles if on top of Magma.
   - Added the new `Extra Magma Particles` config option to control this.
+- Snow will now continue to generate under snowy mountain biomes, somewhat mimicking older Bedrock Edition Beta versions.
+  - Added the `Snow Under Mountains` config option to control this.
+  - More biomes can be added to this surface rule by adding them to the `wilderwild:below_surface_snow` tag.
 - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
 - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
 - The `New Cactus Placement` config is now set to off by default instead of on.
+- Fixed Dungeon placement in Jellyfish Caves.
 
 2.3.1
 ---

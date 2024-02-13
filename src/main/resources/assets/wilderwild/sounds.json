@@ -392,6 +392,84 @@
       }
     ]
   },
+  "ambient.frozen_caves.additions": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes1",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes2",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes3",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes4",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes5",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes6",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ping1",
+        "volume": 0.1,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ping2",
+        "volume": 0.1,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice1",
+        "volume": 0.2,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice2",
+        "volume": 0.2,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice3",
+        "volume": 0.3,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice4",
+        "volume": 0.3,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice5",
+        "volume": 0.3,
+        "weight": 2
+      }
+    ]
+  },
+  "ambient.frozen_caves.loop": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ambience",
+        "stream": true,
+        "volume": 0.2
+      }
+    ]
+  },
   "ambient.generic_caves.loop": {
     "sounds": [
       {
@@ -2962,6 +3040,23 @@
       },
       {
         "name": "music/game/an_ordinary_day",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.frozen_caves": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event"
+      },
+      {
+        "name": "music/game/infinite_amethyst",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/wending",
         "stream": true
       }
     ]

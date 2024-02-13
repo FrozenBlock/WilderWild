@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
@@ -32,7 +33,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback {
+public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, SurfaceRuleEvents.OverworldSurfaceRuleNoPrelimSurfaceCallback {
 
 	@NotNull
 	public static SurfaceRules.RuleSource cypressSurfaceRules() {
@@ -414,5 +415,46 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 			)
 		);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource frozenCavesSnow() {
+		return SurfaceRules.ifTrue(
+			FrozenSurfaceRules.isBiome(List.of(RegisterWorldgen.FROZEN_CAVES)),
+			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
+					SurfaceRules.ifTrue(
+						SurfaceRules.waterBlockCheck(0, 0),
+						FrozenSurfaceRules.makeStateRule(Blocks.SNOW_BLOCK)
+					)
+				)
+			)
+		);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource belowSurfaceSnow() {
+		return SurfaceRules.ifTrue(
+			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.BELOW_SURFACE_SNOW),
+			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
+					SurfaceRules.ifTrue(
+						SurfaceRules.waterBlockCheck(0, 0),
+						FrozenSurfaceRules.makeStateRule(Blocks.SNOW_BLOCK)
+					)
+				)
+			)
+		);
+	}
+
+	@Override
+	public void addOverworldNoPrelimSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
+		context.add(frozenCavesSnow());
+		if (WorldgenConfig.get().snowUnderMountains) {
+			context.add(belowSurfaceSnow());
+		}
+		WilderSharedConstants.log("Wilder Wild's Overworld No Preliminary Surface Surface Rules have been added!", true);
 	}
 }

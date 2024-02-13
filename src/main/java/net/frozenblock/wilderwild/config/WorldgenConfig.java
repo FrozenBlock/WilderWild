@@ -53,6 +53,9 @@ public final class WorldgenConfig {
 	@EntrySyncData("betaBeaches")
 	public boolean betaBeaches = true;
 
+	@EntrySyncData("snowUnderMountains")
+	public boolean snowUnderMountains = true;
+
 	@EntrySyncData("dyingTrees")
 	public boolean dyingTrees = true;
 
@@ -213,6 +216,9 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateMagmaticCaves")
 		public boolean generateMagmaticCaves = true;
+
+		@EntrySyncData("generateFrozenCaves")
+		public boolean generateFrozenCaves = true;
 	}
 
 	public static class WaterColors {

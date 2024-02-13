@@ -105,6 +105,8 @@ public final class MixinsConfig {
 
 	public boolean entity_slime = true;
 
+	public boolean entity_stray = true;
+
 	public boolean entity_tumbleweed = true;
 
 	public boolean entity_turtle = true;

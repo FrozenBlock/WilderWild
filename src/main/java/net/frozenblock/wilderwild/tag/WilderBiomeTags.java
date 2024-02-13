@@ -201,6 +201,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
 	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("multi_layer_sand_beaches");
+	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("below_surface_snow");
+	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("strays_can_spawn_underground");
 	public static final TagKey<Biome> LUKEWARM_WATER = bind("lukewarm_water");
 	public static final TagKey<Biome> HOT_WATER = bind("hot_water");
 	public static final TagKey<Biome> SNOWY_WATER = bind("snowy_water");

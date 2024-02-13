@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
@@ -147,7 +146,7 @@ public final class JellyfishCaves extends FrozenBiome {
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
 		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.JELLYFISH_STONE_POOL.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);

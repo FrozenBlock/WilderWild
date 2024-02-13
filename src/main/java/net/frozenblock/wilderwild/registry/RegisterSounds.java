@@ -40,6 +40,8 @@ public final class RegisterSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_LOOP = registerForHolder("ambient.lush_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_ADDITIONS = registerForHolder("ambient.magmatic_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_LOOP = registerForHolder("ambient.magmatic_caves.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_ADDITIONS = registerForHolder("ambient.frozen_caves.additions");
+	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_LOOP = registerForHolder("ambient.frozen_caves.loop");
 	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
 
 	//BLOCK
@@ -333,6 +335,7 @@ public final class RegisterSounds {
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
