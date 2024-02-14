@@ -103,7 +103,7 @@ import net.minecraft.world.level.gameevent.EntityPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -160,12 +160,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
 		this.jumpControl = new CrabJumpControl(this);
 		this.prevMovement = Vec3.ZERO;
-		this.setPathfindingMalus(BlockPathTypes.LAVA, -1F);
-		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1F);
-		this.setPathfindingMalus(BlockPathTypes.WATER, 0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0F);
+		this.setPathfindingMalus(PathType.LAVA, -1F);
+		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
+		this.setPathfindingMalus(PathType.WATER, 0F);
+		this.setPathfindingMalus(PathType.WATER_BORDER, 0F);
 		if (EntityConfig.get().unpassableRail) {
-			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0F);
+			this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 		}
 		this.moveControl = new CrabMoveControl(this);
 	}
