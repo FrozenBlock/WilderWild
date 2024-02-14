@@ -701,7 +701,7 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		ORE_ICE.makeAndSetHolder(WilderMiscConfigured.ICE_PILE.getHolder(),
+		ORE_ICE.makeAndSetHolder(WilderMiscConfigured.ORE_ICE.getHolder(),
 			modifiersWithCount(25, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
