@@ -1472,7 +1472,7 @@ public final class WilderMiscConfigured {
 			new OreConfiguration(
 				new TagMatchTest(WilderBlockTags.PACKED_ICE_REPLACEABLE),
 				Blocks.ICE.defaultBlockState(),
-				64
+				32
 			)
 		);
 
