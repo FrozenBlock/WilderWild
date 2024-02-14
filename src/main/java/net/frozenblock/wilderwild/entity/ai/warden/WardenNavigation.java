@@ -25,7 +25,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
@@ -75,8 +75,8 @@ public class WardenNavigation extends GroundPathNavigation {
 	}
 
 	@Override
-	protected boolean hasValidPathType(@NotNull BlockPathTypes pathType) {
-		return EntityConfig.get().warden.wardenSwims ? pathType != BlockPathTypes.OPEN : super.hasValidPathType(pathType);
+	protected boolean hasValidPathType(@NotNull PathType pathType) {
+		return EntityConfig.get().warden.wardenSwims ? pathType != PathType.OPEN : super.hasValidPathType(pathType);
 	}
 
 	@Override
