@@ -24,6 +24,7 @@ import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -55,6 +57,7 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_1);
 	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING);
 	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING);
+	public static final Climate.Parameter DEPTH = Climate.Parameter.span(0.1F, 0.2F);
 	public static final float OFFSET = 0.000F;
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
@@ -159,14 +162,19 @@ public final class FrozenCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.PACKED_ICE_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.SNOW_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.POWDER_SNOW_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_ICE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.SNOW_DISK_UPPER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.POWDER_SNOW_DISK_UPPER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.SNOW_DISK_LOWER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.POWDER_SNOW_DISK_LOWER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_BIG_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.DOWNWARDS_PACKED_ICE_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.DOWNWARDS_ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_SPIKE.getKey());
 	}
 
 	@Override
@@ -184,7 +192,7 @@ public final class FrozenCaves extends FrozenBiome {
 						HUMIDITY,
 						CONTINENTALNESS,
 						EROSION,
-						Climate.Parameter.span(0.1F, 0.2F),
+						DEPTH,
 						WEIRDNESS_A,
 						OFFSET
 					),
@@ -198,13 +206,77 @@ public final class FrozenCaves extends FrozenBiome {
 						HUMIDITY,
 						CONTINENTALNESS,
 						EROSION,
-						Climate.Parameter.span(0.1F, 0.2F),
+						DEPTH,
 						WEIRDNESS_B,
 						OFFSET
 					),
 					this.getKey()
 				)
 			);
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FROZEN_PEAKS)) {
+				parameters.accept(
+					Pair.of(
+						Climate.parameters(
+							point.temperature(),
+							point.humidity(),
+							point.continentalness(),
+							point.erosion(),
+							DEPTH,
+							point.weirdness(),
+							point.offset()
+						),
+						this.getKey()
+					)
+				);
+			}
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JAGGED_PEAKS)) {
+				parameters.accept(
+					Pair.of(
+						Climate.parameters(
+							point.temperature(),
+							point.humidity(),
+							point.continentalness(),
+							point.erosion(),
+							DEPTH,
+							point.weirdness(),
+							point.offset()
+						),
+						this.getKey()
+					)
+				);
+			}
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.GROVE)) {
+				parameters.accept(
+					Pair.of(
+						Climate.parameters(
+							point.temperature(),
+							point.humidity(),
+							point.continentalness(),
+							point.erosion(),
+							DEPTH,
+							point.weirdness(),
+							point.offset()
+						),
+						this.getKey()
+					)
+				);
+			}
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES)) {
+				parameters.accept(
+					Pair.of(
+						Climate.parameters(
+							point.temperature(),
+							point.humidity(),
+							point.continentalness(),
+							point.erosion(),
+							DEPTH,
+							point.weirdness(),
+							point.offset()
+						),
+						this.getKey()
+					)
+				);
+			}
 		}
 	}
 

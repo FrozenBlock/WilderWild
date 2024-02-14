@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:ice_column",
+  "feature": "wilderwild:downwards_packed_ice_column",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 20,
-          "min_inclusive": 10
+          "max_inclusive": 80,
+          "min_inclusive": 40
         }
       }
     },
@@ -32,7 +32,7 @@
         "type": "minecraft:matching_blocks",
         "blocks": "minecraft:air"
       },
-      "direction_of_search": "down",
+      "direction_of_search": "up",
       "max_steps": 12,
       "target_condition": {
         "type": "minecraft:solid"

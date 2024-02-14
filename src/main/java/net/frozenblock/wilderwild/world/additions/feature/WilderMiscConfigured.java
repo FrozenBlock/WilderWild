@@ -65,6 +65,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -156,11 +157,14 @@ public final class WilderMiscConfigured {
 	// FROZEN CAVES
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_PATH = register("packed_ice_path");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> PACKED_ICE_DISK = register("packed_ice_disk");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_COLUMN = register("packed_ice_column");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> ICE_DISK = register("ice_disk");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_COLUMN = register("ice_column");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_ICE_COLUMN = register("downwards_ice_column");
-	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_SPIKE = register("ice_spike");
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> ICE_PILE = register("ice_pile");
+	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_ICE = register("ore_ice");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SNOW_DISK = register("snow_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> POWDER_SNOW_DISK = register("powder_snow_disk");
 
@@ -1149,6 +1153,23 @@ public final class WilderMiscConfigured {
 							WilderBlockTags.PACKED_ICE_REPLACEABLE,
 							1F
 						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							14,
+							4,
+							0.0325D,
+							0.15D,
+							0.3D,
+							true,
+							true,
+							true,
+							true,
+							WilderBlockTags.PACKED_ICE_REPLACEABLE,
+							1F
+						)
 					)
 				)
 			)
@@ -1167,6 +1188,167 @@ public final class WilderMiscConfigured {
 				WilderBlockTags.PACKED_ICE_REPLACEABLE,
 				WilderBlockTags.PACKED_ICE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		PACKED_ICE_COLUMN.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(5, 13),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 12),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 10),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 8),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					)
+				)
+			)
+		);
+
+		DOWNWARDS_PACKED_ICE_COLUMN.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(4, 9),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 8),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 8),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 7),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					)
+				)
+			)
+		);
+
+		PACKED_ICE_BIG_COLUMN.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(8, 15),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(5, 13),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(2, 14),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 14),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 14),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.PACKED_ICE.defaultBlockState(),
+							UniformInt.of(0, 12),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					)
+				)
 			)
 		);
 
@@ -1192,29 +1374,42 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
-							UniformInt.of(5, 13),
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(3, 7),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					),
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
+							Blocks.ICE.defaultBlockState(),
 							UniformInt.of(0, 5),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					),
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 6),
+							HolderSet.direct()
+						),
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						new ColumnFeatureConfig(
+							Blocks.ICE.defaultBlockState(),
 							UniformInt.of(0, 5),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					)
 				)
 			)
@@ -1227,80 +1422,41 @@ public final class WilderMiscConfigured {
 						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
 							Blocks.ICE.defaultBlockState(),
-							UniformInt.of(4, 9),
+							UniformInt.of(2, 6),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					),
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
 							Blocks.ICE.defaultBlockState(),
-							UniformInt.of(0, 6),
+							UniformInt.of(0, 4),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					),
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
 							Blocks.ICE.defaultBlockState(),
-							UniformInt.of(0, 6),
+							UniformInt.of(0, 5),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
-					)
-				)
-			)
-		);
-
-		ICE_SPIKE.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
-					PlacementUtils.inlinePlaced(
-						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
-						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
-							UniformInt.of(4, 15),
-							HolderSet.direct()
-						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+						FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
-							UniformInt.of(0, 15),
+							Blocks.ICE.defaultBlockState(),
+							UniformInt.of(0, 4),
 							HolderSet.direct()
 						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
-						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
-							UniformInt.of(0, 15),
-							HolderSet.direct()
-						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
-						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
-							UniformInt.of(0, 8),
-							HolderSet.direct()
-						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
-						new ColumnFeatureConfig(
-							Blocks.PACKED_ICE.defaultBlockState(),
-							UniformInt.of(0, 8),
-							HolderSet.direct()
-						),
-						RandomOffsetPlacement.horizontal(UniformInt.of(-1, 1))
+						RandomOffsetPlacement.horizontal(UniformInt.of(0, 1)),
+						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12)
 					)
 				)
 			)
@@ -1309,6 +1465,14 @@ public final class WilderMiscConfigured {
 		ICE_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
 			new BlockPileConfiguration(
 				BlockStateProvider.simple(Blocks.ICE)
+			)
+		);
+
+		ORE_ICE.makeAndSetHolder(Feature.ORE,
+			new OreConfiguration(
+				new TagMatchTest(WilderBlockTags.PACKED_ICE_REPLACEABLE),
+				Blocks.ICE.defaultBlockState(),
+				64
 			)
 		);
 

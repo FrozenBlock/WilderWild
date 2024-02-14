@@ -9,13 +9,13 @@
             "height": {
               "type": "minecraft:uniform",
               "value": {
-                "max_inclusive": 13,
-                "min_inclusive": 5
+                "max_inclusive": 7,
+                "min_inclusive": 3
               }
             },
             "replaceable_blocks": [],
             "state": {
-              "Name": "minecraft:packed_ice"
+              "Name": "minecraft:ice"
             }
           }
         },
@@ -26,10 +26,22 @@
               "type": "minecraft:uniform",
               "value": {
                 "max_inclusive": 1,
-                "min_inclusive": -1
+                "min_inclusive": 0
               }
             },
             "y_spread": 0
+          },
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:air"
+            },
+            "direction_of_search": "down",
+            "max_steps": 12,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
           }
         ]
       },
@@ -46,7 +58,7 @@
             },
             "replaceable_blocks": [],
             "state": {
-              "Name": "minecraft:packed_ice"
+              "Name": "minecraft:ice"
             }
           }
         },
@@ -57,10 +69,65 @@
               "type": "minecraft:uniform",
               "value": {
                 "max_inclusive": 1,
-                "min_inclusive": -1
+                "min_inclusive": 0
               }
             },
             "y_spread": 0
+          },
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:air"
+            },
+            "direction_of_search": "down",
+            "max_steps": 12,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
+          }
+        ]
+      },
+      {
+        "feature": {
+          "type": "frozenlib:upwards_column",
+          "config": {
+            "height": {
+              "type": "minecraft:uniform",
+              "value": {
+                "max_inclusive": 6,
+                "min_inclusive": 0
+              }
+            },
+            "replaceable_blocks": [],
+            "state": {
+              "Name": "minecraft:ice"
+            }
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": {
+              "type": "minecraft:uniform",
+              "value": {
+                "max_inclusive": 1,
+                "min_inclusive": 0
+              }
+            },
+            "y_spread": 0
+          },
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:air"
+            },
+            "direction_of_search": "down",
+            "max_steps": 12,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
           }
         ]
       },
@@ -77,7 +144,7 @@
             },
             "replaceable_blocks": [],
             "state": {
-              "Name": "minecraft:packed_ice"
+              "Name": "minecraft:ice"
             }
           }
         },
@@ -88,10 +155,22 @@
               "type": "minecraft:uniform",
               "value": {
                 "max_inclusive": 1,
-                "min_inclusive": -1
+                "min_inclusive": 0
               }
             },
             "y_spread": 0
+          },
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:air"
+            },
+            "direction_of_search": "down",
+            "max_steps": 12,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
           }
         ]
       }

@@ -1,15 +1,9 @@
 {
-  "feature": "wilderwild:ice_column",
+  "feature": "wilderwild:powder_snow_disk",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 20,
-          "min_inclusive": 10
-        }
-      }
+      "count": 13
     },
     {
       "type": "minecraft:in_square"
@@ -22,7 +16,7 @@
           "absolute": 256
         },
         "min_inclusive": {
-          "above_bottom": 0
+          "absolute": 48
         }
       }
     },

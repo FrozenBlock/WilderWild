@@ -127,13 +127,18 @@ public final class WilderMiscPlaced {
 	// FROZEN CAVES
 	public static final FrozenPlacedFeature PACKED_ICE_PATH = register("packed_ice_path");
 	public static final FrozenPlacedFeature PACKED_ICE_DISK = register("packed_ice_disk");
+	public static final FrozenPlacedFeature PACKED_ICE_COLUMN = register("packed_ice_column");
+	public static final FrozenPlacedFeature DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
+	public static final FrozenPlacedFeature PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
 	public static final FrozenPlacedFeature ICE_DISK = register("ice_disk");
 	public static final FrozenPlacedFeature ICE_COLUMN = register("ice_column");
 	public static final FrozenPlacedFeature DOWNWARDS_ICE_COLUMN = register("downwards_ice_column");
-	public static final FrozenPlacedFeature ICE_SPIKE = register("ice_spike");
 	public static final FrozenPlacedFeature ICE_PILE = register("ice_pile");
-	public static final FrozenPlacedFeature SNOW_DISK = register("snow_disk");
-	public static final FrozenPlacedFeature POWDER_SNOW_DISK = register("powder_snow_disk");
+	public static final FrozenPlacedFeature ORE_ICE = register("ore_ice");
+	public static final FrozenPlacedFeature SNOW_DISK_UPPER = register("snow_disk_upper");
+	public static final FrozenPlacedFeature POWDER_SNOW_DISK_UPPER = register("powder_snow_disk_upper");
+	public static final FrozenPlacedFeature SNOW_DISK_LOWER = register("snow_disk_lower");
+	public static final FrozenPlacedFeature POWDER_SNOW_DISK_LOWER = register("powder_snow_disk_lower");
 	// OASIS
 	public static final FrozenPlacedFeature SAND_POOL = register("sand_pool");
 	public static final FrozenPlacedFeature MESSY_SAND_POOL = register("messy_sand_pool");
@@ -641,15 +646,39 @@ public final class WilderMiscPlaced {
 		);
 
 		PACKED_ICE_DISK.makeAndSetHolder(WilderMiscConfigured.PACKED_ICE_DISK.getHolder(),
-			modifiersWithCount(36, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(42, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+		);
+
+		PACKED_ICE_COLUMN.makeAndSetHolder(WilderMiscConfigured.PACKED_ICE_COLUMN.getHolder(),
+			CountPlacement.of(UniformInt.of(45, 80)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
+		);
+
+		DOWNWARDS_PACKED_ICE_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_PACKED_ICE_COLUMN.getHolder(),
+			CountPlacement.of(UniformInt.of(40, 80)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
+		);
+
+		PACKED_ICE_BIG_COLUMN.makeAndSetHolder(WilderMiscConfigured.PACKED_ICE_BIG_COLUMN.getHolder(),
+			CountPlacement.of(UniformInt.of(24, 44)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
 		);
 
 		ICE_DISK.makeAndSetHolder(WilderMiscConfigured.ICE_DISK.getHolder(),
-			modifiersWithCount(28, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		ICE_COLUMN.makeAndSetHolder(WilderMiscConfigured.ICE_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(65, 100)),
+			CountPlacement.of(UniformInt.of(10, 20)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
@@ -657,19 +686,10 @@ public final class WilderMiscPlaced {
 		);
 
 		DOWNWARDS_ICE_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_ICE_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(60, 100)),
+			CountPlacement.of(UniformInt.of(10, 20)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
-		);
-
-
-		ICE_SPIKE.makeAndSetHolder(WilderMiscConfigured.ICE_SPIKE.getHolder(),
-			CountPlacement.of(UniformInt.of(24, 44)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			BiomeFilter.biome()
 		);
 
@@ -681,12 +701,40 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		POWDER_SNOW_DISK.makeAndSetHolder(WilderMiscConfigured.POWDER_SNOW_DISK.getHolder(),
-			modifiersWithCount(17, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+		ORE_ICE.makeAndSetHolder(WilderMiscConfigured.ICE_PILE.getHolder(),
+			modifiersWithCount(25, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		SNOW_DISK.makeAndSetHolder(WilderMiscConfigured.SNOW_DISK.getHolder(),
-			modifiersWithCount(28, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+		POWDER_SNOW_DISK_LOWER.makeAndSetHolder(WilderMiscConfigured.POWDER_SNOW_DISK.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
+		);
+
+		SNOW_DISK_LOWER.makeAndSetHolder(WilderMiscConfigured.SNOW_DISK.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
+		);
+
+		POWDER_SNOW_DISK_UPPER.makeAndSetHolder(WilderMiscConfigured.POWDER_SNOW_DISK.getHolder(),
+			CountPlacement.of(13),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(48), VerticalAnchor.absolute(256)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
+		);
+
+		SNOW_DISK_UPPER.makeAndSetHolder(WilderMiscConfigured.SNOW_DISK.getHolder(),
+			CountPlacement.of(20),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(48), VerticalAnchor.absolute(256)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BiomeFilter.biome()
 		);
 
 		// OASIS

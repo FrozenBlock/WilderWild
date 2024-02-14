@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:ice_column",
+  "feature": "wilderwild:packed_ice_column",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 20,
-          "min_inclusive": 10
+          "max_inclusive": 80,
+          "min_inclusive": 45
         }
       }
     },

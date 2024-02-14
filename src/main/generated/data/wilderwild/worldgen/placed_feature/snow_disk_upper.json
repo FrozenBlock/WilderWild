@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 28
+      "count": 20
     },
     {
       "type": "minecraft:in_square"
@@ -16,8 +16,20 @@
           "absolute": 256
         },
         "min_inclusive": {
-          "above_bottom": 0
+          "absolute": 48
         }
+      }
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      },
+      "direction_of_search": "down",
+      "max_steps": 12,
+      "target_condition": {
+        "type": "minecraft:solid"
       }
     },
     {
