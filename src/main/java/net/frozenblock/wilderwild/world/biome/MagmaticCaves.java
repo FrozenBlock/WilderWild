@@ -54,8 +54,8 @@ public final class MagmaticCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.WARM, Temperature.HOT);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.NEUTRAL);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_2, Erosion.EROSION_4);
-	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.weirdnesses[0], Weirdness.weirdnesses[9]);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_2, Erosion.EROSION_5);
+	public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
 	public static final float OFFSET = 0.000F;
 	public static final float TEMP = 2.0F;
 	public static final float DOWNFALL = 0.4F;
