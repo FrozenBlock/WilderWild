@@ -702,7 +702,7 @@ public final class WilderMiscPlaced {
 		);
 
 		ORE_ICE.makeAndSetHolder(WilderMiscConfigured.ORE_ICE.getHolder(),
-			modifiersWithCount(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		POWDER_SNOW_DISK_LOWER.makeAndSetHolder(WilderMiscConfigured.POWDER_SNOW_DISK.getHolder(),
