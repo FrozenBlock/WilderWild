@@ -82,7 +82,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -109,11 +109,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
 		super(entityType, level);
-		this.setPathfindingMalus(BlockPathTypes.LAVA, -1F);
-		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1F);
-		this.setPathfindingMalus(BlockPathTypes.WATER, -1F);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16F);
-		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0F);
+		this.setPathfindingMalus(PathType.LAVA, -1F);
+		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
+		this.setPathfindingMalus(PathType.WATER, -1F);
+		this.setPathfindingMalus(PathType.WATER_BORDER, 16F);
+		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setFlickers(this.random.nextInt(FLICKERS_CHANCE) == 0);
 		this.setFlickerAge(this.random.nextIntBetweenInclusive(0, RANDOM_FLICKER_AGE_MAX));
