@@ -21,10 +21,10 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
+import net.frozenblock.wilderwild.world.generation.conditionsource.SnowUnderMountainConditionSource;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -434,15 +434,18 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource belowSurfaceSnow() {
+	public static SurfaceRules.RuleSource snowUnderMountains() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.BELOW_SURFACE_SNOW),
-			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
-				SurfaceRules.ifTrue(
-					SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
+			SnowUnderMountainConditionSource.snowUnderMountainConditionSource(),
+			SurfaceRules.ifTrue(
+				FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.BELOW_SURFACE_SNOW),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 					SurfaceRules.ifTrue(
-						SurfaceRules.waterBlockCheck(0, 0),
-						FrozenSurfaceRules.makeStateRule(Blocks.SNOW_BLOCK)
+						SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
+						SurfaceRules.ifTrue(
+							SurfaceRules.waterBlockCheck(0, 0),
+							FrozenSurfaceRules.makeStateRule(Blocks.SNOW_BLOCK)
+						)
 					)
 				)
 			)
@@ -452,9 +455,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
 		context.add(frozenCavesSnow());
-		if (WorldgenConfig.get().snowUnderMountains) {
-			context.add(belowSurfaceSnow());
-		}
-		WilderSharedConstants.log("Wilder Wild's Overworld No Preliminary Surface Surface Rules have been added!", true);
+		context.add(snowUnderMountains());
+		WilderSharedConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}
 }
