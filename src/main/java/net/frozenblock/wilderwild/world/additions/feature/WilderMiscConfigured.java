@@ -1192,7 +1192,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(5, 13),
 							HolderSet.direct()
 						),
@@ -1201,7 +1201,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(0, 5),
 							HolderSet.direct()
 						),
@@ -1210,7 +1210,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(0, 5),
 							HolderSet.direct()
 						),
@@ -1260,7 +1260,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(4, 15),
 							HolderSet.direct()
 						),
@@ -1269,7 +1269,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(0, 15),
 							HolderSet.direct()
 						),
@@ -1278,7 +1278,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(0, 15),
 							HolderSet.direct()
 						),
@@ -1287,7 +1287,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(0, 8),
 							HolderSet.direct()
 						),
@@ -1296,7 +1296,7 @@ public final class WilderMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 						new ColumnFeatureConfig(
-							Blocks.ICE.defaultBlockState(),
+							Blocks.PACKED_ICE.defaultBlockState(),
 							UniformInt.of(0, 8),
 							HolderSet.direct()
 						),

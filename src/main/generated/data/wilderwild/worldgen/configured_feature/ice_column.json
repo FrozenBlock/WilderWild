@@ -15,7 +15,7 @@
             },
             "replaceable_blocks": [],
             "state": {
-              "Name": "minecraft:ice"
+              "Name": "minecraft:packed_ice"
             }
           }
         },
@@ -46,7 +46,7 @@
             },
             "replaceable_blocks": [],
             "state": {
-              "Name": "minecraft:ice"
+              "Name": "minecraft:packed_ice"
             }
           }
         },
@@ -77,7 +77,7 @@
             },
             "replaceable_blocks": [],
             "state": {
-              "Name": "minecraft:ice"
+              "Name": "minecraft:packed_ice"
             }
           }
         },

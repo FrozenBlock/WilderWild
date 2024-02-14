@@ -136,7 +136,7 @@ public final class FrozenCaves extends FrozenBiome {
 
 	@Override
 	public @NotNull AmbientAdditionsSettings ambientAdditionsSound() {
-		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.001D);
+		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.003D);
 	}
 
 	@Override
