@@ -213,6 +213,7 @@ public final class FrozenCaves extends FrozenBiome {
 					this.getKey()
 				)
 			);
+			/*
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FROZEN_PEAKS)) {
 				parameters.accept(
 					Pair.of(
@@ -277,6 +278,7 @@ public final class FrozenCaves extends FrozenBiome {
 					)
 				);
 			}
+			 */
 		}
 	}
 
