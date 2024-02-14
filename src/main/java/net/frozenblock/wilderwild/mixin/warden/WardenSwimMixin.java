@@ -43,7 +43,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -144,9 +144,9 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$wardenEntity(EntityType<? extends Monster> entityType, Level level, CallbackInfo ci) {
 		Warden wardenEntity = Warden.class.cast(this);
-		wardenEntity.setPathfindingMalus(PathType.WATER, 0F);
-		wardenEntity.setPathfindingMalus(PathType.POWDER_SNOW, -1F);
-		wardenEntity.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1F);
+		wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0F);
+		wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1F);
+		wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1F);
 		this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80F, 0.13F, 1F);
 		this.lookControl = new WardenLookControl(wardenEntity, 10);
 	}

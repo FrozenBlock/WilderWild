@@ -33,7 +33,16 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public class WalkNodeEvaluatorMixin {
 
 	@WrapOperation(
-		method = "getPathTypeFromState",
+		method = "checkNeighbourBlocks",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0),
+		slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;CACTUS:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.GETSTATIC))
+	)
+	private static boolean wilderWild$checkNeighbourBlocksWithPricklyPear(BlockState blockState, Block block, Operation<Boolean> operation) {
+		return operation.call(blockState, block) || operation.call(blockState, RegisterBlocks.PRICKLY_PEAR_CACTUS);
+	}
+
+	@WrapOperation(
+		method = "getBlockPathTypeRaw",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0),
 		slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;CACTUS:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.GETSTATIC))
 	)

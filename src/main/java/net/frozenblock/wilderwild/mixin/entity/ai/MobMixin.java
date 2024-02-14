@@ -25,7 +25,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,14 +37,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MobMixin {
 
 	@Shadow
-	public void setPathfindingMalus(PathType pathType, float malus) {
+	public void setPathfindingMalus(BlockPathTypes nodeType, float malus) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild MobMixin.");
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo info) {
 		if (EntityConfig.get().unpassableRail) {
-			this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0.0F);
+			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
 		}
 	}
 
