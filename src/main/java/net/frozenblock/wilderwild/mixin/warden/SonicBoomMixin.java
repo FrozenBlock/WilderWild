@@ -19,8 +19,7 @@
 package net.frozenblock.wilderwild.mixin.warden;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -61,28 +60,28 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Unique
 	private boolean wilderWild$particlesEnded = false;
 
-	@ModifyVariable(
-		method = "method_43265",
-		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"),
-		ordinal = 0
+	@ModifyVariable(method = "method_43265",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
+		),
+		ordinal = 1
 	)
-	private static Vec3 wilderWild$modifyVec(Vec3 value, @Share("wilderWild$vec32") LocalRef<Vec3> vec32Ref) {
-		vec32Ref.set(value);
-		return value;
-	}
-
-	@ModifyVariable(method = "method_43265", at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3))
-	private static int wilderWild$modifyInt(int original, @Share("wilderWild$vec32") LocalRef<Vec3> vec32Ref) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Mth.floor(vec32Ref.get().length()) + 10 : original;
+	private static int wilderWild$modifyInt(int original, @Local(ordinal = 0) int particleEnd) {
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? particleEnd : original;
 	}
 
 	@Inject(
 		method = "method_43265",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I", shift = At.Shift.BEFORE),
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I",
+			shift = At.Shift.BEFORE
+		),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private static void wilderWild$stopParticles(Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, Vec3 vec34) {
-		BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
+	private static void wilderWild$stopParticles(Warden warden, ServerLevel serverLevel, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, int j, Vec3 vec34) {
+		BlockPos hitPos = wilderWild$isOccluded(serverLevel, vec3, vec34);
 		if (hitPos != null) {
 			((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
 		}
@@ -90,7 +89,10 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@Inject(
 		method = "method_43265",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"),
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"
+		),
 		locals = LocalCapture.CAPTURE_FAILHARD,
 		cancellable = true
 	)
@@ -110,7 +112,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@ModifyExpressionValue(
 		method = "method_43265",
-		at = @At(value = "FIELD", target = "Lnet/minecraft/sounds/SoundEvents;WARDEN_SONIC_BOOM:Lnet/minecraft/sounds/SoundEvent;", opcode = Opcodes.GETSTATIC)
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/sounds/SoundEvents;WARDEN_SONIC_BOOM:Lnet/minecraft/sounds/SoundEvent;",
+			opcode = Opcodes.GETSTATIC
+		)
 	)
 	private static SoundEvent wilderWild$modifySound(SoundEvent original, Warden warden) {
 		return ((WilderWarden) warden).wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_BRAP : original;
@@ -142,7 +148,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@ModifyArg(
 		method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V",
-		at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1)
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V",
+			ordinal = 1
+		)
 	)
 	private Consumer<? super LivingEntity> wilderWild$setCurrent(Consumer<? super LivingEntity> original) {
 		return target -> {
