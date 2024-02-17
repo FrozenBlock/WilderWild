@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -104,6 +105,19 @@ public final class RegisterEntities {
 			.defaultAttributes(Ostrich::createAttributes)
 			.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ostrich::checkOstrichSpawnRules)
 			.dimensions(EntityDimensions.scalable(1.1F, 2.3F).withEyeHeight(2.3F)) // eye height is hitbox height
+			.build()
+	);
+
+	public static final EntityType<Scorched> SCORCHED = register(
+		"scorched",
+		FabricEntityTypeBuilder.createMob()
+			.spawnGroup(MobCategory.MONSTER)
+			.entityFactory(Scorched::new)
+			.defaultAttributes(Scorched::createAttributes)
+			.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Scorched::checkScorchedSpawnRules)
+			.dimensions(EntityDimensions.scalable(1.4F, 0.9F).withEyeHeight(0.65F))
+			.fireImmune()
+			.trackRangeChunks(8)
 			.build()
 	);
 

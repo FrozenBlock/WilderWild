@@ -387,6 +387,11 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.MINEABLE_WITH_HOE)
 			.addOptionalTag(BlockTags.WOOL);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.SCORCHED_ALWAYS_SPAWNABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.add(Blocks.MAGMA_BLOCK)
+			.add(Blocks.BASALT);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CAN_PASS_THROUGH)
 			.addOptionalTag(BlockTags.TRAPDOORS)
 			.add(Blocks.COPPER_GRATE)
