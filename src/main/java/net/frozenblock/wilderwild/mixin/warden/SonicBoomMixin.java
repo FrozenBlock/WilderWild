@@ -68,7 +68,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		ordinal = 0
 	)
 	private static int wilderWild$modifyInt(int original, @Local(ordinal = 1) Vec3 positionOffset) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Mth.floor(positionOffset.length()) + 10 : original;
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Integer.MAX_VALUE : original;
 	}
 
 	@Inject(
