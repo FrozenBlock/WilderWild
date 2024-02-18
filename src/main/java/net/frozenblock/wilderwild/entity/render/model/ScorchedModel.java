@@ -58,7 +58,7 @@ public class ScorchedModel<T extends Scorched> extends SpiderModel<T> {
 		this.body1.zRot += (float) (Math.sin(-ageInTicks * 0.05F) * 7.5F) * lavaProgToRad;
 
 		float easyLimbSwing = limbSwing * 0.6662F * 0.75F;
-		float yRotA = (0.7853982F * 1F) - (Mth.cos(easyLimbSwing) * 0.8F * limbSwingAmount);
+		float yRotA = (0.7853982F) - (Mth.cos(easyLimbSwing) * 0.8F * limbSwingAmount);
 		float zRotA = (-0.7853982F * 0.5F) + (Mth.sin(-easyLimbSwing) * 0.8F * limbSwingAmount);
 		this.rightHindLeg.yRot = Mth.lerp(lavaProgress, this.rightHindLeg.yRot, yRotA);
 		this.rightHindLeg.zRot = Mth.lerp(lavaProgress, this.rightHindLeg.zRot, zRotA);
@@ -67,8 +67,8 @@ public class ScorchedModel<T extends Scorched> extends SpiderModel<T> {
 		this.leftHindLeg.zRot = Mth.lerp(lavaProgress, this.leftHindLeg.zRot, -zRotA);
 		this.leftHindLeg.y -= yPos * lavaProgress;
 
-		float yRotB = (0.3926991F * 1F) - (Mth.cos((easyLimbSwing) + Mth.HALF_PI * 0.5F) * 0.8F * limbSwingAmount);
-		float zRotB = (-0.58119464F * 0.5F) + (Mth.sin((-easyLimbSwing) + Mth.HALF_PI * 0.5F) * 0.8F * limbSwingAmount);
+		float yRotB = (0.3926991F) - (Mth.cos((easyLimbSwing) + (Mth.HALF_PI * 0.5F)) * 0.8F * limbSwingAmount);
+		float zRotB = (-0.58119464F * 0.5F) + (Mth.sin((-easyLimbSwing) + (Mth.HALF_PI * 0.5F)) * 0.8F * limbSwingAmount);
 		this.rightMiddleHindLeg.yRot = Mth.lerp(lavaProgress, this.rightMiddleHindLeg.yRot, yRotB);
 		this.rightMiddleHindLeg.zRot = Mth.lerp(lavaProgress, this.rightMiddleHindLeg.zRot, zRotB);
 		this.rightMiddleHindLeg.y -= yPos * lavaProgress;
@@ -76,7 +76,7 @@ public class ScorchedModel<T extends Scorched> extends SpiderModel<T> {
 		this.leftMiddleHindLeg.zRot = Mth.lerp(lavaProgress, this.leftMiddleHindLeg.zRot, -zRotB);
 		this.leftMiddleHindLeg.y -= yPos * lavaProgress;
 
-		float yRotC = (-0.3926991F * 1F) - (Mth.cos((-easyLimbSwing) + Mth.HALF_PI) * 0.8F * limbSwingAmount);
+		float yRotC = (-0.3926991F) - (Mth.cos((-easyLimbSwing) + Mth.HALF_PI) * 0.8F * limbSwingAmount);
 		float zRotC = (-0.58119464F * 0.5F) + (Mth.sin((easyLimbSwing) + Mth.HALF_PI) * 0.8F * limbSwingAmount);
 		this.rightMiddleFrontLeg.yRot = Mth.lerp(lavaProgress, this.rightMiddleFrontLeg.yRot, yRotC);
 		this.rightMiddleFrontLeg.zRot = Mth.lerp(lavaProgress, this.rightMiddleFrontLeg.zRot, zRotC);
@@ -85,8 +85,8 @@ public class ScorchedModel<T extends Scorched> extends SpiderModel<T> {
 		this.leftMiddleFrontLeg.zRot = Mth.lerp(lavaProgress, this.leftMiddleFrontLeg.zRot, -zRotC);
 		this.leftMiddleFrontLeg.y -= yPos * lavaProgress;
 
-		float yRotD = (-0.7853982F * 1F) - (Mth.cos((-easyLimbSwing) + Mth.HALF_PI + Mth.HALF_PI * 0.5F) * 0.8F * limbSwingAmount);
-		float zRotD = (-0.7853982F * 0.5F) + (Mth.sin((easyLimbSwing) + Mth.HALF_PI + Mth.HALF_PI * 0.5F) * 0.8F * limbSwingAmount);
+		float yRotD = (-0.7853982F) - (Mth.cos((-easyLimbSwing) + Mth.HALF_PI + (Mth.HALF_PI * 0.5F)) * 0.8F * limbSwingAmount);
+		float zRotD = (-0.7853982F * 0.5F) + (Mth.sin((easyLimbSwing) + Mth.HALF_PI + (Mth.HALF_PI * 0.5F)) * 0.8F * limbSwingAmount);
 		this.rightFrontLeg.yRot = Mth.lerp(lavaProgress, this.rightFrontLeg.yRot, yRotD);
 		this.rightFrontLeg.zRot = Mth.lerp(lavaProgress, this.rightFrontLeg.zRot, zRotD);
 		this.rightFrontLeg.y -= yPos * lavaProgress;
