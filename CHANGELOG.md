@@ -14,6 +14,7 @@ Additions
   - Fossils generate much more frequently in this biome.
   - Contains the new Geyser block
   - Generates in hotter areas of the world.
+  - The Scorched will frequently spawn here.
 
 - Added the Geyser!
   - Will occasionally erupt, pushing entities in the direction it's facing.
@@ -29,6 +30,11 @@ Additions
    - Added the `wilderwild:geyser_cannot_pass_through` tag to control what blocks an Eruption can never pass through, regardless of block support shape.
      - Currently contains the `c:glass_blocks` tag.
   - Requires a Stone Pickaxe or stronger to be obtained.
+
+- Added the Scorched!
+  - A new Spider variant that is fire-resistant and can walk on Lava.
+  - Is more resistant to fall damage than regular Spiders.
+  - Will avoid Water, and cannot swim in it.
 
 - Added the Frozen Caves biome.
   - Ice wasn't built in a day! Or was it?

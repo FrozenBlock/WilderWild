@@ -117,7 +117,6 @@ public class Scorched extends Spider {
 		this.playSound(this.isInLava() ? RegisterSounds.ENTITY_SCORCHED_STEP_LAVA : RegisterSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
 	}
 
-
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return RegisterSounds.ENTITY_SCORCHED_AMBIENT;
