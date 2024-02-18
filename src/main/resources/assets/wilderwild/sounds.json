@@ -2654,6 +2654,60 @@
     ],
     "subtitle": "subtitles.entity.ostrich.inbred.beak.swing"
   },
+  "entity.scorched.ambient": {
+    "sounds": [
+      "wilderwild:mob/scorched/say1",
+      "wilderwild:mob/scorched/say2",
+      "wilderwild:mob/scorched/say3",
+      "wilderwild:mob/scorched/say4"
+    ],
+    "subtitle": "subtitles.entity.scorched.ambient"
+  },
+  "entity.scorched.death": {
+    "sounds": [
+      "wilderwild:mob/scorched/death"
+    ],
+    "subtitle": "subtitles.entity.scorched.death"
+  },
+  "entity.scorched.hurt": {
+    "sounds": [
+      "wilderwild:mob/scorched/say1",
+      "wilderwild:mob/scorched/say2",
+      "wilderwild:mob/scorched/say3",
+      "wilderwild:mob/scorched/say4"
+    ],
+    "subtitle": "subtitles.entity.scorched.hurt"
+  },
+  "entity.scorched.step": {
+    "sounds": [
+      "wilderwild:mob/scorched/step1",
+      "wilderwild:mob/scorched/step2",
+      "wilderwild:mob/scorched/step3",
+      "wilderwild:mob/scorched/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.scorched.step_lava": {
+    "sounds": [
+      {
+        "name": "wilderwild:mob/scorched/step_lava1",
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:mob/scorched/step_lava2",
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:mob/scorched/step_lava3",
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:mob/scorched/step_lava4",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",

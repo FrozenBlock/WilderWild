@@ -19,13 +19,15 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -112,25 +114,24 @@ public class Scorched extends Spider {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.isInLava() ? SoundEvents.STRIDER_STEP_LAVA : SoundEvents.STRIDER_STEP, 1F, 1F);
+		this.playSound(this.isInLava() ? RegisterSounds.ENTITY_SCORCHED_STEP_LAVA : RegisterSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
 	}
 
-	/*
+
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return !this.isPanicking() && !this.isBeingTempted() ? SoundEvents.STRIDER_AMBIENT : null;
+		return RegisterSounds.ENTITY_SCORCHED_AMBIENT;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return SoundEvents.STRIDER_HURT;
+		return RegisterSounds.ENTITY_SCORCHED_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.STRIDER_DEATH;
+		return RegisterSounds.ENTITY_SCORCHED_DEATH;
 	}
-	 */
 
 	@Override
 	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {

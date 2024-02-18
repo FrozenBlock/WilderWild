@@ -290,6 +290,11 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_STEP = register("entity.ostrich.inbred.step");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_BEAK_STUCK = register("entity.ostrich.inbred.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_SWING = register("entity.ostrich.inbred.beak.swing");
+	public static final SoundEvent ENTITY_SCORCHED_AMBIENT = register("entity.scorched.ambient");
+	public static final SoundEvent ENTITY_SCORCHED_HURT = register("entity.scorched.hurt");
+	public static final SoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");
+	public static final SoundEvent ENTITY_SCORCHED_STEP = register("entity.scorched.step");
+	public static final SoundEvent ENTITY_SCORCHED_STEP_LAVA = register("entity.scorched.step_lava");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
