@@ -33,8 +33,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
-public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
-	public StellaWardenFeatureRenderer(@NotNull RenderLayerParent<T, M> context, @NotNull ResourceLocation texture, @NotNull AlphaFunction<T> animationAngleAdjuster, @NotNull DrawSelector<T, M> modelPartVisibility) {
+public class StellaWardenLayer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
+	public StellaWardenLayer(@NotNull RenderLayerParent<T, M> context, @NotNull ResourceLocation texture, @NotNull AlphaFunction<T> animationAngleAdjuster, @NotNull DrawSelector<T, M> modelPartVisibility) {
 		super(context, texture, animationAngleAdjuster, modelPartVisibility);
 	}
 

@@ -18,16 +18,17 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -35,6 +36,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.monster.Spider;
@@ -46,16 +48,21 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 
 public class Scorched extends Spider {
+	private float targetLavaAnimProgress;
+	private float lavaAnimProgress;
+	private float prevLavaAnimProgress;
 
 	public Scorched(EntityType<? extends Spider> entityType, Level level) {
 		super(entityType, level);
-		//this.setPathfindingMalus(PathType.WATER, -1F);
+		this.setPathfindingMalus(PathType.WATER, -1F);
 		this.setPathfindingMalus(PathType.LAVA, 0F);
 		this.setPathfindingMalus(PathType.DANGER_FIRE, 0F);
 		this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0F);
@@ -76,10 +83,20 @@ public class Scorched extends Spider {
 		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
 	}
 
+	@NotNull
+	@Override
+	protected PathNavigation createNavigation(Level level) {
+		return new ScorchedNavigation(this, level);
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
 		this.floatScorched();
+		this.checkInsideBlocks();
+		this.targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
+		this.prevLavaAnimProgress = this.lavaAnimProgress;
+		this.lavaAnimProgress = this.lavaAnimProgress + (this.targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
 	}
 
 	private void floatScorched() {
@@ -88,7 +105,7 @@ public class Scorched extends Spider {
 			if (collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
 				this.setOnGround(true);
 			} else {
-				this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0D, 0.05D, 0D));
+				this.addDeltaMovement(new Vec3(0D, 0.075D, 0D));
 			}
 		}
 	}
@@ -97,6 +114,23 @@ public class Scorched extends Spider {
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(this.isInLava() ? SoundEvents.STRIDER_STEP_LAVA : SoundEvents.STRIDER_STEP, 1F, 1F);
 	}
+
+	/*
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return !this.isPanicking() && !this.isBeingTempted() ? SoundEvents.STRIDER_AMBIENT : null;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
+		return SoundEvents.STRIDER_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.STRIDER_DEATH;
+	}
+	 */
 
 	@Override
 	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
@@ -109,6 +143,11 @@ public class Scorched extends Spider {
 	}
 
 	@Override
+	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+		return super.calculateFallDamage(fallDistance, damageMultiplier) - 8;
+	}
+
+	@Override
 	public boolean canStandOnFluid(@NotNull FluidState fluidState) {
 		return fluidState.is(FluidTags.LAVA);
 	}
@@ -118,40 +157,43 @@ public class Scorched extends Spider {
 		return false;
 	}
 
-	@Override
-	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader level) {
-        return 0F;
+	public float getLavaAnimProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevLavaAnimProgress, this.lavaAnimProgress);
 	}
 
 	@Override
-	public boolean checkSpawnRules(LevelAccessor level, MobSpawnType reason) {
-		return true;
+	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader level) {
+        return level.getBlockState(pos).getFluidState().is(FluidTags.LAVA) ? 10F : 1F;
+	}
+
+	@Override
+	public boolean checkSpawnObstruction(@NotNull LevelReader level) {
+		return level.isUnobstructed(this);
+	}
+
+	public static boolean isPositionSpawnable(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		do {
+			mutableBlockPos.move(Direction.UP);
+		} while(level.getFluidState(mutableBlockPos).is(FluidTags.LAVA));
+		return level.getBlockState(mutableBlockPos).isAir();
 	}
 
 	public static boolean isDarkEnoughToSpawn(@NotNull ServerLevelAccessor level, BlockPos pos, @NotNull RandomSource random) {
-		int skyBrightness = level.getBrightness(LightLayer.SKY, pos);
-		if (skyBrightness > random.nextInt(32) || skyBrightness > 7) {
+		if (level.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) {
 			return false;
-		} else {
-			int i = 11;
-			if (level.getBrightness(LightLayer.BLOCK, pos) > i) {
-				return false;
-			} else {
-				int j = level.getLevel().isThundering() ? level.getMaxLocalRawBrightness(pos, 10) : level.getMaxLocalRawBrightness(pos);
-				return j <= i;
-			}
 		}
+		DimensionType dimensionType = level.dimensionType();
+		int j = level.getLevel().isThundering() ? level.getBrightness(LightLayer.SKY, pos) - 10 : level.getBrightness(LightLayer.SKY, pos);
+		return j <= dimensionType.monsterSpawnLightTest().sample(random);
 	}
 
 	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (MobSpawnType.ignoresLightRequirements(spawnType) || isDarkEnoughToSpawn(level, pos, random)) {
-			BlockPos blockPos = pos.below();
-			BlockState state = level.getBlockState(blockPos);
-			return spawnType == MobSpawnType.SPAWNER || (state.isValidSpawn(level, blockPos, type) || state.is(WilderBlockTags.SCORCHED_ALWAYS_SPAWNABLE));
+		if (MobSpawnType.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
+			return isPositionSpawnable(level, pos);
 		}
 		return false;
 	}
-
 
 }

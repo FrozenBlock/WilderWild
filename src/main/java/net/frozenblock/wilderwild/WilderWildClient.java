@@ -43,6 +43,7 @@ import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
+import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
@@ -67,7 +68,6 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
@@ -244,7 +244,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.SCORCHED, ScorchedRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(SCORCHED, SpiderModel::createSpiderBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(SCORCHED, ScorchedModel::createSpiderBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 

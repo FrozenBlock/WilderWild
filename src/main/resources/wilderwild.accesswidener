@@ -66,6 +66,17 @@ accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviors
 # Entity Spawns
 accessible    class    net/minecraft/world/entity/SpawnPlacements$Data
 accessible    method    net/minecraft/world/level/block/Blocks ocelotOrParrot (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible    field    net/minecraft/client/model/SpiderModel    root    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    head    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    rightHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    leftHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    rightMiddleHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    leftMiddleHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    rightMiddleFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    leftMiddleFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    rightFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible    field    net/minecraft/client/model/SpiderModel    leftFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
+
 
 # Entity Rendering
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    alphaFunction    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;

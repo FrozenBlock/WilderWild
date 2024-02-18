@@ -22,6 +22,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.render.layer.ScorchedGlowingLayer;
+import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -32,14 +33,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class ScorchedRenderer<T extends Scorched> extends MobRenderer<T, SpiderModel<T>> {
 	private static final ResourceLocation SCORCHED_LOCATION = WilderSharedConstants.id("textures/entity/scorched/scorched.png");
-	private static final float SCALE = 1F;
+	private static final float SCALE = 0.9F;
 
 	public ScorchedRenderer(EntityRendererProvider.Context context) {
 		this(context, WilderWildClient.SCORCHED);
 	}
 
 	public ScorchedRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
-		super(context, new SpiderModel<>(context.bakeLayer(layer)), 0.8F);
+		super(context, new ScorchedModel<>(context.bakeLayer(layer)), 0.8F);
 		this.addLayer(new ScorchedGlowingLayer<>(this));
 		this.shadowRadius *= SCALE;
 	}

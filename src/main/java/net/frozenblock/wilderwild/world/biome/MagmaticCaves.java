@@ -40,7 +40,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
@@ -183,7 +182,7 @@ public final class MagmaticCaves extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RegisterEntities.SCORCHED, 500, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RegisterEntities.SCORCHED, 100, 1, 4));
 	}
 
 	@Override
