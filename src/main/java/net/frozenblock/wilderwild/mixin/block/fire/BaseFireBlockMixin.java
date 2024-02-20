@@ -41,9 +41,9 @@ public class BaseFireBlockMixin {
 	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
 		if (BlockConfig.get().fire.soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
-				pos.getX() + 0.5,
-				pos.getY() + 0.5,
-				pos.getZ() + 0.5,
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
 				RegisterSounds.BLOCK_SOUL_FIRE_AMBIENT,
 				SoundSource.BLOCKS,
 				0.6F + random.nextFloat(),
@@ -68,7 +68,7 @@ public class BaseFireBlockMixin {
 		BlockPos blockPos2,BlockState blockState2
 	) {
 		if (BlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.015F) {
+			if (random.nextFloat() <= 0.0075F) {
 				level.addParticle(
 					ParticleTypes.LAVA,
 					false,
@@ -81,7 +81,7 @@ public class BaseFireBlockMixin {
 				);
 			}
 
-			if (random.nextFloat() <= 0.175F) {
+			if (random.nextFloat() <= 0.0875F) {
 				level.addParticle(
 					ParticleTypes.LARGE_SMOKE,
 					false,

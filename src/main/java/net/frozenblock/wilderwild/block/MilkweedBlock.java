@@ -43,7 +43,6 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -74,7 +73,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
 		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
 		popResource(level, pos, stack);
-		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0);
 	}
@@ -89,11 +88,6 @@ public class MilkweedBlock extends TallFlowerBlock {
 		if (secondState.is(thisBlock)) {
 			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
 		}
-	}
-
-	@NotNull
-	public static Vec3 getSeedSpawnPos(@NotNull BlockPos pos) {
-		return Vec3.atCenterOf(pos).add(0D, SEED_SPAWN_HEIGHT, 0D);
 	}
 
 	@Override

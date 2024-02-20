@@ -72,7 +72,7 @@ public class FireflyBottle extends Item {
 				if (spawned) {
 					player.setItemInHand(usedHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-					entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+					entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(this.color);

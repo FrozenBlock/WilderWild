@@ -53,6 +53,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GeyserBlock extends BaseEntityBlock {
+	public static final float BOIL_SOUND_CHANCE_NATURAL = 0.0085F;
+	public static final float BOIL_SOUND_CHANCE = 0.002F;
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = RegisterProperties.GEYSER_TYPE;
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = RegisterProperties.GEYSER_STAGE;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
@@ -102,7 +104,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void neighborChanged(BlockState blockState, @NotNull Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl) {
+	protected void neighborChanged(BlockState blockState, @NotNull Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean movedByPiston) {
 		if (!level.isClientSide) {
 			boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
 			if (erupting != level.hasNeighborSignal(blockPos) && !isInactive(blockState.getValue(GEYSER_TYPE))) {
@@ -126,8 +128,8 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-		super.onRemove(state, level, pos, newState, isMoving);
+	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockState state, @NotNull BlockPos pos) {
@@ -164,31 +166,31 @@ public class GeyserBlock extends BaseEntityBlock {
 		boolean natural = blockState.getValue(NATURAL);
 		if (!isInactive(geyserType)) {
 			ClientMethodInteractionHandler.spawnBaseGeyserParticles(blockPos, direction, natural, random);
-			if (natural ? random.nextFloat() <= 0.0085F : random.nextFloat() <= 0.002F) {
+			if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
 				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 			}
 		}
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
-			blockEntity.tickServer(worldx, pos, statex, worldx.random))
-			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) ->
-			blockEntity.tickClient(worldx, pos, statex, worldx.random));
+		return !level.isClientSide ?
+			createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex, worldx.random))
+			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
 	}
 
 	public static boolean isInactive(GeyserType geyserType) {
 		return geyserType == GeyserType.NONE;
 	}
 
-	public static @NotNull Vec3 getParticleVelocity(@NotNull Direction direction, @NotNull RandomSource random, double min, double max) {
+	@NotNull
+	public static Vec3 getParticleVelocity(@NotNull Direction direction, @NotNull RandomSource random, double min, double max) {
 		double difference = max - min;
 		double velocity = min + (random.nextDouble() * difference);
 		double x = direction.getStepX() * velocity;
@@ -197,11 +199,13 @@ public class GeyserBlock extends BaseEntityBlock {
 		return new Vec3(x, y, z);
 	}
 
-	public static @NotNull Vec3 getVelocityFromDistance(BlockPos pos, Direction direction, @NotNull Vec3 vec3, @NotNull RandomSource random, double max) {
+	@Nullable
+	public static Vec3 getVelocityFromDistance(BlockPos pos, Direction direction, @NotNull Vec3 vec3, @NotNull RandomSource random, double max) {
 		return vec3.subtract(getParticlePosWithoutRandom(pos, direction, random)).scale(random.nextDouble() * max);
 	}
 
-	public static @NotNull Vec3 getParticlePosWithoutRandom(BlockPos pos, Direction direction, RandomSource random) {
+	@NotNull
+	public static Vec3 getParticlePosWithoutRandom(BlockPos pos, Direction direction, RandomSource random) {
 		return Vec3.atLowerCornerOf(pos).add(
 			getParticleOffsetX(direction, random, false),
 			getParticleOffsetY(direction, random, false),
@@ -209,7 +213,8 @@ public class GeyserBlock extends BaseEntityBlock {
 		);
 	}
 
-	public static @NotNull Vec3 getParticlePos(BlockPos pos, Direction direction, RandomSource random) {
+	@NotNull
+	public static Vec3 getParticlePos(BlockPos pos, Direction direction, RandomSource random) {
 		return Vec3.atLowerCornerOf(pos).add(
 			getParticleOffsetX(direction, random, true),
 			getParticleOffsetY(direction, random, true),

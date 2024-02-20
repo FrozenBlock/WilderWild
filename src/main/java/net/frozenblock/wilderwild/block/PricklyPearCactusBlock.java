@@ -65,7 +65,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	public static final int MAX_PEARS_FROM_HARVEST = 2;
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
+	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3D, 0D, 3D, 13D, 13D, 13D);
 
 	public PricklyPearCactusBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
@@ -89,7 +89,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0) {
-			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
+			level.setBlockAndUpdate(pos, state.cycle(AGE));
 		}
 	}
 

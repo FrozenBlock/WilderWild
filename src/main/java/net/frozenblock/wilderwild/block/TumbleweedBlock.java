@@ -59,8 +59,8 @@ import org.jetbrains.annotations.Nullable;
 public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
-	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
-	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+	protected static final VoxelShape COLLISION_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
+	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
 
 	public TumbleweedBlock(@NotNull Properties properties) {
 		super(properties);

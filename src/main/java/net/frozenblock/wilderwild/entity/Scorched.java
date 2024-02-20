@@ -58,6 +58,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 
 public class Scorched extends Spider {
+	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.075D, 0D);
+	public static final int FALL_DAMAGE_RESISTANCE = 8;
 	private float targetLavaAnimProgress;
 	private float lavaAnimProgress;
 	private float prevLavaAnimProgress;
@@ -73,12 +75,12 @@ public class Scorched extends Spider {
 	@Override
 	protected void registerGoals() {
 		//this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6.0F, 1.0, 1.2,
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6F, 1D, 1.2D,
 			(livingEntity) -> !((Armadillo)livingEntity).isScared()));
 		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
-		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
-		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8F));
 		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -107,7 +109,7 @@ public class Scorched extends Spider {
 			if (collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
 				this.setOnGround(true);
 			} else {
-				this.addDeltaMovement(new Vec3(0D, 0.075D, 0D));
+				this.addDeltaMovement(LAVA_FLOAT_VECTOR);
 			}
 		}
 	}
@@ -144,7 +146,7 @@ public class Scorched extends Spider {
 
 	@Override
 	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-		return super.calculateFallDamage(fallDistance, damageMultiplier) - 8;
+		return super.calculateFallDamage(fallDistance, damageMultiplier) - FALL_DAMAGE_RESISTANCE;
 	}
 
 	@Override
@@ -163,7 +165,8 @@ public class Scorched extends Spider {
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader level) {
-        return level.getBlockState(pos).getFluidState().is(FluidTags.LAVA) ? 10F : 1F;
+        //return level.getBlockState(pos).getFluidState().is(FluidTags.LAVA) ? 10F : 1F;
+		return 1F;
 	}
 
 	@Override

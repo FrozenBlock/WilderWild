@@ -68,12 +68,5 @@ Bug Fixes & Changes
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
 - The `New Cactus Placement` config is now set to off by default instead of on.
 - Fixed Dungeon placement in Jellyfish Caves.
-
-2.3.1
----
-- Fixed Shelf Fungi crashing the game upon being interacted with on 1.20.2 and 1.20.1.
-- Removed the sound events for the previously removed discs.
-- Ostrich attacks can now damage and break Armor Stands.
-- Fixed the death message from an Ostrich's attack not displaying properly.
-- Fixed shears not snipping Glory of the Snow blocks
-- Updated zh_CN (Simplified Chinese) translation (Thanks to ioococ)
+- Glory of the Snow now only drops one item upon being sheared.
+- Added `block_palm_fronds` to the Mixins config.

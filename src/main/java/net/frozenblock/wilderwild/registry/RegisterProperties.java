@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.lighting.LightEngine;
 
 public final class RegisterProperties {
 
@@ -51,7 +52,7 @@ public final class RegisterProperties {
 	public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
 
 	//Firefly Lantern
-	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, 15);
+	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, LightEngine.MAX_LEVEL);
 
 	//Stone Chest
 	public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");

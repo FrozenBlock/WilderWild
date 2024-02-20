@@ -22,9 +22,6 @@ import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.config.api.instance.ConfigModification;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.MixinsConfig;
 import net.frozenblock.wilderwild.misc.WilderPreMixinInjectConstants;
 import org.jetbrains.annotations.NotNull;
@@ -83,6 +80,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.lava")) return config.block_lava;
 		if (mixinClassName.contains("block.leaves")) return config.block_leaves;
 		if (mixinClassName.contains("block.mesoglea")) return config.block_mesoglea;
+		if (mixinClassName.contains("block.palm_fronds")) return config.block_palm_fronds;
 		if (mixinClassName.contains("block.reinforced_deepslate")) return config.block_reinforced_deepslate;
 		if (mixinClassName.contains("block.spawner")) return config.block_spawner;
 		if (mixinClassName.contains("block.termite")) return config.block_termite;

@@ -64,10 +64,10 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	public static final int REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY = 15;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
-		Block.box(3, 0, 3, 12, 9, 12),
-		Block.box(2, 0, 2, 14, 12, 14),
-		Block.box(1, 0, 1, 15, 14, 15),
-		Block.box(1, 0, 1, 15, 14, 15)
+		Block.box(3D, 0D, 3D, 12D, 9D, 12D),
+		Block.box(2D, 0D, 2D, 14D, 12D, 14D),
+		Block.box(1D, 0D, 1D, 15D, 14D, 15D),
+		Block.box(1D, 0D, 1D, 15D, 14D, 15D)
 	};
 
 	public TumbleweedPlantBlock(@NotNull BlockBehaviour.Properties properties) {
