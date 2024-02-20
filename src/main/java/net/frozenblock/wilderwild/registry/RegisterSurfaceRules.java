@@ -454,8 +454,12 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
-		context.add(frozenCavesSnow());
-		context.add(snowUnderMountains());
+		context.add(
+			SurfaceRules.sequence(
+				frozenCavesSnow(),
+				snowUnderMountains()
+			)
+		);
 		WilderSharedConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}
 }

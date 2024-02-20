@@ -50,12 +50,10 @@ import org.jetbrains.annotations.Nullable;
 
 public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.DRY);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_1);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING);
-	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING);
-	public static final Climate.Parameter DEPTH = Climate.Parameter.span(0.1F, 0.2F);
+	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_1);
+	public static final Climate.Parameter DEPTH = Climate.Parameter.span(0.3F, 0.3F);
 	public static final float OFFSET = 0.000F;
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
@@ -189,9 +187,9 @@ public final class FrozenCaves extends FrozenBiome {
 						TEMPERATURE,
 						HUMIDITY,
 						CONTINENTALNESS,
-						EROSION,
+						EROSION_PEAK,
 						DEPTH,
-						WEIRDNESS_A,
+						Weirdness.PEAK_NORMAL,
 						OFFSET
 					),
 					this.getKey()
@@ -203,80 +201,14 @@ public final class FrozenCaves extends FrozenBiome {
 						TEMPERATURE,
 						HUMIDITY,
 						CONTINENTALNESS,
-						EROSION,
+						EROSION_PEAK,
 						DEPTH,
-						WEIRDNESS_B,
+						Weirdness.PEAK_VARIANT,
 						OFFSET
 					),
 					this.getKey()
 				)
 			);
-			/*
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FROZEN_PEAKS)) {
-				parameters.accept(
-					Pair.of(
-						Climate.parameters(
-							point.temperature(),
-							point.humidity(),
-							point.continentalness(),
-							point.erosion(),
-							DEPTH,
-							point.weirdness(),
-							point.offset()
-						),
-						this.getKey()
-					)
-				);
-			}
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JAGGED_PEAKS)) {
-				parameters.accept(
-					Pair.of(
-						Climate.parameters(
-							point.temperature(),
-							point.humidity(),
-							point.continentalness(),
-							point.erosion(),
-							DEPTH,
-							point.weirdness(),
-							point.offset()
-						),
-						this.getKey()
-					)
-				);
-			}
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.GROVE)) {
-				parameters.accept(
-					Pair.of(
-						Climate.parameters(
-							point.temperature(),
-							point.humidity(),
-							point.continentalness(),
-							point.erosion(),
-							DEPTH,
-							point.weirdness(),
-							point.offset()
-						),
-						this.getKey()
-					)
-				);
-			}
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES)) {
-				parameters.accept(
-					Pair.of(
-						Climate.parameters(
-							point.temperature(),
-							point.humidity(),
-							point.continentalness(),
-							point.erosion(),
-							DEPTH,
-							point.weirdness(),
-							point.offset()
-						),
-						this.getKey()
-					)
-				);
-			}
-			 */
 		}
 	}
 
