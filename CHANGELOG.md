@@ -55,6 +55,8 @@ Bug Fixes & Changes
   - Tumbleweed will pass through Breezes.
     - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
+- Updated the mod protocol version to 4.
+- Removed the Coated Sculk item model again.
 - Gave Magma a new set of sounds.
   - Can be disabled with the `Magma Sounds` config.
 - Fire now emits extra particles if on top of Magma.
