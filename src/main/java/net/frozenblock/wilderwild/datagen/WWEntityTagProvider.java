@@ -62,6 +62,7 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.SPIDER)
 			.add(EntityType.CAVE_SPIDER)
+			.add(RegisterEntities.SCORCHED)
 			.add(EntityType.GHAST)
 			.add(RegisterEntities.FIREFLY)
 			.add(RegisterEntities.JELLYFISH)
@@ -78,6 +79,7 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(EntityType.PUFFERFISH)
 			.add(EntityType.SPIDER)
 			.add(EntityType.CAVE_SPIDER)
+			.add(RegisterEntities.SCORCHED)
 			.add(EntityType.GHAST)
 			.add(RegisterEntities.FIREFLY)
 			.add(RegisterEntities.JELLYFISH)
@@ -111,14 +113,19 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(EntityType.TADPOLE);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
-			.add(RegisterEntities.OSTRICH);
+			.add(RegisterEntities.OSTRICH)
+			.add(RegisterEntities.SCORCHED);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.ARTHROPOD)
-			.add(RegisterEntities.CRAB);
+			.add(RegisterEntities.CRAB)
+			.add(RegisterEntities.SCORCHED);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.AQUATIC)
 			.add(RegisterEntities.CRAB)
 			.add(RegisterEntities.JELLYFISH);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
+			.add(RegisterEntities.SCORCHED);
 
 	}
 }

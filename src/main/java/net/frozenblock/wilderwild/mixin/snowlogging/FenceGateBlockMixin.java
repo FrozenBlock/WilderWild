@@ -51,7 +51,7 @@ public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
 	@Unique
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || (SnowloggingUtils.isSnowlogged(state));
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@ModifyExpressionValue(

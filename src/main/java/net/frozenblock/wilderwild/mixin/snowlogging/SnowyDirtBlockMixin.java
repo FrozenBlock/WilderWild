@@ -32,7 +32,7 @@ public class SnowyDirtBlockMixin {
 
 	@WrapOperation(method = "isSnowySetting", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;)Z"))
 	private static boolean wilderWild$isSnowySetting(BlockState instance, TagKey tagKey, Operation<Boolean> original) {
-		return original.call(instance, tagKey) || (SnowloggingUtils.isSnowlogged(instance));
+		return original.call(instance, tagKey) || SnowloggingUtils.isSnowlogged(instance);
 	}
 
 }

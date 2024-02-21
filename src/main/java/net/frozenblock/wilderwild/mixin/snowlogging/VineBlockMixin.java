@@ -50,7 +50,7 @@ public abstract class VineBlockMixin extends Block {
 	@Unique
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || (SnowloggingUtils.isSnowlogged(state));
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
