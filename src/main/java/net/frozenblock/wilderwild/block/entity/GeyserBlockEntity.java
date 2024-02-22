@@ -259,7 +259,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	public static final double DORMANT_BUBBLE_MIN_VELOCITY = 0.09D;
 	public static final double DORMANT_BUBBLE_MAX_VELOCITY = 0.12D;
 	public static final float ACTIVE_BUBBLE_CHANCE = 0.1F;
-	public static final int MIN_ACTIVE_BUBBLES = 3;
+	public static final int MIN_ACTIVE_BUBBLES = 1;
 	public static final int MAX_ACTIVE_BUBBLES = 3;
 	public static final double ACTIVE_BUBBLE_MIN_VELOCITY_OFFSET = 0.4D;
 	public static final double ACTIVE_BUBBLE_MAX_VELOCITY_OFFSET = 0.8D;
