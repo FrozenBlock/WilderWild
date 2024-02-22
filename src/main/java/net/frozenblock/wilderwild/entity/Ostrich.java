@@ -152,7 +152,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, RandomSource random) {
-		if (!EntityConfig.get().ostrich.spawnOstriches) return false;
+		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().ostrich.spawnOstriches) return false;
 		return Animal.checkAnimalSpawnRules(ostrich, level, spawnType, pos, random);
 	}
 

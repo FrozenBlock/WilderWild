@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -193,6 +194,7 @@ public class Scorched extends Spider {
 
 	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
+		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().scorched.spawnScorched) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
 			return isPositionSpawnable(level, pos);
 		}
