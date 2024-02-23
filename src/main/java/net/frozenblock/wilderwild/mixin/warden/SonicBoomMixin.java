@@ -65,10 +65,10 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
 		),
-		ordinal = 1
+		ordinal = 0
 	)
-	private static int wilderWild$modifyInt(int original, @Local(ordinal = 0) int particleEnd) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? particleEnd : original;
+	private static int wilderWild$modifyInt(int original, @Local(ordinal = 1) Vec3 positionOffset) {
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Integer.MAX_VALUE : original;
 	}
 
 	@Inject(
@@ -80,7 +80,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private static void wilderWild$stopParticles(Warden warden, ServerLevel serverLevel, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, int j, Vec3 vec34) {
+	private static void wilderWild$stopParticles(Warden warden, ServerLevel serverLevel, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, Vec3 vec34) {
 		BlockPos hitPos = wilderWild$isOccluded(serverLevel, vec3, vec34);
 		if (hitPos != null) {
 			((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
