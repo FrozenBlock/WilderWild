@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
@@ -114,7 +115,7 @@ public final class RegisterEntities {
 			.spawnGroup(MobCategory.MONSTER)
 			.entityFactory(Scorched::new)
 			.defaultAttributes(Scorched::createAttributes)
-			.spawnRestriction(SpawnPlacementTypes.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Scorched::checkScorchedSpawnRules)
+			.spawnRestriction(FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Scorched::checkScorchedSpawnRules)
 			.dimensions(EntityDimensions.scalable(1.26F, 0.81F).withEyeHeight(0.585F))
 			.fireImmune()
 			.trackRangeChunks(8)

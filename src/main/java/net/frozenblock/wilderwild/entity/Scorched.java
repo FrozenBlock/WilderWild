@@ -31,6 +31,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -48,7 +49,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -57,9 +60,10 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Scorched extends Spider {
-	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.075D, 0D);
+	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.08D, 0D);
 	public static final int FALL_DAMAGE_RESISTANCE = 8;
 	private float targetLavaAnimProgress;
 	private float lavaAnimProgress;
@@ -166,21 +170,14 @@ public class Scorched extends Spider {
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader level) {
-        //return level.getBlockState(pos).getFluidState().is(FluidTags.LAVA) ? 10F : 1F;
-		return 1F;
+		BlockState state = level.getBlockState(pos);
+		boolean prefers = state.getFluidState().is(FluidTags.LAVA) || state.is(Blocks.MAGMA_BLOCK);
+		return prefers ? 1.5F : 1F;
 	}
 
 	@Override
 	public boolean checkSpawnObstruction(@NotNull LevelReader level) {
 		return level.isUnobstructed(this);
-	}
-
-	public static boolean isPositionSpawnable(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		do {
-			mutableBlockPos.move(Direction.UP);
-		} while(level.getFluidState(mutableBlockPos).is(FluidTags.LAVA));
-		return level.getBlockState(mutableBlockPos).isAir();
 	}
 
 	public static boolean isDarkEnoughToSpawn(@NotNull ServerLevelAccessor level, BlockPos pos, @NotNull RandomSource random) {
@@ -196,7 +193,7 @@ public class Scorched extends Spider {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
 		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().scorched.spawnScorched) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
-			return isPositionSpawnable(level, pos);
+			return true;
 		}
 		return false;
 	}
