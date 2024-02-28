@@ -20,7 +20,10 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.List;
 import java.util.Optional;
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.frozenblock.lib.wind.api.WindDisturbances;
+import net.frozenblock.lib.wind.impl.InWorldWindModifier;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
@@ -36,6 +39,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -64,6 +68,8 @@ public class GeyserBlockEntity extends BlockEntity {
 	public static final int TICK_DELAY_START_MAX = 100;
 	public static final double EFFECTIVE_PUSH_INTENSITY = 0.4D;
 	public static final double INEFFECTIVE_PUSH_INTENSITY = 0.2D;
+	public static final double EFFECTIVE_WIND_INTENSITY = 1D;
+	public static final double INEFFECTIVE_WIND_INTENSITY = 0.5D;
 	public static final int FIRE_TICKS_MAX = 260;
 	private boolean hasRunFirstCheck = false;
 	private int tickUntilNextEvent;
@@ -101,6 +107,11 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.updateSync();
 	}
 
+	private static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
+		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WilderBlockTags.GEYSER_CAN_PASS_THROUGH))
+				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH));
+	}
+
 	private void handleEruption(Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction) {
 		BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		Optional<BlockPos> cutoffPos = Optional.empty();
@@ -108,10 +119,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < 5; i++) {
 			BlockState state = level.getBlockState(mutablePos.move(direction));
-			if (
-				(state.isFaceSturdy(level, mutablePos, direction.getOpposite(), SupportType.CENTER) && !state.is(WilderBlockTags.GEYSER_CAN_PASS_THROUGH))
-				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
-			) {
+			if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
 				break;
 			}
 			boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
@@ -138,6 +146,27 @@ public class GeyserBlockEntity extends BlockEntity {
 			EntitySelector.ENTITY_STILL_ALIVE.and(EntitySelector.NO_SPECTATORS)
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
+
+		WindDisturbances.addInWorldWindModifier(
+			level,
+			new InWorldWindModifier(
+				geyserStartPos,
+				effectiveEruption,
+				(level1, windOrigin, affectedArea, windTarget) -> {
+					Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+					double strength = ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), ERUPTION_DISTANCE);
+					double intensity = strength / ERUPTION_DISTANCE;
+					double windIntensity = effectiveEruption.contains(windTarget) ? EFFECTIVE_WIND_INTENSITY : INEFFECTIVE_WIND_INTENSITY;
+					return Pair.of(
+						Pair.of(
+							Mth.clamp(intensity * 2D, 0D, 1D),
+							strength
+						),
+						movement.scale(intensity * windIntensity)
+					);
+                }
+            )
+		);
 
 		for (Entity entity : entities) {
 			AABB boundingBox = entity.getBoundingBox();
