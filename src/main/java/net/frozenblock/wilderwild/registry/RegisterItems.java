@@ -127,6 +127,7 @@ public final class RegisterItems {
 	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
 	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(RegisterEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new FabricItemSettings());
 	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new FabricItemSettings());
+	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(RegisterEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new FabricItemSettings());
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
 	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("ancient_horn"));
@@ -187,6 +188,7 @@ public final class RegisterItems {
 		registerItemAfter(Items.AXOLOTL_BUCKET, JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemBefore(Items.CREEPER_SPAWN_EGG, CRAB_SPAWN_EGG, "crab_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.OCELOT_SPAWN_EGG, OSTRICH_SPAWN_EGG, "ostrich_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
+		registerItemAfter(Items.SALMON_SPAWN_EGG, SCORCHED_SPAWN_EGG, "scorched_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(JELLYFISH_BUCKET, CRAB_BUCKET, "crab_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
