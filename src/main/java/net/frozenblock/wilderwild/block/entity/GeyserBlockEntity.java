@@ -23,7 +23,7 @@ import java.util.Optional;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.wind.api.WindDisturbances;
-import net.frozenblock.lib.wind.impl.InWorldWindModifier;
+import net.frozenblock.lib.wind.impl.WindDisturbance;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
@@ -147,22 +147,20 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
 
-		WindDisturbances.addInWorldWindModifier(
+		WindDisturbances.addWindDisturbance(
 			level,
-			new InWorldWindModifier(
+			new WindDisturbance(
 				geyserStartPos,
-				effectiveEruption,
+				eruption.inflate(0.5D),
 				(level1, windOrigin, affectedArea, windTarget) -> {
 					Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
 					double strength = ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), ERUPTION_DISTANCE);
 					double intensity = strength / ERUPTION_DISTANCE;
 					double windIntensity = effectiveEruption.contains(windTarget) ? EFFECTIVE_WIND_INTENSITY : INEFFECTIVE_WIND_INTENSITY;
-					return Pair.of(
-						Pair.of(
-							Mth.clamp(intensity * 2D, 0D, 1D),
-							strength
-						),
-						movement.scale(intensity * windIntensity)
+					return new WindDisturbance.DisturbanceResult(
+						Mth.clamp(intensity * 2D, 0D, 1D),
+						strength * 2D,
+						movement.scale(intensity * windIntensity).scale(30D)
 					);
                 }
             )
