@@ -111,7 +111,7 @@ public class ClientMethods {
 		ParticleStatus particleStatus = client.options.particles().get();
 		ParticleEngine particleEngine = client.particleEngine;
 		if (geyserType == GeyserType.WATER) {
-			if (random.nextFloat() <= 0.8F) {
+			if (random.nextFloat() <= 0.4F) { // Bubble
 				int count = random.nextInt(1, 4);
 				for (int i = 0; i < count; i++) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
@@ -130,7 +130,7 @@ public class ClientMethods {
 				}
 			}
 		} else {
-			if (random.nextFloat() <= 0.9F) {
+			if (random.nextFloat() <= 0.5F) { // Dust Plume
 				int count = random.nextInt(1, 5);
 				for (int i = 0; i < count; i++) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
@@ -150,7 +150,7 @@ public class ClientMethods {
 			}
 		}
 		if (geyserType == GeyserType.LAVA) {
-			if (random.nextFloat() <= 0.8F) {
+			if (random.nextFloat() <= 0.7F) { // Large Smoke
 				int count = random.nextInt(1, 4);
 				for (int i = 0; i < count; i++) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
@@ -170,7 +170,7 @@ public class ClientMethods {
 			}
 			int count = random.nextInt(1, 5);
 			for (int i = 0; i < count; i++) {
-				if (random.nextFloat() <= 0.9F) {
+				if (random.nextFloat() <= 0.9F) { // Flame
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.1D, 0.6D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.225D));
@@ -187,7 +187,7 @@ public class ClientMethods {
 				}
 			}
 			int lavaCount = random.nextInt(1, 3);
-			for (int i = 0; i < lavaCount; i++) {
+			for (int i = 0; i < lavaCount; i++) { // Lava
 				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
 					break;
 				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
@@ -212,7 +212,7 @@ public class ClientMethods {
 				}
 			}
 		} else {
-			if (random.nextFloat() <= 0.9F) {
+			if (random.nextFloat() <= 0.45F) { // Cloud
 				int count = random.nextInt(1, 5);
 				for (int i = 0; i < count; i++) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);

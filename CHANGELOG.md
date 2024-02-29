@@ -23,6 +23,7 @@ Additions
   - The Eruption will remain effective unless blocked.
   - Eruptions that start in the air and move into a liquid, or that start in a liquid and move to the air or another liquid will be less effective past that point.
   - Eruptions started from Lava will set colliding entities ablaze.
+  - Will cause a strong wind disturbance upon eruption.
   - Added the `wilderwild:geyser_can_pass_through` tag to control what blocks an Eruption can safely pass through, regardless of block support shape.
     - Currently contains the `minecraft:trapdoors` tag.
   - Added the `wilderwild:geyser_cannot_pass_through` tag to control what blocks an Eruption can never pass through, regardless of block support shape.
@@ -81,6 +82,7 @@ Bug Fixes & Changes
     - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 
 - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
+- Pollen and Seed particles will now be visible while on the ground.
 
 - The `New Cactus Placement` config is now set to off by default instead of on.
 - Added a new `Spawn Fireflies` config option to control whether or not Fireflies can spawn naturally.
