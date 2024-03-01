@@ -40,7 +40,10 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.lib.wind.api.WindDisturbance;
+import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
@@ -69,8 +72,11 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -89,11 +95,18 @@ import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
+	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderSharedConstants.id("instrument");
+	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderSharedConstants.id("nectar");
+	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderSharedConstants.id("enderman_anger");
+	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser_effective");
+	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -113,7 +126,7 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void initPreFreeze() {
 		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
+		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
 
@@ -135,15 +148,59 @@ public class FrozenLibIntegration extends ModIntegration {
 				return entity.getUseItem().getItem() instanceof InstrumentItem;
 			}
 		});
-		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
+
+		SoundPredicate.register(NECTAR_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
-		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
+
+		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
 				return false;
 			}
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
+
+		WindDisturbanceLogic.register(
+			GEYSER_EFFECTIVE_WIND_DISTURBANCE,
+                (WindDisturbanceLogic.DisturbanceLogic<GeyserBlockEntity>) (source, level, windOrigin, affectedArea, windTarget) -> {
+				if (source.isPresent()) {
+					BlockState state = level.getBlockState(source.get().getBlockPos());
+					if (state.hasProperty(BlockStateProperties.FACING)) {
+						Direction direction = state.getValue(BlockStateProperties.FACING);
+						Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+						double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
+						double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
+						return new WindDisturbance.DisturbanceResult(
+							Mth.clamp(intensity * 2D, 0D, 1D),
+							strength * 2D,
+							movement.scale(intensity * GeyserBlockEntity.EFFECTIVE_ADDITIONAL_WIND_INTENSITY).scale(30D)
+						);
+					}
+				}
+				return null;
+			}
+        );
+
+		WindDisturbanceLogic.register(
+			GEYSER_BASE_WIND_DISTURBANCE,
+			(WindDisturbanceLogic.DisturbanceLogic<GeyserBlockEntity>) (source, level, windOrigin, affectedArea, windTarget) -> {
+				if (source.isPresent()) {
+					BlockState state = level.getBlockState(source.get().getBlockPos());
+					if (state.hasProperty(BlockStateProperties.FACING)) {
+						Direction direction = state.getValue(BlockStateProperties.FACING);
+						Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+						double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
+						double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
+						return new WindDisturbance.DisturbanceResult(
+							Mth.clamp(intensity * 2D, 0D, 1D),
+							strength * 2D,
+							movement.scale(intensity * GeyserBlockEntity.BASE_WIND_INTENSITY).scale(30D)
+						);
+					}
+				}
+				return null;
+			}
+		);
 	}
 
 	@Override

@@ -20,14 +20,15 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.List;
 import java.util.Optional;
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.lib.wind.api.WindDisturbances;
-import net.frozenblock.lib.wind.impl.WindDisturbance;
+import net.frozenblock.lib.wind.api.WindDisturbance;
+import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
+import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -36,10 +37,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -68,8 +69,8 @@ public class GeyserBlockEntity extends BlockEntity {
 	public static final int TICK_DELAY_START_MAX = 100;
 	public static final double EFFECTIVE_PUSH_INTENSITY = 0.4D;
 	public static final double INEFFECTIVE_PUSH_INTENSITY = 0.2D;
-	public static final double EFFECTIVE_WIND_INTENSITY = 1D;
-	public static final double INEFFECTIVE_WIND_INTENSITY = 0.5D;
+	public static final double EFFECTIVE_ADDITIONAL_WIND_INTENSITY = 0.5D;
+	public static final double BASE_WIND_INTENSITY = 0.5D;
 	public static final int FIRE_TICKS_MAX = 260;
 	private boolean hasRunFirstCheck = false;
 	private int tickUntilNextEvent;
@@ -147,24 +148,25 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
 
-		WindDisturbances.addWindDisturbance(
-			level,
-			new WindDisturbance(
-				geyserStartPos,
-				eruption.inflate(0.5D),
-				(level1, windOrigin, affectedArea, windTarget) -> {
-					Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
-					double strength = ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), ERUPTION_DISTANCE);
-					double intensity = strength / ERUPTION_DISTANCE;
-					double windIntensity = effectiveEruption.contains(windTarget) ? EFFECTIVE_WIND_INTENSITY : INEFFECTIVE_WIND_INTENSITY;
-					return new WindDisturbance.DisturbanceResult(
-						Mth.clamp(intensity * 2D, 0D, 1D),
-						strength * 2D,
-						movement.scale(intensity * windIntensity).scale(30D)
-					);
-                }
-            )
-		);
+		if (level instanceof ServerLevel serverLevel) {
+			WindManager.getWindManager(serverLevel).addWindDisturbance(
+				new WindDisturbance<GeyserBlockEntity>(
+					Optional.of(this),
+					geyserStartPos,
+					effectiveEruption.inflate(0.5D),
+					WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElseThrow()
+				)
+			);
+
+			WindManager.getWindManager(serverLevel).addWindDisturbance(
+				new WindDisturbance<GeyserBlockEntity>(
+					Optional.of(this),
+					geyserStartPos,
+					eruption.inflate(0.5D),
+					WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElseThrow()
+				)
+			);
+		}
 
 		for (Entity entity : entities) {
 			AABB boundingBox = entity.getBoundingBox();

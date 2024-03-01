@@ -29,7 +29,7 @@ import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -405,7 +405,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 						SoundSource.NEUTRAL,
 						1F,
 						1F,
-						WilderSharedConstants.id("nectar"),
+						FrozenLibIntegration.NECTAR_SOUND_PREDICATE,
 						true
 					);
 					this.wasNamedNectar = true;
