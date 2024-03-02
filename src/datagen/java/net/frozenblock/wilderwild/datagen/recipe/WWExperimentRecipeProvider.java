@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen;
+package net.frozenblock.wilderwild.datagen.recipe;
 
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;

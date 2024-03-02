@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen;
+package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -33,9 +33,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
-final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
+public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-	WWItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
+	public WWItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
 		super(output, completableFuture);
 	}
 

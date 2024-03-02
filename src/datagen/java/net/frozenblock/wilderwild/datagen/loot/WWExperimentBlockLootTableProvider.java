@@ -16,30 +16,24 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen;
+package net.frozenblock.wilderwild.datagen.loot;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.ModelTemplates;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.core.HolderLookup;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
-final class WWModelProvider extends FabricModelProvider {
+final class WWExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
 
-	public WWModelProvider(FabricDataOutput output) {
-		super(output);
+	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override
-	public void generateBlockStateModels(BlockModelGenerators generator) {
-
-	}
-
-	@Override
-	public void generateItemModels(@NotNull ItemModelGenerators generator) {
-		generator.generateFlatItem(RegisterItems.CRAB_CLAW, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.COOKED_CRAB_CLAW, ModelTemplates.FLAT_ITEM);
+	public void generate() {
+		this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
+		this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
 	}
 }

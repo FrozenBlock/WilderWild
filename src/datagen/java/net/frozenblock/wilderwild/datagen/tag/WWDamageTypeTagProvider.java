@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen;
+package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -28,7 +28,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import org.jetbrains.annotations.NotNull;
 
-final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
+public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
 
 	public WWDamageTypeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, Registries.DAMAGE_TYPE, lookupProvider);

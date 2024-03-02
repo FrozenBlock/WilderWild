@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen;
+package net.frozenblock.wilderwild.datagen.advancement;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -32,7 +32,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
 public class WWAdvancementProvider extends FabricAdvancementProvider {
-	protected WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup);
 	}
 
