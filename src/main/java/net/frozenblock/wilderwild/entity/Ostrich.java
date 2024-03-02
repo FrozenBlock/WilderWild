@@ -110,7 +110,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final double ATTACK_BOX_WIDTH = 0.5F;
 	public static final double ATTACK_BOX_HEIGHT = 0.6F;
 	public static final double DIMENSION_PERCENTAGE_AT_NECK = 0.5163043478260869D;
-	public static final AttributeModifier ADDITIONAL_DAMAGE_RIDER_MODIFIER = new AttributeModifier(ATTACK_MODIFIER_UUID, "additional_damage_rider", ADDITIONAL_DAMAGE_RIDER, AttributeModifier.Operation.ADDITION);
+	public static final AttributeModifier ADDITIONAL_DAMAGE_RIDER_MODIFIER = new AttributeModifier(
+		ATTACK_MODIFIER_UUID,
+		"additional_damage_rider",
+		ADDITIONAL_DAMAGE_RIDER,
+		AttributeModifier.Operation.ADD_VALUE
+	);
 
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Float> TARGET_STRAIGHT_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -345,7 +350,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		float beakDamage = beakProgress * (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
 		AttributeInstance knockback = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
 		knockback.addOrUpdateTransientModifier(
-			new AttributeModifier(KNOCKBACK_MODIFIER_UUID, "additional_knockback_rider", beakProgress * ADDITIONAL_KNOCKBACK_RIDER, AttributeModifier.Operation.ADDITION)
+			new AttributeModifier(
+				KNOCKBACK_MODIFIER_UUID,
+				"additional_knockback_rider",
+				beakProgress * ADDITIONAL_KNOCKBACK_RIDER,
+				AttributeModifier.Operation.ADD_VALUE
+			)
 		);
 		boolean didHurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
 		if (!didHurt) {

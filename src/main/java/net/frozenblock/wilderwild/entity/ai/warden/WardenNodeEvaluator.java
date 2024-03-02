@@ -28,6 +28,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.PathNavigationRegion;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.PathfindingContext;
 import net.minecraft.world.level.pathfinder.Target;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import org.jetbrains.annotations.NotNull;
@@ -129,12 +130,12 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 
 	@NotNull
 	@Override
-	public PathType getPathType(BlockGetter blockGetter, int x, int y, int z) {
+	public PathType getPathType(PathfindingContext context, int x, int y, int z) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		PathType pathNodeType = getPathTypeFromState(blockGetter, mutable.set(x, y, z));
+		PathType pathNodeType = getPathTypeFromState(context.level(), mutable.set(x, y, z));
 		if (pathNodeType == PathType.WATER || pathNodeType == PathType.LAVA) {
 			for (Direction direction : Direction.values()) {
-				PathType pathNodeType2 = getPathTypeFromState(blockGetter, mutable.set(x, y, z).move(direction));
+				PathType pathNodeType2 = getPathTypeFromState(context.level(), mutable.set(x, y, z).move(direction));
 				if (pathNodeType2 == PathType.BLOCKED) {
 					return PathType.WATER_BORDER;
 				}
@@ -146,7 +147,7 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 				return PathType.LAVA;
 			}
 		} else {
-			return getPathTypeStatic(blockGetter, mutable);
+			return getPathTypeStatic(context, mutable);
 		}
 	}
 

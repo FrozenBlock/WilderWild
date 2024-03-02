@@ -38,12 +38,12 @@ public final class RegisterMobEffects {
 				Attributes.BLOCK_INTERACTION_RANGE,
 				"DA6D90D0-722B-11EE-87D4-325096B39F47",
 				1,
-				AttributeModifier.Operation.ADDITION
+				AttributeModifier.Operation.ADD_VALUE
 			).addAttributeModifier(
 				Attributes.ENTITY_INTERACTION_RANGE,
 				"F2439145-BA25-4DEC-B11A-218B56EF22BB",
 				EntityConfig.get().crab.reachAffectsAttack ? 1 : 0,
-				AttributeModifier.Operation.ADDITION
+				AttributeModifier.Operation.ADD_VALUE
 			)
 	);
 
