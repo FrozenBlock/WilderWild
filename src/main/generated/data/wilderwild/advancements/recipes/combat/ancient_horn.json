@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "wilderwild:ancient_horn_fragment"
-            ]
+            "items": "wilderwild:ancient_horn_fragment"
           }
         ]
       },

@@ -7,12 +7,13 @@
       "item": "minecraft:copper_ingot"
     },
     "G": {
-      "fabric:type": "fabric:nbt",
+      "fabric:type": "fabric:components",
       "base": {
         "item": "minecraft:goat_horn"
       },
-      "nbt": "{instrument:\"minecraft:admire_goat_horn\"}",
-      "strict": true
+      "components": {
+        "minecraft:instrument": "minecraft:admire_goat_horn"
+      }
     }
   },
   "pattern": [
@@ -20,9 +21,9 @@
     " C "
   ],
   "result": {
-    "item": "wilderwild:copper_horn",
-    "tag": {
-      "instrument": "wilderwild:trumpet_copper_horn"
-    }
+    "components": {
+      "minecraft:instrument": "wilderwild:trumpet_copper_horn"
+    },
+    "id": "wilderwild:copper_horn"
   }
 }

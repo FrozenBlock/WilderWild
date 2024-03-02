@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "wilderwild:hollowed_acacia_logs"
+            "items": "#wilderwild:hollowed_acacia_logs"
           }
         ]
       },
@@ -13,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:acacia_planks_from_hollowed"
+        "recipe": "minecraft:acacia_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_log",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_log"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:acacia_planks_from_hollowed"
+      "minecraft:acacia_planks_from_hollowed"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

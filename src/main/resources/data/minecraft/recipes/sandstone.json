@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building_blocks",
   "group": "sandstone",
   "key": {
     "#": {
@@ -11,6 +12,6 @@
     "##"
   ],
   "result": {
-    "item": "minecraft:sandstone"
+    "id": "minecraft:sandstone"
   }
 }
