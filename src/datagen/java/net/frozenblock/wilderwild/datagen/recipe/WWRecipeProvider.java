@@ -25,14 +25,15 @@ import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Instrument;
@@ -59,7 +60,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 				.pattern("#G#")
 				.pattern("#I#")
 				.pattern("I#I")
-				.unlockedBy("has_fragment", InventoryChangeTrigger.TriggerInstance.hasItems(RegisterItems.ANCIENT_HORN_FRAGMENT)),
+				.unlockedBy("has_fragment", RecipeProvider.has(RegisterItems.ANCIENT_HORN_FRAGMENT)),
 			DataComponentPatch.builder()
 				.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(RegisterItems.ANCIENT_HORN_INSTRUMENT))
 				.build()
@@ -72,6 +73,16 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 		copperHorn(exporter, "trombone", Instruments.SEEK_GOAT_HORN, RegisterItems.TROMBONE_COPPER_HORN);
 		copperHorn(exporter, "trumpet", Instruments.ADMIRE_GOAT_HORN, RegisterItems.TRUMPET_COPPER_HORN);
 		copperHorn(exporter, "tuba", Instruments.FEEL_GOAT_HORN, RegisterItems.TUBA_COPPER_HORN);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.STONE_CHEST)
+			.group("stone_chest")
+			.define('_', Ingredient.of(Items.COBBLED_DEEPSLATE_SLAB))
+			.define('#', Ingredient.of(Items.COBBLED_DEEPSLATE))
+			.pattern("___")
+			.pattern("# #")
+			.pattern("###")
+			.unlockedBy("has_stone", RecipeProvider.has(Items.COBBLED_DEEPSLATE))
+		.save(exporter);
 	}
 
 	private static void copperHorn(RecipeOutput exporter, String name, ResourceKey<Instrument> goatHornInstrument, ResourceKey<Instrument> copperHornInstrument) {
@@ -85,7 +96,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			))
 			.pattern("CGC")
 			.pattern(" C ")
-			.unlockedBy("has_horn", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOAT_HORN))
+			.unlockedBy("has_horn", RecipeProvider.has(Items.GOAT_HORN))
 		).frozenLib$patch(DataComponentPatch.builder().set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(copperHornInstrument)).build())
 			.save(exporter, WilderSharedConstants.id(name + "_copper_horn"));
 	}

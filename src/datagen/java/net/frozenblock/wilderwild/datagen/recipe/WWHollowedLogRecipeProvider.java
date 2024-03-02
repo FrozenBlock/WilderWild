@@ -21,10 +21,9 @@ package net.frozenblock.wilderwild.datagen.recipe;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.TagKey;
@@ -93,7 +92,7 @@ public class WWHollowedLogRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("planks")
 			.requires(input)
-			.unlockedBy("has_log", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(input)))
+			.unlockedBy("has_log", RecipeProvider.has(input))
 			.save(exporter, name + "_planks_from_hollowed");
 	}
 
@@ -103,7 +102,7 @@ public class WWHollowedLogRecipeProvider {
 			.define('#', Ingredient.of(hollowedLog))
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy("has_log", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(hollowedLog)))
+			.unlockedBy("has_log", RecipeProvider.has(hollowedLog))
 		.save(exporter, WilderSharedConstants.id(name + "_wood_from_hollowed"));
 	}
 
@@ -115,7 +114,7 @@ public class WWHollowedLogRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("planks")
 			.requires(input)
-			.unlockedBy("has_stem", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(input)))
+			.unlockedBy("has_stem", RecipeProvider.has(input))
 			.save(exporter, name + "_planks_from_hollowed");
 	}
 
@@ -125,7 +124,7 @@ public class WWHollowedLogRecipeProvider {
 			.define('#', Ingredient.of(hollowedStem))
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy("has_stem", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(hollowedStem)))
+			.unlockedBy("has_stem", RecipeProvider.has(hollowedStem))
 			.save(exporter, WilderSharedConstants.id(name + "_hyphae_from_hollowed"));
 	}
 
