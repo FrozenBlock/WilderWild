@@ -64,7 +64,6 @@ Additions
 
 Bug Fixes & Changes
 ---
-
 - Updated the mod protocol version to 4.
 - Removed the Coated Sculk item model.
 
@@ -97,5 +96,5 @@ Bug Fixes & Changes
 
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
 
-
 - Glory of the Snow now only drops one item upon being sheared.
+- Retextured Baobab Nuts thanks to Zhen!
