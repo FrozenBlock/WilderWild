@@ -462,128 +462,117 @@ public final class WorldgenConfigGui {
 			hotBiomes, lukewarmBiomes, snowyBiomes, frozenBiomes
 		);
 
-		var fallenLogs = category.addEntry(
+		var fallenTrees = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("fallen_logs"), modifiedConfig.fallenLogs)
-					.setDefaultValue(defaultConfig.fallenLogs)
-					.setSaveConsumer(newValue -> config.fallenLogs = newValue)
-					.setTooltip(tooltip("fallen_logs"))
+				entryBuilder.startBooleanToggle(text("fallen_trees"), modifiedConfig.fallenTrees)
+					.setDefaultValue(defaultConfig.fallenTrees)
+					.setSaveConsumer(newValue -> config.fallenTrees = newValue)
+					.setTooltip(tooltip("fallen_trees"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"fallenLogs",
+				"fallenTrees",
 				configInstance
 			)
 		);
-		var snappedLogs = category.addEntry(
+		var snappedTrees = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("snapped_logs"), modifiedConfig.snappedLogs)
-					.setDefaultValue(defaultConfig.snappedLogs)
-					.setSaveConsumer(newValue -> config.snappedLogs = newValue)
-					.setTooltip(tooltip("snapped_logs"))
+				entryBuilder.startBooleanToggle(text("snapped_trees"), modifiedConfig.snappedTrees)
+					.setDefaultValue(defaultConfig.snappedTrees)
+					.setSaveConsumer(newValue -> config.snappedTrees = newValue)
+					.setTooltip(tooltip("snapped_trees"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"snappedLogs",
+				"snappedTrees",
 				configInstance
 			));
-		var wilderWildGrass = category.addEntry(
+
+		var bushGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("wilder_wild_grass"), modifiedConfig.wilderWildGrassGen)
-					.setDefaultValue(defaultConfig.wilderWildGrassGen)
-					.setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
-					.setTooltip(tooltip("wilder_wild_grass"))
+				entryBuilder.startBooleanToggle(text("bush_generation"), modifiedConfig.bushGeneration)
+					.setDefaultValue(defaultConfig.bushGeneration)
+					.setSaveConsumer(newValue -> config.bushGeneration = newValue)
+					.setTooltip(tooltip("bush_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"wilderWildGrassGen",
+				"bushGeneration",
 				configInstance
 			)
 		);
-		var wilderWildFlowers = category.addEntry(
+		var cactusGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("wilder_wild_flowers"), modifiedConfig.wilderWildFlowerGen)
-					.setDefaultValue(defaultConfig.wilderWildFlowerGen)
-					.setSaveConsumer(newValue -> config.wilderWildFlowerGen = newValue)
-					.setTooltip(tooltip("wilder_wild_flowers"))
+				entryBuilder.startBooleanToggle(text("cactus_generation"), modifiedConfig.cactusGeneration)
+					.setDefaultValue(defaultConfig.cactusGeneration)
+					.setSaveConsumer(newValue -> config.cactusGeneration = newValue)
+					.setTooltip(tooltip("cactus_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"wilderWildFlowerGen",
+				"cactusGeneration",
 				configInstance
 			)
 		);
-		var wilderWildTrees = category.addEntry(
+		var flowerGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("wilder_wild_trees"), modifiedConfig.wilderWildTreeGen)
-					.setDefaultValue(defaultConfig.wilderWildTreeGen)
-					.setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
-					.setTooltip(tooltip("wilder_wild_trees"))
+				entryBuilder.startBooleanToggle(text("flower_generation"), modifiedConfig.flowerGeneration)
+					.setDefaultValue(defaultConfig.flowerGeneration)
+					.setSaveConsumer(newValue -> config.flowerGeneration = newValue)
+					.setTooltip(tooltip("flower_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"wilderWildTreeGen",
+				"flowerGeneration",
 				configInstance
 			)
 		);
-		var wilderWildBushes = category.addEntry(
+		var grassGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("wilder_wild_bushes"), modifiedConfig.wilderWildBushGen)
-					.setDefaultValue(defaultConfig.wilderWildBushGen)
-					.setSaveConsumer(newValue -> config.wilderWildBushGen = newValue)
-					.setTooltip(tooltip("wilder_wild_bushes"))
+				entryBuilder.startBooleanToggle(text("grass_generation"), modifiedConfig.grassGeneration)
+					.setDefaultValue(defaultConfig.grassGeneration)
+					.setSaveConsumer(newValue -> config.grassGeneration = newValue)
+					.setTooltip(tooltip("grass_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"wilderWildBushGen",
+				"grassGeneration",
 				configInstance
 			)
 		);
-		var wilderWildCacti = category.addEntry(
+		var mushroomGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("wilder_wild_cacti"), modifiedConfig.wilderWildCactusGen)
-					.setDefaultValue(defaultConfig.wilderWildCactusGen)
-					.setSaveConsumer(newValue -> config.wilderWildCactusGen = newValue)
-					.setTooltip(tooltip("wilder_wild_cacti"))
+				entryBuilder.startBooleanToggle(text("mushroom_generation"), modifiedConfig.mushroomGeneration)
+					.setDefaultValue(defaultConfig.mushroomGeneration)
+					.setSaveConsumer(newValue -> config.mushroomGeneration = newValue)
+					.setTooltip(tooltip("mushroom_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"wilderWildCactusGen",
+				"mushroomGeneration",
 				configInstance
 			)
 		);
-		var wilderWildMushrooms = category.addEntry(
+		var treeGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("wilder_wild_mushrooms"), modifiedConfig.wilderWildMushroomGen)
-					.setDefaultValue(defaultConfig.wilderWildMushroomGen)
-					.setSaveConsumer(newValue -> config.wilderWildMushroomGen = newValue)
-					.setTooltip(tooltip("wilder_wild_mushrooms"))
+				entryBuilder.startBooleanToggle(text("tree_generation"), modifiedConfig.treeGeneration)
+					.setDefaultValue(defaultConfig.treeGeneration)
+					.setSaveConsumer(newValue -> config.treeGeneration = newValue)
+					.setTooltip(tooltip("tree_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"wilderWildMushroomGen",
+				"treeGeneration",
 				configInstance
 			)
 		);
-		var tumbleweed = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("tumbleweed_gen"), modifiedConfig.tumbleweed)
-					.setDefaultValue(defaultConfig.tumbleweed)
-					.setSaveConsumer(newValue -> config.tumbleweed = newValue)
-					.setTooltip(tooltip("tumbleweed_gen"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"tumbleweed",
-				configInstance
-			)
-		);
+
 		var algae = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("algae_gen"), modifiedConfig.algae)
+				entryBuilder.startBooleanToggle(text("algae_generation"), modifiedConfig.algae)
 					.setDefaultValue(defaultConfig.algae)
 					.setSaveConsumer(newValue -> config.algae = newValue)
-					.setTooltip(tooltip("algae_gen"))
+					.setTooltip(tooltip("algae_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
@@ -591,12 +580,25 @@ public final class WorldgenConfigGui {
 				configInstance
 			)
 		);
+		var tumbleweed = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("tumbleweed_generation"), modifiedConfig.tumbleweed)
+					.setDefaultValue(defaultConfig.tumbleweed)
+					.setSaveConsumer(newValue -> config.tumbleweed = newValue)
+					.setTooltip(tooltip("tumbleweed_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"tumbleweed",
+				configInstance
+			)
+		);
 		var termite = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("termite_gen"), modifiedConfig.termiteGen)
+				entryBuilder.startBooleanToggle(text("termite_generation"), modifiedConfig.termiteGen)
 					.setDefaultValue(defaultConfig.termiteGen)
 					.setSaveConsumer(newValue -> config.termiteGen = newValue)
-					.setTooltip(tooltip("termite_gen"))
+					.setTooltip(tooltip("termite_generation"))
 					.requireRestart()
 					.build(),
 				clazz,

@@ -174,8 +174,8 @@ public final class EntityConfig {
 		@EntrySyncData(value = "wardenBedrockSniff", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wardenBedrockSniff = true;
 
-		@EntrySyncData("wardenDyingAnimation")
-		public boolean wardenDyingAnimation = true;
+		@EntrySyncData("wardenDeathAnimation")
+		public boolean wardenDeathAnimation = true;
 
 		@EntrySyncData("wardenEmergesFromCommand")
 		public boolean wardenEmergesFromCommand = false;

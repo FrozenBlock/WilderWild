@@ -1,35 +1,31 @@
 {
-  "parent": "minecraft:husbandry/tactical_fishing",
+  "parent": "minecraft:husbandry/root",
   "criteria": {
-    "jellyfish_bucket": {
+    "obtain_null_block": {
       "conditions": {
-        "item": {
-          "items": [
-            "wilderwild:jellyfish_bucket"
-          ]
-        }
+        "items": [
+          {
+            "items": "wilderwild:null_block"
+          }
+        ]
       },
-      "trigger": "minecraft:filled_bucket"
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "wilderwild:jellyfish_bucket"
+      "id": "wilderwild:null_block"
     },
-    "show_toast": true,
     "title": {
       "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"
     }
   },
   "requirements": [
     [
-      "jellyfish_bucket"
+      "obtain_null_block"
     ]
   ],
   "sends_telemetry_event": true

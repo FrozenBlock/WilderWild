@@ -16,23 +16,24 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen.recipe;
+package net.frozenblock.wilderwild.datagen.loot.experimental;
 
-import java.util.concurrent.CompletableFuture;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
-final class WWExperimentRecipeProvider extends RecipeProvider {
+final class WWExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
 
-	WWExperimentRecipeProvider(@NotNull PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(packOutput, completableFuture);
+	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override
-	public void buildRecipes(final @NotNull RecipeOutput output) {
-
+	public void generate() {
+		this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
+		this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
 	}
 }

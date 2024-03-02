@@ -1,28 +1,22 @@
 {
-  "parent": "minecraft:husbandry/tactical_fishing",
+  "parent": "minecraft:husbandry/root",
   "criteria": {
     "crab_bucket": {
       "conditions": {
         "item": {
-          "items": [
-            "wilderwild:crab_bucket"
-          ]
+          "items": "wilderwild:crab_bucket"
         }
       },
       "trigger": "minecraft:filled_bucket"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "wilderwild.advancements.husbandry.crab_in_a_bucket.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "wilderwild:crab_bucket"
+      "id": "wilderwild:crab_bucket"
     },
-    "show_toast": true,
     "title": {
       "translate": "wilderwild.advancements.husbandry.crab_in_a_bucket.title"
     }
