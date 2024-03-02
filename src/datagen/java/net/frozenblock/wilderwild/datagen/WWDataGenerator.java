@@ -28,8 +28,6 @@ import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;
