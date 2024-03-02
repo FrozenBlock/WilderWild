@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.advancement;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -29,9 +30,11 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.UsingItemTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
@@ -91,11 +94,11 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 			.save(writer, WilderSharedConstants.string("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
-			.parent(husbandry)
+			.parent(adventure)
 			.display(
 				RegisterBlocks.NULL_BLOCK,
-				Component.translatable("wilderwild.null_block.advancement.obtain"),
-				Component.translatable("wilderwild.null_block.advancement.obtain.description"),
+				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.title"),
+				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.description"),
 				null,
 				AdvancementType.TASK,
 				true,
@@ -104,5 +107,23 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(RegisterBlocks.NULL_BLOCK))
 			.save(writer, WilderSharedConstants.string("adventure/obtain_null_block"));
+
+		Advancement.Builder.advancement()
+			.parent(adventure)
+			.display(
+				RegisterItems.ANCIENT_HORN,
+				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.title"),
+				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.description"),
+				null,
+				AdvancementType.GOAL,
+				true,
+				true,
+				false
+			)
+			.addCriterion("use_ancient_horn",
+				CriteriaTriggers.USING_ITEM
+					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(RegisterItems.ANCIENT_HORN).build())))
+			)
+			.save(writer, WilderSharedConstants.string("adventure/use_ancient_horn"));
 	}
 }

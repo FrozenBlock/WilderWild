@@ -26,9 +26,7 @@ import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -36,17 +34,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.StringTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
 
 public class WWRecipeProvider extends FabricRecipeProvider {
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
@@ -55,12 +47,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.ACACIA_PLANKS, 2)
-			.group("planks")
-			.requires(WilderItemTags.HOLLOWED_ACACIA_LOGS)
-			.unlockedBy("has_log", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(WilderItemTags.HOLLOWED_ACACIA_LOGS)))
-			.save(exporter, "acacia_planks_from_hollowed");
-
+		WWHollowedLogRecipeProvider.buildRecipes(exporter);
 		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
 				.group("wilderwild_ancient_horn")

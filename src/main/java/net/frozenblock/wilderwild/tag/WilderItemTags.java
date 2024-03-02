@@ -43,6 +43,7 @@ public final class WilderItemTags {
 	public static final TagKey<Item> HOLLOWED_ACACIA_LOGS = bind("hollowed_acacia_logs");
 	public static final TagKey<Item> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
 	public static final TagKey<Item> HOLLOWED_BIRCH_LOGS = bind("hollowed_birch_logs");
+	public static final TagKey<Item> HOLLOWED_CHERRY_LOGS = bind("hollowed_cherry_logs");
 	public static final TagKey<Item> HOLLOWED_CRIMSON_STEMS = bind("hollowed_crimson_stems");
 	public static final TagKey<Item> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
 	public static final TagKey<Item> HOLLOWED_DARK_OAK_LOGS = bind("hollowed_dark_oak_logs");

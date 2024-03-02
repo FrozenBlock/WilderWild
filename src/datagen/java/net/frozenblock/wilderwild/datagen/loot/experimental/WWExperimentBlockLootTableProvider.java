@@ -18,12 +18,12 @@
 
 package net.frozenblock.wilderwild.datagen.loot.experimental;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.HolderLookup;
 import org.jetbrains.annotations.NotNull;
-import java.util.concurrent.CompletableFuture;
 
 final class WWExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
 

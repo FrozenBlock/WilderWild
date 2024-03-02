@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:husbandry/root",
+  "parent": "minecraft:adventure/root",
   "criteria": {
     "obtain_null_block": {
       "conditions": {
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"
+      "translate": "wilderwild.advancements.adventure.obtain_null_block.description"
     },
     "icon": {
       "id": "wilderwild:null_block"
     },
     "title": {
-      "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"
+      "translate": "wilderwild.advancements.adventure.obtain_null_block.title"
     }
   },
   "requirements": [

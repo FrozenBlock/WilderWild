@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.tag;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -36,7 +37,6 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
-import java.util.concurrent.CompletableFuture;
 
 public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
