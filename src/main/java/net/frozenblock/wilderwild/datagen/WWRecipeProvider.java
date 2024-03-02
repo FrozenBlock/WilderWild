@@ -74,7 +74,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 	}
 
 	private static void copperHorn(RecipeOutput exporter, String name, ResourceKey<Instrument> goatHornInstrument, ResourceKey<Instrument> copperHornInstrument) {
-		((ShapedRecipeBuilderExtension)ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegisterItems.COPPER_HORN)
+		((ShapedRecipeBuilderExtension) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegisterItems.COPPER_HORN)
 			.group("wilderwild_copper_horn")
 			.define('C', Ingredient.of(Items.COPPER_INGOT))
 			.define('G', DefaultCustomIngredients.components(Ingredient.of(Items.GOAT_HORN),
