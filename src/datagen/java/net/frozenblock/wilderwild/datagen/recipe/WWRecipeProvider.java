@@ -48,6 +48,8 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
 		WWHollowedLogRecipeProvider.buildRecipes(exporter);
+		WWWoodRecipeProvider.buildRecipes(exporter);
+
 		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
 				.group("wilderwild_ancient_horn")

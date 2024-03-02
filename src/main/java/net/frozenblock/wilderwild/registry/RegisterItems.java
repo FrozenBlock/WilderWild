@@ -91,12 +91,12 @@ public final class RegisterItems {
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
 	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
-	public static final BoatItem BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
-	public static final BoatItem BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
-	public static final BoatItem CYPRESS_BOAT_ITEM = new BoatItem(false, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
-	public static final BoatItem CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
-	public static final BoatItem PALM_BOAT_ITEM = new BoatItem(false, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
-	public static final BoatItem PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
+	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
+	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
+	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
+	public static final BoatItem CYPRESS_CHEST_BOAT = new BoatItem(true, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
+	public static final BoatItem PALM_BOAT = new BoatItem(false, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
+	public static final BoatItem PALM_CHEST_BOAT = new BoatItem(true, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
 	public static final FireflyBottle FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ON);
 	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BLACK);
 	public static final FireflyBottle RED_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.RED);
@@ -173,12 +173,12 @@ public final class RegisterItems {
 	public static void registerItems() {
 		WilderSharedConstants.logWithModId("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		//BOATS
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(BAOBAB_BOAT_ITEM, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(BAOBAB_CHEST_BOAT_ITEM, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(CYPRESS_BOAT_ITEM, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(CYPRESS_CHEST_BOAT_ITEM, PALM_BOAT_ITEM, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(PALM_BOAT_ITEM, PALM_CHEST_BOAT_ITEM, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(BAOBAB_BOAT, BAOBAB_CHEST_BOAT, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(BAOBAB_CHEST_BOAT, CYPRESS_BOAT, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(CYPRESS_BOAT, CYPRESS_CHEST_BOAT, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(CYPRESS_CHEST_BOAT, PALM_BOAT, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(PALM_BOAT, PALM_CHEST_BOAT, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.INK_SAC, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.EVOKER_SPAWN_EGG, FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.SPAWN_EGGS);

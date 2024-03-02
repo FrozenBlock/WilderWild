@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "wilderwild:cypress_planks"
+    }
+  ],
+  "result": {
+    "id": "wilderwild:cypress_button"
+  }
+}

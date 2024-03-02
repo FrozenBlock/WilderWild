@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "wilderwild:baobab_planks"
+    }
+  ],
+  "result": {
+    "id": "wilderwild:baobab_button"
+  }
+}
