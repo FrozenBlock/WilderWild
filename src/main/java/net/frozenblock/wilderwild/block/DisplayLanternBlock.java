@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -46,6 +47,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -110,7 +112,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				if (stack.getItem() instanceof FireflyBottle bottle) {
 					if (lantern.getFireflies().size() < 4) {
 						String name = "";
-						if (stack.hasCustomHoverName()) {
+						if (stack.has(DataComponents.CUSTOM_NAME)) {
 							name = stack.getHoverName().getString();
 						}
 						lantern.addFirefly(level, bottle, name);
@@ -139,7 +141,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						}
 						ItemStack bottleStack = new ItemStack(item);
 						if (!Objects.equals(fireflyInLantern.customName, "")) {
-							bottleStack.setHoverName(Component.nullToEmpty(fireflyInLantern.customName));
+							bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
 						}
 						player.getInventory().placeItemBackInInventory(bottleStack);
 						((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
@@ -150,12 +152,11 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					}
 				}
 				if (!stack.isEmpty() && lantern.noFireflies()) {
-					int light = 0;
+					int light;
 					if (stack.getItem() instanceof BlockItem blockItem) {
 						light = blockItem.getBlock().defaultBlockState().getLightEmission();
-					} else if (stack.isEnchanted()) {
-						light = (int) Math.round(stack.getEnchantmentTags().size() * 0.5);
-					}
+					} else
+						light = (int) Math.round(stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).size() * 0.5);
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, 15)));
 					lantern.inventory.set(0, stack.split(1));
 					lantern.updateSync();
@@ -253,7 +254,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
 		return false;
 	}
 

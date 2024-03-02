@@ -257,7 +257,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
 		return true;
 	}
 

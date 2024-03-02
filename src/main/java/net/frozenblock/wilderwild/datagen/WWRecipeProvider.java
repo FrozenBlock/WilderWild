@@ -28,6 +28,9 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -46,7 +49,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
-		ShapedRecipeUtil.withResultTag(
+		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
 				.group("wilderwild_ancient_horn")
 				.define('#', Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT))
@@ -56,7 +59,9 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 				.pattern("#I#")
 				.pattern("I#I")
 				.unlockedBy("has_fragment", InventoryChangeTrigger.TriggerInstance.hasItems(RegisterItems.ANCIENT_HORN_FRAGMENT)),
-			new CompoundTag() {{ put("instrument", StringTag.valueOf(RegisterItems.ANCIENT_HORN_INSTRUMENT.location().toString())); }}
+			DataComponentPatch.builder()
+				.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(RegisterItems.ANCIENT_HORN_INSTRUMENT))
+				.build()
 		).save(exporter, WilderSharedConstants.id("ancient_horn"));
 
 		copperHorn(exporter, "clarinet", Instruments.DREAM_GOAT_HORN, RegisterItems.CLARINET_COPPER_HORN);
@@ -72,13 +77,15 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 		((ShapedRecipeBuilderExtension)ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegisterItems.COPPER_HORN)
 			.group("wilderwild_copper_horn")
 			.define('C', Ingredient.of(Items.COPPER_INGOT))
-			.define('G', DefaultCustomIngredients.nbt(Ingredient.of(Items.GOAT_HORN), new CompoundTag() {{
-				put("instrument", StringTag.valueOf(goatHornInstrument.location().toString()));
-			}}, true))
+			.define('G', DefaultCustomIngredients.components(Ingredient.of(Items.GOAT_HORN),
+				DataComponentPatch.builder()
+					.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(goatHornInstrument))
+					.build()
+			))
 			.pattern("CGC")
 			.pattern(" C ")
 			.unlockedBy("has_horn", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOAT_HORN))
-		).frozenLib$tag(new CompoundTag() {{ put("instrument", StringTag.valueOf(copperHornInstrument.location().toString())); }})
+		).frozenLib$patch(DataComponentPatch.builder().set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(copperHornInstrument)).build())
 			.save(exporter, WilderSharedConstants.id(name + "_copper_horn"));
 	}
 }

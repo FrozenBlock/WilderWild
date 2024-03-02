@@ -136,7 +136,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			}
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(tag, this.inventory);
+		ContainerHelper.loadAllItems(tag, this.inventory, provider);
 		this.age = tag.getInt("age");
 	}
 
@@ -147,7 +147,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		Logger logger = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(logger);
 		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
-		ContainerHelper.saveAllItems(tag, this.inventory);
+		ContainerHelper.saveAllItems(tag, this.inventory, provider);
 		tag.putInt("age", this.age);
 	}
 

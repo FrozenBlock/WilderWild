@@ -31,7 +31,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyCustomDataFunction;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -59,11 +59,11 @@ final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 					.add(
 						LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN)
 					)
-					.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fireflies", "BlockEntityTag.Fireflies").when(
+					.apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fireflies", "BlockEntityTag.Fireflies").when(
 						MatchTool.toolMatches(
 							ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.ANY))
 						)
-						))
+					))
 					.apply(CopyBlockState.copyState(RegisterBlocks.DISPLAY_LANTERN).copy(DisplayLanternBlock.DISPLAY_LIGHT).when(
 						MatchTool.toolMatches(
 							ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.ANY))

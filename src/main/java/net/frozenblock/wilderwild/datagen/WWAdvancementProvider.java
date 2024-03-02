@@ -37,7 +37,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	@Override
-	public void generateAdvancement(Consumer<AdvancementHolder> writer) {
+	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
 		Advancement.Builder.advancement()
 			.parent(WilderSharedConstants.vanillaId("husbandry/root"))
 			.display(

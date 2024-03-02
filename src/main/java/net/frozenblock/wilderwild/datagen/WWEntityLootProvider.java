@@ -48,7 +48,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	@Override
-	public void generate(@NotNull BiConsumer<ResourceLocation, LootTable.Builder> output) {
+	public void generate(HolderLookup.Provider registries, @NotNull BiConsumer<ResourceLocation, LootTable.Builder> output) {
 		output.accept(
 			RegisterEntities.CRAB.getDefaultLootTable(),
 			LootTable.lootTable().withPool(

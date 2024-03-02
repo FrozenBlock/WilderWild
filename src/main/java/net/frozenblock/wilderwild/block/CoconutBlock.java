@@ -209,11 +209,11 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
 		if (type == PathComputationType.AIR && state.is(this) && !isHanging(state)) {
 			return true;
 		}
-		return super.isPathfindable(state, level, pos, type);
+		return super.isPathfindable(state, type);
 	}
 
 	@Override
