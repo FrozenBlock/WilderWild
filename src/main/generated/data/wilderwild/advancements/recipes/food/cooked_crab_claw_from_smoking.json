@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "wilderwild:crab_claw"
-            ]
+            "items": "wilderwild:crab_claw"
           }
         ]
       },
@@ -15,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cooked_crab_claw_from_campfire_cooking"
+        "recipe": "minecraft:cooked_crab_claw_from_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_crab_claw",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_crab_claw"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:cooked_crab_claw_from_campfire_cooking"
+      "minecraft:cooked_crab_claw_from_smoking"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

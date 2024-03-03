@@ -52,6 +52,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 		WilderWoodRecipeProvider.buildRecipes(exporter);
 		MesogleaRecipeProvider.buildRecipes(exporter);
 		FireflyBottleRecipeProvider.buildRecipes(exporter);
+		WilderCookRecipeProvider.buildRecipes(exporter);
 
 		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
