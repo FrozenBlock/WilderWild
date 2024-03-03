@@ -11,7 +11,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:bowl",
+    "id": "minecraft:bowl",
     "count": 2
   }
 }

@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "wilderwild:coconut"
   },
-  "result": "wilderwild:split_coconut"
+  "result": {
+    "id": "wilderwild:split_coconut"
+  }
 }

@@ -131,10 +131,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		super.load(tag, provider);
 		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
 			this.fireflies.clear();
-			DataResult<List<Occupant>> var10000 = Occupant.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
+			DataResult<List<Occupant>> occupants = Occupant.LIST_CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
 			Logger var10001 = WilderSharedConstants.LOGGER;
 			Objects.requireNonNull(var10001);
-			Optional<List<Occupant>> list = var10000.resultOrPartial(var10001::error);
+			Optional<List<Occupant>> list = occupants.resultOrPartial(var10001::error);
 			if (list.isPresent()) {
 				List<Occupant> fireflyList = list.get();
 				this.fireflies.addAll(fireflyList);
@@ -148,7 +148,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
-		DataResult<Tag> fireflies = Occupant.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
+		DataResult<Tag> fireflies = Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies);
 		Logger logger = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(logger);
 		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
@@ -171,7 +171,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 	}
 
-	public void removeFirefly(@NotNull DisplayLanternBlockEntity.Occupant firefly) {
+	public void removeFirefly(@NotNull Occupant firefly) {
 		this.fireflies.remove(firefly);
 	}
 
@@ -230,6 +230,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
+
+		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 
 		public Vec3 pos;
 		public FireflyColor color;
