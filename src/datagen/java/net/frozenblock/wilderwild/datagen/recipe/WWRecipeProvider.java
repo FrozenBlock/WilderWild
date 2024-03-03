@@ -54,6 +54,8 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 		FireflyBottleRecipeProvider.buildRecipes(exporter);
 		WWCookRecipeProvider.buildRecipes(exporter);
 
+
+
 		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
 				.group("wilderwild_ancient_horn")
