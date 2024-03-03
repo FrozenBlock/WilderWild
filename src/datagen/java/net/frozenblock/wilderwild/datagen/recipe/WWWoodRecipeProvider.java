@@ -18,13 +18,12 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
+import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class WWWoodRecipeProvider {
 
@@ -34,69 +33,48 @@ public class WWWoodRecipeProvider {
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.STRIPPED_BAOBAB_WOOD, RegisterBlocks.STRIPPED_BAOBAB_LOG);
 		RecipeProvider.woodenBoat(exporter, RegisterItems.BAOBAB_BOAT, RegisterBlocks.BAOBAB_PLANKS);
 		RecipeProvider.chestBoat(exporter, RegisterItems.BAOBAB_CHEST_BOAT, RegisterItems.BAOBAB_BOAT);
-		RecipeProvider.buttonBuilder(RegisterBlocks.BAOBAB_BUTTON, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.doorBuilder(RegisterBlocks.BAOBAB_DOOR, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.fenceBuilder(RegisterBlocks.BAOBAB_FENCE, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.fenceGateBuilder(RegisterBlocks.BAOBAB_FENCE_GATE, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.pressurePlate(exporter, RegisterBlocks.BAOBAB_PRESSURE_PLATE, RegisterBlocks.BAOBAB_PLANKS);
-		RecipeProvider.slab(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.BAOBAB_SLAB, RegisterBlocks.BAOBAB_PLANKS);
-		RecipeProvider.stairBuilder(RegisterBlocks.BAOBAB_STAIRS, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.trapdoorBuilder(RegisterBlocks.BAOBAB_TRAPDOOR, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.signBuilder(RegisterItems.BAOBAB_SIGN, Ingredient.of(RegisterBlocks.BAOBAB_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.BAOBAB_PLANKS)).save(exporter);
-		RecipeProvider.hangingSign(exporter, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenButton(exporter, RegisterBlocks.BAOBAB_BUTTON, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenDoor(exporter, RegisterBlocks.BAOBAB_DOOR, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenFence(exporter, RegisterBlocks.BAOBAB_FENCE, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenFenceGate(exporter, RegisterBlocks.BAOBAB_FENCE_GATE, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenPressurePlace(exporter, RegisterBlocks.BAOBAB_PRESSURE_PLATE, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenSlab(exporter, RegisterBlocks.BAOBAB_SLAB, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenStairs(exporter, RegisterBlocks.BAOBAB_STAIRS, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenTrapdoor(exporter, RegisterBlocks.BAOBAB_TRAPDOOR, RegisterBlocks.BAOBAB_PLANKS);
+		FrozenRecipeProvider.woodenSign(exporter, RegisterItems.BAOBAB_SIGN, RegisterBlocks.BAOBAB_PLANKS);
+		RecipeProvider.hangingSign(exporter, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.STRIPPED_BAOBAB_LOG);
 
 		RecipeProvider.planksFromLogs(exporter, RegisterBlocks.CYPRESS_PLANKS, WilderItemTags.CYPRESS_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.CYPRESS_WOOD, RegisterBlocks.CYPRESS_LOG);
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.STRIPPED_CYPRESS_WOOD, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 		RecipeProvider.woodenBoat(exporter, RegisterItems.CYPRESS_BOAT, RegisterBlocks.CYPRESS_PLANKS);
 		RecipeProvider.chestBoat(exporter, RegisterItems.CYPRESS_CHEST_BOAT, RegisterItems.CYPRESS_BOAT);
-		RecipeProvider.buttonBuilder(RegisterBlocks.CYPRESS_BUTTON, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.doorBuilder(RegisterBlocks.CYPRESS_DOOR, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.fenceBuilder(RegisterBlocks.CYPRESS_FENCE, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.fenceGateBuilder(RegisterBlocks.CYPRESS_FENCE_GATE, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.pressurePlate(exporter, RegisterBlocks.CYPRESS_PRESSURE_PLATE, RegisterBlocks.CYPRESS_PLANKS);
-		RecipeProvider.slab(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CYPRESS_SLAB, RegisterBlocks.CYPRESS_PLANKS);
-		RecipeProvider.stairBuilder(RegisterBlocks.CYPRESS_STAIRS, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.trapdoorBuilder(RegisterBlocks.CYPRESS_TRAPDOOR, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.signBuilder(RegisterItems.CYPRESS_SIGN, Ingredient.of(RegisterBlocks.CYPRESS_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.CYPRESS_PLANKS)).save(exporter);
-		RecipeProvider.hangingSign(exporter, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenButton(exporter, RegisterBlocks.CYPRESS_BUTTON, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenDoor(exporter, RegisterBlocks.CYPRESS_DOOR, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenFence(exporter, RegisterBlocks.CYPRESS_FENCE, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenFenceGate(exporter, RegisterBlocks.CYPRESS_FENCE_GATE, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenPressurePlace(exporter, RegisterBlocks.CYPRESS_PRESSURE_PLATE, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenSlab(exporter, RegisterBlocks.CYPRESS_SLAB, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenStairs(exporter, RegisterBlocks.CYPRESS_STAIRS, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenTrapdoor(exporter, RegisterBlocks.CYPRESS_TRAPDOOR, RegisterBlocks.CYPRESS_PLANKS);
+		FrozenRecipeProvider.woodenSign(exporter, RegisterItems.CYPRESS_SIGN, RegisterBlocks.CYPRESS_PLANKS);
+		RecipeProvider.hangingSign(exporter, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 
 		RecipeProvider.planksFromLogs(exporter, RegisterBlocks.PALM_PLANKS, WilderItemTags.PALM_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.PALM_WOOD, RegisterBlocks.PALM_LOG);
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.STRIPPED_PALM_WOOD, RegisterBlocks.STRIPPED_PALM_LOG);
 		RecipeProvider.woodenBoat(exporter, RegisterItems.PALM_BOAT, RegisterBlocks.PALM_PLANKS);
 		RecipeProvider.chestBoat(exporter, RegisterItems.PALM_CHEST_BOAT, RegisterItems.PALM_BOAT);
-		RecipeProvider.buttonBuilder(RegisterBlocks.PALM_BUTTON, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.doorBuilder(RegisterBlocks.PALM_DOOR, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.fenceBuilder(RegisterBlocks.PALM_FENCE, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.fenceGateBuilder(RegisterBlocks.PALM_FENCE_GATE, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.pressurePlate(exporter, RegisterBlocks.PALM_PRESSURE_PLATE, RegisterBlocks.PALM_PLANKS);
-		RecipeProvider.slab(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.PALM_SLAB, RegisterBlocks.PALM_PLANKS);
-		RecipeProvider.stairBuilder(RegisterBlocks.PALM_STAIRS, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.trapdoorBuilder(RegisterBlocks.PALM_TRAPDOOR, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.signBuilder(RegisterItems.PALM_SIGN, Ingredient.of(RegisterBlocks.PALM_PLANKS))
-			.unlockedBy("has_planks", RecipeProvider.has(RegisterBlocks.PALM_PLANKS)).save(exporter);
-		RecipeProvider.hangingSign(exporter, RegisterItems.PALM_HANGING_SIGN, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenButton(exporter, RegisterBlocks.PALM_BUTTON, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenDoor(exporter, RegisterBlocks.PALM_DOOR, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenFence(exporter, RegisterBlocks.PALM_FENCE, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenFenceGate(exporter, RegisterBlocks.PALM_FENCE_GATE, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenPressurePlace(exporter, RegisterBlocks.PALM_PRESSURE_PLATE, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenSlab(exporter, RegisterBlocks.PALM_SLAB, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenStairs(exporter, RegisterBlocks.PALM_STAIRS, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenTrapdoor(exporter, RegisterBlocks.PALM_TRAPDOOR, RegisterBlocks.PALM_PLANKS);
+		FrozenRecipeProvider.woodenSign(exporter, RegisterItems.PALM_SIGN, RegisterBlocks.PALM_PLANKS);
+		RecipeProvider.hangingSign(exporter, RegisterItems.PALM_HANGING_SIGN, RegisterBlocks.STRIPPED_PALM_LOG);
 	}
 
 }
