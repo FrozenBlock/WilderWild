@@ -122,6 +122,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
+			private ItemStack lastStack;
 
 			@Override
 			public Boolean firstTickTest(LivingEntity entity) {
@@ -136,9 +137,22 @@ public class FrozenLibIntegration extends ModIntegration {
 					if (hand == null) return false;
 
 					ItemStack stack = entity.getItemInHand(hand);
-					return stack.getItem() instanceof InstrumentItem;
+					if (stack.getItem() instanceof InstrumentItem) {
+						this.lastStack = stack;
+						return true;
+					}
+					return false;
 				}
-				return entity.getUseItem().getItem() instanceof InstrumentItem;
+				var stack = entity.getUseItem();
+				if (stack.getItem() instanceof InstrumentItem) {
+					if (this.lastStack == null || ItemStack.matches(this.lastStack, stack)) {
+						this.lastStack = stack;
+						return true;
+					} else {
+						this.firstCheck = true;
+					}
+				}
+				return false;
 			}
 		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
