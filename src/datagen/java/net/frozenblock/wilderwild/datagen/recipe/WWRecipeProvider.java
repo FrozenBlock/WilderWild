@@ -49,10 +49,10 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
 		HollowedLogRecipeProvider.buildRecipes(exporter);
-		WilderWoodRecipeProvider.buildRecipes(exporter);
+		WWWoodRecipeProvider.buildRecipes(exporter);
 		MesogleaRecipeProvider.buildRecipes(exporter);
 		FireflyBottleRecipeProvider.buildRecipes(exporter);
-		WilderCookRecipeProvider.buildRecipes(exporter);
+		WWCookRecipeProvider.buildRecipes(exporter);
 
 		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
