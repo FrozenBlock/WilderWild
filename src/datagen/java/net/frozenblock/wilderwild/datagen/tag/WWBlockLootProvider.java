@@ -23,43 +23,55 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyCustomDataFunction;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
-	public WWBlockLootProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(dataOutput, registryLookup);
+	public WWBlockLootProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
+		super(dataOutput, registries);
 	}
 
 	@Override
 	public void generate() {
 		this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
-		this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN); //TODO: Fix removal upon datagen
+		this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
 		this.dropSelf(RegisterBlocks.PALM_HANGING_SIGN);
 
-		this.dropPottedContents(RegisterBlocks.POTTED_GRASS); //TODO: Fix removal upon datagen
+		this.dropPottedContents(RegisterBlocks.POTTED_GRASS);
 
-		this.add(RegisterBlocks.DISPLAY_LANTERN, //TODO: Fix removal upon datagen
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN).when(BlockLootSubProvider.HAS_SILK_TOUCH)
-								.apply(CopyCustomDataFunction.copyData(LootContext.EntityTarget.THIS).copy("FireFlies", "BlockEntityTag.Fireflies"))
-								.apply(CopyBlockState.copyState(RegisterBlocks.DISPLAY_LANTERN).copy(DisplayLanternBlock.DISPLAY_LIGHT))
-								.otherwise(LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN))
+		this.add(RegisterBlocks.DISPLAY_LANTERN,
+			LootTable.lootTable().withPool(
+				LootPool.lootPool()
+					.setRolls(ConstantValue.exactly(1.0F))
+					.add(
+						LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN)
+					)
+					.apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fireflies", "BlockEntityTag.Fireflies").when(
+						MatchTool.toolMatches(
+							ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.ANY))
 						)
-				)
+					))
+					.apply(CopyBlockState.copyState(RegisterBlocks.DISPLAY_LANTERN).copy(DisplayLanternBlock.DISPLAY_LIGHT).when(
+						MatchTool.toolMatches(
+							ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.ANY))
+						)
+					))
+			)
 		);
 	}
 
