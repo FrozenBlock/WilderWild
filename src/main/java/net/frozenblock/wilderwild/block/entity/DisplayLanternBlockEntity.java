@@ -161,6 +161,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		builder.set(RegisterDataComponents.FIREFLIES, this.fireflies);
 	}
 
+	@Override
+	public void removeComponentsFromTag(CompoundTag compoundTag) {
+		super.removeComponentsFromTag(compoundTag);
+		compoundTag.remove("fireflies");
+	}
+
 	@NotNull
 	public List<Occupant> getFireflies() {
 		return this.fireflies;
