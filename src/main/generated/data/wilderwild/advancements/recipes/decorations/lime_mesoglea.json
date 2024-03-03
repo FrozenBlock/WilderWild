@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "wilderwild:yellow_nematocyst"
-            ]
+            "items": "wilderwild:lime_nematocyst"
           }
         ]
       },
@@ -15,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:yelloe_mesoglea_from_nematocyst"
+        "recipe": "wilderwild:lime_mesoglea"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_nematocyst",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_nematocyst"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:yellow_mesoglea_from_nematocyst"
+      "wilderwild:lime_mesoglea"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

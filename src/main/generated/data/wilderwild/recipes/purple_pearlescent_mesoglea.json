@@ -1,10 +1,10 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
   "group": "mesoglea",
   "key": {
     "#": {
-      "item": "wilderwild:yellow_nematocyst"
+      "item": "wilderwild:purple_pearlescent_nematocyst"
     }
   },
   "pattern": [
@@ -12,7 +12,6 @@
     "##"
   ],
   "result": {
-    "count": 1,
-    "item": "wilderwild:yellow_mesoglea"
+    "id": "wilderwild:purple_pearlescent_mesoglea"
   }
 }

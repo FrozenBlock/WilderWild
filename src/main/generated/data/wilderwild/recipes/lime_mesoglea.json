@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
   "group": "mesoglea",
   "key": {
     "#": {
@@ -12,7 +12,6 @@
     "##"
   ],
   "result": {
-    "count": 1,
-    "item": "wilderwild:lime_mesoglea"
+    "id": "wilderwild:lime_mesoglea"
   }
 }

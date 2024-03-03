@@ -32,7 +32,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-public class WWHollowedLogRecipeProvider {
+public class HollowedLogRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		planksFromHollowed(WilderItemTags.HOLLOWED_ACACIA_LOGS, Items.ACACIA_PLANKS, exporter, "acacia");
@@ -88,7 +88,7 @@ public class WWHollowedLogRecipeProvider {
 		strippedHyphaeFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Items.STRIPPED_WARPED_HYPHAE, exporter, "warped");
 	}
 
-	private static void planksFromHollowed(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {
+	public static void planksFromHollowed(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("planks")
 			.requires(input)
@@ -96,7 +96,7 @@ public class WWHollowedLogRecipeProvider {
 			.save(exporter, name + "_planks_from_hollowed");
 	}
 
-	private static void woodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
+	public static void woodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("bark")
 			.define('#', Ingredient.of(hollowedLog))
@@ -106,11 +106,11 @@ public class WWHollowedLogRecipeProvider {
 		.save(exporter, WilderSharedConstants.id(name + "_wood_from_hollowed"));
 	}
 
-	private static void strippedWoodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
+	public static void strippedWoodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
 		woodFromHollowed(hollowedLog, output, exporter, "stripped_" + name);
 	}
 
-	private static void planksFromHollowedStem(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {
+	public static void planksFromHollowedStem(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("planks")
 			.requires(input)
@@ -118,7 +118,7 @@ public class WWHollowedLogRecipeProvider {
 			.save(exporter, name + "_planks_from_hollowed");
 	}
 
-	private static void hyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
+	public static void hyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("bark")
 			.define('#', Ingredient.of(hollowedStem))
@@ -128,7 +128,7 @@ public class WWHollowedLogRecipeProvider {
 			.save(exporter, WilderSharedConstants.id(name + "_hyphae_from_hollowed"));
 	}
 
-	private static void strippedHyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
+	public static void strippedHyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
 		woodFromHollowed(hollowedStem, output, exporter, "stripped_" + name);
 	}
 }

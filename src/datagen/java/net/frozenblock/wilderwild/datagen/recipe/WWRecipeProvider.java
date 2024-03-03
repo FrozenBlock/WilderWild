@@ -48,8 +48,9 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
-		WWHollowedLogRecipeProvider.buildRecipes(exporter);
-		WWWoodRecipeProvider.buildRecipes(exporter);
+		HollowedLogRecipeProvider.buildRecipes(exporter);
+		WilderWoodRecipeProvider.buildRecipes(exporter);
+		MesogleaRecipeProvider.buildRecipes(exporter);
 
 		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
