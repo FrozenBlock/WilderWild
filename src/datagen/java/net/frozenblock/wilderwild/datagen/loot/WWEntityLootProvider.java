@@ -43,8 +43,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 
-	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(output, registryLookup, LootContextParamSets.ENTITY);
+	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries, LootContextParamSets.ENTITY);
 	}
 
 	@Override

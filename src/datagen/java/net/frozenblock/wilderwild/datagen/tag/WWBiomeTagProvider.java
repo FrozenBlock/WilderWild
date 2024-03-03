@@ -33,8 +33,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
-	public WWBiomeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture registriesFuture) {
-		super(output, registriesFuture);
+	public WWBiomeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture registries) {
+		super(output, registries);
 	}
 
 	@Override

@@ -30,8 +30,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
 
-	public WWDamageTypeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(output, Registries.DAMAGE_TYPE, lookupProvider);
+	public WWDamageTypeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, Registries.DAMAGE_TYPE, registries);
 	}
 
 	@Override

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
@@ -34,14 +33,19 @@ import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.util.WWByteBufCodecs;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -52,10 +56,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -129,16 +131,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.load(tag, provider);
-		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
-			this.fireflies.clear();
-			DataResult<List<Occupant>> occupants = Occupant.LIST_CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
-			Logger var10001 = WilderSharedConstants.LOGGER;
-			Objects.requireNonNull(var10001);
-			Optional<List<Occupant>> list = occupants.resultOrPartial(var10001::error);
-			if (list.isPresent()) {
-				List<Occupant> fireflyList = list.get();
-				this.fireflies.addAll(fireflyList);
-			}
+		this.fireflies.clear();
+		if (tag.contains("fireflies")) {
+			Occupant.LIST_CODEC
+				.parse(NbtOps.INSTANCE, tag.get("fireflies"))
+				.resultOrPartial(WilderSharedConstants.LOGGER::error)
+				.ifPresent(this.fireflies::addAll);
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(tag, this.inventory, provider);
@@ -148,12 +146,23 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
-		DataResult<Tag> fireflies = Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies);
-		Logger logger = WilderSharedConstants.LOGGER;
-		Objects.requireNonNull(logger);
-		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
+		tag.put("fireflies", Util.getOrThrow(Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies), IllegalStateException::new));
 		ContainerHelper.saveAllItems(tag, this.inventory, provider);
 		tag.putInt("age", this.age);
+	}
+
+	@Override
+	public void applyComponents(DataComponentMap map) {
+		super.applyComponents(map);
+		this.fireflies.clear();
+		List<Occupant> occupants = map.getOrDefault(RegisterDataComponents.FIREFLIES, List.of());
+		this.fireflies.addAll(occupants);
+	}
+
+	@Override
+	public void collectComponents(DataComponentMap.Builder builder) {
+		super.collectComponents(builder);
+		builder.set(RegisterDataComponents.FIREFLIES, this.fireflies);
 	}
 
 	@NotNull
@@ -224,7 +233,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public static class Occupant {
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
-			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
+			FireflyColor.REGISTRY_CODEC.fieldOf("color").forGetter(Occupant::getColor),
 			Codec.STRING.fieldOf("customName").orElse("").forGetter(Occupant::getCustomName),
 			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
@@ -232,6 +241,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		).apply(instance, Occupant::new));
 
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
+		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
+			WWByteBufCodecs.VEC3,
+			Occupant::getPos,
+			FireflyColor.STREAM_CODEC,
+			Occupant::getColor,
+			ByteBufCodecs.STRING_UTF8,
+			Occupant::getCustomName,
+			ByteBufCodecs.BOOL,
+			Occupant::getFlickers,
+			ByteBufCodecs.INT,
+			Occupant::getAge,
+			ByteBufCodecs.DOUBLE,
+			Occupant::getY,
+			Occupant::new
+		);
 
 		public Vec3 pos;
 		public FireflyColor color;

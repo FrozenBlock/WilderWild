@@ -35,8 +35,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-	public WWItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+	public WWItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@NotNull

@@ -30,8 +30,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
-	public WWEntityTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+	public WWEntityTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@Override

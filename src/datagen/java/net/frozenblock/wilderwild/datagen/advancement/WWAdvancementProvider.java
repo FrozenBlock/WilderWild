@@ -39,8 +39,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
 public class WWAdvancementProvider extends FabricAdvancementProvider {
-	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(output, registryLookup);
+	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@Override

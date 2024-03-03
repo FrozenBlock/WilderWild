@@ -27,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 final class WWExperimentRecipeProvider extends RecipeProvider {
 
-	WWExperimentRecipeProvider(@NotNull PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(packOutput, completableFuture);
+	WWExperimentRecipeProvider(@NotNull PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
+		super(packOutput, registries);
 	}
 
 	@Override

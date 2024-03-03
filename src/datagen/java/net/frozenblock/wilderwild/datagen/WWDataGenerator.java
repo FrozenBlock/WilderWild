@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.datagen.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.datagen.model.WWModelProvider;
 import net.frozenblock.wilderwild.datagen.recipe.WWRecipeProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWBiomeTagProvider;
-import net.frozenblock.wilderwild.datagen.tag.WWBlockLootProvider;
+import net.frozenblock.wilderwild.datagen.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWBlockTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWDamageTypeTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWEntityTagProvider;

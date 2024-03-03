@@ -11,6 +11,9 @@
       ],
       "functions": [
         {
+          "components": [
+            "wilderwild:fireflies"
+          ],
           "conditions": [
             {
               "condition": "minecraft:match_tool",
@@ -23,14 +26,7 @@
               }
             }
           ],
-          "function": "minecraft:copy_custom_data",
-          "ops": [
-            {
-              "op": "replace",
-              "source": "Fireflies",
-              "target": "BlockEntityTag.Fireflies"
-            }
-          ],
+          "function": "minecraft:copy_components",
           "source": "block_entity"
         },
         {

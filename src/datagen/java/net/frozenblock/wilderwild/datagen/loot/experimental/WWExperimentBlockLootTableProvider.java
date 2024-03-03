@@ -27,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 final class WWExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
 
-	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(dataOutput, registryLookup);
+	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
+		super(dataOutput, registries);
 	}
 
 	@Override

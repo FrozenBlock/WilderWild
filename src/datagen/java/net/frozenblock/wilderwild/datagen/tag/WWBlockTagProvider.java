@@ -36,8 +36,8 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture completableFuture) {
-		super(output, completableFuture);
+	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@Override

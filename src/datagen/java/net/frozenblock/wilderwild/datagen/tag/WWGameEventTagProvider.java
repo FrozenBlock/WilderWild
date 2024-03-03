@@ -29,8 +29,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWGameEventTagProvider extends GameEventTagsProvider {
 
-	public WWGameEventTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+	public WWGameEventTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@Override

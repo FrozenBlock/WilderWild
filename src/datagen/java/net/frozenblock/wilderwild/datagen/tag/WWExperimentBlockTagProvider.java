@@ -31,8 +31,8 @@ import org.jetbrains.annotations.NotNull;
 
 final class WWExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
-	WWExperimentBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registriesFuture) {
-		super(output, registriesFuture);
+	WWExperimentBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	private static ResourceKey<Block> key(@NotNull Block block) {
