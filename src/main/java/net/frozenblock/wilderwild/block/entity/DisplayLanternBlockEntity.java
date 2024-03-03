@@ -19,8 +19,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -63,7 +60,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
 	private final ArrayList<Occupant> fireflies = new ArrayList<>();
@@ -233,7 +229,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public static class Occupant {
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
-			FireflyColor.REGISTRY_CODEC.fieldOf("color").forGetter(Occupant::getColor),
+			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
 			Codec.STRING.fieldOf("customName").orElse("").forGetter(Occupant::getCustomName),
 			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
