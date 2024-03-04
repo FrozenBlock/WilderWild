@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TexturedModel;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWModelProvider extends FabricModelProvider {
@@ -36,7 +37,17 @@ public final class WWModelProvider extends FabricModelProvider {
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
 		generator.family(RegisterBlocks.BAOBAB_PLANKS).generateFor(RegisterBlocks.BAOBAB);
+		generator.woodProvider(RegisterBlocks.BAOBAB_LOG).logWithHorizontal(RegisterBlocks.BAOBAB_LOG).wood(RegisterBlocks.BAOBAB_WOOD);
+		generator.woodProvider(RegisterBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(RegisterBlocks.STRIPPED_BAOBAB_LOG).wood(RegisterBlocks.STRIPPED_BAOBAB_WOOD);
+		generator.createHangingSign(RegisterBlocks.STRIPPED_BAOBAB_LOG, RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN);
+		generator.createTrivialBlock(RegisterBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES);
+
 		generator.family(RegisterBlocks.CYPRESS_PLANKS).generateFor(RegisterBlocks.CYPRESS);
+		generator.woodProvider(RegisterBlocks.CYPRESS_LOG).logWithHorizontal(RegisterBlocks.CYPRESS_LOG).wood(RegisterBlocks.CYPRESS_WOOD);
+		generator.woodProvider(RegisterBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(RegisterBlocks.STRIPPED_CYPRESS_LOG).wood(RegisterBlocks.STRIPPED_CYPRESS_WOOD);
+		generator.createHangingSign(RegisterBlocks.STRIPPED_CYPRESS_LOG, RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN);
+		generator.createPlant(RegisterBlocks.CYPRESS_SAPLING, RegisterBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createTrivialBlock(RegisterBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
 	}
 
 	@Override
