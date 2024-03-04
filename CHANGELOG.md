@@ -7,5 +7,7 @@ Thank you!
 - Changed the internal names of some config options.
 - Converted recipes and advancements to be automatically generated.
 - Added recipes for crafting Stripped Wood/Hyphae from Hollowed Logs/Stems.
-- Added missing recipe unlocks.
+- Added many missing recipe unlocks.
+- All Glory of the Snow variants now only yield one dye instead of two.
+- The Null Block recipe now yield two Null Blocks instead of one.
 - Renamed `wilderwild:potted_grass` to `wilderwild:potted_short_grass.`

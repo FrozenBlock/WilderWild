@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_horn_fragment": {
+    "has_blue_giant_glory_of_the_snow": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:ancient_horn_fragment"
+            "items": "wilderwild:blue_giant_glory_of_the_snow"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:ancient_horn"
+        "recipe": "minecraft:blue_dye_from_blue_giant_glory_of_the_snow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ancient_horn_fragment"
+      "has_blue_giant_glory_of_the_snow"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:ancient_horn"
+      "minecraft:blue_dye_from_blue_giant_glory_of_the_snow"
     ]
   }
 }

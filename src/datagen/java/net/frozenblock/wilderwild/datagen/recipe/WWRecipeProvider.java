@@ -34,6 +34,8 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -49,6 +51,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 		MesogleaRecipeProvider.buildRecipes(exporter);
 		FireflyBottleRecipeProvider.buildRecipes(exporter);
 		CopperHornRecipeProvider.buildRecipes(exporter);
+		WWNaturalRecipeProvider.buildRecipes(exporter);
 		WWCookRecipeProvider.buildRecipes(exporter);
 
 		ShapedRecipeUtil.withResultPatch(
@@ -60,7 +63,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 				.pattern("#G#")
 				.pattern("#I#")
 				.pattern("I#I")
-				.unlockedBy("has_fragment", RecipeProvider.has(RegisterItems.ANCIENT_HORN_FRAGMENT)),
+				.unlockedBy(RecipeProvider.getHasName(RegisterItems.ANCIENT_HORN_FRAGMENT), RecipeProvider.has(RegisterItems.ANCIENT_HORN_FRAGMENT)),
 			DataComponentPatch.builder()
 				.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(RegisterItems.ANCIENT_HORN_INSTRUMENT))
 				.build()
@@ -73,8 +76,8 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 				.pattern("XXX")
 				.pattern("X#X")
 				.pattern("XXX")
-				.unlockedBy("has_iron_ingot", RecipeProvider.has(Items.IRON_INGOT))
-				.unlockedBy("has_iron_nugget", RecipeProvider.has(Items.IRON_NUGGET)),
+				.unlockedBy(RecipeProvider.getHasName(Items.IRON_INGOT), RecipeProvider.has(Items.IRON_INGOT))
+				.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), RecipeProvider.has(Items.IRON_NUGGET)),
 			DataComponentPatch.builder()
 				.set(RegisterDataComponents.FIREFLIES, ImmutableList.of())
 				.build()
@@ -87,8 +90,59 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.pattern("___")
 			.pattern("# #")
 			.pattern("###")
-			.unlockedBy("has_stone", RecipeProvider.has(Items.COBBLED_DEEPSLATE))
+			.unlockedBy(RecipeProvider.getHasName(Items.COBBLED_DEEPSLATE), RecipeProvider.has(Items.COBBLED_DEEPSLATE))
 		.save(exporter);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterItems.ECHO_GLASS)
+			.requires(Items.ECHO_SHARD, 2)
+			.requires(Items.TINTED_GLASS)
+			.unlockedBy(RecipeProvider.getHasName(Items.ECHO_SHARD), RecipeProvider.has(Items.ECHO_SHARD))
+			.save(exporter);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Items.SANDSTONE, 2)
+			.group("sandstone")
+			.define('#', Ingredient.of(Items.SAND))
+			.define('X', Ingredient.of(RegisterItems.SCORCHED_SAND))
+			.pattern("#X")
+			.pattern("X#")
+			.unlockedBy(RecipeProvider.getHasName(Items.SAND), RecipeProvider.has(Items.SAND))
+			.save(exporter, RecipeProvider.getConversionRecipeName(Items.SANDSTONE, RegisterItems.SCORCHED_SAND));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
+			.group("red_sandstone")
+			.define('#', Ingredient.of(Items.RED_SAND))
+			.define('X', Ingredient.of(RegisterItems.SCORCHED_RED_SAND))
+			.pattern("#X")
+			.pattern("X#")
+			.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), RecipeProvider.has(Items.RED_SAND))
+			.save(exporter, RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, RegisterItems.SCORCHED_RED_SAND));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_MUD_BRICKS)
+			.define('#', Ingredient.of(Items.MUD_BRICK_SLAB))
+			.pattern("#")
+			.pattern("#")
+			.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICK_SLAB), RecipeProvider.has(Items.MUD_BRICK_SLAB))
+			.save(exporter);
+
+		VanillaRecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICKS, RegisterBlocks.CHISELED_MUD_BRICKS);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.SPONGE)
+			.define('#', RegisterBlocks.SMALL_SPONGE)
+			.pattern("###")
+			.pattern("###")
+			.pattern("###")
+			.group("sponge")
+			.unlockedBy(getHasName(RegisterBlocks.SMALL_SPONGE), has(RegisterBlocks.SMALL_SPONGE))
+			.save(exporter, getConversionRecipeName(Items.SPONGE, RegisterBlocks.SMALL_SPONGE));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.NULL_BLOCK, 2)
+			.define('#', Ingredient.of(Items.BLACK_CONCRETE))
+			.define('X', Ingredient.of(Items.MAGENTA_CONCRETE))
+			.pattern("#X")
+			.pattern("X#")
+			.unlockedBy(RecipeProvider.getHasName(Items.BLACK_CONCRETE), RecipeProvider.has(Items.BLACK_CONCRETE))
+			.unlockedBy(RecipeProvider.getHasName(Items.MAGENTA_CONCRETE), RecipeProvider.has(Items.MAGENTA_CONCRETE))
+			.save(exporter);
 	}
 
 }

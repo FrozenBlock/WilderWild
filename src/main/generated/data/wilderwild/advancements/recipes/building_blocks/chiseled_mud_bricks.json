@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_horn_fragment": {
+    "has_mud_brick_slab": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:ancient_horn_fragment"
+            "items": "minecraft:mud_brick_slab"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:ancient_horn"
+        "recipe": "wilderwild:chiseled_mud_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ancient_horn_fragment"
+      "has_mud_brick_slab"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:ancient_horn"
+      "wilderwild:chiseled_mud_bricks"
     ]
   }
 }

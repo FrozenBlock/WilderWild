@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_horn_fragment": {
+    "has_alba_glory_of_the_snow": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:ancient_horn_fragment"
+            "items": "wilderwild:alba_glory_of_the_snow"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:ancient_horn"
+        "recipe": "minecraft:white_dye_from_alba_glory_of_the_snow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ancient_horn_fragment"
+      "has_alba_glory_of_the_snow"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:ancient_horn"
+      "minecraft:white_dye_from_alba_glory_of_the_snow"
     ]
   }
 }

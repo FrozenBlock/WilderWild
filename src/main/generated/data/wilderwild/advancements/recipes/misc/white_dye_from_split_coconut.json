@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_horn_fragment": {
+    "has_split_coconut": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:ancient_horn_fragment"
+            "items": "wilderwild:split_coconut"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:ancient_horn"
+        "recipe": "minecraft:white_dye_from_split_coconut"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ancient_horn_fragment"
+      "has_split_coconut"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:ancient_horn"
+      "minecraft:white_dye_from_split_coconut"
     ]
   }
 }

@@ -61,7 +61,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
 
 public final class RegisterItems {
 
