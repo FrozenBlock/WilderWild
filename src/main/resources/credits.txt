@@ -37,6 +37,9 @@ Enri:
  - Came up with Jellyfish being in Shipwreck Chests.
  - Crab in Bucket, Ostrich, Ostrich Egg, and Geyser Textures
 
+Zhen:
+ - Retextured all Baobab Nut Textures in 2.4.
+
 LudoCrypt:
  - New music.
 
@@ -52,9 +55,6 @@ JarethTheRad:
 
 zozozrob_:
  - Cattail textures & occasional concept artist for a short time.
-
-Zhen:
- - Retextured Baobab Nut Item and planted Baobab Nut
 
 Xicad/Emma:
  - Echo Glass concept.
