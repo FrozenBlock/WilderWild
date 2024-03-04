@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -60,6 +61,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 
 public final class RegisterItems {
 
@@ -88,6 +90,7 @@ public final class RegisterItems {
 	public static final BlockItem SCORCHED_SAND = new BlockItem(RegisterBlocks.SCORCHED_SAND, new Item.Properties());
 	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(RegisterBlocks.SCORCHED_RED_SAND, new Item.Properties());
 	public static final BlockItem ECHO_GLASS = new BlockItem(RegisterBlocks.ECHO_GLASS, new Item.Properties());
+	public static final BlockItem DISPLAY_LANTERN = new BlockItem(RegisterBlocks.DISPLAY_LANTERN, new Item.Properties().component(RegisterDataComponents.FIREFLIES, ImmutableList.of()));
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
 	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
@@ -168,6 +171,14 @@ public final class RegisterItems {
 			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKED, true);
 			entries.addAfter(SCORCHED_RED_SAND, secondRed);
 		});
+
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
+			var second = new ItemStack(SCORCHED_SAND);
+			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKED, true);
+			entries.addAfter(SCORCHED_SAND, second);
+		});
+
+		registerItemAfter(Items.SOUL_LANTERN, DISPLAY_LANTERN, "display_lantern", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
 	public static void registerItems() {

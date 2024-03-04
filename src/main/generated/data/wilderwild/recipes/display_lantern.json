@@ -5,14 +5,14 @@
     "#": {
       "item": "minecraft:glass_pane"
     },
-    "x": {
+    "X": {
       "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
-    "xxx",
-    "x#x",
-    "xxx"
+    "XXX",
+    "X#X",
+    "XXX"
   ],
   "result": {
     "id": "wilderwild:display_lantern"
