@@ -182,7 +182,7 @@ public final class MagmaticCaves extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RegisterEntities.SCORCHED, 1000, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RegisterEntities.SCORCHED, 500, 4, 4));
 	}
 
 	@Override
