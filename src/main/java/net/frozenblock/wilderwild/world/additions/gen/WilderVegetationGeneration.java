@@ -28,7 +28,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderVegetationGeneration {
 
 	public static void generateFlower() {
-		if (WorldgenConfig.get().wilderWildFlowerGen) {
+		if (WorldgenConfig.get().flowerGeneration) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CARNATION),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CARNATION.getKey());
 
@@ -116,7 +116,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateBush() {
-		if (WorldgenConfig.get().wilderWildBushGen) {
+		if (WorldgenConfig.get().bushGeneration) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BUSH),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
 
@@ -156,7 +156,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateCacti() {
-		if (WorldgenConfig.get().wilderWildCactusGen) {
+		if (WorldgenConfig.get().cactusGeneration) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TALL_CACTUS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_CACTUS_PLACED.getKey());
 
@@ -187,7 +187,7 @@ public final class WilderVegetationGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TUMBLEWEED.getKey());
 		}
 
-		if (WorldgenConfig.get().wilderWildGrassGen) {
+		if (WorldgenConfig.get().grassGeneration) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_NEW_RARE_GRASS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RARE_GRASS_PLACED.getKey());
 
@@ -212,7 +212,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateMushroom() {
-		if (WorldgenConfig.get().wilderWildMushroomGen) {
+		if (WorldgenConfig.get().mushroomGeneration) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_HUGE_RED_MUSHROOM),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.getKey());
 

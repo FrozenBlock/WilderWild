@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "wilderwild:hollowed_acacia_logs"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:acacia_planks"
+  }
+}

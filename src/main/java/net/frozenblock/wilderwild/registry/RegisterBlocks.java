@@ -431,7 +431,7 @@ public final class RegisterBlocks {
 
 	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
 
-	public static final Block POTTED_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
+	public static final Block POTTED_SHORT_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
 
 	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
 
@@ -991,7 +991,7 @@ public final class RegisterBlocks {
 	public static void registerPlants() {
 		registerBlock("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
 		registerBlock("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
-		registerBlock("potted_grass", POTTED_GRASS);
+		registerBlock("potted_short_grass", POTTED_SHORT_GRASS);
 		registerBlockAfter(Items.DANDELION, "seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
 		registerBlockAfter(Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1028,7 +1028,7 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.GLASS, "null_block", NULL_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Items.CHEST, "stone_chest", STONE_CHEST, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockAfter(Items.SOUL_LANTERN, "display_lantern", DISPLAY_LANTERN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlock("display_lantern", DISPLAY_LANTERN);
 
 		registerBlockBefore(Items.SPONGE, "blue_pearlescent_mesoglea", BLUE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.SPONGE, "purple_pearlescent_mesoglea", PURPLE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1421,8 +1421,8 @@ public final class RegisterBlocks {
 		WilderSharedConstants.logWithModId("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
 		FuelRegistry registry = FuelRegistry.INSTANCE;
 
-		registry.add(RegisterItems.BAOBAB_BOAT_ITEM, 1200);
-		registry.add(RegisterItems.BAOBAB_CHEST_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.BAOBAB_BOAT, 1200);
+		registry.add(RegisterItems.BAOBAB_CHEST_BOAT, 1200);
 		registry.add(BAOBAB_LOG.asItem(), 300);
 		registry.add(STRIPPED_BAOBAB_LOG.asItem(), 300);
 		registry.add(BAOBAB_WOOD.asItem(), 300);
@@ -1438,8 +1438,8 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.BAOBAB_SIGN, 300);
 		registry.add(RegisterItems.BAOBAB_NUT, 100);
 
-		registry.add(RegisterItems.CYPRESS_BOAT_ITEM, 1200);
-		registry.add(RegisterItems.CYPRESS_CHEST_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.CYPRESS_BOAT, 1200);
+		registry.add(RegisterItems.CYPRESS_CHEST_BOAT, 1200);
 		registry.add(CYPRESS_LOG.asItem(), 300);
 		registry.add(STRIPPED_CYPRESS_LOG.asItem(), 300);
 		registry.add(CYPRESS_WOOD.asItem(), 300);
@@ -1455,8 +1455,8 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.CYPRESS_SIGN, 300);
 		registry.add(CYPRESS_SAPLING.asItem(), 100);
 
-		registry.add(RegisterItems.PALM_BOAT_ITEM, 1200);
-		registry.add(RegisterItems.PALM_CHEST_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.PALM_BOAT, 1200);
+		registry.add(RegisterItems.PALM_CHEST_BOAT, 1200);
 		registry.add(PALM_LOG.asItem(), 300);
 		registry.add(PALM_CROWN.asItem(), 300);
 		registry.add(STRIPPED_PALM_LOG.asItem(), 300);

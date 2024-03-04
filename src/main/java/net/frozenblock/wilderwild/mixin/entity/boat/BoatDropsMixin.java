@@ -36,11 +36,11 @@ public class BoatDropsMixin {
 	public void wilderWild$getModdedBoats(CallbackInfoReturnable<Item> info) {
 		var boat = Boat.class.cast(this);
 		if (boat.getVariant() == WilderEnumValues.BAOBAB) {
-			info.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
+			info.setReturnValue(RegisterItems.BAOBAB_BOAT);
 		} else if (boat.getVariant() == WilderEnumValues.CYPRESS) {
-			info.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
+			info.setReturnValue(RegisterItems.CYPRESS_BOAT);
 		} else if (boat.getVariant() == WilderEnumValues.PALM) {
-			info.setReturnValue(RegisterItems.PALM_BOAT_ITEM);
+			info.setReturnValue(RegisterItems.PALM_BOAT);
 		}
 	}
 

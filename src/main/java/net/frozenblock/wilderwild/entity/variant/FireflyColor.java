@@ -19,21 +19,20 @@
 package net.frozenblock.wilderwild.entity.variant;
 
 import com.mojang.serialization.Codec;
-import java.util.List;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.minecraft.Util;
 import net.minecraft.core.Registry;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
-public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
+public record FireflyColor(ResourceLocation key, ResourceLocation texture) implements StringRepresentable {
 
-	public static final Codec<FireflyColor> CODEC = ResourceLocation.CODEC
-		.listOf()
-		.comapFlatMap(
-			list -> Util.fixedSize(list, 2).map(listx -> new FireflyColor(listx.get(0), listx.get(1))), color -> List.of(color.key(), color.texture())
-		);
+	public static final Codec<FireflyColor> CODEC = WilderRegistry.FIREFLY_COLOR.byNameCodec();
+	public static final StreamCodec<RegistryFriendlyByteBuf, FireflyColor> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
 	public static final FireflyColor BLACK = register(WilderSharedConstants.id("black"), WilderSharedConstants.id("textures/entity/firefly/firefly_black.png"));
 	public static final FireflyColor BLUE = register(WilderSharedConstants.id("blue"), WilderSharedConstants.id("textures/entity/firefly/firefly_blue.png"));
@@ -74,5 +73,12 @@ public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 	@NotNull
 	public ResourceLocation texture() {
 		return this.texture;
+	}
+
+	@Override
+	@NotNull
+	public String getSerializedName() {
+		var key = WilderRegistry.FIREFLY_COLOR.getKey(this);
+		return key != null ? key.toString() : "null";
 	}
 }

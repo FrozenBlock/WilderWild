@@ -63,7 +63,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
 			poseStack.popPose();
 		} else {
-			for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
+			for (DisplayLanternBlockEntity.Occupant entity : lantern.getFireflies()) {
 				double ageDelta = entity.age + partialTick;
 				FireflyRenderer.renderFirefly(
 					poseStack,

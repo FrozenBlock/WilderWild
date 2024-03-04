@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nematocyst": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:blue_nematocyst"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:blue_mesoglea"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nematocyst"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:blue_mesoglea"
+    ]
+  }
+}

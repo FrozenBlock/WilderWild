@@ -34,7 +34,7 @@ public final class WilderTreesGeneration {
 
 		}
 
-		if (WorldgenConfig.get().snappedLogs) {
+		if (WorldgenConfig.get().snappedTrees) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_OAK_PLACED.getKey());
 
@@ -118,7 +118,7 @@ public final class WilderTreesGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_DARK_OAK_CLEARING_PLACED.getKey());
 		}
 
-		if (WorldgenConfig.get().fallenLogs) {
+		if (WorldgenConfig.get().fallenTrees) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_PLACED.getKey());
 
@@ -177,7 +177,7 @@ public final class WilderTreesGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
 		}
 
-		if (WorldgenConfig.get().wilderWildTreeGen) {
+		if (WorldgenConfig.get().treeGeneration) {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.getKey());
 

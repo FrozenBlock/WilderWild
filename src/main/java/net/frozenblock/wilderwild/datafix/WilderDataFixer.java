@@ -111,6 +111,7 @@ public class WilderDataFixer {
 
 		Schema schemaV17 = builder.addSchema(17, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", Map.of(WilderSharedConstants.id("magma_caves"), WilderSharedConstants.id("magmatic_caves")), schemaV17);
+		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV17);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);

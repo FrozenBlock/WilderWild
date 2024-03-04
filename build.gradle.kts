@@ -76,6 +76,11 @@ group = maven_group
 val local_frozenlib = findProject(":FrozenLib") != null
 val release = findProperty("releaseType") == "stable"
 
+val datagen by sourceSets.registering {
+    compileClasspath += sourceSets.main.get().compileClasspath
+    runtimeClasspath += sourceSets.main.get().runtimeClasspath
+}
+
 loom {
     runtimeOnlyLog4j.set(true)
 
@@ -103,6 +108,7 @@ loom {
         register("datagen") {
             client()
             name("Data Generation")
+            source(datagen.get())
             vmArg("-Dfabric-api.datagen")
             vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
             //vmArg("-Dfabric-api.datagen.strict-validation")
@@ -225,6 +231,8 @@ dependencies {
 
     // BetterNether
     modCompileOnly("maven.modrinth:betternether:${betternether_version}")
+
+    "datagenImplementation"(sourceSets.main.get().output)
 }
 
 tasks {
