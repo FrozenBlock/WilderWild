@@ -116,7 +116,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_BIG_DRIPLEAF, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_SMALL_DRIPLEAF, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_GRASS, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_SHORT_GRASS, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_TUMBLEWEED, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_BUSH, RenderType.cutout());
@@ -325,7 +325,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
-		), RegisterBlocks.POTTED_GRASS);
+		), RegisterBlocks.POTTED_SHORT_GRASS);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))

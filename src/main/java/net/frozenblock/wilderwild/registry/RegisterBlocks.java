@@ -430,7 +430,7 @@ public final class RegisterBlocks {
 
 	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
 
-	public static final Block POTTED_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
+	public static final Block POTTED_SHORT_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
 
 	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
 
@@ -978,7 +978,7 @@ public final class RegisterBlocks {
 	public static void registerPlants() {
 		registerBlock("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
 		registerBlock("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
-		registerBlock("potted_grass", POTTED_GRASS);
+		registerBlock("potted_short_grass", POTTED_SHORT_GRASS);
 		registerBlockAfter(Items.DANDELION, "seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
 		registerBlockAfter(Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.NATURAL_BLOCKS);

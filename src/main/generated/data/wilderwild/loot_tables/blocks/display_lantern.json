@@ -28,25 +28,6 @@
           ],
           "function": "minecraft:copy_components",
           "source": "block_entity"
-        },
-        {
-          "block": "wilderwild:display_lantern",
-          "conditions": [
-            {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "enchantments": [
-                  {
-                    "enchantment": "minecraft:silk_touch"
-                  }
-                ]
-              }
-            }
-          ],
-          "function": "minecraft:copy_state",
-          "properties": [
-            "display_light"
-          ]
         }
       ],
       "rolls": 1.0
