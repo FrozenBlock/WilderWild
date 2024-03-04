@@ -80,7 +80,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			this.firstTick = true;
 			if (hasFireflies) {
 				BlockState state = this.getBlockState();
-				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15))));
+				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
 			}
 		}
 		if (hasFireflies) {
