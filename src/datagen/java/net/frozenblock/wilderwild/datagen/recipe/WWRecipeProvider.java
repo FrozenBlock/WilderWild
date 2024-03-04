@@ -23,6 +23,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -35,9 +36,11 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 
 public class WWRecipeProvider extends FabricRecipeProvider {
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -91,7 +94,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.pattern("# #")
 			.pattern("###")
 			.unlockedBy(RecipeProvider.getHasName(Items.COBBLED_DEEPSLATE), RecipeProvider.has(Items.COBBLED_DEEPSLATE))
-		.save(exporter);
+			.save(exporter);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterItems.ECHO_GLASS)
 			.requires(Items.ECHO_SHARD, 2)
@@ -106,7 +109,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.pattern("#X")
 			.pattern("X#")
 			.unlockedBy(RecipeProvider.getHasName(Items.SAND), RecipeProvider.has(Items.SAND))
-			.save(exporter, RecipeProvider.getConversionRecipeName(Items.SANDSTONE, RegisterItems.SCORCHED_SAND));
+			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, RegisterItems.SCORCHED_SAND)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 			.group("red_sandstone")
@@ -115,7 +118,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.pattern("#X")
 			.pattern("X#")
 			.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), RecipeProvider.has(Items.RED_SAND))
-			.save(exporter, RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, RegisterItems.SCORCHED_RED_SAND));
+			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, RegisterItems.SCORCHED_RED_SAND)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_MUD_BRICKS)
 			.define('#', Ingredient.of(Items.MUD_BRICK_SLAB))
@@ -133,7 +136,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.pattern("###")
 			.group("sponge")
 			.unlockedBy(getHasName(RegisterBlocks.SMALL_SPONGE), has(RegisterBlocks.SMALL_SPONGE))
-			.save(exporter, getConversionRecipeName(Items.SPONGE, RegisterBlocks.SMALL_SPONGE));
+			.save(exporter, WilderSharedConstants.id(getConversionRecipeName(Items.SPONGE, RegisterBlocks.SMALL_SPONGE)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.NULL_BLOCK, 2)
 			.define('#', Ingredient.of(Items.BLACK_CONCRETE))
@@ -143,6 +146,12 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(Items.BLACK_CONCRETE), RecipeProvider.has(Items.BLACK_CONCRETE))
 			.unlockedBy(RecipeProvider.getHasName(Items.MAGENTA_CONCRETE), RecipeProvider.has(Items.MAGENTA_CONCRETE))
 			.save(exporter);
+	}
+
+	public static void stonecutterResultFromBase(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), category, result, resultCount)
+			.unlockedBy(getHasName(material), has(material))
+			.save(recipeOutput, WilderSharedConstants.id(getConversionRecipeName(result, material) + "_stonecutting"));
 	}
 
 }

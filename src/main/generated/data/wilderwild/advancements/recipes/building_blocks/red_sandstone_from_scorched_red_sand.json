@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:red_sandstone_from_scorched_red_sand"
+        "recipe": "wilderwild:red_sandstone_from_scorched_red_sand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:red_sandstone_from_scorched_red_sand"
+      "wilderwild:red_sandstone_from_scorched_red_sand"
     ]
   }
 }

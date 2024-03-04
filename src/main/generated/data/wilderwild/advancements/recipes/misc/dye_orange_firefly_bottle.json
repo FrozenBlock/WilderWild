@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:dye_orange_firefly_bottle"
+        "recipe": "wilderwild:dye_orange_firefly_bottle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:dye_orange_firefly_bottle"
+      "wilderwild:dye_orange_firefly_bottle"
     ]
   }
 }

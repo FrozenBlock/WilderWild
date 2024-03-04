@@ -93,7 +93,7 @@ public class HollowedLogRecipeProvider {
 			.group("planks")
 			.requires(input)
 			.unlockedBy("has_log", RecipeProvider.has(input))
-			.save(exporter, name + "_planks_from_hollowed");
+			.save(exporter, WilderSharedConstants.id(name + "_planks_from_hollowed"));
 	}
 
 	public static void woodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
@@ -115,7 +115,7 @@ public class HollowedLogRecipeProvider {
 			.group("planks")
 			.requires(input)
 			.unlockedBy("has_stem", RecipeProvider.has(input))
-			.save(exporter, name + "_planks_from_hollowed");
+			.save(exporter, WilderSharedConstants.id(name + "_planks_from_hollowed"));
 	}
 
 	public static void hyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {

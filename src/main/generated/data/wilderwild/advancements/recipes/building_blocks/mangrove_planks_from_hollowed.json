@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:mangrove_planks_from_hollowed"
+        "recipe": "wilderwild:mangrove_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:mangrove_planks_from_hollowed"
+      "wilderwild:mangrove_planks_from_hollowed"
     ]
   }
 }

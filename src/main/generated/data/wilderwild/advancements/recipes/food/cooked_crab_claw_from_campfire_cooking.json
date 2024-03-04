@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:cooked_crab_claw_from_campfire_cooking"
+        "recipe": "wilderwild:cooked_crab_claw_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:cooked_crab_claw_from_campfire_cooking"
+      "wilderwild:cooked_crab_claw_from_campfire_cooking"
     ]
   }
 }

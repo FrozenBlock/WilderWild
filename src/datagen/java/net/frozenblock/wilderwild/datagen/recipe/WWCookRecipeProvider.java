@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmokingRecipe;
+import net.minecraft.world.level.ItemLike;
 
 public class WWCookRecipeProvider {
 
@@ -42,6 +44,21 @@ public class WWCookRecipeProvider {
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
 		RecipeOutput exporter, String cooker, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipe, int cookingTime
 	) {
-		RecipeProvider.simpleCookingRecipe(exporter, cooker, serializer, recipe, cookingTime, RegisterItems.CRAB_CLAW, RegisterItems.COOKED_CRAB_CLAW, 0.35F);
+		simpleCookingRecipe(exporter, cooker, serializer, recipe, cookingTime, RegisterItems.CRAB_CLAW, RegisterItems.COOKED_CRAB_CLAW, 0.35F);
+	}
+
+	private static <T extends AbstractCookingRecipe> void simpleCookingRecipe(
+		RecipeOutput exporter,
+		String cooker,
+		RecipeSerializer<T> serializer,
+		AbstractCookingRecipe.Factory<T> recipe,
+		int cookingTime,
+		ItemLike input,
+		ItemLike output,
+		float experience
+	) {
+		SimpleCookingRecipeBuilder.generic(Ingredient.of(input), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipe)
+			.unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
+			.save(exporter, WilderSharedConstants.id(RecipeProvider.getItemName(output) + "_from_" + cooker));
 	}
 }

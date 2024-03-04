@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:cherry_planks_from_hollowed"
+        "recipe": "wilderwild:cherry_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:cherry_planks_from_hollowed"
+      "wilderwild:cherry_planks_from_hollowed"
     ]
   }
 }

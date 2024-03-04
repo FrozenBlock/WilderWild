@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:palm_planks_from_hollowed"
+        "recipe": "wilderwild:palm_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:palm_planks_from_hollowed"
+      "wilderwild:palm_planks_from_hollowed"
     ]
   }
 }
