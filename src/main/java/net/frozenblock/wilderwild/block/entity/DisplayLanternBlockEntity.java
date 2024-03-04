@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.util.WWByteBufCodecs;
 import net.minecraft.Util;
@@ -66,6 +67,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public NonNullList<ItemStack> inventory;
 	public int age;
 	public boolean clientHanging;
+	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
@@ -73,7 +75,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
-		if (!this.fireflies.isEmpty()) {
+		boolean hasFireflies = !this.fireflies.isEmpty();
+		if (!this.firstTick) {
+			this.firstTick = true;
+			if (hasFireflies) {
+				BlockState state = this.getBlockState();
+				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15))));
+			}
+		}
+		if (hasFireflies) {
 			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
 			}

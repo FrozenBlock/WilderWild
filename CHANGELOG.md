@@ -7,3 +7,4 @@ Thank you!
 - Changed the internal names of some config options.
 - Added recipes for crafting Stripped Wood/Hyphae from Hollowed Logs/Stems.
 - Converted recipes and advancements to be automatically generated.
+- Renamed `wilderwild:potted_grass` to `wilderwild:potted_short_grass.`
