@@ -63,13 +63,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.redstone.Redstone;
 import net.minecraft.world.phys.Vec3;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
 	public static final int MAX_FIREFLY_AGE = 20;
 	public static final long NECTAR_SOUND_INTERVAL = 70L;
-	private final ArrayList<Occupant> stored = Lists.newArrayList();
+	private final ArrayList<Occupant> fireflies = new ArrayList<>();
 
 	public NonNullList<ItemStack> inventory;
 	public int age;
@@ -82,16 +81,16 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
-		boolean hasFireflies = !this.stored.isEmpty();
+		boolean hasFireflies = !this.fireflies.isEmpty();
 		if (!this.firstTick) {
 			this.firstTick = true;
 			if (hasFireflies) {
 				BlockState state = this.getBlockState();
-				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.stored.size() * 3, 0, 15)));
+				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
 			}
 		}
 		if (hasFireflies) {
-			for (Occupant firefly : this.stored) {
+			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
 			}
 		}
@@ -100,8 +99,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void clientTick(@NotNull Level level, @NotNull BlockPos pos) {
 		this.age += 1;
 		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
-		if (!this.stored.isEmpty()) {
-			for (Occupant firefly : this.stored) {
+		if (!this.fireflies.isEmpty()) {
+			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
 			}
 		}
@@ -144,17 +143,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.load(tag, provider);
-		this.stored.clear();
+		this.fireflies.clear();
 		if (tag.contains("fireflies")) {
 			Occupant.LIST_CODEC
 				.parse(NbtOps.INSTANCE, tag.get("fireflies"))
 				.resultOrPartial(WilderSharedConstants.LOGGER::error)
-				.ifPresent(this.stored::addAll);
-		} else if (tag.contains("Fireflies")) {
-			Occupant.OLD_LIST_CODEC
-				.parse(NbtOps.INSTANCE, tag.get("Fireflies"))
-				.resultOrPartial(WilderSharedConstants.LOGGER::error)
-				.ifPresent(this.stored::addAll);
+				.ifPresent(this.fireflies::addAll);
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(tag, this.inventory, provider);
@@ -164,7 +158,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
-		tag.put("fireflies", Util.getOrThrow(Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.stored), IllegalStateException::new));
+		tag.put("fireflies", Util.getOrThrow(Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies), IllegalStateException::new));
 		ContainerHelper.saveAllItems(tag, this.inventory, provider);
 		tag.putInt("age", this.age);
 	}
@@ -172,15 +166,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	public void applyComponents(DataComponentMap map) {
 		super.applyComponents(map);
-		this.stored.clear();
+		this.fireflies.clear();
 		List<Occupant> occupants = map.getOrDefault(RegisterDataComponents.FIREFLIES, List.of());
-		this.stored.addAll(occupants);
+		this.fireflies.addAll(occupants);
 	}
 
 	@Override
 	public void collectComponents(DataComponentMap.Builder builder) {
 		super.collectComponents(builder);
-		builder.set(RegisterDataComponents.FIREFLIES, this.stored);
+		builder.set(RegisterDataComponents.FIREFLIES, this.fireflies);
 	}
 
 	@Override
@@ -191,21 +185,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	@NotNull
 	public List<Occupant> getFireflies() {
-		return this.stored;
+		return this.fireflies;
 	}
 
 	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
 		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(MAX_FIREFLY_AGE), 0);
-		this.stored.add(firefly);
+		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
 	}
 
 	public void removeFirefly(@NotNull Occupant firefly) {
-		this.stored.remove(firefly);
+		this.fireflies.remove(firefly);
 	}
 
 	public void spawnFireflies() {
@@ -255,15 +249,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public static class Occupant {
-		public static final Codec<Occupant> OLD_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
-			FireflyColor.OLD_CODEC.fieldOf("color").forGetter(Occupant::getColor),
-			Codec.STRING.fieldOf("customName").orElse("").forGetter(Occupant::getCustomName),
-			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
-			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
-			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
-		).apply(instance, Occupant::new));
-
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
 			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
@@ -273,7 +258,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
 
-		public static final Codec<List<Occupant>> OLD_LIST_CODEC = OLD_CODEC.listOf();
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
 			WWByteBufCodecs.VEC3,

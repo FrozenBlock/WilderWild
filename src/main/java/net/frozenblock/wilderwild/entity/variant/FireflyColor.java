@@ -19,10 +19,8 @@
 package net.frozenblock.wilderwild.entity.variant;
 
 import com.mojang.serialization.Codec;
-import java.util.List;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -32,11 +30,6 @@ import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 public record FireflyColor(ResourceLocation key, ResourceLocation texture) implements StringRepresentable {
-	public static final Codec<FireflyColor> OLD_CODEC = ResourceLocation.CODEC
-		.listOf()
-		.comapFlatMap(
-			list -> Util.fixedSize(list, 2).map(listx -> new FireflyColor(listx.get(0), listx.get(1))), color -> List.of(color.key(), color.texture())
-		);
 
 	public static final Codec<FireflyColor> CODEC = WilderRegistry.FIREFLY_COLOR.byNameCodec();
 	public static final StreamCodec<RegistryFriendlyByteBuf, FireflyColor> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
