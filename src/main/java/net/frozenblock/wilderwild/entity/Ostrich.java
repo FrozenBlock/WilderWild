@@ -151,7 +151,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20D)
 			.add(Attributes.MOVEMENT_SPEED, 0.225F)
-			.add(Attributes.JUMP_STRENGTH, 3D)
 			.add(Attributes.STEP_HEIGHT, 1.5D)
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
 	}
