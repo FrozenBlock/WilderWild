@@ -1,22 +1,9 @@
 {
+  "parent": "wilderwild:block/template_ostrich_egg",
 	"textures": {
 		"top": "wilderwild:block/ostrich_egg_very_cracked_top",
 		"side": "wilderwild:block/ostrich_egg_very_cracked_side",
 		"bottom": "wilderwild:block/ostrich_egg_very_cracked_bottom",
 		"particle": "wilderwild:block/ostrich_egg_very_cracked_side"
-	},
-	"elements": [
-		{
-			"from": [5, 0, 5],
-			"to": [11, 8, 11],
-			"faces": {
-				"north": {"uv": [4, 3, 11, 13], "texture": "#side"},
-				"east": {"uv": [4, 3, 11, 13], "texture": "#side"},
-				"south": {"uv": [4, 3, 11, 13], "texture": "#side"},
-				"west": {"uv": [4, 3, 11, 13], "texture": "#side"},
-				"up": {"uv": [11, 11, 4, 4], "texture": "#top"},
-				"down": {"uv": [11, 4, 4, 11], "texture": "#bottom", "cullface": "down"}
-			}
-		}
-	]
+	}
 }

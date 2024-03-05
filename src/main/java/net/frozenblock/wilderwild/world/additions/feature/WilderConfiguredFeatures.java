@@ -1813,7 +1813,7 @@ public final class WilderConfiguredFeatures {
 
 		POLLEN_CONFIGURED.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				RegisterBlocks.POLLEN_BLOCK,
+				RegisterBlocks.POLLEN,
 				20,
 				true,
 				true,

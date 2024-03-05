@@ -456,7 +456,7 @@ public final class RegisterBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final PollenBlock POLLEN_BLOCK = new PollenBlock(
+	public static final PollenBlock POLLEN = new PollenBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
 			.sound(RegisterBlockSoundTypes.POLLEN)
@@ -1015,7 +1015,7 @@ public final class RegisterBlocks {
 	}
 
 	public static void registerNotSoPlants() {
-		registerBlock("pollen", POLLEN_BLOCK);
+		registerBlock("pollen", POLLEN);
 		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
@@ -1319,7 +1319,7 @@ public final class RegisterBlocks {
 	private static void registerFlammability() {
 		WilderSharedConstants.logWithModId("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
-		flammableBlockRegistry.add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.POLLEN, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.CARNATION, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.CATTAIL, 100, 60);

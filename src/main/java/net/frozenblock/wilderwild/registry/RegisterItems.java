@@ -85,7 +85,7 @@ public final class RegisterItems {
 		new Item.Properties().stacksTo(16)
 	);
 	public static final CoconutItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new Item.Properties());
-	public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new Item.Properties());
+	public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN, new Item.Properties());
 	public static final BlockItem SCORCHED_SAND = new BlockItem(RegisterBlocks.SCORCHED_SAND, new Item.Properties());
 	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(RegisterBlocks.SCORCHED_RED_SAND, new Item.Properties());
 	public static final BlockItem ECHO_GLASS = new BlockItem(RegisterBlocks.ECHO_GLASS, new Item.Properties());

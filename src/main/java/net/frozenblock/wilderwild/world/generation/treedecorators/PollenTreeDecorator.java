@@ -64,7 +64,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 			int placedPollen = 0;
-			BlockState pollenState = RegisterBlocks.POLLEN_BLOCK.defaultBlockState();
+			BlockState pollenState = RegisterBlocks.POLLEN.defaultBlockState();
 			for (BlockPos pos : poses) {
 				if (placedPollen >= this.maxCount) {
 					return;

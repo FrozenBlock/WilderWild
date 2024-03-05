@@ -48,11 +48,45 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createHangingSign(RegisterBlocks.STRIPPED_CYPRESS_LOG, RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN);
 		generator.createPlant(RegisterBlocks.CYPRESS_SAPLING, RegisterBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createTrivialBlock(RegisterBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
+
+		generator.createPlant(RegisterBlocks.SEEDING_DANDELION, RegisterBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(RegisterBlocks.CARNATION, RegisterBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
+
+		generator.createTrivialBlock(RegisterBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
+
+		generator.createSimpleFlatItemModel(RegisterBlocks.ALGAE);
+		generator.createSimpleFlatItemModel(RegisterBlocks.POLLEN);
+		generator.createSimpleFlatItemModel(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.PINK_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW);
 	}
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
+		generator.generateFlatItem(RegisterBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterBlocks.CATTAIL.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterBlocks.SMALL_SPONGE.asItem(), ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(RegisterItems.BAOBAB_NUT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.COCONUT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.SPLIT_COCONUT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.MILKWEED_POD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.PEELED_PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(RegisterItems.JELLYFISH_BUCKET, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.CRAB_BUCKET, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.CRAB_CLAW, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.COOKED_CRAB_CLAW, ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(RegisterItems.BAOBAB_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.BAOBAB_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.CYPRESS_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.CYPRESS_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.PALM_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.PALM_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 	}
 }
