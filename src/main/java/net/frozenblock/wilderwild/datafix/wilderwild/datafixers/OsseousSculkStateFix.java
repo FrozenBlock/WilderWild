@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datafix.datafixers;
+package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -28,20 +28,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
-public class ScorchedSandStateFix2 extends DataFix {
+public class OsseousSculkStateFix extends DataFix {
 
-	private static final String STATE = "crackedness";
-	private static final String NEW_STATE = "cracked";
-	private static final String DEFAULT_VALUE = "false";
-
+	private static final String OLD_STATE = "axis";
+	private static final String NEW_STATE = "facing";
+	private static final String DEFAULT_VALUE = "y";
+	private static final String UPSIDE_DOWN_STATE = "upside_down";
 	private final String name;
 	private final String blockId;
 
-	public ScorchedSandStateFix2(Schema outputSchema, String name, @NotNull ResourceLocation blockId) {
+	public OsseousSculkStateFix(Schema outputSchema, String name, @NotNull ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private ScorchedSandStateFix2(Schema outputSchema, String name, String blockId) {
+	private OsseousSculkStateFix(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
@@ -50,9 +50,15 @@ public class ScorchedSandStateFix2 extends DataFix {
 	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
-			String boolValue = string.equals("1") ? "true" : "false";
-			return dynamicx.remove(STATE).set(NEW_STATE, dynamicx.createString(boolValue));
+			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
+			String direction;
+			switch (string) {
+				case "x" -> direction = "west";
+				case "y" -> direction = dynamicx.get(UPSIDE_DOWN_STATE).asBoolean(true) ? "down" : "up";
+				case "z" -> direction = "north";
+				default -> direction = "down";
+			}
+			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(direction));
 		}) : dynamic;
 	}
 

@@ -16,19 +16,20 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datafix.schemas;
+package net.frozenblock.wilderwild.datafix.minecraft.schemas;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
-import java.util.Map;
-import java.util.function.Supplier;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.util.datafix.schemas.V100;
 
-public class WWV17 extends NamespacedSchema {
-	public WWV17(int versionKey, Schema parent) {
+import java.util.Map;
+import java.util.function.Supplier;
+
+public class WWMV1 extends NamespacedSchema {
+	public WWMV1(int versionKey, Schema parent) {
 		super(versionKey, parent);
 	}
 
