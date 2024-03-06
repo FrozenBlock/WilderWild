@@ -21,10 +21,12 @@ package net.frozenblock.wilderwild.datafix;
 import com.mojang.datafixers.schemas.Schema;
 import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.wilderwild.datafix.datafixers.DisplayLanternFieldRenameFix;
 import net.frozenblock.wilderwild.datafix.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.ScorchedSandStateFix2;
+import net.frozenblock.wilderwild.datafix.schemas.WWV18;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
@@ -32,15 +34,17 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
-public class WilderDataFixer {
+public class WWDataFixer {
 
-	private WilderDataFixer() {
+	public static final int DATA_VERSION = 18;
+
+	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");
 	}
 
 	public static void applyDataFixes(final @NotNull ModContainer mod) {
-		WilderSharedConstants.log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
-		var builder = new QuiltDataFixerBuilder(WilderSharedConstants.DATA_VERSION);
+		WilderSharedConstants.log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
+		var builder = new QuiltDataFixerBuilder(DATA_VERSION);
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
 		Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
@@ -112,6 +116,9 @@ public class WilderDataFixer {
 		Schema schemaV17 = builder.addSchema(17, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", Map.of(WilderSharedConstants.id("magma_caves"), WilderSharedConstants.id("magmatic_caves")), schemaV17);
 		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV17);
+
+		Schema schemaV18 = builder.addSchema(18, WWV18::new);
+		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV18));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);

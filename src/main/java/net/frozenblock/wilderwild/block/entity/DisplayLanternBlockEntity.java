@@ -252,7 +252,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
 			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
-			Codec.STRING.fieldOf("customName").orElse("").forGetter(Occupant::getCustomName),
+			Codec.STRING.fieldOf("custom_name").orElse("").forGetter(Occupant::getCustomName),
 			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
