@@ -16,16 +16,16 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datafix;
+package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.wilderwild.datafix.datafixers.DisplayLanternFieldRenameFix;
-import net.frozenblock.wilderwild.datafix.datafixers.DrySandStateFix;
-import net.frozenblock.wilderwild.datafix.datafixers.NematocystStateFix;
-import net.frozenblock.wilderwild.datafix.datafixers.OsseousSculkStateFix;
-import net.frozenblock.wilderwild.datafix.datafixers.ScorchedSandStateFix2;
-import net.frozenblock.wilderwild.datafix.schemas.WWV17;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DisplayLanternFieldRenameFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
+import net.frozenblock.wilderwild.datafix.wilderwild.schemas.WWV17;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.fixes.AddNewChoices;
 import net.minecraft.util.datafix.fixes.References;
@@ -37,7 +37,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class WWDataFixer {
 
-	public static final int DATA_VERSION = 19;
+	public static final int DATA_VERSION = 17;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");
@@ -128,12 +128,6 @@ public class WWDataFixer {
 		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("coconut"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("chest_bubbler"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("sculk_spreader"), References.ENTITY));
-
-		Schema schemaV18 = builder.addSchema(18, NamespacedSchema::new);
-		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV18);
-
-		Schema schemaV19 = builder.addSchema(19, NamespacedSchema::new);
-		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV19));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);

@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datafix.datafixers;
+package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -28,19 +28,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
-public class DrySandStateFix extends DataFix {
+public class ScorchedSandStateFix2 extends DataFix {
 
-	private static final String OLD_STATE = "crackness";
-	private static final String NEW_STATE = "crackedness";
-	private static final String DEFAULT_VALUE = "0";
+	private static final String STATE = "crackedness";
+	private static final String NEW_STATE = "cracked";
+	private static final String DEFAULT_VALUE = "false";
+
 	private final String name;
 	private final String blockId;
 
-	public DrySandStateFix(Schema outputSchema, String name, @NotNull ResourceLocation blockId) {
+	public ScorchedSandStateFix2(Schema outputSchema, String name, @NotNull ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private DrySandStateFix(Schema outputSchema, String name, String blockId) {
+	private ScorchedSandStateFix2(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
@@ -49,8 +50,9 @@ public class DrySandStateFix extends DataFix {
 	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
-			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(string));
+			String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
+			String boolValue = string.equals("1") ? "true" : "false";
+			return dynamicx.remove(STATE).set(NEW_STATE, dynamicx.createString(boolValue));
 		}) : dynamic;
 	}
 
