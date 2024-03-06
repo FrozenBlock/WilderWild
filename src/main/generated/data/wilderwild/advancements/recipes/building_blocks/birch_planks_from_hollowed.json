@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#wilderwild:hollowed_birch_logs"
+            "tag": "wilderwild:hollowed_birch_logs"
           }
         ]
       },

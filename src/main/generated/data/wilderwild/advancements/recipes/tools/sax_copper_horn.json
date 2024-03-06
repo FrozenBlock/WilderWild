@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:goat_horn"
+            "items": [
+              "minecraft:goat_horn"
+            ]
           }
         ]
       },

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:milkweed"
+            "items": [
+              "wilderwild:milkweed"
+            ]
           }
         ]
       },

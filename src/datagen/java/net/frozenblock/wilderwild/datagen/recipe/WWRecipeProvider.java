@@ -18,19 +18,13 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import com.google.common.collect.ImmutableList;
-import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -38,26 +32,27 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 public class WWRecipeProvider extends FabricRecipeProvider {
-	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries);
+	public WWRecipeProvider(FabricDataOutput output) {
+		super(output);
 	}
 
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
 		HollowedLogRecipeProvider.buildRecipes(exporter);
-		WWWoodRecipeProvider.buildRecipes(exporter);
 		MesogleaRecipeProvider.buildRecipes(exporter);
 		FireflyBottleRecipeProvider.buildRecipes(exporter);
 		CopperHornRecipeProvider.buildRecipes(exporter);
 		WWNaturalRecipeProvider.buildRecipes(exporter);
 		WWCookRecipeProvider.buildRecipes(exporter);
 
-		ShapedRecipeUtil.withResultPatch(
+		ShapedRecipeUtil.withResultTag(
 			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegisterItems.ANCIENT_HORN)
 				.group("wilderwild_ancient_horn")
 				.define('#', Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT))
@@ -66,13 +61,10 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 				.pattern("#G#")
 				.pattern("#I#")
 				.pattern("I#I")
-				.unlockedBy(RecipeProvider.getHasName(RegisterItems.ANCIENT_HORN_FRAGMENT), RecipeProvider.has(RegisterItems.ANCIENT_HORN_FRAGMENT)),
-			DataComponentPatch.builder()
-				.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(RegisterItems.ANCIENT_HORN_INSTRUMENT))
-				.build()
-		).save(exporter);
+				.unlockedBy("has_fragment", InventoryChangeTrigger.TriggerInstance.hasItems(RegisterItems.ANCIENT_HORN_FRAGMENT)),
+			new CompoundTag() {{ put("instrument", StringTag.valueOf(RegisterItems.ANCIENT_HORN_INSTRUMENT.location().toString())); }}
+		).save(exporter, WilderSharedConstants.id("ancient_horn"));
 
-		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegisterBlocks.DISPLAY_LANTERN)
 				.define('X', Ingredient.of(Items.IRON_NUGGET))
 				.define('#', Ingredient.of(Items.GLASS_PANE))
@@ -80,11 +72,8 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 				.pattern("X#X")
 				.pattern("XXX")
 				.unlockedBy(RecipeProvider.getHasName(Items.IRON_INGOT), RecipeProvider.has(Items.IRON_INGOT))
-				.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), RecipeProvider.has(Items.IRON_NUGGET)),
-			DataComponentPatch.builder()
-				.set(RegisterDataComponents.FIREFLIES, ImmutableList.of())
-				.build()
-		).save(exporter);
+				.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), RecipeProvider.has(Items.IRON_NUGGET))
+		.save(exporter);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.STONE_CHEST)
 			.group("stone_chest")

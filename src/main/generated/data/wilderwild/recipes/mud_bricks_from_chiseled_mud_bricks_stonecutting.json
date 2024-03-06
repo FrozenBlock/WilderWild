@@ -1,9 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "item": "wilderwild:chiseled_mud_bricks"
   },
-  "result": {
-    "id": "minecraft:mud_bricks"
-  }
+  "result": "minecraft:mud_bricks"
 }

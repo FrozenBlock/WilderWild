@@ -10,7 +10,7 @@
       "translate": "wilderwild.advancements.husbandry.firefly_in_a_bottle.description"
     },
     "icon": {
-      "id": "wilderwild:firefly_bottle"
+      "item": "wilderwild:firefly_bottle"
     },
     "title": {
       "translate": "wilderwild.advancements.husbandry.firefly_in_a_bottle.title"

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#wilderwild:hollowed_warped_stems"
+            "tag": "wilderwild:hollowed_warped_stems"
           }
         ]
       },

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:iron_ingot"
+            "items": [
+              "minecraft:iron_ingot"
+            ]
           }
         ]
       },
@@ -15,7 +17,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:iron_nugget"
+            "items": [
+              "minecraft:iron_nugget"
+            ]
           }
         ]
       },

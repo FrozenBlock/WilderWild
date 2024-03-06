@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "minecraft:badlands",
     "minecraft:wooded_badlands",

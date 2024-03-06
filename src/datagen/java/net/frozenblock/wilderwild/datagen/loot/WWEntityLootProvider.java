@@ -43,12 +43,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 
-	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries, LootContextParamSets.ENTITY);
+	public WWEntityLootProvider(FabricDataOutput output) {
+		super(output, LootContextParamSets.ENTITY);
 	}
 
 	@Override
-	public void generate(HolderLookup.Provider registries, @NotNull BiConsumer<ResourceLocation, LootTable.Builder> output) {
+	public void generate(@NotNull BiConsumer<ResourceLocation, LootTable.Builder> output) {
 		output.accept(
 			RegisterEntities.CRAB.getDefaultLootTable(),
 			LootTable.lootTable().withPool(

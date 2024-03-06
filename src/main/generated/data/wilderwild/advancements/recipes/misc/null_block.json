@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:black_concrete"
+            "items": [
+              "minecraft:black_concrete"
+            ]
           }
         ]
       },
@@ -15,7 +17,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:magenta_concrete"
+            "items": [
+              "minecraft:magenta_concrete"
+            ]
           }
         ]
       },

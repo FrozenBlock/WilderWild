@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "minecraft:clay",
     "minecraft:dripstone_block",

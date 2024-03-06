@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:cattail"
+            "items": [
+              "wilderwild:cattail"
+            ]
           }
         ]
       },

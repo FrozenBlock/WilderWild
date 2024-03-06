@@ -35,7 +35,6 @@ import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -210,7 +209,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			}
 			ItemStack bottleStack = new ItemStack(item);
 			if (this.hasCustomName()) {
-				bottleStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
+				bottleStack.setHoverName(this.getCustomName());
 			}
 			player.getInventory().placeItemBackInInventory(bottleStack);
 			Level level = this.level();

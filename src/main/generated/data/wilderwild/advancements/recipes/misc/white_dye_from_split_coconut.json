@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:split_coconut"
+            "items": [
+              "wilderwild:split_coconut"
+            ]
           }
         ]
       },

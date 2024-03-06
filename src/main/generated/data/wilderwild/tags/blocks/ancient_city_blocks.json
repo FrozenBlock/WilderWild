@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "minecraft:cobbled_deepslate",
     "minecraft:cobbled_deepslate_stairs",

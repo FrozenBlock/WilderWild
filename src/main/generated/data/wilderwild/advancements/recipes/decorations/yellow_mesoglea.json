@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:yellow_nematocyst"
+            "items": [
+              "wilderwild:yellow_nematocyst"
+            ]
           }
         ]
       },

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:crab_claw"
+            "items": [
+              "wilderwild:crab_claw"
+            ]
           }
         ]
       },

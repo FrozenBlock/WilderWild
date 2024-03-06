@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#wilderwild:hollowed_acacia_logs"
+            "tag": "wilderwild:hollowed_acacia_logs"
           }
         ]
       },

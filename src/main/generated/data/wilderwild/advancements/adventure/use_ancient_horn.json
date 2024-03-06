@@ -4,7 +4,9 @@
     "use_ancient_horn": {
       "conditions": {
         "item": {
-          "items": "wilderwild:ancient_horn"
+          "items": [
+            "wilderwild:ancient_horn"
+          ]
         }
       },
       "trigger": "minecraft:using_item"
@@ -16,7 +18,7 @@
     },
     "frame": "goal",
     "icon": {
-      "id": "wilderwild:ancient_horn"
+      "item": "wilderwild:ancient_horn"
     },
     "title": {
       "translate": "wilderwild.advancements.adventure.use_ancient_horn.title"

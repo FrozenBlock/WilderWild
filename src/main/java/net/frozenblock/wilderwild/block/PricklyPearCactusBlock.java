@@ -107,7 +107,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
+	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
 		return false;
 	}
 

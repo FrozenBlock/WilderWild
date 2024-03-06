@@ -11,9 +11,6 @@
       ],
       "functions": [
         {
-          "components": [
-            "wilderwild:fireflies"
-          ],
           "conditions": [
             {
               "condition": "minecraft:match_tool",
@@ -26,8 +23,34 @@
               }
             }
           ],
-          "function": "minecraft:copy_components",
+          "function": "minecraft:copy_nbt",
+          "ops": [
+            {
+              "op": "replace",
+              "source": "Fireflies",
+              "target": "BlockEntityTag.Fireflies"
+            }
+          ],
           "source": "block_entity"
+        },
+        {
+          "block": "wilderwild:display_lantern",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "enchantments": [
+                  {
+                    "enchantment": "minecraft:silk_touch"
+                  }
+                ]
+              }
+            }
+          ],
+          "function": "minecraft:copy_state",
+          "properties": [
+            "display_light"
+          ]
         }
       ],
       "rolls": 1.0

@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.datagen.advancement;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -35,16 +34,15 @@ import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.UsingItemTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
 public class WWAdvancementProvider extends FabricAdvancementProvider {
-	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries);
+	public WWAdvancementProvider(FabricDataOutput output) {
+		super(output);
 	}
 
 	@Override
-	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
+	public void generateAdvancement(Consumer<AdvancementHolder> writer) {
 		AdvancementHolder adventure = Advancement.Builder.advancement().build(WilderSharedConstants.vanillaId("adventure/root"));
 		AdvancementHolder husbandry = Advancement.Builder.advancement().build(WilderSharedConstants.vanillaId("husbandry/root"));
 

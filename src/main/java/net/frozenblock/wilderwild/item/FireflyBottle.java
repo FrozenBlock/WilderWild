@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -50,7 +49,7 @@ public class FireflyBottle extends Item {
 	}
 
 	public static boolean isNectar(@NotNull ItemStack stack) {
-		return stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().toLowerCase().contains("nectar");
+		return stack.hasCustomHoverName() && stack.getHoverName().getString().toLowerCase().contains("nectar");
 	}
 
 	@NotNull
@@ -77,7 +76,7 @@ public class FireflyBottle extends Item {
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(this.color);
-					if (stack.has(DataComponents.CUSTOM_NAME)) {
+					if (stack.hasCustomHoverName()) {
 						entity.setCustomName(stack.getHoverName());
 					}
 					player.gameEvent(GameEvent.ENTITY_PLACE);

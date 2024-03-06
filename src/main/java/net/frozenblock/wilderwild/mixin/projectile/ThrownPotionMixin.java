@@ -20,9 +20,8 @@ package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,7 +37,7 @@ public abstract class ThrownPotionMixin {
 		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownPotion potion = ThrownPotion.class.cast(this);
 			potion.playSound(RegisterSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
-			if (potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getAllEffects().iterator().hasNext()) {
+			if (!PotionUtils.getMobEffects(potion.getItem()).isEmpty()) {
 				potion.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.level().random.nextFloat() * 0.2F));
 				if (this.isLingering()) {
 					potion.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (potion.level().random.nextFloat() * 0.2F));

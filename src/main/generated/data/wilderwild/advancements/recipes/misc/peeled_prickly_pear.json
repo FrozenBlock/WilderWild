@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:prickly_pear"
+            "items": [
+              "wilderwild:prickly_pear"
+            ]
           }
         ]
       },

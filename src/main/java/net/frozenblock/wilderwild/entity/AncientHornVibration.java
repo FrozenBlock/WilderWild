@@ -511,7 +511,7 @@ public class AncientHornVibration extends AbstractArrow {
 
 	@Override
 	@NotNull
-	protected ItemStack getDefaultPickupItem() {
+	protected ItemStack getPickupItem() {
 		return ItemStack.EMPTY;
 	}
 

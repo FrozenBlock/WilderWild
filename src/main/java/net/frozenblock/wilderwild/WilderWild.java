@@ -41,7 +41,6 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterCriteria;
-import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -71,7 +70,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WilderSharedConstants.startMeasuring(this);
 		WWDataFixer.applyDataFixes(container);
 
-		RegisterDataComponents.init();
 		WilderRegistry.initRegistry();
 		RegisterBlocks.registerBlocks();
 		RegisterItems.registerItems();

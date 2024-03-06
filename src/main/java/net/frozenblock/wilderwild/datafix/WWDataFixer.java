@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datafix;
 
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.wilderwild.datafix.datafixers.DisplayLanternFieldRenameFix;
 import net.frozenblock.wilderwild.datafix.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.OsseousSculkStateFix;
@@ -37,7 +36,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class WWDataFixer {
 
-	public static final int DATA_VERSION = 19;
+	public static final int DATA_VERSION = 18;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");
@@ -131,9 +130,6 @@ public class WWDataFixer {
 
 		Schema schemaV18 = builder.addSchema(18, NamespacedSchema::new);
 		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV18);
-
-		Schema schemaV19 = builder.addSchema(19, NamespacedSchema::new);
-		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV19));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);

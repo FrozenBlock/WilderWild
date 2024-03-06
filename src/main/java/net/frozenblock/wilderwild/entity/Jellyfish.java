@@ -42,7 +42,6 @@ import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -85,7 +84,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -113,7 +111,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
 	public static final UUID JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = UUID.fromString("6cb0de31-da1e-4136-b338-f30aeac92c3e");
-	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, "movement_speed_modifier_baby", 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, "movement_speed_modifier_baby", 0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
 		.filter(JellyfishVariant::isNormal)
 		.collect(Collectors.toList())
@@ -734,15 +732,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
-		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
-			compoundTag.putBoolean("canReproduce", this.canReproduce());
-			compoundTag.putInt("fullness", this.fullness);
-			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
-			compoundTag.putInt("age", this.getAge());
-			compoundTag.putInt("forcedAge", this.forcedAge);
-			compoundTag.putBoolean("isBaby", this.isBaby());
-		});
+		CompoundTag compoundTag = stack.getOrCreateTag();
+		compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compoundTag.putBoolean("canReproduce", this.canReproduce());
+		compoundTag.putInt("fullness", this.fullness);
+		compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
+		compoundTag.putInt("age", this.getAge());
+		compoundTag.putInt("forcedAge", this.forcedAge);
+		compoundTag.putBoolean("isBaby", this.isBaby());
 	}
 
 	@Override

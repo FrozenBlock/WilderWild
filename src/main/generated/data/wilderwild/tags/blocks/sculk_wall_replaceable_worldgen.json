@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "minecraft:cobbled_deepslate_wall",
     "minecraft:polished_deepslate_wall",

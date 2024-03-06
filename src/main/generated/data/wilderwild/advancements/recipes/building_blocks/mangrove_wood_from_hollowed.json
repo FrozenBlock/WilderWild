@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:hollowed_mangrove_log"
+            "items": [
+              "wilderwild:hollowed_mangrove_log"
+            ]
           }
         ]
       },

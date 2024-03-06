@@ -128,7 +128,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				}
 				if (itemStack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
-						DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
+						DisplayLanternBlockEntity.Occupant fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
 						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.key().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.key().getPath() + "_firefly_bottle"));
 						Item item = RegisterItems.FIREFLY_BOTTLE;
 						if (optionalItem.isPresent()) {

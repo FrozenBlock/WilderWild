@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:alba_glory_of_the_snow"
+            "items": [
+              "wilderwild:alba_glory_of_the_snow"
+            ]
           }
         ]
       },

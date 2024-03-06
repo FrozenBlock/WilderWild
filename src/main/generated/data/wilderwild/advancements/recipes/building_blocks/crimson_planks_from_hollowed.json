@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#wilderwild:hollowed_crimson_stems"
+            "tag": "wilderwild:hollowed_crimson_stems"
           }
         ]
       },

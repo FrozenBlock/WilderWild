@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:null_block"
+            "items": [
+              "wilderwild:null_block"
+            ]
           }
         ]
       },
@@ -17,7 +19,7 @@
       "translate": "wilderwild.advancements.adventure.obtain_null_block.description"
     },
     "icon": {
-      "id": "wilderwild:null_block"
+      "item": "wilderwild:null_block"
     },
     "title": {
       "translate": "wilderwild.advancements.adventure.obtain_null_block.title"

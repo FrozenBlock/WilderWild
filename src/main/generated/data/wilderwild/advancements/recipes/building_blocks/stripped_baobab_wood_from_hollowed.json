@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:stripped_hollowed_baobab_log"
+            "items": [
+              "wilderwild:stripped_hollowed_baobab_log"
+            ]
           }
         ]
       },

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:small_sponge"
+            "items": [
+              "wilderwild:small_sponge"
+            ]
           }
         ]
       },

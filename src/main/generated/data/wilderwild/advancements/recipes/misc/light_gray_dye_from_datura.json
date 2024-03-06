@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:datura"
+            "items": [
+              "wilderwild:datura"
+            ]
           }
         ]
       },

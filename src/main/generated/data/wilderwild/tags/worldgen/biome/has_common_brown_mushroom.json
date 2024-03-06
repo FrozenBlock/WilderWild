@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "minecraft:birch_forest",
     "minecraft:dark_forest",

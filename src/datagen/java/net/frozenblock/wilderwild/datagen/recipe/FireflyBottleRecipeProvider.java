@@ -18,9 +18,6 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -32,6 +29,7 @@ import net.minecraft.world.level.ItemLike;
 public class FireflyBottleRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
+		/*
 		FrozenRecipeProvider.colorWithDyes(
 			exporter,
 			ImmutableList.of(
@@ -74,6 +72,7 @@ public class FireflyBottleRecipeProvider {
 			RecipeCategory.MISC,
 			WilderSharedConstants.MOD_ID
 		);
+		 */
 
 		fireflyBottle(RegisterItems.BLACK_FIREFLY_BOTTLE, Items.BLACK_DYE, exporter);
 		fireflyBottle(RegisterItems.BLUE_FIREFLY_BOTTLE, Items.BLUE_DYE, exporter);

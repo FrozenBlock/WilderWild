@@ -32,7 +32,7 @@ import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.lib.item.api.removable.RemovableItemTags;
+import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
 import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
@@ -70,8 +70,6 @@ import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
@@ -101,18 +99,14 @@ public class FrozenLibIntegration extends ModIntegration {
 		super("frozenlib");
 	}
 
-	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull Holder<Biome> holder) {
-		AdvancementAPI.addCriteria(advancement, holder.unwrapKey().orElseThrow().location().toString(), inBiome(holder));
-		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(holder.unwrapKey().orElseThrow().location().toString()))));
-	}
-
-	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key, HolderLookup.Provider registries) {
-		addBiomeRequirement(advancement, registries.lookupOrThrow(Registries.BIOME).getOrThrow(key));
+	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
+		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
+		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
 	}
 
 	@NotNull
-	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(Holder<Biome> holder) {
-		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(holder));
+	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
+		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
 	}
 
 	@Override
@@ -122,7 +116,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
-			private ItemStack lastStack;
 
 			@Override
 			public Boolean firstTickTest(LivingEntity entity) {
@@ -137,22 +130,9 @@ public class FrozenLibIntegration extends ModIntegration {
 					if (hand == null) return false;
 
 					ItemStack stack = entity.getItemInHand(hand);
-					if (stack.getItem() instanceof InstrumentItem) {
-						this.lastStack = stack;
-						return true;
-					}
-					return false;
+					return stack.getItem() instanceof InstrumentItem;
 				}
-				var stack = entity.getUseItem();
-				if (stack.getItem() instanceof InstrumentItem) {
-					if (this.lastStack == null || ItemStack.matches(this.lastStack, stack)) {
-						this.lastStack = stack;
-						return true;
-					} else {
-						this.firstCheck = true;
-					}
-				}
-				return false;
+				return entity.getUseItem().getItem() instanceof InstrumentItem;
 			}
 		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
@@ -195,7 +175,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		});
 
 		WindManager.addExtension(WilderWindManager::new);
-		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
+		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
 		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
 		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
@@ -217,36 +197,36 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
 
-		AdvancementEvents.INIT.register((holder, registries) -> {
+		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
 			if (MiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/adventuring_time" -> {
-						addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.OASIS, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.DYING_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.DYING_MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_MIXED_FOREST, registries);
+						addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
+						addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
+						addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
+						addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
+						addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
+						addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
+						addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
+						addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
+						addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(

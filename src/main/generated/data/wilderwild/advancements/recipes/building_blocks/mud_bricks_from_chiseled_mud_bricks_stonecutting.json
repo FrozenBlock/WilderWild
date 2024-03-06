@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:chiseled_mud_bricks"
+            "items": [
+              "wilderwild:chiseled_mud_bricks"
+            ]
           }
         ]
       },

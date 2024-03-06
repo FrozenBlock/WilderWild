@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "minecraft:stone_slab",
     "minecraft:granite_slab",

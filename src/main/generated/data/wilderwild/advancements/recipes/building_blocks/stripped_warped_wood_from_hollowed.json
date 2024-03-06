@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:stripped_hollowed_warped_stem"
+            "items": [
+              "wilderwild:stripped_hollowed_warped_stem"
+            ]
           }
         ]
       },

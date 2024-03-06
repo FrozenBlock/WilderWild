@@ -22,13 +22,12 @@ import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Instruments;
@@ -48,18 +47,16 @@ public class CopperHornRecipeProvider {
 	}
 
 	private static void copperHorn(RecipeOutput exporter, String name, ResourceKey<Instrument> goatHornInstrument, ResourceKey<Instrument> copperHornInstrument) {
-		((ShapedRecipeBuilderExtension) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegisterItems.COPPER_HORN)
+		((ShapedRecipeBuilderExtension)ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegisterItems.COPPER_HORN)
 			.group("wilderwild_copper_horn")
 			.define('C', Ingredient.of(Items.COPPER_INGOT))
-			.define('G', DefaultCustomIngredients.components(Ingredient.of(Items.GOAT_HORN),
-				DataComponentPatch.builder()
-					.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(goatHornInstrument))
-					.build()
-			))
+			.define('G', DefaultCustomIngredients.nbt(Ingredient.of(Items.GOAT_HORN), new CompoundTag() {{
+				put("instrument", StringTag.valueOf(goatHornInstrument.location().toString()));
+			}}, true))
 			.pattern("CGC")
 			.pattern(" C ")
-			.unlockedBy("has_horn", RecipeProvider.has(Items.GOAT_HORN))
-		).frozenLib$patch(DataComponentPatch.builder().set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(copperHornInstrument)).build())
+			.unlockedBy("has_horn", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOAT_HORN))
+		).frozenLib$tag(new CompoundTag() {{ put("instrument", StringTag.valueOf(copperHornInstrument.location().toString())); }})
 			.save(exporter, WilderSharedConstants.id(name + "_copper_horn"));
 	}
 
