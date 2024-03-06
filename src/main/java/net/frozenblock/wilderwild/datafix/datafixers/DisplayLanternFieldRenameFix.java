@@ -28,10 +28,10 @@ import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.ExtraDataFixUtils;
 import net.minecraft.util.datafix.fixes.References;
@@ -49,7 +49,6 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 		dynamic = dynamic.remove("Fireflies");
 
 		List<Dynamic<?>> newDynamics = Lists.newArrayList();
-
 		for (Dynamic<?> embeddedDynamic : list) {
 			newDynamics.add(this.fixOccupant(embeddedDynamic));
 		}
@@ -59,16 +58,19 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 
 	@NotNull
 	private Dynamic<?> fixOccupant(@NotNull Dynamic<?> dynamic) {
-		AtomicReference<ResourceLocation> id = new AtomicReference<>();
-		dynamic.update("color", dynamicx -> {
-			Optional<ResourceLocation> optionalId = dynamicx.read(ResourceLocation.CODEC).result();
-			id.set(optionalId.orElseGet(() -> WilderSharedConstants.id("on")));
-			return dynamicx;
-		});
-
-		dynamic = dynamic.set("color", dynamic.createString(id.toString()));
+		dynamic = this.fixOccupantColor(dynamic);
 		dynamic = ExtraDataFixUtils.renameField(dynamic, "customName", "custom_name");
 		return dynamic;
+	}
+
+	@NotNull
+	private Dynamic<?> fixOccupantColor(@NotNull Dynamic<?> dynamic) {
+		List<Dynamic<?>> list = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+		String colorID = WilderSharedConstants.string("on");
+		if (!list.isEmpty()) {
+			colorID = ((StringTag) list.get(0).getValue()).getAsString();
+		}
+		return dynamic.set("color", dynamic.createString(colorID));
 	}
 
 	@Override
@@ -87,9 +89,7 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 	protected Typed<?> fix(@NotNull Typed<?> typed) {
 		return typed.update(
 			DSL.remainderFinder(),
-			dynamic -> {
-				return this.fixOccupants(dynamic);
-			}
+			this::fixOccupants
 		);
 	}
 }
