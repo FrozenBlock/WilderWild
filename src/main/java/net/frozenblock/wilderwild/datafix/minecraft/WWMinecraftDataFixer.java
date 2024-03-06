@@ -68,7 +68,7 @@ public class WWMinecraftDataFixer {
 		Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
 		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV3));
 
-		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WilderSharedConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
 	}
 
