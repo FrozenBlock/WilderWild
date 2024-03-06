@@ -44,14 +44,17 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 	}
 
 	@NotNull
-	protected Dynamic<?> fixOccupants(@NotNull Dynamic<?> original, @NotNull List<Dynamic<?>> list) {
-		List<Dynamic<?>> newList = Lists.newArrayList();
+	protected Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
+		List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+		dynamic = dynamic.remove("Fireflies");
 
-		for (Dynamic<?> dynamic : list) {
-			newList.add(this.fixOccupant(dynamic));
+		List<Dynamic<?>> newDynamics = Lists.newArrayList();
+
+		for (Dynamic<?> embeddedDynamic : list) {
+			newDynamics.add(this.fixOccupant(embeddedDynamic));
 		}
 
-		return original.set("fireflies", original.createList(newList.stream()));
+		return dynamic.set("fireflies", dynamic.createList(newDynamics.stream()));
 	}
 
 	@NotNull
@@ -85,10 +88,7 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 		return typed.update(
 			DSL.remainderFinder(),
 			dynamic -> {
-				List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
-				dynamic = dynamic.remove("Fireflies");
-				dynamic = this.fixOccupants(dynamic, list);
-				return dynamic;
+				return this.fixOccupants(dynamic);
 			}
 		);
 	}
