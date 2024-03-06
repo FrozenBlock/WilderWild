@@ -455,7 +455,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.isTouchingStoppingBlock = compound.getBoolean("IsTouchingStoppingBlock");
 		this.lookRot = compound.getFloat("LookRot");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(compound, this.inventory);
+		ContainerHelper.loadAllItems(compound, this.inventory, this.registryAccess());
 	}
 
 	@Override
@@ -471,7 +471,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		compound.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
 		compound.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
 		compound.putFloat("LookRot", this.lookRot);
-		ContainerHelper.saveAllItems(compound, this.inventory);
+		ContainerHelper.saveAllItems(compound, this.inventory, this.registryAccess());
 	}
 
 	@Override

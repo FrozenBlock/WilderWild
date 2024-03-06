@@ -21,9 +21,11 @@ package net.frozenblock.wilderwild.mixin.loot;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,7 +55,9 @@ public final class LootTableMixin {
 	)
 	public void setStoneItem(Container instance, int i, ItemStack itemStack, Operation<Void> original) {
 		if (this.isStoneChest) {
-			itemStack.addTagElement("wilderwild_is_ancient", ByteTag.valueOf(true));
+			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> {
+				compoundTag.put("wilderwild_is_ancient", ByteTag.valueOf(true));
+			});
 		}
 		original.call(instance, i, itemStack);
 	}

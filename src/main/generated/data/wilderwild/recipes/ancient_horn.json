@@ -19,9 +19,9 @@
     "I#I"
   ],
   "result": {
-    "item": "wilderwild:ancient_horn",
-    "tag": {
-      "instrument": "wilderwild:ancient_horn"
-    }
+    "components": {
+      "minecraft:instrument": "wilderwild:ancient_horn"
+    },
+    "id": "wilderwild:ancient_horn"
   }
 }

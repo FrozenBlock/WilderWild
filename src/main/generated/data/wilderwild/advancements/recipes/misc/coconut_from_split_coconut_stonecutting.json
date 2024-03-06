@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_split_coconut": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:split_coconut"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:coconut_from_split_coconut_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_split_coconut"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:coconut_from_split_coconut_stonecutting"
+    ]
+  }
+}

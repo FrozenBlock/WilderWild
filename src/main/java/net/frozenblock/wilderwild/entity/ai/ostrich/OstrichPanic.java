@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import org.jetbrains.annotations.NotNull;
 

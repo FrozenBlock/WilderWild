@@ -30,7 +30,7 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.datafix.WilderDataFixer;
+import net.frozenblock.wilderwild.datafix.WWDataFixer;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
@@ -41,6 +41,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterCriteria;
+import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -68,8 +69,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
 		WilderSharedConstants.startMeasuring(this);
-		WilderDataFixer.applyDataFixes(container);
+		WWDataFixer.applyDataFixes(container);
 
+		RegisterDataComponents.init();
 		WilderRegistry.initRegistry();
 		RegisterBlocks.registerBlocks();
 		RegisterItems.registerItems();

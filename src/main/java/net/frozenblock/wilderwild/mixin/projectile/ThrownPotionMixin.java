@@ -20,8 +20,9 @@ package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,14 +31,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ThrownPotion.class)
-public class ThrownPotionMixin {
+public abstract class ThrownPotionMixin {
 
 	@Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V", ordinal = 0))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownPotion potion = ThrownPotion.class.cast(this);
 			potion.playSound(RegisterSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
-			if (!PotionUtils.getMobEffects(potion.getItem()).isEmpty()) {
+			if (potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getAllEffects().iterator().hasNext()) {
 				potion.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.level().random.nextFloat() * 0.2F));
 				if (this.isLingering()) {
 					potion.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (potion.level().random.nextFloat() * 0.2F));
@@ -47,8 +48,6 @@ public class ThrownPotionMixin {
 	}
 
 	@Shadow
-	private boolean isLingering() {
-		throw new AssertionError("Mixin injection failed - Wilder Wild ThrownPotionMixin");
-	}
+	protected abstract boolean isLingering();
 
 }

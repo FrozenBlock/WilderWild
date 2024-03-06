@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pink_giant_glory_of_the_snow": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:pink_giant_glory_of_the_snow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:pink_dye_from_pink_giant_glory_of_the_snow"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pink_giant_glory_of_the_snow"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:pink_dye_from_pink_giant_glory_of_the_snow"
+    ]
+  }
+}

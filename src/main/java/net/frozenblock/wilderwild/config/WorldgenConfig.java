@@ -56,29 +56,29 @@ public final class WorldgenConfig {
 	@EntrySyncData("dyingTrees")
 	public boolean dyingTrees = true;
 
-	@EntrySyncData("fallenLogs")
-	public boolean fallenLogs = true;
+	@EntrySyncData("fallenTrees")
+	public boolean fallenTrees = true;
 
-	@EntrySyncData("snappedLogs")
-	public boolean snappedLogs = true;
+	@EntrySyncData("snappedTrees")
+	public boolean snappedTrees = true;
 
-	@EntrySyncData("wilderWildTreeGen")
-	public boolean wilderWildTreeGen = true;
+	@EntrySyncData("treeGeneration")
+	public boolean treeGeneration = true;
 
-	@EntrySyncData("wilderWildGrassGen")
-	public boolean wilderWildGrassGen = true;
+	@EntrySyncData("grassGeneration")
+	public boolean grassGeneration = true;
 
-	@EntrySyncData("wilderWildFlowerGen")
-	public boolean wilderWildFlowerGen = true;
+	@EntrySyncData("flowerGeneration")
+	public boolean flowerGeneration = true;
 
-	@EntrySyncData("wilderWildBushGen")
-	public boolean wilderWildBushGen = true;
+	@EntrySyncData("bushGeneration")
+	public boolean bushGeneration = true;
 
-	@EntrySyncData("wilderWildCactusGen")
-	public boolean wilderWildCactusGen = true;
+	@EntrySyncData("cactusGeneration")
+	public boolean cactusGeneration = true;
 
-	@EntrySyncData("wilderWildMushroomGen")
-	public boolean wilderWildMushroomGen = true;
+	@EntrySyncData("mushroomGeneration")
+	public boolean mushroomGeneration = true;
 
 	@EntrySyncData("tumbleweed")
 	public boolean tumbleweed = true;

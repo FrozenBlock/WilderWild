@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "wilderwild:split_coconut"
+  },
+  "result": {
+    "count": 2,
+    "id": "wilderwild:coconut"
+  }
+}
