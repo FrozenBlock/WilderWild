@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.datafix.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.datafixers.ScorchedSandStateFix2;
-import net.frozenblock.wilderwild.datafix.schemas.WWV18;
+import net.frozenblock.wilderwild.datafix.schemas.WWV17;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.fixes.AddNewChoices;
 import net.minecraft.util.datafix.fixes.References;
@@ -37,7 +37,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class WWDataFixer {
 
-	public static final int DATA_VERSION = 18;
+	public static final int DATA_VERSION = 19;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");
@@ -114,17 +114,26 @@ public class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_goathorn_symphony with minecraft:music_disc_otherside", WilderSharedConstants.id("music_disc_goathorn_symphony"), WilderSharedConstants.vanillaId("music_disc_otherside"), schemaV16);
 		SimpleFixes.addEntityRenameFix(builder, "Rename ancient_horn_projectile to ancient_horn_vibration", WilderSharedConstants.id("ancient_horn_projectile"), WilderSharedConstants.id("ancient_horn_vibration"), schemaV16);
 
-		Schema schemaV17 = builder.addSchema(17, NamespacedSchema::new);
-		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV17);
+		Schema schemaV17 = builder.addSchema(17, WWV17::new);
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("display_lantern"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("scorched_block"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("stone_chest"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("termite_mound"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("jellyfish"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("ostrich"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("crab"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("firefly"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("ancient_horn_vibration"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("coconut"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("chest_bubbler"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV17, WilderSharedConstants.string("sculk_spreader"), References.ENTITY));
 
-		Schema schemaV18 = builder.addSchema(18, WWV18::new);
-		builder.addFixer(new AddNewChoices(schemaV18, "wilderwild:display_lantern", References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV18, "wilderwild:stone_chest", References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV18, "wilderwild:hanging_tendril", References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV18, "wilderwild:scorched_block", References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV18, "wilderwild:termite_mound", References.BLOCK_ENTITY));
-		Schema schemaV18_1 = builder.addSchema(18, 1, NamespacedSchema::new);
-		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV18_1));
+		Schema schemaV18 = builder.addSchema(18, NamespacedSchema::new);
+		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV18);
+
+		Schema schemaV19 = builder.addSchema(19, NamespacedSchema::new);
+		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV19));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);
