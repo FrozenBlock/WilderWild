@@ -63,8 +63,8 @@ public class WWMinecraftDataFixer {
 
 		Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
 		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV2);
-
-		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+		
+		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WilderSharedConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
 	}
 
