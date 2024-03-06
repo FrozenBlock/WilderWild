@@ -26,12 +26,16 @@ import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Dynamic;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.ExtraDataFixUtils;
 import net.minecraft.util.datafix.fixes.References;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
 public class DisplayLanternFieldRenameFix extends DataFix {
@@ -40,8 +44,14 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 	}
 
 	@NotNull
-	protected Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
-		return dynamic.updateMapValues(pair -> pair.mapSecond(this::fixOccupant));
+	protected Dynamic<?> fixOccupants(@NotNull Dynamic<?> original, @NotNull List<Dynamic<?>> list) {
+		List<Dynamic<?>> newList = Lists.newArrayList();
+
+		for (Dynamic<?> dynamic : list) {
+			newList.add(this.fixOccupant(dynamic));
+		}
+
+		return original.set("fireflies", original.createList(newList.stream()));
 	}
 
 	@NotNull
@@ -75,11 +85,9 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 		return typed.update(
 			DSL.remainderFinder(),
 			dynamic -> {
-				Optional<? extends Dynamic<?>> firefliesDynamic = dynamic.get("Fireflies").result();
+				List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 				dynamic = dynamic.remove("Fireflies");
-				if (firefliesDynamic.isPresent()) {
-					dynamic = dynamic.set("fireflies", this.fixOccupants(firefliesDynamic.get()));
-				}
+				dynamic = this.fixOccupants(dynamic, list);
 				return dynamic;
 			}
 		);
