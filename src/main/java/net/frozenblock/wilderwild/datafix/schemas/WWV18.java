@@ -21,11 +21,10 @@ package net.frozenblock.wilderwild.datafix.schemas;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.util.datafix.fixes.References;
-import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import java.util.Map;
 import java.util.function.Supplier;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public class WWV18 extends NamespacedSchema {
 	public WWV18(int versionKey, Schema parent) {
@@ -38,7 +37,7 @@ public class WWV18 extends NamespacedSchema {
 		schema.register(
 			map,
 			WilderSharedConstants.string("display_lantern"),
-			() -> DSL.optionalFields(WilderSharedConstants.string("fireflies"), References.ENTITY_TREE.in(schema))
+			DSL::remainder
 		);
 		return map;
 	}
