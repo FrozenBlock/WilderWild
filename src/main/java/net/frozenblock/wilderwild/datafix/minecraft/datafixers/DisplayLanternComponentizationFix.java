@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
+package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -28,43 +28,41 @@ import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.nbt.StringTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.ExtraDataFixUtils;
 import net.minecraft.util.datafix.fixes.References;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayLanternFieldRenameFix extends DataFix {
-	public DisplayLanternFieldRenameFix(Schema outputSchema) {
+public class DisplayLanternComponentizationFix extends DataFix {
+	public DisplayLanternComponentizationFix(Schema outputSchema) {
 		super(outputSchema, true);
 	}
 
 	@NotNull
-	protected Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
+	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
 		List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		dynamic = dynamic.remove("Fireflies");
 
 		List<Dynamic<?>> newDynamics = Lists.newArrayList();
 		for (Dynamic<?> embeddedDynamic : list) {
-			newDynamics.add(this.fixOccupant(embeddedDynamic));
+			newDynamics.add(fixOccupant(embeddedDynamic));
 		}
 
 		return dynamic.set("fireflies", dynamic.createList(newDynamics.stream()));
 	}
 
 	@NotNull
-	private Dynamic<?> fixOccupant(@NotNull Dynamic<?> dynamic) {
-		dynamic = this.fixOccupantColor(dynamic);
+	static Dynamic<?> fixOccupant(@NotNull Dynamic<?> dynamic) {
+		dynamic = fixOccupantColor(dynamic);
 		dynamic = ExtraDataFixUtils.renameField(dynamic, "customName", "custom_name");
 		return dynamic;
 	}
 
 	@NotNull
-	private Dynamic<?> fixOccupantColor(@NotNull Dynamic<?> dynamic) {
+	private static Dynamic<?> fixOccupantColor(@NotNull Dynamic<?> dynamic) {
 		List<Dynamic<?>> list = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		String colorID = WilderSharedConstants.string("on");
 		if (!list.isEmpty()) {
@@ -89,7 +87,7 @@ public class DisplayLanternFieldRenameFix extends DataFix {
 	protected Typed<?> fix(@NotNull Typed<?> typed) {
 		return typed.update(
 			DSL.remainderFinder(),
-			this::fixOccupants
+			DisplayLanternComponentizationFix::fixOccupants
 		);
 	}
 }

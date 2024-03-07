@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DisplayLanternFieldRenameFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;

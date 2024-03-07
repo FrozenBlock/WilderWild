@@ -32,6 +32,9 @@ accessible    method    net/minecraft/world/item/CreativeModeTabs    generateIns
 accessible    class    net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible    method    net/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
 accessible    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
+accessible    class    net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
+accessible    field    net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData    item    Ljava/lang/String;
+accessible    field    net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData    tag    Lcom/mojang/serialization/Dynamic;
 
 # Structures
 accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    getWorldPos    (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
