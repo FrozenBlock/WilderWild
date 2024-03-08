@@ -34,7 +34,9 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -62,6 +64,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public NonNullList<ItemStack> inventory;
 	public int age;
 	public boolean clientHanging;
+	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
@@ -69,7 +72,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
-		if (!this.fireflies.isEmpty()) {
+		boolean hasFireflies = !this.fireflies.isEmpty();
+		if (!this.firstTick) {
+			this.firstTick = true;
+			if (hasFireflies) {
+				BlockState state = this.getBlockState();
+				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
+			}
+		}
+		if (hasFireflies) {
 			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
 			}
@@ -125,7 +136,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		super.load(tag);
 		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
 			this.fireflies.clear();
-			DataResult<List<Occupant>> var10000 = Occupant.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
+			DataResult<List<Occupant>> var10000 = Occupant.LIST_CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
 			Logger var10001 = WilderSharedConstants.LOGGER;
 			Objects.requireNonNull(var10001);
 			Optional<List<Occupant>> list = var10000.resultOrPartial(var10001::error);
@@ -142,7 +153,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
-		DataResult<Tag> fireflies = Occupant.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
+		DataResult<Tag> fireflies = Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies);
 		Logger logger = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(logger);
 		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
@@ -165,7 +176,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 	}
 
-	public void removeFirefly(@NotNull DisplayLanternBlockEntity.Occupant firefly) {
+	public void removeFirefly(@NotNull Occupant firefly) {
 		this.fireflies.remove(firefly);
 	}
 
@@ -219,11 +230,14 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
 			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
-			Codec.STRING.fieldOf("customName").orElse("").forGetter(Occupant::getCustomName),
+			Codec.STRING.fieldOf("custom_name").orElse("").forGetter(Occupant::getCustomName),
 			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
+
+		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
+
 		public Vec3 pos;
 		public FireflyColor color;
 		public String customName;

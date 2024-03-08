@@ -46,6 +46,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
 		HollowedLogRecipeProvider.buildRecipes(exporter);
+		WWWoodRecipeProvider.buildRecipes(exporter);
 		MesogleaRecipeProvider.buildRecipes(exporter);
 		FireflyBottleRecipeProvider.buildRecipes(exporter);
 		CopperHornRecipeProvider.buildRecipes(exporter);

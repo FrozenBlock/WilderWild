@@ -32,9 +32,9 @@ import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
+import net.frozenblock.lib.item.api.removable.RemovableItemTags;
 import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
@@ -175,7 +175,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		});
 
 		WindManager.addExtension(WilderWindManager::new);
-		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
+		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
 		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
 		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "wilderwild:palm_boat"
+    }
+  ],
+  "result": {
+    "item": "wilderwild:palm_chest_boat"
+  }
+}
