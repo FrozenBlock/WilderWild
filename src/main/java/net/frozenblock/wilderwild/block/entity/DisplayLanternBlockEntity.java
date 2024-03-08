@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
@@ -35,7 +36,6 @@ import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.util.WWByteBufCodecs;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -254,7 +254,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
-			WWByteBufCodecs.VEC3,
+			FrozenByteBufCodecs.VEC3,
 			Occupant::getPos,
 			FireflyColor.STREAM_CODEC,
 			Occupant::getColor,
