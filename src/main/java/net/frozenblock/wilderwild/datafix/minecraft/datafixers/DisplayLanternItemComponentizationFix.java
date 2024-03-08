@@ -70,6 +70,7 @@ public class DisplayLanternItemComponentizationFix extends DataFix {
 		if (itemStackData.item.equals(ITEM_ID)) {
 			OptionalDynamic optionalBlockEntityTag = itemStackData.removeTag(WilderSharedConstants.vanillaId("block_entity_data").toString());
 			if (optionalBlockEntityTag.result().isPresent()) {
+				System.out.println("DIARRHEA BABY");
 				Dynamic blockEntityTag = (Dynamic) optionalBlockEntityTag.result().get();
 				itemStackData.setComponent(WilderSharedConstants.string("fireflies"), fixOccupants(blockEntityTag));
 				blockEntityTag = blockEntityTag.remove("Fireflies");
