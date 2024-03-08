@@ -44,7 +44,7 @@ public class DataFixersMixin {
 		slice = @Slice(
 			from = @At(
 				value = "CONSTANT",
-				args = "intValue=3807"
+				args = "intValue=3438"
 			)
 		),
 		remap = false
@@ -69,7 +69,7 @@ public class DataFixersMixin {
 		slice = @Slice(
 			from = @At(
 				value = "CONSTANT",
-				args = "intValue=3816"
+				args = "intValue=3328"
 			)
 		),
 		remap = false
