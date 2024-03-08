@@ -66,8 +66,6 @@ public class WWMinecraftDataFixer {
 		Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
 		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV2);
 
-
-
 		Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
 		builder.addFixer(new DisplayLanternComponentizationFix(schemaV3));
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
