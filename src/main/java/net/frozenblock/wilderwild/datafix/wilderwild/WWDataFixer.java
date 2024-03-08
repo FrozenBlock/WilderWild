@@ -36,7 +36,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class WWDataFixer {
 
-	public static final int DATA_VERSION = 17;
+	public static final int DATA_VERSION = 18;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");

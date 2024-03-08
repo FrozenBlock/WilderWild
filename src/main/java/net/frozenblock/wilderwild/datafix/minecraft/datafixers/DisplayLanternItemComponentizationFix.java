@@ -18,19 +18,25 @@
 
 package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
+import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
-import com.mojang.datafixers.DataFixUtils;
+import com.mojang.datafixers.OpticFinder;
 import com.mojang.datafixers.TypeRewriteRule;
+import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;
+import com.mojang.datafixers.types.Type;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.OptionalDynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
 import net.minecraft.util.datafix.fixes.References;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,41 +49,50 @@ public class DisplayLanternItemComponentizationFix extends DataFix {
 
 	@NotNull
 	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
-		List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+		OptionalDynamic<?>  optionalFireflies = dynamic.get("Fireflies");
+		if (optionalFireflies.result().isPresent()) {
+			List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+				List<Dynamic<?>> newDynamics = Lists.newArrayList();
+			for (Dynamic<?> embeddedDynamic : list) {
+				newDynamics.add(DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
+			}
 
-		List<Dynamic<?>> newDynamics = Lists.newArrayList();
-		for (Dynamic<?> embeddedDynamic : list) {
-			newDynamics.add(DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
+			return ((Dynamic<?>) optionalFireflies.result().get()).createList(newDynamics.stream());
 		}
-
-		return dynamic.createList(newDynamics.stream());
+		return dynamic.createList(Stream.empty());
 	}
 
-	@Override
-	protected TypeRewriteRule makeRule() {
-		return this.writeFixAndRead(
-			"Display Lantern ItemStack componentization for WilderWild", this.getInputSchema().getType(References.ITEM_STACK), this.getOutputSchema().getType(References.ITEM_STACK), dynamic -> {
-				Optional<? extends Dynamic<?>> optional = ItemStackComponentizationFix.ItemStackData.read(dynamic).map(itemStackData -> {
-					fixItemStack(itemStackData);
-					return itemStackData.write();
-				});
-				return DataFixUtils.orElse(optional, dynamic);
-			}
+	public final TypeRewriteRule makeRule() {
+		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
+		return this.fixTypeEverywhereTyped(
+			"Display Lantern ItemStack componentization fix",
+			type,
+			createFixer(type, this::fixItemStack)
 		);
 	}
 
-	private static void fixItemStack(@NotNull ItemStackComponentizationFix.ItemStackData itemStackData) {
-		if (itemStackData.item.equals(ITEM_ID)) {
-			OptionalDynamic optionalBlockEntityTag = itemStackData.removeTag(WilderSharedConstants.vanillaId("block_entity_data").toString());
-			if (optionalBlockEntityTag.result().isPresent()) {
-				System.out.println("DIARRHEA BABY");
-				Dynamic blockEntityTag = (Dynamic) optionalBlockEntityTag.result().get();
-				itemStackData.setComponent(WilderSharedConstants.string("fireflies"), fixOccupants(blockEntityTag));
-				blockEntityTag = blockEntityTag.remove("Fireflies");
-				itemStackData.setComponent(WilderSharedConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
-			}
-		}
+	private static UnaryOperator<Typed<?>> createFixer(Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
+		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
+		OpticFinder<?> components = type.findField("components");
+		return typed -> {
+			Optional<Pair<String, String>> optional = typed.getOptional(idFinder);
+			return optional.isPresent() && (optional.get()).getSecond().equals(ITEM_ID)
+				? typed.updateTyped(components, typedx -> typedx.update(DSL.remainderFinder(), unaryOperator))
+				: typed;
+		};
+	}
 
+	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
+		OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WilderSharedConstants.vanillaId("block_entity_data").toString());
+		if (optionalBlockEntityTag.result().isPresent()) {
+			Dynamic<?> blockEntityTag = optionalBlockEntityTag.result().get();
+
+			componentData = componentData.set(WilderSharedConstants.string("fireflies"), fixOccupants(blockEntityTag));
+			blockEntityTag = blockEntityTag.remove("Fireflies");
+
+			componentData = componentData.set(WilderSharedConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
+		}
+		return componentData;
 	}
 
 }

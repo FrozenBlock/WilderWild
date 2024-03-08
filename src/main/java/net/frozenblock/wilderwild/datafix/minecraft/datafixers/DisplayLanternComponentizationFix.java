@@ -77,7 +77,7 @@ public class DisplayLanternComponentizationFix extends DataFix {
 		OpticFinder<?> opticFinder = DSL.namedChoice(WilderSharedConstants.string("display_lantern"), type);
 
 		return this.fixTypeEverywhereTyped(
-			"DisplayLanternFieldRenameFix",
+			"Display Lantern componentization fix",
 			this.getInputSchema().getType(References.BLOCK_ENTITY),
 			this.getOutputSchema().getType(References.BLOCK_ENTITY),
 			typed -> typed.updateTyped(opticFinder, this.getOutputSchema().getChoiceType(References.BLOCK_ENTITY, WilderSharedConstants.string("display_lantern")), this::fix)
