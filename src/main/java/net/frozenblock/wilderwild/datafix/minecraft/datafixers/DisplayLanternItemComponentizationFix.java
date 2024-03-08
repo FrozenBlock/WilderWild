@@ -42,8 +42,8 @@ public class DisplayLanternItemComponentizationFix extends DataFix {
     }
 
 	@NotNull
-	protected static Dynamic<?> fixOccupants(@NotNull OptionalDynamic<?> dynamic) {
-		List<Dynamic<?>> list = dynamic.orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
+		List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 
 		List<Dynamic<?>> newDynamics = Lists.newArrayList();
 		for (Dynamic<?> embeddedDynamic : list) {
@@ -68,10 +68,12 @@ public class DisplayLanternItemComponentizationFix extends DataFix {
 
 	private static void fixItemStack(@NotNull ItemStackComponentizationFix.ItemStackData itemStackData) {
 		if (itemStackData.item.equals(ITEM_ID)) {
-			OptionalDynamic optionalFireflies = itemStackData.removeTag("BlockEntityTag.Fireflies");
-			if (optionalFireflies.result().isPresent()) {
-				Dynamic fireflyDynamic = fixOccupants(optionalFireflies);
-				itemStackData.setComponent(WilderSharedConstants.string("fireflies"), fireflyDynamic);
+			OptionalDynamic optionalBlockEntityTag = itemStackData.removeTag(WilderSharedConstants.vanillaId("block_entity_data").toString());
+			if (optionalBlockEntityTag.result().isPresent()) {
+				Dynamic blockEntityTag = (Dynamic) optionalBlockEntityTag.result().get();
+				itemStackData.setComponent(WilderSharedConstants.string("fireflies"), fixOccupants(blockEntityTag));
+				blockEntityTag = blockEntityTag.remove("Fireflies");
+				itemStackData.setComponent(WilderSharedConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
 			}
 		}
 
