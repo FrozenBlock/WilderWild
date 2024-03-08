@@ -20,11 +20,9 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.wilderwild.datafix.minecraft.schemas.WWMV1;
-import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DisplayLanternFieldRenameFix;
+import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
+import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.util.datafix.fixes.AddNewChoices;
-import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -47,26 +45,12 @@ public class WWMinecraftDataFixer {
 		var builder = new QuiltDataFixerBuilder(DATA_VERSION);
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
-		Schema schemaV1 = builder.addSchema(1, WWMV1::new);
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("display_lantern"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("scorched_block"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("stone_chest"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("termite_mound"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("jellyfish"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("ostrich"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("crab"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("firefly"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("ancient_horn_vibration"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("coconut"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("chest_bubbler"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV1, WilderSharedConstants.string("sculk_spreader"), References.ENTITY));
-
 		Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
 		SimpleFixes.addItemRenameFix(builder, "Rename potted_grass to potted_short_grass", WilderSharedConstants.id("potted_grass"), WilderSharedConstants.id("potted_short_grass"), schemaV2);
 
 		Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
-		builder.addFixer(new DisplayLanternFieldRenameFix(schemaV3));
+		builder.addFixer(new DisplayLanternComponentizationFix(schemaV3));
+		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WilderSharedConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
