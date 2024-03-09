@@ -27,7 +27,7 @@ accessible    field    net/minecraft/world/item/ItemCooldowns    tickCount    I
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    startTime    I
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    endTime    I
 accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance    <init>    (II)V
-accessible    field    net/minecraft/world/item/ItemStack    components    Lnet/minecraft/core/component/PatchedDataComponentMap;
+accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
 accessible    method    net/minecraft/world/item/CreativeModeTabs    generateInstrumentTypes    (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/core/HolderLookup;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
 accessible    class    net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible    method    net/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
