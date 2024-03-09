@@ -19,16 +19,17 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import java.util.function.Consumer;
 
 public class MesogleaRecipeProvider {
 
-	static void buildRecipes(RecipeOutput exporter) {
+	static void buildRecipes(Consumer<FinishedRecipe> exporter) {
 		mesoglea(RegisterBlocks.BLUE_NEMATOCYST, RegisterBlocks.BLUE_MESOGLEA, exporter);
 		mesoglea(RegisterBlocks.LIME_NEMATOCYST, RegisterBlocks.LIME_MESOGLEA, exporter);
 		mesoglea(RegisterBlocks.PINK_NEMATOCYST, RegisterBlocks.PINK_MESOGLEA, exporter);
@@ -38,7 +39,7 @@ public class MesogleaRecipeProvider {
 		mesoglea(RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST, RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA, exporter);
 	}
 
-	public static void mesoglea(ItemLike nematocyst, ItemLike mesoglea, RecipeOutput exporter) {
+	public static void mesoglea(ItemLike nematocyst, ItemLike mesoglea, Consumer<FinishedRecipe> exporter) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, mesoglea, 1)
 			.group("mesoglea")
 			.define('#', Ingredient.of(nematocyst))

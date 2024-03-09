@@ -22,16 +22,17 @@ import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import java.util.function.Consumer;
 
 public class FireflyBottleRecipeProvider {
 
-	static void buildRecipes(RecipeOutput exporter) {
+	static void buildRecipes(Consumer<FinishedRecipe> exporter) {
 
 		FrozenRecipeProvider.colorWithDyes(
 			exporter,
@@ -94,7 +95,7 @@ public class FireflyBottleRecipeProvider {
 		fireflyBottle(RegisterItems.YELLOW_FIREFLY_BOTTLE, Items.YELLOW_DYE, exporter);
 	}
 
-	public static void fireflyBottle(ItemLike coloredBottle, ItemLike dye, RecipeOutput recipeOutput) {
+	public static void fireflyBottle(ItemLike coloredBottle, ItemLike dye, Consumer<FinishedRecipe> recipeOutput) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, coloredBottle, 1)
 			.requires(dye)
 			.requires(RegisterItems.FIREFLY_BOTTLE)

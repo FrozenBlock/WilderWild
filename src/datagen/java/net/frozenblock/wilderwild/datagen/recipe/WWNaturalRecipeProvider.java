@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.datagen.recipe;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -30,10 +30,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
+import java.util.function.Consumer;
 
 public class WWNaturalRecipeProvider {
 
-	static void buildRecipes(RecipeOutput exporter) {
+	static void buildRecipes(Consumer<FinishedRecipe> exporter) {
 		oneToOneConversionRecipe(exporter, Items.BLUE_DYE, RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, "blue_dye");
 		oneToOneConversionRecipe(exporter, Items.PINK_DYE, RegisterBlocks.PINK_GLORY_OF_THE_SNOW, "pink_dye");
 		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, "purple_dye");
@@ -77,11 +78,11 @@ public class WWNaturalRecipeProvider {
 			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterBlocks.CATTAIL)));
 	}
 
-	private static void oneToOneConversionRecipe(RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {
+	private static void oneToOneConversionRecipe(Consumer<FinishedRecipe> recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {
 		oneToOneConversionRecipe(recipeOutput, result, ingredient, group, 1);
 	}
 
-	private static void oneToOneConversionRecipe(RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group, int resultCount) {
+	private static void oneToOneConversionRecipe(Consumer<FinishedRecipe> recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group, int resultCount) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, resultCount)
 			.requires(ingredient)
 			.group(group)

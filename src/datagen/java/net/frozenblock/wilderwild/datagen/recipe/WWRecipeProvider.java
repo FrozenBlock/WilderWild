@@ -25,8 +25,8 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -37,6 +37,7 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import java.util.function.Consumer;
 
 public class WWRecipeProvider extends FabricRecipeProvider {
 	public WWRecipeProvider(FabricDataOutput output) {
@@ -44,7 +45,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(RecipeOutput exporter) {
+	public void buildRecipes(Consumer<FinishedRecipe> exporter) {
 		HollowedLogRecipeProvider.buildRecipes(exporter);
 		WWWoodRecipeProvider.buildRecipes(exporter);
 		MesogleaRecipeProvider.buildRecipes(exporter);
@@ -138,7 +139,7 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.save(exporter);
 	}
 
-	public static void stonecutterResultFromBase(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
+	public static void stonecutterResultFromBase(Consumer<FinishedRecipe> recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), category, result, resultCount)
 			.unlockedBy(getHasName(material), has(material))
 			.save(recipeOutput, WilderSharedConstants.id(getConversionRecipeName(result, material) + "_stonecutting"));

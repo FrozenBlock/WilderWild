@@ -22,12 +22,13 @@ import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import java.util.function.Consumer;
 
 public class WWWoodRecipeProvider {
 
-	static void buildRecipes(RecipeOutput exporter) {
+	static void buildRecipes(Consumer<FinishedRecipe> exporter) {
 		RecipeProvider.planksFromLogs(exporter, RegisterBlocks.BAOBAB_PLANKS, WilderItemTags.BAOBAB_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.BAOBAB_WOOD, RegisterBlocks.BAOBAB_LOG);
 		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.STRIPPED_BAOBAB_WOOD, RegisterBlocks.STRIPPED_BAOBAB_LOG);

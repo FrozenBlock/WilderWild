@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.datagen.recipe;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -31,10 +31,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import java.util.function.Consumer;
 
 public class HollowedLogRecipeProvider {
 
-	static void buildRecipes(RecipeOutput exporter) {
+	static void buildRecipes(Consumer<FinishedRecipe> exporter) {
 		planksFromHollowed(WilderItemTags.HOLLOWED_ACACIA_LOGS, Items.ACACIA_PLANKS, exporter, "acacia");
 		woodFromHollowed(RegisterBlocks.HOLLOWED_ACACIA_LOG, Items.ACACIA_WOOD, exporter, "acacia");
 		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, Items.STRIPPED_ACACIA_WOOD, exporter, "acacia");
@@ -88,7 +89,7 @@ public class HollowedLogRecipeProvider {
 		strippedHyphaeFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Items.STRIPPED_WARPED_HYPHAE, exporter, "warped");
 	}
 
-	public static void planksFromHollowed(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {
+	public static void planksFromHollowed(TagKey<Item> input, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("planks")
 			.requires(input)
@@ -96,7 +97,7 @@ public class HollowedLogRecipeProvider {
 			.save(exporter, WilderSharedConstants.id(name + "_planks_from_hollowed"));
 	}
 
-	public static void woodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
+	public static void woodFromHollowed(ItemLike hollowedLog, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("bark")
 			.define('#', Ingredient.of(hollowedLog))
@@ -106,11 +107,11 @@ public class HollowedLogRecipeProvider {
 		.save(exporter, WilderSharedConstants.id(name + "_wood_from_hollowed"));
 	}
 
-	public static void strippedWoodFromHollowed(ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
+	public static void strippedWoodFromHollowed(ItemLike hollowedLog, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
 		woodFromHollowed(hollowedLog, output, exporter, "stripped_" + name);
 	}
 
-	public static void planksFromHollowedStem(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {
+	public static void planksFromHollowedStem(TagKey<Item> input, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("planks")
 			.requires(input)
@@ -118,7 +119,7 @@ public class HollowedLogRecipeProvider {
 			.save(exporter, WilderSharedConstants.id(name + "_planks_from_hollowed"));
 	}
 
-	public static void hyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
+	public static void hyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 2)
 			.group("bark")
 			.define('#', Ingredient.of(hollowedStem))
@@ -128,7 +129,7 @@ public class HollowedLogRecipeProvider {
 			.save(exporter, WilderSharedConstants.id(name + "_hyphae_from_hollowed"));
 	}
 
-	public static void strippedHyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
+	public static void strippedHyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
 		woodFromHollowed(hollowedStem, output, exporter, "stripped_" + name);
 	}
 }
