@@ -22,8 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
-import net.frozenblock.lib.FrozenBools;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.AddNewChoices;
 import net.minecraft.util.datafix.fixes.References;
@@ -52,19 +51,11 @@ public class DataFixersMixin {
 	)
 	private static Schema wilderWild$addFixers3807(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
-		if (FrozenBools.isInitialized) {
-			for (var holder : BuiltInRegistries.BLOCK_ENTITY_TYPE.asHolderIdMap()) {
-				var key = holder.unwrapKey();
-				key.ifPresent(blockEntityTypeResourceKey ->
-					builder.addFixer(new AddNewChoices(schema, blockEntityTypeResourceKey.location().toString(), References.BLOCK_ENTITY))
-				);
-			}
-		}
-		/*builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("display_lantern"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("display_lantern"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("scorched_block"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("stone_chest"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("termite_mound"), References.BLOCK_ENTITY));*/
+		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("termite_mound"), References.BLOCK_ENTITY));
 		return schema;
 	}
 
@@ -85,15 +76,7 @@ public class DataFixersMixin {
 	)
 	private static Schema wilderWild$addFixers3816(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
-		if (FrozenBools.isInitialized) {
-			for (var holder : BuiltInRegistries.ENTITY_TYPE.asHolderIdMap()) {
-				var key = holder.unwrapKey();
-				key.ifPresent(entityTypeResourceKey ->
-					builder.addFixer(new AddNewChoices(schema, entityTypeResourceKey.location().toString(), References.ENTITY))
-				);
-			}
-		}
-		/*builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("jellyfish"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("jellyfish"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("ostrich"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("crab"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("firefly"), References.ENTITY));
@@ -101,7 +84,7 @@ public class DataFixersMixin {
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("ancient_horn_vibration"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("coconut"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("chest_bubbler"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("sculk_spreader"), References.ENTITY));*/
+		builder.addFixer(new AddNewChoices(schema, WilderSharedConstants.string("sculk_spreader"), References.ENTITY));
 		return schema;
 	}
 
