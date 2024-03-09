@@ -34,6 +34,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
 public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {

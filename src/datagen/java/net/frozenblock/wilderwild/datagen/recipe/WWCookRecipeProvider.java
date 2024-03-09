@@ -38,27 +38,26 @@ public class WWCookRecipeProvider {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterItems.CRAB_CLAW), RecipeCategory.FOOD, RegisterItems.COOKED_CRAB_CLAW, 0.35F, 200)
 			.unlockedBy("has_crab_claw", RecipeProvider.has(RegisterItems.CRAB_CLAW))
 			.save(exporter);
-		cookRecipes(exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
-		cookRecipes(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+		cookRecipes(exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, 100);
+		cookRecipes(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600);
 	}
 
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
-		Consumer<FinishedRecipe> exporter, String cooker, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipe, int cookingTime
+		Consumer<FinishedRecipe> exporter, String cooker, RecipeSerializer<T> serializer, int cookingTime
 	) {
-		simpleCookingRecipe(exporter, cooker, serializer, recipe, cookingTime, RegisterItems.CRAB_CLAW, RegisterItems.COOKED_CRAB_CLAW, 0.35F);
+		simpleCookingRecipe(exporter, cooker, serializer, cookingTime, RegisterItems.CRAB_CLAW, RegisterItems.COOKED_CRAB_CLAW, 0.35F);
 	}
 
 	private static <T extends AbstractCookingRecipe> void simpleCookingRecipe(
 		Consumer<FinishedRecipe> exporter,
 		String cooker,
 		RecipeSerializer<T> serializer,
-		AbstractCookingRecipe.Factory<T> recipe,
 		int cookingTime,
 		ItemLike input,
 		ItemLike output,
 		float experience
 	) {
-		SimpleCookingRecipeBuilder.generic(Ingredient.of(input), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipe)
+		SimpleCookingRecipeBuilder.generic(Ingredient.of(input), RecipeCategory.FOOD, output, experience, cookingTime, serializer)
 			.unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
 			.save(exporter, WilderSharedConstants.id(RecipeProvider.getItemName(output) + "_from_" + cooker));
 	}

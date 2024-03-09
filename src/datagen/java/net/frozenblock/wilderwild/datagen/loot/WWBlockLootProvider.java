@@ -48,7 +48,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
 		this.dropSelf(RegisterBlocks.PALM_HANGING_SIGN);
 
-		this.dropPottedContents(RegisterBlocks.POTTED_SHORT_GRASS);
+		this.dropPottedContents(RegisterBlocks.POTTED_GRASS);
 
 		this.add(RegisterBlocks.DISPLAY_LANTERN,
 			LootTable.lootTable().withPool(

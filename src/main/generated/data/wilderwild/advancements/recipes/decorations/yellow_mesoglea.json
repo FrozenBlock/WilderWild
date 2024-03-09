@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:yellow_mesoglea"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

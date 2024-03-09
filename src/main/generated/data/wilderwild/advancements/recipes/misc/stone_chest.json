@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:stone_chest"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

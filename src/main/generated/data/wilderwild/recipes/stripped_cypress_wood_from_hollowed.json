@@ -14,5 +14,6 @@
   "result": {
     "count": 2,
     "item": "wilderwild:stripped_cypress_wood"
-  }
+  },
+  "show_notification": true
 }

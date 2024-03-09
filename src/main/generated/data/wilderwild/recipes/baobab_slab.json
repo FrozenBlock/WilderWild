@@ -13,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "wilderwild:baobab_slab"
-  }
+  },
+  "show_notification": true
 }

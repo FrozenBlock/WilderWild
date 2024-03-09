@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:warped_hyphae_from_hollowed"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

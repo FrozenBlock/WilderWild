@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:green_firefly_bottle"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "wilderwild:cypress_fence_gate"
-  }
+  },
+  "show_notification": true
 }

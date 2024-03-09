@@ -13,12 +13,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "wilderwild:jellyfish_bucket"
     },
+    "show_toast": true,
     "title": {
       "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"
     }

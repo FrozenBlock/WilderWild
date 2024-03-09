@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "wilderwild:stone_chest"
-  }
+  },
+  "show_notification": true
 }

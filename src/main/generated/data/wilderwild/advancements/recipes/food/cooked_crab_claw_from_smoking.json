@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:cooked_crab_claw_from_smoking"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

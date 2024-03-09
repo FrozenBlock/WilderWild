@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:coconut_from_split_coconut_stonecutting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

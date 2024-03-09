@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:stripped_spruce_wood_from_hollowed"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

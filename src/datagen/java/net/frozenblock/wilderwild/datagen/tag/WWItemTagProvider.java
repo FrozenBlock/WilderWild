@@ -31,6 +31,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
 public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 

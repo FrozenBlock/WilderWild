@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:red_sandstone_from_scorched_red_sand"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

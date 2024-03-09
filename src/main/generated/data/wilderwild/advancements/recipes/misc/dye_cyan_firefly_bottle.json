@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:dye_cyan_firefly_bottle"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

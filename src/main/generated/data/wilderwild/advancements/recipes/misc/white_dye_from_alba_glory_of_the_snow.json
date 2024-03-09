@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:white_dye_from_alba_glory_of_the_snow"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

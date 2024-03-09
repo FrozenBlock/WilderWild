@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:white_dye_from_split_coconut"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

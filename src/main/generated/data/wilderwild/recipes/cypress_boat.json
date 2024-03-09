@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "wilderwild:cypress_boat"
-  }
+  },
+  "show_notification": true
 }
