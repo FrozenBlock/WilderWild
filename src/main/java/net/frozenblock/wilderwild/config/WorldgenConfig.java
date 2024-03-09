@@ -92,8 +92,8 @@ public final class WorldgenConfig {
 	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
 
-	@EntrySyncData("basaltDeltasGeyserGen")
-	public boolean basaltDeltasGeyserGen = true;
+	@EntrySyncData("netherGeyserGen")
+	public boolean netherGeyserGen = true;
 
 	@EntrySyncData("surfaceDecoration")
 	public boolean surfaceDecoration = true;

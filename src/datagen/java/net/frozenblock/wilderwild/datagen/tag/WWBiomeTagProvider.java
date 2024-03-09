@@ -1398,6 +1398,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_NETHER_GEYSER)
 			.add(Biomes.BASALT_DELTAS);
 
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_NETHER_LAVA_GEYSER)
+			.add(Biomes.NETHER_WASTES);
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TAIGA_FOREST_ROCK)
 			.add(Biomes.TAIGA)
 			.add(Biomes.SNOWY_TAIGA)

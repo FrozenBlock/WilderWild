@@ -119,6 +119,7 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature BASALT_PILE = register("basalt_pile");
 	public static final FrozenPlacedFeature GEYSER_PILE = register("geyser_pile");
 	public static final FrozenPlacedFeature NETHER_GEYSER = register("nether_geyser");
+	public static final FrozenPlacedFeature NETHER_LAVA_GEYSER = register("nether_lava_geyser");
 	public static final FrozenPlacedFeature GEYSER_UP = register("geyser_up");
 	public static final FrozenPlacedFeature GEYSER_DOWN = register("geyser_down");
 	public static final FrozenPlacedFeature DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
@@ -599,7 +600,28 @@ public final class WilderMiscPlaced {
 			CountPlacement.of(UniformInt.of(32, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.matchesTag(WilderBlockTags.NETHER_GEYSER_REPLACEABLE), BlockPredicate.replaceable(), 12),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesTag(WilderBlockTags.NETHER_GEYSER_REPLACEABLE),
+				BlockPredicate.replaceable(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		NETHER_LAVA_GEYSER.makeAndSetHolder(WilderMiscConfigured.GEYSER_UP.getHolder(),
+			CountPlacement.of(UniformInt.of(32, 64)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.matchesTag(WilderBlockTags.NETHER_GEYSER_REPLACEABLE),
+					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+				),
+				BlockPredicate.replaceable(),
+				12
+			),
 			BiomeFilter.biome()
 		);
 

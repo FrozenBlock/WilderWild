@@ -31,11 +31,11 @@ Additions
   - Added the `wilderwild:geyser_pushed_extra` tag to control entity types that are pushed a bit harder than usual by Eruptions.
     - Contains `minecraft:arrow` and `minecraft:spectral_arrow` by default.
 - Requires a Stone Pickaxe or stronger to be obtained.
-- Naturally generates in the Magmatic Caves and Basalt Deltas biomes.
-  - Generation in Basalt Deltas can be toggled off with the `Geysers In Basalt Deltas` config option.
-  - Can generate in more biomes with the use of the new `wilderwild:has_nether_geyser` tag.
-    - Contains `minecraft:basalt_deltas` by default.
-    - Note that this tag will only cause the Basalt Deltas variation of the feature to place in the specified biomes, not the Magmatic Caves variations.
+- Naturally generates in the Magmatic Caves, Basalt Deltas, and Nether Wastes biomes.
+  - Generation in Basalt Deltas can be toggled off with the `Geysers In Nether` config option.
+  - Can generate in more biomes with the use of the new `wilderwild:has_nether_geyser` and `wilderwild:has_nether_lava_geyser` tags.
+    - Contains `minecraft:basalt_deltas` and `minecraft:nether_wastes` respectively by default.
+    - Note that these tags will only cause the Nether variations of the feature to place in the specified biomes, not the Magmatic Caves variations.
 - Can be crafted with 4 Magma blocks, 4 Basalt blocks, and 1 Lava Bucket.
 
 ### Scorched
@@ -56,12 +56,12 @@ Additions
 
 ### Snowlogging
 - One-block tall plants, Bushes, Fences, Fence Gates, Walls, Shelf Fungi, Vines, and Sugar Cane can now be Snowlogged.
-  - Added the `Allow Snowlogging` config option to control whether Snowlogging is enabled.
+  - Added the `Allow Snowlogging` config option to dictate whether Snowlogging is enabled.
     - Requires the game to be restarted upon changing.
-  - Added the `Snowlog Blockades` to control whether Fences, Fence Gates, and Walls can be Snowlogged.
+  - Added the `Snowlog Blockades` to dictate whether Fences, Fence Gates, and Walls can be Snowlogged.
     - Requires the game to be restarted upon changing.
     - This option is off by default to prevent excessive loading times.
-  - Added the `Natural Snowlogging` control option to dictate whether Snowlogging can occur during worldgen and while it's snowing.
+  - Added the `Natural Snowlogging` config option to dictate whether Snowlogging can occur during worldgen and while it's snowing.
 
 ### Breezes, Wind Charges, and Wind
 - Breezes and Wind Charges now interact with the Wind System.

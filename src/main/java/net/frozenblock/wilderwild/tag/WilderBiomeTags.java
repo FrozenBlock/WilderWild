@@ -179,6 +179,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_TRANSITION = bind("has_mud_transition");
 	public static final TagKey<Biome> HAS_TERMITE_MOUND = bind("has_termite_mound");
 	public static final TagKey<Biome> HAS_NETHER_GEYSER = bind("has_nether_geyser");
+	public static final TagKey<Biome> HAS_NETHER_LAVA_GEYSER = bind("has_nether_lava_geyser");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("has_moss_lake");

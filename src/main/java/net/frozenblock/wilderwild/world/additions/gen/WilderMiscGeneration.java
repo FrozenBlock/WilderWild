@@ -31,9 +31,12 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderMiscGeneration {
 
 	public static void generateMisc() {
-		if (WorldgenConfig.get().basaltDeltasGeyserGen) {
+		if (WorldgenConfig.get().netherGeyserGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_NETHER_GEYSER),
 				GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.NETHER_GEYSER.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_NETHER_LAVA_GEYSER),
+				GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.NETHER_LAVA_GEYSER.getKey());
 		}
 
 		if (WorldgenConfig.get().termiteGen) {

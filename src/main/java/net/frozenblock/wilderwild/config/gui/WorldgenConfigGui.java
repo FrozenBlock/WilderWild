@@ -641,16 +641,16 @@ public final class WorldgenConfigGui {
 				configInstance
 			)
 		);
-		var basaltDeltasGeyserGen = category.addEntry(
+		var netherGeyserGen = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("basalt_deltas_geyser_gen"), modifiedConfig.basaltDeltasGeyserGen)
-					.setDefaultValue(defaultConfig.basaltDeltasGeyserGen)
-					.setSaveConsumer(newValue -> config.basaltDeltasGeyserGen = newValue)
-					.setTooltip(tooltip("basalt_deltas_geyser_gen"))
+				entryBuilder.startBooleanToggle(text("nether_geyser_generation"), modifiedConfig.netherGeyserGen)
+					.setDefaultValue(defaultConfig.netherGeyserGen)
+					.setSaveConsumer(newValue -> config.netherGeyserGen = newValue)
+					.setTooltip(tooltip("nether_geyser_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"basaltDeltasGeyserGen",
+				"netherGeyserGen",
 				configInstance
 			)
 		);
