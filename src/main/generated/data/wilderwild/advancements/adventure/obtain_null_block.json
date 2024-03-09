@@ -15,12 +15,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "wilderwild.advancements.adventure.obtain_null_block.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "wilderwild:null_block"
     },
+    "show_toast": true,
     "title": {
       "translate": "wilderwild.advancements.adventure.obtain_null_block.title"
     }

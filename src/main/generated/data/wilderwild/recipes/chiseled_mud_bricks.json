@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "wilderwild:chiseled_mud_bricks"
-  }
+  },
+  "show_notification": true
 }

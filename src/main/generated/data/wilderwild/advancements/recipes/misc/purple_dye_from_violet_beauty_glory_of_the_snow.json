@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:purple_dye_from_violet_beauty_glory_of_the_snow"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

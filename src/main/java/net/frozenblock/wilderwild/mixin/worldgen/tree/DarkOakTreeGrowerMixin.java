@@ -34,7 +34,7 @@ public class DarkOakTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
 	public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().wilderWildTreeGen) {
+		if (WorldgenConfig.get().treeGeneration) {
 			if (randomSource.nextFloat() < 0.2F) {
 				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
 			} else if (randomSource.nextFloat() < 0.2F) {

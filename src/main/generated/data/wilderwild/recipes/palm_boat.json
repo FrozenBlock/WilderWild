@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "wilderwild:palm_boat"
-  }
+  },
+  "show_notification": true
 }

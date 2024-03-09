@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "wilderwild:baobab_boat"
-  }
+  },
+  "show_notification": true
 }

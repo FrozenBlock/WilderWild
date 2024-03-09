@@ -28,5 +28,6 @@
     "recipes": [
       "wilderwild:baobab_planks_from_hollowed"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

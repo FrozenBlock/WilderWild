@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:chiseled_mud_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

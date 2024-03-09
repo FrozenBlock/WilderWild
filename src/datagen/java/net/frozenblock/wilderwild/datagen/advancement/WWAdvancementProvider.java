@@ -28,8 +28,8 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -53,7 +53,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.description"),
 				null,
-				AdvancementType.TASK,
+				FrameType.TASK,
 				true,
 				true,
 				false
@@ -68,7 +68,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				Component.translatable("wilderwild.advancements.husbandry.firefly_in_a_bottle.title"),
 				Component.translatable("wilderwild.advancements.husbandry.firefly_in_a_bottle.description"),
 				null,
-				AdvancementType.TASK,
+				FrameType.TASK,
 				true,
 				true,
 				false
@@ -83,7 +83,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"),
 				null,
-				AdvancementType.TASK,
+				FrameType.TASK.TASK,
 				true,
 				true,
 				false
@@ -98,7 +98,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.title"),
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.description"),
 				null,
-				AdvancementType.TASK,
+				FrameType.TASK,
 				true,
 				true,
 				false
@@ -113,7 +113,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.title"),
 				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.description"),
 				null,
-				AdvancementType.GOAL,
+				FrameType.GOAL,
 				true,
 				true,
 				false

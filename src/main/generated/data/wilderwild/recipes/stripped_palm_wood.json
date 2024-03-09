@@ -14,5 +14,6 @@
   "result": {
     "count": 3,
     "item": "wilderwild:stripped_palm_wood"
-  }
+  },
+  "show_notification": true
 }

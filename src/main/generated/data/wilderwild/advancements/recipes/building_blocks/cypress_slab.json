@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:cypress_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

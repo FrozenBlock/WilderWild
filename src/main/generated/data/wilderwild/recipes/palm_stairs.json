@@ -15,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "wilderwild:palm_stairs"
-  }
+  },
+  "show_notification": true
 }

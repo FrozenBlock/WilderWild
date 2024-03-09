@@ -43,5 +43,6 @@
     "recipes": [
       "wilderwild:null_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -26,6 +26,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
 public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 

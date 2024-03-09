@@ -34,7 +34,7 @@ public class CherryTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().wilderWildTreeGen) {
+		if (WorldgenConfig.get().treeGeneration) {
 			if (random.nextFloat() < 0.15F) {
 				info.setReturnValue(bees ? WilderTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WilderTreeConfigured.TALL_CHERRY_TREE.getKey());
 			} else {

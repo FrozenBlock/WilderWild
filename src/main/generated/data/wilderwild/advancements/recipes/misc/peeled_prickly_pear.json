@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:peeled_prickly_pear"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

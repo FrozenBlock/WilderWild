@@ -28,5 +28,6 @@
     "recipes": [
       "wilderwild:oak_planks_from_hollowed"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

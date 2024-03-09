@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -1431,8 +1432,8 @@ public final class RegisterBlocks {
 		WilderSharedConstants.logWithModId("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
 		FuelRegistry registry = FuelRegistry.INSTANCE;
 
-		registry.add(RegisterItems.BAOBAB_BOAT_ITEM, 1200);
-		registry.add(RegisterItems.BAOBAB_CHEST_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.BAOBAB_BOAT, 1200);
+		registry.add(RegisterItems.BAOBAB_CHEST_BOAT, 1200);
 		registry.add(BAOBAB_LOG.asItem(), 300);
 		registry.add(STRIPPED_BAOBAB_LOG.asItem(), 300);
 		registry.add(BAOBAB_WOOD.asItem(), 300);
@@ -1448,8 +1449,8 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.BAOBAB_SIGN, 300);
 		registry.add(RegisterItems.BAOBAB_NUT, 100);
 
-		registry.add(RegisterItems.CYPRESS_BOAT_ITEM, 1200);
-		registry.add(RegisterItems.CYPRESS_CHEST_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.CYPRESS_BOAT, 1200);
+		registry.add(RegisterItems.CYPRESS_CHEST_BOAT, 1200);
 		registry.add(CYPRESS_LOG.asItem(), 300);
 		registry.add(STRIPPED_CYPRESS_LOG.asItem(), 300);
 		registry.add(CYPRESS_WOOD.asItem(), 300);
@@ -1465,8 +1466,8 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.CYPRESS_SIGN, 300);
 		registry.add(CYPRESS_SAPLING.asItem(), 100);
 
-		registry.add(RegisterItems.PALM_BOAT_ITEM, 1200);
-		registry.add(RegisterItems.PALM_CHEST_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.PALM_BOAT, 1200);
+		registry.add(RegisterItems.PALM_CHEST_BOAT, 1200);
 		registry.add(PALM_LOG.asItem(), 300);
 		registry.add(PALM_CROWN.asItem(), 300);
 		registry.add(STRIPPED_PALM_LOG.asItem(), 300);

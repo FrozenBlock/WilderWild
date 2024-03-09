@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:stripped_palm_wood"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

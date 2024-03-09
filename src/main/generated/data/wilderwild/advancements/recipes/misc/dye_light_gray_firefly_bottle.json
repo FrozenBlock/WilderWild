@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:dye_light_gray_firefly_bottle"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

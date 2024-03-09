@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.advancement;
 
 import com.google.gson.JsonObject;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterCriteria;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
@@ -51,8 +53,8 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		}
 
 		@NotNull
-		public static TriggerInstance fireflyBottle() {
-			return new TriggerInstance(Optional.empty());
+		public static Criterion<TriggerInstance> fireflyBottle() {
+			return RegisterCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty()));
 		}
 	}
 }

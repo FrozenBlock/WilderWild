@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:baobab_hanging_sign"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:string_from_cattail"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

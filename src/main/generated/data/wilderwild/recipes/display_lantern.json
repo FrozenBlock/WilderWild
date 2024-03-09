@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "wilderwild:display_lantern"
-  }
+  },
+  "show_notification": true
 }

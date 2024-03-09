@@ -15,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "wilderwild:cypress_stairs"
-  }
+  },
+  "show_notification": true
 }

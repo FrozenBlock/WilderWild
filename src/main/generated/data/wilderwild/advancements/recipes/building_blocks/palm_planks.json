@@ -28,5 +28,6 @@
     "recipes": [
       "wilderwild:palm_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
