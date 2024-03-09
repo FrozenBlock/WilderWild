@@ -46,7 +46,7 @@ public class V3438Mixin {
 		schema.register(
 			map,
 			WilderSharedConstants.string("display_lantern"),
-			DSL::remainder
+			() -> DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema)))
 		);
 		schema.register(
 			map,
