@@ -597,7 +597,7 @@ public final class WilderMiscPlaced {
 		);
 
 		NETHER_GEYSER.makeAndSetHolder(WilderMiscConfigured.GEYSER_UP.getHolder(),
-			CountPlacement.of(UniformInt.of(32, 64)),
+			CountPlacement.of(UniformInt.of(24, 48)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
@@ -609,8 +609,8 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		NETHER_LAVA_GEYSER.makeAndSetHolder(WilderMiscConfigured.GEYSER_UP.getHolder(),
-			CountPlacement.of(UniformInt.of(32, 64)),
+		NETHER_LAVA_GEYSER.makeAndSetHolder(WilderMiscConfigured.UPWARDS_GEYSER_COLUMN.getHolder(),
+			CountPlacement.of(UniformInt.of(8, 20)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(

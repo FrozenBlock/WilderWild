@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:geyser_up",
+  "feature": "wilderwild:geyser_column",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 64,
-          "min_inclusive": 32
+          "max_inclusive": 20,
+          "min_inclusive": 8
         }
       }
     },

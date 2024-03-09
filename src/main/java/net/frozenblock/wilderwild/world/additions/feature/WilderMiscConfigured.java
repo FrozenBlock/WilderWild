@@ -154,6 +154,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_UP = register("geyser_up");
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_DOWN = register("geyser_down");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> UPWARDS_GEYSER_COLUMN = register("geyser_column");
 
 	// FROZEN CAVES
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_PATH = register("packed_ice_path");
@@ -1114,6 +1115,17 @@ public final class WilderMiscConfigured {
 		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
 				RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
+				UniformInt.of(2, 4),
+				HolderSet.direct(
+					Blocks.LAVA.builtInRegistryHolder(),
+					Blocks.WATER.builtInRegistryHolder()
+				)
+			)
+		);
+
+		UPWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				RegisterBlocks.GEYSER.defaultBlockState(),
 				UniformInt.of(2, 4),
 				HolderSet.direct(
 					Blocks.LAVA.builtInRegistryHolder(),
