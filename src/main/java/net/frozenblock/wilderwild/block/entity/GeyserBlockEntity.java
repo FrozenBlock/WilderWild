@@ -148,24 +148,26 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
 
-		if (level instanceof ServerLevel serverLevel) {
-			WindManager.getWindManager(serverLevel).addWindDisturbance(
-				new WindDisturbance<GeyserBlockEntity>(
-					Optional.of(this),
-					geyserStartPos,
-					effectiveEruption.inflate(0.5D),
-					WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElseThrow()
-				)
-			);
+		WindDisturbance effectiveWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
+			Optional.of(this),
+			geyserStartPos,
+			effectiveEruption.inflate(0.5D),
+			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElseThrow()
+		);
+		WindDisturbance baseWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
+			Optional.of(this),
+			geyserStartPos,
+			eruption.inflate(0.5D),
+			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElseThrow()
+		);
 
-			WindManager.getWindManager(serverLevel).addWindDisturbance(
-				new WindDisturbance<GeyserBlockEntity>(
-					Optional.of(this),
-					geyserStartPos,
-					eruption.inflate(0.5D),
-					WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElseThrow()
-				)
-			);
+		if (level instanceof ServerLevel serverLevel) {
+			WindManager windManager = WindManager.getWindManager(serverLevel);
+			windManager.addWindDisturbance(effectiveWindDisturbance);
+			windManager.addWindDisturbance(baseWindDisturbance);
+		} else if (level.isClientSide) {
+			ClientMethodInteractionHandler.addWindDisturbanceToClient(effectiveWindDisturbance);
+			ClientMethodInteractionHandler.addWindDisturbanceToClient(baseWindDisturbance);
 		}
 
 		for (Entity entity : entities) {

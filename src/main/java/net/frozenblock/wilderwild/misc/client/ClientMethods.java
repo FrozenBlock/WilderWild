@@ -22,6 +22,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
@@ -231,5 +233,9 @@ public class ClientMethods {
 				}
 			}
 		}
+	}
+
+	public static void addWindDisturbanceToClient(@NotNull WindDisturbance windDisturbance) {
+		ClientWindManager.addWindDisturbance(windDisturbance);
 	}
 }

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.misc.client;
 
+import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.minecraft.core.BlockPos;
@@ -52,5 +53,9 @@ public class ClientMethodInteractionHandler {
 
 	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
 		ClientMethods.spawnEruptionParticles(level, blockPos, geyserType, direction, random);
+	}
+
+	public static void addWindDisturbanceToClient(@NotNull WindDisturbance windDisturbance) {
+		ClientMethods.addWindDisturbanceToClient(windDisturbance);
 	}
 }

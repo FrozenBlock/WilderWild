@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.misc.wind;
 
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.api.WindManagerExtension;
-import net.frozenblock.lib.wind.impl.WindSyncPacket;
+import net.frozenblock.lib.wind.impl.networking.WindSyncPacket;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.minecraft.nbt.CompoundTag;
