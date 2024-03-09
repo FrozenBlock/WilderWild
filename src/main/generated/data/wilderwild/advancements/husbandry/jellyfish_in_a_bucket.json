@@ -15,6 +15,7 @@
       "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"
     },
     "icon": {
+      "count": 1,
       "id": "wilderwild:jellyfish_bucket"
     },
     "title": {

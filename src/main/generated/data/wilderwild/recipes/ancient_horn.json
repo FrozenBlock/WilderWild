@@ -22,6 +22,7 @@
     "components": {
       "minecraft:instrument": "wilderwild:ancient_horn"
     },
+    "count": 1,
     "id": "wilderwild:ancient_horn"
   }
 }

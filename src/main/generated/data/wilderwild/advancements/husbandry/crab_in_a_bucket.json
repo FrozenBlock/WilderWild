@@ -15,6 +15,7 @@
       "translate": "wilderwild.advancements.husbandry.crab_in_a_bucket.description"
     },
     "icon": {
+      "count": 1,
       "id": "wilderwild:crab_bucket"
     },
     "title": {

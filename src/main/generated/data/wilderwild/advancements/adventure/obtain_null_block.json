@@ -17,6 +17,7 @@
       "translate": "wilderwild.advancements.adventure.obtain_null_block.description"
     },
     "icon": {
+      "count": 1,
       "id": "wilderwild:null_block"
     },
     "title": {

@@ -24,6 +24,7 @@
     "components": {
       "minecraft:instrument": "wilderwild:tuba_copper_horn"
     },
+    "count": 1,
     "id": "wilderwild:copper_horn"
   }
 }
