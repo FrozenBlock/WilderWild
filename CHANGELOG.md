@@ -25,11 +25,17 @@ Additions
   - Eruptions started from Lava will set colliding entities ablaze.
   - Will cause a strong wind disturbance upon eruption.
   - Added the `wilderwild:geyser_can_pass_through` tag to control what blocks an Eruption can safely pass through, regardless of block support shape.
-    - Contains the `minecraft:trapdoors` tag.
+    - Contains the `minecraft:trapdoors` tag by default.
   - Added the `wilderwild:geyser_cannot_pass_through` tag to control what blocks an Eruption can never pass through, regardless of block support shape.
-    - Contains the `c:glass_blocks` tag.
+    - Contains the `c:glass_blocks` tag by default.
+  - Added the `wilderwild:geyser_pushed_extra` tag to control entity types that are pushed a bit harder than usual by Eruptions.
+    - Contains `minecraft:arrow` and `minecraft:spectral_arrow` by default.
 - Requires a Stone Pickaxe or stronger to be obtained.
 - Naturally generates in the Magmatic Caves and Basalt Deltas biomes.
+  - Generation in Basalt Deltas can be toggled off with the `Geysers In Basalt Deltas` config option.
+  - Can generate in more biomes with the use of the new `wilderwild:has_nether_geyser` tag.
+    - Contains `minecraft:basalt_deltas` by default.
+    - Note that this tag will only cause the Basalt Deltas variation of the feature to place in the specified biomes, not the Magmatic Caves variations.
 - Can be crafted with 4 Magma blocks, 4 Basalt blocks, and 1 Lava Bucket.
 
 ### Scorched
@@ -73,7 +79,6 @@ Bug Fixes & Changes
   - Can be disabled with the `Magma Sounds` config.
 - Fire now emits extra particles if on top of Magma.
   - Added the new `Extra Magma Particles` config option to control this.
-- Added the new `Geysers In Basalt Deltas` config option to dictate whether Geysers can generate in Basalt Deltas.
 
 - Snow will now continue to generate under snowy mountain biomes, somewhat mimicking older Bedrock Edition Beta versions.
   - Added the `Snow Under Mountains` config option to control this.
@@ -84,7 +89,7 @@ Bug Fixes & Changes
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 
 - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
-- Pollen and Seed particles will now be visible while on the ground.
+- Pollen and Seed particles are now visible while on the ground.
 
 - The `New Cactus Placement` config is now set to off by default instead of on.
 - Added a new `Spawn Fireflies` config option to control whether Fireflies can spawn naturally.
