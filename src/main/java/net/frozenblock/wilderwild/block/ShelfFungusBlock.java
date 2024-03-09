@@ -108,7 +108,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 			level.gameEvent(player, GameEvent.SHEAR, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
-			return use(state, level, pos, player, hand, hit);
+			return super.use(state, level, pos, player, hand, hit);
 		}
 	}
 
