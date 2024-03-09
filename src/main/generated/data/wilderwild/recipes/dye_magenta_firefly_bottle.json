@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "firefly_bottle",
+  "ingredients": [
+    {
+      "item": "minecraft:magenta_dye"
+    },
+    [
+      {
+        "item": "wilderwild:black_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:blue_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:brown_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:cyan_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:gray_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:green_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:light_blue_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:light_gray_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:lime_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:orange_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:pink_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:purple_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:red_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:white_firefly_bottle"
+      },
+      {
+        "item": "wilderwild:yellow_firefly_bottle"
+      }
+    ]
+  ],
+  "result": {
+    "item": "wilderwild:magenta_firefly_bottle"
+  }
+}

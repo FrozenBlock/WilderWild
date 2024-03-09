@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "stone_chest",
+  "key": {
+    "#": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "_": {
+      "item": "minecraft:cobbled_deepslate_slab"
+    }
+  },
+  "pattern": [
+    "___",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "item": "wilderwild:stone_chest"
+  }
+}

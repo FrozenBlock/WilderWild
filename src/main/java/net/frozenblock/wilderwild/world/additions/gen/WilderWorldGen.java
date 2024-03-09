@@ -67,7 +67,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REMOVALS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
 				(context) -> {
-					if (!WorldgenConfig.get().fallenLogs) {
+					if (!WorldgenConfig.get().fallenTrees) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 					}
 				}
@@ -75,7 +75,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REMOVALS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
 				(context) -> {
-					if (!WorldgenConfig.get().fallenLogs) {
+					if (!WorldgenConfig.get().fallenTrees) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
 					}
 				}
@@ -84,7 +84,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildFlowerGen) {
+					if (WorldgenConfig.get().flowerGeneration) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST.getKey());
 					}
@@ -94,7 +94,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildFlowerGen) {
+					if (WorldgenConfig.get().flowerGeneration) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
 					}
@@ -121,7 +121,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildGrassGen) {
+					if (WorldgenConfig.get().grassGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLACED.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS.getKey());
@@ -132,7 +132,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.PLAINS_GRASS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildGrassGen) {
+					if (WorldgenConfig.get().grassGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.PATCH_GRASS_PLAIN);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_PLAINS.getKey());
@@ -143,7 +143,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.CHERRY_TREES),
 				(context) -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_CHERRY);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CHERRY_TREES.getKey());
 					}
@@ -153,7 +153,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.FOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_BIRCH_AND_OAK);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_AND_OAK_ORIGINAL.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_AND_OAK.getKey());
@@ -164,7 +164,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_BIRCH);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH.getKey());
 					}
@@ -172,7 +172,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_BIRCH_FOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.BIRCH_TALL);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TALL.getKey());
 					}
@@ -180,7 +180,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_BIRCH_AND_OAK);
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_FLOWER_FOREST);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_FLOWER_FOREST.getKey());
@@ -191,7 +191,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.NON_FROZEN_PLAINS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_PLAINS);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_PLAINS.getKey());
 					}
@@ -201,7 +201,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_BADLANDS);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_TREES.getKey());
 					}
@@ -211,7 +211,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_SWAMP);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SWAMP.getKey());
 					}
@@ -221,7 +221,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.SHORT_TAIGA),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_TAIGA);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPRUCE_PLACED.getKey());
 					}
@@ -229,7 +229,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.TALL_PINE_TAIGA),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_OLD_GROWTH_PINE_TAIGA);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_PINE_TAIGA.getKey());
 					}
@@ -237,7 +237,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.TALL_SPRUCE_TAIGA),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA1.getKey());
 					}
@@ -247,7 +247,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.GROVE),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_GROVE);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_GROVE.getKey());
 					}
@@ -257,7 +257,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.NORMAL_SAVANNA),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_SAVANNA);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SAVANNA_TREES.getKey());
 					}
@@ -265,7 +265,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_SAVANNA),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_WINDSWEPT_SAVANNA);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WINDSWEPT_SAVANNA_TREES.getKey());
 					}
@@ -275,7 +275,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.SNOWY_PLAINS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_SNOWY);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY.getKey());
 					}
@@ -285,7 +285,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_HILLS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_WINDSWEPT_HILLS);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_WINDSWEPT_HILLS.getKey());
 					}
@@ -293,7 +293,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_FOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_WINDSWEPT_FOREST);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_WINDSWEPT_FOREST.getKey());
 					}
@@ -303,7 +303,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.DARK_FOREST),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.DARK_FOREST_VEGETATION);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_FOREST_VEGETATION.getKey());
 					}
@@ -313,7 +313,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.MEADOW),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_MEADOW);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_MEADOW.getKey());
 					}
@@ -323,7 +323,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_SHRUBS),
 				context -> {
-					if (WorldgenConfig.get().wilderWildTreeGen) {
+					if (WorldgenConfig.get().treeGeneration) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_WATER);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHRUBS_WATER.getKey());
 					}

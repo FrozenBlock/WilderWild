@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:husbandry/root",
+  "criteria": {
+    "jellyfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:jellyfish_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"
+    },
+    "icon": {
+      "item": "wilderwild:jellyfish_bucket"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"
+    }
+  },
+  "requirements": [
+    [
+      "jellyfish_bucket"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

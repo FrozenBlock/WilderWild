@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "mesoglea",
+  "key": {
+    "#": {
+      "item": "wilderwild:blue_pearlescent_nematocyst"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "item": "wilderwild:blue_pearlescent_mesoglea"
+  }
+}

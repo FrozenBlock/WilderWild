@@ -74,6 +74,7 @@ accessible    method    net/minecraft/world/effect/MobEffect    <init>    (Lnet/
 accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
+accessible    method    net/minecraft/util/datafix/schemas/V100    equipment    (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
 
 # Projectiles
 accessible field net/minecraft/world/entity/projectile/Projectile hasBeenShot Z

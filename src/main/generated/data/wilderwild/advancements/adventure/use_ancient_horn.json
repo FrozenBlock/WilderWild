@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "use_ancient_horn": {
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:ancient_horn"
+          ]
+        }
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.use_ancient_horn.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "item": "wilderwild:ancient_horn"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.use_ancient_horn.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_ancient_horn"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

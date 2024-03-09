@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "wilderwild:palm_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "wilderwild:palm_planks"
+  }
+}

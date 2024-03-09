@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "firefly_bottle",
+  "ingredients": [
+    {
+      "item": "minecraft:lime_dye"
+    },
+    {
+      "item": "wilderwild:firefly_bottle"
+    }
+  ],
+  "result": {
+    "item": "wilderwild:lime_firefly_bottle"
+  }
+}
