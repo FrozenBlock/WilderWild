@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_split_coconut"
+      "has_split_coconut",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

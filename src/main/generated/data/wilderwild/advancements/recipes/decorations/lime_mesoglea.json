@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_nematocyst"
+      "has_nematocyst",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

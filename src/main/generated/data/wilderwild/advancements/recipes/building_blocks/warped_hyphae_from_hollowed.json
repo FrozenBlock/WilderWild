@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_stem"
+      "has_stem",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

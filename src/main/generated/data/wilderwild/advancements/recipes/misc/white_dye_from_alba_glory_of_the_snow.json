@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_alba_glory_of_the_snow"
+      "has_alba_glory_of_the_snow",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

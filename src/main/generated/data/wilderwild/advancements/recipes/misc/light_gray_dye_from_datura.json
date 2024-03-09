@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_datura"
+      "has_datura",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

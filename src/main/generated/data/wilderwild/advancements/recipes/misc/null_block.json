@@ -34,9 +34,9 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
       "has_black_concrete",
-      "has_magenta_concrete"
+      "has_magenta_concrete",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

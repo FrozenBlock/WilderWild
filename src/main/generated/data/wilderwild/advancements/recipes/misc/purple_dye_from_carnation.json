@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_carnation"
+      "has_carnation",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

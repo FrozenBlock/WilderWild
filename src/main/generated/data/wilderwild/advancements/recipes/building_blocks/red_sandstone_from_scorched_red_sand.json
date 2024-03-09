@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_red_sand"
+      "has_red_sand",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

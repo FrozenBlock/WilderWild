@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_milkweed"
+      "has_milkweed",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

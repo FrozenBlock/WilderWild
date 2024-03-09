@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_prickly_pear"
+      "has_prickly_pear",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
