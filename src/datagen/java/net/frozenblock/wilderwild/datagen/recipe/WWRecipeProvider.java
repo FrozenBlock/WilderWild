@@ -146,6 +146,16 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(Items.BLACK_CONCRETE), RecipeProvider.has(Items.BLACK_CONCRETE))
 			.unlockedBy(RecipeProvider.getHasName(Items.MAGENTA_CONCRETE), RecipeProvider.has(Items.MAGENTA_CONCRETE))
 			.save(exporter);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RegisterBlocks.GEYSER, 2)
+			.define('#', Items.MAGMA_BLOCK)
+			.define('X', Items.BASALT)
+			.define('U', Items.LAVA_BUCKET)
+			.pattern("#X#")
+			.pattern("XUX")
+			.pattern("#X#")
+			.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
+			.save(exporter);
 	}
 
 	public static void stonecutterResultFromBase(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {

@@ -144,6 +144,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
+	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MAGMA_PILE = register("magma_pile");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> BASALT_PILE = register("basalt_pile");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
@@ -1045,6 +1046,18 @@ public final class WilderMiscConfigured {
 			)
 		);
 
+		MAGMA_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
+			new BlockPileConfiguration(
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK)
+			)
+		);
+
+		FIRE_PATCH_MAGMA.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simplePatchConfiguration(
+				FrozenFeatures.SIMPLE_BLOCK_SCHEDULE_TICK_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
+			)
+		);
+
 		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
 				Blocks.BASALT.defaultBlockState(),
@@ -1071,12 +1084,6 @@ public final class WilderMiscConfigured {
 			new ColumnFeatureConfiguration(
 				UniformInt.of(0, 2),
 				UniformInt.of(2, 4)
-			)
-		);
-
-		FIRE_PATCH_MAGMA.makeAndSetHolder(Feature.RANDOM_PATCH,
-			FeatureUtils.simplePatchConfiguration(
-				FrozenFeatures.SIMPLE_BLOCK_SCHEDULE_TICK_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
 			)
 		);
 

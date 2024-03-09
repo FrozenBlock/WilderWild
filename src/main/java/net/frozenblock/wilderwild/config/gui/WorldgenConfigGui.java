@@ -641,6 +641,19 @@ public final class WorldgenConfigGui {
 				configInstance
 			)
 		);
+		var basaltDeltasGeyserGen = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("basalt_deltas_geyser_gen"), modifiedConfig.basaltDeltasGeyserGen)
+					.setDefaultValue(defaultConfig.basaltDeltasGeyserGen)
+					.setSaveConsumer(newValue -> config.basaltDeltasGeyserGen = newValue)
+					.setTooltip(tooltip("basalt_deltas_geyser_gen"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"basaltDeltasGeyserGen",
+				configInstance
+			)
+		);
 		var surfaceDecoration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("surface_decoration"), modifiedConfig.surfaceDecoration)

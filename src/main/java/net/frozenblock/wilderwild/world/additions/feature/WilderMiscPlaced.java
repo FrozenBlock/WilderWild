@@ -112,11 +112,13 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature MAGMA_LAVA_POOL = register("magma_lava_pool");
 	public static final FrozenPlacedFeature MAGMA_PATH = register("magma_path");
 	public static final FrozenPlacedFeature MAGMA_DISK = register("magma_disk");
+	public static final FrozenPlacedFeature MAGMA_PILE = register("magma_pile");
 	public static final FrozenPlacedFeature OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenPlacedFeature LAVA_SPRING_EXTRA = register("lava_spring_extra");
 	public static final FrozenPlacedFeature FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenPlacedFeature BASALT_PILE = register("basalt_pile");
 	public static final FrozenPlacedFeature GEYSER_PILE = register("geyser_pile");
+	public static final FrozenPlacedFeature NETHER_GEYSER = register("nether_geyser");
 	public static final FrozenPlacedFeature GEYSER_UP = register("geyser_up");
 	public static final FrozenPlacedFeature GEYSER_DOWN = register("geyser_down");
 	public static final FrozenPlacedFeature DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
@@ -563,7 +565,7 @@ public final class WilderMiscPlaced {
 		);
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(WilderMiscConfigured.FIRE_PATCH_MAGMA.getHolder(),
-			CountPlacement.of(UniformInt.of(100, 170)),
+			CountPlacement.of(UniformInt.of(80, 130)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
@@ -577,11 +579,27 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
+		MAGMA_PILE.makeAndSetHolder(WilderMiscConfigured.MAGMA_PILE.getHolder(),
+			CountPlacement.of(UniformInt.of(32, 72)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BiomeFilter.biome()
+		);
+
 		GEYSER_PILE.makeAndSetHolder(WilderMiscConfigured.GEYSER_PILE.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 4)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BiomeFilter.biome()
+		);
+
+		NETHER_GEYSER.makeAndSetHolder(WilderMiscConfigured.GEYSER_UP.getHolder(),
+			CountPlacement.of(UniformInt.of(32, 64)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.matchesTag(WilderBlockTags.NETHER_GEYSER_REPLACEABLE), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 

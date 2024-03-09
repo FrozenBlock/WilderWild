@@ -574,6 +574,8 @@
   "option.wilderwild.worldgen": "Worldgen",
   "option.wilderwild.algae_generation": "Algae Generation",
   "tooltip.wilderwild.algae_generation": "Whether Algae is placed in worldgen.",
+  "option.wilderwild.basalt_deltas_geyser_gen": "Geysers In Basalt Deltas",
+  "tooltip.wilderwild.basalt_deltas_geyser_gen": "Whether Geysers should naturally generate in Basalt Deltas.",
   "option.wilderwild.beta_beaches": "Beta Beaches",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome,\nmirroring the beaches that existed in Minecraft Beta.",
   "option.wilderwild.bush_generation": "Bush Generation",

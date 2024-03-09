@@ -29,6 +29,8 @@ Additions
   - Added the `wilderwild:geyser_cannot_pass_through` tag to control what blocks an Eruption can never pass through, regardless of block support shape.
     - Contains the `c:glass_blocks` tag.
 - Requires a Stone Pickaxe or stronger to be obtained.
+- Naturally generates in the Magmatic Caves and Basalt Deltas biomes.
+- Can be crafted with 4 Magma blocks, 4 Basalt blocks, and 1 Lava Bucket.
 
 ### Scorched
 - Added the Scorched!
@@ -71,6 +73,7 @@ Bug Fixes & Changes
   - Can be disabled with the `Magma Sounds` config.
 - Fire now emits extra particles if on top of Magma.
   - Added the new `Extra Magma Particles` config option to control this.
+- Added the new `Geysers In Basalt Deltas` config option to dictate whether Geysers can generate in Basalt Deltas.
 
 - Snow will now continue to generate under snowy mountain biomes, somewhat mimicking older Bedrock Edition Beta versions.
   - Added the `Snow Under Mountains` config option to control this.

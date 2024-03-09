@@ -285,6 +285,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.NETHER_GEYSER_REPLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.OASIS_PATH_REPLACEABLE)
 			.add(Blocks.SAND)
 			.add(Blocks.SANDSTONE);

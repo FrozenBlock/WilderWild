@@ -104,6 +104,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> PACKED_ICE_REPLACEABLE = bind("packed_ice_replaceable");
 	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("mesoglea_path_replaceable");
 	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("magma_replaceable");
+	public static final TagKey<Block> NETHER_GEYSER_REPLACEABLE = bind("nether_geyser_replaceable");
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("oasis_path_replaceable");
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("coarse_dirt_disk_replaceable");
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");

@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:fire_patch_magma",
+  "feature": "wilderwild:geyser_up",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 130,
-          "min_inclusive": 80
+          "max_inclusive": 64,
+          "min_inclusive": 32
         }
       }
     },
@@ -24,6 +24,18 @@
         "min_inclusive": {
           "above_bottom": 0
         }
+      }
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:replaceable"
+      },
+      "direction_of_search": "down",
+      "max_steps": 12,
+      "target_condition": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "wilderwild:nether_geyser_replaceable"
       }
     },
     {
