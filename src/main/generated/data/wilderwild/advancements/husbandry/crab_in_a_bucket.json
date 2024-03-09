@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:husbandry/root",
+  "criteria": {
+    "crab_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:crab_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.husbandry.crab_in_a_bucket.description"
+    },
+    "icon": {
+      "item": "wilderwild:crab_bucket"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.husbandry.crab_in_a_bucket.title"
+    }
+  },
+  "requirements": [
+    [
+      "crab_bucket"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

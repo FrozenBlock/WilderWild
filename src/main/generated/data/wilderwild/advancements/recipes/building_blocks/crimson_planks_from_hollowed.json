@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stem": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "wilderwild:hollowed_crimson_stems"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:crimson_planks_from_hollowed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:crimson_planks_from_hollowed"
+    ]
+  }
+}

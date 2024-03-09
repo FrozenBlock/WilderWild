@@ -350,14 +350,14 @@ public final class EntityConfigGui {
 			configInstance
 		);
 
-		var wardenDyingAnimation = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("warden_dying_animation"), modifiedWarden.wardenDyingAnimation)
-				.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
-				.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
-				.setTooltip(tooltip("warden_dying_animation"))
+		var wardenDeathAnimation = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_death_animation"), modifiedWarden.wardenDeathAnimation)
+				.setDefaultValue(defaultConfig.warden.wardenDeathAnimation)
+				.setSaveConsumer(newValue -> warden.wardenDeathAnimation = newValue)
+				.setTooltip(tooltip("warden_death_animation"))
 				.build(),
 			warden.getClass(),
-			"wardenDyingAnimation",
+			"wardenDeathAnimation",
 			configInstance
 		);
 
@@ -434,7 +434,7 @@ public final class EntityConfigGui {
 		var wardenCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("warden"),
 			false,
 			tooltip("warden"),
-			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDyingAnimation, wardenImprovedEmerge, wardenEmergesFromCommand, wardenEmergesFromEgg, wardenImprovedDig, wardenBedrockSniff, wardenCustomTendrils
+			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDeathAnimation, wardenImprovedEmerge, wardenEmergesFromCommand, wardenEmergesFromEgg, wardenImprovedDig, wardenBedrockSniff, wardenCustomTendrils
 		);
 	}
 }

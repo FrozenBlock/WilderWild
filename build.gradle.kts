@@ -76,6 +76,11 @@ group = maven_group
 val local_frozenlib = findProject(":FrozenLib") != null
 val release = findProperty("releaseType") == "stable"
 
+val datagen by sourceSets.registering {
+    compileClasspath += sourceSets.main.get().compileClasspath
+    runtimeClasspath += sourceSets.main.get().runtimeClasspath
+}
+
 loom {
     runtimeOnlyLog4j.set(true)
 
@@ -103,6 +108,7 @@ loom {
         register("datagen") {
             client()
             name("Data Generation")
+            source(datagen.get())
             vmArg("-Dfabric-api.datagen")
             vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
             //vmArg("-Dfabric-api.datagen.strict-validation")
@@ -178,7 +184,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings(loom.layered {
         // please annoy treetrain if this doesnt work
-        //mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
+        mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
         parchment("org.parchmentmc.data:parchment-$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
@@ -197,10 +203,10 @@ dependencies {
     modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    modApi("com.terraformersmc:modmenu:$modmenu_version")
+    modCompileOnlyApi("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modCompileOnlyApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
@@ -213,9 +219,6 @@ dependencies {
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
-
-    // MixinExtras
-    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
 
     // Sodium
     if (shouldRunSodium)
@@ -231,6 +234,8 @@ dependencies {
 
     // BetterNether
     modCompileOnly("maven.modrinth:betternether:${betternether_version}")
+
+    "datagenImplementation"(sourceSets.main.get().output)
 }
 
 tasks {

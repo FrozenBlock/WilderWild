@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "wilderwild:hollowed_baobab_logs"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "wilderwild:baobab_planks"
+  }
+}

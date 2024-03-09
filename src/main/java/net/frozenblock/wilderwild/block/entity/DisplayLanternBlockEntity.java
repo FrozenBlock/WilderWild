@@ -34,7 +34,9 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -58,10 +60,11 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
-	private final ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
+	private final ArrayList<Occupant> fireflies = new ArrayList<>();
 	public NonNullList<ItemStack> inventory;
 	public int age;
 	public boolean clientHanging;
+	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
@@ -69,8 +72,16 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
-		if (!this.fireflies.isEmpty()) {
-			for (FireflyInLantern firefly : this.fireflies) {
+		boolean hasFireflies = !this.fireflies.isEmpty();
+		if (!this.firstTick) {
+			this.firstTick = true;
+			if (hasFireflies) {
+				BlockState state = this.getBlockState();
+				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
+			}
+		}
+		if (hasFireflies) {
+			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
 			}
 		}
@@ -80,7 +91,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		this.age += 1;
 		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
 		if (!this.fireflies.isEmpty()) {
-			for (FireflyInLantern firefly : this.fireflies) {
+			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
 			}
 		}
@@ -125,12 +136,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		super.load(tag);
 		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
 			this.fireflies.clear();
-			DataResult<List<FireflyInLantern>> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
+			DataResult<List<Occupant>> var10000 = Occupant.LIST_CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
 			Logger var10001 = WilderSharedConstants.LOGGER;
 			Objects.requireNonNull(var10001);
-			Optional<List<FireflyInLantern>> list = var10000.resultOrPartial(var10001::error);
+			Optional<List<Occupant>> list = var10000.resultOrPartial(var10001::error);
 			if (list.isPresent()) {
-				List<FireflyInLantern> fireflyList = list.get();
+				List<Occupant> fireflyList = list.get();
 				this.fireflies.addAll(fireflyList);
 			}
 		}
@@ -142,7 +153,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
-		DataResult<Tag> fireflies = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
+		DataResult<Tag> fireflies = Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies);
 		Logger logger = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(logger);
 		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
@@ -151,21 +162,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	@NotNull
-	public List<FireflyInLantern> getFireflies() {
+	public List<Occupant> getFireflies() {
 		return this.fireflies;
 	}
 
 	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
-		var firefly = new FireflyInLantern(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
+		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
 		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
 	}
 
-	public void removeFirefly(@NotNull FireflyInLantern firefly) {
+	public void removeFirefly(@NotNull Occupant firefly) {
 		this.fireflies.remove(firefly);
 	}
 
@@ -185,7 +196,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	private void doFireflySpawns(@NotNull Level level) {
 		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
-		for (FireflyInLantern firefly : this.getFireflies()) {
+		for (Occupant firefly : this.getFireflies()) {
 			Firefly entity = RegisterEntities.FIREFLY.create(level);
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07, worldPosition.getZ() + firefly.pos.z, 0, 0);
@@ -215,15 +226,18 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		return 0;
 	}
 
-	public static class FireflyInLantern {
-		public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			Vec3.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
-			FireflyColor.CODEC.fieldOf("color").forGetter(FireflyInLantern::getColor),
-			Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
-			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
-			Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge),
-			Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY)
-		).apply(instance, FireflyInLantern::new));
+	public static class Occupant {
+		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
+			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
+			Codec.STRING.fieldOf("custom_name").orElse("").forGetter(Occupant::getCustomName),
+			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
+			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
+			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
+		).apply(instance, Occupant::new));
+
+		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
+
 		public Vec3 pos;
 		public FireflyColor color;
 		public String customName;
@@ -232,7 +246,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public double y;
 		public boolean wasNamedNectar;
 
-		public FireflyInLantern(@NotNull Vec3 pos, @NotNull FireflyColor color, @NotNull String customName, boolean flickers, int age, double y) {
+		public Occupant(@NotNull Vec3 pos, @NotNull FireflyColor color, @NotNull String customName, boolean flickers, int age, double y) {
 			this.pos = pos;
 			this.color = color;
 			this.customName = customName;
