@@ -70,7 +70,7 @@ Additions
 - Tumbleweed will pass through Breezes.
   - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
-Bug Fixes & Changes
+Bug Fixes, Changes, & Other Additions
 ---
 - Updated the mod protocol version to 4.
 - Removed the Coated Sculk item model.
