@@ -76,7 +76,7 @@ public class ClientMethods {
 			}
 		}
 	}
-	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, RandomSource random) {
+	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, boolean natural, RandomSource random) {
 		Minecraft client = Minecraft.getInstance();
 		ParticleStatus particleStatus = client.options.particles().get();
 		if (particleStatus == ParticleStatus.MINIMAL) {
@@ -85,7 +85,7 @@ public class ClientMethods {
 		ParticleEngine particleEngine = client.particleEngine;
 		float chance = particleStatus == ParticleStatus.DECREASED ? 0.3F : 1F;
 
-		int count = random.nextInt(0, 3);
+		int count = natural ? random.nextInt(2, 5) : random.nextInt(0, 3);
 		for (int i = 0; i < count; i++) {
 			if (random.nextFloat() <= chance) {
 				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);

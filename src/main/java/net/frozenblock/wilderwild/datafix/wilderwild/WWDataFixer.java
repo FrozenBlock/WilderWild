@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
-import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
@@ -31,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
+import java.util.Map;
 
 public class WWDataFixer {
 	public static final int DATA_VERSION = 17;

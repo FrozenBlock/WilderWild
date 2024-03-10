@@ -248,7 +248,11 @@ public class GeyserBlockEntity extends BlockEntity {
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		Direction direction = state.getValue(GeyserBlock.FACING);
 		if (!GeyserBlock.isInactive(geyserType)) {
-			if (geyserStage == GeyserStage.ERUPTING) {
+			if (geyserStage == GeyserStage.DORMANT) {
+				spawnDormantParticles(level, pos, geyserType, direction, random);
+			} else if (geyserStage == GeyserStage.ACTIVE) {
+				spawnActiveParticles(level, pos, geyserType, direction, random);
+			} else if (geyserStage == GeyserStage.ERUPTING) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
 				ClientMethodInteractionHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
@@ -317,6 +321,10 @@ public class GeyserBlockEntity extends BlockEntity {
 	public static final double ACTIVE_DUST_MIN_VELOCITY = 0.06D;
 	public static final double ACTIVE_DUST_MAX_VELOCITY = 0.4D;
 	public static final double ACTIVE_DUST_RANDOM_VELOCITY = 0.4D;
+	public static final float ACTIVE_CAMPFIRE_SMOKE_CHANCE = 0.0375F;
+	public static final double ACTIVE_CAMPFIRE_SMOKE_MIN_VELOCITY = 0.03D;
+	public static final double ACTIVE_CAMPFIRE_SMOKE_MAX_VELOCITY = 0.06D;
+	public static final double ACTIVE_CAMPFIRE_SMOKE_RANDOM_VELOCITY = 0.05D;
 
 	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
 		if (geyserType == GeyserType.WATER && random.nextFloat() <= DORMANT_BUBBLE_CHANCE) {
@@ -410,6 +418,20 @@ public class GeyserBlockEntity extends BlockEntity {
 				}
 			}
 		}
+		if (random.nextFloat() <= ACTIVE_CAMPFIRE_SMOKE_CHANCE) {
+			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, ACTIVE_CAMPFIRE_SMOKE_MIN_VELOCITY, ACTIVE_CAMPFIRE_SMOKE_MAX_VELOCITY);
+			particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, ACTIVE_CAMPFIRE_SMOKE_RANDOM_VELOCITY));
+			level.addAlwaysVisibleParticle(
+				ParticleTypes.CAMPFIRE_COSY_SMOKE,
+				false,
+				particlePos.x,
+				particlePos.y,
+				particlePos.z,
+				particleVelocity.x,
+				particleVelocity.y,
+				particleVelocity.z
+			);
+		}
 	}
-
 }

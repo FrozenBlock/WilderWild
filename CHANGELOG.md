@@ -70,12 +70,7 @@ Additions
 - Tumbleweed will pass through Breezes.
   - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
-### Fallen/Snapped Crimson and Warped Fungi
-- Now generate naturally in the Crimson Forest and Warped Forest biomes by default.
-  - This can be controlled with the `wilderwild:has_fallen_crimson,` `wilderwild:has_snapped_crimson,` `wilderwild:has_fallen_warped,` and `wilderwild:has_snapped_warped` tags.
-- Snapped and Fallen Crimson Fungi are more common than Snapped and Fallen Warped Fungi.
-
-Bug Fixes, Changes, & Other Additions
+Bug Fixes & Changes
 ---
 - Updated the mod protocol version to 4.
 - Removed the Coated Sculk item model.

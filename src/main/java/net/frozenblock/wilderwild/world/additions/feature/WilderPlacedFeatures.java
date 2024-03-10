@@ -40,8 +40,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
-import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
@@ -157,11 +155,6 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SNAPPED_CHERRY_PLACED = register("snapped_cherry");
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_PLACED = register("snapped_dark_oak");
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_CLEARING_PLACED = register("snapped_dark_oak_clearing");
-	//NETHER
-	public static final FrozenPlacedFeature FALLEN_CRIMSON = register("fallen_crimson");
-	public static final FrozenPlacedFeature SNAPPED_CRIMSON = register("snapped_crimson");
-	public static final FrozenPlacedFeature FALLEN_WARPED = register("fallen_warped");
-	public static final FrozenPlacedFeature SNAPPED_WARPED = register("snapped_warped");
 	//MUSHROOMS
 	public static final FrozenPlacedFeature BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed");
 	public static final FrozenPlacedFeature RED_SHELF_FUNGUS_PLACED = register("red_shelf_fungus_placed");
@@ -815,36 +808,6 @@ public final class WilderPlacedFeatures {
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
-		);
-
-		// NETHER
-
-		SNAPPED_CRIMSON.makeAndSetHolder(
-			WilderTreeConfigured.SNAPPED_CRIMSON_FUNGUS.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.CRIMSON_NYLIUM)),
-			RarityFilter.onAverageOnceEvery(3),
-			CountOnEveryLayerPlacement.of(1), BiomeFilter.biome()
-		);
-
-		FALLEN_CRIMSON.makeAndSetHolder(
-			WilderTreeConfigured.FALLEN_CRIMSON_FUNGUS.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.CRIMSON_NYLIUM)),
-			RarityFilter.onAverageOnceEvery(4),
-			CountOnEveryLayerPlacement.of(1), BiomeFilter.biome()
-		);
-
-		SNAPPED_WARPED.makeAndSetHolder(
-			WilderTreeConfigured.SNAPPED_CRIMSON_FUNGUS.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.WARPED_NYLIUM)),
-			RarityFilter.onAverageOnceEvery(5),
-			CountOnEveryLayerPlacement.of(1), BiomeFilter.biome()
-		);
-
-		FALLEN_WARPED.makeAndSetHolder(
-			WilderTreeConfigured.FALLEN_CRIMSON_FUNGUS.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.WARPED_NYLIUM)),
-			RarityFilter.onAverageOnceEvery(7),
-			CountOnEveryLayerPlacement.of(1), BiomeFilter.biome()
 		);
 
 		// MUSHROOMS

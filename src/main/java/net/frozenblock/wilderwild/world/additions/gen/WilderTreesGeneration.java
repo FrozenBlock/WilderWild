@@ -30,6 +30,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderTreesGeneration {
 
 	public static void generateTrees() {
+		if (WorldgenConfig.get().dyingTrees) {
+
+		}
+
 		if (WorldgenConfig.get().snappedTrees) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_OAK_PLACED.getKey());
@@ -112,13 +116,6 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_DARK_OAK),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_DARK_OAK_CLEARING_PLACED.getKey());
-
-			// NETHER
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_CRIMSON),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_CRIMSON.getKey());
-
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_WARPED),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_WARPED.getKey());
 		}
 
 		if (WorldgenConfig.get().fallenTrees) {
@@ -178,14 +175,6 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.FLOWER_FIELD),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
-
-			// NETHER
-
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_CRIMSON),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_CRIMSON.getKey());
-
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_WARPED),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_WARPED.getKey());
 		}
 
 		if (WorldgenConfig.get().treeGeneration) {

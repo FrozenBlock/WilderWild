@@ -66,8 +66,6 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_CLEAN_FALLEN_SPRUCE_TREES = bind("has_clean_fallen_spruce_trees");
 	public static final TagKey<Biome> HAS_FALLEN_SWAMP_OAK_TREES = bind("has_fallen_swamp_oak_trees");
 	public static final TagKey<Biome> HAS_FALLEN_MANGROVE_TREES = bind("has_fallen_mangrove_trees");
-	public static final TagKey<Biome> HAS_FALLEN_CRIMSON = bind("has_fallen_crimson");
-	public static final TagKey<Biome> HAS_FALLEN_WARPED = bind("has_fallen_warped");
 	public static final TagKey<Biome> CHERRY_TREES = bind("cherry_trees");
 	public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
 	public static final TagKey<Biome> MEADOW = bind("meadow");
@@ -117,8 +115,6 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_ACACIA_AND_OAK = bind("has_snapped_acacia_and_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_CHERRY = bind("has_snapped_cherry");
 	public static final TagKey<Biome> HAS_SNAPPED_DARK_OAK = bind("has_snapped_dark_oak");
-	public static final TagKey<Biome> HAS_SNAPPED_CRIMSON = bind("has_snapped_crimson");
-	public static final TagKey<Biome> HAS_SNAPPED_WARPED = bind("has_snapped_warped");
 	public static final TagKey<Biome> HAS_POLLEN = bind("has_pollen");
 	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("has_field_flowers");
 	public static final TagKey<Biome> HAS_RED_SHELF_FUNGUS = bind("has_red_shelf_fungus");

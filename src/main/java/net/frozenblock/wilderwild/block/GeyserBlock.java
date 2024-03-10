@@ -162,16 +162,10 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
 		GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
+		Direction direction = blockState.getValue(FACING);
+		boolean natural = blockState.getValue(NATURAL);
 		if (!isInactive(geyserType)) {
-			Direction direction = blockState.getValue(FACING);
-			boolean natural = blockState.getValue(NATURAL);
-			GeyserStage stage = blockState.getValue(GEYSER_STAGE);
-			ClientMethodInteractionHandler.spawnBaseGeyserParticles(blockPos, direction, random);
-			if (stage == GeyserStage.DORMANT) {
-				GeyserBlockEntity.spawnDormantParticles(level, blockPos, geyserType, direction, random);
-			} else if (stage == GeyserStage.ACTIVE) {
-				GeyserBlockEntity.spawnActiveParticles(level, blockPos, geyserType, direction, random);
-			}
+			ClientMethodInteractionHandler.spawnBaseGeyserParticles(blockPos, direction, natural, random);
 			if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
 				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 			}
