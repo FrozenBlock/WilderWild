@@ -114,7 +114,6 @@ Bug Fixes, Changes, & Other Additions
 
 ### Splash Texts
 - Removed "Made from maple!"
-- Added "Modded features being datafixed by the vanilla datafixer!"
 - Added "IT BURNS!!!11!!1!"
 - Added "Scorched Legs!"
 - Added "Spiders in the lava!"

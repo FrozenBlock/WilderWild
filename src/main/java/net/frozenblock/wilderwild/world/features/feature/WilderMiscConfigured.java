@@ -144,9 +144,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MAGMA_PILE = register("magma_pile");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_PILE = register("magma_pile");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> BASALT_PILE = register("basalt_pile");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BASALT_PILE = register("basalt_pile");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BASALT_COLUMN = register("basalt_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfiguration, ConfiguredFeature<ColumnFeatureConfiguration, ?>> BASALT_SPIKE = register("basalt_spike");
@@ -1047,9 +1047,19 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		MAGMA_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK)
+		MAGMA_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				UniformInt.of(2, 4),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
@@ -1088,9 +1098,19 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		BASALT_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(
-				BlockStateProvider.simple(Blocks.BASALT)
+		BASALT_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+				UniformInt.of(2, 4),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
