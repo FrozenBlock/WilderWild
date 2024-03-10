@@ -38,8 +38,7 @@ public class V3438Mixin {
 			value = "INVOKE",
 			target = "Lnet/minecraft/util/datafix/schemas/NamespacedSchema;registerBlockEntities(Lcom/mojang/datafixers/schemas/Schema;)Ljava/util/Map;",
 			ordinal = 0
-		),
-		remap = false
+		)
 	)
 	public Map wilderWild$registerBlockEntities(V3438 instance, Schema schema, Operation<Map> original) {
 		Map map = original.call(instance, schema);
