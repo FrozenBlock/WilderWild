@@ -32,7 +32,7 @@ Additions
     - Contains `minecraft:arrow` and `minecraft:spectral_arrow` by default.
 - Requires a Stone Pickaxe or stronger to be obtained.
 - Naturally generates in the Magmatic Caves, Basalt Deltas, and Nether Wastes biomes.
-  - Generation in Basalt Deltas can be toggled off with the `Geysers In Nether` config option.
+  - Generation in the Nether can be toggled off with the `Geysers In Nether` config option.
   - Can generate in more biomes with the use of the new `wilderwild:has_nether_geyser` and `wilderwild:has_nether_lava_geyser` tags.
     - Contains `minecraft:basalt_deltas` and `minecraft:nether_wastes` respectively by default.
     - Note that these tags will only cause the Nether variations of the feature to place in the specified biomes, not the Magmatic Caves variations.
