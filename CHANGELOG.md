@@ -104,5 +104,6 @@ Bug Fixes, Changes, & Other Additions
 
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
 
+- Retextured all Baobab Nut textures thanks to Zhen!
+- Retextured all Glory of the Snow textures thanks to Zhen!
 - Glory of the Snow now only drops one item upon being sheared.
-- Retextured Baobab Nuts thanks to Zhen!

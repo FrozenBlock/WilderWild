@@ -38,7 +38,8 @@ Enri:
  - Crab in Bucket, Ostrich, Ostrich Egg, and Geyser Textures
 
 Zhen:
- - Retextured all Baobab Nut Textures in 2.4.
+ - Retextured all Baobab Nut textures in 2.4.
+ - Retextured all Glory of the Snow textures in 2.4
 
 LudoCrypt:
  - New music.
