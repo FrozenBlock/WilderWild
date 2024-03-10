@@ -221,7 +221,8 @@ dependencies {
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
-    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
+    // keep until Fabric applies the annotation processor by default
+    annotationProcessor("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")
 
     // Sodium
     if (shouldRunSodium)
