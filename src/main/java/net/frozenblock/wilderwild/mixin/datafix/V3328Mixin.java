@@ -23,6 +23,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import java.util.Map;
+import java.util.function.Supplier;
+import com.mojang.datafixers.types.templates.TypeTemplate;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V100;
@@ -39,11 +41,10 @@ public class V3328Mixin {
 			value = "INVOKE",
 			target = "Lnet/minecraft/util/datafix/schemas/NamespacedSchema;registerEntities(Lcom/mojang/datafixers/schemas/Schema;)Ljava/util/Map;",
 			ordinal = 0
-		),
-		remap = false
+		)
 	)
-	public Map wilderWild$registerEntities(V3328 instance, Schema schema, Operation<Map> original) {
-		Map map = original.call(instance, schema);
+	public Map<String, Supplier<TypeTemplate>> wilderWild$registerEntities(V3328 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
+		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
 			WilderSharedConstants.string("jellyfish"),

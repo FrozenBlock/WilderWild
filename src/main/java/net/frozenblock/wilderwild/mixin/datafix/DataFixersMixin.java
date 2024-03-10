@@ -46,8 +46,7 @@ public class DataFixersMixin {
 				value = "CONSTANT",
 				args = "intValue=3438"
 			)
-		),
-		remap = false
+		)
 	)
 	private static Schema wilderWild$addFixers3807(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);

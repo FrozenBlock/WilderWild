@@ -16,7 +16,7 @@ buildscript {
         classpath("org.kohsuke:github-api:+")
 
         // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.6.local.jar"))
+        classpath(files("libs/fabric-loom-1.5.local.jar"))
         classpath("net.fabricmc:mapping-io:+")
     }
 }
@@ -222,6 +222,10 @@ dependencies {
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
+
+    // MixinExtras
+    // keep until Fabric applies the annotation processor by default
+    annotationProcessor("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")
 
     // Sodium
     if (shouldRunSodium)
