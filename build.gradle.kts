@@ -148,10 +148,13 @@ repositories {
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     maven("https://jitpack.io")
-    maven("https://api.modrinth.com/maven") {
-        name = "Modrinth"
-
-        content {
+    exclusiveContent {
+        forRepository {
+            maven("https://api.modrinth.com/maven") {
+                name = "Modrinth"
+            }
+        }
+        filter {
             includeGroup("maven.modrinth")
         }
     }
@@ -465,7 +468,7 @@ modrinth {
     changelog.set(changelog_text)
     uploadFile.set(remapJar)
     gameVersions.set(listOf(minecraft_version))
-    loaders.set(listOf("fabric", "quilt"))
+    loaders.set(listOf("fabric"))
     additionalFiles.set(
         listOf(
             //tasks.remapSourcesJar.get(),
