@@ -56,9 +56,6 @@ public final class WorldgenConfig {
 	@EntrySyncData("snowUnderMountains")
 	public boolean snowUnderMountains = true;
 
-	@EntrySyncData("dyingTrees")
-	public boolean dyingTrees = true;
-
 	@EntrySyncData("fallenTrees")
 	public boolean fallenTrees = true;
 

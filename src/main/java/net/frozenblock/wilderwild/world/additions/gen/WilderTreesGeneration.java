@@ -30,10 +30,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderTreesGeneration {
 
 	public static void generateTrees() {
-		if (WorldgenConfig.get().dyingTrees) {
-
-		}
-
 		if (WorldgenConfig.get().snappedTrees) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_OAK_PLACED.getKey());
