@@ -53,6 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
@@ -133,25 +134,43 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isFullyGrown(state)) {
-			level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-			ItemStack pear = new ItemStack(RegisterItems.PRICKLY_PEAR);
-			pear.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PEARS_FROM_HARVEST, MAX_PEARS_FROM_HARVEST));
-			popResource(level, pos, pear);
-			if (!level.isClientSide) {
-				if (stack.is(Items.SHEARS)) {
-					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
-					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-					level.gameEvent(player, GameEvent.SHEAR, pos);
-				} else {
-					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
-					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-					player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
-				}
-			}
+			pickPlayer(level, pos, state, player, hand, stack);
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		}
+	}
+
+	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
+		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+		ItemStack pear = new ItemStack(RegisterItems.PRICKLY_PEAR);
+		pear.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PEARS_FROM_HARVEST, MAX_PEARS_FROM_HARVEST));
+		popResource(level, pos, pear);
+	}
+
+	public static void pickPlayer(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
+		basePick(level, pos, state);
+		if (!level.isClientSide) {
+			boolean shears = stack.is(Items.SHEARS);
+			pick(level, pos, state, shears, player);
+			if (shears) {
+				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			} else {
+				player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
+			}
+		}
+	}
+
+	public static void pick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
+		basePick(level, pos, state);
+		if (!level.isClientSide) {
+			if (shears) {
+				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+				level.gameEvent(entity, GameEvent.SHEAR, pos);
+			} else {
+				level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+			}
 		}
 	}
 

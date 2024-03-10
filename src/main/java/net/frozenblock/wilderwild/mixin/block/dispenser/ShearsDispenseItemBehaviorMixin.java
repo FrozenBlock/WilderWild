@@ -22,6 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
+import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
@@ -37,7 +38,7 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Z"))
 	private boolean wilderWild$execute(ServerLevel usedLevel, BlockPos pos, @NotNull Operation<Boolean> operation) {
-		return operation.call(usedLevel, pos) || wilderWild$tryShearMilkweed(usedLevel, pos) || wilderWild$tryShearGloryOfTheSnow(usedLevel, pos);
+		return operation.call(usedLevel, pos) || wilderWild$tryShearMilkweed(usedLevel, pos) || wilderWild$tryShearGloryOfTheSnow(usedLevel, pos) || wilderWild$tryShearPricklyPear(usedLevel, pos);
 	}
 
 	@Unique
@@ -55,6 +56,16 @@ public class ShearsDispenseItemBehaviorMixin {
 		BlockState blockState = level.getBlockState(pos);
 		if (blockState.getBlock() == RegisterBlocks.GLORY_OF_THE_SNOW && GloryOfTheSnowBlock.hasColor(blockState)) {
 			GloryOfTheSnowBlock.shear(level, pos, blockState, null);
+			return true;
+		}
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearPricklyPear(@NotNull ServerLevel level, BlockPos pos) {
+		BlockState blockState = level.getBlockState(pos);
+		if (blockState.getBlock() == RegisterBlocks.PRICKLY_PEAR_CACTUS && PricklyPearCactusBlock.isFullyGrown(blockState)) {
+			PricklyPearCactusBlock.pick(level, pos, blockState, true, null);
 			return true;
 		}
 		return false;

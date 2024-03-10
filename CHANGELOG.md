@@ -89,6 +89,11 @@ Bug Fixes, Changes, & Other Additions
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 - Refactored multiple paths in the `world` package.
 
+- Retextured all Baobab Nut textures thanks to Zhen!
+- Retextured all Glory of the Snow textures thanks to Zhen!
+- Glory of the Snow now only drops one item upon being sheared.
+- Prickly Pears can now be sheared with Dispensers.
+  - Shearable.
 - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
 - Pollen and Seed particles are now visible while on the ground.
 
@@ -104,7 +109,3 @@ Bug Fixes, Changes, & Other Additions
 - Added `block_palm_fronds` to the Mixins config.
 
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
-
-- Retextured all Baobab Nut textures thanks to Zhen!
-- Retextured all Glory of the Snow textures thanks to Zhen!
-- Glory of the Snow now only drops one item upon being sheared.
