@@ -21,14 +21,12 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +47,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -77,20 +74,21 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (stack.is(Items.SHEARS)) {
-			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
-				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				level.addFreshEntity(weed);
-				weed.setPos(Vec3.atBottomCenterOf(pos));
-				weed.spawnedFromShears = true;
-				level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-				level.gameEvent(player, GameEvent.SHEAR, pos);
-			}
+			shear(level, pos, player);
+			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
+	}
+
+	public static boolean shear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
+		if (!level.isClientSide) {
+			Tumbleweed.spawnFromShears(level, pos);
+			level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+			level.gameEvent(entity, GameEvent.SHEAR, pos);
+		}
+		return true;
 	}
 
 	@Nullable

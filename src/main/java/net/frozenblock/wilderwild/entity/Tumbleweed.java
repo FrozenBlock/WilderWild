@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
@@ -43,6 +44,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
@@ -150,6 +152,14 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+	}
+
+	public static void spawnFromShears(@NotNull Level level, BlockPos pos) {
+		level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
+		Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+		level.addFreshEntity(weed);
+		weed.setPos(Vec3.atBottomCenterOf(pos));
+		weed.spawnedFromShears = true;
 	}
 
 	@Override

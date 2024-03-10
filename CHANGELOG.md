@@ -93,7 +93,9 @@ Bug Fixes, Changes, & Other Additions
 - Retextured all Glory of the Snow textures thanks to Zhen!
 - Glory of the Snow now only drops one item upon being sheared.
 - Prickly Pears can now be sheared with Dispensers.
-  - Shearable.
+- Shelf Fungus can now be sheared with Dispensers.
+- Small Sponges can now be sheared with Dispensers.
+- Tumbleweed and Tumbleweed Stems can now be sheared with Dispensers.
 - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
 - Pollen and Seed particles are now visible while on the ground.
 
@@ -109,3 +111,23 @@ Bug Fixes, Changes, & Other Additions
 - Added `block_palm_fronds` to the Mixins config.
 
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
+
+### Splash Texts
+- Removed "Made from maple!"
+- Added "Modded features being datafixed by the vanilla datafixer!"
+- Added "IT BURNS!!!11!!1!"
+- Added "Scorched Legs!"
+- Added "Spiders in the lava!"
+- Added "Lava pool floaties!"
+- Added "Hiding under the Geyser!"
+- Added "Jet streams!"
+- Added "Redstone-controlled eruptions!"
+- Added "Fire in the hole!"
+- Added "Ice in the caves!"
+- Added "FrozenBiome"
+- Added "Snow on the mountains!"
+- Added "Water on the hill!"
+- Added "Air on the ground!"
+- Added "Windier Wind!"
+- Added "Breezes of pollen!"
+- Added "The Texture Update!"
