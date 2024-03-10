@@ -23,6 +23,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import java.util.Map;
+import java.util.function.Supplier;
+import com.mojang.datafixers.types.templates.TypeTemplate;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V3438;
@@ -38,11 +40,10 @@ public class V3438Mixin {
 			value = "INVOKE",
 			target = "Lnet/minecraft/util/datafix/schemas/NamespacedSchema;registerBlockEntities(Lcom/mojang/datafixers/schemas/Schema;)Ljava/util/Map;",
 			ordinal = 0
-		),
-		remap = false
+		)
 	)
-	public Map wilderWild$registerBlockEntities(V3438 instance, Schema schema, Operation<Map> original) {
-		Map map = original.call(instance, schema);
+	public Map<String, Supplier<TypeTemplate>> wilderWild$registerBlockEntities(V3438 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
+		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
 			WilderSharedConstants.string("display_lantern"),
