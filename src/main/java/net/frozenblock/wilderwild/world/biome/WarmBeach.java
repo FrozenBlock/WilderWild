@@ -22,7 +22,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
+import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;

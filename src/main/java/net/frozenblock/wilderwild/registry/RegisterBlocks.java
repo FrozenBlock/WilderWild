@@ -71,7 +71,7 @@ import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
+import net.frozenblock.wilderwild.world.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;

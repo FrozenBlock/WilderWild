@@ -27,7 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
-import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.impl.WilderSharedWorldgen;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;

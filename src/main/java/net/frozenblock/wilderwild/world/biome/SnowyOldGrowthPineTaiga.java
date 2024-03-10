@@ -26,8 +26,8 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.impl.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
