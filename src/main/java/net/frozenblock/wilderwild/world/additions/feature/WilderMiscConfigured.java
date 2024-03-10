@@ -1126,7 +1126,7 @@ public final class WilderMiscConfigured {
 		UPWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
 				RegisterBlocks.GEYSER.defaultBlockState(),
-				UniformInt.of(2, 4),
+				UniformInt.of(3, 5),
 				HolderSet.direct(
 					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()

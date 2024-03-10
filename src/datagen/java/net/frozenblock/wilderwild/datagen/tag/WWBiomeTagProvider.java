@@ -598,6 +598,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_MANGROVE_TREES)
 			.add(Biomes.MANGROVE_SWAMP);
 
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_CRIMSON)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_WARPED)
+			.add(Biomes.WARPED_FOREST);
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.CHERRY_TREES)
 			.addOptional(Biomes.CHERRY_GROVE);
 
@@ -947,6 +953,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_CRIMSON)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_WARPED)
+			.add(Biomes.WARPED_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_POLLEN)
 			.add(Biomes.BIRCH_FOREST)

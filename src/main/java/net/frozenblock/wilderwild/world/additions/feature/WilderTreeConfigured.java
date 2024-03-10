@@ -197,6 +197,12 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia_tree");
 	//MANGROVE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MANGROVE_TREE = register("fallen_mangrove_tree");
+	//NETHER
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_CRIMSON_FUNGUS = register("fallen_crimson_fungus");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CRIMSON_FUNGUS = register("snapped_crimson_fungus");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_WARPED_FUNGUS = register("fallen_warped_fungus");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_WARPED_FUNGUS = register("snapped_warped_fungus");
+	//DECORATORS
 	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.25F, 0.3F);
 	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006 = new ShelfFungusTreeDecorator(0.064F, 0.25F, 0.15F);
 	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_002 = new ShelfFungusTreeDecorator(0.02F, 0.25F, 0.4F);
@@ -1479,6 +1485,39 @@ public final class WilderTreeConfigured {
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
+
+		//NETHER
+		FALLEN_CRIMSON_FUNGUS.makeAndSetHolder(Feature.TREE,
+			fallenCrimson()
+				.dirt(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM))
+				.build()
+		);
+
+		SNAPPED_CRIMSON_FUNGUS.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.CRIMSON_STEM,
+				Blocks.NETHER_WART_BLOCK,
+				3,
+				1,
+				1
+			).dirt(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
+		);
+
+		FALLEN_WARPED_FUNGUS.makeAndSetHolder(Feature.TREE,
+			fallenWarped()
+				.dirt(BlockStateProvider.simple(Blocks.WARPED_NYLIUM))
+				.build()
+		);
+
+		SNAPPED_WARPED_FUNGUS.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.WARPED_STEM,
+				Blocks.WARPED_WART_BLOCK,
+				3,
+				1,
+				1
+			).dirt(BlockStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
+		);
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
@@ -1660,5 +1699,15 @@ public final class WilderTreeConfigured {
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
 		return fallenTrunkBuilder(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG, Blocks.MANGROVE_LEAVES, 4, 2, 1, 0.0F, ConstantInt.of(1), 0.1F).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fallenCrimson() {
+		return fallenTrunkBuilder(Blocks.CRIMSON_STEM, RegisterBlocks.HOLLOWED_CRIMSON_STEM, Blocks.NETHER_WART_BLOCK, 4, 2, 1, 0.0F, ConstantInt.of(1), 0.3F).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fallenWarped() {
+		return fallenTrunkBuilder(Blocks.WARPED_STEM, RegisterBlocks.HOLLOWED_WARPED_STEM, Blocks.WARPED_WART_BLOCK, 4, 2, 1, 0.0F, ConstantInt.of(1), 0.1F).ignoreVines();
 	}
 }

@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:crimson_nylium"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:blob_foliage_placer",
+      "height": 3,
+      "offset": 0,
+      "radius": 1
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:nether_wart_block"
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "wilderwild:snapped_trunk_placer",
+      "base_height": 3,
+      "height_rand_a": 1,
+      "height_rand_b": 1
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:crimson_stem",
+        "Properties": {
+          "axis": "y",
+          "termite_edible": "true"
+        }
+      }
+    }
+  }
+}

@@ -177,6 +177,11 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature TALL_PALM_CHECKED_DIRT = register("tall_palm_checked_dirt");
 	public static final FrozenPlacedFeature TALL_WINE_PALM_CHECKED_DIRT = register("tall_wine_palm_checked_dirt");
 	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = register("small_wine_palm_checked_dirt");
+	//NETHER
+	public static final FrozenPlacedFeature FALLEN_CRIMSON_CHECKED = register("fallen_crimson_checked");
+	public static final FrozenPlacedFeature SNAPPED_CRIMSON_CHECKED = register("snapped_crimson_checked");
+	public static final FrozenPlacedFeature FALLEN_WARPED_CHECKED = register("fallen_warped_checked");
+	public static final FrozenPlacedFeature SNAPPED_WARPED_CHECKED = register("snapped_warped_checked");
 
 	private WilderTreePlaced() {
 		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");
@@ -647,6 +652,24 @@ public final class WilderTreePlaced {
 
 		SMALL_WINE_PALM_CHECKED_DIRT.makeAndSetHolder(WilderTreeConfigured.SMALL_WINE_PALM.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		// NETHER
+
+		FALLEN_CRIMSON_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CRIMSON_FUNGUS.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.CRIMSON_NYLIUM))
+		);
+
+		SNAPPED_CRIMSON_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CRIMSON_FUNGUS.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.CRIMSON_NYLIUM))
+		);
+
+		FALLEN_WARPED_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_WARPED_FUNGUS.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.WARPED_NYLIUM))
+		);
+
+		SNAPPED_WARPED_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_WARPED_FUNGUS.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.WARPED_NYLIUM))
 		);
 	}
 }

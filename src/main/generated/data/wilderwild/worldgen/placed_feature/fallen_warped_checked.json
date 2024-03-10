@@ -1,0 +1,17 @@
+{
+  "feature": "wilderwild:fallen_warped_fungus",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:warped_nylium",
+        "offset": [
+          0,
+          -1,
+          0
+        ]
+      }
+    }
+  ]
+}
