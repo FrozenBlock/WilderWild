@@ -35,11 +35,11 @@ Contributors:
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
- - Crab in Bucket, Ostrich, Ostrich Egg, and Geyser Textures
+ - Crab in Bucket, Ostrich, Ostrich Egg, and Geyser textures.
 
 Zhen:
  - Retextured all Baobab Nut textures in 2.4.
- - Retextured all Glory of the Snow textures in 2.4
+ - Retextured all Glory of the Snow textures in 2.4.
 
 LudoCrypt:
  - New music.
