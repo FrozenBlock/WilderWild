@@ -10,4 +10,6 @@ Thank you!
 - Added many missing recipe unlocks.
 - All Glory of the Snow variants now only yield one dye instead of two.
 - The Null Block recipe now yield two Null Blocks instead of one.
-- Renamed `wilderwild:potted_grass` to `wilderwild:potted_short_grass.`
+- 1.20.4+: Renamed `wilderwild:potted_grass` to `wilderwild:potted_short_grass.`
+- Optimized many textures for a smaller file size
+- Removed Quilt from supported mod loaders on Modrinth

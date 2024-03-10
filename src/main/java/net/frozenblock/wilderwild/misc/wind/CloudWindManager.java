@@ -27,7 +27,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.NotNull;
 
-public class WilderWindManager implements WindManagerExtension {
+public class CloudWindManager implements WindManagerExtension {
+
+	private static final ResourceLocation ID = WilderSharedConstants.id("cloud_extension");
 
 	private final WindManager manager;
 	public double cloudX;
@@ -35,13 +37,13 @@ public class WilderWindManager implements WindManagerExtension {
 	public double cloudZ;
 
 
-	public WilderWindManager(WindManager manager) {
+	public CloudWindManager(WindManager manager) {
 		this.manager = manager;
 	}
 
 	@Override
 	public ResourceLocation extensionID() {
-		return WilderSharedConstants.id("wind_extension");
+		return ID;
 	}
 
 	@Override
