@@ -69,8 +69,8 @@ public class WindParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		double multXZ = 0.005D * 0.675;
-		double multY = 0.0015D * 0.675;
+		double multXZ = 0.005D;
+		double multY = 0.0015D * 0.695;
 		Vec3 pos = new Vec3(this.x, this.y, this.z);
 		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
@@ -104,30 +104,34 @@ public class WindParticle extends TextureSheetParticle {
 			double d = x;
 			double e = y;
 			double f = z;
-			if ((x != 0.0 || y != 0.0 || z != 0.0) && x * x + y * y + z * z < Mth.square(100D)) {
+			if ((x != 0D || y != 0D || z != 0D) && x * x + y * y + z * z < Mth.square(100D)) {
 				Vec3 vec3 = Entity.collideBoundingBox(null, new Vec3(x, y, z), this.getBoundingBox(), this.level, List.of());
 				x = vec3.x;
 				y = vec3.y;
 				z = vec3.z;
 			}
 
-			if (x != 0.0 || y != 0.0 || z != 0.0) {
+			if (x != 0D || y != 0D || z != 0D) {
 				this.setBoundingBox(this.getBoundingBox().move(x, y, z));
 				this.setLocationFromBoundingbox();
+			} else {
+				if (this.age > 7) {
+					this.shouldDissipate = true;
+				}
 			}
 
 			if (Math.abs(e) >= 1.0E-5F && Math.abs(y) < 1.0E-5F) {
 				this.shouldDissipate = true;
 			}
 
-			this.onGround = e != y && e < 0.0;
+			this.onGround = e != y && e < 0D;
 			if (d != x) {
-				this.xd = 0.0;
+				this.xd = 0D;
 				this.shouldDissipate = true;
 			}
 
 			if (f != z) {
-				this.zd = 0.0;
+				this.zd = 0D;
 				this.shouldDissipate = true;
 			}
 		}
