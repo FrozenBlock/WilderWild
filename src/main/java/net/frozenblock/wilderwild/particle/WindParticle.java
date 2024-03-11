@@ -184,8 +184,8 @@ public class WindParticle extends TextureSheetParticle {
 	public void render(VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
 		float yRot = Mth.lerp(partialTicks, this.prevYRot, this.yRot) * Mth.DEG_TO_RAD;
 		float xRot = Mth.lerp(partialTicks, this.prevXRot, this.xRot) * -Mth.DEG_TO_RAD;
-		float cameraRotWhileSideways = (renderInfo.getXRot() * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
-		float cameraRotWhileVertical = (90F - renderInfo.getYRot() * (1F - Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
+		float cameraRotWhileSideways = ((90F + renderInfo.getXRot()) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
+		float cameraRotWhileVertical = ((-renderInfo.getYRot()) * (1F - Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
 		this.renderSignal(buffer, renderInfo, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot).rotateX(-xRot).rotateY(cameraRotWhileSideways).rotateY(cameraRotWhileVertical));
 		this.renderSignal(buffer, renderInfo, partialTicks, !this.flipped, transforms -> transforms.rotateY((float) -Math.PI + yRot).rotateX(xRot).rotateY(cameraRotWhileSideways).rotateY(cameraRotWhileVertical));
 	}
