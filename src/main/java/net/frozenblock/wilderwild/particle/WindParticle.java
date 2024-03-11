@@ -42,6 +42,7 @@ import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class WindParticle extends TextureSheetParticle {
+	private static final Vector3f NORMALIZED_QUAT_VECTOR = new Vector3f(0.5F, 0.5F, 0.5F).normalize();
 	private final SpriteSet spriteProvider;
 	private int ageBeforeDissipating;
 
@@ -195,8 +196,7 @@ public class WindParticle extends TextureSheetParticle {
 		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
 		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
 		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
-		Vector3f vector3f = new Vector3f(0.5F, 0.5F, 0.5F).normalize();
-		Quaternionf quaternionf = new Quaternionf().setAngleAxis(0.0F, vector3f.x(), vector3f.y(), vector3f.z());
+		Quaternionf quaternionf = new Quaternionf().setAngleAxis(0F, NORMALIZED_QUAT_VECTOR.x(), NORMALIZED_QUAT_VECTOR.y(), NORMALIZED_QUAT_VECTOR.z());
 		quaternionConsumer.accept(quaternionf);
 		Vector3f[] vector3fs = new Vector3f[]{
 			new Vector3f(-1F, -1F, 0F), new Vector3f(-1F, 1F, 0F), new Vector3f(1F, 1F, 0F), new Vector3f(1F, -1F, 0F)
