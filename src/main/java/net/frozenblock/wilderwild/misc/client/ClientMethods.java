@@ -27,6 +27,7 @@ import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
+import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
@@ -214,23 +215,25 @@ public class ClientMethods {
 				}
 			}
 		} else {
-			if (random.nextFloat() <= 0.45F) { // Cloud
-				int count = random.nextInt(1, 5);
-				for (int i = 0; i < count; i++) {
-					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.4D, 0.7D);
-					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
-					level.addParticle(
-						ParticleTypes.CLOUD,
-						random.nextBoolean(),
-						particlePos.x,
-						particlePos.y,
-						particlePos.z,
-						particleVelocity.x,
-						particleVelocity.y,
-						particleVelocity.z
-					);
+			int windCount = random.nextInt(0, 2);
+			for (int i = 0; i < windCount; i++) { // WIND
+				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+					break;
+				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
+					break;
 				}
+				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.6D, 0.8D);
+				particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
+				particleEngine.createParticle(
+					new WindParticleOptions(20, particleVelocity),
+					particlePos.x,
+					particlePos.y,
+					particlePos.z,
+					0,
+					0,
+					0
+				);
 			}
 		}
 	}

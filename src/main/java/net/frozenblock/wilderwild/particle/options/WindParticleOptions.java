@@ -72,9 +72,13 @@ public class WindParticleOptions implements ParticleOptions {
 	private final int lifespan;
 	private final Vec3 velocity;
 
-	private WindParticleOptions(int lifespan, Vec3 velocity) {
+	public WindParticleOptions(int lifespan, Vec3 velocity) {
 		this.lifespan = lifespan;
 		this.velocity = velocity;
+	}
+	public WindParticleOptions(int lifespan, double xVel, double yVel, double zVel) {
+		this.lifespan = lifespan;
+		this.velocity = new Vec3(xVel, yVel, zVel);
 	}
 
 	@NotNull
