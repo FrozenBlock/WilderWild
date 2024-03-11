@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import java.util.List;
+import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
@@ -42,7 +42,6 @@ import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class WindParticle extends TextureSheetParticle {
-	private final Quaternionf rotation = new Quaternionf(0F, 0F, 0F, 0F);
 	private final SpriteSet spriteProvider;
 	private int ageBeforeDissipating;
 
@@ -50,6 +49,8 @@ public class WindParticle extends TextureSheetParticle {
 	private float yRot;
 	private float prevXRot;
 	private float xRot;
+	private float prevRotMultiplier;
+	private float rotMultiplier;
 	private boolean shouldDissipate;
 	private boolean flipped;
 	private boolean chosenSide;
@@ -82,11 +83,45 @@ public class WindParticle extends TextureSheetParticle {
 
 		if (!this.shouldDissipate) {
 			double horizontalDistance = Math.sqrt((this.xd * this.xd) + (this.zd * this.zd));
-			this.yRot += (float) (((Mth.atan2(this.xd, this.zd)) * Mth.RAD_TO_DEG - this.yRot) * 0.1F);
-			this.xRot += (float) (((Mth.atan2(horizontalDistance, this.yd)) * Mth.RAD_TO_DEG - this.xRot) * 0.1F);
+
+			double newYRot = (Mth.atan2(this.xd, this.zd)) * Mth.RAD_TO_DEG;
+			double newXRot = (Mth.atan2(horizontalDistance, this.yd)) * Mth.RAD_TO_DEG;
+
+			if (Math.abs(newYRot - this.prevYRot) > 180D) {
+				newYRot += 360D;
+			}
+
+			if (Math.abs(newXRot - this.prevXRot) > 180D) {
+				newXRot += 360D;
+			}
+
+			double newYRotDifference = newYRot - this.yRot;
+			double newXRotDifference = newXRot - this.xRot;
+
+			this.yRot += (float)newYRotDifference * 0.1F;
+			this.xRot += (float)newXRotDifference * 0.1F;
+
+			if (this.yRot > 360F) {
+				this.yRot -= 360F;
+				this.prevYRot -= 360F;
+			} else if (this.yRot < 0F) {
+				this.yRot += 360F;
+				this.prevYRot += 360F;
+			}
+
+			if (this.xRot > 360F) {
+				this.xRot -= 360F;
+				this.prevXRot -= 360F;
+			} else if (this.xRot < 0F) {
+				this.xRot += 360F;
+				this.prevXRot += 360F;
+			}
 		}
 
-		if (this.shouldDissipate && this.age > 7 && this.age < this.ageBeforeDissipating) {
+		this.prevRotMultiplier = this.rotMultiplier;
+		this.rotMultiplier = (float) Math.sin((this.xRot * Mth.PI) / 180F);
+
+        if (this.shouldDissipate && this.age > 7 && this.age < this.ageBeforeDissipating) {
 			this.age = this.ageBeforeDissipating;
 		}
 
@@ -146,47 +181,60 @@ public class WindParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
+	public void render(VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
+		float yRot = Mth.lerp(partialTicks, this.prevYRot, this.yRot) * Mth.DEG_TO_RAD;
+		float xRot = Mth.lerp(partialTicks, this.prevXRot, this.xRot) * -Mth.DEG_TO_RAD;
+		float cameraRotWhileSideways = (renderInfo.getXRot() * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
+		float cameraRotWhileVertical = (90F - renderInfo.getYRot() * (1F - Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
+		this.renderSignal(buffer, renderInfo, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot).rotateX(-xRot).rotateY(cameraRotWhileSideways).rotateY(cameraRotWhileVertical));
+		this.renderSignal(buffer, renderInfo, partialTicks, !this.flipped, transforms -> transforms.rotateY((float) -Math.PI + yRot).rotateX(xRot).rotateY(cameraRotWhileSideways).rotateY(cameraRotWhileVertical));
+	}
+
+	private void renderSignal(VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks, boolean flipped, @NotNull Consumer<Quaternionf> quaternionConsumer) {
 		Vec3 vec3 = renderInfo.getPosition();
-		float f = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
-		float g = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
-		float h = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
-		this.rotation.set(0F, 0F, 0F, 1F);
-		this.rotation.mul(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, this.prevYRot, this.yRot)));
-		this.rotation.mul(Axis.XP.rotationDegrees(Mth.lerp(partialTicks, this.prevXRot, this.xRot)));
-		if (this.roll != 0.0f) {
-			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
-			this.rotation.mul(Axis.ZP.rotation(i));
-		}
+		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
+		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
+		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+		Vector3f vector3f = new Vector3f(0.5F, 0.5F, 0.5F).normalize();
+		Quaternionf quaternionf = new Quaternionf().setAngleAxis(0.0F, vector3f.x(), vector3f.y(), vector3f.z());
+		quaternionConsumer.accept(quaternionf);
 		Vector3f[] vector3fs = new Vector3f[]{
-			new Vector3f(-1F, -1F, 0F),
-			new Vector3f(-1F, 1F, 0F),
-			new Vector3f(1F, 1F, 0F),
-			new Vector3f(1F, -1F, 0F)
+			new Vector3f(-1F, -1F, 0F), new Vector3f(-1F, 1F, 0F), new Vector3f(1F, 1F, 0F), new Vector3f(1F, -1F, 0F)
 		};
-		float j = this.getQuadSize(partialTicks);
-		for (int k = 0; k < 4; ++k) {
-			Vector3f vector3f2 = vector3fs[k];
-			vector3f2.rotate(this.rotation);
-			vector3f2.mul(j);
+		float i = this.getQuadSize(partialTicks);
+
+		for(int j = 0; j < 4; ++j) {
+			Vector3f vector3f2 = vector3fs[j];
+			vector3f2.rotate(quaternionf);
+			vector3f2.mul(i);
 			vector3f2.add(f, g, h);
 		}
-		float l = this.getU0();
-		float m = this.getU1();
-		float n = this.getV0();
-		float o = this.getV1();
-		int p = this.getLightColor(partialTicks);
-		float ua = this.flipped ? l : m;
-		float ub = this.flipped ? m : l;
-		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).uv(ua, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).uv(ua, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).uv(ub, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(ub, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 
-		buffer.vertex(vector3fs[3].x(), vector3fs[0].y(), vector3fs[3].z()).uv(ub, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[2].x(), vector3fs[1].y(), vector3fs[2].z()).uv(ub, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[1].x(), vector3fs[2].y(), vector3fs[1].z()).uv(ua, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[0].x(), vector3fs[3].y(), vector3fs[0].z()).uv(ua, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		float k = !flipped ? this.getU0() : this.getU1();
+		float l = !flipped ? this.getU1() : this.getU0();
+		float m = this.getV0();
+		float n = this.getV1();
+		int o = this.getLightColor(partialTicks);
+		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z())
+			.uv(l, n)
+			.color(this.rCol, this.gCol, this.bCol, this.alpha)
+			.uv2(o)
+			.endVertex();
+		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z())
+			.uv(l, m)
+			.color(this.rCol, this.gCol, this.bCol, this.alpha)
+			.uv2(o)
+			.endVertex();
+		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z())
+			.uv(k, m)
+			.color(this.rCol, this.gCol, this.bCol, this.alpha)
+			.uv2(o)
+			.endVertex();
+		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z())
+			.uv(k, n)
+			.color(this.rCol, this.gCol, this.bCol, this.alpha)
+			.uv2(o)
+			.endVertex();
 	}
 
 	@Override
