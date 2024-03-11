@@ -44,13 +44,15 @@ import org.joml.Vector3f;
 public class WindParticle extends TextureSheetParticle {
 	private final Quaternionf rotation = new Quaternionf(0F, 0F, 0F, 0F);
 	private final SpriteSet spriteProvider;
-	private int lifetimeBefore;
+	private int ageBeforeDissipating;
 
 	private float prevYRot;
 	private float yRot;
 	private float prevXRot;
 	private float xRot;
-	private boolean shouldSkipToEnd;
+	private boolean shouldDissipate;
+	private boolean flipped;
+	private boolean chosenSide;
 
 	WindParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		super(level, x, y, z, velocityX, velocityY, velocityZ);
@@ -69,7 +71,8 @@ public class WindParticle extends TextureSheetParticle {
 		super.tick();
 		double multXZ = 0.005D * 0.675;
 		double multY = 0.0015D * 0.675;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
+		Vec3 pos = new Vec3(this.x, this.y, this.z);
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += wind.y() * multY;
 		this.zd += wind.z() * multXZ;
@@ -77,21 +80,27 @@ public class WindParticle extends TextureSheetParticle {
 		this.prevYRot = this.yRot;
 		this.prevXRot = this.xRot;
 
-		if (!this.shouldSkipToEnd) {
+		if (!this.shouldDissipate) {
 			double horizontalDistance = Math.sqrt((this.xd * this.xd) + (this.zd * this.zd));
 			this.yRot += (float) (((Mth.atan2(this.xd, this.zd)) * Mth.RAD_TO_DEG - this.yRot) * 0.1F);
 			this.xRot += (float) (((Mth.atan2(horizontalDistance, this.yd)) * Mth.RAD_TO_DEG - this.xRot) * 0.1F);
 		}
 
-		if (this.shouldSkipToEnd && this.age > 7 && this.age < this.lifetimeBefore) {
-			this.age = this.lifetimeBefore;
+		if (this.shouldDissipate && this.age > 7 && this.age < this.ageBeforeDissipating) {
+			this.age = this.ageBeforeDissipating;
+		}
+
+		if (this.age >= this.ageBeforeDissipating && !this.chosenSide) {
+			this.chosenSide = true;
+			this.flipped = this.level.random.nextBoolean();
+			this.lifetime = this.ageBeforeDissipating + 10;
 		}
 		this.setSpriteFromAge(this.spriteProvider);
 	}
 
 	@Override
 	public void move(double x, double y, double z) {
-		if (!this.shouldSkipToEnd) {
+		if (!this.shouldDissipate) {
 			double d = x;
 			double e = y;
 			double f = z;
@@ -108,18 +117,18 @@ public class WindParticle extends TextureSheetParticle {
 			}
 
 			if (Math.abs(e) >= 1.0E-5F && Math.abs(y) < 1.0E-5F) {
-				this.shouldSkipToEnd = true;
+				this.shouldDissipate = true;
 			}
 
 			this.onGround = e != y && e < 0.0;
 			if (d != x) {
 				this.xd = 0.0;
-				this.shouldSkipToEnd = true;
+				this.shouldDissipate = true;
 			}
 
 			if (f != z) {
 				this.zd = 0.0;
-				this.shouldSkipToEnd = true;
+				this.shouldDissipate = true;
 			}
 		}
 	}
@@ -127,7 +136,7 @@ public class WindParticle extends TextureSheetParticle {
 	@Override
 	public void setSpriteFromAge(@NotNull SpriteSet spriteProvider) {
 		if (!this.removed) {
-			int i = this.age < 7 ? this.age : (this.age < this.lifetimeBefore ? 7 : this.age - (this.lifetimeBefore) + 8);
+			int i = this.age < 8 ? this.age : (this.age < this.ageBeforeDissipating ? 8 : this.age - (this.ageBeforeDissipating) + 9);
 			this.setSprite(spriteProvider.get(Math.min(i, 19), 19));
 		}
 	}
@@ -163,15 +172,17 @@ public class WindParticle extends TextureSheetParticle {
 		float n = this.getV0();
 		float o = this.getV1();
 		int p = this.getLightColor(partialTicks);
-		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).uv(m, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).uv(m, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).uv(l, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(l, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		float ua = this.flipped ? l : m;
+		float ub = this.flipped ? m : l;
+		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).uv(ua, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).uv(ua, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).uv(ub, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(ub, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 
-		buffer.vertex(vector3fs[3].x(), vector3fs[0].y(), vector3fs[3].z()).uv(l, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[2].x(), vector3fs[1].y(), vector3fs[2].z()).uv(l, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[1].x(), vector3fs[2].y(), vector3fs[1].z()).uv(m, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
-		buffer.vertex(vector3fs[0].x(), vector3fs[3].y(), vector3fs[0].z()).uv(m, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[3].x(), vector3fs[0].y(), vector3fs[3].z()).uv(ub, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[2].x(), vector3fs[1].y(), vector3fs[2].z()).uv(ub, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[1].x(), vector3fs[2].y(), vector3fs[1].z()).uv(ua, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[0].x(), vector3fs[3].y(), vector3fs[0].z()).uv(ua, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 	}
 
 	@Override
@@ -187,8 +198,9 @@ public class WindParticle extends TextureSheetParticle {
 		public Particle createParticle(@NotNull WindParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			Vec3 velocity = options.getVelocity();
 			WindParticle windParticle = new WindParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D);
-			windParticle.lifetimeBefore = options.getLifespan();
-			windParticle.lifetime += windParticle.lifetimeBefore;
+			windParticle.ageBeforeDissipating = options.getLifespan();
+			windParticle.lifetime += windParticle.ageBeforeDissipating;
+			windParticle.flipped = level.random.nextBoolean();
 			windParticle.xd = velocity.x;
 			windParticle.zd = velocity.z;
 			windParticle.yd = velocity.y;

@@ -38,14 +38,12 @@ import org.jetbrains.annotations.NotNull;
 public class WindParticleOptions implements ParticleOptions {
 	public static final Codec<WindParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
-				Codec.BOOL.fieldOf("flipped").forGetter(WindParticleOptions::isFlipped),
 				Codec.INT.fieldOf("lifespan").forGetter(WindParticleOptions::getLifespan),
 				Vec3.CODEC.fieldOf("velocity").forGetter(WindParticleOptions::getVelocity)
 			)
 			.apply(instance, WindParticleOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, WindParticleOptions> STREAM_CODEC = StreamCodec.composite(
-		ByteBufCodecs.BOOL, WindParticleOptions::isFlipped,
 		ByteBufCodecs.VAR_INT, WindParticleOptions::getLifespan,
 		FrozenByteBufCodecs.VEC3, WindParticleOptions::getVelocity,
 		WindParticleOptions::new
@@ -55,11 +53,9 @@ public class WindParticleOptions implements ParticleOptions {
         @NotNull
         public WindParticleOptions fromCommand(ParticleType<WindParticleOptions> type, @NotNull StringReader reader, HolderLookup.Provider provider) throws CommandSyntaxException {
 			reader.expect(' ');
-            boolean flipped = reader.readBoolean();
-			reader.expect(' ');
             int lifespan = reader.readInt();
             Vec3 speed = readVec3(reader);
-            return new WindParticleOptions(flipped, lifespan, speed);
+            return new WindParticleOptions(lifespan, speed);
         }
     };
 
@@ -73,12 +69,10 @@ public class WindParticleOptions implements ParticleOptions {
 		return new Vec3(f, g, h);
 	}
 
-	private final boolean flipped;
 	private final int lifespan;
 	private final Vec3 velocity;
 
-	private WindParticleOptions(boolean flipped, int lifespan, Vec3 velocity) {
-		this.flipped = flipped;
+	private WindParticleOptions(int lifespan, Vec3 velocity) {
 		this.lifespan = lifespan;
 		this.velocity = velocity;
 	}
@@ -92,11 +86,7 @@ public class WindParticleOptions implements ParticleOptions {
 	@NotNull
 	@Override
 	public String writeToString(HolderLookup.Provider provider) {
-		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.flipped, this.getLifespan());
-	}
-
-	public boolean isFlipped() {
-		return this.flipped;
+		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getLifespan());
 	}
 
 	public int getLifespan() {
