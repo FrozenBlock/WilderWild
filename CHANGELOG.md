@@ -89,6 +89,9 @@ Bug Fixes, Changes, & Other Additions
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 - Refactored multiple paths in the `world` package.
 
+- Removed particle textures from the Blocks atlas.
+- Removed an unused Ancient Horn particle texture.
+- All particle options used by Wilder Wild have been fixed for use in commands and once again accept Vec3.
 - Retextured all Baobab Nut textures thanks to Zhen!
 - Retextured all Glory of the Snow textures thanks to Zhen!
 - Glory of the Snow now only drops one item upon being sheared.

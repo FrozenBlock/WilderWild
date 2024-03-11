@@ -61,6 +61,7 @@ import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
+import net.frozenblock.wilderwild.particle.WindParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -200,6 +201,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
 		particleRegistry.register(RegisterParticles.SEED, SeedParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
+		particleRegistry.register(RegisterParticles.WIND, WindParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.COCONUT_SPLASH, FallingParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);

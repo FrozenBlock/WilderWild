@@ -36,7 +36,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class SeedParticle extends TextureSheetParticle {
@@ -81,7 +80,7 @@ public class SeedParticle extends TextureSheetParticle {
 		@NotNull
 		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			RandomSource random = level.getRandom();
-			Vector3f controlledVelocity = options.getSpeed();
+			Vec3 controlledVelocity = options.getVelocity();
 			double windex = options.isControlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D;
 			double windZ = options.isControlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D;
 			SeedParticle seedParticle = new SeedParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);

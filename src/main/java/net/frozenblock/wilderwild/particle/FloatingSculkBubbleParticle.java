@@ -36,7 +36,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class FloatingSculkBubbleParticle extends RisingParticle {
@@ -47,7 +46,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	private float currentInflation = 0F;
 	private float targetInflation = 2F;
 
-	protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vector3f velocity, @NotNull SpriteSet spriteProvider) {
+	protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, @NotNull SpriteSet spriteProvider) {
 		super(clientLevel, x, y, z, 0D, 0D, 0D);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
