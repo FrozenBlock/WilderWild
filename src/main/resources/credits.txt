@@ -1,7 +1,7 @@
 Luna/Lunade/AViewFromTheTop:
  - Lead developer & gameplay designer & idea generator (not gonna take the time to explain everything I did.)
  - Worldgen (don't forget Soro's worldgen, too!)
- - Crab entity texture.
+ - Crab entity, Reach Boost, and Wind particle textures.
  - Sounds (2.2 onwards.)
  - QA.
  - Etc., etc.
