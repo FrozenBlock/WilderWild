@@ -149,7 +149,7 @@ public class WindParticle extends TextureSheetParticle {
 			Vec3 vec3 = new Vec3(d, e, f);
 			boolean canDissipate = this.age > 7;
 
-			if (canDissipate && vec3.length() < 0.0075D) {
+			if (canDissipate && vec3.length() < 0.0065D) {
 				this.shouldDissipate = true;
 			}
 			if (x != 0D || y != 0D || z != 0D) {
