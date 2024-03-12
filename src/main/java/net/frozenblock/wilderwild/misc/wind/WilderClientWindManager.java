@@ -30,6 +30,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -83,6 +84,9 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+		for (int i = 0; i < 250; i++) {
+			this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+		}
 	}
 
 	public void spawnAmbientWindParticles(@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos) {
@@ -109,9 +113,10 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		blockPos.set(i, j, k);
 
 		Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 2D, 2D);
-		if (random.nextDouble() < (wind.horizontalDistance() * 0.5D)) {
+		double horizontalWind = wind.horizontalDistance();
+		if (random.nextDouble() < (horizontalWind * 0.5D)) {
 			level.addParticle(
-				new WindParticleOptions(20, wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
+				new WindParticleOptions((int) (10D + (horizontalWind * 30D)), wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
 				i,
 				j,
 				k,
@@ -119,6 +124,30 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 				0D,
 				0D
 			);
+		}
+	}
+
+	public void spawnDisturbanceWindParticles(@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos) {
+		int i = posX + random.nextIntBetweenInclusive(-range, range);
+		int j = posY + random.nextIntBetweenInclusive(-range, range);
+		int k = posZ + random.nextIntBetweenInclusive(-range, range);
+		blockPos.set(i, j, k);
+		BlockState blockState = level.getBlockState(blockPos);
+
+		if (!blockState.isCollisionShapeFullBlock(level, blockPos)) {
+			Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
+			double windLength = wind.length();
+			if (random.nextDouble() < ((wind.length() - 0.001D) * 0.9D)) {
+				level.addParticle(
+					new WindParticleOptions((int) (10D + (windLength * 30D)), wind.x * 0.01D, wind.y * 0.003D, wind.z * 0.01D),
+					i,
+					j,
+					k,
+					0D,
+					0D,
+					0D
+				);
+			}
 		}
 	}
 
