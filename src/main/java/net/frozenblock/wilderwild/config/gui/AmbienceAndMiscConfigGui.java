@@ -44,6 +44,7 @@ public final class AmbienceAndMiscConfigGui {
 		var defaultConfig = AmbienceAndMiscConfig.INSTANCE.defaultInstance();
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
+		var waterColors = config.waterColors;
 		category.setBackground(WilderSharedConstants.id("textures/config/ambience_and_misc.png"));
 
 		var modifyAdvancements = category.addEntry(
@@ -125,6 +126,41 @@ public final class AmbienceAndMiscConfigGui {
 			false,
 			tooltip("biome_ambience"),
 			deepDarkAmbience, dripstoneCavesAmbience, lushCavesAmbience
+		);
+
+		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)
+			.setDefaultValue(defaultConfig.waterColors.modifyHotWater)
+			.setSaveConsumer(newValue -> waterColors.modifyHotWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("hot_water"))
+			.requireRestart()
+			.build();
+		var lukewarmBiomes = entryBuilder.startBooleanToggle(text("lukewarm_water"), waterColors.modifyLukewarmWater)
+			.setDefaultValue(defaultConfig.waterColors.modifyLukewarmWater)
+			.setSaveConsumer(newValue -> waterColors.modifyLukewarmWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("lukewarm_water"))
+			.requireRestart()
+			.build();
+		var snowyBiomes = entryBuilder.startBooleanToggle(text("snowy_water"), waterColors.modifySnowyWater)
+			.setDefaultValue(defaultConfig.waterColors.modifySnowyWater)
+			.setSaveConsumer(newValue -> waterColors.modifySnowyWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("snowy_water"))
+			.requireRestart()
+			.build();
+		var frozenBiomes = entryBuilder.startBooleanToggle(text("frozen_water"), waterColors.modifyFrozenWater)
+			.setDefaultValue(defaultConfig.waterColors.modifyFrozenWater)
+			.setSaveConsumer(newValue -> waterColors.modifyFrozenWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("frozen_water"))
+			.requireRestart()
+			.build();
+
+		var waterColorCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("water_colors"),
+			false,
+			tooltip("water_colors"),
+			hotBiomes, lukewarmBiomes, snowyBiomes, frozenBiomes
 		);
 
 		var wilderForestMusic = entryBuilder.startBooleanToggle(text("wilder_forest_music"), biomeMusic.wilderForestMusic)

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.generation;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.config.WorldgenConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.biome.SnowyOldGrowthPineTaiga;
@@ -35,28 +35,28 @@ public final class WilderWaterColors {
 		WilderSharedConstants.logWithModId("Overriding Water Colors for Wilder Wild", true);
 		BiomeModifications.create(WilderSharedConstants.id("modify_hot_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.HOT_WATER),
 			(selectionContext, modificationContext) -> {
-				if (WorldgenConfig.get().waterColors.modifyHotWater) {
+				if (AmbienceAndMiscConfig.get().waterColors.modifyHotWater) {
 					modificationContext.getEffects().setWaterColor(WarmRiver.NEW_WATER_COLOR);
 					modificationContext.getEffects().setWaterFogColor(WarmRiver.NEW_WATER_FOG_COLOR);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_lukewarm_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.LUKEWARM_WATER),
 			(selectionContext, modificationContext) -> {
-				if (WorldgenConfig.get().waterColors.modifyLukewarmWater) {
+				if (AmbienceAndMiscConfig.get().waterColors.modifyLukewarmWater) {
 					modificationContext.getEffects().setWaterColor(WarmRiver.NEW_WATER_COLOR);
 					modificationContext.getEffects().setWaterFogColor(WarmRiver.NEW_WATER_FOG_COLOR);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_snowy_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.SNOWY_WATER),
 			(selectionContext, modificationContext) -> {
-				if (WorldgenConfig.get().waterColors.modifySnowyWater) {
+				if (AmbienceAndMiscConfig.get().waterColors.modifySnowyWater) {
 					modificationContext.getEffects().setWaterColor(SnowyOldGrowthPineTaiga.WATER_COLOR);
 					modificationContext.getEffects().setWaterFogColor(SnowyOldGrowthPineTaiga.WATER_FOG_COLOR);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_frozen_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.FROZEN_WATER),
 			(selectionContext, modificationContext) -> {
-				if (WorldgenConfig.get().waterColors.modifyFrozenWater) {
+				if (AmbienceAndMiscConfig.get().waterColors.modifyFrozenWater) {
 					modificationContext.getEffects().setWaterColor(SnowyOldGrowthPineTaiga.WATER_COLOR);
 					modificationContext.getEffects().setWaterFogColor(SnowyOldGrowthPineTaiga.WATER_FOG_COLOR);
 				}

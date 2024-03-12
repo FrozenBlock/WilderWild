@@ -41,6 +41,9 @@ public final class AmbienceAndMiscConfig {
 		)
 	);
 
+	@CollapsibleObject
+	public final WaterColors waterColors = new WaterColors();
+
 	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
 
@@ -101,5 +104,19 @@ public final class AmbienceAndMiscConfig {
 	public static class BiomeMusicConfig {
 		@EntrySyncData(value = "wilderForestMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderForestMusic = true;
+	}
+
+	public static class WaterColors {
+		@EntrySyncData(value = "modifyLukewarmWater", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean modifyLukewarmWater = true;
+
+		@EntrySyncData(value = "modifyHotWater", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean modifyHotWater = true;
+
+		@EntrySyncData(value = "modifySnowywater", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean modifySnowyWater = true;
+
+		@EntrySyncData(value = "modifyFrozenWater", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean modifyFrozenWater = true;
 	}
 }

@@ -47,7 +47,6 @@ public final class WorldgenConfigGui {
 		var modifiedBiomePlacement = modifiedConfig.biomePlacement;
 		var biomes = config.biomeGeneration;
 		var modifiedBiomes = modifiedConfig.biomeGeneration;
-		var waterColors = config.waterColors;
 		category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
 
 		var betaBeaches = category.addEntry(
@@ -460,41 +459,6 @@ public final class WorldgenConfigGui {
 			false,
 			tooltip("biome_placement"),
 			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna
-		);
-
-		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)
-			.setDefaultValue(defaultConfig.waterColors.modifyHotWater)
-			.setSaveConsumer(newValue -> waterColors.modifyHotWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("hot_water"))
-			.requireRestart()
-			.build();
-		var lukewarmBiomes = entryBuilder.startBooleanToggle(text("lukewarm_water"), waterColors.modifyLukewarmWater)
-			.setDefaultValue(defaultConfig.waterColors.modifyLukewarmWater)
-			.setSaveConsumer(newValue -> waterColors.modifyLukewarmWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("lukewarm_water"))
-			.requireRestart()
-			.build();
-		var snowyBiomes = entryBuilder.startBooleanToggle(text("snowy_water"), waterColors.modifySnowyWater)
-			.setDefaultValue(defaultConfig.waterColors.modifySnowyWater)
-			.setSaveConsumer(newValue -> waterColors.modifySnowyWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("snowy_water"))
-			.requireRestart()
-			.build();
-		var frozenBiomes = entryBuilder.startBooleanToggle(text("frozen_water"), waterColors.modifyFrozenWater)
-			.setDefaultValue(defaultConfig.waterColors.modifyFrozenWater)
-			.setSaveConsumer(newValue -> waterColors.modifyFrozenWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("frozen_water"))
-			.requireRestart()
-			.build();
-
-		var waterColorCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("water_colors"),
-			false,
-			tooltip("water_colors"),
-			hotBiomes, lukewarmBiomes, snowyBiomes, frozenBiomes
 		);
 
 		var fallenTrees = category.addEntry(
