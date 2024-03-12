@@ -48,7 +48,7 @@ public final class WorldgenConfigGui {
 		var biomes = config.biomeGeneration;
 		var modifiedBiomes = modifiedConfig.biomeGeneration;
 		var waterColors = config.waterColors;
-		category.setBackground(WilderSharedConstants.id("textures/config/ambience_and_misc.png"));
+		category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
 
 		var betaBeaches = category.addEntry(
 			FrozenClothConfig.syncedEntry(

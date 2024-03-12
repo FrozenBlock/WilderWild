@@ -46,7 +46,7 @@ public final class ItemConfigGui {
 		var modifiedAncientHorn = modifiedConfig.ancientHorn;
 		var projectileLandingSounds = config.projectileLandingSounds;
 		var modifiedProjectileLandingSounds = modifiedConfig.projectileLandingSounds;
-		category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
+		category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
 
 		var summonsWarden = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), modifiedAncientHorn.ancientHornCanSummonWarden)
