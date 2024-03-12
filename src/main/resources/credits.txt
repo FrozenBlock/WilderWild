@@ -25,12 +25,12 @@ Soro:
  - Scorched Sand concept.
  - Baobab Nuts.
 
+Contributors:
+
 Merp:
  - Lead texture artist prior to 2.3.
  - Sound designer prior to 2.2.
  - Occasional gameplay designer & feedback.
-
-Contributors:
 
 Enri:
  - Italian translation.
