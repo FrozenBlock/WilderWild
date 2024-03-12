@@ -5,8 +5,8 @@
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
         "max_height": 260,
-        "placement_chance": 0.75,
-        "probability": 0.8
+        "placement_chance": 0.5,
+        "probability": 1.0
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
@@ -35,7 +35,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:jungle_leaves",
+        "Name": "minecraft:dark_oak_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -53,15 +53,15 @@
     },
     "trunk_placer": {
       "type": "wilderwild:fallen_large_trunk_placer",
-      "base_height": 5,
+      "base_height": 4,
       "height_rand_a": 2,
-      "height_rand_b": 4,
+      "height_rand_b": 1,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:jungle_log",
+        "Name": "minecraft:dark_oak_log",
         "Properties": {
           "axis": "y",
           "termite_edible": "true"

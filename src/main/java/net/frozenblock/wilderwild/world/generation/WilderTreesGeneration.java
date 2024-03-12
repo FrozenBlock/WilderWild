@@ -172,6 +172,12 @@ public final class WilderTreesGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_FALLEN_LARGE_JUNGLE),
 				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.LARGE_FALLEN_JUNGLE_COMMON_PLACED.getKey());
 
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_DARK_OAK),
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.FALLEN_DARK_OAK_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_FALLEN_DARK_OAK),
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.FALLEN_DARK_OAK_COMMON_PLACED.getKey());
+
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.getKey());
 

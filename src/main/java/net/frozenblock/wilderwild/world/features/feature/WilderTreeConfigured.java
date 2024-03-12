@@ -145,6 +145,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_FANCY_TALL_DARK_OAK = register("dying_fancy_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = register("cobweb_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK = register("cobweb_fancy_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
 
 	//SWAMP TREE
@@ -218,7 +219,7 @@ public final class WilderTreeConfigured {
 	private static final MossCarpetTreeDecorator MOSS_SPRUCE_PALM = new MossCarpetTreeDecorator(0.5F, 0.2F);
 	private static final MossCarpetTreeDecorator MOSS_BIRCH = new MossCarpetTreeDecorator(0.6F, 0.2F);
 	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F);
-	private static final MossCarpetTreeDecorator MOSS_JUNGLE = new MossCarpetTreeDecorator(0.6F, 0.35F);
+	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F);
 	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F);
 	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F);
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
@@ -831,6 +832,16 @@ public final class WilderTreeConfigured {
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		LARGE_FALLEN_DARK_OAK.makeAndSetHolder(Feature.TREE,
+			largeFallenBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 4, 2, 1).decorators(
+				List.of(
+					VINES_1_UNDER_260_05,
+					MOSS_JUNGLE_DARK_OAK,
+					SHELF_FUNGUS_007
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(
 				Blocks.DARK_OAK_LOG,
@@ -1135,7 +1146,7 @@ public final class WilderTreeConfigured {
 				Blocks.SPRUCE_LEAVES,
 				5,
 				2,
-				2
+				3
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1151,7 +1162,7 @@ public final class WilderTreeConfigured {
 				Blocks.SPRUCE_LEAVES,
 				5,
 				2,
-				2
+				3
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1438,7 +1449,7 @@ public final class WilderTreeConfigured {
 			fallenJungle().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_JUNGLE
+					MOSS_JUNGLE_DARK_OAK
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1453,17 +1464,17 @@ public final class WilderTreeConfigured {
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
-					MOSS_JUNGLE,
+					MOSS_JUNGLE_DARK_OAK,
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		LARGE_FALLEN_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
-			largeFallenBuilder(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 5, 2, 2).decorators(
+			largeFallenBuilder(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 5, 2, 4).decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_JUNGLE,
+					MOSS_JUNGLE_DARK_OAK,
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -1480,7 +1491,7 @@ public final class WilderTreeConfigured {
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
-					MOSS_JUNGLE,
+					MOSS_JUNGLE_DARK_OAK,
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()

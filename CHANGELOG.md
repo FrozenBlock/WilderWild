@@ -103,6 +103,9 @@ Bug Fixes, Changes, & Other Additions
     - Added the `wilderwild:has_common_fallen_large_spruce` to control what biomes these will commonly generate in.
     - Added the `wilderwild:has_clean_fallen_large_spruce` to control what biomes these will generate in, without decoration.
     - Added the `wilderwild:has_common_clean_fallen_large_spruce` to control what biomes these will commonly generate in, without decoration
+  - Added Fallen Dark Oak Trees.
+    - Added the `wilderwild:has_fallen_dark_oak` to control what biomes these will generate in.
+    - Added the `wilderwild:has_common_fallen_dark_oak` to control what biomes these will commonly generate in.
 - Added some Spruce Tree features to biomes they were missing from.
 
 - Removed particle textures from the Blocks atlas.

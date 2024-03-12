@@ -102,6 +102,7 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = register("dying_dark_oak_checked");
 	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = register("cobweb_tall_dark_oak_checked");
 	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = register("cobweb_fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = register("large_fallen_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = register("large_snapped_dark_oak_checked");
 	//SWAMP TREE
 	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = register("swamp_tree_checked");
@@ -416,6 +417,10 @@ public final class WilderTreePlaced {
 
 		COBWEB_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.COBWEB_FANCY_TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+
+		LARGE_FALLEN_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_FALLEN_DARK_OAK.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		LARGE_SNAPPED_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_DARK_OAK.getHolder(),

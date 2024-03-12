@@ -586,6 +586,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.JUNGLE)
 			.add(Biomes.BAMBOO_JUNGLE);
 
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_DARK_OAK)
+			.add(Biomes.DARK_FOREST);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_FALLEN_DARK_OAK)
+			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST)
 			.add(Biomes.DARK_FOREST)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)

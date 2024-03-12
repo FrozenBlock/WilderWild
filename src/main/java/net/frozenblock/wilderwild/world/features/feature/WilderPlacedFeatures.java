@@ -22,6 +22,7 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import static net.frozenblock.wilderwild.world.features.feature.WilderPlacementUtils.register;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -40,6 +41,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
@@ -77,6 +79,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature LARGE_FALLEN_JUNGLE_PLACED = register("large_fallen_jungle_placed");
 	public static final FrozenPlacedFeature LARGE_FALLEN_JUNGLE_COMMON_PLACED = register("large_fallen_jungle_common_placed");
 	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED = register("fallen_birch_and_oak_dark_forest_placed");
+	public static final FrozenPlacedFeature FALLEN_DARK_OAK_PLACED = register("fallen_dark_oak_placed");
+	public static final FrozenPlacedFeature FALLEN_DARK_OAK_COMMON_PLACED = register("fallen_dark_oak_common_placed");
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_PLACED = register("fallen_mangrove_placed");
 	//TREES
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
@@ -347,7 +351,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		CLEAN_FALLEN_LARGE_SPRUCE_COMMON_PLACED.makeAndSetHolder(WilderConfiguredFeatures.CLEAN_LARGE_FALLEN_SPRUCE.getHolder(),
-			RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -357,7 +361,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		DECORATED_FALLEN_LARGE_SPRUCE_COMMON_PLACED.makeAndSetHolder(WilderConfiguredFeatures.DECORATED_LARGE_FALLEN_SPRUCE.getHolder(),
-			RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -372,11 +376,13 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_PALM_PLACED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE)),
 			RarityFilter.onAverageOnceEvery(60), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE)),
 			RarityFilter.onAverageOnceEvery(135), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
@@ -386,18 +392,28 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		LARGE_FALLEN_JUNGLE_PLACED.makeAndSetHolder(WilderTreeConfigured.LARGE_FALLEN_JUNGLE_TREE.getHolder(),
+		LARGE_FALLEN_JUNGLE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_LARGE_JUNGLE.getHolder(),
 			RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		LARGE_FALLEN_JUNGLE_COMMON_PLACED.makeAndSetHolder(WilderTreeConfigured.LARGE_FALLEN_JUNGLE_TREE.getHolder(),
+		LARGE_FALLEN_JUNGLE_COMMON_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_LARGE_JUNGLE.getHolder(),
 			RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST.getHolder(),
 			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_DARK_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_DARK_OAKS.getHolder(),
+			RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_DARK_OAK_COMMON_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_DARK_OAKS.getHolder(),
+			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
