@@ -88,7 +88,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 			this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
 		}
 		if (AmbienceAndMiscConfig.get().wind.windDisturbanceParticles) {
-			for (int i = 0; i < 250; i++) {
+			for (int i = 0; i < 500; i++) {
 				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
 			}
 		}
