@@ -87,10 +87,22 @@ public final class AmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("wind_disturbance_particles"))
 			.build();
 
+		var windParticleSpawnAttempts = entryBuilder.startIntSlider(text("wind_particle_spawn_attempts"), wind.windParticleSpawnAttempts, 1, 1000)
+			.setDefaultValue(defaultConfig.wind.windParticleSpawnAttempts)
+			.setSaveConsumer(newValue -> wind.windParticleSpawnAttempts = newValue)
+			.setTooltip(tooltip("wind_particle_spawn_attempts"))
+			.build();
+
 		var windDisturbanceParticleFrequency = entryBuilder.startIntSlider(text("wind_disturbance_particle_frequency"), wind.windDisturbanceParticleFrequency, 1, 500)
 			.setDefaultValue(defaultConfig.wind.windDisturbanceParticleFrequency)
 			.setSaveConsumer(newValue -> wind.windDisturbanceParticleFrequency = newValue)
 			.setTooltip(tooltip("wind_disturbance_particle_frequency"))
+			.build();
+
+		var windDisturbanceParticleSpawnAttempts = entryBuilder.startIntSlider(text("wind_disturbance_particle_spawn_attempts"), wind.windDisturbanceParticleSpawnAttempts, 1, 1000)
+			.setDefaultValue(defaultConfig.wind.windDisturbanceParticleSpawnAttempts)
+			.setSaveConsumer(newValue -> wind.windDisturbanceParticleSpawnAttempts = newValue)
+			.setTooltip(tooltip("wind_disturbance_particle_spawn_attempts"))
 			.build();
 
 		var particleWindMovement = entryBuilder.startIntSlider(text("particle_wind_movement"), wind.particleWindMovement, 0, 500)
@@ -113,7 +125,9 @@ public final class AmbienceAndMiscConfigGui {
 		var windCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("wind"),
 			false,
 			tooltip("wind"),
-			cloudMovement, windParticles, windParticleFrequency, windDisturbanceParticles, windDisturbanceParticleFrequency,
+			cloudMovement,
+			windParticles, windParticleFrequency, windParticleSpawnAttempts,
+			windDisturbanceParticles, windDisturbanceParticleFrequency, windDisturbanceParticleSpawnAttempts,
 			particleWindMovement, fireworkWindMovement
 		);
 

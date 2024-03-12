@@ -84,12 +84,17 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		int windAttempts = AmbienceAndMiscConfig.get().wind.windDisturbanceParticleSpawnAttempts;
+		int disturbanceAttempts = AmbienceAndMiscConfig.get().wind.windDisturbanceParticleSpawnAttempts;
 		if (AmbienceAndMiscConfig.get().wind.windParticles) {
-			this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+			for (int i = 0; i < windAttempts; ++i) {
+				System.out.println("USED");
+				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+			}
 		}
 		if (AmbienceAndMiscConfig.get().wind.windDisturbanceParticles) {
-			for (int i = 0; i < 500; i++) {
-				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+			for (int i = 0; i < disturbanceAttempts; ++i) {
+				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
 			}
 		}
 	}

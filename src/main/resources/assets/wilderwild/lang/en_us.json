@@ -728,11 +728,14 @@
   "tooltip.wilderwild.wind_particles": "Whether Wind Particles should spawn.",
   "option.wilderwild.wind_particle_frequency": "Wind Particle Frequency",
   "tooltip.wilderwild.wind_particle_frequency": "The frequency at which Wind particles should spawn.\nMore intense Wind leads to more particles.\nThis is a percentage.",
+  "option.wilderwild.wind_particle_spawn_attempts": "Wind Particle Spawn Attempts",
+  "tooltip.wilderwild.wind_particle_spawn_attempts": "The number of times per tick a Wind Particle will attempt to spawn.",
   "option.wilderwild.wind_disturbance_particles": "Wind Disturbance Particles",
   "tooltip.wilderwild.wind_disturbance_particles": "Whether Wind particles caused by Wind Disturbances should spawn.\nWind Disturbances are caused by things like Breezes and Wind Charges.",
   "option.wilderwild.wind_disturbance_particle_frequency": "Wind Disturbance Particle Frequency",
-  "tooltip.wilderwild.wind_disturbance_particle_frequency": "The frequency at which Wind Disturbance particles should spawn.\nMore intense Wind Disturbances leads to more particles.\nThis is a percentage.",
-
+  "tooltip.wilderwild.wind_disturbance_particle_frequency": "The frequency at which Wind Disturbance particles should spawn.\nMore intense Wind Disturbances lead to more particles.\nThis is a percentage.",
+  "option.wilderwild.wind_disturbance_particle_spawn_attempts": "Wind Disturbance Particle Spawn Attempts",
+  "tooltip.wilderwild.wind_disturbance_particle_spawn_attempts": "The number of times per tick a Wind Disturbance Particle will attempt to spawn.",
   "option.wilderwild.simple_bool.false": "§cOFF",
   "option.wilderwild.simple_bool.true": "§aON",
 
