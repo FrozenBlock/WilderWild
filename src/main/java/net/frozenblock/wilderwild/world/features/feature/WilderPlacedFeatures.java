@@ -408,12 +408,12 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_DARK_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_DARK_OAKS.getHolder(),
-			RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_DARK_OAK_COMMON_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_DARK_OAKS.getHolder(),
-			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
