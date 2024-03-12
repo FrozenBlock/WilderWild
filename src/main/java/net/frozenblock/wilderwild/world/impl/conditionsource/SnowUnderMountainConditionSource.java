@@ -61,8 +61,8 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 	@Override
 	@NotNull
 	public SurfaceRules.Condition apply(@NotNull SurfaceRules.Context context) {
-		class BetaBeachCondition extends SurfaceRules.LazyYCondition {
-			BetaBeachCondition(@NotNull SurfaceRules.Context context) {
+		class SnowUnderMountainCondition extends SurfaceRules.LazyYCondition {
+			SnowUnderMountainCondition(@NotNull SurfaceRules.Context context) {
 				super(context);
 			}
 
@@ -71,7 +71,7 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 			}
 		}
 
-		return new BetaBeachCondition(context);
+		return new SnowUnderMountainCondition(context);
 	}
 
 	@Override
