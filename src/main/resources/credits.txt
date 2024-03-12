@@ -40,6 +40,7 @@ Enri:
 Zhen:
  - Retextured all Baobab Nut textures in 2.4.
  - Retextured all Glory of the Snow textures in 2.4.
+ - Retextured all Milkweed block textures in 2.4.
 
 LudoCrypt:
  - New music.

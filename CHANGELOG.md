@@ -94,6 +94,7 @@ Bug Fixes, Changes, & Other Additions
 - All particle options used by Wilder Wild have been fixed for use in commands and once again accept Vec3.
 - Retextured all Baobab Nut textures thanks to Zhen!
 - Retextured all Glory of the Snow textures thanks to Zhen!
+- Retextured all Milkweed block textures thanks to Zhen!
 - Glory of the Snow now only drops one item upon being sheared.
 - Prickly Pears can now be sheared with Dispensers.
 - Shelf Fungus can now be sheared with Dispensers.
