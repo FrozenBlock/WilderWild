@@ -88,7 +88,6 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		int disturbanceAttempts = AmbienceAndMiscConfig.get().wind.windDisturbanceParticleSpawnAttempts;
 		if (AmbienceAndMiscConfig.get().wind.windParticles) {
 			for (int i = 0; i < windAttempts; ++i) {
-				System.out.println("USED");
 				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
 			}
 		}
