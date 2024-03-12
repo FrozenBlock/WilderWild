@@ -1,5 +1,13 @@
 {
   "values": [
-    "minecraft:dark_forest"
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    }
   ]
 }

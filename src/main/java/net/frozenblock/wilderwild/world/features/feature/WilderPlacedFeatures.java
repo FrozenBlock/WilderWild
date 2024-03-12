@@ -857,7 +857,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_DARK_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_DARK_OAKS.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
+			treePlacement(RarityFilter.onAverageOnceEvery(48))
 		);
 
 		SNAPPED_DARK_OAK_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_DARK_OAKS.getHolder(),
