@@ -599,6 +599,7 @@
   "option.wilderwild.snow_below_trees": "Snow and Ice Below Leaves",
   "tooltip.wilderwild.snow_below_trees": "Whether worldgen should place snow and ice below leaves or not.",
   "option.wilderwild.snow_under_mountains": "Snow Under Mountains",
+  "tooltip.wilderwild.snow_under_mountains": "Whether snow should generate below mountains.\nThis may not always work, and is experimental.",
   "option.wilderwild.surface_decoration": "Surface Decoration",
   "tooltip.wilderwild.surface_decoration": "Whether Surface Decorators are placed in worldgen.\nThis includes things like Coarse Dirt and Packed Mud paths.",
   "option.wilderwild.surface_transitions": "Biome Surface Transitions",
