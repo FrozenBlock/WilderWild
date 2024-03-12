@@ -119,7 +119,7 @@ public final class AmbienceAndMiscConfig {
 		public int windDisturbanceParticleFrequency = 90;
 
 		@EntrySyncData(value = "windDisturbanceParticleSpawnAttempts", behavior = SyncBehavior.UNSYNCABLE)
-		public int windDisturbanceParticleSpawnAttempts = 300;
+		public int windDisturbanceParticleSpawnAttempts = 100;
 
 		@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
 		public int particleWindMovement = 100;

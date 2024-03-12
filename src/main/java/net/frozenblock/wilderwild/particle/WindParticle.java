@@ -129,7 +129,7 @@ public class WindParticle extends TextureSheetParticle {
 		if (this.age >= this.ageBeforeDissipating && !this.chosenSide) {
 			this.chosenSide = true;
 			this.flipped = this.level.random.nextBoolean();
-			this.lifetime = this.ageBeforeDissipating + 10;
+			this.lifetime = this.ageBeforeDissipating + 11;
 		}
 		this.setSpriteFromAge(this.spriteProvider);
 	}
@@ -180,7 +180,7 @@ public class WindParticle extends TextureSheetParticle {
 	public void setSpriteFromAge(@NotNull SpriteSet spriteProvider) {
 		if (!this.removed) {
 			int i = this.age < 8 ? this.age : (this.age < this.ageBeforeDissipating ? 8 : this.age - (this.ageBeforeDissipating) + 9);
-			this.setSprite(spriteProvider.get(Math.min(i, 19), 19));
+			this.setSprite(spriteProvider.get(Math.min(i, 20), 20));
 		}
 	}
 
