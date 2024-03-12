@@ -119,7 +119,6 @@
   "client": [
     "client.allay.AllayModelMixin",
     "client.brush.LevelRendererMixin",
-    "client.easter.MerpSlimeRenderer",
     "client.easter.ScottTheWozMixin",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",

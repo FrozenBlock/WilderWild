@@ -110,6 +110,7 @@ Bug Fixes, Changes, & Other Additions
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
+- Removed the Merp Slime easter egg.
 - All particle options used by Wilder Wild have been fixed for use in commands and once again accept Vec3.
 - Retextured all Baobab Nut textures thanks to Zhen!
 - Retextured all Glory of the Snow textures thanks to Zhen!
@@ -141,6 +142,9 @@ Bug Fixes, Changes, & Other Additions
 
 ### Splash Texts
 - Removed "Made from maple!"
+- Removed "May or may not contain minuscule amounts of Merp"
+- Removed "your looks like sweat bread"
+- Removed "A slime named "Merp""
 - Added "IT BURNS!!!11!!1!"
 - Added "Scorched Legs!"
 - Added "Spiders in the lava!"
