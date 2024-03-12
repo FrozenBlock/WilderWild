@@ -187,7 +187,7 @@
         "type": "wilderwild:scorched",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 450
+        "weight": 385
       }
     ],
     "underground_water_creature": [

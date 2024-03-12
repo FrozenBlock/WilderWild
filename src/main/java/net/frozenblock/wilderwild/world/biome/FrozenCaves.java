@@ -51,8 +51,8 @@ import org.jetbrains.annotations.Nullable;
 public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
 	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_1);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter EROSION_PEAK = Erosion.EROSION_0;
 	public static final Climate.Parameter DEPTH = Climate.Parameter.span(0.3F, 0.3F);
 	public static final float OFFSET = 0.000F;
 	public static final float TEMP = -2.0F;
