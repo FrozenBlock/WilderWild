@@ -575,6 +575,17 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 			.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_LARGE_JUNGLE)
+			.add(Biomes.JUNGLE)
+			.add(Biomes.BAMBOO_JUNGLE)
+			.add(Biomes.SPARSE_JUNGLE)
+			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+			.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_FALLEN_LARGE_JUNGLE)
+			.add(Biomes.JUNGLE)
+			.add(Biomes.BAMBOO_JUNGLE);
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST)
 			.add(Biomes.DARK_FOREST)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
@@ -588,8 +599,22 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_TAIGA);
 
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_LARGE_SPRUCE)
+			.add(Biomes.TAIGA);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_FALLEN_LARGE_SPRUCE)
+			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+			.add(Biomes.OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_CLEAN_FALLEN_LARGE_SPRUCE)
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLEAN_FALLEN_LARGE_SPRUCE)
+			.add(Biomes.SNOWY_TAIGA);
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLEAN_FALLEN_SPRUCE_TREES)
 			.add(Biomes.SNOWY_TAIGA)
+			.add(Biomes.GROVE)
 			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_SWAMP_OAK_TREES)
@@ -877,22 +902,22 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_SNAPPED_LARGE_SPRUCE)
+			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_LARGE_SPRUCE)
-			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			.add(Biomes.TAIGA)
+			.add(Biomes.SNOWY_TAIGA);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_SPRUCE_SNOWY)
-			.add(Biomes.SNOWY_TAIGA)
-			.add(Biomes.GROVE)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			.add(Biomes.GROVE);
 
-		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_LARGE_SPRUCE_SNOWY)
-			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_LARGE_SPRUCE_SNOWY);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK)
 			.add(Biomes.FOREST)

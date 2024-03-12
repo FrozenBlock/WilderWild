@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.world.impl.treedecorators.MossCarpetTreeDecora
 import net.frozenblock.wilderwild.world.impl.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.world.impl.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.impl.trunk.BaobabTrunkPlacer;
+import net.frozenblock.wilderwild.world.impl.trunk.FallenLargeTrunk;
 import net.frozenblock.wilderwild.world.impl.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.impl.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.world.impl.trunk.JuniperTrunkPlacer;
@@ -165,6 +166,8 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_SPRUCE = register("short_mega_dying_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_SPRUCE = register("snapped_spruce_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DECORATED_LARGE_FALLEN_SPRUCE_TREE = register("decorated_large_fallen_spruce_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> CLEAN_LARGE_FALLEN_SPRUCE_TREE = register("clean_large_snapped_spruce_tree");
 	//BAOBAB
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB = register("baobab");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB_TALL = register("baobab_tall");
@@ -191,6 +194,7 @@ public final class WilderTreeConfigured {
 	//JUNGLE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_JUNGLE_TREE = register("fallen_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_JUNGLE = register("snapped_jungle_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_JUNGLE_TREE = register("large_fallen_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_JUNGLE = register("large_snapped_jungle_tree");
 	//ACACIA
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_ACACIA_TREE = register("fallen_acacia_tree");
@@ -1125,6 +1129,32 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		DECORATED_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
+			largeFallenBuilder(
+				Blocks.SPRUCE_LOG,
+				Blocks.SPRUCE_LEAVES,
+				5,
+				2,
+				2
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_SPRUCE_PALM,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		CLEAN_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
+			largeFallenBuilder(
+				Blocks.SPRUCE_LOG,
+				Blocks.SPRUCE_LEAVES,
+				5,
+				2,
+				2
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		// BAOBAB
 
 		BAOBAB.makeAndSetHolder(Feature.TREE,
@@ -1429,6 +1459,16 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		LARGE_FALLEN_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
+			largeFallenBuilder(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 5, 2, 2).decorators(
+				List.of(
+					VINES_08_UNDER_260_075,
+					MOSS_JUNGLE,
+					SHELF_FUNGUS_007
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(
 				Blocks.JUNGLE_LOG,
@@ -1660,5 +1700,12 @@ public final class WilderTreeConfigured {
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
 		return fallenTrunkBuilder(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG, Blocks.MANGROVE_LEAVES, 4, 2, 1, 0.0F, ConstantInt.of(1), 0.1F).ignoreVines();
+	}
+
+	@Contract("_, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeFallenBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenLargeTrunk(baseHeight, firstRHeight, secondRHeight, 0.8F),
+			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
+			new TwoLayersFeatureSize(1, 0, 1));
 	}
 }

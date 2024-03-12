@@ -128,6 +128,8 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruces_on_snow");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_CHECKED = register("large_snapped_spruce_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED = register("large_snapped_spruces_on_snow");
+	public static final FrozenPlacedFeature DECORATED_LARGE_FALLEN_SPRUCE_CHECKED = register("decorated_large_fallen_spruce_checked");
+	public static final FrozenPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE_CHECKED = register("clean_large_fallen_spruce_checked");
 	//BAOBAB
 	public static final FrozenPlacedFeature BAOBAB = register("baobab");
 	public static final FrozenPlacedFeature BAOBAB_TALL = register("baobab_tall");
@@ -166,6 +168,7 @@ public final class WilderTreePlaced {
 	//JUNGLE
 	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = register("fallen_jungle_checked");
 	public static final FrozenPlacedFeature SNAPPED_JUNGLE_CHECKED = register("snapped_jungle_checked");
+	public static final FrozenPlacedFeature LARGE_FALLEN_JUNGLE_CHECKED = register("large_fallen_jungle_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_JUNGLE_CHECKED = register("large_snapped_jungle_checked");
 	//ACACIA
 	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
@@ -507,12 +510,20 @@ public final class WilderTreePlaced {
 			SNOW_TREE_FILTER_DECORATOR
 		);
 
-		LARGE_SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
+		LARGE_SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_SPRUCE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
 		);
 
 		LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_SPRUCE.getHolder(),
 			SNOW_TREE_FILTER_DECORATOR
+		);
+
+		DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.DECORATED_LARGE_FALLEN_SPRUCE_TREE.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.CLEAN_LARGE_FALLEN_SPRUCE_TREE.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// BAOBAB
@@ -609,6 +620,10 @@ public final class WilderTreePlaced {
 
 		SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_JUNGLE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
+		);
+
+		LARGE_FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_FALLEN_JUNGLE_TREE.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		LARGE_SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_JUNGLE.getHolder(),

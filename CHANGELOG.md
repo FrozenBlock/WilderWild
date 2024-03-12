@@ -75,7 +75,7 @@ Additions
 
 Bug Fixes, Changes, & Other Additions
 ---
-- Updated the mod protocol version to 4.
+- Updated the mod protocol version to 5.
 - Removed the Coated Sculk item model.
 
 - Gave Magma a new set of sounds.
@@ -91,6 +91,17 @@ Bug Fixes, Changes, & Other Additions
 - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 - Refactored multiple paths in the `world` package.
+- Fixed some Snapped Large Spruce Trees not generating as intended, instead being skinny.
+- Added Large Fallen Trees.
+  - Added Fallen Large Jungle Trees.
+    - Added the `wilderwild:has_fallen_large_jungle` to control what biomes these will generate in.
+    - Added the `wilderwild:has_common_fallen_large_jungle` to control what biomes these will commonly generate in.
+  - Added Fallen Large Spruce Trees.
+    - Added the `wilderwild:has_fallen_large_spruce` to control what biomes these will generate in.
+    - Added the `wilderwild:has_common_fallen_large_spruce` to control what biomes these will commonly generate in.
+    - Added the `wilderwild:has_clean_fallen_large_spruce` to control what biomes these will generate in, without decoration.
+    - Added the `wilderwild:has_common_clean_fallen_large_spruce` to control what biomes these will commonly generate in, without decoration
+- Added some Spruce Tree features to biomes they were missing from.
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.

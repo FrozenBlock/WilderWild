@@ -87,6 +87,8 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE = register("fallen_spruce");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CLEAN_FALLEN_SPRUCE = register("clean_fallen_spruce");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_OAK_SWAMP = register("fallen_oak_swamp");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DECORATED_LARGE_FALLEN_SPRUCE = register("decorated_large_fallen_spruce");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CLEAN_LARGE_FALLEN_SPRUCE = register("clean_large_fallen_spruce");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK = register("fallen_spruce_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_OAK = register("fallen_birch_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_CYPRESS_AND_OAK = register("fallen_cypress_and_oak");
@@ -1133,6 +1135,20 @@ public final class WilderConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(WilderTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder(), 1.0F)),
 				WilderTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder()
+			)
+		);
+
+		DECORATED_LARGE_FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WilderTreePlaced.DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
+				WilderTreePlaced.DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.getHolder()
+			)
+		);
+
+		CLEAN_LARGE_FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WilderTreePlaced.CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
+				WilderTreePlaced.CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.getHolder()
 			)
 		);
 

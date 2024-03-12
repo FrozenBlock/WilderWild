@@ -1,7 +1,5 @@
 {
   "values": [
-    "minecraft:snowy_taiga",
-    "minecraft:grove",
     {
       "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false

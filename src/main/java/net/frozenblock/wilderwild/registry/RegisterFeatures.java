@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.world.impl.features.config.SnowAndIceDiskFeatu
 import net.frozenblock.wilderwild.world.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.trunk.BaobabTrunkPlacer;
+import net.frozenblock.wilderwild.world.impl.trunk.FallenLargeTrunk;
 import net.frozenblock.wilderwild.world.impl.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.impl.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.world.impl.trunk.JuniperTrunkPlacer;
@@ -59,8 +60,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterFeatures {
-	public static final TrunkPlacerType<StraightTrunkWithBranches> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithBranches.CODEC);
-	public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
+	public static final TrunkPlacerType<StraightTrunkWithBranches> STRAIGHT_TRUNK_WITH_LOGS_PLACER = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithBranches.CODEC);
+	public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
+	public static final TrunkPlacerType<FallenLargeTrunk> FALLEN_LARGE_TRUNK_PLACER = registerTrunk("fallen_large_trunk_placer", FallenLargeTrunk.CODEC);
 	public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<JuniperTrunkPlacer> JUNIPER_TRUNK_PLACER = registerTrunk("juniper_trunk_placer", JuniperTrunkPlacer.CODEC);

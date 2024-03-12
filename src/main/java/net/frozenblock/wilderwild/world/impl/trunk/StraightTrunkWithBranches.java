@@ -66,7 +66,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE;
+		return RegisterFeatures.STRAIGHT_TRUNK_WITH_LOGS_PLACER;
 	}
 
 	@Override

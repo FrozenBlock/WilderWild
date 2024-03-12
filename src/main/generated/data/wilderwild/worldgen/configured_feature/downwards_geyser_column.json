@@ -18,7 +18,8 @@
         "facing": "down",
         "geyser_stage": "dormant",
         "geyser_type": "none",
-        "natural": "true"
+        "natural": "true",
+        "powered": "false"
       }
     }
   }

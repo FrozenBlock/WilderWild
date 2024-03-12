@@ -78,7 +78,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE;
+		return RegisterFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER;
 	}
 
 	@Override

@@ -1,0 +1,17 @@
+{
+  "feature": "wilderwild:clean_large_snapped_spruce_tree",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "offset": [
+          0,
+          -1,
+          0
+        ],
+        "tag": "wilderwild:fallen_tree_placeable"
+      }
+    }
+  ]
+}
