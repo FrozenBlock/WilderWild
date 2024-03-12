@@ -143,8 +143,9 @@ Bug Fixes, Changes, & Other Additions
 ### Splash Texts
 - Removed "Made from maple!"
 - Removed "May or may not contain minuscule amounts of Merp"
+- - Removed "A slime named "Merp""
 - Removed "your looks like sweat bread"
-- Removed "A slime named "Merp""
+- Removed "sweat bread heaheaheh"
 - Added "IT BURNS!!!11!!1!"
 - Added "Scorched Legs!"
 - Added "Spiders in the lava!"
