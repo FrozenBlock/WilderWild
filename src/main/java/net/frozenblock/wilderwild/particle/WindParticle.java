@@ -74,7 +74,7 @@ public class WindParticle extends TextureSheetParticle {
 		double multXZ = 0.007D;
 		double multY = 0.0015D * 0.695;
 		Vec3 pos = new Vec3(this.x, this.y, this.z);
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().getParticleWindIntensity());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += wind.y() * multY;
 		this.zd += wind.z() * multXZ;
