@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.DripParticle;
@@ -74,7 +74,7 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (this.wilderWild$usesWind()) {
-			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
+			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D).scale(AmbienceAndMiscConfig.get().getParticleWindIntensity());
 			this.xd += wind.x * 0.001D;
 			this.yd += wind.y * 0.00005D;
 			this.zd += wind.z * 0.001D;

@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -74,7 +74,7 @@ public class WindParticle extends TextureSheetParticle {
 		double multXZ = 0.007D;
 		double multY = 0.0015D * 0.695;
 		Vec3 pos = new Vec3(this.x, this.y, this.z);
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += wind.y() * multY;
 		this.zd += wind.z() * multXZ;

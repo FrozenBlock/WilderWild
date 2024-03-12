@@ -69,6 +69,9 @@ Additions
 - Breezes are immune to Ancient Horn Vibrations.
 - Tumbleweed will pass through Breezes.
   - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
+- Wind particles will now occasionally spawn throughout the world.
+  - Particles caused by natural Wind can be disabled with the new `Wind Particles` config option in the `Ambience & Misc.` tab.
+  - Particles caused by Wind Disturbances like Breezes and Wind Charges can be disabled with the new `Wind Disturbance Particles` config option in the `Ambience & Misc.` tab.
 
 Bug Fixes, Changes, & Other Additions
 ---
@@ -113,6 +116,8 @@ Bug Fixes, Changes, & Other Additions
 - Added a new `Spawn Crabs` config option to control whether Crabs can spawn naturally.
   - The minimum value for `Crab Spawn Cap` has been changed to 1 as `Spawn Crabs` makes 0 redundant.
 - Added `block_palm_fronds` to the Mixins config.
+- Renamed the `Misc` config tab to `Ambience & Misc.`
+- Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
 

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.generation;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -39,43 +39,43 @@ public final class WilderMusic {
 		/** MUSIC */
 		BiomeModifications.create(WilderSharedConstants.id("modify_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_old_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.OLD_GROWTH_BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_flower_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.FLOWER_FOREST),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_mixed_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.MIXED_FOREST),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_birch_taiga_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.BIRCH_TAIGA),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_old_growth_birch_taiga_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_semi_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.SEMI_BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
@@ -84,13 +84,13 @@ public final class WilderMusic {
 		// Deep Dark
 		BiomeModifications.create(WilderSharedConstants.id("modify_deep_dark_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeAmbience.deepDarkAmbience) {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.deepDarkAmbience) {
 					modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_DEEP_DARK_LOOP);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_deep_dark_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeAmbience.deepDarkAmbience) {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.deepDarkAmbience) {
 					modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_DEEP_DARK_ADDITIONS, 0.005D));
 				}
 			});
@@ -98,13 +98,13 @@ public final class WilderMusic {
 		// Dripstone Caves
 		BiomeModifications.create(WilderSharedConstants.id("modify_dripstone_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.DRIPSTONE_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeAmbience.dripstoneCavesAmbience) {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.dripstoneCavesAmbience) {
 					modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_DRIPSTONE_CAVES_LOOP);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_dripstone_caves_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.DRIPSTONE_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeAmbience.dripstoneCavesAmbience) {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.dripstoneCavesAmbience) {
 					modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_DRIPSTONE_CAVES_ADDITIONS, 0.01D));
 				}
 			});
@@ -112,13 +112,13 @@ public final class WilderMusic {
 		// Lush Caves
 		BiomeModifications.create(WilderSharedConstants.id("modify_lush_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.LUSH_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeAmbience.lushCavesAmbience) {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.lushCavesAmbience) {
 					modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_LUSH_CAVES_LOOP);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_lush_caves_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.LUSH_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (MiscConfig.get().biomeAmbience.lushCavesAmbience) {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.lushCavesAmbience) {
 					modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_LUSH_CAVES_ADDITIONS, 0.01D));
 				}
 			});

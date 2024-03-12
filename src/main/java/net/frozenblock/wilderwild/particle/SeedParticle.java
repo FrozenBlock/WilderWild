@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -62,7 +62,7 @@ public class SeedParticle extends TextureSheetParticle {
 		}
 		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
 		double multY = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1D) * multY;
 		this.zd += wind.z() * multXZ;

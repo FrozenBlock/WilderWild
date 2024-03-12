@@ -52,7 +52,7 @@ public final class BlockConfigGui {
 		var modifiedSnowlogging = modifiedConfig.snowlogging;
 		var fire = config.fire;
 		var modifiedFire = modifiedConfig.fire;
-		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
+		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)

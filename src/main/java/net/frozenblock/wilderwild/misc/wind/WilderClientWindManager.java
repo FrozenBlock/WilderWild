@@ -23,6 +23,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 import net.frozenblock.lib.wind.api.ClientWindManagerExtension;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -83,9 +84,13 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
-		for (int i = 0; i < 250; i++) {
-			this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+		if (AmbienceAndMiscConfig.get().windParticles) {
+			this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+		}
+		if (AmbienceAndMiscConfig.get().windDisturbanceParticles) {
+			for (int i = 0; i < 250; i++) {
+				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+			}
 		}
 	}
 

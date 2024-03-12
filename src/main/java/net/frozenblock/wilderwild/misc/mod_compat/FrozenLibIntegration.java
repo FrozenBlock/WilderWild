@@ -45,7 +45,7 @@ import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.wind.CloudWindManager;
@@ -277,7 +277,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
-			if (MiscConfig.get().modifyAdvancements) {
+			if (AmbienceAndMiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/adventuring_time" -> {
 						addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS, registries);

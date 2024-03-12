@@ -28,12 +28,12 @@ import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
-public final class MiscConfig {
+public final class AmbienceAndMiscConfig {
 
-	public static final Config<MiscConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<AmbienceAndMiscConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
-			MiscConfig.class,
+			AmbienceAndMiscConfig.class,
 			configPath("misc", true),
 			JsonType.JSON5,
 			null,
@@ -47,6 +47,12 @@ public final class MiscConfig {
 	@EntrySyncData(value = "cloudMovement", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean cloudMovement = true;
 
+	@EntrySyncData(value = "windParticles", behavior = SyncBehavior.UNSYNCABLE)
+	public boolean windParticles = true;
+
+	@EntrySyncData(value = "windDisturbanceParticles", behavior = SyncBehavior.UNSYNCABLE)
+	public boolean windDisturbanceParticles = true;
+
 	@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
 	public int particleWindMovement = 100;
 
@@ -59,17 +65,17 @@ public final class MiscConfig {
 	@CollapsibleObject
 	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
 
-	public static MiscConfig get() {
+	public static AmbienceAndMiscConfig get() {
 		return get(false);
 	}
 
-	public static MiscConfig get(boolean real) {
+	public static AmbienceAndMiscConfig get(boolean real) {
 		if (real)
 			return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 
-	public static MiscConfig getWithSync() {
+	public static AmbienceAndMiscConfig getWithSync() {
 		return INSTANCE.configWithSync();
 	}
 

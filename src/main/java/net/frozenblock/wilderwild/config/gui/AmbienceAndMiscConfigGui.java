@@ -24,27 +24,27 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public final class MiscConfigGui {
-	private MiscConfigGui() {
-		throw new UnsupportedOperationException("MiscConfigGui contains only static declarations.");
+public final class AmbienceAndMiscConfigGui {
+	private AmbienceAndMiscConfigGui() {
+		throw new UnsupportedOperationException("AmbienceAndMiscConfigGui contains only static declarations.");
 	}
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
-		var config = MiscConfig.get(true);
-		var modifiedConfig = MiscConfig.getWithSync();
-		Class<? extends MiscConfig> clazz = config.getClass();
-		Config<? extends MiscConfig> configInstance = MiscConfig.INSTANCE;
-		var defaultConfig = MiscConfig.INSTANCE.defaultInstance();
+		var config = AmbienceAndMiscConfig.get(true);
+		var modifiedConfig = AmbienceAndMiscConfig.getWithSync();
+		Class<? extends AmbienceAndMiscConfig> clazz = config.getClass();
+		Config<? extends AmbienceAndMiscConfig> configInstance = AmbienceAndMiscConfig.INSTANCE;
+		var defaultConfig = AmbienceAndMiscConfig.INSTANCE.defaultInstance();
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
-		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
+		category.setBackground(WilderSharedConstants.id("textures/config/ambience_and_misc.png"));
 
 		var modifyAdvancements = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -63,6 +63,20 @@ public final class MiscConfigGui {
 			.setDefaultValue(defaultConfig.cloudMovement)
 			.setSaveConsumer(newValue -> config.cloudMovement = newValue)
 			.setTooltip(tooltip("cloud_movement"))
+			.build()
+		);
+
+		var windParticles = category.addEntry(entryBuilder.startBooleanToggle(text("wind_particles"), config.windParticles)
+			.setDefaultValue(defaultConfig.windParticles)
+			.setSaveConsumer(newValue -> config.windParticles = newValue)
+			.setTooltip(tooltip("wind_particles"))
+			.build()
+		);
+
+		var windDisturbanceParticles = category.addEntry(entryBuilder.startBooleanToggle(text("wind_disturbance_particles"), config.windDisturbanceParticles)
+			.setDefaultValue(defaultConfig.windDisturbanceParticles)
+			.setSaveConsumer(newValue -> config.windDisturbanceParticles = newValue)
+			.setTooltip(tooltip("wind_disturbance_particles"))
 			.build()
 		);
 

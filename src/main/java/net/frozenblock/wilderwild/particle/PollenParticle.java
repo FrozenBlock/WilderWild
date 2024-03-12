@@ -23,7 +23,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -101,7 +101,7 @@ public class PollenParticle extends TextureSheetParticle {
 			if (!rain) {
 				double multXZ = (onGround ? 0.00025D : 0.0035D) * this.windIntensity;
 				double multY = (onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().getParticleWindIntensity());
 				this.xd += wind.x() * multXZ;
 				this.yd += (wind.y() + 0.1D) * multY;
 				this.zd += wind.z() * multXZ;

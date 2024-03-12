@@ -62,7 +62,7 @@ public final class EntityConfigGui {
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
 		var modifiedWarden = modifiedConfig.warden;
-		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
+		category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
 
 		var unpassableRail = category.addEntry(
 			FrozenClothConfig.syncedEntry(

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
@@ -46,7 +46,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D).scale(AmbienceAndMiscConfig.get().getParticleWindIntensity());
 		this.wilderWild$movementWithWindX = this.xd + wind.x * 0.00075D;
 		this.wilderWild$movementWithWindY = (this.yd - this.gravity) + wind.y * 0.00001D;
 		this.wilderWild$movementWithWindZ = this.zd + wind.z * 0.00075D;
