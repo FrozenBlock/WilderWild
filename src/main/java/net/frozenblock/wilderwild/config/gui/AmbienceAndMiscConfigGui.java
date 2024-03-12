@@ -45,6 +45,9 @@ public final class AmbienceAndMiscConfigGui {
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
 		var waterColors = config.waterColors;
+		var wind = config.wind;
+		var modifiedWind = modifiedConfig.wind;
+		Class<? extends AmbienceAndMiscConfig.Wind> windClazz = wind.getClass();
 		category.setBackground(WilderSharedConstants.id("textures/config/ambience_and_misc.png"));
 
 		var modifyAdvancements = category.addEntry(
@@ -60,45 +63,58 @@ public final class AmbienceAndMiscConfigGui {
 			)
 		);
 
-		var cloudMovement = category.addEntry(entryBuilder.startBooleanToggle(text("cloud_movement"), config.cloudMovement)
-			.setDefaultValue(defaultConfig.cloudMovement)
-			.setSaveConsumer(newValue -> config.cloudMovement = newValue)
+		var cloudMovement = entryBuilder.startBooleanToggle(text("cloud_movement"), wind.cloudMovement)
+			.setDefaultValue(defaultConfig.wind.cloudMovement)
+			.setSaveConsumer(newValue -> wind.cloudMovement = newValue)
 			.setTooltip(tooltip("cloud_movement"))
-			.build()
-		);
+			.build();
 
-		var windParticles = category.addEntry(entryBuilder.startBooleanToggle(text("wind_particles"), config.windParticles)
-			.setDefaultValue(defaultConfig.windParticles)
-			.setSaveConsumer(newValue -> config.windParticles = newValue)
+		var windParticles = entryBuilder.startBooleanToggle(text("wind_particles"), wind.windParticles)
+			.setDefaultValue(defaultConfig.wind.windParticles)
+			.setSaveConsumer(newValue -> wind.windParticles = newValue)
 			.setTooltip(tooltip("wind_particles"))
-			.build()
-		);
+			.build();
 
-		var windDisturbanceParticles = category.addEntry(entryBuilder.startBooleanToggle(text("wind_disturbance_particles"), config.windDisturbanceParticles)
-			.setDefaultValue(defaultConfig.windDisturbanceParticles)
-			.setSaveConsumer(newValue -> config.windDisturbanceParticles = newValue)
+		var windParticleFrequency = entryBuilder.startIntSlider(text("wind_particle_frequency"), wind.windParticleFrequency, 1, 100)
+			.setDefaultValue(defaultConfig.wind.windParticleFrequency)
+			.setSaveConsumer(newValue -> wind.windParticleFrequency = newValue)
+			.setTooltip(tooltip("wind_particle_frequency"))
+			.build();
+
+		var windDisturbanceParticles = entryBuilder.startBooleanToggle(text("wind_disturbance_particles"), wind.windDisturbanceParticles)
+			.setDefaultValue(defaultConfig.wind.windDisturbanceParticles)
+			.setSaveConsumer(newValue -> wind.windDisturbanceParticles = newValue)
 			.setTooltip(tooltip("wind_disturbance_particles"))
-			.build()
-		);
+			.build();
 
-		var particleWindMovement = category.addEntry(entryBuilder.startIntSlider(text("particle_wind_movement"), config.particleWindMovement, 0, 500)
-			.setDefaultValue(defaultConfig.particleWindMovement)
-			.setSaveConsumer(newValue -> config.particleWindMovement = newValue)
+		var windDisturbanceParticleFrequency = entryBuilder.startIntSlider(text("wind_disturbance_particle_frequency"), wind.windDisturbanceParticleFrequency, 1, 100)
+			.setDefaultValue(defaultConfig.wind.windDisturbanceParticleFrequency)
+			.setSaveConsumer(newValue -> wind.windDisturbanceParticleFrequency = newValue)
+			.setTooltip(tooltip("wind_disturbance_particle_frequency"))
+			.build();
+
+		var particleWindMovement = entryBuilder.startIntSlider(text("particle_wind_movement"), wind.particleWindMovement, 0, 500)
+			.setDefaultValue(defaultConfig.wind.particleWindMovement)
+			.setSaveConsumer(newValue -> wind.particleWindMovement = newValue)
 			.setTooltip(tooltip("particle_wind_movement"))
-			.build()
+			.build();
+
+		var fireworkWindMovement = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("firework_wind_movement"), modifiedWind.fireworkWindMovement, 0, 500)
+				.setDefaultValue(defaultConfig.wind.fireworkWindMovement)
+				.setSaveConsumer(newValue -> wind.fireworkWindMovement = newValue)
+				.setTooltip(tooltip("firework_wind_movement"))
+				.build(),
+			windClazz,
+			"fireworkWindMovement",
+			configInstance
 		);
 
-		var fireworkWindMovement = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startIntSlider(text("firework_wind_movement"), modifiedConfig.fireworkWindMovement, 0, 500)
-					.setDefaultValue(defaultConfig.fireworkWindMovement)
-					.setSaveConsumer(newValue -> config.fireworkWindMovement = newValue)
-					.setTooltip(tooltip("firework_wind_movement"))
-					.build(),
-				clazz,
-				"fireworkWindMovement",
-				configInstance
-			)
+		var windCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("wind"),
+			false,
+			tooltip("wind"),
+			cloudMovement, windParticles, windParticleFrequency, windDisturbanceParticles, windDisturbanceParticleFrequency,
+			particleWindMovement, fireworkWindMovement
 		);
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)
@@ -135,6 +151,7 @@ public final class AmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("hot_water"))
 			.requireRestart()
 			.build();
+
 		var lukewarmBiomes = entryBuilder.startBooleanToggle(text("lukewarm_water"), waterColors.modifyLukewarmWater)
 			.setDefaultValue(defaultConfig.waterColors.modifyLukewarmWater)
 			.setSaveConsumer(newValue -> waterColors.modifyLukewarmWater = newValue)
@@ -142,6 +159,7 @@ public final class AmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("lukewarm_water"))
 			.requireRestart()
 			.build();
+
 		var snowyBiomes = entryBuilder.startBooleanToggle(text("snowy_water"), waterColors.modifySnowyWater)
 			.setDefaultValue(defaultConfig.waterColors.modifySnowyWater)
 			.setSaveConsumer(newValue -> waterColors.modifySnowyWater = newValue)
@@ -149,6 +167,7 @@ public final class AmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("snowy_water"))
 			.requireRestart()
 			.build();
+
 		var frozenBiomes = entryBuilder.startBooleanToggle(text("frozen_water"), waterColors.modifyFrozenWater)
 			.setDefaultValue(defaultConfig.waterColors.modifyFrozenWater)
 			.setSaveConsumer(newValue -> waterColors.modifyFrozenWater = newValue)

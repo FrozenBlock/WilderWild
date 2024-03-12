@@ -35,7 +35,7 @@ public class DesertDustParticleMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
+		return AmbienceAndMiscConfig.get().wind.cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"), require = 0)

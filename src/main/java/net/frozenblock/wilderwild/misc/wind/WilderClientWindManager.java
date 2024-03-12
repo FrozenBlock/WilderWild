@@ -84,10 +84,10 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		if (AmbienceAndMiscConfig.get().windParticles) {
+		if (AmbienceAndMiscConfig.get().wind.windParticles) {
 			this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
 		}
-		if (AmbienceAndMiscConfig.get().windDisturbanceParticles) {
+		if (AmbienceAndMiscConfig.get().wind.windDisturbanceParticles) {
 			for (int i = 0; i < 250; i++) {
 				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
 			}
@@ -119,7 +119,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 
 		Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 2D, 2D);
 		double horizontalWind = wind.horizontalDistance();
-		if (random.nextDouble() < (horizontalWind * 0.5D)) {
+		if (random.nextDouble() < (horizontalWind * AmbienceAndMiscConfig.get().wind.getWindParticleFrequency())) {
 			level.addParticle(
 				new WindParticleOptions((int) (10D + (horizontalWind * 30D)), wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
 				i,
@@ -142,7 +142,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		if (!blockState.isCollisionShapeFullBlock(level, blockPos)) {
 			Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
 			double windLength = wind.length();
-			if (random.nextDouble() < ((wind.length() - 0.001D) * 0.9D)) {
+			if (random.nextDouble() < ((wind.length() - 0.001D) * AmbienceAndMiscConfig.get().wind.getWindDisturbanceParticleFrequency())) {
 				level.addParticle(
 					new WindParticleOptions((int) (10D + (windLength * 30D)), wind.x * 0.01D, wind.y * 0.003D, wind.z * 0.01D),
 					i,

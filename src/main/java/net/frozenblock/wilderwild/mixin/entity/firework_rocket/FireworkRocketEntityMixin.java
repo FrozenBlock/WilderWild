@@ -53,8 +53,7 @@ public class FireworkRocketEntityMixin {
 		if (FireworkRocketEntity.class.cast(this).level() instanceof ServerLevel level) {
 			double intensity = (Math.max(1, (double) (this.lifetime - this.life)) / Math.max(1, this.lifetime)) * 0.5D;
 			Vec3 wind = WindManager.getWindManager(level).getWindMovement(BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
-				.scale(AmbienceAndMiscConfig.get().getParticleWindIntensity())
-				.scale(AmbienceAndMiscConfig.get().getFireworkWindIntensity());
+				.scale(AmbienceAndMiscConfig.get().wind.getFireworkWindIntensity());
 			vec3 = vec3.add(wind.x() * 0.001D, wind.y() * 0.00005D, wind.z() * 0.001D);
 		}
 		operation.call(instance, vec3);

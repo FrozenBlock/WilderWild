@@ -44,23 +44,10 @@ public final class AmbienceAndMiscConfig {
 	@CollapsibleObject
 	public final WaterColors waterColors = new WaterColors();
 
+	@CollapsibleObject
+	public final Wind wind = new Wind();
 	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
-
-	@EntrySyncData(value = "cloudMovement", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean cloudMovement = true;
-
-	@EntrySyncData(value = "windParticles", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean windParticles = true;
-
-	@EntrySyncData(value = "windDisturbanceParticles", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean windDisturbanceParticles = true;
-
-	@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
-	public int particleWindMovement = 100;
-
-	@EntrySyncData("fireworkWindMovement")
-	public int fireworkWindMovement = 100;
 
 	@CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
@@ -80,14 +67,6 @@ public final class AmbienceAndMiscConfig {
 
 	public static AmbienceAndMiscConfig getWithSync() {
 		return INSTANCE.configWithSync();
-	}
-
-	public double getParticleWindIntensity() {
-		return ((double) this.particleWindMovement) * 0.01;
-	}
-
-	public double getFireworkWindIntensity() {
-		return ((double) this.fireworkWindMovement) * 0.01;
 	}
 
 	public static class BiomeAmbienceConfig {
@@ -118,5 +97,44 @@ public final class AmbienceAndMiscConfig {
 
 		@EntrySyncData(value = "modifyFrozenWater", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean modifyFrozenWater = true;
+	}
+
+	public static class Wind {
+		@EntrySyncData(value = "cloudMovement", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean cloudMovement = true;
+
+		@EntrySyncData(value = "windParticles", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean windParticles = true;
+
+		@EntrySyncData(value = "windParticleFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int windParticleFrequency = 50;
+
+		@EntrySyncData(value = "windDisturbanceParticles", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean windDisturbanceParticles = true;
+
+		@EntrySyncData(value = "windDisturbanceParticleFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int windDisturbanceParticleFrequency = 90;
+
+		@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
+		public int particleWindMovement = 100;
+
+		@EntrySyncData("fireworkWindMovement")
+		public int fireworkWindMovement = 100;
+
+		public double getWindParticleFrequency() {
+			return ((double) this.windParticleFrequency) * 0.01D;
+		}
+
+		public double getWindDisturbanceParticleFrequency() {
+			return ((double) this.windDisturbanceParticleFrequency) * 0.01D;
+		}
+
+		public double getParticleWindIntensity() {
+			return ((double) this.particleWindMovement) * 0.01D;
+		}
+
+		public double getFireworkWindIntensity() {
+			return ((double) this.fireworkWindMovement) * 0.01D;
+		}
 	}
 }
