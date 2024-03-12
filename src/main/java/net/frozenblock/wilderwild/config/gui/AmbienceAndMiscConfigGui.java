@@ -75,7 +75,7 @@ public final class AmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("wind_particles"))
 			.build();
 
-		var windParticleFrequency = entryBuilder.startIntSlider(text("wind_particle_frequency"), wind.windParticleFrequency, 1, 100)
+		var windParticleFrequency = entryBuilder.startIntSlider(text("wind_particle_frequency"), wind.windParticleFrequency, 1, 500)
 			.setDefaultValue(defaultConfig.wind.windParticleFrequency)
 			.setSaveConsumer(newValue -> wind.windParticleFrequency = newValue)
 			.setTooltip(tooltip("wind_particle_frequency"))
@@ -87,7 +87,7 @@ public final class AmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("wind_disturbance_particles"))
 			.build();
 
-		var windDisturbanceParticleFrequency = entryBuilder.startIntSlider(text("wind_disturbance_particle_frequency"), wind.windDisturbanceParticleFrequency, 1, 100)
+		var windDisturbanceParticleFrequency = entryBuilder.startIntSlider(text("wind_disturbance_particle_frequency"), wind.windDisturbanceParticleFrequency, 1, 500)
 			.setDefaultValue(defaultConfig.wind.windDisturbanceParticleFrequency)
 			.setSaveConsumer(newValue -> wind.windDisturbanceParticleFrequency = newValue)
 			.setTooltip(tooltip("wind_disturbance_particle_frequency"))
