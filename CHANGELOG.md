@@ -146,7 +146,6 @@ Bug Fixes, Changes, & Other Additions
 - Removed "Made from maple!"
 - Removed "May or may not contain minuscule amounts of Merp"
 - Removed "A slime named "Merp""
-- Removed "your looks like sweat bread"
 - Removed "sweat bread heaheaheh"
 - Added "Goodbye to troubled days!"
 - Added "Avoids manipulation!"
