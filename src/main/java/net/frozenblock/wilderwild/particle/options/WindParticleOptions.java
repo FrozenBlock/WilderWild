@@ -33,6 +33,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class WindParticleOptions implements ParticleOptions {
@@ -59,7 +60,9 @@ public class WindParticleOptions implements ParticleOptions {
         }
     };
 
-	public static Vec3 readVec3(StringReader reader) throws CommandSyntaxException {
+	@NotNull
+	@Contract("_ -> new")
+	public static Vec3 readVec3(@NotNull StringReader reader) throws CommandSyntaxException {
 		reader.expect(' ');
 		double f = reader.readDouble();
 		reader.expect(' ');

@@ -20,11 +20,18 @@ package net.frozenblock.wilderwild.misc.wind;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.wind.api.ClientWindManager;
 import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 import net.frozenblock.lib.wind.api.ClientWindManagerExtension;
+import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -63,6 +70,56 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		cloudX += (laggedWindX * 0.007);
 		cloudY += (laggedWindY * 0.01);
 		cloudZ += (laggedWindZ * 0.007);
+
+		Minecraft minecraft = Minecraft.getInstance();
+		ClientLevel level = minecraft.level;
+		if (level != null) {
+			BlockPos pos = minecraft.gameRenderer.getMainCamera().getBlockPosition();
+			this.animateTick(level, pos.getX(), pos.getY(), pos.getZ());
+		}
+	}
+
+	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
+		RandomSource randomSource = level.random;
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		this.spawnAmbientWindParticles(level, posX, posY, posZ, 64, randomSource, mutableBlockPos);
+	}
+
+	public void spawnAmbientWindParticles(@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos) {
+		int highestPossibleY = posY + range;
+		int i = posX + random.nextIntBetweenInclusive(-range, range);
+		int j = posY;
+		int k = posZ + random.nextIntBetweenInclusive(-range, range);
+		blockPos.set(i, j, k);
+
+		blockPos.set(level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos));
+		int heightmapY = blockPos.getY();
+		if (heightmapY > highestPossibleY) {
+			return;
+		} else if (heightmapY < posY - range) {
+			j += random.nextInt(range) - random.nextInt(range);
+		} else {
+			double differenceInPoses = highestPossibleY - heightmapY;
+			if (random.nextDouble() < (differenceInPoses / (range * 2D))) {
+				j = random.nextIntBetweenInclusive(heightmapY, highestPossibleY);
+			} else {
+				return;
+			}
+		}
+		blockPos.set(i, j, k);
+
+		Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 2D, 2D);
+		if (random.nextDouble() < (wind.horizontalDistance() * 0.5D)) {
+			level.addParticle(
+				new WindParticleOptions(20, wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
+				i,
+				j,
+				k,
+				0D,
+				0D,
+				0D
+			);
+		}
 	}
 
 	@Override

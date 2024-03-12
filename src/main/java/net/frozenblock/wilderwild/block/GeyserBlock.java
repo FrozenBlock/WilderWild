@@ -59,6 +59,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = RegisterProperties.GEYSER_STAGE;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty NATURAL = RegisterProperties.NATURAL;
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
 	public GeyserBlock(@NotNull Properties settings) {
@@ -68,6 +69,7 @@ public class GeyserBlock extends BaseEntityBlock {
 			.setValue(GEYSER_STAGE, GeyserStage.DORMANT)
 			.setValue(FACING, Direction.UP)
 			.setValue(NATURAL, true)
+			.setValue(POWERED, false)
 		);
 	}
 
@@ -85,7 +87,7 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(GEYSER_TYPE, GEYSER_STAGE, FACING, NATURAL);
+		builder.add(GEYSER_TYPE, GEYSER_STAGE, FACING, NATURAL, POWERED);
 	}
 
 	@Override
@@ -106,11 +108,16 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	protected void neighborChanged(BlockState blockState, @NotNull Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean movedByPiston) {
 		if (!level.isClientSide) {
-			boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
-			if (erupting != level.hasNeighborSignal(blockPos) && !isInactive(blockState.getValue(GEYSER_TYPE))) {
-				if (!erupting) {
-					level.setBlock(blockPos, blockState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING), Block.UPDATE_CLIENTS);
+			boolean hasNeighborSignal = level.hasNeighborSignal(blockPos);
+			if (hasNeighborSignal != blockState.getValue(POWERED)) {
+				BlockState newState = blockState.setValue(POWERED, hasNeighborSignal);
+				if (hasNeighborSignal) {
+					boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
+					if (!erupting && !isInactive(blockState.getValue(GEYSER_TYPE))) {
+						newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
+                    }
 				}
+				level.setBlock(blockPos, newState, UPDATE_ALL);
 			}
 		}
 	}
@@ -205,7 +212,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		return new Vec3(x, y, z);
 	}
 
-	@Nullable
+	@NotNull
 	public static Vec3 getVelocityFromDistance(BlockPos pos, Direction direction, @NotNull Vec3 vec3, @NotNull RandomSource random, double max) {
 		return vec3.subtract(getParticlePosWithoutRandom(pos, direction, random)).scale(random.nextDouble() * max);
 	}
