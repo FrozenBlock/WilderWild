@@ -141,6 +141,7 @@ Bug Fixes, Changes, & Other Additions
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
+- (Hopefully) added Embeddium compatability.
 
 ### Splash Texts
 - Removed "Made from maple!"
