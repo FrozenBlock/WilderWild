@@ -46,8 +46,8 @@ public class CloudRendererMixin {
 	}
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2, require = 0)
-	private double wilderWild$modifyY(
-		double original, @Nullable ClientLevel world, LocalPlayer player, Matrix4f matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ,
+	private float wilderWild$modifyY(
+		float original, @Nullable ClientLevel world, LocalPlayer player, Matrix4f matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		@Share("wilderWild$useWind")LocalBooleanRef useWind
 	) {
 		useWind.set(wilderWild$useWind());
