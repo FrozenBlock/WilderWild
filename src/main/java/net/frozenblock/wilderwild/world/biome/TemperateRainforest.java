@@ -158,7 +158,7 @@ public class TemperateRainforest extends FrozenBiome {
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
 		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 4, 4));
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 2, 4));
 	}
 
 	@Override

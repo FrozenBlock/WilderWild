@@ -158,7 +158,7 @@ public class SemiBirchForest extends FrozenBiome {
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.farmAnimals(spawns);
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 2, 2));
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4));
 	}
 
 	@Override
