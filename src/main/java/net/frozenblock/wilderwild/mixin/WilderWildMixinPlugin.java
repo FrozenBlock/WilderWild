@@ -46,10 +46,13 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		MixinsConfig config = MixinsConfig.get();
-		boolean disableNonSodium = FabricLoader.getInstance().isModLoaded("embeddium") || FrozenBools.HAS_SODIUM;
+		boolean hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
+		boolean disableNonSodium = hasEmbeddium || FrozenBools.HAS_SODIUM;
 		boolean enableSodium = FrozenBools.HAS_SODIUM && FabricLoader.getInstance().getModContainer("sodium").orElseThrow().getMetadata().getVersion().getFriendlyString().contains("0.5.");
 		if (mixinClassName.contains("client.sodium")) {
-			return config.client_sodium && enableSodium;
+			return config.client_sodium && enableSodium && !hasEmbeddium;
+		} else if (mixinClassName.contains("client.embeddium")) {
+			return config.client_sodium && hasEmbeddium;
 		}
 		if (mixinClassName.contains("client.allay")) return config.client_allay;
 		if (mixinClassName.contains("client.brush")) return config.client_brush;
