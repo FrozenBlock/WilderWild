@@ -105,7 +105,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		int k = posZ + random.nextIntBetweenInclusive(-range, range);
 		blockPos.set(i, j, k);
 
-		blockPos.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_OR_FLUID_NO_LEAVES, blockPos));
+		blockPos.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_NO_LEAVES_SYNCED, blockPos));
 		int heightmapY = blockPos.getY();
 		if (heightmapY > highestPossibleY) {
 			return;
