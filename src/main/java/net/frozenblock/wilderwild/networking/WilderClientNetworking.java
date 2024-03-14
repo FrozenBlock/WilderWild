@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.networking;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
@@ -40,7 +39,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -53,10 +51,6 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class WilderClientNetworking {
 
-	private static PayloadTypeRegistry<RegistryFriendlyByteBuf> registry() {
-		return PayloadTypeRegistry.playS2C();
-	}
-
 	public static void registerPacketReceivers() {
 		receiveWindExtensionSyncPacket();
 		receiveSensorHiccupPacket();
@@ -65,7 +59,6 @@ public class WilderClientNetworking {
 	}
 
 	public static void receiveWindExtensionSyncPacket() {
-		registry().register(WilderWindPacket.PACKET_TYPE, WilderWindPacket.CODEC);
 		ClientPlayNetworking.registerGlobalReceiver(WilderWindPacket.PACKET_TYPE, (packet, ctx) -> {
 			Vec3 cloudPos = packet.cloudPos();
 			WilderClientWindManager.cloudX = cloudPos.x();
@@ -75,7 +68,6 @@ public class WilderClientNetworking {
 	}
 
 	public static void receiveSensorHiccupPacket() {
-		registry().register(WilderSensorHiccupPacket.PACKET_TYPE, WilderSensorHiccupPacket.CODEC);
 		ClientPlayNetworking.registerGlobalReceiver(WilderSensorHiccupPacket.PACKET_TYPE, (packet, ctx) -> {
 			ClientLevel clientLevel = ctx.client().level;
 			clientLevel.addParticle(
@@ -91,7 +83,6 @@ public class WilderClientNetworking {
 	}
 
 	public static void receiveJellyfishStingPacket() {
-		registry().register(WilderJellyfishStingPacket.PACKET_TYPE, WilderJellyfishStingPacket.CODEC);
 		ClientPlayNetworking.registerGlobalReceiver(WilderJellyfishStingPacket.PACKET_TYPE, (packet, ctx) -> {
 			Player player = Minecraft.getInstance().player;
 			ClientLevel clientLevel = ctx.client().level;
@@ -109,7 +100,6 @@ public class WilderClientNetworking {
 	}
 
 	public static void receiveLightningStrikePacket() {
-		registry().register(WilderLightningStrikePacket.PACKET_TYPE, WilderLightningStrikePacket.CODEC);
 		ClientPlayNetworking.registerGlobalReceiver(WilderLightningStrikePacket.PACKET_TYPE, (packet, ctx) -> {
 			BlockState blockState = Block.stateById(packet.blockStateId());
 			Minecraft minecraft = Minecraft.getInstance();
