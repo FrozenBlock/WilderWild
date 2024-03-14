@@ -37,6 +37,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -78,13 +79,13 @@ public class WilderClientNetworking {
 		ClientPlayNetworking.registerGlobalReceiver(WilderSensorHiccupPacket.PACKET_TYPE, (packet, ctx) -> {
 			ClientLevel clientLevel = ctx.client().level;
 			clientLevel.addParticle(
-				ParticleTypes.ENTITY_EFFECT,
+				ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, WilderSensorHiccupPacket.PARTICLE_COLOR),
 				packet.x(),
 				packet.y(),
 				packet.z(),
-				WilderSensorHiccupPacket.COLOR_X,
-				WilderSensorHiccupPacket.COLOR_Y,
-				WilderSensorHiccupPacket.COLOR_Z
+				1D,
+				1D,
+				1D
 			);
 		});
 	}

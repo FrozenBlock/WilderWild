@@ -23,16 +23,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
-import net.minecraft.advancements.critereon.EnchantmentPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -175,11 +171,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.apply(
 							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).copy(RegisterDataComponents.FIREFLIES)
 								.when(
-									MatchTool.toolMatches(
-										ItemPredicate.Builder.item().hasEnchantment(
-											new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.ANY)
-										)
-									)
+									BlockLootSubProvider.HAS_SILK_TOUCH
 								)
 						)
 				)
