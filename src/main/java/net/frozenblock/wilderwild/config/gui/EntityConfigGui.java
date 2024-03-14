@@ -311,7 +311,7 @@ public final class EntityConfigGui {
 				.setTooltip(tooltip("spawn_scorched"))
 				.build(),
 			scorched.getClass(),
-			"allowAttack",
+			"spawnScorched",
 			configInstance
 		);
 
