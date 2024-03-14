@@ -281,10 +281,12 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.RAINFOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.DYING_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.MIXED_FOREST, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.MIXED_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.PARCHED_FOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.BIRCH_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.DYING_MIXED_FOREST, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.DARK_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 
