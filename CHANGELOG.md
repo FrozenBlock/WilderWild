@@ -123,6 +123,8 @@ Bug Fixes, Changes, & Other Additions
 - Bushes now grow at the same rate as saplings.
 - Glory of the Snow now only drops one item upon being sheared.
 - Milkweed now grows a bit slower.
+- Using Bone Meal on Milkweed will now cause it to grow first, then drop additional flowers like other tall flowers afterwards.
+  - Before, Milkweed would use the tall flower functionality on its top half, and grow on the bottom half.
 - Prickly Pears can now be sheared with Dispensers.
 - Prickly Pears now grow nearly 4 times slower.
 - Shelf Fungus can now be sheared with Dispensers.

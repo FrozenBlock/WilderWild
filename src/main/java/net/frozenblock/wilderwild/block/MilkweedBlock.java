@@ -135,7 +135,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if (isLower(state) && !isFullyGrown(state)) {
+		if (!isFullyGrown(state)) {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1);
 			return;
 		}
