@@ -114,6 +114,7 @@ Bug Fixes, Changes, & Other Additions
 - The Warm River, Warm Beach, and Snowy Old Growth Pine Taiga will no longer have custom water colors without using the `Water Colors` config.
 - LudoCrypt's "Serene Sonder" and "Horizon Afoot" now plays in all Forest and Birch Forest biomes.
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
+- Bush generation can now be enabled/disabled in game after changing the config and rejoining a world, instead of needing to restart the game.
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.

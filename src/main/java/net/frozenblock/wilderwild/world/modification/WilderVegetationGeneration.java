@@ -18,11 +18,15 @@
 
 package net.frozenblock.wilderwild.world.modification;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderVegetationGeneration {
@@ -116,43 +120,62 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateBush() {
-		if (WorldgenConfig.get().bushGeneration) {
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
+		BiomeModifications.create(WilderSharedConstants.id("bush_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WorldgenConfig.get().bushGeneration) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_JUNGLE_BUSH),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.JUNGLE_BUSH_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SPARSE_BUSH),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.SPARSE_BUSH_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_JUNGLE_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.JUNGLE_BUSH_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BADLANDS_SAND_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_SPARSE_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPARSE_BUSH_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BADLANDS_TERRACOTTA_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_BADLANDS_SAND_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WOODED_BADLANDS_TERRACOTTA_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_BADLANDS_TERRACOTTA_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_RARE_SAND_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_WOODED_BADLANDS_TERRACOTTA_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DESERT_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DESERT_BUSH_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_RARE_SAND_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_OASIS_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_BUSH_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_DESERT_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DESERT_BUSH_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ARID_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_OASIS_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_BUSH_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FLOWER_FIELD_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_BUSH_PLACED.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_ARID_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED.getKey());
+						}
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RAINFOREST_BUSH),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DEAD_BUSH_AND_BUSH_PLACED.getKey());
-		}
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_FLOWER_FIELD_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_BUSH_PLACED.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_RAINFOREST_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
+						}
+					}
+			});
 	}
 
 	public static void generateCacti() {
