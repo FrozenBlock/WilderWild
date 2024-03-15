@@ -44,7 +44,7 @@ public final class WilderMusic {
 			BiomeSelectors.tag(ConventionalBiomeTags.BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_BIRCH_FORESTS));
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 
@@ -53,7 +53,7 @@ public final class WilderMusic {
 			BiomeSelectors.tag(ConventionalBiomeTags.FOREST),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_BIRCH_FORESTS));
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 
