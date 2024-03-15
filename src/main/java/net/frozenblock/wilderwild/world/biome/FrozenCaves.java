@@ -29,6 +29,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -59,7 +60,7 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 10601471;
 	public static final int WATER_FOG_COLOR = 8168948;
-	public static final int FOG_COLOR = 12638463;
+	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final FrozenCaves INSTANCE = new FrozenCaves();
 
@@ -124,8 +125,8 @@ public final class FrozenCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull Holder<SoundEvent> ambientLoopSound() {
-		return RegisterSounds.AMBIENT_FROZEN_CAVES_LOOP;
+	public @Nullable Holder<SoundEvent> ambientLoopSound() {
+		return null;
 	}
 
 	@Override
@@ -134,8 +135,8 @@ public final class FrozenCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull AmbientAdditionsSettings ambientAdditionsSound() {
-		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.003D);
+	public @Nullable AmbientAdditionsSettings ambientAdditionsSound() {
+		return null;
 	}
 
 	@Override

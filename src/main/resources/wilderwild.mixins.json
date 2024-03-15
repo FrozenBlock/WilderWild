@@ -153,8 +153,8 @@
     "client.wind.particlerain.DesertDustParticleMixin",
     "client.wind.particlerain.RainDropParticleMixin",
     "client.wind.particlerain.SnowFlakeParticleMixin",
-    "snowlogging.client.MultiPlayerGameModeMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
+    "snowlogging.client.MultiPlayerGameModeMixin",
     "snowlogging.client.TerrainRenderContextMixin"
   ],
   "injectors": {

@@ -54,7 +54,7 @@ public final class WarmRiver extends FrozenBiome {
 	public static final float DOWNFALL = 0.15F;
 	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
-	public static final int FOG_COLOR = 12638463;
+	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final int FOLIAGE_COLOR = 11445290;
 	public static final int GRASS_COLOR = 12564309;

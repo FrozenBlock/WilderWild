@@ -114,7 +114,7 @@ Bug Fixes, Changes, & Other Additions
 - The Warm River, Warm Beach, and Snowy Old Growth Pine Taiga will no longer have custom water colors without using the `Water Colors` config.
 - LudoCrypt's "Serene Sonder" and "Horizon Afoot" now plays in all Forest and Birch Forest biomes.
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
-- Bush generation can now be enabled/disabled in game after changing the config and rejoining a world, instead of needing to restart the game.
+- Nearly all custom generation can now be enabled/disabled in-game after changing the config and rejoining a world, instead of needing to restart the game.
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
@@ -150,6 +150,15 @@ Bug Fixes, Changes, & Other Additions
 - Added `block_palm_fronds` to the Mixins config.
 - Renamed the `Misc` config tab to `Ambience & Misc.`
 - Moved the `Water Colors` category from the `Worldgen` tab to the `Ambience & Misc` tab.
+- Added `Deep Dark Fog` to the `Biome Ambience` category in the `Ambience & Misc` tab.
+- Added `Frozen Caves Ambience` to the `Biome Ambience` category.
+- Added `Frozen Caves Fog` to the `Biome Ambience` category.
+- Added `Jellyfish Caves Ambience` to the `Biome Ambience` category.
+- Added `Jellyfish Caves Fog` to the `Biome Ambience` category.
+- Added `Magmatic Caves Ambience` to the `Biome Ambience` category.
+- Added `Magmatic Caves Fog` to the `Biome Ambience` category.
+- Added `Magmatic Caves Particles` to the `Biome Ambience` category.
+- Added `Badlands Foliage Color` to the new `Vegetation Colors` category in the `Ambience & Misc` tab.
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 
 - Added Embeddium compatability.
@@ -184,3 +193,5 @@ Bug Fixes, Changes, & Other Additions
 - Added "Use the config!"
 - Added "i need a jacket its cold"
 - Added "turn your ac up"
+- Added "Also try Configurable Everything!"
+- Added "Powered with tags!"

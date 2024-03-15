@@ -28,6 +28,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
@@ -59,7 +60,7 @@ public final class JellyfishCaves extends FrozenBiome {
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 9817343;
 	public static final int WATER_FOG_COLOR = 6069471;
-	public static final int FOG_COLOR = 0;
+	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0F);
 	public static final JellyfishCaves INSTANCE = new JellyfishCaves();
 
@@ -124,8 +125,8 @@ public final class JellyfishCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull Holder<SoundEvent> ambientLoopSound() {
-		return RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP;
+	public @Nullable Holder<SoundEvent> ambientLoopSound() {
+		return null;
 	}
 
 	@Override
@@ -134,8 +135,8 @@ public final class JellyfishCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull AmbientAdditionsSettings ambientAdditionsSound() {
-		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D);
+	public @Nullable AmbientAdditionsSettings ambientAdditionsSound() {
+		return null;
 	}
 
 	@Override

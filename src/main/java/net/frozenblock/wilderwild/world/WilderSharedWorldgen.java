@@ -35,7 +35,7 @@ public final class WilderSharedWorldgen {
 	private WilderSharedWorldgen() {
 		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
 	}
-
+	public static final int STOCK_FOG_COLOR = 12638463;
 	public static final int COLD_WATER_COLOR = 4020182;
 	public static final int COLD_WATER_FOG_COLOR = 329011;
 	public static final int STOCK_WATER_COLOR = 4159204;

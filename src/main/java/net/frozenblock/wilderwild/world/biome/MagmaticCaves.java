@@ -30,10 +30,10 @@ import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -63,7 +63,7 @@ public final class MagmaticCaves extends FrozenBiome {
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 4566514;
 	public static final int WATER_FOG_COLOR = 267827;
-	public static final int FOG_COLOR = 0;
+	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MagmaticCaves INSTANCE = new MagmaticCaves();
 
@@ -124,12 +124,12 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public @Nullable AmbientParticleSettings ambientParticleSettings() {
-		return new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.00123F);
+		return null;
 	}
 
 	@Override
-	public @NotNull Holder<SoundEvent> ambientLoopSound() {
-		return RegisterSounds.AMBIENT_MAGMATIC_CAVES_LOOP;
+	public @Nullable Holder<SoundEvent> ambientLoopSound() {
+		return null;
 	}
 
 	@Override
@@ -138,8 +138,8 @@ public final class MagmaticCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull AmbientAdditionsSettings ambientAdditionsSound() {
-		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS, 0.005D);
+	public @Nullable AmbientAdditionsSettings ambientAdditionsSound() {
+		return null;
 	}
 
 	@Override

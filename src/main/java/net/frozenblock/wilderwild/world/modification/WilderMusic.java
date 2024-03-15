@@ -26,6 +26,7 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -88,6 +89,39 @@ public final class WilderMusic {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
 					context.setAmbientSound(RegisterSounds.AMBIENT_LUSH_CAVES_LOOP);
 					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_LUSH_CAVES_ADDITIONS, 0.01D));
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_frozen_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.FROZEN_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.frozenCavesAmbience) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setAmbientSound(RegisterSounds.AMBIENT_FROZEN_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.003D));
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_jellyfish_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.JELLYFISH_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.jellyfishCavesAmbience) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setAmbientSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D));
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_magmatic_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesAmbience) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setAmbientSound(RegisterSounds.AMBIENT_MAGMATIC_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS, 0.005D));
 				}
 			});
 	}

@@ -8,11 +8,6 @@
   },
   "downfall": 0.4,
   "effects": {
-    "additions_sound": {
-      "sound": "wilderwild:ambient.frozen_caves.additions",
-      "tick_chance": 0.003
-    },
-    "ambient_sound": "wilderwild:ambient.frozen_caves.loop",
     "fog_color": 12638463,
     "mood_sound": {
       "block_search_extent": 8,

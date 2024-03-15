@@ -42,7 +42,7 @@ public final class AmbienceAndMiscConfig {
 	);
 
 	@CollapsibleObject
-	public final WaterColors waterColors = new WaterColors();
+	public final WaterColorConfig waterColors = new WaterColorConfig();
 
 	@CollapsibleObject
 	public final Wind wind = new Wind();
@@ -54,6 +54,9 @@ public final class AmbienceAndMiscConfig {
 
 	@CollapsibleObject
 	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
+
+	@CollapsibleObject
+	public VegetationColorConfig vegetationColors = new VegetationColorConfig();
 
 	public static AmbienceAndMiscConfig get() {
 		return get(false);
@@ -73,11 +76,35 @@ public final class AmbienceAndMiscConfig {
 		@EntrySyncData(value = "deepDarkAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean deepDarkAmbience = true;
 
+		@EntrySyncData(value = "deepDarkFog", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean deepDarkFog = true;
+
 		@EntrySyncData(value = "dripstoneCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean dripstoneCavesAmbience = true;
 
 		@EntrySyncData(value = "lushCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean lushCavesAmbience = true;
+
+		@EntrySyncData(value = "frozenCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean frozenCavesAmbience = true;
+
+		@EntrySyncData(value = "frozenCavesFog", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean frozenCavesFog = false;
+
+		@EntrySyncData(value = "jellyfishCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean jellyfishCavesAmbience = true;
+
+		@EntrySyncData(value = "jellyfishCavesFog", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean jellyfishCavesFog = true;
+
+		@EntrySyncData(value = "magmaticCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean magmaticCavesAmbience = true;
+
+		@EntrySyncData(value = "magmaticCavesFog", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean magmaticCavesFog = true;
+
+		@EntrySyncData(value = "magmaticCavesParticles", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean magmaticCavesParticles = true;
 	}
 
 	public static class BiomeMusicConfig {
@@ -85,7 +112,12 @@ public final class AmbienceAndMiscConfig {
 		public boolean wilderForestMusic = true;
 	}
 
-	public static class WaterColors {
+	public static class VegetationColorConfig {
+		@EntrySyncData(value = "badlandsFoliage", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean badlandsFoliage = true;
+	}
+
+	public static class WaterColorConfig {
 		@EntrySyncData(value = "modifyLukewarmWater", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean modifyLukewarmWater = true;
 

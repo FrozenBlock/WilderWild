@@ -18,25 +18,80 @@
 
 package net.frozenblock.wilderwild.world.modification;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biomes;
 
 public final class WilderBiomeSettings {
 
 	static void init() {
-		BiomeModifications.create(WilderSharedConstants.id("replace_deep_dark_fog")).add(
+		BiomeModifications.create(WilderSharedConstants.id("fog_deep_dark")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DEEP_DARK),
-			(modificationContext) -> modificationContext.getEffects().setFogColor(0));
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.deepDarkFog) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setFogColor(0);
+				}
+			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_badlands_foliage_color")).add(
+		BiomeModifications.create(WilderSharedConstants.id("fog_frozen_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.FROZEN_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.frozenCavesFog) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setFogColor(0);
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("fog_jellyfish_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.JELLYFISH_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.jellyfishCavesFog) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setFogColor(0);
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("fog_magmatic_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesFog) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setFogColor(0);
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("particles_magmatic_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesParticles) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setParticleConfig(new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.00123F));
+				}
+			});
+
+		BiomeModifications.create(WilderSharedConstants.id("foliage_color_badlands")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
-			(modificationContext) -> modificationContext.getEffects().setFoliageColor(11445290));
+			(selectionContext, modificationContext) -> {
+				if (AmbienceAndMiscConfig.get().vegetationColors.badlandsFoliage) {
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setFoliageColor(11445290);
+				}
+			});
 
 		WilderMusic.playMusic();
 		WilderWaterColors.stirWater();

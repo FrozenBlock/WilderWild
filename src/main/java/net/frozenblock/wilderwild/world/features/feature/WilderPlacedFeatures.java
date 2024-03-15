@@ -210,13 +210,13 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature LARGE_FERN_AND_GRASS_RARE = register("large_fern_and_grass_rare");
 	public static final FrozenPlacedFeature TALL_GRASS_AND_GRASS_WATER = register("tall_grass_and_grass_water");
 	public static final FrozenPlacedFeature FLOWER_FIELD_GRASS_PLACED = register("flower_field_grass_placed");
-	public static final FrozenPlacedFeature PATCH_TALL_GRASS_FF = register("patch_tall_grass_ff");
+	public static final FrozenPlacedFeature PATCH_TALL_GRASS_FLOWER_FIELD = register("patch_tall_grass_flower_field");
 	//FLOWERS
 	public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
 	public static final FrozenPlacedFeature COMMON_SEEDING_DANDELION = register("common_seeding_dandelion");
 	public static final FrozenPlacedFeature RARE_SEEDING_DANDELION = register("rare_seeding_dandelion");
 	public static final FrozenPlacedFeature CARNATION = register("carnation");
-	public static final FrozenPlacedFeature DATURA_BIRCH = register("datura_birch");
+	public static final FrozenPlacedFeature DATURA = register("datura");
 	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
 	public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
 	public static final FrozenPlacedFeature FLOWER_MEADOW = register("flower_meadow");
@@ -249,7 +249,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
 	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD_UNCOMMON = register("cattail_mud_uncommon");
 	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD_COMMON = register("cattail_mud_common");
-	public static final FrozenPlacedFeature PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily");
+	public static final FrozenPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
 	public static final FrozenPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
 	public static final FrozenPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
@@ -1091,7 +1091,7 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		PATCH_TALL_GRASS_FF.makeAndSetHolder(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_2.getHolder(),
+		PATCH_TALL_GRASS_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_2.getHolder(),
 			NoiseThresholdCountPlacement.of(-0.8, 0, 7), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
@@ -1118,7 +1118,7 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		DATURA_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.DATURA.getHolder(),
+		DATURA.makeAndSetHolder(WilderConfiguredFeatures.DATURA.getHolder(),
 			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
@@ -1287,7 +1287,7 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		PATCH_FLOWERED_WATERLILY.makeAndSetHolder(WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY.getHolder(),
+		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WilderConfiguredFeatures.PATCH_FLOWERING_WATERLILY.getHolder(),
 			CountPlacement.of(1), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);

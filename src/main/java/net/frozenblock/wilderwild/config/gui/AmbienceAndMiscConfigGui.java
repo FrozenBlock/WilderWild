@@ -45,6 +45,7 @@ public final class AmbienceAndMiscConfigGui {
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
 		var waterColors = config.waterColors;
+		var vegetationColors = config.vegetationColors;
 		var wind = config.wind;
 		var modifiedWind = modifiedConfig.wind;
 		Class<? extends AmbienceAndMiscConfig.Wind> windClazz = wind.getClass();
@@ -138,6 +139,13 @@ public final class AmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var deepDarkFog = entryBuilder.startBooleanToggle(text("deep_dark_fog"), biomeAmbience.deepDarkFog)
+			.setDefaultValue(defaultConfig.biomeAmbience.deepDarkFog)
+			.setSaveConsumer(newValue -> biomeAmbience.deepDarkFog = newValue)
+			.setTooltip(tooltip("deep_dark_fog"))
+			.requireRestart()
+			.build();
+
 		var dripstoneCavesAmbience = entryBuilder.startBooleanToggle(text("dripstone_caves_ambience"), biomeAmbience.dripstoneCavesAmbience)
 			.setDefaultValue(defaultConfig.biomeAmbience.dripstoneCavesAmbience)
 			.setSaveConsumer(newValue -> biomeAmbience.dripstoneCavesAmbience = newValue)
@@ -152,10 +160,64 @@ public final class AmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var frozenCavesAmbience = entryBuilder.startBooleanToggle(text("frozen_caves_ambience"), biomeAmbience.frozenCavesAmbience)
+			.setDefaultValue(defaultConfig.biomeAmbience.frozenCavesAmbience)
+			.setSaveConsumer(newValue -> biomeAmbience.frozenCavesAmbience = newValue)
+			.setTooltip(tooltip("frozen_caves_ambience"))
+			.requireRestart()
+			.build();
+
+		var frozenCavesFog = entryBuilder.startBooleanToggle(text("frozen_caves_fog"), biomeAmbience.frozenCavesFog)
+			.setDefaultValue(defaultConfig.biomeAmbience.frozenCavesFog)
+			.setSaveConsumer(newValue -> biomeAmbience.frozenCavesFog = newValue)
+			.setTooltip(tooltip("frozen_caves_fog"))
+			.requireRestart()
+			.build();
+
+		var jellyfishCavesAmbience = entryBuilder.startBooleanToggle(text("jellyfish_caves_ambience"), biomeAmbience.jellyfishCavesAmbience)
+			.setDefaultValue(defaultConfig.biomeAmbience.jellyfishCavesAmbience)
+			.setSaveConsumer(newValue -> biomeAmbience.jellyfishCavesAmbience = newValue)
+			.setTooltip(tooltip("fjellyfish_caves_ambience"))
+			.requireRestart()
+			.build();
+
+		var jellyfishCavesFog = entryBuilder.startBooleanToggle(text("jellyfish_caves_fog"), biomeAmbience.jellyfishCavesFog)
+			.setDefaultValue(defaultConfig.biomeAmbience.jellyfishCavesFog)
+			.setSaveConsumer(newValue -> biomeAmbience.jellyfishCavesFog = newValue)
+			.setTooltip(tooltip("jellyfish_caves_fog"))
+			.requireRestart()
+			.build();
+
+		var magmaticCavesAmbience = entryBuilder.startBooleanToggle(text("magmatic_caves_ambience"), biomeAmbience.magmaticCavesAmbience)
+			.setDefaultValue(defaultConfig.biomeAmbience.magmaticCavesAmbience)
+			.setSaveConsumer(newValue -> biomeAmbience.magmaticCavesAmbience = newValue)
+			.setTooltip(tooltip("magmatic_caves_ambience"))
+			.requireRestart()
+			.build();
+
+		var magmaticCavesFog = entryBuilder.startBooleanToggle(text("magmatic_caves_fog"), biomeAmbience.magmaticCavesFog)
+			.setDefaultValue(defaultConfig.biomeAmbience.magmaticCavesFog)
+			.setSaveConsumer(newValue -> biomeAmbience.magmaticCavesFog = newValue)
+			.setTooltip(tooltip("magmatic_caves_fog"))
+			.requireRestart()
+			.build();
+
+		var magmaticCavesParticles = entryBuilder.startBooleanToggle(text("magmatic_caves_particles"), biomeAmbience.magmaticCavesFog)
+			.setDefaultValue(defaultConfig.biomeAmbience.magmaticCavesParticles)
+			.setSaveConsumer(newValue -> biomeAmbience.magmaticCavesParticles = newValue)
+			.setTooltip(tooltip("magmatic_caves_particles"))
+			.requireRestart()
+			.build();
+
 		var biomeAmbienceCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_ambience"),
 			false,
 			tooltip("biome_ambience"),
-			deepDarkAmbience, dripstoneCavesAmbience, lushCavesAmbience
+			deepDarkAmbience, deepDarkFog,
+			dripstoneCavesAmbience,
+			lushCavesAmbience,
+			frozenCavesAmbience, frozenCavesFog,
+			jellyfishCavesAmbience, jellyfishCavesFog,
+			magmaticCavesAmbience, magmaticCavesFog, magmaticCavesParticles
 		);
 
 		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)
@@ -194,6 +256,20 @@ public final class AmbienceAndMiscConfigGui {
 			false,
 			tooltip("water_colors"),
 			hotBiomes, lukewarmBiomes, snowyBiomes, frozenBiomes
+		);
+
+		var badlandsFoliage = entryBuilder.startBooleanToggle(text("badlands_foliage"), vegetationColors.badlandsFoliage)
+			.setDefaultValue(defaultConfig.vegetationColors.badlandsFoliage)
+			.setSaveConsumer(newValue -> vegetationColors.badlandsFoliage = newValue)
+			.setYesNoTextSupplier(bool -> text("vegetation_colors." + bool))
+			.setTooltip(tooltip("badlands_foliage"))
+			.requireRestart()
+			.build();
+
+		var vegetationColorCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("vegetation_colors"),
+			false,
+			tooltip("vegetation_colors"),
+			badlandsFoliage
 		);
 
 		var wilderForestMusic = entryBuilder.startBooleanToggle(text("wilder_forest_music"), biomeMusic.wilderForestMusic)
