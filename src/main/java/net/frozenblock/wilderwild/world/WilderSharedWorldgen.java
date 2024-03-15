@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.impl;
+package net.frozenblock.wilderwild.world;
 
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
@@ -35,6 +35,13 @@ public final class WilderSharedWorldgen {
 	private WilderSharedWorldgen() {
 		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
 	}
+
+	public static final int COLD_WATER_COLOR = 4020182;
+	public static final int COLD_WATER_FOG_COLOR = 329011;
+	public static final int STOCK_WATER_COLOR = 4159204;
+	public static final int STOCK_WATER_FOG_COLOR = 329011;
+	public static final int WARM_WATER_COLOR = 4566514;
+	public static final int WARM_WATER_FOG_COLOR = 267827;
 
 	public static final class Swamp {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);

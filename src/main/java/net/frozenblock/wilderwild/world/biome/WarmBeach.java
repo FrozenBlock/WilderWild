@@ -22,6 +22,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -46,8 +47,8 @@ import org.jetbrains.annotations.Nullable;
 public final class WarmBeach extends FrozenBiome {
 	public static final float TEMP = 1.1F;
 	public static final float DOWNFALL = 0.6F;
-	public static final int WATER_COLOR = 4159204;
-	public static final int WATER_FOG_COLOR = 329011;
+	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
+	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = 12638463;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final WarmBeach INSTANCE = new WarmBeach();

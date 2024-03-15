@@ -111,6 +111,7 @@ Bug Fixes, Changes, & Other Additions
 - Refactored multiple paths in the `world` package.
 - Fixed some Snapped Large Spruce Trees not generating as intended, instead being skinny.
 - Added some Spruce Tree features to biomes they were missing from.
+- The Warm River, Warm Beach, and Snowy Old Growth Pine Taiga will no longer have custom water colors without using the `Water Colors` config.
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.

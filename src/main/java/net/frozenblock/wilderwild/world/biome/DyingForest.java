@@ -25,7 +25,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.impl.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -54,8 +54,8 @@ public class DyingForest extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.65F;
-	public static final int WATER_COLOR = 4159204;
-	public static final int WATER_FOG_COLOR = 329011;
+	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
+	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = 12638463;
 	public static final int GRASS_COLOR = 8955746;
 	public static final int FOLIAGE_COLOR = 7703076;

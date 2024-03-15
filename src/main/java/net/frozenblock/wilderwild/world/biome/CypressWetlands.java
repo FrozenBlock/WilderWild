@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.impl.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;

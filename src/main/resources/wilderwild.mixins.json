@@ -117,7 +117,6 @@
     "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
-    "block.echo_glass.client.MultiPlayerGameModeMixin",
     "client.allay.AllayModelMixin",
     "client.brush.LevelRendererMixin",
     "client.easter.ScottTheWozMixin",
