@@ -41,7 +41,10 @@ public class ServerPlayerGameModeMixin {
 			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public BlockState wilderWild$destroyBlockA(BlockState original, @Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState) {
+	public BlockState wilderWild$destroyBlockA(
+		BlockState original,
+		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+	) {
 		destroyedState.set(original);
 		return original;
 	}
@@ -52,7 +55,10 @@ public class ServerPlayerGameModeMixin {
 			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
 		)
 	)
-	public boolean wilderWild$destroyBlockB(ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original, @Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState) {
+	public boolean wilderWild$destroyBlockB(
+		ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original,
+		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+	) {
 		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
 			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
 			return true;

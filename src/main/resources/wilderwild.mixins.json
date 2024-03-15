@@ -117,6 +117,7 @@
     "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
+    "block.echo_glass.client.MultiPlayerGameModeMixin",
     "client.allay.AllayModelMixin",
     "client.brush.LevelRendererMixin",
     "client.easter.ScottTheWozMixin",
@@ -153,7 +154,7 @@
     "client.wind.particlerain.DesertDustParticleMixin",
     "client.wind.particlerain.RainDropParticleMixin",
     "client.wind.particlerain.SnowFlakeParticleMixin",
-    "snowlogging.MultiPlayerGameModeMixin",
+    "snowlogging.client.MultiPlayerGameModeMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
     "snowlogging.client.TerrainRenderContextMixin"
   ],
