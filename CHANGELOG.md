@@ -73,10 +73,23 @@ Additions
 - Wind particles will now occasionally spawn throughout the world.
   - Particles caused by natural Wind can be disabled with the new `Wind Particles` config option in the `Ambience & Misc.` tab.
     - Added the `Wind Particle Frequency` to control how frequently these will spawn.
-    - Added the `Wind Particle Spawn Attempts` to control how many times per tick a Wind particle will attempt to spawn.
+      - Added the `Wind Particle Spawn Attempts` to control how many times per tick a Wind particle will attempt to spawn.
   - Particles caused by Wind Disturbances like Breezes and Wind Charges can be disabled with the new `Wind Disturbance Particles` config option in the `Ambience & Misc.` tab.
     - Added the `Wind Disturbance Particle Frequency` to control how frequently these will spawn.
     - Added the `Wind Disturbance Particle Spawn Attempts` to control how many times per tick a Wind Disturbance particle will attempt to spawn.
+
+### Fallen large Trees
+- Added Fallen Large Jungle Trees.
+  - Added the `wilderwild:has_fallen_large_jungle` to control what biomes these will generate in.
+  - Added the `wilderwild:has_common_fallen_large_jungle` to control what biomes these will commonly generate in.
+- Added Fallen Large Spruce Trees.
+  - Added the `wilderwild:has_fallen_large_spruce` to control what biomes these will generate in.
+  - Added the `wilderwild:has_common_fallen_large_spruce` to control what biomes these will commonly generate in.
+  - Added the `wilderwild:has_clean_fallen_large_spruce` to control what biomes these will generate in, without decoration.
+  - Added the `wilderwild:has_common_clean_fallen_large_spruce` to control what biomes these will commonly generate in, without decoration
+- Added Fallen Dark Oak Trees.
+  - Added the `wilderwild:has_fallen_dark_oak` to control what biomes these will generate in.
+  - Added the `wilderwild:has_common_fallen_dark_oak` to control what biomes these will commonly generate in.
 
 Bug Fixes, Changes, & Other Additions
 ---
@@ -97,18 +110,6 @@ Bug Fixes, Changes, & Other Additions
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
 - Refactored multiple paths in the `world` package.
 - Fixed some Snapped Large Spruce Trees not generating as intended, instead being skinny.
-- Added Large Fallen Trees.
-  - Added Fallen Large Jungle Trees.
-    - Added the `wilderwild:has_fallen_large_jungle` to control what biomes these will generate in.
-    - Added the `wilderwild:has_common_fallen_large_jungle` to control what biomes these will commonly generate in.
-  - Added Fallen Large Spruce Trees.
-    - Added the `wilderwild:has_fallen_large_spruce` to control what biomes these will generate in.
-    - Added the `wilderwild:has_common_fallen_large_spruce` to control what biomes these will commonly generate in.
-    - Added the `wilderwild:has_clean_fallen_large_spruce` to control what biomes these will generate in, without decoration.
-    - Added the `wilderwild:has_common_clean_fallen_large_spruce` to control what biomes these will commonly generate in, without decoration
-  - Added Fallen Dark Oak Trees.
-    - Added the `wilderwild:has_fallen_dark_oak` to control what biomes these will generate in.
-    - Added the `wilderwild:has_common_fallen_dark_oak` to control what biomes these will commonly generate in.
 - Added some Spruce Tree features to biomes they were missing from.
 
 - Removed particle textures from the Blocks atlas.
