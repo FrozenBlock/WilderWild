@@ -61,7 +61,8 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
 	public static final int MAX_AGE = 3;
 	public static final int AGE_FOR_SOLID_COLLISION = 2;
-	public static final int SNAP_CHANCE = 4;
+	public static final int RANDOM_TICK_CHANCE = 2;
+	public static final int SNAP_CHANCE = 3;
 	public static final int REPRODUCTION_CHANCE_PEACEFUL = 20;
 	public static final int REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY = 15;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -88,22 +89,24 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (isFullyGrown(state)) {
-			if (random.nextInt(SNAP_CHANCE) == 0) {
-				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				level.addFreshEntity(weed);
-				weed.setPos(Vec3.atBottomCenterOf(pos));
-				int diff = level.getDifficulty().getId();
-				if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
-					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+		if (random.nextInt(RANDOM_TICK_CHANCE) == 0) {
+			if (isFullyGrown(state)) {
+				if (random.nextInt(SNAP_CHANCE) == 0) {
+					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
+					Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+					level.addFreshEntity(weed);
+					weed.setPos(Vec3.atBottomCenterOf(pos));
+					int diff = level.getDifficulty().getId();
+					if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
+						weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+					}
+					level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
+					level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+					level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 				}
-				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+			} else {
+				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 			}
-		} else {
-			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		}
 	}
 

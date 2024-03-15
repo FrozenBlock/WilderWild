@@ -31,6 +31,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -61,7 +62,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class WilderBushBlock extends BushBlock implements BonemealableBlock {
-	public static final int GROWTH_CHANCE = 5;
+	public static final int GROWTH_CHANCE = 7;
 	public static final float ALMOST_FULLY_GROWN_GROWTH_CHANCE = 0.75F;
 	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
 	public static final float ALMOST_FULLY_GROWN_BONEMEAL_SUCCESS_CHANCE = 0.45F;
@@ -168,7 +169,15 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (stack.is(Items.SHEARS) && !isMinimumAge(state)) {
+		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
+			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+	}
+
+	public boolean shear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+		if (!isMinimumAge(state)) {
 			if (!level.isClientSide) {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 				if (isFullyGrown(state)) {
@@ -176,13 +185,13 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 					level.addFreshEntity(itemEntity);
 				}
 				state = this.setAgeOnBothHalves(state, level, pos, state.getValue(AGE) - 1, true);
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-				level.gameEvent(player, GameEvent.SHEAR, pos);
+				level.gameEvent(entity, GameEvent.SHEAR, pos);
 				this.removeTopHalfIfYoung(state, level, pos);
 			}
-			return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			return true;
+		} else {
+			return false;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	@Override

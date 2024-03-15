@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.client.embeddium;
 
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.render.immediate.CloudRenderer;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;

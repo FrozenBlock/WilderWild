@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
+import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
@@ -49,7 +50,8 @@ public class ShearsDispenseItemBehaviorMixin {
 			wilderWild$tryShearShelfFungus(usedLevel, pos) ||
 			wilderWild$tryShearSmallSponge(usedLevel, pos) ||
 			wilderWild$tryShearTumbleweed(usedLevel, pos) ||
-			wilderWild$tryShearTumbleweedStem(usedLevel, pos);
+			wilderWild$tryShearTumbleweedStem(usedLevel, pos) ||
+			wilderWild$tryShearBush(usedLevel, pos);
 	}
 
 	@Unique
@@ -114,6 +116,15 @@ public class ShearsDispenseItemBehaviorMixin {
 		BlockState blockState = level.getBlockState(pos);
 		if (blockState.getBlock() == RegisterBlocks.TUMBLEWEED_PLANT) {
 			return TumbleweedPlantBlock.shear(level, pos, blockState, null);
+		}
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearBush(@NotNull ServerLevel level, BlockPos pos) {
+		BlockState blockState = level.getBlockState(pos);
+		if (blockState.getBlock() instanceof WilderBushBlock bushBlock) {
+			return bushBlock.shear(level, pos, blockState, null);
 		}
 		return false;
 	}

@@ -58,7 +58,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
-	public static final int GROWTH_CHANCE = 3;
+	public static final int GROWTH_CHANCE = 10;
 	public static final Vec3 ENTITY_SLOWDOWN = new Vec3(0.8D, 0.75D, 0.8D);
 	public static final float DAMAGE = 0.5F;
 	public static final float USE_ON_DAMAGE = 1F;
@@ -89,8 +89,8 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0) {
-			level.setBlockAndUpdate(pos, state.cycle(AGE));
+		if (level.getRawBrightness(pos, 0) >= 9 && !isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0) {
+			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		}
 	}
 

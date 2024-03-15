@@ -118,11 +118,16 @@ Bug Fixes, Changes, & Other Additions
 - Retextured all Baobab Nut textures thanks to Zhen!
 - Retextured all Glory of the Snow textures thanks to Zhen!
 - Retextured all Milkweed block textures thanks to Zhen!
+- Bushes can now be sheared with Dispensers.
+- Bushes now grow at the same rate as saplings.
 - Glory of the Snow now only drops one item upon being sheared.
+- Milkweed now grows a bit slower.
 - Prickly Pears can now be sheared with Dispensers.
+- Prickly Pears now grow nearly 4 times slower.
 - Shelf Fungus can now be sheared with Dispensers.
 - Small Sponges can now be sheared with Dispensers.
 - Tumbleweed and Tumbleweed Stems can now be sheared with Dispensers.
+- Tumbleweed Stems now grow a bit slower.
 - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
 - Pollen and Seed particles are now visible while on the ground.
 

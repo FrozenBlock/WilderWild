@@ -48,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class MilkweedBlock extends TallFlowerBlock {
-	public static final float GROWTH_CHANCE = 0.83F;
+	public static final int GROWTH_CHANCE = 5;
 	public static final double SEED_SPAWN_HEIGHT = 0.3D;
 	public static final int MIN_SEEDS_ON_RUSTLE = 14;
 	public static final int MAX_SEEDS_ON_RUSTLE = 28;
@@ -98,7 +98,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > GROWTH_CHANCE && isLower(state) && !isFullyGrown(state)) {
+		if (random.nextInt(GROWTH_CHANCE) == 0 && isLower(state) && !isFullyGrown(state)) {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1);
 		}
 	}
