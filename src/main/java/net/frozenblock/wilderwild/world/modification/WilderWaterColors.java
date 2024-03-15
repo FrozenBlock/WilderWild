@@ -31,9 +31,10 @@ public final class WilderWaterColors {
 	}
 
 	public static void stirWater() {
-		WilderSharedConstants.logWithModId("Overriding Water Colors for Wilder Wild", true);
+		WilderSharedConstants.logWithModId("Overriding Water Colors for", true);
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_hot_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.HOT_WATER),
+		BiomeModifications.create(WilderSharedConstants.id("modify_hot_water")).add(
+			ModificationPhase.POST_PROCESSING, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.HOT_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifyHotWater) {
 					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.WARM_WATER_COLOR);
@@ -41,7 +42,8 @@ public final class WilderWaterColors {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_lukewarm_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.LUKEWARM_WATER),
+		BiomeModifications.create(WilderSharedConstants.id("modify_lukewarm_water")).add(
+			ModificationPhase.POST_PROCESSING, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.LUKEWARM_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifyLukewarmWater) {
 					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.WARM_WATER_COLOR);
@@ -49,7 +51,8 @@ public final class WilderWaterColors {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_snowy_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.SNOWY_WATER),
+		BiomeModifications.create(WilderSharedConstants.id("modify_snowy_water")).add(
+			ModificationPhase.POST_PROCESSING, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.SNOWY_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifySnowyWater) {
 					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.COLD_WATER_COLOR);
@@ -57,7 +60,8 @@ public final class WilderWaterColors {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_frozen_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.FROZEN_WATER),
+		BiomeModifications.create(WilderSharedConstants.id("modify_frozen_water")).add(
+			ModificationPhase.POST_PROCESSING, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.FROZEN_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifyFrozenWater) {
 					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.COLD_WATER_COLOR);
