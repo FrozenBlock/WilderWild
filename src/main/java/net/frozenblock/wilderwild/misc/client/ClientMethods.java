@@ -226,7 +226,7 @@ public class ClientMethods {
 				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.6D, 0.8D);
 				particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
 				particleEngine.createParticle(
-					new WindParticleOptions(15, particleVelocity),
+					new WindParticleOptions(12, particleVelocity),
 					particlePos.x,
 					particlePos.y,
 					particlePos.z,
