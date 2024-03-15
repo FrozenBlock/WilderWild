@@ -30,7 +30,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -285,7 +284,11 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean bl) {
 		super.spawnAfterBreak(state, level, pos, stack, bl);
-		this.tryDropExperience(level, pos, stack, ConstantInt.of(1));
+		if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendrilBlockEntity) {
+			if (hangingTendrilBlockEntity.getStoredXP() > 0) {
+				this.popExperience(level, pos, hangingTendrilBlockEntity.getStoredXP());
+			}
+		}
 	}
 
 	@Override
