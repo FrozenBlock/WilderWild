@@ -32,6 +32,7 @@ import me.jellysquid.mods.sodium.client.render.chunk.terrain.material.DefaultMat
 import me.jellysquid.mods.sodium.client.render.chunk.terrain.material.Material;
 import me.jellysquid.mods.sodium.client.util.DirectionUtil;
 import me.jellysquid.mods.sodium.client.world.WorldSlice;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -130,7 +131,8 @@ public abstract class FluidRendererMixin {
 		} else {
 			float minU = sprite.getU0();
 			float maxU = sprite.getU1();
-			ColorProvider<FluidState> colorProvider = this.getColorProvider(Fluids.LAVA);
+			FluidRenderHandler handler = getFluidRenderHandler(fluidState);
+			ColorProvider<FluidState> colorProvider = this.getColorProvider(Fluids.LAVA, handler);
 			boolean rendered = false;
 			float fluidHeight = this.fluidHeight(world, fluid, pos, Direction.UP);
 			float northWestHeight;
@@ -406,7 +408,10 @@ public abstract class FluidRendererMixin {
 	protected abstract float fluidHeight(BlockAndTintGetter world, Fluid fluid, BlockPos blockPos, Direction direction);
 
 	@Shadow
-	private ColorProvider<FluidState> getColorProvider(Fluid fluid) {
+	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
+
+	@Shadow
+	private static FluidRenderHandler getFluidRenderHandler(FluidState fluidState) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild FluidRendererMixin.");
 	}
 }
