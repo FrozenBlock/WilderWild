@@ -56,8 +56,20 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		super(properties);
 	}
 
-	@Inject(method = "attemptPlaceSculk", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Direction;getOpposite()Lnet/minecraft/core/Direction;", opcode = 0, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void wilderWild$attemptPlaceSculk(SculkSpreader sculkBehavior, LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info, BlockState blockState, TagKey<Block> replaceableBlocks, Iterator<Direction> var7, Direction direction, BlockPos blockPos, BlockState blockState2, BlockState blockState3) {
+	@Inject(
+		method = "attemptPlaceSculk",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/core/Direction;getOpposite()Lnet/minecraft/core/Direction;",
+			opcode = 0,
+			shift = At.Shift.AFTER
+		),
+		locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	private void wilderWild$attemptPlaceSculk(
+		SculkSpreader sculkBehavior, LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info,
+		BlockState blockState, TagKey<Block> replaceableBlocks, Iterator<Direction> var7, Direction direction, BlockPos blockPos, BlockState blockState2, BlockState blockState3
+	) {
 		boolean canReturn = false;
 		if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
 			blockState3 = RegisterBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
@@ -78,7 +90,14 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		}
 	}
 
-	@WrapOperation(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
+	@WrapOperation(
+		method = "onDischarged",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			ordinal = 1
+		)
+	)
 	private boolean wilderWild$onDischarged(BlockState state, Block block, Operation<Boolean> operation) {
 		return state.is(RegisterBlocks.SCULK_SLAB) || state.is(RegisterBlocks.SCULK_STAIRS) || state.is(RegisterBlocks.SCULK_WALL) || operation.call(state, block);
 	}
