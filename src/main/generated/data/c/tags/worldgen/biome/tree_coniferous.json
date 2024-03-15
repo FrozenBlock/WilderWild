@@ -1,6 +1,10 @@
 {
   "values": [
     {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
       "id": "wilderwild:mixed_forest",
       "required": false
     },
@@ -10,10 +14,6 @@
     },
     {
       "id": "wilderwild:old_growth_birch_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false
     },
     {
@@ -30,6 +30,10 @@
     },
     {
       "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false
     }
   ]

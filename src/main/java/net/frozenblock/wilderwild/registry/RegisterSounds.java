@@ -339,7 +339,7 @@ public final class RegisterSounds {
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
-	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_BIRCH_FORESTS = registerForHolder("music.overworld.wild_birch_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");

@@ -27,6 +27,10 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:jellyfish_caves",
+      "required": false
     }
   ]
 }

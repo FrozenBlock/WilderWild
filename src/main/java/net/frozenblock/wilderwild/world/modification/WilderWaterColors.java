@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.world.modification;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -39,8 +40,9 @@ public final class WilderWaterColors {
 			BiomeSelectors.tag(WilderBiomeTags.HOT_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifyHotWater) {
-					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.WARM_WATER_COLOR);
-					modificationContext.getEffects().setWaterFogColor(WilderSharedWorldgen.WARM_WATER_FOG_COLOR);
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setWaterColor(WilderSharedWorldgen.WARM_WATER_COLOR);
+					context.setWaterFogColor(WilderSharedWorldgen.WARM_WATER_FOG_COLOR);
 				}
 			});
 
@@ -49,8 +51,9 @@ public final class WilderWaterColors {
 			BiomeSelectors.tag(WilderBiomeTags.LUKEWARM_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifyLukewarmWater) {
-					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.WARM_WATER_COLOR);
-					modificationContext.getEffects().setWaterFogColor(WilderSharedWorldgen.WARM_WATER_FOG_COLOR);
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setWaterColor(WilderSharedWorldgen.WARM_WATER_COLOR);
+					context.setWaterFogColor(WilderSharedWorldgen.WARM_WATER_FOG_COLOR);
 				}
 			});
 
@@ -59,8 +62,9 @@ public final class WilderWaterColors {
 			BiomeSelectors.tag(WilderBiomeTags.SNOWY_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifySnowyWater) {
-					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.COLD_WATER_COLOR);
-					modificationContext.getEffects().setWaterFogColor(WilderSharedWorldgen.COLD_WATER_FOG_COLOR);
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setWaterColor(WilderSharedWorldgen.COLD_WATER_COLOR);
+					context.setWaterFogColor(WilderSharedWorldgen.COLD_WATER_FOG_COLOR);
 				}
 			});
 
@@ -69,8 +73,9 @@ public final class WilderWaterColors {
 			BiomeSelectors.tag(WilderBiomeTags.FROZEN_WATER),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().waterColors.modifyFrozenWater) {
-					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.COLD_WATER_COLOR);
-					modificationContext.getEffects().setWaterFogColor(WilderSharedWorldgen.COLD_WATER_FOG_COLOR);
+					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
+					context.setWaterColor(WilderSharedWorldgen.COLD_WATER_COLOR);
+					context.setWaterFogColor(WilderSharedWorldgen.COLD_WATER_FOG_COLOR);
 				}
 			});
 	}

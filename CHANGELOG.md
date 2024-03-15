@@ -112,6 +112,8 @@ Bug Fixes, Changes, & Other Additions
 - Fixed some Snapped Large Spruce Trees not generating as intended, instead being skinny.
 - Added some Spruce Tree features to biomes they were missing from.
 - The Warm River, Warm Beach, and Snowy Old Growth Pine Taiga will no longer have custom water colors without using the `Water Colors` config.
+- LudoCrypt's "Serene Sonder" and "Horizon Afoot" now plays in all Forest and Birch Forest biomes.
+- Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
@@ -149,8 +151,9 @@ Bug Fixes, Changes, & Other Additions
 - Moved the `Water Colors` category from the `Worldgen` tab to the `Ambience & Misc` tab.
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 
+- Added Embeddium compatability.
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
-- (Hopefully) added Embeddium compatability.
+- More internal cleanup per usual.
 
 ### Splash Texts
 - Removed "Made from maple!"
