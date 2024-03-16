@@ -118,7 +118,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull Holder<Biome> holder) {
 		AdvancementAPI.addCriteria(advancement, holder.unwrapKey().orElseThrow().location().toString(), inBiome(holder));
-		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(holder.unwrapKey().orElseThrow().location().toString()))));
+		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(holder.unwrapKey().orElseThrow().location().toString()))));
 	}
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key, HolderLookup.Provider registries) {
@@ -342,14 +342,44 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
 						);
-						AdvancementAPI.addRequirements(advancement,
+						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
 								List.of(
-									"wilderwild:baobab_nut",
-									"wilderwild:split_coconut",
-									"wilderwild:crab_claw",
-									"wilderwild:cooked_crab_claw",
-									"wilderwild:prickly_pear",
+									"wilderwild:baobab_nut"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:split_coconut"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:crab_claw"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:cooked_crab_claw"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:prickly_pear"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
 									"wilderwild:peeled_prickly_pear"
 								)
 							))
@@ -359,7 +389,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
 						);
-						AdvancementAPI.addRequirements(advancement, new
+						AdvancementAPI.addRequirementsAsNewList(advancement, new
 								AdvancementRequirements(List.of(
 								List.of(
 									"wilderwild:crab"
@@ -374,13 +404,11 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
-						AdvancementAPI.addRequirements(advancement, new
-								AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:crab_bucket",
-									"wilderwild:jellyfish_bucket"
-								)
-							))
+						AdvancementAPI.addRequirementsToList(advancement,
+							List.of(
+								"wilderwild:crab_bucket",
+								"wilderwild:jellyfish_bucket"
+							)
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
