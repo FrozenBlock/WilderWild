@@ -25,11 +25,16 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
@@ -57,6 +62,22 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.BAOBAB_DOOR, this::createDoorTable);
 		this.dropSelf(RegisterBlocks.BAOBAB_SIGN);
 		this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
+		this.add(RegisterBlocks.BAOBAB_LEAVES,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add((LootItem.lootTableItem(RegisterBlocks.BAOBAB_LEAVES).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)))
+				).withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.add(
+							this.applyExplosionDecay(RegisterBlocks.BAOBAB_LEAVES, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+						)
+				)
+		);
 
 		this.dropSelf(RegisterBlocks.CYPRESS_LOG);
 		this.dropSelf(RegisterBlocks.STRIPPED_CYPRESS_LOG);
@@ -96,6 +117,22 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.PALM_DOOR, this::createDoorTable);
 		this.dropSelf(RegisterBlocks.PALM_SIGN);
 		this.dropSelf(RegisterBlocks.PALM_HANGING_SIGN);
+		this.add(RegisterBlocks.PALM_FRONDS,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add((LootItem.lootTableItem(RegisterBlocks.PALM_FRONDS).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)))
+				).withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.add(
+							this.applyExplosionDecay(RegisterBlocks.PALM_FRONDS, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+						)
+				)
+		);
 
 		this.dropSelf(RegisterBlocks.HOLLOWED_ACACIA_LOG);
 		this.dropSelf(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
