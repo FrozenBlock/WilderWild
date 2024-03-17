@@ -23,11 +23,13 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -179,6 +182,86 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
 		this.add(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
 		this.add(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
+
+		this.add(RegisterBlocks.TUMBLEWEED_PLANT,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED_PLANT))
+				).withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.TUMBLEWEED_PLANT,
+									LootItem.lootTableItem(Items.STICK).apply(
+											SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F))
+												.when(
+													LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
+														.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
+												)
+										).apply(
+											SetItemCountFunction.setCount(UniformGenerator.between(2F, 4F))
+												.when(
+													LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
+														.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
+												)
+										)
+								)
+								.when(
+									BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES)
+								)
+						)
+				).withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.when(HAS_SHEARS_OR_SILK_TOUCH)
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.TUMBLEWEED_PLANT,
+									LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								)
+								.when(
+									LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
+										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
+								)
+						)
+				)
+		);
+
+		this.add(RegisterBlocks.SMALL_SPONGE,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							this.applyExplosionDecay(
+									RegisterBlocks.SMALL_SPONGE,
+									LootItem.lootTableItem(RegisterBlocks.SMALL_SPONGE).apply(
+										SetItemCountFunction.setCount(ConstantValue.exactly(1F))
+											.when(
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SMALL_SPONGE)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 0))
+											)
+									).apply(
+										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SMALL_SPONGE)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 1))
+										)
+									).apply(
+										SetItemCountFunction.setCount(ConstantValue.exactly(3F))
+											.when(
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SMALL_SPONGE)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
+											)
+									)
+								)
+						)
+				)
+		);
 
 		this.dropPottedContents(RegisterBlocks.POTTED_SHORT_GRASS);
 		this.dropPottedContents(RegisterBlocks.POTTED_BUSH);
