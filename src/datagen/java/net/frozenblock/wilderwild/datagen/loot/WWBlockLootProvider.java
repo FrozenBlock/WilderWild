@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
@@ -263,6 +265,20 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
+		this.add(RegisterBlocks.BAOBAB_NUT,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.when(
+							LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BAOBAB_NUT)
+								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
+								.invert()
+						)
+						.add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_NUT))
+				)
+		);
+
 		this.dropPottedContents(RegisterBlocks.POTTED_SHORT_GRASS);
 		this.dropPottedContents(RegisterBlocks.POTTED_BUSH);
 		this.dropPottedContents(RegisterBlocks.POTTED_BAOBAB_NUT);
@@ -312,6 +328,25 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).copy(RegisterDataComponents.FIREFLIES)
 								.when(
 									BlockLootSubProvider.HAS_SILK_TOUCH
+								)
+						)
+				)
+		);
+
+		this.add(RegisterBlocks.ECHO_GLASS,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(RegisterBlocks.ECHO_GLASS)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(CopyBlockState.copyState(RegisterBlocks.ECHO_GLASS).copy(RegisterProperties.DAMAGE)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.ECHO_GLASS)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.DAMAGE, 0))
+											.invert()
+									)
 								)
 						)
 				)

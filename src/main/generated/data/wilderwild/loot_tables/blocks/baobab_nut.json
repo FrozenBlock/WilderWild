@@ -1,19 +1,17 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
   "pools": [
     {
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "wilderwild:baobab_nut",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "2"
+          "condition": "minecraft:inverted",
+          "term": {
+            "block": "wilderwild:baobab_nut",
+            "condition": "minecraft:block_state_property",
+            "properties": {
+              "age": "2"
+            }
           }
         }
       ],
@@ -25,6 +23,5 @@
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "wilderwild:blocks/baobab_nut"
+  ]
 }
