@@ -138,7 +138,7 @@ Bug Fixes, Changes, & Other Additions
 - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
 - Pollen and Seed particles are now visible while on the ground.
 - Hanging Tendrils will now drop all their stored XP upon breaking as opposed to only one, to be more fair to players.
-  - This should also fix issue [#358](https://github.com/FrozenBlock/WilderWild/issues/358).
+- Fixed Hanging Tendrils crashing with C2ME installed. ([#358](https://github.com/FrozenBlock/WilderWild/issues/358))
 
 - The `New Cactus Placement` config is now set to off by default instead of on.
 - Added a new `Spawn Fireflies` config option to control whether Fireflies can spawn naturally.
