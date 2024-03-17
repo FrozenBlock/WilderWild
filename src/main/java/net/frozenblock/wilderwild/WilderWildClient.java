@@ -145,10 +145,10 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.BUSH, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());

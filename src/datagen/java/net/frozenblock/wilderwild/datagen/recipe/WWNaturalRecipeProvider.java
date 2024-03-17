@@ -34,10 +34,10 @@ import org.jetbrains.annotations.Nullable;
 public class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
-		oneToOneConversionRecipe(exporter, Items.BLUE_DYE, RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, "blue_dye");
-		oneToOneConversionRecipe(exporter, Items.PINK_DYE, RegisterBlocks.PINK_GLORY_OF_THE_SNOW, "pink_dye");
-		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, "purple_dye");
-		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, "white_dye");
+		oneToOneConversionRecipe(exporter, Items.BLUE_DYE, RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, "blue_dye");
+		oneToOneConversionRecipe(exporter, Items.PINK_DYE, RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, "pink_dye");
+		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, "purple_dye");
+		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, "white_dye");
 
 		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, RegisterBlocks.DATURA, "light_gray_dye");
 

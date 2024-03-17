@@ -56,10 +56,10 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		generator.createSimpleFlatItemModel(RegisterBlocks.ALGAE);
 		generator.createSimpleFlatItemModel(RegisterBlocks.POLLEN);
-		generator.createSimpleFlatItemModel(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW);
-		generator.createSimpleFlatItemModel(RegisterBlocks.PINK_GLORY_OF_THE_SNOW);
-		generator.createSimpleFlatItemModel(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW);
-		generator.createSimpleFlatItemModel(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 	}
 
 	@Override

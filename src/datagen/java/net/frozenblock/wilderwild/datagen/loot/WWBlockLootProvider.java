@@ -27,6 +27,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -155,10 +157,28 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(RegisterBlocks.HOLLOWED_WARPED_STEM);
 		this.dropSelf(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
+		this.add(RegisterBlocks.ALGAE,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add((LootItem.lootTableItem(RegisterBlocks.ALGAE).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)))
+				)
+		);
+		this.add(RegisterBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
 		this.dropSelf(RegisterBlocks.SEEDING_DANDELION);
 		this.dropSelf(RegisterBlocks.CARNATION);
-		this.dropSelf(RegisterBlocks.GLORY_OF_THE_SNOW);
 		this.dropSelf(RegisterBlocks.FLOWERING_LILY_PAD);
+		this.dropSelf(RegisterBlocks.PRICKLY_PEAR_CACTUS);
+		this.add(RegisterBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+		this.add(RegisterBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+		this.add(RegisterBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+
+		this.dropSelf(RegisterBlocks.GLORY_OF_THE_SNOW);
+		this.add(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
+		this.add(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
+		this.add(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
+		this.add(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
 
 		this.dropPottedContents(RegisterBlocks.POTTED_SHORT_GRASS);
 		this.dropPottedContents(RegisterBlocks.POTTED_BUSH);
@@ -203,7 +223,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN))
 						.apply(
 							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).copy(RegisterDataComponents.FIREFLIES)
