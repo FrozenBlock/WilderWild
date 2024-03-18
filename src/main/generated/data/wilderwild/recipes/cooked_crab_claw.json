@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "wilderwild:crab_claw"
   },
-  "result": "wilderwild:cooked_crab_claw"
+  "result": {
+    "id": "wilderwild:cooked_crab_claw"
+  }
 }

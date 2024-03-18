@@ -31,6 +31,7 @@ import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
+import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
@@ -40,13 +41,16 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.lib.wind.api.WindDisturbance;
+import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
 import net.frozenblock.wilderwild.misc.wind.CloudWindManager;
+import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
@@ -69,11 +73,15 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.WolfVariants;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
@@ -89,11 +97,18 @@ import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
+	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderSharedConstants.id("instrument");
+	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderSharedConstants.id("nectar");
+	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderSharedConstants.id("enderman_anger");
+	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser_effective");
+	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -101,7 +116,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
-		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
+		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
 	}
 
 	@NotNull
@@ -113,9 +128,10 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void initPreFreeze() {
 		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
+		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
+			private ItemStack lastStack;
 
 			@Override
 			public Boolean firstTickTest(LivingEntity entity) {
@@ -130,20 +146,77 @@ public class FrozenLibIntegration extends ModIntegration {
 					if (hand == null) return false;
 
 					ItemStack stack = entity.getItemInHand(hand);
-					return stack.getItem() instanceof InstrumentItem;
+					if (stack.getItem() instanceof InstrumentItem) {
+						this.lastStack = stack;
+						return true;
+					}
+					return false;
 				}
-				return entity.getUseItem().getItem() instanceof InstrumentItem;
+				var stack = entity.getUseItem();
+				if (stack.getItem() instanceof InstrumentItem) {
+					if (this.lastStack == null || ItemStack.matches(this.lastStack, stack)) {
+						this.lastStack = stack;
+						return true;
+					} else {
+						this.firstCheck = true;
+					}
+				}
+				return false;
 			}
 		});
-		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
+
+		SoundPredicate.register(NECTAR_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
-		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
+
+		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
 				return false;
 			}
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
+
+		WindDisturbanceLogic.register(
+			GEYSER_EFFECTIVE_WIND_DISTURBANCE,
+                (WindDisturbanceLogic.DisturbanceLogic<GeyserBlockEntity>) (source, level, windOrigin, affectedArea, windTarget) -> {
+				if (source.isPresent()) {
+					BlockState state = level.getBlockState(source.get().getBlockPos());
+					if (state.hasProperty(BlockStateProperties.FACING)) {
+						Direction direction = state.getValue(BlockStateProperties.FACING);
+						Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+						double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
+						double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
+						return new WindDisturbance.DisturbanceResult(
+							Mth.clamp(intensity * 2D, 0D, 1D),
+							strength * 2D,
+							movement.scale(intensity * GeyserBlockEntity.EFFECTIVE_ADDITIONAL_WIND_INTENSITY).scale(30D)
+						);
+					}
+				}
+				return null;
+			}
+        );
+
+		WindDisturbanceLogic.register(
+			GEYSER_BASE_WIND_DISTURBANCE,
+			(WindDisturbanceLogic.DisturbanceLogic<GeyserBlockEntity>) (source, level, windOrigin, affectedArea, windTarget) -> {
+				if (source.isPresent()) {
+					BlockState state = level.getBlockState(source.get().getBlockPos());
+					if (state.hasProperty(BlockStateProperties.FACING)) {
+						Direction direction = state.getValue(BlockStateProperties.FACING);
+						Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+						double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
+						double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
+						return new WindDisturbance.DisturbanceResult(
+							Mth.clamp(intensity * 2D, 0D, 1D),
+							strength * 2D,
+							movement.scale(intensity * GeyserBlockEntity.BASE_WIND_INTENSITY).scale(30D)
+						);
+					}
+				}
+				return null;
+			}
+		);
 	}
 
 	@Override
@@ -196,10 +269,24 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, RegisterBlockSoundTypes.SANDSTONE, () -> BlockConfig.get().blockSounds.sandstoneSounds);
 		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
+		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
+
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.RAINFOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.DYING_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.MIXED_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.PARCHED_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.BIRCH_TAIGA, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.DYING_MIXED_FOREST, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.DARK_TAIGA, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
+		WolfVariantBiomeRegistry.register(RegisterWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
-			if (MiscConfig.get().modifyAdvancements) {
+			if (AmbienceAndMiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/adventuring_time" -> {
 						addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
@@ -207,7 +294,9 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
 						addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
 						addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
+						addBiomeRequirement(advancement, RegisterWorldgen.FROZEN_CAVES);
 						addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
+						addBiomeRequirement(advancement, RegisterWorldgen.MAGMATIC_CAVES);
 						addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
 						addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
 						addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
@@ -247,14 +336,44 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
 						);
-						AdvancementAPI.addRequirements(advancement,
+						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
 								List.of(
-									"wilderwild:baobab_nut",
-									"wilderwild:split_coconut",
-									"wilderwild:crab_claw",
-									"wilderwild:cooked_crab_claw",
-									"wilderwild:prickly_pear",
+									"wilderwild:baobab_nut"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:split_coconut"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:crab_claw"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:cooked_crab_claw"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:prickly_pear"
+								)
+							))
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
 									"wilderwild:peeled_prickly_pear"
 								)
 							))
@@ -264,7 +383,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
 						);
-						AdvancementAPI.addRequirements(advancement, new
+						AdvancementAPI.addRequirementsAsNewList(advancement, new
 								AdvancementRequirements(List.of(
 								List.of(
 									"wilderwild:crab"
@@ -279,13 +398,11 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
-						AdvancementAPI.addRequirements(advancement, new
-								AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:crab_bucket",
-									"wilderwild:jellyfish_bucket"
-								)
-							))
+						AdvancementAPI.addRequirementsToList(advancement,
+							List.of(
+								"wilderwild:crab_bucket",
+								"wilderwild:jellyfish_bucket"
+							)
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {

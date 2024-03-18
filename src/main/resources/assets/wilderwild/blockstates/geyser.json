@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "wilderwild:block/geyser",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "wilderwild:block/geyser",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "wilderwild:block/geyser",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "wilderwild:block/geyser",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "wilderwild:block/geyser"
+    },
+    "facing=west": {
+      "model": "wilderwild:block/geyser",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

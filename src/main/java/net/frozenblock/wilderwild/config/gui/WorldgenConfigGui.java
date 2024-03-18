@@ -47,7 +47,6 @@ public final class WorldgenConfigGui {
 		var modifiedBiomePlacement = modifiedConfig.biomePlacement;
 		var biomes = config.biomeGeneration;
 		var modifiedBiomes = modifiedConfig.biomeGeneration;
-		var waterColors = config.waterColors;
 		category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
 
 		var betaBeaches = category.addEntry(
@@ -59,6 +58,19 @@ public final class WorldgenConfigGui {
 					.build(),
 				clazz,
 				"betaBeaches",
+				configInstance
+			)
+		);
+
+		var snowUnderMountains = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("snow_under_mountains"), modifiedConfig.snowUnderMountains)
+					.setDefaultValue(defaultConfig.snowUnderMountains)
+					.setSaveConsumer(newValue -> config.snowUnderMountains = newValue)
+					.setTooltip(tooltip("snow_under_mountains"))
+					.build(),
+				clazz,
+				"snowUnderMountains",
 				configInstance
 			)
 		);
@@ -339,12 +351,34 @@ public final class WorldgenConfigGui {
 			"generateSnowyDyingMixedForest",
 			configInstance
 		);
+		var magmaticCaves = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_magmatic_caves"), modifiedBiomes.generateMagmaticCaves)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateMagmaticCaves)
+				.setSaveConsumer(newValue -> biomes.generateMagmaticCaves = newValue)
+				.setTooltip(tooltip("generate_magmatic_caves"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateMagmaticCaves",
+			configInstance
+		);
+		var frozenCaves = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_frozen_caves"), modifiedBiomes.generateFrozenCaves)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateFrozenCaves)
+				.setSaveConsumer(newValue -> biomes.generateFrozenCaves = newValue)
+				.setTooltip(tooltip("generate_frozen_caves"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateFrozenCaves",
+			configInstance
+		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
-			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
-			jellyfishCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
+			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
+			jellyfishCaves, magmaticCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
 			snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 
@@ -425,41 +459,6 @@ public final class WorldgenConfigGui {
 			false,
 			tooltip("biome_placement"),
 			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna
-		);
-
-		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)
-			.setDefaultValue(defaultConfig.waterColors.modifyHotWater)
-			.setSaveConsumer(newValue -> waterColors.modifyHotWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("hot_water"))
-			.requireRestart()
-			.build();
-		var lukewarmBiomes = entryBuilder.startBooleanToggle(text("lukewarm_water"), waterColors.modifyLukewarmWater)
-			.setDefaultValue(defaultConfig.waterColors.modifyLukewarmWater)
-			.setSaveConsumer(newValue -> waterColors.modifyLukewarmWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("lukewarm_water"))
-			.requireRestart()
-			.build();
-		var snowyBiomes = entryBuilder.startBooleanToggle(text("snowy_water"), waterColors.modifySnowyWater)
-			.setDefaultValue(defaultConfig.waterColors.modifySnowyWater)
-			.setSaveConsumer(newValue -> waterColors.modifySnowyWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("snowy_water"))
-			.requireRestart()
-			.build();
-		var frozenBiomes = entryBuilder.startBooleanToggle(text("frozen_water"), waterColors.modifyFrozenWater)
-			.setDefaultValue(defaultConfig.waterColors.modifyFrozenWater)
-			.setSaveConsumer(newValue -> waterColors.modifyFrozenWater = newValue)
-			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
-			.setTooltip(tooltip("frozen_water"))
-			.requireRestart()
-			.build();
-
-		var waterColorCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("water_colors"),
-			false,
-			tooltip("water_colors"),
-			hotBiomes, lukewarmBiomes, snowyBiomes, frozenBiomes
 		);
 
 		var fallenTrees = category.addEntry(
@@ -603,6 +602,19 @@ public final class WorldgenConfigGui {
 					.build(),
 				clazz,
 				"termiteGen",
+				configInstance
+			)
+		);
+		var netherGeyserGen = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("nether_geyser_generation"), modifiedConfig.netherGeyserGen)
+					.setDefaultValue(defaultConfig.netherGeyserGen)
+					.setSaveConsumer(newValue -> config.netherGeyserGen = newValue)
+					.setTooltip(tooltip("nether_geyser_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"netherGeyserGen",
 				configInstance
 			)
 		);

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wilderwild:block/violet_beauty_glory_of_the_snow"
+  }
+}

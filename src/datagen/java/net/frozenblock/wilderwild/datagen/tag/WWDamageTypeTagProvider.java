@@ -55,5 +55,8 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 
 		this.getOrCreateTagBuilder(DamageTypeTags.CAN_BREAK_ARMOR_STAND)
 			.add(RegisterDamageTypes.OSTRICH);
+
+		this.getOrCreateTagBuilder(DamageTypeTags.BREEZE_IMMUNE_TO)
+			.add(RegisterDamageTypes.TUMBLEWEED);
 	}
 }

@@ -29,6 +29,8 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_CAN_HIDE = bind("crab_can_hide");
 	public static final TagKey<Block> OSTRICH_BEAK_BURYABLE = bind("ostrich_beak_buryable");
+	public static final TagKey<Block> GEYSER_CAN_PASS_THROUGH = bind("geyser_can_pass_through");
+	public static final TagKey<Block> GEYSER_CANNOT_PASS_THROUGH = bind("geyser_cannot_pass_through");
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");
@@ -54,6 +56,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
 	public static final TagKey<Block> RIVER_POOL_REPLACEABLE = bind("river_pool_replaceable");
 	public static final TagKey<Block> SMALL_SPONGE_GROWS_ON = bind("small_sponge_grows_on");
+	public static final TagKey<Block> FALLEN_TREE_PLACEABLE = bind("fallen_tree_placeable");
 	public static final TagKey<Block> BASIN_REPLACEABLE = bind("basin_replaceable");
 	public static final TagKey<Block> SPLITS_COCONUT = bind("splits_coconut");
 	public static final TagKey<Block> STOPS_TUMBLEWEED = bind("stops_tumbleweed");
@@ -98,7 +101,10 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_REPLACEABLE = bind("scorched_sand_feature_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("red_scorched_sand_feature_inner_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_REPLACEABLE = bind("red_scorched_sand_feature_replaceable");
+	public static final TagKey<Block> PACKED_ICE_REPLACEABLE = bind("packed_ice_replaceable");
 	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("mesoglea_path_replaceable");
+	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("magma_replaceable");
+	public static final TagKey<Block> NETHER_GEYSER_REPLACEABLE = bind("nether_geyser_replaceable");
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("oasis_path_replaceable");
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("coarse_dirt_disk_replaceable");
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");

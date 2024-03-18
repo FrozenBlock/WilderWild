@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -64,16 +67,26 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final MapCodec<ShelfFungusBlock> CODEC = simpleCodec(ShelfFungusBlock::new);
-	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
-	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
-	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 3.0D, 16.0D, 16.0D);
-	protected static final VoxelShape FLOOR_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
-	protected static final VoxelShape CEILING_SHAPE = Block.box(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0D, 0D, 13D, 16D, 16D, 16D);
+	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0D, 0D, 0D, 16D, 16D, 3D);
+	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13D, 0D, 0D, 16D, 16D, 16D);
+	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0D, 0D, 0D, 3D, 16D, 16D);
+	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
+	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
 
 	public ShelfFungusBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
+		this.registerDefaultState(this.stateDefinition.any().
+			setValue(FACING, Direction.NORTH)
+			.setValue(WATERLOGGED, false)
+			.setValue(FACE, AttachFace.WALL)
+			.setValue(STAGE, 1)
+		);
+	}
+
+	@Override
+	protected boolean isRandomlyTicking(BlockState state) {
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@NotNull
@@ -98,23 +111,35 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		int i = state.getValue(STAGE);
-		if (i > 1 && itemStack.is(Items.SHEARS)) {
-			popResource(level, pos, new ItemStack(state.getBlock().asItem()));
-			level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
-			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
 			itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-			level.gameEvent(player, GameEvent.SHEAR, pos);
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.use(state, level, pos, player, hand, hit);
 		}
 	}
 
+	public static boolean shear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+		int stage = state.getValue(STAGE);
+		if (stage > 1) {
+			popResource(level, pos, new ItemStack(state.getBlock()));
+			level.setBlockAndUpdate(pos, state.setValue(STAGE, stage - 1));
+			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+			level.gameEvent(entity, GameEvent.SHEAR, pos);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
+		if (BlockConfig.get().snowlogging.snowlogging) {
+			builder.add(SnowloggingUtils.SNOW_LAYERS);
+		}
 	}
 
 	@Override
@@ -141,7 +166,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 				blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
 			}
 			if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
-				return blockState;
+				return SnowloggingUtils.getSnowPlacementState(blockState, context);
 			}
 		}
 		return null;
@@ -205,5 +230,26 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
+	}
+
+	@Override
+	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			super.destroy(level, pos, SnowloggingUtils.getSnowEquivalent(state));
+		} else {
+			super.destroy(level, pos, state);
+		}
+	}
+
+	@Override
+	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			if (player.hasCorrectToolForDrops(snowEquivalent)) {
+				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+			}
+		} else {
+			super.playerDestroy(level, player, pos, state, blockEntity, stack);
+		}
 	}
 }

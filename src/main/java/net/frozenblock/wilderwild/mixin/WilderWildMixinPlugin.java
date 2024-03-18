@@ -46,10 +46,13 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		MixinsConfig config = MixinsConfig.get();
-		boolean disableNonSodium = FabricLoader.getInstance().isModLoaded("embeddium") || FrozenBools.HAS_SODIUM;
+		boolean hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
+		boolean disableNonSodium = hasEmbeddium || FrozenBools.HAS_SODIUM;
 		boolean enableSodium = FrozenBools.HAS_SODIUM && FabricLoader.getInstance().getModContainer("sodium").orElseThrow().getMetadata().getVersion().getFriendlyString().contains("0.5.");
 		if (mixinClassName.contains("client.sodium")) {
-			return config.client_sodium && enableSodium;
+			return config.client_sodium && enableSodium && !hasEmbeddium;
+		} else if (mixinClassName.contains("client.embeddium")) {
+			return config.client_sodium && hasEmbeddium;
 		}
 		if (mixinClassName.contains("client.allay")) return config.client_allay;
 		if (mixinClassName.contains("client.brush")) return config.client_brush;
@@ -80,9 +83,11 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.lava")) return config.block_lava;
 		if (mixinClassName.contains("block.leaves")) return config.block_leaves;
 		if (mixinClassName.contains("block.mesoglea")) return config.block_mesoglea;
+		if (mixinClassName.contains("block.palm_fronds")) return config.block_palm_fronds;
 		if (mixinClassName.contains("block.reinforced_deepslate")) return config.block_reinforced_deepslate;
 		if (mixinClassName.contains("block.spawner")) return config.block_spawner;
 		if (mixinClassName.contains("block.termite")) return config.block_termite;
+		if (mixinClassName.contains("snowlogging")) return config.snowlogging;
 		if (mixinClassName.contains("entity.ai")) return config.entity_ai;
 		if (mixinClassName.contains("entity.allay")) return config.entity_allay;
 		if (mixinClassName.contains("entity.boat")) return config.entity_boat;
@@ -92,6 +97,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.jellyfish")) return config.entity_jellyfish;
 		if (mixinClassName.contains("entity.lightning")) return config.entity_lightning;
 		if (mixinClassName.contains("entity.slime")) return config.entity_slime;
+		if (mixinClassName.contains("entity.stray")) return config.entity_stray;
 		if (mixinClassName.contains("entity.tumbleweed")) return config.entity_tumbleweed;
 		if (mixinClassName.contains("entity.turtle")) return config.entity_turtle;
 		if (mixinClassName.contains("entity.firework_rocket")) return config.entity_firework_rocket;
@@ -122,7 +128,8 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
+		//TODO: Uncomment this each time you run datagen.
+		//ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 	}
 
 	@Override

@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "wilderwild:height_based_vine_tree_decorator",
+        "max_height": 260,
+        "placement_chance": 0.5,
+        "probability": 1.0
+      },
+      {
+        "type": "wilderwild:moss_carpet_tree_decorator",
+        "placement_chance": 0.35,
+        "probability": 0.6
+      },
+      {
+        "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_chance": 0.25,
+        "probability": 0.074,
+        "red_shelf_fungus_chance": 0.3
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:blob_foliage_placer",
+      "height": 3,
+      "offset": 0,
+      "radius": 0
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dark_oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "wilderwild:fallen_large_trunk_placer",
+      "base_height": 4,
+      "height_rand_a": 2,
+      "height_rand_b": 1,
+      "success_in_water_chance": 0.8
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dark_oak_log",
+        "Properties": {
+          "axis": "y",
+          "termite_edible": "true"
+        }
+      }
+    }
+  }
+}

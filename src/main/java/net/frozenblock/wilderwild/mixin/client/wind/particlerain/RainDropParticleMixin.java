@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.client.wind.particlerain;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -35,7 +35,7 @@ public class RainDropParticleMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
+		return AmbienceAndMiscConfig.get().wind.cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"), require = 0)

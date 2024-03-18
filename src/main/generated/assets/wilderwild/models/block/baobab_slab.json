@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "wilderwild:block/baobab_planks",
+    "side": "wilderwild:block/baobab_planks",
+    "top": "wilderwild:block/baobab_planks"
+  }
+}

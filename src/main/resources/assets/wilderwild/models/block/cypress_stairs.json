@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "wilderwild:block/cypress_planks",
-    "side": "wilderwild:block/cypress_planks",
-    "top": "wilderwild:block/cypress_planks"
-  }
-}

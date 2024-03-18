@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -57,7 +58,7 @@ import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
+import net.frozenblock.wilderwild.world.modification.WilderWorldGen;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
@@ -117,6 +118,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		ConfigRegistry.register(FrozenLibConfig.INSTANCE, new ConfigModification<>(config -> config.saveItemCooldowns = true));
 
 		RegisterBlocks.registerBlockProperties();
+		WilderNetworking.init();
 
 		WilderSharedConstants.stopMeasuring(this);
 	}

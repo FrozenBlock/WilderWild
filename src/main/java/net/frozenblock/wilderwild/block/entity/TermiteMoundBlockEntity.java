@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.block.entity;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.misc.client.sound.ClientMethodInteractionHandler;
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

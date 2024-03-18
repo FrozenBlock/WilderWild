@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.datagen;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.wilderwild.world.generation.WilderFeatureBootstrap;
+import net.frozenblock.wilderwild.world.impl.WilderFeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;

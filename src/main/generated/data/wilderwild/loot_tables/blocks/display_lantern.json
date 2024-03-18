@@ -6,6 +6,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
           "name": "wilderwild:display_lantern"
         }
       ],
@@ -15,11 +20,16 @@
             {
               "condition": "minecraft:match_tool",
               "predicate": {
-                "enchantments": [
-                  {
-                    "enchantment": "minecraft:silk_touch"
-                  }
-                ]
+                "predicates": {
+                  "minecraft:enchantments": [
+                    {
+                      "enchantment": "minecraft:silk_touch",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
+                  ]
+                }
               }
             }
           ],

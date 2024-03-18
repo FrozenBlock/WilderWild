@@ -19,12 +19,10 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -47,7 +45,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -57,8 +54,8 @@ import org.jetbrains.annotations.Nullable;
 public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
-	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
-	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+	protected static final VoxelShape COLLISION_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
+	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
 
 	public TumbleweedBlock(@NotNull Properties properties) {
 		super(properties);
@@ -74,27 +71,27 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.SHEARS)) {
-			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
-				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				level.addFreshEntity(weed);
-				weed.setPos(Vec3.atBottomCenterOf(pos));
-				weed.spawnedFromShears = true;
-				level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-				level.gameEvent(player, GameEvent.SHEAR, pos);
-			}
+		if (stack.is(Items.SHEARS)) {
+			shear(level, pos, player);
+			stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.use(state, level, pos, player, hand, hit);
 		}
 	}
 
+	public static boolean shear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
+		if (!level.isClientSide) {
+			Tumbleweed.spawnFromShears(level, pos);
+			level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+			level.gameEvent(entity, GameEvent.SHEAR, pos);
+		}
+		return true;
+	}
+
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		BlockState state = super.getStateForPlacement(context);
+		BlockState state =  SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
 		if (state != null) {
 			FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 			boolean waterlogged = fluidState.getType() == Fluids.WATER;
@@ -138,6 +135,7 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(WATERLOGGED);
 	}
 }

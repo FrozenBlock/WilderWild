@@ -23,7 +23,6 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
@@ -47,14 +46,11 @@ public final class WorldgenConfig {
 	@CollapsibleObject
 	public final BiomePlacement biomePlacement = new BiomePlacement();
 
-	@CollapsibleObject
-	public final WaterColors waterColors = new WaterColors();
-
 	@EntrySyncData("betaBeaches")
 	public boolean betaBeaches = true;
 
-	@EntrySyncData("dyingTrees")
-	public boolean dyingTrees = true;
+	@EntrySyncData("snowUnderMountains")
+	public boolean snowUnderMountains = true;
 
 	@EntrySyncData("fallenTrees")
 	public boolean fallenTrees = true;
@@ -88,6 +84,9 @@ public final class WorldgenConfig {
 
 	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
+
+	@EntrySyncData("netherGeyserGen")
+	public boolean netherGeyserGen = true;
 
 	@EntrySyncData("surfaceDecoration")
 	public boolean surfaceDecoration = true;
@@ -210,19 +209,11 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateSnowyDyingMixedForest")
 		public boolean generateSnowyDyingMixedForest = true;
-	}
 
-	public static class WaterColors {
-		@EntrySyncData(value = "modifyLukewarmWater", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean modifyLukewarmWater = true;
+		@EntrySyncData("generateMagmaticCaves")
+		public boolean generateMagmaticCaves = true;
 
-		@EntrySyncData(value = "modifyHotWater", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean modifyHotWater = true;
-
-		@EntrySyncData(value = "modifySnowywater", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean modifySnowyWater = true;
-
-		@EntrySyncData(value = "modifyFrozenWater", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean modifyFrozenWater = true;
+		@EntrySyncData("generateFrozenCaves")
+		public boolean generateFrozenCaves = true;
 	}
 }

@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.config.ItemConfig;
-import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.config.MixinsConfig;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
@@ -39,7 +39,7 @@ public final class MainConfigGui {
 			EntityConfig.INSTANCE.save();
 			ItemConfig.INSTANCE.save();
 			WorldgenConfig.INSTANCE.save();
-			MiscConfig.INSTANCE.save();
+			AmbienceAndMiscConfig.INSTANCE.save();
 			MixinsConfig.INSTANCE.save();
 		});
 
@@ -54,7 +54,7 @@ public final class MainConfigGui {
 		var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
 		WorldgenConfigGui.setupEntries(worldgen, entryBuilder);
 		var misc = configBuilder.getOrCreateCategory(text("misc"));
-		MiscConfigGui.setupEntries(misc, entryBuilder);
+		AmbienceAndMiscConfigGui.setupEntries(misc, entryBuilder);
 		return configBuilder.build();
 	}
 

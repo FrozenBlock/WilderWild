@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.frozenblock.lib.networking.FrozenByteBufCodecs;
+import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
@@ -55,12 +57,17 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.lighting.LightEngine;
+import net.minecraft.world.level.redstone.Redstone;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
+	public static final int MAX_FIREFLY_AGE = 20;
+	public static final long NECTAR_SOUND_INTERVAL = 70L;
 	private final ArrayList<Occupant> fireflies = new ArrayList<>();
+
 	public NonNullList<ItemStack> inventory;
 	public int age;
 	public boolean clientHanging;
@@ -169,7 +176,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
-		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
+		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(MAX_FIREFLY_AGE), 0);
 		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
@@ -199,13 +206,13 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		for (Occupant firefly : this.getFireflies()) {
 			Firefly entity = RegisterEntities.FIREFLY.create(level);
 			if (entity != null) {
-				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07, worldPosition.getZ() + firefly.pos.z, 0, 0);
+				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
 				entity.setFromBottle(true);
 				if (level.addFreshEntity(entity)) {
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
-					entity.setAnimScale(1.0F);
+					entity.setAnimScale(1F);
 					if (!Objects.equals(firefly.customName, "")) {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
@@ -218,10 +225,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	public int getComparatorOutput() {
 		if (!this.invEmpty()) {
-			return 15;
+			return Redstone.SIGNAL_MAX;
 		}
 		if (!this.noFireflies()) {
-			return Mth.clamp(this.getFireflies().size() * 4, 0, 15);
+			return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		}
 		return 0;
 	}
@@ -257,12 +264,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 		public void tick(Level level, BlockPos pos) {
 			this.age += 1;
-			this.y = Math.sin(this.age * 0.03) * 0.15;
+			this.y = Math.sin(this.age * 0.03D) * 0.15D;
 			boolean isNectar = this.getCustomName().toLowerCase().contains("nectar");
 
 			if (isNectar != wasNamedNectar) {
 				if (isNectar) {
-					if (level.getGameTime() % 70L == 0L) {
+					if (level.getGameTime() % NECTAR_SOUND_INTERVAL == 0L) {
 						level.playSound(null, pos, RegisterSounds.BLOCK_DISPLAY_LANTERN_NECTAR_LOOP, SoundSource.AMBIENT, 0.5F, 1.0F);
 					}
 					this.wasNamedNectar = true;

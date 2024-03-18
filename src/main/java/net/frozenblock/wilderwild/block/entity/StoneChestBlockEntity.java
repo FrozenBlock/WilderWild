@@ -55,6 +55,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
+	public static final float LID_SLAM_INTERVAL = 0.0425F;
+	public static final float MAX_OPEN_PERCENTAGE = 0.5F;
+	public static final int MAX_TIME_OPEN = 220;
+	public static final int MAX_TIME_OPEN_ANCIENT = 160;
+	public static final double MIN_PERCENTAGE_OF_TIME_OPEN = 0.2D;
 	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
 		@Override
@@ -107,7 +112,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			} else if (stoneChest.openProgress > 0F) {
 				level.updateNeighbourForOutputSignal(pos, stoneChest.getBlockState().getBlock());
 				serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
-				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - 0.0425F);
+				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
 				if (!stoneChest.closing) {
 					stoneChest.closing = true;
 					playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
@@ -135,7 +140,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 				stoneChest.stillLidTicks -= 1;
 			} else if (stoneChest.openProgress > 0F) {
 				stoneChest.closing = true;
-				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - 0.0425F);
+				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
 				if (stoneChest.openProgress <= 0F) {
 					stoneChest.onLidSlam(level, pos, state, otherChest);
 				}
@@ -149,17 +154,17 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 	public static void playSound(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SoundEvent soundEvent, @NotNull SoundEvent waterloggedSoundEvent, float volume) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX() + 0.5;
-		double y = pos.getY() + 0.5;
-		double z = pos.getZ() + 0.5;
+		double x = pos.getX() + 0.5D;
+		double y = pos.getY() + 0.5D;
+		double z = pos.getZ() + 0.5D;
 		if (chestType == ChestType.RIGHT) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX() * 0.5;
-			z += direction.getStepZ() * 0.5;
+			x += direction.getStepX() * 0.5D;
+			z += direction.getStepZ() * 0.5D;
 		} else if (chestType == ChestType.LEFT) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			x -= direction.getStepX() * 0.5;
-			z -= direction.getStepZ() * 0.5;
+			x -= direction.getStepX() * 0.5D;
+			z -= direction.getStepZ() * 0.5D;
 		}
 		level.playSound(null, x, y, z, state.getValue(BlockStateProperties.WATERLOGGED) ? waterloggedSoundEvent : soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
 	}
@@ -189,18 +194,18 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public void liftLid(float liftAmount, boolean ancient) {
-		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
+		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2F : liftAmount), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * BlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * BlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
 	}
 
 	public void setLid(float liftAmount) {
-		this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
+		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * BlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * BlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -213,10 +218,30 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
 		if (!level.isClientSide && level instanceof ServerLevel server) {
 			if (this.highestLidPoint > 0.2F) {
-				server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0, 0.21875F, 0.05D);
+				server.sendParticles(
+					new BlockParticleOption(ParticleTypes.BLOCK, state),
+					pos.getX() + 0.5D,
+					pos.getY() + 0.625D,
+					pos.getZ() + 0.5D,
+					level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2),
+					0.21875D,
+					0D,
+					0.21875D,
+					0.05D
+				);
 				if (otherStoneChest != null) {
 					BlockPos otherPos = otherStoneChest.worldPosition;
-					server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), otherPos.getX() + 0.5, otherPos.getY() + 0.625, otherPos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(RegisterProperties.ANCIENT) ? 4 : 2)), 0.21875F, 0, 0.21875F, 0.05D);
+					server.sendParticles(
+						new BlockParticleOption(ParticleTypes.BLOCK, state),
+						otherPos.getX() + 0.5D,
+						otherPos.getY() + 0.625D,
+						otherPos.getZ() + 0.5,
+						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(RegisterProperties.ANCIENT) ? 4 : 2)),
+						0.21875D,
+						0D,
+						0.21875D,
+						0.05D
+					);
 				}
 			}
 			playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, RegisterSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER, 0.5F + (this.highestLidPoint / 5F));
