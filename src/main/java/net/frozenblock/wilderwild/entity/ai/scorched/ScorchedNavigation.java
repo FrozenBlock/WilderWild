@@ -23,7 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.NotNull;
 
 public class ScorchedNavigation extends WallClimberNavigation {
@@ -33,8 +33,8 @@ public class ScorchedNavigation extends WallClimberNavigation {
 	}
 
 	@Override
-	protected boolean hasValidPathType(PathType pathType) {
-		return pathType == PathType.LAVA || pathType == PathType.DAMAGE_FIRE || pathType == PathType.DANGER_FIRE || super.hasValidPathType(pathType);
+	protected boolean hasValidPathType(BlockPathTypes pathType) {
+		return pathType == BlockPathTypes.LAVA || pathType == BlockPathTypes.DAMAGE_FIRE || pathType == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(pathType);
 	}
 
 	@Override

@@ -29,6 +29,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +57,7 @@ public class SeedParticleOptions implements ParticleOptions {
 		@Override
 		@NotNull
 		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
-			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean(), friendlyByteBuf.readVector3f());
+			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean(), friendlyByteBuf.readVec3());
 		}
     };
 
@@ -96,7 +97,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	public void writeToNetwork(FriendlyByteBuf buffer) {
 		buffer.writeBoolean(this.isMilkweed());
 		buffer.writeBoolean(this.isControlled());
-		buffer.writeVector3f(this.getSpeed());
+		buffer.writeVec3(this.getVelocity());
 	}
 
 	@NotNull

@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;

@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -234,7 +235,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return ACTIVE_TICKS;
 	}
 
-	public void activate(@Nullable Entity entity, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Holder<GameEvent> gameEvent, int power, int frequency) {
+	public void activate(@Nullable Entity entity, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull GameEvent gameEvent, int power, int frequency) {
 		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), UPDATE_ALL);
 		level.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
 		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;

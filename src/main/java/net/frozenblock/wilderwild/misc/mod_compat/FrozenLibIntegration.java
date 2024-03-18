@@ -31,7 +31,6 @@ import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
-import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
@@ -81,7 +80,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.WolfVariants;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
@@ -270,19 +268,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
 		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
-
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.RAINFOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.DYING_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.MIXED_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.PARCHED_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.BIRCH_TAIGA, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.DYING_MIXED_FOREST, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.DARK_TAIGA, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
-		WolfVariantBiomeRegistry.register(RegisterWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();

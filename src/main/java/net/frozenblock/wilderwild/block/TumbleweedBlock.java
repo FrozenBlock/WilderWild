@@ -26,6 +26,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -71,6 +72,7 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		ItemStack stack = player.getItemInHand(hand);
 		if (stack.is(Items.SHEARS)) {
 			shear(level, pos, player);
 			stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));

@@ -28,6 +28,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -94,8 +95,8 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
-			itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-			return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.use(state, level, pos, player, hand, hit);
 		}

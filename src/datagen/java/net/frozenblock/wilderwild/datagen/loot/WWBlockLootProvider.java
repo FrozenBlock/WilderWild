@@ -22,8 +22,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -39,11 +41,13 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
-import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -94,7 +98,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
 										)
 								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
 		);
@@ -157,7 +161,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
 										)
 								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
 		);
@@ -235,7 +239,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
 													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 											)
-									).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+									).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
 								)
 							)
 				).withPool(

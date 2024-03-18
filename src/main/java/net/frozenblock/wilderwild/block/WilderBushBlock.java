@@ -31,6 +31,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -172,7 +173,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
-		return super.use(stack, state, level, pos, player, hand, hit);
+		return super.use(state, level, pos, player, hand, hit);
 	}
 
 	public boolean shear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {

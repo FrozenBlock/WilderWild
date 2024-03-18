@@ -48,7 +48,7 @@ public class SugarCaneBlockMixin extends Block {
 
 	@Unique
 	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
+	public boolean isRandomlyTicking(BlockState state) {
 		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 

@@ -20,9 +20,6 @@
     " C "
   ],
   "result": {
-    "item": "wilderwild:copper_horn",
-    "tag": {
-      "instrument": "wilderwild:clarinet_copper_horn"
-    }
+    "item": "wilderwild:copper_horn"
   }
 }

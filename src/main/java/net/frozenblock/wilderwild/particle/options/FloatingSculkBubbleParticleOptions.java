@@ -23,7 +23,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
-import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.particles.DustParticleOptionsBase;
 import net.minecraft.core.particles.ParticleOptions;
@@ -58,7 +57,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		@NotNull
 		@Override
 		public FloatingSculkBubbleParticleOptions fromNetwork(ParticleType<FloatingSculkBubbleParticleOptions> particleType, FriendlyByteBuf buffer) {
-			return new FloatingSculkBubbleParticleOptions(buffer.readDouble(), buffer.readVarInt(), buffer.readVector3f());
+			return new FloatingSculkBubbleParticleOptions(buffer.readDouble(), buffer.readVarInt(), buffer.readVec3());
 		}
 	};
 	private final double size;
@@ -89,7 +88,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	public void writeToNetwork(FriendlyByteBuf buffer) {
 		buffer.writeDouble(this.getSize());
 		buffer.writeVarInt(this.getMaxAge());
-		buffer.writeVector3f(this.getVelocity());
+		buffer.writeVec3(this.getVelocity());
 	}
 
 	@NotNull

@@ -31,7 +31,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -175,17 +174,10 @@ public abstract class BlockStateBaseMixin {
 		SnowloggingUtils.onRandomTick(this.asState(), level, pos);
 	}
 
-	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$useItemOn(ItemStack stack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> info) {
-		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
-			info.setReturnValue(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
-		}
-	}
-
-	@Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$useWithoutItem(Level level, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
-		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
-			info.setReturnValue(InteractionResult.PASS);
+	@Inject(method = "use", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$useItemOn(Level level, Player player, InteractionHand hand, BlockHitResult result, CallbackInfoReturnable<InteractionResult> cir) {
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, result.getBlockPos())) {
+			cir.setReturnValue(InteractionResult.PASS);
 		}
 	}
 

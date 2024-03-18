@@ -128,16 +128,15 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	}
 
 
-	@SuppressWarnings("SpellCheckingInspection")
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		if (isFullyGrown(state)) {
 			pickPlayer(level, pos, state, player, hand, stack);
-			return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
+			return super.use(state, level, pos, player, hand, hit);
 		}
 	}
 
@@ -154,7 +153,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 			boolean shears = stack.is(Items.SHEARS);
 			pick(level, pos, state, shears, player);
 			if (shears) {
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+				stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
 			} else {
 				player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
 			}

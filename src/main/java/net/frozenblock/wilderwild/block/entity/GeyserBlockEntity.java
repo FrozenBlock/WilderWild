@@ -149,13 +149,13 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
 
-		WindDisturbance effectiveWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
+		WindDisturbance effectiveWindDisturbance = new WindDisturbance(
 			Optional.of(this),
 			geyserStartPos,
 			effectiveEruption.inflate(0.5D),
 			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElseThrow()
 		);
-		WindDisturbance baseWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
+		WindDisturbance baseWindDisturbance = new WindDisturbance(
 			Optional.of(this),
 			geyserStartPos,
 			eruption.inflate(0.5D),
@@ -191,7 +191,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					double damageIntensity = Math.max((ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE, ERUPTION_DISTANCE * 0.1D);
 					if (geyserType == GeyserType.LAVA) {
 						if (!entity.fireImmune()) {
-							entity.igniteForTicks((int) (FIRE_TICKS_MAX * damageIntensity));
+							entity.setRemainingFireTicks((int) (FIRE_TICKS_MAX * damageIntensity));
 							entity.hurt(level.damageSources().inFire(), 1F);
 						}
 					}
@@ -272,21 +272,21 @@ public class GeyserBlockEntity extends BlockEntity {
 
 	@NotNull
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
+	public CompoundTag getUpdateTag() {
+		return this.saveWithoutMetadata();
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
+	protected void saveAdditional(@NotNull CompoundTag tag) {
+		super.saveAdditional(tag);
 		tag.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
 		tag.putInt("TicksUntilNextEvent", this.tickUntilNextEvent);
 		tag.putFloat("EruptionProgress", this.eruptionProgress);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.load(tag, provider);
+	public void load(@NotNull CompoundTag tag) {
+		super.load(tag);
 		this.hasRunFirstCheck = tag.getBoolean("HasRunFirstCheck");
 		this.tickUntilNextEvent = tag.getInt("TicksUntilNextEvent");
 		this.eruptionProgress = tag.getFloat("EruptionProgress");

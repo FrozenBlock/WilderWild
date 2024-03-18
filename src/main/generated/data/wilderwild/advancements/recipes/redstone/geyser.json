@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:magma_block"
+            "items": [
+              "minecraft:magma_block"
+            ]
           }
         ]
       },
