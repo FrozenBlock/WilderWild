@@ -10,13 +10,19 @@
             "entries": [
               {
                 "data": {
-                  "Name": "minecraft:short_grass"
+                  "Name": "minecraft:short_grass",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 11
               },
               {
                 "data": {
-                  "Name": "minecraft:fern"
+                  "Name": "minecraft:fern",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               }

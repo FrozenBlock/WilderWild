@@ -12,7 +12,8 @@
                 "data": {
                   "Name": "wilderwild:glory_of_the_snow",
                   "Properties": {
-                    "flower_color": "blue"
+                    "flower_color": "blue",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 1
@@ -21,7 +22,8 @@
                 "data": {
                   "Name": "wilderwild:glory_of_the_snow",
                   "Properties": {
-                    "flower_color": "purple"
+                    "flower_color": "purple",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 1
@@ -30,7 +32,8 @@
                 "data": {
                   "Name": "wilderwild:glory_of_the_snow",
                   "Properties": {
-                    "flower_color": "pink"
+                    "flower_color": "pink",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 2
@@ -39,7 +42,8 @@
                 "data": {
                   "Name": "wilderwild:glory_of_the_snow",
                   "Properties": {
-                    "flower_color": "white"
+                    "flower_color": "white",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 2
