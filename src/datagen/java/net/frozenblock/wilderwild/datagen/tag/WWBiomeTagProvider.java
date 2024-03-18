@@ -28,6 +28,8 @@ import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,11 +41,37 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.generateCompat();
 		this.generateBiomeTags();
 		this.generateClimateAndVegetationTags();
 		this.generateUtilityTags();
 		this.generateFeatureTags();
 		this.generateStructureTags();
+	}
+
+	@NotNull
+	private TagKey<Biome> getTag(String id) {
+		return TagKey.create(this.registryKey, new ResourceLocation(id));
+	}
+
+	private void generateCompat() {
+		this.getOrCreateTagBuilder(getTag("sereneseasons:blacklisted_biomes"))
+			.add(RegisterWorldgen.FROZEN_CAVES)
+			.add(RegisterWorldgen.JELLYFISH_CAVES)
+			.add(RegisterWorldgen.MAGMATIC_CAVES)
+			.add(RegisterWorldgen.WARM_RIVER)
+			.add(RegisterWorldgen.WARM_BEACH);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:tropical_biomes"))
+			.add(RegisterWorldgen.OASIS)
+			.add(RegisterWorldgen.ARID_SAVANNA)
+			.add(RegisterWorldgen.ARID_FOREST)
+			.add(RegisterWorldgen.PARCHED_FOREST)
+			.add(RegisterWorldgen.RAINFOREST)
+			.add(RegisterWorldgen.BIRCH_JUNGLE)
+			.add(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+			.add(RegisterWorldgen.WARM_RIVER)
+			.add(RegisterWorldgen.WARM_BEACH);
 	}
 
 	private void generateBiomeTags() {

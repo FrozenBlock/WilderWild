@@ -134,6 +134,7 @@ Bug Fixes, Changes, & Other Additions
 - Added some Spruce Tree features to biomes they were missing from.
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
 - Nearly all custom generation can now be enabled/disabled in-game after changing the config and rejoining a world, instead of needing to restart the game.
+- Added Wilder Wild's content to Serene Season's tags.
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
