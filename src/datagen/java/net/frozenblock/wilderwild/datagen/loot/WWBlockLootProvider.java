@@ -31,8 +31,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -145,8 +147,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						)
 				).withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
 						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
 								RegisterBlocks.PALM_FRONDS,
@@ -216,8 +218,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 					)
 				).withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
 							.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+							.setRolls(ConstantValue.exactly(1F))
 							.add(
 								this.applyExplosionDecay(
 									RegisterBlocks.TUMBLEWEED_PLANT,
@@ -238,8 +240,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 							)
 				).withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
 						.when(HAS_SHEARS_OR_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 								.when(
@@ -399,6 +401,27 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropWhenSilkTouch(RegisterBlocks.OSSEOUS_SCULK);
 		this.dropWhenSilkTouch(RegisterBlocks.SCULK_WALL);
 		this.dropWhenSilkTouch(RegisterBlocks.SCULK_STAIRS);
+		this.add(RegisterBlocks.SCULK_SLAB,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.when(BlockLootSubProvider.HAS_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.SCULK_SLAB,
+								LootItem.lootTableItem(RegisterBlocks.SCULK_SLAB)
+									.apply(
+										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
+											.when(
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SCULK_SLAB)
+													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))
+											)
+									)
+							)
+						)
+				)
+		);
 		this.dropSelf(RegisterBlocks.STONE_CHEST);
 
 		this.add(
