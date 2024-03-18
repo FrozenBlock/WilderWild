@@ -5,14 +5,14 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:inverted",
-          "term": {
-            "block": "wilderwild:baobab_nut",
-            "condition": "minecraft:block_state_property",
-            "properties": {
-              "age": "2"
-            }
+          "block": "wilderwild:baobab_nut",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "age": "2"
           }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ],
       "entries": [

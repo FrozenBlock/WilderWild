@@ -29,6 +29,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -39,6 +40,7 @@ import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -74,13 +76,22 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add((LootItem.lootTableItem(RegisterBlocks.BAOBAB_LEAVES).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)))
+						.add(
+							LootItem.lootTableItem(RegisterBlocks.BAOBAB_LEAVES)
+								.when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+						)
 				).withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
 						.add(
-							this.applyExplosionDecay(RegisterBlocks.BAOBAB_LEAVES, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))))
+							this.applyExplosionDecay(
+								RegisterBlocks.BAOBAB_LEAVES,
+									LootItem.lootTableItem(Items.STICK)
+										.apply(
+											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
+										)
+								)
 								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
@@ -129,13 +140,21 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add((LootItem.lootTableItem(RegisterBlocks.PALM_FRONDS).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)))
+						.add(
+							LootItem.lootTableItem(RegisterBlocks.PALM_FRONDS).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+						)
 				).withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
 						.add(
-							this.applyExplosionDecay(RegisterBlocks.PALM_FRONDS, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))))
+							this.applyExplosionDecay(
+								RegisterBlocks.PALM_FRONDS,
+									LootItem.lootTableItem(Items.STICK)
+										.apply(
+											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
+										)
+								)
 								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
@@ -167,7 +186,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add((LootItem.lootTableItem(RegisterBlocks.ALGAE).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)))
+						.add(LootItem.lootTableItem(RegisterBlocks.ALGAE).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH))
 				)
 		);
 		this.add(RegisterBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
@@ -188,43 +207,41 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()
 				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED_PLANT))
+					this.applyExplosionCondition(
+						RegisterBlocks.TUMBLEWEED_PLANT,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.when(ExplosionCondition.survivesExplosion())
+							.add(LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED_PLANT))
+					)
 				).withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
-						.add(
-							this.applyExplosionDecay(
-								RegisterBlocks.TUMBLEWEED_PLANT,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+							.add(
+								this.applyExplosionDecay(
+									RegisterBlocks.TUMBLEWEED_PLANT,
 									LootItem.lootTableItem(Items.STICK).apply(
-											SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F))
-												.when(
-													LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
-														.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
-												)
-										).apply(
-											SetItemCountFunction.setCount(UniformGenerator.between(2F, 4F))
-												.when(
-													LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
-														.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
-												)
-										)
+										SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F))
+											.when(
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
+													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
+											)
+									).apply(
+										SetItemCountFunction.setCount(UniformGenerator.between(2F, 4F))
+											.when(
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
+													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
+											)
+									).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
 								)
-								.when(
-									BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES)
-								)
-						)
+							)
 				).withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.when(HAS_SHEARS_OR_SILK_TOUCH)
 						.add(
-							this.applyExplosionDecay(
-								RegisterBlocks.TUMBLEWEED_PLANT,
-									LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
-								)
+							LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 								.when(
 									LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
 										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
@@ -268,14 +285,81 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.BAOBAB_NUT,
 			LootTable.lootTable()
 				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.when(
-							LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BAOBAB_NUT)
-								.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
-								.invert()
-						)
-						.add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_NUT))
+					this.applyExplosionCondition(
+						RegisterBlocks.BAOBAB_NUT,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.when(
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BAOBAB_NUT)
+									.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
+							)
+							.add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_NUT))
+					)
+				)
+		);
+
+		this.add(RegisterBlocks.COCONUT,
+			LootTable.lootTable()
+				.withPool(
+					this.applyExplosionCondition(
+						RegisterBlocks.COCONUT,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.when(
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.COCONUT)
+									.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.HANGING, false))
+							)
+							.add(LootItem.lootTableItem(RegisterBlocks.COCONUT))
+					)
+				).withPool(
+					this.applyExplosionDecay(
+						RegisterBlocks.COCONUT,
+						LootPool.lootPool()
+							.setRolls(UniformGenerator.between(3F, 4F))
+							.when(
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.COCONUT)
+									.setProperties(
+										StatePropertiesPredicate.Builder.properties()
+											.hasProperty(BlockStateProperties.HANGING, true)
+											.hasProperty(BlockStateProperties.AGE_2, 2)
+									)
+							)
+							.add(LootItem.lootTableItem(RegisterBlocks.COCONUT))
+					)
+				)
+		);
+
+		this.add(RegisterBlocks.BUSH,
+			LootTable.lootTable()
+				.withPool(
+					this.applyExplosionCondition(
+						RegisterBlocks.BUSH,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.when(
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BUSH)
+									.setProperties(
+										StatePropertiesPredicate.Builder.properties()
+											.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
+									)
+							)
+							.add(LootItem.lootTableItem(RegisterBlocks.BUSH))
+					)
+				).withPool(
+					this.applyExplosionDecay(
+						RegisterBlocks.BUSH,
+						LootPool.lootPool()
+							.setRolls(UniformGenerator.between(0F, 1F))
+							.when(
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BUSH)
+									.setProperties(
+										StatePropertiesPredicate.Builder.properties()
+											.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
+											.hasProperty(BlockStateProperties.AGE_2, 2)
+									)
+							)
+							.add(LootItem.lootTableItem(RegisterBlocks.BUSH))
+					)
 				)
 		);
 
@@ -323,12 +407,10 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN))
+						.add(LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN).when(ExplosionCondition.survivesExplosion()))
 						.apply(
 							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).copy(RegisterDataComponents.FIREFLIES)
-								.when(
-									BlockLootSubProvider.HAS_SILK_TOUCH
-								)
+								.when(BlockLootSubProvider.HAS_SILK_TOUCH)
 						)
 				)
 		);
@@ -348,6 +430,193 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 											.invert()
 									)
 								)
+						)
+				)
+		);
+
+		this.add(RegisterBlocks.SCORCHED_SAND,
+			LootTable.lootTable()
+				.withPool(
+					this.applyExplosionCondition(
+						RegisterBlocks.SCORCHED_SAND,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.add(
+								LootItem.lootTableItem(RegisterBlocks.SCORCHED_SAND)
+									.apply(CopyBlockState.copyState(RegisterBlocks.SCORCHED_SAND).copy(RegisterProperties.CRACKED)
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SCORCHED_SAND)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.CRACKED, true))
+										)
+									)
+							)
+					)
+				)
+		);
+
+
+		this.add(RegisterBlocks.SCORCHED_RED_SAND,
+			LootTable.lootTable()
+				.withPool(
+					this.applyExplosionCondition(
+						RegisterBlocks.SCORCHED_RED_SAND,
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.add(
+								LootItem.lootTableItem(RegisterBlocks.SCORCHED_RED_SAND)
+									.apply(CopyBlockState.copyState(RegisterBlocks.SCORCHED_RED_SAND).copy(RegisterProperties.CRACKED)
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SCORCHED_RED_SAND)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.CRACKED, true))
+										)
+									)
+							)
+					)
+				)
+		);
+
+		this.add(RegisterBlocks.BROWN_SHELF_FUNGUS,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.BROWN_SHELF_FUNGUS,
+								LootItem.lootTableItem(RegisterBlocks.BROWN_SHELF_FUNGUS).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 1))
+										)
+								).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 2))
+										)
+								).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 3))
+										)
+								).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 4))
+										)
+								)
+							)
+						)
+				).withPool(
+					LootPool.lootPool()
+						.when(BlockLootSubProvider.HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.BROWN_SHELF_FUNGUS,
+								LootItem.lootTableItem(Blocks.BROWN_MUSHROOM).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 1))
+										)
+								).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 2))
+										)
+								).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(3F, 7F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 3))
+										)
+								).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(4F, 0F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.BROWN_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 4))
+										)
+								)
+							)
+						)
+				)
+		);
+
+		this.add(RegisterBlocks.RED_SHELF_FUNGUS,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.RED_SHELF_FUNGUS,
+								LootItem.lootTableItem(RegisterBlocks.RED_SHELF_FUNGUS).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 1))
+										)
+								).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 2))
+										)
+								).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 3))
+										)
+								).apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 4))
+										)
+								)
+							)
+						)
+				).withPool(
+					LootPool.lootPool()
+						.when(BlockLootSubProvider.HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							this.applyExplosionDecay(
+								RegisterBlocks.RED_SHELF_FUNGUS,
+								LootItem.lootTableItem(Blocks.RED_MUSHROOM).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 1))
+										)
+								).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 2))
+										)
+								).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(3F, 7F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 3))
+										)
+								).apply(
+									SetItemCountFunction.setCount(UniformGenerator.between(4F, 0F))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.RED_SHELF_FUNGUS)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RegisterProperties.FUNGUS_STAGE, 4))
+										)
+								)
+							)
 						)
 				)
 		);
