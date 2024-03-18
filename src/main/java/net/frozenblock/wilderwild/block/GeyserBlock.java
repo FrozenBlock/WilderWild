@@ -96,7 +96,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		BlockPos pos = context.getClickedPos();
 		Direction direction = context.getNearestLookingDirection().getOpposite();
 		GeyserType geyserType = getGeyserTypeForPos(level, direction, pos);
-		boolean canErupt = context.getLevel().hasNeighborSignal(context.getClickedPos()) && !isInactive(geyserType);
+		boolean canErupt = context.getLevel().hasNeighborSignal(context.getClickedPos()) && isActive(geyserType);
 
 		return this.defaultBlockState()
 			.setValue(GEYSER_STAGE, canErupt ? GeyserStage.ERUPTING : GeyserStage.DORMANT)
@@ -113,7 +113,7 @@ public class GeyserBlock extends BaseEntityBlock {
 				BlockState newState = blockState.setValue(POWERED, hasNeighborSignal);
 				if (hasNeighborSignal) {
 					boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
-					if (!erupting && !isInactive(blockState.getValue(GEYSER_TYPE))) {
+					if (!erupting && isActive(blockState.getValue(GEYSER_TYPE))) {
 						newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
                     }
 				}
@@ -169,7 +169,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
 		GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
-		if (!isInactive(geyserType)) {
+		if (isActive(geyserType)) {
 			Direction direction = blockState.getValue(FACING);
 			boolean natural = blockState.getValue(NATURAL);
 			GeyserStage stage = blockState.getValue(GEYSER_STAGE);
@@ -198,8 +198,8 @@ public class GeyserBlock extends BaseEntityBlock {
 			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
 	}
 
-	public static boolean isInactive(GeyserType geyserType) {
-		return geyserType == GeyserType.NONE;
+	public static boolean isActive(GeyserType geyserType) {
+		return geyserType != GeyserType.NONE;
 	}
 
 	@NotNull

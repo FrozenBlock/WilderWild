@@ -90,7 +90,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		if (!this.hasRunFirstCheck) {
 			level.scheduleTick(pos, this.getBlockState().getBlock(), level.random.nextInt(TICK_DELAY_START_MIN, TICK_DELAY_START_MAX));
 			this.hasRunFirstCheck = true;
-		} else if (!GeyserBlock.isInactive(geyserType)) {
+		} else if (GeyserBlock.isActive(geyserType)) {
 			if (geyserStage == GeyserStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
 					this.tickUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
@@ -247,7 +247,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		Direction direction = state.getValue(GeyserBlock.FACING);
-		if (!GeyserBlock.isInactive(geyserType)) {
+		if (GeyserBlock.isActive(geyserType)) {
 			if (geyserStage == GeyserStage.ERUPTING) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
