@@ -63,6 +63,19 @@ Additions
     - This option is off by default to prevent excessive loading times.
   - Added the `Natural Snowlogging` config option to dictate whether Snowlogging can occur during worldgen and while it's snowing.
 
+### Fallen large Trees
+- Added Fallen Large Jungle Trees.
+    - Added the `wilderwild:has_fallen_large_jungle` to control what biomes these will generate in.
+    - Added the `wilderwild:has_common_fallen_large_jungle` to control what biomes these will commonly generate in.
+- Added Fallen Large Spruce Trees.
+    - Added the `wilderwild:has_fallen_large_spruce` to control what biomes these will generate in.
+    - Added the `wilderwild:has_common_fallen_large_spruce` to control what biomes these will commonly generate in.
+    - Added the `wilderwild:has_clean_fallen_large_spruce` to control what biomes these will generate in, without decoration.
+    - Added the `wilderwild:has_common_clean_fallen_large_spruce` to control what biomes these will commonly generate in, without decoration
+- Added Fallen Dark Oak Trees.
+    - Added the `wilderwild:has_fallen_dark_oak` to control what biomes these will generate in.
+    - Added the `wilderwild:has_common_fallen_dark_oak` to control what biomes these will commonly generate in.
+
 ### Breezes, Wind Charges, and Wind
 - Breezes and Wind Charges now interact with the Wind System.
   - They will now affect particles, Tumbleweed, and Fireflies.
@@ -78,28 +91,36 @@ Additions
     - Added the `Wind Disturbance Particle Frequency` to control how frequently these will spawn.
     - Added the `Wind Disturbance Particle Spawn Attempts` to control how many times per tick a Wind Disturbance particle will attempt to spawn.
 
-### Fallen large Trees
-- Added Fallen Large Jungle Trees.
-  - Added the `wilderwild:has_fallen_large_jungle` to control what biomes these will generate in.
-  - Added the `wilderwild:has_common_fallen_large_jungle` to control what biomes these will commonly generate in.
-- Added Fallen Large Spruce Trees.
-  - Added the `wilderwild:has_fallen_large_spruce` to control what biomes these will generate in.
-  - Added the `wilderwild:has_common_fallen_large_spruce` to control what biomes these will commonly generate in.
-  - Added the `wilderwild:has_clean_fallen_large_spruce` to control what biomes these will generate in, without decoration.
-  - Added the `wilderwild:has_common_clean_fallen_large_spruce` to control what biomes these will commonly generate in, without decoration
-- Added Fallen Dark Oak Trees.
-  - Added the `wilderwild:has_fallen_dark_oak` to control what biomes these will generate in.
-  - Added the `wilderwild:has_common_fallen_dark_oak` to control what biomes these will commonly generate in.
+### Sounds and Ambience
+- Gave Magma a new set of sounds.
+    - Can be disabled with the `Magma Sounds` config.
+- Fire now emits extra particles if on top of Magma.
+    - Added the new `Extra Magma Particles` config option to control this.
+- The Warm River, Warm Beach, and Snowy Old Growth Pine Taiga will no longer have custom water colors without using the `Water Colors` config.
+- LudoCrypt's "Serene Sonder" and "Horizon Afoot" now plays in all Forest and Birch Forest biomes.
+- Renamed the `Misc` config tab to `Ambience & Misc.`
+- Moved the `Water Colors` category from the `Worldgen` tab to the `Ambience & Misc` tab.
+- Added `Deep Dark Fog` to the `Biome Ambience` category in the `Ambience & Misc` tab.
+- Added `Frozen Caves Ambience` to the `Biome Ambience` category.
+- Added `Frozen Caves Fog` to the `Biome Ambience` category.
+- Added `Jellyfish Caves Ambience` to the `Biome Ambience` category.
+- Added `Jellyfish Caves Fog` to the `Biome Ambience` category.
+- Added `Magmatic Caves Ambience` to the `Biome Ambience` category.
+- Added `Magmatic Caves Fog` to the `Biome Ambience` category.
+- Added `Magmatic Caves Particles` to the `Biome Ambience` category.
+- Added `Badlands Foliage Color` to the new `Vegetation Colors` category in the `Ambience & Misc` tab.
+- Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
+- Pollen and Seed particles are now visible while on the ground.
+
+### Retextures
+- Retextured all Baobab Nut textures thanks to Zhen!
+- Retextured all Glory of the Snow textures thanks to Zhen!
+- Retextured all Milkweed block textures thanks to Zhen!
 
 Bug Fixes, Changes, & Other Additions
 ---
 - Updated the mod protocol version to 5.
 - Removed the Coated Sculk item model.
-
-- Gave Magma a new set of sounds.
-  - Can be disabled with the `Magma Sounds` config.
-- Fire now emits extra particles if on top of Magma.
-  - Added the new `Extra Magma Particles` config option to control this.
 
 - Snow will now continue to generate under snowy mountain biomes, somewhat mimicking older Bedrock Edition Beta versions.
   - Added the `Snow Under Mountains` config option to control this.
@@ -111,32 +132,26 @@ Bug Fixes, Changes, & Other Additions
 - Refactored multiple paths in the `world` package.
 - Fixed some Snapped Large Spruce Trees not generating as intended, instead being skinny.
 - Added some Spruce Tree features to biomes they were missing from.
-- The Warm River, Warm Beach, and Snowy Old Growth Pine Taiga will no longer have custom water colors without using the `Water Colors` config.
-- LudoCrypt's "Serene Sonder" and "Horizon Afoot" now plays in all Forest and Birch Forest biomes.
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
 - Nearly all custom generation can now be enabled/disabled in-game after changing the config and rejoining a world, instead of needing to restart the game.
+- Added Wilder Wild's content to Serene Season's tags. ([#361](https://github.com/FrozenBlock/WilderWild/issues/361#event-12156424219))
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
-- Removed the Merp Slime easter egg.
 - All particle options used by Wilder Wild have been fixed for use in commands and once again accept Vec3.
-- Retextured all Baobab Nut textures thanks to Zhen!
-- Retextured all Glory of the Snow textures thanks to Zhen!
-- Retextured all Milkweed block textures thanks to Zhen!
 - Bushes can now be sheared with Dispensers.
 - Bushes now grow at the same rate as saplings.
 - Glory of the Snow now only drops one item upon being sheared.
 - Milkweed now grows a bit slower.
 - Using Bone Meal on Milkweed will now cause it to grow first, then drop additional flowers like other tall flowers afterwards.
   - Before, Milkweed would use the tall flower functionality on its top half, and grow on the bottom half.
+- Changed Seed particle spawning from Milkweed, now spawning from the entire plant as opposed to strictly the half that was interacted with.
 - Prickly Pears can now be sheared with Dispensers.
 - Prickly Pears now grow nearly 4 times slower.
 - Shelf Fungus can now be sheared with Dispensers.
 - Small Sponges can now be sheared with Dispensers.
 - Tumbleweed and Tumbleweed Stems can now be sheared with Dispensers.
 - Tumbleweed Stems now grow a bit slower.
-- Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
-- Pollen and Seed particles are now visible while on the ground.
 - Hanging Tendrils will now drop all their stored XP upon breaking as opposed to only one, to be more fair to players.
 - Fixed Hanging Tendrils crashing with C2ME installed. ([#358](https://github.com/FrozenBlock/WilderWild/issues/358))
 
@@ -150,22 +165,12 @@ Bug Fixes, Changes, & Other Additions
 - Added a new `Spawn Crabs` config option to control whether Crabs can spawn naturally.
   - The minimum value for `Crab Spawn Cap` has been changed to 1 as `Spawn Crabs` makes 0 redundant.
 - Added `block_palm_fronds` to the Mixins config.
-- Renamed the `Misc` config tab to `Ambience & Misc.`
-- Moved the `Water Colors` category from the `Worldgen` tab to the `Ambience & Misc` tab.
-- Added `Deep Dark Fog` to the `Biome Ambience` category in the `Ambience & Misc` tab.
-- Added `Frozen Caves Ambience` to the `Biome Ambience` category.
-- Added `Frozen Caves Fog` to the `Biome Ambience` category.
-- Added `Jellyfish Caves Ambience` to the `Biome Ambience` category.
-- Added `Jellyfish Caves Fog` to the `Biome Ambience` category.
-- Added `Magmatic Caves Ambience` to the `Biome Ambience` category.
-- Added `Magmatic Caves Fog` to the `Biome Ambience` category.
-- Added `Magmatic Caves Particles` to the `Biome Ambience` category.
-- Added `Badlands Foliage Color` to the new `Vegetation Colors` category in the `Ambience & Misc` tab.
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 
 - Added Embeddium compatability.
 - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
 - More internal cleanup per usual.
+- Removed the Merp Slime easter egg.
 
 ### Splash Texts
 - Removed "Made from maple!"

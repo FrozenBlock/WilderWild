@@ -70,6 +70,61 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(getTag("custom_sculk:warden_sonic_boom_occluded_by"))
 			.add(RegisterBlocks.ECHO_GLASS);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
+			.add(RegisterBlocks.BUSH)
+			.add(RegisterBlocks.MILKWEED)
+			.add(RegisterBlocks.DATURA)
+			.add(RegisterBlocks.SEEDING_DANDELION)
+			.add(RegisterBlocks.CYPRESS_SAPLING)
+			.add(RegisterBlocks.BAOBAB_NUT)
+			.add(RegisterBlocks.COCONUT)
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
+			.add(RegisterBlocks.RED_SHELF_FUNGUS)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
+			.add(RegisterBlocks.BUSH)
+			.add(RegisterBlocks.MILKWEED)
+			.add(RegisterBlocks.DATURA)
+			.add(RegisterBlocks.SEEDING_DANDELION)
+			.add(RegisterBlocks.CYPRESS_SAPLING)
+			.add(RegisterBlocks.BAOBAB_NUT)
+			.add(RegisterBlocks.COCONUT)
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
+			.add(RegisterBlocks.RED_SHELF_FUNGUS)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
+			.add(RegisterBlocks.MILKWEED)
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW)
+			.add(RegisterBlocks.SEEDING_DANDELION)
+			.add(RegisterBlocks.CYPRESS_SAPLING)
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
+			.add(RegisterBlocks.RED_SHELF_FUNGUS);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW)
+			.add(RegisterBlocks.SEEDING_DANDELION)
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
+			.add(RegisterBlocks.RED_SHELF_FUNGUS);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:unbreakable_infertile_crops"))
+			.add(RegisterBlocks.BUSH)
+			.add(RegisterBlocks.MILKWEED)
+			.add(RegisterBlocks.DATURA)
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW)
+			.add(RegisterBlocks.SEEDING_DANDELION)
+			.add(RegisterBlocks.CYPRESS_SAPLING)
+			.add(RegisterBlocks.BAOBAB_NUT)
+			.add(RegisterBlocks.COCONUT)
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
+			.add(RegisterBlocks.RED_SHELF_FUNGUS)
+			.add(RegisterBlocks.TUMBLEWEED)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT);
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:greenhouse_glass"))
+			.add(RegisterBlocks.ECHO_GLASS);
 	}
 
 	private void generateLib() {
