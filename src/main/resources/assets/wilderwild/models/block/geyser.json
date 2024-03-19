@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "wilderwild:block/geyser",
+    "east": "wilderwild:block/geyser",
+    "north": "wilderwild:block/geyser",
+    "particle": "wilderwild:block/geyser",
+    "south": "wilderwild:block/geyser",
+    "up": "wilderwild:block/geyser_top",
+    "west": "wilderwild:block/geyser"
+  }
+}

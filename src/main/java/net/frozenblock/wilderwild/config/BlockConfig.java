@@ -53,11 +53,14 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
+	@CollapsibleObject
+	public final SnowloggingConfig snowlogging = new SnowloggingConfig();
+
+	@CollapsibleObject
+	public final FireConfig fire = new FireConfig();
+
 	@EntrySyncData("shriekerGargling")
 	public boolean shriekerGargling = true;
-
-	@EntrySyncData("soulFireSounds")
-	public boolean soulFireSounds = true;
 
 	@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean billboardTendrils = true;
@@ -72,7 +75,7 @@ public final class BlockConfig {
 	public boolean logHollowing = true;
 
 	@EntrySyncData("cactusPlacement")
-	public boolean cactusPlacement = true;
+	public boolean cactusPlacement = false;
 
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
@@ -112,6 +115,9 @@ public final class BlockConfig {
 
 		@EntrySyncData(value = "flowerSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean flowerSounds = true;
+
+		@EntrySyncData(value = "magmaSounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean magmaSounds = true;
 
 		@EntrySyncData(value = "saplingSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean saplingSounds = true;
@@ -176,5 +182,32 @@ public final class BlockConfig {
 
 		@EntrySyncData("mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;
+	}
+
+	public static class FireConfig {
+		@EntrySyncData(value = "soulFireSounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean soulFireSounds = true;
+
+		@EntrySyncData("extraMagmaParticles")
+		public boolean extraMagmaParticles = true;
+	}
+
+	public static class SnowloggingConfig {
+		@EntrySyncData("snowlogging")
+		public boolean snowlogging = true;
+
+		@EntrySyncData("snowlogWalls")
+		public boolean snowlogWalls = false;
+
+		@EntrySyncData("naturalSnowlogging")
+		public boolean naturalSnowlogging = true;
+
+		public boolean canSnowlogWalls() {
+			return this.snowlogging && this.snowlogWalls;
+		}
+
+		public boolean canSnowlogNaturally() {
+			return this.snowlogging && this.naturalSnowlogging;
+		}
 	}
 }

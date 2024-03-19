@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -62,7 +63,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 		if (this.level == null || this.level.getServer() == null) {
 			return;
 		}
-		this.level.levelEvent(3008, this.worldPosition, Block.getId(this.getBlockState()));
+		this.level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_BRUSH_BLOCK_COMPLETE, this.worldPosition, Block.getId(this.getBlockState()));
 		ScorchedBlock.hydrate(this.getBlockState(), this.level, this.worldPosition);
 		this.brushCount = 0;
 		this.brushCountResetsAtTick = 0;
@@ -78,7 +79,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 			this.brushCount = Math.max(0, this.brushCount - 2);
 			int j = this.getCompletionState();
 			if (i != j) {
-				this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j), 3);
+				this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j), Block.UPDATE_ALL);
 			}
 			this.brushCountResetsAtTick = this.level.getGameTime() + 4L;
 		}

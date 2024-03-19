@@ -25,9 +25,11 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -120,7 +122,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setColor(FireflyColor.ON);
 	}
 
-	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().firefly.spawnFireflies) return false;
 		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		if (biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
@@ -402,7 +405,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 						SoundSource.NEUTRAL,
 						1F,
 						1F,
-						WilderSharedConstants.id("nectar"),
+						FrozenLibIntegration.NECTAR_SOUND_PREDICATE,
 						true
 					);
 					this.wasNamedNectar = true;
@@ -440,6 +443,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			}
 		} else if (this.getAnimScale() < 1.5F) {
 			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
+		}
+
+		if (this.level() instanceof ServerLevel serverLevel) {
+			Vec3 wind = WindManager.getWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
+			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
+			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}
 	}
 

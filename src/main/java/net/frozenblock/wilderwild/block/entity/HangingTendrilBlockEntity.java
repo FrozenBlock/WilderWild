@@ -48,19 +48,28 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Holder<VibrationSystem.Listener>, VibrationSystem {
+	public static final int MILK_FRAMES = 4;
+	public static final int MILK_ANIM_SPEED = 2;
+	public static final int ACTIVE_FRAMES = 5;
+	public static final int ACTIVE_ANIM_SPEED = 1;
+	public static final int TWITCHING_FRAMES = 4;
+	public static final int TWITCHING_ANIM_SPEED = 50;
+	public static final int INACTIVE_FRAMES = 6;
+	public static final int INACTIVE_ANIM_SPEED = 6;
+	public static final double MILK_XP_PERCENTAGE = 0.5D;
 
 	private static final Logger LOGGER = LogUtils.getLogger();
 	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
 	private final VibrationSystem.Listener vibrationListener;
 	private final VibrationSystem.User vibrationUser = this.createVibrationUser();
 	public int ticksToStopTwitching;
-	public int storedXP;
+	private int storedXP;
 	public int ringOutTicksLeft;
 	//CLIENT ONLY
 	public ResourceLocation texture = WilderSharedConstants.id("textures/entity/hanging_tendril/inactive1.png");
 	public boolean twitching;
 	public boolean active;
-	public boolean milk;
+	public boolean milking;
 	public int ticks;
 	private VibrationSystem.Data vibrationData;
 	private int lastVibrationFrequency;
@@ -81,8 +90,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		} else if (state.getValue(HangingTendrilBlock.WRINGING_OUT)) {
 			level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.WRINGING_OUT, false));
 			if (this.storedXP > 0) {
-				int droppedXP = this.storedXP > 1 ? this.storedXP / 2 : 1;
-				ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos).add(0, -0.5, 0), droppedXP);
+				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
+				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
 				level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
 			}
@@ -92,21 +101,17 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 
 	public void clientTick(@NotNull BlockState state) {
 		this.twitching = this.ticksToStopTwitching > 0;
-		this.milk = this.ringOutTicksLeft > 0;
+		this.milking = this.ringOutTicksLeft > 0;
 		this.active = !SculkSensorBlock.canActivate(state);
 		++this.ticks;
-		int animSpeed = 6;
-		if (milk) {
-			animSpeed = 2;
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
+		if (milking) {
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
 		} else if (active) {
-			animSpeed = 1;
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "active" + (((this.ticks / animSpeed) % 5) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "active" + (((this.ticks / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
 		} else if (twitching) {
-			animSpeed = 50;
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
 		} else {
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / animSpeed) % 6) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
 		}
 	}
 

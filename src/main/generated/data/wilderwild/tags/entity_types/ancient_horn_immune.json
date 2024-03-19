@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wither",
+    "minecraft:warden",
+    "minecraft:ender_dragon",
+    "wilderwild:tumbleweed",
+    "minecraft:breeze"
+  ]
+}

@@ -289,6 +289,187 @@
       }
     ]
   },
+  "ambient.magmatic_caves.additions": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil1",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil2",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil3",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil4",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil5",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/boil6",
+        "volume": 0.5,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt1",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt2",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt3",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt4",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt5",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt6",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt7",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/erupt8",
+        "volume": 0.3,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water1",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water2",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water3",
+        "volume": 0.4,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/water4",
+        "volume": 0.4,
+        "weight": 1
+      }
+    ]
+  },
+  "ambient.magmatic_caves.loop": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/magmatic_caves/ambience",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "ambient.frozen_caves.additions": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes1",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes2",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes3",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes4",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes5",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/chimes6",
+        "volume": 0.05,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ping1",
+        "volume": 0.1,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ping2",
+        "volume": 0.1,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice1",
+        "volume": 0.2,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice2",
+        "volume": 0.2,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice3",
+        "volume": 0.3,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice4",
+        "volume": 0.3,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ice5",
+        "volume": 0.3,
+        "weight": 2
+      }
+    ]
+  },
+  "ambient.frozen_caves.loop": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/frozen_caves/ambience",
+        "stream": true,
+        "volume": 0.2
+      }
+    ]
+  },
   "ambient.generic_caves.loop": {
     "sounds": [
       {
@@ -2473,6 +2654,60 @@
     ],
     "subtitle": "subtitles.entity.ostrich.inbred.beak.swing"
   },
+  "entity.scorched.ambient": {
+    "sounds": [
+      "wilderwild:mob/scorched/say1",
+      "wilderwild:mob/scorched/say2",
+      "wilderwild:mob/scorched/say3",
+      "wilderwild:mob/scorched/say4"
+    ],
+    "subtitle": "subtitles.entity.scorched.ambient"
+  },
+  "entity.scorched.death": {
+    "sounds": [
+      "wilderwild:mob/scorched/death"
+    ],
+    "subtitle": "subtitles.entity.scorched.death"
+  },
+  "entity.scorched.hurt": {
+    "sounds": [
+      "wilderwild:mob/scorched/say1",
+      "wilderwild:mob/scorched/say2",
+      "wilderwild:mob/scorched/say3",
+      "wilderwild:mob/scorched/say4"
+    ],
+    "subtitle": "subtitles.entity.scorched.hurt"
+  },
+  "entity.scorched.step": {
+    "sounds": [
+      "wilderwild:mob/scorched/step1",
+      "wilderwild:mob/scorched/step2",
+      "wilderwild:mob/scorched/step3",
+      "wilderwild:mob/scorched/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.scorched.step_lava": {
+    "sounds": [
+      {
+        "name": "wilderwild:mob/scorched/step_lava1",
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:mob/scorched/step_lava2",
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:mob/scorched/step_lava3",
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:mob/scorched/step_lava4",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",
@@ -2823,7 +3058,7 @@
         "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
         "stream": true,
         "volume": 0.8,
-        "weight": 6
+        "weight": 4
       }
     ]
   },
@@ -2838,6 +3073,45 @@
         "stream": true,
         "volume": 0.8,
         "weight": 6
+      }
+    ]
+  },
+  "music.overworld.magmatic_caves": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event"
+      },
+      {
+        "name": "music/game/infinite_amethyst",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/crescent_dunes",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/an_ordinary_day",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.frozen_caves": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event"
+      },
+      {
+        "name": "music/game/infinite_amethyst",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/wending",
+        "stream": true
       }
     ]
   },
@@ -2868,5 +3142,149 @@
       "wilderwild:particle/mesoglea_drip/land5"
     ],
     "subtitle": "subtitles.particle.mesoglea_drip.land"
+  },
+  "block.geyser.break": {
+    "sounds": [
+      "wilderwild:block/geyser/break1",
+      "wilderwild:block/geyser/break2",
+      "wilderwild:block/geyser/break3",
+      "wilderwild:block/geyser/break4",
+      "wilderwild:block/geyser/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.geyser.fall": {
+    "sounds": [
+      "wilderwild:block/geyser/step1",
+      "wilderwild:block/geyser/step2",
+      "wilderwild:block/geyser/step3",
+      "wilderwild:block/geyser/step4",
+      "wilderwild:block/geyser/step5",
+      "wilderwild:block/geyser/step6"
+    ]
+  },
+  "block.geyser.hit": {
+    "sounds": [
+      "wilderwild:block/geyser/step1",
+      "wilderwild:block/geyser/step2",
+      "wilderwild:block/geyser/step3",
+      "wilderwild:block/geyser/step4",
+      "wilderwild:block/geyser/step5",
+      "wilderwild:block/geyser/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.geyser.place": {
+    "sounds": [
+      "wilderwild:block/geyser/break1",
+      "wilderwild:block/geyser/break2",
+      "wilderwild:block/geyser/break3",
+      "wilderwild:block/geyser/break4",
+      "wilderwild:block/geyser/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.geyser.step": {
+    "sounds": [
+      "wilderwild:block/geyser/step1",
+      "wilderwild:block/geyser/step2",
+      "wilderwild:block/geyser/step3",
+      "wilderwild:block/geyser/step4",
+      "wilderwild:block/geyser/step5",
+      "wilderwild:block/geyser/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.geyser.boil": {
+    "sounds": [
+      "wilderwild:block/geyser/boil1",
+      "wilderwild:block/geyser/boil2",
+      "wilderwild:block/geyser/boil3",
+      "wilderwild:block/geyser/boil4",
+      "wilderwild:block/geyser/boil5",
+      "wilderwild:block/geyser/boil6"
+    ],
+    "subtitle": "subtitles.block.geyser.boil"
+  },
+  "block.geyser.erupt.air": {
+    "sounds": [
+      "wilderwild:block/geyser/erupt_air1",
+      "wilderwild:block/geyser/erupt_air2",
+      "wilderwild:block/geyser/erupt_air3",
+      "wilderwild:block/geyser/erupt_air4"
+    ],
+    "subtitle": "subtitles.block.geyser.erupt"
+  },
+  "block.geyser.erupt.water": {
+    "sounds": [
+      "wilderwild:block/geyser/erupt_water1",
+      "wilderwild:block/geyser/erupt_water2",
+      "wilderwild:block/geyser/erupt_water3",
+      "wilderwild:block/geyser/erupt_water4"
+    ],
+    "subtitle": "subtitles.block.geyser.erupt"
+  },
+  "block.geyser.erupt.lava": {
+    "sounds": [
+      "wilderwild:block/geyser/erupt_lava1",
+      "wilderwild:block/geyser/erupt_lava2",
+      "wilderwild:block/geyser/erupt_lava3",
+      "wilderwild:block/geyser/erupt_lava4"
+    ],
+    "subtitle": "subtitles.block.geyser.erupt"
+  },
+  "block.magma.break": {
+    "sounds": [
+      "wilderwild:block/magma/break1",
+      "wilderwild:block/magma/break2",
+      "wilderwild:block/magma/break3",
+      "wilderwild:block/magma/break4",
+      "wilderwild:block/magma/break5",
+      "wilderwild:block/magma/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.magma.fall": {
+    "sounds": [
+      "wilderwild:block/magma/step1",
+      "wilderwild:block/magma/step2",
+      "wilderwild:block/magma/step3",
+      "wilderwild:block/magma/step4",
+      "wilderwild:block/magma/step5",
+      "wilderwild:block/magma/step6"
+    ]
+  },
+  "block.magma.hit": {
+    "sounds": [
+      "wilderwild:block/magma/step1",
+      "wilderwild:block/magma/step2",
+      "wilderwild:block/magma/step3",
+      "wilderwild:block/magma/step4",
+      "wilderwild:block/magma/step5",
+      "wilderwild:block/magma/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.magma.place": {
+    "sounds": [
+      "wilderwild:block/magma/break1",
+      "wilderwild:block/magma/break2",
+      "wilderwild:block/magma/break3",
+      "wilderwild:block/magma/break4",
+      "wilderwild:block/magma/break5",
+      "wilderwild:block/magma/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.magma.step": {
+    "sounds": [
+      "wilderwild:block/magma/step1",
+      "wilderwild:block/magma/step2",
+      "wilderwild:block/magma/step3",
+      "wilderwild:block/magma/step4",
+      "wilderwild:block/magma/step5",
+      "wilderwild:block/magma/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

@@ -51,6 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class EchoGlassBlock extends TintedGlassBlock {
+	public static final int MIN_CRACK_PARTICLES = 18;
+	public static final int MAX_DAMAGE_PARTICLES = 25;
 	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
 
 	public EchoGlassBlock(@NotNull BlockBehaviour.Properties settings) {
@@ -63,10 +65,27 @@ public class EchoGlassBlock extends TintedGlassBlock {
 		if (!state.hasProperty(DAMAGE)) return;
 
 		if (state.getValue(DAMAGE) < 3) {
-			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
-			level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+			level.setBlockAndUpdate(pos, state.cycle(DAMAGE));
+			level.playSound(
+				null,
+				pos,
+				RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
+				SoundSource.BLOCKS,
+				0.5F,
+				0.9F + level.random.nextFloat() * 0.2F
+			);
 			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
+				serverLevel.sendParticles(
+					new BlockParticleOption(ParticleTypes.BLOCK, state),
+					pos.getX() + 0.5D,
+					pos.getY() + 0.5D,
+					pos.getZ() + 0.5D,
+					level.random.nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
+					0.3F,
+					0.3F,
+					0.3F,
+					0.05D
+				);
 			}
 		} else {
 			level.destroyBlock(pos, shouldDrop);
@@ -77,14 +96,15 @@ public class EchoGlassBlock extends TintedGlassBlock {
 		BlockState state = level.getBlockState(pos);
 		if (!state.hasProperty(DAMAGE)) return;
 
-		if (state.getValue(DAMAGE) > 0) {
-			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
+		int damage = state.getValue(DAMAGE);
+		if (damage > 0) {
+			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, damage - 1));
 			level.playSound(
 				null,
 				pos,
 				RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
 				SoundSource.BLOCKS,
-				1.0F,
+				1F,
 				level.random.nextFloat() * 0.1F + 0.9F
 			);
 		}

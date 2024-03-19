@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.chest;
 
 import java.util.function.Supplier;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.core.BlockPos;
@@ -70,17 +71,32 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		return null;
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE), method = "use")
+	@Inject(
+		method = "use",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;",
+			shift = At.Shift.BEFORE
+		)
+	)
 	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
-			if (sourceChest.lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextInt(0, 3) == 1) {
-				Jellyfish.spawnFromChest(level, state, pos);
+			if (
+				sourceChest.lootTable != null &&
+				state.hasProperty(BlockStateProperties.WATERLOGGED) &&
+				state.getValue(BlockStateProperties.WATERLOGGED) &&
+				sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") &&
+				level.random.nextInt(0, 3) == 1
+			) {
+				if (EntityConfig.get().jellyfish.spawnJellyfish) {
+					Jellyfish.spawnFromChest(level, state, pos);
+				}
 			}
 			((ChestBlockEntityInterface) sourceChest).wilderWild$bubble(level, pos, state);
 		}
 	}
 
-	@Inject(at = @At(value = "RETURN"), method = "updateShape")
+	@Inject(method = "updateShape", at = @At(value = "RETURN"))
 	public void wilderWild$updateShape(BlockState blockStateUnneeded, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
 		ChestBlockEntity otherChest = wilderWild$getOtherChest(level, currentPos, state);

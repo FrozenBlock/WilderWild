@@ -24,7 +24,7 @@
       "sound": "minecraft:music.overworld.old_growth_taiga"
     },
     "sky_color": 8625919,
-    "water_color": 4020182,
+    "water_color": 4159204,
     "water_fog_color": 329011
   },
   "features": [
@@ -136,7 +136,7 @@
       {
         "type": "minecraft:wolf",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 2,
         "weight": 8
       },
       {

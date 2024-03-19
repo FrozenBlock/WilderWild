@@ -13,7 +13,8 @@
                   "Name": "wilderwild:milkweed",
                   "Properties": {
                     "age": "0",
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 5
@@ -22,14 +23,18 @@
                 "data": {
                   "Name": "wilderwild:datura",
                   "Properties": {
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "wilderwild:seeding_dandelion"
+                  "Name": "wilderwild:seeding_dandelion",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 4
               },
@@ -37,62 +42,90 @@
                 "data": {
                   "Name": "minecraft:lilac",
                   "Properties": {
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 3
               },
               {
                 "data": {
-                  "Name": "minecraft:dandelion"
+                  "Name": "minecraft:dandelion",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 6
               },
               {
                 "data": {
-                  "Name": "minecraft:blue_orchid"
+                  "Name": "minecraft:blue_orchid",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 3
               },
               {
                 "data": {
-                  "Name": "minecraft:poppy"
+                  "Name": "minecraft:poppy",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 4
               },
               {
                 "data": {
-                  "Name": "wilderwild:carnation"
+                  "Name": "wilderwild:carnation",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 3
               },
               {
                 "data": {
-                  "Name": "minecraft:orange_tulip"
+                  "Name": "minecraft:orange_tulip",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:pink_tulip"
+                  "Name": "minecraft:pink_tulip",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:red_tulip"
+                  "Name": "minecraft:red_tulip",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:white_tulip"
+                  "Name": "minecraft:white_tulip",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:allium"
+                  "Name": "minecraft:allium",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 3
               },
@@ -100,7 +133,8 @@
                 "data": {
                   "Name": "minecraft:peony",
                   "Properties": {
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 3

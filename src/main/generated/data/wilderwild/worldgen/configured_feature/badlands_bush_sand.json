@@ -13,7 +13,8 @@
                   "Name": "wilderwild:bush",
                   "Properties": {
                     "age": "0",
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 1
@@ -23,7 +24,8 @@
                   "Name": "wilderwild:bush",
                   "Properties": {
                     "age": "1",
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 4

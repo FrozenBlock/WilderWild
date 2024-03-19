@@ -30,9 +30,20 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(SculkVeinBlock.SculkVeinSpreaderConfig.class)
 public final class SculkVeinSpreaderConfigMixin {
 
-	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0), method = "stateCanBeReplaced")
+	@WrapOperation(
+		method = "stateCanBeReplaced",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			ordinal = 0
+		)
+	)
 	private boolean wilderWild$restrictGrowthOnNewBlocks(BlockState state, Block block, Operation<Boolean> operation) {
-		return state.is(RegisterBlocks.OSSEOUS_SCULK) || state.is(RegisterBlocks.SCULK_SLAB) || state.is(RegisterBlocks.SCULK_STAIRS) || state.is(RegisterBlocks.SCULK_WALL) || operation.call(state, block);
+		return state.is(RegisterBlocks.OSSEOUS_SCULK) ||
+			state.is(RegisterBlocks.SCULK_SLAB) ||
+			state.is(RegisterBlocks.SCULK_STAIRS) ||
+			state.is(RegisterBlocks.SCULK_WALL) ||
+			operation.call(state, block);
 	}
 
 }

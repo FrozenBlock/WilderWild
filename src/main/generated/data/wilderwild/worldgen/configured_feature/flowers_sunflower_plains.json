@@ -12,38 +12,54 @@
                 "data": {
                   "Name": "minecraft:sunflower",
                   "Properties": {
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 12
               },
               {
                 "data": {
-                  "Name": "minecraft:dandelion"
+                  "Name": "minecraft:dandelion",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 50
               },
               {
                 "data": {
-                  "Name": "minecraft:orange_tulip"
+                  "Name": "minecraft:orange_tulip",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 12
               },
               {
                 "data": {
-                  "Name": "minecraft:azure_bluet"
+                  "Name": "minecraft:azure_bluet",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:oxeye_daisy"
+                  "Name": "minecraft:oxeye_daisy",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "wilderwild:seeding_dandelion"
+                  "Name": "wilderwild:seeding_dandelion",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 2
               }

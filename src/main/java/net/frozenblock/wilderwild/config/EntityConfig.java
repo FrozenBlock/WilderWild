@@ -63,6 +63,9 @@ public final class EntityConfig {
 	public final OstrichConfig ostrich = new OstrichConfig();
 
 	@CollapsibleObject
+	public final ScorchedConfig scorched = new ScorchedConfig();
+
+	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
 	@CollapsibleObject
@@ -110,11 +113,16 @@ public final class EntityConfig {
 	}
 
 	public static class FireflyConfig {
+		@EntrySyncData("spawnFireflies")
+		public boolean spawnFireflies = true;
+
 		@EntrySyncData("fireflySpawnCap")
 		public int fireflySpawnCap = 56;
 	}
 
 	public static class JellyfishConfig {
+		@EntrySyncData("spawnJellyfish")
+		public boolean spawnJellyfish = true;
 		@EntrySyncData("jellyfishSpawnCap")
 		public int jellyfishSpawnCap = 30;
 
@@ -123,6 +131,9 @@ public final class EntityConfig {
 	}
 
 	public static class CrabConfig {
+		@EntrySyncData("spawnCrabs")
+		public boolean spawnCrabs = true;
+
 		@EntrySyncData("crabSpawnCap")
 		public int crabSpawnCap = 25;
 
@@ -138,7 +149,15 @@ public final class EntityConfig {
 		public boolean allowAttack = true;
 	}
 
+	public static class ScorchedConfig {
+		@EntrySyncData("spawnScorched")
+		public boolean spawnScorched = true;
+	}
+
 	public static class TumbleweedConfig {
+		@EntrySyncData("spawnTumbleweed")
+		public boolean spawnTumbleweed = true;
+
 		@EntrySyncData("tumbleweedSpawnCap")
 		public int tumbleweedSpawnCap = 10;
 

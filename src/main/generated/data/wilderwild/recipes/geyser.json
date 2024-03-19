@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:magma_block"
+    },
+    "U": {
+      "item": "minecraft:lava_bucket"
+    },
+    "X": {
+      "item": "minecraft:basalt"
+    }
+  },
+  "pattern": [
+    "#X#",
+    "XUX",
+    "#X#"
+  ],
+  "result": {
+    "count": 2,
+    "item": "wilderwild:geyser"
+  }
+}

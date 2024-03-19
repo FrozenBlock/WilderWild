@@ -80,7 +80,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		state = stateWithoutDusting(state);
 		if (canScorch(state)) {
-			level.setBlock(pos, SCORCH_MAP.get(state), 3);
+			level.setBlock(pos, SCORCH_MAP.get(state), UPDATE_ALL);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 		}
 	}
@@ -115,7 +115,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
 		level.scheduleTick(pos, this, TICK_DELAY);
 	}
 

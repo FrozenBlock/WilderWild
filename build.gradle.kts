@@ -206,10 +206,10 @@ dependencies {
     modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    modCompileOnlyApi("com.terraformersmc:modmenu:$modmenu_version")
+    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modCompileOnlyApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
@@ -226,6 +226,7 @@ dependencies {
     // MixinExtras
     // keep until Fabric applies the annotation processor by default
     modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
+
 
     // Sodium
     if (shouldRunSodium)

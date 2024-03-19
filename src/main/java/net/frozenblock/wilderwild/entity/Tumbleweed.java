@@ -26,8 +26,10 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -42,6 +44,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
@@ -116,7 +119,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
-	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().tumbleweed.spawnTumbleweed) return false;
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(SPAWN_CHANCE) == 0 && pos.getY() > level.getSeaLevel();
 	}
 
@@ -157,8 +161,17 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return dimensions.height * 0.5F;
 	}
 
+	public static void spawnFromShears(@NotNull Level level, BlockPos pos) {
+		level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
+		Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+		level.addFreshEntity(weed);
+		weed.setPos(Vec3.atBottomCenterOf(pos));
+		weed.spawnedFromShears = true;
+	}
+
 	@Override
 	protected void doPush(@NotNull Entity entity) {
+		if (entity.getType().is(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
 		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
 		if (entity instanceof Tumbleweed) {
 			super.doPush(entity);
@@ -269,10 +282,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
 			Vec3 deltaMovement = this.getDeltaMovement();
 			WindManager windManager = WindManager.getWindManager(serverLevel);
+			Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
-			double windX = Mth.clamp(windManager.windX * WIND_MULTIPLIER, -WIND_CLAMP, WIND_CLAMP);
-			double windZ = Mth.clamp(windManager.windZ * WIND_MULTIPLIER, -WIND_CLAMP, WIND_CLAMP);
-			deltaMovement = deltaMovement.add((windX * 0.2D) * multiplier, 0D, (windZ * 0.2D) * multiplier);
+			deltaMovement = deltaMovement.add((windVec.x * 0.2D), 0D, (windVec.z * 0.2D));
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88D : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0D && this.onGround()) {
 				deltaMovement = deltaMovement.add(0D, Math.min(0.65D, ((deltaPos.horizontalDistance() * 1.2D))) * multiplier, 0D);

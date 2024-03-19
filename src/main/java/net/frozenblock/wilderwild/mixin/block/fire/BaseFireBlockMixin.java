@@ -21,34 +21,78 @@ package net.frozenblock.wilderwild.mixin.block.fire;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(BaseFireBlock.class)
 public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
-	public void wilderWild$animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random, CallbackInfo info) {
-		if (BlockConfig.get().soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
+	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if (BlockConfig.get().fire.soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
-				pos.getX() + 0.5,
-				pos.getY() + 0.5,
-				pos.getZ() + 0.5,
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
 				RegisterSounds.BLOCK_SOUL_FIRE_AMBIENT,
 				SoundSource.BLOCKS,
 				0.6F + random.nextFloat(),
 				random.nextFloat() * 0.7F + 0.3F,
 				false
 			);
+		}
+	}
+
+	@Inject(
+		method = "animateTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BaseFireBlock;canBurn(Lnet/minecraft/world/level/block/state/BlockState;)Z",
+			ordinal = 0,
+			shift = At.Shift.BEFORE
+		),
+		locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	public void wilderWild$magmaSmoke(
+		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
+		BlockPos blockPos2,BlockState blockState2
+	) {
+		if (BlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
+			if (random.nextFloat() <= 0.0075F) {
+				level.addParticle(
+					ParticleTypes.LAVA,
+					false,
+					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
+					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+					(random.nextDouble() - 0.5D) * 0.05D,
+					random.nextDouble() * 0.12D + 0.06D,
+					(random.nextDouble() - 0.5D) * 0.05D
+				);
+			}
+
+			if (random.nextFloat() <= 0.0875F) {
+				level.addParticle(
+					ParticleTypes.LARGE_SMOKE,
+					false,
+					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
+					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+					(random.nextDouble() - 0.5D) * 0.05D,
+					random.nextDouble() * 0.12D + 0.06D,
+					(random.nextDouble() - 0.5D) * 0.05D
+				);
+			}
 		}
 	}
 

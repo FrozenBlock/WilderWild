@@ -121,8 +121,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRAVEL)
 			.add(Blocks.MUD)
 			.add(Blocks.SAND)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.LEAVES);
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)
 			.add(Blocks.RED_SAND)
@@ -271,11 +270,24 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(Blocks.RED_SAND);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.PACKED_ICE_REPLACEABLE)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.MESOGLEA_PATH_REPLACEABLE)
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)
 			.add(Blocks.CALCITE)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.MAGMA_REPLACEABLE)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.NETHER_GEYSER_REPLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.OASIS_PATH_REPLACEABLE)
 			.add(Blocks.SAND)
@@ -294,6 +306,16 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.DIRT)
 			.add(Blocks.GRAVEL)
 			.add(Blocks.CLAY);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.FALLEN_TREE_PLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.DIRT)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.CLAY)
+			.add(Blocks.MOSS_BLOCK)
+			.add(Blocks.PACKED_MUD)
+			.add(Blocks.SNOW);
 	}
 
 	private void generateTags() {
@@ -318,6 +340,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.PALM_WOOD)
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.SMALL_SPONGE_GROWS_ON)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.SPONGE)
+			.add(Blocks.CLAY)
+			.add(Blocks.MOSS_BLOCK)
+			.addOptionalTag(WilderBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.BASIN_REPLACEABLE)
 			.add(Blocks.GRASS_BLOCK)
@@ -359,6 +390,20 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_HOE)
 			.addOptionalTag(BlockTags.WOOL);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CAN_PASS_THROUGH)
+			.addOptionalTag(BlockTags.TRAPDOORS)
+			.add(Blocks.COPPER_GRATE)
+			.add(Blocks.EXPOSED_COPPER_GRATE)
+			.add(Blocks.WEATHERED_COPPER_GRATE)
+			.add(Blocks.OXIDIZED_COPPER_GRATE)
+			.add(Blocks.WAXED_COPPER_GRATE)
+			.add(Blocks.WAXED_EXPOSED_COPPER_GRATE)
+			.add(Blocks.WAXED_WEATHERED_COPPER_GRATE)
+			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
@@ -601,7 +646,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.NULL_BLOCK)
 			.add(RegisterBlocks.DISPLAY_LANTERN)
 			.add(RegisterBlocks.SCORCHED_SAND)
-			.add(RegisterBlocks.SCORCHED_RED_SAND);
+			.add(RegisterBlocks.SCORCHED_RED_SAND)
+			.add(RegisterBlocks.GEYSER);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.addOptionalTag(WilderBlockTags.MESOGLEA)
@@ -623,5 +669,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.SMALL_SPONGE)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS)
 			.addOptionalTag(WilderBlockTags.NEMATOCYSTS);
+
+		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
+			.add(RegisterBlocks.GEYSER);
 	}
 }

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:squid",
+    "minecraft:glow_squid",
+    "minecraft:dolphin",
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "wilderwild:scorched",
+    "minecraft:ghast",
+    "wilderwild:firefly",
+    "wilderwild:jellyfish",
+    "wilderwild:tumbleweed",
+    "minecraft:breeze"
+  ]
+}

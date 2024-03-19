@@ -55,7 +55,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
@@ -160,7 +159,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 							new FloatingSculkBubbleParticleOptions(
 								random.nextDouble() > 0.7 ? 1 : 0,
 								random.nextIntBetweenInclusive(60, 80),
-								new Vector3f(
+								new Vec3(
 									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
 									0.075F,
 									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)

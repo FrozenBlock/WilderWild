@@ -1,11 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:old_growth_spruce_taiga",
-    "minecraft:old_growth_pine_taiga",
-    {
-      "id": "wilderwild:snowy_old_growth_pine_taiga",
-      "required": false
-    }
+    "minecraft:taiga",
+    "minecraft:snowy_taiga"
   ]
 }

@@ -60,9 +60,9 @@ public class WilderClientNetworking {
 				packet.x(),
 				packet.y(),
 				packet.z(),
-				WilderSensorHiccupPacket.COLOR_X,
-				WilderSensorHiccupPacket.COLOR_Y,
-				WilderSensorHiccupPacket.COLOR_Z
+				1D,
+				1D,
+				1D
 			);
 		});
 	}

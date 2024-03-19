@@ -26,8 +26,8 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -55,9 +55,9 @@ public class SnowyOldGrowthPineTaiga extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
 	public static final float TEMP = -0.5F;
 	public static final float DOWNFALL = 0.4F;
-	public static final int WATER_COLOR = 4020182;
-	public static final int WATER_FOG_COLOR = 329011;
-	public static final int FOG_COLOR = 12638463;
+	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
+	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
+	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final int GRASS_COLOR = 8434839;
 	public static final int FOLIAGE_COLOR = 6332795;
@@ -164,7 +164,7 @@ public class SnowyOldGrowthPineTaiga extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.farmAnimals(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4))
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 2, 4))
 			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3))
 			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
 		BiomeDefaultFeatures.caveSpawns(spawns);

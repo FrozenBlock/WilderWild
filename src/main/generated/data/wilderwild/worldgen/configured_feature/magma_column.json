@@ -1,0 +1,20 @@
+{
+  "type": "frozenlib:upwards_column",
+  "config": {
+    "height": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      }
+    },
+    "replaceable_blocks": [
+      "minecraft:magma_block",
+      "minecraft:lava",
+      "minecraft:water"
+    ],
+    "state": {
+      "Name": "minecraft:magma_block"
+    }
+  }
+}

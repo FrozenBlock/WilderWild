@@ -38,6 +38,10 @@ public final class RegisterSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_JELLYFISH_CAVES_LOOP = registerForHolder("ambient.jellyfish_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_LOOP = registerForHolder("ambient.lush_caves.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_ADDITIONS = registerForHolder("ambient.magmatic_caves.additions");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_LOOP = registerForHolder("ambient.magmatic_caves.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_ADDITIONS = registerForHolder("ambient.frozen_caves.additions");
+	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_LOOP = registerForHolder("ambient.frozen_caves.loop");
 	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
 
 	//BLOCK
@@ -231,6 +235,20 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_PRICKLY_PEAR_PICK = register("block.prickly_pear.pick");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_CRACK = register("block.ostrich_egg.crack");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
+	public static final SoundEvent BLOCK_GEYSER_PLACE = register("block.geyser.place");
+	public static final SoundEvent BLOCK_GEYSER_HIT = register("block.geyser.hit");
+	public static final SoundEvent BLOCK_GEYSER_BREAK = register("block.geyser.break");
+	public static final SoundEvent BLOCK_GEYSER_STEP = register("block.geyser.step");
+	public static final SoundEvent BLOCK_GEYSER_FALL = register("block.geyser.fall");
+	public static final SoundEvent BLOCK_GEYSER_BOIL = register("block.geyser.boil");
+	public static final SoundEvent BLOCK_GEYSER_ERUPT_AIR = register("block.geyser.erupt.air");
+	public static final SoundEvent BLOCK_GEYSER_ERUPT_WATER = register("block.geyser.erupt.water");
+	public static final SoundEvent BLOCK_GEYSER_ERUPT_LAVA = register("block.geyser.erupt.lava");
+	public static final SoundEvent BLOCK_MAGMA_PLACE = register("block.magma.place");
+	public static final SoundEvent BLOCK_MAGMA_HIT = register("block.magma.hit");
+	public static final SoundEvent BLOCK_MAGMA_BREAK = register("block.magma.break");
+	public static final SoundEvent BLOCK_MAGMA_STEP = register("block.magma.step");
+	public static final SoundEvent BLOCK_MAGMA_FALL = register("block.magma.fall");
 
 	//ENTITY
 	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_BLAST = register("entity.ancient_horn_vibration.blast");
@@ -272,6 +290,11 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_STEP = register("entity.ostrich.inbred.step");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_BEAK_STUCK = register("entity.ostrich.inbred.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_SWING = register("entity.ostrich.inbred.beak.swing");
+	public static final SoundEvent ENTITY_SCORCHED_AMBIENT = register("entity.scorched.ambient");
+	public static final SoundEvent ENTITY_SCORCHED_HURT = register("entity.scorched.hurt");
+	public static final SoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");
+	public static final SoundEvent ENTITY_SCORCHED_STEP = register("entity.scorched.step");
+	public static final SoundEvent ENTITY_SCORCHED_STEP_LAVA = register("entity.scorched.step_lava");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
@@ -317,7 +340,9 @@ public final class RegisterSounds {
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
 	private RegisterSounds() {
 		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
