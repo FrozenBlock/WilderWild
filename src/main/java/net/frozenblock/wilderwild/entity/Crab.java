@@ -186,7 +186,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public static boolean checkCrabSpawnRules(@NotNull EntityType<Crab> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (MobSpawnType.isSpawner(spawnType)) return true;
+		if (spawnType == MobSpawnType.SPAWNER) return true;
 		if (!EntityConfig.get().crab.spawnCrabs) return false;
 		Holder<Biome> biome = level.getBiome(pos);
 		int randomBound = SPAWN_CHANCE;

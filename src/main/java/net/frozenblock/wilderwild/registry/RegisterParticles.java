@@ -61,6 +61,10 @@ public final class RegisterParticles {
 	public static final SimpleParticleType BLUE_FALLING_MESOGLEA = register("blue_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_LANDING_MESOGLEA = register("blue_landing_mesoglea_drip");
 
+	// VANILLA BACKPORTED
+	public static final SimpleParticleType DUST_PLUME = register("dust_plume", false);
+	public static final SimpleParticleType WHITE_SMOKE = register("white_smoke", false);
+
 	private RegisterParticles() {
 		throw new UnsupportedOperationException("RegisterParticles contains only static declarations.");
 	}

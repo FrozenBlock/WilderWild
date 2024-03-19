@@ -120,7 +120,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().tumbleweed.spawnTumbleweed) return false;
+		if (spawnType != MobSpawnType.SPAWNER && !EntityConfig.get().tumbleweed.spawnTumbleweed) return false;
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(SPAWN_CHANCE) == 0 && pos.getY() > level.getSeaLevel();
 	}
 

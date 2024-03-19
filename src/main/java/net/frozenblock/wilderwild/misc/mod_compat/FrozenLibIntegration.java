@@ -113,7 +113,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
-		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
+		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
 	}
 
 	@NotNull

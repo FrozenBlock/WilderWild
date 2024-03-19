@@ -72,9 +72,9 @@ import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.generation.sapling.BaobabSaplingGenerator;
-import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
-import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
+import net.frozenblock.wilderwild.world.impl.sapling.BaobabSaplingGenerator;
+import net.frozenblock.wilderwild.world.impl.sapling.CypressSaplingGenerator;
+import net.frozenblock.wilderwild.world.impl.sapling.PalmSaplingGenerator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -367,12 +367,12 @@ public final class RegisterBlocks {
 			.offset(BlockBehaviour.OffsetType.NONE)
 	);
 
-	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
 		FabricBlockSettings.copyOf(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.CRIMSON_STEM)
 	);
 
-	public static final FlowerLichenBlock VIOLET_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
 		FabricBlockSettings.copyOf(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.COLOR_PURPLE)
 	);

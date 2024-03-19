@@ -392,15 +392,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.WOOL);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CAN_PASS_THROUGH)
-			.addOptionalTag(BlockTags.TRAPDOORS)
-			.add(Blocks.COPPER_GRATE)
-			.add(Blocks.EXPOSED_COPPER_GRATE)
-			.add(Blocks.WEATHERED_COPPER_GRATE)
-			.add(Blocks.OXIDIZED_COPPER_GRATE)
-			.add(Blocks.WAXED_COPPER_GRATE)
-			.add(Blocks.WAXED_EXPOSED_COPPER_GRATE)
-			.add(Blocks.WAXED_WEATHERED_COPPER_GRATE)
-			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE);
+			.addOptionalTag(BlockTags.TRAPDOORS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
 			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);

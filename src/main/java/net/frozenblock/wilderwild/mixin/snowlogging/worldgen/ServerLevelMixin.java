@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
 
-	@WrapOperation(method = "tickPrecipitation",
+	@WrapOperation(method = "tickIceAndSnow",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
@@ -51,7 +51,7 @@ public class ServerLevelMixin {
 		return runSnowlogging.get() || original.call(instance, block);
 	}
 
-	@WrapOperation(method = "tickPrecipitation",
+	@WrapOperation(method = "tickIceAndSnow",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
@@ -65,7 +65,7 @@ public class ServerLevelMixin {
 		return runSnowlogging.get() ? snowloggedLayers.get() : original.call(instance, property);
 	}
 
-	@WrapOperation(method = "tickPrecipitation",
+	@WrapOperation(method = "tickIceAndSnow",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;setValue(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Ljava/lang/Object;",

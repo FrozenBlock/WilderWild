@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
@@ -35,19 +36,6 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
 
-	@ModifyExpressionValue(method = "destroyBlock",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$destroyBlockA(
-		BlockState original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
-	) {
-		destroyedState.set(original);
-		return original;
-	}
 
 	@WrapOperation(method = "destroyBlock",
 		at = @At(
@@ -57,10 +45,10 @@ public class ServerPlayerGameModeMixin {
 	)
 	public boolean wilderWild$destroyBlockB(
 		ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+		@Local BlockState destroyedState
 	) {
-		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
+			instance.setBlock(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
 			return true;
 		}
 		return original.call(instance, pos, b);

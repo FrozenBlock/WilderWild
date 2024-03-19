@@ -91,7 +91,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	}
 
 	@ModifyExpressionValue(
-		method = "preventDropFromBottomPart",
+		method = "preventCreativeDropFromBottomPart",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
@@ -103,7 +103,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	}
 
 	@WrapOperation(
-		method = "preventDropFromBottomPart",
+		method = "preventCreativeDropFromBottomPart",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"

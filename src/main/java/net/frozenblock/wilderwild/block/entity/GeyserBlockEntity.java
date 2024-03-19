@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -134,13 +135,13 @@ public class GeyserBlockEntity extends BlockEntity {
 				if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
 			}
 		}
-		AABB eruption = AABB.encapsulatingFullBlocks(pos, mutablePos.immutable());
+		AABB eruption = new AABB(pos, mutablePos.immutable());
 		AABB effectiveEruption = cutoffPos.map(blockPos ->
-				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable().relative(direction.getOpposite())));
+				new AABB(pos, blockPos.immutable().relative(direction.getOpposite())))
+			.orElseGet(() -> new AABB(pos, mutablePos.immutable().relative(direction.getOpposite())));
 		AABB damagingEruption = damageCutoffPos.map(blockPos ->
-				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable().relative(direction.getOpposite())));
+				new AABB(pos, blockPos.immutable().relative(direction.getOpposite())))
+			.orElseGet(() -> new AABB(pos, mutablePos.immutable().relative(direction.getOpposite())));
 
 		List<Entity> entities = level.getEntities(
 			EntityTypeTest.forClass(Entity.class),
@@ -398,7 +399,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, ACTIVE_DUST_MIN_VELOCITY, ACTIVE_DUST_MAX_VELOCITY);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, ACTIVE_DUST_RANDOM_VELOCITY));
 					level.addParticle(
-						ParticleTypes.DUST_PLUME,
+						RegisterParticles.DUST_PLUME,
 						false,
 						particlePos.x,
 						particlePos.y,

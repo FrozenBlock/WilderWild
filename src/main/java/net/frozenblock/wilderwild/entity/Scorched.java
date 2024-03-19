@@ -183,11 +183,8 @@ public class Scorched extends Spider {
 
 	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().scorched.spawnScorched) return false;
-		if (MobSpawnType.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
-			return true;
-		}
-		return false;
+		if (spawnType != MobSpawnType.SPAWNER && !EntityConfig.get().scorched.spawnScorched) return false;
+		return Scorched.isDarkEnoughToSpawn(level, pos, random);
 	}
 
 }

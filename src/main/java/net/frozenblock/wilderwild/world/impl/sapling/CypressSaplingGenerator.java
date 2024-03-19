@@ -16,11 +16,11 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.generation.sapling;
+package net.frozenblock.wilderwild.world.impl.sapling;
 
 import net.frozenblock.wilderwild.misc.interfaces.AbstractTreeGrowerInterface;
-import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.features.feature.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.features.feature.WilderTreeConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;

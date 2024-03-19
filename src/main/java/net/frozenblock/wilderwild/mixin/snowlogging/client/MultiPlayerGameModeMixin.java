@@ -18,11 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
@@ -34,20 +32,6 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
 
-	@ModifyExpressionValue(method = "destroyBlock",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$destroyBlockA(
-		BlockState original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
-	) {
-		destroyedState.set(original);
-		return original;
-	}
-
 	@WrapOperation(method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
@@ -56,10 +40,10 @@ public class MultiPlayerGameModeMixin {
 	)
 	public boolean wilderWild$destroyBlockB(
 		Level instance, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+		@Local BlockState destroyedState
 	) {
-		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
+		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
+			instance.setBlock(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
 			return true;
 		}
 		return original.call(instance, pos, newState, flags);

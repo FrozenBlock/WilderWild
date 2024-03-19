@@ -60,7 +60,6 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty NATURAL = RegisterProperties.NATURAL;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
 	public GeyserBlock(@NotNull Properties settings) {
 		super(settings);
@@ -71,12 +70,6 @@ public class GeyserBlock extends BaseEntityBlock {
 			.setValue(NATURAL, true)
 			.setValue(POWERED, false)
 		);
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends GeyserBlock> codec() {
-		return CODEC;
 	}
 
 	@Nullable

@@ -169,7 +169,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (MobSpawnType.isSpawner(spawnType)) {
+		if (spawnType == MobSpawnType.SPAWNER) {
 			return true;
 		} else if (!EntityConfig.get().jellyfish.spawnJellyfish) {
 			return false;

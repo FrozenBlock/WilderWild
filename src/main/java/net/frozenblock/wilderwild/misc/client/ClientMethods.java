@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
@@ -92,7 +93,7 @@ public class ClientMethods {
 				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.003D, 0.01D);
 				Particle particle = particleEngine.createParticle(
-					ParticleTypes.WHITE_SMOKE,
+					RegisterParticles.WHITE_SMOKE,
 					particlePos.x,
 					particlePos.y,
 					particlePos.z,
@@ -140,7 +141,7 @@ public class ClientMethods {
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.8D, 1.4D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
 					level.addParticle(
-						ParticleTypes.DUST_PLUME,
+						RegisterParticles.DUST_PLUME,
 						false,
 						particlePos.x,
 						particlePos.y,
