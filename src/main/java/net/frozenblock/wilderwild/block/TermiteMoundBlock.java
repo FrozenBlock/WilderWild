@@ -45,6 +45,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public static final int MAX_PLACEMENT_TICK_DELAY = 200;
 	public static final int MIN_TICK_DELAY = 90;
 	public static final int MAX_TICK_DELAY = 150;
+	public static final int MIN_AWAKE_LIGHT_LEVEL = 7;
 
 	public TermiteMoundBlock(@NotNull Properties settings) {
 		super(settings);
@@ -61,7 +62,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	public static boolean shouldTermitesSleep(@NotNull Level level, int light) {
-		return level.isNight() && light < 7;
+		return level.isNight() && light < MIN_AWAKE_LIGHT_LEVEL;
 	}
 
 	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
@@ -92,27 +93,27 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
 		if (isSafe != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
-			state.setValue(RegisterProperties.TERMITES_AWAKE, isSafe);
+			state = state.setValue(RegisterProperties.TERMITES_AWAKE, isSafe);
 		}
 		if (isSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
-			state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, isSafe);
+			state = state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, isSafe);
 		}
 		return state;
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
 		level.scheduleTick(pos, this, level.random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
 		if (!state.is(newState.getBlock())) {
 			if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) {
 				termiteMoundBlockEntity.termiteManager.clearTermites(level);
 			}
 		}
-		super.onRemove(state, level, pos, newState, isMoving);
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override
@@ -120,10 +121,10 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
 		if (canAwaken != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
-			level.setBlock(pos, state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken), 3);
+			level.setBlock(pos, state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken), UPDATE_ALL);
 		}
 		if (areTermitesSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
-			level.setBlock(pos, state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, areTermitesSafe), 3);
+			level.setBlock(pos, state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, areTermitesSafe), UPDATE_ALL);
 		}
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}
@@ -136,7 +137,16 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex.getValue(RegisterProperties.NATURAL), statex.getValue(RegisterProperties.TERMITES_AWAKE), statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE)))
+		return !level.isClientSide ?
+			createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) ->
+				blockEntity.tickServer(
+					worldx,
+					pos,
+					statex.getValue(RegisterProperties.NATURAL),
+					statex.getValue(RegisterProperties.TERMITES_AWAKE),
+					statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE)
+				)
+			)
 			: createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
 	}
 }

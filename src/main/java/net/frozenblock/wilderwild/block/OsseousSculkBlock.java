@@ -50,10 +50,11 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final double HANGING_TENDRIL_WORLDGEN_CHANCE = 0.6D;
 	public static final int CATALYST_GROWTH_CHANCE = 11;
 	public static final double SCULK_CONVERSION_HEIGHT_THRESHOLD = 3D;
+	public static final double RIB_CAGE_CHANCE = 0.8D;
+	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final IntegerProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
 	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
-	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 
 	public OsseousSculkBlock(@NotNull Properties settings) {
 		super(settings);
@@ -92,7 +93,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
 			}
 			if (stateSetTo != null) {
-				level.setBlock(mutableBlockPos, stateSetTo, 3);
+				level.setBlock(mutableBlockPos, stateSetTo, UPDATE_ALL);
 			}
 			mutableBlockPos.move(oppositeDirection);
 		}
@@ -135,7 +136,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 								BlockState blockState = getGrowthState(random, pillarHeightLeft, state, direction);
 								if (blockState.getBlock() == this) {
 									blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(FACING, direction);
-									if (direction == Direction.DOWN && random.nextDouble() > 0.8) {
+									if (direction == Direction.DOWN && random.nextDouble() > RIB_CAGE_CHANCE) {
 										Direction nextDirection = getDir(getAxis(random), random);
 										if (isSafeToReplace(level.getBlockState(mutableBlockPos.setWithOffset(topPos, nextDirection)))) {
 											BlockState ribState = this.defaultBlockState().setValue(FACING, nextDirection).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0);

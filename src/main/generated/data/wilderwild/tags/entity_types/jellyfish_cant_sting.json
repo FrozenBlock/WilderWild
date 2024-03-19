@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:squid",
+    "minecraft:glow_squid",
+    "minecraft:dolphin",
+    "minecraft:tropical_fish",
+    "minecraft:pufferfish",
+    "minecraft:axolotl",
+    "minecraft:turtle",
+    "wilderwild:jellyfish",
+    "wilderwild:tumbleweed"
+  ]
+}

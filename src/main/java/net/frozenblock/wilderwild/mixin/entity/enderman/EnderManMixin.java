@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.mixin.entity.enderman;
 
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.client.sound.ClientMethodInteractionHandler;
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
+import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -117,7 +117,7 @@ public abstract class EnderManMixin extends Monster implements WilderEnderman {
 				SoundSource.HOSTILE,
 				1F,
 				0.9F,
-				WilderSharedConstants.id("enderman_anger"),
+				FrozenLibIntegration.ENDERMAN_ANGER_SOUND_PREDICATE,
 				true
 			);
 		}

@@ -43,22 +43,27 @@ import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
+import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderer;
+import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
+import net.frozenblock.wilderwild.particle.DustPlumeParticle;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
+import net.frozenblock.wilderwild.particle.WhiteSmokeParticle;
+import net.frozenblock.wilderwild.particle.WindParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -96,6 +101,7 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "main");
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
+	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderSharedConstants.id("scorched"), "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -125,7 +131,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.CATTAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.MILKWEED, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.POLLEN_BLOCK, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.POLLEN, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.ECHO_GLASS, RenderType.translucent());
 		renderLayerRegistry.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
@@ -141,10 +147,10 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.BUSH, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
@@ -197,6 +203,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
 		particleRegistry.register(RegisterParticles.SEED, SeedParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
+		particleRegistry.register(RegisterParticles.WIND, WindParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.COCONUT_SPLASH, FallingParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
@@ -221,6 +228,10 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.RED_FALLING_MESOGLEA, MesogleaDripParticle.RMesogleaFallProvider::new);
 		particleRegistry.register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
 
+		// BACKPORT
+		particleRegistry.register(RegisterParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
+		particleRegistry.register(RegisterParticles.WHITE_SMOKE, WhiteSmokeParticle.Provider::new);
+
 		EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
 
 		EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_VIBRATION, AncientHornProjectileRenderer::new);
@@ -239,6 +250,9 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
+
+		EntityRendererRegistry.register(RegisterEntities.SCORCHED, ScorchedRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(SCORCHED, ScorchedModel::createSpiderBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 

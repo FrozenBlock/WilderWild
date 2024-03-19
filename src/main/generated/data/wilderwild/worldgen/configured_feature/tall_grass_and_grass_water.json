@@ -12,14 +12,18 @@
                 "data": {
                   "Name": "minecraft:tall_grass",
                   "Properties": {
-                    "half": "lower"
+                    "half": "lower",
+                    "snow_layers": "0"
                   }
                 },
                 "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:grass"
+                  "Name": "minecraft:grass",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 4
               }

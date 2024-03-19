@@ -1,7 +1,7 @@
 Luna/Lunade/AViewFromTheTop:
  - Lead developer & gameplay designer & idea generator (not gonna take the time to explain everything I did.)
  - Worldgen (don't forget Soro's worldgen, too!)
- - Crab entity texture.
+ - Crab entity, Reach Boost, and Wind particle textures.
  - Sounds (2.2 onwards.)
  - QA.
  - Etc., etc.
@@ -25,18 +25,22 @@ Soro:
  - Scorched Sand concept.
  - Baobab Nuts.
 
+Contributors:
+
+Merp:
+ - Lead texture artist prior to 2.3.
+ - Sound designer prior to 2.2.
+ - Occasional gameplay designer & feedback.
+
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
- - Textures (2.3)
- - Crab in Bucket texture.
+ - Crab in Bucket, Ostrich, Ostrich Egg, and Geyser textures.
 
-Merp:
- - Textures (before 2.3, excluding the Crab entity texture, Crab in Bucket texture, and Cattail texture.)
- - Sounds (before 2.2.)
- - Occasional gameplay designer & feedback.
-
-Contributors:
+Zhen:
+ - Retextured all Baobab Nut textures in 2.4.
+ - Retextured all Glory of the Snow textures in 2.4.
+ - Retextured all Milkweed block textures in 2.4.
 
 LudoCrypt:
  - New music.
@@ -111,6 +115,37 @@ https://freesound.org/people/HerbertBoland/sounds/29695/
 https://freesound.org/people/ChrisReierson/sounds/433749/
 https://freesound.org/people/Ezcah/sounds/243715/
 Additional sound effects were taken and edited from Minecraft itself.
+
+Geyser/Magmatic Caves Sounds:
+https://freesound.org/people/hdrck16/sounds/135010/
+https://freesound.org/people/jiza529/sounds/184572/
+https://freesound.org/people/SmirnoffLulo/sounds/585864/
+https://freesound.org/people/DanielGod/sounds/719560/
+https://freesound.org/people/n-lerche/sounds/459618/
+https://freesound.org/people/unfa/sounds/174500/
+https://freesound.org/people/Ezcah/sounds/248296/
+https://freesound.org/people/WaltGerhard/sounds/268182/
+https://freesound.org/people/hokstnator/sounds/151196/
+https://freesound.org/people/humanoide9000/sounds/441835/
+https://freesound.org/people/Anton/sounds/105293/
+https://freesound.org/people/InspectorJ/sounds/398711/
+https://freesound.org/people/Benboncan/sounds/113701/
+https://freesound.org/people/hanstimm/sounds/256869/
+https://freesound.org/people/junggle/sounds/274068/
+https://freesound.org/people/Fission9/sounds/474850/
+https://freesound.org/people/ilmari_freesound/sounds/663183/
+https://freesound.org/people/AugustSandberg/sounds/677716/
+
+Frozen Caves Sounds:
+https://freesound.org/people/nlux/sounds/620967/
+https://freesound.org/people/radian/sounds/62982/
+https://freesound.org/people/Anthousai/sounds/398496/
+https://freesound.org/people/giddster/sounds/437336/
+https://freesound.org/people/Glitchedtones/sounds/380248/
+https://freesound.org/people/SDLx/sounds/211163/
+https://freesound.org/people/j_p_higgins/sounds/262634/
+https://freesound.org/people/dheming/sounds/268023/
+https://freesound.org/people/felix.blume/sounds/646589/
 
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.

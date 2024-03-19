@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
@@ -167,9 +168,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 		NON_PEARLESCENT_JELLYFISH_PER_LEVEL.clear();
 	}
 
-	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (reason == MobSpawnType.SPAWNER) {
+	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (spawnType == MobSpawnType.SPAWNER) {
 			return true;
+		} else if (!EntityConfig.get().jellyfish.spawnJellyfish) {
+			return false;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
 		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {

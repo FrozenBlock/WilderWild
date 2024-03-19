@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:large_fallen_jungle_checked",
+    "features": [
+      {
+        "chance": 1.0,
+        "feature": "wilderwild:large_fallen_jungle_checked"
+      }
+    ]
+  }
+}

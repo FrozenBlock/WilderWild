@@ -61,9 +61,17 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_FALLEN_PALM = bind("has_fallen_palm");
 	public static final TagKey<Biome> HAS_FALLEN_PALM_RARE = bind("has_fallen_palm_rare");
 	public static final TagKey<Biome> HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK = bind("has_fallen_palm_and_jungle_and_oak");
+	public static final TagKey<Biome> HAS_FALLEN_LARGE_JUNGLE = bind("has_fallen_large_jungle");
+	public static final TagKey<Biome> HAS_COMMON_FALLEN_LARGE_JUNGLE = bind("has_common_fallen_large_jungle");
+	public static final TagKey<Biome> HAS_FALLEN_DARK_OAK = bind("has_fallen_dark_oak");
+	public static final TagKey<Biome> HAS_COMMON_FALLEN_DARK_OAK = bind("has_common_fallen_dark_oak");
 	public static final TagKey<Biome> HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST = bind("has_fallen_birch_and_oak_dark_forest");
 	public static final TagKey<Biome> HAS_FALLEN_SPRUCE_TREES = bind("has_fallen_spruce_trees");
 	public static final TagKey<Biome> HAS_CLEAN_FALLEN_SPRUCE_TREES = bind("has_clean_fallen_spruce_trees");
+	public static final TagKey<Biome> HAS_FALLEN_LARGE_SPRUCE = bind("has_fallen_large_spruce");
+	public static final TagKey<Biome> HAS_COMMON_FALLEN_LARGE_SPRUCE = bind("has_common_fallen_large_spruce");
+	public static final TagKey<Biome> HAS_CLEAN_FALLEN_LARGE_SPRUCE = bind("has_clean_fallen_large_spruce");
+	public static final TagKey<Biome> HAS_COMMON_CLEAN_FALLEN_LARGE_SPRUCE = bind("has_common_clean_fallen_large_spruce");
 	public static final TagKey<Biome> HAS_FALLEN_SWAMP_OAK_TREES = bind("has_fallen_swamp_oak_trees");
 	public static final TagKey<Biome> HAS_FALLEN_MANGROVE_TREES = bind("has_fallen_mangrove_trees");
 	public static final TagKey<Biome> CHERRY_TREES = bind("cherry_trees");
@@ -103,6 +111,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_SPRUCE = bind("has_snapped_spruce");
 	public static final TagKey<Biome> HAS_SNAPPED_SPRUCE_SNOWY = bind("has_snapped_spruce_snowy");
 	public static final TagKey<Biome> HAS_SNAPPED_LARGE_SPRUCE = bind("has_snapped_large_spruce");
+	public static final TagKey<Biome> HAS_COMMON_SNAPPED_LARGE_SPRUCE = bind("has_common_snapped_large_spruce");
 	public static final TagKey<Biome> HAS_SNAPPED_LARGE_SPRUCE_SNOWY = bind("has_snapped_large_spruce_snowy");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_OAK = bind("has_snapped_birch_and_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_OAK_AND_SPRUCE = bind("has_snapped_birch_and_oak_and_spruce");
@@ -178,6 +187,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_GRAVEL_TRANSITION = bind("has_gravel_transition");
 	public static final TagKey<Biome> HAS_MUD_TRANSITION = bind("has_mud_transition");
 	public static final TagKey<Biome> HAS_TERMITE_MOUND = bind("has_termite_mound");
+	public static final TagKey<Biome> HAS_NETHER_GEYSER = bind("has_nether_geyser");
+	public static final TagKey<Biome> HAS_NETHER_LAVA_GEYSER = bind("has_nether_lava_geyser");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("has_moss_lake");
@@ -201,6 +212,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
 	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("multi_layer_sand_beaches");
+	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("below_surface_snow");
+	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("strays_can_spawn_underground");
 	public static final TagKey<Biome> LUKEWARM_WATER = bind("lukewarm_water");
 	public static final TagKey<Biome> HOT_WATER = bind("hot_water");
 	public static final TagKey<Biome> SNOWY_WATER = bind("snowy_water");

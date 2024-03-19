@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
@@ -31,13 +31,11 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class FloatingSculkBubbleParticle extends RisingParticle {
@@ -48,7 +46,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	private float currentInflation = 0F;
 	private float targetInflation = 2F;
 
-	protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vector3f velocity, @NotNull SpriteSet spriteProvider) {
+	protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, @NotNull SpriteSet spriteProvider) {
 		super(clientLevel, x, y, z, 0D, 0D, 0D);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
@@ -85,7 +83,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().getParticleWindIntensity());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;

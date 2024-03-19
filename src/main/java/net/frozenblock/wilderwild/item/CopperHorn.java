@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.item;
 import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -57,7 +58,7 @@ public class CopperHorn extends InstrumentItem {
 				SoundSource.RECORDS,
 				range,
 				soundPitch,
-				WilderSharedConstants.id("instrument"),
+				FrozenLibIntegration.INSTRUMENT_SOUND_PREDICATE,
 				true
 			);
 		}

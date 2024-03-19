@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -35,6 +36,7 @@ public final class RegisterParticles {
 	public static final SimpleParticleType POLLEN = register("pollen");
 	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, SeedParticleOptions.DESERIALIZER, particleType -> SeedParticleOptions.CODEC);
 	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, FloatingSculkBubbleParticleOptions.DESERIALIZER, particleType -> FloatingSculkBubbleParticleOptions.CODEC);
+	public static final ParticleType<WindParticleOptions> WIND = register("wind", false, WindParticleOptions.DESERIALIZER, particleType -> WindParticleOptions.CODEC);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
@@ -58,6 +60,10 @@ public final class RegisterParticles {
 	public static final SimpleParticleType BLUE_HANGING_MESOGLEA = register("blue_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_FALLING_MESOGLEA = register("blue_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_LANDING_MESOGLEA = register("blue_landing_mesoglea_drip");
+
+	// VANILLA BACKPORTED
+	public static final SimpleParticleType DUST_PLUME = register("dust_plume", false);
+	public static final SimpleParticleType WHITE_SMOKE = register("white_smoke", false);
 
 	private RegisterParticles() {
 		throw new UnsupportedOperationException("RegisterParticles contains only static declarations.");

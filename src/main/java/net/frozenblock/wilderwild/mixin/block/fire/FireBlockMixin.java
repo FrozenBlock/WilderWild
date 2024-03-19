@@ -19,9 +19,12 @@
 package net.frozenblock.wilderwild.mixin.block.fire;
 
 import net.frozenblock.wilderwild.block.ScorchedBlock;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +46,39 @@ public class FireBlockMixin {
 	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
 		if (random.nextFloat() <= 0.0125F) {
 			ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
+		}
+	}
+
+	@Inject(method = "tick", at = @At("HEAD"))
+	public void wilderWild$magmaSmoke(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if (BlockConfig.get().fire.extraMagmaParticles && level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK)) {
+			if (random.nextFloat() <= 0.05F) {
+				level.sendParticles(
+					ParticleTypes.LAVA,
+					(double) pos.getX() + 0.5D,
+					pos.getY() + 0.5D,
+					(double) pos.getZ() + 0.5D,
+					1,
+					random.nextDouble() / 3D,
+					random.nextDouble() * 0.5D,
+					random.nextDouble() / 3D,
+					(random.nextDouble() - 0.5D) * 0.05D
+				);
+			}
+
+			if (random.nextFloat() <= 0.2F) {
+				level.sendParticles(
+					ParticleTypes.LARGE_SMOKE,
+					(double) pos.getX() + 0.5D,
+					pos.getY() + 0.5D,
+					(double) pos.getZ() + 0.5D,
+					random.nextInt(1, 6),
+					random.nextDouble() / 3D,
+					random.nextDouble() * 0.5D,
+					random.nextDouble() / 3D,
+					(random.nextDouble() - 0.5D) * 0.05D
+				);
+			}
 		}
 	}
 

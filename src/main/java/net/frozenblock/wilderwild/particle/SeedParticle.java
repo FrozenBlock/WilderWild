@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -36,17 +36,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class SeedParticle extends TextureSheetParticle {
-	public double windIntensity;
+	public double windIntensity = 0.5D;
 
 	SeedParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
 		this.setSize(0.01F, 0.02F);
 		this.pickSprite(spriteProvider);
-		this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
+		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.hasPhysics = true;
 		this.friction = 1F;
@@ -56,15 +55,14 @@ public class SeedParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		this.windIntensity *= 0.945F;
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
 		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
 			return;
 		}
-		double multXZ = (this.onGround ? 0.0005D : 0.007D) * this.windIntensity;
-		double multY = (this.onGround ? 0.0005D : 0.0035D) * this.windIntensity;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z)).scale(MiscConfig.get().getParticleWindIntensity());
+		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
+		double multY = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
+		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1D) * multY;
 		this.zd += wind.z() * multXZ;
@@ -82,7 +80,7 @@ public class SeedParticle extends TextureSheetParticle {
 		@NotNull
 		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			RandomSource random = level.getRandom();
-			Vector3f controlledVelocity = options.getSpeed();
+			Vec3 controlledVelocity = options.getVelocity();
 			double windex = options.isControlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D;
 			double windZ = options.isControlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D;
 			SeedParticle seedParticle = new SeedParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
@@ -92,7 +90,6 @@ public class SeedParticle extends TextureSheetParticle {
 			seedParticle.zd = (windZ + random.triangle(0D, 0.8D)) / 17D;
 			seedParticle.yd = options.isControlled() ? controlledVelocity.y / 17D : seedParticle.yd;
 			seedParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-			seedParticle.windIntensity = options.isControlled() ? 0.5D : 1D;
 			return seedParticle;
 		}
 	}

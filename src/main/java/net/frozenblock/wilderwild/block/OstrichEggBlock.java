@@ -29,6 +29,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -42,7 +43,7 @@ import org.jetbrains.annotations.NotNull;
 public class OstrichEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
-	private static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 8.0, 11.0);
+	private static final VoxelShape SHAPE = Block.box(5D, 0D, 5D, 11D, 8D, 11D);
 
 	public OstrichEggBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -77,7 +78,7 @@ public class OstrichEggBlock extends Block {
 		if (shouldUpdateHatchLevel(level, pos)) {
 			if (!this.isReadyToHatch(state)) {
 				level.playSound(null, pos, RegisterSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
-				level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), UPDATE_CLIENTS);
+				level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
 			} else {
 				this.hatchOstrichEgg(level, pos, random);
 			}
@@ -87,7 +88,7 @@ public class OstrichEggBlock extends Block {
 	@Override
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
 		super.onPlace(state, level, pos, oldState, movedByPiston);
-		level.levelEvent(3009, pos, 0);
+		level.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, pos, 0);
 	}
 
 	private boolean shouldUpdateHatchLevel(@NotNull Level level, @NotNull BlockPos blockPos) {

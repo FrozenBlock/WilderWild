@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_left",
-  "textures": {
-    "bottom": "wilderwild:block/baobab_door_bottom",
-    "top": "wilderwild:block/baobab_door_top"
-  }
-}

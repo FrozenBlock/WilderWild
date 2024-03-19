@@ -25,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -52,17 +53,51 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
-	protected static final VoxelShape Y_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(13, 0, 0, 16, 16, 16));
-	protected static final VoxelShape Z_SHAPE = Shapes.or(Block.box(13, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
-	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
-	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 0, 13.75, 16, 16, 16), Block.box(13.75, 0, 0, 16, 16, 16));
-	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.75, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
-	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
+	public static final double HOLLOW_PARTICLE_DIRECTION_OFFSET = 0.3375D;
+	public static final int HOLLOW_PARTICLES_MIN = 12;
+	public static final int HOLLOW_PARTICLES_MAX = 28;
+	public static final double ENTRANCE_DIRECTION_STEP_SCALE = 0.475D;
 	private static final double HOLLOWED_AMOUNT = 0.71875D;
 	private static final double EDGE_AMOUNT = 0.140625D;
 	private static final double CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	protected static final VoxelShape X_SHAPE = Shapes.or(
+		Block.box(0D, 0D, 0D, 16D, 16D, 3D),
+		Block.box(0D, 13D, 0D, 16D, 16D, 16D),
+		Block.box(0D, 0D, 13D, 16D, 16D, 16D),
+		Block.box(0D, 0D, 0D, 16D, 3D, 16D)
+	);
+	protected static final VoxelShape Y_SHAPE = Shapes.or(
+		Block.box(0D, 0D, 0D, 16D, 16D, 3D),
+		Block.box(0D, 0D, 0D, 3D, 16D, 16D),
+		Block.box(0D, 0D, 13D, 16D, 16D, 16D),
+		Block.box(13D, 0D, 0D, 16D, 16D, 16D)
+	);
+	protected static final VoxelShape Z_SHAPE = Shapes.or(
+		Block.box(13D, 0D, 0D, 16D, 16D, 16D),
+		Block.box(0D, 0D, 0D, 3D, 16D, 16D),
+		Block.box(0D, 13D, 0D, 16D, 16D, 16D),
+		Block.box(0D, 0D, 0D, 16D, 3D, 16D)
+	);
+	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(
+		Block.box(0D, 0, 0, 16, 16D, 2.25D),
+		Block.box(0D, 13.75D, 0, 16D, 16D, 16D),
+		Block.box(0D, 0D, 13D, 16D, 16D, 16D),
+		Block.box(0D, 0D, 0D, 16D, 2.25D, 16D)
+	);
+	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(
+		Block.box(0D, 0D, 0D, 16D, 16D, 2.25D),
+		Block.box(0D, 0D, 0D, 2.25D, 16D, 16),
+		Block.box(0D, 0D, 13.75D, 16D, 16D, 16),
+		Block.box(13.75D, 0D, 0D, 16D, 16D, 16)
+	);
+	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(
+		Block.box(13.75D, 0D, 0D, 16D, 16D, 16D),
+		Block.box(0D, 0D, 0D, 2.25D, 16D, 16),
+		Block.box(0D, 13.75D, 0D, 16D, 16D, 16),
+		Block.box(0D, 0D, 0D, 16D, 2.25D, 16)
+	);
+	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
 
 	public HollowedLogBlock(@NotNull Properties settings) {
 		super(settings);
@@ -80,24 +115,22 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
 		if (level instanceof ServerLevel serverLevel) {
-			double stepX = face.getStepX();
-			double stepY = face.getStepY();
-			double stepZ = face.getStepZ();
-			if (stepX < 0D) stepX *= -1D;
-			if (stepY < 0D) stepY *= -1D;
-			if (stepZ < 0D) stepZ *= -1D;
+			double offsetX = Math.abs(face.getStepX()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
+			double offsetY = Math.abs(face.getStepY()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
+			double offsetZ = Math.abs(face.getStepZ()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
 			serverLevel.sendParticles(
 				new BlockParticleOption(ParticleTypes.BLOCK, state),
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
 				pos.getZ() + 0.5D,
-				level.random.nextInt(12, 28),
-				0.1625D + (stepX * 0.3375D),
-				0.1625D + (stepY * 0.3375D),
-				0.1625D + (stepZ * 0.3375D),
+				level.random.nextInt(HOLLOW_PARTICLES_MIN, HOLLOW_PARTICLES_MAX),
+				0.1625D + offsetX,
+				0.1625D + offsetY,
+				0.1625D + offsetZ,
 				0.05D
 			);
-			level.playSound(null, pos, isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+			SoundEvent hollowedSound = isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED;
+			level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 		}
 	}
 
@@ -125,9 +158,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			&& hitDirection.getOpposite() == direction
 		) {
 			player.setPos(
-				pos.getX() + 0.5D - direction.getStepX() * 0.475D,
+				pos.getX() + 0.5D - direction.getStepX() * ENTRANCE_DIRECTION_STEP_SCALE,
 				pos.getY() + EDGE_AMOUNT,
-				pos.getZ() + 0.5D - direction.getStepZ() * 0.475D
+				pos.getZ() + 0.5D - direction.getStepZ() * ENTRANCE_DIRECTION_STEP_SCALE
 			);
 			player.setPose(Pose.SWIMMING);
 			player.setSwimming(true);

@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.config;
 
+import blue.endless.jankson.Comment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -79,11 +79,14 @@ public final class MixinsConfig {
 
 	public boolean block_mesoglea = true;
 
+	public boolean block_palm_fronds = true;
 	public boolean block_reinforced_deepslate = true;
 
 	public boolean block_spawner = true;
 
 	public boolean block_termite = true;
+
+	public boolean snowlogging = true;
 
 	public boolean entity_ai = true;
 
@@ -102,6 +105,8 @@ public final class MixinsConfig {
 	public boolean entity_lightning = true;
 
 	public boolean entity_slime = true;
+
+	public boolean entity_stray = true;
 
 	public boolean entity_tumbleweed = true;
 

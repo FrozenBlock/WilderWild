@@ -1,0 +1,32 @@
+{
+  "type": "frozenlib:fading_disk_tag_feature",
+  "config": {
+    "fade_start_distance_percent": 0.675,
+    "heightmap": "OCEAN_FLOOR_WG",
+    "inner_chance": 0.7,
+    "inner_percent": 0.325,
+    "inner_replaceable_blocks": "wilderwild:packed_ice_replaceable",
+    "inner_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:ice"
+      }
+    },
+    "outer_replaceable_blocks": "wilderwild:packed_ice_replaceable",
+    "outer_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:ice"
+      }
+    },
+    "placement_chance": 0.8,
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 5,
+        "min_inclusive": 2
+      }
+    },
+    "use_heightmap_instead_of_circular_placement": false
+  }
+}

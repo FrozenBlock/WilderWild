@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    "minecraft:gravel",
+    "minecraft:sponge",
+    "minecraft:clay",
+    "minecraft:moss_block",
+    {
+      "id": "#wilderwild:mesoglea",
+      "required": false
+    }
+  ]
+}

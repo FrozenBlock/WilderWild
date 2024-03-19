@@ -4,54 +4,6 @@
       "type": "directory",
       "source": "entity/stone_chest",
       "prefix": "entity/stone_chest/"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_0"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_1"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_2"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_3"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_4"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_5"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/floating_sculk_bubble_6"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/termite"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/coconut_splash_0"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/coconut_splash_1"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/coconut_splash_2"
-    },
-    {
-      "type": "single",
-      "resource": "wilderwild:particle/coconut_splash_3"
     }
   ]
 }

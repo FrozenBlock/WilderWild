@@ -29,7 +29,9 @@ import net.frozenblock.wilderwild.world.biome.DarkTaiga;
 import net.frozenblock.wilderwild.world.biome.DyingForest;
 import net.frozenblock.wilderwild.world.biome.DyingMixedForest;
 import net.frozenblock.wilderwild.world.biome.FlowerField;
+import net.frozenblock.wilderwild.world.biome.FrozenCaves;
 import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
+import net.frozenblock.wilderwild.world.biome.MagmaticCaves;
 import net.frozenblock.wilderwild.world.biome.MixedForest;
 import net.frozenblock.wilderwild.world.biome.Oasis;
 import net.frozenblock.wilderwild.world.biome.OldGrowthBirchTaiga;
@@ -56,7 +58,9 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> WARM_RIVER = WarmRiver.INSTANCE.getKey();
 	public static final ResourceKey<Biome> WARM_BEACH = WarmBeach.INSTANCE.getKey();
 	// Cave Biomes
+	public static final ResourceKey<Biome> FROZEN_CAVES = FrozenCaves.INSTANCE.getKey();
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = JellyfishCaves.INSTANCE.getKey();
+	public static final ResourceKey<Biome> MAGMATIC_CAVES = MagmaticCaves.INSTANCE.getKey();
 	// Transition Biomes
 	// HOT
 	public static final ResourceKey<Biome> ARID_FOREST = AridForest.INSTANCE.getKey();
@@ -106,7 +110,9 @@ public final class RegisterWorldgen {
 		register(context, WARM_RIVER, WarmRiver.INSTANCE.create(context));
 		register(context, WARM_BEACH, WarmBeach.INSTANCE.create(context));
 		// CAVE BIOMES
+		register(context, FROZEN_CAVES, FrozenCaves.INSTANCE.create(context));
 		register(context, JELLYFISH_CAVES, JellyfishCaves.INSTANCE.create(context));
+		register(context, MAGMATIC_CAVES, MagmaticCaves.INSTANCE.create(context));
 		// TRANSITION BIOMES
 		// HOT
 		register(context, ARID_FOREST, AridForest.INSTANCE.create(context));

@@ -42,13 +42,12 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class MilkweedBlock extends TallFlowerBlock {
-	public static final float GROWTH_CHANCE = 0.83F;
+	public static final int GROWTH_CHANCE = 5;
 	public static final double SEED_SPAWN_HEIGHT = 0.3D;
 	public static final int MIN_SEEDS_ON_RUSTLE = 14;
 	public static final int MAX_SEEDS_ON_RUSTLE = 28;
@@ -103,7 +102,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
 		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
 		popResource(level, pos, stack);
-		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0);
 	}
@@ -120,11 +119,6 @@ public class MilkweedBlock extends TallFlowerBlock {
 		}
 	}
 
-	@NotNull
-	public static Vec3 getSeedSpawnPos(@NotNull BlockPos pos) {
-		return Vec3.atCenterOf(pos).add(0D, SEED_SPAWN_HEIGHT, 0D);
-	}
-
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
@@ -133,14 +127,14 @@ public class MilkweedBlock extends TallFlowerBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > GROWTH_CHANCE && isLower(state) && !isFullyGrown(state)) {
+		if (random.nextInt(GROWTH_CHANCE) == 0 && isLower(state) && !isFullyGrown(state)) {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1);
 		}
 	}
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if (isLower(state) && !isFullyGrown(state)) {
+		if (!isFullyGrown(state)) {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1);
 			return;
 		}

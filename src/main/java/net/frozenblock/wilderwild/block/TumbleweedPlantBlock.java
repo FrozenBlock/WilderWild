@@ -30,6 +30,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -52,19 +53,21 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
 	public static final int MAX_AGE = 3;
 	public static final int AGE_FOR_SOLID_COLLISION = 2;
-	public static final int SNAP_CHANCE = 4;
+	public static final int RANDOM_TICK_CHANCE = 2;
+	public static final int SNAP_CHANCE = 3;
 	public static final int REPRODUCTION_CHANCE_PEACEFUL = 20;
 	public static final int REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY = 15;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
-		Block.box(3, 0, 3, 12, 9, 12),
-		Block.box(2, 0, 2, 14, 12, 14),
-		Block.box(1, 0, 1, 15, 14, 15),
-		Block.box(1, 0, 1, 15, 14, 15)
+		Block.box(3D, 0D, 3D, 12D, 9D, 12D),
+		Block.box(2D, 0D, 2D, 14D, 12D, 14D),
+		Block.box(1D, 0D, 1D, 15D, 14D, 15D),
+		Block.box(1D, 0D, 1D, 15D, 14D, 15D)
 	};
 
 	public TumbleweedPlantBlock(@NotNull BlockBehaviour.Properties properties) {
@@ -78,22 +81,24 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (isFullyGrown(state)) {
-			if (random.nextInt(SNAP_CHANCE) == 0) {
-				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				level.addFreshEntity(weed);
-				weed.setPos(Vec3.atBottomCenterOf(pos));
-				int diff = level.getDifficulty().getId();
-				if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
-					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+		if (random.nextInt(RANDOM_TICK_CHANCE) == 0) {
+			if (isFullyGrown(state)) {
+				if (random.nextInt(SNAP_CHANCE) == 0) {
+					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
+					Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+					level.addFreshEntity(weed);
+					weed.setPos(Vec3.atBottomCenterOf(pos));
+					int diff = level.getDifficulty().getId();
+					if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
+						weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+					}
+					level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
+					level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+					level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 				}
-				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+			} else {
+				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 			}
-		} else {
-			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		}
 	}
 
@@ -132,22 +137,26 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	@NotNull
 	@Override
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.SHEARS) && isFullyGrown(state)) {
-			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
-				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				level.addFreshEntity(weed);
-				weed.setPos(Vec3.atBottomCenterOf(pos));
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				weed.spawnedFromShears = true;
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-				level.gameEvent(player, GameEvent.SHEAR, pos);
-			}
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
+			stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.use(state, level, pos, player, hand, hit);
+		}
+	}
+
+	public static boolean shear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+		if (isFullyGrown(state)) {
+			if (!level.isClientSide) {
+				Tumbleweed.spawnFromShears(level, pos);
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+				level.gameEvent(entity, GameEvent.SHEAR, pos);
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 

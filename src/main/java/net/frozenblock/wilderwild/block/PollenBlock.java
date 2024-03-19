@@ -53,7 +53,15 @@ public class PollenBlock extends FlowerLichenBlock {
 				);
 				BlockState blockState = level.getBlockState(mutable);
 				if (!blockState.isCollisionShapeFullBlock(level, mutable) && !level.isRainingAt(mutable)) {
-					level.addParticle(RegisterParticles.POLLEN, mutable.getX() + random.nextDouble(), mutable.getY() + random.nextDouble(), mutable.getZ() + random.nextDouble(), 0D, 0D, 0D);
+					level.addParticle(
+						RegisterParticles.POLLEN,
+						mutable.getX() + random.nextDouble(),
+						mutable.getY() + random.nextDouble(),
+						mutable.getZ() + random.nextDouble(),
+						0D,
+						0D,
+						0D
+					);
 				}
 			}
 		}

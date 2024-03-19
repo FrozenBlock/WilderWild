@@ -56,6 +56,8 @@ public final class EntityConfigGui {
 		var modifiedCrab = modifiedConfig.crab;
 		var ostrich = config.ostrich;
 		var modifiedOstrich = modifiedConfig.ostrich;
+		var scorched = config.scorched;
+		var modifiedScorched = modifiedConfig.scorched;
 		var tumbleweed = config.tumbleweed;
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
@@ -160,8 +162,20 @@ public final class EntityConfigGui {
 			angerLoopSound, movingStareSound
 		);
 
+		var spawnFireflies = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_fireflies"), modifiedFirefly.spawnFireflies)
+				.setDefaultValue(defaultConfig.firefly.spawnFireflies)
+				.setSaveConsumer(newValue -> firefly.spawnFireflies = newValue)
+				.setTooltip(tooltip("spawn_fireflies"))
+				.requireRestart()
+				.build(),
+			firefly.getClass(),
+			"spawnFireflies",
+			configInstance
+		);
+
 		var fireflySpawnCap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 0, 100)
+			entryBuilder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 1, 100)
 				.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
 				.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
 				.setTooltip(tooltip("firefly_spawn_cap"))
@@ -175,11 +189,23 @@ public final class EntityConfigGui {
 		var fireflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("firefly"),
 			false,
 			tooltip("firefly"),
-			fireflySpawnCap
+			spawnFireflies, fireflySpawnCap
+		);
+
+		var spawnJellyfish = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_jellyfish"), modifiedJellyfish.spawnJellyfish)
+				.setDefaultValue(defaultConfig.jellyfish.spawnJellyfish)
+				.setSaveConsumer(newValue -> jellyfish.spawnJellyfish = newValue)
+				.setTooltip(tooltip("spawn_jellyfish"))
+				.requireRestart()
+				.build(),
+			jellyfish.getClass(),
+			"spawnJellyfish",
+			configInstance
 		);
 
 		var jellyfishSpawnCap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), modifiedJellyfish.jellyfishSpawnCap, 0, 100)
+			entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), modifiedJellyfish.jellyfishSpawnCap, 1, 100)
 				.setDefaultValue(defaultConfig.jellyfish.jellyfishSpawnCap)
 				.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
 				.setTooltip(tooltip("jellyfish_spawn_cap"))
@@ -205,11 +231,23 @@ public final class EntityConfigGui {
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			jellyfishSpawnCap, jellyfishTentacles
+			spawnJellyfish, jellyfishSpawnCap, jellyfishTentacles
+		);
+
+		var spawnCrabs = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_crabs"), modifiedCrab.spawnCrabs)
+				.setDefaultValue(defaultConfig.crab.spawnCrabs)
+				.setSaveConsumer(newValue -> crab.spawnCrabs = newValue)
+				.setTooltip(tooltip("spawn_crabs"))
+				.requireRestart()
+				.build(),
+			crab.getClass(),
+			"spawnCrabs",
+			configInstance
 		);
 
 		var crabSpawnCap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("crab_spawn_cap"), modifiedCrab.crabSpawnCap, 0, 100)
+			entryBuilder.startIntSlider(text("crab_spawn_cap"), modifiedCrab.crabSpawnCap, 1, 100)
 				.setDefaultValue(defaultConfig.crab.crabSpawnCap)
 				.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
 				.setTooltip(tooltip("crab_spawn_cap"))
@@ -235,7 +273,7 @@ public final class EntityConfigGui {
 		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
 			false,
 			tooltip("crab"),
-			crabSpawnCap, reachAffectsAttack
+			spawnCrabs, crabSpawnCap, reachAffectsAttack
 		);
 
 		var spawnOstriches = FrozenClothConfig.syncedEntry(
@@ -266,8 +304,37 @@ public final class EntityConfigGui {
 			spawnOstriches, ostrichAttack
 		);
 
+		var spawnScorched = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_scorched"), modifiedScorched.spawnScorched)
+				.setDefaultValue(defaultConfig.scorched.spawnScorched)
+				.setSaveConsumer(newValue -> scorched.spawnScorched = newValue)
+				.setTooltip(tooltip("spawn_scorched"))
+				.build(),
+			scorched.getClass(),
+			"spawnScorched",
+			configInstance
+		);
+
+		var scorchedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("scorched"),
+			false,
+			tooltip("scorched"),
+			spawnScorched
+		);
+
+		var spawnTumbleweed = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_tumbleweed"), modifiedTumbleweed.spawnTumbleweed)
+				.setDefaultValue(defaultConfig.tumbleweed.spawnTumbleweed)
+				.setSaveConsumer(newValue -> tumbleweed.spawnTumbleweed = newValue)
+				.setTooltip(tooltip("spawn_tumbleweed"))
+				.requireRestart()
+				.build(),
+			tumbleweed.getClass(),
+			"spawnTumbleweed",
+			configInstance
+		);
+
 		var tumbleweedSpawnCap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), modifiedTumbleweed.tumbleweedSpawnCap, 0, 100)
+			entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), modifiedTumbleweed.tumbleweedSpawnCap, 1, 100)
 				.setDefaultValue(defaultConfig.tumbleweed.tumbleweedSpawnCap)
 				.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
 				.setTooltip(tooltip("tumbleweed_spawn_cap"))
@@ -314,7 +381,7 @@ public final class EntityConfigGui {
 		var tumbleweedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
 			false,
 			tooltip("tumbleweed"),
-			tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
+			spawnTumbleweed, tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
 		);
 
 		var wardenAttacksImmediately = FrozenClothConfig.syncedEntry(

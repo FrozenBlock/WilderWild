@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "wilderwild:baobab_nut",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "age": "2"
+          }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:baobab_nut"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

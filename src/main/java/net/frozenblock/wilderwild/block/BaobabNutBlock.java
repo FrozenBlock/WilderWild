@@ -52,10 +52,10 @@ public class BaobabNutBlock extends SaplingBlock {
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final double HANGING_GROWTH_CHANCE = 0.4D;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
-		Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
-		Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
-		Shapes.or(Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
-		Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
+		Shapes.or(Block.box(7D, 13D, 7D, 9D, 16D, 9.0), Block.box(5D, 6D, 5D, 11D, 13D, 11.0)),
+		Shapes.or(Block.box(7D, 12D, 7D, 9D, 16D, 9.0), Block.box(4D, 3D, 4D, 12D, 12D, 12.0)),
+		Shapes.or(Block.box(7D, 10D, 7D, 9D, 16D, 9.0), Block.box(4D, 0D, 4D, 12D, 10D, 12.0)),
+		Block.box(7D, 3D, 7D, 9D, 16D, 9), Block.box(2D, 0D, 2D, 14D, 12D, 14D)
 	};
 
 	public BaobabNutBlock(AbstractTreeGrower treeGrower, @NotNull BlockBehaviour.Properties settings) {

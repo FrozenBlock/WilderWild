@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
+import net.frozenblock.wilderwild.block.impl.FlowerColor;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -52,10 +52,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
+	public static float GROWTH_CHANCE_RANDOM_TICK = 0.9F;
 	public static final EnumProperty<FlowerColor> COLOR_STATE = RegisterProperties.FLOWER_COLOR;
 	public static final List<FlowerColor> FLOWER_COLORS = List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE);
-	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
-	private static final VoxelShape GROWN_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
+	private static final VoxelShape SHAPE = Block.box(3D, 0D, 3D, 13D, 4D, 13D);
+	private static final VoxelShape GROWN_SHAPE = Block.box(3D, 0D, 3D, 13D, 8D, 13D);
 
 	public GloryOfTheSnowBlock(@NotNull Properties settings) {
 		super(settings);
@@ -67,22 +68,23 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		FlowerColor color = state.getValue(COLOR_STATE);
-		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
-			color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
-		popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
+		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW.asItem() :
+			color == FlowerColor.PURPLE ? RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.ALBA_GLORY_OF_THE_SNOW.asItem();
+		popResource(level, pos, new ItemStack(item, 1));
 		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
-		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(COLOR_STATE);
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > 0.9F && state.getValue(COLOR_STATE) == FlowerColor.NONE) {
+		if (random.nextFloat() > GROWTH_CHANCE_RANDOM_TICK && state.getValue(COLOR_STATE) == FlowerColor.NONE) {
 			level.setBlockAndUpdate(pos, state.setValue(COLOR_STATE, FLOWER_COLORS.get(random.nextInt(FLOWER_COLORS.size()))));
 		}
 	}

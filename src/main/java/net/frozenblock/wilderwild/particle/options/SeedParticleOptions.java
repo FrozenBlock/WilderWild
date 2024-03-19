@@ -29,18 +29,16 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 public class SeedParticleOptions implements ParticleOptions {
 	public static final Codec<SeedParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 				Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
 				Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::isControlled),
-				Codec.FLOAT.fieldOf("xSpeed").forGetter(seedParticleOptions -> seedParticleOptions.getSpeed().x),
-				Codec.FLOAT.fieldOf("ySpeed").forGetter(seedParticleOptions -> seedParticleOptions.getSpeed().y),
-				Codec.FLOAT.fieldOf("zSpeed").forGetter(seedParticleOptions -> seedParticleOptions.getSpeed().z)
+				Vec3.CODEC.fieldOf("velocity").forGetter(SeedParticleOptions::getVelocity)
 			)
 			.apply(instance, SeedParticleOptions::new)
 	);
@@ -48,27 +46,28 @@ public class SeedParticleOptions implements ParticleOptions {
         @Override
         @NotNull
         public SeedParticleOptions fromCommand(ParticleType<SeedParticleOptions> type, @NotNull StringReader reader) throws CommandSyntaxException {
-            boolean milkweed = reader.readBoolean();
-            boolean controlled = reader.readBoolean();
-            Vector3f speed = DustParticleOptions.readVector3f(reader);
+            reader.expect(' ');
+			boolean milkweed = reader.readBoolean();
 			reader.expect(' ');
+            boolean controlled = reader.readBoolean();
+            Vec3 speed = WindParticleOptions.readVec3(reader);
             return new SeedParticleOptions(milkweed, controlled, speed);
         }
 
 		@Override
 		@NotNull
 		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
-			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean(), friendlyByteBuf.readVector3f());
+			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean(), friendlyByteBuf.readVec3());
 		}
     };
 
 	private final boolean isMilkweed;
 	private final boolean controlled;
-	private final Vector3f speed;
+	private final Vec3 velocity;
 
 	@NotNull
 	@Contract(value = "_, _, _, _ -> new", pure = true)
-	public static SeedParticleOptions controlled(boolean isMilkweed, float xSpeed, float ySpeed, float zSpeed) {
+	public static SeedParticleOptions controlled(boolean isMilkweed, double xSpeed, double ySpeed, double zSpeed) {
 		return new SeedParticleOptions(isMilkweed, true, xSpeed, ySpeed, zSpeed);
 	}
 
@@ -78,14 +77,14 @@ public class SeedParticleOptions implements ParticleOptions {
 		return new SeedParticleOptions(isMilkweed, false, 0F, 0F, 0F);
 	}
 
-	private SeedParticleOptions(boolean isMilkweed, boolean controlled, float xSpeed, float ySpeed, float zSpeed) {
-		this(isMilkweed, controlled, new Vector3f(xSpeed, ySpeed, zSpeed));
+	private SeedParticleOptions(boolean isMilkweed, boolean controlled, double xSpeed, double ySpeed, double zSpeed) {
+		this(isMilkweed, controlled, new Vec3(xSpeed, ySpeed, zSpeed));
 	}
 
-	private SeedParticleOptions(boolean isMilkweed, boolean controlled, Vector3f speed) {
+	private SeedParticleOptions(boolean isMilkweed, boolean controlled, Vec3 velocity) {
 		this.isMilkweed = isMilkweed;
 		this.controlled = controlled;
-		this.speed = speed;
+		this.velocity = velocity;
 	}
 
 	@NotNull
@@ -98,7 +97,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	public void writeToNetwork(FriendlyByteBuf buffer) {
 		buffer.writeBoolean(this.isMilkweed());
 		buffer.writeBoolean(this.isControlled());
-		buffer.writeVector3f(this.getSpeed());
+		buffer.writeVec3(this.getVelocity());
 	}
 
 	@NotNull
@@ -115,8 +114,8 @@ public class SeedParticleOptions implements ParticleOptions {
 		return this.controlled;
 	}
 
-	public Vector3f getSpeed() {
-		return this.speed;
+	public Vec3 getVelocity() {
+		return this.velocity;
 	}
 
 }

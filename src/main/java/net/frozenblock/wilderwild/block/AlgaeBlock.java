@@ -47,7 +47,8 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class AlgaeBlock extends Block implements BonemealableBlock {
-	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
+	public static final double ENTITY_SLOWDOWN = 0.8D;
+	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	@SuppressWarnings("SpellCheckingInspection")
 	@Nullable
 	private BlockPos bonemealPos = null;
@@ -96,7 +97,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 				level.destroyBlock(pos, false);
 			}
 			if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
-				entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
+				entity.setDeltaMovement(entity.getDeltaMovement().multiply(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN));
 			}
 		}
 	}

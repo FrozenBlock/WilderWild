@@ -18,11 +18,14 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.block.property.BubbleDirection;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
+import net.frozenblock.wilderwild.block.impl.BubbleDirection;
+import net.frozenblock.wilderwild.block.impl.FlowerColor;
+import net.frozenblock.wilderwild.block.impl.GeyserStage;
+import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.lighting.LightEngine;
 
 public final class RegisterProperties {
 
@@ -41,7 +44,7 @@ public final class RegisterProperties {
 	public static final IntegerProperty FUNGUS_STAGE = IntegerProperty.create("shelf_fungus_stage", 1, 4);
 
 	//Termite Mound
-	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
+	public static final BooleanProperty NATURAL = BooleanProperty.create("natural"); // Also used for Geysers
 	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
 	public static final BooleanProperty CAN_SPAWN_TERMITE = BooleanProperty.create("can_spawn_termites");
 
@@ -49,7 +52,7 @@ public final class RegisterProperties {
 	public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
 
 	//Firefly Lantern
-	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, 15);
+	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, LightEngine.MAX_LEVEL);
 
 	//Stone Chest
 	public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
@@ -61,10 +64,15 @@ public final class RegisterProperties {
 	//Scorched Sand
 	public static final BooleanProperty CRACKED = BooleanProperty.create("cracked");
 
+	//Geyser
+	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
+	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);
+
 	//Vanilla Blocks
 	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
 	public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
+	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
 
 	private RegisterProperties() {
 		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");

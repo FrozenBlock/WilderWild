@@ -97,7 +97,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 //TODO: Fix rendering (Renders too bright or too dark depending on direction)
 
@@ -176,9 +175,9 @@ public class AncientHornVibration extends AbstractArrow {
 					new FloatingSculkBubbleParticleOptions(
 						size,
 						20 + random.nextInt(40),
-						new Vector3f(
+						new Vec3(
 							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, size),
-							0.05F,
+							0.05D,
 							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, size)
 						)
 					),
@@ -221,9 +220,9 @@ public class AncientHornVibration extends AbstractArrow {
 					new FloatingSculkBubbleParticleOptions(
 						0,
 						60,
-						new Vector3f(
+						new Vec3(
 							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
-							0.05F,
+							0.05D,
 							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
 						)
 					),

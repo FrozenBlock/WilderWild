@@ -19,11 +19,10 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingDustParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,10 +38,10 @@ public abstract class FallingDustParticleMixin extends TextureSheetParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), this.onGround ? 0.75 : 1.5).scale(MiscConfig.get().getParticleWindIntensity());
-		this.xd += wind.x * 0.001;
-		this.yd += wind.y * 0.00005;
-		this.zd += wind.z * 0.001;
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), this.onGround ? 0.75D : 1.5D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
+		this.xd += wind.x * 0.001D;
+		this.yd += wind.y * 0.00005D;
+		this.zd += wind.z * 0.001D;
 	}
 
 }
