@@ -66,5 +66,43 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(WilderItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
 			.add(Items.RED_MUSHROOM)
 			.addOptional(WilderSharedConstants.id("red_shelf_fungus"));
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
+			.add(RegisterBlocks.BUSH.asItem())
+			.add(RegisterBlocks.MILKWEED.asItem())
+			.add(RegisterBlocks.DATURA.asItem())
+			.add(RegisterBlocks.SEEDING_DANDELION.asItem())
+			.add(RegisterBlocks.CYPRESS_SAPLING.asItem())
+			.add(RegisterBlocks.BAOBAB_NUT.asItem())
+			.add(RegisterBlocks.COCONUT.asItem())
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS.asItem())
+			.add(RegisterBlocks.RED_SHELF_FUNGUS.asItem())
+			.add(RegisterBlocks.TUMBLEWEED_PLANT.asItem());
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
+			.add(RegisterBlocks.BUSH.asItem())
+			.add(RegisterBlocks.MILKWEED.asItem())
+			.add(RegisterBlocks.DATURA.asItem())
+			.add(RegisterBlocks.SEEDING_DANDELION.asItem())
+			.add(RegisterBlocks.CYPRESS_SAPLING.asItem())
+			.add(RegisterBlocks.BAOBAB_NUT.asItem())
+			.add(RegisterBlocks.COCONUT.asItem())
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS.asItem())
+			.add(RegisterBlocks.RED_SHELF_FUNGUS.asItem())
+			.add(RegisterBlocks.TUMBLEWEED_PLANT.asItem());
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
+			.add(RegisterBlocks.MILKWEED.asItem())
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW.asItem())
+			.add(RegisterBlocks.SEEDING_DANDELION.asItem())
+			.add(RegisterBlocks.CYPRESS_SAPLING.asItem())
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS.asItem())
+			.add(RegisterBlocks.RED_SHELF_FUNGUS.asItem());
+
+		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW.asItem())
+			.add(RegisterBlocks.SEEDING_DANDELION.asItem())
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS.asItem())
+			.add(RegisterBlocks.RED_SHELF_FUNGUS.asItem());
 	}
 }
