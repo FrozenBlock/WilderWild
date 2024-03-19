@@ -145,6 +145,7 @@ Bug Fixes, Changes, & Other Additions
 - Milkweed now grows a bit slower.
 - Using Bone Meal on Milkweed will now cause it to grow first, then drop additional flowers like other tall flowers afterwards.
   - Before, Milkweed would use the tall flower functionality on its top half, and grow on the bottom half.
+- Changed Seed particle spawning from Milkweed, now spawning from the entire plant as opposed to strictly the half that was interacted with.
 - Prickly Pears can now be sheared with Dispensers.
 - Prickly Pears now grow nearly 4 times slower.
 - Shelf Fungus can now be sheared with Dispensers.
