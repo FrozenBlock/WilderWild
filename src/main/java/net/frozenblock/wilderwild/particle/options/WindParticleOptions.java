@@ -54,14 +54,18 @@ public class WindParticleOptions implements ParticleOptions {
 		@Override
 		@NotNull
 		public WindParticleOptions fromNetwork(ParticleType<WindParticleOptions> particleType, FriendlyByteBuf buffer) {
-			return new WindParticleOptions(buffer.readVarInt(), buffer.readVec3());
+			return new WindParticleOptions(buffer.readVarInt(), new Vec3(buffer.readDouble(), buffer.readDouble(), buffer.readDouble()));
 		}
 	};
 
 	@Override
 	public void writeToNetwork(FriendlyByteBuf buffer) {
 		buffer.writeVarInt(this.getLifespan());
-		buffer.writeVec3(this.getVelocity());
+
+		Vec3 velocity = this.getVelocity();
+		buffer.writeDouble(velocity.x);
+		buffer.writeDouble(velocity.y);
+		buffer.writeDouble(velocity.z);
 	}
 
 	@NotNull

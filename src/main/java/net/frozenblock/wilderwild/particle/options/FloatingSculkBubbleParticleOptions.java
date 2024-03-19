@@ -57,7 +57,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		@NotNull
 		@Override
 		public FloatingSculkBubbleParticleOptions fromNetwork(ParticleType<FloatingSculkBubbleParticleOptions> particleType, FriendlyByteBuf buffer) {
-			return new FloatingSculkBubbleParticleOptions(buffer.readDouble(), buffer.readVarInt(), buffer.readVec3());
+			return new FloatingSculkBubbleParticleOptions(buffer.readDouble(), buffer.readVarInt(), new Vec3(buffer.readDouble(), buffer.readDouble(), buffer.readDouble()));
 		}
 	};
 	private final double size;
@@ -88,7 +88,11 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	public void writeToNetwork(FriendlyByteBuf buffer) {
 		buffer.writeDouble(this.getSize());
 		buffer.writeVarInt(this.getMaxAge());
-		buffer.writeVec3(this.getVelocity());
+
+		Vec3 velocity = this.getVelocity();
+		buffer.writeDouble(velocity.x);
+		buffer.writeDouble(velocity.y);
+		buffer.writeDouble(velocity.z);
 	}
 
 	@NotNull

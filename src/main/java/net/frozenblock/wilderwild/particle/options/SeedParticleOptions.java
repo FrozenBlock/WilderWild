@@ -57,7 +57,7 @@ public class SeedParticleOptions implements ParticleOptions {
 		@Override
 		@NotNull
 		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
-			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean(), friendlyByteBuf.readVec3());
+			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean(), new Vec3(friendlyByteBuf.readDouble(), friendlyByteBuf.readDouble(), friendlyByteBuf.readDouble()));
 		}
     };
 
@@ -97,7 +97,11 @@ public class SeedParticleOptions implements ParticleOptions {
 	public void writeToNetwork(FriendlyByteBuf buffer) {
 		buffer.writeBoolean(this.isMilkweed());
 		buffer.writeBoolean(this.isControlled());
-		buffer.writeVec3(this.getVelocity());
+
+		Vec3 velocity = this.getVelocity();
+		buffer.writeDouble(velocity.x);
+		buffer.writeDouble(velocity.y);
+		buffer.writeDouble(velocity.z);
 	}
 
 	@NotNull

@@ -34,9 +34,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface SimpleWaterloggedBlockMixin {
 
 	@Inject(method = "canPlaceLiquid", at = @At("HEAD"), cancellable = true)
-	default void wilderWild$canPlaceLiquid(Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid, CallbackInfoReturnable<Boolean> info) {
+	default void wilderWild$canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.setReturnValue(false);
+			cir.setReturnValue(false);
 		}
 	}
 

@@ -110,12 +110,12 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
-		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
+		AdvancementAPI.addRequirementsAsNewList(advancement, new String[][]{{key.location().toString()}});
 	}
 
 	@NotNull
-	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
-		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
+	private static Criterion inBiome(ResourceKey<Biome> key) {
+		return new Criterion(PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.location().setBiome(key).build()));
 	}
 
 	@Override
