@@ -67,25 +67,6 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
 	}
 
-	@Override
-	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (isFullyGrown(state)) {
-			ItemStack itemStack = player.getItemInHand(hand);
-			if (level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
-				if (itemStack.is(Items.SHEARS)) {
-					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
-					shear(level, pos, state, player);
-				} else {
-					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
-					setAgeOnBothHalves(this, state, level, pos, 0, true);
-				}
-			}
-		}
-		return super.use(state, level, pos, player, hand, hit);
-	}
-
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
 		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
@@ -156,6 +137,33 @@ public class MilkweedBlock extends TallFlowerBlock {
 		if (random.nextInt(GROWTH_CHANCE) == 0 && isLower(state) && !isFullyGrown(state)) {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1, false);
 		}
+	}
+
+	@Override
+	@NotNull
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(Items.BONE_MEAL)) {
+			return InteractionResult.PASS;
+		}
+		if (isFullyGrown(state)) {
+			if (level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
+				if (stack.is(Items.SHEARS)) {
+					stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+					shear(level, pos, state, player);
+				} else {
+					this.pickAndSpawnSeeds(level, state, pos);
+				}
+			}
+			return InteractionResult.SUCCESS;
+		}
+		return super.use(state, level, pos, player, hand, hit);
+	}
+
+	public void pickAndSpawnSeeds(Level level, BlockState state, BlockPos pos) {
+		level.playSound(null, pos, RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+		setAgeOnBothHalves(this, state, level, pos, 0, true);
 	}
 
 	@Override
