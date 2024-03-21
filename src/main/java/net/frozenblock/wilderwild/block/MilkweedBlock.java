@@ -28,6 +28,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -143,20 +144,39 @@ public class MilkweedBlock extends TallFlowerBlock {
 	@Override
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (isFullyGrown(state) && !stack.is(Items.BONE_MEAL)) {
-			if (level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
+		if (stack.is(Items.BONE_MEAL)) {
+			return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		}
+		if (isFullyGrown(state)) {
+			if (level instanceof ServerLevel serverLevel) {
 				if (stack.is(Items.SHEARS)) {
 					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 					shear(level, pos, state, player);
 				} else {
-					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
-					setAgeOnBothHalves(this, state, level, pos, 0, true);
+					this.pickAndSpawnSeeds(level, state, pos);
 				}
 			}
 			return ItemInteractionResult.SUCCESS;
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+	}
+
+	@Override
+	@NotNull
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
+		if (isFullyGrown(state)) {
+			if (level instanceof ServerLevel) {
+				this.pickAndSpawnSeeds(level, state, pos);
+			}
+			return InteractionResult.SUCCESS;
+		}
+		return super.useWithoutItem(state, level, pos, entity, hitResult);
+	}
+
+	public void pickAndSpawnSeeds(Level level, BlockState state, BlockPos pos) {
+		level.playSound(null, pos, RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+		setAgeOnBothHalves(this, state, level, pos, 0, true);
 	}
 
 	@Override
