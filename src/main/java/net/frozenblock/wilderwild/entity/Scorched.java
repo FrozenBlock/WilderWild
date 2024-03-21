@@ -59,8 +59,7 @@ import org.jetbrains.annotations.NotNull;
 public class Scorched extends Spider {
 	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.08D, 0D);
 	public static final int FALL_DAMAGE_RESISTANCE = 8;
-	private float targetLavaAnimProgress;
-	private float lavaAnimProgress;
+    private float lavaAnimProgress;
 	private float prevLavaAnimProgress;
 
 	public Scorched(EntityType<? extends Spider> entityType, Level level) {
@@ -95,9 +94,9 @@ public class Scorched extends Spider {
 		super.tick();
 		this.floatScorched();
 		this.checkInsideBlocks();
-		this.targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
+        float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
 		this.prevLavaAnimProgress = this.lavaAnimProgress;
-		this.lavaAnimProgress = this.lavaAnimProgress + (this.targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
+		this.lavaAnimProgress = this.lavaAnimProgress + (targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
 	}
 
 	private void floatScorched() {
