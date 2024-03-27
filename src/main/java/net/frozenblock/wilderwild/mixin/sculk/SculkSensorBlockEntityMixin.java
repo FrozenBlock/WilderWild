@@ -203,7 +203,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		this.wilderWild$animTicks = i;
 	}
 
-	@Inject(at = @At("TAIL"), method = "load")
+	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	private void wilderWild$load(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
 		this.wilderWild$setAge(nbt.getInt("age"));
 		this.wilderWild$setAnimTicks(nbt.getInt("animTicks"));
@@ -212,7 +212,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		this.wilderWild$setPrevActive(nbt.getBoolean("prevActive"));
 	}
 
-	@Inject(at = @At("TAIL"), method = "saveAdditional")
+	@Inject(method = "saveAdditional", at = @At("TAIL"))
 	private void wilderWild$saveAdditional(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
 		nbt.putInt("age", this.wilderWild$getAge());
 		nbt.putInt("animTicks", this.wilderWild$getAnimTicks());
@@ -226,7 +226,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 
 		@Shadow
 		@Final
-		public BlockPos blockPos;
+		protected BlockPos blockPos;
 
 		@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V", shift = At.Shift.AFTER), method = "onReceiveVibration")
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {

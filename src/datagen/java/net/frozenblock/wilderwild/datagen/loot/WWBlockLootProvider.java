@@ -432,7 +432,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN).when(ExplosionCondition.survivesExplosion()))
 						.apply(
-							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).copy(RegisterDataComponents.FIREFLIES)
+							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(RegisterDataComponents.FIREFLIES)
 								.when(BlockLootSubProvider.HAS_SILK_TOUCH)
 						)
 				)

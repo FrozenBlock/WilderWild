@@ -3,25 +3,19 @@
   "config": {
     "additional_height": {
       "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 3,
-        "min_inclusive": 1
-      }
+      "max_inclusive": 3,
+      "min_inclusive": 1
     },
     "disk_blocks": "#wilderwild:termite_disc_blocks",
     "height": {
       "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 7,
-        "min_inclusive": 3
-      }
+      "max_inclusive": 7,
+      "min_inclusive": 3
     },
     "radius": {
       "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 9,
-        "min_inclusive": 4
-      }
+      "max_inclusive": 9,
+      "min_inclusive": 4
     },
     "replaceable_blocks": "#wilderwild:termite_disc_replaceable",
     "state": {

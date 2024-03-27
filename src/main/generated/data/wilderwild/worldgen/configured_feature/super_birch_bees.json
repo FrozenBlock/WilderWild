@@ -50,20 +50,16 @@
       "branch_chance": 0.15,
       "branch_height_from_top": {
         "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 3,
-          "min_inclusive": 1
-        }
+        "max_inclusive": 3,
+        "min_inclusive": 1
       },
       "extra_branch_length": 1,
       "height_rand_a": 6,
       "height_rand_b": 6,
       "max_log_count": {
         "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 2,
-          "min_inclusive": 1
-        }
+        "max_inclusive": 2,
+        "min_inclusive": 1
       }
     },
     "trunk_provider": {

@@ -16,9 +16,6 @@
       ],
       "functions": [
         {
-          "components": [
-            "wilderwild:fireflies"
-          ],
           "conditions": [
             {
               "condition": "minecraft:match_tool",
@@ -37,6 +34,9 @@
             }
           ],
           "function": "minecraft:copy_components",
+          "include": [
+            "wilderwild:fireflies"
+          ],
           "source": "block_entity"
         }
       ],

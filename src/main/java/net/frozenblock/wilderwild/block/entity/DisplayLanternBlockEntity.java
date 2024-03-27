@@ -141,8 +141,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.load(tag, provider);
+	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.loadAdditional(tag, provider);
 		this.fireflies.clear();
 		if (tag.contains("fireflies")) {
 			Occupant.LIST_CODEC
@@ -158,22 +158,23 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
-		tag.put("fireflies", Util.getOrThrow(Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies), IllegalStateException::new));
+		tag.put("fireflies", Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies).getOrThrow());
 		ContainerHelper.saveAllItems(tag, this.inventory, provider);
 		tag.putInt("age", this.age);
 	}
 
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	@Override
-	public void applyComponents(DataComponentMap map) {
-		super.applyComponents(map);
+	public void applyImplicitComponents(DataComponentInput input) {
+		super.applyImplicitComponents(input);
 		this.fireflies.clear();
-		List<Occupant> occupants = map.getOrDefault(RegisterDataComponents.FIREFLIES, List.of());
+		List<Occupant> occupants = input.getOrDefault(RegisterDataComponents.FIREFLIES, List.of());
 		this.fireflies.addAll(occupants);
 	}
 
 	@Override
-	public void collectComponents(DataComponentMap.Builder builder) {
-		super.collectComponents(builder);
+	public void collectImplicitComponents(DataComponentMap.Builder builder) {
+		super.collectImplicitComponents(builder);
 		builder.set(RegisterDataComponents.FIREFLIES, this.fireflies);
 	}
 

@@ -49,8 +49,8 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player),
-				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "item").forGetter(TriggerInstance::item)
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggerInstance::item)
 			).apply(instance, TriggerInstance::new)
 		);
 

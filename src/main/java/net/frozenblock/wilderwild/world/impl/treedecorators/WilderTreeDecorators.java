@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.treedecorators;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,7 +39,7 @@ public final class WilderTreeDecorators {
 	}
 
 	@NotNull
-	private static <P extends TreeDecorator> TreeDecoratorType<P> register(@NotNull String id, @NotNull Codec<P> codec) {
+	private static <P extends TreeDecorator> TreeDecoratorType<P> register(@NotNull String id, @NotNull MapCodec<P> codec) {
 		return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WilderSharedConstants.id(id), new TreeDecoratorType<P>(codec));
 	}
 }

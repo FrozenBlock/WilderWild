@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
 import java.util.function.Function;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
@@ -86,13 +87,12 @@ public final class RegisterParticles {
 		String string,
 		boolean bl,
 		ParticleOptions.Deserializer<T> deserializer,
-		Function<ParticleType<T>, Codec<T>> function,
+		Function<ParticleType<T>, MapCodec<T>> function,
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
 		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(string), new ParticleType<T>(bl, deserializer) {
-			@NotNull
 			@Override
-			public Codec<T> codec() {
+			public MapCodec<T> codec() {
 				return function.apply(this);
 			}
 

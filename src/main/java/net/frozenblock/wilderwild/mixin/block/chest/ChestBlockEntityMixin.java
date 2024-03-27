@@ -54,7 +54,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	private boolean wilderWild$canBubble = true;
 
-	@Inject(at = @At("HEAD"), method = "playSound")
+	@Inject(method = "playSound", at = @At("HEAD"))
 	private static void wilderWild$playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
 		wilderWild$playedSoundState = level.getBlockState(pos);
 	}
@@ -128,14 +128,14 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		}
 	}
 
-	@Inject(at = @At(value = "TAIL"), method = "load")
+	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	public void load(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		if (tag.contains("wilderwild_can_bubble")) {
 			this.wilderWild$canBubble = tag.getBoolean("wilderwild_can_bubble");
 		}
 	}
 
-	@Inject(at = @At(value = "TAIL"), method = "saveAdditional")
+	@Inject(method = "saveAdditional", at = @At("TAIL"))
 	public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		tag.putBoolean("wilderwild_can_bubble", this.wilderWild$canBubble);
 	}

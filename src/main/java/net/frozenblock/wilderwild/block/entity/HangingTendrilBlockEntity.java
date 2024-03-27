@@ -137,8 +137,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.load(tag, provider);
+	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.loadAdditional(tag, provider);
 		this.lastVibrationFrequency = tag.getInt("last_vibration_frequency");
 		this.ticksToStopTwitching = tag.getInt("ticksToStopTwitching");
 		this.storedXP = tag.getInt("storedXP");

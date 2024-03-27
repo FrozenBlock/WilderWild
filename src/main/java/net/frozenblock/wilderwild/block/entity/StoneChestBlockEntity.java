@@ -173,8 +173,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.load(tag, provider);
+	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.loadAdditional(tag, provider);
 		this.openProgress = tag.getFloat("openProgress");
 		this.highestLidPoint = tag.getFloat("highestLidPoint");
 		this.stillLidTicks = tag.getInt("stillLidTicks");

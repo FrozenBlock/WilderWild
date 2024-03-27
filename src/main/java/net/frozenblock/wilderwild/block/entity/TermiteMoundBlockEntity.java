@@ -91,8 +91,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.load(tag, provider);
+	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.loadAdditional(tag, provider);
 		this.termiteManager.load(tag);
 	}
 }

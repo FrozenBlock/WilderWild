@@ -30,10 +30,8 @@
     "placement_chance": 0.85,
     "radius": {
       "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 3,
-        "min_inclusive": 1
-      }
+      "max_inclusive": 3,
+      "min_inclusive": 1
     },
     "use_heightmap_instead_of_circular_placement": false
   }

@@ -21,10 +21,11 @@ package net.frozenblock.wilderwild.registry;
 import net.minecraft.world.food.FoodProperties;
 
 public final class RegisterFood {
-	public static final FoodProperties BAOBAB_NUT = new FoodProperties.Builder().nutrition(1).saturationMod(0.2F).build();
-	public static final FoodProperties CRAB_CLAW = new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build();
-	public static final FoodProperties COOKED_CRAB_CLAW = new FoodProperties.Builder().nutrition(4).saturationMod(0.4F).build();
-	public static final FoodProperties PRICKLY_PEAR = new FoodProperties.Builder().nutrition(2).saturationMod(0.3F).build();
+	public static final FoodProperties BAOBAB_NUT = new FoodProperties.Builder().nutrition(1).saturationModifier(0.2F).build();
+	public static final FoodProperties CRAB_CLAW = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1F).build();
+	public static final FoodProperties COOKED_CRAB_CLAW = new FoodProperties.Builder().nutrition(4).saturationModifier(0.4F).build();
+	public static final FoodProperties PRICKLY_PEAR = new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build();
+	public static final FoodProperties SPLIT_COCONUT = new FoodProperties.Builder().nutrition(2).saturationModifier(0.4F).build();
 
 	private RegisterFood() {
 		throw new UnsupportedOperationException("RegisterFood contains only static declarations.");

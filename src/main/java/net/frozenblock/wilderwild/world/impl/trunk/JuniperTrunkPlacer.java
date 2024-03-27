@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.world.impl.trunk;
 
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class JuniperTrunkPlacer extends TrunkPlacer {
-	public static final Codec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		juniperCodec(instance).apply(instance, JuniperTrunkPlacer::new));
 	public final IntProvider branchCount;
 	public final IntProvider branchHorizontalLength;

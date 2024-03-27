@@ -57,7 +57,7 @@ public class DisplayLanternComponentizationFix extends DataFix {
 	@NotNull
 	static Dynamic<?> fixOccupant(@NotNull Dynamic<?> dynamic) {
 		dynamic = fixOccupantColor(dynamic);
-		dynamic = ExtraDataFixUtils.renameField(dynamic, "customName", "custom_name");
+		dynamic = dynamic.renameField("customName", "custom_name");
 		return dynamic;
 	}
 

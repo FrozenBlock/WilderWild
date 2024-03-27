@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.impl.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -43,7 +44,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FallenTrunkWithLogs extends TrunkPlacer {
-	public static final Codec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
 
 	public final BlockStateProvider hollowedState;

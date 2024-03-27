@@ -84,7 +84,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 				sourceChest.lootTable != null &&
 				state.hasProperty(BlockStateProperties.WATERLOGGED) &&
 				state.getValue(BlockStateProperties.WATERLOGGED) &&
-				sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") &&
+				sourceChest.lootTable.location().getPath().toLowerCase().contains("shipwreck") &&
 				level.random.nextInt(0, 3) == 1
 			) {
 				if (EntityConfig.get().jellyfish.spawnJellyfish) {

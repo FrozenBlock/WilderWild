@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
@@ -38,7 +39,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
-	public static final Codec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
 				Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
 				Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),

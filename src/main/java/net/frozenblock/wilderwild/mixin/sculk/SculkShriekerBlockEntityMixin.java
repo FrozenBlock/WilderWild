@@ -79,7 +79,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		}
 	}
 
-	@Inject(at = @At("TAIL"), method = "load")
+	@Inject(at = @At("TAIL"), method = "loadAdditional")
 	public void wilderWild$load(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.wilderWild$bubbles = tag.getInt("wilderwildBubbles");
 	}

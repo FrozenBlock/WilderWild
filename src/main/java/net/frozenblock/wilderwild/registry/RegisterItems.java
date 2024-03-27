@@ -92,7 +92,7 @@ public final class RegisterItems {
 	public static final BlockItem DISPLAY_LANTERN = new BlockItem(RegisterBlocks.DISPLAY_LANTERN, new Item.Properties().component(RegisterDataComponents.FIREFLIES, ImmutableList.of()));
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
-	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
+	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(RegisterFood.SPLIT_COCONUT));
 	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));

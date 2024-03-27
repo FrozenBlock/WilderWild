@@ -12,16 +12,16 @@ accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinS
 extendable    class    net/minecraft/world/level/block/grower/TreeGrower
 extendable    method    net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
 extendable    method    net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
-accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
-accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
-accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
+accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/MapCodec;)V
+accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/MapCodec;)V
+accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/MapCodec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
 accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
 accessible    method    net/minecraft/world/level/levelgen/feature/TreeFeature    setBlockKnownShape    (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Items
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
-extendable    method    net/minecraft/world/level/block/state/BlockBehaviour    getLootTable    ()Lnet/minecraft/resources/ResourceLocation;
+extendable    method    net/minecraft/world/level/block/state/BlockBehaviour    getLootTable    ()Lnet/minecraft/resources/ResourceKey;
 accessible    field    net/minecraft/world/item/ItemCooldowns    cooldowns    Ljava/util/Map;
 accessible    field    net/minecraft/world/item/ItemCooldowns    tickCount    I
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    startTime    I
@@ -128,7 +128,7 @@ accessible    method    net/minecraft/world/level/block/state/BlockBehaviour    
 accessible    class    net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
 
 # Block Entities
-accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
+accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceKey;
 accessible    class    net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
 accessible    class    net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
 accessible    field    net/minecraft/world/level/block/SculkSpreader$ChargeCursor    pos    Lnet/minecraft/core/BlockPos;
