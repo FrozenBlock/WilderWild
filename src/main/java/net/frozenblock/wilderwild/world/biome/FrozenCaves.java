@@ -55,7 +55,7 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
 	public static final Climate.Parameter EROSION_PEAK = Erosion.EROSION_0;
 	public static final Climate.Parameter DEPTH = Climate.Parameter.span(0.3F, 0.3F);
-	public static final float OFFSET = 0.000F;
+	public static final float OFFSET = -0.3F;
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 10601471;
@@ -190,7 +190,7 @@ public final class FrozenCaves extends FrozenBiome {
 						CONTINENTALNESS,
 						EROSION_PEAK,
 						DEPTH,
-						Weirdness.PEAK_NORMAL,
+						Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING),
 						OFFSET
 					),
 					this.getKey()
@@ -204,7 +204,7 @@ public final class FrozenCaves extends FrozenBiome {
 						CONTINENTALNESS,
 						EROSION_PEAK,
 						DEPTH,
-						Weirdness.PEAK_VARIANT,
+						Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING),
 						OFFSET
 					),
 					this.getKey()
