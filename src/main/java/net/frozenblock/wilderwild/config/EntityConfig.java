@@ -152,6 +152,9 @@ public final class EntityConfig {
 	public static class ScorchedConfig {
 		@EntrySyncData("spawnScorched")
 		public boolean spawnScorched = true;
+
+		@EntrySyncData("scorchedInTrialChambers")
+		public boolean scorchedInTrialChambers = true;
 	}
 
 	public static class TumbleweedConfig {
