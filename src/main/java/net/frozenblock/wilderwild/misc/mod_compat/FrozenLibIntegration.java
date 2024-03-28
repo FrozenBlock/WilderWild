@@ -44,6 +44,7 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -289,6 +290,12 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.DARK_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
+
+		RandomPoolAliasApi.addTarget(
+			WilderSharedConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
+			WilderSharedConstants.id("trial_chambers/spawner/small_melee/scorched"),
+			1
+		);
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
