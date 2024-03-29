@@ -31,7 +31,6 @@ import net.minecraft.util.RandomSource;
 
 @Environment(EnvType.CLIENT)
 public class AdditionalParticleFactories {
-	@Environment(EnvType.CLIENT)
 	public static class ScorchingEffectFlameFactory implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprite;
 
