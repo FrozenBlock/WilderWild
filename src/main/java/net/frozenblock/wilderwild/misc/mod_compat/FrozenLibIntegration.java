@@ -426,7 +426,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(RegisterMobEffects.REACH, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.REACH_BOOST, new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
 					}

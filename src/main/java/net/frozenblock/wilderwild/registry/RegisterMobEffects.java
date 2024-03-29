@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterMobEffects {
 
-	public static final Reference<MobEffect> REACH = register(
+	public static final Reference<MobEffect> REACH_BOOST = register(
 		"reach_boost",
 		new MobEffect(
 			MobEffectCategory.BENEFICIAL,
