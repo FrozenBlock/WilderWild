@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,6 +37,7 @@ public final class RegisterPotions {
 	public static final Reference<Potion> REACH = register("reach", new Potion(new MobEffectInstance(RegisterMobEffects.REACH, 3600)));
 	public static final Reference<Potion> LONG_REACH = register("long_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH, 9600)));
 	public static final Reference<Potion> STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH, 2700, 1)));
+	public static final Holder<Potion> SCORCHING = register("scorching", new Potion("scorching", new MobEffectInstance(RegisterMobEffects.SCORCHING, 3600)));
 
 	private RegisterPotions() {
 		throw new UnsupportedOperationException("RegisterPotions contains only static declarations.");
@@ -47,6 +49,8 @@ public final class RegisterPotions {
 		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), REACH);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
+
+		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), SCORCHING);
 	}
 
 	private static @NotNull Reference<Potion> register(String key, Potion potion) {
