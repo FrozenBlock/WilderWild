@@ -176,6 +176,7 @@ Bug Fixes, Changes, & Other Additions
   - The minimum value for `Crab Spawn Cap` has been changed to 1 as `Spawn Crabs` makes 0 redundant.
 - Added a new `Resource Pack Enabled By Default` config option to make the Main Menu resource pack not be enabled upon the mod's first use.
   - This should only be used in tandem with modpacks or other projects that aim to replace the main menu. Otherwise, you can manually disable it in the Resource Packs menu.
+- Removed the `Cobweb Sounds` config option as Mojang has added their own. (1.20.5+)
 - Added `block_palm_fronds` to the Mixins config.
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 
