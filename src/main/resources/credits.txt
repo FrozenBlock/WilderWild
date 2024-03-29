@@ -35,12 +35,16 @@ Merp:
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
- - Crab in Bucket, Ostrich, Ostrich Egg, and Geyser textures.
+ - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
 
 Zhen:
  - Retextured all Baobab Nut textures in 2.4.
  - Retextured all Glory of the Snow textures in 2.4.
  - Retextured all Milkweed block textures in 2.4.
+
+voxelvoxel:
+ - Scorched Eye and Fermented Scorched Eye textures.
+ - Scorching effect icon.
 
 LudoCrypt:
  - New music.
