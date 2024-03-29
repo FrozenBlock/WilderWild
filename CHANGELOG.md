@@ -46,6 +46,12 @@ Additions
 - Added a new `Spawn Scorched` config option to control whether Scorched can spawn naturally.
 - Can also be found in Trial Chambers.
   - This can be disabled with the `Scorched In Trial Chambers` config option.
+- Will drop String and occasionally a Scorched Eye upon death.
+  - The Scorched Eye can be crafted into a Fermented Scorched Eye, much like regular Spider Eyes.
+
+### Scorching
+- A new mob effect that has a 25% chance to ignite the attacker each time the mob is hit.
+- Is brewed with a Fermented Scorched Eye and an Awkward Potion.
 
 ### Frozen Caves
 - Added the Frozen Caves biome!
