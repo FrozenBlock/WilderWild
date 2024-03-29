@@ -444,7 +444,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.entityKilledPlayer(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -454,7 +454,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.entityKilledPlayer(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
