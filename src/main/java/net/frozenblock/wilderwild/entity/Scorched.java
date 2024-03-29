@@ -60,7 +60,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 
 public class Scorched extends Spider {
-	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.08D, 0D);
+	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.085D, 0D);
 	public static final int FALL_DAMAGE_RESISTANCE = 8;
     private float lavaAnimProgress;
 	private float prevLavaAnimProgress;
@@ -114,7 +114,10 @@ public class Scorched extends Spider {
 				)
 			);
 			CollisionContext collisionContext = CollisionContext.of(this);
-			if (collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+			if (
+				collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true)
+					&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
+			) {
 				this.setOnGround(true);
 			} else {
 				this.addDeltaMovement(LAVA_FLOAT_VECTOR);
