@@ -30,7 +30,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
@@ -56,6 +55,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
+import net.frozenblock.wilderwild.particle.AdditionalParticleFactories;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
@@ -71,22 +71,15 @@ import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.FlameParticle;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -212,7 +205,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.WIND, WindParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.COCONUT_SPLASH, FallingParticle.Factory::new);
-		particleRegistry.register(RegisterParticles.SCORCHING_FLAME, ScorchingFlameFactory::new);
+		particleRegistry.register(RegisterParticles.SCORCHING_FLAME, AdditionalParticleFactories.ScorchingEffectFlameFactory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
@@ -365,23 +358,4 @@ public final class WilderWildClient implements ClientModInitializer {
 		});
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class ScorchingFlameFactory implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet sprite;
-
-		public ScorchingFlameFactory(SpriteSet sprites) {
-			this.sprite = sprites;
-		}
-
-		public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			RandomSource random = AdvancedMath.random();
-			FlameParticle flameParticle = new FlameParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
-			flameParticle.pickSprite(this.sprite);
-			flameParticle.yd = ySpeed * 0.1D;
-			flameParticle.xd = (0.5D - random.nextDouble()) * 0.1D;
-			flameParticle.zd = (0.5D - random.nextDouble()) * 0.1D;
-			flameParticle.setLifetime((int)(8D / (Math.random() * 0.8D + 0.2D)));
-			return flameParticle;
-		}
-	}
 }
