@@ -14,6 +14,10 @@ buildscript {
     }
     dependencies {
         classpath("org.kohsuke:github-api:+")
+
+        // remove these 2 to get normal fabric loom versions
+        classpath(files("libs/fabric-loom-1.5.local.jar"))
+        classpath("net.fabricmc:mapping-io:+")
     }
 }
 
