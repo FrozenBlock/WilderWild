@@ -377,7 +377,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			RandomSource random = AdvancedMath.random();
 			FlameParticle flameParticle = new FlameParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
 			flameParticle.pickSprite(this.sprite);
-			flameParticle.yd = (0.5D - random.nextDouble()) * 0.2D;
+			flameParticle.yd = ySpeed * 0.1D;
 			flameParticle.xd = (0.5D - random.nextDouble()) * 0.1D;
 			flameParticle.zd = (0.5D - random.nextDouble()) * 0.1D;
 			flameParticle.setLifetime((int)(8D / (Math.random() * 0.8D + 0.2D)));
