@@ -72,6 +72,7 @@ import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
@@ -352,6 +353,9 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SCORCHED_EYE).triggerInstance())
+						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
 								List.of(
@@ -394,6 +398,13 @@ public class FrozenLibIntegration extends ModIntegration {
 								)
 							))
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:scorched_eye"
+								)
+							))
+						);
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
@@ -427,8 +438,31 @@ public class FrozenLibIntegration extends ModIntegration {
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
 							map.put(RegisterMobEffects.REACH_BOOST, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.SCORCHING, new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
+					}
+					case "minecraft:adventure/kill_a_mob" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.entityKilledPlayer(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsToList(advancement,
+							List.of(
+								"wilderwild:scorched"
+							)
+						);
+					}
+					case "minecraft:adventure/kill_all_mobs" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.entityKilledPlayer(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:scorched"
+								)
+							))
+						);
 					}
 					default -> {
 					}
