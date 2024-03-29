@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.effect;
 
 import java.util.function.ToIntFunction;
-import net.minecraft.core.particles.ParticleTypes;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -32,7 +32,7 @@ public class ScorchingMobEffect extends MobEffect {
 	private final ToIntFunction<RandomSource> fireDurationInSeconds;
 
 	public ScorchingMobEffect(MobEffectCategory type, int color, float chanceToScorch, ToIntFunction<RandomSource> toIntFunction) {
-		super(type, color, ParticleTypes.FLAME);
+		super(type, color, RegisterParticles.SCORCHING_FLAME);
 		this.chanceToScorch = chanceToScorch;
 		this.fireDurationInSeconds = toIntFunction;
 	}

@@ -18,9 +18,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import com.mojang.serialization.Codec;
-import java.util.function.Function;
 import com.mojang.serialization.MapCodec;
+import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
@@ -42,6 +41,7 @@ public final class RegisterParticles {
 	public static final ParticleType<WindParticleOptions> WIND = register("wind", false, WindParticleOptions.DESERIALIZER, particleType -> WindParticleOptions.CODEC, particleType -> WindParticleOptions.STREAM_CODEC);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
+	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = register("blue_pearlescent_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = register("blue_pearlescent_landing_mesoglea_drip");
