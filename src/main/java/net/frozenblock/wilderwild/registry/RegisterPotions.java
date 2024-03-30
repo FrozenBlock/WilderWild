@@ -50,7 +50,7 @@ public final class RegisterPotions {
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
 
-		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), SCORCHING);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.FERMENTED_SCORCHED_EYE), SCORCHING);
 	}
 
 	private static @NotNull Reference<Potion> register(String key, Potion potion) {

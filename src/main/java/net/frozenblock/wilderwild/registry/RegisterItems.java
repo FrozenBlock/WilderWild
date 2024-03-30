@@ -121,7 +121,7 @@ public final class RegisterItems {
 	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
 	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(RegisterFood.CRAB_CLAW));
 	public static final Item COOKED_CRAB_CLAW = new Item(new Item.Properties().food(RegisterFood.COOKED_CRAB_CLAW));
-	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(RegisterFood.CRAB_CLAW));
+	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(RegisterFood.SCORCHED_EYE));
 	public static final Item FERMENTED_SCORCHED_EYE = new Item(new Item.Properties());
 	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new Item.Properties().stacksTo(64));
 	// SPAWN EGGS
