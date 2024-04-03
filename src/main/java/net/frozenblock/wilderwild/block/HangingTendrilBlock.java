@@ -145,7 +145,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (direction == Direction.UP && !canSurvive(state, level, currentPos)) {
+		if (!state.canSurvive(level, currentPos)) {
 			level.scheduleTick(currentPos, this, 1);
 		}
 		if (state.getValue(WATERLOGGED)) {
@@ -162,11 +162,11 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
-			deactivate(level, pos, state, random);
-		}
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
+		}
+		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
+			deactivate(level, pos, state, random);
 		}
 	}
 
