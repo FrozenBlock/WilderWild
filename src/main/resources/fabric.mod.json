@@ -64,7 +64,7 @@
     "frozenlib": "${frozenlib_version}",
     "fabric-api": "${fabric_api_version}",
     "minecraft": "${minecraft_version}",
-    "java": ">=17"
+    "java": ">=21"
   },
   "suggests": {
     "cloth-config": "*",
