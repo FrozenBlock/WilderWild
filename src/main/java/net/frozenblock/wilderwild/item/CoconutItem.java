@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;

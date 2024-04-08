@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.world.impl.treedecorators;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;

@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
@@ -67,6 +68,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	public int ticksToStopTwitching;
 	private int storedXP;
 	public int ringOutTicksLeft;
+	private int activeTicks;
 	//CLIENT ONLY
 	public ResourceLocation texture = WilderSharedConstants.id("textures/entity/hanging_tendril/inactive1.png");
 	public boolean twitching;
@@ -90,13 +92,21 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		if (this.ringOutTicksLeft >= 0) {
 			--this.ringOutTicksLeft;
 		} else if (state.getValue(HangingTendrilBlock.WRINGING_OUT)) {
-			level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.WRINGING_OUT, false));
+			state = state.setValue(HangingTendrilBlock.WRINGING_OUT, false);
+			level.setBlockAndUpdate(pos, state);
 			if (this.storedXP > 0) {
 				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
 				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
 				level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
 			}
+		}
+
+		if (this.activeTicks >= HangingTendrilBlock.ACTIVE_TICKS) {
+			this.activeTicks = 0;
+			HangingTendrilBlock.deactivate(level, pos, state, level.random);
+		} else if (state.getValue(HangingTendrilBlock.PHASE) == SculkSensorPhase.ACTIVE) {
+			this.activeTicks += 1;
 		}
 		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
@@ -125,6 +135,14 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.storedXP = i;
 	}
 
+	public int getActiveTicks() {
+		return this.activeTicks;
+	}
+
+	public void setActiveTicks(int i) {
+		this.activeTicks = i;
+	}
+
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
@@ -143,6 +161,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.ticksToStopTwitching = tag.getInt("ticksToStopTwitching");
 		this.storedXP = tag.getInt("storedXP");
 		this.ringOutTicksLeft = tag.getInt("ringOutTicksLeft");
+		this.activeTicks = tag.getInt("activeTicks");
 		if (tag.contains("listener", 10)) {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener"))).resultOrPartial(LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
@@ -152,9 +171,10 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
 		tag.putInt("last_vibration_frequency", this.lastVibrationFrequency);
-		tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
-		tag.putInt("storedXP", this.storedXP);
-		tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
+		if (this.ticksToStopTwitching > 0) tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
+		if (this.storedXP > 0) tag.putInt("storedXP", this.storedXP);
+		if (this.ringOutTicksLeft > 0) tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
+		if (this.activeTicks > 0) tag.putInt("activeTicks", this.activeTicks);
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(LOGGER::error).ifPresent(nbt -> tag.put("listener", nbt));
 	}
 

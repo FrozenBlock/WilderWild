@@ -191,7 +191,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		}
 	}
 
-	public static void updateNeighbours(Level level, BlockPos pos, BlockState state) {
+	public static void updateNeighbours(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
 		Block block = state.getBlock();
 		level.updateNeighborsAt(pos, block);
 		level.updateNeighborsAt(pos.below(), block);
@@ -229,13 +229,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return OUTLINE_SHAPE;
 	}
 
-	public int getActiveTicks() {
-		return ACTIVE_TICKS;
-	}
-
 	public void activate(@Nullable Entity entity, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Holder<GameEvent> gameEvent, int power, int frequency) {
 		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), UPDATE_ALL);
-		level.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof HangingTendrilBlockEntity hangingTendrilBlockEntity) {
+			hangingTendrilBlockEntity.setActiveTicks(ACTIVE_TICKS);
+		}
 		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, level, pos, frequency);
