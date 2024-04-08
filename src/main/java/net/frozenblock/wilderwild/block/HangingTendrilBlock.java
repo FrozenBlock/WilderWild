@@ -165,9 +165,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
 		}
-		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
-			deactivate(level, pos, state, random);
-		}
 	}
 
 	@Override
