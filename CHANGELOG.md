@@ -145,6 +145,7 @@ Bug Fixes, Changes, & Other Additions
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
 - Nearly all custom generation can now be enabled/disabled in-game after changing the config and rejoining a world, instead of needing to restart the game.
 - Added Wilder Wild's content to Serene Season's tags. ([#361](https://github.com/FrozenBlock/WilderWild/issues/361#event-12156424219))
+- Vanilla music will once again play in Forest biomes. ([#365](https://github.com/FrozenBlock/WilderWild/issues/365))
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
