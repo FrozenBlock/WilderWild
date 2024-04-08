@@ -46,13 +46,3 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build
         run: ./gradlew build publish -PuseThirdPartyMods=false
-      - name: Extract current branch name
-        shell: bash
-        # bash pattern expansion to grab branch name without slashes
-        run: ref="${GITHUB_REF#refs/heads/}" && echo "::set-output name=branch::${ref////-}"
-        id: ref
-      - name: Capture Build Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: WilderWild-Artifacts-${{ steps.ref.outputs.branch }}
-          path: build/libs/
