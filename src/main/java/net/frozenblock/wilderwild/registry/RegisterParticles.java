@@ -36,9 +36,9 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterParticles {
 	public static final SimpleParticleType POLLEN = register("pollen");
-	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, SeedParticleOptions.DESERIALIZER, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC);
-	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, FloatingSculkBubbleParticleOptions.DESERIALIZER, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC);
-	public static final ParticleType<WindParticleOptions> WIND = register("wind", false, WindParticleOptions.DESERIALIZER, particleType -> WindParticleOptions.CODEC, particleType -> WindParticleOptions.STREAM_CODEC);
+	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC);
+	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC);
+	public static final ParticleType<WindParticleOptions> WIND = register("wind", false, particleType -> WindParticleOptions.CODEC, particleType -> WindParticleOptions.STREAM_CODEC);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
@@ -85,12 +85,11 @@ public final class RegisterParticles {
 	@NotNull
 	private static <T extends ParticleOptions> ParticleType<T> register(
 		String string,
-		boolean bl,
-		ParticleOptions.Deserializer<T> deserializer,
+		boolean alwaysShow,
 		Function<ParticleType<T>, MapCodec<T>> function,
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(string), new ParticleType<T>(bl, deserializer) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(string), new ParticleType<T>(alwaysShow) {
 			@Override
 			public MapCodec<T> codec() {
 				return function.apply(this);

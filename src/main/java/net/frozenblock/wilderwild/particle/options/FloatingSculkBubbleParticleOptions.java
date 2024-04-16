@@ -53,19 +53,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		FrozenByteBufCodecs.VEC3, FloatingSculkBubbleParticleOptions::getVelocity,
 		FloatingSculkBubbleParticleOptions::new
 	);
-	public static final ParticleOptions.Deserializer<FloatingSculkBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
-		@Contract("_, _, _ -> new")
-		@NotNull
-		@Override
-		public FloatingSculkBubbleParticleOptions fromCommand(ParticleType<FloatingSculkBubbleParticleOptions> type, @NotNull StringReader reader, HolderLookup.Provider provider) throws CommandSyntaxException {
-			reader.expect(' ');
-			double d = reader.readDouble();
-			reader.expect(' ');
-			int i = reader.readInt();
-			Vec3 vec3 = WindParticleOptions.readVec3(reader);
-			return new FloatingSculkBubbleParticleOptions(d, i, vec3);
-		}
-	};
+
 	private final double size;
 	private final int maxAge;
 	private final Vec3 velocity;
@@ -88,12 +76,6 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	@NotNull
 	public ParticleType<?> getType() {
 		return RegisterParticles.FLOATING_SCULK_BUBBLE;
-	}
-
-	@NotNull
-	@Override
-	public String writeToString(HolderLookup.Provider provider) {
-		return String.format(Locale.ROOT, "%s %.2f %d", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getSize(), this.getMaxAge());
 	}
 
 	public double getSize() {

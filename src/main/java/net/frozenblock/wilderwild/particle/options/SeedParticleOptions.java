@@ -52,18 +52,6 @@ public class SeedParticleOptions implements ParticleOptions {
 		FrozenByteBufCodecs.VEC3, SeedParticleOptions::getVelocity,
 		SeedParticleOptions::new
 	);
-	public static final Deserializer<SeedParticleOptions> DESERIALIZER = new Deserializer<>() {
-        @Override
-        @NotNull
-        public SeedParticleOptions fromCommand(ParticleType<SeedParticleOptions> type, @NotNull StringReader reader, HolderLookup.Provider provider) throws CommandSyntaxException {
-			reader.expect(' ');
-            boolean milkweed = reader.readBoolean();
-			reader.expect(' ');
-            boolean controlled = reader.readBoolean();
-            Vec3 speed = WindParticleOptions.readVec3(reader);
-            return new SeedParticleOptions(milkweed, controlled, speed);
-        }
-    };
 
 	private final boolean isMilkweed;
 	private final boolean controlled;
@@ -95,12 +83,6 @@ public class SeedParticleOptions implements ParticleOptions {
 	@Override
 	public ParticleType<?> getType() {
 		return RegisterParticles.SEED;
-	}
-
-	@NotNull
-	@Override
-	public String writeToString(HolderLookup.Provider provider) {
-		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.isMilkweed, this.controlled);
 	}
 
 	public boolean isMilkweed() {

@@ -50,16 +50,6 @@ public class WindParticleOptions implements ParticleOptions {
 		FrozenByteBufCodecs.VEC3, WindParticleOptions::getVelocity,
 		WindParticleOptions::new
 	);
-	public static final Deserializer<WindParticleOptions> DESERIALIZER = new Deserializer<>() {
-        @Override
-        @NotNull
-        public WindParticleOptions fromCommand(ParticleType<WindParticleOptions> type, @NotNull StringReader reader, HolderLookup.Provider provider) throws CommandSyntaxException {
-			reader.expect(' ');
-            int lifespan = reader.readInt();
-            Vec3 speed = readVec3(reader);
-            return new WindParticleOptions(lifespan, speed);
-        }
-    };
 
 	@NotNull
 	@Contract("_ -> new")
@@ -91,11 +81,6 @@ public class WindParticleOptions implements ParticleOptions {
 		return RegisterParticles.WIND;
 	}
 
-	@NotNull
-	@Override
-	public String writeToString(HolderLookup.Provider provider) {
-		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getLifespan());
-	}
 
 	public int getLifespan() {
 		return this.lifespan;
