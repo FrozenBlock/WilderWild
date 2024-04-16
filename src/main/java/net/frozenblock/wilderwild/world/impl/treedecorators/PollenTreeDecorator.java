@@ -34,7 +34,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
-	public static final MapCodec<PollenTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
 			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),
 			Codec.INT.fieldOf("max_count").forGetter((treeDecorator) -> treeDecorator.maxCount)

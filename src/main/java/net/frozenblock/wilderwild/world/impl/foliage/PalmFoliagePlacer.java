@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.foliage;
 
 import com.mojang.datafixers.Products;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.math.api.AdvancedMath;
@@ -36,7 +37,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
 		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
 	);
 	private static final double SURROUNDING_LEAF_THRESHOLD = 0.0;

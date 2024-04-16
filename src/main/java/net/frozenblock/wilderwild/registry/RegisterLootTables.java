@@ -35,7 +35,7 @@ public final class RegisterLootTables {
 	public static void init() {
 		WilderSharedConstants.logWithModId("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
 		//ANCIENT HORN FRAGMENT
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
 				LootPool.Builder pool = LootPool.lootPool();
 				pool.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT)
@@ -50,7 +50,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//ALGAE
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -59,7 +59,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//BAOBAB NUT
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -68,7 +68,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//BAOBAB LOG
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -77,7 +77,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//COCONUT
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -86,7 +86,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//PALM LOG
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -95,7 +95,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//OSSEOUS SCULK
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 5.0F)));
@@ -104,7 +104,7 @@ public final class RegisterLootTables {
 			}
 		});
 		//HANGING TENDRIL
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)));

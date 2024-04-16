@@ -3,8 +3,10 @@
   "config": {
     "height": {
       "type": "minecraft:uniform",
-      "max_inclusive": 10,
-      "min_inclusive": 3
+      "value": {
+        "max_inclusive": 10,
+        "min_inclusive": 3
+      }
     },
     "replaceable_blocks": [
       "wilderwild:blue_pearlescent_mesoglea",

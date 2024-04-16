@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedParticleOptions implements ParticleOptions {
-	public static final MapCodec<SeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<SeedParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 				Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
 				Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::isControlled),

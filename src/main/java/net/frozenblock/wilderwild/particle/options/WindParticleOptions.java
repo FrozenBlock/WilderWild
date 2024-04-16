@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class WindParticleOptions implements ParticleOptions {
-	public static final MapCodec<WindParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<WindParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 				Codec.INT.fieldOf("lifespan").forGetter(WindParticleOptions::getLifespan),
 				Vec3.CODEC.fieldOf("velocity").forGetter(WindParticleOptions::getVelocity)

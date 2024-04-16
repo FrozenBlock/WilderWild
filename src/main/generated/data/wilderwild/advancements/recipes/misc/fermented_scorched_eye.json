@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:scorched_eye"
+            "items": [
+              "wilderwild:scorched_eye"
+            ]
           }
         ]
       },

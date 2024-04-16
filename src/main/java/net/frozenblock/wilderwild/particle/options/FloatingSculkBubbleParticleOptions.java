@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
-	public static final MapCodec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 				Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
 				Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),

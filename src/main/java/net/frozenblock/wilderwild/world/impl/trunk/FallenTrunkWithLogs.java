@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FallenTrunkWithLogs extends TrunkPlacer {
-	public static final MapCodec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) ->
 		fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
 
 	public final BlockStateProvider hollowedState;

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.impl.features.AlgaeFeature;
@@ -86,12 +87,12 @@ public class RegisterFeatures {
 	}
 
 	@NotNull
-	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(@NotNull String id, @NotNull MapCodec<P> codec) {
+	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(@NotNull String id, @NotNull Codec<P> codec) {
 		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
 	}
 
 	@NotNull
-	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(@NotNull String id, @NotNull MapCodec<P> codec) {
+	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(@NotNull String id, @NotNull Codec<P> codec) {
 		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderSharedConstants.id(id), new FoliagePlacerType<>(codec));
 	}
 

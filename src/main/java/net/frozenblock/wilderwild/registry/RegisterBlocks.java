@@ -67,12 +67,15 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
+import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
@@ -83,6 +86,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -556,7 +560,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor()),
 		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/baobab_sign"))
+		WilderSharedConstants.id("blocks/baobab_sign")
 	);
 
 	public static final FrozenWallSignBlock BAOBAB_WALL_SIGN = new FrozenWallSignBlock(
@@ -564,7 +568,7 @@ public final class RegisterBlocks {
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 			.dropsLike(BAOBAB_SIGN),
 		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/baobab_sign"))
+		WilderSharedConstants.id("blocks/baobab_sign")
 	);
 
 	public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
@@ -585,7 +589,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor()),
 		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/baobab_hanging_sign"))
+		WilderSharedConstants.id("blocks/baobab_hanging_sign")
 	);
 
 	public static final FrozenWallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
@@ -593,7 +597,7 @@ public final class RegisterBlocks {
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 			.dropsLike(BAOBAB_HANGING_SIGN),
 		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/baobab_hanging_sign"))
+		WilderSharedConstants.id("blocks/baobab_hanging_sign")
 	);
 
 	public static final Block STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
@@ -666,7 +670,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor()),
 		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/cypress_sign"))
+		WilderSharedConstants.id("blocks/cypress_sign")
 	);
 
 	public static final FrozenWallSignBlock CYPRESS_WALL_SIGN = new FrozenWallSignBlock(
@@ -674,7 +678,7 @@ public final class RegisterBlocks {
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 			.dropsLike(CYPRESS_SIGN),
 		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/cypress_sign"))
+		WilderSharedConstants.id("blocks/cypress_sign")
 	);
 
 	public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
@@ -695,7 +699,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor()),
 		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/cypress_hanging_sign"))
+		WilderSharedConstants.id("blocks/cypress_hanging_sign")
 	);
 
 	public static final FrozenWallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
@@ -703,7 +707,7 @@ public final class RegisterBlocks {
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 			.dropsLike(CYPRESS_HANGING_SIGN),
 		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/cypress_hanging_sign"))
+		WilderSharedConstants.id("blocks/cypress_hanging_sign")
 	);
 
 	public static final Block STRIPPED_CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
@@ -776,7 +780,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor()),
 		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/palm_sign"))
+		WilderSharedConstants.id("blocks/palm_sign")
 	);
 
 	public static final FrozenWallSignBlock PALM_WALL_SIGN = new FrozenWallSignBlock(
@@ -784,7 +788,7 @@ public final class RegisterBlocks {
 			.mapColor(PALM_LOG.defaultMapColor())
 			.dropsLike(PALM_SIGN),
 		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/palm_sign"))
+		WilderSharedConstants.id("blocks/palm_sign")
 	);
 
 	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
@@ -805,7 +809,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor()),
 		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/palm_hanging_sign"))
+		WilderSharedConstants.id("blocks/palm_hanging_sign")
 	);
 
 	public static final FrozenWallHangingSignBlock PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
@@ -813,7 +817,7 @@ public final class RegisterBlocks {
 			.mapColor(PALM_LOG.defaultMapColor())
 			.dropsLike(PALM_HANGING_SIGN),
 		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/palm_hanging_sign"))
+		WilderSharedConstants.id("blocks/palm_hanging_sign")
 	);
 
 	public static final RotatedPillarBlock PALM_CROWN = new RotatedPillarBlock(
@@ -1230,6 +1234,23 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerDispenses() {
+		DispenserBlock.registerBehavior(RegisterItems.COCONUT, new AbstractProjectileDispenseBehavior() {
+			@Override
+			@NotNull
+			protected Projectile getProjectile(@NotNull Level level, @NotNull Position position, @NotNull ItemStack stack) {
+				return new CoconutProjectile(level, position.x(), position.y(), position.z());
+			}
+
+			@Override
+			protected float getUncertainty() {
+				return 9F;
+			}
+
+			@Override
+			protected float getPower() {
+				return 0.75F;
+			}
+		});
 		DispenserBlock.registerBehavior(RegisterBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
 			@Override
 			@NotNull

@@ -8,8 +8,10 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 13,
-              "min_inclusive": 5
+              "value": {
+                "max_inclusive": 13,
+                "min_inclusive": 5
+              }
             },
             "replaceable_blocks": [],
             "state": {
@@ -22,8 +24,10 @@
             "type": "minecraft:random_offset",
             "xz_spread": {
               "type": "minecraft:uniform",
-              "max_inclusive": 1,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 1,
+                "min_inclusive": 0
+              }
             },
             "y_spread": 0
           },
@@ -47,8 +51,10 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 12,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 12,
+                "min_inclusive": 0
+              }
             },
             "replaceable_blocks": [],
             "state": {
@@ -61,8 +67,10 @@
             "type": "minecraft:random_offset",
             "xz_spread": {
               "type": "minecraft:uniform",
-              "max_inclusive": 1,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 1,
+                "min_inclusive": 0
+              }
             },
             "y_spread": 0
           },
@@ -86,8 +94,10 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 10,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 10,
+                "min_inclusive": 0
+              }
             },
             "replaceable_blocks": [],
             "state": {
@@ -100,8 +110,10 @@
             "type": "minecraft:random_offset",
             "xz_spread": {
               "type": "minecraft:uniform",
-              "max_inclusive": 1,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 1,
+                "min_inclusive": 0
+              }
             },
             "y_spread": 0
           },
@@ -125,8 +137,10 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 8,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 8,
+                "min_inclusive": 0
+              }
             },
             "replaceable_blocks": [],
             "state": {
@@ -139,8 +153,10 @@
             "type": "minecraft:random_offset",
             "xz_spread": {
               "type": "minecraft:uniform",
-              "max_inclusive": 1,
-              "min_inclusive": 0
+              "value": {
+                "max_inclusive": 1,
+                "min_inclusive": 0
+              }
             },
             "y_spread": 0
           },

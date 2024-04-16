@@ -13,32 +13,42 @@
     },
     "column_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 10,
-      "min_inclusive": 3
+      "value": {
+        "max_inclusive": 10,
+        "min_inclusive": 3
+      }
     },
     "floor_to_ceiling_search_range": 30,
     "height_scale": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.75,
-      "min_inclusive": 0.2
+      "value": {
+        "max_exclusive": 0.75,
+        "min_inclusive": 0.2
+      }
     },
     "max_column_radius_to_cave_height_ratio": 0.15,
     "min_bluntness_for_wind": 0.2,
     "min_radius_for_wind": 5,
     "stalactite_bluntness": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.25,
-      "min_inclusive": 0.1
+      "value": {
+        "max_exclusive": 0.25,
+        "min_inclusive": 0.1
+      }
     },
     "stalagmite_bluntness": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.4,
-      "min_inclusive": 0.16
+      "value": {
+        "max_exclusive": 0.4,
+        "min_inclusive": 0.16
+      }
     },
     "wind_speed": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.25,
-      "min_inclusive": 0.0
+      "value": {
+        "max_exclusive": 0.25,
+        "min_inclusive": 0.0
+      }
     }
   }
 }

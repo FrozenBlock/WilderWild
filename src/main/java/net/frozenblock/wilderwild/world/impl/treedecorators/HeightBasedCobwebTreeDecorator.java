@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
-	public static final MapCodec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
 			Codec.intRange(-63, 319).fieldOf("max_height").forGetter((treeDecorator) -> treeDecorator.maxHeight),

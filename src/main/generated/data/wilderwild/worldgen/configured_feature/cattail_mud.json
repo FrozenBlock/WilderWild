@@ -5,13 +5,17 @@
     "only_place_in_water": false,
     "placement_attempts": {
       "type": "minecraft:uniform",
-      "max_inclusive": 21,
-      "min_inclusive": 12
+      "value": {
+        "max_inclusive": 21,
+        "min_inclusive": 12
+      }
     },
     "width": {
       "type": "minecraft:uniform",
-      "max_inclusive": 7,
-      "min_inclusive": -7
+      "value": {
+        "max_inclusive": 7,
+        "min_inclusive": -7
+      }
     }
   }
 }

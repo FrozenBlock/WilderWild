@@ -32,18 +32,33 @@ public class ScorchingMobEffect extends MobEffect {
 	private final ToIntFunction<RandomSource> fireDurationInSeconds;
 
 	public ScorchingMobEffect(MobEffectCategory type, int color, float chanceToScorch, ToIntFunction<RandomSource> toIntFunction) {
-		super(type, color, RegisterParticles.SCORCHING_FLAME);
+		super(type, color);
 		this.chanceToScorch = chanceToScorch;
 		this.fireDurationInSeconds = toIntFunction;
 	}
 
+	// particle tick
 	@Override
-	public void onMobHurt(@NotNull LivingEntity livingEntity, int i, DamageSource damageSource, float f) {
-		RandomSource random = livingEntity.getRandom();
-		if (random.nextFloat() <= this.chanceToScorch && damageSource.getDirectEntity() != null) {
-			int fireTicks = this.fireDurationInSeconds.applyAsInt(random);
-			damageSource.getDirectEntity().igniteForSeconds(fireTicks);
+	public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+		super.applyEffectTick(livingEntity, amplifier);
+
+		int i = livingEntity.isInvisible() ? 15 : 4;
+		int j = 1;
+		if (livingEntity.getRandom().nextInt(i * j) == 0) {
+			livingEntity.level().addParticle(RegisterParticles.SCORCHING_FLAME, RegisterParticles.SCORCHING_FLAME.getType().getOverrideLimiter(), livingEntity.getRandomX(0.5), livingEntity.getRandomY(), livingEntity.getRandomZ(0.5), 1, 1, 1);
 		}
 	}
 
+	public void onMobHurt(@NotNull LivingEntity livingEntity, int amplifier, DamageSource damageSource, float f) {
+		RandomSource random = livingEntity.getRandom();
+		if (random.nextFloat() <= this.chanceToScorch && damageSource.getDirectEntity() != null) {
+			int fireTicks = this.fireDurationInSeconds.applyAsInt(random);
+			damageSource.getDirectEntity().setRemainingFireTicks(fireTicks);
+		}
+	}
+
+	@Override
+	public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+		return true;
+	}
 }

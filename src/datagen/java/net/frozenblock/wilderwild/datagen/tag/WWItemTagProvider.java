@@ -47,9 +47,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(ItemTags.ARMADILLO_FOOD)
-			.add(RegisterItems.SCORCHED_EYE);
-
 		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
 			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG.asItem())
 			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG.asItem())

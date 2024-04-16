@@ -42,7 +42,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
 		trunkPlacerParts(instance)
 			.and(
 				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),

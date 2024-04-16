@@ -96,7 +96,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -638,9 +637,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public ResourceKey<LootTable> getDefaultLootTable() {
+	public ResourceLocation getDefaultLootTable() {
 		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
-		return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath()));
+		return new ResourceLocation(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath());
 	}
 
 	@Override

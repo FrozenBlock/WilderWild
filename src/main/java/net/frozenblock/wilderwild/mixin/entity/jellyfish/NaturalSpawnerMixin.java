@@ -38,7 +38,7 @@ public class NaturalSpawnerMixin {
 	@Inject(method = "isValidSpawnPostitionForType", at = @At(value = "RETURN", ordinal = 5, shift = At.Shift.BEFORE), cancellable = true)
 	private static void wilderWild$isValidSpawnPostitionForType(ServerLevel level, MobCategory category, StructureManager structureManager, ChunkGenerator generator, MobSpawnSettings.SpawnerData data, BlockPos.MutableBlockPos pos, double distance, CallbackInfoReturnable<Boolean> info) {
 		if (data.type == RegisterEntities.JELLYFISH) {
-			info.setReturnValue(JellyfishBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)));
+			info.setReturnValue(JellyfishBlockCollisions.noJellyCollision(level, null, data.type.getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)));
 		}
 	}
 

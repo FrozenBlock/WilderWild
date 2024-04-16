@@ -40,7 +40,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class StraightTrunkWithBranches extends TrunkPlacer {
-	public static final MapCodec<StraightTrunkWithBranches> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<StraightTrunkWithBranches> CODEC = RecordCodecBuilder.create((instance) ->
 		trunkPlacerParts(instance)
 			.and(
 				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),

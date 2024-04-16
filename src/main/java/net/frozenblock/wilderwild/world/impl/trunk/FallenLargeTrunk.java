@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FallenLargeTrunk extends TrunkPlacer {
-	public static final MapCodec<FallenLargeTrunk> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final Codec<FallenLargeTrunk> CODEC = RecordCodecBuilder.create((instance) ->
 		fallenTrunkCodec(instance).apply(instance, FallenLargeTrunk::new));
 
 	public final float successInWaterChance;

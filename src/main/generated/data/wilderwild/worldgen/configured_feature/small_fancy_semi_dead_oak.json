@@ -54,13 +54,17 @@
       "can_grow_through": "#minecraft:mangrove_logs_can_grow_through",
       "extra_branch_length": {
         "type": "minecraft:uniform",
-        "max_inclusive": 5,
-        "min_inclusive": 2
+        "value": {
+          "max_inclusive": 5,
+          "min_inclusive": 2
+        }
       },
       "extra_branch_steps": {
         "type": "minecraft:uniform",
-        "max_inclusive": 4,
-        "min_inclusive": 2
+        "value": {
+          "max_inclusive": 4,
+          "min_inclusive": 2
+        }
       },
       "height_rand_a": 3,
       "height_rand_b": 1,

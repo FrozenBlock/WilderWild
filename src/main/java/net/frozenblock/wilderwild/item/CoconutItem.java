@@ -31,13 +31,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public class CoconutItem extends BlockItem implements ProjectileItem {
+public class CoconutItem extends BlockItem {
 
 	public CoconutItem(@NotNull Block block, @NotNull Properties properties) {
 		super(block, properties);
@@ -79,17 +78,5 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			itemStack.shrink(1);
 		}
 		return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
-	}
-
-	@Override
-	@NotNull
-	public Projectile asProjectile(Level level, Position position, ItemStack stack, Direction direction) {
-		return new CoconutProjectile(level, position.x(), position.y(), position.z());
-	}
-
-	@Override
-	@NotNull
-	public DispenseConfig createDispenseConfig() {
-		return DispenseConfig.builder().uncertainty(9F).power(0.75F).build();
 	}
 }

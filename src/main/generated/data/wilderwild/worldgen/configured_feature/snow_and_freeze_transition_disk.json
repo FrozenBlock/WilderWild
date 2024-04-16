@@ -4,14 +4,18 @@
     "fade_start_distance_percent": 0.5,
     "ice_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 4,
-      "min_inclusive": 2
+      "value": {
+        "max_inclusive": 4,
+        "min_inclusive": 2
+      }
     },
     "placement_chance": 0.65,
     "radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 7,
-      "min_inclusive": 6
+      "value": {
+        "max_inclusive": 7,
+        "min_inclusive": 6
+      }
     }
   }
 }
