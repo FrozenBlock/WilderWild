@@ -40,7 +40,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
@@ -92,7 +91,7 @@ public final class RegisterItems {
 	public static final BlockItem DISPLAY_LANTERN = new BlockItem(RegisterBlocks.DISPLAY_LANTERN, new Item.Properties());
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
-	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
+	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(RegisterFood.SPLIT_COCONUT));
 	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
@@ -121,6 +120,8 @@ public final class RegisterItems {
 	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
 	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(RegisterFood.CRAB_CLAW));
 	public static final Item COOKED_CRAB_CLAW = new Item(new Item.Properties().food(RegisterFood.COOKED_CRAB_CLAW));
+	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(RegisterFood.SCORCHED_EYE));
+	public static final Item FERMENTED_SCORCHED_EYE = new Item(new Item.Properties());
 	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new Item.Properties().stacksTo(64));
 	// SPAWN EGGS
 	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new Item.Properties());
@@ -208,6 +209,8 @@ public final class RegisterItems {
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PEELED_PRICKLY_PEAR, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(CRAB_CLAW, COOKED_CRAB_CLAW, "cooked_crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);
 
 		Registry.register(BuiltInRegistries.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
 		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));

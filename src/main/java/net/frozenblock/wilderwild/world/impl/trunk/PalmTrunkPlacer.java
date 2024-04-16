@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class PalmTrunkPlacer extends TrunkPlacer {
-	public static final Codec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> PalmTrunkPlacer.trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new));
+	public static final MapCodec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> PalmTrunkPlacer.trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new));
 
 	public PalmTrunkPlacer(int i, int j, int k) {
 		super(i, j, k);

@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.treedecorators;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
-	public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<PollenTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
 			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),
 			Codec.INT.fieldOf("max_count").forGetter((treeDecorator) -> treeDecorator.maxCount)

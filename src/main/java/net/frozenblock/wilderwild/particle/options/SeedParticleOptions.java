@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
@@ -34,7 +35,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedParticleOptions implements ParticleOptions {
-	public static final Codec<SeedParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<SeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
 				Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
 				Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::isControlled),

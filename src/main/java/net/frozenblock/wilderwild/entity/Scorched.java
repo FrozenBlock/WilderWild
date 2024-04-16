@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
+import net.frozenblock.wilderwild.registry.RegisterMobEffects;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -28,6 +29,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -57,7 +59,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 
 public class Scorched extends Spider {
-	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.08D, 0D);
+	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.085D, 0D);
 	public static final int FALL_DAMAGE_RESISTANCE = 8;
     private float lavaAnimProgress;
 	private float prevLavaAnimProgress;
@@ -92,17 +94,27 @@ public class Scorched extends Spider {
 	@Override
 	public void tick() {
 		super.tick();
-		this.floatScorched();
+		this.scorchedInLava();
 		this.checkInsideBlocks();
         float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
 		this.prevLavaAnimProgress = this.lavaAnimProgress;
 		this.lavaAnimProgress = this.lavaAnimProgress + (targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
 	}
 
-	private void floatScorched() {
+	private void scorchedInLava() {
 		if (this.isInLava()) {
+			this.addEffect(
+				new MobEffectInstance(
+					RegisterMobEffects.SCORCHING,
+					200,
+					0
+				)
+			);
 			CollisionContext collisionContext = CollisionContext.of(this);
-			if (collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+			if (
+				collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true)
+					&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
+			) {
 				this.setOnGround(true);
 			} else {
 				this.addDeltaMovement(LAVA_FLOAT_VECTOR);

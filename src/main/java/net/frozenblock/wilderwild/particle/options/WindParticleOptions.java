@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
@@ -34,7 +35,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class WindParticleOptions implements ParticleOptions {
-	public static final Codec<WindParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<WindParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
 				Codec.INT.fieldOf("lifespan").forGetter(WindParticleOptions::getLifespan),
 				Vec3.CODEC.fieldOf("velocity").forGetter(WindParticleOptions::getVelocity)

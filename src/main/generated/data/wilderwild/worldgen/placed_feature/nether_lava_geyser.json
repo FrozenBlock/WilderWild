@@ -5,10 +5,8 @@
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 20,
-          "min_inclusive": 8
-        }
+        "max_inclusive": 20,
+        "min_inclusive": 8
       }
     },
     {
@@ -46,6 +44,24 @@
             "offset": [
               0,
               1,
+              0
+            ]
+          },
+          {
+            "type": "minecraft:matching_fluids",
+            "fluids": "minecraft:lava",
+            "offset": [
+              0,
+              2,
+              0
+            ]
+          },
+          {
+            "type": "minecraft:matching_fluids",
+            "fluids": "minecraft:lava",
+            "offset": [
+              0,
+              3,
               0
             ]
           }

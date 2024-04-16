@@ -14,10 +14,6 @@ buildscript {
     }
     dependencies {
         classpath("org.kohsuke:github-api:+")
-
-        // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.5.local.jar"))
-        classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -300,8 +296,8 @@ tasks {
 
     withType(JavaCompile::class) {
         options.encoding = "UTF-8"
-        // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-        options.release.set(17)
+        // Minecraft 1.20.5 (24w14a) upwards uses Java 21.
+        options.release.set(21)
         options.isFork = true
         options.isIncremental = true
     }
@@ -321,8 +317,8 @@ val sourcesJar: Task by tasks
 val javadocJar: Task by tasks
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
     // if it is present.

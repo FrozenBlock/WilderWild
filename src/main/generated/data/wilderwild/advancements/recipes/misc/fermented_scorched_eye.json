@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_scorched_eye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:scorched_eye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:fermented_scorched_eye"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_scorched_eye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:fermented_scorched_eye"
+    ]
+  }
+}

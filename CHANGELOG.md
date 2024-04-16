@@ -44,6 +44,16 @@ Additions
 - Is more resistant to fall damage than regular Spiders.
 - Will avoid Water, and cannot swim in it.
 - Added a new `Spawn Scorched` config option to control whether Scorched can spawn naturally.
+- Can also be found in Trial Chambers.
+  - This can be disabled with the `Scorched In Trial Chambers` config option.
+- Will drop String and occasionally a Scorched Eye upon death.
+  - The Scorched Eye can be crafted into a Fermented Scorched Eye, much like regular Spider Eyes.
+    - Can be used to brew a Potion of Scorching.
+- Will gain the Scorching effect while in Lava.
+
+### Scorching
+- A new mob effect that has a 25% chance to ignite the attacker each time the mob is hit.
+- Is brewed with a Fermented Scorched Eye and an Awkward Potion.
 
 ### Frozen Caves
 - Added the Frozen Caves biome!
@@ -135,6 +145,7 @@ Bug Fixes, Changes, & Other Additions
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
 - Nearly all custom generation can now be enabled/disabled in-game after changing the config and rejoining a world, instead of needing to restart the game.
 - Added Wilder Wild's content to Serene Season's tags. ([#361](https://github.com/FrozenBlock/WilderWild/issues/361#event-12156424219))
+- Vanilla music will once again play in Forest biomes. ([#365](https://github.com/FrozenBlock/WilderWild/issues/365))
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
@@ -164,6 +175,9 @@ Bug Fixes, Changes, & Other Additions
   - The minimum value for `Tumbleweed Spawn Cap` has been changed to 1 as `Spawn Tumbleweed` makes 0 redundant.
 - Added a new `Spawn Crabs` config option to control whether Crabs can spawn naturally.
   - The minimum value for `Crab Spawn Cap` has been changed to 1 as `Spawn Crabs` makes 0 redundant.
+- Added a new `Resource Pack Enabled By Default` config option to make the Main Menu resource pack not be enabled upon the mod's first use.
+  - This should only be used in tandem with modpacks or other projects that aim to replace the main menu. Otherwise, you can manually disable it in the Resource Packs menu.
+- Removed the `Cobweb Sounds` config option as Mojang has added their own. (1.20.5+)
 - Added `block_palm_fronds` to the Mixins config.
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 

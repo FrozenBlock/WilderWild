@@ -22,18 +22,14 @@
       },
       "frond_count": {
         "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 9,
-          "min_inclusive": 4
-        }
+        "max_inclusive": 9,
+        "min_inclusive": 4
       },
       "offset": 0,
       "radius": {
         "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 3,
-          "min_inclusive": 1
-        }
+        "max_inclusive": 3,
+        "min_inclusive": 1
       }
     },
     "foliage_provider": {

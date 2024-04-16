@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.impl.trunk;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.Products;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class LargeSnappedTrunkPlacer extends TrunkPlacer {
-	public static final Codec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		largeSnappedTrunkCodec(instance).apply(instance, LargeSnappedTrunkPlacer::new));
 
 	public final UniformInt additionalHeight;

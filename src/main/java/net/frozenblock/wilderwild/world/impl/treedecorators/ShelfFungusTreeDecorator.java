@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.treedecorators;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {
-	public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
 			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
 			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),

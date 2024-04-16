@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -46,6 +47,9 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(ItemTags.ARMADILLO_FOOD)
+			.add(RegisterItems.SCORCHED_EYE);
+
 		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
 			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG.asItem())
 			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG.asItem())

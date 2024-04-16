@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.impl.trunk;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.Products;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -44,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
-	public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final MapCodec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		baobabCodec(instance).apply(instance, BaobabTrunkPlacer::new));
 	final BlockStateProvider insideState;
 

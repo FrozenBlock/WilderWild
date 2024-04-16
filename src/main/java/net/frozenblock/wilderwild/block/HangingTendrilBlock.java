@@ -147,7 +147,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (direction == Direction.UP && !canSurvive(state, level, currentPos)) {
+		if (!state.canSurvive(level, currentPos)) {
 			level.scheduleTick(currentPos, this, 1);
 		}
 		if (state.getValue(WATERLOGGED)) {
@@ -164,9 +164,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
-			deactivate(level, pos, state, random);
-		}
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
 		}
@@ -193,7 +190,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		}
 	}
 
-	public static void updateNeighbours(Level level, BlockPos pos, BlockState state) {
+	public static void updateNeighbours(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
 		Block block = state.getBlock();
 		level.updateNeighborsAt(pos, block);
 		level.updateNeighborsAt(pos.below(), block);
@@ -231,13 +228,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return OUTLINE_SHAPE;
 	}
 
-	public int getActiveTicks() {
-		return ACTIVE_TICKS;
-	}
-
 	public void activate(@Nullable Entity entity, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull GameEvent gameEvent, int power, int frequency) {
 		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), UPDATE_ALL);
-		level.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
 		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, level, pos, frequency);
