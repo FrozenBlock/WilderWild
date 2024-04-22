@@ -41,12 +41,5 @@ final class WWExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvi
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.tag(BlockTags.CEILING_HANGING_SIGNS)
-			.add(key(RegisterBlocks.BAOBAB_HANGING_SIGN))
-			.add(key(RegisterBlocks.CYPRESS_HANGING_SIGN));
-
-		this.tag(BlockTags.WALL_HANGING_SIGNS)
-			.add(key(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN))
-			.add(key(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN));
 	}
 }
