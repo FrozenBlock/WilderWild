@@ -72,7 +72,7 @@ public abstract class SnowLayerBlockMixin {
 	)
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
 		if (!BlockConfig.get().snowlogging.snowlogging) return;
-		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem) {
+		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
 			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
 				Level level = useContext.getLevel();
