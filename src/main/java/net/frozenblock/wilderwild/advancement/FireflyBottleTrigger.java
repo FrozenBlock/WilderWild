@@ -69,7 +69,7 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		}
 
 		public boolean matches(ItemStack item) {
-			return this.item.isEmpty() || this.item.get().matches(item);
+			return this.item.isEmpty() || this.item.get().test(item);
 		}
 	}
 }

@@ -57,19 +57,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateCompat() {
-		this.getOrCreateTagBuilder(getTag("custom_sculk:ceiling_sculk_activators"))
-			.add(RegisterBlocks.OSSEOUS_SCULK)
-			.add(RegisterBlocks.HANGING_TENDRIL);
-
-		this.getOrCreateTagBuilder(getTag("custom_sculk:sculk_vein_ungrowable"))
-			.add(RegisterBlocks.OSSEOUS_SCULK);
-
-		this.getOrCreateTagBuilder(getTag("custom_sculk:warden_sonic_boom_breakable"))
-			.add(RegisterBlocks.ECHO_GLASS);
-
-		this.getOrCreateTagBuilder(getTag("custom_sculk:warden_sonic_boom_occluded_by"))
-			.add(RegisterBlocks.ECHO_GLASS);
-
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(RegisterBlocks.BUSH)
 			.add(RegisterBlocks.MILKWEED)
@@ -457,7 +444,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
+			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
@@ -517,8 +504,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WilderBlockTags.ANCIENT_HORN_NON_COLLIDE)
 			.add(Blocks.SCULK)
 			.add(RegisterBlocks.OSSEOUS_SCULK)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
-			.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
+			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS)
+			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_PANES)
 			.addOptionalTag(BlockTags.LEAVES)
 			.add(Blocks.BELL)
 			.add(Blocks.POINTED_DRIPSTONE)
@@ -576,11 +563,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	private void generateHollowedAndTermites() {
 		this.getOrCreateTagBuilder(WilderBlockTags.BLOCKS_TERMITE)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
-			.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
+			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS)
+			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_PANES)
 			.add(RegisterBlocks.ECHO_GLASS);
 
-		this.getOrCreateTagBuilder(ConventionalBlockTags.GLASS_BLOCKS)
+		this.getOrCreateTagBuilder(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS)
 			.add(RegisterBlocks.ECHO_GLASS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)
@@ -726,5 +713,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
 			.add(RegisterBlocks.GEYSER);
+
+		this.getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
+			.add(RegisterBlocks.BAOBAB_HANGING_SIGN)
+			.add(RegisterBlocks.CYPRESS_HANGING_SIGN)
+			.add(RegisterBlocks.PALM_HANGING_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
+			.add(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN)
+			.add(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN)
+			.add(RegisterBlocks.PALM_WALL_HANGING_SIGN);
 	}
 }

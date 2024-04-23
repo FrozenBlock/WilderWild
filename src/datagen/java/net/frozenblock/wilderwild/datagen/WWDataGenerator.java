@@ -50,7 +50,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
-		ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		WilderFeatureFlags.init();
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();

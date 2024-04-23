@@ -136,6 +136,7 @@ Bug Fixes, Changes, & Other Additions
   - Added the `Snow Under Mountains` config option to control this.
   - More biomes can be added to this surface rule by adding them to the `wilderwild:below_surface_snow` tag.
 - Fixed Dungeon placement in Jellyfish Caves.
+- Added support for Fabric API's new conventional tags.
 - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
 - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.

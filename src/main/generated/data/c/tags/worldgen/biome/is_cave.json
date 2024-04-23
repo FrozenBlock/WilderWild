@@ -1,17 +1,15 @@
 {
-  "replace": false,
   "values": [
-    "minecraft:river",
     {
-      "id": "#minecraft:is_ocean",
+      "id": "wilderwild:frozen_caves",
       "required": false
     },
     {
-      "id": "#c:ocean",
+      "id": "wilderwild:jellyfish_caves",
       "required": false
     },
     {
-      "id": "#c:is_ocean",
+      "id": "wilderwild:magmatic_caves",
       "required": false
     }
   ]
