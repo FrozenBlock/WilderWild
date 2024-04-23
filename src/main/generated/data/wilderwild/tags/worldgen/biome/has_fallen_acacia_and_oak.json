@@ -12,14 +12,6 @@
     {
       "id": "#c:tree_savanna",
       "required": false
-    },
-    {
-      "id": "#c:is_savanna",
-      "required": false
-    },
-    {
-      "id": "#c:is_tree/savanna",
-      "required": false
     }
   ]
 }

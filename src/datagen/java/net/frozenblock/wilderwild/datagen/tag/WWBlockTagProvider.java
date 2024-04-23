@@ -444,7 +444,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH)
-			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS);
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
@@ -504,8 +504,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WilderBlockTags.ANCIENT_HORN_NON_COLLIDE)
 			.add(Blocks.SCULK)
 			.add(RegisterBlocks.OSSEOUS_SCULK)
-			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS)
-			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_PANES)
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
+			.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
 			.addOptionalTag(BlockTags.LEAVES)
 			.add(Blocks.BELL)
 			.add(Blocks.POINTED_DRIPSTONE)
@@ -563,11 +563,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	private void generateHollowedAndTermites() {
 		this.getOrCreateTagBuilder(WilderBlockTags.BLOCKS_TERMITE)
-			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS)
-			.addOptionalTag(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_PANES)
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
+			.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
 			.add(RegisterBlocks.ECHO_GLASS);
 
-		this.getOrCreateTagBuilder(net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags.GLASS_BLOCKS)
+		this.getOrCreateTagBuilder(ConventionalBlockTags.GLASS_BLOCKS)
 			.add(RegisterBlocks.ECHO_GLASS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)

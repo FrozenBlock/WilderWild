@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -45,15 +45,11 @@ public final class RegisterPotions {
 	public static void init() {
 		WilderSharedConstants.logWithModId("Registering Potions for", WilderSharedConstants.UNSTABLE_LOGGING);
 
-		FabricBrewingRecipeRegistryBuilder.BUILD.register(boringBuilder -> {
-			if (boringBuilder instanceof FabricBrewingRecipeRegistryBuilder builder) {
-				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), REACH);
-				builder.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
-				builder.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), REACH);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
 
-				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.FERMENTED_SCORCHED_EYE), SCORCHING);
-			}
-		});
+		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.FERMENTED_SCORCHED_EYE), SCORCHING);
 	}
 
 	private static @NotNull Potion register(String key, Potion potion) {
