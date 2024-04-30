@@ -164,6 +164,7 @@ Bug Fixes, Changes, & Other Additions
 - Small Sponges can now be sheared with Dispensers.
 - Tumbleweed and Tumbleweed Stems can now be sheared with Dispensers.
 - Tumbleweed Stems now grow a bit slower.
+- Generated Termite Mounds will once again activate without requiring a blokc update.
 - Hanging Tendrils will now drop all their stored XP upon breaking as opposed to only one, to be more fair to players.
 - Fixed Hanging Tendrils crashing with C2ME installed. ([#358](https://github.com/FrozenBlock/WilderWild/issues/358))
 
