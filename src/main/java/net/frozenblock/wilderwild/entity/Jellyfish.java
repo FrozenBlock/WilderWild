@@ -526,6 +526,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
+			&& EntityConfig.get().jellyfish.jellyfishHiding
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
 			&& this.random.nextInt(HIDING_CHANCE) == 0;

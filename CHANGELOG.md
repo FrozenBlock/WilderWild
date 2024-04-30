@@ -173,6 +173,7 @@ Bug Fixes, Changes, & Other Additions
   - The minimum value for `Firefly Spawn Cap` has been changed to 1 as `Spawn Fireflies` makes 0 redundant.
 - Added a new `Spawn Jellyfish` config option to control whether Jellyfish can spawn naturally.
   - The minimum value for `Jellyfish Spawn Cap` has been changed to 1 as `Spawn Jellyfish` makes 0 redundant.
+- Added a new `Jellyfish Hiding` config option to control whether naturally-spawned Jellyfish can vanish inside of Mesoglea/Nematocyst.
 - Added a new `Spawn Tumbleweed` config option to control whether Tumbleweed can spawn naturally.
   - The minimum value for `Tumbleweed Spawn Cap` has been changed to 1 as `Spawn Tumbleweed` makes 0 redundant.
 - Added a new `Spawn Crabs` config option to control whether Crabs can spawn naturally.
