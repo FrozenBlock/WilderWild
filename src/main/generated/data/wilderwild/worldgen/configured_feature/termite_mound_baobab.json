@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:column_with_disk_scheduled_tick_feature",
+  "type": "frozenlib:column_with_disk_feature",
   "config": {
     "additional_height": {
       "type": "minecraft:uniform",

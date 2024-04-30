@@ -1942,7 +1942,7 @@ public final class WilderConfiguredFeatures {
 			new AlgaeFeatureConfig(UniformInt.of(2, 6))
 		);
 
-		TERMITE_CONFIGURED.makeAndSetHolder(FrozenFeatures.COLUMN_WITH_DISK_SCHEDULED_TICK_FEATURE,
+		TERMITE_CONFIGURED.makeAndSetHolder(FrozenFeatures.COLUMN_WITH_DISK_FEATURE,
 			new ColumnWithDiskFeatureConfig(
 				RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true),
 				UniformInt.of(4, 9),
