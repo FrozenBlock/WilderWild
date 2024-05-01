@@ -125,6 +125,8 @@ public final class EntityConfig {
 		public boolean spawnJellyfish = true;
 		@EntrySyncData("jellyfishSpawnCap")
 		public int jellyfishSpawnCap = 30;
+		@EntrySyncData("jellyfishHiding")
+		public boolean jellyfishHiding = true;
 
 		@EntrySyncData(value = "jellyfishTentacles", behavior = SyncBehavior.UNSYNCABLE)
 		public int jellyfishTentacles = 8;

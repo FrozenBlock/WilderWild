@@ -44,6 +44,14 @@ Additions
 - Is more resistant to fall damage than regular Spiders.
 - Will avoid Water, and cannot swim in it.
 - Added a new `Spawn Scorched` config option to control whether Scorched can spawn naturally.
+- Will drop String and occasionally a Scorched Eye upon death.
+  - The Scorched Eye can be crafted into a Fermented Scorched Eye, much like regular Spider Eyes.
+    - Can be used to brew a Potion of Scorching.
+- Will gain the Scorching effect while in Lava.
+
+### Scorching
+- A new mob effect that has a 25% chance to ignite the attacker each time the mob is hit.
+- Is brewed with a Fermented Scorched Eye and an Awkward Potion.
 
 ### Frozen Caves
 - Added the Frozen Caves biome!
@@ -126,6 +134,7 @@ Bug Fixes, Changes, & Other Additions
   - Added the `Snow Under Mountains` config option to control this.
   - More biomes can be added to this surface rule by adding them to the `wilderwild:below_surface_snow` tag.
 - Fixed Dungeon placement in Jellyfish Caves.
+- Added support for Fabric API's new conventional tags.
 - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
 - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
   - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
@@ -135,6 +144,7 @@ Bug Fixes, Changes, & Other Additions
 - Properly added Wilder Wild's biomes to Fabric's conventional tags after having some tags missing or improperly used for a long time.
 - Nearly all custom generation can now be enabled/disabled in-game after changing the config and rejoining a world, instead of needing to restart the game.
 - Added Wilder Wild's content to Serene Season's tags. ([#361](https://github.com/FrozenBlock/WilderWild/issues/361#event-12156424219))
+- Vanilla music will once again play in Forest biomes. ([#365](https://github.com/FrozenBlock/WilderWild/issues/365))
 
 - Removed particle textures from the Blocks atlas.
 - Removed an unused Ancient Horn particle texture.
@@ -152,6 +162,7 @@ Bug Fixes, Changes, & Other Additions
 - Small Sponges can now be sheared with Dispensers.
 - Tumbleweed and Tumbleweed Stems can now be sheared with Dispensers.
 - Tumbleweed Stems now grow a bit slower.
+- Generated Termite Mounds will once again activate without requiring a blokc update.
 - Hanging Tendrils will now drop all their stored XP upon breaking as opposed to only one, to be more fair to players.
 - Fixed Hanging Tendrils crashing with C2ME installed. ([#358](https://github.com/FrozenBlock/WilderWild/issues/358))
 
@@ -160,10 +171,14 @@ Bug Fixes, Changes, & Other Additions
   - The minimum value for `Firefly Spawn Cap` has been changed to 1 as `Spawn Fireflies` makes 0 redundant.
 - Added a new `Spawn Jellyfish` config option to control whether Jellyfish can spawn naturally.
   - The minimum value for `Jellyfish Spawn Cap` has been changed to 1 as `Spawn Jellyfish` makes 0 redundant.
+- Added a new `Jellyfish Hiding` config option to control whether naturally-spawned Jellyfish can vanish inside of Mesoglea/Nematocyst.
 - Added a new `Spawn Tumbleweed` config option to control whether Tumbleweed can spawn naturally.
   - The minimum value for `Tumbleweed Spawn Cap` has been changed to 1 as `Spawn Tumbleweed` makes 0 redundant.
 - Added a new `Spawn Crabs` config option to control whether Crabs can spawn naturally.
   - The minimum value for `Crab Spawn Cap` has been changed to 1 as `Spawn Crabs` makes 0 redundant.
+- Added a new `Resource Pack Enabled By Default` config option to make the Main Menu resource pack not be enabled upon the mod's first use.
+  - This should only be used in tandem with modpacks or other projects that aim to replace the main menu. Otherwise, you can manually disable it in the Resource Packs menu.
+- Removed the `Cobweb Sounds` config option as Mojang has added their own. (1.20.5+)
 - Added `block_palm_fronds` to the Mixins config.
 - Slightly altered the config background screens, now starting at Dirt and ending with Chiseled Mud Bricks instead of starting with Mud and ending with the Stripped Cypress Log.
 

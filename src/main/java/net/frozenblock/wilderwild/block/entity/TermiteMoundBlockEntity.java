@@ -19,14 +19,12 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -45,7 +43,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		this.termiteManager.tick(level, pos, natural, awake, canSpawn);
-		this.updateSync();
+		this.setChanged();
 	}
 
 	public void tickClient() {
@@ -60,15 +58,6 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		this.clientTermiteIDs.clear();
 		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			this.clientTermiteIDs.add(termite.getID());
-		}
-	}
-
-	public void updateSync() {
-		ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
-		if (updatePacket != null) {
-			for (ServerPlayer player : PlayerLookup.tracking(this)) {
-				player.connection.send(updatePacket);
-			}
 		}
 	}
 

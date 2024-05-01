@@ -224,7 +224,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 
 		@Shadow
 		@Final
-		public BlockPos blockPos;
+		protected BlockPos blockPos;
 
 		@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V", shift = At.Shift.AFTER), method = "onReceiveVibration")
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {

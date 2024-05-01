@@ -74,7 +74,6 @@ accessible    field    net/minecraft/client/model/SpiderModel    leftMiddleFront
 accessible    field    net/minecraft/client/model/SpiderModel    rightFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
 accessible    field    net/minecraft/client/model/SpiderModel    leftFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
 
-
 # Entity Rendering
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    alphaFunction    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    drawSelector    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$DrawSelector;
@@ -194,3 +193,4 @@ accessible    method    net/minecraft/world/level/CollisionGetter    borderColli
 accessible    field    net/minecraft/client/particle/Particle    xd    D
 accessible    field    net/minecraft/client/particle/Particle    yd    D
 accessible    field    net/minecraft/client/particle/Particle    zd    D
+accessible    method    net/minecraft/client/particle/FlameParticle    <init>    (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)V

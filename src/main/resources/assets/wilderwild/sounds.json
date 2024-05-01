@@ -3045,7 +3045,7 @@
   "music.overworld.wild_forests": {
     "sounds": [
       {
-        "name": "music.overworld.jungle_and_forests",
+        "name": "music.overworld.forest",
         "type": "event"
       },
       {

@@ -45,11 +45,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -195,7 +197,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
-	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
+	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, boolean checkConfig) {
+		if (checkConfig && !EntityConfig.get().jellyfish.spawnJellyfish) {
+			return;
+		}
 		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
 		double additionalX = 0D;
@@ -530,6 +535,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
+			&& EntityConfig.get().jellyfish.jellyfishHiding
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
 			&& this.random.nextInt(HIDING_CHANCE) == 0;
@@ -635,7 +641,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	@NotNull
 	public ResourceLocation getDefaultLootTable() {
 		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
 		return new ResourceLocation(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath());

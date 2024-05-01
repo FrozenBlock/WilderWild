@@ -107,9 +107,6 @@ public final class BlockConfig {
 		@EntrySyncData(value = "coarseDirtSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean coarseDirtSounds = true;
 
-		@EntrySyncData(value = "cobwebSounds", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean cobwebSounds = true;
-
 		@EntrySyncData(value = "deadBushSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean deadBushSounds = true;
 

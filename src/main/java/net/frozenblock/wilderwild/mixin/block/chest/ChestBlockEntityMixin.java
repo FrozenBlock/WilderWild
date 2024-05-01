@@ -53,7 +53,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	private boolean wilderWild$canBubble = true;
 
-	@Inject(at = @At("HEAD"), method = "playSound")
+	@Inject(method = "playSound", at = @At("HEAD"))
 	private static void wilderWild$playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
 		wilderWild$playedSoundState = level.getBlockState(pos);
 	}

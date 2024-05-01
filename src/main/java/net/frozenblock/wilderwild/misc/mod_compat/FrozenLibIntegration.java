@@ -66,6 +66,7 @@ import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
@@ -247,7 +248,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
 		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
 		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
-		addBlock(COBWEB, WEB, () -> BlockConfig.get().blockSounds.cobwebSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);
 		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
 		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, () -> BlockConfig.get().blockSounds.iceSounds);
@@ -317,6 +317,9 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear",
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR)
 						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SCORCHED_EYE).triggerInstance())
+						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new String[][]{{
 								"wilderwild:baobab_nut"
@@ -346,6 +349,11 @@ public class FrozenLibIntegration extends ModIntegration {
 							new String[][]{{
 								"wilderwild:peeled_prickly_pear"
 							}}
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(new String[][]{{
+								"wilderwild:scorched_eye"
+							}})
 						);
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
@@ -377,8 +385,29 @@ public class FrozenLibIntegration extends ModIntegration {
 							MobEffectsPredicate predicate = MobEffectsPredicate.effects();
 							Map<MobEffect, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effects);
 							map.put(RegisterMobEffects.REACH, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.SCORCHING.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effects = map;
 						}
+					}
+					case "minecraft:adventure/kill_a_mob" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsToList(advancement,
+							new String[]{
+								"wilderwild:scorched"
+							}
+						);
+					}
+					case "minecraft:adventure/kill_all_mobs" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(new String[][]{{
+								"wilderwild:scorched"
+							}})
+						);
 					}
 					default -> {
 					}
