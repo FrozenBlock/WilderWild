@@ -42,13 +42,9 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
-import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
-import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.wind.CloudWindManager;
@@ -272,14 +268,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
 		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
 
-		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
-			RandomPoolAliasApi.addTarget(
-				WilderSharedConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
-				WilderSharedConstants.id("trial_chambers/spawner/small_melee/scorched"),
-				1
-			);
-		}
-
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
 			if (AmbienceAndMiscConfig.get().modifyAdvancements) {
@@ -366,11 +354,9 @@ public class FrozenLibIntegration extends ModIntegration {
 							}})
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:scorched_eye"
-								)
-							))
+							new AdvancementRequirements(new String[][]{{
+								"wilderwild:scorched_eye"
+							}})
 						);
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
@@ -412,9 +398,9 @@ public class FrozenLibIntegration extends ModIntegration {
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
+							new String[]{
 								"wilderwild:scorched"
-							)
+							}
 						);
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
@@ -422,11 +408,9 @@ public class FrozenLibIntegration extends ModIntegration {
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:scorched"
-								)
-							))
+							new AdvancementRequirements(new String[][]{{
+								"wilderwild:scorched"
+							}})
 						);
 					}
 					default -> {

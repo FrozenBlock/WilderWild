@@ -327,21 +327,10 @@ public final class EntityConfigGui {
 			configInstance
 		);
 
-		var scorchedInTrialChambers = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("scorched_in_trial_chambers"), modifiedScorched.scorchedInTrialChambers)
-				.setDefaultValue(defaultConfig.scorched.scorchedInTrialChambers)
-				.setSaveConsumer(newValue -> scorched.scorchedInTrialChambers = newValue)
-				.setTooltip(tooltip("scorched_in_trial_chambers"))
-				.build(),
-			scorched.getClass(),
-			"scorchedInTrialChambers",
-			configInstance
-		);
-
 		var scorchedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("scorched"),
 			false,
 			tooltip("scorched"),
-			spawnScorched, scorchedInTrialChambers
+			spawnScorched
 		);
 
 		var spawnTumbleweed = FrozenClothConfig.syncedEntry(

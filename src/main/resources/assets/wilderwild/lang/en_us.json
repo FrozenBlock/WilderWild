@@ -505,8 +505,6 @@
   "tooltip.wilderwild.scorched": "Contains options for the Scorched.",
   "option.wilderwild.spawn_scorched": "Spawn Scorched",
   "tooltip.wilderwild.spawn_scorched": "Whether Scorched can spawn.",
-  "option.wilderwild.scorched_in_trial_chambers": "Scorched In Trial Chambers",
-  "tooltip.wilderwild.scorched_in_trial_chambers": "Whether Scorched will have spawners in Trial Chambers.",
   "option.wilderwild.tumbleweed": "Tumbleweed",
   "option.wilderwild.spawn_tumbleweed": "Spawn Tumbleweed",
   "option.wilderwild.tumbleweed_spawn_cap": "Tumbleweed Spawn Cap",

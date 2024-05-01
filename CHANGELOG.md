@@ -44,8 +44,6 @@ Additions
 - Is more resistant to fall damage than regular Spiders.
 - Will avoid Water, and cannot swim in it.
 - Added a new `Spawn Scorched` config option to control whether Scorched can spawn naturally.
-- Can also be found in Trial Chambers.
-  - This can be disabled with the `Scorched In Trial Chambers` config option.
 - Will drop String and occasionally a Scorched Eye upon death.
   - The Scorched Eye can be crafted into a Fermented Scorched Eye, much like regular Spider Eyes.
     - Can be used to brew a Potion of Scorching.
