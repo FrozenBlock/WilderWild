@@ -88,7 +88,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 				level.random.nextInt(0, 3) == 1
 			) {
 				if (EntityConfig.get().jellyfish.spawnJellyfish) {
-					Jellyfish.spawnFromChest(level, state, pos);
+					Jellyfish.spawnFromChest(level, state, pos, true);
 				}
 			}
 			((ChestBlockEntityInterface) sourceChest).wilderWild$bubble(level, pos, state);
