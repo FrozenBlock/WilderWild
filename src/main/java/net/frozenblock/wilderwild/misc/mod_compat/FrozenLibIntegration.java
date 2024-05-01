@@ -42,9 +42,13 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
+import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.wind.CloudWindManager;
@@ -68,6 +72,7 @@ import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
@@ -250,7 +255,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
 		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
 		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
-		addBlock(COBWEB, WEB, () -> BlockConfig.get().blockSounds.cobwebSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);
 		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
 		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, () -> BlockConfig.get().blockSounds.iceSounds);
@@ -267,6 +271,14 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
 		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
+
+		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
+			RandomPoolAliasApi.addTarget(
+				WilderSharedConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
+				WilderSharedConstants.id("trial_chambers/spawner/small_melee/scorched"),
+				1
+			);
+		}
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
@@ -320,6 +332,9 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SCORCHED_EYE).triggerInstance())
+						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(new String[][]{{
 								"wilderwild:baobab_nut"
@@ -349,6 +364,13 @@ public class FrozenLibIntegration extends ModIntegration {
 							new AdvancementRequirements(new String[][]{{
 								"wilderwild:peeled_prickly_pear"
 							}})
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:scorched_eye"
+								)
+							))
 						);
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
@@ -380,9 +402,32 @@ public class FrozenLibIntegration extends ModIntegration {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(RegisterMobEffects.REACH.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.REACH_BOOST.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.SCORCHING.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
+					}
+					case "minecraft:adventure/kill_a_mob" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsToList(advancement,
+							List.of(
+								"wilderwild:scorched"
+							)
+						);
+					}
+					case "minecraft:adventure/kill_all_mobs" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement,
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:scorched"
+								)
+							))
+						);
 					}
 					default -> {
 					}

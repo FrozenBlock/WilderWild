@@ -88,5 +88,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.CYPRESS_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.PALM_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.PALM_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(RegisterItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 	}
 }

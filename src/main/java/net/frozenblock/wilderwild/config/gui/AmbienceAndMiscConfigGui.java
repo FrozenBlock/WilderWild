@@ -284,5 +284,18 @@ public final class AmbienceAndMiscConfigGui {
 			tooltip("biome_music"),
 			wilderForestMusic
 		);
+
+		var titleResourcePackEnabled = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("title_resource_pack_enabled_by_default"), modifiedConfig.titleResourcePackEnabled)
+					.setDefaultValue(defaultConfig.titleResourcePackEnabled)
+					.setSaveConsumer(newValue -> config.titleResourcePackEnabled = newValue)
+					.setTooltip(tooltip("title_resource_pack_enabled_by_default"))
+					.build(),
+				clazz,
+				"titleResourcePackEnabled",
+				configInstance
+			)
+		);
 	}
 }

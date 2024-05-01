@@ -617,7 +617,9 @@ public final class WilderMiscPlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.matchesTag(WilderBlockTags.NETHER_GEYSER_REPLACEABLE),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA),
+					BlockPredicate.matchesFluids(Direction.UP.getNormal().above(), Fluids.LAVA),
+					BlockPredicate.matchesFluids(Direction.UP.getNormal().above().above(), Fluids.LAVA)
 				),
 				BlockPredicate.replaceable(),
 				12

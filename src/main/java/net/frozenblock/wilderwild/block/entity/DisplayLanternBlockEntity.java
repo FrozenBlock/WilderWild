@@ -140,16 +140,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
-		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
-			this.fireflies.clear();
-			DataResult<List<Occupant>> var10000 = Occupant.LIST_CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
-			Logger var10001 = WilderSharedConstants.LOGGER;
-			Objects.requireNonNull(var10001);
-			Optional<List<Occupant>> list = var10000.resultOrPartial(var10001::error);
-			if (list.isPresent()) {
-				List<Occupant> fireflyList = list.get();
-				this.fireflies.addAll(fireflyList);
-			}
+		this.fireflies.clear();
+		if (tag.contains("Fireflies")) {
+			Occupant.LIST_CODEC
+				.parse(NbtOps.INSTANCE, tag.get("Fireflies"))
+				.resultOrPartial(WilderSharedConstants.LOGGER::error)
+				.ifPresent(this.fireflies::addAll);
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(tag, this.inventory);
@@ -159,11 +155,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
-		DataResult<Tag> fireflies = Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies);
-		Logger logger = WilderSharedConstants.LOGGER;
-		Objects.requireNonNull(logger);
-		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
-		ContainerHelper.saveAllItems(tag, this.inventory);
+		tag.put("Fireflies", Util.getOrThrow(Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies), IllegalStateException::new));
+		ContainerHelper.saveAllItems(tag, this.inventory, false);
 		tag.putInt("age", this.age);
 	}
 

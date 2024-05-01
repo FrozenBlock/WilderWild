@@ -52,6 +52,7 @@
     "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.jellyfish.NaturalSpawnerMixin",
     "entity.lightning.LightningBoltMixin",
+    "entity.scorching.ScorchingHurtMixin",
     "entity.slime.SlimeMixin",
     "entity.slime.SpawnPlacementsMixin",
     "entity.stray.StrayMixin",

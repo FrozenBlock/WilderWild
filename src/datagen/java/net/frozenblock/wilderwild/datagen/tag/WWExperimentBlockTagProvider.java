@@ -20,11 +20,9 @@ package net.frozenblock.wilderwild.datagen.tag;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,12 +40,5 @@ final class WWExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvi
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.tag(BlockTags.CEILING_HANGING_SIGNS)
-			.add(key(RegisterBlocks.BAOBAB_HANGING_SIGN))
-			.add(key(RegisterBlocks.CYPRESS_HANGING_SIGN));
-
-		this.tag(BlockTags.WALL_HANGING_SIGNS)
-			.add(key(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN))
-			.add(key(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN));
 	}
 }

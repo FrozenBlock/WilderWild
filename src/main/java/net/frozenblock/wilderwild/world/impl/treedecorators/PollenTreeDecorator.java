@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.treedecorators;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

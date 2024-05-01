@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datagen.tag;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -58,19 +57,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateCompat() {
-		this.getOrCreateTagBuilder(getTag("custom_sculk:ceiling_sculk_activators"))
-			.add(RegisterBlocks.OSSEOUS_SCULK)
-			.add(RegisterBlocks.HANGING_TENDRIL);
-
-		this.getOrCreateTagBuilder(getTag("custom_sculk:sculk_vein_ungrowable"))
-			.add(RegisterBlocks.OSSEOUS_SCULK);
-
-		this.getOrCreateTagBuilder(getTag("custom_sculk:warden_sonic_boom_breakable"))
-			.add(RegisterBlocks.ECHO_GLASS);
-
-		this.getOrCreateTagBuilder(getTag("custom_sculk:warden_sonic_boom_occluded_by"))
-			.add(RegisterBlocks.ECHO_GLASS);
-
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(RegisterBlocks.BUSH)
 			.add(RegisterBlocks.MILKWEED)
@@ -719,5 +705,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
 			.add(RegisterBlocks.GEYSER);
+
+		this.getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
+			.add(RegisterBlocks.BAOBAB_HANGING_SIGN)
+			.add(RegisterBlocks.CYPRESS_HANGING_SIGN)
+			.add(RegisterBlocks.PALM_HANGING_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
+			.add(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN)
+			.add(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN)
+			.add(RegisterBlocks.PALM_WALL_HANGING_SIGN);
 	}
 }

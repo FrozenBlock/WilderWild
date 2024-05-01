@@ -216,6 +216,18 @@ public final class EntityConfigGui {
 			configInstance
 		);
 
+		var jellyfishHiding = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("jellyfish_hiding"), modifiedJellyfish.jellyfishHiding)
+				.setDefaultValue(defaultConfig.jellyfish.jellyfishHiding)
+				.setSaveConsumer(newValue -> jellyfish.jellyfishHiding = newValue)
+				.setTooltip(tooltip("jellyfish_hiding"))
+				.requireRestart()
+				.build(),
+			jellyfish.getClass(),
+			"jellyfishHiding",
+			configInstance
+		);
+
 		var jellyfishTentacles = FrozenClothConfig.syncedEntry(
 			entryBuilder.startIntSlider(text("jellyfish_tentacles"), modifiedJellyfish.jellyfishTentacles, 0, 100)
 				.setDefaultValue(defaultConfig.jellyfish.jellyfishTentacles)
@@ -231,7 +243,7 @@ public final class EntityConfigGui {
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			spawnJellyfish, jellyfishSpawnCap, jellyfishTentacles
+			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles
 		);
 
 		var spawnCrabs = FrozenClothConfig.syncedEntry(
@@ -315,10 +327,21 @@ public final class EntityConfigGui {
 			configInstance
 		);
 
+		var scorchedInTrialChambers = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("scorched_in_trial_chambers"), modifiedScorched.scorchedInTrialChambers)
+				.setDefaultValue(defaultConfig.scorched.scorchedInTrialChambers)
+				.setSaveConsumer(newValue -> scorched.scorchedInTrialChambers = newValue)
+				.setTooltip(tooltip("scorched_in_trial_chambers"))
+				.build(),
+			scorched.getClass(),
+			"scorchedInTrialChambers",
+			configInstance
+		);
+
 		var scorchedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("scorched"),
 			false,
 			tooltip("scorched"),
-			spawnScorched
+			spawnScorched, scorchedInTrialChambers
 		);
 
 		var spawnTumbleweed = FrozenClothConfig.syncedEntry(

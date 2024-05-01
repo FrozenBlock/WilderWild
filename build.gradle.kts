@@ -14,10 +14,6 @@ buildscript {
     }
     dependencies {
         classpath("org.kohsuke:github-api:+")
-
-        // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.5.local.jar"))
-        classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -49,7 +45,6 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val fabric_api_version: String by project
-val mixin_extras_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
@@ -223,11 +218,6 @@ dependencies {
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
-    // MixinExtras
-    // keep until Fabric applies the annotation processor by default
-    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
-
-
     // Sodium
     if (shouldRunSodium)
         modImplementation("maven.modrinth:sodium:${sodium_version}")
@@ -252,7 +242,7 @@ tasks {
             "mod_id" to mod_id,
             "version" to version,
             "protocol_version" to protocol_version,
-            "minecraft_version" to "~1.20.2-",
+            "minecraft_version" to minecraft_version,
 
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"

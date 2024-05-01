@@ -83,6 +83,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
@@ -325,8 +326,9 @@ public final class RegisterBlocks {
 		FabricBlockSettings.create()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
-			.sounds(RegisterBlockSoundTypes.TERMITEMOUND)
-			.ticksRandomly()
+			.sound(RegisterBlockSoundTypes.TERMITEMOUND)
+			.hasPostProcess(Blocks::always)
+			.randomTicks()
 	);
 
 	public static final StoneChestBlock STONE_CHEST = new StoneChestBlock(

@@ -20,9 +20,11 @@ package net.frozenblock.wilderwild.registry;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -30,20 +32,32 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterMobEffects {
 
-	public static final MobEffect REACH = register(
+	public static final MobEffect REACH_BOOST = register(
 		"reach_boost",
-		new MobEffect(MobEffectCategory.BENEFICIAL, 47784)
-			.addAttributeModifier(
-				ReachEntityAttributes.REACH,
-				"DA6D90D0-722B-11EE-87D4-325096B39F47",
-				1,
-				AttributeModifier.Operation.ADDITION
-			).addAttributeModifier(
-				ReachEntityAttributes.ATTACK_RANGE,
-				"F2439145-BA25-4DEC-B11A-218B56EF22BB",
-				EntityConfig.get().crab.reachAffectsAttack ? 1 : 0,
-				AttributeModifier.Operation.ADDITION
-			)
+		new MobEffect(
+			MobEffectCategory.BENEFICIAL,
+			47784
+		).addAttributeModifier(
+			ReachEntityAttributes.REACH,
+			"DA6D90D0-722B-11EE-87D4-325096B39F47",
+			1,
+			AttributeModifier.Operation.ADDITION
+		).addAttributeModifier(
+			ReachEntityAttributes.ATTACK_RANGE,
+			"F2439145-BA25-4DEC-B11A-218B56EF22BB",
+			EntityConfig.get().crab.reachAffectsAttack ? 1D : 0D,
+			AttributeModifier.Operation.ADDITION
+		)
+	);
+
+	public static final MobEffect SCORCHING = register(
+		"scorching",
+		new ScorchingMobEffect(
+			MobEffectCategory.HARMFUL,
+			6236672,
+			0.25F,
+			random -> Mth.randomBetweenInclusive(random, 1, 4)
+		)
 	);
 
 	private RegisterMobEffects() {

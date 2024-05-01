@@ -27,7 +27,6 @@ import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -431,9 +430,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.DISPLAY_LANTERN,
 			LootTable.lootTable().withPool(
 				LootPool.lootPool()
-					.setRolls(ConstantValue.exactly(1.0F))
+					.setRolls(ConstantValue.exactly(1F))
 					.add(
-						LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN)
+						LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN).when(ExplosionCondition.survivesExplosion())
 					)
 					.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fireflies", "BlockEntityTag.Fireflies").when(
 						MatchTool.toolMatches(

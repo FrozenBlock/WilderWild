@@ -332,12 +332,6 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("coarse_dirt_sounds"))
 			.build();
 
-		var cobwebSounds = entryBuilder.startBooleanToggle(text("cobweb_sounds"), modifiedBlockSounds.cobwebSounds)
-			.setDefaultValue(defaultConfig.blockSounds.cobwebSounds)
-			.setSaveConsumer(newValue -> blockSounds.cobwebSounds = newValue)
-			.setTooltip(tooltip("cobweb_sounds"))
-			.build();
-
 		var deadBushSounds = entryBuilder.startBooleanToggle(text("dead_bush_sounds"), modifiedBlockSounds.deadBushSounds)
 			.setDefaultValue(defaultConfig.blockSounds.deadBushSounds)
 			.setSaveConsumer(newValue -> blockSounds.deadBushSounds = newValue)
@@ -431,7 +425,7 @@ public final class BlockConfigGui {
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
 			false,
 			tooltip("block_sounds"),
-			cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
+			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds,
 			flowerSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
 			magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
