@@ -483,6 +483,8 @@
   "tooltip.wilderwild.spawn_jellyfish": "Whether Jellyfish can spawn.",
   "option.wilderwild.jellyfish_spawn_cap": "Jellyfish Spawn Cap",
   "tooltip.wilderwild.jellyfish_spawn_cap": "Controls the Jellyfish's spawn cap.",
+  "option.wilderwild.jellyfish_hiding": "Jellyfish Hiding",
+  "tooltip.wilderwild.jellyfish_hiding": "Whether naturally-spawned Jellyfish should be able\nto vanish inside Mesoglea/Nematocyst.",
   "option.wilderwild.jellyfish_tentacles": "Jellyfish Tentacles",
   "tooltip.wilderwild.jellyfish_tentacles": "Controls the amount of tentacles Jellyfish have.",
   "option.wilderwild.lightning": "Lightning Bolt",

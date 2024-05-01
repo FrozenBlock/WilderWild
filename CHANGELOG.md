@@ -164,6 +164,7 @@ Bug Fixes, Changes, & Other Additions
 - Small Sponges can now be sheared with Dispensers.
 - Tumbleweed and Tumbleweed Stems can now be sheared with Dispensers.
 - Tumbleweed Stems now grow a bit slower.
+- Generated Termite Mounds will once again activate without requiring a blokc update.
 - Hanging Tendrils will now drop all their stored XP upon breaking as opposed to only one, to be more fair to players.
 - Fixed Hanging Tendrils crashing with C2ME installed. ([#358](https://github.com/FrozenBlock/WilderWild/issues/358))
 
@@ -172,6 +173,7 @@ Bug Fixes, Changes, & Other Additions
   - The minimum value for `Firefly Spawn Cap` has been changed to 1 as `Spawn Fireflies` makes 0 redundant.
 - Added a new `Spawn Jellyfish` config option to control whether Jellyfish can spawn naturally.
   - The minimum value for `Jellyfish Spawn Cap` has been changed to 1 as `Spawn Jellyfish` makes 0 redundant.
+- Added a new `Jellyfish Hiding` config option to control whether naturally-spawned Jellyfish can vanish inside of Mesoglea/Nematocyst.
 - Added a new `Spawn Tumbleweed` config option to control whether Tumbleweed can spawn naturally.
   - The minimum value for `Tumbleweed Spawn Cap` has been changed to 1 as `Spawn Tumbleweed` makes 0 redundant.
 - Added a new `Spawn Crabs` config option to control whether Crabs can spawn naturally.

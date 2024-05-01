@@ -197,7 +197,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
-	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
+	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, boolean checkConfig) {
+		if (checkConfig && !EntityConfig.get().jellyfish.spawnJellyfish) {
+			return;
+		}
 		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
 		double additionalX = 0D;
@@ -532,6 +535,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
+			&& EntityConfig.get().jellyfish.jellyfishHiding
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
 			&& this.random.nextInt(HIDING_CHANCE) == 0;

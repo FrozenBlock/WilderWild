@@ -319,6 +319,7 @@ public final class RegisterBlocks {
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
 			.sound(RegisterBlockSoundTypes.TERMITEMOUND)
+			.hasPostProcess(Blocks::always)
 			.randomTicks()
 	);
 
