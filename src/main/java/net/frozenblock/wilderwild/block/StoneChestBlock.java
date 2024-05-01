@@ -249,7 +249,7 @@ public class StoneChestBlock extends ChestBlock {
 						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
 						ResourceLocation lootTable = stoneChest.lootTable;
 						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck")) {
-							Jellyfish.spawnFromChest(level, state, pos);
+							Jellyfish.spawnFromChest(level, state, pos, true);
 						}
 					}
 					StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
