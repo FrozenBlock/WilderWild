@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
