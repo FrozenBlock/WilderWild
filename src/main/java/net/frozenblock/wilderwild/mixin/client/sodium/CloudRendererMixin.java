@@ -47,17 +47,7 @@ public class CloudRendererMixin {
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2, require = 0)
 	private float wilderWild$modifyY(
-		float original,
-		@Nullable ClientLevel world,
-		LocalPlayer player,
-		PoseStack stack,
-		Matrix4f modelViewMatrix,
-		Matrix4f projectionMatrix,
-		float ticks,
-		float tickDelta,
-		double cameraX,
-		double cameraY,
-		double cameraZ,
+		float original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		@Share("wilderWild$useWind")LocalBooleanRef useWind
 	) {
 		useWind.set(wilderWild$useWind());
@@ -68,17 +58,7 @@ public class CloudRendererMixin {
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 4, require = 0)
 	private double wilderWild$modifyX(
-		double original,
-		@Nullable ClientLevel world,
-		LocalPlayer player,
-		PoseStack stack,
-		Matrix4f modelViewMatrix,
-		Matrix4f projectionMatrix,
-		float ticks,
-		float tickDelta,
-		double cameraX,
-		double cameraY,
-		double cameraZ,
+		double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		@Share("wilderWild$useWind")LocalBooleanRef useWind
 	) {
 		return useWind.get()
@@ -88,17 +68,7 @@ public class CloudRendererMixin {
 
 	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 5, require = 0)
 	private double wilderWild$modifyZ(
-		double original,
-		@Nullable ClientLevel world,
-		LocalPlayer player,
-		PoseStack stack,
-		Matrix4f modelViewMatrix,
-		Matrix4f projectionMatrix,
-		float ticks,
-		float tickDelta,
-		double cameraX,
-		double cameraY,
-		double cameraZ,
+		double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		@Share("wilderWild$useWind")LocalBooleanRef useWind
 	) {
 		return useWind.get()
