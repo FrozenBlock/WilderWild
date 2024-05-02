@@ -67,6 +67,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(FluidRenderer.class)
 public abstract class FluidRendererMixin {
 
+	@Shadow
+	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
+
 	@Unique
 	private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
 	@Shadow
@@ -406,7 +409,4 @@ public abstract class FluidRendererMixin {
 
 	@Shadow
 	protected abstract float fluidHeight(BlockAndTintGetter world, Fluid fluid, BlockPos blockPos, Direction direction);
-
-	@Shadow
-	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
 }

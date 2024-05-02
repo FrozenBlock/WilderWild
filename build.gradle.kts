@@ -225,6 +225,12 @@ dependencies {
     else
         modCompileOnly("maven.modrinth:embeddium:${embeddium_version}")
 
+    // Sodium
+    if (shouldRunSodium)
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
+    else
+        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
 
