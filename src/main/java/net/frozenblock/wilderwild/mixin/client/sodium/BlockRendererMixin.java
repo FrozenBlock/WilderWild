@@ -54,7 +54,8 @@ public abstract class BlockRendererMixin {
 				new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
 				snowState,
 				frozenLib$blockModelShaper.getBlockModel(snowState),
-				ctx.seed()
+				ctx.seed(),
+				ctx.renderLayer()
 			);
 			this.renderModel(snowRenderContext, buffers);
 		}
