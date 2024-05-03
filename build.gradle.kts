@@ -45,6 +45,7 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val fabric_api_version: String by project
+val mixin_extras_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
@@ -218,6 +219,11 @@ dependencies {
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
+
+    // MixinExtras
+    // keep until Fabric applies the annotation processor by default
+    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
+
 
     // Embeddium
     if (shouldRunEmbeddium)
