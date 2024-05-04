@@ -45,7 +45,6 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -99,15 +98,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		if (!this.fireflies.isEmpty()) {
 			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level, pos);
-			}
-		}
-	}
-
-	public void updateSync() {
-		ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
-		if (updatePacket != null) {
-			for (ServerPlayer player : PlayerLookup.tracking(this)) {
-				player.connection.send(updatePacket);
 			}
 		}
 	}
