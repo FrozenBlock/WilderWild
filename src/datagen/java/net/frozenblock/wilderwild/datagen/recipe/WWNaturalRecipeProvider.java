@@ -58,7 +58,7 @@ public class WWNaturalRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.PRICKLY_PEAR), RecipeProvider.has(RegisterItems.PRICKLY_PEAR))
 			.save(exporter);
 
-		WWRecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.MISC, RegisterItems.COCONUT, RegisterItems.SPLIT_COCONUT, 2);
+		WWRecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.MISC, RegisterItems.SPLIT_COCONUT, RegisterItems.COCONUT, 2);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', RegisterItems.MILKWEED_POD)

@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.List;
 import java.util.Optional;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -40,7 +39,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -107,7 +105,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else {
 			this.setDormant(level, pos, state, random);
 		}
-		this.updateSync();
+		this.setChanged();
 	}
 
 	private static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
@@ -253,15 +251,6 @@ public class GeyserBlockEntity extends BlockEntity {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
 				ClientMethodInteractionHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
-			}
-		}
-	}
-
-	public void updateSync() {
-		ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
-		if (updatePacket != null) {
-			for (ServerPlayer player : PlayerLookup.tracking(this)) {
-				player.connection.send(this.getUpdatePacket());
 			}
 		}
 	}
