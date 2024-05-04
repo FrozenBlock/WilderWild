@@ -219,11 +219,13 @@ dependencies {
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
+    /*
     // Embeddium
     if (shouldRunEmbeddium)
         modImplementation("maven.modrinth:embeddium:${embeddium_version}")
     else
         modCompileOnly("maven.modrinth:embeddium:${embeddium_version}")
+     */
 
     // Sodium
     if (shouldRunSodium)
