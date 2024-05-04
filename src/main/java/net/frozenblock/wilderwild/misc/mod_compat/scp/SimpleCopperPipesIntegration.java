@@ -25,19 +25,18 @@ import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.lunade.copper.CopperPipeMain;
-import net.lunade.copper.FittingPipeDispenses;
-import net.lunade.copper.PipeMovementRestrictions;
-import net.lunade.copper.PoweredPipeDispenses;
-import net.lunade.copper.RegisterPipeNbtMethods;
-import net.lunade.copper.block_entity.CopperPipeEntity;
+import net.lunade.copper.SimpleCopperPipesMain;
 import net.lunade.copper.blocks.CopperPipe;
-import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
+import net.lunade.copper.blocks.block_entity.CopperPipeEntity;
+import net.lunade.copper.blocks.block_entity.pipe_nbt.MoveablePipeDataHandler;
+import net.lunade.copper.registry.PipeMovementRestrictions;
+import net.lunade.copper.registry.PoweredPipeDispenses;
+import net.lunade.copper.registry.RegisterPipeNbtMethods;
+import net.lunade.copper.registry.RegisterSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
@@ -47,7 +46,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -68,7 +66,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity != null) {
 			if (entity instanceof CopperPipeEntity pipe) {
-				level.playSound(null, pos, CopperPipeMain.ITEM_IN, SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
+				level.playSound(null, pos, RegisterSoundEvents.ITEM_IN, SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
 				pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(HORN));
 				return true;
 			}
@@ -86,7 +84,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 
 	@Override
 	public void init() {
-		if (CopperPipeMain.getCompatID() == 3) {
+		if (SimpleCopperPipesMain.getCompatID() == 4) {
 			WilderSharedConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
 
 			RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
@@ -140,54 +138,16 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				}
 			}, (nbt, level, pos, blockState, blockEntity) -> true);
 
-			FittingPipeDispenses.register(RegisterItems.MILKWEED_POD, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				spawnSeedParticleFromPipe(true, level, i, direction, position, corroded);
-			});
-
-			FittingPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				spawnSeedParticleFromPipe(false, level, i, direction, position, corroded);
-			});
-
-			FittingPipeDispenses.register(RegisterItems.ANCIENT_HORN, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				if (!level.isClientSide) {
-					RandomSource random = level.getRandom();
-					Vec3 outputPos = getOutputPosition(position, direction);
-					UniformInt xzOffset = UniformInt.of(-3, 3);
-					UniformInt yOffset = UniformInt.of(-1, 1);
-					for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
-						level.sendParticles(
-							new FloatingSculkBubbleParticleOptions(
-								random.nextDouble() > 0.7 ? 1 : 0,
-								random.nextIntBetweenInclusive(60, 80),
-								new Vec3(
-									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
-									0.075F,
-									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
-								)
-							),
-							outputPos.x() + (double) xzOffset.sample(random) * 0.1D,
-							outputPos.y() + (double) yOffset.sample(random) * 0.1D,
-							outputPos.z() + (double) xzOffset.sample(random) * 0.1D,
-							1,
-							0D,
-							0D,
-							0D,
-							0D
-						);
-					}
-				}
-			});
-
-			PoweredPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+			PoweredPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 outputPos = getOutputPosition(position, direction);
-				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i, corroded);
+				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
 				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z());
 				coconut.shoot(velocity.x(), velocity.y(), velocity.z(), 0.8F, 0.8F);
 				level.addFreshEntity(coconut);
 			});
 
-			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i, corroded);
+			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
+				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
 				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
 				tumbleweed.setPos(getOutputPosition(position, direction));
@@ -207,7 +167,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	public static void spawnSeedParticleFromPipe(boolean isMilkweed, @NotNull ServerLevel level, int i, @NotNull Direction direction, @NotNull Position position, boolean corroded) {
 		Vec3 outputPos = getOutputPosition(position, direction);
 		RandomSource random = level.getRandom();
-		Vec3 velocity = getVelocity(random, direction, 3.5D, i, corroded);
+		Vec3 velocity = getVelocity(random, direction, 3.5D, i);
 		level.sendParticles(
 			SeedParticleOptions.controlled(isMilkweed, (float) (velocity.x() * 1.5F), (float) (velocity.y() + 0.035F), (float) (velocity.z() * 1.5F)),
 			outputPos.x(),
@@ -232,14 +192,14 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	}
 
 	@NotNull
-	public static Vec3 getVelocity(@NotNull RandomSource random, @NotNull Direction direction, double randomRange, int i, boolean corroded) {
+	public static Vec3 getVelocity(@NotNull RandomSource random, @NotNull Direction direction, double randomRange, int i) {
 		double xzRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
 		double yRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
 
 		Direction.Axis axis = direction.getAxis();
-		double velX = axis == Direction.Axis.X ? (i * direction.getStepX() * 2D) : (axis == Direction.Axis.Z ? (corroded ? yRandom : yRandom * 0.1D) : (corroded ? xzRandom : xzRandom * 0.1D));
-		double velY = axis == Direction.Axis.Y ? (i * direction.getStepY() * 2D) : (corroded ? xzRandom : xzRandom * 0.1D);
-		double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (corroded ? yRandom : yRandom * 0.1D);
+		double velX = axis == Direction.Axis.X ? (i * direction.getStepX() * 2D) : (axis == Direction.Axis.Z ? (yRandom * 0.1D) : (xzRandom * 0.1D));
+		double velY = axis == Direction.Axis.Y ? (i * direction.getStepY() * 2D) : (xzRandom * 0.1D);
+		double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (yRandom * 0.1D);
 		return new Vec3(velX, velY, velZ);
 	}
 
