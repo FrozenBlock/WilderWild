@@ -36,26 +36,27 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class SnowloggingUtils {
 	public static final IntegerProperty SNOW_LAYERS = RegisterProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 
-	public static boolean supportsSnowlogging(@NotNull BlockState state) {
+	public static boolean supportsSnowlogging(@Nullable BlockState state) {
 		if (!BlockConfig.get().snowlogging.snowlogging) return false;
-		return state.hasProperty(SNOW_LAYERS);
+		return state != null && state.hasProperty(SNOW_LAYERS);
 	}
 
-	public static boolean canSnowlog(@NotNull BlockState state) {
-		return supportsSnowlogging(state) && state.getFluidState().isEmpty();
+	public static boolean canSnowlog(@Nullable BlockState state) {
+		return state != null && supportsSnowlogging(state) && state.getFluidState().isEmpty();
 	}
 
 	public static int getSnowLayers(@NotNull BlockState state) {
 		return state.getValue(SNOW_LAYERS);
 	}
 
-	public static boolean isSnowlogged(BlockState state) {
-		return supportsSnowlogging(state) && getSnowLayers(state) > 0;
+	public static boolean isSnowlogged(@Nullable BlockState state) {
+		return state != null && supportsSnowlogging(state) && getSnowLayers(state) > 0;
 	}
 
 	@NotNull
@@ -63,13 +64,13 @@ public class SnowloggingUtils {
 		return Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, Math.max(1, getSnowLayers(state)));
 	}
 
-	@NotNull
-	public static BlockState getStateWithoutSnow(@NotNull BlockState state) {
+	@Nullable
+	public static BlockState getStateWithoutSnow(@Nullable BlockState state) {
 		return isSnowlogged(state) ? state.setValue(SNOW_LAYERS, 0) : state;
 	}
 
-	public static boolean isItemSnow(@NotNull ItemStack stack) {
-		return stack.is(Blocks.SNOW.asItem());
+	public static boolean isItemSnow(@Nullable ItemStack stack) {
+		return stack != null && stack.is(Blocks.SNOW.asItem());
 	}
 
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
@@ -79,7 +80,7 @@ public class SnowloggingUtils {
 			((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
 	}
 
-	@NotNull
+	@Nullable
 	public static BlockState onUpdateShape(BlockState state, LevelAccessor level, BlockPos pos) {
 		if (isSnowlogged(state)) {
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
