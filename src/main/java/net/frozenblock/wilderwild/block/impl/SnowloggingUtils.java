@@ -44,11 +44,13 @@ public class SnowloggingUtils {
 
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
 		if (!BlockConfig.get().snowlogging.snowlogging) return false;
-		return state != null && state.hasProperty(SNOW_LAYERS);
+		//noinspection ConstantValue
+		return state != null && state.values != null && state.hasProperty(SNOW_LAYERS);
 	}
 
 	public static boolean canSnowlog(@Nullable BlockState state) {
-		return state != null && supportsSnowlogging(state) && state.getFluidState().isEmpty();
+		//noinspection DataFlowIssue
+		return supportsSnowlogging(state) && state.getFluidState().isEmpty();
 	}
 
 	public static int getSnowLayers(@NotNull BlockState state) {
