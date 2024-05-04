@@ -57,10 +57,6 @@ val terrablender_version: String by project
 val terralith_version: String by project
 val fallingleaves_version: String by project
 
-val sodium_version: String by project
-val run_sodium: String by project
-val shouldRunSodium = run_sodium == "true"
-
 val embeddium_version: String by project
 val run_embeddium: String by project
 val shouldRunEmbeddium = run_embeddium == "true"
@@ -219,19 +215,11 @@ dependencies {
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
-    /*
     // Embeddium
     if (shouldRunEmbeddium)
         modImplementation("maven.modrinth:embeddium:${embeddium_version}")
     else
         modCompileOnly("maven.modrinth:embeddium:${embeddium_version}")
-     */
-
-    // Sodium
-    if (shouldRunSodium)
-        modImplementation("maven.modrinth:sodium:${sodium_version}")
-    else
-        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
