@@ -60,7 +60,7 @@ public abstract class BlockRendererMixin {
 				);
 				this.renderModel(snowRenderContext, buffers);
 			}
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 	}
 
 }
