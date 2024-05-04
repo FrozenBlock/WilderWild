@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -36,7 +35,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -266,20 +264,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest != null) {
 			this.syncValues(otherStoneChest);
-			otherStoneChest.updateSync();
+			otherStoneChest.setChanged();
 		}
-		this.updateSync();
-	}
-
-	public void updateSync() {
-		if (this.level != null && !this.level.isClientSide) {
-			ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
-			if (updatePacket != null) {
-				for (ServerPlayer player : PlayerLookup.tracking(this)) {
-					player.connection.send(updatePacket);
-				}
-			}
-		}
+		this.setChanged();
 	}
 
 	private void syncValues(@NotNull StoneChestBlockEntity otherStoneChest) {
