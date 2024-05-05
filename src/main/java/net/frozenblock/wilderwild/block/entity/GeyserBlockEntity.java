@@ -39,15 +39,18 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
@@ -55,7 +58,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class GeyserBlockEntity extends BlockEntity {
-	public static final double ERUPTION_DISTANCE = 5D;
+	public static final double ERUPTION_DISTANCE = 6D;
 	public static final int MIN_ACTIVE_TICKS = 100;
 	public static final int MAX_ACTIVE_TICKS = 200;
 	public static final int MIN_DORMANT_TICKS = 400;
@@ -133,16 +136,19 @@ public class GeyserBlockEntity extends BlockEntity {
 			}
 		}
 		AABB eruption = AABB.encapsulatingFullBlocks(pos, mutablePos.immutable());
+		mutablePos.move(direction.getOpposite());
+
 		AABB effectiveEruption = cutoffPos.map(blockPos ->
 				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable().relative(direction.getOpposite())));
+			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable()));
 		AABB damagingEruption = damageCutoffPos.map(blockPos ->
 				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable().relative(direction.getOpposite())));
+			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable()));
 
+		AABB maxPossibleEruptionBox = getPossibleEruptionBoundingBox(pos, maxEndPos);
 		List<Entity> entities = level.getEntities(
 			EntityTypeTest.forClass(Entity.class),
-			getPossibleEruptionBoundingBox(pos, maxEndPos),
+			maxPossibleEruptionBox,
 			EntitySelector.ENTITY_STILL_ALIVE.and(EntitySelector.NO_SPECTATORS)
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
@@ -192,6 +198,29 @@ public class GeyserBlockEntity extends BlockEntity {
 							entity.igniteForTicks((int) (FIRE_TICKS_MAX * damageIntensity));
 							entity.hurt(level.damageSources().inFire(), 1F);
 						}
+					}
+				}
+			}
+		}
+
+		for (BlockPos blockPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
+			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos))) {
+				BlockState state = level.getBlockState(blockPos);
+
+				if (geyserType == GeyserType.LAVA) {
+					if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
+						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, true));
+					}
+				} else {
+					if (state.is(BlockTags.FIRE)) {
+						if (!level.isClientSide()) {
+							level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
+						}
+						level.removeBlock(blockPos, false);
+					}
+
+					if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
+						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, false));
 					}
 				}
 			}
