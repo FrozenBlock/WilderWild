@@ -43,12 +43,9 @@ public abstract class BlockRendererMixin {
 	@Shadow
 	public abstract void renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers);
 
-	@Unique
-	private boolean wilderWild$runningBuggedEmbeddium = false;
-
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
 	public void wilderWild$renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers, CallbackInfo info) {
-		if (!wilderWild$runningBuggedEmbeddium && SnowloggingUtils.isSnowlogged(ctx.state())) {
+		if (SnowloggingUtils.isSnowlogged(ctx.state())) {
 			try {
 				BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
 				BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
@@ -61,9 +58,7 @@ public abstract class BlockRendererMixin {
 					ctx.seed()
 				);
 				this.renderModel(snowRenderContext, buffers);
-			} catch (Exception ignored) {
-				wilderWild$runningBuggedEmbeddium = true;
-			}
+			} catch (Exception ignored) {}
 		}
 	}
 
