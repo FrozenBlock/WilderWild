@@ -61,7 +61,9 @@ public abstract class BlockRendererMixin {
 					ctx.seed()
 				);
 				this.renderModel(snowRenderContext, buffers);
-			} catch (Exception ignored) {}
+			} catch (Exception ignored) {
+				wilderWild$runningBuggedEmbeddium = true;
+			}
 		}
 	}
 
