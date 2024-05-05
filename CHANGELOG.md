@@ -3,8 +3,9 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Fixed incompatability with Create causing a crash.
-- Migrated to Mojang's `setChanged` method for Block Entities instead of using custom logic.
-- Fixed Split Coconuts yielding Coconuts in the Stonecutter.
-- Fixed possible crash when rendering snowloggeed blocks using Sodium
-  - Snowlogged blocks will now not render with Embeddium, but this will  be fixed in an Embeddium update
+- Added new config options to control the Ancient Horn's cooldowns in different scenarios.
+  - `Default Cooldown`
+  - `Creative Cooldown`
+  - `Sculk Sensor Cooldown`
+  - `Sculk Shrieker Cooldown`
+  - `Hanging Tendril Cooldown`
