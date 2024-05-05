@@ -162,8 +162,8 @@ repositories {
             includeGroup("com.terraformersmc")
         }
     }
-
     maven("https://maven.shedaniel.me/")
+    maven("https://maven.blamejared.com")
     maven("https://maven.minecraftforge.net/")
     maven("https://maven.parchmentmc.org")
     maven("https://maven.quiltmc.org/repository/release") {
@@ -221,15 +221,15 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        modImplementation("maven.modrinth:sodium:${sodium_version}")
-    else
-        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
 
     // Embeddium
+    val embed = "org.embeddedt:embeddium-fabric-1.20.6"
+    val embeddiumVersion = "0.3.18-git-78d86dd+mc1.20.6"
     if (shouldRunEmbeddium)
-        modImplementation("maven.modrinth:embeddium:${embeddium_version}")
+        modImplementation("$embed:$embeddiumVersion")
     else
-        modCompileOnly("maven.modrinth:embeddium:${embeddium_version}")
+        modCompileOnly("$embed:$embeddiumVersion")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
