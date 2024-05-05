@@ -158,8 +158,8 @@ repositories {
             includeGroup("com.terraformersmc")
         }
     }
-
     maven("https://maven.shedaniel.me/")
+    maven("https://maven.blamejared.com")
     maven("https://maven.minecraftforge.net/")
     maven("https://maven.parchmentmc.org")
     maven("https://maven.quiltmc.org/repository/release") {
