@@ -36,9 +36,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockRenderer.class)
 public abstract class BlockRendererMixin {
-
 	@Unique
-	private static final BlockModelShaper frozenLib$blockModelShaper = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
+	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
 
 	@Shadow
 	public abstract void renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers);
@@ -53,7 +52,7 @@ public abstract class BlockRendererMixin {
 				ctx.pos(),
 				new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
 				snowState,
-				frozenLib$blockModelShaper.getBlockModel(snowState),
+				WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState),
 				ctx.seed()
 			);
 			this.renderModel(snowRenderContext, buffers);

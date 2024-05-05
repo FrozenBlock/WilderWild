@@ -45,7 +45,7 @@ public class SnowloggingUtils {
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
 		if (!BlockConfig.get().snowlogging.snowlogging) return false;
 		//noinspection ConstantValue
-		return state != null && state.values != null && state.hasProperty(SNOW_LAYERS);
+		return state != null && state.getValues() != null && state.hasProperty(SNOW_LAYERS);
 	}
 
 	public static boolean canSnowlog(@Nullable BlockState state) {
