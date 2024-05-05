@@ -211,6 +211,10 @@ public class GeyserBlockEntity extends BlockEntity {
 					if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
 						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, true));
 					}
+
+					if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
+						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, true));
+					}
 				} else {
 					if (state.is(BlockTags.FIRE)) {
 						if (!level.isClientSide()) {
@@ -220,6 +224,10 @@ public class GeyserBlockEntity extends BlockEntity {
 					}
 
 					if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
+						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, false));
+					}
+
+					if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
 						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, false));
 					}
 				}
