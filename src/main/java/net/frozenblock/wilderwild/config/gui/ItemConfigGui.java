@@ -115,7 +115,7 @@ public final class ItemConfigGui {
 		);
 
 		var ancientHornCooldown = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("ancient_horn_cooldown"), modifiedAncientHorn.ancientHornCooldown, 0, 99999)
+			entryBuilder.startIntSlider(text("ancient_horn_cooldown"), modifiedAncientHorn.ancientHornCooldown, 0, 9999)
 				.setDefaultValue(defaultConfig.ancientHorn.ancientHornCooldown)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornCooldown = newValue)
 				.setTooltip(tooltip("ancient_horn_cooldown"))
@@ -126,7 +126,7 @@ public final class ItemConfigGui {
 		);
 
 		var ancientHornCreativeCooldown = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("ancient_horn_creative_cooldown"), modifiedAncientHorn.ancientHornCreativeCooldown, 0, 99999)
+			entryBuilder.startIntSlider(text("ancient_horn_creative_cooldown"), modifiedAncientHorn.ancientHornCreativeCooldown, 0, 9999)
 				.setDefaultValue(defaultConfig.ancientHorn.ancientHornCreativeCooldown)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornCreativeCooldown = newValue)
 				.setTooltip(tooltip("ancient_horn_creative_cooldown"))
@@ -137,7 +137,7 @@ public final class ItemConfigGui {
 		);
 
 		var ancientHornSensorCooldown = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("ancient_horn_sensor_cooldown"), modifiedAncientHorn.ancientHornSensorCooldown, 0, 99999)
+			entryBuilder.startIntSlider(text("ancient_horn_sensor_cooldown"), modifiedAncientHorn.ancientHornSensorCooldown, 0, 9999)
 				.setDefaultValue(defaultConfig.ancientHorn.ancientHornSensorCooldown)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornSensorCooldown = newValue)
 				.setTooltip(tooltip("ancient_horn_sensor_cooldown"))
@@ -148,7 +148,7 @@ public final class ItemConfigGui {
 		);
 
 		var ancientHornShriekerCooldown = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("ancient_horn_shrieker_cooldown"), modifiedAncientHorn.ancientHornShriekerCooldown, 0, 99999)
+			entryBuilder.startIntSlider(text("ancient_horn_shrieker_cooldown"), modifiedAncientHorn.ancientHornShriekerCooldown, 0, 9999)
 				.setDefaultValue(defaultConfig.ancientHorn.ancientHornShriekerCooldown)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornShriekerCooldown = newValue)
 				.setTooltip(tooltip("ancient_horn_shrieker_cooldown"))
@@ -159,7 +159,7 @@ public final class ItemConfigGui {
 		);
 
 		var ancientHornTendrilCooldown = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("ancient_horn_tendril_cooldown"), modifiedAncientHorn.ancientHornTendrilCooldown, 0, 99999)
+			entryBuilder.startIntSlider(text("ancient_horn_tendril_cooldown"), modifiedAncientHorn.ancientHornTendrilCooldown, 0, 9999)
 				.setDefaultValue(defaultConfig.ancientHorn.ancientHornTendrilCooldown)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornTendrilCooldown = newValue)
 				.setTooltip(tooltip("ancient_horn_tendril_cooldown"))
