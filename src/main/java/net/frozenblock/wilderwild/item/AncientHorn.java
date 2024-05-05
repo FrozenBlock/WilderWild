@@ -22,6 +22,7 @@ import java.util.Optional;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -46,11 +47,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AncientHorn extends InstrumentItem {
-	public static final int DEFAULT_COOLDOWN = 600;
-	public static final int CREATIVE_COOLDOWN = 5;
-	public static final int SHRIEKER_COOLDOWN = 1200;
-	public static final int SENSOR_COOLDOWN = 800;
-	public static final int TENDRIL_COOLDOWN = 780;
 	public static final int MIN_BUBBLES = 10;
 	public static final int MAX_BUBBLES = 25;
 
@@ -60,7 +56,7 @@ public class AncientHorn extends InstrumentItem {
 
 	public static int getCooldown(@Nullable Entity entity, int cooldown) {
 		if (entity instanceof Player player && player.isCreative()) {
-			return CREATIVE_COOLDOWN;
+			return ItemConfig.get().ancientHorn.ancientHornCreativeCooldown;
 		}
 		return cooldown;
 	}
@@ -94,7 +90,7 @@ public class AncientHorn extends InstrumentItem {
 		if (optional.isPresent()) {
 			user.startUsingItem(hand);
 			play(level, user, optional.get().value());
-			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, DEFAULT_COOLDOWN));
+			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, ItemConfig.get().ancientHorn.ancientHornCooldown));
 			if (level instanceof ServerLevel server) {
 				AncientHornVibration projectileEntity = new AncientHornVibration(level, user.getX(), user.getEyeY(), user.getZ());
 				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0F, 1F, 0F);

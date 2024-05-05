@@ -407,7 +407,7 @@ public class AncientHornVibration extends AbstractArrow {
 						Warden.applyDarknessAround(server, Vec3.atCenterOf(pos), null, 40);
 						server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
 						server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
-						setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
+						setCooldown(getCooldown(this.getOwner(), ItemConfig.get().ancientHorn.ancientHornShriekerCooldown));
 					}
 				}
 			} else if (block instanceof SculkSensorBlock sculkSensor) {
@@ -421,7 +421,7 @@ public class AncientHornVibration extends AbstractArrow {
 					if (SculkSensorBlock.canActivate(blockState)) {
 						sculkSensor.activate(null, this.level(), pos, blockState, this.random.nextInt(15), sculkSensorBlockEntity.getLastVibrationFrequency());
 						this.level().gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-						setCooldown(getCooldown(owner, SENSOR_COOLDOWN));
+						setCooldown(getCooldown(owner, ItemConfig.get().ancientHorn.ancientHornSensorCooldown));
 					}
 				}
 			}
@@ -466,7 +466,7 @@ public class AncientHornVibration extends AbstractArrow {
 					);
 					this.level().destroyBlock(this.blockPosition(), false);
 					ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), xp);
-					setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
+					setCooldown(getCooldown(this.getOwner(), ItemConfig.get().ancientHorn.ancientHornTendrilCooldown));
 					this.dissipate();
 				}
 			}
