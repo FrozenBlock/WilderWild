@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3fc;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,30 +37,48 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockRenderer.class)
 public abstract class BlockRendererMixin {
-
 	@Unique
-	private static final BlockModelShaper frozenLib$blockModelShaper = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
+	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
+	@Unique
+	private static boolean wilderWild$hasCheckedSafety = false;
+	@Unique
+	private static boolean wilderWild$skipSnowloggedRendering = false;
 
 	@Shadow
 	public abstract void renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers);
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
 	public void wilderWild$renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers, CallbackInfo info) {
-		try {
-			if (SnowloggingUtils.isSnowlogged(ctx.state())) {
-				BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
-				BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
+		if (!wilderWild$hasCheckedSafety) {
+			wilderWild$hasCheckedSafety = true;
+			try {
+				BlockRenderContext dummyRenderContext = new BlockRenderContext(ctx.world());
 				Vector3fc origin = ctx.origin();
-				snowRenderContext.update(
+				dummyRenderContext.update(
 					ctx.pos(),
 					new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
-					snowState,
-					frozenLib$blockModelShaper.getBlockModel(snowState),
+					Blocks.GRASS_BLOCK.defaultBlockState(),
+					WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(Blocks.GRASS_BLOCK.defaultBlockState()),
 					ctx.seed()
 				);
-				this.renderModel(snowRenderContext, buffers);
+			} catch (Exception ignored) {
+				wilderWild$skipSnowloggedRendering = true;
 			}
-		} catch (Exception ignored) {}
+		}
+
+		if (!wilderWild$skipSnowloggedRendering && SnowloggingUtils.isSnowlogged(ctx.state())) {
+			BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
+			BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
+			Vector3fc origin = ctx.origin();
+			snowRenderContext.update(
+				ctx.pos(),
+				new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
+				snowState,
+				WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState),
+				ctx.seed()
+			);
+			this.renderModel(snowRenderContext, buffers);
+		}
 	}
 
 }
