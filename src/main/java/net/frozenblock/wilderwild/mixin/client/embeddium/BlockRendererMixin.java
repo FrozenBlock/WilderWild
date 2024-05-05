@@ -39,45 +39,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BlockRendererMixin {
 	@Unique
 	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
-	@Unique
-	private static boolean wilderWild$hasCheckedSafety = false;
-	@Unique
-	private static boolean wilderWild$skipSnowloggedRendering = false;
 
 	@Shadow
 	public abstract void renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers);
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
 	public void wilderWild$renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers, CallbackInfo info) {
-		if (!wilderWild$hasCheckedSafety) {
-			wilderWild$hasCheckedSafety = true;
+		if (SnowloggingUtils.isSnowlogged(ctx.state())) {
 			try {
-				BlockRenderContext dummyRenderContext = new BlockRenderContext(ctx.world());
+				BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
+				BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
 				Vector3fc origin = ctx.origin();
-				dummyRenderContext.update(
+				snowRenderContext.update(
 					ctx.pos(),
 					new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
-					Blocks.GRASS_BLOCK.defaultBlockState(),
-					WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(Blocks.GRASS_BLOCK.defaultBlockState()),
+					snowState,
+					WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState),
 					ctx.seed()
 				);
-			} catch (Exception ignored) {
-				wilderWild$skipSnowloggedRendering = true;
-			}
-		}
-
-		if (!wilderWild$skipSnowloggedRendering && SnowloggingUtils.isSnowlogged(ctx.state())) {
-			BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
-			BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
-			Vector3fc origin = ctx.origin();
-			snowRenderContext.update(
-				ctx.pos(),
-				new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
-				snowState,
-				WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState),
-				ctx.seed()
-			);
-			this.renderModel(snowRenderContext, buffers);
+				this.renderModel(snowRenderContext, buffers);
+			} catch (Exception ignored) {}
 		}
 	}
 
