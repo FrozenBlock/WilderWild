@@ -45,19 +45,21 @@ public abstract class BlockRendererMixin {
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
 	public void wilderWild$renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers, CallbackInfo info) {
-		if (SnowloggingUtils.isSnowlogged(ctx.state())) {
-			BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
-			BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
-			Vector3fc origin = ctx.origin();
-			snowRenderContext.update(
-				ctx.pos(),
-				new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
-				snowState,
-				frozenLib$blockModelShaper.getBlockModel(snowState),
-				ctx.seed()
-			);
-			this.renderModel(snowRenderContext, buffers);
-		}
+		try {
+			if (SnowloggingUtils.isSnowlogged(ctx.state())) {
+				BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
+				BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
+				Vector3fc origin = ctx.origin();
+				snowRenderContext.update(
+					ctx.pos(),
+					new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
+					snowState,
+					frozenLib$blockModelShaper.getBlockModel(snowState),
+					ctx.seed()
+				);
+				this.renderModel(snowRenderContext, buffers);
+			}
+		} catch (Exception ignored) {}
 	}
 
 }
