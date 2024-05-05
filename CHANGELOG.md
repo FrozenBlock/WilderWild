@@ -9,6 +9,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - `Sculk Sensor Cooldown`
   - `Sculk Shrieker Cooldown`
   - `Hanging Tendril Cooldown`
-- Geysers will now put out Fires and Campfires upon Erupting without Lava.
-- Geysers will now ignite Campfires upon Erupting with Lava.
+- Geysers will now put out Fires, Campfires, and Candles upon Erupting without Lava, and ignite them upon Erupting with Lava. ([#372](https://github.com/FrozenBlock/WilderWild/issues/372))
 - Fixed the length of Geyser Eruptions, now being 5 instead of 4.
