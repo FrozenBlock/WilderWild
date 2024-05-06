@@ -124,7 +124,6 @@
     "client.easter.StellaWardenRenderer",
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
-    "client.embeddium.BlockRendererMixin",
     "client.embeddium.CloudRendererMixin",
     "client.embeddium.FluidRendererMixin",
     "client.liquid.LiquidBlockRendererMixin",

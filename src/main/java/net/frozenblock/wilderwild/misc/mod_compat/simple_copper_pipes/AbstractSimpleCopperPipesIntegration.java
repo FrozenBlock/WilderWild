@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.mod_compat.scp;
+package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.minecraft.core.BlockPos;

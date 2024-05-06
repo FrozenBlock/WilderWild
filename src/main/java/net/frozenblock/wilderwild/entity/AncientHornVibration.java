@@ -25,7 +25,7 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.config.ItemConfig;
-import static net.frozenblock.wilderwild.item.AncientHorn.*;
+import static net.frozenblock.wilderwild.item.AncientHorn.getCooldown;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;

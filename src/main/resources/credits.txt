@@ -76,6 +76,9 @@ Shadownite64:
 SaishoVibes:
  - Initial configs.
 
+embeddedt:
+ - Helped set up Snowlogged rendering with Embeddium.
+
 noah1510:
  - Fixed a crash relating to Sculk during worldgen.
 
