@@ -43,7 +43,7 @@ import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpdate {
-	private static final int MAX_DISTANCE = PalmFrondsBlock.DECAY_DISTANCE;
+	private static final int MAX_DISTANCE = PalmFrondsBlock.getDecayDistance();
 	private static final float COCONUT_CHANCE = 0.4F;
 
 	public PalmTreeFeature(Codec<TreeConfiguration> codec) {

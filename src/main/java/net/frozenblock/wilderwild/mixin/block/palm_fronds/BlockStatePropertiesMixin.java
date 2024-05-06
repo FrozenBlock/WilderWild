@@ -39,14 +39,18 @@ public class BlockStatePropertiesMixin {
 			target = "Lnet/minecraft/world/level/block/state/properties/IntegerProperty;create(Ljava/lang/String;II)Lnet/minecraft/world/level/block/state/properties/IntegerProperty;",
 			ordinal = 0
 		),
-		slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=distance"))
+		slice = @Slice(
+			from = @At(
+				value = "CONSTANT",
+				args = "stringValue=distance"
+			)
+		)
 	)
 	private static IntegerProperty newDecayDistance(String name, int min, int max, Operation<IntegerProperty> original) {
 		if (BlockConfig.get().blockStateCompat) {
 			WilderSharedConstants.warn("Server compat mode enabled, Palm Fronds will not always work as expected!", true);
-			return original.call(name, min, max);
 		}
-		return original.call(name, min, Math.max(max, PalmFrondsBlock.DECAY_DISTANCE));
+		return original.call(name, min, Math.max(max, PalmFrondsBlock.getDecayDistance()));
 	}
 
 }
