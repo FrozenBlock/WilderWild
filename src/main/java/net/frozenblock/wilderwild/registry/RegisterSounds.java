@@ -71,11 +71,6 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_COARSE_DIRT_BREAK = register("block.coarse_dirt.break");
 	public static final SoundEvent BLOCK_COARSE_DIRT_STEP = register("block.coarse_dirt.step");
 	public static final SoundEvent BLOCK_COARSE_DIRT_FALL = register("block.coarse_dirt.fall");
-	public static final SoundEvent BLOCK_COBWEB_PLACE = register("block.cobweb.place");
-	public static final SoundEvent BLOCK_COBWEB_HIT = register("block.cobweb.hit");
-	public static final SoundEvent BLOCK_COBWEB_BREAK = register("block.cobweb.break");
-	public static final SoundEvent BLOCK_COBWEB_STEP = register("block.cobweb.step");
-	public static final SoundEvent BLOCK_COBWEB_FALL = register("block.cobweb.fall");
 	public static final SoundEvent BLOCK_COCONUT_PLACE = register("block.coconut.place");
 	public static final SoundEvent BLOCK_COCONUT_HIT = register("block.coconut.hit");
 	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");

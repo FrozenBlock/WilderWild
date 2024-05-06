@@ -214,13 +214,6 @@ public final class RegisterBlockSoundTypes {
 		RegisterSounds.BLOCK_FLOWER_HIT,
 		RegisterSounds.BLOCK_FLOWER_FALL
 	);
-	public static final SoundType WEB = new SoundType(1.0F, 1.5F,
-		RegisterSounds.BLOCK_COBWEB_BREAK,
-		RegisterSounds.BLOCK_COBWEB_STEP,
-		RegisterSounds.BLOCK_COBWEB_PLACE,
-		RegisterSounds.BLOCK_COBWEB_HIT,
-		RegisterSounds.BLOCK_COBWEB_FALL
-	);
 	public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
 		SoundEvents.BIG_DRIPLEAF_BREAK,
 		SoundEvents.BIG_DRIPLEAF_STEP,
