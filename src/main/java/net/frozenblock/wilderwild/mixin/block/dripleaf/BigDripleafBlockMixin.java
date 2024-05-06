@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.dripleaf;
 
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -94,6 +95,8 @@ public final class BigDripleafBlockMixin {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (BlockConfig.get().isDripleafPoweringEnabled()) {
 			builder.add(BlockStateProperties.POWERED);
+		} else if (BlockConfig.get().blockStateCompat) {
+			WilderSharedConstants.warn("Server compat mode enabled, Dripleaf powering won't work as expected!", true);
 		}
 	}
 

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,6 +54,9 @@ public class BushBlockMixin extends Block {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
+		if (BlockConfig.get().blockStateCompat) {
+			WilderSharedConstants.warn("Server compat mode enabled, Snowlogging won't work as expected!", true);
+		}
 		if (!BlockConfig.get().snowlogging.isSnowloggingEnabled()) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}

@@ -41,8 +41,18 @@ public class BaseSpawnerMixin {
 
 	@Inject(
 		method = "clientTick",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getRandom()Lnet/minecraft/util/RandomSource;", ordinal = 0),
-		slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/world/level/BaseSpawner;displayEntity:Lnet/minecraft/world/entity/Entity;", opcode = Opcodes.GETFIELD))
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;getRandom()Lnet/minecraft/util/RandomSource;",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/level/BaseSpawner;displayEntity:Lnet/minecraft/world/entity/Entity;",
+				opcode = Opcodes.GETFIELD
+			)
+		)
 	)
 	public void wilderWild$clientTick(Level level, BlockPos blockPos, CallbackInfo info) {
 		if (this.displayEntity instanceof Firefly firefly) {

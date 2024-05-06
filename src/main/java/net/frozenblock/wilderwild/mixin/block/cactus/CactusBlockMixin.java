@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.cactus;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.CactusBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,6 +30,9 @@ public final class CactusBlockMixin {
 
 	@ModifyExpressionValue(method = "canSurvive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isSolid()Z"))
 	private boolean wilderWild$canSurviveIsSolid(boolean original) {
+		if (BlockConfig.get().blockStateCompat) {
+			WilderSharedConstants.warn("Server compat mode enabled, Cactus placement won't work as expected!", true);
+		}
 		return !BlockConfig.get().isCactusPlacementEnabled() && original;
 	}
 
