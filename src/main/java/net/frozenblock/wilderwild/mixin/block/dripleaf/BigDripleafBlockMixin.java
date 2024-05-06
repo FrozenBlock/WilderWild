@@ -46,7 +46,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	public void wilderWild$init(CallbackInfo info) {
-		if (BlockConfig.get().dripleafPowering) {
+		if (BlockConfig.get().isDripleafPoweringEnabled()) {
 			BigDripleafBlock bigDripleafBlock = BigDripleafBlock.class.cast(this);
 			bigDripleafBlock.registerDefaultState(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 		}
@@ -54,7 +54,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "tick", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.get().dripleafPowering && state.getValue(BlockStateProperties.POWERED)) {
+		if (BlockConfig.get().isDripleafPoweringEnabled() && state.getValue(BlockStateProperties.POWERED)) {
 			resetTilt(state, level, pos);
 			info.cancel();
 		}
@@ -62,7 +62,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (BlockConfig.get().dripleafPowering) {
+		if (BlockConfig.get().isDripleafPoweringEnabled()) {
 			if (fromPos.equals(pos.below())) {
 				BlockState downState = level.getBlockState(fromPos);
 				if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
@@ -85,14 +85,14 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
-		if (!level.isClientSide && BlockConfig.get().dripleafPowering && state.getValue(BlockStateProperties.POWERED)) {
+		if (!level.isClientSide && BlockConfig.get().isDripleafPoweringEnabled() && state.getValue(BlockStateProperties.POWERED)) {
 			info.cancel();
 		}
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.get().dripleafPowering) {
+		if (BlockConfig.get().isDripleafPoweringEnabled()) {
 			builder.add(BlockStateProperties.POWERED);
 		}
 	}

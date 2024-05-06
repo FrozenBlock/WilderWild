@@ -50,7 +50,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		try {
 			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator");
-			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
+			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.blockStateCompat = true));
 		} catch (ClassNotFoundException ignored) {}
 		MixinsConfig config = MixinsConfig.get();
 		boolean hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");

@@ -38,7 +38,7 @@ public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged", cancellable = true)
 	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock && !level.isClientSide && BlockConfig.get().dripleafPowering) {
+		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock && !level.isClientSide && BlockConfig.get().isDripleafPoweringEnabled()) {
 			BlockState downState = level.getBlockState(pos.below());
 			boolean receivingPower = level.hasNeighborSignal(pos) || (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED));
 			if (state.getValue(BlockStateProperties.POWERED) != receivingPower) {

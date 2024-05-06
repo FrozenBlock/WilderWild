@@ -138,7 +138,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
-		if (BlockConfig.get().snowlogging.snowlogging) {
+		if (BlockConfig.get().snowlogging.isSnowloggingEnabled()) {
 			builder.add(SnowloggingUtils.SNOW_LAYERS);
 		}
 	}
