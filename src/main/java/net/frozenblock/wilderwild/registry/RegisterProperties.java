@@ -18,10 +18,13 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.impl.BubbleDirection;
 import net.frozenblock.wilderwild.block.impl.FlowerColor;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
+import net.frozenblock.wilderwild.config.BlockConfig;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -73,6 +76,10 @@ public final class RegisterProperties {
 	public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
+
+	public static int getDecayDistance() {
+		return BlockConfig.get().blockStateCompat ? LeavesBlock.DECAY_DISTANCE : PalmFrondsBlock.DECAY_DISTANCE;
+	}
 
 	private RegisterProperties() {
 		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");

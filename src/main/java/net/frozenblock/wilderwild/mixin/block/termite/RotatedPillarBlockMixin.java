@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.block.termite;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -38,8 +37,6 @@ public class RotatedPillarBlockMixin {
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (!BlockConfig.get().blockStateCompat) {
 			builder.add(RegisterProperties.TERMITE_EDIBLE);
-		} else {
-			WilderSharedConstants.warn("Server compat mode enabled, Termites may not work as expected!", true);
 		}
 	}
 

@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import java.util.OptionalInt;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -48,18 +50,18 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		this.registerDefaultState(this.defaultBlockState()
 				.setValue(
 					DISTANCE,
-					getDecayDistance()
+					RegisterProperties.getDecayDistance()
 				)
 		);
-	}
 
-	public static int getDecayDistance() {
-		return BlockConfig.get().blockStateCompat ? LeavesBlock.DECAY_DISTANCE : DECAY_DISTANCE;
+		if (BlockConfig.get().blockStateCompat) {
+			WilderSharedConstants.warn("Server compat mode enabled, Palm Fronds will not always work as expected!", true);
+		}
 	}
 
 	@NotNull
 	private static BlockState updateDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		int i = getDecayDistance();
+		int i = RegisterProperties.getDecayDistance();
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
 		for (Direction direction : Direction.values()) {
@@ -74,7 +76,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	private static int getDistanceAt(BlockState neighbor) {
-		return getOptionalDistanceAt(neighbor).orElse(getDecayDistance());
+		return getOptionalDistanceAt(neighbor).orElse(RegisterProperties.getDecayDistance());
 	}
 
 	@NotNull
@@ -85,7 +87,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		Block block = state.getBlock();
 		int distance = state.getValue(DISTANCE);
 		if (!(block instanceof PalmFrondsBlock) && distance == LeavesBlock.DECAY_DISTANCE) {
-			return OptionalInt.of(getDecayDistance());
+			return OptionalInt.of(RegisterProperties.getDecayDistance());
 		}
 		return OptionalInt.of(distance);
 	}
