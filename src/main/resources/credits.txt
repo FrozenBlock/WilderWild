@@ -78,6 +78,7 @@ SaishoVibes:
 
 embeddedt:
  - Helped set up Snowlogged rendering with Embeddium.
+ - Pointed towards LevelRenderer for making Clouds move instead of using individual Mixins per-renderer.
 
 noah1510:
  - Fixed a crash relating to Sculk during worldgen.

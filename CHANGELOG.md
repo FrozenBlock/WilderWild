@@ -13,3 +13,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed the length of Geyser Eruptions, now being 5 instead of 4.
 - Added better support for Snowlogging on Embeddium thanks to embeddedt!
   - Snowlogging on Embeddium will no longer result in Z-Fighting with Pink Petals.
+- Cloud movement no longer uses separate mixins for Embeddium and Sodium, also thanks to embeddedt!
