@@ -16,3 +16,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added better support for Snowlogging on Embeddium thanks to embeddedt!
   - Snowlogging on Embeddium will no longer result in Z-Fighting with Pink Petals.
 - Cloud movement no longer uses separate mixins for Embeddium and Sodium, also thanks to embeddedt!
+- Updated Scorched Eye and Fermented Scorched Eye textures.
