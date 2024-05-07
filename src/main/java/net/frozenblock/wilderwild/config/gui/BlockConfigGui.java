@@ -54,20 +54,6 @@ public final class BlockConfigGui {
 		var modifiedFire = modifiedConfig.fire;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
 
-		var blockStateCompat = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("blockstate_compat"), modifiedConfig.blockStateCompat)
-					.setDefaultValue(defaultConfig.blockStateCompat)
-					.setSaveConsumer(newValue -> config.blockStateCompat = newValue)
-					.requireRestart()
-					.setTooltip(tooltip("blockstate_compat"))
-					.build(),
-				clazz,
-				"blockStateCompat",
-				configInstance
-			)
-		);
-
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)
@@ -444,6 +430,20 @@ public final class BlockConfigGui {
 			flowerSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
 			magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
+		);
+
+		var blockStateCompat = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("blockstate_compat"), modifiedConfig.blockStateCompat)
+					.setDefaultValue(defaultConfig.blockStateCompat)
+					.setSaveConsumer(newValue -> config.blockStateCompat = newValue)
+					.requireRestart()
+					.setTooltip(tooltip("blockstate_compat"))
+					.build(),
+				clazz,
+				"blockStateCompat",
+				configInstance
+			)
 		);
 	}
 
