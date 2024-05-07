@@ -128,7 +128,6 @@
     "client.liquid.LiquidBlockRendererMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
-    "client.mesoglea.MesogleaLiquidBlockRendererMixin",
     "client.shrieker.LevelRendererMixin",
     "client.sodium.BlockRendererMixin",
     "client.sodium.FluidRendererMixin",

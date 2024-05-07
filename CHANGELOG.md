@@ -13,7 +13,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed the length of Geyser Eruptions, now being 5 instead of 4.
 - Fixed many blocks rendering incorrectly on servers using the new `Server Compat Mode` config option in the `Block` tab.
   - Must be switched on for this fix to be enabled, and requires the game to be restarted upon changing.
+- Updated Scorched Eye and Fermented Scorched Eye textures.
 - Added better support for Snowlogging on Embeddium thanks to embeddedt!
   - Snowlogging on Embeddium will no longer result in Z-Fighting with Pink Petals.
 - Cloud movement no longer uses separate mixins for Embeddium and Sodium, also thanks to embeddedt!
-- Updated Scorched Eye and Fermented Scorched Eye textures.
+- Updated Mesoglea's optional Liquid rendering to work without additional mixins in Vanilla and with Embeddium, also thanks to embeddedt!

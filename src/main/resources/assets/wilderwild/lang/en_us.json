@@ -367,7 +367,7 @@
   "option.wilderwild.billboard_tendrils": "Billboard Hanging Tendrils",
   "tooltip.wilderwild.billboard_tendrils": "Whether Hanging Tendrils should use a billboard model\n(Flat plane that points at the camera.)",
   "option.wilderwild.blockstate_compat": "Server Compat Mode",
-  "tooltip.wilderwild.blockstate_compat": "Will fix blocks rendering incorrectly on servers without Wilder Wild.\nThis will result in the loss of some behavior, however.\nRequires restart after changing to avoid issues.",
+  "tooltip.wilderwild.blockstate_compat": "Will fix blocks rendering incorrectly on servers WITHOUT Wilder Wild.\nThis will result in the loss of some behavior, however.\nRequires restart after changing to avoid issues.",
   "option.wilderwild.fire": "Fire",
   "tooltip.wilderwild.fire": "Contains options for Fire.",
   "option.wilderwild.extra_magma_particles": "Extra Magma Particles",
