@@ -405,6 +405,8 @@ public final class WilderWildClient implements ClientModInitializer {
 						fluidState,
 						sprite
 					);
+				} else {
+					originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
 				}
 			}
 
