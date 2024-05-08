@@ -59,7 +59,6 @@ public final class BlockConfigGui {
 				entryBuilder.startBooleanToggle(text("blockstate_compat"), modifiedConfig.blockStateCompat)
 					.setDefaultValue(defaultConfig.blockStateCompat)
 					.setSaveConsumer(newValue -> config.blockStateCompat = newValue)
-					.requireRestart()
 					.setTooltip(tooltip("blockstate_compat"))
 					.build(),
 				clazz,
