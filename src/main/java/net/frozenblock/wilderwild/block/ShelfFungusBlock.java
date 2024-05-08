@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -141,9 +140,6 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
 		if (BlockConfig.get().snowlogging.isSnowloggingEnabled()) {
 			builder.add(SnowloggingUtils.SNOW_LAYERS);
-		}
-		if (BlockConfig.get().blockStateCompat) {
-			WilderSharedConstants.warn("Server compat mode enabled, Snowlogging won't work as expected!", true);
 		}
 	}
 

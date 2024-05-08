@@ -20,8 +20,9 @@ package net.frozenblock.wilderwild.mixin.block.palm_fronds;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,9 +48,9 @@ public class BlockStatePropertiesMixin {
 	)
 	private static IntegerProperty newDecayDistance(String name, int min, int max, Operation<IntegerProperty> original) {
 		if (BlockConfig.get().blockStateCompat) {
-			return original.call(name, min, max);
+			WilderSharedConstants.warn("Server compat mode enabled, Palm Fronds will not always work as expected!", true);
 		}
-		return original.call(name, min, Math.max(max, RegisterProperties.getDecayDistance()));
+		return original.call(name, min, Math.max(max, PalmFrondsBlock.getDecayDistance()));
 	}
 
 }

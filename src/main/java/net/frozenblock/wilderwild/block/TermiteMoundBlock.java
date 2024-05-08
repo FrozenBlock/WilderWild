@@ -20,9 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -96,9 +94,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE, RegisterProperties.CAN_SPAWN_TERMITE);
-		if (BlockConfig.get().blockStateCompat) {
-			WilderSharedConstants.warn("Server compat mode enabled, Termites may not work as expected!", true);
-		}
 	}
 
 	@Override

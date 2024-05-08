@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.OptionalInt;
 import java.util.Set;
 import net.frozenblock.wilderwild.block.CoconutBlock;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.misc.interfaces.TreeFeatureLeavesUpdate;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
@@ -43,7 +43,7 @@ import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpdate {
-	private static final int MAX_DISTANCE = RegisterProperties.getDecayDistance();
+	private static final int MAX_DISTANCE = PalmFrondsBlock.getDecayDistance();
 	private static final float COCONUT_CHANCE = 0.4F;
 
 	public PalmTreeFeature(Codec<TreeConfiguration> codec) {
