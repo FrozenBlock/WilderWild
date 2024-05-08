@@ -18,8 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.block.reinforced_deepslate;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -32,27 +30,9 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(Blocks.class)
 public final class BlocksMixin {
 
-	@Redirect(
-		method = "<clinit>",
-		at = @At(
-			value = "NEW",
-			target = "(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;",
-			ordinal = 0
-		),
-		slice = @Slice(
-			from = @At(
-				value = "CONSTANT",
-				args = "stringValue=reinforced_deepslate"
-			)
-		)
-	)
+	@Redirect(method = "<clinit>", at = @At(value = "NEW", target = "(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0), slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=reinforced_deepslate")))
 	private static Block wilderWild$newReinforced(BlockBehaviour.Properties properties) {
-		if (BlockConfig.get().blockStateCompat) {
-			WilderSharedConstants.warn("Server compat mode enabled, using vanilla Reinforced Deepslate!", true);
-			return new Block(properties);
-		} else {
-			return new RotatedPillarBlock(properties);
-		}
+		return new RotatedPillarBlock(properties);
 	}
 
 }
