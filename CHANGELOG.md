@@ -13,7 +13,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed the length of Geyser Eruptions, now being 5 instead of 4.
 - Fixed many blocks rendering incorrectly on servers using the new `Server Compat Mode` config option in the `Block` tab.
   - Must be switched on for this fix to be enabled, and requires the game to be restarted upon changing.
-  - This should ONLY be used when joining servers without Wilder Wild installed.
 - Updated Scorched Eye and Fermented Scorched Eye textures.
 - Added better support for Snowlogging on Embeddium thanks to embeddedt!
   - Snowlogging on Embeddium will no longer result in Z-Fighting with Pink Petals.
