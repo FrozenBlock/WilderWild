@@ -42,7 +42,7 @@ public abstract class SweetBerryBushBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.isSnowloggingEnabled()) return;
+		if (!BlockConfig.get().snowlogging.snowlogging) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

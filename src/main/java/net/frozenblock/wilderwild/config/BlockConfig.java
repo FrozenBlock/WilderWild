@@ -59,9 +59,6 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final FireConfig fire = new FireConfig();
 
-	@EntrySyncData("blockStateCompat")
-	public boolean blockStateCompat = false;
-
 	@EntrySyncData("shriekerGargling")
 	public boolean shriekerGargling = true;
 
@@ -80,19 +77,11 @@ public final class BlockConfig {
 	@EntrySyncData("cactusPlacement")
 	public boolean cactusPlacement = false;
 
-	public boolean isCactusPlacementEnabled() {
-		return !this.blockStateCompat && this.cactusPlacement;
-	}
-
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 
 	@EntrySyncData("dripleafPowering")
 	public boolean dripleafPowering = true;
-
-	public boolean isDripleafPoweringEnabled() {
-		return !this.blockStateCompat && this.dripleafPowering;
-	}
 
 	public static BlockConfig get() {
 		return get(false);
@@ -182,10 +171,6 @@ public final class BlockConfig {
 
 		@EntrySyncData("maxNaturalDistance")
 		public int maxNaturalDistance = 10;
-
-		public boolean onlyEatNaturalBlocks() {
-			return this.onlyEatNaturalBlocks && !BlockConfig.get().blockStateCompat;
-		}
 	}
 
 	public static class MesogleaConfig {
@@ -214,16 +199,12 @@ public final class BlockConfig {
 		@EntrySyncData("naturalSnowlogging")
 		public boolean naturalSnowlogging = true;
 
-		public boolean isSnowloggingEnabled() {
-			return !BlockConfig.get().blockStateCompat && this.snowlogging;
-		}
-
 		public boolean canSnowlogWalls() {
-			return !BlockConfig.get().blockStateCompat && this.snowlogging && this.snowlogWalls;
+			return this.snowlogging && this.snowlogWalls;
 		}
 
 		public boolean canSnowlogNaturally() {
-			return !BlockConfig.get().blockStateCompat && this.snowlogging && this.naturalSnowlogging;
+			return this.snowlogging && this.naturalSnowlogging;
 		}
 	}
 }

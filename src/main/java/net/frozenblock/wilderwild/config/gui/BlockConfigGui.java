@@ -53,20 +53,6 @@ public final class BlockConfigGui {
 		var fire = config.fire;
 		var modifiedFire = modifiedConfig.fire;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
-
-		var blockStateCompat = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("blockstate_compat"), modifiedConfig.blockStateCompat)
-					.setDefaultValue(defaultConfig.blockStateCompat)
-					.setSaveConsumer(newValue -> config.blockStateCompat = newValue)
-					.setTooltip(tooltip("blockstate_compat"))
-					.build(),
-				clazz,
-				"blockStateCompat",
-				configInstance
-			)
-		);
-
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)
