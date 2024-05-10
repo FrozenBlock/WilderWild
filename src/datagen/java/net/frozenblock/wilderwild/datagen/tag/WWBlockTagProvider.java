@@ -56,6 +56,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateCompat() {
+		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
+			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
+			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
+			.add(RegisterBlocks.STRIPPED_PALM_LOG)
+
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(RegisterBlocks.BUSH)
 			.add(RegisterBlocks.MILKWEED)
