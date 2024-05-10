@@ -59,7 +59,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
 			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
 			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
-			.add(RegisterBlocks.STRIPPED_PALM_LOG)
+			.add(RegisterBlocks.STRIPPED_PALM_LOG);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(RegisterBlocks.BUSH)
