@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 FrozenBlock
+ * Copyright 2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -16,27 +16,23 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.mod_compat.scp;
+package net.frozenblock.wilderwild.misc.mod_compat.embeddium;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.frozenblock.lib.integration.api.ModIntegration;
 
-public class NoOpSimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
-	public NoOpSimpleCopperPipesIntegration() {
-		super();
+public class AbstractEmbeddiumIntegration extends ModIntegration {
+
+	public AbstractEmbeddiumIntegration() {
+		super("embeddium");
 	}
 
 	@Override
-	public boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, @NotNull Entity owner) {
-		return false;
+	public void init() {
 	}
 
-	@Override
-	public boolean isCopperPipe(BlockState state) {
-		return false;
+	@Environment(EnvType.CLIENT)
+	public void clientInit() {
 	}
-
 }

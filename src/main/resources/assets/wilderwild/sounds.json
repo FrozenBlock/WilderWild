@@ -727,53 +727,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.cobweb.break": {
-    "sounds": [
-      "wilderwild:block/cobweb/break1",
-      "wilderwild:block/cobweb/break2",
-      "wilderwild:block/cobweb/break3",
-      "wilderwild:block/cobweb/break4"
-    ],
-    "subtitle": "subtitles.block.generic.break"
-  },
-  "block.cobweb.fall": {
-    "sounds": [
-      "wilderwild:block/cobweb/step1",
-      "wilderwild:block/cobweb/step2",
-      "wilderwild:block/cobweb/step3",
-      "wilderwild:block/cobweb/step4",
-      "wilderwild:block/cobweb/step5"
-    ]
-  },
-  "block.cobweb.hit": {
-    "sounds": [
-      "wilderwild:block/cobweb/step1",
-      "wilderwild:block/cobweb/step2",
-      "wilderwild:block/cobweb/step3",
-      "wilderwild:block/cobweb/step4",
-      "wilderwild:block/cobweb/step5"
-    ],
-    "subtitle": "subtitles.block.generic.hit"
-  },
-  "block.cobweb.place": {
-    "sounds": [
-      "wilderwild:block/cobweb/break1",
-      "wilderwild:block/cobweb/break2",
-      "wilderwild:block/cobweb/break3",
-      "wilderwild:block/cobweb/break4"
-    ],
-    "subtitle": "subtitles.block.generic.place"
-  },
-  "block.cobweb.step": {
-    "sounds": [
-      "wilderwild:block/cobweb/step1",
-      "wilderwild:block/cobweb/step2",
-      "wilderwild:block/cobweb/step3",
-      "wilderwild:block/cobweb/step4",
-      "wilderwild:block/cobweb/step5"
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
-  },
   "block.coconut.break": {
     "sounds": [
       "wilderwild:block/coconut/break1",

@@ -114,10 +114,66 @@ public final class ItemConfigGui {
 			configInstance
 		);
 
+		var ancientHornCooldown = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("ancient_horn_cooldown"), modifiedAncientHorn.ancientHornCooldown, 0, 9999)
+				.setDefaultValue(defaultConfig.ancientHorn.ancientHornCooldown)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornCooldown = newValue)
+				.setTooltip(tooltip("ancient_horn_cooldown"))
+				.build(),
+			config.ancientHorn.getClass(),
+			"ancientHornCooldown",
+			configInstance
+		);
+
+		var ancientHornCreativeCooldown = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("ancient_horn_creative_cooldown"), modifiedAncientHorn.ancientHornCreativeCooldown, 0, 9999)
+				.setDefaultValue(defaultConfig.ancientHorn.ancientHornCreativeCooldown)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornCreativeCooldown = newValue)
+				.setTooltip(tooltip("ancient_horn_creative_cooldown"))
+				.build(),
+			config.ancientHorn.getClass(),
+			"ancientHornCreativeCooldown",
+			configInstance
+		);
+
+		var ancientHornSensorCooldown = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("ancient_horn_sensor_cooldown"), modifiedAncientHorn.ancientHornSensorCooldown, 0, 9999)
+				.setDefaultValue(defaultConfig.ancientHorn.ancientHornSensorCooldown)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornSensorCooldown = newValue)
+				.setTooltip(tooltip("ancient_horn_sensor_cooldown"))
+				.build(),
+			config.ancientHorn.getClass(),
+			"ancientHornSensorCooldown",
+			configInstance
+		);
+
+		var ancientHornShriekerCooldown = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("ancient_horn_shrieker_cooldown"), modifiedAncientHorn.ancientHornShriekerCooldown, 0, 9999)
+				.setDefaultValue(defaultConfig.ancientHorn.ancientHornShriekerCooldown)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornShriekerCooldown = newValue)
+				.setTooltip(tooltip("ancient_horn_shrieker_cooldown"))
+				.build(),
+			config.ancientHorn.getClass(),
+			"ancientHornShriekerCooldown",
+			configInstance
+		);
+
+		var ancientHornTendrilCooldown = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("ancient_horn_tendril_cooldown"), modifiedAncientHorn.ancientHornTendrilCooldown, 0, 9999)
+				.setDefaultValue(defaultConfig.ancientHorn.ancientHornTendrilCooldown)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornTendrilCooldown = newValue)
+				.setTooltip(tooltip("ancient_horn_tendril_cooldown"))
+				.build(),
+			config.ancientHorn.getClass(),
+			"ancientHornTendrilCooldown",
+			configInstance
+		);
+
 		var ancientHornCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
 			false,
 			tooltip("ancient_horn"),
-			summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass, sizeMultiplier
+			summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass, sizeMultiplier,
+			ancientHornCooldown, ancientHornCreativeCooldown, ancientHornSensorCooldown, ancientHornShriekerCooldown, ancientHornTendrilCooldown
 		);
 
 		var snowballLandingSounds = FrozenClothConfig.syncedEntry(
