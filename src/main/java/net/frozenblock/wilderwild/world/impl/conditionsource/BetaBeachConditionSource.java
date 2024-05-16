@@ -37,6 +37,8 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 		)
 	);
 
+	public static boolean GENERATE = false;
+
 	public int useless;
 
 	BetaBeachConditionSource(int useless) {
@@ -67,7 +69,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			}
 
 			protected boolean compute() {
-				return WorldgenConfig.get().betaBeaches;
+				return GENERATE;
 			}
 		}
 
