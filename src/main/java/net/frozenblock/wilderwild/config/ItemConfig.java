@@ -85,6 +85,21 @@ public final class ItemConfig {
 
 		@EntrySyncData("ancientHornSizeMultiplier")
 		public float ancientHornSizeMultiplier = 0.01F;
+
+		@EntrySyncData("ancientHornCooldown")
+		public int ancientHornCooldown = 600;
+
+		@EntrySyncData("ancientHornCreativeCooldown")
+		public int ancientHornCreativeCooldown = 5;
+
+		@EntrySyncData("ancientHornSensorCooldown")
+		public int ancientHornSensorCooldown = 800;
+
+		@EntrySyncData("ancientHornShriekerCooldown")
+		public int ancientHornShriekerCooldown = 1200;
+
+		@EntrySyncData("ancientHornTendrilCooldown")
+		public int ancientHornTendrilCooldown = 780;
 	}
 
 	public static class ProjectileLandingSoundsConfig {

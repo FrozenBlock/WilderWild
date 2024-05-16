@@ -16,26 +16,27 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.mod_compat.scp;
+package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
-import net.frozenblock.lib.integration.api.ModIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractSimpleCopperPipesIntegration extends ModIntegration {
-
-	public AbstractSimpleCopperPipesIntegration() {
-		super("copper_pipe");
+public class NoOpSimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
+	public NoOpSimpleCopperPipesIntegration() {
+		super();
 	}
 
 	@Override
-	public void init() {
+	public boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, @NotNull Entity owner) {
+		return false;
 	}
 
-	public abstract boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, @NotNull Entity owner);
+	@Override
+	public boolean isCopperPipe(BlockState state) {
+		return false;
+	}
 
-	public abstract boolean isCopperPipe(BlockState state);
 }

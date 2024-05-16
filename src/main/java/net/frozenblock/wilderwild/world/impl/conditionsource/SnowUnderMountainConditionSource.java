@@ -37,6 +37,8 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 		)
 	);
 
+	public static volatile boolean GENERATE = false;
+
 	public int useless;
 
 	SnowUnderMountainConditionSource(int useless) {
@@ -67,7 +69,7 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 			}
 
 			protected boolean compute() {
-				return WorldgenConfig.get().snowUnderMountains;
+				return GENERATE;
 			}
 		}
 
