@@ -33,6 +33,7 @@
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
+    "client.embeddium.FluidRendererMixin",
     "datafix.DataFixersMixin",
     "datafix.V3328Mixin",
     "datafix.V3438Mixin",
