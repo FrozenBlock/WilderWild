@@ -61,6 +61,10 @@ val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
 
+val embeddium_version: String by project
+val run_embeddium: String by project
+val shouldRunEmbeddium = run_embeddium == "true"
+
 base {
     archivesName = archives_base_name
 }
@@ -220,9 +224,13 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        modImplementation("maven.modrinth:sodium:${sodium_version}")
+        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
+
+    // Embeddium
+    if (shouldRunEmbeddium)
+        modImplementation("maven.modrinth:embeddium:$embeddium_version")
     else
-        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+        modCompileOnly("maven.modrinth:embeddium:$embeddium_version")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")

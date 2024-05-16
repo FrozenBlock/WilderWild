@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
-//import org.embeddedt.embeddium.api.ChunkMeshEvent;
+import org.embeddedt.embeddium.api.ChunkMeshEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class EmbeddiumIntegration extends AbstractEmbeddiumIntegration {
@@ -40,11 +40,11 @@ public class EmbeddiumIntegration extends AbstractEmbeddiumIntegration {
 
 	@Environment(EnvType.CLIENT)
 	public void clientInit() {
-		//ChunkMeshEvent.BUS.addListener(EmbeddiumIntegration::onChunkMesh);
+		ChunkMeshEvent.BUS.addListener(EmbeddiumIntegration::onChunkMesh);
 	}
 
 	// Credit to embeddedt! https://github.com/embeddedt/embeddium/issues/284#issuecomment-2096107916
-	/*@Environment(EnvType.CLIENT)
+	@Environment(EnvType.CLIENT)
 	private static void onChunkMesh(@NotNull ChunkMeshEvent event) {
 		LevelChunk chunk = event.getWorld().getChunk(event.getSectionOrigin().x(), event.getSectionOrigin().z());
 		LevelChunkSection section = chunk.getSection(chunk.getSectionIndexFromSectionY(event.getSectionOrigin().y()));
@@ -96,5 +96,5 @@ public class EmbeddiumIntegration extends AbstractEmbeddiumIntegration {
 				}
 			});
 		}
-	}*/
+	}
 }
