@@ -379,7 +379,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			}
 		});
 
-		setupMesogleaRendering();
+		//setupMesogleaRendering();
 	}
 
 	private static void setupMesogleaRendering() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
