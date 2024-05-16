@@ -43,6 +43,11 @@ public final class WorldgenConfig {
 			@Override
 			public void onSave() throws Exception {
 				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(WorldgenConfig sync) {
 				var config = this.config();
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;

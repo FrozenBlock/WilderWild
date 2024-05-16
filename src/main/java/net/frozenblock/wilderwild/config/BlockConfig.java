@@ -25,6 +25,7 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -38,7 +39,19 @@ public final class BlockConfig {
 			JsonType.JSON5,
 			null,
 			null
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(BlockConfig syncInstance) {
+				var config = this.config();
+				SnowloggingUtils.SNOWLOGGING = config.snowlogging.snowlogging;
+			}
+		}
 	);
 
 	@CollapsibleObject
