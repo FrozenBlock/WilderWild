@@ -5,12 +5,11 @@
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-    "Luna",
+    "Lunade",
     "Treetrain1",
     "Soro"
   ],
   "contributors": [
-    "Merp",
     "Enri",
     "zhen",
     "voxelotl",
@@ -20,7 +19,8 @@
     "Xfrtrex",
     "SaishoVibes",
     "magistermaks",
-    "Osmiooo"
+    "Osmiooo",
+    "Merp"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/wilder-wild",

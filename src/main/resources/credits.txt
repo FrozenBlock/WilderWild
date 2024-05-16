@@ -76,6 +76,11 @@ Shadownite64:
 SaishoVibes:
  - Initial configs.
 
+embeddedt:
+ - Helped set up Snowlogged rendering with Embeddium.
+ - Pointed towards LevelRenderer for making Clouds move instead of using individual Mixins per-renderer.
+ - Guidance with setting up much better fluid rendering for Mesoglea.
+
 noah1510:
  - Fixed a crash relating to Sculk during worldgen.
 

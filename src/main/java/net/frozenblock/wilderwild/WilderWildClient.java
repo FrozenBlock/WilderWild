@@ -18,21 +18,26 @@
 
 package net.frozenblock.wilderwild;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.Objects;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
+import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
@@ -72,20 +77,29 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
@@ -103,6 +117,8 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderSharedConstants.id("scorched"), "main");
+
+	public static volatile boolean MESOGLEA_LIQUID = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -354,7 +370,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
-				return WilderSharedConstants.id("wilder_wild_client_resource_listener");
+				return WilderSharedConstants.id("minecraft_live_sculk_sensor");
 			}
 
 			@Override
@@ -362,6 +378,55 @@ public final class WilderWildClient implements ClientModInitializer {
 				WilderSharedConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderSharedConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
 		});
+
+		setupMesogleaRendering();
+	}
+
+	private static void setupMesogleaRendering() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
+		FluidRenderHandler originalHandler = FluidRenderHandlerRegistry.INSTANCE.get(Fluids.WATER);
+		// Assert that the original handler exists now, otherwise the crash will happen later inside our handler
+		Objects.requireNonNull(originalHandler);
+		var customWaterHandler = new FluidRenderHandler() {
+
+			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
+				if (view != null && pos != null && MESOGLEA_LIQUID) {
+					BlockState state = view.getBlockState(pos);
+					return state.is(WilderBlockTags.MESOGLEA) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
+				}
+				return false;
+			}
+
+			@Override
+			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos, FluidState state) {
+				return originalHandler.getFluidSprites(view, pos, state);
+			}
+
+			@Override
+			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState) {
+				if (isSingleTexture(world, pos)) {
+					TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getBlockModelShaper().getParticleIcon(world.getBlockState(pos));
+					LiquidRenderUtils.tesselateWithSingleTexture(
+						world,
+						pos,
+						vertexConsumer,
+						blockState,
+						fluidState,
+						sprite
+					);
+				} else {
+					originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
+				}
+			}
+
+			// Delegate all other methods to the original
+
+			@Override
+			public int getFluidColor(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos, FluidState state) {
+				return isSingleTexture(view, pos) ? 0xFFFFFFFF : originalHandler.getFluidColor(view, pos, state);
+			}
+		};
+
+		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.WATER, Fluids.FLOWING_WATER, customWaterHandler);
 	}
 
 }
