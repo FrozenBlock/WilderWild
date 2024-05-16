@@ -58,11 +58,11 @@ public class LevelRendererMixin {
 		method = "renderLevel",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/LevelRenderer;renderClouds(Lcom/mojang/blaze3d/vertex/PoseStack;Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;FDDD)V"
+			target = "Lnet/minecraft/client/renderer/LevelRenderer;renderClouds(Lcom/mojang/blaze3d/vertex/PoseStack;Lorg/joml/Matrix4f;FDDD)V"
 		)
 	)
 	public void wilderWild$changeCloudPosition(
-		LevelRenderer instance, PoseStack matrices, Matrix4f projectionMatrix, Matrix4f matrix4f, float tickDelta, double cameraX, double cameraY, double cameraZ,
+		LevelRenderer instance, PoseStack matrices, Matrix4f projectionMatrix, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		Operation<Void> operation
 	) {
 		boolean useWind = wilderWild$useWind();
@@ -74,7 +74,7 @@ public class LevelRendererMixin {
 		cameraZ = useWind ? cameraZ - WilderClientWindManager.getCloudZ(tickDelta) * 12D
 			: cameraZ;
 
-		operation.call(instance, matrices, projectionMatrix, matrix4f, tickDelta, cameraX, cameraY, cameraZ);
+		operation.call(instance, matrices, projectionMatrix, tickDelta, cameraX, cameraY, cameraZ);
 	}
 
 }
