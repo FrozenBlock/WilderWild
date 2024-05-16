@@ -37,7 +37,7 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 		)
 	);
 
-	public static boolean GENERATE = false;
+	public static volatile boolean GENERATE = false;
 
 	public int useless;
 

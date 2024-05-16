@@ -42,7 +42,7 @@ public class SnowloggingUtils {
 	public static final IntegerProperty SNOW_LAYERS = RegisterProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 
-	public static boolean SNOWLOGGING = false;
+	public static volatile boolean SNOWLOGGING = false;
 
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
 		if (!SNOWLOGGING) return false;
