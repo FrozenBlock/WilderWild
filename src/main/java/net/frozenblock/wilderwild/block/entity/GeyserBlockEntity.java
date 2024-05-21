@@ -62,6 +62,7 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class GeyserBlockEntity extends BlockEntity {
@@ -122,6 +123,19 @@ public class GeyserBlockEntity extends BlockEntity {
 				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}
 
+	@NotNull
+	@Contract("_, _ -> new")
+	private static AABB aabb(@NotNull BlockPos startPos, @NotNull BlockPos endPos) {
+		return new AABB(
+			Math.min(startPos.getX(), endPos.getX()),
+			Math.min(startPos.getY(), endPos.getY()),
+			Math.min(startPos.getZ(), endPos.getZ()),
+			Math.max(startPos.getX(), endPos.getX()) + 1D,
+			Math.max(startPos.getY(), endPos.getY()) + 1D,
+			Math.max(startPos.getZ(), endPos.getZ()) + 1D
+		);
+	}
+
 	private void handleEruption(Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction) {
 		BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		Optional<BlockPos> cutoffPos = Optional.empty();
@@ -142,15 +156,15 @@ public class GeyserBlockEntity extends BlockEntity {
 				if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
 			}
 		}
-		AABB eruption = AABB.encapsulatingFullBlocks(pos, mutablePos.immutable());
+		AABB eruption = aabb(pos, mutablePos.immutable());
 		mutablePos.move(direction.getOpposite());
 
 		AABB effectiveEruption = cutoffPos.map(blockPos ->
-				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable()));
+				aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
+			.orElseGet(() -> aabb(pos, mutablePos.immutable()));
 		AABB damagingEruption = damageCutoffPos.map(blockPos ->
-				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable()));
+				aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
+			.orElseGet(() -> aabb(pos, mutablePos.immutable()));
 
 		AABB maxPossibleEruptionBox = getPossibleEruptionBoundingBox(pos, maxEndPos);
 		List<Entity> entities = level.getEntities(
