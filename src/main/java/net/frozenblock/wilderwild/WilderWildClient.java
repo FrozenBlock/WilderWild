@@ -116,6 +116,8 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderSharedConstants.id("scorched"), "main");
 
+	public static volatile boolean MESOGLEA_LIQUID = false;
+
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
@@ -381,7 +383,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		var customWaterHandler = new FluidRenderHandler() {
 
 			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-				if (view != null && pos != null && BlockConfig.get().mesoglea.mesogleaLiquid) {
+				if (view != null && pos != null && MESOGLEA_LIQUID) {
 					BlockState state = view.getBlockState(pos);
 					return state.is(WilderBlockTags.MESOGLEA) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 				}

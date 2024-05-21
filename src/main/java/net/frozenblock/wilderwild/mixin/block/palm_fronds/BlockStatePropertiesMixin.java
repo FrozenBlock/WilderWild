@@ -20,8 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.palm_fronds;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,18 +37,10 @@ public class BlockStatePropertiesMixin {
 			target = "Lnet/minecraft/world/level/block/state/properties/IntegerProperty;create(Ljava/lang/String;II)Lnet/minecraft/world/level/block/state/properties/IntegerProperty;",
 			ordinal = 0
 		),
-		slice = @Slice(
-			from = @At(
-				value = "CONSTANT",
-				args = "stringValue=distance"
-			)
-		)
+		slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=distance"))
 	)
 	private static IntegerProperty newDecayDistance(String name, int min, int max, Operation<IntegerProperty> original) {
-		if (BlockConfig.get().blockStateCompat) {
-			return original.call(name, min, max);
-		}
-		return original.call(name, min, Math.max(max, RegisterProperties.getDecayDistance()));
+		return original.call(name, min, Math.max(max, PalmFrondsBlock.DECAY_DISTANCE));
 	}
 
 }

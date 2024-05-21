@@ -19,12 +19,16 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -38,7 +42,22 @@ public final class BlockConfig {
 			JsonType.JSON5,
 			null,
 			null
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(BlockConfig syncInstance) {
+				var config = this.config();
+				SnowloggingUtils.SNOWLOGGING = config.snowlogging.snowlogging;
+				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+					WilderWildClient.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
+				}
+			}
+		}
 	);
 
 	@CollapsibleObject
@@ -59,9 +78,6 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final FireConfig fire = new FireConfig();
 
-	@EntrySyncData("blockStateCompat")
-	public boolean blockStateCompat = false;
-
 	@EntrySyncData("shriekerGargling")
 	public boolean shriekerGargling = true;
 
@@ -80,19 +96,11 @@ public final class BlockConfig {
 	@EntrySyncData("cactusPlacement")
 	public boolean cactusPlacement = false;
 
-	public boolean isCactusPlacementEnabled() {
-		return !this.blockStateCompat && this.cactusPlacement;
-	}
-
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 
 	@EntrySyncData("dripleafPowering")
 	public boolean dripleafPowering = true;
-
-	public boolean isDripleafPoweringEnabled() {
-		return !this.blockStateCompat && this.dripleafPowering;
-	}
 
 	public static BlockConfig get() {
 		return get(false);
@@ -182,10 +190,6 @@ public final class BlockConfig {
 
 		@EntrySyncData("maxNaturalDistance")
 		public int maxNaturalDistance = 10;
-
-		public boolean onlyEatNaturalBlocks() {
-			return this.onlyEatNaturalBlocks && !BlockConfig.get().blockStateCompat;
-		}
 	}
 
 	public static class MesogleaConfig {
@@ -214,16 +218,12 @@ public final class BlockConfig {
 		@EntrySyncData("naturalSnowlogging")
 		public boolean naturalSnowlogging = true;
 
-		public boolean isSnowloggingEnabled() {
-			return !BlockConfig.get().blockStateCompat && this.snowlogging;
-		}
-
 		public boolean canSnowlogWalls() {
-			return !BlockConfig.get().blockStateCompat && this.snowlogging && this.snowlogWalls;
+			return this.snowlogging && this.snowlogWalls;
 		}
 
 		public boolean canSnowlogNaturally() {
-			return !BlockConfig.get().blockStateCompat && this.snowlogging && this.naturalSnowlogging;
+			return this.snowlogging && this.naturalSnowlogging;
 		}
 	}
 }

@@ -27,14 +27,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
 
-	@ModifyExpressionValue(
-		method = "isRandomlyTicking",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
-			ordinal = 0
-		)
-	)
+	@ModifyExpressionValue(method = "isRandomlyTicking", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0))
 	public Comparable<?> wilderWild$isRandomlyTicking(Comparable<?> original) {
 		if (original instanceof Integer integer) {
 			return Mth.clamp(integer, 1, 7);
@@ -42,13 +35,7 @@ public class LeavesBlockMixin {
 		return original;
 	}
 
-	@ModifyExpressionValue(method = "decaying",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
-			ordinal = 1
-		)
-	)
+	@ModifyExpressionValue(method = "decaying", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 1))
 	public Comparable<?> wilderWild$decaying(Comparable<?> original) {
 		if (original instanceof Integer integer) {
 			return Mth.clamp(integer, 1, 7);

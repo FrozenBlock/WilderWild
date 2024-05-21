@@ -391,7 +391,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(@NotNull BlockState state) {
-			return !BlockConfig.get().termite.onlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
+			return !BlockConfig.get().termite.onlyEatNaturalBlocks || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
 		}
 
 		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {

@@ -32,16 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(AxeItem.class)
 public class AxeItemMixin {
 
-	@Inject(method = "useOn",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
-		),
-		locals = LocalCapture.CAPTURE_FAILHARD,
-		cancellable = true
-	)
+	@Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 0, shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
 	public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> info, Level level) {
 		if (level.isClientSide && BlockConfig.get().logHollowing) {
 			info.setReturnValue(InteractionResult.sidedSuccess(true));
