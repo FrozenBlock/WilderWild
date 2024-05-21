@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

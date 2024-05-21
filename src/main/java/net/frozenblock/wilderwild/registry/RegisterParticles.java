@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.serialization.MapCodec;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;

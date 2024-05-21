@@ -125,6 +125,7 @@
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
     "client.embeddium.FluidRendererMixin",
+    "client.enderman.EnderManMixin",
     "client.liquid.LiquidBlockRendererMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",

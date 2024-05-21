@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.sapling;
 
 import java.util.Optional;
-import net.frozenblock.wilderwild.misc.interfaces.TreeGrowerInterface;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.features.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.features.feature.WilderTreeConfigured;
 import net.minecraft.core.BlockPos;
@@ -36,16 +36,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWTreeGrowers {
-	public static final TreeGrower BAOBAB = new BaobabTreeSaplingGenerator("baobab") {
+	public static final TreeGrower BAOBAB = new BaobabTreeSaplingGenerator(WilderSharedConstants.string("baobab")) {
 		@Override
 		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
 			return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getKey() : WilderTreeConfigured.BAOBAB_TALL.getKey();
 		}
 	};
-	public static final TreeGrower CYPRESS = new TreeGrower("cypress", Optional.empty(), Optional.empty(), Optional.empty()) {
+
+	public static final TreeGrower CYPRESS = new TreeGrower(WilderSharedConstants.string("cypress"), Optional.empty(), Optional.empty(), Optional.empty()) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
-			TreeGrowerInterface treeGrowerInterface = (TreeGrowerInterface) (Object) this;
+			TreeGrowerInterface treeGrowerInterface = TreeGrowerInterface.class.cast(this);
 			ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
 			BlockPos pos = treeGrowerInterface.wilderWild$getPos();
 			if (level != null && pos != null) {
@@ -63,7 +64,8 @@ public final class WWTreeGrowers {
 			return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 		}
 	};
-	public static final TreeGrower PALM = new TreeGrower("palm", Optional.empty(), Optional.empty(), Optional.empty()) {
+
+	public static final TreeGrower PALM = new TreeGrower(WilderSharedConstants.string("palm"), Optional.empty(), Optional.empty(), Optional.empty()) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
 			return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM.getKey() : random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM.getKey() : WilderTreeConfigured.TALL_WINE_PALM.getKey();

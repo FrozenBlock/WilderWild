@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.variant;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -25,7 +25,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import java.util.Map;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V100;
 import net.minecraft.util.datafix.schemas.V3328;

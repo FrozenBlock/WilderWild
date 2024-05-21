@@ -24,10 +24,10 @@ import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
 import net.frozenblock.wilderwild.world.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.impl.conditionsource.SnowUnderMountainConditionSource;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class WorldgenConfig {
 

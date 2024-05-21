@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;

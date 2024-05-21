@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.entity.boat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import net.frozenblock.wilderwild.misc.WilderEnumValues;
+import net.frozenblock.wilderwild.WilderEnumValues;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Block;

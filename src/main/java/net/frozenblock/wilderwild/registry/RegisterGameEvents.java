@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

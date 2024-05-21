@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

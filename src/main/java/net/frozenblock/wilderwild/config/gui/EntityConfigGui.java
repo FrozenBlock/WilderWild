@@ -24,10 +24,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import net.frozenblock.wilderwild.WilderSharedConstants;
+import static net.frozenblock.wilderwild.WilderSharedConstants.text;
+import static net.frozenblock.wilderwild.WilderSharedConstants.tooltip;
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)

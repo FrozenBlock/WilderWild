@@ -19,10 +19,10 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

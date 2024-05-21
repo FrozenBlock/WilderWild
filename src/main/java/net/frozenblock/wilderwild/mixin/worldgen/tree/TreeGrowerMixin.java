@@ -19,9 +19,9 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.misc.interfaces.TreeGrowerInterface;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.features.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.impl.sapling.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;

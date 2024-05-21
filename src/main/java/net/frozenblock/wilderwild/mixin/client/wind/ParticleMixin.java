@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.client.wind;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
+import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.BlockPos;

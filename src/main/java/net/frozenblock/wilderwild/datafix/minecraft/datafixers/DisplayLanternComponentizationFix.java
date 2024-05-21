@@ -29,7 +29,7 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.util.datafix.fixes.References;
 import org.apache.commons.compress.utils.Lists;

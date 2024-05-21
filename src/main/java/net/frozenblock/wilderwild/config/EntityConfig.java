@@ -26,8 +26,8 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
+import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
 
 public final class EntityConfig {
 

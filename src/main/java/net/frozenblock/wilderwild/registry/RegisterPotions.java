@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;

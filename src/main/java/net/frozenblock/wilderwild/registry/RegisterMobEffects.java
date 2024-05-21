@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;

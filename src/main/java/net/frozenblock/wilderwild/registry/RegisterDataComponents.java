@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;

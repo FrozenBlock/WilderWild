@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.client.wind;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.wind.WilderClientWindManager;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;

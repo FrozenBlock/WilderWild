@@ -19,9 +19,9 @@
 package net.frozenblock.wilderwild.mixin.block.chest;
 
 import java.util.function.Supplier;
+import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;

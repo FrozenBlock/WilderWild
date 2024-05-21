@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
+import net.frozenblock.wilderwild.block.entity.impl.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;

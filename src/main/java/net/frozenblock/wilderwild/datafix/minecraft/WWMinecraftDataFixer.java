@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;

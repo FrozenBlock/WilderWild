@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
-import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
+import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.client.particle.TextureSheetParticle;

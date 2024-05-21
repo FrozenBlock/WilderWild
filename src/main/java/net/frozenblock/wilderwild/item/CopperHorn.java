@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.item;
 
 import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
+import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;

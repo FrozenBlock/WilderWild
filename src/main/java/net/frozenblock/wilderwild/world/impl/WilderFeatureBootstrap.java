@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.features.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
