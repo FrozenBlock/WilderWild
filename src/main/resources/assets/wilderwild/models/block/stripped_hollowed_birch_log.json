@@ -1,8 +1,8 @@
 {
   "parent": "wilderwild:block/template_hollowed_log",
   "textures": {
-    "top": "wilderwild:block/stripped_hollowed_birch_log_top",
-    "inner": "wilderwild:block/stripped_hollowed_birch_log",
-    "outer": "wilderwild:block/stripped_hollowed_birch_log"
+    "end": "minecraft:block/stripped_birch_log_top",
+    "side": "wilderwild:block/stripped_hollowed_birch_log",
+    "inner": "minecraft:block/stripped_birch_log"
   }
 }

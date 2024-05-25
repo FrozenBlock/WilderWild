@@ -87,6 +87,9 @@ noah1510:
 Fourmisain:
  - Updated 1.19.2 to work with MixinExtras/Fabric Loader 0.15+.
 
+Soulfate24:
+ - Provided an improved Hollowed Log model for 2.4.3 that fixes the incorrect breaking texture and avoids a bug with texture misalignment.
+
 Osmiooo:
  - French translation.
 
