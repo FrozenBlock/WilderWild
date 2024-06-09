@@ -392,11 +392,11 @@ public class OstrichInbredModel<T extends Ostrich> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		poseStack.pushPose();
 		poseStack.translate(0, this.yOffset, 0);
 		poseStack.scale(this.scale, this.scale, this.scale);
-		this.root().render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 	}
 

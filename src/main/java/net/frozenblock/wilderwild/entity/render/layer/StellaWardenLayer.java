@@ -30,6 +30,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,16 +44,14 @@ public class StellaWardenLayer<T extends Warden, M extends WardenModel<T>> exten
 		if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).wilderWild$isStella()) {
 			this.onlyDrawSelectedParts();
 			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
+			float alpha = this.alphaFunction.apply(wardenEntity, partialTick, j);
 			this.getParentModel()
 				.renderToBuffer(
 					poseStack,
 					vertexConsumer,
 					i,
 					LivingEntityRenderer.getOverlayCoords(wardenEntity, 0F),
-					1F,
-					1F,
-					1F,
-					this.alphaFunction.apply(wardenEntity, partialTick, j)
+					FastColor.ARGB32.colorFromFloat(alpha, 1F, 1F, 1F)
 				);
 			this.resetDrawForAllParts();
 		}

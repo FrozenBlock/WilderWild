@@ -203,7 +203,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
 			FireflyColor color = this.getColor();
-			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
+			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
 			Item item = RegisterItems.FIREFLY_BOTTLE;
 			if (optionalItem.isPresent()) {
 				item = optionalItem.get();
@@ -234,7 +234,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	public boolean canBeLeashed(@NotNull Player player) {
+	public boolean canBeLeashed() {
 		return false;
 	}
 
@@ -291,7 +291,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public FireflyColor getColor() {
-		return WilderRegistry.FIREFLY_COLOR.getOptional(new ResourceLocation(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
+		return WilderRegistry.FIREFLY_COLOR.getOptional(ResourceLocation.parse(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
 	}
 
 	public void setColor(@NotNull FireflyColor color) {

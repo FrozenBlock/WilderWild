@@ -120,11 +120,11 @@ public class AncientHornVibration extends AbstractArrow {
 	private float scale;
 
 	public AncientHornVibration(@NotNull EntityType<? extends AncientHornVibration> entityType, @NotNull Level level) {
-		super(entityType, level, ItemStack.EMPTY);
+		super(entityType, level);
 	}
 
 	public AncientHornVibration(@NotNull Level level, double x, double y, double z) {
-		super(RegisterEntities.ANCIENT_HORN_VIBRATION, x, y, z, level, ItemStack.EMPTY);
+		super(RegisterEntities.ANCIENT_HORN_VIBRATION, x, y, z, level, ItemStack.EMPTY, null);
 	}
 
 	@Override
@@ -327,7 +327,6 @@ public class AncientHornVibration extends AbstractArrow {
 				0.05D
 			);
 			this.playSound(this.getDefaultHitGroundSoundEvent(), 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-			this.setShotFromCrossbow(false);
 			this.remove(RemovalReason.DISCARDED);
 		}
 	}
@@ -636,14 +635,13 @@ public class AncientHornVibration extends AbstractArrow {
 			} else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
 				if (entity.hurt(damageSource, damage)) {
 					if (entity instanceof LivingEntity livingEntity) {
-						if (!level.isClientSide && owner instanceof LivingEntity livingOwner) {
-							EnchantmentHelper.doPostHurtEffects(livingEntity, livingOwner);
-							EnchantmentHelper.doPostDamageEffects(livingOwner, livingEntity);
+						if (!level.isClientSide && owner instanceof LivingEntity) {
+							EnchantmentHelper.doPostAttackEffectsWithItemSource((ServerLevel) level, livingEntity, damageSource, this.getWeaponItem());
 						}
 						this.doPostHurtEffects(livingEntity);
 						if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
 							server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
-							addCooldown(livingEntity.getExperienceReward() * 10);
+							addCooldown(livingEntity.getExperienceReward(server, damageSource.getEntity()) * 10);
 						}
 					}
 				} else {

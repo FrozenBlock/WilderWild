@@ -66,7 +66,7 @@ public class AncientHornProjectileModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		float aliveDelta = this.projectile.getAliveTicks() + this.partialTick;
 
 		float pulse = (((float) Math.sin((aliveDelta * Mth.PI) * 0.2F) * 0.16666667F) + 1);
@@ -85,6 +85,6 @@ public class AncientHornProjectileModel extends Model {
 		this.back.yScale = pulse3;
 		this.back.z = pulse2 * 2.0F + 2.0F;
 
-		this.bone.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.bone.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

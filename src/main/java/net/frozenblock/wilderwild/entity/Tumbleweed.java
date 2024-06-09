@@ -35,6 +35,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -42,6 +43,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -130,7 +132,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public static boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
 		if (damageSource.getDirectEntity() instanceof LivingEntity livingEntity) {
 			ItemStack stack = livingEntity.getMainHandItem();
-			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
+			var silkTouch = livingEntity.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			return EnchantmentHelper.getItemEnchantmentLevel(silkTouch, stack) > 0 || stack.is(Items.SHEARS);
 		}
 		return false;
 	}
@@ -179,9 +182,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	protected void dropAllDeathLoot(@NotNull DamageSource damageSource) {
-		if (!isSilkTouchOrShears(damageSource)) {
-			super.dropAllDeathLoot(damageSource);
+	protected void dropAllDeathLoot(ServerLevel level, DamageSource source) {
+		if (!isSilkTouchOrShears(source)) {
+			super.dropAllDeathLoot(level, source);
 		}
 	}
 
@@ -376,7 +379,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public boolean canBeLeashed(@NotNull Player player) {
+	public boolean canBeLeashed() {
 		return EntityConfig.get().tumbleweed.leashedTumbleweed;
 	}
 
@@ -412,7 +415,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	@NotNull
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
 		return new ClientboundAddEntityPacket(
 			this.getId(),
 			this.getUUID(),

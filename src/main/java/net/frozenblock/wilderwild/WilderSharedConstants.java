@@ -90,12 +90,12 @@ public class WilderSharedConstants {
 
 	@NotNull
 	public static ResourceLocation id(@NotNull String path) {
-		return new ResourceLocation(MOD_ID, path);
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	@NotNull
 	public static ResourceLocation vanillaId(@NotNull String path) {
-		return new ResourceLocation("minecraft", path);
+		return ResourceLocation.withDefaultNamespace(path);
 	}
 
 	@NotNull

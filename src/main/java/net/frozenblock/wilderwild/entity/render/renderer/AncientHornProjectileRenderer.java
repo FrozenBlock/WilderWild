@@ -34,6 +34,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -57,12 +58,13 @@ public class AncientHornProjectileRenderer<T extends AncientHornVibration> exten
 		float scale = (multiplier * 0.5F) + 1F;
 		float alpha = 1F - (multiplier / 15F);
 		float correctedAlpha = Math.max(alpha, 0.01F);
+		int color = FastColor.ARGB32.colorFromFloat(correctedAlpha, 1F, 1F, 1F);
 
 		poseStack.scale(scale, scale, scale);
 
 		this.model.partialTick = partialTick;
 		this.model.projectile = projectile;
-		this.model.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, correctedAlpha);
+		this.model.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, color);
 
 		poseStack.popPose();
 		super.render(projectile, yaw, partialTick, poseStack, buffer, light);

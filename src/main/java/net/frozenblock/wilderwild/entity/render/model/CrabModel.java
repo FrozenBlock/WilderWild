@@ -181,12 +181,12 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		poseStack.pushPose();
 		poseStack.translate(0F, 1.3F, 0F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(90F));
 		poseStack.scale(this.scale, this.scale, this.scale);
-		this.root().render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 	}
 

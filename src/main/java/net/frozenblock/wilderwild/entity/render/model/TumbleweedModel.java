@@ -86,7 +86,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
 		poseStack.pushPose();
 		poseStack.translate(0D, 1.3D, 0D);
 		if (!EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
@@ -95,12 +95,12 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 			poseStack.pushPose();
 			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * Mth.DEG_TO_RAD));
 			poseStack.pushPose();
-			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, color);
 			poseStack.popPose();
 			poseStack.popPose();
 			poseStack.popPose();
 		} else {
-			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, color);
 		}
 		poseStack.popPose();
 	}

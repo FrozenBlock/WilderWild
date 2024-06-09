@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import java.util.List;
 import java.util.UUID;
+import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
 import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
@@ -44,6 +45,7 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -98,8 +100,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
 	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WilderItemTags.OSTRICH_FOOD);
-	public static final UUID ATTACK_MODIFIER_UUID = UUID.fromString("c1ad22f3-df98-4c43-a514-8372c50eda40");
-	public static final UUID KNOCKBACK_MODIFIER_UUID = UUID.fromString("90b60b7b-d960-431b-acca-905b8d122ebb");
+	public static final @NotNull ResourceLocation ATTACK_MODIFIER_UUID = WilderSharedConstants.id("additional_damage_rider");
+	public static final @NotNull ResourceLocation KNOCKBACK_MODIFIER_UUID = WilderSharedConstants.id("additional_knockback_rider");
 	public static final int BEAK_COOLDOWN_TICKS = 30;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 36;
@@ -112,7 +114,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final double DIMENSION_PERCENTAGE_AT_NECK = 0.5163043478260869D;
 	public static final AttributeModifier ADDITIONAL_DAMAGE_RIDER_MODIFIER = new AttributeModifier(
 		ATTACK_MODIFIER_UUID,
-		"additional_damage_rider",
 		ADDITIONAL_DAMAGE_RIDER,
 		AttributeModifier.Operation.ADD_VALUE
 	);
@@ -351,7 +352,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		knockback.addOrUpdateTransientModifier(
 			new AttributeModifier(
 				KNOCKBACK_MODIFIER_UUID,
-				"additional_knockback_rider",
 				beakProgress * ADDITIONAL_KNOCKBACK_RIDER,
 				AttributeModifier.Operation.ADD_VALUE
 			)
@@ -551,10 +551,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	public void onLeashDistance(float distance) {
+	public boolean handleLeashAtDistance(Entity entity, float distance) {
 		if (distance > 6F && this.isStuck()) {
 			this.emergeBeak();
 		}
+		super.handleLeashAtDistance(entity, distance);
+		return true;
 	}
 
 	@Override

@@ -71,37 +71,33 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		VertexConsumer vertexConsumer = buffer.getBuffer(nectar ? nectarLayer.get() : LAYER);
 
 		vertexConsumer
-			.vertex(pose, -0.5F, -0.5F, 0F)
-			.color(255, 255, 255, 255)
-			.uv(0, 1)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, -0.5F, -0.5F, 0F)
+			.setColor(255, 255, 255, 255)
+			.setUv(0, 1)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
-			.vertex(pose, 0.5F, -0.5F, 0F)
-			.color(255, 255, 255, 255)
-			.uv(1, 1)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, 0.5F, -0.5F, 0F)
+			.setColor(255, 255, 255, 255)
+			.setUv(1, 1)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
-			.vertex(pose, 0.5F, 0.5F, 0F)
-			.color(255, 255, 255, 255)
-			.uv(1, 0)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, 0.5F, 0.5F, 0F)
+			.setColor(255, 255, 255, 255)
+			.setUv(1, 0)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
-			.vertex(pose, -0.5F, 0.5F, 0F)
-			.color(255, 255, 255, 255)
-			.uv(0, 0)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, -0.5F, 0.5F, 0F)
+			.setColor(255, 255, 255, 255)
+			.setUv(0, 0)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 
 		if (color != null && LAYERS.get(color.key()) != null) {
 			RenderType layer = nectar ? NECTAR_OVERLAY : LAYERS.get(color.key());
@@ -115,37 +111,33 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			(int) Math.max((255D * (Math.cos(((age + tickDelta) * Mth.PI) * 0.05D))), 0D);
 
 		vertexConsumer
-			.vertex(pose, -0.5F, -0.5F, 0F)
-			.color(calcColor, calcColor, calcColor, calcColor)
-			.uv(0, 1)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, -0.5F, -0.5F, 0F)
+			.setColor(calcColor, calcColor, calcColor, calcColor)
+			.setUv(0, 1)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
-			.vertex(pose, 0.5F, -0.5F, 0F)
-			.color(calcColor, calcColor, calcColor, calcColor)
-			.uv(1, 1)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, 0.5F, -0.5F, 0F)
+			.setColor(calcColor, calcColor, calcColor, calcColor)
+			.setUv(1, 1)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
-			.vertex(pose, 0.5F, 0.5F, 0F)
-			.color(calcColor, calcColor, calcColor, calcColor)
-			.uv(1, 0)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, 0.5F, 0.5F, 0F)
+			.setColor(calcColor, calcColor, calcColor, calcColor)
+			.setUv(1, 0)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
-			.vertex(pose, -0.5F, 0.5F, 0F)
-			.color(calcColor, calcColor, calcColor, calcColor)
-			.uv(0, 0)
-			.overlayCoords(overlay)
-			.uv2(packedLight)
-			.normal(pose, 0F, 1F, 0F)
-			.endVertex();
+			.addVertex(pose, -0.5F, 0.5F, 0F)
+			.setColor(calcColor, calcColor, calcColor, calcColor)
+			.setUv(0, 0)
+			.setOverlay(overlay)
+			.setLight(packedLight)
+			.setNormal(pose, 0F, 1F, 0F);
 
 
 		poseStack.popPose();

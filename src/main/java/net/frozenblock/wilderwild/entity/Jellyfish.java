@@ -27,8 +27,10 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
@@ -114,8 +116,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
-	public static final UUID JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = UUID.fromString("6cb0de31-da1e-4136-b338-f30aeac92c3e");
-	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, "movement_speed_modifier_baby", 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+	public static final @NotNull ResourceLocation JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WilderSharedConstants.id("movement_speed_modifier_baby");
+	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
 		.filter(JellyfishVariant::isNormal)
 		.collect(Collectors.toList())
@@ -298,7 +300,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public boolean canBeLeashed(@NotNull Player player) {
+	public boolean canBeLeashed() {
 		return !this.isLeashed();
 	}
 
@@ -637,7 +639,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public ResourceKey<LootTable> getDefaultLootTable() {
 		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
-		return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath()));
+		return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath()));
 	}
 
 	@Override
@@ -648,7 +650,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	public JellyfishVariant getVariant() {
-		return WilderRegistry.JELLYFISH_VARIANT.getOptional(new ResourceLocation(this.entityData.get(VARIANT))).orElse(JellyfishVariant.PINK);
+		return WilderRegistry.JELLYFISH_VARIANT.getOptional(ResourceLocation.parse(this.entityData.get(VARIANT))).orElse(JellyfishVariant.PINK);
 	}
 
 	public void setVariant(@NotNull JellyfishVariant variant) {

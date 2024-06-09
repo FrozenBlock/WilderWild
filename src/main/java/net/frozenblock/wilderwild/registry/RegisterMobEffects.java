@@ -41,12 +41,12 @@ public final class RegisterMobEffects {
 			47784
 		).addAttributeModifier(
 			Attributes.BLOCK_INTERACTION_RANGE,
-			"DA6D90D0-722B-11EE-87D4-325096B39F47",
+			WilderSharedConstants.id("block_reach_boost"),
 			1,
 			AttributeModifier.Operation.ADD_VALUE
 		).addAttributeModifier(
 			Attributes.ENTITY_INTERACTION_RANGE,
-			"F2439145-BA25-4DEC-B11A-218B56EF22BB",
+			WilderSharedConstants.id("entity_reach_boost"),
 			EntityConfig.get().crab.reachAffectsAttack ? 1D : 0D,
 			AttributeModifier.Operation.ADD_VALUE
 		)

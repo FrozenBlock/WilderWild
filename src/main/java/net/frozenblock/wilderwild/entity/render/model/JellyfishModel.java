@@ -34,6 +34,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -110,16 +111,17 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.scale(this.scale, this.scale, this.scale);
 		poseStack.pushPose();
 		poseStack.mulPose(Axis.XP.rotationDegrees(this.xRot));
-		this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
+		var color = FastColor.ARGB32.colorFromFloat(1F, this.red, this.green, this.blue);
+		this.body.render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 
 		poseStack.pushPose();
 		poseStack.mulPose(Axis.XP.rotationDegrees(this.tentXRot));
-		this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
+		this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 	}
 

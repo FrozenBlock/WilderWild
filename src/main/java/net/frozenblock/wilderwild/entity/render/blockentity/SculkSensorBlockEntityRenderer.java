@@ -80,13 +80,13 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 				this.se.xRot = -xRot;
 				this.nw.xRot = -xRot;
 				this.sw.xRot = xRot;
-				this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1F, 1F, 1F, 1F);
+				this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay);
 			} else {
 				this.ne.xRot = 0;
 				this.se.xRot = 0;
 				this.nw.xRot = 0;
 				this.sw.xRot = 0;
-				this.root.render(poseStack, buffer.getBuffer(SENSOR_LAYER), light, overlay, 1F, 1F, 1F, 1F);
+				this.root.render(poseStack, buffer.getBuffer(SENSOR_LAYER), light, overlay);
 			}
 		}
 	}

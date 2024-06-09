@@ -217,27 +217,23 @@ public class WindParticle extends TextureSheetParticle {
 		float l = !flipped ? this.getU1() : this.getU0();
 		float m = this.getV0();
 		float n = this.getV1();
-		int o = this.getLightColor(partialTicks);
-		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z())
-			.uv(l, n)
-			.color(this.rCol, this.gCol, this.bCol, this.alpha)
-			.uv2(o)
-			.endVertex();
-		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z())
-			.uv(l, m)
-			.color(this.rCol, this.gCol, this.bCol, this.alpha)
-			.uv2(o)
-			.endVertex();
-		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z())
-			.uv(k, m)
-			.color(this.rCol, this.gCol, this.bCol, this.alpha)
-			.uv2(o)
-			.endVertex();
-		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z())
-			.uv(k, n)
-			.color(this.rCol, this.gCol, this.bCol, this.alpha)
-			.uv2(o)
-			.endVertex();
+		int light = this.getLightColor(partialTicks);
+		buffer.addVertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z())
+			.setUv(l, n)
+			.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
+			.setLight(light);
+		buffer.addVertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z())
+			.setUv(l, m)
+			.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
+			.setLight(light);
+		buffer.addVertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z())
+			.setUv(k, m)
+			.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
+			.setLight(light);
+		buffer.addVertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z())
+			.setUv(k, n)
+			.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
+			.setLight(light);
 	}
 
 	@Override
