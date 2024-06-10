@@ -41,6 +41,8 @@ Zhen:
  - Retextured all Baobab Nut textures in 2.4.
  - Retextured all Glory of the Snow textures in 2.4.
  - Retextured all Milkweed block textures in 2.4.
+ - Retextured the Milkweed Pod item texture in 2.4.3.
+ - Retextured Flowering Lily Pad textures in 2.4.3.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.

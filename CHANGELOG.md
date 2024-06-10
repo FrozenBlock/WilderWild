@@ -10,3 +10,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - Previously, we were not able to figure out how to make a Hollowed Log model without the texture getting misaligned due to a vanilla bug.
   - The result was using a model comprised of only two parts, which messed up the breaking texture.
   - This new model fixes every possible issue with it!
+- Updated the Flowering Lily Pad and Milkweed Pod textures, thanks to Zhen!
