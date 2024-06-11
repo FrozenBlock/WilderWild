@@ -22,10 +22,7 @@ import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.config.api.instance.ConfigModification;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.WilderPreMixinInjectConstants;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.MixinsConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,11 +45,6 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
-		try {
-			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator");
-			// TODO: Stop this from crashing
-			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
-		} catch (ClassNotFoundException ignored) {}
 		MixinsConfig config = MixinsConfig.get();
 		boolean hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
 		boolean disableNonSodium = hasEmbeddium || FrozenBools.HAS_SODIUM;

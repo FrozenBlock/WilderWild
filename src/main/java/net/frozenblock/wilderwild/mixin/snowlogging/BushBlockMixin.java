@@ -53,7 +53,7 @@ public class BushBlockMixin extends Block {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
+		if (!BlockConfig.get().snowlogging.canSnowlog()) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

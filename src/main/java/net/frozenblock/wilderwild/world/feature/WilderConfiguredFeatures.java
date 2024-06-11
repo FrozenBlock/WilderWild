@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.LargeMesogleaConfig;

@@ -23,7 +23,6 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.LowerHeightmapPlacement;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import static net.frozenblock.wilderwild.world.feature.WilderPlacementUtils.register;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

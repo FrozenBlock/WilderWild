@@ -30,6 +30,7 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
@@ -71,6 +72,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
 		WilderSharedConstants.startMeasuring(this);
+		if (WilderPreMixinInjectConstants.IS_DATAGEN) {
+			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
+		}
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
