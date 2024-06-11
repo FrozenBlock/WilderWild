@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.frozenblock.wilderwild.datagen.WWDataGenerator;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -59,50 +60,20 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 
 	@Override
 	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		try {
-			output.accept(
-				RegisterEntities.CRAB.getDefaultLootTable(),
-				LootTable.lootTable()
-					.withPool(
-						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.add(
-								LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
-									.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries.get(), UniformGenerator.between(0F, 1F)))
-							)
-					)
-			);
-		} catch (InterruptedException | ExecutionException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected final net.minecraft.world.level.storage.loot.predicates.AnyOfCondition.Builder shouldSmeltLoot() throws ExecutionException, InterruptedException {
-		HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.get().lookupOrThrow(Registries.ENCHANTMENT);
-		return AnyOfCondition.anyOf(
-			LootItemEntityPropertyCondition.hasProperties(
-				LootContext.EntityTarget.THIS,
-				net.minecraft.advancements.critereon.EntityPredicate.Builder.entity()
-					.flags(net.minecraft.advancements.critereon.EntityFlagsPredicate.Builder.flags().setOnFire(true))
-			),
-			LootItemEntityPropertyCondition.hasProperties(
-				LootContext.EntityTarget.DIRECT_ATTACKER,
-				net.minecraft.advancements.critereon.EntityPredicate.Builder.entity()
-					.equipment(
-						net.minecraft.advancements.critereon.EntityEquipmentPredicate.Builder.equipment()
-							.mainhand(
-								net.minecraft.advancements.critereon.ItemPredicate.Builder.item()
-									.withSubPredicate(
-										ItemSubPredicates.ENCHANTMENTS,
-										ItemEnchantmentsPredicate.enchantments(
-											List.of(new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))
-										)
-									)
-							)
-					)
-			)
+		HolderLookup.Provider registryLookup = this.registries.join();
+		output.accept(
+			RegisterEntities.CRAB.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
+								.apply(SmeltItemFunction.smelted().when(WWDataGenerator.shouldSmeltLoot(registryLookup)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
 		);
 	}
 }
