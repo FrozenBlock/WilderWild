@@ -12,4 +12,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - The result was using a model comprised of only two parts, which messed up the breaking texture.
   - This new model fixes every possible issue with it!
 - Updated Flowering Lily Pad textures thanks to Zhen!
+- Updated the Milkweed Pod texture thanks to Zhen!
 - Properly integrated Villager Types with Wilder Wild's biomes.

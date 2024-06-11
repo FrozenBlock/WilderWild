@@ -42,6 +42,7 @@ Zhen:
  - Retextured all Glory of the Snow textures in 2.4.
  - Retextured all Milkweed block textures in 2.4.
  - Updated the Flowering Lily Pad textures in 2.4.3.
+ - Updated the Milkweed Pod texture in 2.4.3.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
