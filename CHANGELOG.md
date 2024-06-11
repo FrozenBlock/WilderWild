@@ -12,6 +12,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added the Geyser to the Redstone tab, just before the Sculk Sensor.
 - Properly integrated Villager Types with Wilder Wild's biomes.
 - Pollen and Seed particles will be removed from the world five times faster after becoming immobile.
+- Seed particles now properly interact with water.
 - Ever so slightly improved the Baoab trunk placer.
 - Optimized some parts of the mod that rely on frequent config checks.
   - Snowlogging.
