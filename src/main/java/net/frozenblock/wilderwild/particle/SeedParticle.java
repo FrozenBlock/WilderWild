@@ -67,6 +67,7 @@ public class SeedParticle extends TextureSheetParticle {
 			this.zd *= 0.7D;
 			this.gravity = 0.05F;
 			this.windIntensity = 0.125D;
+			this.age += 2;
 			return;
 		}
 		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
