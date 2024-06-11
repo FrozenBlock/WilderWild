@@ -37,6 +37,7 @@ import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
@@ -113,8 +114,6 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderSharedConstants.id("scorched"), "main");
-
-	public static volatile boolean MESOGLEA_LIQUID = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -381,7 +380,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		var customWaterHandler = new FluidRenderHandler() {
 
 			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-				if (view != null && pos != null && MESOGLEA_LIQUID) {
+				if (view != null && pos != null && BlockConfig.MESOGLEA_LIQUID) {
 					BlockState state = view.getBlockState(pos);
 					return state.is(WilderBlockTags.MESOGLEA) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 				}

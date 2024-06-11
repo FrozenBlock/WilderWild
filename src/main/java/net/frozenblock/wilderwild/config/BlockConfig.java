@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
@@ -29,8 +30,6 @@ import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
-import net.frozenblock.wilderwild.WilderWildClient;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 
 public final class BlockConfig {
 
@@ -52,9 +51,9 @@ public final class BlockConfig {
 			@Override
 			public void onSync(BlockConfig syncInstance) {
 				var config = this.config();
-				SnowloggingUtils.SNOWLOGGING = config.snowlogging.snowlogging;
+				SNOWLOGGING = config.snowlogging.snowlogging;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-					WilderWildClient.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
+					MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
 				}
 			}
 		}
@@ -115,6 +114,11 @@ public final class BlockConfig {
 	public static BlockConfig getWithSync() {
 		return INSTANCE.configWithSync();
 	}
+
+	public static volatile boolean SNOWLOGGING = false;
+
+	@Environment(EnvType.CLIENT)
+	public static volatile boolean MESOGLEA_LIQUID = false;
 
 	public static class BlockSoundsConfig {
 		@EntrySyncData(value = "cactusSounds", behavior = SyncBehavior.UNSYNCABLE)
