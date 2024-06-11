@@ -56,7 +56,7 @@ public class SeedParticle extends TextureSheetParticle {
 	public void tick() {
 		super.tick();
 		if (this.xd == 0D && this.yd == 0D && this.zd == 0D) {
-			this.age += 5;
+			this.age += 10;
 		}
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
@@ -65,7 +65,8 @@ public class SeedParticle extends TextureSheetParticle {
 		}
 		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
 		double multY = (this.onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+			.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1D) * multY;
 		this.zd += wind.z() * multXZ;

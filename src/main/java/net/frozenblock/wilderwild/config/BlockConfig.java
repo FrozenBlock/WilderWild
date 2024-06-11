@@ -53,18 +53,21 @@ public final class BlockConfig {
 			public void onSync(BlockConfig syncInstance) {
 				var config = this.config();
 				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
+				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
 				SNOWLOGGING = config.snowlogging.snowlogging;
 				SNOWLOG_WALLS = config.snowlogging.snowlogWalls;
 				NATURAL_SNOWLOGGING = config.snowlogging.naturalSnowlogging;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
 					POLLEN_ENABLED = config.pollenParticles;
+					SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
 				}
 			}
 		}
 	);
 
 	public static volatile boolean MESOGLEA_BUBBLE_COLUMNS = true;
+	public static volatile boolean FIRE_MAGMA_PARTICLES = true;
 	public static volatile boolean SNOWLOGGING = true;
 	public static volatile boolean SNOWLOG_WALLS = false;
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
@@ -85,6 +88,8 @@ public final class BlockConfig {
 	public static volatile boolean MESOGLEA_LIQUID = false;
 	@Environment(EnvType.CLIENT)
 	public static volatile boolean POLLEN_ENABLED = true;
+	@Environment(EnvType.CLIENT)
+	public static volatile boolean SOUL_FIRE_SOUNDS = true;
 
 	@CollapsibleObject
 	public final BlockSoundsConfig blockSounds = new BlockSoundsConfig();

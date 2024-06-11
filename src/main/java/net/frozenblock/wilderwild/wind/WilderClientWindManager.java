@@ -84,15 +84,13 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		int windAttempts = AmbienceAndMiscConfig.get().wind.windParticleSpawnAttempts;
-		int disturbanceAttempts = AmbienceAndMiscConfig.get().wind.windDisturbanceParticleSpawnAttempts;
-		if (AmbienceAndMiscConfig.get().wind.windParticles) {
-			for (int i = 0; i < windAttempts; ++i) {
+		if (AmbienceAndMiscConfig.WIND_PARTICLES) {
+			for (int i = 0; i < AmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
 				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
 			}
 		}
-		if (AmbienceAndMiscConfig.get().wind.windDisturbanceParticles) {
-			for (int i = 0; i < disturbanceAttempts; ++i) {
+		if (AmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES) {
+			for (int i = 0; i < AmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS; ++i) {
 				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
 			}
 		}
@@ -123,7 +121,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 
 		Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 2D, 2D);
 		double horizontalWind = wind.horizontalDistance();
-		if (random.nextDouble() < (horizontalWind * AmbienceAndMiscConfig.get().wind.getWindParticleFrequency())) {
+		if (random.nextDouble() < (horizontalWind * AmbienceAndMiscConfig.getWindParticleFrequency())) {
 			level.addParticle(
 				new WindParticleOptions((int) (10D + (horizontalWind * 30D)), wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
 				i,
@@ -146,7 +144,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		if (!blockState.isCollisionShapeFullBlock(level, blockPos)) {
 			Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
 			double windLength = wind.length();
-			if (random.nextDouble() < ((wind.length() - 0.001D) * AmbienceAndMiscConfig.get().wind.getWindDisturbanceParticleFrequency())) {
+			if (random.nextDouble() < ((wind.length() - 0.001D) * AmbienceAndMiscConfig.getWindDisturbanceParticleFrequency())) {
 				level.addParticle(
 					new WindParticleOptions((int) (10D + (windLength * 30D)), wind.x * 0.01D, wind.y * 0.003D, wind.z * 0.01D),
 					i,
