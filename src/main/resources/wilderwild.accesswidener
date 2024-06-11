@@ -171,6 +171,9 @@ accessible    class     net/minecraft/world/level/levelgen/SurfaceRules$LazyYCon
 # Data Generation
 accessible    field    net/minecraft/data/DataGenerator    vanillaPackOutput    Lnet/minecraft/data/PackOutput;
 accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>    (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
+accessible    method    net/minecraft/data/loot/EntityLootSubProvider    shouldSmeltLoot    ()Lnet/minecraft/world/level/storage/loot/predicates/AnyOfCondition$Builder;
+accessible    field    net/minecraft/data/loot/EntityLootSubProvider    registries    Lnet/minecraft/core/HolderLookup$Provider;
+accessible    field    net/minecraft/data/loot/BlockLootSubProvider    NORMAL_LEAVES_STICK_CHANCES    [F
 
 # Registry
 accessible    method    net/minecraft/data/registries/VanillaRegistries    validateThatAllBiomeFeaturesHaveBiomeFilter    (Lnet/minecraft/core/HolderLookup$Provider;)V

@@ -42,7 +42,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@NotNull
 	private TagKey<Item> getTag(String id) {
-		return TagKey.create(this.registryKey, new ResourceLocation(id));
+		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
 	}
 
 	@Override

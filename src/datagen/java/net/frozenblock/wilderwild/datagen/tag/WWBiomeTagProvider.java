@@ -51,7 +51,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@NotNull
 	private TagKey<Biome> getTag(String id) {
-		return TagKey.create(this.registryKey, new ResourceLocation(id));
+		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
 	}
 
 	private void generateCompat() {
@@ -557,7 +557,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 			.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 			.addOptional(RegisterWorldgen.ARID_SAVANNA)
-			.addOptional(new ResourceLocation("terralith", "arid_highlands"));
+			.addOptional(ResourceLocation.parse("terralith:arid_highlands"));
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.BELOW_SURFACE_SNOW)
 			.add(Biomes.FROZEN_PEAKS)

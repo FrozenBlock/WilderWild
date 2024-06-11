@@ -22,7 +22,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import java.util.List;
 import java.util.UUID;
-import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
 import net.frozenblock.lib.screenshake.api.ScreenShakeManager;

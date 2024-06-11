@@ -26,8 +26,9 @@ import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -56,6 +57,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
+		HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 		this.dropSelf(RegisterBlocks.BAOBAB_LOG);
 		this.dropSelf(RegisterBlocks.STRIPPED_BAOBAB_LOG);
 		this.dropSelf(RegisterBlocks.BAOBAB_WOOD);
@@ -80,12 +83,12 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(RegisterBlocks.BAOBAB_LEAVES)
-								.when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+								.when(this.hasShearsOrSilkTouch())
 						)
 				).withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.when(this.doesNotHaveShearsOrSilkTouch())
 						.add(
 							this.applyExplosionDecay(
 								RegisterBlocks.BAOBAB_LEAVES,
@@ -94,7 +97,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
 										)
 								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
 		);
@@ -143,11 +146,11 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(RegisterBlocks.PALM_FRONDS).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+							LootItem.lootTableItem(RegisterBlocks.PALM_FRONDS).when(this.hasShearsOrSilkTouch())
 						)
 				).withPool(
 					LootPool.lootPool()
-						.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.when(this.doesNotHaveShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
@@ -157,7 +160,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
 										)
 								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
 		);
@@ -188,10 +191,10 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(RegisterBlocks.ALGAE).when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH))
+						.add(LootItem.lootTableItem(RegisterBlocks.ALGAE).when(this.hasShearsOrSilkTouch()))
 				)
 		);
-		this.add(RegisterBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
+		this.add(RegisterBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 		this.dropSelf(RegisterBlocks.SEEDING_DANDELION);
 		this.dropSelf(RegisterBlocks.CARNATION);
 		this.dropSelf(RegisterBlocks.FLOWERING_LILY_PAD);
@@ -201,10 +204,10 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
 		this.dropSelf(RegisterBlocks.GLORY_OF_THE_SNOW);
-		this.add(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
-		this.add(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
-		this.add(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
-		this.add(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH));
+		this.add(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 
 		this.add(RegisterBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()
@@ -218,7 +221,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 					)
 				).withPool(
 						LootPool.lootPool()
-							.when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+							.when(this.doesNotHaveShearsOrSilkTouch())
 							.setRolls(ConstantValue.exactly(1F))
 							.add(
 								this.applyExplosionDecay(
@@ -235,12 +238,12 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.TUMBLEWEED_PLANT)
 													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 											)
-									).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, NORMAL_LEAVES_STICK_CHANCES))
+									).when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
 								)
 							)
 				).withPool(
 					LootPool.lootPool()
-						.when(HAS_SHEARS_OR_SILK_TOUCH)
+						.when(this.hasShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(RegisterBlocks.TUMBLEWEED).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
@@ -405,7 +408,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.when(BlockLootSubProvider.HAS_SILK_TOUCH)
+						.when(this.hasSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
@@ -433,7 +436,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.add(LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN).when(ExplosionCondition.survivesExplosion()))
 						.apply(
 							CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(RegisterDataComponents.FIREFLIES)
-								.when(BlockLootSubProvider.HAS_SILK_TOUCH)
+								.when(this.hasSilkTouch())
 						)
 				)
 		);
@@ -502,7 +505,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+						.when(this.hasShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
@@ -536,7 +539,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						)
 				).withPool(
 					LootPool.lootPool()
-						.when(BlockLootSubProvider.HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.when(this.doesNotHaveShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
@@ -575,7 +578,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.when(BlockLootSubProvider.HAS_SHEARS_OR_SILK_TOUCH)
+						.when(this.hasShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
@@ -609,7 +612,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						)
 				).withPool(
 					LootPool.lootPool()
-						.when(BlockLootSubProvider.HAS_NO_SHEARS_OR_SILK_TOUCH)
+						.when(this.doesNotHaveShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(

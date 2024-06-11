@@ -18,48 +18,90 @@
 
 package net.frozenblock.wilderwild.datagen.loot;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
+import net.minecraft.advancements.critereon.ItemSubPredicates;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
+import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
+	private final CompletableFuture<HolderLookup.Provider> registries;
 
 	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, LootContextParamSets.ENTITY);
+		this.registries = registries;
 	}
 
 	@Override
-	public void generate(HolderLookup.Provider registries, @NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		output.accept(
-			RegisterEntities.CRAB.getDefaultLootTable(),
-			LootTable.lootTable().withPool(
-				LootPool.lootPool()
-					.setRolls(ConstantValue.exactly(1.0F))
-					.add(LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
-						.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-						.apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
-						.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		try {
+			output.accept(
+				RegisterEntities.CRAB.getDefaultLootTable(),
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.add(
+								LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
+									.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
+									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries.get(), UniformGenerator.between(0F, 1F)))
+							)
 					)
-					.when(LootItemKilledByPlayerCondition.killedByPlayer())
+			);
+		} catch (InterruptedException | ExecutionException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected final net.minecraft.world.level.storage.loot.predicates.AnyOfCondition.Builder shouldSmeltLoot() throws ExecutionException, InterruptedException {
+		HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.get().lookupOrThrow(Registries.ENCHANTMENT);
+		return AnyOfCondition.anyOf(
+			LootItemEntityPropertyCondition.hasProperties(
+				LootContext.EntityTarget.THIS,
+				net.minecraft.advancements.critereon.EntityPredicate.Builder.entity()
+					.flags(net.minecraft.advancements.critereon.EntityFlagsPredicate.Builder.flags().setOnFire(true))
+			),
+			LootItemEntityPropertyCondition.hasProperties(
+				LootContext.EntityTarget.DIRECT_ATTACKER,
+				net.minecraft.advancements.critereon.EntityPredicate.Builder.entity()
+					.equipment(
+						net.minecraft.advancements.critereon.EntityEquipmentPredicate.Builder.equipment()
+							.mainhand(
+								net.minecraft.advancements.critereon.ItemPredicate.Builder.item()
+									.withSubPredicate(
+										ItemSubPredicates.ENCHANTMENTS,
+										ItemEnchantmentsPredicate.enchantments(
+											List.of(new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))
+										)
+									)
+							)
+					)
 			)
 		);
 	}

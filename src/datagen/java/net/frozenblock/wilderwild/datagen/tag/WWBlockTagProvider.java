@@ -52,7 +52,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	@NotNull
 	private TagKey<Block> getTag(String id) {
-		return TagKey.create(this.registryKey, new ResourceLocation(id));
+		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
 	}
 
 	private void generateCompat() {
@@ -653,7 +653,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(
 				ResourceKey.create(
 					Registries.BLOCK,
-					new ResourceLocation("immersive_weathering", "leaf_piles")
+					ResourceLocation.parse("immersive_weathering:leaf_piles")
 				)
 			);
 
