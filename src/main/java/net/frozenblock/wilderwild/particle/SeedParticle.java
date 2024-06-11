@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SeedParticle extends TextureSheetParticle {
-	public double windIntensity = 0.5D;
+	public static final double WIND_INTENSITY = 0.5D;
 
 	SeedParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
@@ -55,13 +55,16 @@ public class SeedParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
+		if (this.xd == 0D && this.yd == 0D && this.zd == 0D) {
+			this.age += 5;
+		}
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
 		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
 			return;
 		}
-		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-		double multY = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
+		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
+		double multY = (this.onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
 		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1D) * multY;
