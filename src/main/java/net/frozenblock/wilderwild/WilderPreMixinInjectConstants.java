@@ -27,4 +27,15 @@ public class WilderPreMixinInjectConstants {
 	public static final boolean HAS_FALLINGLEAVES = FabricLoader.getInstance().isModLoaded("fallingleaves");
 	public static final boolean HAS_MAKEBUBBLESPOP = FabricLoader.getInstance().isModLoaded("make_bubbles_pop");
 	public static final boolean HAS_PARTICLERAIN = FabricLoader.getInstance().isModLoaded("particlerain");
+	public static final boolean IS_DATAGEN = isDatagen();
+
+	private static boolean isDatagen() {
+		boolean isDatagen = false;
+		try {
+			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator");
+			isDatagen = true;
+		} catch (ClassNotFoundException ignored) {}
+
+		return isDatagen;
+	}
 }
