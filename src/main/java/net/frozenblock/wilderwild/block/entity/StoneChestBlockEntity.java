@@ -124,7 +124,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			}
 			stoneChest.updateTime = gameTime;
 			if (otherChest != null) {
-				stoneChest.syncLidValuesWith(otherChest);
+				stoneChest.syncLidValuesAndUpdate(otherChest);
 			}
 		}
 	}
@@ -148,7 +148,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			}
 			stoneChest.updateTime = gameTime;
 			if (otherChest != null) {
-				stoneChest.syncLidValuesWith(otherChest);
+				stoneChest.syncLidValuesAndUpdate(otherChest);
 			}
 		}
 	}
@@ -261,7 +261,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return super.stillValid(player) && !this.closing && this.openProgress >= 0.3;
 	}
 
-	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
+	public void syncLidValuesAndUpdate(@Nullable StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest != null) {
 			this.syncValues(otherStoneChest);
 			otherStoneChest.setChanged();

@@ -258,7 +258,7 @@ public class StoneChestBlock extends ChestBlock {
 			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
 				((ChestBlockEntityInterface) stoneChest).wilderWild$syncBubble(stoneChest, otherChest);
-				stoneChest.syncLidValuesWith(otherChest);
+				stoneChest.syncLidValuesAndUpdate(otherChest);
 			}
 		}
 		return InteractionResult.CONSUME;
