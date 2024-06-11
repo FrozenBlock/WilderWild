@@ -22,11 +22,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
+import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -56,6 +58,7 @@ public class WilderClientNetworking {
 		receiveSensorHiccupPacket();
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
+		receiveStoneChestLidPacket();
 	}
 
 	public static void receiveWindExtensionSyncPacket() {
@@ -112,6 +115,19 @@ public class WilderClientNetworking {
 				if (EntityConfig.get().lightning.lightningSmokeParticles) {
 					lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
 				}
+			}
+		});
+	}
+
+	public static void receiveStoneChestLidPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderStoneChestLidPacket.PACKET_TYPE, (packet, ctx) -> {
+			ClientLevel clientLevel = ctx.client().level;
+			if (clientLevel.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
+				stoneChestBlockEntity.openProgress = packet.openProgress();
+				stoneChestBlockEntity.highestLidPoint = packet.highestLidPoint();
+				stoneChestBlockEntity.cooldownTicks = packet.cooldownTicks();
+				stoneChestBlockEntity.stillLidTicks = packet.stillLidTicks();
+				stoneChestBlockEntity.closing = packet.closing();
 			}
 		});
 	}

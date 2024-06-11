@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
+import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
@@ -33,6 +34,7 @@ public class WilderNetworking {
 		registry.register(WilderSensorHiccupPacket.PACKET_TYPE, WilderSensorHiccupPacket.CODEC);
 		registry.register(WilderJellyfishStingPacket.PACKET_TYPE, WilderJellyfishStingPacket.CODEC);
 		registry.register(WilderLightningStrikePacket.PACKET_TYPE, WilderLightningStrikePacket.CODEC);
+		registry.register(WilderStoneChestLidPacket.PACKET_TYPE, WilderStoneChestLidPacket.CODEC);
 	}
 
 }
