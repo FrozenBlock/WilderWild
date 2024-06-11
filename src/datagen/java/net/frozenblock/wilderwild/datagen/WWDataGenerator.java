@@ -39,9 +39,24 @@ import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.impl.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.impl.noise.WilderNoise;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.ItemSubPredicates;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 
 public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
@@ -85,4 +100,29 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 	}
 
+	public static AnyOfCondition.Builder shouldSmeltLoot(HolderLookup.Provider registries) {
+		HolderLookup.RegistryLookup<Enchantment> registryLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
+		return AnyOfCondition.anyOf(
+			LootItemEntityPropertyCondition.hasProperties(
+				LootContext.EntityTarget.THIS,
+				EntityPredicate.Builder.entity()
+					.flags(EntityFlagsPredicate.Builder.flags().setOnFire(true))
+			),
+			LootItemEntityPropertyCondition.hasProperties(
+				LootContext.EntityTarget.DIRECT_ATTACKER,
+				EntityPredicate.Builder.entity()
+					.equipment(
+						EntityEquipmentPredicate.Builder.equipment()
+							.mainhand(
+								ItemPredicate.Builder.item()
+									.withSubPredicate(
+										ItemSubPredicates.ENCHANTMENTS,
+										ItemEnchantmentsPredicate.enchantments(
+											List.of(new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))
+										)
+									)
+							)
+					)
+			));
+	}
 }

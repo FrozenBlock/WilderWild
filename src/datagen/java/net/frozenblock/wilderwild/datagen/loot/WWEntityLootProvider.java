@@ -22,20 +22,18 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.frozenblock.wilderwild.datagen.WWDataGenerator;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
+import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -43,12 +41,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 
+	private final CompletableFuture<HolderLookup.Provider> registryFuture;
+
 	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, LootContextParamSets.ENTITY);
+		this.registryFuture = registries;
 	}
 
 	@Override
-	public void generate(HolderLookup.Provider registries, @NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		HolderLookup.Provider registries = this.registryFuture.join();
+
 		output.accept(
 			RegisterEntities.CRAB.getDefaultLootTable(),
 			LootTable.lootTable().withPool(
@@ -56,8 +59,8 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 					.setRolls(ConstantValue.exactly(1.0F))
 					.add(LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-						.apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
-						.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+						.apply(SmeltItemFunction.smelted().when(WWDataGenerator.shouldSmeltLoot(registries)))
+						.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registries, UniformGenerator.between(0.0F, 1.0F)))
 					)
 					.when(LootItemKilledByPlayerCondition.killedByPlayer())
 			)
