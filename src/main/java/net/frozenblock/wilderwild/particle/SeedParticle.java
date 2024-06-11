@@ -55,8 +55,8 @@ public class SeedParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.xd == 0D && this.yd == 0D && this.zd == 0D) {
-			this.age += 10;
+		if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
+			this.age += 5;
 		}
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();

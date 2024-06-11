@@ -96,8 +96,8 @@ public class PollenParticle extends TextureSheetParticle {
 				}
 			} else {
 				this.targetScale = 1F;
-				if (this.xd == 0D && this.yd == 0D && this.zd == 0D) {
-					this.age += 10;
+				if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
+					this.age += 5;
 				}
 			}
 			boolean onGround = this.onGround;
