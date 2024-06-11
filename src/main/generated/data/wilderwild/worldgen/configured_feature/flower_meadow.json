@@ -24,52 +24,28 @@
             "slow_scale": 1.0,
             "states": [
               {
-                "Name": "minecraft:allium",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:allium"
               },
               {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:azure_bluet",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "minecraft:cornflower",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:cornflower"
               },
               {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:carnation"
               },
               {
-                "Name": "minecraft:oxeye_daisy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               }
             ],
             "variety": [

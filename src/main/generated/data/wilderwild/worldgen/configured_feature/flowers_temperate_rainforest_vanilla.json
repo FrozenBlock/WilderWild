@@ -12,36 +12,26 @@
                 "data": {
                   "Name": "minecraft:lilac",
                   "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
+                    "half": "lower"
                   }
                 },
                 "weight": 6
               },
               {
                 "data": {
-                  "Name": "minecraft:dandelion",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
+                  "Name": "minecraft:dandelion"
                 },
                 "weight": 10
               },
               {
                 "data": {
-                  "Name": "minecraft:blue_orchid",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
+                  "Name": "minecraft:blue_orchid"
                 },
                 "weight": 8
               },
               {
                 "data": {
-                  "Name": "minecraft:poppy",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
+                  "Name": "minecraft:poppy"
                 },
                 "weight": 10
               }
