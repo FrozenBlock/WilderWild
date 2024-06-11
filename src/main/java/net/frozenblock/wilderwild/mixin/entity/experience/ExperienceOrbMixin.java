@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.entity.experience;
 
 import net.frozenblock.wilderwild.item.AncientHorn;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,9 +31,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ExperienceOrbMixin {
 
 	@Inject(at = @At("RETURN"), method = "repairPlayerItems", cancellable = true)
-	private void wilderWild$repairAncientHorn(Player player, int amount, CallbackInfoReturnable<Integer> info) {
+	private void wilderWild$repairAncientHorn(ServerPlayer player, int amount, CallbackInfoReturnable<Integer> cir) {
 		if (AncientHorn.decreaseCooldown(player, amount * 5) != -1) {
-			info.setReturnValue(0);
+			cir.setReturnValue(0);
 		}
 	}
 

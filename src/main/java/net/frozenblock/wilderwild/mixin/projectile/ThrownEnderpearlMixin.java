@@ -22,9 +22,11 @@ import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,11 +43,11 @@ public class ThrownEnderpearlMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;resetFallDistance()V", ordinal = 0),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	public void wilderWild$onHitWithServerPlayer(HitResult result, CallbackInfo info, Entity entity) {
+	public void wilderWild$onHitWithServerPlayer(HitResult result, CallbackInfo info, ServerLevel level, Entity entity) {
 		if (ItemConfig.get().projectileLandingSounds.enderPearlLandingSounds && entity instanceof ServerPlayer owner) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.isSilent()) {
-				float pitch = 0.9F + (pearl.level().random.nextFloat() * 0.2F);
+				float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
 				pearl.level().playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
 				FrozenSoundPackets.createLocalPlayerSound(
 					owner,
@@ -55,8 +57,8 @@ public class ThrownEnderpearlMixin {
 				);
 			}
 			if (!owner.isSilent()) {
-				float pitch = 0.9F + (pearl.level().random.nextFloat() * 0.2F);
-				pearl.level().playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, owner.getSoundSource(), 0.4F, pitch);
+				float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
+				level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, owner.getSoundSource(), 0.4F, pitch);
 				FrozenSoundPackets.createLocalPlayerSound(
 					owner,
 					BuiltInRegistries.SOUND_EVENT.getHolder(SoundEvents.CHORUS_FRUIT_TELEPORT.getLocation()).orElseThrow(),
@@ -72,14 +74,14 @@ public class ThrownEnderpearlMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;resetFallDistance()V", ordinal = 1),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	public void wilderWild$onHitWithoutServerPlayer(HitResult result, CallbackInfo info, Entity owner) {
+	public void wilderWild$onHitWithoutServerPlayer(HitResult result, CallbackInfo info, ServerLevel level, Entity owner) {
 		if (ItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.isSilent()) {
-				pearl.level().playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, 0.85F + (pearl.level().random.nextFloat() * 0.2F));
+				level.playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, 0.85F + (pearl.level().random.nextFloat() * 0.2F));
 			}
 			if (owner != null && !owner.isSilent()) {
-				pearl.level().playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, owner.getSoundSource(), 0.4F, 0.85F + (pearl.level().random.nextFloat() * 0.2F));
+				level.playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, owner.getSoundSource(), 0.4F, 0.85F + (pearl.level().random.nextFloat() * 0.2F));
 			}
 		}
 	}

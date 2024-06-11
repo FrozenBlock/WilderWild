@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -134,7 +135,7 @@ public class OstrichAi {
 			ImmutableList.of(
 				new Swim(0.8F),
 				new OstrichLayEgg(RegisterBlocks.OSTRICH_EGG),
-				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire())),
+				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING, pathfinderMob -> pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES),
 				new OstrichRunAroundLikeCrazy(1.5F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),

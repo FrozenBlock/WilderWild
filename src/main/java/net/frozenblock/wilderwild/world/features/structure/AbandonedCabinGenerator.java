@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.features.structure;
 
 import com.mojang.datafixers.util.Either;
+import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.core.Holder;
@@ -27,6 +28,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,8 +45,8 @@ public class AbandonedCabinGenerator {
 	 * @return A {@link SinglePoolElement} of the parameters given.
 	 */
 	@NotNull
-	public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry) {
-		return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection);
+	public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry, Optional<LiquidSettings> liquidSettings) {
+		return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection, liquidSettings);
 	}
 
 	/**

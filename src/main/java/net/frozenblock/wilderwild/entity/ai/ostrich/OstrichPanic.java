@@ -18,15 +18,19 @@
 
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import org.jetbrains.annotations.NotNull;
 
 public class OstrichPanic extends AnimalPanic<Ostrich> {
 
-	public OstrichPanic(float f, Predicate<Ostrich> shouldPanic) {
+	public OstrichPanic(float f, Function<PathfinderMob, TagKey<DamageType>> shouldPanic) {
 		super(f, shouldPanic);
 	}
 
