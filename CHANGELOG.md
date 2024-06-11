@@ -8,7 +8,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
     - ...yeah.
 - Increased the protocol version to 6.
 - Shortened the channel names for Wilder Wild's custom packets.
-- Fixed the Stone Chest's lid animation.
+- Fixed the Stone Chest's lid animation. ([#383](https://github.com/FrozenBlock/WilderWild/issues/383))
 - Added the Geyser to the Redstone tab, just before the Sculk Sensor.
 - Substantially improved the Hollowed Log model thanks to Soulfate24! ([#379](https://github.com/FrozenBlock/WilderWild/issues/379))
   - Previously, we were not able to figure out how to make a Hollowed Log model without the texture getting misaligned due to a vanilla bug.
