@@ -28,8 +28,8 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderJellyfishStingPacket(boolean isBaby) implements CustomPacketPayload {
-	public static final Type<WilderJellyfishStingPacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.string("jellyfish_sting")
+	public static final Type<WilderJellyfishStingPacket> PACKET_TYPE = new Type<>(
+		WilderSharedConstants.id("jellyfish_sting")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL

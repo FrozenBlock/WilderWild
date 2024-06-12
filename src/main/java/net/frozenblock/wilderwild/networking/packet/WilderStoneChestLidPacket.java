@@ -30,8 +30,8 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderStoneChestLidPacket(BlockPos pos, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
-	public static final Type<WilderStoneChestLidPacket> PACKET_TYPE = CustomPacketPayload.createType(
-		WilderSharedConstants.string("stone_chest_lid")
+	public static final Type<WilderStoneChestLidPacket> PACKET_TYPE = new Type<>(
+		WilderSharedConstants.id("stone_chest_lid")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderStoneChestLidPacket> CODEC = StreamCodec.ofMember(WilderStoneChestLidPacket::write, WilderStoneChestLidPacket::new);
