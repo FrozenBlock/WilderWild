@@ -57,7 +57,6 @@ public final class AmbienceAndMiscConfig {
 				WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = config.wind.windDisturbanceParticleSpawnAttempts;
 				PARTICLE_WIND_MOVEMENT = config.wind.particleWindMovement;
 				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
-				System.out.println(WIND_PARTICLE_SPAWN_ATTEMPTS + " SIFNEUBYHSTGV");
 			}
 		}
 	);
