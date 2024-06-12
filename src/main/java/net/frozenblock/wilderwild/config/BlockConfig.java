@@ -66,11 +66,11 @@ public final class BlockConfig {
 		}
 	);
 
-	public static volatile boolean MESOGLEA_BUBBLE_COLUMNS = true;
-	public static volatile boolean FIRE_MAGMA_PARTICLES = true;
-	public static volatile boolean SNOWLOGGING = true;
-	public static volatile boolean SNOWLOG_WALLS = false;
-	public static volatile boolean NATURAL_SNOWLOGGING = true;
+	public static volatile boolean MESOGLEA_BUBBLE_COLUMNS;
+	public static volatile boolean FIRE_MAGMA_PARTICLES;
+	public static volatile boolean SNOWLOGGING;
+	public static volatile boolean SNOWLOG_WALLS;
+	public static volatile boolean NATURAL_SNOWLOGGING;
 
 	public static boolean canSnowlog() {
 		return SNOWLOGGING && !WilderPreMixinInjectConstants.IS_DATAGEN;
@@ -86,11 +86,15 @@ public final class BlockConfig {
 
 	public static final class Client {
 		@Environment(EnvType.CLIENT)
-		public static volatile boolean MESOGLEA_LIQUID = false;
+		public static volatile boolean MESOGLEA_LIQUID;
 		@Environment(EnvType.CLIENT)
-		public static volatile boolean POLLEN_ENABLED = true;
+		public static volatile boolean POLLEN_ENABLED;
 		@Environment(EnvType.CLIENT)
-		public static volatile boolean SOUL_FIRE_SOUNDS = true;
+		public static volatile boolean SOUL_FIRE_SOUNDS;
+	}
+
+	static {
+		INSTANCE.onSync(null);
 	}
 
 	@CollapsibleObject
