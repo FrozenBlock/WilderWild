@@ -81,7 +81,7 @@ public final class AmbienceAndMiscConfig {
 	public static volatile boolean CLOUD_MOVEMENT = true;
 	public static volatile boolean WIND_PARTICLES = true;
 	public static volatile int WIND_PARTICLE_FREQUENCY = 50;
-	public static volatile int WIND_PARTICLE_SPAWN_ATTEMPTS = 1;
+	public static volatile int WIND_PARTICLE_SPAWN_ATTEMPTS = 100;
 	public static volatile boolean WIND_DISTURBANCE_PARTICLES = true;
 	public static volatile int WIND_DISTURBANCE_PARTICLE_FREQUENCY = 90;
 	public static volatile int WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = 100;

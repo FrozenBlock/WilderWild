@@ -85,6 +85,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		if (AmbienceAndMiscConfig.WIND_PARTICLES) {
+			System.out.println(AmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS + " SIFNEUBYHSTGV");
 			for (int i = 0; i < AmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
 				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
 			}
