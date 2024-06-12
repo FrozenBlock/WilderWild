@@ -380,7 +380,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		var customWaterHandler = new FluidRenderHandler() {
 
 			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-				if (view != null && pos != null && BlockConfig.MESOGLEA_LIQUID) {
+				if (view != null && pos != null && BlockConfig.Client.MESOGLEA_LIQUID) {
 					BlockState state = view.getBlockState(pos);
 					return state.is(WilderBlockTags.MESOGLEA) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 				}

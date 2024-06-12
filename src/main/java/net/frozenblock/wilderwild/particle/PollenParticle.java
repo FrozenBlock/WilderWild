@@ -57,7 +57,7 @@ public class PollenParticle extends TextureSheetParticle {
 
 	@Override
 	public void tick() {
-		if (BlockConfig.POLLEN_ENABLED) {
+		if (BlockConfig.Client.POLLEN_ENABLED) {
 			BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 			boolean rain = this.level.isRainingAt(blockPos);
 			if (rain) {

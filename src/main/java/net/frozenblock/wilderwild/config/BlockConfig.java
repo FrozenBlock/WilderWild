@@ -58,9 +58,9 @@ public final class BlockConfig {
 				SNOWLOG_WALLS = config.snowlogging.snowlogWalls;
 				NATURAL_SNOWLOGGING = config.snowlogging.naturalSnowlogging;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-					MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
-					POLLEN_ENABLED = config.pollenParticles;
-					SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
+					Client.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
+					Client.POLLEN_ENABLED = config.pollenParticles;
+					Client.SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
 				}
 			}
 		}
@@ -84,12 +84,14 @@ public final class BlockConfig {
 		return canSnowlog() && NATURAL_SNOWLOGGING;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static volatile boolean MESOGLEA_LIQUID = false;
-	@Environment(EnvType.CLIENT)
-	public static volatile boolean POLLEN_ENABLED = true;
-	@Environment(EnvType.CLIENT)
-	public static volatile boolean SOUL_FIRE_SOUNDS = true;
+	public static final class Client {
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean MESOGLEA_LIQUID = false;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean POLLEN_ENABLED = true;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean SOUL_FIRE_SOUNDS = true;
+	}
 
 	@CollapsibleObject
 	public final BlockSoundsConfig blockSounds = new BlockSoundsConfig();
