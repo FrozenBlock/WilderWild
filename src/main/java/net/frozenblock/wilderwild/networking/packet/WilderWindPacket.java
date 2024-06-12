@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record WilderWindPacket(Vec3 cloudPos) implements CustomPacketPayload {
 	public static final Type<WilderWindPacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.string("wind_extension_sync")
+			WilderSharedConstants.safeString("wind_extension_sync")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderWindPacket> CODEC = StreamCodec.ofMember(WilderWindPacket::write, WilderWindPacket::new);
