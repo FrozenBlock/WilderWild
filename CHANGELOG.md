@@ -25,3 +25,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
     - This new model fixes every possible issue with it!
 - Updated Flowering Lily Pad textures thanks to Zhen!
 - Updated the Milkweed Pod texture thanks to Zhen!
+- Updated the entire Cypress set's textures thanks to Zhen's brush-ups!
+  - Many issues that were once present in this set are now gone, including:
+    - Cypress Leaves being an edit of Spruce Leaves prior.
+    - The entire Cypress wood set having contrast issues when compared to all other wood sets in the game.
+    - The base color of the Cypress wood set being too desaturated and yellow.
+    - A lack of contrast on the sides of Cypress Logs.
