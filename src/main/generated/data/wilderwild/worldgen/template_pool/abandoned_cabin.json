@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "wilderwild:abandoned_cabin/cabin1",
-        "processors": "wilderwild:abandoned_cabin_degradation",
+        "processors": "wilderwild:abandoned_cabin",
         "projection": "rigid"
       },
       "weight": 1
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "wilderwild:abandoned_cabin/cabin2",
-        "processors": "wilderwild:abandoned_cabin_degradation",
+        "processors": "wilderwild:abandoned_cabin",
         "projection": "rigid"
       },
       "weight": 1
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "wilderwild:abandoned_cabin/cabin3",
-        "processors": "wilderwild:abandoned_cabin_degradation",
+        "processors": "wilderwild:abandoned_cabin",
         "projection": "rigid"
       },
       "weight": 1
