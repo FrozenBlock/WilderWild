@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record WilderJellyfishStingPacket(boolean isBaby) implements CustomPacketPayload {
 	public static final Type<WilderJellyfishStingPacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.safeString("jellyfish_sting")
+			WilderSharedConstants.string("jellyfish_sting")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL

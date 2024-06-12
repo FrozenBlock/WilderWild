@@ -36,7 +36,7 @@ public record WilderSensorHiccupPacket(double x, double y, double z) implements 
 	public static final double COLOR_Z = (double) (PARTICLE_COLOR & 255) / 255D;
 
 	public static final Type<WilderSensorHiccupPacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.safeString("sensor_hiccup")
+			WilderSharedConstants.string("sensor_hiccup")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderSensorHiccupPacket> CODEC = StreamCodec.ofMember(WilderSensorHiccupPacket::write, WilderSensorHiccupPacket::new);
