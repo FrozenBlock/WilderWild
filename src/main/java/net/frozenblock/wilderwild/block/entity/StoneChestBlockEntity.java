@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -123,9 +124,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 				}
 			}
 			stoneChest.updateTime = gameTime;
-			if (otherChest != null) {
-				stoneChest.syncLidValuesWith(otherChest);
-			}
+			stoneChest.syncLidValuesAndUpdate(otherChest);
 		}
 	}
 
@@ -147,9 +146,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 				}
 			}
 			stoneChest.updateTime = gameTime;
-			if (otherChest != null) {
-				stoneChest.syncLidValuesWith(otherChest);
-			}
+			stoneChest.syncLidValuesAndUpdate(otherChest);
 		}
 	}
 
@@ -261,12 +258,17 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return super.stillValid(player) && !this.closing && this.openProgress >= 0.3;
 	}
 
-	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
+	public void syncLidValuesAndUpdate(@Nullable StoneChestBlockEntity otherStoneChest) {
+		boolean shouldSend = !this.level.isClientSide && this.openProgress != this.prevOpenProgress;
 		if (otherStoneChest != null) {
 			this.syncValues(otherStoneChest);
-			otherStoneChest.setChanged();
+			if (shouldSend) {
+				WilderStoneChestLidPacket.sendToAll(otherStoneChest);
+			}
 		}
-		this.setChanged();
+		if (shouldSend) {
+			WilderStoneChestLidPacket.sendToAll(this);
+		}
 	}
 
 	private void syncValues(@NotNull StoneChestBlockEntity otherStoneChest) {

@@ -52,13 +52,44 @@ public final class BlockConfig {
 			@Override
 			public void onSync(BlockConfig syncInstance) {
 				var config = this.config();
+				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
+				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
 				SNOWLOGGING = config.snowlogging.snowlogging;
+				SNOWLOG_WALLS = config.snowlogging.snowlogWalls;
+				NATURAL_SNOWLOGGING = config.snowlogging.naturalSnowlogging;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
+					POLLEN_ENABLED = config.pollenParticles;
+					SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
 				}
 			}
 		}
 	);
+
+	public static volatile boolean MESOGLEA_BUBBLE_COLUMNS = true;
+	public static volatile boolean FIRE_MAGMA_PARTICLES = true;
+	public static volatile boolean SNOWLOGGING = true;
+	public static volatile boolean SNOWLOG_WALLS = false;
+	public static volatile boolean NATURAL_SNOWLOGGING = true;
+
+	public static boolean canSnowlog() {
+		return SNOWLOGGING && !WilderPreMixinInjectConstants.IS_DATAGEN;
+	}
+
+	public static boolean canSnowlogWalls() {
+		return canSnowlog() && SNOWLOG_WALLS;
+	}
+
+	public static boolean canSnowlogNaturally() {
+		return canSnowlog() && NATURAL_SNOWLOGGING;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static volatile boolean MESOGLEA_LIQUID = false;
+	@Environment(EnvType.CLIENT)
+	public static volatile boolean POLLEN_ENABLED = true;
+	@Environment(EnvType.CLIENT)
+	public static volatile boolean SOUL_FIRE_SOUNDS = true;
 
 	@CollapsibleObject
 	public final BlockSoundsConfig blockSounds = new BlockSoundsConfig();
@@ -115,11 +146,6 @@ public final class BlockConfig {
 	public static BlockConfig getWithSync() {
 		return INSTANCE.configWithSync();
 	}
-
-	public static volatile boolean SNOWLOGGING = false;
-
-	@Environment(EnvType.CLIENT)
-	public static volatile boolean MESOGLEA_LIQUID = false;
 
 	public static class BlockSoundsConfig {
 		@EntrySyncData(value = "cactusSounds", behavior = SyncBehavior.UNSYNCABLE)
@@ -222,17 +248,5 @@ public final class BlockConfig {
 
 		@EntrySyncData("naturalSnowlogging")
 		public boolean naturalSnowlogging = true;
-
-		public boolean canSnowlog() {
-			return this.snowlogging && WilderPreMixinInjectConstants.IS_DATAGEN;
-		}
-
-		public boolean canSnowlogWalls() {
-			return this.snowlogging && this.snowlogWalls;
-		}
-
-		public boolean canSnowlogNaturally() {
-			return this.snowlogging && this.naturalSnowlogging;
-		}
 	}
 }

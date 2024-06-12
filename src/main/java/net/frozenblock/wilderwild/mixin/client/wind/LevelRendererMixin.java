@@ -51,7 +51,7 @@ public class LevelRendererMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.get().wind.cloudMovement && ClientWindManager.shouldUseWind();
+		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
 	}
 
 	@WrapOperation(

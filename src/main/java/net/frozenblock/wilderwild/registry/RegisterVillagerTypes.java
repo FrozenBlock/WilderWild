@@ -47,5 +47,6 @@ public final class RegisterVillagerTypes {
 		villagerTypeMap.put(RegisterWorldgen.SNOWY_DYING_FOREST, VillagerType.SNOW);
 		villagerTypeMap.put(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, VillagerType.TAIGA);
 		villagerTypeMap.put(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
+		villagerTypeMap.put(RegisterWorldgen.FLOWER_FIELD, VillagerType.PLAINS);
 	}
 }

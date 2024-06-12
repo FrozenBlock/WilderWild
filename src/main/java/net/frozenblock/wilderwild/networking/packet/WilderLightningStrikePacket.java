@@ -31,9 +31,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderLightningStrikePacket(int blockStateId, double x, double y, double z, int tickCount) implements CustomPacketPayload {
-
-	public static final Type<WilderLightningStrikePacket> PACKET_TYPE = new Type<>(
-			WilderSharedConstants.id("lightning_strike_packet")
+	public static final Type<WilderLightningStrikePacket> PACKET_TYPE = CustomPacketPayload.createType(
+			WilderSharedConstants.safeString("lightning_strike")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderLightningStrikePacket> CODEC = StreamCodec.ofMember(WilderLightningStrikePacket::write, WilderLightningStrikePacket::new);

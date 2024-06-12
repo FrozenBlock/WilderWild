@@ -123,7 +123,7 @@ public abstract class WallBlockMixin extends Block {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.canSnowlogWalls()) return;
+		if (!BlockConfig.canSnowlogWalls()) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

@@ -39,7 +39,7 @@ public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.get().fire.soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
+		if (BlockConfig.SOUL_FIRE_SOUNDS && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,

@@ -38,7 +38,7 @@ public class CloudRendererMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.get().wind.cloudMovement && ClientWindManager.shouldUseWind();
+		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4, require = 0)

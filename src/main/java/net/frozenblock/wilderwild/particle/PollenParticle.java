@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
-	public double windIntensity = 0.2D;
+	public static final double WIND_INTENSITY = 0.2D;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
@@ -57,7 +57,7 @@ public class PollenParticle extends TextureSheetParticle {
 
 	@Override
 	public void tick() {
-		if (BlockConfig.get().pollenParticles) {
+		if (BlockConfig.POLLEN_ENABLED) {
 			BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 			boolean rain = this.level.isRainingAt(blockPos);
 			if (rain) {
@@ -69,15 +69,15 @@ public class PollenParticle extends TextureSheetParticle {
 			this.yd -= 0.04 * (double) this.gravity;
 			this.move(this.xd, this.yd, this.zd);
 			if (this.speedUpWhenYMotionIsBlocked && this.y == this.yo) {
-				this.xd *= 1.1;
-				this.zd *= 1.1;
+				this.xd *= 1.1D;
+				this.zd *= 1.1D;
 			}
 			this.xd *= this.friction;
 			this.yd *= this.friction;
 			this.zd *= this.friction;
 			if (this.onGround) {
-				this.xd *= 0.7F;
-				this.zd *= 0.7F;
+				this.xd *= 0.7D;
+				this.zd *= 0.7D;
 			}
 			this.prevScale = this.scale;
 			this.scale += (this.targetScale - this.scale) * 0.15F;
@@ -96,12 +96,16 @@ public class PollenParticle extends TextureSheetParticle {
 				}
 			} else {
 				this.targetScale = 1F;
+				if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
+					this.age += 5;
+				}
 			}
 			boolean onGround = this.onGround;
 			if (!rain) {
-				double multXZ = (onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-				double multY = (onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(AmbienceAndMiscConfig.get().wind.getParticleWindIntensity());
+				double multXZ = (onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
+				double multY = (onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+					.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
 				this.xd += wind.x() * multXZ;
 				this.yd += (wind.y() + 0.1D) * multY;
 				this.zd += wind.z() * multXZ;

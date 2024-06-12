@@ -38,8 +38,55 @@ public final class AmbienceAndMiscConfig {
 			JsonType.JSON5,
 			null,
 			null
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(AmbienceAndMiscConfig syncInstance) {
+				var config = this.config();
+				CLOUD_MOVEMENT = config.wind.cloudMovement;
+				WIND_PARTICLES = config.wind.windParticles;
+				WIND_PARTICLE_FREQUENCY = config.wind.windParticleFrequency;
+				WIND_PARTICLE_SPAWN_ATTEMPTS = config.wind.windParticleSpawnAttempts;
+				WIND_DISTURBANCE_PARTICLES = config.wind.windDisturbanceParticles;
+				WIND_DISTURBANCE_PARTICLE_FREQUENCY = config.wind.windDisturbanceParticleFrequency;
+				WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = config.wind.windDisturbanceParticleSpawnAttempts;
+				PARTICLE_WIND_MOVEMENT = config.wind.particleWindMovement;
+				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
+				System.out.println(WIND_PARTICLE_SPAWN_ATTEMPTS + " SIFNEUBYHSTGV");
+			}
+		}
 	);
+
+	public static double getWindParticleFrequency() {
+		return ((double) WIND_PARTICLE_FREQUENCY) * 0.01D;
+	}
+
+	public static double getWindDisturbanceParticleFrequency() {
+		return ((double) WIND_DISTURBANCE_PARTICLE_FREQUENCY) * 0.01D;
+	}
+
+	public static double getParticleWindIntensity() {
+		return ((double) PARTICLE_WIND_MOVEMENT) * 0.01D;
+	}
+
+	public static double getFireworkWindIntensity() {
+		return ((double) FIREWORK_WIND_MOVEMENT) * 0.01D;
+	}
+
+	public static volatile boolean CLOUD_MOVEMENT = true;
+	public static volatile boolean WIND_PARTICLES = true;
+	public static volatile int WIND_PARTICLE_FREQUENCY = 50;
+	public static volatile int WIND_PARTICLE_SPAWN_ATTEMPTS = 1;
+	public static volatile boolean WIND_DISTURBANCE_PARTICLES = true;
+	public static volatile int WIND_DISTURBANCE_PARTICLE_FREQUENCY = 90;
+	public static volatile int WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = 100;
+	public static volatile int PARTICLE_WIND_MOVEMENT = 100;
+	public static volatile int FIREWORK_WIND_MOVEMENT = 100;
 
 	@CollapsibleObject
 	public final WaterColorConfig waterColors = new WaterColorConfig();
@@ -162,21 +209,5 @@ public final class AmbienceAndMiscConfig {
 
 		@EntrySyncData("fireworkWindMovement")
 		public int fireworkWindMovement = 100;
-
-		public double getWindParticleFrequency() {
-			return ((double) this.windParticleFrequency) * 0.01D;
-		}
-
-		public double getWindDisturbanceParticleFrequency() {
-			return ((double) this.windDisturbanceParticleFrequency) * 0.01D;
-		}
-
-		public double getParticleWindIntensity() {
-			return ((double) this.particleWindMovement) * 0.01D;
-		}
-
-		public double getFireworkWindIntensity() {
-			return ((double) this.fireworkWindMovement) * 0.01D;
-		}
 	}
 }

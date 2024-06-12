@@ -21,42 +21,48 @@ package net.frozenblock.wilderwild.networking.packet;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public record WilderSensorHiccupPacket(double x, double y, double z) implements CustomPacketPayload {
-	public static final int PARTICLE_COLOR = 5578058;
-	public static final double COLOR_X = (double) (PARTICLE_COLOR >> 16 & 255) / 255D;
-	public static final double COLOR_Y = (double) (PARTICLE_COLOR >> 8 & 255) / 255D;
-	public static final double COLOR_Z = (double) (PARTICLE_COLOR & 255) / 255D;
-	public static final Type<WilderSensorHiccupPacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.safeString("sensor_hiccup")
+public record WilderStoneChestLidPacket(BlockPos pos, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
+	public static final Type<WilderStoneChestLidPacket> PACKET_TYPE = CustomPacketPayload.createType(
+			WilderSharedConstants.safeString("stone_chest_lid")
 	);
 
-	public static final StreamCodec<FriendlyByteBuf, WilderSensorHiccupPacket> CODEC = StreamCodec.ofMember(WilderSensorHiccupPacket::write, WilderSensorHiccupPacket::new);
+	public static final StreamCodec<FriendlyByteBuf, WilderStoneChestLidPacket> CODEC = StreamCodec.ofMember(WilderStoneChestLidPacket::write, WilderStoneChestLidPacket::new);
 
-	public WilderSensorHiccupPacket(@NotNull FriendlyByteBuf buf) {
-		this(buf.readDouble(), buf.readDouble(), buf.readDouble());
+	public WilderStoneChestLidPacket(@NotNull FriendlyByteBuf buf) {
+		this(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readBoolean());
 	}
 
-	public static void sendToAll(@NotNull BlockEntity blockEntity, @NotNull Vec3 pos) {
+	public static void sendToAll(@NotNull StoneChestBlockEntity blockEntity) {
 		for (ServerPlayer player : PlayerLookup.tracking(blockEntity)) {
 			ServerPlayNetworking.send(
 				player,
-				new WilderSensorHiccupPacket(pos.x(), pos.y(), pos.z())
+				new WilderStoneChestLidPacket(
+					blockEntity.getBlockPos(),
+					blockEntity.openProgress,
+					blockEntity.highestLidPoint,
+					blockEntity.cooldownTicks,
+					blockEntity.stillLidTicks,
+					blockEntity.closing
+				)
 			);
 		}
 	}
 
 	public void write(@NotNull FriendlyByteBuf buf) {
-		buf.writeDouble(this.x());
-		buf.writeDouble(this.y());
-		buf.writeDouble(this.z());
+		buf.writeBlockPos(this.pos);
+		buf.writeFloat(this.openProgress);
+		buf.writeFloat(this.highestLidPoint);
+		buf.writeInt(this.cooldownTicks);
+		buf.writeInt(this.stillLidTicks);
+		buf.writeBoolean(this.closing);
 	}
 
 	@NotNull

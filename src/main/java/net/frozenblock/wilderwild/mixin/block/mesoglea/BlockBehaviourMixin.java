@@ -36,7 +36,7 @@ public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged")
 	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock && !level.isClientSide && BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
+		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock && !level.isClientSide && BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			level.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
 		}
 	}

@@ -63,7 +63,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "setPlacedBy", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack, CallbackInfo info) {
-		if (SnowloggingUtils.isItemSnow(stack) && BlockConfig.get().snowlogging.canSnowlog()) {
+		if (SnowloggingUtils.isItemSnow(stack) && BlockConfig.canSnowlog()) {
 			info.cancel();
 		}
 	}
@@ -134,7 +134,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.canSnowlog()) return;
+		if (!BlockConfig.canSnowlog()) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 
