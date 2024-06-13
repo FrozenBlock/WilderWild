@@ -48,6 +48,7 @@ Zhen:
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
  - Scorching effect icon.
+ - Retextured Null Blocks in 2.4.3.
 
 LudoCrypt:
  - New music.

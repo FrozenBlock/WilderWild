@@ -23,9 +23,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
     - Previously, we were not able to figure out how to make a Hollowed Log model without the texture getting misaligned due to a vanilla bug.
     - The result was using a model comprised of only two parts, which messed up the breaking texture.
     - This new model fixes every possible issue with it!
-- Updated Flowering Lily Pad textures thanks to Zhen!
-- Updated the Milkweed Pod texture thanks to Zhen!
-- Updated the entire Cypress set's textures thanks to Zhen's brush-ups!
+- Retextured Null Blocks thanks to voxelotl!
+- Updated the Flowering Lily Pad textures thanks to Zhen!
+- Rextectured the Milkweed Pod thanks to Zhen!
+- Retextured the entire Cypress set thanks to Zhen's brush-ups!
   - Many issues that were once present in this set are now gone, including:
     - Cypress Leaves being an edit of Spruce Leaves prior.
     - The entire Cypress wood set having contrast issues when compared to all other wood sets in the game.
