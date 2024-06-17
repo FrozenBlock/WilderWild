@@ -7,3 +7,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed Display Lanterns not properly rendering their contents when updated.
 - Added the Reach Boost effect to Beacons, thanks to a suggestion by wet.noodle/Ashlyn.
   - Added the `Reach Boost Beacons` config to toggle this.
+- Slightly increased the distance of the Reach Boost effect from 1 to 1.5 per level.
