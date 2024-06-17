@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.block.entity;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -31,6 +32,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -38,6 +40,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Objects;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
 
@@ -52,7 +55,13 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		this.termiteManager.tick(level, pos, natural, awake, canSpawn);
-		this.setChanged();
+		this.updateSync();
+	}
+
+	public void updateSync() {
+		for (ServerPlayer player : PlayerLookup.tracking(this)) {
+			player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+		}
 	}
 
 	public void tickClient() {

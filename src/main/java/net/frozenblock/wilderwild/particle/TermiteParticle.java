@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -37,7 +36,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
@@ -113,59 +111,26 @@ public class TermiteParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
-		float animationProgress = this.age + partialTicks;
-
-		double x = this.x;
-		double y = this.y;
-		double z = this.z;
-
+	protected void renderRotatedQuad(VertexConsumer vertexConsumer, @NotNull Camera camera, Quaternionf quaternionf, float partialTick) {
+		Vec3 vec3 = camera.getPosition();
+		float animationProgress = this.age + partialTick;
 		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
 		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
 		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
-
-		Quaternionf quaternion;
-		Vec3 vec3 = renderInfo.getPosition();
-		float f = (float) (x - vec3.x() + xRotation);
-		float g = (float) (y - vec3.y() + yRotation);
-		float h = (float) (z - vec3.z() + zRotation);
-		if (this.roll == 0.0f) {
-			quaternion = renderInfo.rotation();
-		} else {
-			quaternion = new Quaternionf(renderInfo.rotation());
-			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
-			quaternion.mul(Axis.ZP.rotation(i));
-		}
-		Vector3f[] vector3fs = new Vector3f[]{
-			new Vector3f(-1F, -1F, 0F),
-			new Vector3f(-1F, 1F, 0F),
-			new Vector3f(1F, 1F, 0F),
-			new Vector3f(1F, -1F, 0F)
-		};
-		float j = this.getQuadSize(partialTicks);
-		for (int k = 0; k < 4; ++k) {
-			Vector3f vector3f2 = vector3fs[k];
-			vector3f2.rotate(quaternion);
-			vector3f2.mul(j);
-			vector3f2.add(f, g, h);
-		}
-		float l = this.getU0();
-		float m = this.getU1();
-		float n = this.getV0();
-		float o = this.getV1();
-		int p = this.getLightColor(x, y, z, xRotation, yRotation, zRotation);
-		buffer.addVertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).setUv(m, o).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(p);
-		buffer.addVertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).setUv(m, n).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(p);
-		buffer.addVertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).setUv(l, n).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(p);
-		buffer.addVertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).setUv(l, o).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(p);
+		float g = (float) (x - vec3.x() + xRotation);
+		float h = (float) (y - vec3.y() + yRotation);
+		float i = (float) (z - vec3.z() + zRotation);
+		this.renderRotatedQuad(vertexConsumer, quaternionf, g, h, i, partialTick);
 	}
 
-	private int getLightColor(double x, double y, double z, float cos, float sin, float aCos) {
-		BlockPos blockPos = this.getLerpedTermiteBlockPos(x, y, z, cos, sin, aCos);
-		if (this.level.hasChunkAt(blockPos)) {
-			return LevelRenderer.getLightColor(this.level, blockPos);
-		}
-		return 0;
+	@Override
+	protected int getLightColor(float partialTick) {
+		float animationProgress = this.age + partialTick;
+		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
+		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
+		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
+		BlockPos blockPos = this.getLerpedTermiteBlockPos(x, y, z, xRotation, yRotation, zRotation);
+		return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightColor(this.level, blockPos) : 0;
 	}
 
 	@NotNull
