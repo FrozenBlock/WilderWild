@@ -48,9 +48,9 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
 	}};
 	private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/firefly/firefly_off.png");
-	private static final RenderType LAYER = RenderType.entityCutout(TEXTURE);
-	private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar.png"));
-	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
+	private static final RenderType LAYER = RenderType.entityTranslucent(TEXTURE);
+	private static final RenderType NECTAR_LAYER = RenderType.entityTranslucent(WilderSharedConstants.id("textures/entity/firefly/nectar.png"));
+	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityTranslucent(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
 	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 	private static final float Y_OFFSET = 0.155F;
 	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
@@ -72,28 +72,28 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
-			.setColor(255, 255, 255, 255)
+			.setColor(1F, 1F, 1F, 1F)
 			.setUv(0, 1)
 			.setOverlay(overlay)
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
 			.addVertex(pose, 0.5F, -0.5F, 0F)
-			.setColor(255, 255, 255, 255)
+			.setColor(1F, 1F, 1F, 1F)
 			.setUv(1, 1)
 			.setOverlay(overlay)
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
 			.addVertex(pose, 0.5F, 0.5F, 0F)
-			.setColor(255, 255, 255, 255)
+			.setColor(1F, 1F, 1F, 1F)
 			.setUv(1, 0)
 			.setOverlay(overlay)
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
 			.addVertex(pose, -0.5F, 0.5F, 0F)
-			.setColor(255, 255, 255, 255)
+			.setColor(1F, 1F, 1F, 1F)
 			.setUv(0, 0)
 			.setOverlay(overlay)
 			.setLight(packedLight)
@@ -106,9 +106,10 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			vertexConsumer = buffer.getBuffer(LAYERS.get(FireflyColor.ON.key()));
 		}
 
-		int calcColor = flickers ?
-			(int) (((age + tickDelta) * Mth.PI) * -4D) :
-			(int) Math.max((255D * (Math.cos(((age + tickDelta) * Mth.PI) * 0.05D))), 0D);
+		float calcColor = (float) (flickers ?
+			(((age + tickDelta) * Mth.PI) * -4F) / 255F :
+			Math.max(((Math.cos(((age + tickDelta) * Mth.PI) * 0.05F))), 0F)
+		);
 
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
@@ -138,7 +139,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.setOverlay(overlay)
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
-
 
 		poseStack.popPose();
 	}
