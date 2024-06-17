@@ -3,6 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
+- Increased the protocol version to 7.
 - Fixed Fireflies not rendering their base texture.
 - Fixed Display Lanterns not properly rendering their contents when updated.
 - Fixed some loot tables not working in 1.21+.
