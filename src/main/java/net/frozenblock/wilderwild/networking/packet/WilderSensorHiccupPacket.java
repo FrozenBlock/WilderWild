@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -42,7 +42,7 @@ public record WilderSensorHiccupPacket(double x, double y, double z) implements 
 	public static final double COLOR_Z = (double) (PARTICLE_COLOR & 255) / 255.0D;
 
 	public static final PacketType<WilderSensorHiccupPacket> PACKET_TYPE = PacketType.create(
-			WilderSharedConstants.id("sensor_hiccup_packet"),
+			WilderSharedConstants.id("sensor_hiccup"),
 			WilderSensorHiccupPacket::new
 	);
 

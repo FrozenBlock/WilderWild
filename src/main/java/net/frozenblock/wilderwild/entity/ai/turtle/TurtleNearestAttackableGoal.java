@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.ai.turtle;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
-import net.frozenblock.wilderwild.misc.interfaces.TurtleCooldownInterface;
+import net.frozenblock.wilderwild.entity.impl.TurtleCooldownInterface;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.jellyfish;
 
-import net.frozenblock.wilderwild.misc.JellyfishBlockCollisions;
+import net.frozenblock.wilderwild.entity.impl.IgnoreMesogleaBlockCollisions;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +38,7 @@ public class NaturalSpawnerMixin {
 	@Inject(method = "isValidSpawnPostitionForType", at = @At(value = "RETURN", ordinal = 5, shift = At.Shift.BEFORE), cancellable = true)
 	private static void wilderWild$isValidSpawnPostitionForType(ServerLevel level, MobCategory category, StructureManager structureManager, ChunkGenerator generator, MobSpawnSettings.SpawnerData data, BlockPos.MutableBlockPos pos, double distance, CallbackInfoReturnable<Boolean> info) {
 		if (data.type == RegisterEntities.JELLYFISH) {
-			info.setReturnValue(JellyfishBlockCollisions.noJellyCollision(level, null, data.type.getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)));
+			info.setReturnValue(IgnoreMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)));
 		}
 	}
 

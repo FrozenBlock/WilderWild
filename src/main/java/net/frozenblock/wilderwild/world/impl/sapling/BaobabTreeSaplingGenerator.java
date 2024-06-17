@@ -40,16 +40,6 @@ public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
 		super(string, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
-	/**
-	 * This method checks if a Baobab tree can be generated in the specified position
-	 *
-	 * @param state the current block state
-	 * @param level the block getter object
-	 * @param pos   the block position
-	 * @param xPos  the x position offset
-	 * @param zPos  the z position offset
-	 * @return true if the Baobab tree can be generated, false otherwise
-	 */
 	public static boolean canGenerateBaobabTree(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, int xPos, int zPos) {
 		// Get the current block
 		Block block = state.getBlock();
@@ -68,16 +58,6 @@ public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
 		return canGenerate;
 	}
 
-	/**
-	 * This method grows a Baobab tree in the specified position
-	 *
-	 * @param level          the server level object
-	 * @param chunkGenerator the chunk generator
-	 * @param pos            the block position
-	 * @param state          the current block state
-	 * @param random         the random source object
-	 * @return true if the tree was successfully grown, false otherwise
-	 */
 	@Override
 	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator chunkGenerator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
 		// Loop through the x and z position offsets
@@ -95,12 +75,6 @@ public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
 		return super.growTree(level, chunkGenerator, pos, state, random);
 	}
 
-	/**
-	 * This abstract method returns the holder for the Baobab tree feature
-	 *
-	 * @param random the random source object
-	 * @return the resource key for the Baobab tree feature or null if not found
-	 */
 	@Nullable
 	protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random);
 
@@ -109,28 +83,11 @@ public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
 		return null;
 	}
 
-	/**
-	 * Overrides the parent method and returns null as this feature is not applicable for the current scenario.
-	 *
-	 * @param random the random source object
-	 * @return null as this feature is not applicable
-	 */
 	@Override
 	public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(@NotNull RandomSource random) {
 		return null;
 	}
 
-	/**
-	 * Generates a Baobab tree.
-	 *
-	 * @param level          The current server level.
-	 * @param chunkGenerator The chunk generator for the world.
-	 * @param pos            The position for the tree to be generated.
-	 * @param random         The random source.
-	 * @param xOffset        The x-coordinate position.
-	 * @param zOffset        The z-coordinate position.
-	 * @return true if the tree was successfully generated, false otherwise.
-	 */
 	public boolean generateBaobabTree(@NotNull ServerLevel level, @NotNull ChunkGenerator chunkGenerator, @NotNull BlockPos pos, @NotNull RandomSource random, int xOffset, int zOffset) {
 		// Get the resource key for the Baobab tree feature
 		ResourceKey<ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);

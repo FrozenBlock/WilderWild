@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import com.google.common.collect.Iterables;
 import java.util.Set;
-import net.frozenblock.wilderwild.misc.interfaces.TreeFeatureLeavesUpdate;
+import net.frozenblock.wilderwild.world.impl.sapling.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;

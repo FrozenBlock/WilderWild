@@ -20,17 +20,24 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.List;
 import java.util.Optional;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserStage;
 import net.frozenblock.wilderwild.block.impl.GeyserType;
-import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
-import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
+import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
+import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.ParticleStatus;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -55,6 +62,7 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class GeyserBlockEntity extends BlockEntity {
@@ -115,6 +123,19 @@ public class GeyserBlockEntity extends BlockEntity {
 				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}
 
+	@NotNull
+	@Contract("_, _ -> new")
+	private static AABB aabb(@NotNull BlockPos startPos, @NotNull BlockPos endPos) {
+		return new AABB(
+			Math.min(startPos.getX(), endPos.getX()),
+			Math.min(startPos.getY(), endPos.getY()),
+			Math.min(startPos.getZ(), endPos.getZ()),
+			Math.max(startPos.getX(), endPos.getX()) + 1D,
+			Math.max(startPos.getY(), endPos.getY()) + 1D,
+			Math.max(startPos.getZ(), endPos.getZ()) + 1D
+		);
+	}
+
 	private void handleEruption(Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction) {
 		BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		Optional<BlockPos> cutoffPos = Optional.empty();
@@ -135,15 +156,15 @@ public class GeyserBlockEntity extends BlockEntity {
 				if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
 			}
 		}
-		AABB eruption = AABB.encapsulatingFullBlocks(pos, mutablePos.immutable());
+		AABB eruption = aabb(pos, mutablePos.immutable());
 		mutablePos.move(direction.getOpposite());
 
 		AABB effectiveEruption = cutoffPos.map(blockPos ->
-				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable()));
+				aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
+			.orElseGet(() -> aabb(pos, mutablePos.immutable()));
 		AABB damagingEruption = damageCutoffPos.map(blockPos ->
-				AABB.encapsulatingFullBlocks(pos, blockPos.immutable().relative(direction.getOpposite())))
-			.orElseGet(() -> AABB.encapsulatingFullBlocks(pos, mutablePos.immutable()));
+				aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
+			.orElseGet(() -> aabb(pos, mutablePos.immutable()));
 
 		AABB maxPossibleEruptionBox = getPossibleEruptionBoundingBox(pos, maxEndPos);
 		List<Entity> entities = level.getEntities(
@@ -171,8 +192,8 @@ public class GeyserBlockEntity extends BlockEntity {
 			windManager.addWindDisturbance(effectiveWindDisturbance);
 			windManager.addWindDisturbance(baseWindDisturbance);
 		} else if (level.isClientSide) {
-			ClientMethodInteractionHandler.addWindDisturbanceToClient(effectiveWindDisturbance);
-			ClientMethodInteractionHandler.addWindDisturbanceToClient(baseWindDisturbance);
+			addWindDisturbanceToClient(effectiveWindDisturbance);
+			addWindDisturbanceToClient(baseWindDisturbance);
 		}
 
 		Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
@@ -286,7 +307,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			if (geyserStage == GeyserStage.ERUPTING) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
-				ClientMethodInteractionHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
+				spawnEruptionParticles(level, pos, geyserType, direction, random);
 			}
 		}
 	}
@@ -316,6 +337,11 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.hasRunFirstCheck = tag.getBoolean("HasRunFirstCheck");
 		this.tickUntilNextEvent = tag.getInt("TicksUntilNextEvent");
 		this.eruptionProgress = tag.getFloat("EruptionProgress");
+	}
+
+	@Environment(EnvType.CLIENT)
+	private static void addWindDisturbanceToClient(@NotNull WindDisturbance windDisturbance) {
+		ClientWindManager.addWindDisturbance(windDisturbance);
 	}
 
 	public static final float DORMANT_BUBBLE_CHANCE = 0.0195F;
@@ -434,6 +460,136 @@ public class GeyserBlockEntity extends BlockEntity {
 						particleVelocity.z
 					);
 				}
+			}
+		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
+		Minecraft client = Minecraft.getInstance();
+		ParticleStatus particleStatus = client.options.particles().get();
+		ParticleEngine particleEngine = client.particleEngine;
+		if (geyserType == GeyserType.WATER) {
+			if (random.nextFloat() <= 0.4F) { // Bubble
+				int count = random.nextInt(1, 4);
+				for (int i = 0; i < count; i++) {
+					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 1.7D, 4D);
+					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
+					level.addParticle(
+						ParticleTypes.BUBBLE,
+						random.nextBoolean(),
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
+				}
+			}
+		} else {
+			if (random.nextFloat() <= 0.5F) { // Dust Plume
+				int count = random.nextInt(1, 5);
+				for (int i = 0; i < count; i++) {
+					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.8D, 1.4D);
+					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
+					level.addParticle(
+						ParticleTypes.DUST_PLUME,
+						false,
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
+				}
+			}
+		}
+		if (geyserType == GeyserType.LAVA) {
+			if (random.nextFloat() <= 0.7F) { // Large Smoke
+				int count = random.nextInt(1, 4);
+				for (int i = 0; i < count; i++) {
+					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.2D, 0.9D);
+					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
+					level.addParticle(
+						ParticleTypes.LARGE_SMOKE,
+						false,
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
+				}
+			}
+			int count = random.nextInt(1, 5);
+			for (int i = 0; i < count; i++) {
+				if (random.nextFloat() <= 0.9F) { // Flame
+					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.1D, 0.6D);
+					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.225D));
+					level.addAlwaysVisibleParticle(
+						ParticleTypes.FLAME,
+						false,
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
+				}
+			}
+			int lavaCount = random.nextInt(1, 3);
+			for (int i = 0; i < lavaCount; i++) { // Lava
+				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+					break;
+				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
+					break;
+				}
+				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.6D, 0.8D);
+				particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
+				Particle lavaParticle = particleEngine.createParticle(
+					ParticleTypes.LAVA,
+					particlePos.x,
+					particlePos.y,
+					particlePos.z,
+					particleVelocity.x,
+					particleVelocity.y,
+					particleVelocity.z
+				);
+				if (lavaParticle != null) {
+					lavaParticle.xd = particleVelocity.x;
+					lavaParticle.yd = particleVelocity.y;
+					lavaParticle.zd = particleVelocity.z;
+				}
+			}
+		} else {
+			int windCount = random.nextInt(0, 2);
+			for (int i = 0; i < windCount; i++) { // WIND
+				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+					break;
+				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
+					break;
+				}
+				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.6D, 0.8D);
+				particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
+				particleEngine.createParticle(
+					new WindParticleOptions(12, particleVelocity),
+					particlePos.x,
+					particlePos.y,
+					particlePos.z,
+					0,
+					0,
+					0
+				);
 			}
 		}
 	}
