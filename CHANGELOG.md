@@ -3,4 +3,5 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Fixed Fireflies not rendering their base texture in 1.21.
+- Fixed Fireflies not rendering their base texture.
+- Fixed Display Lanterns not properly rendering their contents when updated.

@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import java.util.Optional;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
@@ -54,13 +53,13 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 
 	@Override
 	public void render(@NotNull T lantern, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
-		Optional<ItemStack> stack = lantern.getItem();
-		if (!lantern.invEmpty() && stack.isPresent()) {
+		ItemStack stack = lantern.getItem();
+		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(0.5F, lantern.clientHanging ? 0.25F : 0.125F, 0.5F);
 			poseStack.scale(0.7F, 0.7F, 0.7F);
 			poseStack.mulPose(Axis.YP.rotation((lantern.age + partialTick) / 20F));
-			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
+			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
 			poseStack.popPose();
 		} else {
 			for (DisplayLanternBlockEntity.Occupant entity : lantern.getFireflies()) {
