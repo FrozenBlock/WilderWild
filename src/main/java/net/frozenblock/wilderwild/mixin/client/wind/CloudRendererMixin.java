@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.client.wind;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.wind.WilderClientWindManager;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
@@ -38,7 +38,7 @@ public class CloudRendererMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.get().wind.cloudMovement && ClientWindManager.shouldUseWind();
+		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4, require = 0)

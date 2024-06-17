@@ -21,10 +21,11 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -43,7 +44,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractChestBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
@@ -131,16 +131,16 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		Level level = entity.getLevel();
 		boolean bl = level != null;
-		BlockState blockState = bl ? entity.getBlockState() : Blocks.CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
+		BlockState blockState = bl ? entity.getBlockState() : RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
 		ChestType chestType = blockState.hasProperty(StoneChestBlock.TYPE) ? blockState.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
 		Block block = blockState.getBlock();
 		if (block instanceof AbstractChestBlock<?> abstractStoneChestBlock) {
-			boolean bl2 = chestType != ChestType.SINGLE;
+			boolean isDouble = chestType != ChestType.SINGLE;
 			poseStack.pushPose();
 			float f = blockState.getValue(StoneChestBlock.FACING).toYRot();
-			poseStack.translate(0.5, 0.5, 0.5);
+			poseStack.translate(0.5F, 0.5F, 0.5F);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-f));
-			poseStack.translate(-0.5, -0.5, -0.5);
+			poseStack.translate(-0.5F, -0.5F, -0.5F);
 			DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> propertySource;
 			if (bl) {
 				propertySource = abstractStoneChestBlock.combine(blockState, level, entity.getBlockPos(), true);
@@ -149,12 +149,12 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 			}
 
 			float openProg = entity.getOpenProgress(partialTick);
-			openProg = 1.0F - openProg;
-			openProg = 1.0F - openProg * openProg * openProg;
+			openProg = 1F - openProg;
+			openProg = 1F - openProg * openProg * openProg;
 			int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
 			Material spriteIdentifier = getChestTexture(chestType, entity.getBlockState().getValue(RegisterProperties.HAS_SCULK));
 			VertexConsumer vertexConsumer = spriteIdentifier.buffer(buffer, RenderType::entityCutout);
-			if (bl2) {
+			if (isDouble) {
 				if (chestType == ChestType.LEFT) {
 					this.render(poseStack, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftBase, openProg, i, overlay);
 				} else {

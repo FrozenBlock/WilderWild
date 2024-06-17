@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import net.frozenblock.wilderwild.misc.interfaces.AbstractTreeGrowerInterface;
+import net.frozenblock.wilderwild.world.impl.sapling.AbstractTreeGrowerInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

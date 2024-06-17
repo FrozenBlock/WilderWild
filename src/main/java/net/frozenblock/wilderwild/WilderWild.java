@@ -29,15 +29,15 @@ import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
+import net.frozenblock.wilderwild.command.SpreadSculkCommand;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
+import net.frozenblock.wilderwild.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -55,6 +55,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.RegisterVillagerTypes;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.modification.WilderWorldGen;
@@ -69,6 +70,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
 		WilderSharedConstants.startMeasuring(this);
+		if (WilderPreMixinInjectConstants.IS_DATAGEN) {
+			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
+		}
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
@@ -98,8 +102,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		TermiteManager.Termite.addDegradableBlocks();
 		TermiteManager.Termite.addNaturalDegradableBlocks();
-
 		RegisterBlocks.registerBlockProperties();
+		RegisterVillagerTypes.register();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();

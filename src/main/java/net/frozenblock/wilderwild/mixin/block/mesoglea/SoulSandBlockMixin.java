@@ -37,14 +37,14 @@ public class SoulSandBlockMixin {
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.AFTER))
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
+		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			MesogleaBlock.updateColumn(level, pos.above(), state);
 		}
 	}
 
 	@ModifyExpressionValue(method = "updateShape", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
 	public boolean wilderWild$updateShape(boolean original, BlockState state, Direction direction, BlockState neighborState) {
-		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
+		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
 		}
 		return original;

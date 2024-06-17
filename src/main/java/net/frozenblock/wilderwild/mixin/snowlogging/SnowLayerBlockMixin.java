@@ -55,7 +55,7 @@ public abstract class SnowLayerBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
+		if (!BlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 			int layers = SnowloggingUtils.getSnowLayers(blockState);
 			if (layers < 8) {
@@ -71,7 +71,7 @@ public abstract class SnowLayerBlockMixin {
 		cancellable = true
 	)
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
+		if (!BlockConfig.canSnowlog()) return;
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
 			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
@@ -98,7 +98,7 @@ public abstract class SnowLayerBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$canSurvive(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info, BlockState supportState) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
+		if (!BlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.isSnowlogged(supportState)) {
 			int layers = SnowloggingUtils.getSnowLayers(supportState);
 			if (layers == 8) {

@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabCanDigSensor;
@@ -26,7 +27,6 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabNearbyPlayerSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichSpecificSensor;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.Sensor;

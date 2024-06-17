@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.modification;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.world.entity.EntityType;
