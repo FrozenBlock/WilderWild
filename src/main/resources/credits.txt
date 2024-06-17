@@ -94,6 +94,9 @@ Fourmisain:
 Soulfate24:
  - Provided an improved Hollowed Log model for 2.4.3 that fixes the incorrect breaking texture and avoids a bug with texture misalignment.
 
+wet.noodle/Ashlyn
+ - Suggested adding Reach Boost to Beacons.
+
 Osmiooo:
  - French translation.
 
