@@ -92,6 +92,20 @@ public final class BlockConfigGui {
 			)
 		);
 
+		var reachBoostBeacon = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("reach_boost_beacon"), modifiedConfig.reachBoostBeacon)
+					.setDefaultValue(defaultConfig.reachBoostBeacon)
+					.setSaveConsumer(newValue -> config.reachBoostBeacon = newValue)
+					.setTooltip(tooltip("reach_boost_beacon"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"reachBoostBeacon",
+				configInstance
+			)
+		);
+
 		var pollenParticles = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("pollen_particles"), modifiedConfig.pollenParticles)
