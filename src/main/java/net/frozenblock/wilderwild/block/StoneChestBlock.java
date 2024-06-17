@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -244,14 +244,13 @@ public class StoneChestBlock extends ChestBlock {
 					}
 					StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
 					level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
-					stoneChest.setChanged();
 				}
 			}
 			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
 				((ChestBlockEntityInterface) stoneChest).wilderWild$syncBubble(stoneChest, otherChest);
-				stoneChest.syncLidValuesWith(otherChest);
 			}
+			stoneChest.syncLidValuesAndUpdate(otherChest);
 		}
 		return InteractionResult.CONSUME;
 	}

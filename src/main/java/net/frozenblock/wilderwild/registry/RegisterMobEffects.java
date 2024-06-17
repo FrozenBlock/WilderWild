@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Mth;

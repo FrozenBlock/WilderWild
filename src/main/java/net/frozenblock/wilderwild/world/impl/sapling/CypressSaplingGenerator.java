@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.world.impl.sapling;
 
-import net.frozenblock.wilderwild.misc.interfaces.AbstractTreeGrowerInterface;
 import net.frozenblock.wilderwild.world.features.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.features.feature.WilderTreeConfigured;
 import net.minecraft.core.BlockPos;

@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 public record WilderLightningStrikePacket(int blockStateId, double x, double y, double z, int tickCount) implements FabricPacket {
 
 	public static final PacketType<WilderLightningStrikePacket> PACKET_TYPE = PacketType.create(
-			WilderSharedConstants.id("lightning_strike_packet"),
+			WilderSharedConstants.id("lightning_strike"),
 			WilderLightningStrikePacket::new
 	);
 

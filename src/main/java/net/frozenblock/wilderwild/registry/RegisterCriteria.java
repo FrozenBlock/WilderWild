@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 

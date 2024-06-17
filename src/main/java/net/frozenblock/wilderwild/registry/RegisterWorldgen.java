@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.biome.AridForest;
 import net.frozenblock.wilderwild.world.biome.AridSavanna;
 import net.frozenblock.wilderwild.world.biome.BirchJungle;

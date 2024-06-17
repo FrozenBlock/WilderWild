@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.block.mesoglea;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.interfaces.InMesogleaInterface;
+import net.frozenblock.wilderwild.entity.impl.InMesogleaInterface;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;

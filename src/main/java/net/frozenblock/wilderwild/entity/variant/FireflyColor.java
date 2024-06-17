@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.variant;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.Registry;

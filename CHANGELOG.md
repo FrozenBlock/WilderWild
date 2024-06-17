@@ -3,18 +3,31 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Added new config options to control the Ancient Horn's cooldowns in different scenarios.
-  - `Default Cooldown`
-  - `Creative Cooldown`
-  - `Sculk Sensor Cooldown`
-  - `Sculk Shrieker Cooldown`
-  - `Hanging Tendril Cooldown`
-- Geysers will now put out Fires, Campfires, and Candles upon Erupting without Lava, and ignite them upon Erupting with Lava. ([#372](https://github.com/FrozenBlock/WilderWild/issues/372))
-- Fixed the length of Geyser Eruptions, now being 5 instead of 4.
-- Significantly optimized Wilder Wild's custom worldgen
-- Slightly optimized Wilder Wild's custom rendering
-- Updated Scorched Eye and Fermented Scorched Eye textures.
-- (1.20.6) Added better support for Snowlogging on Embeddium thanks to embeddedt!
-  - Snowlogging on Embeddium will no longer result in Z-Fighting with Pink Petals.
-- Cloud movement no longer uses separate mixins for Embeddium and Sodium, also thanks to embeddedt!
-- (1.20.4+) Updated Mesoglea's optional Liquid rendering to work without additional mixins in Vanilla and with Embeddium, also thanks to embeddedt!
+- Refactored everything in the `misc` package to other places, removing the `misc` class.
+  - This was done to prevent slander of our team.
+    - ...yeah.
+- Increased the protocol version to 6.
+- Shortened the channel names for Wilder Wild's custom packets.
+- Fixed the Stone Chest's lid animation. ([#383](https://github.com/FrozenBlock/WilderWild/issues/383))
+- Added the Geyser to the Redstone tab, just before the Sculk Sensor.
+- Properly integrated Villager Types with Wilder Wild's biomes.
+- Pollen and Seed particles will be removed from the world five times faster after becoming immobile.
+- Seed particles now properly interact with water.
+- Ever so slightly improved the Baoab trunk placer.
+- Optimized some parts of the mod that rely on frequent config checks.
+  - Snowlogging.
+  - Mesoglea Bubble Columns.
+  - Wind usage.
+- Fixed a broken translation string pertaining to the `Magmatic Caves Fog` config option.
+- Substantially improved the Hollowed Log model thanks to Soulfate24! ([#379](https://github.com/FrozenBlock/WilderWild/issues/379))
+    - Previously, we were not able to figure out how to make a Hollowed Log model without the texture getting misaligned due to a vanilla bug.
+    - The result was using a model comprised of only two parts, which messed up the breaking texture.
+    - This new model fixes every possible issue with it!
+- Updated Flowering Lily Pad textures thanks to Zhen!
+- Updated the Milkweed Pod texture thanks to Zhen!
+- Updated the entire Cypress set's textures thanks to Zhen's brush-ups!
+  - Many issues that were once present in this set are now gone, including:
+    - Cypress Leaves being an edit of Spruce Leaves prior.
+    - The entire Cypress wood set having contrast issues when compared to all other wood sets in the game.
+    - The base color of the Cypress wood set being too desaturated and yellow.
+    - A lack of contrast on the sides of Cypress Logs.

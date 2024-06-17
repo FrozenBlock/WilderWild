@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.entity.turtle;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.turtle.TurtleNearestAttackableGoal;
-import net.frozenblock.wilderwild.misc.interfaces.TurtleCooldownInterface;
+import net.frozenblock.wilderwild.entity.impl.TurtleCooldownInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;

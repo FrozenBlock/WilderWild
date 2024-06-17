@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.boat;
 
-import net.frozenblock.wilderwild.misc.WilderEnumValues;
+import net.frozenblock.wilderwild.WilderEnumValues;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;

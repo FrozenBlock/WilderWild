@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.features.structure.AbandonedCabinGenerator;
 import net.frozenblock.wilderwild.world.features.structure.WilderStructureProcessors;

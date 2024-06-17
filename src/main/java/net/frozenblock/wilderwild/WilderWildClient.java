@@ -58,7 +58,6 @@ import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
 import net.frozenblock.wilderwild.particle.AdditionalParticleFactories;
 import net.frozenblock.wilderwild.particle.DustPlumeParticle;
@@ -117,8 +116,6 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderSharedConstants.id("scorched"), "main");
-
-	public static volatile boolean MESOGLEA_LIQUID = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -389,7 +386,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		var customWaterHandler = new FluidRenderHandler() {
 
 			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-				if (view != null && pos != null && MESOGLEA_LIQUID) {
+				if (view != null && pos != null && BlockConfig.Client.MESOGLEA_LIQUID) {
 					BlockState state = view.getBlockState(pos);
 					return state.is(WilderBlockTags.MESOGLEA) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 				}
