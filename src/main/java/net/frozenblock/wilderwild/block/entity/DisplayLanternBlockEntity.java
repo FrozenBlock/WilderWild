@@ -25,7 +25,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -42,9 +41,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -102,11 +101,16 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 	}
 
+	public void updateSync() {
+		for (ServerPlayer player : PlayerLookup.tracking(this)) {
+			player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+		}
+	}
+
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
-
 
 	@NotNull
 	@Override
@@ -115,12 +119,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public boolean invEmpty() {
-		Optional<ItemStack> stack = this.inventory.stream().findFirst();
-		return stack.map(itemStack -> itemStack == ItemStack.EMPTY).orElse(true);
+		return this.getItem().isEmpty();
 	}
 
-	public Optional<ItemStack> getItem() {
-		return this.inventory.stream().findFirst();
+	public ItemStack getItem() {
+		return this.inventory.get(0);
 	}
 
 	public boolean noFireflies() {
@@ -157,8 +160,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
-		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
-		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(MAX_FIREFLY_AGE), 0);
+		Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
+		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7D, random.nextInt(MAX_FIREFLY_AGE), 0D);
 		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
@@ -289,7 +292,5 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public double getY() {
 			return this.y;
 		}
-
 	}
-
 }

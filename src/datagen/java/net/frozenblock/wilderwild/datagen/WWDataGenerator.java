@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
 import net.frozenblock.wilderwild.WilderFeatureFlags;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
+import net.frozenblock.wilderwild.registry.RegisterStructureProcessors;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.impl.WilderFeatureBootstrap;
@@ -79,10 +80,9 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.PLACED_FEATURE, WilderFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, RegisterWorldgen::bootstrap);
 		registryBuilder.add(Registries.NOISE, WilderNoise::bootstrap);
-		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructures::bootstrapProcessor);
+		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructureProcessors::bootstrapProcessor);
 		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
 		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 	}
-
 }

@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.features.feature;
+package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
-import static net.frozenblock.wilderwild.world.features.feature.WilderFeatureUtils.register;
+import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.treedecorators.HeightBasedCobwebTreeDecorator;

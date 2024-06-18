@@ -68,7 +68,7 @@
         "Name": "minecraft:dark_oak_log",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true"
+          "termite_edible": "false"
         }
       }
     }

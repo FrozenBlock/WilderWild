@@ -13,7 +13,7 @@
       "absolute": -40
     }
   },
-  "start_pool": "wilderwild:abandoned_cabin/cabin",
+  "start_pool": "wilderwild:abandoned_cabin",
   "step": "underground_decoration",
   "terrain_adaptation": "bury",
   "use_expansion_hack": false

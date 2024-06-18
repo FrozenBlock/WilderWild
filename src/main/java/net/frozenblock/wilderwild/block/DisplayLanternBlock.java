@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -124,7 +125,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
 						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 						level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-						lantern.setChanged();
+						lantern.updateSync();
 						level.updateNeighbourForOutputSignal(pos, this);
 						return InteractionResult.SUCCESS;
 					}
@@ -132,7 +133,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				if (itemStack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
 						DisplayLanternBlockEntity.Occupant fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
-						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.key().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.key().getPath() + "_firefly_bottle"));
+						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.tryBuild(fireflyInLantern.color.key().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.key().getPath() + "_firefly_bottle"));
 						Item item = RegisterItems.FIREFLY_BOTTLE;
 						if (optionalItem.isPresent()) {
 							item = optionalItem.get();
@@ -148,7 +149,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						player.getInventory().placeItemBackInInventory(bottleStack);
 						((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
 						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-						lantern.setChanged();
+						lantern.updateSync();
 						level.updateNeighbourForOutputSignal(pos, this);
 						return InteractionResult.SUCCESS;
 					}
@@ -162,7 +163,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					}
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, LightEngine.MAX_LEVEL)));
 					lantern.inventory.set(0, itemStack.split(1));
-					lantern.setChanged();
+					lantern.updateSync();
 					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
 				}
@@ -171,7 +172,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				if (stack1.isPresent()) {
 					popResource(level, pos, stack1.get());
 					lantern.inventory.clear();
-					lantern.setChanged();
+					lantern.updateSync();
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, 0));
 					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
