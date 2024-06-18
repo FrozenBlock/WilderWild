@@ -37,7 +37,15 @@ public final class BeaconBlockEntityMixin {
 	@Final
 	public static MobEffect[][] BEACON_EFFECTS;
 
-	@Inject(method = "<clinit>", at = @At("TAIL"))
+	@Inject(
+		method = "<clinit>",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/entity/BeaconBlockEntity;BEACON_EFFECTS:[[Lnet/minecraft/world/effect/MobEffect;",
+			shift = At.Shift.AFTER,
+			ordinal = 0
+		)
+	)
 	private static void wilderWild$addReachBoost(CallbackInfo info) {
 		ArrayList<MobEffect> effects = new ArrayList<>(List.of(BEACON_EFFECTS[2]));
 		effects.add(RegisterMobEffects.REACH_BOOST);
