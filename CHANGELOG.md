@@ -10,6 +10,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed Display Lanterns not properly rendering their contents when updated.
 - Fixed some loot tables not working in 1.21+.
 - Fixed Termite particles not rendering in 1.21+.
+- Fixed a broken translation string in the `Entity` config.
+- Fixed Cloud movement not working properly.
 - Added the Reach Boost effect to Beacons, thanks to a suggestion by wet.noodle/Ashlyn.
   - Added the `Reach Boost Beacons` config to toggle this.
 - Updated the Reach Boost icon, thanks to Zhen!
