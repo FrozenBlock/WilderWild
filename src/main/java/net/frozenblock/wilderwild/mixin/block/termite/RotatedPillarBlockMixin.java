@@ -40,6 +40,9 @@ public class RotatedPillarBlockMixin {
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$appendFalseTermiteEdibleToState(BlockBehaviour.Properties properties, CallbackInfo info) {
 		RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
-		rotatedPillarBlock.registerDefaultState(rotatedPillarBlock.defaultBlockState().setValue(RegisterProperties.TERMITE_EDIBLE, false));
+		BlockState defaultBlockState = rotatedPillarBlock.defaultBlockState();
+		if (defaultBlockState.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			rotatedPillarBlock.registerDefaultState(defaultBlockState.setValue(RegisterProperties.TERMITE_EDIBLE, false));
+		}
 	}
 }

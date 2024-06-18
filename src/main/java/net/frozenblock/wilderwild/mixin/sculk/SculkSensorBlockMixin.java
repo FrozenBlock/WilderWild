@@ -54,7 +54,7 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$registerDefaultHiccupping(Properties properties, CallbackInfo ci) {
+	private void wilderWild$registerDefaultHiccupping(Properties properties, CallbackInfo info) {
 		SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
 		sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(RegisterProperties.HICCUPPING, false));
 	}
