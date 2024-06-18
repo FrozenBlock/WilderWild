@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.world.impl.sapling;
 
-import net.frozenblock.wilderwild.world.features.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.features.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;

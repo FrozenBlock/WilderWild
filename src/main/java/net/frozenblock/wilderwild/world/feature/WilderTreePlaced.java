@@ -16,14 +16,13 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.features.feature;
+package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import static net.frozenblock.wilderwild.world.features.feature.WilderPlacementUtils.register;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
@@ -43,105 +42,105 @@ public final class WilderTreePlaced {
 		BlockPredicateFilter.forPredicate(SNOW_TREE_PREDICATE)
 	);
 	//BIRCH
-	public static final FrozenPlacedFeature BIRCH_CHECKED = register("birch_checked");
-	public static final FrozenPlacedFeature BIRCH_BEES_0004 = register("birch_bees_0004");
-	public static final FrozenPlacedFeature BIRCH_BEES_025 = register("birch_bees_025");
-	public static final FrozenPlacedFeature DYING_BIRCH = register("dying_birch");
-	public static final FrozenPlacedFeature SHORT_BIRCH = register("short_birch");
-	public static final FrozenPlacedFeature DYING_SHORT_BIRCH = register("dying_short_birch");
-	public static final FrozenPlacedFeature SHORT_BIRCH_BEES_0004 = register("short_birch_bees_0004");
-	public static final FrozenPlacedFeature DYING_SUPER_BIRCH = register("dying_super_birch");
-	public static final FrozenPlacedFeature SUPER_BIRCH_BEES_0004 = register("super_birch_bees_0004");
-	public static final FrozenPlacedFeature SUPER_BIRCH_BEES = register("super_birch_bees");
-	public static final FrozenPlacedFeature SUPER_BIRCH = register("super_birch");
-	public static final FrozenPlacedFeature FALLEN_BIRCH_CHECKED = register("fallen_birch_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked");
-	public static final FrozenPlacedFeature SNAPPED_BIRCH_CHECKED = register("snapped_birch_checked");
-	public static final FrozenPlacedFeature DEAD_BIRCH = register("dead_birch");
+	public static final FrozenPlacedFeature BIRCH_CHECKED = WilderPlacementUtils.register("birch_checked");
+	public static final FrozenPlacedFeature BIRCH_BEES_0004 = WilderPlacementUtils.register("birch_bees_0004");
+	public static final FrozenPlacedFeature BIRCH_BEES_025 = WilderPlacementUtils.register("birch_bees_025");
+	public static final FrozenPlacedFeature DYING_BIRCH = WilderPlacementUtils.register("dying_birch");
+	public static final FrozenPlacedFeature SHORT_BIRCH = WilderPlacementUtils.register("short_birch");
+	public static final FrozenPlacedFeature DYING_SHORT_BIRCH = WilderPlacementUtils.register("dying_short_birch");
+	public static final FrozenPlacedFeature SHORT_BIRCH_BEES_0004 = WilderPlacementUtils.register("short_birch_bees_0004");
+	public static final FrozenPlacedFeature DYING_SUPER_BIRCH = WilderPlacementUtils.register("dying_super_birch");
+	public static final FrozenPlacedFeature SUPER_BIRCH_BEES_0004 = WilderPlacementUtils.register("super_birch_bees_0004");
+	public static final FrozenPlacedFeature SUPER_BIRCH_BEES = WilderPlacementUtils.register("super_birch_bees");
+	public static final FrozenPlacedFeature SUPER_BIRCH = WilderPlacementUtils.register("super_birch");
+	public static final FrozenPlacedFeature FALLEN_BIRCH_CHECKED = WilderPlacementUtils.register("fallen_birch_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = WilderPlacementUtils.register("mossy_fallen_birch_checked");
+	public static final FrozenPlacedFeature SNAPPED_BIRCH_CHECKED = WilderPlacementUtils.register("snapped_birch_checked");
+	public static final FrozenPlacedFeature DEAD_BIRCH = WilderPlacementUtils.register("dead_birch");
 	//CHERRY
-	public static final FrozenPlacedFeature CHERRY_CHECKED = register("cherry_checked");
-	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = register("dying_cherry_checked");
-	public static final FrozenPlacedFeature TALL_CHERRY_CHECKED = register("tall_cherry_checked");
-	public static final FrozenPlacedFeature TALL_DYING_CHERRY_CHECKED = register("tall_dying_cherry_checked");
-	public static final FrozenPlacedFeature CHERRY_BEES_CHECKED = register("cherry_bees_checked");
-	public static final FrozenPlacedFeature TALL_CHERRY_BEES_CHECKED = register("tall_cherry_bees_checked");
-	public static final FrozenPlacedFeature FALLEN_CHERRY_CHECKED = register("fallen_cherry_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = register("mossy_fallen_cherry_checked");
-	public static final FrozenPlacedFeature SNAPPED_CHERRY_CHECKED = register("snapped_cherry_checked");
+	public static final FrozenPlacedFeature CHERRY_CHECKED = WilderPlacementUtils.register("cherry_checked");
+	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = WilderPlacementUtils.register("dying_cherry_checked");
+	public static final FrozenPlacedFeature TALL_CHERRY_CHECKED = WilderPlacementUtils.register("tall_cherry_checked");
+	public static final FrozenPlacedFeature TALL_DYING_CHERRY_CHECKED = WilderPlacementUtils.register("tall_dying_cherry_checked");
+	public static final FrozenPlacedFeature CHERRY_BEES_CHECKED = WilderPlacementUtils.register("cherry_bees_checked");
+	public static final FrozenPlacedFeature TALL_CHERRY_BEES_CHECKED = WilderPlacementUtils.register("tall_cherry_bees_checked");
+	public static final FrozenPlacedFeature FALLEN_CHERRY_CHECKED = WilderPlacementUtils.register("fallen_cherry_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = WilderPlacementUtils.register("mossy_fallen_cherry_checked");
+	public static final FrozenPlacedFeature SNAPPED_CHERRY_CHECKED = WilderPlacementUtils.register("snapped_cherry_checked");
 	//OAK
-	public static final FrozenPlacedFeature OAK_CHECKED = register("oak_checked");
-	public static final FrozenPlacedFeature DYING_OAK_CHECKED = register("dying_oak_checked");
-	public static final FrozenPlacedFeature OAK_BEES_0004 = register("oak_bees_00004");
-	public static final FrozenPlacedFeature SHORT_OAK_CHECKED = register("short_oak_checked");
-	public static final FrozenPlacedFeature FANCY_OAK_CHECKED = register("fancy_oak_checked");
-	public static final FrozenPlacedFeature DYING_FANCY_OAK_CHECKED = register("dying_fancy_oak_checked");
-	public static final FrozenPlacedFeature DYING_FANCY_OAK_BEES_0004 = register("dying_fancy_oak_bees_0004");
-	public static final FrozenPlacedFeature FANCY_OAK_BEES_0004 = register("fancy_oak_bees_0004");
-	public static final FrozenPlacedFeature DYING_FANCY_OAK_BEES_025 = register("dying_fancy_oak_bees_025");
-	public static final FrozenPlacedFeature FANCY_OAK_BEES_025 = register("fancy_oak_bees_025");
-	public static final FrozenPlacedFeature FANCY_OAK_BEES = register("fancy_oak_bees");
-	public static final FrozenPlacedFeature FALLEN_OAK_CHECKED = register("fallen_oak_checked");
-	public static final FrozenPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = register("fallen_oak_no_moss_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_OAK_CHECKED = register("mossy_fallen_oak_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_STRAIGHT_OAK_CHECKED = register("mossy_fallen_straight_oak_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = register("mossy_fallen_spruce_checked");
-	public static final FrozenPlacedFeature CLEAN_FALLEN_SPRUCE_CHECKED = register("clean_fallen_spruce_checked");
-	public static final FrozenPlacedFeature OLD_DYING_FANCY_OAK_BEES_0004 = register("old_dying_fancy_oak_bees_0004");
-	public static final FrozenPlacedFeature SNAPPED_OAK_CHECKED = register("snapped_oak_checked");
-	public static final FrozenPlacedFeature FANCY_DEAD_OAK_CHECKED = register("fancy_dead_oak_checked");
-	public static final FrozenPlacedFeature FANCY_SEMI_DEAD_OAK_CHECKED = register("fancy_semi_dead_oak_checked");
-	public static final FrozenPlacedFeature SMALL_FANCY_DEAD_OAK_CHECKED = register("small_fancy_dead_oak_checked");
-	public static final FrozenPlacedFeature SMALL_FANCY_SEMI_DEAD_OAK_CHECKED = register("small_fancy_semi_dead_oak_checked");
-	public static final FrozenPlacedFeature DEAD_OAK_CHECKED = register("dead_oak_checked");
-	public static final FrozenPlacedFeature DEAD_OAK_BRANCHES_CHECKED = register("dead_oak_branches_checked");
+	public static final FrozenPlacedFeature OAK_CHECKED = WilderPlacementUtils.register("oak_checked");
+	public static final FrozenPlacedFeature DYING_OAK_CHECKED = WilderPlacementUtils.register("dying_oak_checked");
+	public static final FrozenPlacedFeature OAK_BEES_0004 = WilderPlacementUtils.register("oak_bees_00004");
+	public static final FrozenPlacedFeature SHORT_OAK_CHECKED = WilderPlacementUtils.register("short_oak_checked");
+	public static final FrozenPlacedFeature FANCY_OAK_CHECKED = WilderPlacementUtils.register("fancy_oak_checked");
+	public static final FrozenPlacedFeature DYING_FANCY_OAK_CHECKED = WilderPlacementUtils.register("dying_fancy_oak_checked");
+	public static final FrozenPlacedFeature DYING_FANCY_OAK_BEES_0004 = WilderPlacementUtils.register("dying_fancy_oak_bees_0004");
+	public static final FrozenPlacedFeature FANCY_OAK_BEES_0004 = WilderPlacementUtils.register("fancy_oak_bees_0004");
+	public static final FrozenPlacedFeature DYING_FANCY_OAK_BEES_025 = WilderPlacementUtils.register("dying_fancy_oak_bees_025");
+	public static final FrozenPlacedFeature FANCY_OAK_BEES_025 = WilderPlacementUtils.register("fancy_oak_bees_025");
+	public static final FrozenPlacedFeature FANCY_OAK_BEES = WilderPlacementUtils.register("fancy_oak_bees");
+	public static final FrozenPlacedFeature FALLEN_OAK_CHECKED = WilderPlacementUtils.register("fallen_oak_checked");
+	public static final FrozenPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = WilderPlacementUtils.register("fallen_oak_no_moss_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_OAK_CHECKED = WilderPlacementUtils.register("mossy_fallen_oak_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_STRAIGHT_OAK_CHECKED = WilderPlacementUtils.register("mossy_fallen_straight_oak_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = WilderPlacementUtils.register("mossy_fallen_spruce_checked");
+	public static final FrozenPlacedFeature CLEAN_FALLEN_SPRUCE_CHECKED = WilderPlacementUtils.register("clean_fallen_spruce_checked");
+	public static final FrozenPlacedFeature OLD_DYING_FANCY_OAK_BEES_0004 = WilderPlacementUtils.register("old_dying_fancy_oak_bees_0004");
+	public static final FrozenPlacedFeature SNAPPED_OAK_CHECKED = WilderPlacementUtils.register("snapped_oak_checked");
+	public static final FrozenPlacedFeature FANCY_DEAD_OAK_CHECKED = WilderPlacementUtils.register("fancy_dead_oak_checked");
+	public static final FrozenPlacedFeature FANCY_SEMI_DEAD_OAK_CHECKED = WilderPlacementUtils.register("fancy_semi_dead_oak_checked");
+	public static final FrozenPlacedFeature SMALL_FANCY_DEAD_OAK_CHECKED = WilderPlacementUtils.register("small_fancy_dead_oak_checked");
+	public static final FrozenPlacedFeature SMALL_FANCY_SEMI_DEAD_OAK_CHECKED = WilderPlacementUtils.register("small_fancy_semi_dead_oak_checked");
+	public static final FrozenPlacedFeature DEAD_OAK_CHECKED = WilderPlacementUtils.register("dead_oak_checked");
+	public static final FrozenPlacedFeature DEAD_OAK_BRANCHES_CHECKED = WilderPlacementUtils.register("dead_oak_branches_checked");
 	//DARK OAK
-	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = register("tall_dark_oak_checked");
-	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = register("fancy_tall_dark_oak_checked");
-	public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = register("dying_tall_dark_oak_checked");
-	public static final FrozenPlacedFeature DYING_FANCY_TALL_DARK_OAK_CHECKED = register("dying_fancy_tall_dark_oak_checked");
-	public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = register("dying_dark_oak_checked");
-	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = register("cobweb_tall_dark_oak_checked");
-	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = register("cobweb_fancy_tall_dark_oak_checked");
-	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = register("large_fallen_dark_oak_checked");
-	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = register("large_snapped_dark_oak_checked");
+	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = WilderPlacementUtils.register("tall_dark_oak_checked");
+	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = WilderPlacementUtils.register("fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = WilderPlacementUtils.register("dying_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_FANCY_TALL_DARK_OAK_CHECKED = WilderPlacementUtils.register("dying_fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = WilderPlacementUtils.register("dying_dark_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = WilderPlacementUtils.register("cobweb_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = WilderPlacementUtils.register("cobweb_fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WilderPlacementUtils.register("large_fallen_dark_oak_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WilderPlacementUtils.register("large_snapped_dark_oak_checked");
 	//SWAMP TREE
-	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = register("swamp_tree_checked");
+	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = WilderPlacementUtils.register("swamp_tree_checked");
 	//SPRUCE
-	public static final FrozenPlacedFeature SPRUCE_CHECKED = register("spruce_checked");
-	public static final FrozenPlacedFeature SPRUCE_ON_SNOW = register("spruce_on_snow");
-	public static final FrozenPlacedFeature SPRUCE_SHORT_CHECKED = register("spruce_short_checked");
-	public static final FrozenPlacedFeature FUNGUS_PINE_CHECKED = register("fungus_pine_checked");
-	public static final FrozenPlacedFeature DYING_FUNGUS_PINE_CHECKED = register("dying_fungus_pine_checked");
-	public static final FrozenPlacedFeature FUNGUS_PINE_ON_SNOW = register("fungus_pine_on_snow");
-	public static final FrozenPlacedFeature MEGA_FUNGUS_SPRUCE_CHECKED = register("mega_fungus_spruce_checked");
-	public static final FrozenPlacedFeature MEGA_FUNGUS_PINE_CHECKED = register("mega_fungus_pine_checked");
-	public static final FrozenPlacedFeature DYING_MEGA_FUNGUS_PINE_CHECKED = register("dying_mega_fungus_pine_checked");
-	public static final FrozenPlacedFeature FALLEN_SPRUCE_CHECKED = register("fallen_spruce_checked");
-	public static final FrozenPlacedFeature SHORT_MEGA_SPRUCE_CHECKED = register("short_mega_spruce_checked");
-	public static final FrozenPlacedFeature SHORT_MEGA_FUNGUS_SPRUCE_CHECKED = register("short_mega_fungus_spruce_checked");
-	public static final FrozenPlacedFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED = register("short_mega_dying_fungus_spruce_checked");
-	public static final FrozenPlacedFeature SHORT_MEGA_DYING_SPRUCE_CHECKED = register("short_mega_dying_spruce_checked");
-	public static final FrozenPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW = register("short_mega_spruce_on_snow");
-	public static final FrozenPlacedFeature SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW = register("short_mega_fungus_spruce_on_snow");
-	public static final FrozenPlacedFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW = register("short_mega_dying_fungus_spruce_on_snow");
-	public static final FrozenPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = register("short_mega_dying_spruce_on_snow");
-	public static final FrozenPlacedFeature SNAPPED_SPRUCE_CHECKED = register("snapped_spruce_checked");
-	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruces_on_snow");
-	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_CHECKED = register("large_snapped_spruce_checked");
-	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED = register("large_snapped_spruces_on_snow");
-	public static final FrozenPlacedFeature DECORATED_LARGE_FALLEN_SPRUCE_CHECKED = register("decorated_large_fallen_spruce_checked");
-	public static final FrozenPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE_CHECKED = register("clean_large_fallen_spruce_checked");
+	public static final FrozenPlacedFeature SPRUCE_CHECKED = WilderPlacementUtils.register("spruce_checked");
+	public static final FrozenPlacedFeature SPRUCE_ON_SNOW = WilderPlacementUtils.register("spruce_on_snow");
+	public static final FrozenPlacedFeature SPRUCE_SHORT_CHECKED = WilderPlacementUtils.register("spruce_short_checked");
+	public static final FrozenPlacedFeature FUNGUS_PINE_CHECKED = WilderPlacementUtils.register("fungus_pine_checked");
+	public static final FrozenPlacedFeature DYING_FUNGUS_PINE_CHECKED = WilderPlacementUtils.register("dying_fungus_pine_checked");
+	public static final FrozenPlacedFeature FUNGUS_PINE_ON_SNOW = WilderPlacementUtils.register("fungus_pine_on_snow");
+	public static final FrozenPlacedFeature MEGA_FUNGUS_SPRUCE_CHECKED = WilderPlacementUtils.register("mega_fungus_spruce_checked");
+	public static final FrozenPlacedFeature MEGA_FUNGUS_PINE_CHECKED = WilderPlacementUtils.register("mega_fungus_pine_checked");
+	public static final FrozenPlacedFeature DYING_MEGA_FUNGUS_PINE_CHECKED = WilderPlacementUtils.register("dying_mega_fungus_pine_checked");
+	public static final FrozenPlacedFeature FALLEN_SPRUCE_CHECKED = WilderPlacementUtils.register("fallen_spruce_checked");
+	public static final FrozenPlacedFeature SHORT_MEGA_SPRUCE_CHECKED = WilderPlacementUtils.register("short_mega_spruce_checked");
+	public static final FrozenPlacedFeature SHORT_MEGA_FUNGUS_SPRUCE_CHECKED = WilderPlacementUtils.register("short_mega_fungus_spruce_checked");
+	public static final FrozenPlacedFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED = WilderPlacementUtils.register("short_mega_dying_fungus_spruce_checked");
+	public static final FrozenPlacedFeature SHORT_MEGA_DYING_SPRUCE_CHECKED = WilderPlacementUtils.register("short_mega_dying_spruce_checked");
+	public static final FrozenPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW = WilderPlacementUtils.register("short_mega_spruce_on_snow");
+	public static final FrozenPlacedFeature SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW = WilderPlacementUtils.register("short_mega_fungus_spruce_on_snow");
+	public static final FrozenPlacedFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW = WilderPlacementUtils.register("short_mega_dying_fungus_spruce_on_snow");
+	public static final FrozenPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = WilderPlacementUtils.register("short_mega_dying_spruce_on_snow");
+	public static final FrozenPlacedFeature SNAPPED_SPRUCE_CHECKED = WilderPlacementUtils.register("snapped_spruce_checked");
+	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW = WilderPlacementUtils.register("snapped_spruces_on_snow");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_CHECKED = WilderPlacementUtils.register("large_snapped_spruce_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED = WilderPlacementUtils.register("large_snapped_spruces_on_snow");
+	public static final FrozenPlacedFeature DECORATED_LARGE_FALLEN_SPRUCE_CHECKED = WilderPlacementUtils.register("decorated_large_fallen_spruce_checked");
+	public static final FrozenPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE_CHECKED = WilderPlacementUtils.register("clean_large_fallen_spruce_checked");
 	//BAOBAB
-	public static final FrozenPlacedFeature BAOBAB = register("baobab");
-	public static final FrozenPlacedFeature BAOBAB_TALL = register("baobab_tall");
+	public static final FrozenPlacedFeature BAOBAB = WilderPlacementUtils.register("baobab");
+	public static final FrozenPlacedFeature BAOBAB_TALL = WilderPlacementUtils.register("baobab_tall");
 	//CYPRESS
-	public static final FrozenPlacedFeature CYPRESS = register("cypress");
-	public static final FrozenPlacedFeature FUNGUS_CYPRESS = register("fungus_cypress");
-	public static final FrozenPlacedFeature SHORT_CYPRESS = register("short_cypress");
-	public static final FrozenPlacedFeature SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress");
-	public static final FrozenPlacedFeature SWAMP_CYPRESS = register("swamp_cypress");
-	public static final FrozenPlacedFeature FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked");
-	public static final FrozenPlacedFeature SNAPPED_CYPRESS_CHECKED = register("snapped_cypress_checked");
+	public static final FrozenPlacedFeature CYPRESS = WilderPlacementUtils.register("cypress");
+	public static final FrozenPlacedFeature FUNGUS_CYPRESS = WilderPlacementUtils.register("fungus_cypress");
+	public static final FrozenPlacedFeature SHORT_CYPRESS = WilderPlacementUtils.register("short_cypress");
+	public static final FrozenPlacedFeature SHORT_FUNGUS_CYPRESS = WilderPlacementUtils.register("short_fungus_cypress");
+	public static final FrozenPlacedFeature SWAMP_CYPRESS = WilderPlacementUtils.register("swamp_cypress");
+	public static final FrozenPlacedFeature FALLEN_CYPRESS_CHECKED = WilderPlacementUtils.register("fallen_cypress_checked");
+	public static final FrozenPlacedFeature SNAPPED_CYPRESS_CHECKED = WilderPlacementUtils.register("snapped_cypress_checked");
 	//TREE ON SAND
 	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(
 		Direction.DOWN.getNormal(),
@@ -154,33 +153,33 @@ public final class WilderTreePlaced {
 		BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE)
 	);
 	//SHRUB
-	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_CHECKED = register("big_shrub_coarse_checked");
-	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_GRASS_CHECKED = register("big_shrub_coarse_grass_checked");
-	public static final FrozenPlacedFeature BIG_SHRUB_CHECKED = register("big_shrub_checked");
-	public static final FrozenPlacedFeature SHRUB_CHECKED = register("shrub_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_CHECKED = WilderPlacementUtils.register("big_shrub_coarse_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_GRASS_CHECKED = WilderPlacementUtils.register("big_shrub_coarse_grass_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_CHECKED = WilderPlacementUtils.register("big_shrub_checked");
+	public static final FrozenPlacedFeature SHRUB_CHECKED = WilderPlacementUtils.register("shrub_checked");
 	//PALM
-	public static final FrozenPlacedFeature PALM_CHECKED = register("palm_checked");
-	public static final FrozenPlacedFeature TALL_PALM_CHECKED = register("tall_palm_checked");
-	public static final FrozenPlacedFeature TALL_WINE_PALM_CHECKED = register("tall_wine_palm_checked");
-	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED = register("small_wine_palm_checked");
-	public static final FrozenPlacedFeature FALLEN_PALM_CHECKED = register("fallen_palm_checked");
+	public static final FrozenPlacedFeature PALM_CHECKED = WilderPlacementUtils.register("palm_checked");
+	public static final FrozenPlacedFeature TALL_PALM_CHECKED = WilderPlacementUtils.register("tall_palm_checked");
+	public static final FrozenPlacedFeature TALL_WINE_PALM_CHECKED = WilderPlacementUtils.register("tall_wine_palm_checked");
+	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED = WilderPlacementUtils.register("small_wine_palm_checked");
+	public static final FrozenPlacedFeature FALLEN_PALM_CHECKED = WilderPlacementUtils.register("fallen_palm_checked");
 	//JUNIPER
-	public static final FrozenPlacedFeature JUNIPER = register("juniper");
+	public static final FrozenPlacedFeature JUNIPER = WilderPlacementUtils.register("juniper");
 	//JUNGLE
-	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = register("fallen_jungle_checked");
-	public static final FrozenPlacedFeature SNAPPED_JUNGLE_CHECKED = register("snapped_jungle_checked");
-	public static final FrozenPlacedFeature LARGE_FALLEN_JUNGLE_CHECKED = register("large_fallen_jungle_checked");
-	public static final FrozenPlacedFeature LARGE_SNAPPED_JUNGLE_CHECKED = register("large_snapped_jungle_checked");
+	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = WilderPlacementUtils.register("fallen_jungle_checked");
+	public static final FrozenPlacedFeature SNAPPED_JUNGLE_CHECKED = WilderPlacementUtils.register("snapped_jungle_checked");
+	public static final FrozenPlacedFeature LARGE_FALLEN_JUNGLE_CHECKED = WilderPlacementUtils.register("large_fallen_jungle_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_JUNGLE_CHECKED = WilderPlacementUtils.register("large_snapped_jungle_checked");
 	//ACACIA
-	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
-	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = register("snapped_acacia_checked");
+	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = WilderPlacementUtils.register("fallen_acacia_checked");
+	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = WilderPlacementUtils.register("snapped_acacia_checked");
 	//MANGROVE
-	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = register("fallen_mangrove_checked");
+	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = WilderPlacementUtils.register("fallen_mangrove_checked");
 	//TREE ON GRASS
-	public static final FrozenPlacedFeature PALM_CHECKED_DIRT = register("palm_checked_dirt");
-	public static final FrozenPlacedFeature TALL_PALM_CHECKED_DIRT = register("tall_palm_checked_dirt");
-	public static final FrozenPlacedFeature TALL_WINE_PALM_CHECKED_DIRT = register("tall_wine_palm_checked_dirt");
-	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = register("small_wine_palm_checked_dirt");
+	public static final FrozenPlacedFeature PALM_CHECKED_DIRT = WilderPlacementUtils.register("palm_checked_dirt");
+	public static final FrozenPlacedFeature TALL_PALM_CHECKED_DIRT = WilderPlacementUtils.register("tall_palm_checked_dirt");
+	public static final FrozenPlacedFeature TALL_WINE_PALM_CHECKED_DIRT = WilderPlacementUtils.register("tall_wine_palm_checked_dirt");
+	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = WilderPlacementUtils.register("small_wine_palm_checked_dirt");
 
 	private WilderTreePlaced() {
 		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");

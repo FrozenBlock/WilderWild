@@ -74,6 +74,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 			return config.client_wind;
 		}
 
+		if (mixinClassName.contains("block.beacon")) return config.block_beacon;
 		if (mixinClassName.contains("block.cactus")) return config.block_cactus;
 		if (mixinClassName.contains("block.chest")) return config.block_chest;
 		if (mixinClassName.contains("block.dripleaf")) return config.block_dripleaf;

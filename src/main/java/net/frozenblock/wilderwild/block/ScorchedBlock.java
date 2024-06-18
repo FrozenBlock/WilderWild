@@ -177,11 +177,5 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
-
-	@Override
-	protected void finalize() {
-		SCORCH_MAP.clear();
-		HYDRATE_MAP.clear();
-	}
 }
 

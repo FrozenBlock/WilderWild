@@ -384,6 +384,8 @@
   "tooltip.wilderwild.frosted_ice_cracking": "Whether Frosted Ice will spawn break particles and play a quiet break sound upon cracking.",
   "option.wilderwild.log_hollowing": "Log Hollowing",
   "tooltip.wilderwild.log_hollowing": "Whether Logs can be hollowed with axes.\nMay help with mod compatability.",
+  "option.wilderwild.reach_boost_beacon": "Reach Boost Beacons",
+  "tooltip.wilderwild.reach_boost_beacon": "Whether Beacons should contain the Reach Boost effect.",
   "option.wilderwild.mesoglea": "Mesoglea",
   "tooltip.wilderwild.mesoglea": "Contains options for Mesoglea.",
   "option.wilderwild.mesoglea_liquid": "Mesoglea Renders Like Liquid",
