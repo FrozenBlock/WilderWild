@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "wilderwild:stripped_baobab_log",
     "wilderwild:stripped_cypress_log",

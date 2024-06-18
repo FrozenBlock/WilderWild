@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.world.features.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.CherryTreeGrower;

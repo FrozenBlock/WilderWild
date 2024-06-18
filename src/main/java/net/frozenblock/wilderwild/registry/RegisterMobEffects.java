@@ -45,7 +45,7 @@ public final class RegisterMobEffects {
 		).addAttributeModifier(
 			ReachEntityAttributes.ATTACK_RANGE,
 			"F2439145-BA25-4DEC-B11A-218B56EF22BB",
-			EntityConfig.get().crab.reachAffectsAttack ? 1D : 0D,
+			EntityConfig.get().crab.reachAffectsAttack ? 1.5D : 0D,
 			AttributeModifier.Operation.ADDITION
 		)
 	);

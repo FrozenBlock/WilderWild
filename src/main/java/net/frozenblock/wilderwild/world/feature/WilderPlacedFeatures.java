@@ -16,13 +16,13 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.features.feature;
+package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import static net.frozenblock.wilderwild.world.features.feature.WilderPlacementUtils.register;
+import static net.frozenblock.wilderwild.world.feature.WilderPlacementUtils.register;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;

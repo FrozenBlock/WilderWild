@@ -120,6 +120,9 @@ public final class BlockConfig {
 	@EntrySyncData("tendrilsCarryEvents")
 	public boolean tendrilsCarryEvents = false;
 
+	@EntrySyncData("reachBoostBeacon")
+	public boolean reachBoostBeacon = true;
+
 	@EntrySyncData(value = "pollenParticles", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean pollenParticles = true;
 

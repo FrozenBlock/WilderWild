@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.features.feature;
+package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
@@ -34,7 +34,7 @@ import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import static net.frozenblock.wilderwild.world.features.feature.WilderFeatureUtils.register;
+import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.impl.features.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
