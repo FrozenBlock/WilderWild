@@ -137,7 +137,6 @@
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",
     "client.wind.CherryParticleMixin",
-    "client.wind.CloudRendererMixin",
     "client.wind.DripParticleMixin",
     "client.wind.DustParticleBaseMixin",
     "client.wind.ExplodeParticleMixin",
