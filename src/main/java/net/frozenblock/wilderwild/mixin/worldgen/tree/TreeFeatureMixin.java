@@ -20,11 +20,13 @@ package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import com.google.common.collect.Iterables;
 import java.util.Set;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.impl.sapling.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -37,6 +39,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -59,6 +62,30 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 	)
 	private void wilderWild$place(FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> info, WorldGenLevel worldGenLevel, RandomSource randomSource, BlockPos blockPos, TreeConfiguration treeConfiguration, Set<BlockPos> set, Set<BlockPos> set2, Set<BlockPos> set3, Set<BlockPos> set4) {
 		info.setReturnValue(this.wilderWild$encapsulatePositionsAndUpdateLeaves(worldGenLevel, set, set2, set3, set4));
+	}
+
+	@ModifyVariable(method = "method_49238", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	private static BlockState wilderWild$setTermiteEdibleA(BlockState state) {
+		if (state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			return state.setValue(RegisterProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
+	}
+
+	@ModifyVariable(method = "method_35364", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	private static BlockState wilderWild$setTermiteEdibleB(BlockState state) {
+		if (state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			return state.setValue(RegisterProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
+	}
+
+	@ModifyVariable(method = "method_43162", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	private static BlockState wilderWild$setTermiteEdibleC(BlockState state) {
+		if (state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			return state.setValue(RegisterProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
 	}
 
 	@Unique

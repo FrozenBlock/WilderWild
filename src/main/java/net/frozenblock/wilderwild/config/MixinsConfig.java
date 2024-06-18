@@ -61,6 +61,8 @@ public final class MixinsConfig {
 
 	// COMMON
 
+	public boolean block_beacon = true;
+
 	public boolean block_cactus = true;
 
 	public boolean block_chest = true;

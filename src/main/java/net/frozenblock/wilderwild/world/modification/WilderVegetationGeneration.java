@@ -25,7 +25,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderVegetationGeneration {

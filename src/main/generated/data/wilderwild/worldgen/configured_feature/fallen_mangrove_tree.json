@@ -58,7 +58,7 @@
           "Name": "wilderwild:hollowed_mangrove_log",
           "Properties": {
             "axis": "y",
-            "termite_edible": "true",
+            "termite_edible": "false",
             "waterlogged": "false"
           }
         }
@@ -72,7 +72,7 @@
         "Name": "minecraft:mangrove_log",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true"
+          "termite_edible": "false"
         }
       }
     }

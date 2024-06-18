@@ -12,7 +12,7 @@
         "Name": "minecraft:basalt",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true"
+          "termite_edible": "false"
         }
       }
     },
@@ -23,7 +23,7 @@
         "Name": "minecraft:basalt",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true"
+          "termite_edible": "false"
         }
       }
     },
