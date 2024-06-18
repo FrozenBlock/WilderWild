@@ -12,4 +12,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed Termite particles not rendering in 1.21+.
 - Added the Reach Boost effect to Beacons, thanks to a suggestion by wet.noodle/Ashlyn.
   - Added the `Reach Boost Beacons` config to toggle this.
+- Updated the Reach Boost icon, thanks to Zhen!
 - Slightly increased the distance of the Reach Boost effect from 1 to 1.5 per level.
