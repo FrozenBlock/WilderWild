@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
 - Increased the protocol version to 7.
+- Reworked how Logs determine if they're edible by Termites so now only Trees will be edible, no longer Structures or other worldgen features.
 - Fixed Fireflies not rendering their base texture.
 - Fixed Display Lanterns not properly rendering their contents when updated.
 - Fixed some loot tables not working in 1.21+.
