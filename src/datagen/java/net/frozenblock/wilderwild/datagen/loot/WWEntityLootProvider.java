@@ -85,7 +85,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(Items.STRING)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
@@ -94,7 +94,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(RegisterItems.SCORCHED_EYE)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
