@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFu
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -61,6 +63,44 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 								.apply(SmeltItemFunction.smelted().when(WWDataGenerator.shouldSmeltLoot(registryLookup)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
+				)
+		);
+
+		output.accept(
+			RegisterEntities.OSTRICH.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.FEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
+
+		output.accept(
+			RegisterEntities.SCORCHED.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1.0F))
+						.add(
+							LootItem.lootTableItem(Items.STRING)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1.0F))
+						.add(
+							LootItem.lootTableItem(RegisterItems.SCORCHED_EYE)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 				)
 		);
 	}
