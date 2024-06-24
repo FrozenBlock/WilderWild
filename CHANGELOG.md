@@ -9,3 +9,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed the `Empty or non-existent pool: wilderwild:abandoned_cabin/cabin` error.
 - Removed the Palm Crown, replacing it entirely with the Palm Log.
 - Datura now yields two Light Gray Dye opposed to one.
+- The Stone Chest item now renders as a Block Entity like other Chests.

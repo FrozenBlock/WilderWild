@@ -30,6 +30,7 @@ import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
+import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
@@ -55,6 +56,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMobEffects;
@@ -291,6 +293,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.DARK_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(RegisterWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
+
+		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.STONE_CHEST, RegisterBlockEntities.STONE_CHEST);
 
 		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
 			RandomPoolAliasApi.addTarget(
