@@ -38,11 +38,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public final class LootTableMixin {
 
 	@Unique
-	private boolean isStoneChest = false;
+	private boolean wilderWild$isStoneChest = false;
 
 	@Inject(method = "fill", at = @At("HEAD"))
 	public void wilderWild$fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
-		this.isStoneChest = container instanceof StoneChestBlockEntity;
+		this.wilderWild$isStoneChest = container instanceof StoneChestBlockEntity;
 	}
 
 	@WrapOperation(
@@ -54,10 +54,8 @@ public final class LootTableMixin {
 		)
 	)
 	public void wilderWild$setStoneItem(Container instance, int i, ItemStack itemStack, Operation<Void> original) {
-		if (this.isStoneChest) {
-			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> {
-				compoundTag.put("wilderwild_is_ancient", ByteTag.valueOf(true));
-			});
+		if (this.wilderWild$isStoneChest) {
+			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.put("wilderwild_is_ancient", ByteTag.valueOf(true)));
 		}
 		original.call(instance, i, itemStack);
 	}
