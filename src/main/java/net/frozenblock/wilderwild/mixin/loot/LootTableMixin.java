@@ -41,7 +41,7 @@ public final class LootTableMixin {
 	private boolean isStoneChest = false;
 
 	@Inject(method = "fill", at = @At("HEAD"))
-	public void fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
+	public void wilderWild$fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
 		this.isStoneChest = container instanceof StoneChestBlockEntity;
 	}
 
@@ -53,7 +53,7 @@ public final class LootTableMixin {
 			ordinal = 1
 		)
 	)
-	public void setStoneItem(Container instance, int i, ItemStack itemStack, Operation<Void> original) {
+	public void wilderWild$setStoneItem(Container instance, int i, ItemStack itemStack, Operation<Void> original) {
 		if (this.isStoneChest) {
 			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> {
 				compoundTag.put("wilderwild_is_ancient", ByteTag.valueOf(true));
