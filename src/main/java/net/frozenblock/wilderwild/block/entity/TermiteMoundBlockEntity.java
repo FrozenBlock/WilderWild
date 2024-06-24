@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
+import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -40,7 +41,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.Objects;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
 
