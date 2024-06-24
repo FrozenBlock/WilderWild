@@ -7,3 +7,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed Jellyfish, Ostrich, and Scorched loot tables not parsing in 1.21+.
 - Fixed some Abandoned Cabin loot tables always giving the same loot.
 - Fixed the `Empty or non-existent pool: wilderwild:abandoned_cabin/cabin` error.
+- Removed the Palm Crown, replacing it entirely with the Palm Log.

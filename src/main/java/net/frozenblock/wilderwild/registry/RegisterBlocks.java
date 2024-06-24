@@ -817,12 +817,6 @@ public final class RegisterBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WilderSharedConstants.id("blocks/palm_hanging_sign"))
 	);
 
-	public static final RotatedPillarBlock PALM_CROWN = new RotatedPillarBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)
-			.mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR)
-			.sound(RegisterBlockSoundTypes.PALM_CROWN)
-	);
-
 	public static final Block STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(
@@ -893,8 +887,7 @@ public final class RegisterBlocks {
 		//PALM IN BUILDING BLOCKS
 		registerBlockAfter(CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_WOOD, wood + "_crown", PALM_CROWN, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_CROWN, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_WOOD, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_" + wood + "_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(STRIPPED_PALM_WOOD, wood + "_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_PLANKS, wood + "_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -907,7 +900,6 @@ public final class RegisterBlocks {
 		registerBlockAfter(PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
 		registerBlockAfter(CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(CYPRESS_LEAVES, wood + "_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlock(baobab + "_nut", BAOBAB_NUT);
@@ -973,7 +965,7 @@ public final class RegisterBlocks {
 
 		registerBlockBefore(PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(HOLLOWED_PALM_LOG, "stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_CROWN, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerDeepDark() {
@@ -1211,7 +1203,6 @@ public final class RegisterBlocks {
 		TermiteManager.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
 		TermiteManager.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 
-		TermiteManager.Termite.addDegradable(PALM_CROWN, PALM_LOG);
 		TermiteManager.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteManager.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
 		TermiteManager.Termite.addDegradable(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
@@ -1379,7 +1370,6 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_CROWN, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_WOOD, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_WOOD, 5, 5);
@@ -1440,7 +1430,6 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.PALM_BOAT, 1200);
 		registry.add(RegisterItems.PALM_CHEST_BOAT, 1200);
 		registry.add(PALM_LOG.asItem(), 300);
-		registry.add(PALM_CROWN.asItem(), 300);
 		registry.add(STRIPPED_PALM_LOG.asItem(), 300);
 		registry.add(PALM_WOOD.asItem(), 300);
 		registry.add(STRIPPED_PALM_WOOD.asItem(), 300);

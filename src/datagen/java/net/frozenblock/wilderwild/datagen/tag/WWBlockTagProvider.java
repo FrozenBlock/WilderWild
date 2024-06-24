@@ -381,7 +381,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WilderBlockTags.PALM_LOGS)
 			.add(RegisterBlocks.PALM_LOG)
 			.add(RegisterBlocks.STRIPPED_PALM_LOG)
-			.add(RegisterBlocks.PALM_CROWN)
 			.add(RegisterBlocks.PALM_WOOD)
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
