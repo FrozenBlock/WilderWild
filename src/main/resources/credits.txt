@@ -97,6 +97,7 @@ Soulfate24:
 
 wet.noodle/Ashlyn
  - Suggested adding Reach Boost to Beacons.
+ - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
 
 Osmiooo:
  - French translation.
