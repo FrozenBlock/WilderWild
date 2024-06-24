@@ -103,5 +103,19 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 				)
 		);
+
+		output.accept(
+			RegisterEntities.TUMBLEWEED.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.FEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
 	}
 }
