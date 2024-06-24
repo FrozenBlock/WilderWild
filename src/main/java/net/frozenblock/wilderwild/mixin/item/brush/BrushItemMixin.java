@@ -60,14 +60,28 @@ public class BrushItemMixin {
 		return blockState;
 	}
 
-	@ModifyArgs(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V"))
+	@ModifyArgs(
+		method = "onUseTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V"
+		)
+	)
 	public void wilderWild$playBrushSound(Args args) {
 		if (this.wilderWild$blockState != null && this.wilderWild$blockState.getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
 			args.set(2, scorchedBlock.brushSound);
 		}
 	}
 
-	@Inject(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;isClientSide()Z", shift = At.Shift.BEFORE), cancellable = true)
+	@Inject(
+		method = "onUseTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;isClientSide()Z",
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
+	)
 	public void wilderWild$brushScorchedBlocks(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
 		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack)) {
 			info.cancel();
