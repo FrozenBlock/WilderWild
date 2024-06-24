@@ -16,7 +16,6 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-
 package net.frozenblock.wilderwild.entity.ai.crab;
 
 import net.frozenblock.wilderwild.entity.Crab;
