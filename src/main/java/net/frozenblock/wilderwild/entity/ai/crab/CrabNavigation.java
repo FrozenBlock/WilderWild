@@ -30,11 +30,11 @@ public class CrabNavigation extends WallClimberNavigation {
 
 	@Override
 	public void tick() {
-		if (this.isDone()) {
+		if (this.isDone() && this.pathToPosition != null) {
 			this.tick++;
+			this.doStuckDetection(this.getTempMobPos());
 		}
 		super.tick();
-		this.doStuckDetection(this.getTempMobPos());
 	}
 
 }

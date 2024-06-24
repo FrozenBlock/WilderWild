@@ -35,6 +35,9 @@ public class CrabMoveControl extends MoveControl {
 		if (!this.crab.cancelMovementToDescend && !this.crab.isDiggingOrEmerging()) {
 			super.tick();
 		}
+		if (crab.getNavigation().isStuck()) {
+			this.operation = Operation.WAIT;
+		}
 	}
 
 }
