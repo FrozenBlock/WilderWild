@@ -154,10 +154,7 @@ public final class CrabAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic<>(1.65F, pathfinderMob -> {
-					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return null;
-					return pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES :DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
-				}),
+				new AnimalPanic<>(1.65F, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !pathfinderMob.isDiggingOrEmerging()),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				StopBeingAngryIfTargetDead.create()
