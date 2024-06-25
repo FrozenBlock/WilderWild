@@ -128,7 +128,6 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(RegisterBlocks.STRIPPED_PALM_WOOD);
 		this.dropSelf(RegisterBlocks.HOLLOWED_PALM_LOG);
 		this.dropSelf(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-		this.dropSelf(RegisterBlocks.PALM_CROWN);
 		this.dropSelf(RegisterBlocks.PALM_PLANKS);
 		this.dropSelf(RegisterBlocks.PALM_BUTTON);
 		this.dropSelf(RegisterBlocks.PALM_PRESSURE_PLATE);

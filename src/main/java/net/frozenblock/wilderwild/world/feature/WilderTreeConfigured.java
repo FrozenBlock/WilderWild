@@ -1563,14 +1563,14 @@ public final class WilderTreeConfigured {
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFronds, int maxFronds) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds), BlockStateProvider.simple(RegisterBlocks.PALM_CROWN)),
+			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds), BlockStateProvider.simple(RegisterBlocks.PALM_LOG)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
 	@Contract("_, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new ShortPalmFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), BlockStateProvider.simple(RegisterBlocks.PALM_CROWN)),
+			BlockStateProvider.simple(leaves), new ShortPalmFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), BlockStateProvider.simple(RegisterBlocks.PALM_LOG)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 

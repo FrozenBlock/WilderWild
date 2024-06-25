@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,25 +19,22 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
 import net.frozenblock.wilderwild.entity.Crab;
-import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.level.Level;
 
-public class CrabMoveControl extends MoveControl {
+public class CrabNavigation extends WallClimberNavigation {
 
-	private final Crab crab;
-
-	public CrabMoveControl(Crab crab) {
-		super(crab);
-		this.crab = crab;
+	public CrabNavigation(Crab mob, Level level) {
+		super(mob, level);
 	}
 
 	@Override
 	public void tick() {
-		if (!this.crab.cancelMovementToDescend && !this.crab.isDiggingOrEmerging()) {
-			super.tick();
+		if (this.isDone() && this.pathToPosition != null) {
+			this.tick++;
+			this.doStuckDetection(this.getTempMobPos());
 		}
-		if (crab.getNavigation().isStuck()) {
-			this.operation = Operation.WAIT;
-		}
+		super.tick();
 	}
 
 }
