@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
+import net.frozenblock.wilderwild.tag.WilderDamageTypeTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
@@ -155,8 +156,8 @@ public final class CrabAi {
 			0,
 			ImmutableList.of(
 				new AnimalPanic<>(1.65F, pathfinderMob -> {
-					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return null;
-					return pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES :DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
+					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return WilderDamageTypeTags.EMPTY;
+					return pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
 				}),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
