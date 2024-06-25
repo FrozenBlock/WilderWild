@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "wilderwild:block/palm_crown_top",
-    "side": "wilderwild:block/palm_crown"
-  }
-}

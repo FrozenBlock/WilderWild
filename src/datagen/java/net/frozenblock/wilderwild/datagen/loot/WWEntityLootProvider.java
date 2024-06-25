@@ -18,15 +18,14 @@
 
 package net.frozenblock.wilderwild.datagen.loot;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -53,14 +52,66 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 			RegisterEntities.CRAB.getDefaultLootTable(),
 			LootTable.lootTable().withPool(
 				LootPool.lootPool()
-					.setRolls(ConstantValue.exactly(1.0F))
+					.setRolls(ConstantValue.exactly(1F))
 					.add(LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
-						.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+						.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F)))
 						.apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
-						.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+						.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0F, 1F)))
 					)
 					.when(LootItemKilledByPlayerCondition.killedByPlayer())
 			)
+		);
+
+		output.accept(
+			RegisterEntities.OSTRICH.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.FEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
+
+		output.accept(
+			RegisterEntities.SCORCHED.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.STRING)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0F, 1F)))
+						)
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(RegisterItems.SCORCHED_EYE)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+								.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0F, 1F)))
+						)
+						.when(LootItemKilledByPlayerCondition.killedByPlayer())
+				)
+		);
+
+		output.accept(
+			RegisterEntities.TUMBLEWEED.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.FEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
+								.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0F, 1F)))
+						)
+				)
 		);
 	}
 }

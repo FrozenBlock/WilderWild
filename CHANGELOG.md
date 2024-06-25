@@ -3,16 +3,15 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Increased the protocol version to 7.
-- Reworked how Logs determine if they're edible by Termites so now only Trees will be edible, no longer Structures or other worldgen features.
-  - Player-placed blocks are still protected. This just prevents scenarios like Villages being destroyed by Termites.
-- Fixed Fireflies not rendering their base texture.
-- Fixed Display Lanterns not properly rendering their contents when updated.
-- Fixed some loot tables not working in 1.21+.
-- Fixed Termite particles not rendering in 1.21+.
-- Fixed a broken translation string in the `Entity` config.
-- Fixed Cloud movement not working properly.
-- Added the Reach Boost effect to Beacons, thanks to a suggestion by wet.noodle/Ashlyn.
-  - Added the `Reach Boost Beacons` config to toggle this.
-- Updated the Reach Boost icon, thanks to Zhen!
-- Slightly increased the distance of the Reach Boost effect from 1 to 1.5 per level.
+- Crabs will no longer become permanently stuck when walking into a ceiling.
+- Crabs will once again emerge naturally.
+- The Tumbleweed entity's loot table is now impacted by the Looting enchantment.
+- Removed the Palm Crown, replacing it entirely with the Palm Log.
+- Fixed items from naturally-generated Stone Chests not stacking with other items.
+- The Stone Chest item now renders as a Block Entity like other Chests.
+- Datura now yields two Light Gray Dye opposed to one.
+- Revamped Wilder Wild's music pools thanks to Rebel459!
+- Fixed Jellyfish, Ostrich, and Scorched loot tables not parsing in 1.21+.
+- Fixed some Abandoned Cabin loot tables always giving the same loot.
+- Fixed the `Empty or non-existent pool: wilderwild:abandoned_cabin/cabin` error.
+- Added compatability with Continuity and Wilder Wild's snowlogging through a new mixin on Indium. ([#337](https://github.com/FrozenBlock/WilderWild/issues/377))

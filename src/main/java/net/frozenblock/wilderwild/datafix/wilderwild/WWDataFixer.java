@@ -33,7 +33,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class WWDataFixer {
-	public static final int DATA_VERSION = 17;
+	public static final int DATA_VERSION = 18;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");
@@ -112,6 +112,10 @@ public class WWDataFixer {
 
 		Schema schemaV17 = builder.addSchema(17, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", Map.of(WilderSharedConstants.id("magma_caves"), WilderSharedConstants.id("magmatic_caves")), schemaV17);
+
+		Schema schemaV18 = builder.addSchema(18, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename palm_crown to palm_log", WilderSharedConstants.id("palm_crown"), WilderSharedConstants.id("palm_log"), schemaV18);
+		SimpleFixes.addItemRenameFix(builder, "Rename palm_crown to palm_log", WilderSharedConstants.id("palm_crown"), WilderSharedConstants.id("palm_log"), schemaV18);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);
