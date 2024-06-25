@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
+import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;

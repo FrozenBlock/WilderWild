@@ -40,7 +40,7 @@ public final class RegisterMobEffects {
 		).addAttributeModifier(
 			ReachEntityAttributes.REACH,
 			"DA6D90D0-722B-11EE-87D4-325096B39F47",
-			1,
+			1.5D,
 			AttributeModifier.Operation.ADDITION
 		).addAttributeModifier(
 			ReachEntityAttributes.ATTACK_RANGE,

@@ -40,7 +40,7 @@ public class WWNaturalRecipeProvider {
 		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, "purple_dye");
 		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, "white_dye");
 
-		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, RegisterBlocks.DATURA, "light_gray_dye");
+		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, RegisterBlocks.DATURA, "light_gray_dye", 2);
 
 		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, RegisterBlocks.MILKWEED, "orange_dye", 2);
 

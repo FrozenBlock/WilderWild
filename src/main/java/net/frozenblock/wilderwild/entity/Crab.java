@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabNavigation;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
@@ -229,7 +230,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	@NotNull
 	protected PathNavigation createNavigation(@NotNull Level level) {
-		return new WallClimberNavigation(this, level);
+		return new CrabNavigation(this, level);
 	}
 
 	@Override
