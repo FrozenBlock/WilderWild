@@ -3049,26 +3049,20 @@
   "music.overworld.magmatic_caves": {
     "sounds": [
       {
-        "name": "music/game/endless",
-        "stream": true,
-        "volume": 0.4
+        "name": "music.game",
+        "type": "event"
       },
       {
         "name": "music/game/an_ordinary_day",
         "stream": true
       },
       {
-        "name": "music/game/puzzlebox",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/watcher",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
         "name": "music/game/bromeliad",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/crescent_dunes",
         "stream": true,
         "volume": 0.4
       }
@@ -3076,6 +3070,10 @@
   },
   "music.overworld.frozen_caves": {
     "sounds": [
+      {
+        "name": "music.game",
+        "type": "event"
+      },
       {
         "name": "music/game/infinite_amethyst",
         "stream": true,
@@ -3087,16 +3085,6 @@
       },
       {
         "name": "music/game/stand_tall",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/komorebi",
-        "stream": true,
-        "volume": 0.8
-      },
-      {
-        "name": "music/game/watcher",
         "stream": true,
         "volume": 0.4
       }
