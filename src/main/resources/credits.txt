@@ -95,8 +95,12 @@ Fourmisain:
 Soulfate24:
  - Provided an improved Hollowed Log model for 2.4.3 that fixes the incorrect breaking texture and avoids a bug with texture misalignment.
 
+Rebel459
+ - Revamped music pools in 2.4.5.
+
 wet.noodle/Ashlyn
  - Suggested adding Reach Boost to Beacons.
+ - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
 
 Osmiooo:
  - French translation.

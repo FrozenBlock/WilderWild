@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -153,7 +154,10 @@ public final class CrabAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic<>(1.65F, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab) pathfinderMob).isDiggingOrEmerging()),
+				new AnimalPanic<>(1.65F, pathfinderMob -> {
+					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return null;
+					return pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES :DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
+				}),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				StopBeingAngryIfTargetDead.create()
@@ -200,7 +204,6 @@ public final class CrabAi {
 				Pair.of(1, CrabHeal.create())
 			),
 			Set.of(
-				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_PRESENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
 			)
 		);

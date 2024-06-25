@@ -42,7 +42,7 @@ public final class RegisterMobEffects {
 		).addAttributeModifier(
 			Attributes.BLOCK_INTERACTION_RANGE,
 			"DA6D90D0-722B-11EE-87D4-325096B39F47",
-			1,
+			1.5D,
 			AttributeModifier.Operation.ADD_VALUE
 		).addAttributeModifier(
 			Attributes.ENTITY_INTERACTION_RANGE,

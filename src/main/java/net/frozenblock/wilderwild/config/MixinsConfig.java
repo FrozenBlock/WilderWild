@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.config;
 
+import blue.endless.jankson.Comment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
 
@@ -54,6 +54,9 @@ public final class MixinsConfig {
 
 	@Comment("Only applies if Sodium is installed, otherwise ignores this option.")
 	public boolean client_sodium = true;
+
+	@Comment("Only applies if Indium is installed, otherwise ignores this option.")
+	public boolean client_indium = true;
 
 	public boolean client_warden = true;
 
