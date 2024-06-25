@@ -204,7 +204,6 @@ public final class CrabAi {
 				Pair.of(1, CrabHeal.create())
 			),
 			Set.of(
-				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_PRESENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
 			)
 		);

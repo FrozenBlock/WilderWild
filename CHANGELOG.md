@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
 - Crabs will no longer become permanently stuck when walking into a ceiling.
+- Crabs will once again emerge naturally.
 - The Tumbleweed entity's loot table is now impacted by the Looting enchantment.
 - Removed the Palm Crown, replacing it entirely with the Palm Log.
 - Fixed items from naturally-generated Stone Chests not stacking with other items.
