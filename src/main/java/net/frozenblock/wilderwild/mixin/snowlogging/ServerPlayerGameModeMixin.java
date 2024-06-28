@@ -21,7 +21,9 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
@@ -42,6 +44,9 @@ public class ServerPlayerGameModeMixin {
 	@Final
 	protected ServerPlayer player;
 
+	@Shadow
+	protected ServerLevel level;
+
 	@ModifyExpressionValue(
 		method = "destroyBlock",
 		at = @At(
@@ -50,10 +55,17 @@ public class ServerPlayerGameModeMixin {
 		)
 	)
 	public BlockState wilderWild$destroyBlockA(
-		BlockState original,
+		BlockState original, @Local(argsOnly = true) BlockPos pos,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
 		destroyedState.set(original);
+		if (SnowloggingUtils.isSnowlogged(original)) {
+			if (SnowloggingUtils.shouldHitSnow(original, pos, level, player)) {
+				return SnowloggingUtils.getSnowEquivalent(original);
+			} else {
+				return SnowloggingUtils.getStateWithoutSnow(original);
+			}
+		}
 		return original;
 	}
 
@@ -65,16 +77,19 @@ public class ServerPlayerGameModeMixin {
 		)
 	)
 	public boolean wilderWild$destroyBlockB(
-		ServerLevel instance, BlockPos pos, boolean isMoving, Operation<Boolean> original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+		ServerLevel level, BlockPos pos, boolean isMoving, Operation<Boolean> original,
+		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState,
+		@Share("wilderWild$snowDestroyed") LocalBooleanRef snowDestroyed
 	) {
+		snowDestroyed.set(false);
 		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			if (SnowloggingUtils.shouldHitSnow(destroyedState.get(), pos, instance, player)) {
-				instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+			if (SnowloggingUtils.shouldHitSnow(destroyedState.get(), pos, level, player)) {
+				level.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+				snowDestroyed.set(true);
 			} else {
-				instance.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), Block.UPDATE_ALL);
+				level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), Block.UPDATE_ALL);
 			}
 			return true;
-		} else return original.call(instance, pos, isMoving);
+		} else return original.call(level, pos, isMoving);
 	}
 }

@@ -137,11 +137,19 @@ public abstract class BlockStateBaseMixin {
 	@ModifyReturnValue(method = "getDrops", at = @At("RETURN"))
 	public List<ItemStack> wilderWild$getDrops(List<ItemStack> original, LootParams.Builder lootParams) {
 		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state) && !(lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player)) {
-			List<ItemStack> finalList = new ArrayList<>(original);
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			finalList.addAll(snowEquivalent.getDrops(lootParams));
-			return finalList;
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			if (lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player player) {
+				BlockPos blockPos = BlockPos.containing(lootParams.getOptionalParameter(LootContextParams.ORIGIN));
+				Level level = lootParams.getLevel();
+				if (!SnowloggingUtils.shouldHitSnow(state, blockPos, level, player)) {
+					return SnowloggingUtils.getStateWithoutSnow(state).getDrops(lootParams);
+				}
+			} else {
+				List<ItemStack> finalList = new ArrayList<>(original);
+				BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+				finalList.addAll(snowEquivalent.getDrops(lootParams));
+				return finalList;
+			}
 		}
 		return original;
 	}
@@ -164,8 +172,12 @@ public abstract class BlockStateBaseMixin {
 	)
 	public float wilderWild$getDestroyProgress(Block instance, BlockState state, Player player, BlockGetter blockGetter, BlockPos pos, Operation<Float> original) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			state = SnowloggingUtils.getSnowEquivalent(state);
-			instance = state.getBlock();
+			if (SnowloggingUtils.shouldHitSnow(state, pos, (Level) blockGetter, player)) {
+				state = SnowloggingUtils.getSnowEquivalent(state);
+				instance = state.getBlock();
+			} else {
+				state = SnowloggingUtils.getStateWithoutSnow(state);
+			}
 		}
 		return original.call(instance, state, player, blockGetter, pos);
 	}
@@ -247,6 +259,7 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
+	// This caused problems with double tall plants
 //	@ModifyExpressionValue(
 //		method = "<init>",
 //		at = @At(

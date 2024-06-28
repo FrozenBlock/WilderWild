@@ -24,15 +24,22 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
+
+	@Shadow
+	@Final
+	private Minecraft minecraft;
 
 	@ModifyExpressionValue(method = "destroyBlock",
 		at = @At(
@@ -55,14 +62,19 @@ public class MultiPlayerGameModeMixin {
 		)
 	)
 	public boolean wilderWild$destroyBlockB(
-		Level instance, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original,
+		Level level, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
 		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
+			assert minecraft.player != null;
+			if (SnowloggingUtils.shouldHitSnow(destroyedState.get(), pos, level, minecraft.player)) {
+				level.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
+			} else {
+				level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), flags);
+			}
 			return true;
 		}
-		return original.call(instance, pos, newState, flags);
+		return original.call(level, pos, newState, flags);
 	}
 
 }
