@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Block.class)
 public class BlockMixin {
-
+	// Check if the snow is getting broken here or not.
 	@WrapOperation(method = "spawnDestroyParticles",
 		at = @At(
 			value = "INVOKE",

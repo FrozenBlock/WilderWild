@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -85,7 +84,8 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			return SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
+			// Changing this to Shapes.or caused the full block plant shading to get messed up
+			return Shapes.or(SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context), original);
 		}
 		return original;
 	}
@@ -247,17 +247,17 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
-	@ModifyExpressionValue(
-		method = "<init>",
-		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z"
-		)
-	)
-	public boolean wilderWild$canOcclude(boolean original) {
-		BlockState blockState = this.asState();
-		return original || SnowloggingUtils.isSnowlogged(blockState);
-	}
+//	@ModifyExpressionValue(
+//		method = "<init>",
+//		at = @At(
+//			value = "FIELD",
+//			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z"
+//		)
+//	)
+//	public boolean wilderWild$canOcclude(boolean original) {
+//		BlockState blockState = this.asState();
+//		return original || SnowloggingUtils.isSnowlogged(blockState);
+//	}
 
 	@WrapOperation(
 		method = "getSoundType",

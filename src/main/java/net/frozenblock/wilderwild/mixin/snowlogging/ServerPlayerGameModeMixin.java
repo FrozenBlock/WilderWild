@@ -26,14 +26,21 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
+
+	@Shadow
+	@Final
+	protected ServerPlayer player;
 
 	@ModifyExpressionValue(
 		method = "destroyBlock",
@@ -58,14 +65,16 @@ public class ServerPlayerGameModeMixin {
 		)
 	)
 	public boolean wilderWild$destroyBlockB(
-		ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original,
+		ServerLevel instance, BlockPos pos, boolean isMoving, Operation<Boolean> original,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
 		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+			if (SnowloggingUtils.shouldHitSnow(destroyedState.get(), pos, instance, player)) {
+				instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+			} else {
+				instance.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), Block.UPDATE_ALL);
+			}
 			return true;
-		}
-		return original.call(instance, pos, b);
+		} else return original.call(instance, pos, isMoving);
 	}
-
 }

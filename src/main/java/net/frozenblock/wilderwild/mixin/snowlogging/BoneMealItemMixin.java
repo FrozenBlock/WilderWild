@@ -33,6 +33,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(BoneMealItem.class)
 public class BoneMealItemMixin {
 
+	/**
+	 * Prevents the use of bonemeal on the snowlogged portions of blocks.
+	 */
 	@Inject(method = "useOn",
 		at = @At(
 			value = "INVOKE",
@@ -44,9 +47,8 @@ public class BoneMealItemMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> info, Level level, BlockPos blockPos, BlockPos blockPos2) {
-		if (SnowloggingUtils.isSnowlogged(level.getBlockState(blockPos))) {
+		if (SnowloggingUtils.shouldHitSnow(level.getBlockState(blockPos), blockPos, level, context.getClickLocation())) {
 			info.setReturnValue(InteractionResult.PASS);
 		}
 	}
-
 }

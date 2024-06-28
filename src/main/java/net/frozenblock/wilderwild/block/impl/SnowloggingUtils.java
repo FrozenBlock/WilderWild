@@ -23,9 +23,12 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
@@ -34,6 +37,8 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -129,6 +134,28 @@ public class SnowloggingUtils {
 			return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
 		}
 		return false;
-    }
+	}
 
+	/**
+	 * Returns if the hit location is at or beneath the snow level.
+	 *
+	 * @return if the hit location is at or beneath the snow level.
+	 */
+	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, Vec3 hitLocation) {
+		if (isSnowlogged(state)) {
+			VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
+			return (pos.getY() + snowLayerShape.max(Direction.Axis.Y)) >= hitLocation.y;
+		}
+		return false;
+	}
+
+	/**
+	 * Returns if the location the player is looking at is at or beneath the snow level.
+	 *
+	 * @return if the location the player is looking at is at or beneath the snow level.
+	 */
+	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
+		HitResult hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
+		return shouldHitSnow(state, pos, level, hitResult.getLocation());
+	}
 }

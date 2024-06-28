@@ -78,13 +78,26 @@ public class BushBlockMixin extends Block {
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) {
-				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+			if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+				BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+				if (player.hasCorrectToolForDrops(snowEquivalent)) {
+					super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+				}
+			} else {
+				super.playerDestroy(level, player, pos, state, blockEntity, stack);
 			}
 		} else {
 			super.playerDestroy(level, player, pos, state, blockEntity, stack);
 		}
 	}
 
+//	@Override
+//	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+//		if (SnowloggingUtils.isSnowlogged(state)) {
+//			if (!SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+//
+//			}
+//		}
+//		return super.playerWillDestroy(level, pos, state, player);
+//	}
 }
