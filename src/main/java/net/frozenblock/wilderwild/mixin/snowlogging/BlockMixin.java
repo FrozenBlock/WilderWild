@@ -41,5 +41,4 @@ public class BlockMixin {
 		}
 		return original.call(state);
 	}
-
 }
