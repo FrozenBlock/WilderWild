@@ -82,9 +82,15 @@ public class SnowloggingUtils {
 
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
 		int layers;
-		return (SnowloggingUtils.canSnowlog(state) && isItemSnow(context.getItemInHand())) &&
-			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos()) &&
-			((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
+		if (SnowloggingUtils.canSnowlog(state) && isItemSnow(context.getItemInHand()) && Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())) {
+			layers = SnowloggingUtils.getSnowLayers(state);
+			if (layers >= MAX_LAYERS) return false;
+			if (layers <= 0) return true;
+			if (context.replacingClickedOnBlock()) {
+				return (context.getClickedFace() == Direction.UP) || (!SnowloggingUtils.shouldHitSnow(state, context.getClickedPos(), context.getLevel(), context.getClickLocation()));
+			}
+		}
+		return false;
 	}
 
 	@Nullable

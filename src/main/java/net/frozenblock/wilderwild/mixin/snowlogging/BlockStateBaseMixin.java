@@ -84,7 +84,6 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			// Changing this to Shapes.or caused the full block plant shading to get messed up
 			return Shapes.or(SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context), original);
 		}
 		return original;

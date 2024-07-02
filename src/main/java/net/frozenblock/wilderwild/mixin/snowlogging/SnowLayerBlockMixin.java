@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class SnowLayerBlockMixin {
 
 	@Shadow
-	protected abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
+	public abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
 
 	@Inject(
 		method = "getStateForPlacement",
@@ -106,5 +106,4 @@ public abstract class SnowLayerBlockMixin {
 			}
 		}
 	}
-
 }

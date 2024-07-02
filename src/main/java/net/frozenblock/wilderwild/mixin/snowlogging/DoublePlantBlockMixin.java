@@ -26,7 +26,6 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +34,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
@@ -71,18 +69,12 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	@WrapOperation(method = "playerWillDestroy",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V"
+			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;preventDropFromBottomPart(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V"
 		)
 	)
-	public void wilderWild$dropResources(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity player, ItemStack mainHandItem, Operation<Void> original) {
-		if (!SnowloggingUtils.isSnowlogged(state)) {
-			original.call(state, level, pos, blockEntity, player, mainHandItem);
-			return;
-		}
-		if (SnowloggingUtils.shouldHitSnow(state, pos, level, (Player) player)) {
-			original.call(SnowloggingUtils.getSnowEquivalent(state), level, pos, blockEntity, player, mainHandItem);
-		} else {
-			original.call(SnowloggingUtils.getStateWithoutSnow(state), level, pos, blockEntity, player, mainHandItem);
+	public void wilderWild$playerWillDestroyCreative(Level level, BlockPos pos, BlockState state, Player player, Operation<Void> original) {
+		if (!SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+			original.call(level, pos, state, player);
 		}
 	}
 
@@ -110,7 +102,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	)
 	private static boolean wilderWild$preventDropFromBottomPartB(
 		Level instance, BlockPos setPos, BlockState setState, int flags, Operation<Boolean> original,
-		Level level, BlockPos paramPos, BlockState state, Player player,
+		Level level, BlockPos paramPos, BlockState paramState, Player player,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
 	) {
 		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {

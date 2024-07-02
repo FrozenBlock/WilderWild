@@ -23,7 +23,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
@@ -38,7 +37,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ServerPlayerGameMode.class)
-public class ServerPlayerGameModeMixin {
+public abstract class ServerPlayerGameModeMixin {
 
 	@Shadow
 	@Final
@@ -46,6 +45,9 @@ public class ServerPlayerGameModeMixin {
 
 	@Shadow
 	protected ServerLevel level;
+
+	@Shadow
+	public abstract boolean destroyBlock(BlockPos pos);
 
 	@ModifyExpressionValue(
 		method = "destroyBlock",
@@ -78,14 +80,14 @@ public class ServerPlayerGameModeMixin {
 	)
 	public boolean wilderWild$destroyBlockB(
 		ServerLevel level, BlockPos pos, boolean isMoving, Operation<Boolean> original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState,
-		@Share("wilderWild$snowDestroyed") LocalBooleanRef snowDestroyed
+		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
-		snowDestroyed.set(false);
-		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			if (SnowloggingUtils.shouldHitSnow(destroyedState.get(), pos, level, player)) {
-				level.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
-				snowDestroyed.set(true);
+		BlockState destryoed = destroyedState.get();
+		if (SnowloggingUtils.isSnowlogged(destryoed)) {
+			if (SnowloggingUtils.shouldHitSnow(destryoed, pos, level, player)) {
+				if (destryoed.canSurvive(level, pos)) {
+					level.setBlock(pos, destryoed.setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+				}
 			} else {
 				level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), Block.UPDATE_ALL);
 			}
