@@ -40,7 +40,6 @@ val loader_version: String by project
 val mod_id: String by project
 val mod_version: String by project
 val protocol_version: String by project
-val mod_loader: String by project
 val maven_group: String by project
 val archives_base_name: String by project
 
@@ -347,7 +346,7 @@ artifacts {
 }
 
 fun getModVersion(): String {
-    var version = "$mod_version-$mod_loader+$minecraft_version"
+    var version = "$mod_version+$minecraft_version"
 
     if (release != null && !release) {
         //version += "-unstable"
