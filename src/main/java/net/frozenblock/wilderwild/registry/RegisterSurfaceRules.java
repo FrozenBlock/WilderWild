@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.impl.conditionsource.SnowUnderMountainConditionSource;
@@ -414,7 +414,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 				dyingForestRules()
 			)
 		);
-		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+		WilderConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
 	@NotNull
@@ -460,6 +460,6 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 				snowUnderMountains()
 			)
 		);
-		WilderSharedConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
+		WilderConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}
 }

@@ -23,7 +23,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -34,7 +34,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderMiscGeneration {
 
 	public static void generateMisc() {
-		BiomeModifications.create(WilderSharedConstants.id("nether_geysers"))
+		BiomeModifications.create(WilderConstants.id("nether_geysers"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -51,7 +51,7 @@ public final class WilderMiscGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("termite_transitions"))
+		BiomeModifications.create(WilderConstants.id("termite_transitions"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -63,7 +63,7 @@ public final class WilderMiscGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("surface_decoration"))
+		BiomeModifications.create(WilderConstants.id("surface_decoration"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -240,7 +240,7 @@ public final class WilderMiscGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("stone_pool_caves"))
+		BiomeModifications.create(WilderConstants.id("stone_pool_caves"))
 			.add(ModificationPhase.ADDITIONS,
 				FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_POOLS),
 				(biomeSelectionContext, context) -> {
@@ -250,7 +250,7 @@ public final class WilderMiscGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("surface_transitions"))
+		BiomeModifications.create(WilderConstants.id("surface_transitions"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {

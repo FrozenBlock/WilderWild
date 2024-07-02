@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
@@ -33,9 +33,9 @@ public final class WilderWaterColors {
 	}
 
 	public static void stirWater() {
-		WilderSharedConstants.logWithModId("Overriding Water Colors for", true);
+		WilderConstants.logWithModId("Overriding Water Colors for", true);
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_hot_water")).add(
+		BiomeModifications.create(WilderConstants.id("modify_hot_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.HOT_WATER),
 			(selectionContext, modificationContext) -> {
@@ -46,7 +46,7 @@ public final class WilderWaterColors {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_lukewarm_water")).add(
+		BiomeModifications.create(WilderConstants.id("modify_lukewarm_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.LUKEWARM_WATER),
 			(selectionContext, modificationContext) -> {
@@ -57,7 +57,7 @@ public final class WilderWaterColors {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_snowy_water")).add(
+		BiomeModifications.create(WilderConstants.id("modify_snowy_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.SNOWY_WATER),
 			(selectionContext, modificationContext) -> {
@@ -68,7 +68,7 @@ public final class WilderWaterColors {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_frozen_water")).add(
+		BiomeModifications.create(WilderConstants.id("modify_frozen_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.FROZEN_WATER),
 			(selectionContext, modificationContext) -> {

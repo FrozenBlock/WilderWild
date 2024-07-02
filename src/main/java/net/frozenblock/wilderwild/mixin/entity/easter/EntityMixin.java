@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
 import net.frozenblock.lib.spotting_icons.impl.EntitySpottingIconInterface;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +35,7 @@ public class EntityMixin {
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {
 		if (name != null && name.getString().equalsIgnoreCase("Stella")) {
 			((EntitySpottingIconInterface) Entity.class.cast(this)).getSpottingIconManager()
-				.setIcon(WilderSharedConstants.id("textures/spotting_icons/stella.png"), 5F, 8F, WilderSharedConstants.id("stella"));
+				.setIcon(WilderConstants.id("textures/spotting_icons/stella.png"), 5F, 8F, WilderConstants.id("stella"));
 		}
 	}
 }

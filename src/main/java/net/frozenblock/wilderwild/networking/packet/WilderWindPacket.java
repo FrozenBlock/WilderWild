@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.networking.packet;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record WilderWindPacket(Vec3 cloudPos) implements CustomPacketPayload {
 	public static final Type<WilderWindPacket> PACKET_TYPE = new Type<>(
-		WilderSharedConstants.id("wind_extension_sync")
+		WilderConstants.id("wind_extension_sync")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderWindPacket> CODEC = StreamCodec.ofMember(WilderWindPacket::write, WilderWindPacket::new);

@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.warden;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.function.Consumer;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.impl.WilderSonicBoom;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -139,7 +139,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			}
 		}
 		if (blocked) {
-			WilderSharedConstants.log("Warden Sonic Boom Blocked @ " + hitPos, WilderSharedConstants.UNSTABLE_LOGGING);
+			WilderConstants.log("Warden Sonic Boom Blocked @ " + hitPos, WilderConstants.UNSTABLE_LOGGING);
 			return hitPos;
 		} else {
 			return null;

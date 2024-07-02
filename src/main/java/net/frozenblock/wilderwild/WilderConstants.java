@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WilderSharedConstants {
+public class WilderConstants {
 	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
@@ -45,45 +45,45 @@ public class WilderSharedConstants {
 	// LOGGING
 	public static void log(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(message);
+			WilderConstants.LOGGER.info(message);
 		}
 	}
 
 	public static void logWithModId(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(message + " " + WilderSharedConstants.MOD_ID);
+			WilderConstants.LOGGER.info(message + " " + WilderConstants.MOD_ID);
 		}
 	}
 
 	public static void warn(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WilderSharedConstants.LOGGER.warn(message);
+			WilderConstants.LOGGER.warn(message);
 		}
 	}
 
 	public static void error(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WilderSharedConstants.LOGGER.error(message);
+			WilderConstants.LOGGER.error(message);
 		}
 	}
 
 	public static void printStackTrace(String message, boolean shouldPrint) {
 		if (shouldPrint) {
-			WilderSharedConstants.LOGGER.error(message, new Throwable(message).fillInStackTrace());
+			WilderConstants.LOGGER.error(message, new Throwable(message).fillInStackTrace());
 		}
 	}
 
 	public static void startMeasuring(@NotNull Object object) {
 		long started = System.nanoTime();
 		String name = object.getClass().getName();
-		WilderSharedConstants.LOGGER.info("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
+		WilderConstants.LOGGER.info("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
 		INSTANT_MAP.put(object, started);
 	}
 
 	public static void stopMeasuring(Object object) {
 		if (INSTANT_MAP.containsKey(object)) {
 			String name = object.getClass().getName();
-			WilderSharedConstants.LOGGER.info("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
+			WilderConstants.LOGGER.info("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
 			INSTANT_MAP.remove(object);
 		}
 	}
@@ -100,7 +100,7 @@ public class WilderSharedConstants {
 
 	@NotNull
 	public static String string(@NotNull String path) {
-		return WilderSharedConstants.id(path).toString();
+		return WilderConstants.id(path).toString();
 	}
 
 	public static String safeString(String path) {

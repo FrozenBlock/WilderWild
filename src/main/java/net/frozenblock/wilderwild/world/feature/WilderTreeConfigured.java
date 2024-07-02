@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
@@ -235,7 +235,7 @@ public final class WilderTreeConfigured {
 
 	public static void registerTreeConfigured() {
 
-		WilderSharedConstants.logWithModId("Registering WilderTreeConfigured for", true);
+		WilderConstants.logWithModId("Registering WilderTreeConfigured for", true);
 
 		// BIRCH
 

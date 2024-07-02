@@ -46,7 +46,7 @@ import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -111,11 +111,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderSharedConstants.id("instrument");
-	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderSharedConstants.id("nectar");
-	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderSharedConstants.id("enderman_anger");
-	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser_effective");
-	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser");
+	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderConstants.id("instrument");
+	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderConstants.id("nectar");
+	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderConstants.id("enderman_anger");
+	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderConstants.id("geyser_effective");
+	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -137,8 +137,8 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void initPreFreeze() {
-		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		WilderConstants.log("FrozenLib pre-freeze mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
+		SpottingIconPredicate.register(WilderConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
@@ -232,9 +232,9 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.log("FrozenLib mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus")));
+		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderConstants.id("cactus")));
 
 		HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
 		FrozenBools.useNewDripstoneLiquid = true;
@@ -298,8 +298,8 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
 			RandomPoolAliasApi.addTarget(
-				WilderSharedConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
-				WilderSharedConstants.id("trial_chambers/spawner/small_melee/scorched"),
+				WilderConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
+				WilderConstants.id("trial_chambers/spawner/small_melee/scorched"),
 				1
 			);
 		}
