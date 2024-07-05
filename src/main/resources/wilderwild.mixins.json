@@ -115,6 +115,7 @@
     "snowlogging.VineBlockMixin",
     "snowlogging.WallBlockMixin",
     "snowlogging.worldgen.BiomeMixin",
+    "snowlogging.worldgen.BuddingAmethystBlockMixin",
     "snowlogging.worldgen.ServerLevelMixin",
     "snowlogging.worldgen.SnowAndFreezeFeatureMixin",
     "warden.LivingEntityMixin",
