@@ -92,7 +92,6 @@
     "snowlogging.BoneMealItemMixin",
     "snowlogging.BushBlockMixin",
     "snowlogging.CacheMixin",
-    "snowlogging.CampfireBlockMixin",
     "snowlogging.CandleBlockMixin",
     "snowlogging.DoublePlantBlockMixin",
     "snowlogging.EntityMixin",
