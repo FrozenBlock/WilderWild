@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -61,12 +61,12 @@ public class RegisterStructureProcessors {
 
 	@NotNull
 	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
-		return ResourceKey.create(Registries.PROCESSOR_LIST, WilderSharedConstants.id(string));
+		return ResourceKey.create(Registries.PROCESSOR_LIST, WilderConstants.id(string));
 	}
 
 	@NotNull
 	private static Holder<StructureProcessorList> register(@NotNull BootstrapContext<StructureProcessorList> entries, @NotNull ResourceKey<StructureProcessorList> key, @NotNull List<StructureProcessor> list) {
-		WilderSharedConstants.log("Registering structure processor list " + key.location(), true);
+		WilderConstants.log("Registering structure processor list " + key.location(), true);
 		return entries.register(key, new StructureProcessorList(list));
 	}
 }

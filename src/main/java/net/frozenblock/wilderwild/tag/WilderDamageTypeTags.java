@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.tag;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
@@ -33,6 +33,6 @@ public final class WilderDamageTypeTags {
 
 	@NotNull
 	private static TagKey<DamageType> bind(@NotNull String path) {
-		return TagKey.create(Registries.DAMAGE_TYPE, WilderSharedConstants.id(path));
+		return TagKey.create(Registries.DAMAGE_TYPE, WilderConstants.id(path));
 	}
 }

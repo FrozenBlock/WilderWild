@@ -34,14 +34,14 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
 public class DisplayLanternItemComponentizationFix extends DataFix {
-	private static final String ITEM_ID = WilderSharedConstants.string("display_lantern");
+	private static final String ITEM_ID = WilderConstants.string("display_lantern");
 
 	public DisplayLanternItemComponentizationFix(Schema outputSchema) {
         super(outputSchema, false);
@@ -83,14 +83,14 @@ public class DisplayLanternItemComponentizationFix extends DataFix {
 	}
 
 	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
-		OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WilderSharedConstants.vanillaId("block_entity_data").toString());
+		OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WilderConstants.vanillaId("block_entity_data").toString());
 		if (optionalBlockEntityTag.result().isPresent()) {
 			Dynamic<?> blockEntityTag = optionalBlockEntityTag.result().get();
 
-			componentData = componentData.set(WilderSharedConstants.string("fireflies"), fixOccupants(blockEntityTag));
+			componentData = componentData.set(WilderConstants.string("fireflies"), fixOccupants(blockEntityTag));
 			blockEntityTag = blockEntityTag.remove("Fireflies");
 
-			componentData = componentData.set(WilderSharedConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
+			componentData = componentData.set(WilderConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
 		}
 		return componentData;
 	}

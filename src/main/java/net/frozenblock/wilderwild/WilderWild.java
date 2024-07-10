@@ -66,12 +66,12 @@ import org.jetbrains.annotations.NotNull;
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
 	public WilderWild() {
-		super(WilderSharedConstants.MOD_ID);
+		super(WilderConstants.MOD_ID);
 	}
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
-		WilderSharedConstants.startMeasuring(this);
+		WilderConstants.startMeasuring(this);
 		if (WilderPreMixinInjectConstants.IS_DATAGEN) {
 			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
@@ -126,7 +126,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterBlocks.registerBlockProperties();
 		WilderNetworking.init();
 
-		WilderSharedConstants.stopMeasuring(this);
+		WilderConstants.stopMeasuring(this);
 	}
 
 	@Override

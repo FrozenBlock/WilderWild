@@ -23,7 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.wilderwild.WilderFeatureFlags;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.datagen.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWEntityLootProvider;
@@ -88,7 +88,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
-		WilderSharedConstants.logWithModId("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Biomes for", WilderConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.DAMAGE_TYPE, RegisterDamageTypes::bootstrap);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, WilderFeatureBootstrap::bootstrapConfigured);

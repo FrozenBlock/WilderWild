@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.Direction;
@@ -186,7 +186,7 @@ public final class WilderTreePlaced {
 	}
 
 	public static void registerTreePlaced() {
-		WilderSharedConstants.logWithModId("Registering WilderTreePlaced for", true);
+		WilderConstants.logWithModId("Registering WilderTreePlaced for", true);
 
 		// BIRCH
 

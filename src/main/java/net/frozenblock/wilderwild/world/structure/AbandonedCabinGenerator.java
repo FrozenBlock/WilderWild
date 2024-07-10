@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.structure;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterStructureProcessors;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -51,7 +51,7 @@ import org.jetbrains.annotations.NotNull;
 public class AbandonedCabinGenerator {
 	public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY =  RegisterStructures.ofSet("abandoned_cabin");
 	private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = RegisterStructures.createKey("abandoned_cabin");
-	public static final ResourceKey<StructureTemplatePool> ABANDONED_CABIN = Pools.parseKey(WilderSharedConstants.string("abandoned_cabin"));
+	public static final ResourceKey<StructureTemplatePool> ABANDONED_CABIN = Pools.parseKey(WilderConstants.string("abandoned_cabin"));
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -105,6 +105,6 @@ public class AbandonedCabinGenerator {
 	}
 
 	private static @NotNull String string(String name) {
-		return WilderSharedConstants.string("abandoned_cabin/" + name);
+		return WilderConstants.string("abandoned_cabin/" + name);
 	}
 }

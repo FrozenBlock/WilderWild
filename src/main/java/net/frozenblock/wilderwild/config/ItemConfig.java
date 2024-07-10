@@ -24,8 +24,8 @@ import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
+import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WilderConstants.configPath;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 
 public final class ItemConfig {

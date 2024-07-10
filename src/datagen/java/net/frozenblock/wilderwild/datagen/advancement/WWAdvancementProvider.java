@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -45,8 +45,8 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
-		AdvancementHolder adventure = Advancement.Builder.advancement().build(WilderSharedConstants.vanillaId("adventure/root"));
-		AdvancementHolder husbandry = Advancement.Builder.advancement().build(WilderSharedConstants.vanillaId("husbandry/root"));
+		AdvancementHolder adventure = Advancement.Builder.advancement().build(WilderConstants.vanillaId("adventure/root"));
+		AdvancementHolder husbandry = Advancement.Builder.advancement().build(WilderConstants.vanillaId("husbandry/root"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -61,7 +61,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)))
-			.save(writer, WilderSharedConstants.string("husbandry/crab_in_a_bucket"));
+			.save(writer, WilderConstants.string("husbandry/crab_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -76,7 +76,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("firefly_bottled", FireflyBottleTrigger.TriggerInstance.fireflyBottle())
-			.save(writer, WilderSharedConstants.string("husbandry/firefly_in_a_bottle"));
+			.save(writer, WilderConstants.string("husbandry/firefly_in_a_bottle"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -91,7 +91,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)))
-			.save(writer, WilderSharedConstants.string("husbandry/jellyfish_in_a_bucket"));
+			.save(writer, WilderConstants.string("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
@@ -106,7 +106,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(RegisterBlocks.NULL_BLOCK))
-			.save(writer, WilderSharedConstants.string("adventure/obtain_null_block"));
+			.save(writer, WilderConstants.string("adventure/obtain_null_block"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
@@ -124,6 +124,6 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				CriteriaTriggers.USING_ITEM
 					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(RegisterItems.ANCIENT_HORN).build())))
 			)
-			.save(writer, WilderSharedConstants.string("adventure/use_ancient_horn"));
+			.save(writer, WilderConstants.string("adventure/use_ancient_horn"));
 	}
 }

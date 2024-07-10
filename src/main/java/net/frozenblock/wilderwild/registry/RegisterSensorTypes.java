@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabCanDigSensor;
@@ -40,7 +40,7 @@ public final class RegisterSensorTypes {
 	}
 
 	public static void register() {
-		WilderSharedConstants.logWithModId("Registering SensorTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering SensorTypes for", WilderConstants.UNSTABLE_LOGGING);
 	}
 
 	public static final SensorType<CrabSpecificSensor> CRAB_SPECIFIC_SENSOR = register("crab_specific_sensor", CrabSpecificSensor::new);
@@ -53,7 +53,7 @@ public final class RegisterSensorTypes {
 
 	@NotNull
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {
-		return Registry.register(BuiltInRegistries.SENSOR_TYPE, WilderSharedConstants.id(key), new SensorType<>(sensorSupplier));
+		return Registry.register(BuiltInRegistries.SENSOR_TYPE, WilderConstants.id(key), new SensorType<>(sensorSupplier));
 	}
 
 }

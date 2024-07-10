@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
@@ -140,7 +140,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		if (tag.contains("fireflies")) {
 			Occupant.LIST_CODEC
 				.parse(NbtOps.INSTANCE, tag.get("fireflies"))
-				.resultOrPartial(WilderSharedConstants.LOGGER::error)
+				.resultOrPartial(WilderConstants.LOGGER::error)
 				.ifPresent(this.fireflies::addAll);
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -226,7 +226,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderSharedConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
+					WilderConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 				}
 			}
 		}

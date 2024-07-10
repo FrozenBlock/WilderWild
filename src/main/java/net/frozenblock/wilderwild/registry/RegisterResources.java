@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
 
@@ -32,20 +32,20 @@ public final class RegisterResources {
 
 	public static void register(ModContainer container) {
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			WilderSharedConstants.id("wilder_main_menu"),
+			WilderConstants.id("wilder_main_menu"),
 			container, Component.literal("Wilder Main Menu"),
 			AmbienceAndMiscConfig.get().titleResourcePackEnabled ?
 			ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
 		);
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			WilderSharedConstants.id("old_wilder_wild_panoramas"),
+			WilderConstants.id("old_wilder_wild_panoramas"),
 			container, Component.literal("Old Wilder Wild Panoramas"),
 			ResourcePackActivationType.NORMAL
 		);
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			WilderSharedConstants.id("mc_live_tendrils"),
+			WilderConstants.id("mc_live_tendrils"),
 			container, Component.literal("Minecraft Live Tendrils"),
 			ResourcePackActivationType.NORMAL
 		);

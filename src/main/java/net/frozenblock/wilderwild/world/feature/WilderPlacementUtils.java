@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -40,7 +40,7 @@ public final class WilderPlacementUtils {
 	@NotNull
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <FC extends FeatureConfiguration> FrozenPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(WilderSharedConstants.id(id))
+		return new FrozenPlacedFeature(WilderConstants.id(id))
 			.makeAndSetHolder((Holder) configured, modifiers);
 	}
 
@@ -51,7 +51,7 @@ public final class WilderPlacementUtils {
 
 	@NotNull
 	public static FrozenPlacedFeature register(@NotNull String id) {
-		var key = WilderSharedConstants.id(id);
+		var key = WilderConstants.id(id);
 		return new FrozenPlacedFeature(key);
 	}
 

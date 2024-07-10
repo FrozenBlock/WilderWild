@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -33,7 +33,7 @@ public final class RegisterLootTables {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWithModId("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Loot Table Modifications for", WilderConstants.UNSTABLE_LOGGING);
 		//ANCIENT HORN FRAGMENT
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
