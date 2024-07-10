@@ -93,6 +93,7 @@
     "snowlogging.BushBlockMixin",
     "snowlogging.CacheMixin",
     "snowlogging.CandleBlockMixin",
+    "snowlogging.CandleLightingMixins",
     "snowlogging.DoublePlantBlockMixin",
     "snowlogging.EntityMixin",
     "snowlogging.FenceBlockMixin",
