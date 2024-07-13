@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.networking.packet;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -31,9 +31,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderLightningStrikePacket(int blockStateId, double x, double y, double z, int tickCount) implements CustomPacketPayload {
-
 	public static final Type<WilderLightningStrikePacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.string("lightning_strike")
+		WilderConstants.string("lightning_strike")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderLightningStrikePacket> CODEC = StreamCodec.ofMember(WilderLightningStrikePacket::write, WilderLightningStrikePacket::new);

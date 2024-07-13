@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.world.impl.noise;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -98,7 +98,7 @@ public class WilderNoise {
 
 	@NotNull
 	private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
-		return ResourceKey.create(Registries.NOISE, WilderSharedConstants.id(id));
+		return ResourceKey.create(Registries.NOISE, WilderConstants.id(id));
 	}
 
 	@NotNull
@@ -109,7 +109,7 @@ public class WilderNoise {
 		double firstAmplitude,
 		double... amplitudes
 	) {
-		WilderSharedConstants.log("Registering noise " + key.location(), true);
+		WilderConstants.log("Registering noise " + key.location(), true);
 		return entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
 	}
 }

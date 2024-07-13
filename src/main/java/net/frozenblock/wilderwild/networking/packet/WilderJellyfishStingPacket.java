@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.networking.packet;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record WilderJellyfishStingPacket(boolean isBaby) implements CustomPacketPayload {
 	public static final Type<WilderJellyfishStingPacket> PACKET_TYPE = CustomPacketPayload.createType(
-			WilderSharedConstants.string("jellyfish_sting")
+		WilderConstants.string("jellyfish_sting")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, WilderJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL

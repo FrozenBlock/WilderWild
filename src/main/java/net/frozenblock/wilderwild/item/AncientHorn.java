@@ -22,7 +22,7 @@ import java.util.Optional;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -114,7 +114,7 @@ public class AncientHorn extends InstrumentItem {
 			}
 			return InteractionResultHolder.consume(itemStack);
 		} else {
-			WilderSharedConstants.printStackTrace("Ancient Horn use failed!", true);
+			WilderConstants.printStackTrace("Ancient Horn use failed!", true);
 			return InteractionResultHolder.fail(itemStack);
 		}
 	}

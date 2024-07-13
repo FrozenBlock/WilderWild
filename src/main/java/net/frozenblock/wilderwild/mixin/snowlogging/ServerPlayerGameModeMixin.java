@@ -35,7 +35,8 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
 
-	@ModifyExpressionValue(method = "destroyBlock",
+	@ModifyExpressionValue(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
@@ -49,7 +50,8 @@ public class ServerPlayerGameModeMixin {
 		return original;
 	}
 
-	@WrapOperation(method = "destroyBlock",
+	@WrapOperation(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"

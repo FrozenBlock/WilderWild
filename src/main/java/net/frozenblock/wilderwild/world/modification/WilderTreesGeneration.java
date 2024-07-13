@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderTreesGeneration {
 
 	public static void generateTrees() {
-		BiomeModifications.create(WilderSharedConstants.id("snapped_tree_generation"))
+		BiomeModifications.create(WilderConstants.id("snapped_tree_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -155,7 +155,7 @@ public final class WilderTreesGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("fallen_tree_generation"))
+		BiomeModifications.create(WilderConstants.id("fallen_tree_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -276,7 +276,7 @@ public final class WilderTreesGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("tree_generation"))
+		BiomeModifications.create(WilderConstants.id("tree_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {

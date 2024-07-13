@@ -23,7 +23,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -37,10 +37,10 @@ public final class WilderMusic {
 	}
 
 	public static void playMusic() {
-		WilderSharedConstants.logWithModId("Adding Music And Ambience To Biomes for", true);
+		WilderConstants.logWithModId("Adding Music And Ambience To Biomes for", true);
 
 		// Music
-		BiomeModifications.create(WilderSharedConstants.id("modify_music_birch_forests")).add(
+		BiomeModifications.create(WilderConstants.id("modify_music_birch_forests")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(ConventionalBiomeTags.BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
@@ -49,7 +49,7 @@ public final class WilderMusic {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_music_forests")).add(
+		BiomeModifications.create(WilderConstants.id("modify_music_forests")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(ConventionalBiomeTags.FOREST),
 			(selectionContext, modificationContext) -> {
@@ -59,7 +59,7 @@ public final class WilderMusic {
 			});
 
 		// Ambience
-		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_deep_dark")).add(
+		BiomeModifications.create(WilderConstants.id("modify_ambience_deep_dark")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
@@ -70,7 +70,7 @@ public final class WilderMusic {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_dripstone_caves")).add(
+		BiomeModifications.create(WilderConstants.id("modify_ambience_dripstone_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DRIPSTONE_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -81,7 +81,7 @@ public final class WilderMusic {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_lush_caves")).add(
+		BiomeModifications.create(WilderConstants.id("modify_ambience_lush_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.LUSH_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -92,7 +92,7 @@ public final class WilderMusic {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_frozen_caves")).add(
+		BiomeModifications.create(WilderConstants.id("modify_ambience_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -103,7 +103,7 @@ public final class WilderMusic {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_jellyfish_caves")).add(
+		BiomeModifications.create(WilderConstants.id("modify_ambience_jellyfish_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.JELLYFISH_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -114,7 +114,7 @@ public final class WilderMusic {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("modify_ambience_magmatic_caves")).add(
+		BiomeModifications.create(WilderConstants.id("modify_ambience_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
@@ -30,8 +30,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
-	private static final ResourceLocation CRAB_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab.png");
-	private static final ResourceLocation CRAB_DITTO_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab_ditto.png");
+	private static final ResourceLocation CRAB_LOCATION = WilderConstants.id("textures/entity/crab/crab.png");
+	private static final ResourceLocation CRAB_DITTO_LOCATION = WilderConstants.id("textures/entity/crab/crab_ditto.png");
 
 	public CrabRenderer(EntityRendererProvider.Context context) {
 		this(context, WilderWildClient.CRAB);

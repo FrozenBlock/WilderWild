@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,7 +35,7 @@ public final class RegisterGameEvents {
 	}
 
 	public static void registerEvents() {
-		WilderSharedConstants.logWithModId("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering GameEvents for", WilderConstants.UNSTABLE_LOGGING);
 	}
 
 	@NotNull
@@ -45,7 +45,7 @@ public final class RegisterGameEvents {
 
 	@NotNull
 	private static Reference<GameEvent> register(@NotNull String path, int notificationRadius) {
-		ResourceLocation key = WilderSharedConstants.id(path);
+		ResourceLocation key = WilderConstants.id(path);
 		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
 	}
 }

@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
@@ -57,7 +57,7 @@ public final class RegisterEntities {
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
 		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"))
+			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"))
 			.entityFactory(Firefly::new)
 			.defaultAttributes(Firefly::createAttributes)
 			.spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::checkFireflySpawnRules)
@@ -68,7 +68,7 @@ public final class RegisterEntities {
 	public static final EntityType<Jellyfish> JELLYFISH = register(
 		"jellyfish",
 		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "jellyfish"))
+			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"))
 			.entityFactory(Jellyfish::new)
 			.defaultAttributes(Jellyfish::createAttributes)
 			.spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::checkJellyfishSpawnRules)
@@ -79,7 +79,7 @@ public final class RegisterEntities {
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
 		"tumbleweed",
 		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "tumbleweed"))
+			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"))
 			.entityFactory(Tumbleweed::new)
 			.defaultAttributes(Tumbleweed::createAttributes)
 			.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::checkTumbleweedSpawnRules)
@@ -90,7 +90,7 @@ public final class RegisterEntities {
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
 		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab"))
+			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"))
 			.entityFactory(Crab::new)
 			.defaultAttributes(Crab::createAttributes)
 			.spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::checkCrabSpawnRules)
@@ -154,12 +154,12 @@ public final class RegisterEntities {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWithModId("Registering Entities for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Entities for", WilderConstants.UNSTABLE_LOGGING);
 		RegisterDamageTypes.init();
 	}
 
 	@NotNull
 	private static <E extends Entity, T extends EntityType<E>> T register(@NotNull String path, @NotNull T entityType) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, WilderSharedConstants.id(path), entityType);
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, WilderConstants.id(path), entityType);
 	}
 }

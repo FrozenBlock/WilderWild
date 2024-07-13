@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.world.impl.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.impl.features.CattailFeature;
 import net.frozenblock.wilderwild.world.impl.features.LargeMesogleaFeature;
@@ -87,16 +87,16 @@ public class RegisterFeatures {
 
 	@NotNull
 	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(@NotNull String id, @NotNull MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
+		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderConstants.id(id), new TrunkPlacerType<>(codec));
 	}
 
 	@NotNull
 	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(@NotNull String id, @NotNull MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderSharedConstants.id(id), new FoliagePlacerType<>(codec));
+		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderConstants.id(id), new FoliagePlacerType<>(codec));
 	}
 
 	@NotNull
 	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(@NotNull String id, @NotNull T feature) {
-		return Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id(id), feature);
+		return Registry.register(BuiltInRegistries.FEATURE, WilderConstants.id(id), feature);
 	}
 }

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Map;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -56,12 +56,12 @@ public final class RegisterStructures {
 
 	@NotNull
 	public static ResourceKey<StructureSet> ofSet(@NotNull String id) {
-		return ResourceKey.create(Registries.STRUCTURE_SET, WilderSharedConstants.id(id));
+		return ResourceKey.create(Registries.STRUCTURE_SET, WilderConstants.id(id));
 	}
 
 	@NotNull
 	public static ResourceKey<Structure> createKey(@NotNull String id) {
-		return ResourceKey.create(Registries.STRUCTURE, WilderSharedConstants.id(id));
+		return ResourceKey.create(Registries.STRUCTURE, WilderConstants.id(id));
 	}
 
 	@NotNull

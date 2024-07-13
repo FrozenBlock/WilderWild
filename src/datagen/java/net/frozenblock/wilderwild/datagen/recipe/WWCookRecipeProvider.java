@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -59,6 +59,6 @@ public class WWCookRecipeProvider {
 	) {
 		SimpleCookingRecipeBuilder.generic(Ingredient.of(input), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipe)
 			.unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getItemName(output) + "_from_" + cooker));
+			.save(exporter, WilderConstants.id(RecipeProvider.getItemName(output) + "_from_" + cooker));
 	}
 }

@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.wind;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.api.WindManagerExtension;
 import net.frozenblock.lib.wind.impl.networking.WindSyncPacket;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CloudWindManager implements WindManagerExtension {
 
-	private static final ResourceLocation ID = WilderSharedConstants.id("cloud_extension");
+	private static final ResourceLocation ID = WilderConstants.id("cloud_extension");
 
 	private final WindManager manager;
 	public double cloudX;
@@ -87,15 +87,15 @@ public class CloudWindManager implements WindManagerExtension {
 
 	@Override
 	public void load(@NotNull CompoundTag compoundTag) {
-		this.cloudX = compoundTag.getDouble(WilderSharedConstants.safeString("cloudX"));
-		this.cloudY = compoundTag.getDouble(WilderSharedConstants.safeString("cloudY"));
-		this.cloudZ = compoundTag.getDouble(WilderSharedConstants.safeString("cloudZ"));
+		this.cloudX = compoundTag.getDouble(WilderConstants.safeString("cloudX"));
+		this.cloudY = compoundTag.getDouble(WilderConstants.safeString("cloudY"));
+		this.cloudZ = compoundTag.getDouble(WilderConstants.safeString("cloudZ"));
 	}
 
 	@Override
 	public void save(@NotNull CompoundTag compoundTag) {
-		compoundTag.putDouble(WilderSharedConstants.safeString("cloudX"), this.cloudX);
-		compoundTag.putDouble(WilderSharedConstants.safeString("cloudY"), this.cloudY);
-		compoundTag.putDouble(WilderSharedConstants.safeString("cloudZ"), this.cloudZ);
+		compoundTag.putDouble(WilderConstants.safeString("cloudX"), this.cloudX);
+		compoundTag.putDouble(WilderConstants.safeString("cloudY"), this.cloudY);
+		compoundTag.putDouble(WilderConstants.safeString("cloudZ"), this.cloudZ);
 	}
 }
