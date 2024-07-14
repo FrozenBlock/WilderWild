@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -34,7 +35,7 @@ import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -71,7 +72,9 @@ import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.world.impl.sapling.WWTreeGrowers;
+import net.frozenblock.wilderwild.world.impl.sapling.BaobabSaplingGenerator;
+import net.frozenblock.wilderwild.world.impl.sapling.CypressSaplingGenerator;
+import net.frozenblock.wilderwild.world.impl.sapling.PalmSaplingGenerator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -80,7 +83,6 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
@@ -90,18 +92,19 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -842,12 +845,6 @@ public final class RegisterBlocks {
 		WilderConstants.id("blocks/palm_hanging_sign")
 	);
 
-	public static final RotatedPillarBlock PALM_CROWN = new RotatedPillarBlock(
-		FabricBlockSettings.copyOf(Blocks.OAK_LOG)
-			.mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR)
-			.sounds(RegisterBlockSoundTypes.PALM_CROWN)
-	);
-
 	public static final RotatedPillarBlock STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(
@@ -1356,7 +1353,6 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.BUSH, 90, 40);
 
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
