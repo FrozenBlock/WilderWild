@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.block.termite;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,12 +37,12 @@ public class RotatedPillarBlockMixin {
 		builder.add(RegisterProperties.TERMITE_EDIBLE);
 	}
 
-	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
-	private BlockState getStateForPlacement(BlockState original) {
-		if (original != null && original.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
-			return original.setValue(RegisterProperties.TERMITE_EDIBLE, false);
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void wilderWild$appendFalseTermiteEdibleToState(BlockBehaviour.Properties properties, CallbackInfo info) {
+		RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
+		BlockState defaultBlockState = rotatedPillarBlock.defaultBlockState();
+		if (defaultBlockState.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			rotatedPillarBlock.registerDefaultState(defaultBlockState.setValue(RegisterProperties.TERMITE_EDIBLE, false));
 		}
-		return original;
 	}
-
 }

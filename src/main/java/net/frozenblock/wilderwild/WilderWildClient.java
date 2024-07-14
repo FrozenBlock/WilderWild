@@ -102,27 +102,27 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
-	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderSharedConstants.id("ancient_horn_projectile"), "main");
-	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderSharedConstants.id("sculk_sensor"), "main");
-	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WilderSharedConstants.id("hanging_tendril"), "main");
-	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderSharedConstants.id("display_lantern"), "main");
-	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderSharedConstants.id("stone_chest"), "main");
-	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_left"), "main");
-	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_right"), "main");
-	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("jellyfish"), "main");
-	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
-	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderSharedConstants.id("crab"), "main");
-	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "main");
-	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
-	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
-	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderSharedConstants.id("scorched"), "main");
+	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderConstants.id("ancient_horn_projectile"), "main");
+	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderConstants.id("sculk_sensor"), "main");
+	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WilderConstants.id("hanging_tendril"), "main");
+	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderConstants.id("display_lantern"), "main");
+	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderConstants.id("stone_chest"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderConstants.id("double_stone_chest_left"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderConstants.id("double_stone_chest_right"), "main");
+	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderConstants.id("jellyfish"), "main");
+	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderConstants.id("tumbleweed"), "main");
+	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderConstants.id("crab"), "main");
+	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderConstants.id("ostrich"), "main");
+	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderConstants.id("ostrich"), "inbred");
+	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderConstants.id("ostrich"), "saddle");
+	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderConstants.id("scorched"), "main");
 
 	@Override
 	public void onInitializeClient() {
-		SplashTextAPI.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
-		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
-		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
-		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/third/panorama"));
+		SplashTextAPI.addSplashLocation(WilderConstants.id("texts/splashes.txt"));
+		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/first/panorama"));
+		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/second/panorama"));
+		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/third/panorama"));
 		WilderEasterEggs.hatchEasterEggs();
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
@@ -290,33 +290,33 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_VIBRATION, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_FLYBY));
 
-		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
-		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(RegisterItems.COPPER_HORN, WilderConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
-		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.SCULK_SHRIEKER, WilderSharedConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.SOULS_TAKEN, 0)) / 2F);
+		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
+		ItemProperties.register(Items.BEE_NEST, WilderConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.BEEHIVE, WilderConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.SCULK_SHRIEKER, WilderConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.SOULS_TAKEN, 0)) / 2F);
 
-		ItemProperties.register(RegisterItems.FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.CYAN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.GRAY_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.GREEN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.LIGHT_BLUE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.LIME_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.MAGENTA_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.ORANGE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.PINK_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.PURPLE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.YELLOW_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.WHITE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.BLACK_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.BLUE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.RED_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.BROWN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.LIGHT_GRAY_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.CYAN_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.GRAY_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.GREEN_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.LIGHT_BLUE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.LIME_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.MAGENTA_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.ORANGE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.PINK_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.PURPLE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.YELLOW_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.WHITE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.BLACK_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.BLUE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.RED_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.BROWN_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.LIGHT_GRAY_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 
 		ColorProviderRegistry.ITEM.register(
 			((state, tintIndex) -> 5877296),
@@ -367,12 +367,12 @@ public final class WilderWildClient implements ClientModInitializer {
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
-				return WilderSharedConstants.id("minecraft_live_sculk_sensor");
+				return WilderConstants.id("minecraft_live_sculk_sensor");
 			}
 
 			@Override
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				WilderSharedConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderSharedConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
+				WilderConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
 		});
 

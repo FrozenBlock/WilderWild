@@ -18,7 +18,7 @@ buildscript {
 }
 
 plugins {
-    id("fabric-loom") version("1.6.+")
+    id("fabric-loom") version("+")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -40,7 +40,6 @@ val loader_version: String by project
 val mod_id: String by project
 val mod_version: String by project
 val protocol_version: String by project
-val mod_loader: String by project
 val maven_group: String by project
 val archives_base_name: String by project
 
@@ -60,6 +59,11 @@ val fallingleaves_version: String by project
 val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
+val indium_version: String by project
+val run_indium: String by project
+val shouldRunIndium = (run_sodium == "true") && shouldRunSodium
+
+val continuity_version: String by project
 
 base {
     archivesName = archives_base_name
@@ -183,7 +187,7 @@ dependencies {
     mappings(loom.layered {
         // please annoy treetrain if this doesnt work
         mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
-        parchment("org.parchmentmc.data:parchment-$parchment_mappings@zip")
+        //parchment("org.parchmentmc.data:parchment-$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
         }
@@ -222,7 +226,16 @@ dependencies {
     if (shouldRunSodium)
         modImplementation("maven.modrinth:sodium:${sodium_version}")
     else
-        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
+
+    // Indium
+    if (shouldRunSodium)
+        modImplementation("maven.modrinth:indium:${indium_version}")
+    else
+        modCompileOnly("maven.modrinth:indium:${indium_version}")
+
+    // Continuity
+    modImplementation("maven.modrinth:continuity:${continuity_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
@@ -326,7 +339,7 @@ artifacts {
 }
 
 fun getModVersion(): String {
-    var version = "$mod_version-$mod_loader+$minecraft_version"
+    var version = "$mod_version-mc$minecraft_version"
 
     if (release != null && !release) {
         //version += "-unstable"

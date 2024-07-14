@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.networking.packet;
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public record WilderJellyfishStingPacket(boolean isBaby) implements FabricPacket {
 
 	public static final PacketType<WilderJellyfishStingPacket> PACKET_TYPE = PacketType.create(
-			WilderSharedConstants.id("jellyfish_sting"),
+			WilderConstants.id("jellyfish_sting"),
 			WilderJellyfishStingPacket::new
 	);
 

@@ -31,6 +31,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,6 +39,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
+
+	@Shadow
+	private int ticks;
 
 	@Inject(method = "addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;", at = @At("RETURN"))
 	private void wilderWild$addParticle(
@@ -67,9 +71,9 @@ public class LevelRendererMixin {
 	) {
 		boolean useWind = wilderWild$useWind();
 
-		cameraX = useWind ? cameraX - WilderClientWindManager.getCloudX(tickDelta) * 12D
+		cameraX = useWind ? (cameraX - WilderClientWindManager.getCloudX(tickDelta) * 12D) - (double)(((float)this.ticks + tickDelta) * 0.03F)
 			: cameraX;
-		cameraY = useWind ? (float) (cameraY + Mth.clamp(WilderClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D))
+		cameraY = useWind ? (float) (cameraY - Mth.clamp(WilderClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D))
 			: cameraY;
 		cameraZ = useWind ? cameraZ - WilderClientWindManager.getCloudZ(tickDelta) * 12D
 			: cameraZ;

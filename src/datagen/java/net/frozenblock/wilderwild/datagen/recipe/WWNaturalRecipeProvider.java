@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -39,7 +39,7 @@ public class WWNaturalRecipeProvider {
 		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, "purple_dye");
 		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, "white_dye");
 
-		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, RegisterBlocks.DATURA, "light_gray_dye");
+		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, RegisterBlocks.DATURA, "light_gray_dye", 2);
 
 		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, RegisterBlocks.MILKWEED, "orange_dye", 2);
 
@@ -50,7 +50,7 @@ public class WWNaturalRecipeProvider {
 			.requires(RegisterItems.SPLIT_COCONUT, 2)
 			.group("bowl")
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.SPLIT_COCONUT), RecipeProvider.has(RegisterItems.SPLIT_COCONUT))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, RegisterItems.SPLIT_COCONUT)));
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, RegisterItems.SPLIT_COCONUT)));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.PEELED_PRICKLY_PEAR, 1)
 			.requires(RegisterItems.PRICKLY_PEAR)
@@ -66,7 +66,7 @@ public class WWNaturalRecipeProvider {
 			.pattern("###")
 			.pattern("###")
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.MILKWEED_POD), RecipeProvider.has(RegisterItems.MILKWEED_POD))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterItems.MILKWEED_POD)));
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterItems.MILKWEED_POD)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', Ingredient.of(RegisterBlocks.CATTAIL))
@@ -74,7 +74,7 @@ public class WWNaturalRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy(RecipeProvider.getHasName(RegisterBlocks.CATTAIL), RecipeProvider.has(RegisterBlocks.CATTAIL))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterBlocks.CATTAIL)));
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterBlocks.CATTAIL)));
 	}
 
 	private static void oneToOneConversionRecipe(RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {

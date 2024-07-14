@@ -24,9 +24,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.WilderSharedConstants;
-import static net.frozenblock.wilderwild.WilderSharedConstants.text;
-import static net.frozenblock.wilderwild.WilderSharedConstants.tooltip;
+import net.frozenblock.wilderwild.WilderConstants;
+import static net.frozenblock.wilderwild.WilderConstants.text;
+import static net.frozenblock.wilderwild.WilderConstants.tooltip;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public final class BlockConfigGui {
 		var modifiedSnowlogging = modifiedConfig.snowlogging;
 		var fire = config.fire;
 		var modifiedFire = modifiedConfig.fire;
-		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
+		category.setBackground(WilderConstants.id("textures/config/block.png"));
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)
@@ -88,6 +88,20 @@ public final class BlockConfigGui {
 					.build(),
 				clazz,
 				"tendrilsCarryEvents",
+				configInstance
+			)
+		);
+
+		var reachBoostBeacon = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("reach_boost_beacon"), modifiedConfig.reachBoostBeacon)
+					.setDefaultValue(defaultConfig.reachBoostBeacon)
+					.setSaveConsumer(newValue -> config.reachBoostBeacon = newValue)
+					.setTooltip(tooltip("reach_boost_beacon"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"reachBoostBeacon",
 				configInstance
 			)
 		);

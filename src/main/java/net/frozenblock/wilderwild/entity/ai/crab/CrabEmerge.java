@@ -42,7 +42,7 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.setPose(Pose.EMERGING);
-		crab.playSound(RegisterSounds.ENTITY_CRAB_EMERGE, 0.5F, 1.0F);
+		crab.playSound(RegisterSounds.ENTITY_CRAB_EMERGE, 0.5F, 1F);
 		crab.resetDiggingTicks();
 	}
 

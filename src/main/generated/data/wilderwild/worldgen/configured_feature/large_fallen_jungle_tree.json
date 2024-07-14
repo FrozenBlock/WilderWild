@@ -64,7 +64,7 @@
         "Name": "minecraft:jungle_log",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true"
+          "termite_edible": "false"
         }
       }
     }

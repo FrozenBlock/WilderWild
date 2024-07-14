@@ -13,10 +13,10 @@
       "crown_state": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "wilderwild:palm_crown",
+          "Name": "wilderwild:palm_log",
           "Properties": {
             "axis": "y",
-            "termite_edible": "true"
+            "termite_edible": "false"
           }
         }
       },
@@ -54,7 +54,7 @@
         "Name": "wilderwild:palm_log",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true"
+          "termite_edible": "false"
         }
       }
     }

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.world.biome.AridForest;
 import net.frozenblock.wilderwild.world.biome.AridSavanna;
 import net.frozenblock.wilderwild.world.biome.BirchJungle;
@@ -97,7 +97,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void bootstrap(@NotNull BootstapContext<Biome> context) {
-		WilderSharedConstants.logWithModId("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Biomes for", WilderConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
@@ -136,7 +136,7 @@ public final class RegisterWorldgen {
 	}
 
 	private static void register(@NotNull BootstapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
-		WilderSharedConstants.log("Registering biome " + key.location(), true);
+		WilderConstants.log("Registering biome " + key.location(), true);
 		entries.register(key, biome);
 	}
 }

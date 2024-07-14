@@ -26,7 +26,7 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.WilderEnumValues;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CoconutItem;
@@ -133,22 +133,22 @@ public final class RegisterItems {
 	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(RegisterEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new Item.Properties());
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
-	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("ancient_horn"));
+	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("ancient_horn"));
 	public static final CopperHorn COPPER_HORN = new CopperHorn(new Item.Properties().stacksTo(1), WilderInstrumentTags.COPPER_HORNS);
-	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("sax_copper_horn"));
-	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("tuba_copper_horn"));
-	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("flute_copper_horn"));
-	public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("oboe_copper_horn"));
-	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("clarinet_copper_horn"));
-	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("trumpet_copper_horn"));
-	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("trombone_copper_horn"));
+	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("sax_copper_horn"));
+	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("tuba_copper_horn"));
+	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("flute_copper_horn"));
+	public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("oboe_copper_horn"));
+	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("clarinet_copper_horn"));
+	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("trumpet_copper_horn"));
+	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("trombone_copper_horn"));
 
 	private RegisterItems() {
 		throw new UnsupportedOperationException("RegisterItems contains only static declarations.");
 	}
 
 	public static void registerBlockItems() {
-		WilderSharedConstants.logWithModId("Registering Block Items for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Block Items for", WilderConstants.UNSTABLE_LOGGING);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		registerItemAfter(Items.MANGROVE_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -184,7 +184,7 @@ public final class RegisterItems {
 	}
 
 	public static void registerItems() {
-		WilderSharedConstants.logWithModId("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Items for", WilderConstants.UNSTABLE_LOGGING);
 		//BOATS
 		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_BOAT, BAOBAB_CHEST_BOAT, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -296,12 +296,12 @@ public final class RegisterItems {
 	}
 
 	private static void actualRegister(@NotNull Item item, @NotNull String path) {
-		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), item);
+		if (BuiltInRegistries.ITEM.getOptional(WilderConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.ITEM, WilderConstants.id(path), item);
 		}
 	}
 
 	private static <S extends RecipeSerializer<T>, T extends Recipe<?>> @NotNull S registerSerializer(String key, S recipeSerializer) {
-		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WilderSharedConstants.id(key), recipeSerializer);
+		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WilderConstants.id(key), recipeSerializer);
 	}
 }

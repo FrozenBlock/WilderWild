@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.entity.render.easter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.EntityTextureOverride;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.minecraft.world.entity.EntityType;
 
@@ -29,19 +29,19 @@ import net.minecraft.world.entity.EntityType;
 public class WilderEasterEggs {
 
 	public static void hatchEasterEggs() {
-		EntityTextureOverride.register(WilderSharedConstants.id("stella_warden"), EntityType.WARDEN, WilderSharedConstants.id("textures/entity/warden/stella_warden.png"),
+		EntityTextureOverride.register(WilderConstants.id("stella_warden"), EntityType.WARDEN, WilderConstants.id("textures/entity/warden/stella_warden.png"),
 			(entity -> entity instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella())
 		);
-		EntityTextureOverride.register(WilderSharedConstants.id("treetrain1_goat"), EntityType.GOAT, WilderSharedConstants.id("textures/entity/goat/treetrain1_goat.png"),
+		EntityTextureOverride.register(WilderConstants.id("treetrain1_goat"), EntityType.GOAT, WilderConstants.id("textures/entity/goat/treetrain1_goat.png"),
 			true, "Treetrain1", "Treetrain"
 		);
-		EntityTextureOverride.register(WilderSharedConstants.id("xfrtrex_frog"), EntityType.FROG, WilderSharedConstants.id("textures/entity/frog/sus_frog.png"),
+		EntityTextureOverride.register(WilderConstants.id("xfrtrex_frog"), EntityType.FROG, WilderConstants.id("textures/entity/frog/sus_frog.png"),
 			"Xfrtrex", "BluePhoenixLOL"
 		);
-		EntityTextureOverride.register(WilderSharedConstants.id("saisho_axolotl"), EntityType.AXOLOTL, WilderSharedConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
+		EntityTextureOverride.register(WilderConstants.id("saisho_axolotl"), EntityType.AXOLOTL, WilderConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
 			true, "Saisho"
 		);
-		EntityTextureOverride.register(WilderSharedConstants.id("alex_dolphin"), EntityType.DOLPHIN, WilderSharedConstants.id("textures/entity/dolphin/alex_dolphin.png"),
+		EntityTextureOverride.register(WilderConstants.id("alex_dolphin"), EntityType.DOLPHIN, WilderConstants.id("textures/entity/dolphin/alex_dolphin.png"),
 			"AlexTheDolphin0"
 		);
 	}

@@ -19,9 +19,10 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
@@ -71,12 +72,12 @@ public final class RegisterParticles {
 	}
 
 	public static void registerParticles() {
-		WilderSharedConstants.logWithModId("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Particles for", WilderConstants.UNSTABLE_LOGGING);
 	}
 
 	@NotNull
 	private static SimpleParticleType register(@NotNull String name, boolean alwaysShow) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(name), FabricParticleTypes.simple(alwaysShow));
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderConstants.id(name), FabricParticleTypes.simple(alwaysShow));
 	}
 
 	@NotNull
@@ -86,7 +87,7 @@ public final class RegisterParticles {
 
 	@NotNull
 	private static <T extends ParticleOptions> ParticleType<T> register(@NotNull String name, boolean alwaysShow, @NotNull ParticleOptions.Deserializer<T> factory, Function<ParticleType<T>, Codec<T>> codecGetter) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(name), new ParticleType<T>(alwaysShow, factory) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderConstants.id(name), new ParticleType<T>(alwaysShow, factory) {
 			@Override
 			public Codec<T> codec() {
 				return codecGetter.apply(this);

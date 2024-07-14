@@ -25,7 +25,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import java.util.Map;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V100;
 import net.minecraft.util.datafix.schemas.V3328;
@@ -47,52 +47,52 @@ public class V3328Mixin {
 		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
-			WilderSharedConstants.string("jellyfish"),
+			WilderConstants.string("jellyfish"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("ostrich"),
+			WilderConstants.string("ostrich"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("crab"),
+			WilderConstants.string("crab"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("firefly"),
+			WilderConstants.string("firefly"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("tumbleweed"),
+			WilderConstants.string("tumbleweed"),
 			(string) -> DSL.optionalFields("Items", References.ITEM_STACK.in(schema), V100.equipment(schema))
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("ancient_horn_vibration"),
+			WilderConstants.string("ancient_horn_vibration"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("coconut"),
+			WilderConstants.string("coconut"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("chest_bubbler"),
+			WilderConstants.string("chest_bubbler"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("sculk_spreader"),
+			WilderConstants.string("sculk_spreader"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderSharedConstants.string("scorched"),
+			WilderConstants.string("scorched"),
 			() -> V100.equipment(schema)
 		);
 		return map;

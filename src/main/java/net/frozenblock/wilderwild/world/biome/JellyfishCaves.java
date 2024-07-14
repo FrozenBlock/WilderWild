@@ -25,12 +25,12 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
-import net.frozenblock.wilderwild.world.features.feature.WilderMiscPlaced;
-import net.frozenblock.wilderwild.world.features.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
+import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -66,7 +66,7 @@ public final class JellyfishCaves extends FrozenBiome {
 
 	@Override
 	public String modID() {
-		return WilderSharedConstants.MOD_ID;
+		return WilderConstants.MOD_ID;
 	}
 
 	@Override

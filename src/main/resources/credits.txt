@@ -1,7 +1,7 @@
 Luna/Lunade/AViewFromTheTop:
  - Lead developer & gameplay designer & idea generator (not gonna take the time to explain everything I did.)
  - Worldgen (don't forget Soro's worldgen, too!)
- - Crab entity, Reach Boost, and Wind particle textures.
+ - Crab entity, Reach Boost (2.2-2.4.3), and Wind particle textures.
  - Sounds (2.2 onwards.)
  - QA.
  - Etc., etc.
@@ -32,22 +32,24 @@ Merp:
  - Sound designer prior to 2.2.
  - Occasional gameplay designer & feedback.
 
+ Zhen:
+  - Retextured all Baobab Nut textures in 2.4.
+  - Retextured all Glory of the Snow textures in 2.4.
+  - Retextured all Milkweed block textures in 2.4.
+  - Updated Flowering Lily Pad textures in 2.4.3.
+  - Updated the Milkweed Pod texture in 2.4.3.
+  - Retextured the entire Cypress set in 2.4.3.
+  - Retextured the Reach Boost icon in 2.4.4.
+
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
  - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
 
-Zhen:
- - Retextured all Baobab Nut textures in 2.4.
- - Retextured all Glory of the Snow textures in 2.4.
- - Retextured all Milkweed block textures in 2.4.
- - Updated Flowering Lily Pad textures in 2.4.3.
- - Updated the Milkweed Pod texture in 2.4.3.
- - Retextured the entire Cypress set in 2.4.3.
-
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
  - Scorching effect icon.
+ - Retextured Null Blocks in 2.4.3.
 
 LudoCrypt:
  - New music.
@@ -92,6 +94,13 @@ Fourmisain:
 
 Soulfate24:
  - Provided an improved Hollowed Log model for 2.4.3 that fixes the incorrect breaking texture and avoids a bug with texture misalignment.
+
+Rebel459
+ - Revamped music pools in 2.4.5.
+
+wet.noodle/Ashlyn
+ - Suggested adding Reach Boost to Beacons.
+ - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
 
 Osmiooo:
  - French translation.

@@ -24,9 +24,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.WilderSharedConstants;
-import static net.frozenblock.wilderwild.WilderSharedConstants.text;
-import static net.frozenblock.wilderwild.WilderSharedConstants.tooltip;
+import net.frozenblock.wilderwild.WilderConstants;
+import static net.frozenblock.wilderwild.WilderConstants.text;
+import static net.frozenblock.wilderwild.WilderConstants.tooltip;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,7 +49,7 @@ public final class AmbienceAndMiscConfigGui {
 		var wind = config.wind;
 		var modifiedWind = modifiedConfig.wind;
 		Class<? extends AmbienceAndMiscConfig.Wind> windClazz = wind.getClass();
-		category.setBackground(WilderSharedConstants.id("textures/config/ambience_and_misc.png"));
+		category.setBackground(WilderConstants.id("textures/config/ambience_and_misc.png"));
 
 		var modifyAdvancements = category.addEntry(
 			FrozenClothConfig.syncedEntry(

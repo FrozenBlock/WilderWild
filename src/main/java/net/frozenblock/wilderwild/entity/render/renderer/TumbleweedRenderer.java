@@ -22,7 +22,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -80,7 +80,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull Tumbleweed entity) {
-		return WilderSharedConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+		return WilderConstants.id("textures/entity/tumbleweed/tumbleweed.png");
 	}
 
 }

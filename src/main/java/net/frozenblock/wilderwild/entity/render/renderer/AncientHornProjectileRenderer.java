@@ -24,7 +24,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer<T extends AncientHornVibration> extends EntityRenderer<T> {
-	private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
+	private static final ResourceLocation TEXTURE = WilderConstants.id("textures/entity/ancient_horn_projectile.png");
 	private final AncientHornProjectileModel model;
 
 	public AncientHornProjectileRenderer(@NotNull EntityRendererProvider.Context context) {

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.tag;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -35,6 +35,6 @@ public final class WilderGameEventTags {
 
 	@NotNull
 	private static TagKey<GameEvent> bind(@NotNull String path) {
-		return TagKey.create(Registries.GAME_EVENT, WilderSharedConstants.id(path));
+		return TagKey.create(Registries.GAME_EVENT, WilderConstants.id(path));
 	}
 }

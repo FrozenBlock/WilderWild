@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
@@ -42,10 +43,14 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
+import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
@@ -102,11 +107,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderSharedConstants.id("instrument");
-	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderSharedConstants.id("nectar");
-	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderSharedConstants.id("enderman_anger");
-	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser_effective");
-	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderSharedConstants.id("geyser");
+	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderConstants.id("instrument");
+	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderConstants.id("nectar");
+	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderConstants.id("enderman_anger");
+	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderConstants.id("geyser_effective");
+	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -124,8 +129,8 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void initPreFreeze() {
-		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		WilderConstants.log("FrozenLib pre-freeze mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
+		SpottingIconPredicate.register(WilderConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
@@ -219,9 +224,9 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.log("FrozenLib mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus")));
+		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderConstants.id("cactus")));
 
 		HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
 		FrozenBools.useNewDripstoneLiquid = true;
@@ -267,6 +272,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
 		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
+
+		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.STONE_CHEST, RegisterBlockEntities.STONE_CHEST);
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
@@ -419,6 +426,63 @@ public class FrozenLibIntegration extends ModIntegration {
 
 			}
 		});
+
+		StructureProcessorApi.addNamespaceWithKeywordTarget(ResourceLocation.DEFAULT_NAMESPACE, "ancient_city",
+			new RuleProcessor(
+				List.of(
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState()),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(RegisterProperties.ANCIENT, true)
+					),
+
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+					),
+
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+					),
+					new ProcessorRule(
+						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+					)
+				)
+			)
+		);
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -29,8 +29,8 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import net.frozenblock.wilderwild.WilderPreMixinInjectConstants;
-import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
+import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WilderConstants.configPath;
 
 public final class BlockConfig {
 
@@ -119,6 +119,9 @@ public final class BlockConfig {
 
 	@EntrySyncData("tendrilsCarryEvents")
 	public boolean tendrilsCarryEvents = false;
+
+	@EntrySyncData("reachBoostBeacon")
+	public boolean reachBoostBeacon = true;
 
 	@EntrySyncData(value = "pollenParticles", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean pollenParticles = true;

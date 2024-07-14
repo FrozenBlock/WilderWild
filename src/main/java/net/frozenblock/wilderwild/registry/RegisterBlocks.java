@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -72,9 +71,7 @@ import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.world.impl.sapling.BaobabSaplingGenerator;
-import net.frozenblock.wilderwild.world.impl.sapling.CypressSaplingGenerator;
-import net.frozenblock.wilderwild.world.impl.sapling.PalmSaplingGenerator;
+import net.frozenblock.wilderwild.world.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -100,13 +97,11 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -126,12 +121,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterBlocks {
-	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WilderSharedConstants.id("baobab"));
-	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WilderSharedConstants.id("cypress"));
-	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WilderSharedConstants.id("palm"));
-	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WilderSharedConstants.id("baobab"), BAOBAB_SET);
-	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WilderSharedConstants.id("cypress"), CYPRESS_SET);
-	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WilderSharedConstants.id("palm"), PALM_SET);
+	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WilderConstants.id("baobab"));
+	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WilderConstants.id("cypress"));
+	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WilderConstants.id("palm"));
+	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WilderConstants.id("baobab"), BAOBAB_SET);
+	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WilderConstants.id("cypress"), CYPRESS_SET);
+	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WilderConstants.id("palm"), PALM_SET);
 
 	// OTHER (BUILDING BLOCKS)
 
@@ -575,7 +570,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.OAK_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor()),
 		BAOBAB_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/baobab_sign")
+		WilderConstants.id("blocks/baobab_sign")
 	);
 
 	public static final FrozenWallSignBlock BAOBAB_WALL_SIGN = new FrozenWallSignBlock(
@@ -583,7 +578,7 @@ public final class RegisterBlocks {
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 			.dropsLike(BAOBAB_SIGN),
 		BAOBAB_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/baobab_sign")
+		WilderConstants.id("blocks/baobab_sign")
 	);
 
 	public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
@@ -604,7 +599,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor()),
 		BAOBAB_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/baobab_hanging_sign")
+		WilderConstants.id("blocks/baobab_hanging_sign")
 	);
 
 	public static final FrozenWallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
@@ -612,7 +607,7 @@ public final class RegisterBlocks {
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 			.dropsLike(BAOBAB_HANGING_SIGN),
 		BAOBAB_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/baobab_hanging_sign")
+		WilderConstants.id("blocks/baobab_hanging_sign")
 	);
 
 	public static final RotatedPillarBlock STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
@@ -691,7 +686,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.OAK_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor()),
 		CYPRESS_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/cypress_sign")
+		WilderConstants.id("blocks/cypress_sign")
 	);
 
 	public static final FrozenWallSignBlock CYPRESS_WALL_SIGN = new FrozenWallSignBlock(
@@ -699,7 +694,7 @@ public final class RegisterBlocks {
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 			.dropsLike(CYPRESS_SIGN),
 		CYPRESS_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/cypress_sign")
+		WilderConstants.id("blocks/cypress_sign")
 	);
 
 	public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
@@ -720,7 +715,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor()),
 		CYPRESS_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/cypress_hanging_sign")
+		WilderConstants.id("blocks/cypress_hanging_sign")
 	);
 
 	public static final FrozenWallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
@@ -728,7 +723,7 @@ public final class RegisterBlocks {
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 			.dropsLike(CYPRESS_HANGING_SIGN),
 		CYPRESS_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/cypress_hanging_sign")
+		WilderConstants.id("blocks/cypress_hanging_sign")
 	);
 
 	public static final RotatedPillarBlock STRIPPED_CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
@@ -807,7 +802,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.OAK_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor()),
 		PALM_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/palm_sign")
+		WilderConstants.id("blocks/palm_sign")
 	);
 
 	public static final FrozenWallSignBlock PALM_WALL_SIGN = new FrozenWallSignBlock(
@@ -815,7 +810,7 @@ public final class RegisterBlocks {
 			.mapColor(PALM_LOG.defaultMapColor())
 			.dropsLike(PALM_SIGN),
 		PALM_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/palm_sign")
+		WilderConstants.id("blocks/palm_sign")
 	);
 
 	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
@@ -836,7 +831,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor()),
 		PALM_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/palm_hanging_sign")
+		WilderConstants.id("blocks/palm_hanging_sign")
 	);
 
 	public static final FrozenWallHangingSignBlock PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
@@ -844,7 +839,7 @@ public final class RegisterBlocks {
 			.mapColor(PALM_LOG.defaultMapColor())
 			.dropsLike(PALM_HANGING_SIGN),
 		PALM_WOOD_TYPE,
-		WilderSharedConstants.id("blocks/palm_hanging_sign")
+		WilderConstants.id("blocks/palm_hanging_sign")
 	);
 
 	public static final RotatedPillarBlock PALM_CROWN = new RotatedPillarBlock(
@@ -923,8 +918,7 @@ public final class RegisterBlocks {
 		//PALM IN BUILDING BLOCKS
 		registerBlockAfter(CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_WOOD, wood + "_crown", PALM_CROWN, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_CROWN, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_WOOD, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_" + wood + "_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(STRIPPED_PALM_WOOD, wood + "_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_PLANKS, wood + "_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -937,7 +931,6 @@ public final class RegisterBlocks {
 		registerBlockAfter(PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
 		registerBlockAfter(CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(CYPRESS_LEAVES, wood + "_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlock(baobab + "_nut", BAOBAB_NUT);
@@ -1003,7 +996,7 @@ public final class RegisterBlocks {
 
 		registerBlockBefore(PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(HOLLOWED_PALM_LOG, "stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_CROWN, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerDeepDark() {
@@ -1046,8 +1039,8 @@ public final class RegisterBlocks {
 		registerBlock("pollen", POLLEN);
 		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
-		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
-		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
+		Registry.register(BuiltInRegistries.BLOCK, WilderConstants.id("algae"), ALGAE);
+		Registry.register(BuiltInRegistries.BLOCK, WilderConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
@@ -1079,7 +1072,7 @@ public final class RegisterBlocks {
 	}
 
 	public static void registerBlocks() {
-		WilderSharedConstants.logWithModId("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Blocks for", WilderConstants.UNSTABLE_LOGGING);
 
 		registerOtherBB();
 		registerWoods();
@@ -1124,14 +1117,14 @@ public final class RegisterBlocks {
 	}
 
 	private static void actualRegisterBlock(String path, Block block) {
-		if (BuiltInRegistries.BLOCK.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id(path), block);
+		if (BuiltInRegistries.BLOCK.getOptional(WilderConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.BLOCK, WilderConstants.id(path), block);
 		}
 	}
 
 	private static void actualRegisterBlockItem(String path, Block block) {
-		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), new BlockItem(block, new FabricItemSettings()));
+		if (BuiltInRegistries.ITEM.getOptional(WilderConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.ITEM, WilderConstants.id(path), new BlockItem(block, new FabricItemSettings()));
 		}
 	}
 
@@ -1241,7 +1234,6 @@ public final class RegisterBlocks {
 		TermiteManager.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
 		TermiteManager.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 
-		TermiteManager.Termite.addDegradable(PALM_CROWN, PALM_LOG);
 		TermiteManager.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteManager.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
 		TermiteManager.Termite.addDegradable(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
@@ -1346,7 +1338,7 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerFlammability() {
-		WilderSharedConstants.logWithModId("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Flammability for", WilderConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableBlockRegistry.add(RegisterBlocks.POLLEN, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
@@ -1426,7 +1418,6 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_CROWN, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_WOOD, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_WOOD, 5, 5);
@@ -1447,7 +1438,7 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerFuels() {
-		WilderSharedConstants.logWithModId("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Fuels for", WilderConstants.UNSTABLE_LOGGING);
 		FuelRegistry registry = FuelRegistry.INSTANCE;
 
 		registry.add(RegisterItems.BAOBAB_BOAT, 1200);
@@ -1487,7 +1478,6 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.PALM_BOAT, 1200);
 		registry.add(RegisterItems.PALM_CHEST_BOAT, 1200);
 		registry.add(PALM_LOG.asItem(), 300);
-		registry.add(PALM_CROWN.asItem(), 300);
 		registry.add(STRIPPED_PALM_LOG.asItem(), 300);
 		registry.add(PALM_WOOD.asItem(), 300);
 		registry.add(STRIPPED_PALM_WOOD.asItem(), 300);
