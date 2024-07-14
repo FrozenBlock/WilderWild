@@ -75,18 +75,17 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 			target = "Lnet/minecraft/world/level/Level;isClientSide:Z"
 		)
 	)
-	public boolean wilderWild$playerWillDestroy(boolean original, Level world, BlockPos pos, BlockState state, Player player) {
-		boolean snowlogged = false;
-		if (!original && !player.isCreative() && !(snowlogged = SnowloggingUtils.isSnowlogged(state))) {
+	public boolean wilderWild$playerWillDestroy(boolean original, Level level, BlockPos pos, BlockState state, Player player) {
+		boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
+		if (!original && !player.isCreative() && !snowlogged) {
 			if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
 				BlockPos belowPos = pos.below();
-				BlockState belowState = world.getBlockState(belowPos);
+				BlockState belowState = level.getBlockState(belowPos);
 				if (SnowloggingUtils.isSnowlogged(belowState)) {
-					Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), world, pos, null, player, player.getMainHandItem());
+					Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
 				}
 			}
 		}
-
 		return original || snowlogged;
 	}
 
@@ -97,7 +96,10 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	private static BlockState wilderWild$preventDropFromBottomPartA(BlockState original, @Share("wilderWild$blockState")LocalRef<BlockState> blockState) {
+	private static BlockState wilderWild$preventDropFromBottomPartA(
+		BlockState original,
+		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
+	) {
 		blockState.set(original);
 		return original;
 	}
@@ -112,7 +114,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	private static boolean wilderWild$preventDropFromBottomPartB(
 		Level instance, BlockPos setPos, BlockState setState, int flags, Operation<Boolean> original,
 		Level level, BlockPos paramPos, BlockState state, Player player,
-		@Share("wilderWild$blockState")LocalRef<BlockState> blockState
+		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
 	) {
 		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {
 			setState = SnowloggingUtils.getSnowEquivalent(blockState.get());

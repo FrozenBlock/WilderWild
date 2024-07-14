@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -43,7 +43,7 @@ public final class RegisterPotions {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWithModId("Registering Potions for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderConstants.logWithModId("Registering Potions for", WilderConstants.UNSTABLE_LOGGING);
 
 		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), REACH);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
@@ -53,7 +53,7 @@ public final class RegisterPotions {
 	}
 
 	private static @NotNull Potion register(String key, Potion potion) {
-		return Registry.register(BuiltInRegistries.POTION, WilderSharedConstants.id(key), potion);
+		return Registry.register(BuiltInRegistries.POTION, WilderConstants.id(key), potion);
 	}
 
 	@Contract("_, _ -> param2")

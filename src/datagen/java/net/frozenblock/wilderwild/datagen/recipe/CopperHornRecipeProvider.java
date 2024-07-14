@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -57,7 +57,7 @@ public class CopperHornRecipeProvider {
 			.pattern(" C ")
 			.unlockedBy("has_horn", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOAT_HORN))
 		).frozenLib$tag(new CompoundTag() {{ put("instrument", StringTag.valueOf(copperHornInstrument.location().toString())); }})
-			.save(exporter, WilderSharedConstants.id(name + "_copper_horn"));
+			.save(exporter, WilderConstants.id(name + "_copper_horn"));
 	}
 
 }

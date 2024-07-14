@@ -22,17 +22,18 @@ import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderStoneChestLidPacket(BlockPos pos, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements FabricPacket {
 
 	public static final PacketType<WilderStoneChestLidPacket> PACKET_TYPE = PacketType.create(
-			WilderSharedConstants.id("stone_chest_lid"), WilderStoneChestLidPacket::new
+			WilderConstants.id("stone_chest_lid"), WilderStoneChestLidPacket::new
 	);
 
 	public WilderStoneChestLidPacket(@NotNull FriendlyByteBuf buf) {

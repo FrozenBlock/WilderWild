@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.LowerHeightmapPlacement;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -179,7 +179,7 @@ public final class WilderMiscPlaced {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WilderSharedConstants.logWithModId("Registering WilderMiscPlaced for", true);
+		WilderConstants.logWithModId("Registering WilderMiscPlaced for", true);
 
 		COARSE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),

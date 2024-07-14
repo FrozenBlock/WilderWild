@@ -23,8 +23,8 @@ import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
-import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderSharedConstants.configPath;
+import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WilderConstants.configPath;
 
 public final class MixinsConfig {
 

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.feature.WilderPlacementUtils.register;
@@ -280,7 +280,7 @@ public final class WilderPlacedFeatures {
 	public static void registerPlacedFeatures(@NotNull BootstapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
-		WilderSharedConstants.logWithModId("Registering WilderPlacedFeatures for ", true);
+		WilderConstants.logWithModId("Registering WilderPlacedFeatures for ", true);
 
 		// FALLEN TREES
 

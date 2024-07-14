@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.mod_compat.embeddium.AbstractEmbeddiumIntegration;
 import net.frozenblock.wilderwild.mod_compat.embeddium.EmbeddiumIntegration;
 import net.frozenblock.wilderwild.mod_compat.embeddium.NoOpEmbeddiumIntegration;
@@ -50,14 +50,14 @@ public final class WilderModIntegrations {
 	}
 
 	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
-		return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID);
+		return ModIntegrations.register(integration, WilderConstants.MOD_ID, modID);
 	}
 
 	public static <T extends ModIntegration> ModIntegrationSupplier<T> register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
-		return ModIntegrations.register(integration, unloadedIntegration, WilderSharedConstants.MOD_ID, modID);
+		return ModIntegrations.register(integration, unloadedIntegration, WilderConstants.MOD_ID, modID);
 	}
 
 	public static <T extends ModIntegration> ModIntegration registerAndGet(Supplier<T> integration, String modID) {
-		return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID).getIntegration();
+		return ModIntegrations.register(integration, WilderConstants.MOD_ID, modID).getIntegration();
 	}
 }

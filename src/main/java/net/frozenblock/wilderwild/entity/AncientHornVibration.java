@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import static net.frozenblock.wilderwild.item.AncientHorn.getCooldown;
@@ -448,7 +448,7 @@ public class AncientHornVibration extends AbstractArrow {
 			BlockPos pos = this.blockPosition();
 			BlockEntity entity = this.level().getBlockEntity(pos);
 			if (entity instanceof HangingTendrilBlockEntity tendril) {
-				WilderSharedConstants.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
+				WilderConstants.log("Horn Projectile Found Hanging Tendril Entity", WilderConstants.UNSTABLE_LOGGING);
 				int xp = tendril.getStoredXP();
 				if (xp > 0) {
 					tendril.setStoredXP(0);
