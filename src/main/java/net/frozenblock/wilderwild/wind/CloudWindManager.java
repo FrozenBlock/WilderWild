@@ -23,10 +23,8 @@ import net.frozenblock.lib.wind.api.WindManagerExtension;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class CloudWindManager implements WindManagerExtension {
