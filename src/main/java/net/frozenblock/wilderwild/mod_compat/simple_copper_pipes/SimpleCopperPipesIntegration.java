@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mod_compat.simple_copper_pipes;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -57,7 +57,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
-	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
+	public static final ResourceLocation HORN = WilderConstants.id("ancient_horn");
 
 	public SimpleCopperPipesIntegration() {
 		super();
@@ -87,7 +87,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	@Override
 	public void init() {
 		if (CopperPipeMain.getCompatID() == 3) {
-			WilderSharedConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
+			WilderConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
 
 			RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
 				if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
@@ -144,7 +144,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				spawnSeedParticleFromPipe(true, level, i, direction, position, corroded);
 			});
 
-			FittingPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+			FittingPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 				spawnSeedParticleFromPipe(false, level, i, direction, position, corroded);
 			});
 
@@ -186,7 +186,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				level.addFreshEntity(coconut);
 			});
 
-			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i, corroded);
 				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
@@ -195,12 +195,12 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			});
 
 			PipeMovementRestrictions.register(
-				WilderSharedConstants.id("stone_chest"),
+				WilderConstants.id("stone_chest"),
 				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
 				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
 			);
 		} else {
-			WilderSharedConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);
+			WilderConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);
 		}
 	}
 

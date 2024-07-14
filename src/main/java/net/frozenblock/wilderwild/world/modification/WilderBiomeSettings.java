@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +33,7 @@ import net.minecraft.world.level.biome.Biomes;
 public final class WilderBiomeSettings {
 
 	static void init() {
-		BiomeModifications.create(WilderSharedConstants.id("fog_deep_dark")).add(
+		BiomeModifications.create(WilderConstants.id("fog_deep_dark")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
@@ -43,7 +43,7 @@ public final class WilderBiomeSettings {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("fog_frozen_caves")).add(
+		BiomeModifications.create(WilderConstants.id("fog_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -53,7 +53,7 @@ public final class WilderBiomeSettings {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("fog_jellyfish_caves")).add(
+		BiomeModifications.create(WilderConstants.id("fog_jellyfish_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.JELLYFISH_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -63,7 +63,7 @@ public final class WilderBiomeSettings {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("fog_magmatic_caves")).add(
+		BiomeModifications.create(WilderConstants.id("fog_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -73,7 +73,7 @@ public final class WilderBiomeSettings {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("particles_magmatic_caves")).add(
+		BiomeModifications.create(WilderConstants.id("particles_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
@@ -83,7 +83,7 @@ public final class WilderBiomeSettings {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("foliage_color_badlands")).add(
+		BiomeModifications.create(WilderConstants.id("foliage_color_badlands")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
 			(selectionContext, modificationContext) -> {

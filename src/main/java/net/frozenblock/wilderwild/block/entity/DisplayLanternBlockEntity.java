@@ -19,14 +19,12 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
@@ -38,6 +36,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -58,7 +57,6 @@ import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.redstone.Redstone;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
 	public static final int MAX_FIREFLY_AGE = 20;
@@ -137,7 +135,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		if (tag.contains("Fireflies")) {
 			Occupant.LIST_CODEC
 				.parse(NbtOps.INSTANCE, tag.get("Fireflies"))
-				.resultOrPartial(WilderSharedConstants.LOGGER::error)
+				.resultOrPartial(WilderConstants.LOGGER::error)
 				.ifPresent(this.fireflies::addAll);
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -202,7 +200,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderSharedConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
+					WilderConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 				}
 			}
 		}

@@ -28,7 +28,7 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFea
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -207,7 +207,7 @@ public final class WilderMiscConfigured {
 	}
 
 	public static void registerMiscPlaced() {
-		WilderSharedConstants.logWithModId("Registering WilderMiscConfigured for", true);
+		WilderConstants.logWithModId("Registering WilderMiscConfigured for", true);
 
 		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(

@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;

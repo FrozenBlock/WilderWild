@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -183,7 +183,7 @@ public class TermiteManager {
 	public void saveAdditional(@NotNull CompoundTag tag) {
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		tag.putInt("highestID", this.highestID);
-		Logger logger = WilderSharedConstants.LOGGER;
+		Logger logger = WilderConstants.LOGGER;
 		DataResult<Tag> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
 		Objects.requireNonNull(logger);
 		var10000.resultOrPartial(logger::error).ifPresent((nbt) -> tag.put("termites", nbt));
@@ -195,7 +195,7 @@ public class TermiteManager {
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
 			DataResult<List<Termite>> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)));
-			Logger logger = WilderSharedConstants.LOGGER;
+			Logger logger = WilderConstants.LOGGER;
 			Objects.requireNonNull(logger);
 			Optional<List<Termite>> list = var10000.resultOrPartial(logger::error);
 			if (list.isPresent()) {

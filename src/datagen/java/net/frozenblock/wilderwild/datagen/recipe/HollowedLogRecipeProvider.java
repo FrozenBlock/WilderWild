@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -94,7 +94,7 @@ public class HollowedLogRecipeProvider {
 			.group("planks")
 			.requires(input)
 			.unlockedBy("has_log", RecipeProvider.has(input))
-			.save(exporter, WilderSharedConstants.id(name + "_planks_from_hollowed"));
+			.save(exporter, WilderConstants.id(name + "_planks_from_hollowed"));
 	}
 
 	public static void woodFromHollowed(ItemLike hollowedLog, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
@@ -104,7 +104,7 @@ public class HollowedLogRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_log", RecipeProvider.has(hollowedLog))
-		.save(exporter, WilderSharedConstants.id(name + "_wood_from_hollowed"));
+		.save(exporter, WilderConstants.id(name + "_wood_from_hollowed"));
 	}
 
 	public static void strippedWoodFromHollowed(ItemLike hollowedLog, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
@@ -116,7 +116,7 @@ public class HollowedLogRecipeProvider {
 			.group("planks")
 			.requires(input)
 			.unlockedBy("has_stem", RecipeProvider.has(input))
-			.save(exporter, WilderSharedConstants.id(name + "_planks_from_hollowed"));
+			.save(exporter, WilderConstants.id(name + "_planks_from_hollowed"));
 	}
 
 	public static void hyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {
@@ -126,7 +126,7 @@ public class HollowedLogRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_stem", RecipeProvider.has(hollowedStem))
-			.save(exporter, WilderSharedConstants.id(name + "_hyphae_from_hollowed"));
+			.save(exporter, WilderConstants.id(name + "_hyphae_from_hollowed"));
 	}
 
 	public static void strippedHyphaeFromHollowed(ItemLike hollowedStem, ItemLike output, Consumer<FinishedRecipe> exporter, String name) {

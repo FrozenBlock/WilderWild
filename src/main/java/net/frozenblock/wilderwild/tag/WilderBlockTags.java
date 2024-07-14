@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.tag;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -116,6 +116,6 @@ public final class WilderBlockTags {
 
 	@NotNull
 	private static TagKey<Block> bind(@NotNull String path) {
-		return TagKey.create(Registries.BLOCK, WilderSharedConstants.id(path));
+		return TagKey.create(Registries.BLOCK, WilderConstants.id(path));
 	}
 }

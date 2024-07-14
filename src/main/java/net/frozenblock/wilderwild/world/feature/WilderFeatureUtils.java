@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -38,7 +38,7 @@ public final class WilderFeatureUtils {
 
 	@NotNull
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
-		var key = WilderSharedConstants.id(id);
+		var key = WilderConstants.id(id);
 		FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> frozen = new FrozenConfiguredFeature<>(key);
 		frozen.makeAndSetHolder(feature, config);
 		return frozen;
@@ -46,7 +46,7 @@ public final class WilderFeatureUtils {
 
 	@NotNull
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id) {
-		var key = WilderSharedConstants.id(id);
+		var key = WilderConstants.id(id);
 		return new FrozenConfiguredFeature<>(key);
 	}
 }

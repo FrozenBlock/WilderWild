@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -60,11 +60,11 @@ public final class WilderWorldGen {
 
 		generatePollen();
 
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WilderConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 	}
 
 	private static void configureBuiltInBiomes() {
-		BiomeModifications.create(WilderSharedConstants.id("remove_fallen_trees")).add(
+		BiomeModifications.create(WilderConstants.id("remove_fallen_trees")).add(
 				ModificationPhase.REMOVALS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
 				(context) -> {
@@ -85,7 +85,7 @@ public final class WilderWorldGen {
 				}
 			);
 
-		BiomeModifications.create(WilderSharedConstants.id("flowers_rainforest")).add(
+		BiomeModifications.create(WilderConstants.id("flowers_rainforest")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
 			context -> {
@@ -96,7 +96,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("flowers_temperate_rainforest")).add(
+		BiomeModifications.create(WilderConstants.id("flowers_temperate_rainforest")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
 			context -> {
@@ -109,7 +109,7 @@ public final class WilderWorldGen {
 	}
 
 	private static void replaceFeatures() {
-		BiomeModifications.create(WilderSharedConstants.id("add_new_snow"))
+		BiomeModifications.create(WilderConstants.id("add_new_snow"))
 			.add(ModificationPhase.POST_PROCESSING,
 				BiomeSelectors.all(),
 				context -> {
@@ -125,7 +125,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
+		BiomeModifications.create(WilderConstants.id("replace_forest_grass"))
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),
 				context -> {
@@ -137,7 +137,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_plains_grass"))
+		BiomeModifications.create(WilderConstants.id("replace_plains_grass"))
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.PLAINS_GRASS),
 				context -> {
@@ -149,7 +149,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_cherry_trees"))
+		BiomeModifications.create(WilderConstants.id("replace_cherry_trees"))
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.CHERRY_TREES),
 				(context) -> {
@@ -160,7 +160,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_forest_trees"))
+		BiomeModifications.create(WilderConstants.id("replace_forest_trees"))
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.FOREST),
 				context -> {
@@ -172,7 +172,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_birch_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_birch_trees")).add(
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
 				context -> {
@@ -204,7 +204,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_plains_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_plains_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.NON_FROZEN_PLAINS),
 			context -> {
@@ -215,7 +215,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_badlands_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_badlands_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
 			context -> {
@@ -226,7 +226,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_swamp_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_swamp_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
 			context -> {
@@ -237,7 +237,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_taiga_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_taiga_trees")).add(
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.SHORT_TAIGA),
 				context -> {
@@ -268,7 +268,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_grove_trees")).add
+		BiomeModifications.create(WilderConstants.id("replace_grove_trees")).add
 			(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.GROVE),
 				context -> {
@@ -279,7 +279,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_savanna_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_savanna_trees")).add(
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.NORMAL_SAVANNA),
 				context -> {
@@ -300,7 +300,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_snowy_plains_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_snowy_plains_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.SNOWY_PLAINS),
 			context -> {
@@ -311,7 +311,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_windswept_hills_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_windswept_hills_trees")).add(
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_HILLS),
 				context -> {
@@ -332,7 +332,7 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_dark_forest_vegetation")).add(
+		BiomeModifications.create(WilderConstants.id("replace_dark_forest_vegetation")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.DARK_FOREST),
 			context -> {
@@ -343,7 +343,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_meadow_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_meadow_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.MEADOW),
 			context -> {
@@ -354,7 +354,7 @@ public final class WilderWorldGen {
 				}
 			});
 
-		BiomeModifications.create(WilderSharedConstants.id("replace_water_trees")).add(
+		BiomeModifications.create(WilderConstants.id("replace_water_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_SHRUBS),
 			context -> {
@@ -368,7 +368,7 @@ public final class WilderWorldGen {
 	}
 
 	private static void generatePollen() {
-		BiomeModifications.create(WilderSharedConstants.id("pollen_generation"))
+		BiomeModifications.create(WilderConstants.id("pollen_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {

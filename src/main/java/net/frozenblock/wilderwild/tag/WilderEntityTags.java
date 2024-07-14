@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.tag;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -41,6 +41,6 @@ public final class WilderEntityTags {
 
 	@NotNull
 	private static TagKey<EntityType<?>> bind(@NotNull String path) {
-		return TagKey.create(Registries.ENTITY_TYPE, WilderSharedConstants.id(path));
+		return TagKey.create(Registries.ENTITY_TYPE, WilderConstants.id(path));
 	}
 }

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -51,7 +51,7 @@ public class WWNaturalRecipeProvider {
 			.requires(RegisterItems.SPLIT_COCONUT, 2)
 			.group("bowl")
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.SPLIT_COCONUT), RecipeProvider.has(RegisterItems.SPLIT_COCONUT))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, RegisterItems.SPLIT_COCONUT)));
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, RegisterItems.SPLIT_COCONUT)));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.PEELED_PRICKLY_PEAR, 1)
 			.requires(RegisterItems.PRICKLY_PEAR)
@@ -67,7 +67,7 @@ public class WWNaturalRecipeProvider {
 			.pattern("###")
 			.pattern("###")
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.MILKWEED_POD), RecipeProvider.has(RegisterItems.MILKWEED_POD))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterItems.MILKWEED_POD)));
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterItems.MILKWEED_POD)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', Ingredient.of(RegisterBlocks.CATTAIL))
@@ -75,7 +75,7 @@ public class WWNaturalRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy(RecipeProvider.getHasName(RegisterBlocks.CATTAIL), RecipeProvider.has(RegisterBlocks.CATTAIL))
-			.save(exporter, WilderSharedConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterBlocks.CATTAIL)));
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterBlocks.CATTAIL)));
 	}
 
 	private static void oneToOneConversionRecipe(Consumer<FinishedRecipe> recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {

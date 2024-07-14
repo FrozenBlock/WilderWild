@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderVegetationGeneration {
 
 	public static void generateFlower() {
-		BiomeModifications.create(WilderSharedConstants.id("flower_generation"))
+		BiomeModifications.create(WilderConstants.id("flower_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -154,7 +154,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateBush() {
-		BiomeModifications.create(WilderSharedConstants.id("bush_generation"))
+		BiomeModifications.create(WilderConstants.id("bush_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -213,7 +213,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateCacti() {
-		BiomeModifications.create(WilderSharedConstants.id("cactus_generation"))
+		BiomeModifications.create(WilderConstants.id("cactus_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -240,7 +240,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateAlgae() {
-		BiomeModifications.create(WilderSharedConstants.id("algae_generation"))
+		BiomeModifications.create(WilderConstants.id("algae_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -259,7 +259,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateGrass() {
-		BiomeModifications.create(WilderSharedConstants.id("tumbleweed_generation"))
+		BiomeModifications.create(WilderConstants.id("tumbleweed_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -272,7 +272,7 @@ public final class WilderVegetationGeneration {
 					}
 				});
 
-		BiomeModifications.create(WilderSharedConstants.id("grass_generation"))
+		BiomeModifications.create(WilderConstants.id("grass_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -311,7 +311,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateMushroom() {
-		BiomeModifications.create(WilderSharedConstants.id("mushroom_generation"))
+		BiomeModifications.create(WilderConstants.id("mushroom_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {

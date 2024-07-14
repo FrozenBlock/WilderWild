@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
@@ -60,7 +60,7 @@ public class BirchJungle extends FrozenBiome {
 
 	@Override
 	public String modID() {
-		return WilderSharedConstants.MOD_ID;
+		return WilderConstants.MOD_ID;
 	}
 
 	@Override

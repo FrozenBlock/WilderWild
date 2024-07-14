@@ -37,7 +37,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ServerPlayerGameModeMixin {
 
 
-	@WrapOperation(method = "destroyBlock",
+	@WrapOperation(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"

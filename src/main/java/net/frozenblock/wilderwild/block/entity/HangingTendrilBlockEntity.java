@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -68,7 +68,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	public int ringOutTicksLeft;
 	private int activeTicks;
 	//CLIENT ONLY
-	public ResourceLocation texture = WilderSharedConstants.id("textures/entity/hanging_tendril/inactive1.png");
+	public ResourceLocation texture = WilderConstants.id("textures/entity/hanging_tendril/inactive1.png");
 	public boolean twitching;
 	public boolean active;
 	public boolean milking;
@@ -115,13 +115,13 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.active = !SculkSensorBlock.canActivate(state);
 		++this.ticks;
 		if (milking) {
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
+			this.texture = WilderConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
 		} else if (active) {
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "active" + (((this.ticks / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
+			this.texture = WilderConstants.id(BASE_TEXTURE + "active" + (((this.ticks / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
 		} else if (twitching) {
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
+			this.texture = WilderConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
 		} else {
-			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
+			this.texture = WilderConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
 		}
 	}
 

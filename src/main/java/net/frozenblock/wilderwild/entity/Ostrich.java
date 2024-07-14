@@ -25,7 +25,7 @@ import java.util.UUID;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
 import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
@@ -44,6 +44,7 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -261,7 +262,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			double width = ATTACK_BOX_WIDTH * this.getScale();
 
 			AABB attackBox = AABB.ofSize(beakPos, width, height, width).move(0D, -height * 0.5D, 0D);
-			if (WilderSharedConstants.UNSTABLE_LOGGING && this.level() instanceof ServerLevel serverLevel) {
+			if (WilderConstants.UNSTABLE_LOGGING && this.level() instanceof ServerLevel serverLevel) {
 				for (double xCorner : ImmutableList.of(attackBox.minX, attackBox.maxX)) {
 					for (double yCorner : ImmutableList.of(attackBox.minY, attackBox.maxY)) {
 						for (double zCorner : ImmutableList.of(attackBox.minZ, attackBox.maxZ)) {
@@ -680,7 +681,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
 		Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
 
-		if (WilderSharedConstants.UNSTABLE_LOGGING) {
+		if (WilderConstants.UNSTABLE_LOGGING) {
 			if (this.level() instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, neckBasePos.x, neckBasePos.y, neckBasePos.z, 1, 0, 0, 0, 0);
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, headBasePos.x, headBasePos.y, headBasePos.z, 1, 0, 0, 0, 0);

@@ -23,7 +23,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
-	private static final ResourceLocation WHITE_TEXTURE = WilderSharedConstants.id("textures/entity/jellyfish/white.png");
+	private static final ResourceLocation WHITE_TEXTURE = WilderConstants.id("textures/entity/jellyfish/white.png");
 
 	public JellyfishRenderer(@NotNull Context context) {
 		super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);

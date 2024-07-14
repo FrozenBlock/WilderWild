@@ -3,15 +3,12 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Crabs will no longer become permanently stuck when walking into a ceiling.
-- Crabs will once again emerge naturally.
-- The Tumbleweed entity's loot table is now impacted by the Looting enchantment.
-- Removed the Palm Crown, replacing it entirely with the Palm Log.
-- Fixed items from naturally-generated Stone Chests not stacking with other items.
-- The Stone Chest item now renders as a Block Entity like other Chests.
-- Datura now yields two Light Gray Dye opposed to one.
-- Revamped Wilder Wild's music pools thanks to Rebel459!
-- Fixed Jellyfish, Ostrich, and Scorched loot tables not parsing in 1.21+.
-- Fixed some Abandoned Cabin loot tables always giving the same loot.
-- Fixed the `Empty or non-existent pool: wilderwild:abandoned_cabin/cabin` error.
-- Added compatability with Continuity and Wilder Wild's snowlogging through a new mixin on Indium. ([#337](https://github.com/FrozenBlock/WilderWild/issues/377))
+- Added dynamic stone chest replacement
+  - Rather than replacing Anicent City nbt, stone chests are dynamically added into ancient cities
+  - Adds support for custom ancient cities
+- Removed changes to the center building in Ancient Cities
+- Fixed conversion of palm crown blocks (removed in 2.4.5) to palm logs
+- Snowlogged double-tall plants will no longer remove the bottom half of the plant when Snow Layers on the top half are broken.
+- Bumped protocol version to 8
+- Changed version scheme to (mod version)-mc(minecraft version)
+- Renamed `WilderSharedConstants` to `WilderConstants`
