@@ -483,7 +483,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		StructureProcessorApi.addNamespaceWithKeywordTarget(ResourceLocation.DEFAULT_NAMESPACE, "ancient_city",
+		StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
 			new RuleProcessor(
 				List.of(
 					new ProcessorRule(
