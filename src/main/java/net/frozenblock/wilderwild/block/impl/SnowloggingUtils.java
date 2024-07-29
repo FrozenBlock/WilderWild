@@ -108,13 +108,18 @@ public class SnowloggingUtils {
 	public static BlockState getSnowPlacementState(BlockState state, @NotNull BlockPlaceContext context) {
 		BlockState blockState;
 		BlockState placementState = state;
-		if (placementState != null
-			&& SnowloggingUtils.supportsSnowlogging(placementState) &&
-			(blockState = context.getLevel().getBlockState(context.getClickedPos())).is(Blocks.SNOW)
-		) {
-			int layers = blockState.getValue(BlockStateProperties.LAYERS);
-			if (layers < 8) {
-				placementState = placementState.setValue(SNOW_LAYERS, layers);
+		if (placementState != null && SnowloggingUtils.supportsSnowlogging(placementState)) {
+			blockState = context.getLevel().getBlockState(context.getClickedPos());
+			if (blockState.is(Blocks.SNOW)) {
+				int layers = blockState.getValue(BlockStateProperties.LAYERS);
+				if (layers < 8) {
+					placementState = placementState.setValue(SNOW_LAYERS, layers);
+				}
+			} else if (SnowloggingUtils.isSnowlogged(blockState)) {
+				int layers = blockState.getValue(SnowloggingUtils.SNOW_LAYERS);
+				if (layers < 8) {
+					placementState = placementState.setValue(SNOW_LAYERS, layers);
+				}
 			}
 		}
 		return placementState;
