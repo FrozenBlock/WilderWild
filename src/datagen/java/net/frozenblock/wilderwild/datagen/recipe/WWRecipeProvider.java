@@ -163,6 +163,13 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.requires(Items.SUGAR)
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.SCORCHED_EYE), RecipeProvider.has(RegisterItems.SCORCHED_EYE))
 			.save(exporter);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.SCORCHED_EYE)
+			.requires(Items.SPIDER_EYE)
+			.requires(Items.BLAZE_POWDER)
+			.unlockedBy(RecipeProvider.getHasName(Items.BLAZE_POWDER), RecipeProvider.has(Items.BLAZE_POWDER))
+			.unlockedBy(RecipeProvider.getHasName(RegisterItems.SCORCHED_EYE), RecipeProvider.has(RegisterItems.SCORCHED_EYE))
+			.save(exporter);
 	}
 
 	public static void stonecutterResultFromBase(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
