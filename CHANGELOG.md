@@ -6,6 +6,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added Cracked and Mossy Mud Bricks.
   - This includes Stairs, Slabs, and Walls for Mossy Mud Bricks.
   - Alongside these additions, Stonecutters now have Mud recipes for the sake of consistency and ease of use.
+  - These blocks now generate in Trail Ruins.
 - Updated the texture for the Scorching effect's icon.
 - The Scorching effect now places Fire upon a mob's death.
 - Increased the max time the Scorching effect sets attackers on fire from 4 to 8 seconds.
