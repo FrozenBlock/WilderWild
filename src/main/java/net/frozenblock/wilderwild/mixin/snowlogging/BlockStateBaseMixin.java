@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -261,18 +262,19 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
-	// This caused problems with double tall plants
-//	@ModifyExpressionValue(
-//		method = "<init>",
-//		at = @At(
-//			value = "FIELD",
-//			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z"
-//		)
-//	)
-//	public boolean wilderWild$canOcclude(boolean original) {
-//		BlockState blockState = this.asState();
-//		return original || SnowloggingUtils.isSnowlogged(blockState);
-//	}
+	// Occludes if it nroamlly would occlude, or if the block is fully snowlogged.
+	// Done this way to get around a pair of bugs.
+	@ModifyExpressionValue(
+		method = "<init>",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z"
+		)
+	)
+	public boolean wilderWild$canOcclude(boolean original) {
+		BlockState blockState = this.asState();
+		return original || (SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
+	}
 
 	@WrapOperation(
 		method = "getSoundType",

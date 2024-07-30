@@ -74,7 +74,7 @@ public abstract class SnowLayerBlockMixin {
 		if (!BlockConfig.canSnowlog()) return;
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
-			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
+			if (SnowloggingUtils.isSnowlogged(placementState)) {
 				Level level = useContext.getLevel();
 				BlockPos pos = useContext.getClickedPos();
 				VoxelShape blockShape = placementState.getShape(level, pos);
