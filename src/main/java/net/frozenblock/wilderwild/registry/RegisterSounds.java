@@ -244,6 +244,7 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_MAGMA_BREAK = register("block.magma.break");
 	public static final SoundEvent BLOCK_MAGMA_STEP = register("block.magma.step");
 	public static final SoundEvent BLOCK_MAGMA_FALL = register("block.magma.fall");
+	public static final SoundEvent BLOCK_FIRE_IGNITE = register("block.fire.ignite");
 
 	//ENTITY
 	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_BLAST = register("entity.ancient_horn_vibration.blast");

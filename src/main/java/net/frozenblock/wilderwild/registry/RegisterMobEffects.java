@@ -58,6 +58,7 @@ public final class RegisterMobEffects {
 			MobEffectCategory.HARMFUL,
 			6236672,
 			0.25F,
+			random -> Mth.randomBetweenInclusive(random, 1, 6),
 			random -> Mth.randomBetweenInclusive(random, 1, 4)
 		)
 	);

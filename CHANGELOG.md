@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
 - Updated the texture for the Scorching effect's icon.
-- Refactored `WilderPreMixinInjectConstants` to `WilderDatagenConstants.`
+- THe Scorching effect now places Fire upon a mob's death.
 - Scorched Eyes can now be crafted from a Spider Eye and Blaze Powder.
-- Fixed a crash when trying to load a `Lists` class.
+- Refactored `WilderPreMixinInjectConstants` to `WilderDatagenConstants.`
+- Fixed a crash when trying to load the `Lists` class.
