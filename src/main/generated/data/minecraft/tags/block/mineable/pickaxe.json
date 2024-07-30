@@ -1,11 +1,16 @@
 {
   "values": [
     "wilderwild:stone_chest",
-    "wilderwild:chiseled_mud_bricks",
     "wilderwild:null_block",
     "wilderwild:display_lantern",
     "wilderwild:scorched_sand",
     "wilderwild:scorched_red_sand",
-    "wilderwild:geyser"
+    "wilderwild:geyser",
+    "wilderwild:chiseled_mud_bricks",
+    "wilderwild:cracked_mud_bricks",
+    "wilderwild:mossy_mud_bricks",
+    "wilderwild:mossy_mud_brick_stairs",
+    "wilderwild:mossy_mud_brick_slab",
+    "wilderwild:mossy_mud_brick_wall"
   ]
 }

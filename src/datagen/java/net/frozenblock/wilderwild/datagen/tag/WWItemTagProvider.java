@@ -47,6 +47,15 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(ItemTags.STAIRS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_STAIRS.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.SLABS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_SLAB.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.WALLS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL.asItem());
+
 		this.getOrCreateTagBuilder(ItemTags.ARMADILLO_FOOD)
 			.add(RegisterItems.SCORCHED_EYE);
 

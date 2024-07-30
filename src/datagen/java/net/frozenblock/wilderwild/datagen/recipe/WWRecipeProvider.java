@@ -36,11 +36,13 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 public class WWRecipeProvider extends FabricRecipeProvider {
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -120,24 +122,6 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), RecipeProvider.has(Items.RED_SAND))
 			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, RegisterItems.SCORCHED_RED_SAND)));
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_MUD_BRICKS)
-			.define('#', Ingredient.of(Items.MUD_BRICK_SLAB))
-			.pattern("#")
-			.pattern("#")
-			.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICK_SLAB), RecipeProvider.has(Items.MUD_BRICK_SLAB))
-			.save(exporter);
-
-		VanillaRecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICKS, RegisterBlocks.CHISELED_MUD_BRICKS);
-
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.SPONGE)
-			.define('#', RegisterBlocks.SMALL_SPONGE)
-			.pattern("###")
-			.pattern("###")
-			.pattern("###")
-			.group("sponge")
-			.unlockedBy(getHasName(RegisterBlocks.SMALL_SPONGE), has(RegisterBlocks.SMALL_SPONGE))
-			.save(exporter, WilderConstants.id(getConversionRecipeName(Items.SPONGE, RegisterBlocks.SMALL_SPONGE)));
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.NULL_BLOCK, 2)
 			.define('#', Ingredient.of(Items.BLACK_CONCRETE))
 			.define('X', Ingredient.of(Items.MAGENTA_CONCRETE))
@@ -170,6 +154,60 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(Items.BLAZE_POWDER), RecipeProvider.has(Items.BLAZE_POWDER))
 			.unlockedBy(RecipeProvider.getHasName(RegisterItems.SCORCHED_EYE), RecipeProvider.has(RegisterItems.SCORCHED_EYE))
 			.save(exporter);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.SPONGE)
+			.define('#', RegisterBlocks.SMALL_SPONGE)
+			.pattern("###")
+			.pattern("###")
+			.pattern("###")
+			.group("sponge")
+			.unlockedBy(getHasName(RegisterBlocks.SMALL_SPONGE), has(RegisterBlocks.SMALL_SPONGE))
+			.save(exporter, WilderConstants.id(getConversionRecipeName(Items.SPONGE, RegisterBlocks.SMALL_SPONGE)));
+
+		// MUD BRICKS
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
+			.unlockedBy("has_mud_bricks", has(Blocks.MUD_BRICKS))
+			.save(exporter);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_MUD_BRICKS)
+			.define('#', Ingredient.of(Items.MUD_BRICK_SLAB))
+			.pattern("#")
+			.pattern("#")
+			.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICKS), RecipeProvider.has(Items.MUD_BRICKS))
+			.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICK_SLAB), RecipeProvider.has(Items.MUD_BRICK_SLAB))
+			.unlockedBy(RecipeProvider.getHasName(RegisterBlocks.CHISELED_MUD_BRICKS), RecipeProvider.has(RegisterBlocks.CHISELED_MUD_BRICKS))
+			.save(exporter);
+
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_MUD_BRICKS, Blocks.PACKED_MUD);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_MUD_BRICKS, Blocks.MUD_BRICKS);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICKS, Blocks.PACKED_MUD);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_SLAB, Blocks.MUD_BRICKS, 2);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_SLAB, Blocks.PACKED_MUD, 2);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_STAIRS, Blocks.MUD_BRICKS);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_STAIRS, Blocks.PACKED_MUD);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_WALL, Blocks.MUD_BRICKS);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_WALL, Blocks.PACKED_MUD);
+
+		// MOSSY MUD BRICKS
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICKS)
+			.requires(Blocks.MUD_BRICKS)
+			.requires(Blocks.VINE)
+			.group("mossy_mud_bricks")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(exporter, getConversionRecipeName(RegisterBlocks.MOSSY_MUD_BRICKS, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICKS)
+			.requires(Blocks.MUD_BRICKS)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_mud_bricks")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(exporter, getConversionRecipeName(RegisterBlocks.MOSSY_MUD_BRICKS, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICK_SLAB, RegisterBlocks.MOSSY_MUD_BRICKS, 2);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICK_STAIRS, RegisterBlocks.MOSSY_MUD_BRICKS);
+		stonecutterResultFromBase(exporter, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_MUD_BRICK_WALL, RegisterBlocks.MOSSY_MUD_BRICKS);
 	}
 
 	public static void stonecutterResultFromBase(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
