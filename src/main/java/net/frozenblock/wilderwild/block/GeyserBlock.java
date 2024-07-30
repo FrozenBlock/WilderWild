@@ -97,6 +97,24 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
+	protected boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	protected int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos) {
+		GeyserStage stage = state.getValue(GEYSER_STAGE);
+		if (stage == GeyserStage.DORMANT) {
+			return 0;
+		} else if (stage == GeyserStage.ACTIVE) {
+			return 5;
+		} else if (stage == GeyserStage.ERUPTING) {
+			return 15;
+		}
+		return super.getAnalogOutputSignal(state, world, pos);
+	}
+
+	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();

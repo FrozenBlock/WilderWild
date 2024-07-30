@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
@@ -51,6 +52,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -66,6 +68,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class GeyserBlockEntity extends BlockEntity {
+	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
 	public static final double ERUPTION_DISTANCE = 6D;
 	public static final int MIN_ACTIVE_TICKS = 100;
 	public static final int MAX_ACTIVE_TICKS = 200;
@@ -142,18 +145,20 @@ public class GeyserBlockEntity extends BlockEntity {
 		Optional<BlockPos> damageCutoffPos = Optional.empty();
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < 5; i++) {
-			BlockState state = level.getBlockState(mutablePos.move(direction));
-			if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
-				break;
-			}
-			boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
-			boolean mismatchesWater = geyserType == GeyserType.WATER && !state.getFluidState().is(Fluids.WATER);
-			boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
-			if (mismatchesAir || mismatchesWater || mismatchesLava) {
-				if (cutoffPos.isEmpty()) cutoffPos = Optional.of(mutablePos.immutable());
-			}
-			if (geyserType == GeyserType.LAVA && state.getFluidState().is(FluidTags.WATER)) {
-				if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
+			if (level.hasChunkAt(mutablePos.move(direction))) {
+				BlockState state = level.getBlockState(mutablePos);
+				if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
+					break;
+				}
+				boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
+				boolean mismatchesWater = geyserType == GeyserType.WATER && !state.getFluidState().is(Fluids.WATER);
+				boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
+				if (mismatchesAir || mismatchesWater || mismatchesLava) {
+					if (cutoffPos.isEmpty()) cutoffPos = Optional.of(mutablePos.immutable());
+				}
+				if (geyserType == GeyserType.LAVA && state.getFluidState().is(FluidTags.WATER)) {
+					if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
+				}
 			}
 		}
 		AABB eruption = aabb(pos, mutablePos.immutable());
@@ -178,20 +183,20 @@ public class GeyserBlockEntity extends BlockEntity {
 			Optional.of(this),
 			geyserStartPos,
 			effectiveEruption.inflate(0.5D),
-			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElseThrow()
+			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 		WindDisturbance<GeyserBlockEntity> baseWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
 			Optional.of(this),
 			geyserStartPos,
 			eruption.inflate(0.5D),
-			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElseThrow()
+			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 
 		if (level instanceof ServerLevel serverLevel) {
 			WindManager windManager = WindManager.getWindManager(serverLevel);
 			windManager.addWindDisturbance(effectiveWindDisturbance);
 			windManager.addWindDisturbance(baseWindDisturbance);
-		} else if (level.isClientSide) {
+		} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			addWindDisturbanceToClient(effectiveWindDisturbance);
 			addWindDisturbanceToClient(baseWindDisturbance);
 		}
@@ -206,10 +211,15 @@ public class GeyserBlockEntity extends BlockEntity {
 				Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
 				entity.setDeltaMovement(deltaMovement);
 				if (direction == Direction.UP) {
-					if (deltaMovement.y >= 0) {
-						entity.resetFallDistance();
-					} else {
-						entity.fallDistance = (float) (entity.fallDistance * ((0.4F - overallIntensity) * 0.5F));
+					if (entity instanceof Player player) {
+						Vec3 lastImpactPos = player.currentImpulseImpactPos;
+						Vec3 playerPos = player.position();
+						player.currentImpulseImpactPos = new Vec3(
+							playerPos.x(),
+							lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
+							playerPos.z()
+						);
+						player.setIgnoreFallDamageFromCurrentImpulse(true);
 					}
 				}
 				if (damagingEruption.intersects(boundingBox)) {
@@ -225,7 +235,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
-			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos))) {
+			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos)) && level.hasChunkAt(blockPos)) {
 				BlockState state = level.getBlockState(blockPos);
 
 				if (geyserType == GeyserType.LAVA) {
@@ -299,6 +309,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 	}
 
+	@Environment(EnvType.CLIENT)
 	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
 		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);

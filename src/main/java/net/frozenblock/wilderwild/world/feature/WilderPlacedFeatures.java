@@ -1157,12 +1157,12 @@ public final class WilderPlacedFeatures {
 		);
 
 		MILKWEED.makeAndSetHolder(WilderConfiguredFeatures.MILKWEED.getHolder(),
-			RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		MILKWEED_RARE.makeAndSetHolder(WilderConfiguredFeatures.MILKWEED.getHolder(),
-			RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(36), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1182,27 +1182,27 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_FLOWER_FIELD.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 4)), InSquarePlacement.spread(),
+			CountPlacement.of(UniformInt.of(2, 4)), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_TEMPERATE_RAINFOREST.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST.getHolder(),
-			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_TEMPERATE_RAINFOREST_VANILLA.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST_VANILLA.getHolder(),
-			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_RAINFOREST.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_RAINFOREST.getHolder(),
-			CountPlacement.of(3), InSquarePlacement.spread(),
+			CountPlacement.of(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_RAINFOREST_VANILLA.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_RAINFOREST_VANILLA.getHolder(),
-			CountPlacement.of(3), InSquarePlacement.spread(),
+			CountPlacement.of(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1229,7 +1229,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_FOREST_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_FOREST_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(0, 2)),
+			CountPlacement.of(UniformInt.of(0, 1)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
 			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED

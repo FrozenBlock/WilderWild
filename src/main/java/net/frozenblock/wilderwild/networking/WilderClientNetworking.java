@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
+import net.frozenblock.wilderwild.networking.packet.WilderScorchingFirePlacePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
@@ -37,6 +38,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -59,6 +61,7 @@ public class WilderClientNetworking {
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();
+		receiveScorchingFirePlacePacket();
 	}
 
 	public static void receiveWindExtensionSyncPacket() {
@@ -129,6 +132,34 @@ public class WilderClientNetworking {
 				stoneChestBlockEntity.stillLidTicks = packet.stillLidTicks();
 				stoneChestBlockEntity.closing = packet.closing();
 			}
+		});
+	}
+
+	public static void receiveScorchingFirePlacePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderScorchingFirePlacePacket.PACKET_TYPE, (packet, ctx) -> {
+			ClientLevel clientLevel = ctx.client().level;
+			RandomSource randomSource = clientLevel.random;
+			BlockPos pos = packet.pos();
+			for (int particles = 0; particles < 10; ++particles) {
+				clientLevel.addParticle(
+					ParticleTypes.LARGE_SMOKE,
+					(double)pos.getX() + randomSource.nextDouble(),
+					(double)pos.getY() + randomSource.nextDouble(),
+					(double)pos.getZ() + randomSource.nextDouble(),
+					randomSource.nextGaussian() * 0.04D,
+					randomSource.nextGaussian() * 0.05D,
+					randomSource.nextGaussian() * 0.04D
+				);
+			}
+
+			clientLevel.playLocalSound(
+				pos,
+				RegisterSounds.BLOCK_FIRE_IGNITE,
+				SoundSource.BLOCKS,
+				1.0F,
+				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1.0F,
+				true
+			);
 		});
 	}
 

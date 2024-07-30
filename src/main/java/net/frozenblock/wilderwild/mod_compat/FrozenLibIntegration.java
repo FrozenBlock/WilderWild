@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
@@ -45,6 +46,8 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WilderConstants;
@@ -114,6 +117,7 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
@@ -305,6 +309,26 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.STONE_CHEST, RegisterBlockEntities.STONE_CHEST);
 
+		StructureProcessorApi.addProcessor(
+			BuiltinStructures.TRAIL_RUINS.location(),
+			new RuleProcessor(
+				ImmutableList.of(
+					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, CRACKED_MUD_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICKS.defaultBlockState())
+				)
+			)
+		);
+		StructureProcessorApi.addProcessor(
+			BuiltinStructures.TRAIL_RUINS.location(),
+			new BlockStateRespectingRuleProcessor(
+				ImmutableList.of(
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_STAIRS),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_SLAB),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_WALL)
+				)
+			)
+		);
+
 		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
 			RandomPoolAliasApi.addTarget(
 				WilderConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
@@ -483,7 +507,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		StructureProcessorApi.addNamespaceWithKeywordTarget(ResourceLocation.DEFAULT_NAMESPACE, "ancient_city",
+		StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
 			new RuleProcessor(
 				List.of(
 					new ProcessorRule(

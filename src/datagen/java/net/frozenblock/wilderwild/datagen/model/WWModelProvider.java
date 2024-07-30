@@ -53,6 +53,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(RegisterBlocks.CARNATION, RegisterBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.createTrivialBlock(RegisterBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
+		generator.createTrivialCube(RegisterBlocks.CRACKED_MUD_BRICKS);
+		generator.family(RegisterBlocks.MOSSY_MUD_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_MUD_BRICK);
 
 		generator.createSimpleFlatItemModel(RegisterBlocks.ALGAE);
 		generator.createSimpleFlatItemModel(RegisterBlocks.POLLEN);

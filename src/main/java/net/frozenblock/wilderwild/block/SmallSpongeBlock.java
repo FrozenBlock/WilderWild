@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -79,10 +78,6 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 			.setValue(FACE, AttachFace.WALL)
 			.setValue(AGE, 0)
 		);
-	}
-
-	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
 	}
 
 	@NotNull
@@ -150,35 +145,6 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 			}
 		}
 		return null;
-	}
-
-	public boolean isValidStateForPlacement(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
-		BlockPos blockPos = pos.relative(direction);
-		return canAttachTo(level, direction, blockPos, level.getBlockState(blockPos));
-	}
-
-	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockState currentState, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction lookingDirection) {
-		if (!this.isValidStateForPlacement(level, pos, lookingDirection)) {
-			return null;
-		} else {
-			BlockState blockState;
-			if (currentState.is(this)) {
-				blockState = currentState;
-			} else if (currentState.getFluidState().isSourceOfType(Fluids.WATER)) {
-				blockState = this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
-			} else {
-				blockState = this.defaultBlockState();
-			}
-
-			if (lookingDirection.getAxis() == Direction.Axis.Y) {
-				blockState = blockState.setValue(FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(EasyNoiseSampler.localRandom));
-			} else {
-				blockState = blockState.setValue(FACE, AttachFace.WALL).setValue(FACING, lookingDirection.getOpposite());
-			}
-
-			return blockState.setValue(AGE, EasyNoiseSampler.localRandom.nextInt(MAX_AGE));
-		}
 	}
 
 	@Override

@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.WilderConstants;
 import static net.frozenblock.wilderwild.WilderConstants.text;
 import static net.frozenblock.wilderwild.WilderConstants.tooltip;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
@@ -47,7 +46,6 @@ public final class WorldgenConfigGui {
 		var modifiedBiomePlacement = modifiedConfig.biomePlacement;
 		var biomes = config.biomeGeneration;
 		var modifiedBiomes = modifiedConfig.biomeGeneration;
-		category.setBackground(WilderConstants.id("textures/config/worldgen.png"));
 
 		var betaBeaches = category.addEntry(
 			FrozenClothConfig.syncedEntry(

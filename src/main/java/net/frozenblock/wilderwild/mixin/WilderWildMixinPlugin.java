@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.WilderPreMixinInjectConstants;
 import net.frozenblock.wilderwild.config.MixinsConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +33,6 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public void onLoad(String mixinPackage) {
-
 	}
 
 	@Override
@@ -69,9 +67,9 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.shrieker")) return config.client_shrieker;
 		if (mixinClassName.contains("client.warden")) return config.client_warden;
 		if (mixinClassName.contains("client.wind")) {
-			if (mixinClassName.contains("fallingleaves") && !WilderPreMixinInjectConstants.HAS_FALLINGLEAVES)
+			if (mixinClassName.contains("fallingleaves") && !FabricLoader.getInstance().isModLoaded("fallingleaves"))
 				return false;
-			if (mixinClassName.contains("particlerain") && !WilderPreMixinInjectConstants.HAS_PARTICLERAIN)
+			if (mixinClassName.contains("particlerain") && !FabricLoader.getInstance().isModLoaded("particlerain"))
 				return false;
 			if (mixinClassName.contains("CloudRenderer") && disableNonSodium)
 				return false;

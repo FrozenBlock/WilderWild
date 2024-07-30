@@ -686,12 +686,18 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(RegisterBlocks.STONE_CHEST)
-			.add(RegisterBlocks.CHISELED_MUD_BRICKS)
 			.add(RegisterBlocks.NULL_BLOCK)
 			.add(RegisterBlocks.DISPLAY_LANTERN)
 			.add(RegisterBlocks.SCORCHED_SAND)
 			.add(RegisterBlocks.SCORCHED_RED_SAND)
-			.add(RegisterBlocks.GEYSER);
+			.add(RegisterBlocks.GEYSER)
+
+			.add(RegisterBlocks.CHISELED_MUD_BRICKS)
+			.add(RegisterBlocks.CRACKED_MUD_BRICKS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICKS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_STAIRS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_SLAB)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.addOptionalTag(WilderBlockTags.MESOGLEA)
@@ -726,5 +732,17 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN)
 			.add(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN)
 			.add(RegisterBlocks.PALM_WALL_HANGING_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.STAIRS)
+			.add(RegisterBlocks.SCULK_STAIRS)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_STAIRS);
+
+		this.getOrCreateTagBuilder(BlockTags.SLABS)
+			.add(RegisterBlocks.SCULK_SLAB)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_SLAB);
+
+		this.getOrCreateTagBuilder(BlockTags.WALLS)
+			.add(RegisterBlocks.SCULK_WALL)
+			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL);
 	}
 }

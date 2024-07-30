@@ -40,6 +40,7 @@ Merp:
   - Updated the Milkweed Pod texture in 2.4.3.
   - Retextured the entire Cypress set in 2.4.3.
   - Retextured the Reach Boost icon in 2.4.4.
+  - Made the Cracked & Mossy Mud Bricks textures.
 
 Enri:
  - Italian translation.

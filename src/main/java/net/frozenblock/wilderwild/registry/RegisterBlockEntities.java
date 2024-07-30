@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import com.mojang.datafixers.types.Type;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
@@ -26,9 +26,10 @@ import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
@@ -43,15 +44,16 @@ public final class RegisterBlockEntities {
 	}
 
 	@NotNull
-	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, @NotNull FabricBlockEntityTypeBuilder.Factory<T> blockEntity, @NotNull Block... blocks) {
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderConstants.id(path), FabricBlockEntityTypeBuilder.create(blockEntity, blocks).build(null));
+	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.Builder<T> builder) {
+		Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, path);
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderConstants.id(path), builder.build(type));
 	}
 
-	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL);
-	public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND);
-	public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", DisplayLanternBlockEntity::new, RegisterBlocks.DISPLAY_LANTERN);
-	public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST);
-	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", ScorchedBlockEntity::new, RegisterBlocks.SCORCHED_SAND, RegisterBlocks.SCORCHED_RED_SAND);
-	public static final BlockEntityType<GeyserBlockEntity> GEYSER = register("geyser", GeyserBlockEntity::new, RegisterBlocks.GEYSER);
+	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", BlockEntityType.Builder.of(HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL));
+	public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", BlockEntityType.Builder.of(TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND));
+	public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", BlockEntityType.Builder.of(DisplayLanternBlockEntity::new, RegisterBlocks.DISPLAY_LANTERN));
+	public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", BlockEntityType.Builder.of(StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST));
+	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", BlockEntityType.Builder.of(ScorchedBlockEntity::new, RegisterBlocks.SCORCHED_SAND, RegisterBlocks.SCORCHED_RED_SAND));
+	public static final BlockEntityType<GeyserBlockEntity> GEYSER = register("geyser", BlockEntityType.Builder.of(GeyserBlockEntity::new, RegisterBlocks.GEYSER));
 
 }

@@ -646,6 +646,12 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
+		this.dropSelf(RegisterBlocks.CHISELED_MUD_BRICKS);
+		this.dropSelf(RegisterBlocks.CRACKED_MUD_BRICKS);
+		this.dropSelf(RegisterBlocks.MOSSY_MUD_BRICKS);
+		this.dropSelf(RegisterBlocks.MOSSY_MUD_BRICK_STAIRS);
+		this.add(RegisterBlocks.MOSSY_MUD_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.MOSSY_MUD_BRICK_WALL);
 	}
 
 }

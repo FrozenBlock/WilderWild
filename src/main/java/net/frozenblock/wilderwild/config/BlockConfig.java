@@ -28,9 +28,9 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import net.frozenblock.wilderwild.WilderPreMixinInjectConstants;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderConstants.configPath;
+import net.frozenblock.wilderwild.WilderDatagenConstants;
 
 public final class BlockConfig {
 
@@ -54,9 +54,9 @@ public final class BlockConfig {
 				var config = this.config();
 				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
 				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
-				SNOWLOGGING = config.snowlogging.snowlogging;
-				SNOWLOG_WALLS = config.snowlogging.snowlogWalls;
-				NATURAL_SNOWLOGGING = config.snowlogging.naturalSnowlogging;
+				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
+				SNOWLOG_WALLS = SNOWLOGGING && config.snowlogging.snowlogWalls;
+				NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
 					Client.POLLEN_ENABLED = config.pollenParticles;
@@ -73,7 +73,7 @@ public final class BlockConfig {
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
 
 	public static boolean canSnowlog() {
-		return SNOWLOGGING && !WilderPreMixinInjectConstants.IS_DATAGEN;
+		return SNOWLOGGING && !WilderDatagenConstants.IS_DATAGEN;
 	}
 
 	public static boolean canSnowlogWalls() {

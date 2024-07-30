@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
+import com.google.common.collect.Lists;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.OpticFinder;
@@ -37,7 +38,6 @@ import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
 public class DisplayLanternItemComponentizationFix extends DataFix {

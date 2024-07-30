@@ -3273,5 +3273,11 @@
       "wilderwild:block/magma/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.fire.ignite": {
+    "sounds": [
+      "minecraft:mob/ghast/fireball4"
+    ],
+    "subtitle": "subtitles.block.fire.ignite"
   }
 }

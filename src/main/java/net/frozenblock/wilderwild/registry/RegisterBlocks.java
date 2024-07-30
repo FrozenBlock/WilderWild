@@ -106,6 +106,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -126,12 +127,20 @@ public final class RegisterBlocks {
 
 	// OTHER (BUILDING BLOCKS)
 
-	public static final Block CHISELED_MUD_BRICKS = new Block(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.CHISELED_STONE_BRICKS)
-			.strength(1.5F)
-			.requiresCorrectToolForDrops()
-			.sound(SoundType.MUD_BRICKS)
+	public static final Block CHISELED_MUD_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS));
+	public static final Block CRACKED_MUD_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS));
+	public static final Block MOSSY_MUD_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS));
+	public static final Block MOSSY_MUD_BRICK_STAIRS = new StairBlock(
+		MOSSY_MUD_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_MUD_BRICKS)
 	);
+	public static final Block MOSSY_MUD_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_MUD_BRICKS));
+	public static final Block MOSSY_MUD_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_MUD_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_MUD_BRICK = BlockFamilies.familyBuilder(MOSSY_MUD_BRICKS)
+		.stairs(MOSSY_MUD_BRICK_STAIRS)
+		.slab(MOSSY_MUD_BRICK_SLAB)
+		.wall(MOSSY_MUD_BRICK_WALL)
+		.getFamily();
 
 	public static final ScorchedBlock SCORCHED_SAND = new ScorchedBlock(
 		Blocks.SAND.defaultBlockState(),
@@ -835,8 +844,14 @@ public final class RegisterBlocks {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
-	public static void registerOtherBB() {
-		registerBlockAfter(Items.MUD_BRICKS, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+	public static void registerDecorativeBlocks() {
+		registerBlockAfter(Blocks.MUD_BRICKS, "cracked_mud_bricks", CRACKED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.MUD_BRICK_WALL, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHISELED_MUD_BRICKS, "mossy_mud_bricks", MOSSY_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_MUD_BRICKS, "mossy_mud_brick_stairs", MOSSY_MUD_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_MUD_BRICK_STAIRS, "mossy_mud_brick_slab", MOSSY_MUD_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_MUD_BRICK_SLAB, "mossy_mud_brick_wall", MOSSY_MUD_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
 		registerBlock("scorched_sand", SCORCHED_SAND);
 		registerBlock("scorched_red_sand", SCORCHED_RED_SAND);
 	}
@@ -1043,7 +1058,7 @@ public final class RegisterBlocks {
 	public static void registerBlocks() {
 		WilderConstants.logWithModId("Registering Blocks for", WilderConstants.UNSTABLE_LOGGING);
 
-		registerOtherBB();
+		registerDecorativeBlocks();
 		registerWoods();
 		registerHollowedLogs();
 		registerDeepDark();
@@ -1099,12 +1114,12 @@ public final class RegisterBlocks {
 
 	@NotNull
 	public static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
-		var settings = FabricBlockSettings.create()
+		var settings = BlockBehaviour.Properties.of()
 			.mapColor(state -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
 			.instrument(NoteBlockInstrument.BASS)
-			.strength(2.0F)
-			.sounds(soundType)
-			.burnable();
+			.strength(2F)
+			.sound(soundType)
+			.ignitedByLava();
 
 		return new HollowedLogBlock(settings);
 	}
@@ -1116,22 +1131,22 @@ public final class RegisterBlocks {
 
 	@NotNull
 	public static HollowedLogBlock createHollowedStemBlock(MapColor mapColor) {
-		return new HollowedLogBlock(FabricBlockSettings.create()
+		return new HollowedLogBlock(BlockBehaviour.Properties.of()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
-			.strength(2.0F)
-			.sounds(RegisterBlockSoundTypes.HOLLOWED_STEM)
+			.strength(2F)
+			.sound(RegisterBlockSoundTypes.HOLLOWED_STEM)
 		);
 	}
 
 	@NotNull
 	public static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor, SoundType soundType) {
-		var settings = FabricBlockSettings.create()
+		var settings = BlockBehaviour.Properties.of()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
-			.strength(2.0F)
-			.sounds(soundType)
-			.burnable();
+			.strength(2F)
+			.sound(soundType)
+			.ignitedByLava();
 
 		return new HollowedLogBlock(settings);
 	}
@@ -1143,11 +1158,11 @@ public final class RegisterBlocks {
 
 	@NotNull
 	public static HollowedLogBlock createStrippedHollowedStemBlock(MapColor mapColor) {
-		return new HollowedLogBlock(FabricBlockSettings.create()
+		return new HollowedLogBlock(BlockBehaviour.Properties.of()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
-			.strength(2.0F)
-			.sounds(RegisterBlockSoundTypes.HOLLOWED_STEM)
+			.strength(2F)
+			.sound(RegisterBlockSoundTypes.HOLLOWED_STEM)
 		);
 	}
 
@@ -1155,17 +1170,17 @@ public final class RegisterBlocks {
 	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
 		MesogleaBlock mesogleaBlock = new MesogleaBlock(
 			pearlescent,
-			FabricBlockSettings.create()
+			BlockBehaviour.Properties.of()
 				.mapColor(mapColor)
-				.nonOpaque()
+				.noOcclusion()
 				.strength(0.2F)
-				.slipperiness(0.8F)
-				.emissiveLighting(Blocks::always)
-				.luminance(state -> 7)
-				.sounds(RegisterBlockSoundTypes.MESOGLEA)
-				.suffocates(Blocks::never)
-				.blockVision(Blocks::never)
-				.dynamicBounds()
+				.friction(0.8F)
+				.emissiveRendering(Blocks::always)
+				.lightLevel(state -> 7)
+				.sound(RegisterBlockSoundTypes.MESOGLEA)
+				.isSuffocating(Blocks::never)
+				.isViewBlocking(Blocks::never)
+				.dynamicShape()
 		);
 		MesogleaBlock.MesogleaParticleRegistry.registerDripParticle(mesogleaBlock, particleType);
 		return mesogleaBlock;
@@ -1174,14 +1189,14 @@ public final class RegisterBlocks {
 	@NotNull
 	public static NematocystBlock nematocyst(@NotNull MapColor mapColor) {
 		return new NematocystBlock(
-			FabricBlockSettings.create()
+			BlockBehaviour.Properties.of()
 				.mapColor(mapColor)
-				.noCollision()
-				.nonOpaque()
-				.emissiveLighting(Blocks::always)
-				.luminance(state -> 4)
-				.sounds(RegisterBlockSoundTypes.NEMATOCYST)
-				.pistonBehavior(PushReaction.DESTROY)
+				.noCollission()
+				.noOcclusion()
+				.emissiveRendering(Blocks::always)
+				.lightLevel(state -> 4)
+				.sound(RegisterBlockSoundTypes.NEMATOCYST)
+				.pushReaction(PushReaction.DESTROY)
 		);
 	}
 

@@ -19,16 +19,12 @@
 package net.frozenblock.wilderwild.world.impl.features.config;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import java.util.Objects;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -38,12 +34,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 public class SmallSpongeFeatureConfig implements FeatureConfiguration {
 	public static final Codec<SmallSpongeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
-			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
-				.flatXmap(SmallSpongeFeatureConfig::validateBlock, DataResult::success)
-				.orElse(RegisterBlocks.SMALL_SPONGE)
-				.forGetter(
-					config -> config.sponge
-				),
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
 				config -> config.searchRange
 			),
@@ -62,7 +52,6 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
 		).apply(instance, SmallSpongeFeatureConfig::new)
 	);
 
-	public final SmallSpongeBlock sponge;
 	public final int searchRange;
 	public final boolean placeOnFloor;
 	public final boolean placeOnCeiling;
@@ -70,8 +59,7 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
 	public final TagKey<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public SmallSpongeFeatureConfig(SmallSpongeBlock sponge, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
-		this.sponge = sponge;
+	public SmallSpongeFeatureConfig(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;
 		this.placeOnCeiling = placeOnCeiling;
@@ -93,17 +81,6 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
 			var10000.forEach(var10001::add);
 		}
 
-	}
-
-	private static DataResult<SmallSpongeBlock> validateBlock(Block block) {
-		DataResult<SmallSpongeBlock> var10000;
-		if (block instanceof SmallSpongeBlock smallSpongeBlock) {
-			var10000 = DataResult.success(smallSpongeBlock);
-		} else {
-			var10000 = DataResult.error(() -> "Growth block should be a small sponge block bruh bruh bruh bruh bruh");
-		}
-
-		return var10000;
 	}
 
 	public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {

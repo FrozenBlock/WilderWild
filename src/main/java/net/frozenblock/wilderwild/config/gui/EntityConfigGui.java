@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.WilderConstants;
 import static net.frozenblock.wilderwild.WilderConstants.text;
 import static net.frozenblock.wilderwild.WilderConstants.tooltip;
 import net.frozenblock.wilderwild.config.EntityConfig;
@@ -62,7 +61,6 @@ public final class EntityConfigGui {
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
 		var modifiedWarden = modifiedConfig.warden;
-		category.setBackground(WilderConstants.id("textures/config/entity.png"));
 
 		var unpassableRail = category.addEntry(
 			FrozenClothConfig.syncedEntry(

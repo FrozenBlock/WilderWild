@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderVegetationGeneration {
@@ -115,6 +116,7 @@ public final class WilderVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_PLAINS_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_PLAINS.getKey());
 						}
 
