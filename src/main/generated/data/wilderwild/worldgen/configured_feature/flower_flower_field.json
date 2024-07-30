@@ -17,43 +17,70 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "minecraft:dandelion"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "minecraft:allium"
-              },
-              {
-                "Name": "minecraft:azure_bluet"
-              },
-              {
-                "Name": "minecraft:red_tulip"
-              },
-              {
-                "Name": "minecraft:orange_tulip"
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
                 "Name": "minecraft:white_tulip"
               },
               {
-                "Name": "minecraft:pink_tulip"
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:oxeye_daisy"
               },
               {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:orange_tulip"
+              },
+              {
+                "Name": "minecraft:orange_tulip"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:red_tulip"
+              },
+              {
+                "Name": "minecraft:pink_tulip"
+              },
+              {
+                "Name": "minecraft:pink_tulip"
+              },
+              {
+                "Name": "minecraft:allium"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
                 "Name": "minecraft:cornflower"
               },
               {
-                "Name": "minecraft:lily_of_the_valley"
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:blue_orchid"
+              },
+              {
+                "Name": "minecraft:blue_orchid"
               }
             ]
           }

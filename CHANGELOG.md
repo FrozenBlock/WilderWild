@@ -11,6 +11,16 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Geysers now output a signal when used with Comparators.
 - Possibly fixed some potential crashes related to Geysers.
 - Increased the average amount of flowers that generate in Flower Forests.
+- Decreased Milkweed generation overall.
+- Decreased the amount of flowers in Rainforests.
+- Removed Vanilla's default flower feature from plains biomes.
+- Reworked flower generation in some biomes to be more "organic," generating in gradients.
+  - Plains and Forest Biomes.
+  - Birch Forests.
+  - Meadows.
+  - Rainforests and Temperate Rainforests.
+  - Cypress Wetlands.
+  - Jungles.
 - Slightly optimized Tumbleweed rendering.
 - Updated Wilder Wild's BlockEntity registry to match Vanilla, per a new Fabric API update.
 - Tweaked how Osseous Sculk is generated once again, no longer using noise sampling.
