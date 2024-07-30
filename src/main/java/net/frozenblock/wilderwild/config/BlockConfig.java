@@ -54,9 +54,9 @@ public final class BlockConfig {
 				var config = this.config();
 				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
 				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
-				SNOWLOGGING = config.snowlogging.snowlogging;
-				SNOWLOG_WALLS = config.snowlogging.snowlogWalls;
-				NATURAL_SNOWLOGGING = config.snowlogging.naturalSnowlogging;
+				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
+				SNOWLOG_WALLS = SNOWLOGGING && config.snowlogging.snowlogWalls;
+				NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
 					Client.POLLEN_ENABLED = config.pollenParticles;

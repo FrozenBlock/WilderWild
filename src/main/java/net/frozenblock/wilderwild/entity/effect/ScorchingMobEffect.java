@@ -100,14 +100,16 @@ public class ScorchingMobEffect extends MobEffect {
 			while (poses.hasNext()) {
 				blockPos = poses.next();
 				BlockState fireState;
-				if (level.getBlockState(blockPos.below()).is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
-					fireState = Blocks.SOUL_FIRE.defaultBlockState();
-				} else {
-					fireState = Blocks.FIRE.defaultBlockState();
-				}
-				if (fireState.canSurvive(level, blockPos)) {
-					level.setBlock(blockPos, fireState, Block.UPDATE_ALL);
-					WilderScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
+				if (level.getBlockState(blockPos).canBeReplaced()) {
+					if (level.getBlockState(blockPos.below()).is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
+						fireState = Blocks.SOUL_FIRE.defaultBlockState();
+					} else {
+						fireState = Blocks.FIRE.defaultBlockState();
+					}
+					if (fireState.canSurvive(level, blockPos)) {
+						level.setBlock(blockPos, fireState, Block.UPDATE_ALL);
+						WilderScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
+					}
 				}
 			}
 		}
