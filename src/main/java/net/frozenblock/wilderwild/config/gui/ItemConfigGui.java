@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.WilderConstants;
 import static net.frozenblock.wilderwild.WilderConstants.text;
 import static net.frozenblock.wilderwild.WilderConstants.tooltip;
 import net.frozenblock.wilderwild.config.ItemConfig;
@@ -46,7 +45,6 @@ public final class ItemConfigGui {
 		var modifiedAncientHorn = modifiedConfig.ancientHorn;
 		var projectileLandingSounds = config.projectileLandingSounds;
 		var modifiedProjectileLandingSounds = modifiedConfig.projectileLandingSounds;
-		category.setBackground(WilderConstants.id("textures/config/item.png"));
 
 		var summonsWarden = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), modifiedAncientHorn.ancientHornCanSummonWarden)

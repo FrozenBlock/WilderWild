@@ -20,6 +20,9 @@ package net.frozenblock.wilderwild.config;
 
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -39,8 +42,28 @@ public final class EntityConfig {
 			JsonType.JSON5,
 			null,
 			null
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(EntityConfig syncInstance) {
+				var config = this.config();
+				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
+				}
+			}
+		}
 	);
+
+	public static final class Client {
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
+	}
+
 	@CollapsibleObject
 	public final LightningConfig lightning = new LightningConfig();
 

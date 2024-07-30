@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.wilderwild.WilderConstants;
 import static net.frozenblock.wilderwild.WilderConstants.text;
 import static net.frozenblock.wilderwild.WilderConstants.tooltip;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -52,7 +51,7 @@ public final class BlockConfigGui {
 		var modifiedSnowlogging = modifiedConfig.snowlogging;
 		var fire = config.fire;
 		var modifiedFire = modifiedConfig.fire;
-		category.setBackground(WilderConstants.id("textures/config/block.png"));
+
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)

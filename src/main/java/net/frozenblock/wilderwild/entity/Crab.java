@@ -323,8 +323,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void tick() {
 		if (this.isDiggingOrEmerging()) {
-			this.xxa = 0F;
-			this.zza = 0F;
+			this.stopInPlace();
 		}
 		boolean isClient = this.level().isClientSide;
 		if (this.level() instanceof ServerLevel serverLevel) {
@@ -332,8 +331,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.tick();
 		if (this.isDiggingOrEmerging()) {
-			this.xxa = 0F;
-			this.zza = 0F;
+			this.stopInPlace();
 		}
 		if (!isClient) {
 			this.cancelMovementToDescend = false;

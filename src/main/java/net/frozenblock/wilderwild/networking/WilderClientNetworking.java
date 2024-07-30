@@ -146,9 +146,9 @@ public class WilderClientNetworking {
 					(double)pos.getX() + randomSource.nextDouble(),
 					(double)pos.getY() + randomSource.nextDouble(),
 					(double)pos.getZ() + randomSource.nextDouble(),
-					randomSource.nextGaussian() * 0.02D,
-					randomSource.nextGaussian() * 0.1D,
-					randomSource.nextGaussian() * 0.02D
+					randomSource.nextGaussian() * 0.04D,
+					randomSource.nextGaussian() * 0.05D,
+					randomSource.nextGaussian() * 0.04D
 				);
 			}
 
