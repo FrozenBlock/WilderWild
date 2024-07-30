@@ -56,6 +56,13 @@
                 "Name": "minecraft:oxeye_daisy"
               },
               {
+                "Name": "wilderwild:milkweed",
+                "Properties": {
+                  "age": "0",
+                  "half": "lower"
+                }
+              },
+              {
                 "Name": "minecraft:oxeye_daisy"
               },
               {
@@ -94,6 +101,13 @@
               },
               {
                 "Name": "minecraft:pink_tulip"
+              },
+              {
+                "Name": "wilderwild:milkweed",
+                "Properties": {
+                  "age": "0",
+                  "half": "lower"
+                }
               },
               {
                 "Name": "minecraft:lilac",
