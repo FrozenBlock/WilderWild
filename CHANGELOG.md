@@ -14,7 +14,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Decreased Milkweed generation overall.
 - Decreased the amount of flowers in Rainforests.
 - Removed Vanilla's default flower feature from plains biomes.
-- Reworked flower generation in some biomes to be more "organic," generating in gradients.
+- Reworked flower generation in some biomes to be more "organic," generating in gradients. ([#405](https://github.com/FrozenBlock/WilderWild/issues/405))
   - Plains and Forest Biomes.
   - Birch Forests.
   - Meadows.
