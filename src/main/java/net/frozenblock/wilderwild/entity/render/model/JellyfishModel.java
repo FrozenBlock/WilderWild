@@ -68,11 +68,15 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshDefinition = new MeshDefinition();
 		PartDefinition partDefinition = meshDefinition.getRoot();
+
 		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0F, 14F, 0F));
+
 		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2F, -4F, 8F, 5F, 8F)
 			.texOffs(4, 13).addBox(-3F, -1F, -3F, 6F, 3F, 6F), PartPose.ZERO);
+
 		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.offset(0F, 6F, 0F));
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
+
 		return LayerDefinition.create(meshDefinition, 64, 64);
 	}
 
@@ -141,16 +145,16 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		float sin = (float) -Math.sin(animation);
 		float sinIdle = (float) (Math.sin(ageInTicks * 0.1F) * 0.2F);
 		float squashStretch = 1F + (-sin * 0.25F);
-		float squash = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
+		float squash = Mth.lerp(movementDelta, sinIdle + 1F, squashStretch);
 
 		this.body.xScale = squash;
 		this.body.zScale = squash;
-		this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
+		this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1F, 1.25F + (sin * 0.75F));
 
-		this.body.y = Mth.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
-		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
+		this.body.y = Mth.lerp(movementDelta, 0F, 3.5F - (squashStretch * 3.5F));
+		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 2F);
 
-		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * Mth.DEG_TO_RAD);
+		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD);
 		for (ModelPart modelPart : this.tentacles) {
 			PartPose initialPose = modelPart.getInitialPose();
 			modelPart.x = initialPose.x * squash;

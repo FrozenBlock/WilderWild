@@ -69,21 +69,21 @@ public class AncientHornProjectileModel extends Model {
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		float aliveDelta = this.projectile.getAliveTicks() + this.partialTick;
 
-		float pulse = (((float) Math.sin((aliveDelta * Mth.PI) * 0.2F) * 0.16666667F) + 1);
-		float pulse2 = (((float) Math.sin(((aliveDelta + PULSE_2_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1);
-		float pulse3 = (((float) Math.sin(((aliveDelta + PULSE_3_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1);
+		float pulse = (((float) Math.sin((aliveDelta * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
+		float pulse2 = (((float) Math.sin(((aliveDelta + PULSE_2_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
+		float pulse3 = (((float) Math.sin(((aliveDelta + PULSE_3_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
 
 		this.front.xScale = pulse;
 		this.front.yScale = pulse;
-		this.front.z = pulse3 * 2.0F - 6.0F;
+		this.front.z = pulse3 * 2F - 6F;
 
 		this.middle.xScale = pulse2;
 		this.middle.yScale = pulse2;
-		this.middle.z = pulse * 2.0F - 2.0F;
+		this.middle.z = pulse * 2F - 2F;
 
 		this.back.xScale = pulse3;
 		this.back.yScale = pulse3;
-		this.back.z = pulse2 * 2.0F + 2.0F;
+		this.back.z = pulse2 * 2F + 2F;
 
 		this.bone.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
