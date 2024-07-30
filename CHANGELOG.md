@@ -10,6 +10,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fall damage calculation with Geysers is now consistent with Wind Charges.
 - Geysers now output a signal when used with Comparators.
 - Possibly fixed some potential crashes related to Geysers.
+- Increased the average amount of flowers that generate in Flower Forests.
 - Slightly optimized Tumbleweed rendering.
 - Updated Wilder Wild's BlockEntity registry to match Vanilla, per a new Fabric API update.
 - Tweaked how Osseous Sculk is generated once again, no longer using noise sampling.

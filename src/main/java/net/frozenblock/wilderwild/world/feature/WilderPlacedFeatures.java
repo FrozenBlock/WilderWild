@@ -1147,7 +1147,7 @@ public final class WilderPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 3), 0, 3)), BiomeFilter.biome()
+			CountPlacement.of(UniformInt.of(1, 3)), BiomeFilter.biome()
 		);
 
 		CYPRESS_WETLANDS_FLOWERS.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_CYPRESS_WETLANDS.getHolder(),
