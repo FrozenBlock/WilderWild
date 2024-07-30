@@ -734,12 +734,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.PALM_WALL_HANGING_SIGN);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
+			.add(RegisterBlocks.SCULK_STAIRS)
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_STAIRS);
 
 		this.getOrCreateTagBuilder(BlockTags.SLABS)
+			.add(RegisterBlocks.SCULK_SLAB)
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_SLAB);
 
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
+			.add(RegisterBlocks.SCULK_WALL)
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL);
 	}
 }

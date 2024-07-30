@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -48,12 +49,15 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
+			.add(RegisterBlocks.SCULK_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
+			.add(RegisterBlocks.SCULK_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
+			.add(RegisterBlocks.SCULK_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.ARMADILLO_FOOD)
