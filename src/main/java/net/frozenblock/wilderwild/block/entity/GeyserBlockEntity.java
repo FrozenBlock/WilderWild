@@ -145,7 +145,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		Optional<BlockPos> damageCutoffPos = Optional.empty();
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < 5; i++) {
-			if (level.isLoaded(mutablePos.move(direction))) {
+			if (level.hasChunkAt(mutablePos.move(direction))) {
 				BlockState state = level.getBlockState(mutablePos);
 				if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
 					break;
@@ -235,7 +235,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
-			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos)) && level.isLoaded(blockPos)) {
+			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos)) && level.hasChunkAt(blockPos)) {
 				BlockState state = level.getBlockState(blockPos);
 
 				if (geyserType == GeyserType.LAVA) {
