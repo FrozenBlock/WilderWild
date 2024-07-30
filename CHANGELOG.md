@@ -7,6 +7,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - The Scorching effect now places Fire upon a mob's death.
 - Increased the max time the Scorching effect sets attackers on fire from 4 to 8 seconds.
 - Scorched Eyes can now be crafted from a Spider Eye and Blaze Powder.
+- Fall damage calculation with Geysers is now consistent with Wind Charges.
+- Possibly fixed some potential crashes related to Geysers.
 - Slightly optimized Tumbleweed rendering.
 - Updated BlockEntity registry to match Vanilla, per a new Fabric API update.
 - - Refactored `WilderPreMixinInjectConstants` to `WilderDatagenConstants.`
