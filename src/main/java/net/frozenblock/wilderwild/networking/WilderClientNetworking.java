@@ -142,7 +142,7 @@ public class WilderClientNetworking {
 			BlockPos pos = packet.pos();
 			for (int particles = 0; particles < 10; ++particles) {
 				clientLevel.addParticle(
-					ParticleTypes.SMOKE,
+					ParticleTypes.ASH,
 					(double)pos.getX() + randomSource.nextDouble(),
 					(double)pos.getY() + randomSource.nextDouble(),
 					(double)pos.getZ() + randomSource.nextDouble(),
