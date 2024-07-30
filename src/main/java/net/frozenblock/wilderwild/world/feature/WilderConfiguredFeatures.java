@@ -2164,7 +2164,6 @@ public final class WilderConfiguredFeatures {
 
 		SMALL_SPONGE.makeAndSetHolder(RegisterFeatures.SMALL_SPONGE_FEATURE,
 			new SmallSpongeFeatureConfig(
-				RegisterBlocks.SMALL_SPONGE,
 				20,
 				true,
 				true,

@@ -11,7 +11,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Geysers now output a signal when used with Comparators.
 - Possibly fixed some potential crashes related to Geysers.
 - Slightly optimized Tumbleweed rendering.
-- Updated BlockEntity registry to match Vanilla, per a new Fabric API update.
-- - Refactored `WilderPreMixinInjectConstants` to `WilderDatagenConstants.`
+- Updated Wilder Wild's BlockEntity registry to match Vanilla, per a new Fabric API update.
+- Tweaked how Osseous Sculk is generated once again, no longer using noise sampling.
+- Refactored `WilderPreMixinInjectConstants` to `WilderDatagenConstants.`
 - Fixed a crash when trying to load the `Lists` class.
 - Fixed the mod's config missing a background and smearing frames in certain situations. ([#402](https://github.com/FrozenBlock/WilderWild/issues/402))
