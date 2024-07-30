@@ -8,6 +8,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Increased the max time the Scorching effect sets attackers on fire from 4 to 8 seconds.
 - Scorched Eyes can now be crafted from a Spider Eye and Blaze Powder.
 - Fall damage calculation with Geysers is now consistent with Wind Charges.
+- Geysers now output a signal when used with Comparators.
 - Possibly fixed some potential crashes related to Geysers.
 - Slightly optimized Tumbleweed rendering.
 - Updated BlockEntity registry to match Vanilla, per a new Fabric API update.
