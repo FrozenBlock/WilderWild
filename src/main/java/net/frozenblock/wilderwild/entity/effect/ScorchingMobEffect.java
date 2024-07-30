@@ -105,9 +105,10 @@ public class ScorchingMobEffect extends MobEffect {
 				} else {
 					fireState = Blocks.FIRE.defaultBlockState();
 				}
-				level.setBlock(blockPos, fireState, Block.UPDATE_ALL);
-				WilderScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
-				level.levelEvent(3018, blockPos, 0);
+				if (fireState.canSurvive(level, blockPos)) {
+					level.setBlock(blockPos, fireState, Block.UPDATE_ALL);
+					WilderScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
+				}
 			}
 		}
 	}

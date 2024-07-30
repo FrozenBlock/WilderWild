@@ -4,7 +4,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
 - Updated the texture for the Scorching effect's icon.
-- THe Scorching effect now places Fire upon a mob's death.
+- The Scorching effect now places Fire upon a mob's death.
+- Increased the max time the Scorching effect sets attackers on fire from 4 to 8 seconds.
 - Scorched Eyes can now be crafted from a Spider Eye and Blaze Powder.
 - Refactored `WilderPreMixinInjectConstants` to `WilderDatagenConstants.`
 - Fixed a crash when trying to load the `Lists` class.
