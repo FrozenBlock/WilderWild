@@ -20,6 +20,9 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,4 +49,13 @@ public abstract class SweetBerryBushBlockMixin {
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 
+	/**
+	 * Prevents sweet berry bushes from poking at and slowing entities if fully covered.
+	 */
+	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$thornsCovered(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
+		if (SnowloggingUtils.isOriginalBlockCovered(state, level, pos)) {
+			info.cancel();
+		}
+	}
 }

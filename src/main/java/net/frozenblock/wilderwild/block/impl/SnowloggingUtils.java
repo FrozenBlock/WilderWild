@@ -23,9 +23,12 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
@@ -34,6 +37,8 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,9 +82,15 @@ public class SnowloggingUtils {
 
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
 		int layers;
-		return (SnowloggingUtils.canSnowlog(state) && isItemSnow(context.getItemInHand())) &&
-			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos()) &&
-			((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
+		if (SnowloggingUtils.canSnowlog(state) && isItemSnow(context.getItemInHand()) && Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())) {
+			layers = SnowloggingUtils.getSnowLayers(state);
+			if (layers >= MAX_LAYERS) return false;
+			if (layers <= 0) return true;
+			if (context.replacingClickedOnBlock()) {
+				return (context.getClickedFace() == Direction.UP) || (!SnowloggingUtils.shouldHitSnow(state, context.getClickedPos(), context.getLevel(), context.getClickLocation()));
+			}
+		}
+		return false;
 	}
 
 	@Nullable
@@ -97,13 +108,18 @@ public class SnowloggingUtils {
 	public static BlockState getSnowPlacementState(BlockState state, @NotNull BlockPlaceContext context) {
 		BlockState blockState;
 		BlockState placementState = state;
-		if (placementState != null
-			&& SnowloggingUtils.supportsSnowlogging(placementState) &&
-			(blockState = context.getLevel().getBlockState(context.getClickedPos())).is(Blocks.SNOW)
-		) {
-			int layers = blockState.getValue(BlockStateProperties.LAYERS);
-			if (layers < 8) {
-				placementState = placementState.setValue(SNOW_LAYERS, layers);
+		if (placementState != null && SnowloggingUtils.supportsSnowlogging(placementState)) {
+			blockState = context.getLevel().getBlockState(context.getClickedPos());
+			if (blockState.is(Blocks.SNOW)) {
+				int layers = blockState.getValue(BlockStateProperties.LAYERS);
+				if (layers < 8) {
+					placementState = placementState.setValue(SNOW_LAYERS, layers);
+				}
+			} else if (SnowloggingUtils.isSnowlogged(blockState)) {
+				int layers = blockState.getValue(SnowloggingUtils.SNOW_LAYERS);
+				if (layers < 8) {
+					placementState = placementState.setValue(SNOW_LAYERS, layers);
+				}
 			}
 		}
 		return placementState;
@@ -129,6 +145,28 @@ public class SnowloggingUtils {
 			return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
 		}
 		return false;
-    }
+	}
 
+	/**
+	 * Returns if the hit location is at or beneath the snow level.
+	 *
+	 * @return if the hit location is at or beneath the snow level.
+	 */
+	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, Vec3 hitLocation) {
+		if (isSnowlogged(state)) {
+			VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
+			return (pos.getY() + snowLayerShape.max(Direction.Axis.Y)) >= hitLocation.y;
+		}
+		return false;
+	}
+
+	/**
+	 * Returns if the location the player is looking at is at or beneath the snow level.
+	 *
+	 * @return if the location the player is looking at is at or beneath the snow level.
+	 */
+	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
+		HitResult hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
+		return shouldHitSnow(state, pos, level, hitResult.getLocation());
+	}
 }

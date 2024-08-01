@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class SnowLayerBlockMixin {
 
 	@Shadow
-	protected abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
+	public abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
 
 	@Inject(
 		method = "getStateForPlacement",
@@ -74,7 +74,7 @@ public abstract class SnowLayerBlockMixin {
 		if (!BlockConfig.canSnowlog()) return;
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
-			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
+			if (SnowloggingUtils.isSnowlogged(placementState)) {
 				Level level = useContext.getLevel();
 				BlockPos pos = useContext.getClickedPos();
 				VoxelShape blockShape = placementState.getShape(level, pos);
@@ -106,5 +106,4 @@ public abstract class SnowLayerBlockMixin {
 			}
 		}
 	}
-
 }

@@ -85,7 +85,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			return SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
+			return Shapes.or(SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context), original);
 		}
 		return original;
 	}
@@ -137,13 +137,23 @@ public abstract class BlockStateBaseMixin {
 	@ModifyReturnValue(method = "getDrops", at = @At("RETURN"))
 	public List<ItemStack> wilderWild$getDrops(List<ItemStack> original, LootParams.Builder lootParams) {
 		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state) && !(lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player)) {
+		if (!SnowloggingUtils.isSnowlogged(state)) {
+			return original;
+		}
+		if (lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player player) {
+			BlockPos blockPos = BlockPos.containing(lootParams.getOptionalParameter(LootContextParams.ORIGIN));
+			Level level = lootParams.getLevel();
+			if (SnowloggingUtils.shouldHitSnow(state, blockPos, level, player)) {
+				return SnowloggingUtils.getSnowEquivalent(state).getDrops(lootParams);
+			} else {
+				return SnowloggingUtils.getStateWithoutSnow(state).getDrops(lootParams);
+			}
+		} else {
 			List<ItemStack> finalList = new ArrayList<>(original);
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			finalList.addAll(snowEquivalent.getDrops(lootParams));
 			return finalList;
 		}
-		return original;
 	}
 
 	@ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))
@@ -164,8 +174,12 @@ public abstract class BlockStateBaseMixin {
 	)
 	public float wilderWild$getDestroyProgress(Block instance, BlockState state, Player player, BlockGetter blockGetter, BlockPos pos, Operation<Float> original) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			state = SnowloggingUtils.getSnowEquivalent(state);
-			instance = state.getBlock();
+			if (SnowloggingUtils.shouldHitSnow(state, pos, (Level) blockGetter, player)) {
+				state = SnowloggingUtils.getSnowEquivalent(state);
+				instance = state.getBlock();
+			} else {
+				state = SnowloggingUtils.getStateWithoutSnow(state);
+			}
 		}
 		return original.call(instance, state, player, blockGetter, pos);
 	}
@@ -220,6 +234,7 @@ public abstract class BlockStateBaseMixin {
 		BlockState snowEquivalent;
 		if (newState.isAir() && SnowloggingUtils.isSnowlogged(state) && Blocks.SNOW.canSurvive((snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)), levelAccessor, pos)) {
 			state = snowEquivalent;
+			levelAccessor.destroyBlock(pos, true);
 		} else {
 			state = newState;
 		}
@@ -247,6 +262,8 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
+	// Occludes if it nroamlly would occlude, or if the block is fully snowlogged.
+	// Done this way to get around a pair of bugs.
 	@ModifyExpressionValue(
 		method = "<init>",
 		at = @At(
@@ -256,7 +273,7 @@ public abstract class BlockStateBaseMixin {
 	)
 	public boolean wilderWild$canOcclude(boolean original) {
 		BlockState blockState = this.asState();
-		return original || SnowloggingUtils.isSnowlogged(blockState);
+		return original || (SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
 	}
 
 	@WrapOperation(

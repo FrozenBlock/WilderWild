@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -31,6 +33,8 @@ import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Unique;
 
 public class FlowerLichenBlock extends MultifaceBlock {
 	public static final MapCodec<FlowerLichenBlock> CODEC = simpleCodec(FlowerLichenBlock::new);
@@ -52,6 +56,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		if (BlockConfig.canSnowlog()) builder.add(SnowloggingUtils.SNOW_LAYERS);
 		for (Direction direction : DIRECTIONS) {
 			if (this.isFaceSupported(direction)) {
 				builder.add(getFaceProperty(direction));
@@ -86,5 +91,12 @@ public class FlowerLichenBlock extends MultifaceBlock {
 	@NotNull
 	public MultifaceSpreader getSpreader() {
 		return grower;
+	}
+
+	@Unique
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
 	}
 }
