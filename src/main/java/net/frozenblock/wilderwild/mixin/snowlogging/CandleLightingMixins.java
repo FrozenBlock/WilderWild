@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin({FlintAndSteelItem.class, FireChargeItem.class})
 public abstract class CandleLightingMixins {
 	/**
-	 * Replaces canLight() with canLight() && !shouldHitSnow()
+	 * Replaces canLight() with canLight() and !shouldHitSnow()
 	 *
 	 * @param original canLight()
-	 * @return canLight() && !shouldHitSnow()
+	 * @return canLight() and !shouldHitSnow()
 	 */
 	@ModifyExpressionValue(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/CandleBlock;canLight(Lnet/minecraft/world/level/block/state/BlockState;)Z"))
 	public boolean wilderWild$useOn(

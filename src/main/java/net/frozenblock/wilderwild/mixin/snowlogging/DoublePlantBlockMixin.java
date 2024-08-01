@@ -26,6 +26,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
@@ -76,6 +78,23 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		if (!SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
 			original.call(level, pos, state, player);
 		}
+	}
+
+	@WrapOperation(method = "playerWillDestroy",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V"
+		)
+	)
+	public void wilderWild$playerWillDestroySurvival(
+		BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack itemStack, Operation<Void> original
+	) {
+//		Player player = (Player) entity;
+//		if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+//			super.playerWillDestroy(level, pos, state, player);
+//			return;
+//		}
+		original.call(state, level, pos, blockEntity, entity, itemStack);
 	}
 
 	@ModifyExpressionValue(
