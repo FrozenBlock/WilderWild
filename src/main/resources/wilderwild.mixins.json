@@ -98,6 +98,7 @@
     "snowlogging.EntityMixin",
     "snowlogging.FenceBlockMixin",
     "snowlogging.FenceGateBlockMixin",
+    "snowlogging.FlowerPotBlockMixin",
     "snowlogging.GlowLichenBlockMixin",
     "snowlogging.PinkPetalsBlockMixin",
     "snowlogging.PistonBaseBlockMixin",
