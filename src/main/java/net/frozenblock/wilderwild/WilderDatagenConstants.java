@@ -27,7 +27,7 @@ public class WilderDatagenConstants {
 	private static boolean isDatagen() {
 		boolean isDatagen = false;
 		try {
-			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator");
+			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator", false, WilderDatagenConstants.class.getClassLoader());
 			isDatagen = true;
 		} catch (ClassNotFoundException ignored) {}
 
