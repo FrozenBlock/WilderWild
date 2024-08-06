@@ -221,7 +221,7 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
 
     // Indium
     if (shouldRunSodium)
