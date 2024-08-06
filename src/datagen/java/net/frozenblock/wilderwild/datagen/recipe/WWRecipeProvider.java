@@ -38,7 +38,6 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
-import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -204,6 +203,15 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.group("mossy_mud_bricks")
 			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
 			.save(exporter, getConversionRecipeName(RegisterBlocks.MOSSY_MUD_BRICKS, Blocks.MOSS_BLOCK));
+
+		stairBuilder(
+			RegisterBlocks.MOSSY_MUD_BRICK_STAIRS,
+			Ingredient.of(RegisterBlocks.MOSSY_MUD_BRICKS)
+		).unlockedBy(getHasName(RegisterBlocks.MOSSY_MUD_BRICKS), has(RegisterBlocks.MOSSY_MUD_BRICKS)).save(exporter);
+
+		slab(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICK_SLAB, RegisterBlocks.MOSSY_MUD_BRICKS);
+
+		wall(exporter, RecipeCategory.MISC, RegisterBlocks.MOSSY_MUD_BRICK_WALL, RegisterBlocks.MOSSY_MUD_BRICKS);
 
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICK_SLAB, RegisterBlocks.MOSSY_MUD_BRICKS, 2);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_MUD_BRICK_STAIRS, RegisterBlocks.MOSSY_MUD_BRICKS);

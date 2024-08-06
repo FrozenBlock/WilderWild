@@ -115,6 +115,9 @@ public final class WorldgenConfig {
 	@EntrySyncData("newWitchHuts")
 	public boolean newWitchHuts = true;
 
+	@EntrySyncData("decayTrailRuins")
+	public boolean decayTrailRuins = true;
+
 	public static WorldgenConfig get() {
 		return get(false);
 	}

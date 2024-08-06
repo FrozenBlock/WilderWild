@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -56,6 +57,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateCompat() {
+		this.getOrCreateTagBuilder(ConventionalBlockTags.CHESTS)
+			.add(RegisterBlocks.STONE_CHEST);
+
 		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
 			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
 			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
