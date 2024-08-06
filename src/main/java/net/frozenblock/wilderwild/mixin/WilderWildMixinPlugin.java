@@ -50,8 +50,6 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		boolean enableIndium = FrozenBools.HAS_INDIUM;
 		if (mixinClassName.contains("client.sodium")) {
 			return config.client_sodium && enableSodium && !hasEmbeddium;
-		} else if (mixinClassName.contains("client.embeddium")) {
-			return config.client_sodium && hasEmbeddium;
 		}
 		if (mixinClassName.contains("client.indium")) {
 			return config.client_indium && enableIndium;

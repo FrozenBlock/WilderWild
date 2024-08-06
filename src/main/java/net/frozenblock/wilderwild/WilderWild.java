@@ -72,9 +72,11 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
 		WilderConstants.startMeasuring(this);
+
 		if (WilderDatagenConstants.IS_DATAGEN) {
 			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
+
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 

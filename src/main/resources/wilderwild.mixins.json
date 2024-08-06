@@ -129,7 +129,6 @@
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
     "client.enderman.EnderManMixin",
-    "client.liquid.LiquidBlockRendererMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
     "client.shrieker.LevelRendererMixin",

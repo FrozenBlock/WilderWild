@@ -152,7 +152,7 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void initPreFreeze() {
 		WilderConstants.log("FrozenLib pre-freeze mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
 		SpottingIconPredicate.register(WilderConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, new SoundPredicate.LoopPredicate<LivingEntity>() {
+		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
 			private ItemStack lastStack;
@@ -189,11 +189,11 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		SoundPredicate.register(NECTAR_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<Firefly>) entity ->
+		SoundPredicate.register(NECTAR_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 
-		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
+		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
 				return false;
 			}
