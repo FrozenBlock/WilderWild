@@ -65,10 +65,6 @@ val shouldRunIndium = (run_sodium == "true") && shouldRunSodium
 
 val continuity_version: String by project
 
-val embeddium_version: String by project
-val run_embeddium: String by project
-val shouldRunEmbeddium = run_embeddium == "true"
-
 base {
     archivesName = archives_base_name
 }
@@ -225,7 +221,7 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
 
     // Indium
     if (shouldRunSodium)
@@ -235,14 +231,6 @@ dependencies {
 
     // Continuity
     modImplementation("maven.modrinth:continuity:${continuity_version}")
-
-    // Embeddium
-    val embed = "org.embeddedt:embeddium-fabric-1.20.6"
-    val embeddiumVersion = "0.3.18-git-78d86dd+mc1.20.6"
-    if (shouldRunEmbeddium)
-        modImplementation("$embed:$embeddiumVersion")
-    else
-        modCompileOnly("$embed:$embeddiumVersion")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")

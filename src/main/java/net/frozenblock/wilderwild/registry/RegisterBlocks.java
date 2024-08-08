@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -108,6 +108,7 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WaterlilyBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -1227,6 +1228,23 @@ public final class RegisterBlocks {
 		TermiteManager.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
 
 		TermiteManager.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
+
+		var sign = (FabricBlockEntityType) BlockEntityType.SIGN;
+		var hangingSign = (FabricBlockEntityType) BlockEntityType.HANGING_SIGN;
+
+		sign.addSupportedBlock(BAOBAB_SIGN);
+		sign.addSupportedBlock(BAOBAB_WALL_SIGN);
+		sign.addSupportedBlock(CYPRESS_SIGN);
+		sign.addSupportedBlock(CYPRESS_WALL_SIGN);
+		sign.addSupportedBlock(PALM_SIGN);
+		sign.addSupportedBlock(PALM_WALL_SIGN);
+
+		sign.addSupportedBlock(BAOBAB_HANGING_SIGN);
+		sign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
+		sign.addSupportedBlock(CYPRESS_HANGING_SIGN);
+		sign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
+		sign.addSupportedBlock(PALM_HANGING_SIGN);
+		sign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
 
 		registerStrippable();
 		registerComposting();

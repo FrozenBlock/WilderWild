@@ -18,13 +18,7 @@
 
 package net.frozenblock.wilderwild;
 
-import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
-import net.minecraft.world.flag.FeatureFlag;
-
 public class WilderFeatureFlags {
-
-	public static final FeatureFlag UPDATE_1_21_ADDITIONS = FrozenFeatureFlags.builder.create(WilderConstants.id("update_1_21_additions"));
-
 	public static void init() {
 	}
 }

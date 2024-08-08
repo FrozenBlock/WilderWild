@@ -655,6 +655,19 @@ public final class WorldgenConfigGui {
 				configInstance
 			)
 		);
+		var decayTrailRuins = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedConfig.decayTrailRuins)
+					.setDefaultValue(defaultConfig.decayTrailRuins)
+					.setSaveConsumer(newValue -> config.decayTrailRuins = newValue)
+					.setTooltip(tooltip("decay_trail_ruins"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"decayTrailRuins",
+				configInstance
+			)
+		);
 		var newWitchHuts = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("new_witch_huts"), modifiedConfig.newWitchHuts)
