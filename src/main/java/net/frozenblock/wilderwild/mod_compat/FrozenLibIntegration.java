@@ -116,6 +116,7 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
@@ -248,9 +249,15 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WilderConstants.log("FrozenLib mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderConstants.id("cactus")));
+		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(
+			level.damageSources().cactus(),
+			RegisterSounds.PLAYER_HURT_CACTUS,
+			WilderConstants.id("cactus")
+			)
+		);
 
 		HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
+
 		FrozenBools.useNewDripstoneLiquid = true;
 		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
 			BlockState blockState = Blocks.SPONGE.defaultBlockState();
@@ -327,6 +334,37 @@ public class FrozenLibIntegration extends ModIntegration {
 						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_STAIRS),
 						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_SLAB),
 						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_WALL)
+					)
+				)
+			);
+		}
+
+		if (WorldgenConfig.get().newDesertVillages) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.VILLAGE_DESERT.location(),
+				new BlockStateRespectingRuleProcessor(
+					ImmutableList.of(
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_BUTTON), AlwaysTrueTest.INSTANCE, PALM_BUTTON),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_DOOR), AlwaysTrueTest.INSTANCE, PALM_DOOR),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_FENCE), AlwaysTrueTest.INSTANCE, PALM_FENCE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_FENCE_GATE), AlwaysTrueTest.INSTANCE, PALM_FENCE_GATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SIGN), AlwaysTrueTest.INSTANCE, PALM_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_LOG), AlwaysTrueTest.INSTANCE, PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, PALM_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, STRIPPED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, STRIPPED_PALM_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, HOLLOWED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, STRIPPED_HOLLOWED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_PLANKS), AlwaysTrueTest.INSTANCE, PALM_PLANKS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, PALM_PRESSURE_PLATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SLAB), AlwaysTrueTest.INSTANCE, PALM_SLAB),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_STAIRS), AlwaysTrueTest.INSTANCE, PALM_STAIRS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SAPLING), AlwaysTrueTest.INSTANCE, RegisterBlocks.COCONUT),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_LEAVES), AlwaysTrueTest.INSTANCE, PALM_FRONDS)
+
 					)
 				)
 			);

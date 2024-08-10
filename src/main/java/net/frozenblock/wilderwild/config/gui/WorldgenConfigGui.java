@@ -668,6 +668,19 @@ public final class WorldgenConfigGui {
 				configInstance
 			)
 		);
+		var newDesertVillages = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("new_desert_villages"), modifiedConfig.newDesertVillages)
+					.setDefaultValue(defaultConfig.newDesertVillages)
+					.setSaveConsumer(newValue -> config.newDesertVillages = newValue)
+					.setTooltip(tooltip("new_desert_villages"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"newDesertVillages",
+				configInstance
+			)
+		);
 		var newWitchHuts = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("new_witch_huts"), modifiedConfig.newWitchHuts)

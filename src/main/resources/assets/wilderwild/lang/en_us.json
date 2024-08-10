@@ -619,6 +619,8 @@
   "tooltip.wilderwild.nether_geyser_generation": "Whether Geysers should naturally generate in the Nether.",
   "option.wilderwild.decay_trail_ruins": "Decay Trail Ruins",
   "tooltip.wilderwild.decay_trail_ruins": "Whether Trail Ruins can generate with Mossy and Cracked Mud Bricks.",
+  "option.wilderwild.new_desert_villages": "New Desert Villages",
+  "tooltip.wilderwild.new_desert_villages": "Whether Desert Villages will generate with the Palm wood set.",
   "option.wilderwild.new_witch_huts": "New Witch Huts",
   "tooltip.wilderwild.new_witch_huts": "Whether Witch Huts should use a Cypress and Mangrove wood set.",
   "option.wilderwild.snapped_trees": "Snapped Trees",
