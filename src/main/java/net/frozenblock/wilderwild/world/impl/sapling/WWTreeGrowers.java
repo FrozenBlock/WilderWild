@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.world.impl.sapling;
 
 import java.util.Optional;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.configured.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.configured.WilderTreeConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;

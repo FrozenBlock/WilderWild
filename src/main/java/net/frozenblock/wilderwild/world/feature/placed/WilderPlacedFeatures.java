@@ -16,13 +16,16 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.placed;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.world.feature.WilderPlacementUtils;
 import static net.frozenblock.wilderwild.world.feature.WilderPlacementUtils.register;
+import net.frozenblock.wilderwild.world.feature.configured.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.configured.WilderTreeConfigured;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -35,7 +38,6 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.treePlacement;
 import net.minecraft.util.valueproviders.ClampedInt;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -43,11 +45,9 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
@@ -257,17 +257,6 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature TUMBLEWEED = register("tumbleweed");
 	public static final FrozenPlacedFeature PRICKLY_PEAR = register("prickly_pear");
 	public static final FrozenPlacedFeature PRICKLY_PEAR_RARE = register("prickly_pear_rare");
-	public static final FrozenPlacedFeature JELLYFISH_CAVES_BLUE_MESOGLEA = register("blue_mesoglea");
-	public static final FrozenPlacedFeature JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
-	public static final FrozenPlacedFeature JELLYFISH_CAVES_PURPLE_MESOGLEA = register("purple_mesoglea");
-	public static final FrozenPlacedFeature JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA = register("upside_down_purple_mesoglea");
-	public static final FrozenPlacedFeature NEMATOCYST_BLUE = register("nematocyst_blue");
-	public static final FrozenPlacedFeature NEMATOCYST_PURPLE = register("nematocyst_purple");
-	public static final FrozenPlacedFeature MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple");
-	public static final FrozenPlacedFeature MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue");
-	public static final FrozenPlacedFeature LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple");
-	public static final FrozenPlacedFeature LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue");
-	public static final FrozenPlacedFeature UPSIDE_DOWN_MAGMA = register("upside_down_magma");
 	public static final FrozenPlacedFeature SMALL_SPONGES = register("small_sponges");
 	public static final FrozenPlacedFeature SMALL_SPONGES_RARE = register("small_sponges_rare");
 	public static final FrozenPlacedFeature PATCH_MELON = register("patch_melon");
@@ -1325,85 +1314,6 @@ public final class WilderPlacedFeatures {
 		PRICKLY_PEAR_RARE.makeAndSetHolder(WilderConfiguredFeatures.PRICKLY_PEAR.getHolder(),
 			RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
-		JELLYFISH_CAVES_BLUE_MESOGLEA.makeAndSetHolder(WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA.getHolder(),
-			CountPlacement.of(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(WilderConfiguredFeatures.UPSIDE_DOWN_BLUE_MESOGLEA.getHolder(),
-			CountPlacement.of(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		JELLYFISH_CAVES_PURPLE_MESOGLEA.makeAndSetHolder(WilderConfiguredFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA.getHolder(),
-			CountPlacement.of(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(WilderConfiguredFeatures.UPSIDE_DOWN_PURPLE_MESOGLEA.getHolder(),
-			CountPlacement.of(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		NEMATOCYST_BLUE.makeAndSetHolder(WilderConfiguredFeatures.NEMATOCYST_BLUE.getHolder(),
-			CountPlacement.of(ConstantInt.of(99)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
-		);
-
-		NEMATOCYST_PURPLE.makeAndSetHolder(WilderConfiguredFeatures.NEMATOCYST_PURPLE.getHolder(),
-			CountPlacement.of(ConstantInt.of(99)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
-		);
-
-		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WilderConfiguredFeatures.MESOGLEA_CLUSTER_PURPLE.getHolder(),
-			CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
-		);
-
-		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WilderConfiguredFeatures.MESOGLEA_CLUSTER_BLUE.getHolder(),
-			CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
-		);
-
-		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WilderConfiguredFeatures.LARGE_MESOGLEA_PURPLE.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
-		);
-
-		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WilderConfiguredFeatures.LARGE_MESOGLEA_BLUE.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
-		);
-
-		UPSIDE_DOWN_MAGMA.makeAndSetHolder(WilderConfiguredFeatures.UPSIDE_DOWN_MAGMA.getHolder(),
-			CountPlacement.of(72),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
 		);
 
 		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),

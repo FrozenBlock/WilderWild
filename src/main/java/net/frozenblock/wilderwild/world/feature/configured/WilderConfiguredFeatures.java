@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.configured;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
@@ -28,9 +28,10 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.world.feature.WilderFeatureUtils;
+import net.frozenblock.wilderwild.world.feature.placed.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.CattailFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
@@ -38,7 +39,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -46,8 +46,6 @@ import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,23 +56,19 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
-import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderConfiguredFeatures {
-
-	//FALLEN TREES
+	// FALLEN TREES
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_TREES_MIXED = WilderFeatureUtils.register("fallen_trees_mixed");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_MIXED = WilderFeatureUtils.register("mossy_fallen_trees_mixed");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_OAK_AND_BIRCH = WilderFeatureUtils.register("mossy_fallen_trees_oak_and_birch");
@@ -96,7 +90,7 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_MANGROVE = WilderFeatureUtils.register("fallen_mangrove");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_DARK_OAKS = WilderFeatureUtils.register("fallen_dark_oaks");
 
-	//TREES
+	// TREES
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PLAINS = WilderFeatureUtils.register("trees_plains");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_FLOWER_FIELD = WilderFeatureUtils.register("trees_flower_field");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK = WilderFeatureUtils.register("trees_birch_and_oak");
@@ -161,7 +155,8 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_ACACIA_AND_OAK = WilderFeatureUtils.register("snapped_acacia_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_CHERRY = WilderFeatureUtils.register("snapped_cherry");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_DARK_OAKS = WilderFeatureUtils.register("snapped_dark_oaks");
-	//FLOWERS
+
+	// FLOWERS
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WilderFeatureUtils.register("seeding_dandelion");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WilderFeatureUtils.register("carnation");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = WilderFeatureUtils.register("datura");
@@ -216,8 +211,7 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_BIRCH_CLEARING = WilderFeatureUtils.register("flowers_birch_clearing");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_FOREST_CLEARING = WilderFeatureUtils.register("flowers_forest_clearing");
 
-
-	//VEGETATION
+	// VEGETATION
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.TALL_GRASS.defaultBlockState(), 2)
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 5)
@@ -345,22 +339,7 @@ public final class WilderConfiguredFeatures {
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = WilderFeatureUtils.register("tumbleweed");
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = WilderFeatureUtils.register("mesoglea_cluster_purple");
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = WilderFeatureUtils.register("mesoglea_cluster_blue");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = WilderFeatureUtils.register("mesoglea");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = WilderFeatureUtils.register("mesoglea_pool");
-	public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = WilderFeatureUtils.register("jellyfish_caves_blue_mesoglea");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = WilderFeatureUtils.register("upside_down_blue_mesoglea");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = WilderFeatureUtils.register("mesoglea_with_dripleaves");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = WilderFeatureUtils.register("purple_mesoglea_pool");
-	public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = WilderFeatureUtils.register("jellyfish_caves_purple_mesoglea");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = WilderFeatureUtils.register("upside_down_purple_mesoglea");
-	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = WilderFeatureUtils.register("nematocyst_blue");
-	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = WilderFeatureUtils.register("nematocyst_purple");
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = WilderFeatureUtils.register("large_mesoglea_purple");
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = WilderFeatureUtils.register("large_mesoglea_blue");
 	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = WilderFeatureUtils.register("small_sponges");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_MAGMA = WilderFeatureUtils.register("upside_down_magma");
 
 	private WilderConfiguredFeatures() {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
@@ -2133,200 +2112,6 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-				30,
-				UniformInt.of(3, 10),
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				UniformFloat.of(0.2F, 0.75F),
-				0.15F,
-				UniformFloat.of(0.1F, 0.25F),
-				UniformFloat.of(0.16F, 0.4F),
-				UniformFloat.of(0.0F, 0.25F),
-				5,
-				0.2F
-			)
-		);
-
-		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-				30,
-				UniformInt.of(3, 10),
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				UniformFloat.of(0.2F, 0.75F),
-				0.15F,
-				UniformFloat.of(0.1F, 0.25F),
-				UniformFloat.of(0.16F, 0.4F),
-				UniformFloat.of(0.0F, 0.25F),
-				5,
-				0.2F
-			)
-		);
-
-		BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		BLUE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				5,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		JELLYFISH_CAVES_BLUE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
-			new RandomBooleanFeatureConfiguration(
-				PlacementUtils.inlinePlaced(BLUE_MESOGLEA.getHolder()),
-				PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.getHolder())
-			)
-		);
-
-		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_BLUE_MESOGLEA_COLUMN.getHolder()),
-				CaveSurface.CEILING,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.08F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		PURPLE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				5,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		JELLYFISH_CAVES_PURPLE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
-			new RandomBooleanFeatureConfiguration(
-				PlacementUtils.inlinePlaced(PURPLE_MESOGLEA.getHolder()),
-				PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.getHolder())
-			)
-		);
-
-		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_COLUMN.getHolder()),
-				CaveSurface.CEILING,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.08F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		NEMATOCYST_BLUE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
-			new MultifaceGrowthConfiguration(
-				RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
-				20,
-				true,
-				true,
-				true,
-				0.98F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE
-				)
-			)
-		);
-
-		NEMATOCYST_PURPLE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
-			new MultifaceGrowthConfiguration(
-				RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
-				20,
-				true,
-				true,
-				true,
-				0.98F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE
-				)
-			)
-		);
-
-		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-				30,
-				UniformInt.of(3, 19),
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				UniformFloat.of(0.2F, 2.0F),
-				0.33F,
-				UniformFloat.of(0.1F, 0.9F),
-				UniformFloat.of(0.4F, 1.0F),
-				UniformFloat.of(0.0F, 0.3F),
-				4,
-				0.2F
-			)
-		);
-
-		LARGE_MESOGLEA_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-				30,
-				UniformInt.of(3, 19),
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				UniformFloat.of(0.2F, 2.0F),
-				0.33F,
-				UniformFloat.of(0.1F, 0.9F),
-				UniformFloat.of(0.4F, 1.0F),
-				UniformFloat.of(0.0F, 0.3F),
-				4,
-				0.2F
-			)
-		);
-
 		SMALL_SPONGE.makeAndSetHolder(RegisterFeatures.SMALL_SPONGE_FEATURE,
 			new SmallSpongeFeatureConfig(
 				20,
@@ -2334,21 +2119,6 @@ public final class WilderConfiguredFeatures {
 				true,
 				true,
 				WilderBlockTags.SMALL_SPONGE_GROWS_ON
-			)
-		);
-
-		UPSIDE_DOWN_MAGMA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.MAGMA_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MAGMA_COLUMN.getHolder()),
-				CaveSurface.CEILING,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.08F,
-				UniformInt.of(2, 6),
-				0.7F
 			)
 		);
 	}

@@ -30,7 +30,7 @@ import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
-import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
+import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -158,20 +158,20 @@ public final class FrozenCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.PACKED_ICE_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_ICE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.SNOW_DISK_UPPER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.POWDER_SNOW_DISK_UPPER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.SNOW_DISK_LOWER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.POWDER_SNOW_DISK_LOWER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PACKED_ICE_BIG_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.DOWNWARDS_PACKED_ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.DOWNWARDS_ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.ICE_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.PACKED_ICE_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderCavePlaced.ORE_ICE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.SNOW_DISK_UPPER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.POWDER_SNOW_DISK_UPPER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.SNOW_DISK_LOWER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.POWDER_SNOW_DISK_LOWER.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.PACKED_ICE_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.PACKED_ICE_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.PACKED_ICE_BIG_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.DOWNWARDS_PACKED_ICE_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.ICE_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.ICE_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.DOWNWARDS_ICE_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.ICE_DISK.getKey());
 	}
 
 	@Override

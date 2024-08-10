@@ -1,48 +1,31 @@
-/*
- * Copyright 2023-2024 FrozenBlock
- * This file is part of Wilder Wild.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
- */
-
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.configured;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.world.feature.WilderFeatureUtils;
 import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
-import net.frozenblock.wilderwild.world.impl.features.config.SnowAndIceDiskFeatureConfig;
+import net.frozenblock.wilderwild.world.impl.features.config.LargeMesogleaConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -50,85 +33,24 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
-public final class WilderMiscConfigured {
-
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-
-	// SWAMP
-	public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MUD_PATH = register("mud_path");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MUD_TRANSITION_DISK = register("mud_transition_disk");
-
-	// TAIGA
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
-
-	// CYPRESS WETLANDS
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_SAND_PATH = register("under_water_sand_path");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
-
-	// BEACH AND RIVER
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
-	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
-
-	// SAVANNA
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
-
-	// JUNGLE
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MOSS_PATH = register("moss_path");
-
-	// DESERT
-	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
-	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = register("ore_packed_mud");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
-	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
-
-	// BADLANDS
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
-	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
-
+public class WilderCaveConfigured {
 	// JELLYFISH CAVES
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
-	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = register("blank_shut_up");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = register("stone_pool");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BLUE_MESOGLEA_COLUMN = register("blue_mesoglea_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
@@ -136,8 +58,22 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_COLUMN = register("downwards_purple_mesoglea_column");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = WilderFeatureUtils.register("mesoglea_cluster_purple");
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = WilderFeatureUtils.register("mesoglea_cluster_blue");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_WITH_DRIPLEAVES = WilderFeatureUtils.register("blue_mesoglea_with_dripleaves");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = WilderFeatureUtils.register("blue_mesoglea_pool");
+	public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> BLUE_MESOGLEA = WilderFeatureUtils.register("blue_mesoglea");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = WilderFeatureUtils.register("upside_down_blue_mesoglea");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_DRIPLEAVES = WilderFeatureUtils.register("purple_mesoglea_with_dripleaves");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = WilderFeatureUtils.register("purple_mesoglea_pool");
+	public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> PURPLE_MESOGLEA = WilderFeatureUtils.register("purple_mesoglea");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = WilderFeatureUtils.register("upside_down_purple_mesoglea");
+	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = WilderFeatureUtils.register("nematocyst_blue");
+	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = WilderFeatureUtils.register("nematocyst_purple");
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = WilderFeatureUtils.register("large_mesoglea_purple");
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = WilderFeatureUtils.register("large_mesoglea_blue");
 
-	// MAGMA CAVES
+	// MAGMATIC CAVES
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_BASALT_PATH = register("magma_and_basalt_path");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
@@ -155,6 +91,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_DOWN = register("geyser_down");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> UPWARDS_GEYSER_COLUMN = register("geyser_column");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_MAGMA = WilderFeatureUtils.register("upside_down_magma");
 
 	// FROZEN CAVES
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_PATH = register("packed_ice_path");
@@ -170,646 +107,22 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SNOW_DISK = register("snow_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> POWDER_SNOW_DISK = register("powder_snow_disk");
 
-	// OASIS
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
-	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = register("messy_sand_pool");
-	public static final FrozenConfiguredFeature<PathSwapUnderWaterFeatureConfig, ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = register("grass_path");
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = register("moss_path_oasis");
-
-	// ARID SAVANNA
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = register("arid_coarse_dirt_path");
-
-	// OLD GROWTH SNOWY TAIGA
-	public static final FrozenConfiguredFeature<BlockStateConfiguration, ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = register("snow");
-
-	// TEMPERATE RAINFOREST & RAINFOREST
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = register("moss_pile");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_PODZOL = register("basin_podzol");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
-	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
-
-	// MANGROVE SWAMP
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MUD = register("basin_mud");
-	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MUD_LAKE = register("mud_lake");
-
-	// DYING FOREST
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
-
-	// SNOW
-	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
-	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
-	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
-
-	private WilderMiscConfigured() {
-		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
+	private WilderCaveConfigured() {
+		throw new UnsupportedOperationException("WilderCaveConfigured contains only static declarations.");
 	}
 
-	public static void registerMiscPlaced() {
-		WilderConstants.logWithModId("Registering WilderMiscConfigured for", true);
-
-		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.COARSE_DIRT),
-				6,
-				3,
-				0.12,
-				-0.2,
-				0.3,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.25F
-			)
-		);
-
-		GRAVEL_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				6,
-				4,
-				0.12,
-				-0.2,
-				0.3,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
-				0.21F
-			)
-		);
-
-		STONE_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.STONE),
-				6,
-				2,
-				0.12,
-				-0.2,
-				0.3,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.STONE_PATH_REPLACEABLE,
-				0.215F
-			)
-		);
-
-		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.COARSE_DIRT),
-				3,
-				3,
-				0.07,
-				-0.075,
-				0.175,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.COARSE_CLEARING_REPLACEABLE,
-				0.7F
-			)
-		);
-
-		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				3,
-				3,
-				0.07,
-				-0.075,
-				0.175,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.GRAVEL_CLEARING_REPLACEABLE,
-				0.7F
-			)
-		);
-
-		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.ROOTED_DIRT),
-				3,
-				3,
-				0.07,
-				-0.035,
-				0.135,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE,
-				0.5F
-			)
-		);
-
-		DISK_MUD.makeAndSetHolder(Feature.DISK,
-			new DiskConfiguration(
-				new RuleBasedBlockStateProvider(
-					BlockStateProvider.simple(Blocks.MUD),
-					List.of(
-						new RuleBasedBlockStateProvider.Rule(
-							BlockPredicate.not(
-								BlockPredicate.anyOf(
-									BlockPredicate.solid(Direction.UP.getNormal()),
-									BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.WATER)
-								)
-							),
-							BlockStateProvider.simple(Blocks.MUD)
-						)
-					)
-				),
-				BlockPredicate.matchesBlocks(
-					List.of(
-						Blocks.DIRT,
-						Blocks.GRASS_BLOCK
-					)
-				),
-				UniformInt.of(2, 6),
-				2
-			)
-		);
-
-		MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.MUD),
-				11,
-				4,
-				0.1,
-				0.23,
-				1,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.MUD_PATH_REPLACEABLE,
-				0.75F
-			)
-		);
-
-		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.MUD),
-				BlockStateProvider.simple(Blocks.MUD),
-				UniformInt.of(3, 5),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				WilderBlockTags.MUD_TRANSITION_REPLACEABLE,
-				WilderBlockTags.MUD_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		COARSE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.COARSE_DIRT),
-				11,
-				3,
-				0.12,
-				-0.2,
-				0.3,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.65F
-			)
-		);
-
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.SAND),
-				16,
-				4,
-				0.05,
-				0.2,
-				0.54,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE,
-				0.925F
-			)
-		);
-
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				16,
-				1,
-				0.07,
-				-0.7,
-				-0.3,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE,
-				0.9F
-			)
-		);
-
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.CLAY),
-				16,
-				3,
-				0.07,
-				0.5,
-				0.85,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE,
-				0.9F
-			)
-		);
-
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.CLAY),
-				14,
-				2,
-				0.10,
-				0.5,
-				0.85,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.BEACH_CLAY_PATH_REPLACEABLE,
-				0.915F
-			)
-		);
-
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				14,
-				2,
-				0.10,
-				0.5,
-				0.85,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE,
-				0.915F
-			)
-		);
-
-		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.STONE),
-				BlockStateProvider.simple(Blocks.STONE),
-				UniformInt.of(6, 7),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				WilderBlockTags.STONE_TRANSITION_REPLACEABLE,
-				WilderBlockTags.STONE_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
-			new FadingDiskTagBiomeFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.SAND),
-				BlockStateProvider.simple(Blocks.SAND),
-				UniformInt.of(6, 7),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-				WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG,
-				WilderBiomeTags.HAS_SMALL_SAND_TRANSITION
-			)
-		);
-
-		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.SAND),
-				BlockStateProvider.simple(Blocks.SAND),
-				UniformInt.of(3, 5),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-				WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				UniformInt.of(3, 5),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE,
-				WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.RIVER_POOL_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(1),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(4, 8),
-				0.7F
-			)
-		);
-		SMALL_RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.RIVER_POOL_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(1),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(1, 2),
-				0.7F
-			)
-		);
-
-		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.PACKED_MUD),
-				9,
-				1,
-				0.12,
-				0.20,
-				1,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE,
-				0.675F
-			)
-		);
-
-		MOSS_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
-				9,
-				1,
-				0.15,
-				0.18,
-				1,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.MOSS_PATH_REPLACEABLE,
-				0.7F
-			)
-		);
-
-		ORE_PACKED_MUD.makeAndSetHolder(Feature.ORE,
-			new OreConfiguration(
-				PACKED_MUD_REPLACEABLE,
-				Blocks.PACKED_MUD.defaultBlockState(),
-				40
-			)
-		);
-
-		SANDSTONE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.SANDSTONE),
-				10,
-				2,
-				0.2,
-				0.4,
-				1,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.SANDSTONE_PATH_REPLACEABLE,
-				0.65F
-			)
-		);
-
-		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
-				UniformInt.of(2, 8),
-				0.95F,
-				0.925F,
-				0.65F,
-				0.8F,
-				WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
-				WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
-				UniformInt.of(12, 24),
-				0.95F,
-				0.875F,
-				0.65F,
-				0.8F,
-				WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
-				WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				false,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
-				UniformInt.of(1, 3),
-				0.85F,
-				0.925F,
-				0.55F,
-				0.8F,
-				WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
-				WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
-			new FadingDiskTagBiomeFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.SAND),
-				BlockStateProvider.simple(Blocks.SAND),
-				UniformInt.of(7, 12),
-				0.65F,
-				0.875F,
-				0.65F,
-				0.5F,
-				WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
-				WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG,
-				WilderBiomeTags.HAS_SAND_TRANSITION
-			)
-		);
-
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.COARSE_DIRT),
-				8,
-				2,
-				0.15,
-				0.2,
-				1,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE,
-				0.715F
-			)
-		);
-
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.PACKED_MUD),
-				4,
-				3,
-				0.7,
-				0.2,
-				1,
-				true,
-				true,
-				false,
-				false,
-				WilderBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE,
-				0.9F
-			)
-		);
-
-		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
-				UniformInt.of(2, 8),
-				0.95F,
-				0.925F,
-				0.65F,
-				0.8F,
-				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
-				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
-				UniformInt.of(12, 24),
-				0.95F,
-				0.875F,
-				0.65F,
-				0.8F,
-				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
-				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				false,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
-				UniformInt.of(1, 3),
-				0.85F,
-				0.925F,
-				0.55F,
-				0.8F,
-				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
-				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
-			new FadingDiskTagBiomeFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.RED_SAND),
-				BlockStateProvider.simple(Blocks.RED_SAND),
-				UniformInt.of(7, 12),
-				0.65F,
-				0.875F,
-				0.65F,
-				0.5F,
-				WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
-				WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG,
-				WilderBiomeTags.HAS_RED_SAND_TRANSITION
-			)
-		);
+	public static void registerCaveConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+		WilderConstants.logWithModId("Registering WilderCaveConfigured for", true);
+		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		// JELLYFISH CAVES
 
 		ORE_CALCITE.makeAndSetHolder(Feature.ORE,
 			new OreConfiguration(
-				NATURAL_STONE,
+				new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD),
 				Blocks.CALCITE.defaultBlockState(),
 				64
-			)
-		);
-
-		BLANK_SHUT_UP.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
-			new SimpleRandomFeatureConfiguration(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						Feature.SIMPLE_BLOCK,
-						new SimpleBlockConfiguration(
-							new SimpleStateProvider(Blocks.WATER.defaultBlockState())
-						)
-					)
-				)
 			)
 		);
 
@@ -817,7 +130,7 @@ public final class WilderMiscConfigured {
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.STONE),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+				PlacementUtils.inlinePlaced(WilderMiscConfigured.EMPTY.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),
 				0.8F,
@@ -916,7 +229,201 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		// MAGMA CAVES
+		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+				30,
+				UniformInt.of(3, 10),
+				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				UniformFloat.of(0.2F, 0.75F),
+				0.15F,
+				UniformFloat.of(0.1F, 0.25F),
+				UniformFloat.of(0.16F, 0.4F),
+				UniformFloat.of(0.0F, 0.25F),
+				5,
+				0.2F
+			)
+		);
+
+		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+				30,
+				UniformInt.of(3, 10),
+				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				UniformFloat.of(0.2F, 0.75F),
+				0.15F,
+				UniformFloat.of(0.1F, 0.25F),
+				UniformFloat.of(0.16F, 0.4F),
+				UniformFloat.of(0.0F, 0.25F),
+				5,
+				0.2F
+			)
+		);
+
+		BLUE_MESOGLEA_WITH_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.LUSH_GROUND_REPLACEABLE,
+				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
+				CaveSurface.FLOOR,
+				ConstantInt.of(3),
+				0.8F,
+				2,
+				0.04F,
+				UniformInt.of(4, 14),
+				0.7F
+			)
+		);
+
+		BLUE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.LUSH_GROUND_REPLACEABLE,
+				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
+				CaveSurface.FLOOR,
+				ConstantInt.of(3),
+				0.8F,
+				5,
+				0.04F,
+				UniformInt.of(4, 14),
+				0.7F
+			)
+		);
+
+		BLUE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
+			new RandomBooleanFeatureConfiguration(
+				PlacementUtils.inlinePlaced(BLUE_MESOGLEA_WITH_DRIPLEAVES.getHolder()),
+				PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.getHolder())
+			)
+		);
+
+		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.LUSH_GROUND_REPLACEABLE,
+				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				PlacementUtils.inlinePlaced(DOWNWARDS_BLUE_MESOGLEA_COLUMN.getHolder()),
+				CaveSurface.CEILING,
+				ConstantInt.of(3),
+				0.8F,
+				2,
+				0.08F,
+				UniformInt.of(4, 14),
+				0.7F
+			)
+		);
+
+		PURPLE_MESOGLEA_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.LUSH_GROUND_REPLACEABLE,
+				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
+				CaveSurface.FLOOR,
+				ConstantInt.of(3),
+				0.8F,
+				2,
+				0.04F,
+				UniformInt.of(4, 14),
+				0.7F
+			)
+		);
+
+		PURPLE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.LUSH_GROUND_REPLACEABLE,
+				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
+				CaveSurface.FLOOR,
+				ConstantInt.of(3),
+				0.8F,
+				5,
+				0.04F,
+				UniformInt.of(4, 14),
+				0.7F
+			)
+		);
+
+		PURPLE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
+			new RandomBooleanFeatureConfiguration(
+				PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_DRIPLEAVES.getHolder()),
+				PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.getHolder())
+			)
+		);
+
+		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.LUSH_GROUND_REPLACEABLE,
+				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				PlacementUtils.inlinePlaced(DOWNWARDS_PURPLE_MESOGLEA_COLUMN.getHolder()),
+				CaveSurface.CEILING,
+				ConstantInt.of(3),
+				0.8F,
+				2,
+				0.08F,
+				UniformInt.of(4, 14),
+				0.7F
+			)
+		);
+
+		NEMATOCYST_BLUE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
+			new MultifaceGrowthConfiguration(
+				RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
+				20,
+				true,
+				true,
+				true,
+				0.98F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WilderBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE
+				)
+			)
+		);
+
+		NEMATOCYST_PURPLE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
+			new MultifaceGrowthConfiguration(
+				RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
+				20,
+				true,
+				true,
+				true,
+				0.98F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WilderBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE
+				)
+			)
+		);
+
+		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+				30,
+				UniformInt.of(3, 19),
+				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				UniformFloat.of(0.2F, 2.0F),
+				0.33F,
+				UniformFloat.of(0.1F, 0.9F),
+				UniformFloat.of(0.4F, 1.0F),
+				UniformFloat.of(0.0F, 0.3F),
+				4,
+				0.2F
+			)
+		);
+
+		LARGE_MESOGLEA_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+				30,
+				UniformInt.of(3, 19),
+				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				UniformFloat.of(0.2F, 2.0F),
+				0.33F,
+				UniformFloat.of(0.1F, 0.9F),
+				UniformFloat.of(0.4F, 1.0F),
+				UniformFloat.of(0.0F, 0.3F),
+				4,
+				0.2F
+			)
+		);
+
+		// MAGMATIC CAVES
 
 		MAGMA_LAVA_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_LAVA_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
@@ -1151,6 +658,21 @@ public final class WilderMiscConfigured {
 					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
+			)
+		);
+
+		UPSIDE_DOWN_MAGMA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				PlacementUtils.inlinePlaced(DOWNWARDS_MAGMA_COLUMN.getHolder()),
+				CaveSurface.CEILING,
+				ConstantInt.of(3),
+				0.8F,
+				2,
+				0.08F,
+				UniformInt.of(2, 6),
+				0.7F
 			)
 		);
 
@@ -1544,206 +1066,6 @@ public final class WilderMiscConfigured {
 				WilderBlockTags.PACKED_ICE_REPLACEABLE,
 				WilderBlockTags.PACKED_ICE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		// OASIS
-
-		SAND_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.SAND_POOL_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.SAND),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(5),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(8, 14),
-				0.7F
-			)
-		);
-
-		MESSY_SAND_POOL.makeAndSetHolder(Feature.LAKE,
-			new LakeFeature.Configuration(
-				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.SAND.defaultBlockState())
-			)
-		);
-
-		GRASS_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE,
-			new PathSwapUnderWaterFeatureConfig(
-				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
-				BlockStateProvider.simple(Blocks.DIRT),
-				11,
-				4,
-				0.15,
-				0.4,
-				1.0,
-				false,
-				false,
-				false,
-				false,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.OASIS_PATH_REPLACEABLE
-				),
-				0.8F
-			)
-		);
-
-		MOSS_PATH_OASIS.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
-				9,
-				2,
-				0.10,
-				0.12,
-				1,
-				true,
-				true,
-				false,
-				false,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.OASIS_PATH_REPLACEABLE
-				),
-				0.725F
-			)
-		);
-
-		// ARID SAVANNA
-
-		ARID_COARSE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(
-				BlockStateProvider.simple(Blocks.COARSE_DIRT),
-				12,
-				3,
-				0.15,
-				-0.15,
-				0.55,
-				false,
-				false,
-				false,
-				false,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					BlockTags.DIRT
-				),
-				0.825F
-			)
-		);
-
-		SNOW.makeAndSetHolder(Feature.FOREST_ROCK,
-			new BlockStateConfiguration(
-				Blocks.SNOW_BLOCK.defaultBlockState()
-			)
-		);
-
-		MOSS_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK)
-			)
-		);
-
-		BASIN_PODZOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.BASIN_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.PODZOL),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(2),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(1, 3),
-				0.7F
-			)
-		);
-
-		BASIN_MOSS.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.BASIN_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(2),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(1, 3),
-				0.7F
-			)
-		);
-
-		MOSS_LAKE.makeAndSetHolder(Feature.LAKE,
-			new LakeFeature.Configuration(
-				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())
-			)
-		);
-
-		MUD_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(
-				BlockStateProvider.simple(Blocks.MUD)
-			)
-		);
-
-		BASIN_MUD.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				WilderBlockTags.BASIN_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.MUD),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(2),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(1, 3),
-				0.7F
-			)
-		);
-
-		MUD_LAKE.makeAndSetHolder(Feature.LAKE,
-			new LakeFeature.Configuration(
-				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MUD.defaultBlockState())
-			)
-		);
-
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.95F,
-				0.925F,
-				0.65F,
-				0.8F,
-				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
-				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		SNOW_BLANKET.makeAndSetHolder(RegisterFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
-
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(RegisterFeatures.SNOW_AND_FREEZE_DISK_FEATURE,
-			new SnowAndIceDiskFeatureConfig(
-				UniformInt.of(6, 7),
-				UniformInt.of(2, 4),
-				0.65F,
-				0.5F
-			)
-		);
-
-		SNOW_CARPET_RANDOM.makeAndSetHolder(Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				64,
-				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
-				)
 			)
 		);
 	}

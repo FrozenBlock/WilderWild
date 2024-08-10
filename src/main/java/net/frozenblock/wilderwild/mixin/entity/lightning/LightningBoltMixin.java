@@ -23,7 +23,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
-import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
+import net.frozenblock.wilderwild.world.feature.configured.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;

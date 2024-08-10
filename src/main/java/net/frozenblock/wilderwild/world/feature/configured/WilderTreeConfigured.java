@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.configured;
 
 import java.util.List;
 import java.util.Optional;
