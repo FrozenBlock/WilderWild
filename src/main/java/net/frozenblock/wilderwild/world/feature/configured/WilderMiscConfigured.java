@@ -55,7 +55,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
@@ -66,7 +65,7 @@ import net.minecraft.world.level.material.Fluids;
 
 public final class WilderMiscConfigured {
 
-	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> EMPTY = register("empty");
+	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> EMPTY = register("empty");
 
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
@@ -159,10 +158,20 @@ public final class WilderMiscConfigured {
 	public static void registerMiscConfigured() {
 		WilderConstants.logWithModId("Registering WilderMiscConfigured for", true);
 
-		EMPTY.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
-			new SimpleRandomFeatureConfiguration(
-				HolderSet.direct(
-				)
+		EMPTY.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+			new PathFeatureConfig(
+				BlockStateProvider.simple(Blocks.AIR),
+				1,
+				1,
+				1,
+				0,
+				0,
+				false,
+				false,
+				false,
+				false,
+				HolderSet.direct(),
+				0F
 			)
 		);
 
