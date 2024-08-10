@@ -1,22 +1,4 @@
 {
-  "type": "frozenlib:noise_path_feature",
-  "config": {
-    "is_3d": false,
-    "max_threshold": 0.0,
-    "min_threshold": 0.0,
-    "noise": 1,
-    "noise_scale": 1.0,
-    "only_place_when_exposed": false,
-    "placement_chance": 0.0,
-    "radius": 1,
-    "replaceable_blocks": [],
-    "scale_y": false,
-    "state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:air"
-      }
-    },
-    "use_y": false
-  }
+  "type": "minecraft:no_op",
+  "config": {}
 }
