@@ -44,7 +44,7 @@ public final class RegisterBlockEntities {
 	}
 
 	@NotNull
-	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.Builder<T> builder) {
+	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.@NotNull Builder<T> builder) {
 		Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, path);
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderConstants.id(path), builder.build(type));
 	}

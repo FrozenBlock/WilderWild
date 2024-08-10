@@ -43,6 +43,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterCriteria;
+import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
@@ -91,6 +92,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterBlockSoundTypes.init();
 		RegisterBlockEntities.register();
 		RegisterEntities.init();
+		RegisterDamageTypes.init();
 		RegisterMemoryModuleTypes.register();
 		RegisterSensorTypes.register();
 		RegisterLootTables.init();

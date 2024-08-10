@@ -267,37 +267,31 @@ public final class RegisterBlocks {
 		RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
-
 	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.COLOR_PURPLE,
 		RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
-
 	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea(
 		MapColor.COLOR_YELLOW,
 		RegisterParticles.YELLOW_HANGING_MESOGLEA,
 		false
 	);
-
 	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_BLUE,
 		RegisterParticles.BLUE_HANGING_MESOGLEA,
 		false
 	);
-
 	public static final MesogleaBlock LIME_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_GREEN,
 		RegisterParticles.LIME_HANGING_MESOGLEA,
 		false
 	);
-
 	public static final MesogleaBlock RED_MESOGLEA = mesoglea(
 		MapColor.COLOR_RED,
 		RegisterParticles.RED_HANGING_MESOGLEA,
 		false
 	);
-
 	public static final MesogleaBlock PINK_MESOGLEA = mesoglea(
 		MapColor.COLOR_PINK,
 		RegisterParticles.PINK_HANGING_MESOGLEA,
@@ -305,17 +299,11 @@ public final class RegisterBlocks {
 	);
 
 	public static final NematocystBlock BLUE_PEARLESCENT_NEMATOCYST = nematocyst(MapColor.QUARTZ);
-
 	public static final NematocystBlock PURPLE_PEARLESCENT_NEMATOCYST = nematocyst(MapColor.COLOR_PURPLE);
-
 	public static final NematocystBlock YELLOW_NEMATOCYST = nematocyst(MapColor.COLOR_YELLOW);
-
 	public static final NematocystBlock BLUE_NEMATOCYST = nematocyst(MapColor.COLOR_BLUE);
-
 	public static final NematocystBlock LIME_NEMATOCYST = nematocyst(MapColor.COLOR_LIGHT_GREEN);
-
 	public static final NematocystBlock RED_NEMATOCYST = nematocyst(MapColor.COLOR_RED);
-
 	public static final NematocystBlock PINK_NEMATOCYST = nematocyst(MapColor.COLOR_PINK);
 
 	// MISC
@@ -343,7 +331,6 @@ public final class RegisterBlocks {
 		12,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-
 	public static final Block POTTED_SEEDING_DANDELION = Blocks.flowerPot(SEEDING_DANDELION);
 
 	public static final FlowerBlock CARNATION = new FlowerBlock(
@@ -351,14 +338,12 @@ public final class RegisterBlocks {
 		12,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-
 	public static final Block POTTED_CARNATION = Blocks.flowerPot(CARNATION);
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 			.randomTicks()
 	);
-
 	public static final FlowerLichenBlock ALBA_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
@@ -366,17 +351,14 @@ public final class RegisterBlocks {
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
-
 	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.CRIMSON_STEM)
 	);
-
 	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.COLOR_PURPLE)
 	);
-
 	public static final FlowerLichenBlock BLUE_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.COLOR_BLUE)
@@ -413,7 +395,6 @@ public final class RegisterBlocks {
 			.randomTicks()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
-
 	public static final Block POTTED_BUSH = Blocks.flowerPot(BUSH);
 
 	public static final TumbleweedPlantBlock TUMBLEWEED_PLANT = new TumbleweedPlantBlock(
@@ -422,9 +403,7 @@ public final class RegisterBlocks {
 			.sound(RegisterBlockSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
-
 	public static final Block POTTED_TUMBLEWEED_PLANT = Blocks.flowerPot(TUMBLEWEED_PLANT);
-
 	public static final TumbleweedBlock TUMBLEWEED = new TumbleweedBlock(
 		BlockBehaviour.Properties.of()
 			.instabreak()
@@ -432,11 +411,9 @@ public final class RegisterBlocks {
 			.sound(RegisterBlockSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
-
 	public static final Block POTTED_TUMBLEWEED = Blocks.flowerPot(TUMBLEWEED);
 
 	public static final Block POTTED_BIG_DRIPLEAF = Blocks.flowerPot(Blocks.BIG_DRIPLEAF);
-
 	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
 
 	public static final Block POTTED_SHORT_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
@@ -453,7 +430,6 @@ public final class RegisterBlocks {
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
-
 	public static final ShelfFungusBlock RED_SHELF_FUNGUS = new ShelfFungusBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK)
 			.randomTicks()
@@ -518,58 +494,46 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final StairBlock BAOBAB_STAIRS = new StairBlock(
 		BAOBAB_PLANKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(BAOBAB_PLANKS)
 	);
-
 	public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(
 		BAOBAB_WOOD_TYPE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final Block BAOBAB_SLAB = new SlabBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final Block BAOBAB_BUTTON = Blocks.woodenButton(BAOBAB_SET);
-
 	public static final PressurePlateBlock BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
 		BAOBAB_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final DoorBlock BAOBAB_DOOR = new DoorBlock(
 		BAOBAB_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final TrapDoorBlock BAOBAB_TRAPDOOR = new TrapDoorBlock(
 		BAOBAB_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final FenceBlock BAOBAB_FENCE = new FenceBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_BAOBAB_LOG = createStrippedHollowedLogBlock(BAOBAB_PLANKS_COLOR);
 
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
-
 	public static final Block BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR);
-
 	public static final FrozenSignBlock BAOBAB_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor()),
 		BAOBAB_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/baobab_sign"))
 	);
-
 	public static final FrozenWallSignBlock BAOBAB_WALL_SIGN = new FrozenWallSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
@@ -598,7 +562,6 @@ public final class RegisterBlocks {
 		BAOBAB_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/baobab_hanging_sign"))
 	);
-
 	public static final FrozenWallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
@@ -606,80 +569,64 @@ public final class RegisterBlocks {
 		BAOBAB_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/baobab_hanging_sign"))
 	);
-
 	public static final Block STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
-
 	public static final RotatedPillarBlock STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-
 	public static final RotatedPillarBlock BAOBAB_WOOD = new RotatedPillarBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(BAOBAB_BARK_COLOR)
 	);
 
 	private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
-
 	public static final Block CYPRESS_PLANKS = new Block(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final StairBlock CYPRESS_STAIRS = new StairBlock(
 		CYPRESS_PLANKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(CYPRESS_PLANKS)
 	);
-
 	public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(
 		CYPRESS_WOOD_TYPE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final SlabBlock CYPRESS_SLAB = new SlabBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final Block CYPRESS_BUTTON = Blocks.woodenButton(CYPRESS_SET);
-
 	public static final PressurePlateBlock CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(
 		CYPRESS_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final DoorBlock CYPRESS_DOOR = new DoorBlock(
 		CYPRESS_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final TrapDoorBlock CYPRESS_TRAPDOOR = new TrapDoorBlock(
 		CYPRESS_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final FenceBlock CYPRESS_FENCE = new FenceBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CYPRESS_LOG = createStrippedHollowedLogBlock(CYPRESS_PLANKS_COLOR);
 
 	private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE;
-
 	public static final Block CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
-
 	public static final FrozenSignBlock CYPRESS_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor()),
 		CYPRESS_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/cypress_sign"))
 	);
-
 	public static final FrozenWallSignBlock CYPRESS_WALL_SIGN = new FrozenWallSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
@@ -708,7 +655,6 @@ public final class RegisterBlocks {
 		CYPRESS_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/cypress_hanging_sign"))
 	);
-
 	public static final FrozenWallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
@@ -718,78 +664,63 @@ public final class RegisterBlocks {
 	);
 
 	public static final Block STRIPPED_CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
-
 	public static final RotatedPillarBlock STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-
 	public static final RotatedPillarBlock CYPRESS_WOOD = new RotatedPillarBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(CYPRESS_BARK_COLOR)
 	);
 
 	private static final MapColor PALM_PLANKS_COLOR = MapColor.TERRACOTTA_WHITE;
-
 	public static final Block PALM_PLANKS = new Block(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final StairBlock PALM_STAIRS = new StairBlock(
 		PALM_PLANKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(PALM_PLANKS)
 	);
-
 	public static final Block PALM_FENCE_GATE = new FenceGateBlock(
 		PALM_WOOD_TYPE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(PALM_PLANKS.defaultMapColor())
 	);
-
 	public static final SlabBlock PALM_SLAB = new SlabBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final Block PALM_BUTTON = Blocks.woodenButton(PALM_SET);
-
 	public static final PressurePlateBlock PALM_PRESSURE_PLATE = new PressurePlateBlock(
 		PALM_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final DoorBlock PALM_DOOR = new DoorBlock(
 		PALM_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final TrapDoorBlock PALM_TRAPDOOR = new TrapDoorBlock(
 		PALM_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final FenceBlock PALM_FENCE = new FenceBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_PALM_LOG = createStrippedHollowedLogBlock(PALM_PLANKS_COLOR);
 
 	private static final MapColor PALM_BARK_COLOR = MapColor.COLOR_LIGHT_GRAY;
-
 	public static final Block PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
-
 	public static final FrozenSignBlock PALM_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor()),
 		PALM_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/palm_sign"))
 	);
-
 	public static final FrozenWallSignBlock PALM_WALL_SIGN = new FrozenWallSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
@@ -818,7 +749,6 @@ public final class RegisterBlocks {
 		PALM_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/palm_hanging_sign"))
 	);
-
 	public static final FrozenWallHangingSignBlock PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
@@ -826,19 +756,15 @@ public final class RegisterBlocks {
 		PALM_WOOD_TYPE,
 		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/palm_hanging_sign"))
 	);
-
 	public static final Block STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
-
 	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-
 	public static final RotatedPillarBlock PALM_WOOD = new RotatedPillarBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(PALM_BARK_COLOR)
 	);
-
 	public static final HollowedLogBlock HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	private RegisterBlocks() {
