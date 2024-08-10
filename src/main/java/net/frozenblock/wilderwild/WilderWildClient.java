@@ -59,7 +59,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
-import net.frozenblock.wilderwild.particle.AdditionalParticleFactories;
+import net.frozenblock.wilderwild.particle.factory.WilderParticleFactories;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
@@ -218,7 +218,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.WIND, WindParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.COCONUT_SPLASH, FallingParticle.Factory::new);
-		particleRegistry.register(RegisterParticles.SCORCHING_FLAME, AdditionalParticleFactories.ScorchingEffectFlameFactory::new);
+		particleRegistry.register(RegisterParticles.SCORCHING_FLAME, WilderParticleFactories.ScorchingEffectFlameFactory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
