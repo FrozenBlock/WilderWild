@@ -2032,7 +2032,7 @@ public final class WilderConfiguredFeatures {
 		CATTAIL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-7, 7),
-				UniformInt.of(12, 21),
+				UniformInt.of(12, 18),
 				true,
 				WilderBlockTags.CATTAIL_PLACEABLE
 			)
@@ -2041,7 +2041,7 @@ public final class WilderConfiguredFeatures {
 		CATTAIL_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-5, 5),
-				UniformInt.of(6, 18),
+				UniformInt.of(6, 12),
 				true,
 				WilderBlockTags.CATTAIL_PLACEABLE
 			)
@@ -2050,7 +2050,7 @@ public final class WilderConfiguredFeatures {
 		CATTAIL_MUD.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-7, 7),
-				UniformInt.of(12, 21),
+				UniformInt.of(12, 18),
 				false,
 				WilderBlockTags.CATTAIL_MUD_PLACEABLE
 			)
@@ -2059,7 +2059,7 @@ public final class WilderConfiguredFeatures {
 		CATTAIL_MUD_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-5, 5),
-				UniformInt.of(6, 18),
+				UniformInt.of(6, 12),
 				false,
 				WilderBlockTags.CATTAIL_MUD_PLACEABLE
 			)
