@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 
 @Pseudo
+@Environment(EnvType.CLIENT)
 @Mixin(FallingLeafParticle.class)
 public class FallingLeafParticleMixin {
 

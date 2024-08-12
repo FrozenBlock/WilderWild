@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
@@ -34,6 +36,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(DripParticle.class)
 public abstract class DripParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
 

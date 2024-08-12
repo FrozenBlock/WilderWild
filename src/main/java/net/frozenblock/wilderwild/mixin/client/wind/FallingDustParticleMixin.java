@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -29,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(FallingDustParticle.class)
 public abstract class FallingDustParticleMixin extends TextureSheetParticle {
 
