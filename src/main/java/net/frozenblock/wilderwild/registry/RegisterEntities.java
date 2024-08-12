@@ -51,7 +51,7 @@ public final class RegisterEntities {
 			.eyeHeight(0.3F) // eye height is the height * 0.5F
 			.clientTrackingRange(64)
 			.updateInterval(2)
-			.build("ancient_horn_vibration")
+			.build(WilderConstants.string("ancient_horn_vibration"))
 	);
 
 	public static final EntityType<Firefly> FIREFLY = register(
@@ -59,7 +59,7 @@ public final class RegisterEntities {
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
-			.build("firefly")
+			.build(WilderConstants.string("firefly"))
 	);
 
 	public static final EntityType<Jellyfish> JELLYFISH = register(
@@ -67,7 +67,7 @@ public final class RegisterEntities {
 		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"))
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
-			.build("jellyfish")
+			.build(WilderConstants.string("jellyfish"))
 	);
 
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
@@ -75,7 +75,7 @@ public final class RegisterEntities {
 		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
-			.build("tumbleweed")
+			.build(WilderConstants.string("tumbleweed"))
 	);
 
 	public static final EntityType<Crab> CRAB = register(
@@ -83,7 +83,7 @@ public final class RegisterEntities {
 		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"))
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
-			.build("crab")
+			.build(WilderConstants.string("crab"))
 	);
 
 	public static final EntityType<Ostrich> OSTRICH = register(
@@ -91,7 +91,7 @@ public final class RegisterEntities {
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
-			.build("ostrich")
+			.build(WilderConstants.string("ostrich"))
 	);
 
 	public static final EntityType<Scorched> SCORCHED = register(
@@ -101,7 +101,7 @@ public final class RegisterEntities {
 			.eyeHeight(0.585F)
 			.fireImmune()
 			.clientTrackingRange(8)
-			.build("scorched")
+			.build(WilderConstants.string("scorched"))
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
@@ -110,7 +110,7 @@ public final class RegisterEntities {
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
-			.build("coconut")
+			.build(WilderConstants.string("coconut"))
 	);
 
 	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
@@ -119,7 +119,7 @@ public final class RegisterEntities {
 			.sized(1F, 1F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build("chest_bubbler")
+			.build(WilderConstants.string("chest_bubbler"))
 	);
 
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
@@ -128,7 +128,7 @@ public final class RegisterEntities {
 			.sized(1F, 1F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build("sculk_spreader")
+			.build(WilderConstants.string("sculk_spreader"))
 	);
 
 	private RegisterEntities() {
