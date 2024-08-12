@@ -3,6 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
+- Scorched now get the Scorching effect while touching Magma or Fire, as well as Lava like previously.
 - Desert Village changes are now toggled with a config.
   - This adds a structure processor to convert the Jungle wood set into the Palm wood set.
 - Fixed some modified recipes/loot tables not working properly.
