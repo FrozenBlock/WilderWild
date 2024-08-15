@@ -26,12 +26,12 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.frozenblock.lib.axe.api.AxeBehaviors;
 import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import net.frozenblock.lib.item.api.axe.AxeBehaviors;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderConstants;
@@ -71,6 +71,7 @@ import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.world.impl.sapling.WWTreeGrowers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BlockSource;
@@ -81,7 +82,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -91,6 +94,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -98,7 +102,6 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -110,6 +113,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -1165,12 +1169,12 @@ public final class RegisterBlocks {
 		sign.addSupportedBlock(PALM_SIGN);
 		sign.addSupportedBlock(PALM_WALL_SIGN);
 
-		hangingSign.addSupportedBlock(BAOBAB_HANGING_SIGN);
-		hangingSign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
-		hangingSign.addSupportedBlock(CYPRESS_HANGING_SIGN);
-		hangingSign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
-		hangingSign.addSupportedBlock(PALM_HANGING_SIGN);
-		hangingSign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
+		sign.addSupportedBlock(BAOBAB_HANGING_SIGN);
+		sign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
+		sign.addSupportedBlock(CYPRESS_HANGING_SIGN);
+		sign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
+		sign.addSupportedBlock(PALM_HANGING_SIGN);
+		sign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
 
 		registerStrippable();
 		registerComposting();
@@ -1435,78 +1439,65 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerBonemeal() {
-		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
-			if (!level.isClientSide) {
-				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-				level.setBlockAndUpdate(pos, FLOWERING_LILY_PAD.defaultBlockState());
-				return true;
+		BonemealBehaviors.register(
+			Blocks.LILY_PAD,
+			new BonemealBehaviors.BonemealBehavior() {
+				@Override
+				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
+					return true;
+				}
+
+				@Override
+				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+					level.setBlock(pos, FLOWERING_LILY_PAD.defaultBlockState(), Block.UPDATE_CLIENTS);
+				}
 			}
-			return false;
-		});
-		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.DANDELION, (context, level, pos, state, face, horizontal) -> {
-			if (!level.isClientSide) {
-				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-				level.setBlockAndUpdate(pos, RegisterBlocks.SEEDING_DANDELION.defaultBlockState());
-				return true;
+		);
+
+		BonemealBehaviors.register(
+			Blocks.DANDELION,
+			new BonemealBehaviors.BonemealBehavior() {
+				@Override
+				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
+					return true;
+				}
+
+				@Override
+				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+					level.setBlock(pos, SEEDING_DANDELION.defaultBlockState(), Block.UPDATE_CLIENTS);
+				}
 			}
-			return false;
-		});
+		);
 	}
 
 	private static void registerAxe() {
-		AxeBehaviors.register(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.CHERRY_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_BIRCH_LOG, false));
+		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CHERRY_LOG, false));
+		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_SPRUCE_LOG, false));
+		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_JUNGLE_LOG, false));
+		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_ACACIA_LOG, false));
+		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_MANGROVE_LOG, false));
+		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CRIMSON_STEM, true));
+		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_WARPED_STEM, true));
+		AxeBehaviors.register(RegisterBlocks.BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_BAOBAB_LOG, false));
+		AxeBehaviors.register(RegisterBlocks.CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CYPRESS_LOG, false));
+		AxeBehaviors.register(RegisterBlocks.PALM_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_PALM_LOG, false));
 		//STRIPPED
-		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_BAOBAB_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_CYPRESS_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_PALM_LOG, (context, level, pos, state, face, horizontal) ->
-			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, true));
+		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, true));
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
 	}
 
 	private static void registerInventories() {

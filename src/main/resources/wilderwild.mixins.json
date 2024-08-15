@@ -62,7 +62,6 @@
     "entity.tumbleweed.EntityMixin",
     "entity.tumbleweed.LivingEntityMixin",
     "entity.turtle.TurtleMixin",
-    "item.axe.AxeItemMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "loot.LootTableMixin",
