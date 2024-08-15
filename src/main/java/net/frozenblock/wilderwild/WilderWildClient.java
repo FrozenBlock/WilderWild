@@ -118,23 +118,31 @@ public final class WilderWildClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WilderConstants.id("texts/splashes.txt"));
+		addPanorama("ancient_city");
+		addPanorama("ancient_far");
+		addPanorama("ancient_city_goes_hard");
 		addPanorama("beta_beach_river");
 		addPanorama("birch_forest");
+		addPanorama("birch_valley");
+		addPanorama("cave");
 		addPanorama("cherry_grove_and_sunflower_plains");
 		addPanorama("cherry_grove_snowy_hill");
 		addPanorama("dark_forest_clearing_mountains");
 		addPanorama("desert_arch");
 		addPanorama("diverse_valley");
 		addPanorama("dripstone_caves");
+		addPanorama("dripstone_caves_lavafalls");
 		addPanorama("dripstone_mountains");
 		addPanorama("dying_forest");
 		addPanorama("dying_forest_snowy_mountains");
 		addPanorama("forest_and_plains");
 		addPanorama("forest_clearing");
 		addPanorama("forest_pocket");
+		addPanorama("forest_river");
 		addPanorama("forest_sand_patch");
 		addPanorama("frozen_caves");
 		addPanorama("jellyfish_caves");
+		addPanorama("jellyfish_caves_lava");
 		addPanorama("jungle_dripstone_river");
 		addPanorama("jungle_hill");
 		addPanorama("lake");
@@ -146,6 +154,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		addPanorama("mountains_sunset");
 		addPanorama("mountains_waterfall");
 		addPanorama("oasis");
+		addPanorama("plains");
 		addPanorama("plains_valley");
 		addPanorama("rainforest");
 		addPanorama("savanna_valley");
