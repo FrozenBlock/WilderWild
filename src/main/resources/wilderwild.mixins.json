@@ -130,6 +130,7 @@
     "client.enderman.EnderManMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
+    "client.mesoglea.LiquidBlockRendererMixin",
     "client.shrieker.LevelRendererMixin",
     "client.sodium.BlockRendererMixin",
     "client.sodium.FluidRendererMixin",

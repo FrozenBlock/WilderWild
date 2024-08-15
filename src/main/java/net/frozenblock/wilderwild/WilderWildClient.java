@@ -118,9 +118,45 @@ public final class WilderWildClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WilderConstants.id("texts/splashes.txt"));
-		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/first/panorama"));
-		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/second/panorama"));
-		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/third/panorama"));
+		addPanorama("beta_beach_river");
+		addPanorama("birch_forest");
+		addPanorama("cherry_grove_and_sunflower_plains");
+		addPanorama("cherry_grove_snowy_hill");
+		addPanorama("dark_forest_clearing_mountains");
+		addPanorama("desert_arch");
+		addPanorama("diverse_valley");
+		addPanorama("dripstone_caves");
+		addPanorama("dripstone_mountains");
+		addPanorama("dying_forest");
+		addPanorama("dying_forest_snowy_mountains");
+		addPanorama("forest_and_plains");
+		addPanorama("forest_clearing");
+		addPanorama("forest_pocket");
+		addPanorama("forest_sand_patch");
+		addPanorama("frozen_caves");
+		addPanorama("jellyfish_caves");
+		addPanorama("jungle_dripstone_river");
+		addPanorama("jungle_hill");
+		addPanorama("lake");
+		addPanorama("lush_and_jellyfish_caves");
+		addPanorama("magmatic_and_dripstone_caves");
+		addPanorama("magmatic_caves");
+		addPanorama("mixed_forest_clearing");
+		addPanorama("mountains");
+		addPanorama("mountains_sunset");
+		addPanorama("mountains_waterfall");
+		addPanorama("oasis");
+		addPanorama("plains_valley");
+		addPanorama("rainforest");
+		addPanorama("savanna_valley");
+		addPanorama("snowy_taiga");
+		addPanorama("snowy_taiga_mountains");
+		addPanorama("snowy_taiga_mountains_clearing");
+		addPanorama("sunflower_plains");
+		addPanorama("taiga_clearing");
+		addPanorama("taiga_clearing_sunset");
+		addPanorama("tropical_pit");
+		addPanorama("windswept_taiga_waterfall");
 		WilderEasterEggs.hatchEasterEggs();
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
@@ -418,6 +454,11 @@ public final class WilderWildClient implements ClientModInitializer {
 		};
 
 		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.WATER, Fluids.FLOWING_WATER, customWaterHandler);
+	}
+
+	private static void addPanorama(String panoramaName) {
+		ResourceLocation panoramaLocation = WilderConstants.id("textures/gui/title/" + panoramaName + "/panorama");
+		Panoramas.addPanorama(panoramaLocation);
 	}
 
 }
