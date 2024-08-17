@@ -98,7 +98,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, random.nextInt(15), sensor.getLastVibrationFrequency());
 				level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 				level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-				level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.7F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.1F + 0.7F);
 			}
 		}
 		int animTicks = this.wilderWild$getAnimTicks();

@@ -64,9 +64,9 @@ public abstract class CalibratedSculkSensorBlockEntityMixin extends BlockEntity 
 		if (state.getValue(RegisterProperties.HICCUPPING)) {
 			RandomSource random = level.getRandom();
 			if (random.nextBoolean() && random.nextBoolean()) {
-				double x = (pos.getX() - 0.1) + (random.nextFloat() * 1.2);
-				double y = pos.getY() + random.nextFloat();
-				double z = (pos.getZ() - 0.1) + (random.nextFloat() * 1.2);
+				double x = (pos.getX() - 0.1D) + (random.nextDouble() * 1.2D);
+				double y = pos.getY() + random.nextDouble();
+				double z = (pos.getZ() - 0.1D) + (random.nextDouble() * 1.2D);
 				WilderSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
 			}
 			if (SculkSensorBlock.canActivate(state) && random.nextInt(320) <= 1) {

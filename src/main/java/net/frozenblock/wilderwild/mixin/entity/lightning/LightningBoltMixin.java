@@ -57,13 +57,11 @@ public class LightningBoltMixin {
 		if (LightningBolt.class.cast(this).level() instanceof ServerLevel serverLevel) {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState state = serverLevel.getBlockState(blockPos);
-			if (!LightningBolt.class.cast(this).level().isClientSide) {
-				WilderLightningStrikePacket.sendToAll(
-					LightningBolt.class.cast(this),
-					state,
-					this.wilderWild$age
-				);
-			}
+			WilderLightningStrikePacket.sendToAll(
+				LightningBolt.class.cast(this),
+				state,
+				this.wilderWild$age
+			);
 			this.wilderWild$age += 1;
 			strikePosLocalRef.set(blockPos);
 			strikeStateLocalRef.set(state);
@@ -87,10 +85,7 @@ public class LightningBoltMixin {
 
 	@Unique
 	private void wilderWild$scorchSand(@NotNull LightningBolt bolt, BlockPos strikePose, BlockState strikeState) {
-		if (this.visualOnly || bolt.level().isClientSide) {
-			return;
-		}
-		if (bolt.level() instanceof ServerLevel serverLevel && EntityConfig.get().lightning.lightningScorchesSand && strikeState.is(BlockTags.SAND)) {
+		if (!this.visualOnly && bolt.level() instanceof ServerLevel serverLevel && EntityConfig.get().lightning.lightningScorchesSand && strikeState.is(BlockTags.SAND)) {
 			ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
 			RandomSource randomSource = serverLevel.getRandom();
 			WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
