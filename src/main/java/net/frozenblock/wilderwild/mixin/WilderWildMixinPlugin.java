@@ -20,20 +20,16 @@ package net.frozenblock.wilderwild.mixin;
 
 import java.util.List;
 import java.util.Set;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.config.MixinsConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class WilderWildMixinPlugin implements IMixinConfigPlugin {
-	private final Logger logger = LoggerFactory.getLogger("Wilder Wild");
 
 	@Override
 	public void onLoad(String mixinPackage) {
@@ -48,12 +44,6 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		MixinsConfig config = MixinsConfig.get();
-
-		if (mixinClassName.contains("client.") && FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) {
-			this.logger.warn("Mixin '{}' attempted to load in a server environment, disabling.", mixinClassName);
-			return false;
-		}
-
 		boolean hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
 		boolean disableNonSodium = hasEmbeddium || FrozenBools.HAS_SODIUM;
 		boolean enableSodium = FrozenBools.HAS_SODIUM;
