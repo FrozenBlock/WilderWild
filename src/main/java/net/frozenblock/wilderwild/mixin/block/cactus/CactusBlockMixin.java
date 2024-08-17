@@ -27,7 +27,13 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(CactusBlock.class)
 public final class CactusBlockMixin {
 
-	@ModifyExpressionValue(method = "canSurvive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isSolid()Z"))
+	@ModifyExpressionValue(
+		method = "canSurvive",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;isSolid()Z"
+		)
+	)
 	private boolean wilderWild$canSurviveIsSolid(boolean original) {
 		return !BlockConfig.get().cactusPlacement && original;
 	}

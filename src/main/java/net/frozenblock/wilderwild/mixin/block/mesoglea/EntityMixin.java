@@ -35,12 +35,25 @@ public class EntityMixin implements InMesogleaInterface {
 	@Unique
 	private boolean wilderWild$clipInMesoglea;
 
-	@WrapOperation(method = "getBlockSpeedFactor", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
+	@WrapOperation(
+		method = "getBlockSpeedFactor",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			ordinal = 1
+		)
+	)
 	public boolean wilderWild$isBubbleColumnOrMesogleaColumn(BlockState state, Block block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}
 
-	@WrapOperation(method = "isInBubbleColumn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
+	@WrapOperation(
+		method = "isInBubbleColumn",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+		)
+	)
 	public boolean wilderWild$isInBubbleColumnOrMesogleaColumn(BlockState state, Block block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}

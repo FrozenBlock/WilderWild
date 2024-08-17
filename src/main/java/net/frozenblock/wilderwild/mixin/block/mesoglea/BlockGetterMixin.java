@@ -23,6 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.entity.impl.InMesogleaInterface;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,13 +47,18 @@ public interface BlockGetterMixin {
 
 	@Inject(method = "clip", at = @At("HEAD"))
 	default void wilderWild$setClipInMesoglea(ClipContext context, CallbackInfoReturnable<BlockHitResult> info) {
-		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
-			BlockState eyeState = getBlockState(BlockPos.containing(entityCollisionContext.getEntity().getEyePosition()));
-			((InMesogleaInterface) entityCollisionContext.getEntity()).wilderWild$setClipInMesoglea(
-				eyeState.is(WilderBlockTags.MESOGLEA)
-					&& eyeState.hasProperty(BlockStateProperties.WATERLOGGED)
-					&& eyeState.getValue(BlockStateProperties.WATERLOGGED)
-			);
+		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
+			Entity entity = entityCollisionContext.getEntity();
+			if (entity instanceof InMesogleaInterface inMesogleaInterface) {
+				BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
+				if (eyeState != null) {
+					inMesogleaInterface.wilderWild$setClipInMesoglea(
+						eyeState.is(WilderBlockTags.MESOGLEA)
+							&& eyeState.hasProperty(BlockStateProperties.WATERLOGGED)
+							&& eyeState.getValue(BlockStateProperties.WATERLOGGED)
+					);
+				}
+			}
 		}
 	}
 
@@ -63,10 +69,14 @@ public interface BlockGetterMixin {
 			target = "Lnet/minecraft/world/level/BlockGetter;clipWithInteractionOverride(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/BlockHitResult;"
 		)
 	)
-	default BlockHitResult wilderWild$mesogleaClip(BlockGetter instance, Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state, Operation<BlockHitResult> operation, ClipContext context) {
-		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
+	default BlockHitResult wilderWild$mesogleaClip(
+		BlockGetter instance, Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state, Operation<BlockHitResult> operation,
+		ClipContext context
+	) {
+		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
 			if (
-				((InMesogleaInterface) entityCollisionContext.getEntity()).wilderWild$wasClipInMesoglea()
+				entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
+					&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
 					&& state.is(WilderBlockTags.MESOGLEA)
 					&& state.hasProperty(BlockStateProperties.WATERLOGGED)
 					&& state.getValue(BlockStateProperties.WATERLOGGED)
