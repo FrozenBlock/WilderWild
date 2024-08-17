@@ -4,3 +4,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
 - Removed all but three of Wilder Wild's panoramas.
+- Slightly optimized the mixin plugin.
