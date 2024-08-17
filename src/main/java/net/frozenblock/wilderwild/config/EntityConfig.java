@@ -52,16 +52,40 @@ public final class EntityConfig {
 			@Override
 			public void onSync(EntityConfig syncInstance) {
 				var config = this.config();
+				WARDEN_SWIMS = config.warden.wardenSwims;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
+					Client.KEYFRAME_ALLAY_DANCE = config.allay.keyframeAllayDance;
+					Client.WARDEN_SWIM_ANIMATION = config.warden.wardenSwimAnimation;
+					Client.WARDEN_CUSTOM_TENDRIL_ANIMATION = config.warden.wardenCustomTendrils;
+					Client.WARDEN_IMPROVED_DIM_ANIMATION = config.warden.wardenImprovedDig;
+					Client.WARDEN_IMPROVED_EMERGE_ANIMATION = config.warden.wardenImprovedEmerge;
+					Client.WARDEN_IMPROVED_SNIFF_ANIMATION = config.warden.wardenBedrockSniff;
+					Client.WARDEN_DEATH_ANIMATION = config.warden.wardenDeathAnimation;
 				}
 			}
 		}
 	);
 
+	public static volatile boolean WARDEN_SWIMS = true;
+
 	public static final class Client {
 		@Environment(EnvType.CLIENT)
 		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean KEYFRAME_ALLAY_DANCE = false;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean WARDEN_SWIM_ANIMATION = true;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean WARDEN_CUSTOM_TENDRIL_ANIMATION = true;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean WARDEN_IMPROVED_DIM_ANIMATION = true;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean WARDEN_IMPROVED_EMERGE_ANIMATION = true;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
+		@Environment(EnvType.CLIENT)
+		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
 	}
 
 	@CollapsibleObject

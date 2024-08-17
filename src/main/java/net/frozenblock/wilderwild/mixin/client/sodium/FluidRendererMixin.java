@@ -66,10 +66,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin(FluidRenderer.class)
-public abstract class FluidRendererMixin {
-
-	@Shadow
-	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
+public class FluidRendererMixin {
 
 	@Shadow
 	@Final
@@ -81,34 +78,27 @@ public abstract class FluidRendererMixin {
 	@Final
 	private LightPipelineProvider lighters;
 
-	@Shadow(remap = false)
-	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
-	}
-
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true, require = 0)
-	private void wilderWild$renderMesoglea(WorldSlice world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info) {
-		BlockState blockState = world.getBlockState(pos);
-		if (BlockConfig.Client.MESOGLEA_LIQUID && blockState.getBlock() instanceof MesogleaBlock) {
-			this.wilderWild$renderWithSingleTexture(world, fluidState, pos, offset, buffers, blockState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
-			info.cancel();
-		}
-	}
-
-	@Inject(
-		method = "render",
-		at = @At(
-			value = "INVOKE",
-			target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;isFluidOccluded(Lnet/minecraft/world/level/BlockAndTintGetter;IIILnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/Fluid;)Z",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
-		),
-		require = 0
-	)
-	private void wilderWild$isMesoglea(
-		WorldSlice world, FluidState fluidState, BlockPos blockPos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info,
+	private void wilderWild$renderMesoglea(
+		WorldSlice world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		isMesoglea.set(world.getBlockState(blockPos).getBlock() instanceof MesogleaBlock);
+		BlockState blockState = world.getBlockState(pos);
+		if (blockState.getBlock() instanceof MesogleaBlock) {
+			isMesoglea.set(true);
+			if (BlockConfig.Client.MESOGLEA_LIQUID) {
+				this.wilderWild$renderWithSingleTexture(
+					world,
+					fluidState,
+					pos,
+					offset,
+					buffers,
+					blockState,
+					Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon()
+				);
+				info.cancel();
+			}
+		}
 	}
 
 	@WrapOperation(
@@ -127,6 +117,16 @@ public abstract class FluidRendererMixin {
 			return true;
 		}
 		return original.call(instance, world, x, y, z, dir, fluid);
+	}
+
+	@Shadow
+	private ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild FluidRendererMixin.");
+	}
+
+	@Shadow(remap = false)
+	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild FluidRendererMixin.");
 	}
 
 	@Unique
@@ -373,11 +373,17 @@ public abstract class FluidRendererMixin {
 	}
 
 	@Shadow
-	protected abstract void writeQuad(ChunkModelBuilder builder, Material material, BlockPos offset, ModelQuadView quad, ModelQuadFacing facing, boolean flip);
+	private void writeQuad(ChunkModelBuilder builder, Material material, BlockPos offset, ModelQuadView quad, ModelQuadFacing facing, boolean flip) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild FluidRendererMixin.");
+	}
 
 	@Shadow
-	protected abstract void updateQuad(ModelQuadView quad, WorldSlice world, BlockPos pos, LightPipeline lighter, Direction dir, float brightness, ColorProvider<FluidState> colorProvider, FluidState fluidState);
+	private void updateQuad(ModelQuadView quad, WorldSlice world, BlockPos pos, LightPipeline lighter, Direction dir, float brightness, ColorProvider<FluidState> colorProvider, FluidState fluidState) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild FluidRendererMixin.");
+	}
 
 	@Shadow
-	protected abstract float fluidHeight(BlockAndTintGetter world, Fluid fluid, BlockPos blockPos, Direction direction);
+	private float fluidHeight(BlockAndTintGetter world, Fluid fluid, BlockPos blockPos, Direction direction) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild FluidRendererMixin.");
+	}
 }

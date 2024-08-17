@@ -35,8 +35,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(NaturalSpawner.class)
 public class NaturalSpawnerMixin {
 
-	@Inject(method = "isValidSpawnPostitionForType", at = @At(value = "RETURN", ordinal = 5, shift = At.Shift.BEFORE), cancellable = true)
-	private static void wilderWild$isValidSpawnPostitionForType(ServerLevel level, MobCategory category, StructureManager structureManager, ChunkGenerator generator, MobSpawnSettings.SpawnerData data, BlockPos.MutableBlockPos pos, double distance, CallbackInfoReturnable<Boolean> info) {
+	@Inject(
+		method = "isValidSpawnPostitionForType",
+		at = @At(
+			value = "RETURN",
+			ordinal = 5,
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
+	)
+	private static void wilderWild$isValidSpawnPostitionForType(
+		ServerLevel level,
+		MobCategory category,
+		StructureManager structureManager,
+		ChunkGenerator generator,
+		MobSpawnSettings.SpawnerData data,
+		BlockPos.MutableBlockPos pos,
+		double distance,
+		CallbackInfoReturnable<Boolean> info
+	) {
 		if (data.type == RegisterEntities.JELLYFISH) {
 			info.setReturnValue(IgnoreMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D)));
 		}

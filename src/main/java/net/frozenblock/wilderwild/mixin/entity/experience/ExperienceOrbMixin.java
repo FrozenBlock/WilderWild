@@ -30,9 +30,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ExperienceOrbMixin {
 
 	@Inject(at = @At("RETURN"), method = "repairPlayerItems", cancellable = true)
-	private void wilderWild$repairAncientHorn(ServerPlayer player, int amount, CallbackInfoReturnable<Integer> cir) {
+	private void wilderWild$repairAncientHorn(ServerPlayer player, int amount, CallbackInfoReturnable<Integer> info) {
 		if (AncientHorn.decreaseCooldown(player, amount * 5) != -1) {
-			cir.setReturnValue(0);
+			info.setReturnValue(0);
 		}
 	}
 

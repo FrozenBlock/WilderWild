@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(EnderMan.class)
-public abstract class EnderManMixin {
+public class EnderManMixin {
 
 	@Shadow
 	private int lastStareSound;

@@ -66,13 +66,11 @@ public class LiquidBlockRendererMixin {
 		),
 		require = 0
 	)
-	private boolean wilderWild$isMesoglea(
+	private boolean wilderWild$dontRenderFaceIfMesoglea(
 		BlockAndTintGetter world, BlockPos pos, FluidState state, BlockState blockState, Direction direction, FluidState adjacentFluidState, Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea.get() && direction != Direction.UP) {
-			return false;
-		}
+		if (isMesoglea.get() && direction != Direction.UP) return false;
 		return original.call(world, pos, state, blockState, direction, adjacentFluidState);
 	}
 
