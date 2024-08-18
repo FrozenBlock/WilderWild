@@ -18,9 +18,7 @@
 
 package net.frozenblock.wilderwild;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.nio.file.Path;
-import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -32,8 +30,6 @@ public class WilderConstants {
 	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
-	// MEASURING
-	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
 	/**
 	 * Used for features that may be unstable and crash in public builds.
 	 * <p>
@@ -70,21 +66,6 @@ public class WilderConstants {
 	public static void printStackTrace(String message, boolean shouldPrint) {
 		if (shouldPrint) {
 			WilderConstants.LOGGER.error(message, new Throwable(message).fillInStackTrace());
-		}
-	}
-
-	public static void startMeasuring(@NotNull Object object) {
-		long started = System.nanoTime();
-		String name = object.getClass().getName();
-		WilderConstants.LOGGER.info("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
-		INSTANT_MAP.put(object, started);
-	}
-
-	public static void stopMeasuring(Object object) {
-		if (INSTANT_MAP.containsKey(object)) {
-			String name = object.getClass().getName();
-			WilderConstants.LOGGER.info("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
-			INSTANT_MAP.remove(object);
 		}
 	}
 
