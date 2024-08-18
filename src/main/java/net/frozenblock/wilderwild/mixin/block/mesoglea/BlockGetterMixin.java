@@ -54,8 +54,7 @@ public interface BlockGetterMixin {
 				if (eyeState != null) {
 					inMesogleaInterface.wilderWild$setClipInMesoglea(
 						eyeState.is(WilderBlockTags.MESOGLEA)
-							&& eyeState.hasProperty(BlockStateProperties.WATERLOGGED)
-							&& eyeState.getValue(BlockStateProperties.WATERLOGGED)
+						&& !eyeState.getFluidState().isEmpty()
 					);
 				}
 			}
@@ -78,8 +77,7 @@ public interface BlockGetterMixin {
 				entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
 					&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
 					&& state.is(WilderBlockTags.MESOGLEA)
-					&& state.hasProperty(BlockStateProperties.WATERLOGGED)
-					&& state.getValue(BlockStateProperties.WATERLOGGED)
+					&& !state.getFluidState().isEmpty()
 			) {
 				shape = Shapes.empty();
 			}
