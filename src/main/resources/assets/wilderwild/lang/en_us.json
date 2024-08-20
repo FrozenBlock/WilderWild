@@ -617,6 +617,8 @@
   "tooltip.wilderwild.mushroom_generation": "Whether worldgen should use Wilder Wild's or Vanilla's Mushroom generation.",
   "option.wilderwild.nether_geyser_generation": "Nether Geyser Generation",
   "tooltip.wilderwild.nether_geyser_generation": "Whether Geysers should naturally generate in the Nether.",
+  "option.wilderwild.add_stone_chests": "Ancient City Stone Chests",
+  "tooltip.wilderwild.add_stone_chests": "Whether Ancient Cities will use Stone Chests instead of Chests instead of regular Chests.",
   "option.wilderwild.decay_trail_ruins": "Decay Trail Ruins",
   "tooltip.wilderwild.decay_trail_ruins": "Whether Trail Ruins can generate with Mossy and Cracked Mud Bricks.",
   "option.wilderwild.new_desert_villages": "New Desert Villages",

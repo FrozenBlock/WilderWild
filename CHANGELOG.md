@@ -10,3 +10,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Slightly optimized the mixin plugin.
 - Decreased the size of some Scorched Sand disks to prevent issues.
 - Allowed the Ostrich's walking animation to speed up slightly while running.
+- Added a config option for Stone Chest generation in Ancient Cities.
+- The block sounds option for Flowers now impacts Torchflowers.

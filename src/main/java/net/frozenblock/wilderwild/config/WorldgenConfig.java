@@ -112,6 +112,9 @@ public final class WorldgenConfig {
 	@EntrySyncData("surfaceTransitions")
 	public boolean surfaceTransitions = true;
 
+	@EntrySyncData("addStoneChests")
+	public boolean addStoneChests = true;
+
 	@EntrySyncData("newWitchHuts")
 	public boolean newWitchHuts = true;
 

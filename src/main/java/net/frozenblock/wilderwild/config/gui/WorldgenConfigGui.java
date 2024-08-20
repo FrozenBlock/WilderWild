@@ -655,6 +655,18 @@ public final class WorldgenConfigGui {
 				configInstance
 			)
 		);
+		var addStoneChests = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("add_stone_chests"), modifiedConfig.addStoneChests)
+					.setDefaultValue(defaultConfig.addStoneChests)
+					.setSaveConsumer(newValue -> config.addStoneChests = newValue)
+					.setTooltip(tooltip("add_stone_chests"))
+					.build(),
+				clazz,
+				"addStoneChests",
+				configInstance
+			)
+		);
 		var decayTrailRuins = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedConfig.decayTrailRuins)
