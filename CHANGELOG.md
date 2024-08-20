@@ -9,4 +9,3 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Optimized Allay animations.
 - Slightly optimized the mixin plugin.
 - Decreased the size of some Scorched Sand disks to prevent issues.
-- Improved the Ostrich's walking animation while running.

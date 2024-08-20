@@ -145,7 +145,6 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		limbSwing *= 1.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
-		float inverseLimbSwing = (1F - (limbSwingAmount * 0.65F));
 
 		// LEGS
 		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, Mth.PI);
@@ -154,7 +153,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		// BODY
 		float fastAngleBody = limbSwing * 0.3331F;
 		float angleSinBody = Math.sin(-fastAngleBody);
-		float angleSinSwingAmountBody = (angleSinBody * inverseLimbSwing) * 0.175F;
+		float angleSinSwingAmountBody = (angleSinBody * limbSwingAmount) * 0.175F;
 		this.body.zRot += angleSinSwingAmountBody;
 
 		// NECK
@@ -170,12 +169,12 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		float fastAngleNeckBase = limbSwing * 0.3331F + NECK_DELAY;
 		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
 		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * NECK_BASE_SWING;
-		this.neck_base.zRot += angleSinSwingAmountNeckBase * inverseLimbSwing;
+		this.neck_base.zRot += angleSinSwingAmountNeckBase;
 
 		float fastAngleNeck = limbSwing * 0.3331F + NECK_DELAY;
 		float angleSinNeck = Math.sin(-fastAngleNeck);
 		float angleSinSwingAmountNeck = (angleSinNeck * limbSwingAmount) * NECK_SWING;
-		this.neck.zRot += angleSinSwingAmountNeck * inverseLimbSwing;
+		this.neck.zRot += angleSinSwingAmountNeck;
 
 		this.neck.xRot += (limbSwingAmount * RAD_5);
 

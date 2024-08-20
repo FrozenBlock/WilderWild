@@ -195,14 +195,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	protected void updateWalkAnimation(float limbDistance) {
-		float fastDistance = limbDistance * 4F;
-		float f = Math.min(fastDistance, 1F);
-		float difference = fastDistance - f;
-		this.walkAnimation.update(f + (difference * 0.25F), 0.4F);
-	}
-
-	@Override
 	public void customServerAiStep() {
 		this.level().getProfiler().push("ostrichBrain");
 		Brain<Ostrich> brain = this.getBrain();
