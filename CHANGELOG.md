@@ -8,3 +8,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Significantly improved and optimized Warden swimming and its animations.
 - Optimized Allay animations.
 - Slightly optimized the mixin plugin.
+- Decreased the size of some Scorched Sand disks to prevent issues.
