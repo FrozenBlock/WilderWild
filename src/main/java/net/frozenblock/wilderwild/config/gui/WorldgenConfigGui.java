@@ -660,6 +660,7 @@ public final class WorldgenConfigGui {
 				entryBuilder.startBooleanToggle(text("add_stone_chests"), modifiedConfig.addStoneChests)
 					.setDefaultValue(defaultConfig.addStoneChests)
 					.setSaveConsumer(newValue -> config.addStoneChests = newValue)
+					.requireRestart()
 					.setTooltip(tooltip("add_stone_chests"))
 					.build(),
 				clazz,
