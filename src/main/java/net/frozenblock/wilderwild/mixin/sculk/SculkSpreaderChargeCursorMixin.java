@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.mixin.sculk;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.sculk.api.BooleanPropertySculkBehavior;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
@@ -46,7 +46,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreaderChargeCursorMixin {
@@ -73,12 +72,11 @@ public class SculkSpreaderChargeCursorMixin {
 			target = "Lnet/minecraft/world/level/LevelAccessor;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
 			shift = At.Shift.AFTER
 		),
-		locals = LocalCapture.CAPTURE_FAILEXCEPTION,
 		cancellable = true
 	)
 	private static void wilderWild$getValidMovementPos(
 		LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> info,
-		BlockPos.MutableBlockPos mutable, BlockPos.MutableBlockPos mutable2, Iterator<Vec3i> var5, Vec3i vec3i
+		@Local(ordinal = 0) BlockPos.MutableBlockPos mutable, @Local(ordinal = 1) BlockPos.MutableBlockPos mutable2
 	) {
 		BlockState state = level.getBlockState(mutable2);
 		boolean isInTags = state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE);
@@ -92,7 +90,6 @@ public class SculkSpreaderChargeCursorMixin {
 	}
 
 	@Unique
-	@NotNull
 	private static boolean wilderWild$isMovementUnobstructedWorldgen(LevelAccessor level, @NotNull BlockPos fromPos, BlockPos toPos) {
 		if (fromPos.distManhattan(toPos) == 1) {
 			return true;
@@ -169,7 +166,13 @@ public class SculkSpreaderChargeCursorMixin {
 		isWorldGen.set(spreader.isWorldGeneration());
 	}
 
-	@WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
+	@WrapOperation(
+		method = "update",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"
+		)
+	)
 	private SculkBehaviour wilderWild$newSculkBehaviour(
 		BlockState par1, Operation<SculkBehaviour> operation,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
@@ -188,7 +191,13 @@ public class SculkSpreaderChargeCursorMixin {
 		return operation.call(par1);
 	}
 
-	@WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"))
+	@WrapOperation(
+		method = "update",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"
+		)
+	)
 	private BlockPos wilderWild$newValidMovementPos(
 		LevelAccessor levelAccessor, BlockPos blockPos, RandomSource random, Operation<BlockPos> operation,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen

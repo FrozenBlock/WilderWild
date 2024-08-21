@@ -31,8 +31,7 @@ import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
-import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -152,9 +151,9 @@ public final class MagmaticCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addFossilDecoration(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.MAGMA_LAVA_POOL.getKey());
-		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.LAVA_LAKE_EXTRA.getKey());
-		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WilderMiscPlaced.LAVA_SPRING_EXTRA.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WilderCavePlaced.MAGMA_LAVA_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WilderCavePlaced.LAVA_LAKE_EXTRA.getKey());
+		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WilderCavePlaced.LAVA_SPRING_EXTRA.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
@@ -164,20 +163,20 @@ public final class MagmaticCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.FOSSIL_LAVA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.UPSIDE_DOWN_MAGMA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MAGMA_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MAGMA_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.OBSIDIAN_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.BASALT_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.BASALT_SPIKE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.DOWNWARDS_BASALT_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.MAGMA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.FIRE_PATCH_MAGMA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.GEYSER_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GEYSER_UP.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GEYSER_DOWN.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.DOWNWARDS_GEYSER_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderCavePlaced.FOSSIL_LAVA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.UPSIDE_DOWN_MAGMA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.MAGMA_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.MAGMA_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.OBSIDIAN_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.BASALT_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.BASALT_SPIKE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.DOWNWARDS_BASALT_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.MAGMA_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.FIRE_PATCH_MAGMA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.GEYSER_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.GEYSER_UP.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.GEYSER_DOWN.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.DOWNWARDS_GEYSER_COLUMN.getKey());
 	}
 
 	@Override

@@ -36,7 +36,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FrostedIceBlock.class)
 public class FrostedIceBlockMixin {
 
-	@Inject(method = "slightlyMelt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", shift = At.Shift.AFTER))
+	@Inject(
+		method = "slightlyMelt",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+			shift = At.Shift.AFTER
+		)
+	)
 	private void wilderWild$slightlyMelt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
 		if (BlockConfig.get().frostedIceCracking) {
 			SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
@@ -44,7 +51,14 @@ public class FrostedIceBlockMixin {
 		}
 	}
 
-	@Inject(method = "slightlyMelt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/FrostedIceBlock;melt(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V", shift = At.Shift.AFTER))
+	@Inject(
+		method = "slightlyMelt",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/FrostedIceBlock;melt(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V",
+			shift = At.Shift.AFTER
+		)
+	)
 	private void wildWilder$melt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
 		if (BlockConfig.get().frostedIceCracking) {
 			if (level instanceof ServerLevel serverLevel) {

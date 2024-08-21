@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
@@ -33,6 +35,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(Particle.class)
 public abstract class ParticleMixin {
 
@@ -40,17 +43,17 @@ public abstract class ParticleMixin {
 	@Final
 	protected ClientLevel level;
 	@Shadow
-	protected double xd;
+	public double xd;
 	@Shadow
-	protected double yd;
+	public double yd;
 	@Shadow
-	protected double zd;
+	public double zd;
 	@Shadow
-	protected double x;
+	public double x;
 	@Shadow
-	protected double y;
+	public double y;
 	@Shadow
-	protected double z;
+	public double z;
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {

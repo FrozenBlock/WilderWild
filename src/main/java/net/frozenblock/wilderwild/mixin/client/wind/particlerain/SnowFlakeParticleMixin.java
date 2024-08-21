@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind.particlerain;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.util.Mth;
@@ -30,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pigcart.particlerain.particle.SnowFlakeParticle;
 
 @Pseudo
+@Environment(EnvType.CLIENT)
 @Mixin(SnowFlakeParticle.class)
 public class SnowFlakeParticleMixin {
 

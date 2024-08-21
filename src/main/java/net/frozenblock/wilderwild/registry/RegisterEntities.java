@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WilderConstants;
@@ -35,118 +35,100 @@ import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterEntities {
-
 	public static final EntityType<AncientHornVibration> ANCIENT_HORN_VIBRATION = register(
 		"ancient_horn_vibration",
-		FabricEntityTypeBuilder.<AncientHornVibration>create(MobCategory.MISC, AncientHornVibration::new)
+		EntityType.Builder.<AncientHornVibration>of(AncientHornVibration::new, MobCategory.MISC)
 			.fireImmune()
-			.dimensions(EntityDimensions.scalable(0.6F, 0.6F).withEyeHeight(0.3F)) // eye height is the height * 0.5F
-			.trackRangeBlocks(64)
-			.trackedUpdateRate(2)
-			.build()
+			.sized(0.6F, 0.6F)
+			.eyeHeight(0.3F) // eye height is the height * 0.5F
+			.clientTrackingRange(64)
+			.updateInterval(2)
+			.build(WilderConstants.string("ancient_horn_vibration"))
 	);
 
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
-		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"))
-			.entityFactory(Firefly::new)
-			.defaultAttributes(Firefly::createAttributes)
-			.spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::checkFireflySpawnRules)
-			.dimensions(EntityDimensions.scalable(0.3F, 0.3F))
-			.build()
+		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"))
+			.sized(0.3F, 0.3F)
+			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+			.build(WilderConstants.string("firefly"))
 	);
 
 	public static final EntityType<Jellyfish> JELLYFISH = register(
 		"jellyfish",
-		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"))
-			.entityFactory(Jellyfish::new)
-			.defaultAttributes(Jellyfish::createAttributes)
-			.spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::checkJellyfishSpawnRules)
-			.dimensions(EntityDimensions.scalable(0.4F, 0.4F).withEyeHeight(0.4F * 0.5F)) // eye height is the height * 0.5F
-			.build()
+		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"))
+			.sized(0.4F, 0.4F)
+			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
+			.build(WilderConstants.string("jellyfish"))
 	);
 
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
 		"tumbleweed",
-		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"))
-			.entityFactory(Tumbleweed::new)
-			.defaultAttributes(Tumbleweed::createAttributes)
-			.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::checkTumbleweedSpawnRules)
-			.dimensions(EntityDimensions.scalable(0.98F, 0.98F).withEyeHeight(0.98F * 0.5F)) // eye height is the height * 0.5F
-			.build()
+		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"))
+			.sized(0.98F, 0.98F)
+			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
+			.build(WilderConstants.string("tumbleweed"))
 	);
 
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
-		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"))
-			.entityFactory(Crab::new)
-			.defaultAttributes(Crab::createAttributes)
-			.spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::checkCrabSpawnRules)
-			.dimensions(EntityDimensions.scalable(0.5F, 0.5F).withEyeHeight(0.5F * 0.65F)) // eye height is the height * 0.65F
-			.build()
+		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"))
+			.sized(0.5F, 0.5F)
+			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
+			.build(WilderConstants.string("crab"))
 	);
 
 	public static final EntityType<Ostrich> OSTRICH = register(
 		"ostrich",
-		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(MobCategory.CREATURE)
-			.entityFactory(Ostrich::new)
-			.defaultAttributes(Ostrich::createAttributes)
-			.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ostrich::checkOstrichSpawnRules)
-			.dimensions(EntityDimensions.scalable(1.1F, 2.3F).withEyeHeight(2.3F)) // eye height is hitbox height
-			.build()
+		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
+			.sized(1.1F, 2.3F)
+			.eyeHeight(2.3F) // eye height is hitbox height
+			.build(WilderConstants.string("ostrich"))
 	);
 
 	public static final EntityType<Scorched> SCORCHED = register(
 		"scorched",
-		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(MobCategory.MONSTER)
-			.entityFactory(Scorched::new)
-			.defaultAttributes(Scorched::createAttributes)
-			.spawnRestriction(FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Scorched::checkScorchedSpawnRules)
-			.dimensions(EntityDimensions.scalable(1.26F, 0.81F).withEyeHeight(0.585F))
+		EntityType.Builder.of(Scorched::new, MobCategory.MONSTER)
+			.sized(1.26F, 0.81F)
+			.eyeHeight(0.585F)
 			.fireImmune()
-			.trackRangeChunks(8)
-			.build()
+			.clientTrackingRange(8)
+			.build(WilderConstants.string("scorched"))
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
 		"coconut",
-		FabricEntityTypeBuilder.<CoconutProjectile>create(MobCategory.MISC, CoconutProjectile::new)
-			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
-			.trackRangeBlocks(64)
-			.trackedUpdateRate(10)
-			.build()
+		EntityType.Builder.<CoconutProjectile>of(CoconutProjectile::new, MobCategory.MISC)
+			.sized(0.25F, 0.25F)
+			.clientTrackingRange(64)
+			.updateInterval(10)
+			.build(WilderConstants.string("coconut"))
 	);
 
 	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
 		"chest_bubbler",
-		FabricEntityTypeBuilder.<ChestBubbleTicker>create(MobCategory.MISC, ChestBubbleTicker::new)
-			.dimensions(EntityDimensions.scalable(1.0F, 1.0F))
-			.trackRangeBlocks(0)
-			.trackedUpdateRate(10)
-			.build()
+		EntityType.Builder.<ChestBubbleTicker>of(ChestBubbleTicker::new, MobCategory.MISC)
+			.sized(1F, 1F)
+			.clientTrackingRange(0)
+			.updateInterval(10)
+			.build(WilderConstants.string("chest_bubbler"))
 	);
 
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
 		"sculk_spreader",
-		FabricEntityTypeBuilder.<SculkSpreadTicker>create(MobCategory.MISC, SculkSpreadTicker::new)
-			.dimensions(EntityDimensions.scalable(1.0F, 1.0F))
-			.trackRangeBlocks(0)
-			.trackedUpdateRate(10)
-			.build()
+		EntityType.Builder.<SculkSpreadTicker>of(SculkSpreadTicker::new, MobCategory.MISC)
+			.sized(1F, 1F)
+			.clientTrackingRange(0)
+			.updateInterval(10)
+			.build(WilderConstants.string("sculk_spreader"))
 	);
 
 	private RegisterEntities() {
@@ -155,7 +137,53 @@ public final class RegisterEntities {
 
 	public static void init() {
 		WilderConstants.logWithModId("Registering Entities for", WilderConstants.UNSTABLE_LOGGING);
-		RegisterDamageTypes.init();
+
+		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());
+		SpawnPlacements.register(
+			FIREFLY,
+			SpawnPlacementTypes.NO_RESTRICTIONS,
+			Heightmap.Types.MOTION_BLOCKING,
+			Firefly::checkFireflySpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(JELLYFISH, Jellyfish.createAttributes());
+		SpawnPlacements.register(
+			JELLYFISH,
+			SpawnPlacementTypes.IN_WATER,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Jellyfish::checkJellyfishSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(TUMBLEWEED, Tumbleweed.createAttributes());
+		SpawnPlacements.register(
+			TUMBLEWEED,
+			SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Tumbleweed::checkTumbleweedSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(CRAB, Crab.createAttributes());
+		SpawnPlacements.register(
+			CRAB,
+			SpawnPlacementTypes.IN_WATER,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Crab::checkCrabSpawnRules);
+
+		FabricDefaultAttributeRegistry.register(OSTRICH, Ostrich.createAttributes());
+		SpawnPlacements.register(
+			OSTRICH,
+			SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Ostrich::checkOstrichSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(SCORCHED, Scorched.createAttributes());
+		SpawnPlacements.register(
+			SCORCHED,
+			FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Scorched::checkScorchedSpawnRules
+		);
 	}
 
 	@NotNull

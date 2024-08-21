@@ -122,15 +122,22 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	@Override
-	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertBlocks) {
+	public int attemptUseCharge(
+		@NotNull SculkSpreader.ChargeCursor cursor,
+		@NotNull LevelAccessor level,
+		@NotNull BlockPos catalystPos,
+		@NotNull RandomSource random,
+		@NotNull SculkSpreader spreader,
+		boolean shouldConvertBlocks
+	) {
 		boolean isWorldGeneration = spreader.isWorldGeneration();
-		int i = cursor.getCharge();
-		int j = 1;
+		int cursorCharge = cursor.getCharge();
+		int cost = 1;
 		BlockPos blockPos = cursor.getPos();
 		BlockState firstState = level.getBlockState(blockPos);
 		if (firstState.is(this)) {
-			if ((i != 0 && random.nextInt(GROWTH_CHANCE) == 0) || isWorldGeneration) {
-				if (!blockPos.closerThan(catalystPos, spreader.noGrowthRadius()) || isWorldGeneration) {
+			if (isWorldGeneration || (cursorCharge != 0 && random.nextInt(GROWTH_CHANCE) == 0)) {
+				if (isWorldGeneration || !blockPos.closerThan(catalystPos, spreader.noGrowthRadius())) {
 					int pillarHeightLeft = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
 					if (pillarHeightLeft > 0) {
 						BlockPos topPos = getTop(level, blockPos, pillarHeightLeft);
@@ -166,7 +173,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 								workOnBottom(level, mutableBlockPos, state);
 								cursor.pos = mutableBlockPos.immutable();
 								if (!isWorldGeneration) {
-									return Math.max(0, i - j);
+									return Math.max(0, cursorCharge - cost);
 								}
 							}
 						}
@@ -174,7 +181,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 				}
 			}
 		}
-		return i;
+		return cursorCharge;
 	}
 
 	private BlockState getGrowthState(@NotNull RandomSource random, int pillarHeightLeft, @NotNull BlockState state, @NotNull Direction direction) {

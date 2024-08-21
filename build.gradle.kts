@@ -222,9 +222,11 @@ dependencies {
     // Sodium
     if (shouldRunSodium)
         modImplementation("maven.modrinth:sodium:${sodium_version}")
+    else
+        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // Indium
-    if (shouldRunSodium)
+    if (shouldRunSodium && shouldRunIndium)
         modImplementation("maven.modrinth:indium:${indium_version}")
     else
         modCompileOnly("maven.modrinth:indium:${indium_version}")

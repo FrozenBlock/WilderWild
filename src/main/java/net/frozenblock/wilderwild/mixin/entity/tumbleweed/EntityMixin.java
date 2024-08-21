@@ -30,8 +30,7 @@ public class EntityMixin {
 
 	@Inject(method = "discard", at = @At(value = "HEAD"))
 	public void wilderWild$discard(CallbackInfo info) {
-		Entity entity = Entity.class.cast(this);
-		if (entity instanceof Tumbleweed tumbleweed) {
+		if (Entity.class.cast(this) instanceof Tumbleweed tumbleweed) {
 			tumbleweed.dropItem(false);
 		}
 	}

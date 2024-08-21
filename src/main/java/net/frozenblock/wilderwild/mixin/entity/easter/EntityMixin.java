@@ -21,9 +21,11 @@ package net.frozenblock.wilderwild.mixin.entity.easter;
 import net.frozenblock.lib.spotting_icons.impl.EntitySpottingIconInterface;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,11 +33,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public class EntityMixin {
 
+	@Unique
+	private static final ResourceLocation WILDER_WILD$STELLA_TEXTURE = WilderConstants.id("textures/spotting_icons/stella.png");
+	@Unique
+	private static final ResourceLocation WILDER_WILD$STELLA = WilderConstants.id("stella");
+
 	@Inject(method = "setCustomName", at = @At(value = "HEAD"))
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {
 		if (name != null && name.getString().equalsIgnoreCase("Stella")) {
 			((EntitySpottingIconInterface) Entity.class.cast(this)).getSpottingIconManager()
-				.setIcon(WilderConstants.id("textures/spotting_icons/stella.png"), 5F, 8F, WilderConstants.id("stella"));
+				.setIcon(WILDER_WILD$STELLA_TEXTURE, 5F, 8F, WILDER_WILD$STELLA);
 		}
 	}
 }

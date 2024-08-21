@@ -25,12 +25,14 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
-import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
-import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
+import net.frozenblock.wilderwild.world.feature.configured.WilderCaveConfigured;
+import net.frozenblock.wilderwild.world.feature.configured.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.configured.WilderMiscConfigured;
+import net.frozenblock.wilderwild.world.feature.configured.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
+import net.frozenblock.wilderwild.world.feature.placed.WilderMiscPlaced;
+import net.frozenblock.wilderwild.world.feature.placed.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.placed.WilderTreePlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -52,7 +54,8 @@ public class WilderFeatureBootstrap {
 		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WilderTreeConfigured.registerTreeConfigured();
-		WilderMiscConfigured.registerMiscPlaced();
+		WilderMiscConfigured.registerMiscConfigured();
+		WilderCaveConfigured.registerCaveConfigured(entries);
 		WilderConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 
@@ -64,6 +67,7 @@ public class WilderFeatureBootstrap {
 
 		WilderTreePlaced.registerTreePlaced();
 		WilderMiscPlaced.registerMiscPlaced(entries);
+		WilderCavePlaced.registerCavePlaced(entries);
 		WilderPlacedFeatures.registerPlacedFeatures(entries);
 	}
 

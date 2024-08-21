@@ -45,6 +45,7 @@ public class LivingEntityMixin {
 	private void wilderWild$cancelIfEntityIsTumbleweed(Entity entity, CallbackInfo info) {
 		if (entity instanceof Tumbleweed && Entity.class.cast(this).getType().is(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)) {
 			info.cancel();
+			return;
 		}
 		if (Entity.class.cast(this) instanceof Tumbleweed && entity.getType().is(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)) {
 			info.cancel();

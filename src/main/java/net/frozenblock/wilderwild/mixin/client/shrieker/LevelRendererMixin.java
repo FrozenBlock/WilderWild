@@ -42,8 +42,16 @@ public class LevelRendererMixin {
 	@Nullable
 	private ClientLevel level;
 
-	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0), require = 0)
-	private Comparable<Boolean> shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
+	@ModifyExpressionValue(
+		method = "levelEvent",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
+			ordinal = 0
+		),
+		require = 0
+	)
+	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
 		if (this.level != null && BlockConfig.get().shriekerGargling) {
 			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
 				this.level.playLocalSound(

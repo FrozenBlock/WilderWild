@@ -37,6 +37,7 @@ import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
@@ -59,7 +60,6 @@ import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
-import net.frozenblock.wilderwild.particle.AdditionalParticleFactories;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
@@ -67,6 +67,7 @@ import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.particle.WindParticle;
+import net.frozenblock.wilderwild.particle.factory.WilderParticleFactories;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -74,7 +75,6 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.BiomeColors;
@@ -118,9 +118,9 @@ public final class WilderWildClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WilderConstants.id("texts/splashes.txt"));
-		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/first/panorama"));
-		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/second/panorama"));
-		Panoramas.addPanorama(WilderConstants.id("textures/gui/title/third/panorama"));
+		addPanorama("beta_beach_river");
+		addPanorama("birch_valley");
+		addPanorama("cherry_grove_and_sunflower_plains");;
 		WilderEasterEggs.hatchEasterEggs();
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
@@ -218,7 +218,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.WIND, WindParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.COCONUT_SPLASH, FallingParticle.Factory::new);
-		particleRegistry.register(RegisterParticles.SCORCHING_FLAME, AdditionalParticleFactories.ScorchingEffectFlameFactory::new);
+		particleRegistry.register(RegisterParticles.SCORCHING_FLAME, WilderParticleFactories.ScorchingEffectFlameFactory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
@@ -382,7 +382,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
 				if (view != null && pos != null && BlockConfig.Client.MESOGLEA_LIQUID) {
 					BlockState state = view.getBlockState(pos);
-					return state.is(WilderBlockTags.MESOGLEA) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
+					return state.getBlock() instanceof MesogleaBlock && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 				}
 				return false;
 			}
@@ -418,6 +418,11 @@ public final class WilderWildClient implements ClientModInitializer {
 		};
 
 		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.WATER, Fluids.FLOWING_WATER, customWaterHandler);
+	}
+
+	private static void addPanorama(String panoramaName) {
+		ResourceLocation panoramaLocation = WilderConstants.id("textures/gui/title/" + panoramaName + "/panorama");
+		Panoramas.addPanorama(panoramaLocation);
 	}
 
 }

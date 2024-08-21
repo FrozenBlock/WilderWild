@@ -19,11 +19,11 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import com.google.common.collect.Iterables;
+import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Set;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.impl.sapling.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,7 +41,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = TreeFeature.class, priority = 69420)
 public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
@@ -54,13 +53,20 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 	@Inject(
 		method = "place",
 		at = @At(
-			value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/BoundingBox;encapsulatingPositions(Ljava/lang/Iterable;)Ljava/util/Optional;",
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/levelgen/structure/BoundingBox;encapsulatingPositions(Ljava/lang/Iterable;)Ljava/util/Optional;",
 			shift = At.Shift.BEFORE
 		),
-		locals = LocalCapture.CAPTURE_FAILHARD,
 		cancellable = true
 	)
-	private void wilderWild$place(FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> info, WorldGenLevel worldGenLevel, RandomSource randomSource, BlockPos blockPos, TreeConfiguration treeConfiguration, Set<BlockPos> set, Set<BlockPos> set2, Set<BlockPos> set3, Set<BlockPos> set4) {
+	private void wilderWild$place(
+		FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> info,
+		@Local WorldGenLevel worldGenLevel,
+		@Local(ordinal = 0) Set<BlockPos> set,
+		@Local(ordinal = 1) Set<BlockPos> set2,
+		@Local(ordinal = 2) Set<BlockPos> set3,
+		@Local(ordinal = 3) Set<BlockPos> set4
+	) {
 		info.setReturnValue(this.wilderWild$encapsulatePositionsAndUpdateLeaves(worldGenLevel, set, set2, set3, set4));
 	}
 

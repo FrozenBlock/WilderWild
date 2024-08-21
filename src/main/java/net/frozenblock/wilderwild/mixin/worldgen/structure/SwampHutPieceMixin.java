@@ -30,7 +30,13 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = SwampHutPiece.class, priority = 999)
 public class SwampHutPieceMixin {
 
-	@ModifyExpressionValue(method = "postProcess", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_PLANKS:Lnet/minecraft/world/level/block/Block;"))
+	@ModifyExpressionValue(
+		method = "postProcess",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_PLANKS:Lnet/minecraft/world/level/block/Block;"
+		)
+	)
 	public Block wilderWild$newPlanks(Block original) {
 		if (WorldgenConfig.get().newWitchHuts) {
 			return RegisterBlocks.CYPRESS_PLANKS;
@@ -38,7 +44,13 @@ public class SwampHutPieceMixin {
 		return original;
 	}
 
-	@ModifyExpressionValue(method = "postProcess", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_STAIRS:Lnet/minecraft/world/level/block/Block;"))
+	@ModifyExpressionValue(
+		method = "postProcess",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_STAIRS:Lnet/minecraft/world/level/block/Block;"
+		)
+	)
 	public Block wilderWild$newStairs(Block original) {
 		if (WorldgenConfig.get().newWitchHuts) {
 			return RegisterBlocks.CYPRESS_STAIRS;

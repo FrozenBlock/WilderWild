@@ -29,7 +29,13 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Creeper.class)
 public final class CreeperMixin {
 
-	@ModifyExpressionValue(method = "spawnLingeringCloud", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+	@ModifyExpressionValue(
+		method = "spawnLingeringCloud",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
+		)
+	)
 	public boolean wilderWild$spawnLingeringCloud(boolean original) {
 		if (original && ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			Creeper creeper = Creeper.class.cast(this);

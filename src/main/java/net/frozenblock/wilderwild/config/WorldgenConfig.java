@@ -112,11 +112,17 @@ public final class WorldgenConfig {
 	@EntrySyncData("surfaceTransitions")
 	public boolean surfaceTransitions = true;
 
+	@EntrySyncData("addStoneChests")
+	public boolean addStoneChests = true;
+
 	@EntrySyncData("newWitchHuts")
 	public boolean newWitchHuts = true;
 
 	@EntrySyncData("decayTrailRuins")
 	public boolean decayTrailRuins = true;
+
+	@EntrySyncData("newDesertVillages")
+	public boolean newDesertVillages = true;
 
 	public static WorldgenConfig get() {
 		return get(false);

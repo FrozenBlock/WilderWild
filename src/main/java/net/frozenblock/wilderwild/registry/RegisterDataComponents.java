@@ -26,9 +26,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import org.jetbrains.annotations.NotNull;
 
 public class RegisterDataComponents {
-
 	public static final DataComponentType<List<DisplayLanternBlockEntity.Occupant>> FIREFLIES = register(
 		"fireflies",
 		builder -> builder.persistent(DisplayLanternBlockEntity.Occupant.LIST_CODEC)
@@ -37,7 +37,7 @@ public class RegisterDataComponents {
 
 	public static void init() {}
 
-	private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
+	private static <T> @NotNull DataComponentType<T> register(String id, @NotNull UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
 		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, WilderConstants.id(id), unaryOperator.apply(DataComponentType.builder()).build());
 	}
 }

@@ -31,11 +31,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Snowball.class)
 public class SnowballMixin {
 
-	@Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V", ordinal = 0))
+	@Inject(
+		method = "onHit",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V",
+			ordinal = 0
+		)
+	)
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (ItemConfig.get().projectileLandingSounds.snowballLandingSounds) {
 			Snowball snowball = Snowball.class.cast(this);
-			snowball.level().playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (snowball.level().random.nextFloat() * 0.2F));
+			snowball.level().playSound(
+				null,
+				snowball.getX(),
+				snowball.getY(),
+				snowball.getZ(),
+				RegisterSounds.ITEM_SNOWBALL_LAND,
+				SoundSource.BLOCKS,
+				0.3F,
+				0.85F + (snowball.getRandom().nextFloat() * 0.2F)
+			);
 		}
 	}
 

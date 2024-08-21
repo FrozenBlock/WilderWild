@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.item.instrument;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
@@ -39,8 +39,16 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(InstrumentItem.class)
 public final class InstrumentItemMixin {
 
-	@WrapOperation(method = "play", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
-	private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original) {
+	@WrapOperation(
+		method = "play",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"
+		)
+	)
+	private static void wilderWild$playRestrictionSound(
+		Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original
+	) {
 		if (ItemConfig.get().restrictInstrumentSound) {
 			if (!level.isClientSide) {
 				FrozenSoundPackets.createMovingRestrictionSound(

@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.mixin.warden;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.function.Consumer;
-import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.impl.WilderSonicBoom;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -50,7 +49,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = SonicBoom.class, priority = 1001)
 public class SonicBoomMixin implements WilderSonicBoom {
@@ -77,10 +75,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I",
 			shift = At.Shift.BEFORE
-		),
-		locals = LocalCapture.CAPTURE_FAILHARD
+		)
 	)
-	private static void wilderWild$stopParticles(Warden warden, ServerLevel serverLevel, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, int j, Vec3 vec34) {
+	private static void wilderWild$stopParticles(Warden warden, ServerLevel serverLevel, LivingEntity livingEntity, CallbackInfo info,
+		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 3) Vec3 vec34
+	) {
 		BlockPos hitPos = wilderWild$isOccluded(serverLevel, vec3, vec34);
 		if (hitPos != null) {
 			((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
@@ -93,10 +92,12 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"
 		),
-		locals = LocalCapture.CAPTURE_FAILHARD,
 		cancellable = true
 	)
-	private static void wilderWild$tick(Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33) {
+	private static void wilderWild$tick(
+		Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo info,
+		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 1) Vec3 vec32, @Local(ordinal = 2) Vec3 vec33
+	) {
 		for (int i = 1; i < Mth.floor(vec32.length()) + 7; ++i) {
 			Vec3 vec34 = vec3.add(vec33.scale(i));
 			BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
@@ -139,7 +140,6 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			}
 		}
 		if (blocked) {
-			WilderConstants.log("Warden Sonic Boom Blocked @ " + hitPos, WilderConstants.UNSTABLE_LOGGING);
 			return hitPos;
 		} else {
 			return null;

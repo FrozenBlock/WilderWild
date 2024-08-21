@@ -14,7 +14,7 @@
     "surface": "floor",
     "vegetation_chance": 0.0,
     "vegetation_feature": {
-      "feature": "wilderwild:blank_shut_up",
+      "feature": "wilderwild:empty",
       "placement": []
     },
     "vertical_range": 1,

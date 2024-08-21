@@ -29,8 +29,7 @@ import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
-import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -148,7 +147,7 @@ public final class JellyfishCaves extends FrozenBiome {
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.JELLYFISH_STONE_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WilderCavePlaced.JELLYFISH_STONE_POOL.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
@@ -158,21 +157,21 @@ public final class JellyfishCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.LARGE_MESOGLEA_PURPLE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.LARGE_MESOGLEA_BLUE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.MESOGLEA_CLUSTER_PURPLE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.MESOGLEA_CLUSTER_BLUE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MESOGLEA_PILLAR.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.BLUE_MESOGLEA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.PURPLE_MESOGLEA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_CALCITE.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEMATOCYST_BLUE.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEMATOCYST_PURPLE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.BLUE_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.PURPLE_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.UPSIDE_DOWN_BLUE_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.UPSIDE_DOWN_PURPLE_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.LARGE_MESOGLEA_PURPLE.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.LARGE_MESOGLEA_BLUE.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.MESOGLEA_CLUSTER_PURPLE.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.MESOGLEA_CLUSTER_BLUE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.MESOGLEA_PILLAR.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.PURPLE_MESOGLEA_PILLAR.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.BLUE_MESOGLEA_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderCavePlaced.PURPLE_MESOGLEA_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderCavePlaced.ORE_CALCITE.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderCavePlaced.NEMATOCYST_BLUE.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderCavePlaced.NEMATOCYST_PURPLE.getKey());
 	}
 
 	@Override

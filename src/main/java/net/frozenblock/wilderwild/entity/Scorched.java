@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.registry.RegisterMobEffects;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -97,6 +98,15 @@ public class Scorched extends Spider {
 	@Override
 	public void tick() {
 		super.tick();
+		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getInBlockState().is(BlockTags.FIRE) || this.isInLava()) {
+			this.addEffect(
+				new MobEffectInstance(
+					RegisterMobEffects.SCORCHING,
+					200,
+					0
+				)
+			);
+		}
 		this.scorchedInLava();
 		this.checkInsideBlocks();
         float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
@@ -106,13 +116,6 @@ public class Scorched extends Spider {
 
 	private void scorchedInLava() {
 		if (this.isInLava()) {
-			this.addEffect(
-				new MobEffectInstance(
-					RegisterMobEffects.SCORCHING,
-					200,
-					0
-				)
-			);
 			CollisionContext collisionContext = CollisionContext.of(this);
 			if (
 				collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true)

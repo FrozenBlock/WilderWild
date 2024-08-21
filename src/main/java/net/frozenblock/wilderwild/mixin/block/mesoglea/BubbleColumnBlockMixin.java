@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -37,7 +38,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(BubbleColumnBlock.class)
 public abstract class BubbleColumnBlockMixin extends Block {
@@ -58,7 +58,11 @@ public abstract class BubbleColumnBlockMixin extends Block {
 
 	@ModifyExpressionValue(
 		method = "updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;canExistIn(Lnet/minecraft/world/level/block/state/BlockState;)Z", ordinal = 1)
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;canExistIn(Lnet/minecraft/world/level/block/state/BlockState;)Z",
+			ordinal = 1
+		)
 	)
 	private static boolean wilderWild$updateColumnBooleanTweak(boolean original) {
 		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
@@ -69,11 +73,22 @@ public abstract class BubbleColumnBlockMixin extends Block {
 
 	@Inject(
 		method = "updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 1, shift = At.Shift.BEFORE),
-		cancellable = true,
-		locals = LocalCapture.CAPTURE_FAILHARD
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+			ordinal = 1,
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
 	)
-	private static void wilderWild$updateColumnIfStatement(LevelAccessor level, BlockPos pos, BlockState fluid, BlockState state, CallbackInfo info, BlockState columnState, BlockPos.MutableBlockPos mutableBlockPos) {
+	private static void wilderWild$updateColumnIfStatement(
+		LevelAccessor level,
+		BlockPos pos,
+		BlockState fluid,
+		BlockState state,
+		CallbackInfo info,
+		@Local(ordinal = 0) BlockPos.MutableBlockPos mutableBlockPos
+	) {
 		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			BlockState mutableState = level.getBlockState(mutableBlockPos);
 			if (!canExistIn(mutableState)) {
@@ -95,7 +110,14 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		}
 	}
 
-	@Inject(method = "updateShape", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE))
+	@Inject(
+		method = "updateShape",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
+			shift = At.Shift.BEFORE
+		)
+	)
 	public void wilderWild$updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
 		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			if (MesogleaBlock.hasBubbleColumn(neighborState)) {

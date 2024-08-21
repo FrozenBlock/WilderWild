@@ -27,8 +27,9 @@ import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
+import net.frozenblock.wilderwild.world.feature.placed.WilderMiscPlaced;
+import net.frozenblock.wilderwild.world.feature.placed.WilderPlacedFeatures;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderMiscGeneration {
@@ -42,11 +43,11 @@ public final class WilderMiscGeneration {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_NETHER_GEYSER)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.NETHER_GEYSER.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.NETHER_GEYSER.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_NETHER_LAVA_GEYSER)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.NETHER_LAVA_GEYSER.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderCavePlaced.NETHER_LAVA_GEYSER.getKey());
 						}
 					}
 				});
@@ -246,7 +247,7 @@ public final class WilderMiscGeneration {
 				(biomeSelectionContext, context) -> {
 					if (WorldgenConfig.get().surfaceDecoration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-						generationSettings.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.STONE_POOL.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.LAKES, WilderCavePlaced.STONE_POOL.getKey());
 					}
 				});
 

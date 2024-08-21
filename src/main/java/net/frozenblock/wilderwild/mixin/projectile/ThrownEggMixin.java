@@ -31,11 +31,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ThrownEgg.class)
 public class ThrownEggMixin {
 
-	@Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V", ordinal = 0))
+	@Inject(
+		method = "onHit",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V",
+			ordinal = 0
+		)
+	)
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (ItemConfig.get().projectileLandingSounds.eggLandingSounds) {
 			ThrownEgg egg = ThrownEgg.class.cast(this);
-			egg.level().playSound(null, egg.getX(), egg.getY(), egg.getZ(), RegisterSounds.ITEM_EGG_LAND, SoundSource.BLOCKS, 0.5F, 0.85F + (egg.level().random.nextFloat() * 0.2F));
+			egg.level().playSound(
+				null,
+				egg.getX(),
+				egg.getY(),
+				egg.getZ(),
+				RegisterSounds.ITEM_EGG_LAND,
+				SoundSource.BLOCKS,
+				0.5F, 0.85F + (egg.getRandom().nextFloat() * 0.2F)
+			);
 		}
 	}
 
