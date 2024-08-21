@@ -39,8 +39,8 @@ public final class RegisterResources {
 		);
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			WilderConstants.id("old_wilder_wild_panoramas"),
-			container, Component.literal("Old Wilder Wild Panoramas"),
+			WilderConstants.id("foliage2"),
+			container, Component.literal("New Vegetation Colors"),
 			ResourcePackActivationType.NORMAL
 		);
 
