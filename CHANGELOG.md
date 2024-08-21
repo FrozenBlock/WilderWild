@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
 - Fixed crash upon booting a server.
+- Fixed certain worldgen features causing the game to freeze/lock.
 - Removed all but two of Wilder Wild's panoramas to improve file size.
 - Cleaned up and optimized many mixins.
 - Significantly improved and optimized Warden swimming and its animations.
