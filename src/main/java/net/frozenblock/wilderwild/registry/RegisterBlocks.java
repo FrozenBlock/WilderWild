@@ -219,23 +219,15 @@ public final class RegisterBlocks {
 	// SCULK
 	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
 		Blocks.SCULK.defaultBlockState(),
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.2F)
-			.sound(SoundType.SCULK)
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK)
 	);
 
 	public static final SculkSlabBlock SCULK_SLAB = new SculkSlabBlock(
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.2F)
-			.sound(SoundType.SCULK));
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK)
+	);
 
 	public static final SculkWallBlock SCULK_WALL = new SculkWallBlock(
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.2F)
-			.sound(SoundType.SCULK)
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK)
 	);
 
 	public static final OsseousSculkBlock OSSEOUS_SCULK = new OsseousSculkBlock(
