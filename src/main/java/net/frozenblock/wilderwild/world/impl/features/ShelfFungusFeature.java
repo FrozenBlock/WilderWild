@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.world.impl.features;
 
 import com.mojang.serialization.Codec;
-import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.world.impl.features.config.ShelfFungusFeatureConfig;
@@ -42,33 +41,30 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 
 	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungusFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
 		MutableBlockPos mutable = pos.mutable();
-		Iterator<Direction> var7 = directions.iterator();
 
-		Direction direction;
-		Direction placementDirection;
-		BlockState blockState;
-		do {
-			if (!var7.hasNext()) {
-				return false;
+		Direction placementDirection = null;
+		for (Direction direction : Direction.values()) {
+			BlockState blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
+			if (blockState.is(config.canPlaceOn)) {
+				if (direction.getAxis() == Direction.Axis.Y) {
+					placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+				} else {
+					placementDirection = direction.getOpposite();
+				}
+				break;
 			}
+		}
 
-			direction = var7.next();
-			blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
-			placementDirection = direction;
-			if (placementDirection.getAxis() == Direction.Axis.Y) {
-				placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-			} else {
-				placementDirection = placementDirection.getOpposite();
-			}
-		} while (!blockState.is(config.canPlaceOn));
+		if (placementDirection != null) {
+			level.setBlock(pos, config.fungus.defaultBlockState()
+				.setValue(ShelfFungusBlock.FACING, placementDirection)
+				.setValue(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(placementDirection.getOpposite()))
+				.setValue(ShelfFungusBlock.STAGE, random.nextInt(3) + 1), 3);
+			level.getChunk(pos).markPosForPostprocessing(pos);
+			return true;
+		}
 
-		level.setBlock(pos, config.fungus.defaultBlockState()
-			.setValue(ShelfFungusBlock.FACING, placementDirection)
-			.setValue(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(direction))
-			.setValue(ShelfFungusBlock.STAGE, random.nextInt(3) + 1), 3);
-		level.getChunk(pos).markPosForPostprocessing(pos);
-
-		return true;
+		return false;
 	}
 
 	private static boolean isAirOrWater(@NotNull BlockState state) {
