@@ -1161,7 +1161,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		GLORY_OF_THE_SNOW_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.GLORY_OF_THE_SNOW_JUNGLE.getHolder(),
-			CountPlacement.of(2), InSquarePlacement.spread(),
+			CountPlacement.of(1), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1196,7 +1196,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),
-			CountPlacement.of(20), InSquarePlacement.spread(),
+			CountPlacement.of(17), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
