@@ -47,6 +47,7 @@ public abstract class PinkPetalsBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.canSnowlog()) builder.add(SnowloggingUtils.SNOW_LAYERS);
+		if (!BlockConfig.get().snowlogging.snowlogging) return;
+		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 }

@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -83,6 +82,38 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(WilderItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
 			.add(Items.RED_MUSHROOM)
 			.addOptional(WilderConstants.id("red_shelf_fungus"));
+
+		this.getOrCreateTagBuilder(WilderItemTags.MESOGLEA)
+			.add(RegisterBlocks.BLUE_MESOGLEA.asItem())
+			.add(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.asItem())
+			.add(RegisterBlocks.LIME_MESOGLEA.asItem())
+			.add(RegisterBlocks.PINK_MESOGLEA.asItem())
+			.add(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.asItem())
+			.add(RegisterBlocks.RED_MESOGLEA.asItem())
+			.add(RegisterBlocks.YELLOW_MESOGLEA.asItem());
+
+		this.getOrCreateTagBuilder(WilderItemTags.NEMATOCYSTS)
+			.add(RegisterBlocks.BLUE_NEMATOCYST.asItem())
+			.add(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.asItem())
+			.add(RegisterBlocks.LIME_NEMATOCYST.asItem())
+			.add(RegisterBlocks.PINK_NEMATOCYST.asItem())
+			.add(RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.asItem())
+			.add(RegisterBlocks.RED_NEMATOCYST.asItem())
+			.add(RegisterBlocks.YELLOW_NEMATOCYST.asItem());
+
+		this.getOrCreateTagBuilder(WilderItemTags.JELLYFISH_FOOD)
+			.add(Items.COD)
+			.add(Items.SALMON);
+
+		this.getOrCreateTagBuilder(WilderItemTags.PEARLESCENT_JELLYFISH_FOOD)
+			.add(Items.COD)
+			.add(Items.SALMON);
+
+		this.getOrCreateTagBuilder(WilderItemTags.CRAB_FOOD)
+			.add(Items.KELP);
+
+		this.getOrCreateTagBuilder(WilderItemTags.OSTRICH_FOOD)
+			.add(RegisterBlocks.BUSH.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(RegisterBlocks.BUSH.asItem())

@@ -25,6 +25,29 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderBlockTags {
+	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
+	public static final TagKey<Block> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");
+	public static final TagKey<Block> HOLLOWED_LOGS_THAT_BURN = bind("hollowed_logs_that_burn");
+
+	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
+	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS_DONT_BURN = bind("stripped_hollowed_logs_dont_burn");
+	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS_THAT_BURN = bind("stripped_hollowed_logs_that_burn");
+
+	public static final TagKey<Block> HOLLOWED_ACACIA_LOGS = bind("hollowed_acacia_logs");
+	public static final TagKey<Block> HOLLOWED_BIRCH_LOGS = bind("hollowed_birch_logs");
+	public static final TagKey<Block> HOLLOWED_CHERRY_LOGS = bind("hollowed_cherry_logs");
+	public static final TagKey<Block> HOLLOWED_CRIMSON_STEMS = bind("hollowed_crimson_stems");
+	public static final TagKey<Block> HOLLOWED_DARK_OAK_LOGS = bind("hollowed_dark_oak_logs");
+	public static final TagKey<Block> HOLLOWED_JUNGLE_LOGS = bind("hollowed_jungle_logs");
+	public static final TagKey<Block> HOLLOWED_MANGROVE_LOGS = bind("hollowed_mangrove_logs");
+	public static final TagKey<Block> HOLLOWED_OAK_LOGS = bind("hollowed_oak_logs");
+	public static final TagKey<Block> HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");
+	public static final TagKey<Block> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
+
+	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
+	public static final TagKey<Block> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
+	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
+
 	public static final TagKey<Block> NO_LIGHTNING_BLOCK_PARTICLES = bind("no_lightning_block_particles");
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_CAN_HIDE = bind("crab_can_hide");
@@ -47,11 +70,6 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
 	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
-	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
-	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
-	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
-	public static final TagKey<Block> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
-	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
 	public static final TagKey<Block> RIVER_POOL_REPLACEABLE = bind("river_pool_replaceable");
