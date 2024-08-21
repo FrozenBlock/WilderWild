@@ -31,9 +31,6 @@ import org.jetbrains.annotations.NotNull;
 
 public record WilderSensorHiccupPacket(double x, double y, double z) implements CustomPacketPayload {
 	public static final int PARTICLE_COLOR = 5578058;
-	public static final double COLOR_X = (double) (PARTICLE_COLOR >> 16 & 255) / 255D;
-	public static final double COLOR_Y = (double) (PARTICLE_COLOR >> 8 & 255) / 255D;
-	public static final double COLOR_Z = (double) (PARTICLE_COLOR & 255) / 255D;
 	public static final Type<WilderSensorHiccupPacket> PACKET_TYPE = new Type<>(
 		WilderConstants.id("sensor_hiccup")
 	);
