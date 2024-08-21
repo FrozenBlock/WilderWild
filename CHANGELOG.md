@@ -16,5 +16,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - The block sounds option for Flowers now impacts Torchflowers.
 - Fixed the Sculk Shrieker's new loot table causing it to drop without Silk Touch.
 - Fixed the Snowlogging config using default values upon boot.
-- Fixed Hanging Signs causing crashes.
+- Fixed Hanging Signs causing crashes. Again.
 - Slightly decreased the average amount of flowers in Jungles.
