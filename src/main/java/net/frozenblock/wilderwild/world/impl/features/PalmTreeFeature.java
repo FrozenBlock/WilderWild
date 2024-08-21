@@ -67,7 +67,7 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		int k = 0;
-		list.get(0).addAll(rootPositions);
+		list.getFirst().addAll(rootPositions);
 
 		while (true) {
 			while (k >= MAX_DISTANCE || !list.get(k).isEmpty()) {
