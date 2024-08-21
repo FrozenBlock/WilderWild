@@ -3,6 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
+- Fixed crash upon booting a server.
 - Removed all but two of Wilder Wild's panoramas to improve file size.
 - Cleaned up and optimized many mixins.
 - Significantly improved and optimized Warden swimming and its animations.
