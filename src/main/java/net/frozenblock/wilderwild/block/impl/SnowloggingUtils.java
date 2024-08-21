@@ -155,7 +155,7 @@ public class SnowloggingUtils {
 	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, Vec3 hitLocation) {
 		if (isSnowlogged(state)) {
 			VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
-			return (pos.getY() + snowLayerShape.max(Direction.Axis.Y)) >= hitLocation.y;
+			return (pos.getY() + snowLayerShape.max(Direction.Axis.Y)) >= hitLocation.y();
 		}
 		return false;
 	}

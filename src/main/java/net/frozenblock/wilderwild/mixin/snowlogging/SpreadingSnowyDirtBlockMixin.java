@@ -71,5 +71,4 @@ public class SpreadingSnowyDirtBlockMixin {
 	public boolean wilderWild$randomTick(BlockState instance, Block block, Operation<Boolean> original) {
 		return original.call(instance, block) || SnowloggingUtils.isSnowlogged(instance);
 	}
-
 }

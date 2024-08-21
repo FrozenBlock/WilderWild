@@ -99,7 +99,7 @@ Soulfate24:
 Rebel459
  - Revamped music pools in 2.4.5.
 
-wet.noodle/Ashlyn
+Wet Noodle/Ashlyn
  - Suggested adding Reach Boost to Beacons.
  - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
 

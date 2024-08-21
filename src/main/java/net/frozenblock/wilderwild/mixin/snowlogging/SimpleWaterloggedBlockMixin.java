@@ -39,5 +39,4 @@ public interface SimpleWaterloggedBlockMixin {
 			info.setReturnValue(false);
 		}
 	}
-
 }

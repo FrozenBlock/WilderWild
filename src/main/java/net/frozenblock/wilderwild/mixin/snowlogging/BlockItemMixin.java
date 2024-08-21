@@ -53,5 +53,4 @@ public class BlockItemMixin {
 			info.setReturnValue(SnowloggingUtils.getSnowEquivalent(state).getSoundType().getPlaceSound());
 		}
 	}
-
 }

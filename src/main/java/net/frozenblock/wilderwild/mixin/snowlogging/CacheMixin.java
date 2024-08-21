@@ -43,5 +43,4 @@ public class CacheMixin {
 			&& !(SnowloggingUtils.isSnowlogged(blockState)
 			&& SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
 	}
-
 }

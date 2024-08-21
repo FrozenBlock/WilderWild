@@ -289,5 +289,4 @@ public abstract class BlockStateBaseMixin {
 		}
 		return original.call(instance, blockState);
 	}
-
 }

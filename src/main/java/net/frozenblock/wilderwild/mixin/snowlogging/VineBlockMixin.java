@@ -52,8 +52,6 @@ public abstract class VineBlockMixin extends Block {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
-
 }
