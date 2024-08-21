@@ -101,7 +101,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 	}
 
-	public static AnyOfCondition.Builder shouldSmeltLoot(HolderLookup.Provider registries) {
+	public static AnyOfCondition.@NotNull Builder shouldSmeltLoot(HolderLookup.@NotNull Provider registries) {
 		HolderLookup.RegistryLookup<Enchantment> registryLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
 		return AnyOfCondition.anyOf(
 			LootItemEntityPropertyCondition.hasProperties(

@@ -118,7 +118,6 @@ public final class WilderWildClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WilderConstants.id("texts/splashes.txt"));
-		addPanorama("beta_beach_river");
 		addPanorama("birch_valley");
 		addPanorama("cherry_grove_and_sunflower_plains");;
 		WilderEasterEggs.hatchEasterEggs();

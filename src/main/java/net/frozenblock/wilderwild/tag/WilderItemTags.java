@@ -27,9 +27,10 @@ import org.jetbrains.annotations.NotNull;
 public final class WilderItemTags {
 	public static final TagKey<Item> GOAT_DROP_MUSIC_DISCS = bind("goat_drop_music_discs");
 	public static final TagKey<Item> JELLYFISH_FOOD = bind("jellyfish_food");
+	public static final TagKey<Item> PEARLESCENT_JELLYFISH_FOOD = bind("pearlescent_jellyfish_food");
 	public static final TagKey<Item> CRAB_FOOD = bind("crab_food");
 	public static final TagKey<Item> OSTRICH_FOOD = bind("ostrich_food");
-	public static final TagKey<Item> PEARLESCENT_JELLYFISH_FOOD = bind("pearlescent_jellyfish_food");
+	public static final TagKey<Item> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Item> NEMATOCYSTS = bind("nematocysts");
 	public static final TagKey<Item> PEARLESCENT_NEMATOCYSTS = bind("pearlescent_nematocysts");
 	public static final TagKey<Item> TUMBLEWEED_COMMON = bind("tumbleweed_common");

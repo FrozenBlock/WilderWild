@@ -39,12 +39,6 @@ public final class RegisterResources {
 		);
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			WilderConstants.id("old_wilder_wild_panoramas"),
-			container, Component.literal("Old Wilder Wild Panoramas"),
-			ResourcePackActivationType.NORMAL
-		);
-
-		ResourceManagerHelper.registerBuiltinResourcePack(
 			WilderConstants.id("mc_live_tendrils"),
 			container, Component.literal("Minecraft Live Tendrils"),
 			ResourcePackActivationType.NORMAL

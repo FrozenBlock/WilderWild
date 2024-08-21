@@ -365,6 +365,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.MOSS_BLOCK)
 			.add(Blocks.PACKED_MUD)
 			.add(Blocks.SNOW);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.PACKED_MUD_REPLACEABLE)
+			.add(Blocks.STONE)
+			.add(Blocks.DIRT)
+			.add(Blocks.SANDSTONE);
 	}
 
 	private void generateTags() {
@@ -388,6 +393,120 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.PALM_WOOD)
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_ACACIA_LOGS)
+			.add(RegisterBlocks.HOLLOWED_ACACIA_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_BIRCH_LOGS)
+			.add(RegisterBlocks.HOLLOWED_BIRCH_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_CHERRY_LOGS)
+			.add(RegisterBlocks.HOLLOWED_CHERRY_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_CRIMSON_STEMS)
+			.add(RegisterBlocks.HOLLOWED_CRIMSON_STEM)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_DARK_OAK_LOGS)
+			.add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_JUNGLE_LOGS)
+			.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_MANGROVE_LOGS)
+			.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_OAK_LOGS)
+			.add(RegisterBlocks.HOLLOWED_OAK_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_SPRUCE_LOGS)
+			.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_WARPED_STEMS)
+			.add(RegisterBlocks.HOLLOWED_WARPED_STEM)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_BAOBAB_LOGS)
+			.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_CYPRESS_LOGS)
+			.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_PALM_LOGS)
+			.add(RegisterBlocks.HOLLOWED_PALM_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS_THAT_BURN)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_ACACIA_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_BIRCH_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_CHERRY_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_CRIMSON_STEMS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_DARK_OAK_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_JUNGLE_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_MANGROVE_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_OAK_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_SPRUCE_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_WARPED_STEMS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_BAOBAB_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_CYPRESS_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS_DONT_BURN)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_CRIMSON_STEMS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_WARPED_STEMS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS_THAT_BURN)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS_DONT_BURN);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.STRIPPED_HOLLOWED_LOGS)
+			.addOptionalTag(WilderBlockTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
+			.addOptionalTag(WilderBlockTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.MESOGLEA)
+			.add(RegisterBlocks.BLUE_MESOGLEA)
+			.add(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA)
+			.add(RegisterBlocks.LIME_MESOGLEA)
+			.add(RegisterBlocks.PINK_MESOGLEA)
+			.add(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA)
+			.add(RegisterBlocks.RED_MESOGLEA)
+			.add(RegisterBlocks.YELLOW_MESOGLEA);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.NEMATOCYSTS)
+			.add(RegisterBlocks.BLUE_NEMATOCYST)
+			.add(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST)
+			.add(RegisterBlocks.LIME_NEMATOCYST)
+			.add(RegisterBlocks.PINK_NEMATOCYST)
+			.add(RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST)
+			.add(RegisterBlocks.RED_NEMATOCYST)
+			.add(RegisterBlocks.YELLOW_NEMATOCYST);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.SMALL_SPONGE_GROWS_ON)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)

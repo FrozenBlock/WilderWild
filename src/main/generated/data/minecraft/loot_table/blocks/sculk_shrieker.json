@@ -1,0 +1,58 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "predicates": {
+                  "minecraft:enchantments": [
+                    {
+                      "enchantments": "minecraft:silk_touch",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "block": "minecraft:sculk_shrieker",
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "block": "minecraft:sculk_shrieker",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                      "souls_taken": "0"
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:copy_state",
+              "properties": [
+                "souls_taken"
+              ]
+            }
+          ],
+          "name": "minecraft:sculk_shrieker"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
