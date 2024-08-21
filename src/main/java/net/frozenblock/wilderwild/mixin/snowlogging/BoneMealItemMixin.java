@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -40,10 +41,13 @@ public class BoneMealItemMixin {
 			ordinal = 0,
 			shift = At.Shift.BEFORE
 		),
-		cancellable = true,
-		locals = LocalCapture.CAPTURE_FAILHARD
+		cancellable = true
 	)
-	public void wilderWild$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> info, Level level, BlockPos blockPos, BlockPos blockPos2) {
+	public void wilderWild$useOn(
+		UseOnContext context, CallbackInfoReturnable<InteractionResult> info,
+		@Local Level level,
+		@Local(ordinal = 0) BlockPos blockPos
+	) {
 		if (SnowloggingUtils.isSnowlogged(level.getBlockState(blockPos))) {
 			info.setReturnValue(InteractionResult.PASS);
 		}

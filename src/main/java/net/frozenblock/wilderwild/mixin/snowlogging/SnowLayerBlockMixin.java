@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -35,13 +36,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(SnowLayerBlock.class)
 public abstract class SnowLayerBlockMixin {
 
 	@Shadow
-	protected abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
+	public abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
 
 	@Inject(
 		method = "getStateForPlacement",
@@ -51,10 +51,12 @@ public abstract class SnowLayerBlockMixin {
 			ordinal = 0,
 			shift = At.Shift.BEFORE
 		),
-		cancellable = true,
-		locals = LocalCapture.CAPTURE_FAILHARD
+		cancellable = true
 	)
-	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
+	public void wilderWild$getStateForPlacement(
+		BlockPlaceContext context, CallbackInfoReturnable<BlockState> info,
+		@Local BlockState blockState
+	) {
 		if (!BlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 			int layers = SnowloggingUtils.getSnowLayers(blockState);
@@ -74,7 +76,7 @@ public abstract class SnowLayerBlockMixin {
 		if (!BlockConfig.canSnowlog()) return;
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
-			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
+			if (SnowloggingUtils.isSnowlogged(placementState)) {
 				Level level = useContext.getLevel();
 				BlockPos pos = useContext.getClickedPos();
 				VoxelShape blockShape = placementState.getShape(level, pos);
@@ -94,10 +96,12 @@ public abstract class SnowLayerBlockMixin {
 			ordinal = 0,
 			shift = At.Shift.BEFORE
 		),
-		cancellable = true,
-		locals = LocalCapture.CAPTURE_FAILHARD
+		cancellable = true
 	)
-	public void wilderWild$canSurvive(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info, BlockState supportState) {
+	public void wilderWild$canSurvive(
+		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
+		@Local(ordinal = 1) BlockState supportState
+	) {
 		if (!BlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.isSnowlogged(supportState)) {
 			int layers = SnowloggingUtils.getSnowLayers(supportState);

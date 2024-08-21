@@ -34,7 +34,8 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
 
-	@ModifyExpressionValue(method = "destroyBlock",
+	@ModifyExpressionValue(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
@@ -48,7 +49,8 @@ public class MultiPlayerGameModeMixin {
 		return original;
 	}
 
-	@WrapOperation(method = "destroyBlock",
+	@WrapOperation(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"

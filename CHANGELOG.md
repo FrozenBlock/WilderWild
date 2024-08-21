@@ -13,3 +13,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added a config option for Stone Chest generation in Ancient Cities.
 - The block sounds option for Flowers now impacts Torchflowers.
 - Fixed the Sculk Shrieker's new loot table causing it to drop without Silk Touch.
+- Fixed the Snowlogging config using default values upon boot.

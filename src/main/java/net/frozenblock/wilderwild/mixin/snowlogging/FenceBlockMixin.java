@@ -91,7 +91,7 @@ public abstract class FenceBlockMixin extends CrossCollisionBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.canSnowlogWalls()) return;
+		if (!(BlockConfig.get().snowlogging.snowlogWalls && BlockConfig.get().snowlogging.snowlogging)) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 
