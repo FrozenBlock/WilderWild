@@ -1161,12 +1161,12 @@ public final class RegisterBlocks {
 		sign.addSupportedBlock(PALM_SIGN);
 		sign.addSupportedBlock(PALM_WALL_SIGN);
 
-		sign.addSupportedBlock(BAOBAB_HANGING_SIGN);
-		sign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
-		sign.addSupportedBlock(CYPRESS_HANGING_SIGN);
-		sign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
-		sign.addSupportedBlock(PALM_HANGING_SIGN);
-		sign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
+		hangingSign.addSupportedBlock(BAOBAB_HANGING_SIGN);
+		hangingSign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
+		hangingSign.addSupportedBlock(CYPRESS_HANGING_SIGN);
+		hangingSign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
+		hangingSign.addSupportedBlock(PALM_HANGING_SIGN);
+		hangingSign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
 
 		registerStrippable();
 		registerComposting();
