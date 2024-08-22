@@ -212,7 +212,7 @@ public class WindParticle extends TextureSheetParticle {
 		zDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * zDifference;
 
 		if (shouldDoubleClampXRot) {
-			cameraXRot = Math.clamp(cameraXRot * 1.75F, -90, 90);
+			cameraXRot = Math.clamp(cameraXRot * 1.5F, -90, 90);
 		}
 
 		float cameraRotWhileSideways = ((90F + cameraXRot) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD + xDifference + zDifference;
