@@ -188,10 +188,43 @@ public class WindParticle extends TextureSheetParticle {
 	public void render(VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
 		float yRot = Mth.lerp(partialTicks, this.prevYRot, this.yRot) * Mth.DEG_TO_RAD;
 		float xRot = Mth.lerp(partialTicks, this.prevXRot, this.xRot) * -Mth.DEG_TO_RAD;
-		float cameraRotWhileSideways = ((90F + renderInfo.getXRot()) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
 		float cameraRotWhileVertical = ((-renderInfo.getYRot()) * (1F - Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
-		this.renderParticle(buffer, renderInfo, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot).rotateX(-xRot).rotateY(cameraRotWhileSideways).rotateY(cameraRotWhileVertical));
-		this.renderParticle(buffer, renderInfo, partialTicks, !this.flipped, transforms -> transforms.rotateY((float) -Math.PI + yRot).rotateX(xRot).rotateY(cameraRotWhileSideways).rotateY(cameraRotWhileVertical));
+
+		float x = (float)(Mth.lerp(partialTicks, this.xo, this.x));
+		float y = (float)(Mth.lerp(partialTicks, this.yo, this.y));
+		float z = (float)(Mth.lerp(partialTicks, this.zo, this.z));
+		Vec3 relativePos = new Vec3(x, y, z).subtract(renderInfo.getPosition());
+		relativePos = new Vec3(
+			relativePos.x > 0 ? 1D : -1D,
+			relativePos.y > 0 ? 1D : -1D,
+			relativePos.z > 0 ? 1D : -1D
+		);
+		Vec3 particleMovement = new Vec3(this.xd, 0D, this.zd).normalize();
+		float xDifference = (float) Math.abs(particleMovement.x + relativePos.z);
+		xDifference = xDifference >= 1F ? 0 : (Math.abs(xDifference - 1F));
+		boolean shouldDoubleClampXRot = xDifference == 0D;
+		float cameraXRot = renderInfo.getXRot();
+		xDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * xDifference;
+
+		float zDifference = (float) Math.abs(particleMovement.z - relativePos.x);
+		zDifference = zDifference >= 1F ? 0 : (Math.abs(zDifference - 1F));
+		shouldDoubleClampXRot = shouldDoubleClampXRot || zDifference == 0D;
+		zDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * zDifference;
+
+		if (shouldDoubleClampXRot) {
+			cameraXRot = Math.clamp(cameraXRot * 1.75F, -90, 90);
+		}
+
+		float cameraRotWhileSideways = ((90F + cameraXRot) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD + xDifference + zDifference;
+		this.renderParticle(buffer, renderInfo, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot)
+			.rotateX(-xRot)
+			.rotateY(cameraRotWhileSideways)
+			.rotateY(cameraRotWhileVertical)
+		);
+		this.renderParticle(buffer, renderInfo, partialTicks, !this.flipped, transforms -> transforms.rotateY((float) -Math.PI + yRot)
+			.rotateX(xRot)
+			.rotateY(cameraRotWhileSideways)
+			.rotateY(cameraRotWhileVertical));
 	}
 
 	private void renderParticle(VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks, boolean flipped, @NotNull Consumer<Quaternionf> quaternionConsumer) {
