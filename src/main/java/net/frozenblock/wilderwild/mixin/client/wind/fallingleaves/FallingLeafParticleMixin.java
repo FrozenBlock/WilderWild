@@ -19,13 +19,14 @@
 package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.wind.WilderClientWindManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 
@@ -33,11 +34,6 @@ import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 @Environment(EnvType.CLIENT)
 @Mixin(FallingLeafParticle.class)
 public class FallingLeafParticleMixin {
-
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
-	}
 
 	@ModifyExpressionValue(
 		method = "tick",
@@ -48,8 +44,12 @@ public class FallingLeafParticleMixin {
 		require = 0,
 		remap = false
 	)
-	private float wilderWild$modifyWindX(float original) {
-		if (wilderWild$useWind()) {
+	private float wilderWild$modifyWindX(
+		float original,
+		@Share("wilderWild$useWind")LocalBooleanRef wilderWild$useWind
+	) {
+		if (WilderClientWindManager.shouldUseWind()) {
+			wilderWild$useWind.set(true);
 			return (float) ClientWindManager.windX * 0.7F;
 		}
 		return original;
@@ -64,8 +64,11 @@ public class FallingLeafParticleMixin {
 		require = 0,
 		remap = false
 	)
-	private float wilderWild$modifyWindZ(float original) {
-		if (wilderWild$useWind()) {
+	private float wilderWild$modifyWindZ(
+		float original,
+		@Share("wilderWild$useWind")LocalBooleanRef wilderWild$useWind
+	) {
+		if (wilderWild$useWind.get()) {
 			return (float) ClientWindManager.windZ * 0.7F;
 		}
 		return original;

@@ -38,17 +38,11 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class WilderClientWindManager implements ClientWindManagerExtension {
-
 	public static double prevCloudX;
-
 	public static double prevCloudY;
-
 	public static double prevCloudZ;
-
 	public static double cloudX;
-
 	public static double cloudY;
-
 	public static double cloudZ;
 
 	public static double getCloudX(float partialTick) {
@@ -156,6 +150,10 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 				);
 			}
 		}
+	}
+
+	public static boolean shouldUseWind() {
+		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
 	}
 
 	@Override

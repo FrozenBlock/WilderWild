@@ -214,7 +214,7 @@ dependencies {
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Particle Rain
-    modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
+    modImplementation("maven.modrinth:particle-rain:2.1.4")
 
     // Sodium
     if (shouldRunSodium)
