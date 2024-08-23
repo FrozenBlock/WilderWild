@@ -59,9 +59,6 @@ val fallingleaves_version: String by project
 val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
-val indium_version: String by project
-val run_indium: String by project
-val shouldRunIndium = (run_sodium == "true") && shouldRunSodium
 
 val continuity_version: String by project
 
@@ -224,12 +221,6 @@ dependencies {
         modImplementation("maven.modrinth:sodium:${sodium_version}")
     else
         modCompileOnly("maven.modrinth:sodium:${sodium_version}")
-
-    // Indium
-    if (shouldRunSodium && shouldRunIndium)
-        modImplementation("maven.modrinth:indium:${indium_version}")
-    else
-        modCompileOnly("maven.modrinth:indium:${indium_version}")
 
     // Continuity
     modImplementation("maven.modrinth:continuity:${continuity_version}")
