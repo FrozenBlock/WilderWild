@@ -163,6 +163,7 @@
     "client.wind.particlerain.SnowFlakeParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
+    "snowlogging.client.LevelRendererMixin",
     "snowlogging.client.MultiPlayerGameModeMixin",
     "snowlogging.client.TerrainRenderContextMixin"
   ],
