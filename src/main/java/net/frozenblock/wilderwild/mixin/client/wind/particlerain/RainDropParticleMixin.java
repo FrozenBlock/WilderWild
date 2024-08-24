@@ -152,7 +152,8 @@ public abstract class RainDropParticleMixin extends WeatherParticle {
 		method = "render",
 		at = @At(
 			value = "INVOKE",
-			target = "Lorg/joml/AxisAngle4f;<init>(FFFF)V"
+			target = "Lorg/joml/AxisAngle4f;<init>(FFFF)V",
+			remap = false
 		),
 		require = 0
 	)

@@ -226,7 +226,7 @@ dependencies {
     modImplementation("maven.modrinth:continuity:${continuity_version}")
 
     // FallingLeaves
-    modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
+    modImplementation("maven.modrinth:fallingleaves:${fallingleaves_version}")
 
     // BetterEnd
     modCompileOnly("maven.modrinth:betterend:${betterend_version}")
