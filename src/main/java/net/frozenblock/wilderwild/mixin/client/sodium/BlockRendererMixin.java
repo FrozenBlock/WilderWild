@@ -18,51 +18,43 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-import me.jellysquid.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers;
-import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderContext;
-import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
+
+import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
+import net.caffeinemc.mods.sodium.client.render.frapi.render.AbstractBlockRenderContext;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockModelShaper;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-import org.joml.Vector3fc;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin(BlockRenderer.class)
-public abstract class BlockRendererMixin {
+public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 
 	@Unique
 	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
 
 	@Shadow
-	public abstract void renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers);
+	public abstract void renderModel(BakedModel model, BlockState state, BlockPos pos, BlockPos origin);
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
-	public void wilderWild$renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers, CallbackInfo info) {
-		try {
-			if (SnowloggingUtils.isSnowlogged(ctx.state())) {
-				BlockState snowState = SnowloggingUtils.getSnowEquivalent(ctx.state());
-				BlockRenderContext snowRenderContext = new BlockRenderContext(ctx.world());
-				Vector3fc origin = ctx.origin();
-				snowRenderContext.update(
-					ctx.pos(),
-					new BlockPos((int) origin.x(), (int) origin.y(), (int) origin.z()),
-					snowState,
-					WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState),
-					ctx.seed()
-				);
-				this.renderModel(snowRenderContext, buffers);
-			}
-		} catch (Exception ignored) {}
+	public void wilderWild$renderModel(BakedModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo info) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
+			BakedModel snowModel = WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState);
+			this.renderModel(snowModel, snowState, pos, origin);
+		}
 	}
 
 }

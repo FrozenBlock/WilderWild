@@ -3,16 +3,9 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Removed all but two of Wilder Wild's panoramas to improve file size.
-- Cleaned up and optimized many mixins.
-- Significantly improved and optimized Warden swimming and its animations.
-- Optimized Allay animations.
-- Slightly optimized the mixin plugin.
-- Decreased the size of some Scorched Sand disks to prevent issues.
-- Allowed the Ostrich's walking animation to speed up slightly while running.
-- Added a config option for Stone Chest generation in Ancient Cities.
-- The block sounds option for Flowers now impacts Torchflowers.
-- Fixed the Sculk Shrieker's new loot table causing it to drop without Silk Touch.
-- Fixed the Snowlogging config using default values upon boot.
-- Fixed Hanging Signs causing crashes.
-- Slightly decreased the average amount of flowers in Jungles.
+- Updated to support Sodium 0.6.0.
+- Updated Particle Rain compatability.
+  - Rain particles have been updated to only rotate in one specific direction in a recent update. Alongside new compatability fixes, Rain particle rendering has been reworked to match that of Wilder Wild's Wind particles, rendering at the angle the particle is moving.
+- Updated Falling Leaves compatability.
+  - Added compat for Palm Fronds and Cypress Leaves through a mixin.
+- Altered the Nematocyst model to not cause issues with water.

@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Allay.class)
@@ -42,16 +43,36 @@ public class AllayMixin implements WilderAllay {
 		return this.wilderWild$dancingAnimationState;
 	}
 
-	@Inject(method = "tick", at = @At(value = "TAIL"))
-	private void wilderWild$tickDancing(CallbackInfo info) {
-		Allay allay = Allay.class.cast(this);
-		if (allay.level().isClientSide) {
-			if (allay.isDancing()) {
-				this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
-			} else {
-				this.wilderWild$getDancingAnimationState().stop();
-			}
-		}
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/animal/allay/Allay;isSpinning()Z",
+			shift = At.Shift.BEFORE
+		)
+	)
+	private void wilderWild$animateDance(CallbackInfo info) {
+		this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
+		this.wilderWild$getDancingAnimationState().stop();
+	}
+
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "CONSTANT",
+			args = "floatValue=0",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/entity/animal/allay/Allay;dancingAnimationTicks:F",
+				ordinal = 2
+			)
+		)
+	)
+	private void wilderWild$stopDance(CallbackInfo info) {
+		this.wilderWild$getDancingAnimationState().stop();
 	}
 
 }

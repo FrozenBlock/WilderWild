@@ -21,32 +21,40 @@ package net.frozenblock.wilderwild.mixin.client.wind.particlerain;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.minecraft.util.Mth;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.TextureSheetParticle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import pigcart.particlerain.particle.DesertDustParticle;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import pigcart.particlerain.particle.WeatherParticle;
 
 @Pseudo
 @Environment(EnvType.CLIENT)
-@Mixin(DesertDustParticle.class)
-public class DesertDustParticleMixin {
+@Mixin(WeatherParticle.class)
+public abstract class WeatherParticleMixin extends TextureSheetParticle {
 
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
+	protected WeatherParticleMixin(ClientLevel world, double d, double e, double f) {
+		super(world, d, e, f);
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"), require = 0)
-	private void wilderWild$modifyWind(CallbackInfo info) {
-		if (wilderWild$useWind()) {
-			DesertDustParticle.class.cast(this).xd = Mth.clamp(ClientWindManager.windX * 3, -0.4, 0.4);
-			DesertDustParticle.class.cast(this).yd += Mth.clamp(ClientWindManager.windY * 0.1, -0.01, 0.01);
-			DesertDustParticle.class.cast(this).zd = Mth.clamp(ClientWindManager.windZ * 3, -0.4, 0.4);
+	@Inject(
+		method = "removeIfObstructed",
+		at = @At(
+			value = "INVOKE",
+			target = "Lpigcart/particlerain/particle/WeatherParticle;remove()V",
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true,
+		require = 0
+	)
+	public void wilderWild$cancelIncorrectRemoval(CallbackInfoReturnable<Boolean> info) {
+		if (this.x == this.xo && Math.abs(ClientWindManager.windX) < 0.075) {
+			info.setReturnValue(false);
+		}
+		if (this.z == this.zo && Math.abs(ClientWindManager.windZ) < 0.075) {
+			info.setReturnValue(false);
 		}
 	}
 
