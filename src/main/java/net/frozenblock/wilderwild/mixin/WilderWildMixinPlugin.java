@@ -52,9 +52,6 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.sodium.")) {
 			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddium;
 		}
-		if (mixinClassName.contains("client.indium.")) {
-			return this.mixinsConfig.client_indium && FrozenBools.HAS_INDIUM;
-		}
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
 		if (mixinClassName.contains("client.brush.")) return this.mixinsConfig.client_brush;
 		if (mixinClassName.contains("client.easter.")) return this.mixinsConfig.client_easter;
