@@ -90,9 +90,11 @@ public class MultiPlayerGameModeMixin {
 
 	@ModifyReturnValue(method = "sameDestroyTarget", at = @At("RETURN"))
 	public boolean wilderWild$sameDestoryTarget(boolean original, BlockPos pos) {
+		// Done this way to avoid checking the blockstate when unnecessary.
+		if (!original) return false;
 		Level level = minecraft.level;
 		BlockState state = level.getBlockState(pos);
-		return original && wilderWild$sameDestroyPart(!SnowloggingUtils.shouldHitSnow(state, pos, level, minecraft.player));
+		return wilderWild$sameDestroyPart(!SnowloggingUtils.shouldHitSnow(state, pos, level, minecraft.player));
 	}
 
 	@Unique

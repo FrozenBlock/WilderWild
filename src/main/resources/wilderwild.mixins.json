@@ -113,6 +113,7 @@
     "snowlogging.SweetBerryBushBlockMixin",
     "snowlogging.VineBlockMixin",
     "snowlogging.WallBlockMixin",
+    "snowlogging.client.BlockDestructionProgressMixin",
     "snowlogging.worldgen.BiomeMixin",
     "snowlogging.worldgen.BuddingAmethystBlockMixin",
     "snowlogging.worldgen.ServerLevelMixin",

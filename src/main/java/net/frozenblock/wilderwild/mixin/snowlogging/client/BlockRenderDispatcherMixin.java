@@ -35,26 +35,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockRenderDispatcher.class)
 public class BlockRenderDispatcherMixin {
 
-	// Rn this causes a weird visual effect with harder snowloggable blocks like fences.
-	// Instead of showing the original getting mined, it shows only the snow getting mined.
-	@Inject(method = "renderBreakingTexture", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, CallbackInfo info) {
-//		if (SnowloggingUtils.isSnowlogged(state)) {
-//			this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer);
-//			info.cancel();
-//		}
-	}
-
 	@Inject(method = "renderBatched", at = @At("HEAD"))
 	public void wilderWild$renderBatched(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, boolean checkSides, RandomSource random, CallbackInfo ci) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			this.renderBatched(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer, checkSides, random);
 		}
-	}
-
-	@Shadow
-	public void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild BlockRenderDispatcherMixin.");
 	}
 
 	@Shadow
