@@ -146,6 +146,7 @@
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SporeBlossomAirProviderMixin",
     "client.wind.SuspendedParticleMixin",
+    "client.wind.fallingleaves.ConfigDefaultsMixin",
     "client.wind.fallingleaves.FallingLeafParticleMixin",
     "client.wind.particlerain.DustMoteParticleMixin",
     "client.wind.particlerain.RainDropParticleMixin",
