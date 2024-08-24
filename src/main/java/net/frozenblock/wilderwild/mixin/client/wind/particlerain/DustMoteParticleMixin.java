@@ -54,10 +54,10 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		@Share("wilderWild$windZ")LocalDoubleRef windZ
 	) {
 		if (WilderClientWindManager.shouldUseWind()) {
-			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 1D)
+			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
 				.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
 			windZ.set(wind.z);
-			return wind.x * constant;
+			return this.xd + (wind.x * 0.005D);
 		}
 		return constant;
 	}
@@ -69,7 +69,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 	)
 	private double wilderWild$modifyXInit(double constant) {
 		if (WilderClientWindManager.shouldUseWind()) {
-			return ClientWindManager.windX * constant;
+			return ClientWindManager.windX * constant * constant;
 		}
 		return constant;
 	}
@@ -84,7 +84,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		@Share("wilderWild$windZ")LocalDoubleRef windZ
 	) {
 		if (WilderClientWindManager.shouldUseWind()) {
-			return windZ.get() * constant;
+			return this.zd + (windZ.get() * 0.005D);
 		}
 		return constant;
 	}
@@ -96,7 +96,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 	)
 	private double wilderWild$modifyZInit(double constant) {
 		if (WilderClientWindManager.shouldUseWind()) {
-			return ClientWindManager.windZ * constant;
+			return ClientWindManager.windZ * constant * constant;
 		}
 		return constant;
 	}
