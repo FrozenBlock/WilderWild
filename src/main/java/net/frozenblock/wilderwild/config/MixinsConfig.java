@@ -82,6 +82,7 @@ public final class MixinsConfig {
 	public boolean block_mesoglea = true;
 
 	public boolean block_palm_fronds = true;
+
 	public boolean block_reinforced_deepslate = true;
 
 	public boolean block_spawner = true;
