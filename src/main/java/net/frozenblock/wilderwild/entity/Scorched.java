@@ -31,8 +31,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -198,10 +198,10 @@ public class Scorched extends Spider {
 		return j <= dimensionType.monsterSpawnLightTest().sample(random);
 	}
 
-	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().scorched.spawnScorched) return false;
-		if (MobSpawnType.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
+		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().scorched.spawnScorched) return false;
+		if (EntitySpawnReason.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
 			return true;
 		}
 		return false;

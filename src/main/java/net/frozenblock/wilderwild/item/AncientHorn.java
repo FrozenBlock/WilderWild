@@ -34,7 +34,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -69,7 +69,7 @@ public class AncientHorn extends InstrumentItem {
 			if (entry != null) {
 				int between = entry.endTime - entry.startTime;
 				if (between > 140 && between >= time) {
-					((CooldownInterface) user.getCooldowns()).frozenLib$changeCooldown(WWItems.ANCIENT_HORN, -time);
+					((CooldownInterface) user.getCooldowns()).frozenLib$changeCooldown(ID, -time);
 					return time;
 				}
 			}
@@ -85,13 +85,13 @@ public class AncientHorn extends InstrumentItem {
 
 	@Override
 	@NotNull
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
+	public InteractionResult use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
-		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack, level.registryAccess());
 		if (optional.isPresent()) {
 			user.startUsingItem(hand);
 			play(level, user, optional.get().value());
-			user.getCooldowns().addCooldown(WWItems.ANCIENT_HORN, getCooldown(user, WWItemConfig.get().ancientHorn.ancientHornCooldown));
+			user.getCooldowns().addCooldown(ID, getCooldown(user, WWItemConfig.get().ancientHorn.ancientHornCooldown));
 			if (level instanceof ServerLevel server) {
 				AncientHornVibration projectileEntity = new AncientHornVibration(level, user.getX(), user.getEyeY(), user.getZ());
 				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0F, 1F, 0F);
@@ -113,16 +113,16 @@ public class AncientHorn extends InstrumentItem {
 					projectileEntity.setBubbles(level.random.nextIntBetweenInclusive(MIN_BUBBLES, MAX_BUBBLES));
 				}
 			}
-			return InteractionResultHolder.consume(itemStack);
+			return InteractionResult.CONSUME;
 		} else {
 			WWConstants.printStackTrace("Ancient Horn use failed!", true);
-			return InteractionResultHolder.fail(itemStack);
+			return InteractionResult.FAIL;
 		}
 	}
 
 	@Override
 	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
-		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack, livingEntity.registryAccess());
 		return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
 	}
 

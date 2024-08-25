@@ -57,9 +57,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -123,9 +123,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setColor(FireflyColor.ON);
 	}
 
-	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
-		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
+	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
+		if (EntitySpawnReason.ignoresLightRequirements(spawnType)) return true;
 		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		if (biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
@@ -156,12 +156,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-		this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.SPAWNER || reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.COMMAND;
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+		this.natural = reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION || reason == EntitySpawnReason.SPAWNER || reason == EntitySpawnReason.SPAWN_EGG || reason == EntitySpawnReason.COMMAND;
 		this.hasHome = this.hasHome || !this.natural;
 		FireflyAi.rememberHome(this, this.blockPosition());
 
-		if (reason == MobSpawnType.COMMAND) {
+		if (reason == EntitySpawnReason.COMMAND) {
 			this.setAnimScale(1.5F);
 			this.setPrevAnimScale(1.5F);
 			this.setColor(FireflyColor.ON);
@@ -222,7 +222,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			if (!level.isClientSide) {
 				WWCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer) player, bottleStack);
 			}
-			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
+			return Optional.of(InteractionResult.SUCCESS);
 		} else {
 			return Optional.empty();
 		}

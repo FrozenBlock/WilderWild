@@ -26,6 +26,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -87,11 +88,10 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	@NotNull
-	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-			return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			return InteractionResult.SUCCESS;
 		} else {
 			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}

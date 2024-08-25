@@ -28,7 +28,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Instrument;
@@ -69,16 +69,16 @@ public class CopperHorn extends InstrumentItem {
 
 	@Override
 	@NotNull
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand interactionHand) {
+	public InteractionResult use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand interactionHand) {
 		ItemStack itemStack = user.getItemInHand(interactionHand);
-		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack, level.registryAccess());
 		if (optional.isPresent()) {
 			user.startUsingItem(interactionHand);
 			playSound(optional.get().value(), user, level);
-			return InteractionResultHolder.consume(itemStack);
+			return InteractionResult.CONSUME;
 		} else {
 			WWConstants.printStackTrace("Copper Horn use failed!", true);
-			return InteractionResultHolder.fail(itemStack);
+			return InteractionResult.FAIL;
 		}
 	}
 

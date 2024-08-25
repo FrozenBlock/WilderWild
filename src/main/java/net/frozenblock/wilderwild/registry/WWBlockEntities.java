@@ -30,9 +30,11 @@ import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.datafix.fixes.References;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
+import java.util.Set;
 
 public final class WWBlockEntities {
 	private WWBlockEntities() {
@@ -44,16 +46,16 @@ public final class WWBlockEntities {
 	}
 
 	@NotNull
-	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.@NotNull Builder<T> builder) {
-		Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, WWConstants.string(path));
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WWConstants.id(path), builder.build(type));
+	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
+		Util.fetchChoiceType(References.BLOCK_ENTITY, WWConstants.string(path));
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WWConstants.id(path), new BlockEntityType<>(builder, Set.of(blocks)));
 	}
 
-	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", BlockEntityType.Builder.of(HangingTendrilBlockEntity::new, WWBlocks.HANGING_TENDRIL));
-	public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", BlockEntityType.Builder.of(TermiteMoundBlockEntity::new, WWBlocks.TERMITE_MOUND));
-	public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", BlockEntityType.Builder.of(DisplayLanternBlockEntity::new, WWBlocks.DISPLAY_LANTERN));
-	public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", BlockEntityType.Builder.of(StoneChestBlockEntity::new, WWBlocks.STONE_CHEST));
-	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", BlockEntityType.Builder.of(ScorchedBlockEntity::new, WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND));
-	public static final BlockEntityType<GeyserBlockEntity> GEYSER = register("geyser", BlockEntityType.Builder.of(GeyserBlockEntity::new, WWBlocks.GEYSER));
+	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", HangingTendrilBlockEntity::new, WWBlocks.HANGING_TENDRIL);
+	public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", TermiteMoundBlockEntity::new, WWBlocks.TERMITE_MOUND);
+	public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", DisplayLanternBlockEntity::new, WWBlocks.DISPLAY_LANTERN);
+	public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", StoneChestBlockEntity::new, WWBlocks.STONE_CHEST);
+	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", ScorchedBlockEntity::new, WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND);
+	public static final BlockEntityType<GeyserBlockEntity> GEYSER = register("geyser", GeyserBlockEntity::new, WWBlocks.GEYSER);
 
 }

@@ -45,9 +45,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -135,10 +135,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Inject(at = @At("TAIL"), method = "finalizeSpawn")
-	public void wilderWild$finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, CallbackInfoReturnable<SpawnGroupData> info) {
+	public void wilderWild$finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData, CallbackInfoReturnable<SpawnGroupData> info) {
 		if (
-			(WWEntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == MobSpawnType.SPAWN_EGG)
-				|| (WWEntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == MobSpawnType.COMMAND)
+			(WWEntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == EntitySpawnReason.SPAWN_EGG)
+				|| (WWEntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == EntitySpawnReason.COMMAND)
 		) {
 			this.setPose(Pose.EMERGING);
 			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);

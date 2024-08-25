@@ -26,7 +26,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
@@ -56,7 +55,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 
 	@Override
 	@NotNull
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
+	public InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		ItemStack itemStack = player.getItemInHand(usedHand);
 		level.playSound(
 			null,
@@ -78,7 +77,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 		if (!player.getAbilities().instabuild) {
 			itemStack.shrink(1);
 		}
-		return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override

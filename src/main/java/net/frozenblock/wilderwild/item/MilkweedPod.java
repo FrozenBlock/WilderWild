@@ -22,11 +22,11 @@ import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -41,9 +41,9 @@ public class MilkweedPod extends Item {
 		super(settings);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
+	@NotNull
+	public InteractionResult use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
 		if (!user.getAbilities().instabuild) {
 			itemStack.shrink(1);
@@ -68,12 +68,12 @@ public class MilkweedPod extends Item {
 			);
 		}
 
-		return InteractionResultHolder.consume(itemStack);
+		return InteractionResult.CONSUME;
 	}
 
-	@NotNull
 	@Override
-	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-		return UseAnim.TOOT_HORN;
+	@NotNull
+	public ItemUseAnimation getUseAnimation(@NotNull ItemStack stack) {
+		return ItemUseAnimation.TOOT_HORN;
 	}
 }

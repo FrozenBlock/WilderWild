@@ -31,7 +31,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -118,10 +117,10 @@ public abstract class BlockStateBaseMixin {
 	}
 
 	@ModifyReturnValue(method = "getOcclusionShape", at = @At("RETURN"))
-	public VoxelShape wilderWild$getOcclusionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
+	public VoxelShape wilderWild$getOcclusionShape(VoxelShape original) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getOcclusionShape(level, pos));
+			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getOcclusionShape());
 		}
 		return original;
 	}
@@ -176,9 +175,9 @@ public abstract class BlockStateBaseMixin {
 	}
 
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$useItemOn(ItemStack stack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> info) {
+	public void wilderWild$useItemOn(ItemStack stack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
 		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
-			info.setReturnValue(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
+			info.setReturnValue(InteractionResult.TRY_WITH_EMPTY_HAND);
 		}
 	}
 
@@ -226,14 +225,10 @@ public abstract class BlockStateBaseMixin {
 		return state;
 	}
 
-	@WrapOperation(method = "propagatesSkylightDown",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;propagatesSkylightDown(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z"
-		)
-	)
-	public boolean wilderWild$propagatesSkylightDown(Block instance, BlockState blockState, BlockGetter blockGetter, BlockPos pos, Operation<Boolean> original) {
-		return original.call(instance, blockState, blockGetter, pos) && !(SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
+	@ModifyReturnValue(method = "propagatesSkylightDown", at = @At("RETURN"))
+	public boolean wilderWild$propagatesSkylightDown(boolean original) {
+		BlockState state = this.asState();
+		return original && !(SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowLayers(state) >= SnowloggingUtils.MAX_LAYERS);
 	}
 
 	@WrapOperation(

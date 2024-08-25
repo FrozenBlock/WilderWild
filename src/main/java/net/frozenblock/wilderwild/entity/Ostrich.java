@@ -57,10 +57,10 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.ai.Brain;
@@ -154,8 +154,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
 	}
 
-	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
+	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, @NotNull LevelAccessor level, EntitySpawnReason spawnType, @NotNull BlockPos pos, RandomSource random) {
+		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
 		return Animal.checkAnimalSpawnRules(ostrich, level, spawnType, pos, random);
 	}
 
@@ -815,7 +815,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public Ostrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
-		return WWEntities.OSTRICH.create(level);
+		return WWEntities.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 	}
 
 	@Override

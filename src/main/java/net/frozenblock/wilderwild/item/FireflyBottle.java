@@ -29,14 +29,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -54,9 +55,9 @@ public class FireflyBottle extends Item {
 		return stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().toLowerCase().contains("nectar");
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
+	@NotNull
+	public InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		if (level instanceof ServerLevel server && player.getAbilities().mayBuild) {
 			float pitch = player.getXRot();
 			float yaw = player.getYRot();
@@ -65,7 +66,7 @@ public class FireflyBottle extends Item {
 			float g = -Mth.sin((pitch + roll) * Mth.DEG_TO_RAD);
 			float h = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 			ItemStack stack = player.getItemInHand(usedHand);
-			Firefly entity = WWEntities.FIREFLY.create(server);
+			Firefly entity = WWEntities.FIREFLY.create(server, EntitySpawnReason.BUCKET);
 			if (entity != null) {
 				entity.setDeltaMovement(f * 0.7D, g * 0.7D, h * 0.7D);
 				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
@@ -90,10 +91,10 @@ public class FireflyBottle extends Item {
 		return ItemUtils.startUsingInstantly(level, player, usedHand);
 	}
 
-	@NotNull
 	@Override
-	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-		return UseAnim.NONE;
+	@NotNull
+	public ItemUseAnimation getUseAnimation(@NotNull ItemStack stack) {
+		return ItemUseAnimation.NONE;
 	}
 
 	@Override

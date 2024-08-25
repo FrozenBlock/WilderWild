@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.mixin.entity.slime;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
@@ -44,10 +44,10 @@ public class SlimeMixin {
 		cancellable = true
 	)
 	private static void wilderWild$spawnInAlgae(
-		EntityType<Slime> type, @NotNull LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
+		EntityType<Slime> type, @NotNull LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
 	) {
 		if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
-			boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
+			boolean test = spawnReason == EntitySpawnReason.SPAWNER || random.nextInt(5) == 0;
 			if (test && WWBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
 				info.setReturnValue(true);
 			}

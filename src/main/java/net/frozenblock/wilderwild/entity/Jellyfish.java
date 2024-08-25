@@ -68,11 +68,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -171,8 +171,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		NON_PEARLESCENT_JELLYFISH_PER_LEVEL.clear();
 	}
 
-	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (MobSpawnType.isSpawner(spawnType)) {
+	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull EntitySpawnReason spawnReason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (EntitySpawnReason.isSpawner(spawnReason)) {
 			return true;
 		} else if (!WWEntityConfig.get().jellyfish.spawnJellyfish) {
 			return false;
@@ -230,7 +230,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
 		JellyfishGroupData jellyfishGroupData;
 		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
 			this.setVariant(jellyGroupData.variant);
@@ -556,7 +556,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 				itemStack.shrink(1);
 			}
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return InteractionResult.SUCCESS;
 		} else if (this.canReproduce()) {
 			if (this.level().isClientSide) {
 				return InteractionResult.CONSUME;
@@ -583,7 +583,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void spawnChild(ServerLevel level) {
-		Jellyfish jellyfish = WWEntities.JELLYFISH.create(level);
+		Jellyfish jellyfish = WWEntities.JELLYFISH.create(level, EntitySpawnReason.BREEDING);
 		if (jellyfish == null) {
 			return;
 		}
