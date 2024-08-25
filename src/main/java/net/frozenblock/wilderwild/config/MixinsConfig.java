@@ -24,7 +24,7 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderConstants.configPath;
+import net.frozenblock.wilderwild.WilderPreLoadConstants;
 
 public final class MixinsConfig {
 
@@ -32,7 +32,7 @@ public final class MixinsConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			MixinsConfig.class,
-			configPath("mixins", true),
+			WilderPreLoadConstants.configPath("mixins", true),
 			JsonType.JSON5,
 			false,
 			null,

@@ -29,8 +29,7 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderConstants.configPath;
-import net.frozenblock.wilderwild.WilderDatagenConstants;
+import net.frozenblock.wilderwild.WilderPreLoadConstants;
 
 public final class BlockConfig {
 
@@ -38,7 +37,7 @@ public final class BlockConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			BlockConfig.class,
-			configPath("block", true),
+			WilderPreLoadConstants.configPath("block", true),
 			JsonType.JSON5,
 			null,
 			null
@@ -73,7 +72,7 @@ public final class BlockConfig {
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
 
 	public static boolean canSnowlog() {
-		return SNOWLOGGING && !WilderDatagenConstants.IS_DATAGEN;
+		return SNOWLOGGING && !WilderPreLoadConstants.IS_DATAGEN;
 	}
 
 	public static boolean canSnowlogWalls() {
