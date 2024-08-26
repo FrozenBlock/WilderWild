@@ -156,15 +156,6 @@ public abstract class BlockStateBaseMixin {
 		}
 	}
 
-	@ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))
-	public float wilderWild$getDestroySpeed(float original, BlockGetter level, BlockPos pos) {
-		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			return SnowloggingUtils.getSnowDestroySpeed(state, level, pos);
-		}
-		return original;
-	}
-
 	@WrapOperation(
 		method = "getDestroyProgress",
 		at = @At(
