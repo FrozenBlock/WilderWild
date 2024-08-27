@@ -70,6 +70,7 @@ version = getModVersion()
 group = maven_group
 
 val local_frozenlib = findProject(":FrozenLib") != null
+val local_dev_tools = findProject(":DevToolsDecomp") != null
 val release = findProperty("releaseType") == "stable"
 
 val datagen by sourceSets.registering {
@@ -191,6 +192,11 @@ dependencies {
     })
     modImplementation("net.fabricmc:fabric-loader:$loader_version")
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
+
+    // Dev Tools
+    if (local_dev_tools) {
+        api(project(":DevToolsDecomp", configuration = "namedElements"))
+    }
 
     // FrozenLib
     if (local_frozenlib)

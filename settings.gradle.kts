@@ -27,15 +27,17 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("FrozenLib", "maven.modrinth:frozenlib", true)
+localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
+localRepository("DevToolsDecomp", "maven.modrinth:dev-tools-unlocker", true, true)
 
 
-fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
+fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {
+    if (!enabled) return
     println("Attempting to include local repo $repo")
 
     val github = System.getenv("GITHUB_ACTIONS") == "true"
 
-    val allowLocalRepoUse = false
+    val allowLocalRepoUse = true
     val allowLocalRepoInConsoleMode = true
 
     val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
