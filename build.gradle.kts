@@ -195,7 +195,9 @@ dependencies {
 
     // Dev Tools
     if (local_dev_tools) {
-        api(project(":DevToolsDecomp", configuration = "namedElements"))
+        modImplementation(project(":DevToolsDecomp", configuration = "namedElements"))
+    } else {
+        modImplementation(files("libs/DevToolsUnlocker-1.0.0-mc1.21.1.jar"))
     }
 
     // FrozenLib

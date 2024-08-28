@@ -28,7 +28,7 @@ pluginManagement {
 rootProject.name = "Wilder Wild"
 
 localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
-localRepository("DevToolsDecomp", "maven.modrinth:dev-tools-unlocker", true, true)
+localRepository("DevToolsDecomp", "maven.modrinth:dev-tools-unlocker", true, false)
 
 
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {
