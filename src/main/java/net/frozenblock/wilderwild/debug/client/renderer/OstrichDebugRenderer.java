@@ -23,9 +23,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.devtools.DevToolsClient;
+import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.wilderwild.entity.Ostrich;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -50,20 +49,23 @@ public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		this.minecraft = client;
 	}
 
-	@Override
-	public void render(PoseStack matrices, MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ) {
-		double d = (double) Util.getNanos();
-		if (d - this.lastUpdateTime > 1.0E8) {
-			this.lastUpdateTime = d;
-			this.surroundEntities = ImmutableList.copyOf(
-				this.minecraft.level.entitiesForRendering()
-			);
-		}
+	public void tick() {
+		this.surroundEntities = ImmutableList.copyOf(
+			this.minecraft.level.entitiesForRendering()
+		);
+	}
 
+	@Override
+	public void clear() {
+		this.surroundEntities = Collections.emptyList();
+	}
+
+	@Override
+	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ) {
 		VertexConsumer lineConsumer = vertexConsumers.getBuffer(RenderType.lines());
 		for (Entity entity2 : this.surroundEntities) {
 			if (entity2 instanceof Ostrich ostrich) {
-				AABB attackBox = ostrich.createAttackBox(DevToolsClient.PARTIAL_TICK);
+				AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
 				LevelRenderer.renderLineBox(
 					matrices,
 					lineConsumer,
@@ -71,7 +73,7 @@ public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 					1F, 0F, 0F, 1F
 				);
 
-				List<Vec3> debugPoses = ostrich.getDebugRenderingPoses(DevToolsClient.PARTIAL_TICK);
+				List<Vec3> debugPoses = ostrich.getDebugRenderingPoses(DebugRenderManager.PARTIAL_TICK);
 				for (int i = 1; i < debugPoses.size(); i++) {
 					Vec3 previous = debugPoses.get(i - 1);
 					Vec3 target = debugPoses.get(i);

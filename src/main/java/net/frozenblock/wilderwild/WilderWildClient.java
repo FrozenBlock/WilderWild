@@ -24,6 +24,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -32,13 +34,21 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.frozenblock.lib.FrozenSharedConstants;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
+import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
+import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
+import net.frozenblock.lib.debug.client.renderer.WindDebugRenderer;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
+import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.lib.wind.impl.networking.WindAccessPacket;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.debug.client.renderer.OstrichDebugRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
@@ -370,6 +380,20 @@ public final class WilderWildClient implements ClientModInitializer {
 		});
 
 		setupMesogleaRendering();
+
+		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
+			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
+
+			ClientTickEvents.START_WORLD_TICK.register(clientLevel -> {
+				if (FrozenLibConfig.IS_DEBUG) {
+					ostrichDebugRenderer.tick();
+				}
+			});
+
+			DebugRenderManager.addClearRunnable(ostrichDebugRenderer::clear);
+
+			DebugRenderManager.registerRenderer(WilderConstants.id("ostrich"), ostrichDebugRenderer::render);
+		});
 	}
 
 	private static void setupMesogleaRendering() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
