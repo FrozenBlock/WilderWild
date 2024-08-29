@@ -214,7 +214,7 @@ dependencies {
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Particle Rain
-    modImplementation("maven.modrinth:particle-rain:2.1.4")
+    modCompileOnly("maven.modrinth:particle-rain:2.1.4")
 
     // Sodium
     if (shouldRunSodium)
@@ -226,7 +226,7 @@ dependencies {
     modImplementation("maven.modrinth:continuity:${continuity_version}")
 
     // FallingLeaves
-    modImplementation("maven.modrinth:fallingleaves:${fallingleaves_version}")
+    modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
 
     // BetterEnd
     modCompileOnly("maven.modrinth:betterend:${betterend_version}")
