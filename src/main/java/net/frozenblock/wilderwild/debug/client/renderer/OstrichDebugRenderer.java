@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.debug.client.renderer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import java.util.Collections;
+import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
@@ -35,8 +37,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import java.util.Collections;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
