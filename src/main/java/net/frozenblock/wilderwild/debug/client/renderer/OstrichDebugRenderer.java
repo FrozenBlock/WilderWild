@@ -42,7 +42,6 @@ import org.jetbrains.annotations.NotNull;
 public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	private static final int NECK_LINE_COLOR = FastColor.ARGB32.color(255, 100, 255, 255);
 	private final Minecraft minecraft;
-	private double lastUpdateTime = Double.MIN_VALUE;
 	private List<Entity> surroundEntities = Collections.emptyList();
 
 	public OstrichDebugRenderer(Minecraft client) {
