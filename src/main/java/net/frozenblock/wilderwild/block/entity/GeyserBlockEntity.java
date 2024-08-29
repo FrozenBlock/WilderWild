@@ -182,13 +182,13 @@ public class GeyserBlockEntity extends BlockEntity {
 		WindDisturbance<GeyserBlockEntity> effectiveWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
 			Optional.of(this),
 			geyserStartPos,
-			effectiveEruption.inflate(0.5D),
+			effectiveEruption.inflate(0.5D).move(direction.step().mul(0.5F)),
 			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 		WindDisturbance<GeyserBlockEntity> baseWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
 			Optional.of(this),
 			geyserStartPos,
-			eruption.inflate(0.5D),
+			eruption.inflate(0.5D).move(direction.step().mul(0.5F)),
 			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 
