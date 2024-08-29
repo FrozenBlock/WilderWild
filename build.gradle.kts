@@ -193,9 +193,10 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
-    if (local_frozenlib)
-        api(project(":FrozenLib", configuration = "namedElements"))?.let { include(it) }
-    else
+    if (local_frozenlib) {
+        api(project(":FrozenLib", configuration = "namedElements"))
+        modCompileOnly(project(":FrozenLib"))?.let { include(it) }
+    } else
         modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
 
     // Simple Copper Pipes
