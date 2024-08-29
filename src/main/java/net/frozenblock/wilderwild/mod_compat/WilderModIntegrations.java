@@ -23,9 +23,6 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.mod_compat.dev_tools.AbstractDevToolsIntegration;
-import net.frozenblock.wilderwild.mod_compat.dev_tools.DevToolsIntegration;
-import net.frozenblock.wilderwild.mod_compat.dev_tools.NoOpDevToolsIntegration;
 import net.frozenblock.wilderwild.mod_compat.simple_copper_pipes.AbstractSimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.mod_compat.simple_copper_pipes.NoOpSimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.mod_compat.simple_copper_pipes.SimpleCopperPipesIntegration;
@@ -40,9 +37,6 @@ public final class WilderModIntegrations {
 	public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
 	public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(
 		SimpleCopperPipesIntegration::new, NoOpSimpleCopperPipesIntegration::new, "copper_pipe"
-	);
-	public static final ModIntegrationSupplier<AbstractDevToolsIntegration> DEV_TOOLS_INTEGRATION = register(
-		DevToolsIntegration::new, NoOpDevToolsIntegration::new, "devtools"
 	);
 	private WilderModIntegrations() {
 		throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");
