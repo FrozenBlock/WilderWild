@@ -27,6 +27,7 @@ import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;
+import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -38,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenRenderer.class)
-public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
+public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRenderState, WardenModel> {
 	@Unique
 	private static final ResourceLocation WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_bioluminescent_overlay.png");
 	@Unique
@@ -50,44 +51,44 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenMod
 	@Unique
 	private static final ResourceLocation WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_pulsating_spots_2.png");
 
-	public StellaWardenRenderer(EntityRendererProvider.Context context, WardenModel<Warden> entityModel, float f) {
+	public StellaWardenRenderer(EntityRendererProvider.Context context, WardenModel entityModel, float f) {
 		super(context, entityModel, f);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void addStellaLayers(EntityRendererProvider.Context context, CallbackInfo info) {
 		this.addLayer(
-			new StellaWardenLayer<>(
+			new StellaWardenLayer(
 				this, WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE,
-				(warden, partialTick, animationProgress) -> 1F,
+				(warden, animationProgress) -> 1F,
 				WardenModel::getBioluminescentLayerModelParts
 			)
 		);
 		this.addLayer(
-			new StellaWardenLayer<>(
+			new StellaWardenLayer(
 				this,
 				WILDERWILD$STELLA_PULSATING_SPOTS_1_TEXTURE,
-				(warden, partialTick, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F) * 0.25F),
+				(warden, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F) * 0.25F),
 				WardenModel::getPulsatingSpotsLayerModelParts
 			)
 		);
 		this.addLayer(
-			new StellaWardenLayer<>(
+			new StellaWardenLayer(
 				this,
 				WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE,
-				(warden, partialTick, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F + Mth.PI) * 0.25F),
+				(warden, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F + Mth.PI) * 0.25F),
 				WardenModel::getPulsatingSpotsLayerModelParts
 			)
 		);
 		this.addLayer(
-			new StellaWardenLayer<>(
-				this, WILDERWILD$STELLA_TENDRILS_TEXTURE, (warden, partialTick, animationProgress) -> warden.getTendrilAnimation(partialTick),
+			new StellaWardenLayer(
+				this, WILDERWILD$STELLA_TENDRILS_TEXTURE, (warden, animationProgress) -> warden.tendrilAnimation,
 				model -> model instanceof WilderWardenModel wilderWardenModel ? wilderWardenModel.wilderWild$getHeadAndTendrils() : model.getTendrilsLayerModelParts()
 			)
 		);
 		this.addLayer(
-			new StellaWardenLayer<>(
-				this, WILDERWILD$STELLA_HEART_TEXTURE, (warden, partialTick, animationProgress) -> warden.getHeartAnimation(partialTick),
+			new StellaWardenLayer(
+				this, WILDERWILD$STELLA_HEART_TEXTURE, (warden, animationProgress) -> warden.heartAnimation,
 				WardenModel::getHeartLayerModelParts
 			)
 		);

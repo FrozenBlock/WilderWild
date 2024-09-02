@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.entity.render.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.wilderwild.entity.Ostrich;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -33,7 +33,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
-public class OstrichInbredModel<T extends Ostrich> extends HierarchicalModel<T> {
+public class OstrichInbredModel<T extends Ostrich> extends EntityModel<T> {
 	private static final float NECK_DELAY = 0F;
 	private static final float OLD_NECK_DELAY = 0.0416375F;
 	private static final float NECK_BASE_SWING = 0.175F * 0.5F;

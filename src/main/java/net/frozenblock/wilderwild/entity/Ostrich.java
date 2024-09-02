@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -97,7 +98,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
-	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WWItemTags.OSTRICH_FOOD);
 	public static final @NotNull ResourceLocation ATTACK_MODIFIER_UUID = WWConstants.id("additional_damage_rider");
 	public static final @NotNull ResourceLocation KNOCKBACK_MODIFIER_UUID = WWConstants.id("additional_knockback_rider");
 	public static final int BEAK_COOLDOWN_TICKS = 30;
@@ -121,6 +121,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<Integer> BEAK_COOLDOWN = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
 	public static final EntityDataAccessor<Integer> STUCK_TICKS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
+	public final Ingredient temptationItem;
 	public boolean attackHasCommander;
 	public boolean commanderWasPlayer;
 	private float prevStraightProgress;
@@ -140,6 +141,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
+		this.temptationItem = Ingredient.of(level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(WilderItemTags.OSTRICH_FOOD));
 		this.moveControl = new OstrichMoveControl(this);
 		this.lookControl = new OstrichLookControl(this);
 		GroundPathNavigation groundPathNavigation = (GroundPathNavigation) this.getNavigation();
@@ -198,7 +200,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		float fastDistance = limbDistance * 4F;
 		float f = Math.min(fastDistance, 1F);
 		float difference = fastDistance - f;
-		this.walkAnimation.update(f + (difference * 0.15F), 0.4F);
+		this.walkAnimation.update(f + (difference * 0.15F), 0.4F, this.isBaby() ? 3.0F : 1.0F);
 	}
 
 	@Override
@@ -546,7 +548,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public boolean isFood(@NotNull ItemStack stack) {
-		return TEMPTATION_ITEM.test(stack);
+		return this.temptationItem.test(stack);
 	}
 
 	@Override
