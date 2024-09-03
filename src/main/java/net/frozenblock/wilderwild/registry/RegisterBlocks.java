@@ -921,7 +921,7 @@ public final class RegisterBlocks {
 		registerBlockAfter(BAOBAB_PRESSURE_PLATE, wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
 		registerBlockAfter(Items.MANGROVE_LOG, wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.FLOWERING_AZALEA_LEAVES, wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_LEAVES, wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
 		wood = cypress;
 		//CYPRESS IN BUILDING BLOCKS
