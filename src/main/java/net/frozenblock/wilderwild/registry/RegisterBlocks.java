@@ -178,7 +178,7 @@ public final class RegisterBlocks {
 	);
 
 	public static final SnowyDirtBlock FOLIATED_GRASS = new FoliatedGrassBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.PODZOL).sound(SoundType.GRASS)
+		BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK)
 	);
 
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
