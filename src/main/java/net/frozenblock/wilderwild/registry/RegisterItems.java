@@ -196,7 +196,7 @@ public final class RegisterItems {
 		registerItemAfter(CYPRESS_BOAT, CYPRESS_CHEST_BOAT, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(CYPRESS_CHEST_BOAT, PALM_BOAT, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(PALM_BOAT, PALM_CHEST_BOAT, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(PALM_CHEST_BOAT, MAPLE_BOAT, "maple_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.CHERRY_CHEST_BOAT, MAPLE_BOAT, "maple_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(MAPLE_BOAT, MAPLE_CHEST_BOAT, "maple_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.INK_SAC, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.INGREDIENTS);
