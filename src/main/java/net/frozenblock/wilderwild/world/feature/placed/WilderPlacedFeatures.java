@@ -718,7 +718,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		MAPLE_TREES.makeAndSetHolder(WilderConfiguredFeatures.MAPLES.getHolder(),
-			PlacementUtils.countExtra(3, 0.1F, 2), InSquarePlacement.spread(),
+			PlacementUtils.countExtra(4, 0.1F, 2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
 			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING),
 			TREE_THRESHOLD,

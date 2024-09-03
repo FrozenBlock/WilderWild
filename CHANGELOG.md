@@ -11,6 +11,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
   - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
+- Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
+  - Warm Beaches will still have Palms.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.

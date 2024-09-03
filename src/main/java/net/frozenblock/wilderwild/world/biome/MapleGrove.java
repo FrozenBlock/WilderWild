@@ -20,7 +20,10 @@ package net.frozenblock.wilderwild.world.biome;
 
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
@@ -42,9 +45,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public final class MapleGrove extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.375F, -0F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.2F, 0.2F);
-	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.5F);
+	public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.NEUTRAL);
+	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.4F);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.4F, Erosion.EROSION_6.max());
 	public static final float TEMP = 0.55F;
 	public static final float DOWNFALL = 0.5F;
 	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
@@ -162,7 +166,7 @@ public final class MapleGrove extends FrozenBiome {
 					TEMPERATURE,
 					HUMIDITY,
 					point.continentalness(),
-					point.erosion(),
+					EROSION,
 					WEIRDNESS,
 					point.offset()
 				);

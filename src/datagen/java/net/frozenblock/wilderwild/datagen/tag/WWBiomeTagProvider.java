@@ -939,7 +939,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PALMS)
 			.add(Biomes.DESERT)
-			.add(Biomes.BEACH)
 			.add(Biomes.JUNGLE)
 			.add(Biomes.SPARSE_JUNGLE)
 			.addOptional(RegisterWorldgen.ARID_SAVANNA);
