@@ -16,3 +16,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Wilder Wild's custom Sign types are now placed after the Mangrove Hanging Sign in the creative inventory, instead of between the Mangrove Sign and Mangrove Hanging Sign.
 - Ostrich Eggs are now placed before Sniffer Eggs in the creative inventory.
 - Scorched Sand is no longer found in the `Functional Items` tab of the creative inventory.
+- Prickly Pears are now placed after Sweet Berries in the `Food & Drinks` tab of the creative inventory.
+- Crab Claws and Cooked Crab Claws are now placed before Cod in the creative inventory.

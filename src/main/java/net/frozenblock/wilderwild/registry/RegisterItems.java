@@ -212,9 +212,9 @@ public final class RegisterItems {
 		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
 		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(SPLIT_COCONUT, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemAfter(Items.SWEET_BERRIES, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(PEELED_PRICKLY_PEAR, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemBefore(Items.COOKED_COD, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(CRAB_CLAW, COOKED_CRAB_CLAW, "cooked_crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);
