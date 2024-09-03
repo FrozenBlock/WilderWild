@@ -23,11 +23,8 @@ import net.minecraft.client.particle.CherryParticle;
 import net.minecraft.client.particle.SpriteSet;
 
 public class MapleParticle extends CherryParticle {
-	public MapleParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider, float r, float g, float b) {
+	public MapleParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
 		super(world, x, y, z, spriteProvider);
-		this.rCol = r;
-		this.gCol = g;
-		this.bCol = b;
-		this.quadSize *= 2.5F;
+		this.quadSize = 0.175F;
 	}
 }

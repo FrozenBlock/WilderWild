@@ -256,7 +256,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
 		particleRegistry.register(RegisterParticles.MAPLE_LEAVES,
 			sprite -> (type, world, x, y, z, velocityX, velocityY, velocityZ) ->
-				new MapleParticle(world, x, y, z, sprite, 255F / 255F, 215F / 255F, 124F / 255F)
+				new MapleParticle(world, x, y, z, sprite)
 		);
 
 		EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
