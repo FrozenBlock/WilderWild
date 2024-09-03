@@ -286,12 +286,59 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
 		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);
-		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC, TORCHFLOWER, PINK_PETALS}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
+		addBlocks(new Block[]{DANDELION,
+			POPPY,
+			BLUE_ORCHID,
+			ALLIUM,
+			AZURE_BLUET,
+			RED_TULIP,
+			ORANGE_TULIP,
+			WHITE_TULIP,
+			PINK_TULIP,
+			OXEYE_DAISY,
+			CORNFLOWER,
+			LILY_OF_THE_VALLEY,
+			SEEDING_DANDELION,
+			CARNATION,
+			MARIGOLD,
+			GLORY_OF_THE_SNOW,
+			DATURA,
+			MILKWEED,
+			SUNFLOWER,
+			ROSE_BUSH,
+			PEONY,
+			LILAC,
+			TORCHFLOWER,
+			PINK_PETALS
+		}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
 		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, () -> BlockConfig.get().blockSounds.iceSounds);
 		addBlock(FROSTED_ICE, RegisterBlockSoundTypes.FROSTED_ICE, () -> BlockConfig.get().blockSounds.frostedIceSounds);
 		addBlock(GRAVEL, RegisterBlockSoundTypes.GRAVEL, () -> BlockConfig.get().blockSounds.gravelSounds);
-		addBlocks(new Block[]{ACACIA_SAPLING, BIRCH_SAPLING, DARK_OAK_SAPLING, JUNGLE_SAPLING, MANGROVE_PROPAGULE, OAK_SAPLING, SPRUCE_SAPLING, CYPRESS_SAPLING, BUSH}, SAPLING, () -> BlockConfig.get().blockSounds.saplingSounds);
-		addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_FRONDS}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{
+			ACACIA_SAPLING,
+			BIRCH_SAPLING,
+			DARK_OAK_SAPLING,
+			JUNGLE_SAPLING,
+			MANGROVE_PROPAGULE,
+			OAK_SAPLING,
+			SPRUCE_SAPLING,
+			CYPRESS_SAPLING,
+			MAPLE_SAPLING,
+			BUSH
+		}, SAPLING, () -> BlockConfig.get().blockSounds.saplingSounds);
+		addBlocks(new Block[]{
+			ACACIA_LEAVES,
+			BIRCH_LEAVES,
+			DARK_OAK_LEAVES,
+			JUNGLE_LEAVES,
+			MANGROVE_LEAVES,
+			OAK_LEAVES,
+			SPRUCE_LEAVES,
+			BAOBAB_LEAVES,
+			CYPRESS_LEAVES,
+			PALM_FRONDS,
+			MAPLE_LEAVES
+		}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> BlockConfig.get().blockSounds.lilyPadSounds);
 		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
 		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);

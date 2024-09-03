@@ -1,0 +1,12 @@
+{
+  "values": [
+    "wilderwild:maple_log",
+    "wilderwild:stripped_maple_log",
+    "wilderwild:maple_wood",
+    "wilderwild:stripped_maple_wood",
+    {
+      "id": "#wilderwild:hollowed_maple_logs",
+      "required": false
+    }
+  ]
+}

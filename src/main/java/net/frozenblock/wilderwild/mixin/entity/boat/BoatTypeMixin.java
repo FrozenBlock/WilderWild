@@ -71,6 +71,10 @@ public class BoatTypeMixin {
 		WilderEnumValues.PALM = palm;
 		types.add(palm);
 
+		var maple = wilderWild$newType("WILDERWILDMAPLE", last.ordinal() + 4, RegisterBlocks.MAPLE_PLANKS, "wilderwildmaple");
+		WilderEnumValues.MAPLE = maple;
+		types.add(maple);
+
 		$VALUES = types.toArray(new Boat.Type[0]);
 	}
 

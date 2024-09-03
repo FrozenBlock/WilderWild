@@ -138,6 +138,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature PALM_RARE = register("palm_rare");
 	public static final FrozenPlacedFeature PALMS_WARM_BEACH = register("palms_warm_beach");
 	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
+	public static final FrozenPlacedFeature MAPLE_TREES = register("maple_trees");
 	public static final FrozenPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
 	public static final FrozenPlacedFeature SNAPPED_OAK_CLEARING_PLACED = register("snapped_oak_clearing");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_PLACED = register("snapped_birch");
@@ -216,6 +217,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature COMMON_SEEDING_DANDELION = register("common_seeding_dandelion");
 	public static final FrozenPlacedFeature RARE_SEEDING_DANDELION = register("rare_seeding_dandelion");
 	public static final FrozenPlacedFeature CARNATION = register("carnation");
+	public static final FrozenPlacedFeature MARIGOLD = register("marigold");
+	public static final FrozenPlacedFeature MARIGOLD_SPARSE = register("marigold_sparse");
 	public static final FrozenPlacedFeature DATURA = register("datura");
 	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
 	public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
@@ -714,6 +717,14 @@ public final class WilderPlacedFeatures {
 			treePlacement(PlacementUtils.countExtra(10, 0.1F, 3))
 		);
 
+		MAPLE_TREES.makeAndSetHolder(WilderConfiguredFeatures.MAPLES.getHolder(),
+			PlacementUtils.countExtra(3, 0.1F, 2), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING),
+			TREE_THRESHOLD,
+			WilderPlacementUtils.TREE_CLEARING_FILTER
+		);
+
 		SNAPPED_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCHES.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
 		);
@@ -1103,6 +1114,16 @@ public final class WilderPlacedFeatures {
 		);
 
 		CARNATION.makeAndSetHolder(WilderConfiguredFeatures.CARNATION.getHolder(),
+			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		MARIGOLD.makeAndSetHolder(WilderConfiguredFeatures.MARIGOLD.getHolder(),
+			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		MARIGOLD_SPARSE.makeAndSetHolder(WilderConfiguredFeatures.MARIGOLD_SPARSE.getHolder(),
 			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);

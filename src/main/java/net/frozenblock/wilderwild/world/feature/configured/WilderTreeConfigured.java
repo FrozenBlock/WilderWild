@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
+import net.frozenblock.wilderwild.world.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.treedecorators.HeightBasedCobwebTreeDecorator;
@@ -113,6 +114,16 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_CHERRY_TREE = register("mossy_fallen_cherry_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_CHERRY_TREE = register("fallen_cherry_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CHERRY_TREE = register("snapped_cherry_tree");
+	//MAPLE
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MAPLE_TREE = register("maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_MAPLE_TREE = register("dying_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_MAPLE_TREE = register("tall_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DYING_MAPLE_TREE = register("tall_dying_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MAPLE_BEES_0004 = register("maple_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_MAPLE_BEES_0004 = register("tall_maple_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_MAPLE_TREE = register("mossy_fallen_maple_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MAPLE_TREE = register("fallen_maple_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
 	//OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK = register("oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_OAK = register("short_oak");
@@ -221,6 +232,7 @@ public final class WilderTreeConfigured {
 	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F);
 	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F);
 	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F);
+	private static final MossCarpetTreeDecorator MOSS_MAPLE = new MossCarpetTreeDecorator(0.47F, 0.2F);
 	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F);
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
@@ -471,8 +483,8 @@ public final class WilderTreeConfigured {
 
 		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(
-				Blocks.BIRCH_LOG,
-				Blocks.BIRCH_LEAVES,
+				Blocks.CHERRY_LOG,
+				Blocks.CHERRY_LEAVES,
 				2,
 				1,
 				1
@@ -481,6 +493,106 @@ public final class WilderTreeConfigured {
 					VINES_012_UNDER_260,
 					MOSS_CHERRY,
 					SHELF_FUNGUS_00875_ONLY_RED
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		// MAPLE
+
+		MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			maple().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			maple().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			maple().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			tallMaple().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FALLEN_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			fallenMaple().decorators(
+				List.of(
+					VINES_08_UNDER_260_075,
+					MOSS_MAPLE
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MOSSY_FALLEN_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			fallenTrunkBuilder(
+				RegisterBlocks.MAPLE_LOG,
+				RegisterBlocks.HOLLOWED_MAPLE_LOG,
+				RegisterBlocks.MAPLE_LEAVES,
+				3,
+				1,
+				2,
+				0.075F,
+				UniformInt.of(1, 2),
+				0.075F
+			).ignoreVines().decorators(
+				List.of(
+					VINES_08_UNDER_260_075,
+					MOSS_MOSSY
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SNAPPED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				RegisterBlocks.MAPLE_LOG,
+				RegisterBlocks.MAPLE_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_MAPLE,
+					SHELF_FUNGUS_006
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1617,6 +1729,11 @@ public final class WilderTreeConfigured {
 	}
 
 	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
+		return fallenTrunkBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.HOLLOWED_MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), 0.075F).ignoreVines();
+	}
+
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder oak() {
 		return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
@@ -1684,7 +1801,26 @@ public final class WilderTreeConfigured {
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder cherryBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, IntProvider branchLength, UniformInt branchStartOffsetFromTop, UniformInt branchEndOffsetFromTop) {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
-			new CherryTrunkPlacer(baseHeight, randomHeight1, randomHeight2, UniformInt.of(1, 3), branchLength, branchStartOffsetFromTop, branchEndOffsetFromTop), BlockStateProvider.simple(leaves), new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
+			new CherryTrunkPlacer(baseHeight, randomHeight1, randomHeight2, UniformInt.of(1, 3), branchLength, branchStartOffsetFromTop, branchEndOffsetFromTop), BlockStateProvider.simple(leaves),
+			new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
+			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder maple() {
+		return mapleBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 7, 1, 2);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder tallMaple() {
+		return mapleBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 10, 1, 1);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
+			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2), BlockStateProvider.simple(leaves),
+			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(2, 5)),
 			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
 	}
 

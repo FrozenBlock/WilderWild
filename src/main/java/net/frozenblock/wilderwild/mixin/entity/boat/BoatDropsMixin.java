@@ -41,6 +41,8 @@ public class BoatDropsMixin {
 			info.setReturnValue(RegisterItems.CYPRESS_BOAT);
 		} else if (boat.getVariant() == WilderEnumValues.PALM) {
 			info.setReturnValue(RegisterItems.PALM_BOAT);
+		} else if (boat.getVariant() == WilderEnumValues.MAPLE) {
+			info.setReturnValue(RegisterItems.MAPLE_BOAT);
 		}
 	}
 

@@ -83,6 +83,12 @@ public final class RegisterItems {
 	public static final HangingSignItem PALM_HANGING_SIGN = new HangingSignItem(RegisterBlocks.PALM_HANGING_SIGN, RegisterBlocks.PALM_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
+	public static final SignItem MAPLE_SIGN = new SignItem(new Item.Properties().stacksTo(16),
+		RegisterBlocks.MAPLE_SIGN, RegisterBlocks.MAPLE_WALL_SIGN
+	);
+	public static final HangingSignItem MAPLE_HANGING_SIGN = new HangingSignItem(RegisterBlocks.MAPLE_HANGING_SIGN, RegisterBlocks.MAPLE_WALL_HANGING_SIGN,
+		new Item.Properties().stacksTo(16)
+	);
 	public static final CoconutItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new Item.Properties());
 	public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN, new Item.Properties());
 	public static final BlockItem SCORCHED_SAND = new BlockItem(RegisterBlocks.SCORCHED_SAND, new Item.Properties());
@@ -98,6 +104,8 @@ public final class RegisterItems {
 	public static final BoatItem CYPRESS_CHEST_BOAT = new BoatItem(true, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
 	public static final BoatItem PALM_BOAT = new BoatItem(false, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
 	public static final BoatItem PALM_CHEST_BOAT = new BoatItem(true, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
+	public static final BoatItem MAPLE_BOAT = new BoatItem(false, WilderEnumValues.MAPLE, new Item.Properties().stacksTo(1));
+	public static final BoatItem MAPLE_CHEST_BOAT = new BoatItem(true, WilderEnumValues.MAPLE, new Item.Properties().stacksTo(1));
 	public static final FireflyBottle FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ON);
 	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BLACK);
 	public static final FireflyBottle RED_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.RED);
@@ -151,11 +159,13 @@ public final class RegisterItems {
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		registerItemAfter(Items.MANGROVE_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(BAOBAB_SIGN, PALM_HANGING_SIGN, "palm_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(BAOBAB_SIGN, PALM_SIGN, "palm_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(BAOBAB_SIGN, CYPRESS_HANGING_SIGN, "cypress_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(BAOBAB_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(BAOBAB_HANGING_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(CYPRESS_SIGN, CYPRESS_HANGING_SIGN, "cypress_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(CYPRESS_HANGING_SIGN, PALM_SIGN, "palm_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(PALM_SIGN, PALM_HANGING_SIGN, "palm_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(PALM_HANGING_SIGN, MAPLE_SIGN, "maple_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(MAPLE_SIGN, MAPLE_HANGING_SIGN, "maple_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
 		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
@@ -191,6 +201,8 @@ public final class RegisterItems {
 		registerItemAfter(CYPRESS_BOAT, CYPRESS_CHEST_BOAT, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(CYPRESS_CHEST_BOAT, PALM_BOAT, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(PALM_BOAT, PALM_CHEST_BOAT, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(PALM_CHEST_BOAT, MAPLE_BOAT, "maple_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(MAPLE_BOAT, MAPLE_CHEST_BOAT, "maple_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.INK_SAC, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.EVOKER_SPAWN_EGG, FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
@@ -252,6 +264,7 @@ public final class RegisterItems {
 			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
 			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
 			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.COCONUT, 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
 		});
 
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);

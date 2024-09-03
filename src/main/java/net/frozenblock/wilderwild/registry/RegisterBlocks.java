@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.MapleLeavesBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
@@ -126,9 +127,11 @@ public final class RegisterBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WilderConstants.id("baobab"));
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WilderConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WilderConstants.id("palm"));
+	public static final BlockSetType MAPLE_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WilderConstants.id("maple"));
 	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WilderConstants.id("baobab"), BAOBAB_SET);
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WilderConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WilderConstants.id("palm"), PALM_SET);
+	public static final WoodType MAPLE_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WilderConstants.id("maple"), MAPLE_SET);
 
 	// OTHER (BUILDING BLOCKS)
 
@@ -176,23 +179,36 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO)
 			.sound(RegisterBlockSoundTypes.BAOBAB_NUT)
 	);
-
 	public static final Block POTTED_BAOBAB_NUT = Blocks.flowerPot(BAOBAB_NUT);
+
 	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CACTUS)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
+
 	public static final WaterloggableSaplingBlock CYPRESS_SAPLING = new WaterloggableSaplingBlock(
 		WWTreeGrowers.CYPRESS,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
 	public static final Block POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
-	public static final CoconutBlock COCONUT = new CoconutBlock(WWTreeGrowers.PALM, BlockBehaviour.Properties.of().instabreak().randomTicks().sound(RegisterBlockSoundTypes.COCONUT));
+
+	public static final CoconutBlock COCONUT = new CoconutBlock(
+		WWTreeGrowers.PALM,
+		BlockBehaviour.Properties.of().instabreak().randomTicks().sound(RegisterBlockSoundTypes.COCONUT)
+	);
 	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
+
+	public static final WaterloggableSaplingBlock MAPLE_SAPLING = new WaterloggableSaplingBlock(
+		WWTreeGrowers.CYPRESS,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	);
+	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
+
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
+	public static final Block MAPLE_LEAVES = new MapleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
 	public static final HollowedLogBlock HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MapColor.SAND, MapColor.QUARTZ);
@@ -205,6 +221,7 @@ public final class RegisterBlocks {
 	public static final HollowedLogBlock HOLLOWED_WARPED_STEM = createHollowedStemBlock(MapColor.WARPED_STEM);
 	public static final HollowedLogBlock HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN);
 	public static final HollowedLogBlock HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MapColor.COLOR_LIGHT_GRAY, MapColor.STONE);
+	public static final HollowedLogBlock HOLLOWED_MAPLE_LOG = createHollowedLogBlock(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_YELLOW);
 	// STRIPPED HOLLOWED LOGS
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMapColor());
@@ -335,6 +352,13 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_CARNATION = Blocks.flowerPot(CARNATION);
+
+	public static final FlowerBlock MARIGOLD = new FlowerBlock(
+		MobEffects.DAMAGE_RESISTANCE,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_MARIGOLD = Blocks.flowerPot(MARIGOLD);
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
@@ -763,6 +787,102 @@ public final class RegisterBlocks {
 	);
 	public static final HollowedLogBlock HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
+	// MAPLE
+
+	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
+	public static final Block MAPLE_PLANKS = new Block(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final StairBlock MAPLE_STAIRS = new StairBlock(
+		MAPLE_PLANKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MAPLE_PLANKS)
+	);
+	public static final Block MAPLE_FENCE_GATE = new FenceGateBlock(
+		MAPLE_WOOD_TYPE,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final SlabBlock MAPLE_SLAB = new SlabBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final Block MAPLE_BUTTON = Blocks.woodenButton(MAPLE_SET);
+	public static final PressurePlateBlock MAPLE_PRESSURE_PLATE = new PressurePlateBlock(
+		MAPLE_SET,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final DoorBlock MAPLE_DOOR = new DoorBlock(
+		MAPLE_SET,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final TrapDoorBlock MAPLE_TRAPDOOR = new TrapDoorBlock(
+		MAPLE_SET,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final FenceBlock MAPLE_FENCE = new FenceBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_MAPLE_LOG = createStrippedHollowedLogBlock(MAPLE_PLANKS_COLOR);
+
+	private static final MapColor MAPLE_BARK_COLOR = MapColor.STONE;
+	public static final Block MAPLE_LOG = Blocks.log(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR);
+	public static final FrozenSignBlock MAPLE_SIGN = new FrozenSignBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
+			.mapColor(MAPLE_LOG.defaultMapColor()),
+		MAPLE_WOOD_TYPE,
+		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/maple_sign"))
+	);
+	public static final FrozenWallSignBlock MAPLE_WALL_SIGN = new FrozenWallSignBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
+			.mapColor(MAPLE_LOG.defaultMapColor())
+			.dropsLike(MAPLE_SIGN),
+		MAPLE_WOOD_TYPE,
+		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/maple_sign"))
+	);
+
+	public static final BlockFamily MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
+		.button(MAPLE_BUTTON)
+		.slab(MAPLE_SLAB)
+		.stairs(MAPLE_STAIRS)
+		.fence(MAPLE_FENCE)
+		.fenceGate(MAPLE_FENCE_GATE)
+		.pressurePlate(MAPLE_PRESSURE_PLATE)
+		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
+		.door(MAPLE_DOOR)
+		.trapdoor(MAPLE_TRAPDOOR)
+		.recipeGroupPrefix("wooden")
+		.recipeUnlockedBy("has_planks")
+		.getFamily();
+
+	public static final FrozenCeilingHangingSignBlock MAPLE_HANGING_SIGN = new FrozenCeilingHangingSignBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
+			.mapColor(MAPLE_LOG.defaultMapColor()),
+		MAPLE_WOOD_TYPE,
+		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/maple_hanging_sign"))
+	);
+	public static final FrozenWallHangingSignBlock MAPLE_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
+			.mapColor(MAPLE_LOG.defaultMapColor())
+			.dropsLike(MAPLE_HANGING_SIGN),
+		MAPLE_WOOD_TYPE,
+		ResourceKey.create(Registries.LOOT_TABLE, WilderConstants.id("blocks/maple_hanging_sign"))
+	);
+
+	public static final Block STRIPPED_MAPLE_LOG = Blocks.log(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR);
+	public static final RotatedPillarBlock STRIPPED_MAPLE_WOOD = new RotatedPillarBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final RotatedPillarBlock MAPLE_WOOD = new RotatedPillarBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)
+			.mapColor(MAPLE_BARK_COLOR)
+	);
+
 	private RegisterBlocks() {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
@@ -783,6 +903,7 @@ public final class RegisterBlocks {
 		String baobab = "baobab";
 		String cypress = "cypress";
 		String palm = "palm";
+		String maple = "maple";
 		String wood = baobab;
 		//BAOBAB IN BUILDING BLOCKS
 		registerBlockAfter(Items.MANGROVE_BUTTON, wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
@@ -840,13 +961,36 @@ public final class RegisterBlocks {
 		registerBlockAfter(CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(CYPRESS_LEAVES, wood + "_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
 
+		wood = maple;
+		//MAPLE IN BUILDING BLOCKS
+		registerBlockAfter(Blocks.CHERRY_BUTTON, wood + "_log", MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_LOG, wood + "_wood", MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_WOOD, "stripped_" + wood + "_log", STRIPPED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_MAPLE_LOG, "stripped_" + wood + "_wood", STRIPPED_MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_MAPLE_WOOD, wood + "_planks", MAPLE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_PLANKS, wood + "_stairs", MAPLE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_STAIRS, wood + "_slab", MAPLE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_SLAB, wood + "_fence", MAPLE_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_FENCE, wood + "_fence_gate", MAPLE_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_FENCE_GATE, wood + "_door", MAPLE_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_DOOR, wood + "_trapdoor", MAPLE_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_TRAPDOOR, wood + "_pressure_plate", MAPLE_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_PRESSURE_PLATE, wood + "_button", MAPLE_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		//MAPLE IN NATURE
+		registerBlockAfter(Blocks.CHERRY_LOG, wood + "_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.CHERRY_LEAVES, wood + "_leaves", MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+
 		registerBlock(baobab + "_nut", BAOBAB_NUT);
 		registerBlock("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
 
 		registerBlockAfter(Items.MANGROVE_PROPAGULE, cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
+
 		registerBlock("coconut", COCONUT);
 		registerBlock("potted_coconut", POTTED_COCONUT);
+
+		registerBlockAfter(Items.CHERRY_SAPLING, maple + "_sapling", MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_" + maple + "_sapling", POTTED_MAPLE_SAPLING);
 
 		registerBlock(baobab + "_sign", BAOBAB_SIGN);
 		registerBlock(baobab + "_wall_sign", BAOBAB_WALL_SIGN);
@@ -860,6 +1004,10 @@ public final class RegisterBlocks {
 		registerBlock(palm + "_wall_sign", PALM_WALL_SIGN);
 		registerBlock(palm + "_hanging_sign", PALM_HANGING_SIGN);
 		registerBlock(palm + "_wall_hanging_sign", PALM_WALL_HANGING_SIGN);
+		registerBlock(maple + "_sign", MAPLE_SIGN);
+		registerBlock(maple + "_wall_sign", MAPLE_WALL_SIGN);
+		registerBlock(maple + "_hanging_sign", MAPLE_HANGING_SIGN);
+		registerBlock(maple + "_wall_hanging_sign", MAPLE_WALL_HANGING_SIGN);
 	}
 
 	public static void registerHollowedLogs() {
@@ -904,6 +1052,10 @@ public final class RegisterBlocks {
 		registerBlockBefore(PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(HOLLOWED_PALM_LOG, "stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+
+		registerBlockBefore(MAPLE_WOOD, "hollowed_maple_log", HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(HOLLOWED_MAPLE_LOG, "stripped_hollowed_maple_log", STRIPPED_HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_LOG, "hollowed_maple_log", HOLLOWED_MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerDeepDark() {
@@ -924,6 +1076,8 @@ public final class RegisterBlocks {
 		registerBlock("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
 		registerBlockAfter(Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_carnation", POTTED_CARNATION);
+		registerBlockAfter(CARNATION, "marigold", MARIGOLD, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_marigold", POTTED_MARIGOLD);
 		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.WITHER_ROSE, "blue_giant_glory_of_the_snow", BLUE_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.WITHER_ROSE, "pink_giant_glory_of_the_snow", PINK_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1149,6 +1303,14 @@ public final class RegisterBlocks {
 		TermiteManager.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteManager.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
 
+		TermiteManager.Termite.addDegradable(MAPLE_LOG, STRIPPED_MAPLE_LOG);
+		TermiteManager.Termite.addDegradable(STRIPPED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
+		TermiteManager.Termite.addDegradable(HOLLOWED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
+		TermiteManager.Termite.addDegradable(MAPLE_WOOD, STRIPPED_MAPLE_WOOD);
+
+		TermiteManager.Termite.addNaturalDegradable(MAPLE_LOG, STRIPPED_MAPLE_LOG);
+		TermiteManager.Termite.addNaturalDegradable(MAPLE_WOOD, STRIPPED_MAPLE_WOOD);
+
 		TermiteManager.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
 
 		var sign = (FabricBlockEntityType) BlockEntityType.SIGN;
@@ -1160,6 +1322,8 @@ public final class RegisterBlocks {
 		sign.addSupportedBlock(CYPRESS_WALL_SIGN);
 		sign.addSupportedBlock(PALM_SIGN);
 		sign.addSupportedBlock(PALM_WALL_SIGN);
+		sign.addSupportedBlock(MAPLE_SIGN);
+		sign.addSupportedBlock(MAPLE_WALL_SIGN);
 
 		hangingSign.addSupportedBlock(BAOBAB_HANGING_SIGN);
 		hangingSign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
@@ -1167,6 +1331,8 @@ public final class RegisterBlocks {
 		hangingSign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
 		hangingSign.addSupportedBlock(PALM_HANGING_SIGN);
 		hangingSign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
+		hangingSign.addSupportedBlock(MAPLE_HANGING_SIGN);
+		hangingSign.addSupportedBlock(MAPLE_WALL_HANGING_SIGN);
 
 		registerStrippable();
 		registerComposting();
@@ -1203,6 +1369,8 @@ public final class RegisterBlocks {
 		StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 		StrippableBlockRegistry.register(PALM_LOG, STRIPPED_PALM_LOG);
 		StrippableBlockRegistry.register(PALM_WOOD, STRIPPED_PALM_WOOD);
+		StrippableBlockRegistry.register(MAPLE_LOG, STRIPPED_MAPLE_LOG);
+		StrippableBlockRegistry.register(MAPLE_WOOD, STRIPPED_MAPLE_WOOD);
 
 		StrippableBlockRegistry.register(HOLLOWED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_BIRCH_LOG, STRIPPED_HOLLOWED_BIRCH_LOG);
@@ -1217,6 +1385,7 @@ public final class RegisterBlocks {
 		StrippableBlockRegistry.register(HOLLOWED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
 	}
 
 	private static void registerComposting() {
@@ -1224,13 +1393,20 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RegisterItems.COCONUT, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(RegisterItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALBA_GLORY_OF_THE_SNOW, 0.65F);
@@ -1240,8 +1416,6 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(RegisterItems.COCONUT, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(RegisterItems.SPLIT_COCONUT, 0.3F);
 	}
 
 	private static void registerFlammability() {
@@ -1253,6 +1427,7 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.CATTAIL, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.DATURA, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.MILKWEED, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.MARIGOLD, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.GLORY_OF_THE_SNOW, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
@@ -1342,6 +1517,27 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.PALM_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_WALL_HANGING_SIGN, 5, 20);
+
+		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WOOD, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_MAPLE_WOOD, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_PLANKS, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_STAIRS, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_DOOR, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_FENCE, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_SLAB, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_BUTTON, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_SIGN, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WALL_HANGING_SIGN, 5, 20);
 	}
 
 	private static void registerFuels() {
@@ -1363,6 +1559,7 @@ public final class RegisterBlocks {
 		registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
 		registry.add(BAOBAB_FENCE.asItem(), 300);
 		registry.add(RegisterItems.BAOBAB_SIGN, 300);
+		registry.add(RegisterItems.BAOBAB_HANGING_SIGN, 800);
 		registry.add(RegisterItems.BAOBAB_NUT, 100);
 
 		registry.add(RegisterItems.CYPRESS_BOAT, 1200);
@@ -1380,6 +1577,7 @@ public final class RegisterBlocks {
 		registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
 		registry.add(CYPRESS_FENCE.asItem(), 300);
 		registry.add(RegisterItems.CYPRESS_SIGN, 300);
+		registry.add(RegisterItems.CYPRESS_HANGING_SIGN, 800);
 		registry.add(CYPRESS_SAPLING.asItem(), 100);
 
 		registry.add(RegisterItems.PALM_BOAT, 1200);
@@ -1397,8 +1595,27 @@ public final class RegisterBlocks {
 		registry.add(PALM_FENCE_GATE.asItem(), 300);
 		registry.add(PALM_FENCE.asItem(), 300);
 		registry.add(RegisterItems.PALM_SIGN, 300);
+		registry.add(RegisterItems.PALM_HANGING_SIGN, 800);
 		registry.add(RegisterItems.COCONUT, 150); // COCONUT OIL IS KNOWN TO BE FLAMMABLE :)
 		registry.add(RegisterItems.SPLIT_COCONUT, 75);
+
+		registry.add(RegisterItems.MAPLE_BOAT, 1200);
+		registry.add(RegisterItems.MAPLE_CHEST_BOAT, 1200);
+		registry.add(MAPLE_LOG.asItem(), 300);
+		registry.add(STRIPPED_MAPLE_LOG.asItem(), 300);
+		registry.add(MAPLE_WOOD.asItem(), 300);
+		registry.add(STRIPPED_MAPLE_WOOD.asItem(), 300);
+		registry.add(MAPLE_PLANKS.asItem(), 300);
+		registry.add(MAPLE_SLAB.asItem(), 150);
+		registry.add(MAPLE_STAIRS.asItem(), 300);
+		registry.add(MAPLE_PRESSURE_PLATE.asItem(), 300);
+		registry.add(MAPLE_BUTTON.asItem(), 100);
+		registry.add(MAPLE_TRAPDOOR.asItem(), 300);
+		registry.add(MAPLE_FENCE_GATE.asItem(), 300);
+		registry.add(MAPLE_FENCE.asItem(), 300);
+		registry.add(RegisterItems.MAPLE_SIGN, 300);
+		registry.add(RegisterItems.MAPLE_HANGING_SIGN, 800);
+		registry.add(MAPLE_SAPLING.asItem(), 100);
 
 		registry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
 		registry.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);
@@ -1412,6 +1629,7 @@ public final class RegisterBlocks {
 		registry.add(HOLLOWED_BAOBAB_LOG.asItem(), 300);
 		registry.add(HOLLOWED_CYPRESS_LOG.asItem(), 300);
 		registry.add(HOLLOWED_PALM_LOG.asItem(), 300);
+		registry.add(HOLLOWED_MAPLE_LOG.asItem(), 300);
 
 		registry.add(STRIPPED_HOLLOWED_WARPED_STEM.asItem(), 300);
 		registry.add(STRIPPED_HOLLOWED_CRIMSON_STEM.asItem(), 300);
@@ -1425,6 +1643,7 @@ public final class RegisterBlocks {
 		registry.add(STRIPPED_HOLLOWED_BAOBAB_LOG.asItem(), 300);
 		registry.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
 		registry.add(STRIPPED_HOLLOWED_PALM_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_MAPLE_LOG.asItem(), 300);
 
 		registry.add(TUMBLEWEED.asItem(), 150);
 		registry.add(TUMBLEWEED_PLANT.asItem(), 150);
@@ -1476,6 +1695,7 @@ public final class RegisterBlocks {
 		AxeBehaviors.register(RegisterBlocks.BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_BAOBAB_LOG, false));
 		AxeBehaviors.register(RegisterBlocks.CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CYPRESS_LOG, false));
 		AxeBehaviors.register(RegisterBlocks.PALM_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(RegisterBlocks.MAPLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_MAPLE_LOG, false));
 		//STRIPPED
 		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
 		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
@@ -1490,6 +1710,7 @@ public final class RegisterBlocks {
 		AxeBehaviors.register(RegisterBlocks.STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
 		AxeBehaviors.register(RegisterBlocks.STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
 		AxeBehaviors.register(RegisterBlocks.STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, false));
 	}
 
 	private static void registerInventories() {

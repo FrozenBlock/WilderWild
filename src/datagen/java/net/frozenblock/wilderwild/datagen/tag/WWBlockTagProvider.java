@@ -63,7 +63,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
 			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
 			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
-			.add(RegisterBlocks.STRIPPED_PALM_LOG);
+			.add(RegisterBlocks.STRIPPED_PALM_LOG)
+			.add(RegisterBlocks.STRIPPED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(RegisterBlocks.BUSH)
@@ -394,6 +395,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.MAPLE_LOGS)
+			.add(RegisterBlocks.MAPLE_LOG)
+			.add(RegisterBlocks.STRIPPED_MAPLE_LOG)
+			.add(RegisterBlocks.MAPLE_WOOD)
+			.add(RegisterBlocks.STRIPPED_MAPLE_WOOD)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_MAPLE_LOGS);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_ACACIA_LOGS)
 			.add(RegisterBlocks.HOLLOWED_ACACIA_LOG)
 			.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
@@ -446,6 +454,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.HOLLOWED_PALM_LOG)
 			.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_MAPLE_LOGS)
+			.add(RegisterBlocks.HOLLOWED_MAPLE_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_ACACIA_LOGS)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_BIRCH_LOGS)
@@ -459,7 +471,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WilderBlockTags.HOLLOWED_WARPED_STEMS)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_BAOBAB_LOGS)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_CYPRESS_LOGS)
-			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
+			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_MAPLE_LOGS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS_DONT_BURN)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_CRIMSON_STEMS)
@@ -480,7 +493,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
 			.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
 			.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
-			.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)
 			.add(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
@@ -772,6 +786,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD)
 			.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD)
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
+			.add(RegisterBlocks.STRIPPED_MAPLE_WOOD)
 			.addOptional(
 				ResourceKey.create(
 					Registries.BLOCK,
@@ -802,6 +817,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.BAOBAB_LEAVES)
 			.add(RegisterBlocks.CYPRESS_LEAVES)
 			.add(RegisterBlocks.PALM_FRONDS)
+			.add(RegisterBlocks.MAPLE_LEAVES)
 			.add(RegisterBlocks.TUMBLEWEED_PLANT)
 			.add(RegisterBlocks.TUMBLEWEED)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS)
@@ -849,12 +865,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
 			.add(RegisterBlocks.BAOBAB_HANGING_SIGN)
 			.add(RegisterBlocks.CYPRESS_HANGING_SIGN)
-			.add(RegisterBlocks.PALM_HANGING_SIGN);
+			.add(RegisterBlocks.PALM_HANGING_SIGN)
+			.add(RegisterBlocks.MAPLE_HANGING_SIGN);
 
 		this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
 			.add(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN)
 			.add(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN)
-			.add(RegisterBlocks.PALM_WALL_HANGING_SIGN);
+			.add(RegisterBlocks.PALM_WALL_HANGING_SIGN)
+			.add(RegisterBlocks.MAPLE_WALL_HANGING_SIGN);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
 			.add(RegisterBlocks.SCULK_STAIRS)

@@ -3,5 +3,8 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 
 -----------------
-- Added a debug renderer for Ostriches.
-- Fixed Geysers impacting wind behind themselves.
+- Added Maple trees
+- Added Marigold
+- Fixed a few tags that were still unfinished
+- Cherry particles are now much more responsive to wind
+- Fixed the Carnation's dye recipe being in the wrong group

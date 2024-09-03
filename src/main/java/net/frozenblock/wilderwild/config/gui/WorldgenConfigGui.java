@@ -371,13 +371,24 @@ public final class WorldgenConfigGui {
 			"generateFrozenCaves",
 			configInstance
 		);
+		var mapleGrove = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_maple_grove"), modifiedBiomes.generateMapleGrove)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateMapleGrove)
+				.setSaveConsumer(newValue -> biomes.generateMapleGrove = newValue)
+				.setTooltip(tooltip("generate_maple_grove"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateMapleGrove",
+			configInstance
+		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
-			jellyfishCaves, magmaticCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
-			snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
+			jellyfishCaves, magmaticCaves, mapleGrove, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
+			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(

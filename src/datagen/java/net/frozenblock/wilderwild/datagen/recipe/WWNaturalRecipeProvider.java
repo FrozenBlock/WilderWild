@@ -43,7 +43,9 @@ public class WWNaturalRecipeProvider {
 
 		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, RegisterBlocks.MILKWEED, "orange_dye", 2);
 
-		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.CARNATION, "orange_dye");
+		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.CARNATION, "purple_Dye");
+
+		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, RegisterBlocks.MARIGOLD, "orange_dye");
 
 		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterItems.SPLIT_COCONUT, "white_dye");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BOWL, 2)

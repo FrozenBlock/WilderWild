@@ -102,7 +102,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
 			.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
@@ -217,7 +218,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.FROZEN_CAVES);
+			.addOptional(RegisterWorldgen.FROZEN_CAVES)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_WET_OVERWORLD)
 			.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
@@ -268,7 +270,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_VEGETATION_SPARSE_OVERWORLD)
 			.addOptional(RegisterWorldgen.ARID_SAVANNA)
@@ -337,7 +340,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
@@ -495,7 +499,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)
 			.addOptional(RegisterWorldgen.WARM_RIVER)
@@ -535,7 +540,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 			.add(Biomes.DARK_FOREST)
@@ -733,7 +739,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.PLAINS_GRASS)
 			.add(Biomes.PLAINS)
@@ -758,7 +765,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.DARK_TAIGA);
+			.addOptional(RegisterWorldgen.DARK_TAIGA)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_RED_MUSHROOM)
 			.add(Biomes.DARK_FOREST)
@@ -816,13 +824,27 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 			.addOptional(RegisterWorldgen.DYING_FOREST);
 
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MARIGOLD)
+			.add(Biomes.DARK_FOREST)
+			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+			.addOptional(RegisterWorldgen.DARK_TAIGA)
+			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MARIGOLD_SPARSE)
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST);
+
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(Biomes.CHERRY_GROVE)
 			.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL)
 			.add(Biomes.DARK_FOREST)
@@ -879,7 +901,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_SEEDING_DANDELION)
 			.add(Biomes.PLAINS);
@@ -1058,12 +1081,14 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.MIXED_FOREST)
 			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
-			.addOptional(RegisterWorldgen.RAINFOREST);
+			.addOptional(RegisterWorldgen.RAINFOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_PUMPKIN)
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FIELD_FLOWERS)
 			.add(Biomes.FLOWER_FOREST)
@@ -1138,7 +1163,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RAINFOREST_MUSHROOM)
 			.addOptional(RegisterWorldgen.RAINFOREST)
@@ -1340,7 +1366,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 			.add(Biomes.WINDSWEPT_FOREST)
 			.addOptional(RegisterWorldgen.ARID_SAVANNA)
-			.addOptional(RegisterWorldgen.DARK_TAIGA);
+			.addOptional(RegisterWorldgen.DARK_TAIGA)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
@@ -1383,7 +1410,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING)
 			.add(Biomes.FOREST)
@@ -1408,7 +1436,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GRAVEL_CLEARING)
 			.add(Biomes.TAIGA)
@@ -1421,7 +1450,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.MIXED_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIRCH_CLEARING_FLOWERS)
 			.add(Biomes.BIRCH_FOREST)
@@ -1585,7 +1615,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_GRAVEL)
 			.add(Biomes.FOREST)
@@ -1689,7 +1720,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DYING_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
 			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_PILLAGER_OUTPOST)
 			.add(Biomes.SUNFLOWER_PLAINS)
@@ -1721,7 +1753,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.MAGMATIC_CAVES);
+			.addOptional(RegisterWorldgen.MAGMATIC_CAVES)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_JUNGLE)
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
@@ -1758,6 +1791,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST);
+			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 	}
 }

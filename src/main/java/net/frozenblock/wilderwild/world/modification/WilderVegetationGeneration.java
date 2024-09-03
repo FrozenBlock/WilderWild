@@ -43,6 +43,14 @@ public final class WilderVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CARNATION.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_MARIGOLD)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MARIGOLD.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_MARIGOLD_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MARIGOLD_SPARSE.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_DATURA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DATURA.getKey());
 						}

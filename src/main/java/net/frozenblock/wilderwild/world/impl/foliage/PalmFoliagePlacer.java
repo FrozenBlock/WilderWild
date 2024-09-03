@@ -81,11 +81,11 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.5 + SURROUNDING_LEAF_THRESHOLD;
+		return d > 0.5D + SURROUNDING_LEAF_THRESHOLD;
 	}
 
 	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.5 - SURROUNDING_LEAF_THRESHOLD;
+		return d < 0.5D - SURROUNDING_LEAF_THRESHOLD;
 	}
 
 	@Override
@@ -95,7 +95,17 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
+	protected void createFoliage(
+		@NotNull LevelSimulatedReader level,
+		@NotNull FoliageSetter blockSetter,
+		@NotNull RandomSource random,
+		@NotNull TreeConfiguration config,
+		int i,
+		@NotNull FoliageAttachment foliageAttachment,
+		int j,
+		int k,
+		int l
+	) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		BlockPos belowPos = blockPos.below();
 		blockSetter.set(belowPos, this.crownState.getState(random, belowPos));

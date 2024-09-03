@@ -67,6 +67,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
+import net.frozenblock.wilderwild.particle.MapleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
@@ -93,6 +94,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -136,6 +138,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_BAOBAB_NUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_COCONUT, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_MAPLE_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_BIG_DRIPLEAF, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_SMALL_DRIPLEAF, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_SHORT_GRASS, RenderType.cutout());
@@ -147,6 +150,8 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.CATTAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.MILKWEED, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.MARIGOLD, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_MARIGOLD, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.POLLEN, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.ECHO_GLASS, RenderType.translucent());
 		renderLayerRegistry.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderType.cutout());
@@ -156,12 +161,15 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.BAOBAB_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.CYPRESS_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.PALM_DOOR, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.MAPLE_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.BAOBAB_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.CYPRESS_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.PALM_TRAPDOOR, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.MAPLE_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.BAOBAB_NUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.COCONUT, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.MAPLE_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
@@ -176,6 +184,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_BIRCH_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_CHERRY_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_MAPLE_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RenderType.cutout());
@@ -189,6 +198,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, RenderType.cutout());
@@ -244,6 +254,10 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.RED_HANGING_MESOGLEA, MesogleaDripParticle.RMesogleaHangProvider::new);
 		particleRegistry.register(RegisterParticles.RED_FALLING_MESOGLEA, MesogleaDripParticle.RMesogleaFallProvider::new);
 		particleRegistry.register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
+		particleRegistry.register(RegisterParticles.MAPLE_LEAVES,
+			sprite -> (type, world, x, y, z, velocityX, velocityY, velocityZ) ->
+				new MapleParticle(world, x, y, z, sprite, 255F / 255F, 215F / 255F, 124F / 255F)
+		);
 
 		EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
 

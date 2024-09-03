@@ -41,6 +41,7 @@ public final class WilderItemTags {
 	public static final TagKey<Item> BAOBAB_LOGS = bind("baobab_logs");
 	public static final TagKey<Item> CYPRESS_LOGS = bind("cypress_logs");
 	public static final TagKey<Item> PALM_LOGS = bind("palm_logs");
+	public static final TagKey<Item> MAPLE_LOGS = bind("maple_logs");
 	public static final TagKey<Item> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Item> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");
 	public static final TagKey<Item> HOLLOWED_LOGS_THAT_BURN = bind("hollowed_logs_that_burn");
@@ -53,6 +54,7 @@ public final class WilderItemTags {
 	public static final TagKey<Item> HOLLOWED_DARK_OAK_LOGS = bind("hollowed_dark_oak_logs");
 	public static final TagKey<Item> HOLLOWED_JUNGLE_LOGS = bind("hollowed_jungle_logs");
 	public static final TagKey<Item> HOLLOWED_MANGROVE_LOGS = bind("hollowed_mangrove_logs");
+	public static final TagKey<Item> HOLLOWED_MAPLE_LOGS = bind("hollowed_maple_logs");
 	public static final TagKey<Item> HOLLOWED_OAK_LOGS = bind("hollowed_oak_logs");
 	public static final TagKey<Item> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Item> HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");

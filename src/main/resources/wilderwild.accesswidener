@@ -151,6 +151,7 @@ accessible    method    net/minecraft/world/entity/SpawnPlacements$Data    <init
 # Biomes
 accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
 accessible    method    net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider    <init>    (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/client/renderer/BiomeColors getAverageColor (Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/ColorResolver;)I
 
 # Features
 accessible    field    net/minecraft/data/worldgen/placement/VegetationPlacements    TREE_THRESHOLD    Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;

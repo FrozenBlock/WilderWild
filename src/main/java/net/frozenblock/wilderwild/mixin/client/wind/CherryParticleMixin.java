@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.mixin.client.wind;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
@@ -32,6 +34,8 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CherryParticle.class)
@@ -48,9 +52,16 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 			target = "Ljava/lang/Math;cos(D)D"
 		)
 	)
-	public double wilderWild$fixMoveA(double original) {
+	public double wilderWild$fixMoveA(
+		double original,
+		@Share("wilderWild$wind") LocalRef<Vec3> wind
+	) {
+		wind.set(Vec3.ZERO);
 		if (WilderClientWindManager.shouldUseWind()) {
-			return 0D;
+			Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
+				.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
+			wind.set(currentWind);
+			return currentWind.x;
 		}
 		return original;
 	}
@@ -62,9 +73,12 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 			target = "Ljava/lang/Math;sin(D)D"
 		)
 	)
-	public double wilderWild$fixMoveB(double original) {
+	public double wilderWild$fixMoveB(
+		double original,
+		@Share("wilderWild$wind") LocalRef<Vec3> wind
+	) {
 		if (WilderClientWindManager.shouldUseWind()) {
-			return 0D;
+			return wind.get().z;
 		}
 		return original;
 	}
@@ -76,15 +90,27 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 			target = "Lnet/minecraft/client/particle/CherryParticle;move(DDD)V"
 		)
 	)
-	public void wilderWild$fixMoveC(CherryParticle instance, double x, double y, double z, Operation<Void> original) {
+	public void wilderWild$fixMoveC(
+		CherryParticle instance, double x, double y, double z, Operation<Void> original,
+		@Share("wilderWild$wind") LocalRef<Vec3> wind
+	) {
 		if (WilderClientWindManager.shouldUseWind()) {
-			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-				.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
-			x = this.xd + wind.x * 0.00075D;
-			y = (this.yd - this.gravity) + wind.y * 0.00001D;
-			z = this.zd + wind.z * 0.00075D;
+			y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
 		}
 		original.call(instance, x, y, z);
+	}
+
+	@ModifyConstant(
+		method = "tick",
+		constant = @Constant(intValue = 299)
+	)
+	public int wilderWild$fixMoveD(
+		int constant
+	) {
+		if (WilderClientWindManager.shouldUseWind()) {
+			return 10;
+		}
+		return constant;
 	}
 
 }

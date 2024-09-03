@@ -69,6 +69,16 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_CHERRY_CHECKED = WilderPlacementUtils.register("fallen_cherry_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = WilderPlacementUtils.register("mossy_fallen_cherry_checked");
 	public static final FrozenPlacedFeature SNAPPED_CHERRY_CHECKED = WilderPlacementUtils.register("snapped_cherry_checked");
+	//MAPLE
+	public static final FrozenPlacedFeature MAPLE_CHECKED = WilderPlacementUtils.register("maple_checked");
+	public static final FrozenPlacedFeature DYING_MAPLE_CHECKED = WilderPlacementUtils.register("dying_maple_checked");
+	public static final FrozenPlacedFeature TALL_MAPLE_CHECKED = WilderPlacementUtils.register("tall_maple_checked");
+	public static final FrozenPlacedFeature TALL_DYING_MAPLE_CHECKED = WilderPlacementUtils.register("tall_dying_maple_checked");
+	public static final FrozenPlacedFeature MAPLE_BEES_CHECKED = WilderPlacementUtils.register("maple_bees_checked");
+	public static final FrozenPlacedFeature TALL_MAPLE_BEES_CHECKED = WilderPlacementUtils.register("tall_maple_bees_checked");
+	public static final FrozenPlacedFeature FALLEN_MAPLE_CHECKED = WilderPlacementUtils.register("fallen_maple_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_MAPLE_CHECKED = WilderPlacementUtils.register("mossy_fallen_maple_checked");
+	public static final FrozenPlacedFeature SNAPPED_MAPLE_CHECKED = WilderPlacementUtils.register("snapped_maple_checked");
 	//OAK
 	public static final FrozenPlacedFeature OAK_CHECKED = WilderPlacementUtils.register("oak_checked");
 	public static final FrozenPlacedFeature DYING_OAK_CHECKED = WilderPlacementUtils.register("dying_oak_checked");
@@ -252,7 +262,7 @@ public final class WilderTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
-		//CHERRY
+		// CHERRY
 
 		CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.CHERRY_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
@@ -287,6 +297,44 @@ public final class WilderTreePlaced {
 		);
 
 		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		// MAPLE
+
+		MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+		);
+
+		DYING_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.DYING_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+		);
+
+		MAPLE_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.MAPLE_BEES_0004.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+		);
+
+		TALL_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+		);
+
+		TALL_DYING_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_DYING_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+		);
+
+		TALL_MAPLE_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_MAPLE_BEES_0004.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+		);
+
+		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		MOSSY_FALLEN_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_MAPLE_TREE.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 

@@ -67,6 +67,10 @@ public class HollowedLogRecipeProvider {
 		woodFromHollowed(RegisterBlocks.HOLLOWED_MANGROVE_LOG, Items.MANGROVE_WOOD, exporter, "mangrove");
 		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, Items.STRIPPED_MANGROVE_WOOD, exporter, "mangrove");
 
+		planksFromHollowed(WilderItemTags.HOLLOWED_MAPLE_LOGS, RegisterBlocks.MAPLE_PLANKS, exporter, "maple");
+		woodFromHollowed(RegisterBlocks.HOLLOWED_MAPLE_LOG, RegisterBlocks.MAPLE_WOOD, exporter, "maple");
+		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, RegisterBlocks.STRIPPED_MAPLE_WOOD, exporter, "maple");
+
 		planksFromHollowed(WilderItemTags.HOLLOWED_OAK_LOGS, Items.OAK_PLANKS, exporter, "oak");
 		woodFromHollowed(RegisterBlocks.HOLLOWED_OAK_LOG, Items.OAK_WOOD, exporter, "oak");
 		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, Items.STRIPPED_OAK_WOOD, exporter, "oak");

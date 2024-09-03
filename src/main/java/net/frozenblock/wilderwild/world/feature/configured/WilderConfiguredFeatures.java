@@ -138,6 +138,7 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE = WilderFeatureUtils.register("palms_jungle");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS = WilderFeatureUtils.register("palms_oasis");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRIES = WilderFeatureUtils.register("cherries");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES = WilderFeatureUtils.register("maples");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCHES = WilderFeatureUtils.register("snapped_birches");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_OAKS = WilderFeatureUtils.register("snapped_oaks");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_OAK = WilderFeatureUtils.register("snapped_birch_and_oak");
@@ -159,6 +160,8 @@ public final class WilderConfiguredFeatures {
 	// FLOWERS
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WilderFeatureUtils.register("seeding_dandelion");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WilderFeatureUtils.register("carnation");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = WilderFeatureUtils.register("marigold");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD_SPARSE = WilderFeatureUtils.register("marigold_sparse");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = WilderFeatureUtils.register("datura");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WilderFeatureUtils.register("flower_plain");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WilderFeatureUtils.register("flower_meadow");
@@ -989,6 +992,18 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
+		MAPLES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.MAPLE_CHECKED.getHolder(), 0.025F),
+					new WeightedPlacedFeature(WilderTreePlaced.DYING_MAPLE_CHECKED.getHolder(), 0.0785F),
+					new WeightedPlacedFeature(WilderTreePlaced.TALL_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+					new WeightedPlacedFeature(WilderTreePlaced.TALL_DYING_MAPLE_CHECKED.getHolder(), 0.0785F)
+				),
+				WilderTreePlaced.MAPLE_BEES_CHECKED.getHolder()
+			)
+		);
+
 		SNAPPED_BIRCHES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 1.0F)),
@@ -1129,6 +1144,26 @@ public final class WilderConfiguredFeatures {
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.CARNATION))
+				)
+			)
+		);
+
+		MARIGOLD.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				40,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MARIGOLD))
+				)
+			)
+		);
+
+		MARIGOLD_SPARSE.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				24,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MARIGOLD))
 				)
 			)
 		);

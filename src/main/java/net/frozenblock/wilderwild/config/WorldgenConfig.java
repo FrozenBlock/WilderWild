@@ -239,5 +239,8 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateFrozenCaves")
 		public boolean generateFrozenCaves = true;
+
+		@EntrySyncData("generateMapleGrove")
+		public boolean generateMapleGrove = true;
 	}
 }

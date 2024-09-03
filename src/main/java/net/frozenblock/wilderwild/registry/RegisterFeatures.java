@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.world.impl.features.config.LargeMesogleaConfig
 import net.frozenblock.wilderwild.world.impl.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.SmallSpongeFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.SnowAndIceDiskFeatureConfig;
+import net.frozenblock.wilderwild.world.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.trunk.BaobabTrunkPlacer;
@@ -72,6 +73,7 @@ public class RegisterFeatures {
 
 	public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER = registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER = registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
+	public static final FoliagePlacerType<MapleFoliagePlacer> MAPLE_FOLIAGE_PLACER = registerFoliage("maple_foliage_placer", MapleFoliagePlacer.CODEC);
 
 	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
 	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = register("small_sponge_feature", new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC));

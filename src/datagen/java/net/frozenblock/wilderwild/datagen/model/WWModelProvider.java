@@ -49,8 +49,16 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(RegisterBlocks.CYPRESS_SAPLING, RegisterBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createTrivialBlock(RegisterBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
 
+		generator.family(RegisterBlocks.MAPLE_PLANKS).generateFor(RegisterBlocks.MAPLE);
+		generator.woodProvider(RegisterBlocks.MAPLE_LOG).logWithHorizontal(RegisterBlocks.MAPLE_LOG).wood(RegisterBlocks.MAPLE_WOOD);
+		generator.woodProvider(RegisterBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(RegisterBlocks.STRIPPED_MAPLE_LOG).wood(RegisterBlocks.STRIPPED_MAPLE_WOOD);
+		generator.createHangingSign(RegisterBlocks.STRIPPED_MAPLE_LOG, RegisterBlocks.MAPLE_HANGING_SIGN, RegisterBlocks.MAPLE_WALL_HANGING_SIGN);
+		generator.createPlant(RegisterBlocks.MAPLE_SAPLING, RegisterBlocks.POTTED_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createTrivialBlock(RegisterBlocks.MAPLE_LEAVES, TexturedModel.LEAVES);
+
 		generator.createPlant(RegisterBlocks.SEEDING_DANDELION, RegisterBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(RegisterBlocks.CARNATION, RegisterBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(RegisterBlocks.MARIGOLD, RegisterBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.createTrivialBlock(RegisterBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(RegisterBlocks.CRACKED_MUD_BRICKS);
@@ -90,6 +98,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.CYPRESS_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.PALM_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.PALM_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.MAPLE_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.MAPLE_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(RegisterItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);

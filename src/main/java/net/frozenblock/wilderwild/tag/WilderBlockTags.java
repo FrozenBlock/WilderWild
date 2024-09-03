@@ -47,6 +47,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
 	public static final TagKey<Block> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
 	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
+	public static final TagKey<Block> HOLLOWED_MAPLE_LOGS = bind("hollowed_maple_logs");
 
 	public static final TagKey<Block> NO_LIGHTNING_BLOCK_PARTICLES = bind("no_lightning_block_particles");
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
@@ -65,6 +66,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> BAOBAB_LOGS = bind("baobab_logs");
 	public static final TagKey<Block> CYPRESS_LOGS = bind("cypress_logs");
 	public static final TagKey<Block> PALM_LOGS = bind("palm_logs");
+	public static final TagKey<Block> MAPLE_LOGS = bind("maple_logs");
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> TERMITE_BREAKABLE = bind("termite_breakable");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");

@@ -24,6 +24,7 @@ public final class WilderEnumValues {
 	public static Boat.Type BAOBAB;
 	public static Boat.Type CYPRESS;
 	public static Boat.Type PALM;
+	public static Boat.Type MAPLE;
 
 	//CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 	static {

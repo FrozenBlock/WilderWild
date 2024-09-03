@@ -51,6 +51,10 @@
     {
       "id": "#wilderwild:hollowed_palm_logs",
       "required": false
+    },
+    {
+      "id": "#wilderwild:hollowed_maple_logs",
+      "required": false
     }
   ]
 }

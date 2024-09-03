@@ -164,6 +164,26 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
+		this.dropSelf(RegisterBlocks.MAPLE_LOG);
+		this.dropSelf(RegisterBlocks.STRIPPED_MAPLE_LOG);
+		this.dropSelf(RegisterBlocks.MAPLE_WOOD);
+		this.dropSelf(RegisterBlocks.STRIPPED_MAPLE_WOOD);
+		this.dropSelf(RegisterBlocks.HOLLOWED_MAPLE_LOG);
+		this.dropSelf(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+		this.dropSelf(RegisterBlocks.MAPLE_PLANKS);
+		this.dropSelf(RegisterBlocks.MAPLE_BUTTON);
+		this.dropSelf(RegisterBlocks.MAPLE_PRESSURE_PLATE);
+		this.dropSelf(RegisterBlocks.MAPLE_TRAPDOOR);
+		this.dropSelf(RegisterBlocks.MAPLE_STAIRS);
+		this.add(RegisterBlocks.MAPLE_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.MAPLE_FENCE);
+		this.dropSelf(RegisterBlocks.MAPLE_FENCE_GATE);
+		this.add(RegisterBlocks.MAPLE_DOOR, this::createDoorTable);
+		this.dropSelf(RegisterBlocks.MAPLE_SIGN);
+		this.dropSelf(RegisterBlocks.MAPLE_HANGING_SIGN);
+		this.dropSelf(RegisterBlocks.MAPLE_SAPLING);
+		this.add(RegisterBlocks.MAPLE_LEAVES, block -> this.createLeavesDrops(block, RegisterBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+
 		this.dropSelf(RegisterBlocks.HOLLOWED_ACACIA_LOG);
 		this.dropSelf(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
 		this.dropSelf(RegisterBlocks.HOLLOWED_BIRCH_LOG);
@@ -196,6 +216,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 		this.dropSelf(RegisterBlocks.SEEDING_DANDELION);
 		this.dropSelf(RegisterBlocks.CARNATION);
+		this.dropSelf(RegisterBlocks.MARIGOLD);
 		this.dropSelf(RegisterBlocks.FLOWERING_LILY_PAD);
 		this.dropSelf(RegisterBlocks.PRICKLY_PEAR_CACTUS);
 		this.add(RegisterBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
@@ -372,6 +393,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(RegisterBlocks.POTTED_BAOBAB_NUT);
 		this.dropPottedContents(RegisterBlocks.POTTED_COCONUT);
 		this.dropPottedContents(RegisterBlocks.POTTED_CYPRESS_SAPLING);
+		this.dropPottedContents(RegisterBlocks.POTTED_MAPLE_SAPLING);
 		this.dropPottedContents(RegisterBlocks.POTTED_CARNATION);
 		this.dropPottedContents(RegisterBlocks.POTTED_SEEDING_DANDELION);
 		this.dropPottedContents(RegisterBlocks.POTTED_TUMBLEWEED_PLANT);

@@ -75,6 +75,22 @@ public class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenTrapdoor(exporter, RegisterBlocks.PALM_TRAPDOOR, RegisterBlocks.PALM_PLANKS);
 		FrozenRecipeProvider.woodenSign(exporter, RegisterItems.PALM_SIGN, RegisterBlocks.PALM_PLANKS);
 		RecipeProvider.hangingSign(exporter, RegisterItems.PALM_HANGING_SIGN, RegisterBlocks.STRIPPED_PALM_LOG);
+
+		RecipeProvider.planksFromLogs(exporter, RegisterBlocks.MAPLE_PLANKS, WilderItemTags.MAPLE_LOGS, 4);
+		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.MAPLE_WOOD, RegisterBlocks.MAPLE_LOG);
+		RecipeProvider.woodFromLogs(exporter, RegisterBlocks.STRIPPED_MAPLE_WOOD, RegisterBlocks.STRIPPED_MAPLE_LOG);
+		RecipeProvider.woodenBoat(exporter, RegisterItems.MAPLE_BOAT, RegisterBlocks.MAPLE_PLANKS);
+		RecipeProvider.chestBoat(exporter, RegisterItems.MAPLE_CHEST_BOAT, RegisterItems.MAPLE_BOAT);
+		FrozenRecipeProvider.woodenButton(exporter, RegisterBlocks.MAPLE_BUTTON, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenDoor(exporter, RegisterBlocks.MAPLE_DOOR, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenFence(exporter, RegisterBlocks.MAPLE_FENCE, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenFenceGate(exporter, RegisterBlocks.MAPLE_FENCE_GATE, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenPressurePlace(exporter, RegisterBlocks.MAPLE_PRESSURE_PLATE, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenSlab(exporter, RegisterBlocks.MAPLE_SLAB, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenStairs(exporter, RegisterBlocks.MAPLE_STAIRS, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenTrapdoor(exporter, RegisterBlocks.MAPLE_TRAPDOOR, RegisterBlocks.MAPLE_PLANKS);
+		FrozenRecipeProvider.woodenSign(exporter, RegisterItems.MAPLE_SIGN, RegisterBlocks.MAPLE_PLANKS);
+		RecipeProvider.hangingSign(exporter, RegisterItems.MAPLE_HANGING_SIGN, RegisterBlocks.STRIPPED_MAPLE_LOG);
 	}
 
 }
