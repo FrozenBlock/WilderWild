@@ -8,11 +8,15 @@
         "feature": "wilderwild:maple_checked"
       },
       {
+        "chance": 0.25,
+        "feature": "wilderwild:tall_maple_checked"
+      },
+      {
         "chance": 0.0785,
         "feature": "wilderwild:dying_maple_checked"
       },
       {
-        "chance": 0.37,
+        "chance": 0.67,
         "feature": "wilderwild:tall_maple_bees_checked"
       },
       {

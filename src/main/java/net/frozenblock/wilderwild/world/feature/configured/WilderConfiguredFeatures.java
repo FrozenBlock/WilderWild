@@ -996,8 +996,9 @@ public final class WilderConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WilderTreePlaced.MAPLE_CHECKED.getHolder(), 0.025F),
+					new WeightedPlacedFeature(WilderTreePlaced.TALL_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WilderTreePlaced.DYING_MAPLE_CHECKED.getHolder(), 0.0785F),
-					new WeightedPlacedFeature(WilderTreePlaced.TALL_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+					new WeightedPlacedFeature(WilderTreePlaced.TALL_MAPLE_BEES_CHECKED.getHolder(), 0.67F),
 					new WeightedPlacedFeature(WilderTreePlaced.TALL_DYING_MAPLE_CHECKED.getHolder(), 0.0785F)
 				),
 				WilderTreePlaced.MAPLE_BEES_CHECKED.getHolder()

@@ -1808,19 +1808,19 @@ public final class WilderTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder maple() {
-		return mapleBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 7, 1, 2);
+		return mapleBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 10, 1, 2);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallMaple() {
-		return mapleBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 10, 1, 1);
+		return mapleBuilder(RegisterBlocks.MAPLE_LOG, RegisterBlocks.MAPLE_LEAVES, 14, 1, 1);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
 			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2), BlockStateProvider.simple(leaves),
-			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(2, 5)),
+			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(baseHeight - 8, baseHeight - 5)),
 			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
 	}
 
