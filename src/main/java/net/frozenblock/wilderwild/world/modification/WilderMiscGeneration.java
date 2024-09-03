@@ -243,10 +243,6 @@ public final class WilderMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_TRANSITION_DISK.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_PODZOL_TRANSITION_DISK)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.PODZOL_TRANSITION_DISK.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_COMMON_PUMPKIN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}

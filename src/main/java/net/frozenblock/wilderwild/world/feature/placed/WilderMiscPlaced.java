@@ -139,7 +139,6 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature COARSE_DIRT_DISK_AND_PILE = WilderPlacementUtils.register("coarse_dirt_disk_and_pile");
 	public static final FrozenPlacedFeature COBBLESTONE_DISK_AND_PILE = WilderPlacementUtils.register("cobblestone_disk_and_pile");
 	public static final FrozenPlacedFeature COARSE_TRANSITION_DISK = WilderPlacementUtils.register("coarse_dirt_transition_disk");
-	public static final FrozenPlacedFeature PODZOL_TRANSITION_DISK = WilderPlacementUtils.register("podzol_transition_disk");
 
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = WilderPlacementUtils.register("snow_blanket");
@@ -618,14 +617,6 @@ public final class WilderMiscPlaced {
 			InSquarePlacement.spread(),
 			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
-			BiomeFilter.biome()
-		);
-
-		PODZOL_TRANSITION_DISK.makeAndSetHolder(WilderMiscConfigured.PODZOL_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(14),
-			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.PODZOL)),
 			BiomeFilter.biome()
 		);
 

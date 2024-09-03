@@ -1393,17 +1393,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HASS_COBBLESTONE_PILE)
+			.add(Biomes.SUNFLOWER_PLAINS)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.STONY_SHORE)
 			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)
-			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
-			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.MAPLE_GROVE);
-
-		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PODZOL_TRANSITION_DISK)
 			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)

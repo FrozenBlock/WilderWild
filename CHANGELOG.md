@@ -8,7 +8,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - The Oasis's foliage and grass colors are no longer as bright.
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.
-- Added better transitions/fizzling edges for Podzol and Coarse Dirt in biomes where these blocks are prominent.
+- Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
+- 
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
