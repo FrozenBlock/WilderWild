@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "wilderwild:block/small_sponge_block",
-		"particle": "wilderwild:block/small_sponge_block"
+		"0": "wilderwild:block/sponge_bud",
+		"particle": "wilderwild:block/sponge_bud"
 	},
 	"elements": [
 		{
