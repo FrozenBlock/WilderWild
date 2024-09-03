@@ -43,7 +43,12 @@ public final class WWTreeGrowers {
 		}
 	};
 
-	public static final TreeGrower CYPRESS = new TreeGrower(WilderConstants.string("cypress"), Optional.empty(), Optional.empty(), Optional.empty()) {
+	public static final TreeGrower CYPRESS = new TreeGrower(
+		WilderConstants.string("cypress"),
+		Optional.empty(),
+		Optional.empty(),
+		Optional.empty()
+	) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
 			TreeGrowerInterface treeGrowerInterface = TreeGrowerInterface.class.cast(this);
@@ -65,12 +70,30 @@ public final class WWTreeGrowers {
 		}
 	};
 
-	public static final TreeGrower PALM = new TreeGrower(WilderConstants.string("palm"), Optional.empty(), Optional.empty(), Optional.empty()) {
+	public static final TreeGrower PALM = new TreeGrower(
+		WilderConstants.string("palm"),
+		Optional.empty(),
+		Optional.empty(),
+		Optional.empty()
+	) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
-			return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM.getKey() : random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM.getKey() : WilderTreeConfigured.TALL_WINE_PALM.getKey();
+			return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM.getKey()
+				: random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM.getKey()
+				: WilderTreeConfigured.TALL_WINE_PALM.getKey();
 		}
 	};
+
+	public static final TreeGrower MAPLE = new TreeGrower(
+		WilderConstants.string("maple"),
+		0.05F,
+		Optional.empty(),
+		Optional.empty(),
+		Optional.of(WilderTreeConfigured.MAPLE_TREE.getKey()),
+		Optional.of(WilderTreeConfigured.TALL_MAPLE_TREE.getKey()),
+		Optional.of(WilderTreeConfigured.MAPLE_BEES_0004.getKey()),
+		Optional.of(WilderTreeConfigured.TALL_MAPLE_BEES_0004.getKey())
+	);
 
 	private WWTreeGrowers() {
 	}

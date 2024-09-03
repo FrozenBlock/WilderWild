@@ -105,6 +105,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -199,8 +200,8 @@ public final class RegisterBlocks {
 	);
 	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 
-	public static final WaterloggableSaplingBlock MAPLE_SAPLING = new WaterloggableSaplingBlock(
-		WWTreeGrowers.CYPRESS,
+	public static final SaplingBlock MAPLE_SAPLING = new SaplingBlock(
+		WWTreeGrowers.MAPLE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
 	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
