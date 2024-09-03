@@ -73,7 +73,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COBBLESTONE_PILE = register("cobblestone_disk_and_pile");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 
 	// SWAMP
 	public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
@@ -266,10 +266,10 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		COBBLESTONE_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+		STONE_DISK_AND_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(Blocks.COBBLESTONE.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
 				UniformInt.of(2, 4),
 				0.95F,

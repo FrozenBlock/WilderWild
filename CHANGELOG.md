@@ -9,7 +9,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
-- 
+- Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
+  - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.

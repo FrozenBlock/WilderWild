@@ -1378,24 +1378,19 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.ARID_SAVANNA)
 			.addOptional(RegisterWorldgen.ARID_FOREST);
 
-		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
-			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.MAPLE_GROVE);
-
-		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
-			.addOptional(RegisterWorldgen.DYING_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
-			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(RegisterWorldgen.MAPLE_GROVE);
-
-		this.getOrCreateTagBuilder(WilderBiomeTags.HASS_COBBLESTONE_PILE)
-			.add(Biomes.SUNFLOWER_PLAINS)
-			.add(Biomes.FLOWER_FOREST)
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_PILE)
 			.add(Biomes.STONY_SHORE)
+			.addOptional(RegisterWorldgen.MAPLE_GROVE);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_PILE_RARE)
+			.add(Biomes.SUNFLOWER_PLAINS)
+			.add(Biomes.FLOWER_FOREST);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST)
+			.addOptional(RegisterWorldgen.DYING_MIXED_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(RegisterWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)

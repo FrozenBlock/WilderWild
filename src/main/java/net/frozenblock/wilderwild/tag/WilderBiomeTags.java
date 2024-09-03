@@ -166,8 +166,9 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_TALL_BADLANDS_CACTUS = bind("has_tall_badlands_cactus");
 	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("has_common_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("has_moss_pile");
+	public static final TagKey<Biome> HAS_STONE_PILE = bind("has_stone_pile");
+	public static final TagKey<Biome> HAS_STONE_PILE_RARE = bind("has_stone_pile_rare");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PILE_WITH_DISK = bind("has_coarse_dirt_pile_with_disk");
-	public static final TagKey<Biome> HASS_COBBLESTONE_PILE = bind("has_cobblestone_pile");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_TRANSITION_DISK = bind("has_coarse_dirt_transition_disk");
 	public static final TagKey<Biome> HAS_DECORATIVE_MUD = bind("has_decorative_mud");
 	public static final TagKey<Biome> HAS_PACKED_MUD_ORE = bind("has_packed_mud_ore");

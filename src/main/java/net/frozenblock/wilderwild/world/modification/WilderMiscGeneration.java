@@ -235,8 +235,12 @@ public final class WilderMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WilderBiomeTags.HASS_COBBLESTONE_PILE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COBBLESTONE_DISK_AND_PILE.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_STONE_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_DISK_AND_PILE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_STONE_PILE_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)) {

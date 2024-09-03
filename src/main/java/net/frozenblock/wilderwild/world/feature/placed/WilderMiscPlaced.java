@@ -137,7 +137,8 @@ public final class WilderMiscPlaced {
 
 	// DYING FOREST
 	public static final FrozenPlacedFeature COARSE_DIRT_DISK_AND_PILE = WilderPlacementUtils.register("coarse_dirt_disk_and_pile");
-	public static final FrozenPlacedFeature COBBLESTONE_DISK_AND_PILE = WilderPlacementUtils.register("cobblestone_disk_and_pile");
+	public static final FrozenPlacedFeature STONE_DISK_AND_PILE = WilderPlacementUtils.register("stone_disk_and_pile");
+	public static final FrozenPlacedFeature STONE_DISK_AND_PILE_RARE = WilderPlacementUtils.register("stone_disk_and_pile_rare");
 	public static final FrozenPlacedFeature COARSE_TRANSITION_DISK = WilderPlacementUtils.register("coarse_dirt_transition_disk");
 
 	// SNOW
@@ -605,8 +606,15 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		COBBLESTONE_DISK_AND_PILE.makeAndSetHolder(WilderMiscConfigured.COBBLESTONE_PILE.getHolder(),
+		STONE_DISK_AND_PILE.makeAndSetHolder(WilderMiscConfigured.STONE_DISK_AND_PILE.getHolder(),
 			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		STONE_DISK_AND_PILE_RARE.makeAndSetHolder(WilderMiscConfigured.STONE_DISK_AND_PILE.getHolder(),
+			RarityFilter.onAverageOnceEvery(18),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
