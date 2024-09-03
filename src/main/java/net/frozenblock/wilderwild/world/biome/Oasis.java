@@ -60,7 +60,7 @@ public final class Oasis extends FrozenBiome {
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
 	public static final float OFFSET = 0F;
 	public static final float TEMP = 2F;
-	public static final float DOWNFALL = 0.5F;
+	public static final float DOWNFALL = 0.25F;
 	public static final int WATER_COLOR = 3981763;
 	public static final int WATER_FOG_COLOR = 270131;
 	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
@@ -116,12 +116,12 @@ public final class Oasis extends FrozenBiome {
 
 	@Override
 	public @Nullable Integer foliageColorOverride() {
-		return FOLIAGE_COLOR;
+		return null;
 	}
 
 	@Override
 	public @Nullable Integer grassColorOverride() {
-		return GRASS_COLOR;
+		return null;
 	}
 
 	@Override
