@@ -184,12 +184,6 @@ public final class RegisterItems {
 			entries.addAfter(SCORCHED_RED_SAND, secondRed);
 		});
 
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
-			var second = new ItemStack(SCORCHED_SAND);
-			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKED, true);
-			entries.addAfter(SCORCHED_SAND, second);
-		});
-
 		registerItemAfter(Items.SOUL_LANTERN, DISPLAY_LANTERN, "display_lantern", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 

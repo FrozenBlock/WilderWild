@@ -15,3 +15,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Cherry particles are now much more responsive to wind, and no longer get removed upon spawning.
 - Wilder Wild's custom Sign types are now placed after the Mangrove Hanging Sign in the creative inventory, instead of between the Mangrove Sign and Mangrove Hanging Sign.
 - Ostrich Eggs are now placed before Sniffer Eggs in the creative inventory.
+- Scorched Sand is no longer found in the `Functional Items` tab of the creative inventory.
