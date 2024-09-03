@@ -5,7 +5,6 @@
       "required": false
     },
     "minecraft:dirt",
-    "minecraft:gravel",
     "minecraft:clay",
     "minecraft:grass_block",
     "minecraft:coarse_dirt"

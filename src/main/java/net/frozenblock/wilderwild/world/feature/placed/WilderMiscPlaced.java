@@ -614,7 +614,7 @@ public final class WilderMiscPlaced {
 		);
 
 		COARSE_TRANSITION_DISK.makeAndSetHolder(WilderMiscConfigured.COARSE_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(10),
+			CountPlacement.of(14),
 			InSquarePlacement.spread(),
 			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
@@ -622,7 +622,7 @@ public final class WilderMiscPlaced {
 		);
 
 		PODZOL_TRANSITION_DISK.makeAndSetHolder(WilderMiscConfigured.PODZOL_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(10),
+			CountPlacement.of(14),
 			InSquarePlacement.spread(),
 			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.PODZOL)),
