@@ -821,7 +821,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.TUMBLEWEED_PLANT)
 			.add(RegisterBlocks.TUMBLEWEED)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS)
-			.add(RegisterBlocks.SMALL_SPONGE);
+			.add(RegisterBlocks.SPONGE_BUD);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(RegisterBlocks.STONE_CHEST)
@@ -855,7 +855,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.ALGAE)
 			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
 			.add(RegisterBlocks.RED_SHELF_FUNGUS)
-			.add(RegisterBlocks.SMALL_SPONGE)
+			.add(RegisterBlocks.SPONGE_BUD)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS)
 			.addOptionalTag(WilderBlockTags.NEMATOCYSTS);
 

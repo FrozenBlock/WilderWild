@@ -143,12 +143,12 @@ public final class WilderMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SANDSTONE_PATH.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_SMALL_SPONGE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SMALL_SPONGES.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_SPONGE_BUD)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPONGE_BUDS.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_SMALL_SPONGE_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SMALL_SPONGES_RARE.getKey());
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_SPONGE_BUD_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPONGE_BUDS_RARE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_MOSS_LAKE)) {

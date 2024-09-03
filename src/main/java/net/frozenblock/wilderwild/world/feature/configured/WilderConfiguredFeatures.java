@@ -33,7 +33,7 @@ import net.frozenblock.wilderwild.world.feature.placed.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.SmallSpongeFeatureConfig;
+import net.frozenblock.wilderwild.world.impl.features.config.SpongeBudFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -342,7 +342,7 @@ public final class WilderConfiguredFeatures {
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = WilderFeatureUtils.register("tumbleweed");
-	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = WilderFeatureUtils.register("small_sponges");
+	public static final FrozenConfiguredFeature<SpongeBudFeatureConfig, ConfiguredFeature<SpongeBudFeatureConfig, ?>> SPONGE_BUD = WilderFeatureUtils.register("sponge_bud");
 
 	private WilderConfiguredFeatures() {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
@@ -2164,8 +2164,8 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		SMALL_SPONGE.makeAndSetHolder(RegisterFeatures.SMALL_SPONGE_FEATURE,
-			new SmallSpongeFeatureConfig(
+		SPONGE_BUD.makeAndSetHolder(RegisterFeatures.SPONGE_BUD_FEATURE,
+			new SpongeBudFeatureConfig(
 				20,
 				true,
 				true,

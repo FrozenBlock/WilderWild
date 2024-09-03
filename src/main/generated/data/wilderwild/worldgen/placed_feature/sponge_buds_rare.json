@@ -1,17 +1,17 @@
 {
-  "feature": "wilderwild:small_sponges",
+  "feature": "wilderwild:sponge_bud",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "max_inclusive": 3,
+        "max_inclusive": 1,
         "min_inclusive": 0
       }
     },
     {
       "type": "minecraft:rarity_filter",
-      "chance": 1
+      "chance": 2
     },
     {
       "type": "minecraft:in_square"

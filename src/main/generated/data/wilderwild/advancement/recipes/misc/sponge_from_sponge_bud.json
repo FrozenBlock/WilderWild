@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_small_sponge": {
+    "has_sponge_bud": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:small_sponge"
+            "items": "wilderwild:sponge_bud"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:sponge_from_small_sponge"
+        "recipe": "wilderwild:sponge_from_sponge_bud"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_small_sponge"
+      "has_sponge_bud"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:sponge_from_small_sponge"
+      "wilderwild:sponge_from_sponge_bud"
     ]
   }
 }

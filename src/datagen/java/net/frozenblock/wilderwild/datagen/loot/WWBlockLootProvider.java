@@ -275,30 +275,30 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
-		this.add(RegisterBlocks.SMALL_SPONGE,
+		this.add(RegisterBlocks.SPONGE_BUD,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
-									RegisterBlocks.SMALL_SPONGE,
-									LootItem.lootTableItem(RegisterBlocks.SMALL_SPONGE).apply(
+									RegisterBlocks.SPONGE_BUD,
+									LootItem.lootTableItem(RegisterBlocks.SPONGE_BUD).apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(1F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SMALL_SPONGE)
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SPONGE_BUD)
 												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 0))
 											)
 									).apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SMALL_SPONGE)
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SPONGE_BUD)
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 1))
 										)
 									).apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(3F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SMALL_SPONGE)
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.SPONGE_BUD)
 												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
 											)
 									)

@@ -1,5 +1,5 @@
 {
-  "type": "wilderwild:small_sponge_feature",
+  "type": "wilderwild:sponge_bud_feature",
   "config": {
     "can_be_placed_on": "wilderwild:small_sponge_grows_on",
     "can_place_on_ceiling": true,

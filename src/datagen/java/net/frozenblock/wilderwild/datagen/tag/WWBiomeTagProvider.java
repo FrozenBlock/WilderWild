@@ -795,10 +795,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SWAMP_MUSHROOM)
 			.add(Biomes.SWAMP);
 
-		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SPONGE_BUD)
 			.add(Biomes.WARM_OCEAN);
 
-		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE_RARE)
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SPONGE_BUD_RARE)
 			.add(Biomes.LUKEWARM_OCEAN)
 			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.LUSH_CAVES);

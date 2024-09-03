@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:item/small_sponge"
+    "layer0": "wilderwild:item/sponge_bud"
   }
 }

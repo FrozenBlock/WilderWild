@@ -260,8 +260,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature TUMBLEWEED = register("tumbleweed");
 	public static final FrozenPlacedFeature PRICKLY_PEAR = register("prickly_pear");
 	public static final FrozenPlacedFeature PRICKLY_PEAR_RARE = register("prickly_pear_rare");
-	public static final FrozenPlacedFeature SMALL_SPONGES = register("small_sponges");
-	public static final FrozenPlacedFeature SMALL_SPONGES_RARE = register("small_sponges_rare");
+	public static final FrozenPlacedFeature SPONGE_BUDS = register("sponge_buds");
+	public static final FrozenPlacedFeature SPONGE_BUDS_RARE = register("sponge_buds_rare");
 	public static final FrozenPlacedFeature PATCH_MELON = register("patch_melon");
 	public static final FrozenPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
 
@@ -1337,7 +1337,7 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
+		SPONGE_BUDS.makeAndSetHolder(WilderConfiguredFeatures.SPONGE_BUD.getHolder(),
 			CountPlacement.of(UniformInt.of(0, 3)),
 			RarityFilter.onAverageOnceEvery(1),
 			InSquarePlacement.spread(),
@@ -1345,7 +1345,7 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		SMALL_SPONGES_RARE.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
+		SPONGE_BUDS_RARE.makeAndSetHolder(WilderConfiguredFeatures.SPONGE_BUD.getHolder(),
 			CountPlacement.of(UniformInt.of(0, 1)),
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),

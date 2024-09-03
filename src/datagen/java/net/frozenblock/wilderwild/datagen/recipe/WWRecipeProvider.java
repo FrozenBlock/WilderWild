@@ -155,13 +155,13 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 			.save(exporter);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.SPONGE)
-			.define('#', RegisterBlocks.SMALL_SPONGE)
+			.define('#', RegisterBlocks.SPONGE_BUD)
 			.pattern("###")
 			.pattern("###")
 			.pattern("###")
 			.group("sponge")
-			.unlockedBy(getHasName(RegisterBlocks.SMALL_SPONGE), has(RegisterBlocks.SMALL_SPONGE))
-			.save(exporter, WilderConstants.id(getConversionRecipeName(Items.SPONGE, RegisterBlocks.SMALL_SPONGE)));
+			.unlockedBy(getHasName(RegisterBlocks.SPONGE_BUD), has(RegisterBlocks.SPONGE_BUD))
+			.save(exporter, WilderConstants.id(getConversionRecipeName(Items.SPONGE, RegisterBlocks.SPONGE_BUD)));
 
 		// MUD BRICKS
 

@@ -80,8 +80,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> OAK_SAPLINGS_GROW_SWAMP_VARIANT = bind("oak_saplings_grow_swamp_variant");
 	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
 	public static final TagKey<Biome> PLAINS_GRASS = bind("plains_grass");
-	public static final TagKey<Biome> HAS_SMALL_SPONGE = bind("has_small_sponge");
-	public static final TagKey<Biome> HAS_SMALL_SPONGE_RARE = bind("has_small_sponge_rare");
+	public static final TagKey<Biome> HAS_SPONGE_BUD = bind("has_sponge_bud");
+	public static final TagKey<Biome> HAS_SPONGE_BUD_RARE = bind("has_sponge_bud_rare");
 	public static final TagKey<Biome> HAS_HUGE_RED_MUSHROOM = bind("has_huge_red_mushroom");
 	public static final TagKey<Biome> HAS_HUGE_BROWN_MUSHROOM = bind("has_huge_brown_mushroom");
 	public static final TagKey<Biome> HAS_BIG_MUSHROOMS = bind("has_big_mushrooms");

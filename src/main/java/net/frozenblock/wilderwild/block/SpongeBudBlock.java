@@ -57,12 +57,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
 	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
 	public static final int MAX_AGE = 2;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<SmallSpongeBlock> CODEC = simpleCodec(SmallSpongeBlock::new);
+	public static final MapCodec<SpongeBudBlock> CODEC = simpleCodec(SpongeBudBlock::new);
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0D, 0D, 13D, 16D, 16D, 16D);
 	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0D, 0D, 0D, 16D, 16D, 3D);
 	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13D, 0D, 0D, 16D, 16D, 16D);
@@ -70,7 +70,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
 
-	public SmallSpongeBlock(@NotNull Properties settings) {
+	public SpongeBudBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any()
 			.setValue(FACING, Direction.NORTH)
@@ -82,7 +82,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends SmallSpongeBlock> codec() {
+	protected MapCodec<? extends SpongeBudBlock> codec() {
 		return CODEC;
 	}
 

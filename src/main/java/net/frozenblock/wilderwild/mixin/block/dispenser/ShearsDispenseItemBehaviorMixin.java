@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
+import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
@@ -96,8 +96,8 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearSmallSponge(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.SMALL_SPONGE) {
-			return SmallSpongeBlock.shear(level, pos, blockState, null);
+		if (blockState.getBlock() == RegisterBlocks.SPONGE_BUD) {
+			return SpongeBudBlock.shear(level, pos, blockState, null);
 		}
 		return false;
 	}

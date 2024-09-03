@@ -78,7 +78,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterBlocks.CATTAIL.asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterBlocks.SMALL_SPONGE.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterBlocks.SPONGE_BUD.asItem(), ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(RegisterItems.BAOBAB_NUT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.COCONUT, ModelTemplates.FLAT_ITEM);

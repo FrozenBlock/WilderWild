@@ -26,14 +26,14 @@ import net.frozenblock.wilderwild.world.impl.features.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.world.impl.features.NematocystFeature;
 import net.frozenblock.wilderwild.world.impl.features.PalmTreeFeature;
 import net.frozenblock.wilderwild.world.impl.features.ShelfFungusFeature;
-import net.frozenblock.wilderwild.world.impl.features.SmallSpongeFeature;
+import net.frozenblock.wilderwild.world.impl.features.SpongeBudFeature;
 import net.frozenblock.wilderwild.world.impl.features.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.world.impl.features.SnowBlanketFeature;
 import net.frozenblock.wilderwild.world.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.SmallSpongeFeatureConfig;
+import net.frozenblock.wilderwild.world.impl.features.config.SpongeBudFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.features.config.SnowAndIceDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.world.impl.foliage.PalmFoliagePlacer;
@@ -76,7 +76,7 @@ public class RegisterFeatures {
 	public static final FoliagePlacerType<MapleFoliagePlacer> MAPLE_FOLIAGE_PLACER = registerFoliage("maple_foliage_placer", MapleFoliagePlacer.CODEC);
 
 	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
-	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = register("small_sponge_feature", new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC));
+	public static final Feature<SpongeBudFeatureConfig> SPONGE_BUD_FEATURE = register("sponge_bud_feature", new SpongeBudFeature(SpongeBudFeatureConfig.CODEC));
 	public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(CattailFeatureConfig.CODEC));
 	public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(AlgaeFeatureConfig.CODEC));
 	public static final NematocystFeature NEMATOCYST_FEATURE = register("nematocyst_feature", new NematocystFeature(MultifaceGrowthConfiguration.CODEC));

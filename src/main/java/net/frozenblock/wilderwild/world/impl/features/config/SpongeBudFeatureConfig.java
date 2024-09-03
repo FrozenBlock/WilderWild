@@ -31,8 +31,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class SmallSpongeFeatureConfig implements FeatureConfiguration {
-	public static final Codec<SmallSpongeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+public class SpongeBudFeatureConfig implements FeatureConfiguration {
+	public static final Codec<SpongeBudFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
 				config -> config.searchRange
@@ -49,7 +49,7 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
 			TagKey.codec(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(
 				config -> config.canPlaceOn
 			)
-		).apply(instance, SmallSpongeFeatureConfig::new)
+		).apply(instance, SpongeBudFeatureConfig::new)
 	);
 
 	public final int searchRange;
@@ -59,7 +59,7 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
 	public final TagKey<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public SmallSpongeFeatureConfig(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
+	public SpongeBudFeatureConfig(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;
 		this.placeOnCeiling = placeOnCeiling;

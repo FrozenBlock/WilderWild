@@ -61,7 +61,7 @@ import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
+import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
@@ -467,7 +467,7 @@ public final class RegisterBlocks {
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
 
-	public static final SmallSpongeBlock SMALL_SPONGE = new SmallSpongeBlock(
+	public static final SpongeBudBlock SPONGE_BUD = new SpongeBudBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SPONGE)
 			.strength(0.1F)
 			.noCollission()
@@ -1102,8 +1102,8 @@ public final class RegisterBlocks {
 		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WilderConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WilderConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-		registerBlockAfter(Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {
