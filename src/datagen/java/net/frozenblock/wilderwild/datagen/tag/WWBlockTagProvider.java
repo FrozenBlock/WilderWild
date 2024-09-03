@@ -350,6 +350,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRASS_BLOCK)
 			.add(Blocks.PODZOL);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.FOLIATED_GRASS_DISK_REPLACEABLE)
+			.add(Blocks.GRASS_BLOCK);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.RIVER_POOL_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.DIRT)
@@ -841,7 +844,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WilderBlockTags.MESOGLEA)
 			.add(RegisterBlocks.SCORCHED_SAND)
 			.add(RegisterBlocks.SCORCHED_RED_SAND)
-			.add(RegisterBlocks.TERMITE_MOUND);
+			.add(RegisterBlocks.TERMITE_MOUND)
+			.add(RegisterBlocks.FOLIATED_GRASS);
 
 		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
 			.add(RegisterBlocks.BUSH)
@@ -884,5 +888,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
 			.add(RegisterBlocks.SCULK_WALL)
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL);
+
+		this.getOrCreateTagBuilder(BlockTags.DIRT)
+			.add(RegisterBlocks.FOLIATED_GRASS);
 	}
 }

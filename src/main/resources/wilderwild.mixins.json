@@ -19,6 +19,7 @@
     "block.dripstone.FallingBlockMixin",
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",
+    "block.grass.SpreadingSnowyDirtBlockMixin",
     "block.ice.FrostedIceBlockMixin",
     "block.lava.LavaFluidMixin",
     "block.leaves.LeavesBlockMixin",

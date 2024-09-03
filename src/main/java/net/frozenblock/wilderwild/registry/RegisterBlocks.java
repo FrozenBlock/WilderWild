@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
+import net.frozenblock.wilderwild.block.FoliatedGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
@@ -107,6 +108,7 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
@@ -173,6 +175,10 @@ public final class RegisterBlocks {
 			.sound(RegisterBlockSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.COLOR_ORANGE)
 			.randomTicks()
+	);
+
+	public static final SnowyDirtBlock FOLIATED_GRASS = new FoliatedGrassBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PODZOL).sound(SoundType.GRASS)
 	);
 
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
@@ -898,6 +904,8 @@ public final class RegisterBlocks {
 
 		registerBlock("scorched_sand", SCORCHED_SAND);
 		registerBlock("scorched_red_sand", SCORCHED_RED_SAND);
+
+		registerBlockBefore(Blocks.PODZOL, "foliated_grass_block", FOLIATED_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerWoods() {

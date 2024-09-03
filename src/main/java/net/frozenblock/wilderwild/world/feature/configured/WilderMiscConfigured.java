@@ -148,6 +148,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
+	// MAPLE GROVE
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> FOLIATED_GRASS_DISK = register("foliated_grass_disk");
+
 	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
@@ -951,6 +954,22 @@ public final class WilderMiscConfigured {
 				0.925F,
 				0.65F,
 				0.5F,
+				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
+				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		FOLIATED_GRASS_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				true,
+				BlockStateProvider.simple(RegisterBlocks.FOLIATED_GRASS.defaultBlockState()),
+				BlockStateProvider.simple(RegisterBlocks.FOLIATED_GRASS.defaultBlockState()),
+				UniformInt.of(2, 5),
+				0.95F,
+				0.925F,
+				0.65F,
+				0.65F,
 				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
 				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG

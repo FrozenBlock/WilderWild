@@ -73,6 +73,8 @@ public final class MixinsConfig {
 
 	public boolean block_fire = true;
 
+	public boolean block_grass = true;
+
 	public boolean block_ice = true;
 
 	public boolean block_lava = true;

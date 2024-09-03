@@ -94,9 +94,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -223,6 +223,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
 		renderLayerRegistry.putBlock(RegisterBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.TUMBLEWEED, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.FOLIATED_GRASS, RenderType.cutoutMipped());
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 
@@ -345,10 +346,13 @@ public final class WilderWildClient implements ClientModInitializer {
 			RegisterBlocks.PALM_FRONDS
 		);
 
+		ColorProviderRegistry.ITEM.register(
+			((state, tintIndex) -> GrassColor.getDefaultColor()),
+			RegisterBlocks.FOLIATED_GRASS
+		);
+
 		ColorProviderRegistry.BLOCK.register(
-			((state, level, pos, tintIndex) ->
-				level == null || pos == null ? 7455580 : 2129968
-			),
+			((state, level, pos, tintIndex) -> level == null || pos == null ? 7455580 : 2129968),
 			RegisterBlocks.FLOWERING_LILY_PAD
 		);
 
@@ -375,6 +379,10 @@ public final class WilderWildClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_BUSH);
+
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageGrassColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.FOLIATED_GRASS);
 
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
