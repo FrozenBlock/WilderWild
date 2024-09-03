@@ -244,7 +244,7 @@ public final class WilderMiscGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_TRANSITION_DISK.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_TRANSITION_DISK.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_COMMON_PUMPKIN)) {

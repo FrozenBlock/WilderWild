@@ -1820,7 +1820,7 @@ public final class WilderTreeConfigured {
 	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
 			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2), BlockStateProvider.simple(leaves),
-			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(baseHeight - 8, baseHeight - 5)),
+			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(baseHeight - 6, baseHeight - 3)),
 			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
 	}
 

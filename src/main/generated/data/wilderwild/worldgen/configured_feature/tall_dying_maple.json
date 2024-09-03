@@ -25,8 +25,8 @@
       "type": "wilderwild:maple_foliage_placer",
       "length": {
         "type": "minecraft:uniform",
-        "max_inclusive": 9,
-        "min_inclusive": 6
+        "max_inclusive": 11,
+        "min_inclusive": 8
       },
       "offset": {
         "type": "minecraft:uniform",
