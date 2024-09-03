@@ -34,8 +34,7 @@
         "state": {
           "Name": "wilderwild:maple_sapling",
           "Properties": {
-            "stage": "0",
-            "waterlogged": "false"
+            "stage": "0"
           }
         }
       }

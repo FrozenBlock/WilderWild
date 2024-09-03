@@ -235,6 +235,18 @@ public final class WilderMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HASS_COBBLESTONE_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COBBLESTONE_DISK_AND_PILE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_TRANSITION_DISK.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_PODZOL_TRANSITION_DISK)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.PODZOL_TRANSITION_DISK.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_COMMON_PUMPKIN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}

@@ -137,6 +137,9 @@ public final class WilderMiscPlaced {
 
 	// DYING FOREST
 	public static final FrozenPlacedFeature COARSE_DIRT_DISK_AND_PILE = WilderPlacementUtils.register("coarse_dirt_disk_and_pile");
+	public static final FrozenPlacedFeature COBBLESTONE_DISK_AND_PILE = WilderPlacementUtils.register("cobblestone_disk_and_pile");
+	public static final FrozenPlacedFeature COARSE_TRANSITION_DISK = WilderPlacementUtils.register("coarse_dirt_transition_disk");
+	public static final FrozenPlacedFeature PODZOL_TRANSITION_DISK = WilderPlacementUtils.register("podzol_transition_disk");
 
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = WilderPlacementUtils.register("snow_blanket");
@@ -600,6 +603,29 @@ public final class WilderMiscPlaced {
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		COBBLESTONE_DISK_AND_PILE.makeAndSetHolder(WilderMiscConfigured.COBBLESTONE_PILE.getHolder(),
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		COARSE_TRANSITION_DISK.makeAndSetHolder(WilderMiscConfigured.COARSE_TRANSITION_DISK.getHolder(),
+			CountPlacement.of(10),
+			InSquarePlacement.spread(),
+			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
+			BiomeFilter.biome()
+		);
+
+		PODZOL_TRANSITION_DISK.makeAndSetHolder(WilderMiscConfigured.PODZOL_TRANSITION_DISK.getHolder(),
+			CountPlacement.of(10),
+			InSquarePlacement.spread(),
+			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.PODZOL)),
 			BiomeFilter.biome()
 		);
 

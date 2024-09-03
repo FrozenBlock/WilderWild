@@ -50,6 +50,8 @@ public final class MapleGrove extends FrozenBiome {
 	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
+	public static final int GRASS_COLOR = 9807706;
+	public static final int FOLIAGE_COLOR = 9342777;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MapleGrove INSTANCE = new MapleGrove();
 
@@ -100,12 +102,12 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public @Nullable Integer foliageColorOverride() {
-		return null;
+		return FOLIAGE_COLOR;
 	}
 
 	@Override
 	public @Nullable Integer grassColorOverride() {
-		return null;
+		return GRASS_COLOR;
 	}
 
 	@Override
