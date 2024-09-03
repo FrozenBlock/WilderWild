@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class MapleLeavesBlock  extends LeavesBlock {
+public class MapleLeavesBlock extends LeavesBlock {
 	public static final MapCodec<MapleLeavesBlock> CODEC = simpleCodec(MapleLeavesBlock::new);
 
 	@Override
@@ -46,7 +46,7 @@ public class MapleLeavesBlock  extends LeavesBlock {
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
 		super.animateTick(state, world, pos, random);
-		if (random.nextInt(40) == 0) {
+		if (random.nextInt(80) == 0) {
 			BlockPos blockPos = pos.below();
 			BlockState blockState = world.getBlockState(blockPos);
 			if (!isFaceFull(blockState.getCollisionShape(world, blockPos), Direction.UP)) {

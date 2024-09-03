@@ -1,197 +1,198 @@
-accessWidener    v2    named
+accessWidener v2 named
 
 # Advancement
-accessible    field    net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance    effects    Ljava/util/Optional;
-accessible    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
-mutable    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
+accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
+accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
 
 # Tree Features
-extendable    class    net/minecraft/world/level/block/grower/TreeGrower
-extendable    method    net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
-extendable    method    net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
-accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/MapCodec;)V
-accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/MapCodec;)V
-accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/MapCodec;)V
-accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
-accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
-accessible    method    net/minecraft/world/level/levelgen/feature/TreeFeature    setBlockKnownShape    (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+extendable class net/minecraft/world/level/block/grower/TreeGrower
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer isDirt (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/data/worldgen/placement/VegetationPlacements treePlacementBase (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
+accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBlockKnownShape (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Items
-extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
-extendable    method    net/minecraft/world/level/block/state/BlockBehaviour    getLootTable    ()Lnet/minecraft/resources/ResourceKey;
-accessible    field    net/minecraft/world/item/ItemCooldowns    cooldowns    Ljava/util/Map;
-accessible    field    net/minecraft/world/item/ItemCooldowns    tickCount    I
-accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    startTime    I
-accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    endTime    I
-accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance    <init>    (II)V
-accessible    field    net/minecraft/world/item/ItemStack    components    Lnet/minecraft/core/component/PatchedDataComponentMap;
-accessible    method    net/minecraft/world/item/CreativeModeTabs    generateInstrumentTypes    (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/core/HolderLookup;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
-accessible    class    net/minecraft/world/item/CreativeModeTab$TabVisibility
-accessible    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
+extendable method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
+extendable method net/minecraft/world/level/block/state/BlockBehaviour getLootTable ()Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/world/item/ItemCooldowns cooldowns Ljava/util/Map;
+accessible field net/minecraft/world/item/ItemCooldowns tickCount I
+accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I
+accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance endTime I
+accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init> (II)V
+accessible field net/minecraft/world/item/ItemStack components Lnet/minecraft/core/component/PatchedDataComponentMap;
+accessible method net/minecraft/world/item/CreativeModeTabs generateInstrumentTypes (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/core/HolderLookup;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
+accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
+accessible method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
 
 # Structures
-accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    getWorldPos    (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
-accessible    method    net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement    <init>    (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
-accessible    method    net/minecraft/world/level/levelgen/structure/ScatteredFeaturePiece    updateAverageGroundHeight    (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;I)Z
-accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    generateBox    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V
-accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    placeBlock    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
-accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    fillColumnDown    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    maxDistanceFromCenter    I
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startJigsawName    Ljava/util/Optional;
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    maxDepth    I
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startHeight    Lnet/minecraft/world/level/levelgen/heightproviders/HeightProvider;
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    useExpansionHack    Z
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startPool    Lnet/minecraft/core/Holder;
-accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    projectStartToHeightmap    Ljava/util/Optional;
-accessible    field    net/minecraft/world/level/levelgen/structure/Structure    settings    Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldPos (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
+accessible method net/minecraft/world/level/levelgen/structure/ScatteredFeaturePiece updateAverageGroundHeight (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;I)Z
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece generateBox (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece placeBlock (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece fillColumnDown (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure maxDistanceFromCenter I
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure startJigsawName Ljava/util/Optional;
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure maxDepth I
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure startHeight Lnet/minecraft/world/level/levelgen/heightproviders/HeightProvider;
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure useExpansionHack Z
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure startPool Lnet/minecraft/core/Holder;
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure projectStartToHeightmap Ljava/util/Optional;
+accessible field net/minecraft/world/level/levelgen/structure/Structure settings Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
 
 # Entities
-accessible    field    net/minecraft/world/entity/Entity    DATA_POSE    Lnet/minecraft/network/syncher/EntityDataAccessor;
-accessible    method    net/minecraft/client/model/HierarchicalModel    animate    (Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V
-accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
-accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
-accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
-accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
-accessible    field    net/minecraft/world/entity/ai/navigation/WallClimberNavigation    pathToPosition    Lnet/minecraft/core/BlockPos;
-extendable    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
-accessible    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
+accessible field net/minecraft/world/entity/Entity DATA_POSE Lnet/minecraft/network/syncher/EntityDataAccessor;
+accessible method net/minecraft/client/model/HierarchicalModel animate (Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V
+accessible field net/minecraft/world/entity/LivingEntity dead Z
+accessible method net/minecraft/world/entity/Entity updateInWaterStateAndDoWaterCurrentPushing ()V
+accessible field net/minecraft/server/level/ServerLevel entityManager Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
+accessible class net/minecraft/world/entity/monster/warden/Warden$VibrationUser
+accessible field net/minecraft/world/entity/ai/navigation/WallClimberNavigation pathToPosition Lnet/minecraft/core/BlockPos;
+extendable method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
+accessible method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
 
 # Entity Behaviors
-accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;
+accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriority Ljava/util/Map;
 
 # Entity Spawns
-accessible    class    net/minecraft/world/entity/SpawnPlacements$Data
-accessible    method    net/minecraft/world/level/block/Blocks ocelotOrParrot (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
-accessible    field    net/minecraft/client/model/SpiderModel    root    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    head    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    rightHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    leftHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    rightMiddleHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    leftMiddleHindLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    rightMiddleFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    leftMiddleFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    rightFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
-accessible    field    net/minecraft/client/model/SpiderModel    leftFrontLeg    Lnet/minecraft/client/model/geom/ModelPart;
+accessible class net/minecraft/world/entity/SpawnPlacements$Data
+accessible method net/minecraft/world/level/block/Blocks ocelotOrParrot (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible field net/minecraft/client/model/SpiderModel root Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel head Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel rightHindLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel leftHindLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel rightMiddleHindLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel leftMiddleHindLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel rightMiddleFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel leftMiddleFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel rightFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/SpiderModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
 
 # Entity Rendering
-accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    alphaFunction    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;
-accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    drawSelector    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$DrawSelector;
-accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    texture    Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer alphaFunction Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;
+accessible field net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer drawSelector Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$DrawSelector;
+accessible field net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer texture Lnet/minecraft/resources/ResourceLocation;
 
 # Mobs
-accessible    method    net/minecraft/world/effect/MobEffect    <init>    (Lnet/minecraft/world/effect/MobEffectCategory;I)V
-accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
-accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
-accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
-accessible    method    net/minecraft/util/datafix/schemas/V100    equipment    (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
+accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
+accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
 
 # Projectiles
 accessible field net/minecraft/world/entity/projectile/Projectile hasBeenShot Z
 
 # Damage Sources
-accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
-accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
-accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
+accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
+accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
+accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
 
 # Blocks
-accessible    method    net/minecraft/world/level/block/Block    registerDefaultState    (Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible    method    net/minecraft/client/renderer/Sheets    chestMaterial    (Ljava/lang/String;)Lnet/minecraft/client/resources/model/Material;
-accessible    field    net/minecraft/world/CompoundContainer    container1    Lnet/minecraft/world/Container;
-accessible    field    net/minecraft/world/CompoundContainer    container2    Lnet/minecraft/world/Container;
-accessible    method    net/minecraft/world/level/block/AbstractCauldronBlock    canReceiveStalactiteDrip    (Lnet/minecraft/world/level/material/Fluid;)Z
-accessible    method    net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo    <init>    (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible    field    net/minecraft/world/level/block/MultifaceSpreader    config    Lnet/minecraft/world/level/block/MultifaceSpreader$SpreadConfig;
-accessible    class    net/minecraft/data/BlockFamilies
-accessible    method    net/minecraft/data/BlockFamilies    familyBuilder    (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
-accessible    method    net/minecraft/world/level/block/state/properties/BlockSetType    register    (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
-accessible    field    net/minecraft/world/level/block/BrushableBlock    turnsInto    Lnet/minecraft/world/level/block/Block;
-accessible    field    net/minecraft/world/level/block/BrushableBlock    brushSound    Lnet/minecraft/sounds/SoundEvent;
-accessible    field    net/minecraft/world/level/block/BrushableBlock    brushCompletedSound    Lnet/minecraft/sounds/SoundEvent;
-accessible    method    net/minecraft/world/level/block/SculkSensorBlock    updateNeighbours    (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible    method    net/minecraft/world/level/block/Blocks    always    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
-accessible    method    net/minecraft/world/level/block/Blocks    always    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
-accessible    method    net/minecraft/world/level/block/Blocks    never    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
-accessible    method    net/minecraft/world/level/block/Blocks    never    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
-accessible    method    net/minecraft/world/level/block/ChestBlock    isCatSittingOnChest    (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
-accessible    method    net/minecraft/world/level/block/ChestBlock    isBlockedChestByBlock    (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
-accessible    field    net/minecraft/world/level/block/state/BlockBehaviour    UPDATE_SHAPE_ORDER    [Lnet/minecraft/core/Direction;
-accessible    method    net/minecraft/world/level/block/SculkBlock    getDecayPenalty    (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
-accessible    method    net/minecraft/world/level/block/BellBlock    onProjectileHit    (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/projectile/Projectile;)V
-accessible    method    net/minecraft/world/level/block/state/BlockBehaviour    getSoundType    (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
-accessible    method    net/minecraft/world/level/block/SnowLayerBlock    canSurvive    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
-accessible    method    net/minecraft/world/level/block/state/BlockBehaviour    canSurvive    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
-accessible    class    net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
-accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
+accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/client/renderer/Sheets chestMaterial (Ljava/lang/String;)Lnet/minecraft/client/resources/model/Material;
+accessible field net/minecraft/world/CompoundContainer container1 Lnet/minecraft/world/Container;
+accessible field net/minecraft/world/CompoundContainer container2 Lnet/minecraft/world/Container;
+accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
+accessible method net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo <init> (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible field net/minecraft/world/level/block/MultifaceSpreader config Lnet/minecraft/world/level/block/MultifaceSpreader$SpreadConfig;
+accessible class net/minecraft/data/BlockFamilies
+accessible method net/minecraft/data/BlockFamilies familyBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
+accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+accessible field net/minecraft/world/level/block/BrushableBlock turnsInto Lnet/minecraft/world/level/block/Block;
+accessible field net/minecraft/world/level/block/BrushableBlock brushSound Lnet/minecraft/sounds/SoundEvent;
+accessible field net/minecraft/world/level/block/BrushableBlock brushCompletedSound Lnet/minecraft/sounds/SoundEvent;
+accessible method net/minecraft/world/level/block/SculkSensorBlock updateNeighbours (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/world/level/block/Blocks always (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible method net/minecraft/world/level/block/Blocks always (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/block/ChestBlock isCatSittingOnChest (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/block/ChestBlock isBlockedChestByBlock (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour UPDATE_SHAPE_ORDER [Lnet/minecraft/core/Direction;
+accessible method net/minecraft/world/level/block/SculkBlock getDecayPenalty (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
+accessible method net/minecraft/world/level/block/BellBlock onProjectileHit (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/projectile/Projectile;)V
+accessible method net/minecraft/world/level/block/state/BlockBehaviour getSoundType (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
+accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/block/state/BlockBehaviour canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+accessible class net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
+accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 
 # Block Entities
-accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceKey;
-accessible    class    net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
-accessible    class    net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
-accessible    field    net/minecraft/world/level/block/SculkSpreader$ChargeCursor    pos    Lnet/minecraft/core/BlockPos;
+accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
+accessible class net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
+accessible class net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
+accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
 
 # Render Types
-accessible    class    net/minecraft/client/renderer/RenderType$CompositeState
-accessible    field    net/minecraft/client/renderer/RenderStateShard    RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER    Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
-accessible    field    net/minecraft/client/renderer/RenderStateShard    NO_CULL    Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
-accessible    field    net/minecraft/client/renderer/RenderStateShard    COLOR_DEPTH_WRITE    Lnet/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard;
-accessible    field    net/minecraft/client/renderer/RenderStateShard    OVERLAY    Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;
-accessible    method    net/minecraft/client/renderer/RenderType$CompositeRenderType    <init>    (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)V
-accessible    method    net/minecraft/client/renderer/RenderStateShard$TextureStateShard    <init>    (Lnet/minecraft/resources/ResourceLocation;ZZ)V
-accessible    field    net/minecraft/client/renderer/RenderStateShard    TRANSLUCENT_TRANSPARENCY    Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
-accessible    field    net/minecraft/client/renderer/RenderStateShard    RENDERTYPE_TRANSLUCENT_SHADER    Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
-accessible    method    net/minecraft/client/renderer/RenderStateShard$ShaderStateShard    <init>    (Ljava/util/function/Supplier;)V
+accessible class net/minecraft/client/renderer/RenderType$CompositeState
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard COLOR_DEPTH_WRITE Lnet/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard OVERLAY Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;
+accessible method net/minecraft/client/renderer/RenderType$CompositeRenderType <init> (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)V
+accessible method net/minecraft/client/renderer/RenderStateShard$TextureStateShard <init> (Lnet/minecraft/resources/ResourceLocation;ZZ)V
+accessible field net/minecraft/client/renderer/RenderStateShard TRANSLUCENT_TRANSPARENCY Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_TRANSLUCENT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible method net/minecraft/client/renderer/RenderStateShard$ShaderStateShard <init> (Ljava/util/function/Supplier;)V
 
 # Spawn Placements
-accessible    method    net/minecraft/world/entity/SpawnPlacements    register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
-accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    predicate    Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;
-accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    placement    Lnet/minecraft/world/entity/SpawnPlacementType;
-accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    heightMap    Lnet/minecraft/world/level/levelgen/Heightmap$Types;
-accessible    method    net/minecraft/world/entity/SpawnPlacements$Data    <init>    (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible field net/minecraft/world/entity/SpawnPlacements$Data predicate Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;
+accessible field net/minecraft/world/entity/SpawnPlacements$Data placement Lnet/minecraft/world/entity/SpawnPlacementType;
+accessible field net/minecraft/world/entity/SpawnPlacements$Data heightMap Lnet/minecraft/world/level/levelgen/Heightmap$Types;
+accessible method net/minecraft/world/entity/SpawnPlacements$Data <init> (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 
 # Biomes
-accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
-accessible    method    net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider    <init>    (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/data/worldgen/biome/OverworldBiomes calculateSkyColor (F)I
+accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible method net/minecraft/client/renderer/BiomeColors getAverageColor (Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/ColorResolver;)I
 
 # Features
-accessible    field    net/minecraft/data/worldgen/placement/VegetationPlacements    TREE_THRESHOLD    Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;
-accessible    method    net/minecraft/data/worldgen/placement/AquaticPlacements    seagrassPlacement    (I)Ljava/util/List;
+accessible field net/minecraft/data/worldgen/placement/VegetationPlacements TREE_THRESHOLD Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;
+accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
 
 # Noise
-accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
+accessible method net/minecraft/data/worldgen/NoiseData register (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
 
 # Surface Rules
-accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource    <init>    (Ljava/util/List;)V
-accessible    class     net/minecraft/world/level/levelgen/SurfaceRules$Condition
-accessible    class     net/minecraft/world/level/levelgen/SurfaceRules$Context
-accessible    field     net/minecraft/world/level/levelgen/SurfaceRules$Context    biome    Ljava/util/function/Supplier;
-accessible    class     net/minecraft/world/level/levelgen/SurfaceRules$LazyYCondition
+accessible method net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource <init> (Ljava/util/List;)V
+accessible class  net/minecraft/world/level/levelgen/SurfaceRules$Condition
+accessible class  net/minecraft/world/level/levelgen/SurfaceRules$Context
+accessible field  net/minecraft/world/level/levelgen/SurfaceRules$Context biome Ljava/util/function/Supplier;
+accessible class  net/minecraft/world/level/levelgen/SurfaceRules$LazyYCondition
 
 # Data Generation
-accessible    field    net/minecraft/data/DataGenerator    vanillaPackOutput    Lnet/minecraft/data/PackOutput;
-accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>    (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
-accessible    method    net/minecraft/data/loot/EntityLootSubProvider    shouldSmeltLoot    ()Lnet/minecraft/world/level/storage/loot/predicates/AnyOfCondition$Builder;
-accessible    field    net/minecraft/data/loot/EntityLootSubProvider    registries    Lnet/minecraft/core/HolderLookup$Provider;
-accessible    field    net/minecraft/data/loot/BlockLootSubProvider    NORMAL_LEAVES_STICK_CHANCES    [F
+accessible field net/minecraft/data/DataGenerator vanillaPackOutput Lnet/minecraft/data/PackOutput;
+accessible method net/minecraft/data/DataGenerator$PackGenerator <init> (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
+accessible method net/minecraft/data/loot/EntityLootSubProvider shouldSmeltLoot ()Lnet/minecraft/world/level/storage/loot/predicates/AnyOfCondition$Builder;
+accessible field net/minecraft/data/loot/EntityLootSubProvider registries Lnet/minecraft/core/HolderLookup$Provider;
+accessible field net/minecraft/data/loot/BlockLootSubProvider NORMAL_LEAVES_STICK_CHANCES [F
 
 # Registry
-accessible    method    net/minecraft/data/registries/VanillaRegistries    validateThatAllBiomeFeaturesHaveBiomeFilter    (Lnet/minecraft/core/HolderLookup$Provider;)V
-accessible    method    net/minecraft/data/Main    bindRegistries    (Ljava/util/function/BiFunction;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/data/DataProvider$Factory;
+accessible method net/minecraft/data/registries/VanillaRegistries validateThatAllBiomeFeaturesHaveBiomeFilter (Lnet/minecraft/core/HolderLookup$Provider;)V
+accessible method net/minecraft/data/Main bindRegistries (Ljava/util/function/BiFunction;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/data/DataProvider$Factory;
 
 # Sounds
-accessible    method    net/minecraft/sounds/SoundEvent    <init>    (Lnet/minecraft/resources/ResourceLocation;FZ)V
+accessible method net/minecraft/sounds/SoundEvent <init> (Lnet/minecraft/resources/ResourceLocation;FZ)V
 
 # Features
-accessible    method    net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration    apply    (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;
-accessible    method    net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature    isAirOrWater    (Lnet/minecraft/world/level/block/state/BlockState;)Z
-accessible    field    net/minecraft/world/level/block/MultifaceSpreader$DefaultSpreaderConfig    block    Lnet/minecraft/world/level/block/MultifaceBlock;
-accessible    method    net/minecraft/core/HolderSet$Named    <init>    (Lnet/minecraft/core/HolderOwner;Lnet/minecraft/tags/TagKey;)V
+accessible method net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration apply (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;
+accessible method net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature isAirOrWater (Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible field net/minecraft/world/level/block/MultifaceSpreader$DefaultSpreaderConfig block Lnet/minecraft/world/level/block/MultifaceBlock;
+accessible method net/minecraft/core/HolderSet$Named <init> (Lnet/minecraft/core/HolderOwner;Lnet/minecraft/tags/TagKey;)V
 
 # Clipping
-accessible    field    net/minecraft/world/level/ClipContext    collisionContext    Lnet/minecraft/world/phys/shapes/CollisionContext;
+accessible field net/minecraft/world/level/ClipContext collisionContext Lnet/minecraft/world/phys/shapes/CollisionContext;
 
 # Particles
-accessible    field    net/minecraft/client/particle/Particle    xd    D
-accessible    field    net/minecraft/client/particle/Particle    yd    D
-accessible    field    net/minecraft/client/particle/Particle    zd    D
-accessible    method    net/minecraft/client/particle/FlameParticle    <init>    (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)V
+accessible field net/minecraft/client/particle/Particle xd D
+accessible field net/minecraft/client/particle/Particle yd D
+accessible field net/minecraft/client/particle/Particle zd D
+accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)V
+accessible field net/minecraft/client/particle/CherryParticle rotSpeed F
