@@ -1281,7 +1281,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SPARSE_BUSH)
-			.add(Biomes.SUNFLOWER_PLAINS)
 			.add(Biomes.SPARSE_JUNGLE)
 			.add(Biomes.BAMBOO_JUNGLE)
 			.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)

@@ -145,6 +145,7 @@ public final class WilderVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WilderBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_SUNFLOWER_PLAINS.getKey());
 						}
 

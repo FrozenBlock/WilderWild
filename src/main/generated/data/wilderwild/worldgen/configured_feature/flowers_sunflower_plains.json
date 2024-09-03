@@ -6,46 +6,42 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.054833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "minecraft:sunflower",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 12
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:dandelion"
-                },
-                "weight": 50
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:orange_tulip"
-                },
-                "weight": 12
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:azure_bluet"
-                },
-                "weight": 1
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:oxeye_daisy"
-                },
-                "weight": 1
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "wilderwild:seeding_dandelion"
-                },
-                "weight": 2
+                "Name": "wilderwild:marigold"
+              },
+              {
+                "Name": "wilderwild:marigold"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
               }
             ]
           }
@@ -61,7 +57,7 @@
         }
       ]
     },
-    "tries": 52,
+    "tries": 24,
     "xz_spread": 7,
     "y_spread": 3
   }

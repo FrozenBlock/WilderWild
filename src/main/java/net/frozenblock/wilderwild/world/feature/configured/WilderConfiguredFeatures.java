@@ -1633,10 +1633,27 @@ public final class WilderConfiguredFeatures {
 
 		FLOWERS_SUNFLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				52,
+				24,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_SUNFLOWER_PLAINS_POOL))
+					new SimpleBlockConfiguration(
+						new NoiseProvider(
+							5050L,
+							new NormalNoise.NoiseParameters(0, 1D),
+							0.054833334F,
+							List.of(
+								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								RegisterBlocks.MARIGOLD.defaultBlockState(),
+								RegisterBlocks.MARIGOLD.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState()
+							)
+						)
+					)
 				)
 			)
 		);
