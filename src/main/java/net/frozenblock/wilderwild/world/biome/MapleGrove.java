@@ -55,7 +55,7 @@ public final class MapleGrove extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.NEUTRAL);
 	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.4F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.4F, Erosion.EROSION_6.max());
-	public static final float TEMP = 0.55F;
+	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.5F;
 	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
@@ -112,12 +112,12 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public @Nullable Integer foliageColorOverride() {
-		return FOLIAGE_COLOR;
+		return null;
 	}
 
 	@Override
 	public @Nullable Integer grassColorOverride() {
-		return GRASS_COLOR;
+		return null;
 	}
 
 	@Override
