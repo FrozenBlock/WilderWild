@@ -85,18 +85,18 @@ public class LeafCarpetBlock extends CarpetBlock {
 			float chance = destroy ? 1F : 0.005F;
 			int count = destroy ? 4 : 1;
 			if (!destroy && entity != null) {
-				chance = (float) (entity.getDeltaMovement().length() * 2D);
+				chance = (float) (entity.getDeltaMovement().length() * 0.05D);
 			}
 			if (serverLevel.random.nextFloat() <= chance) {
 				Optional<ParticleOptions> particle = LeafParticleRegistry.getParticleForCarpet(this);
 				particle.ifPresent(particleOptions -> serverLevel.sendParticles(
 					particleOptions,
 					pos.getX() + 0.5D,
-					pos.getY() + 0.5D,
+					pos.getY() + 0.1D,
 					pos.getZ() + 0.5D,
 					count,
 					0.4F,
-					0.4F,
+					2F,
 					0.4F,
 					0.075D
 				));
