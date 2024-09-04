@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -62,7 +62,7 @@ public class PollenBlock extends FlowerLichenBlock {
 				BlockState blockState = level.getBlockState(mutable);
 				if (!blockState.isCollisionShapeFullBlock(level, mutable) && !level.isRainingAt(mutable)) {
 					level.addParticle(
-						WWParticles.POLLEN,
+						WWParticleTypes.POLLEN,
 						mutable.getX() + random.nextDouble(),
 						mutable.getY() + random.nextDouble(),
 						mutable.getZ() + random.nextDouble(),

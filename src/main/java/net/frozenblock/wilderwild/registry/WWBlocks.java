@@ -69,6 +69,7 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
@@ -216,7 +217,7 @@ public final class WWBlocks {
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 
 	public static final Block MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
-	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticles.MAPLE_LEAVES);
+	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -286,37 +287,37 @@ public final class WWBlocks {
 	// Mesoglea
 	public static final MesogleaBlock BLUE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.QUARTZ,
-		WWParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA,
+		WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
 	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.COLOR_PURPLE,
-		WWParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
+		WWParticleTypes.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
 	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea(
 		MapColor.COLOR_YELLOW,
-		WWParticles.YELLOW_HANGING_MESOGLEA,
+		WWParticleTypes.YELLOW_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_BLUE,
-		WWParticles.BLUE_HANGING_MESOGLEA,
+		WWParticleTypes.BLUE_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock LIME_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_GREEN,
-		WWParticles.LIME_HANGING_MESOGLEA,
+		WWParticleTypes.LIME_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock RED_MESOGLEA = mesoglea(
 		MapColor.COLOR_RED,
-		WWParticles.RED_HANGING_MESOGLEA,
+		WWParticleTypes.RED_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock PINK_MESOGLEA = mesoglea(
 		MapColor.COLOR_PINK,
-		WWParticles.PINK_HANGING_MESOGLEA,
+		WWParticleTypes.PINK_HANGING_MESOGLEA,
 		false
 	);
 
@@ -1254,25 +1255,48 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
-		return leafLitter(sourceBlock, particleType, true);
+	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, float litterChance) {
+		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
+		FallingLeafUtil.registerFallingLeaf(
+			sourceBlock,
+			leafLitterBlock,
+			litterChance,
+			particleType
+		);
+		return leafLitterBlock;
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, boolean ignites) {
+	public static LeafLitterBlock leafLitter(
+		Block sourceBlock,
+		@NotNull ParticleType<LeafParticleOptions> particleType,
+		float litterChance,
+		float particleChance,
+		float quadSize,
+		float particleGravityScale
+	) {
+		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
+		FallingLeafUtil.registerFallingLeaf(
+			sourceBlock,
+			leafLitterBlock,
+			litterChance,
+			particleType,
+			particleChance,
+			quadSize,
+			particleGravityScale
+		);
+		return leafLitterBlock;
+	}
+
+	private static @NotNull LeafLitterBlock createLeafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
 		BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(sourceBlock)
 			.randomTicks()
 			.noCollission()
 			.instabreak()
 			.replaceable()
-			.pushReaction(PushReaction.DESTROY)
-			.ignitedByLava();
+			.pushReaction(PushReaction.DESTROY);
 
-		if (ignites) {
-			properties.ignitedByLava();
-		}
-
-		LeafLitterBlock leafLitterBlock = new LeafLitterBlock(properties);
+		LeafLitterBlock leafLitterBlock = new LeafLitterBlock(sourceBlock, properties);
 		LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);
 		return leafLitterBlock;
 	}

@@ -46,14 +46,13 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntities;
-import net.frozenblock.wilderwild.registry.WWFallingLeaves;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
@@ -95,7 +94,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWMemoryModuleTypes.register();
 		WWSensorTypes.register();
 		WWLootTables.init();
-		WWParticles.registerParticles();
+		WWParticleTypes.registerParticles();
 		WWResources.register(container);
 		WWBlockStateProperties.init();
 		WWMobEffects.init();
@@ -110,7 +109,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		TermiteManager.Termite.addNaturalDegradableBlocks();
 		WWBlocks.registerBlockProperties();
 		WWVillagerTypes.register();
-		WWFallingLeaves.register();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();

@@ -22,7 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -69,7 +69,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	@Override
 	@NotNull
 	public ParticleType<?> getType() {
-		return WWParticles.FLOATING_SCULK_BUBBLE;
+		return WWParticleTypes.FLOATING_SCULK_BUBBLE;
 	}
 
 	public double getSize() {

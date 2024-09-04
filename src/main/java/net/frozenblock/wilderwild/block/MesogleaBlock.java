@@ -28,7 +28,7 @@ import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.block.impl.BubbleDirection;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -422,7 +422,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		}
 
 		public static ParticleOptions getParticleForMesogleaOrDefault(@NotNull MesogleaBlock mesogleaBlock) {
-			return getParticleForMesoglea(mesogleaBlock).orElse(WWParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA);
+			return getParticleForMesoglea(mesogleaBlock).orElse(WWParticleTypes.BLUE_PEARLESCENT_FALLING_MESOGLEA);
 		}
 	}
 }

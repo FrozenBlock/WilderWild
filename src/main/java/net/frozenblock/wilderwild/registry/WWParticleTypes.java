@@ -37,7 +37,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public final class WWParticles {
+public final class WWParticleTypes {
 	public static final SimpleParticleType POLLEN = register("pollen");
 	public static final ParticleType<SeedParticleOptions> SEED = register(
 		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC)
@@ -77,7 +77,7 @@ public final class WWParticles {
 	public static final SimpleParticleType BLUE_FALLING_MESOGLEA = register("blue_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_LANDING_MESOGLEA = register("blue_landing_mesoglea_drip");
 
-	private WWParticles() {
+	private WWParticleTypes() {
 		throw new UnsupportedOperationException("RegisterParticles contains only static declarations.");
 	}
 

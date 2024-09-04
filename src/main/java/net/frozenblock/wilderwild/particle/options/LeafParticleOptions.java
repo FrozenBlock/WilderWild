@@ -22,7 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -88,7 +88,7 @@ public class LeafParticleOptions implements ParticleOptions {
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
 			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.get(particleId);
 		} else {
-			particleType = WWParticles.MAPLE_LEAVES;
+			particleType = WWParticleTypes.MAPLE_LEAVES;
 		}
 		return new LeafParticleOptions(particleType, velocity, quadSize, gravityScale, isFastFalling, controlVelUponSpawn);
 	}

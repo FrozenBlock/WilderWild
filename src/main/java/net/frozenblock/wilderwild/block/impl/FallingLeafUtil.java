@@ -113,8 +113,8 @@ public class FallingLeafUtil {
 							pos.getY() - 0.1D,
 							pos.getZ() + 0.5D,
 							random.nextInt(12, 24),
-							0D, 0D, 0D,
-							0.5D
+							0.3D, 0D, 0.3D,
+							0.05D
 						);
 						world.sendParticles(
 							LeafClusterParticleOptions.create(fallingLeafData.particle),
@@ -158,18 +158,20 @@ public class FallingLeafUtil {
 					BlockPos placePos = hitPos.above();
 					BlockState stateToReplace = world.getBlockState(placePos);
 					Block leafLitter = fallingLeafData.leafLitterBlock();
-					if (isSafePosToPlaceLitter(world, placePos, stateToReplace, leafLitter)) {
-						BlockState litterState = leafLitter.defaultBlockState();
-						world.setBlockAndUpdate(placePos, litterState);
-						world.sendParticles(
-							new BlockParticleOption(ParticleTypes.BLOCK, litterState),
-							placePos.getX() + 0.5D,
-							placePos.getY() + 0.1D,
-							placePos.getZ() + 0.5D,
-							random.nextInt(8, 18),
-							0D, 0D, 0D,
-							0.5D
-						);
+					if (!placePos.equals(pos)) {
+						if (isSafePosToPlaceLitter(world, placePos, stateToReplace, leafLitter)) {
+							BlockState litterState = leafLitter.defaultBlockState();
+							world.setBlockAndUpdate(placePos, litterState);
+							world.sendParticles(
+								new BlockParticleOption(ParticleTypes.BLOCK, litterState),
+								placePos.getX() + 0.5D,
+								placePos.getY() + 0.1D,
+								placePos.getZ() + 0.5D,
+								random.nextInt(8, 18),
+								0.3D, 0D, 0.3D,
+								0.05D
+							);
+						}
 					}
 				}
 			}

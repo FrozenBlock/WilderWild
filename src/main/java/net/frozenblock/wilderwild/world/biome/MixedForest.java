@@ -141,12 +141,12 @@ public class MixedForest extends FrozenBiome {
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getKey());
 		WilderSharedWorldgen.addBasicFeatures(features, false);
-		BiomeDefaultFeatures.addForestFlowers(features);
-		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getKey());
+		BiomeDefaultFeatures.addDefaultFlowers(features);
+		BiomeDefaultFeatures.addForestGrass(features);
 	}
 
 	@Override

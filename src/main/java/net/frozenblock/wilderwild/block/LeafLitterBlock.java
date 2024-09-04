@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,12 +46,18 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class LeafLitterBlock extends CarpetBlock {
-	public static final MapCodec<LeafLitterBlock> CODEC = simpleCodec(LeafLitterBlock::new);
+	public static final MapCodec<LeafLitterBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		Block.CODEC.fieldOf("leaves_block").forGetter((litterBlock) -> litterBlock.leavesBlock),
+		propertiesCodec()
+	).apply(instance, LeafLitterBlock::new));
 	public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
-	public LeafLitterBlock(Properties settings) {
+	private final Block leavesBlock;
+
+	public LeafLitterBlock(Block leavesBlock, Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(PERSISTENT, false));
+		this.leavesBlock = leavesBlock;;
 	}
 
 	@Override

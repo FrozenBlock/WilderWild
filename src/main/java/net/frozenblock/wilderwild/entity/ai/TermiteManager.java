@@ -33,7 +33,7 @@ import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.Util;
@@ -125,7 +125,7 @@ public class TermiteManager {
 				if (level instanceof ServerLevel serverLevel) {
 					BlockPos termitePos = termite.getPos();
 					serverLevel.sendParticles(
-						WWParticles.TERMITE,
+						WWParticleTypes.TERMITE,
 						termitePos.getX() + 0.5D,
 						termitePos.getY() + 0.5D,
 						termitePos.getZ() + 0.5D,

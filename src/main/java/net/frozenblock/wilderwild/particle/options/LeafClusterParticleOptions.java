@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.particle.options;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -56,7 +56,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
 			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.get(particleId);
 		} else {
-			particleType = WWParticles.MAPLE_LEAVES;
+			particleType = WWParticleTypes.MAPLE_LEAVES;
 		}
 		return new LeafClusterParticleOptions(particleType);
 	}
@@ -71,7 +71,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<?> getType() {
-		return WWParticles.LEAF_CLUSTER_SPAWNER;
+		return WWParticleTypes.LEAF_CLUSTER_SPAWNER;
 	}
 
 	public ParticleType<LeafParticleOptions> getSpawnedParticleType() {

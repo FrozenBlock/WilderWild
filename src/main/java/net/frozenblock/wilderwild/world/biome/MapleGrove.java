@@ -21,9 +21,8 @@ package net.frozenblock.wilderwild.world.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
@@ -43,7 +42,6 @@ import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -51,17 +49,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MapleGrove extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL.min(), 0.0F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.NEUTRAL);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL.min(), 0F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.2F, 0.2F);
 	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.375F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.4F, Erosion.EROSION_6.max());
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.5F;
 	public static final int WATER_COLOR = WilderSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WilderSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WilderSharedWorldgen.STOCK_FOG_COLOR;
-	public static final int GRASS_COLOR = 9807706;
-	public static final int FOLIAGE_COLOR = 9342777;
+	public static final int GRASS_COLOR = 11845250;
+	public static final int FOLIAGE_COLOR = 11190658;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MapleGrove INSTANCE = new MapleGrove();
 
@@ -112,12 +111,12 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public @Nullable Integer foliageColorOverride() {
-		return null;
+		return FOLIAGE_COLOR;
 	}
 
 	@Override
 	public @Nullable Integer grassColorOverride() {
-		return null;
+		return GRASS_COLOR;
 	}
 
 	@Override
@@ -147,13 +146,13 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MAPLE_TREES.getKey());
 		WilderSharedWorldgen.addBasicFeatures(features, false);
-		BiomeDefaultFeatures.addSavannaGrass(features);
+		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		BiomeDefaultFeatures.addWarmFlowers(features);
-		BiomeDefaultFeatures.addSavannaExtraGrass(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MAPLE_TREES.getKey());
+		BiomeDefaultFeatures.addDefaultFlowers(features);
+		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MAPLE_LEAF_LITTER.getKey());
@@ -167,17 +166,15 @@ public final class MapleGrove extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WorldgenConfig.get().biomeGeneration.generateMapleGrove) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					EROSION,
-					WEIRDNESS,
-					point.offset()
-				);
-			}
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS,
+				0F
+			);
 		}
 	}
 

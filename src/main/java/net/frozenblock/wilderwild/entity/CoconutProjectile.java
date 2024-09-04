@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
@@ -112,7 +112,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 				server.addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(WWItems.SPLIT_COCONUT)));
 			}
 			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
-			server.sendParticles(WWParticles.COCONUT_SPLASH, this.position().x + (dimensions.width() * 0.5), this.position().y + (dimensions.height() * 0.5), this.position().z + (dimensions.width() * 0.5), this.random.nextInt(1, 5), dimensions.width() / 4F, dimensions.height() / 4F, dimensions.width() / 4F, 0.1D);
+			server.sendParticles(WWParticleTypes.COCONUT_SPLASH, this.position().x + (dimensions.width() * 0.5), this.position().y + (dimensions.height() * 0.5), this.position().z + (dimensions.width() * 0.5), this.random.nextInt(1, 5), dimensions.width() / 4F, dimensions.height() / 4F, dimensions.width() / 4F, 0.1D);
 			this.discard();
 		}
 	}

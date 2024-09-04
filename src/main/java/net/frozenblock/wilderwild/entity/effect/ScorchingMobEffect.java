@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.function.ToIntFunction;
 import net.frozenblock.wilderwild.networking.packet.WilderScorchingFirePlacePacket;
-import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -54,7 +54,7 @@ public class ScorchingMobEffect extends MobEffect {
 		ToIntFunction<RandomSource> toIntFunction,
 		ToIntFunction<RandomSource> maxFires
 	) {
-		super(type, color, WWParticles.SCORCHING_FLAME);
+		super(type, color, WWParticleTypes.SCORCHING_FLAME);
 		this.chanceToScorch = chanceToScorch;
 		this.fireDurationInSeconds = toIntFunction;
 		this.maxFires = maxFires;

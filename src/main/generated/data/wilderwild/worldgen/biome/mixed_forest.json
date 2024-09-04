@@ -77,9 +77,9 @@
       "minecraft:spring_lava"
     ],
     [
-      "wilderwild:mixed_trees",
       "minecraft:glow_lichen",
-      "minecraft:forest_flowers",
+      "wilderwild:mixed_trees",
+      "minecraft:flower_default",
       "minecraft:patch_grass_forest"
     ],
     [
