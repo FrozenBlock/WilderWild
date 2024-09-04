@@ -26,7 +26,7 @@ import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.lib.wind.api.WindManager;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
@@ -34,7 +34,7 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -124,14 +124,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().firefly.spawnFireflies) return false;
+		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
 		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
-		if (biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
+		if (biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
 			return chance && level.getBrightness(LightLayer.SKY, pos) == 0;
 		}
-		return chance && ((biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
+		return chance && ((biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
 	}
 
 	@NotNull
@@ -321,7 +321,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	public boolean shouldHide() {
 		return this.natural
-			&& !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+			&& !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 			&& this.level().isDay()
 			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
 	}
@@ -495,8 +495,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			if (entity != null) {
 				int i;
 				double d = entity.distanceToSqr(this);
-				boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
-				boolean caveKey = this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+				boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE);
+				boolean caveKey = this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
 				if (this.removeWhenFarAway(d) && Math.sqrt(d) > 18D) {
 					if (dayKey) {
 						this.despawning = true;

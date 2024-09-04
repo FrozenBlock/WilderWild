@@ -42,7 +42,7 @@ import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.debug.client.renderer.OstrichDebugRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
@@ -64,7 +64,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.networking.WilderClientNetworking;
+import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.LeafClusterSeedParticle;
@@ -107,24 +107,24 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
-	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderConstants.id("ancient_horn_projectile"), "main");
-	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderConstants.id("sculk_sensor"), "main");
-	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WilderConstants.id("hanging_tendril"), "main");
-	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderConstants.id("display_lantern"), "main");
-	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderConstants.id("stone_chest"), "main");
-	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderConstants.id("double_stone_chest_left"), "main");
-	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderConstants.id("double_stone_chest_right"), "main");
-	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderConstants.id("jellyfish"), "main");
-	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderConstants.id("tumbleweed"), "main");
-	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderConstants.id("crab"), "main");
-	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderConstants.id("ostrich"), "main");
-	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderConstants.id("ostrich"), "inbred");
-	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderConstants.id("ostrich"), "saddle");
-	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WilderConstants.id("scorched"), "main");
+	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WWConstants.id("ancient_horn_projectile"), "main");
+	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WWConstants.id("sculk_sensor"), "main");
+	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WWConstants.id("hanging_tendril"), "main");
+	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WWConstants.id("display_lantern"), "main");
+	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WWConstants.id("stone_chest"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WWConstants.id("double_stone_chest_left"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WWConstants.id("double_stone_chest_right"), "main");
+	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WWConstants.id("jellyfish"), "main");
+	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WWConstants.id("tumbleweed"), "main");
+	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WWConstants.id("crab"), "main");
+	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WWConstants.id("ostrich"), "main");
+	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WWConstants.id("ostrich"), "inbred");
+	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
+	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
 
 	@Override
 	public void onInitializeClient() {
-		SplashTextAPI.addSplashLocation(WilderConstants.id("texts/splashes.txt"));
+		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 		addPanorama("birch_valley");
 		addPanorama("cherry_grove_and_sunflower_plains");;
 		WilderEasterEggs.hatchEasterEggs();
@@ -298,37 +298,37 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
 
-		WilderClientNetworking.registerPacketReceivers();
+		WWClientNetworking.registerPacketReceivers();
 
 		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(WWEntities.ANCIENT_HORN_VIBRATION, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_FLYBY));
 
-		ItemProperties.register(WWItems.ANCIENT_HORN, WilderConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
-		ItemProperties.register(WWItems.COPPER_HORN, WilderConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(WWItems.ANCIENT_HORN, WWConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(WWItems.COPPER_HORN, WWConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ItemProperties.register(WWItems.SCORCHED_SAND, WilderConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
-		ItemProperties.register(WWItems.SCORCHED_RED_SAND, WilderConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
-		ItemProperties.register(WWItems.ECHO_GLASS, WilderConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, WWBlockStateProperties.DAMAGE, 0)) / 4F);
-		ItemProperties.register(Items.BEE_NEST, WilderConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.BEEHIVE, WilderConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.SCULK_SHRIEKER, WilderConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, WWBlockStateProperties.SOULS_TAKEN, 0)) / 2F);
+		ItemProperties.register(WWItems.SCORCHED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
+		ItemProperties.register(WWItems.SCORCHED_RED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
+		ItemProperties.register(WWItems.ECHO_GLASS, WWConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, WWBlockStateProperties.DAMAGE, 0)) / 4F);
+		ItemProperties.register(Items.BEE_NEST, WWConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.BEEHIVE, WWConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.SCULK_SHRIEKER, WWConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, WWBlockStateProperties.SOULS_TAKEN, 0)) / 2F);
 
-		ItemProperties.register(WWItems.FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.CYAN_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.GRAY_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.GREEN_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.LIME_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.MAGENTA_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.ORANGE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.PINK_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.PURPLE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.YELLOW_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.WHITE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.BLACK_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.BLUE_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.RED_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.BROWN_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE, WilderConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.CYAN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.GRAY_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.GREEN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.LIME_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.MAGENTA_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.ORANGE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.PINK_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.PURPLE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.YELLOW_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.WHITE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.BLACK_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.BLUE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.RED_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.BROWN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 
 		ColorProviderRegistry.ITEM.register(
 			((state, tintIndex) -> 5877296),
@@ -377,12 +377,12 @@ public final class WilderWildClient implements ClientModInitializer {
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
-				return WilderConstants.id("minecraft_live_sculk_sensor");
+				return WWConstants.id("minecraft_live_sculk_sensor");
 			}
 
 			@Override
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				WilderConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
+				WWConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WWConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
 		});
 
@@ -399,7 +399,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 			DebugRenderManager.addClearRunnable(ostrichDebugRenderer::clear);
 
-			DebugRenderManager.registerRenderer(WilderConstants.id("ostrich"), ostrichDebugRenderer::render);
+			DebugRenderManager.registerRenderer(WWConstants.id("ostrich"), ostrichDebugRenderer::render);
 		});
 	}
 
@@ -410,7 +410,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		var customWaterHandler = new FluidRenderHandler() {
 
 			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-				if (view != null && pos != null && BlockConfig.Client.MESOGLEA_LIQUID) {
+				if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_LIQUID) {
 					BlockState state = view.getBlockState(pos);
 					return state.getBlock() instanceof MesogleaBlock && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 				}
@@ -451,7 +451,7 @@ public final class WilderWildClient implements ClientModInitializer {
 	}
 
 	private static void addPanorama(String panoramaName) {
-		ResourceLocation panoramaLocation = WilderConstants.id("textures/gui/title/" + panoramaName + "/panorama");
+		ResourceLocation panoramaLocation = WWConstants.id("textures/gui/title/" + panoramaName + "/panorama");
 		Panoramas.addPanorama(panoramaLocation);
 	}
 

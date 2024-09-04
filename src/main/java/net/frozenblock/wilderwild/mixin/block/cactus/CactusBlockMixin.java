@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.cactus;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.world.level.block.CactusBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +35,7 @@ public final class CactusBlockMixin {
 		)
 	)
 	private boolean wilderWild$canSurviveIsSolid(boolean original) {
-		return !BlockConfig.get().cactusPlacement && original;
+		return !WWBlockConfig.get().cactusPlacement && original;
 	}
 
 }

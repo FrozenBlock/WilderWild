@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.item;
 
 import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -77,7 +77,7 @@ public class CopperHorn extends InstrumentItem {
 			playSound(optional.get().value(), user, level);
 			return InteractionResultHolder.consume(itemStack);
 		} else {
-			WilderConstants.printStackTrace("Copper Horn use failed!", true);
+			WWConstants.printStackTrace("Copper Horn use failed!", true);
 			return InteractionResultHolder.fail(itemStack);
 		}
 	}

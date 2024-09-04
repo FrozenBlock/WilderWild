@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -44,7 +44,7 @@ public class EnderManMixin {
 
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
 	public void wilderWild$playStareSound(CallbackInfo info) {
-		if (EntityConfig.get().enderMan.movingStareSound) {
+		if (WWEntityConfig.get().enderMan.movingStareSound) {
 			info.cancel();
 			EnderMan enderman = EnderMan.class.cast(this);
 			if (enderman.tickCount >= this.lastStareSound + 400) {

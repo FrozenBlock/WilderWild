@@ -26,8 +26,8 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
@@ -57,9 +57,9 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
 		wind.set(Vec3.ZERO);
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-				.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
+				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 			wind.set(currentWind);
 			return currentWind.x;
 		}
@@ -77,7 +77,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return wind.get().z;
 		}
 		return original;
@@ -94,7 +94,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		CherryParticle instance, double x, double y, double z, Operation<Void> original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
 		}
 		original.call(instance, x, y, z);
@@ -107,7 +107,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 	public int wilderWild$fixMoveD(
 		int constant
 	) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return 10;
 		}
 		return constant;

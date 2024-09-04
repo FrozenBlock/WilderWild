@@ -23,7 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
@@ -67,13 +67,13 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		@Local(ordinal = 1) BlockPos blockPos, @Local(ordinal = 1) BlockState blockState2, @Local(ordinal = 2) BlockState blockState3
 	) {
 		boolean canReturn = false;
-		if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+		if (blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
 			blockState3 = WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
 			canReturn = true;
-		} else if (blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
+		} else if (blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
 			blockState3 = WWBlocks.SCULK_WALL.withPropertiesOf(blockState2);
 			canReturn = true;
-		} else if (blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
+		} else if (blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
 			blockState3 = WWBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
 			canReturn = true;
 		}

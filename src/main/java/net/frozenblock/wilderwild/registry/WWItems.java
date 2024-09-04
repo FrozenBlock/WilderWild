@@ -25,15 +25,15 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.WilderEnumValues;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWEnumValues;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
-import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
+import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -99,14 +99,14 @@ public final class WWItems {
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
 	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(WWFood.SPLIT_COCONUT));
-	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
-	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
-	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
-	public static final BoatItem CYPRESS_CHEST_BOAT = new BoatItem(true, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
-	public static final BoatItem PALM_BOAT = new BoatItem(false, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
-	public static final BoatItem PALM_CHEST_BOAT = new BoatItem(true, WilderEnumValues.PALM, new Item.Properties().stacksTo(1));
-	public static final BoatItem MAPLE_BOAT = new BoatItem(false, WilderEnumValues.MAPLE, new Item.Properties().stacksTo(1));
-	public static final BoatItem MAPLE_CHEST_BOAT = new BoatItem(true, WilderEnumValues.MAPLE, new Item.Properties().stacksTo(1));
+	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WWEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
+	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WWEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
+	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WWEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
+	public static final BoatItem CYPRESS_CHEST_BOAT = new BoatItem(true, WWEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
+	public static final BoatItem PALM_BOAT = new BoatItem(false, WWEnumValues.PALM, new Item.Properties().stacksTo(1));
+	public static final BoatItem PALM_CHEST_BOAT = new BoatItem(true, WWEnumValues.PALM, new Item.Properties().stacksTo(1));
+	public static final BoatItem MAPLE_BOAT = new BoatItem(false, WWEnumValues.MAPLE, new Item.Properties().stacksTo(1));
+	public static final BoatItem MAPLE_CHEST_BOAT = new BoatItem(true, WWEnumValues.MAPLE, new Item.Properties().stacksTo(1));
 	public static final FireflyBottle FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ON);
 	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BLACK);
 	public static final FireflyBottle RED_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.RED);
@@ -140,23 +140,23 @@ public final class WWItems {
 	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(WWEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new Item.Properties());
 	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(WWEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new Item.Properties());
 	// INSTRUMENT
-	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
-	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("ancient_horn"));
-	public static final CopperHorn COPPER_HORN = new CopperHorn(new Item.Properties().stacksTo(1), WilderInstrumentTags.COPPER_HORNS);
-	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("sax_copper_horn"));
-	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("tuba_copper_horn"));
-	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("flute_copper_horn"));
-	public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("oboe_copper_horn"));
-	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("clarinet_copper_horn"));
-	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("trumpet_copper_horn"));
-	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("trombone_copper_horn"));
+	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), WWInstrumentTags.ANCIENT_HORNS);
+	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("ancient_horn"));
+	public static final CopperHorn COPPER_HORN = new CopperHorn(new Item.Properties().stacksTo(1), WWInstrumentTags.COPPER_HORNS);
+	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
+	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("tuba_copper_horn"));
+	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("flute_copper_horn"));
+	public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("oboe_copper_horn"));
+	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("clarinet_copper_horn"));
+	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trumpet_copper_horn"));
+	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trombone_copper_horn"));
 
 	private WWItems() {
 		throw new UnsupportedOperationException("RegisterItems contains only static declarations.");
 	}
 
 	public static void registerBlockItems() {
-		WilderConstants.logWithModId("Registering Block Items for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Block Items for", WWConstants.UNSTABLE_LOGGING);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		registerItemAfter(Items.MANGROVE_HANGING_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -188,7 +188,7 @@ public final class WWItems {
 	}
 
 	public static void registerItems() {
-		WilderConstants.logWithModId("Registering Items for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Items for", WWConstants.UNSTABLE_LOGGING);
 		//BOATS
 		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_BOAT, BAOBAB_CHEST_BOAT, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -228,9 +228,9 @@ public final class WWItems {
 		Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
 		Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
 
-		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WilderInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerInstrumentBefore(Items.BOW, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.COMBAT);
+		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WWInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WWInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerInstrumentBefore(Items.BOW, ANCIENT_HORN, "ancient_horn", WWInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.COMBAT);
 
 		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -303,12 +303,12 @@ public final class WWItems {
 	}
 
 	private static void actualRegister(@NotNull Item item, @NotNull String path) {
-		if (BuiltInRegistries.ITEM.getOptional(WilderConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, WilderConstants.id(path), item);
+		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.ITEM, WWConstants.id(path), item);
 		}
 	}
 
 	private static <S extends RecipeSerializer<T>, T extends Recipe<?>> @NotNull S registerSerializer(String key, S recipeSerializer) {
-		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WilderConstants.id(key), recipeSerializer);
+		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WWConstants.id(key), recipeSerializer);
 	}
 }

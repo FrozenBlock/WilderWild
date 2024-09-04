@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -44,7 +44,7 @@ public class MagmaBlockMixin {
 		)
 	)
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			MesogleaBlock.updateColumn(level, pos.above(), state);
 		}
 	}
@@ -57,7 +57,7 @@ public class MagmaBlockMixin {
 		)
 	)
 	public boolean wilderWild$updateShape(boolean original, BlockState state, Direction direction, BlockState neighborState) {
-		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
 		}
 		return original;

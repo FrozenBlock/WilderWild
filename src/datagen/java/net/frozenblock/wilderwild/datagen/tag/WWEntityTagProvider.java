@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.registry.WWEntities;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
@@ -36,16 +36,16 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(WilderEntityTags.CAN_SWIM_IN_ALGAE)
+		this.getOrCreateTagBuilder(WWEntityTags.CAN_SWIM_IN_ALGAE)
 			.add(EntityType.SLIME)
 			.add(EntityType.WARDEN)
 			.add(EntityType.WITHER)
 			.add(WWEntities.JELLYFISH);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
+		this.getOrCreateTagBuilder(WWEntityTags.STAYS_IN_MESOGLEA)
 			.add(WWEntities.JELLYFISH);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.JELLYFISH_CANT_STING)
+		this.getOrCreateTagBuilder(WWEntityTags.JELLYFISH_CANT_STING)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
@@ -56,7 +56,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntities.JELLYFISH)
 			.add(WWEntities.TUMBLEWEED);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.COCONUT_CANT_BONK)
+		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_BONK)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
@@ -69,7 +69,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntities.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.COCONUT_CANT_SPLIT)
+		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
@@ -86,14 +86,14 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntities.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.ANCIENT_HORN_IMMUNE)
+		this.getOrCreateTagBuilder(WWEntityTags.ANCIENT_HORN_IMMUNE)
 			.add(EntityType.WITHER)
 			.add(EntityType.WARDEN)
 			.add(EntityType.ENDER_DRAGON)
 			.add(WWEntities.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)
+		this.getOrCreateTagBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
@@ -104,7 +104,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
 			.add(WWEntities.JELLYFISH);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.CRAB_HUNT_TARGETS)
+		this.getOrCreateTagBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.COD)
@@ -112,7 +112,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
 
-		this.getOrCreateTagBuilder(WilderEntityTags.GEYSER_PUSHES_EXTRA)
+		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_EXTRA)
 			.add(EntityType.ARROW)
 			.add(EntityType.SPECTRAL_ARROW);
 

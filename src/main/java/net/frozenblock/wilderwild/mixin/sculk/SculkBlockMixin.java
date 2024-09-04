@@ -27,7 +27,7 @@ import java.util.Iterator;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -87,7 +87,7 @@ public abstract class SculkBlockMixin {
 			}
 			BlockPos blockPos = var4.next();
 			BlockState blockState2 = level.getBlockState(blockPos);
-			if (blockState2.is(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(WWBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+			if (blockState2.is(WWBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(WWBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
 				++i;
 			}
 			if (i >= 3) {
@@ -178,11 +178,11 @@ public abstract class SculkBlockMixin {
 		}
 
 		BlockState chargePosState = level.getBlockState(chargePos);
-		if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+		if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
 			placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
-		} else if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
+		} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
 			placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
-		} else if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
+		} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
 			placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
 		}
 

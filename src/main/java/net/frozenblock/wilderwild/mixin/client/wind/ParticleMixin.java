@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.client.wind;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -65,7 +65,7 @@ public abstract class ParticleMixin {
 					return;
 				}
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-					.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
+					.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 				this.xd += wind.x * 0.001D;
 				this.yd += wind.y * 0.00005D;
 				this.zd += wind.z * 0.001D;

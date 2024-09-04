@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
@@ -51,39 +51,39 @@ public final class WWEntities {
 			.eyeHeight(0.3F) // eye height is the height * 0.5F
 			.clientTrackingRange(64)
 			.updateInterval(2)
-			.build(WilderConstants.string("ancient_horn_vibration"))
+			.build(WWConstants.string("ancient_horn_vibration"))
 	);
 
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
-		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"))
+		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
-			.build(WilderConstants.string("firefly"))
+			.build(WWConstants.string("firefly"))
 	);
 
 	public static final EntityType<Jellyfish> JELLYFISH = register(
 		"jellyfish",
-		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"))
+		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"))
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
-			.build(WilderConstants.string("jellyfish"))
+			.build(WWConstants.string("jellyfish"))
 	);
 
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
 		"tumbleweed",
-		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"))
+		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
-			.build(WilderConstants.string("tumbleweed"))
+			.build(WWConstants.string("tumbleweed"))
 	);
 
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
-		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"))
+		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
-			.build(WilderConstants.string("crab"))
+			.build(WWConstants.string("crab"))
 	);
 
 	public static final EntityType<Ostrich> OSTRICH = register(
@@ -91,7 +91,7 @@ public final class WWEntities {
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
-			.build(WilderConstants.string("ostrich"))
+			.build(WWConstants.string("ostrich"))
 	);
 
 	public static final EntityType<Scorched> SCORCHED = register(
@@ -101,7 +101,7 @@ public final class WWEntities {
 			.eyeHeight(0.585F)
 			.fireImmune()
 			.clientTrackingRange(8)
-			.build(WilderConstants.string("scorched"))
+			.build(WWConstants.string("scorched"))
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
@@ -110,7 +110,7 @@ public final class WWEntities {
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
-			.build(WilderConstants.string("coconut"))
+			.build(WWConstants.string("coconut"))
 	);
 
 	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
@@ -119,7 +119,7 @@ public final class WWEntities {
 			.sized(1F, 1F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build(WilderConstants.string("chest_bubbler"))
+			.build(WWConstants.string("chest_bubbler"))
 	);
 
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
@@ -128,7 +128,7 @@ public final class WWEntities {
 			.sized(1F, 1F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build(WilderConstants.string("sculk_spreader"))
+			.build(WWConstants.string("sculk_spreader"))
 	);
 
 	private WWEntities() {
@@ -136,7 +136,7 @@ public final class WWEntities {
 	}
 
 	public static void init() {
-		WilderConstants.logWithModId("Registering Entities for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
 
 		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());
 		SpawnPlacements.register(
@@ -188,6 +188,6 @@ public final class WWEntities {
 
 	@NotNull
 	private static <E extends Entity, T extends EntityType<E>> T register(@NotNull String path, @NotNull T entityType) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, WilderConstants.id(path), entityType);
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, WWConstants.id(path), entityType);
 	}
 }

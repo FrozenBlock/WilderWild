@@ -23,11 +23,11 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import static net.frozenblock.wilderwild.item.AncientHorn.getCooldown;
-import net.frozenblock.wilderwild.mod_compat.WilderModIntegrations;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -36,8 +36,8 @@ import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustColorTransitionOptions;
@@ -103,7 +103,7 @@ public class AncientHornVibration extends AbstractArrow {
 	public static final int MIN_BUBBLE_PARTICLES = 1;
 	public static final int MAX_BUBBLE_PARTICLES = 3;
 	public static final int BUBBLE_PARTICLES_WATER = 4;
-	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
+	private static final TagKey<Block> NON_COLLIDE = WWBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornVibration.class, EntityDataSerializers.FLOAT);
 	public boolean canInteractWithPipe = true;
 	private boolean leftOwner;
@@ -186,7 +186,7 @@ public class AncientHornVibration extends AbstractArrow {
 				);
 			}
 		}
-		if (this.aliveTicks > ItemConfig.get().ancientHorn.ancientHornLifespan) {
+		if (this.aliveTicks > WWItemConfig.get().ancientHorn.ancientHornLifespan) {
 			this.dissipate();
 		}
 		++this.aliveTicks;
@@ -293,7 +293,7 @@ public class AncientHornVibration extends AbstractArrow {
 		this.setPos(newX, newY, newZ);
 		this.checkInsideBlocks();
 		float scale = Mth.clamp(
-			this.getBoundingBoxMultiplier() + ItemConfig.get().ancientHorn.ancientHornSizeMultiplier,
+			this.getBoundingBoxMultiplier() + WWItemConfig.get().ancientHorn.ancientHornSizeMultiplier,
 			MIN_SIZE,
 			MAX_SIZE
 		);
@@ -365,11 +365,11 @@ public class AncientHornVibration extends AbstractArrow {
 		BlockState blockState = this.level().getBlockState(pos);
 		Entity owner = this.getOwner();
 		if (this.canInteractWithPipe
-			&& WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState)
+			&& WWModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState)
 			&& owner != null
 			&& result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite()
 			&& this.level() instanceof ServerLevel server
-			&& WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, pos, owner)
+			&& WWModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, pos, owner)
 		) {
 			this.discard();
 			return;
@@ -384,7 +384,7 @@ public class AncientHornVibration extends AbstractArrow {
 		if (this.level() instanceof ServerLevel server && this.canInteract()) {
 			var block = blockState.getBlock();
 			if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
-				if (ItemConfig.get().ancientHorn.ancientHornCanSummonWarden) {
+				if (WWItemConfig.get().ancientHorn.ancientHornCanSummonWarden) {
 					if (blockState.getValue(WWBlockStateProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
 						if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
 							server.setBlockAndUpdate(pos, blockState.setValue(WWBlockStateProperties.SOULS_TAKEN, blockState.getValue(WWBlockStateProperties.SOULS_TAKEN) + 1));
@@ -406,7 +406,7 @@ public class AncientHornVibration extends AbstractArrow {
 						Warden.applyDarknessAround(server, Vec3.atCenterOf(pos), null, 40);
 						server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
 						server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
-						setCooldown(getCooldown(this.getOwner(), ItemConfig.get().ancientHorn.ancientHornShriekerCooldown));
+						setCooldown(getCooldown(this.getOwner(), WWItemConfig.get().ancientHorn.ancientHornShriekerCooldown));
 					}
 				}
 			} else if (block instanceof SculkSensorBlock sculkSensor) {
@@ -420,7 +420,7 @@ public class AncientHornVibration extends AbstractArrow {
 					if (SculkSensorBlock.canActivate(blockState)) {
 						sculkSensor.activate(null, this.level(), pos, blockState, this.random.nextInt(15), sculkSensorBlockEntity.getLastVibrationFrequency());
 						this.level().gameEvent(null, WWGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-						setCooldown(getCooldown(owner, ItemConfig.get().ancientHorn.ancientHornSensorCooldown));
+						setCooldown(getCooldown(owner, WWItemConfig.get().ancientHorn.ancientHornSensorCooldown));
 					}
 				}
 			}
@@ -449,7 +449,7 @@ public class AncientHornVibration extends AbstractArrow {
 			BlockPos pos = this.blockPosition();
 			BlockEntity entity = this.level().getBlockEntity(pos);
 			if (entity instanceof HangingTendrilBlockEntity tendril) {
-				WilderConstants.log("Horn Projectile Found Hanging Tendril Entity", WilderConstants.UNSTABLE_LOGGING);
+				WWConstants.log("Horn Projectile Found Hanging Tendril Entity", WWConstants.UNSTABLE_LOGGING);
 				int xp = tendril.getStoredXP();
 				if (xp > 0) {
 					tendril.setStoredXP(0);
@@ -465,7 +465,7 @@ public class AncientHornVibration extends AbstractArrow {
 					);
 					this.level().destroyBlock(this.blockPosition(), false);
 					ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), xp);
-					setCooldown(getCooldown(this.getOwner(), ItemConfig.get().ancientHorn.ancientHornTendrilCooldown));
+					setCooldown(getCooldown(this.getOwner(), WWItemConfig.get().ancientHorn.ancientHornTendrilCooldown));
 					this.dissipate();
 				}
 			}
@@ -474,7 +474,7 @@ public class AncientHornVibration extends AbstractArrow {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 				} else if (insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
-					if (ItemConfig.get().ancientHorn.ancientHornShattersGlass || insideState.is(WWBlocks.ECHO_GLASS)) { //GLASS INTERACTION
+					if (WWItemConfig.get().ancientHorn.ancientHornShattersGlass || insideState.is(WWBlocks.ECHO_GLASS)) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level(), insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level().destroyBlock(this.blockPosition(), false, this);
 					}
@@ -596,7 +596,7 @@ public class AncientHornVibration extends AbstractArrow {
 	}
 
 	public float getDamage(@Nullable Entity entity) {
-		int base = entity instanceof Player ? ItemConfig.get().ancientHorn.ancientHornPlayerDamage : ItemConfig.get().ancientHorn.ancientHornMobDamage;
+		int base = entity instanceof Player ? WWItemConfig.get().ancientHorn.ancientHornPlayerDamage : WWItemConfig.get().ancientHorn.ancientHornMobDamage;
 		return base / (this.getBoundingBoxMultiplier() + 1F);
 	}
 
@@ -632,7 +632,7 @@ public class AncientHornVibration extends AbstractArrow {
 				warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
 				warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5F, warden.getVoicePitch());
 				this.discard();
-			} else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
+			} else if (!entity.getType().is(WWEntityTags.ANCIENT_HORN_IMMUNE)) {
 				if (entity.hurt(damageSource, damage)) {
 					if (entity instanceof LivingEntity livingEntity) {
 						if (!level.isClientSide && owner instanceof LivingEntity) {

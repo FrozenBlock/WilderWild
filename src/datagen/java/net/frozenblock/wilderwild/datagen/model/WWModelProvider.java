@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.datagen.model;
 import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -115,7 +115,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 	}
 
-	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WilderConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
+	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block carpet) {

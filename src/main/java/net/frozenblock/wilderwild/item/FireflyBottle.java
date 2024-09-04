@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.item;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
@@ -83,7 +83,7 @@ public class FireflyBottle extends Item {
 					}
 					player.gameEvent(GameEvent.ENTITY_PLACE);
 				} else {
-					WilderConstants.printStackTrace("Couldn't spawn Firefly from bottle!", true);
+					WWConstants.printStackTrace("Couldn't spawn Firefly from bottle!", true);
 				}
 			}
 		}

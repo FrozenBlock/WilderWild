@@ -33,8 +33,8 @@ import net.frozenblock.wilderwild.block.property.GeyserType;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.particle.Particle;
@@ -122,8 +122,8 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	private static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
-		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WilderBlockTags.GEYSER_CAN_PASS_THROUGH))
-				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH));
+		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WWBlockTags.GEYSER_CAN_PASS_THROUGH))
+				|| state.is(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}
 
 	@NotNull
@@ -206,7 +206,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			AABB boundingBox = entity.getBoundingBox();
 			if (eruption.intersects(boundingBox)) {
 				double intensity = (ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE;
-				double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WilderEntityTags.GEYSER_PUSHES_EXTRA) ? 1.5D : 1D);
+				double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_EXTRA) ? 1.5D : 1D);
 				double overallIntensity = intensity * pushIntensity;
 				Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
 				entity.setDeltaMovement(deltaMovement);

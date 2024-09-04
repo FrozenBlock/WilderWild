@@ -24,7 +24,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
@@ -137,8 +137,8 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(at = @At("TAIL"), method = "finalizeSpawn")
 	public void wilderWild$finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, CallbackInfoReturnable<SpawnGroupData> info) {
 		if (
-			(EntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == MobSpawnType.SPAWN_EGG)
-				|| (EntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == MobSpawnType.COMMAND)
+			(WWEntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == MobSpawnType.SPAWN_EGG)
+				|| (WWEntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == MobSpawnType.COMMAND)
 		) {
 			this.setPose(Pose.EMERGING);
 			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
@@ -156,7 +156,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			&& !warden.isDiggingOrEmerging()
 			&& !warden.hasPose(Pose.DYING)
 			&& !warden.hasPose(Pose.ROARING)
-			&& EntityConfig.get().warden.wardenAttacksImmediately
+			&& WWEntityConfig.get().warden.wardenAttacksImmediately
 		) {
 			if (!(entity instanceof Player player) || !player.isCreative()) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
@@ -254,7 +254,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Unique
 	public boolean wilderWild$hasDeathAnimation() {
-		return EntityConfig.get().warden.wardenDeathAnimation || this.wilderWild$isStella();
+		return WWEntityConfig.get().warden.wardenDeathAnimation || this.wilderWild$isStella();
 	}
 
 	@Unique

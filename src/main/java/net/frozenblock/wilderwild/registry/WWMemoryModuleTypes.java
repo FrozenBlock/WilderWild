@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.serialization.Codec;
 import java.util.List;
 import java.util.Optional;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.core.Registry;
@@ -36,7 +36,7 @@ public final class WWMemoryModuleTypes {
 	}
 
 	public static void register() {
-		WilderConstants.logWithModId("Registering MemoryModuleTypes for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering MemoryModuleTypes for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground", Codec.BOOL);
@@ -49,12 +49,12 @@ public final class WWMemoryModuleTypes {
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WilderConstants.id(identifier), new MemoryModuleType<>(Optional.of(codec)));
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(identifier), new MemoryModuleType<>(Optional.of(codec)));
 	}
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WilderConstants.id(identifier), new MemoryModuleType<>(Optional.empty()));
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(identifier), new MemoryModuleType<>(Optional.empty()));
 	}
 
 }

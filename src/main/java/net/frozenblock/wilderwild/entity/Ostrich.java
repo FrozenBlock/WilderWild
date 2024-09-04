@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.UUID;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
@@ -33,8 +33,8 @@ import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichMoveControl;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -97,9 +97,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
-	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WilderItemTags.OSTRICH_FOOD);
-	public static final @NotNull ResourceLocation ATTACK_MODIFIER_UUID = WilderConstants.id("additional_damage_rider");
-	public static final @NotNull ResourceLocation KNOCKBACK_MODIFIER_UUID = WilderConstants.id("additional_knockback_rider");
+	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WWItemTags.OSTRICH_FOOD);
+	public static final @NotNull ResourceLocation ATTACK_MODIFIER_UUID = WWConstants.id("additional_damage_rider");
+	public static final @NotNull ResourceLocation KNOCKBACK_MODIFIER_UUID = WWConstants.id("additional_knockback_rider");
 	public static final int BEAK_COOLDOWN_TICKS = 30;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 36;
@@ -155,7 +155,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().ostrich.spawnOstriches) return false;
+		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
 		return Animal.checkAnimalSpawnRules(ostrich, level, spawnType, pos, random);
 	}
 
@@ -267,7 +267,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	private void handleAttackAndStuck() {
 		if (this.isAttacking()) {
-			if (!EntityConfig.get().ostrich.allowAttack && this.attackHasCommander) {
+			if (!WWEntityConfig.get().ostrich.allowAttack && this.attackHasCommander) {
 				this.cancelAttack(true);
 			}
 			BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
@@ -451,7 +451,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setRot(vec2.y, vec2.x);
 		this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
 		if (this.isControlledByLocalInstance()) {
-			if (EntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0F) {
+			if (WWEntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0F) {
 				this.executeRidersJump(this.playerJumpPendingScale, travelVector);
 			}
 			this.playerJumpPendingScale = 0F;
@@ -470,7 +470,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public void performAttack(float power, @Nullable Entity commander) {
-		if (commander != null && !EntityConfig.get().ostrich.allowAttack) return;
+		if (commander != null && !WWEntityConfig.get().ostrich.allowAttack) return;
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
@@ -524,7 +524,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public boolean canJump() {
-		return EntityConfig.get().ostrich.allowAttack && !this.refuseToMove() && super.canJump();
+		return WWEntityConfig.get().ostrich.allowAttack && !this.refuseToMove() && super.canJump();
 	}
 
 	@Override
@@ -739,7 +739,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public boolean canGetHeadStuckInState(@NotNull BlockState blockState) {
-		return blockState.is(WilderBlockTags.OSTRICH_BEAK_BURYABLE);
+		return blockState.is(WWBlockTags.OSTRICH_BEAK_BURYABLE);
 	}
 
 	public boolean isBeakTouchingFluid() {

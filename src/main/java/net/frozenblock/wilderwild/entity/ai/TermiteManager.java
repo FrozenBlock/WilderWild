@@ -28,14 +28,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -108,7 +108,7 @@ public class TermiteManager {
 	}
 
 	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
-		return !state.is(WilderBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
+		return !state.is(WWBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
 	}
 
 	public void addTermite(@NotNull BlockPos pos) {
@@ -183,7 +183,7 @@ public class TermiteManager {
 	public void saveAdditional(@NotNull CompoundTag tag) {
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		tag.putInt("highestID", this.highestID);
-		Logger logger = WilderConstants.LOGGER;
+		Logger logger = WWConstants.LOGGER;
 		DataResult<Tag> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
 		Objects.requireNonNull(logger);
 		var10000.resultOrPartial(logger::error).ifPresent((nbt) -> tag.put("termites", nbt));
@@ -195,7 +195,7 @@ public class TermiteManager {
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
 			DataResult<List<Termite>> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)));
-			Logger logger = WilderConstants.LOGGER;
+			Logger logger = WWConstants.LOGGER;
 			Objects.requireNonNull(logger);
 			Optional<List<Termite>> list = var10000.resultOrPartial(logger::error);
 			if (list.isPresent()) {
@@ -270,7 +270,7 @@ public class TermiteManager {
 				BlockState blockState = level.getBlockState(this.pos);
 				Block block = blockState.getBlock();
 				boolean degradable = !natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
-				boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
+				boolean breakable = blockState.is(WWBlockTags.TERMITE_BREAKABLE);
 				boolean leaves = blockState.is(BlockTags.LEAVES);
 				if ((degradable || breakable) && isEdibleProperty(blockState)) {
 					this.eating = true;
@@ -349,7 +349,7 @@ public class TermiteManager {
 		public static BlockPos ledgePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			BlockState state = level.getBlockState(mutableBlockPos);
-			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WWBlockTags.TERMITE_BREAKABLE)) {
 				return mutableBlockPos;
 			}
 			mutableBlockPos.move(Direction.DOWN);
@@ -381,7 +381,7 @@ public class TermiteManager {
 		}
 
 		private static boolean canEatBlock(boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
-			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WWBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
 				if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
 					mutableBlockPos.move(Direction.DOWN);
 				}
@@ -391,14 +391,14 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(@NotNull BlockState state) {
-			return !BlockConfig.get().termite.onlyEatNaturalBlocks || (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE) ? state.getValue(WWBlockStateProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
+			return !WWBlockConfig.get().termite.onlyEatNaturalBlocks || (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE) ? state.getValue(WWBlockStateProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
 		}
 
 		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			for (Direction direction : Direction.values()) {
 				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (state.isAir() || (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+				if (state.isAir() || (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WWBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WWBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
 					return true;
 				}
 				mutableBlockPos.move(direction, -1);
@@ -414,7 +414,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isBlockMovable(@NotNull BlockState state, @NotNull Direction direction) {
-			if (state.is(WilderBlockTags.BLOCKS_TERMITE)) {
+			if (state.is(WWBlockTags.BLOCKS_TERMITE)) {
 				return false;
 			}
 			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
@@ -423,7 +423,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
-			return !mound.closerThan(pos, natural ? BlockConfig.get().termite.maxNaturalDistance : BlockConfig.get().termite.maxDistance);
+			return !mound.closerThan(pos, natural ? WWBlockConfig.get().termite.maxNaturalDistance : WWBlockConfig.get().termite.maxDistance);
 		}
 
 		public static void spawnGnawParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos, RandomSource random) {

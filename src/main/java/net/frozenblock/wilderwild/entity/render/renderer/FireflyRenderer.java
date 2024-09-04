@@ -24,7 +24,7 @@ import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -47,11 +47,11 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		WilderWildRegistries.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
 	}};
-	private static final ResourceLocation TEXTURE = WilderConstants.id("textures/entity/firefly/firefly_off.png");
+	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/firefly/firefly_off.png");
 	private static final RenderType LAYER = RenderType.entityTranslucent(TEXTURE);
-	private static final RenderType NECTAR_LAYER = RenderType.entityTranslucent(WilderConstants.id("textures/entity/firefly/nectar.png"));
-	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityTranslucent(WilderConstants.id("textures/entity/firefly/nectar_wings_down.png"));
-	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
+	private static final RenderType NECTAR_LAYER = RenderType.entityTranslucent(WWConstants.id("textures/entity/firefly/nectar.png"));
+	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityTranslucent(WWConstants.id("textures/entity/firefly/nectar_wings_down.png"));
+	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WWConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 	private static final float Y_OFFSET = 0.155F;
 	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
 

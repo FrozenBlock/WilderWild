@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.ice;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -45,7 +45,7 @@ public class FrostedIceBlockMixin {
 		)
 	)
 	private void wilderWild$slightlyMelt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
-		if (BlockConfig.get().frostedIceCracking) {
+		if (WWBlockConfig.get().frostedIceCracking) {
 			SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
 			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.003F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
 		}
@@ -60,7 +60,7 @@ public class FrostedIceBlockMixin {
 		)
 	)
 	private void wildWilder$melt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
-		if (BlockConfig.get().frostedIceCracking) {
+		if (WWBlockConfig.get().frostedIceCracking) {
 			if (level instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(
 					new BlockParticleOption(ParticleTypes.BLOCK, blockState),

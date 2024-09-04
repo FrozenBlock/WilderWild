@@ -23,14 +23,14 @@ import net.frozenblock.lib.entity.impl.EntityStepOnBlockInterface;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -120,7 +120,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !EntityConfig.get().tumbleweed.spawnTumbleweed) return false;
+		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().tumbleweed.spawnTumbleweed) return false;
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(SPAWN_CHANCE) == 0 && pos.getY() > level.getSeaLevel();
 	}
 
@@ -145,7 +145,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			int diff = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = this.random.nextInt(1, 6);
-				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
+				TagKey<Item> itemTag = tagSelector <= 1 ? WWItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WWItemTags.TUMBLEWEED_MEDIUM : WWItemTags.TUMBLEWEED_COMMON;
 				ItemLike itemLike = TagUtils.getRandomEntry(this.random, itemTag);
 				if (itemLike != null) {
 					this.setItem(new ItemStack(itemLike), true);
@@ -167,7 +167,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
-		if (entity.getType().is(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
+		if (entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
 		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
 		if (entity instanceof Tumbleweed) {
 			super.doPush(entity);
@@ -203,7 +203,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		}
 		this.isTouchingStoppingBlock = false;
 		if (!this.level().isClientSide && this.getBlockStateOn().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
-			if (EntityConfig.get().tumbleweed.tumbleweedDestroysCrops) {
+			if (WWEntityConfig.get().tumbleweed.tumbleweedDestroysCrops) {
 				this.level().destroyBlock(this.blockPosition(), true, this);
 			}
 		}
@@ -380,7 +380,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	public boolean canBeLeashed() {
-		return EntityConfig.get().tumbleweed.leashedTumbleweed;
+		return WWEntityConfig.get().tumbleweed.leashedTumbleweed;
 	}
 
 	@Override
@@ -594,7 +594,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	public void frozenLib$onSteppedOnBlock(Level level, BlockPos blockPos, @NotNull BlockState blockState) {
-		if (blockState.is(WilderBlockTags.STOPS_TUMBLEWEED)) {
+		if (blockState.is(WWBlockTags.STOPS_TUMBLEWEED)) {
 			this.isTouchingStoppingBlock = true;
 		}
 	}

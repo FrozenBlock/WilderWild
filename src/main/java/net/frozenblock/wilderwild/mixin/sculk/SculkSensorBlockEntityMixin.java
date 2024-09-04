@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
+import net.frozenblock.wilderwild.networking.packet.WWSensorHiccupPacket;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -92,7 +92,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 				double x = (pos.getX() - 0.1) + (random.nextFloat() * 1.2);
 				double y = pos.getY() + random.nextFloat();
 				double z = (pos.getZ() - 0.1) + (random.nextFloat() * 1.2);
-				WilderSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
+				WWSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
 			}
 			if (SculkSensorBlock.canActivate(state) && random.nextInt(320) <= 1) {
 				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, random.nextInt(15), sensor.getLastVibrationFrequency());

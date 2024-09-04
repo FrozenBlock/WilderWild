@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.serialization.MapCodec;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
@@ -54,7 +54,7 @@ public final class WWParticleTypes {
 	public static final ParticleType<LeafClusterParticleOptions> LEAF_CLUSTER_SPAWNER = register(
 		"leaf_cluster", false, particleType -> LeafClusterParticleOptions.CODEC, particleType -> LeafClusterParticleOptions.STREAM_CODEC
 	);
-	public static final ParticleType<LeafParticleOptions> MAPLE_LEAVES = createLeafParticle(WilderConstants.id("maple_leaves"));
+	public static final ParticleType<LeafParticleOptions> MAPLE_LEAVES = createLeafParticle(WWConstants.id("maple_leaves"));
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = register("blue_pearlescent_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = register("blue_pearlescent_landing_mesoglea_drip");
@@ -82,7 +82,7 @@ public final class WWParticleTypes {
 	}
 
 	public static void registerParticles() {
-		WilderConstants.logWithModId("Registering Particles for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Particles for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 	public static @NotNull ParticleType<LeafParticleOptions> createLeafParticle(ResourceLocation location) {
@@ -93,7 +93,7 @@ public final class WWParticleTypes {
 
 	@NotNull
 	private static SimpleParticleType register(@NotNull String name, boolean alwaysShow) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderConstants.id(name), FabricParticleTypes.simple(alwaysShow));
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WWConstants.id(name), FabricParticleTypes.simple(alwaysShow));
 	}
 
 	@NotNull
@@ -108,7 +108,7 @@ public final class WWParticleTypes {
 		Function<ParticleType<T>, MapCodec<T>> function,
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
-		return register(WilderConstants.id(string), alwaysShow, function, function2);
+		return register(WWConstants.id(string), alwaysShow, function, function2);
 	}
 
 	@NotNull

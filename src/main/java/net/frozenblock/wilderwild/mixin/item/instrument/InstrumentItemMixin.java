@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
@@ -49,7 +49,7 @@ public final class InstrumentItemMixin {
 	private static void wilderWild$playRestrictionSound(
 		Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original
 	) {
-		if (ItemConfig.get().restrictInstrumentSound) {
+		if (WWItemConfig.get().restrictInstrumentSound) {
 			if (!level.isClientSide) {
 				FrozenSoundPackets.createMovingRestrictionSound(
 					level,
@@ -75,7 +75,7 @@ public final class InstrumentItemMixin {
 		)
 	)
 	private boolean wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration) {
-		return !ItemConfig.get().restrictInstrumentSound;
+		return !WWItemConfig.get().restrictInstrumentSound;
 	}
 
 }

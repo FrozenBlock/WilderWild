@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.projectile;
 
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.Snowball;
@@ -40,7 +40,7 @@ public class SnowballMixin {
 		)
 	)
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (ItemConfig.get().projectileLandingSounds.snowballLandingSounds) {
+		if (WWItemConfig.get().projectileLandingSounds.snowballLandingSounds) {
 			Snowball snowball = Snowball.class.cast(this);
 			snowball.level().playSound(
 				null,

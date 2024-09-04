@@ -24,9 +24,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import static net.frozenblock.wilderwild.WilderConstants.text;
-import static net.frozenblock.wilderwild.WilderConstants.tooltip;
-import net.frozenblock.wilderwild.config.WorldgenConfig;
+import static net.frozenblock.wilderwild.WWConstants.text;
+import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -36,12 +36,12 @@ public final class WorldgenConfigGui {
 	}
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
-		var config = WorldgenConfig.get(true);
-		var modifiedConfig = WorldgenConfig.getWithSync();
-		Class<? extends WorldgenConfig> clazz = config.getClass();
-		Config<? extends WorldgenConfig> configInstance = WorldgenConfig.INSTANCE;
+		var config = WWWorldgenConfig.get(true);
+		var modifiedConfig = WWWorldgenConfig.getWithSync();
+		Class<? extends WWWorldgenConfig> clazz = config.getClass();
+		Config<? extends WWWorldgenConfig> configInstance = WWWorldgenConfig.INSTANCE;
 
-		var defaultConfig = WorldgenConfig.INSTANCE.defaultInstance();
+		var defaultConfig = WWWorldgenConfig.INSTANCE.defaultInstance();
 		var biomePlacement = config.biomePlacement;
 		var modifiedBiomePlacement = modifiedConfig.biomePlacement;
 		var biomes = config.biomeGeneration;

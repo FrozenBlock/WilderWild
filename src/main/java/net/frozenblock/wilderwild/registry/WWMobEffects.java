@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
@@ -41,13 +41,13 @@ public final class WWMobEffects {
 			47784
 		).addAttributeModifier(
 			Attributes.BLOCK_INTERACTION_RANGE,
-			WilderConstants.id("block_reach_boost"),
+			WWConstants.id("block_reach_boost"),
 			1.5D,
 			AttributeModifier.Operation.ADD_VALUE
 		).addAttributeModifier(
 			Attributes.ENTITY_INTERACTION_RANGE,
-			WilderConstants.id("entity_reach_boost"),
-			EntityConfig.get().crab.reachAffectsAttack ? 1.5D : 0D,
+			WWConstants.id("entity_reach_boost"),
+			WWEntityConfig.get().crab.reachAffectsAttack ? 1.5D : 0D,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 	);
@@ -68,10 +68,10 @@ public final class WWMobEffects {
 	}
 
 	public static void init() {
-		WilderConstants.logWithModId("Registering MobEffects for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering MobEffects for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 	private static @NotNull Reference<MobEffect> register(String id, MobEffect entry) {
-		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WilderConstants.id(id), entry);
+		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WWConstants.id(id), entry);
 	}
 }

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.frozenblock.wilderwild.tag.WilderGameEventTags;
+import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.GameEventTagsProvider;
 import net.minecraft.tags.GameEventTags;
@@ -35,7 +35,7 @@ public final class WWGameEventTagProvider extends GameEventTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.tag(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT)
+		this.tag(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT)
 			.add(GameEvent.EXPLODE.key())
 			.add(GameEvent.PRIME_FUSE.key())
 			.add(GameEvent.BLOCK_PLACE.key())
@@ -44,8 +44,8 @@ public final class WWGameEventTagProvider extends GameEventTagsProvider {
 			.add(GameEvent.FLUID_PICKUP.key())
 			.add(GameEvent.FLUID_PLACE.key());
 
-		this.tag(WilderGameEventTags.CRAB_CAN_DETECT)
-			.addTag(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT)
+		this.tag(WWGameEventTags.CRAB_CAN_DETECT)
+			.addTag(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT)
 			.addOptionalTag(GameEventTags.VIBRATIONS.location());
 	}
 }

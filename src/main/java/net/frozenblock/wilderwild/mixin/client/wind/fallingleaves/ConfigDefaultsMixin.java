@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -41,8 +41,8 @@ public class ConfigDefaultsMixin {
 	)
 	private static void wilderWild$forceAddCompatBecauseTheyDidnt(ResourceLocation blockId, CallbackInfoReturnable<Boolean> info) {
 		if (
-			blockId.toString().equals(WilderConstants.string("cypress_leaves"))
-			|| blockId.toString().equals(WilderConstants.string("palm_fronds"))
+			blockId.toString().equals(WWConstants.string("cypress_leaves"))
+			|| blockId.toString().equals(WWConstants.string("palm_fronds"))
 		) {
 			info.setReturnValue(true);
 		}
@@ -54,7 +54,7 @@ public class ConfigDefaultsMixin {
 		cancellable = true
 	)
 	private static void wilderWild$forceAddCompatBecauseTheyDidntAgain(ResourceLocation blockId, CallbackInfoReturnable<Double> info) {
-		if (blockId.toString().equals(WilderConstants.string("palm_fronds"))) {
+		if (blockId.toString().equals(WWConstants.string("palm_fronds"))) {
 			info.setReturnValue(0D);
 		}
 	}

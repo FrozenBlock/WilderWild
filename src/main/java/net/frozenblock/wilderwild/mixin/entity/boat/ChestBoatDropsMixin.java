@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.boat;
 
-import net.frozenblock.wilderwild.WilderEnumValues;
+import net.frozenblock.wilderwild.WWEnumValues;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
@@ -35,13 +35,13 @@ public final class ChestBoatDropsMixin {
 	@Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getModdedChestBoats(CallbackInfoReturnable<Item> info) {
 		var boat = ChestBoat.class.cast(this);
-		if (boat.getVariant() == WilderEnumValues.BAOBAB) {
+		if (boat.getVariant() == WWEnumValues.BAOBAB) {
 			info.setReturnValue(WWItems.BAOBAB_CHEST_BOAT);
-		} else if (boat.getVariant() == WilderEnumValues.CYPRESS) {
+		} else if (boat.getVariant() == WWEnumValues.CYPRESS) {
 			info.setReturnValue(WWItems.CYPRESS_CHEST_BOAT);
-		} else if (boat.getVariant() == WilderEnumValues.PALM) {
+		} else if (boat.getVariant() == WWEnumValues.PALM) {
 			info.setReturnValue(WWItems.PALM_CHEST_BOAT);
-		} else if (boat.getVariant() == WilderEnumValues.MAPLE) {
+		} else if (boat.getVariant() == WWEnumValues.MAPLE) {
 			info.setReturnValue(WWItems.MAPLE_CHEST_BOAT);
 		}
 	}

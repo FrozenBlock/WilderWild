@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
@@ -124,7 +124,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 
 	@NotNull
 	public static Material getChestTextureId(@NotNull String variant) {
-		return new Material(Sheets.CHEST_SHEET, WilderConstants.id("entity/stone_chest/" + variant));
+		return new Material(Sheets.CHEST_SHEET, WWConstants.id("entity/stone_chest/" + variant));
 	}
 
 	@Override

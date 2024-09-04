@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.datagen;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.wilderwild.world.impl.WilderFeatureBootstrap;
+import net.frozenblock.wilderwild.worldgen.impl.WWFeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +38,7 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
 		entries.addAll(damageTypes);
 
-		WilderFeatureBootstrap.bootstrap(entries);
+		WWFeatureBootstrap.bootstrap(entries);
 	}
 
 	@Override

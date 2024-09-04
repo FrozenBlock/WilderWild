@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
 import net.minecraft.client.model.geom.ModelPart;
@@ -41,8 +41,8 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
 	private static final float RAD_25 = 25F * Mth.DEG_TO_RAD;
-	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderConstants.id("textures/entity/sculk_sensor/inactive.png"));
-	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderConstants.id("textures/entity/sculk_sensor/active.png"));
+	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WWConstants.id("textures/entity/sculk_sensor/inactive.png"));
+	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WWConstants.id("textures/entity/sculk_sensor/active.png"));
 	private final ModelPart root;
 	private final ModelPart ne;
 	private final ModelPart se;
@@ -71,7 +71,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
-		if (WilderConstants.MC_LIVE_TENDRILS) {
+		if (WWConstants.MC_LIVE_TENDRILS) {
 			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
 			if (tickInterface.wilderWild$isActive()) {
 				int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();

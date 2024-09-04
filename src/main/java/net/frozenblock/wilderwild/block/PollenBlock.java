@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -48,7 +48,7 @@ public class PollenBlock extends FlowerLichenBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (BlockConfig.Client.POLLEN_ENABLED) {
+		if (WWBlockConfig.Client.POLLEN_ENABLED) {
 			int i = pos.getX();
 			int j = pos.getY();
 			int k = pos.getZ();

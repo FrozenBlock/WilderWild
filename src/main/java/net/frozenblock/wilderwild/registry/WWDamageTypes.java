@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -44,6 +44,6 @@ public class WWDamageTypes {
 
 	@NotNull
 	private static ResourceKey<DamageType> bind(@NotNull String path) {
-		return ResourceKey.create(Registries.DAMAGE_TYPE, WilderConstants.id(path));
+		return ResourceKey.create(Registries.DAMAGE_TYPE, WWConstants.id(path));
 	}
 }

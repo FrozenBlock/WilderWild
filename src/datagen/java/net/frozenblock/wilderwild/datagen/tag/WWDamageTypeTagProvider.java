@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.tag.WilderDamageTypeTags;
+import net.frozenblock.wilderwild.tag.WWDamageTypeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
@@ -60,6 +60,6 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 		this.getOrCreateTagBuilder(DamageTypeTags.PANIC_CAUSES)
 			.add(WWDamageTypes.TUMBLEWEED);
 
-		this.getOrCreateTagBuilder(WilderDamageTypeTags.EMPTY);
+		this.getOrCreateTagBuilder(WWDamageTypeTags.EMPTY);
 	}
 }

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
@@ -44,7 +44,7 @@ public final class WWPotions {
 	}
 
 	public static void init() {
-		WilderConstants.logWithModId("Registering Potions for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Potions for", WWConstants.UNSTABLE_LOGGING);
 
 		FabricBrewingRecipeRegistryBuilder.BUILD.register(boringBuilder -> {
 			if (boringBuilder instanceof FabricBrewingRecipeRegistryBuilder builder) {
@@ -58,7 +58,7 @@ public final class WWPotions {
 	}
 
 	private static @NotNull Reference<Potion> register(String key, Potion potion) {
-		return Registry.registerForHolder(BuiltInRegistries.POTION, WilderConstants.id(key), potion);
+		return Registry.registerForHolder(BuiltInRegistries.POTION, WWConstants.id(key), potion);
 	}
 
 	private static @NotNull Reference<Potion> register(ResourceKey<Potion> key, Potion potion) {

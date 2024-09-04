@@ -28,18 +28,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
-import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
+import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -114,7 +114,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
-	public static final @NotNull ResourceLocation JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WilderConstants.id("movement_speed_modifier_baby");
+	public static final @NotNull ResourceLocation JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
 	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderWildRegistries.JELLYFISH_VARIANT.stream()
 		.filter(JellyfishVariant::isNormal)
@@ -174,14 +174,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (MobSpawnType.isSpawner(spawnType)) {
 			return true;
-		} else if (!EntityConfig.get().jellyfish.spawnJellyfish) {
+		} else if (!WWEntityConfig.get().jellyfish.spawnJellyfish) {
 			return false;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (!biome.is(WWBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
-		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
+		if (biome.is(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
 			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) {
 				return true;
 			}
@@ -199,7 +199,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, boolean checkConfig) {
-		if (checkConfig && !EntityConfig.get().jellyfish.spawnJellyfish) {
+		if (checkConfig && !WWEntityConfig.get().jellyfish.spawnJellyfish) {
 			return;
 		}
 		Jellyfish jellyfish = new Jellyfish(WWEntities.JELLYFISH, level);
@@ -252,7 +252,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	private JellyfishVariant setVariant(@NotNull Holder<Biome> biome, RandomSource randomSource) {
 		this.setVariant(JellyfishVariant.PINK);
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
+		if (biome.is(WWBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
 			this.setVariant(PEARLESCENT_VARIANTS.get(randomSource.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
 			this.setVariant(COLORED_VARIANTS.get(randomSource.nextInt(COLORED_VARIANTS.size())));
@@ -469,7 +469,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 							Player playSoundForExcept = null;
 							if (entity instanceof ServerPlayer player) {
 								playSoundForExcept = player;
-								WilderJellyfishStingPacket.sendTo(player, baby);
+								WWJellyfishStingPacket.sendTo(player, baby);
 							}
 							this.level().playSound(playSoundForExcept, entity.getX(), entity.getY(), entity.getZ(), WWSounds.ENTITY_JELLYFISH_STING, this.getSoundSource(), 1F, baby ? STING_PITCH_BABY : STING_PITCH);
 						}
@@ -506,7 +506,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
 			&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
-			&& !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING)
+			&& !livingEntity.getType().is(WWEntityTags.JELLYFISH_CANT_STING)
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 
@@ -529,7 +529,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
-			&& EntityConfig.get().jellyfish.jellyfishHiding
+			&& WWEntityConfig.get().jellyfish.jellyfishHiding
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
 			&& this.random.nextInt(HIDING_CHANCE) == 0;

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.monster.Creeper;
@@ -37,7 +37,7 @@ public final class CreeperMixin {
 		)
 	)
 	public boolean wilderWild$spawnLingeringCloud(boolean original) {
-		if (original && ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
+		if (original && WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			Creeper creeper = Creeper.class.cast(this);
 			if (!creeper.getActiveEffects().isEmpty()) {
 				RandomSource random = creeper.getRandom();

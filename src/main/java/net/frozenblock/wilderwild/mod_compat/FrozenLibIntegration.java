@@ -50,12 +50,12 @@ import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorR
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.config.WorldgenConfig;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -68,8 +68,8 @@ import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWWorldgen;
-import net.frozenblock.wilderwild.wind.CloudWindManager;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.wind.WWWindManager;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -126,11 +126,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderConstants.id("instrument");
-	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderConstants.id("nectar");
-	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderConstants.id("enderman_anger");
-	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderConstants.id("geyser_effective");
-	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderConstants.id("geyser");
+	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
+	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WWConstants.id("nectar");
+	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WWConstants.id("enderman_anger");
+	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
+	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -152,8 +152,8 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void initPreFreeze() {
-		WilderConstants.log("FrozenLib pre-freeze mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WilderConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		WWConstants.log("FrozenLib pre-freeze mod integration ran!", WWConstants.UNSTABLE_LOGGING);
+		SpottingIconPredicate.register(WWConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
@@ -247,12 +247,12 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		WilderConstants.log("FrozenLib mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
 		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(
 			level.damageSources().cactus(),
 			WWSounds.PLAYER_HURT_CACTUS,
-			WilderConstants.id("cactus")
+			WWConstants.id("cactus")
 			)
 		);
 
@@ -279,13 +279,13 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		WindManager.addExtension(CloudWindManager::new);
+		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
-		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
-		addBlock(CLAY, WWSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
-		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
-		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);
+		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> WWBlockConfig.get().blockSounds.cactusSounds);
+		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
+		addBlock(COARSE_DIRT, COARSEDIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
+		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
 		addBlocks(new Block[]{DANDELION,
 			POPPY,
 			BLUE_ORCHID,
@@ -310,10 +310,10 @@ public class FrozenLibIntegration extends ModIntegration {
 			LILAC,
 			TORCHFLOWER,
 			PINK_PETALS
-		}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
-		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> BlockConfig.get().blockSounds.iceSounds);
-		addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> BlockConfig.get().blockSounds.frostedIceSounds);
-		addBlock(GRAVEL, WWSoundTypes.GRAVEL, () -> BlockConfig.get().blockSounds.gravelSounds);
+		}, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
+		addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
+		addBlock(GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
 		addBlocks(new Block[]{
 			ACACIA_SAPLING,
 			BIRCH_SAPLING,
@@ -325,7 +325,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			CYPRESS_SAPLING,
 			MAPLE_SAPLING,
 			BUSH
-		}, SAPLING, () -> BlockConfig.get().blockSounds.saplingSounds);
+		}, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
 		addBlocks(new Block[]{
 			ACACIA_LEAVES,
 			BIRCH_LEAVES,
@@ -338,19 +338,19 @@ public class FrozenLibIntegration extends ModIntegration {
 			CYPRESS_LEAVES,
 			PALM_FRONDS,
 			MAPLE_LEAVES
-		}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
+		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{
 			MAPLE_LEAF_LITTER
-		}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
-		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> BlockConfig.get().blockSounds.lilyPadSounds);
-		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> BlockConfig.get().blockSounds.podzolSounds);
-		addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, () -> BlockConfig.get().blockSounds.reinforcedDeepslateSounds);
-		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, WWSoundTypes.SANDSTONE, () -> BlockConfig.get().blockSounds.sandstoneSounds);
-		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
-		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
-		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
+		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
+		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
+		addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
+		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
+		addBlock(SUGAR_CANE, SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
+		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
+		addBlock(MAGMA_BLOCK, MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
 
 		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWWorldgen.RAINFOREST, WolfVariants.WOODS);
@@ -367,7 +367,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntities.STONE_CHEST);
 
-		if (WorldgenConfig.get().decayTrailRuins) {
+		if (WWWorldgenConfig.get().decayTrailRuins) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.TRAIL_RUINS.location(),
 				new RuleProcessor(
@@ -389,7 +389,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (WorldgenConfig.get().newDesertVillages) {
+		if (WWWorldgenConfig.get().newDesertVillages) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.VILLAGE_DESERT.location(),
 				new BlockStateRespectingRuleProcessor(
@@ -420,17 +420,17 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
+		if (WWEntityConfig.get().scorched.scorchedInTrialChambers) {
 			RandomPoolAliasApi.addTarget(
-				WilderConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
-				WilderConstants.id("trial_chambers/spawner/small_melee/scorched"),
+				WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
+				WWConstants.id("trial_chambers/spawner/small_melee/scorched"),
 				1
 			);
 		}
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
-			if (AmbienceAndMiscConfig.get().modifyAdvancements) {
+			if (WWAmbienceAndMiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/adventuring_time" -> {
 						addBiomeRequirement(advancement, WWWorldgen.CYPRESS_WETLANDS, registries);
@@ -598,7 +598,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WorldgenConfig.get().addStoneChests) {
+		if (WWWorldgenConfig.get().addStoneChests) {
 			StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
 				new RuleProcessor(
 					List.of(
@@ -661,6 +661,6 @@ public class FrozenLibIntegration extends ModIntegration {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void clientInit() {
-		ClientWindManager.addExtension(WilderClientWindManager::new);
+		ClientWindManager.addExtension(WWClientWindManager::new);
 	}
 }

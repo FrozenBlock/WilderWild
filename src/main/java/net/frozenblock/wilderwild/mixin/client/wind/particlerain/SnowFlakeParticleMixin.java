@@ -24,8 +24,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.world.phys.Vec3;
@@ -57,7 +57,7 @@ public abstract class SnowFlakeParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	public float wilderWild$windXInit(float original, ClientLevel level) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return (float) (ClientWindManager.windX * level.random.nextDouble() / ParticleRainClient.config.snowWindDampening);
 		}
 		return original;
@@ -73,7 +73,7 @@ public abstract class SnowFlakeParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	public float wilderWild$windZInit(float original, ClientLevel level) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return (float) (ClientWindManager.windZ * level.random.nextDouble() / ParticleRainClient.config.snowWindDampening);
 		}
 		return original;
@@ -89,7 +89,7 @@ public abstract class SnowFlakeParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	public double wilderWild$windX(double value, double min, double max, Operation<Double> original) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			min = -100D;
 		}
 		return original.call(value, min, max);
@@ -105,7 +105,7 @@ public abstract class SnowFlakeParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	public double wilderWild$windZ(double value, double min, double max, Operation<Double> original) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			min = -100D;
 		}
 		return original.call(value, min, max);
@@ -114,7 +114,7 @@ public abstract class SnowFlakeParticleMixin extends WeatherParticle {
 	@Inject(method = "tick", at = @At("HEAD"), require = 0)
 	public void wilderWild$tick(CallbackInfo info) {
 		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-			.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
+			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 		this.xd += wind.x * 0.05D;
 		this.yd += wind.y * 0.005D;
 		this.zd += wind.z * 0.05D;

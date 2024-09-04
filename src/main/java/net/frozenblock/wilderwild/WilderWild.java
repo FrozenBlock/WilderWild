@@ -30,15 +30,15 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.mod_compat.WilderModIntegrations;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -61,19 +61,19 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWVillagerTypes;
 import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.world.modification.WilderWorldGen;
+import net.frozenblock.wilderwild.worldgen.modification.WilderWorldGen;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
 	public WilderWild() {
-		super(WilderConstants.MOD_ID);
+		super(WWConstants.MOD_ID);
 	}
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
-		if (WilderPreLoadConstants.IS_DATAGEN) {
-			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
+		if (WWPreLoadConstants.IS_DATAGEN) {
+			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
 
 		WWMinecraftDataFixer.applyDataFixes(container);
@@ -121,19 +121,19 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 
-		WilderModIntegrations.init();
+		WWModIntegrations.init();
 		// TODO replace this with a config option at some point
 		ConfigRegistry.register(FrozenLibConfig.INSTANCE, new ConfigModification<>(config -> config.saveItemCooldowns = true));
 
 		WWBlocks.registerBlockProperties();
-		WilderNetworking.init();
+		WWNetworking.init();
 	}
 
 	@Override
 	public void newCategories(@NotNull ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), EntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), EntityConfig.get().jellyfish.jellyfishSpawnCap, true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), EntityConfig.get().crab.crabSpawnCap, true, false, 84));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), EntityConfig.get().tumbleweed.tumbleweedSpawnCap, true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), WWEntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WWEntityConfig.get().jellyfish.jellyfishSpawnCap, true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), WWEntityConfig.get().crab.crabSpawnCap, true, false, 84));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WWEntityConfig.get().tumbleweed.tumbleweedSpawnCap, true, false, 64));
 	}
 }

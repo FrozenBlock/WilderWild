@@ -24,7 +24,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
@@ -64,13 +64,13 @@ public class LevelRendererMixin {
 		LevelRenderer instance, PoseStack matrices, Matrix4f projectionMatrix, Matrix4f matrix4f, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		Operation<Void> operation
 	) {
-		boolean useWind = WilderClientWindManager.shouldUseWind();
+		boolean useWind = WWClientWindManager.shouldUseWind();
 
-		cameraX = useWind ? (cameraX - WilderClientWindManager.getCloudX(tickDelta) * 12D) - (double)(((float)this.ticks + tickDelta) * 0.03F)
+		cameraX = useWind ? (cameraX - WWClientWindManager.getCloudX(tickDelta) * 12D) - (double)(((float)this.ticks + tickDelta) * 0.03F)
 			: cameraX;
-		cameraY = useWind ? (float) (cameraY - Mth.clamp(WilderClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D))
+		cameraY = useWind ? (float) (cameraY - Mth.clamp(WWClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D))
 			: cameraY;
-		cameraZ = useWind ? cameraZ - WilderClientWindManager.getCloudZ(tickDelta) * 12D
+		cameraZ = useWind ? cameraZ - WWClientWindManager.getCloudZ(tickDelta) * 12D
 			: cameraZ;
 
 		operation.call(instance, matrices, projectionMatrix, matrix4f, tickDelta, cameraX, cameraY, cameraZ);

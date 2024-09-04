@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block.impl;
 
 import java.util.Collection;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -84,11 +84,11 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
 	@Nullable
 	private BlockState switchBlockStates(@NotNull BlockState blockState) {
-		if (blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+		if (blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
 			return WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
-		} else if (blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
+		} else if (blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
 			return WWBlocks.SCULK_WALL.withPropertiesOf(blockState);
-		} else if (blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
+		} else if (blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
 			return WWBlocks.SCULK_SLAB.withPropertiesOf(blockState);
 		}
 		return null;

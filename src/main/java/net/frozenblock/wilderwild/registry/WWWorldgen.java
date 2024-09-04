@@ -18,35 +18,35 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.world.biome.AridForest;
-import net.frozenblock.wilderwild.world.biome.AridSavanna;
-import net.frozenblock.wilderwild.world.biome.BirchJungle;
-import net.frozenblock.wilderwild.world.biome.BirchTaiga;
-import net.frozenblock.wilderwild.world.biome.CypressWetlands;
-import net.frozenblock.wilderwild.world.biome.DarkBirchForest;
-import net.frozenblock.wilderwild.world.biome.DarkTaiga;
-import net.frozenblock.wilderwild.world.biome.DyingForest;
-import net.frozenblock.wilderwild.world.biome.DyingMixedForest;
-import net.frozenblock.wilderwild.world.biome.FlowerField;
-import net.frozenblock.wilderwild.world.biome.FrozenCaves;
-import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
-import net.frozenblock.wilderwild.world.biome.MagmaticCaves;
-import net.frozenblock.wilderwild.world.biome.MapleGrove;
-import net.frozenblock.wilderwild.world.biome.MixedForest;
-import net.frozenblock.wilderwild.world.biome.Oasis;
-import net.frozenblock.wilderwild.world.biome.OldGrowthBirchTaiga;
-import net.frozenblock.wilderwild.world.biome.OldGrowthDarkForest;
-import net.frozenblock.wilderwild.world.biome.ParchedForest;
-import net.frozenblock.wilderwild.world.biome.Rainforest;
-import net.frozenblock.wilderwild.world.biome.SemiBirchForest;
-import net.frozenblock.wilderwild.world.biome.SnowyDyingForest;
-import net.frozenblock.wilderwild.world.biome.SnowyDyingMixedForest;
-import net.frozenblock.wilderwild.world.biome.SnowyOldGrowthPineTaiga;
-import net.frozenblock.wilderwild.world.biome.SparseBirchJungle;
-import net.frozenblock.wilderwild.world.biome.TemperateRainforest;
-import net.frozenblock.wilderwild.world.biome.WarmBeach;
-import net.frozenblock.wilderwild.world.biome.WarmRiver;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.worldgen.biome.AridForest;
+import net.frozenblock.wilderwild.worldgen.biome.AridSavanna;
+import net.frozenblock.wilderwild.worldgen.biome.BirchJungle;
+import net.frozenblock.wilderwild.worldgen.biome.BirchTaiga;
+import net.frozenblock.wilderwild.worldgen.biome.CypressWetlands;
+import net.frozenblock.wilderwild.worldgen.biome.DarkBirchForest;
+import net.frozenblock.wilderwild.worldgen.biome.DarkTaiga;
+import net.frozenblock.wilderwild.worldgen.biome.DyingForest;
+import net.frozenblock.wilderwild.worldgen.biome.DyingMixedForest;
+import net.frozenblock.wilderwild.worldgen.biome.FlowerField;
+import net.frozenblock.wilderwild.worldgen.biome.FrozenCaves;
+import net.frozenblock.wilderwild.worldgen.biome.JellyfishCaves;
+import net.frozenblock.wilderwild.worldgen.biome.MagmaticCaves;
+import net.frozenblock.wilderwild.worldgen.biome.MapleGrove;
+import net.frozenblock.wilderwild.worldgen.biome.MixedForest;
+import net.frozenblock.wilderwild.worldgen.biome.Oasis;
+import net.frozenblock.wilderwild.worldgen.biome.OldGrowthBirchTaiga;
+import net.frozenblock.wilderwild.worldgen.biome.OldGrowthDarkForest;
+import net.frozenblock.wilderwild.worldgen.biome.ParchedForest;
+import net.frozenblock.wilderwild.worldgen.biome.Rainforest;
+import net.frozenblock.wilderwild.worldgen.biome.SemiBirchForest;
+import net.frozenblock.wilderwild.worldgen.biome.SnowyDyingForest;
+import net.frozenblock.wilderwild.worldgen.biome.SnowyDyingMixedForest;
+import net.frozenblock.wilderwild.worldgen.biome.SnowyOldGrowthPineTaiga;
+import net.frozenblock.wilderwild.worldgen.biome.SparseBirchJungle;
+import net.frozenblock.wilderwild.worldgen.biome.TemperateRainforest;
+import net.frozenblock.wilderwild.worldgen.biome.WarmBeach;
+import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
@@ -99,7 +99,7 @@ public final class WWWorldgen {
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Biome> context) {
-		WilderConstants.logWithModId("Registering Biomes for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
@@ -139,7 +139,7 @@ public final class WWWorldgen {
 	}
 
 	private static void register(@NotNull BootstrapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
-		WilderConstants.log("Registering biome " + key.location(), true);
+		WWConstants.log("Registering biome " + key.location(), true);
 		entries.register(key, biome);
 	}
 }

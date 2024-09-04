@@ -27,7 +27,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.render.animation.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
@@ -86,7 +86,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		T warden, float animationProgress, float tickDelta, CallbackInfo info,
 		@Local(ordinal = 2) float cos
 	) {
-		if (EntityConfig.Client.WARDEN_CUSTOM_TENDRIL_ANIMATION) {
+		if (WWEntityConfig.Client.WARDEN_CUSTOM_TENDRIL_ANIMATION) {
 			this.leftTendril.xRot = cos;
 			this.rightTendril.xRot = cos;
 
@@ -110,7 +110,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newDigAnim(AnimationDefinition original) {
-		if (EntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) {
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) {
 			return CustomWardenAnimations.WARDEN_DIG;
 		}
 		return original;
@@ -126,7 +126,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition original) {
-		if (EntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) {
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) {
 			return CustomWardenAnimations.WARDEN_EMERGE;
 		}
 		return original;
@@ -142,7 +142,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		require = 0
 	)
 	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition original) {
-		if (EntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) {
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) {
 			return CustomWardenAnimations.WARDEN_SNIFF;
 		}
 		return original;
@@ -163,7 +163,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		@Share("wilderWild$swimAmount") LocalFloatRef wilderWild$swimAmount,
 		@Share("wilderWild$wadeAmount") LocalFloatRef wilderWild$wadeAmount
 	) {
-		if (EntityConfig.WARDEN_SWIMS && EntityConfig.Client.WARDEN_SWIM_ANIMATION && warden instanceof SwimmingWardenInterface swimmingWardenInterface) {
+		if (WWEntityConfig.WARDEN_SWIMS && WWEntityConfig.Client.WARDEN_SWIM_ANIMATION && warden instanceof SwimmingWardenInterface swimmingWardenInterface) {
 			float tickDelta = animationProgress - warden.tickCount;
 			float swimAmount = warden.getSwimAmount(tickDelta);
 			float wadeProgress = swimmingWardenInterface.wilderWild$getWadingProgress(tickDelta);

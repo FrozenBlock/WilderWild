@@ -23,8 +23,8 @@ import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.world.phys.Vec3;
@@ -53,9 +53,9 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		double constant,
 		@Share("wilderWild$windZ")LocalDoubleRef windZ
 	) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-				.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
+				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 			windZ.set(wind.z);
 			return this.xd + (wind.x * 0.005D);
 		}
@@ -68,7 +68,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	private double wilderWild$modifyXInit(double constant) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return ClientWindManager.windX * constant * constant;
 		}
 		return constant;
@@ -83,7 +83,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		double constant,
 		@Share("wilderWild$windZ")LocalDoubleRef windZ
 	) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return this.zd + (windZ.get() * 0.005D);
 		}
 		return constant;
@@ -95,7 +95,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	private double wilderWild$modifyZInit(double constant) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return ClientWindManager.windZ * constant * constant;
 		}
 		return constant;

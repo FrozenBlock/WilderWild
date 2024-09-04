@@ -22,7 +22,7 @@ import com.google.common.collect.Iterables;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Set;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.world.impl.sapling.TreeFeatureLeavesUpdate;
+import net.frozenblock.wilderwild.worldgen.impl.sapling.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;

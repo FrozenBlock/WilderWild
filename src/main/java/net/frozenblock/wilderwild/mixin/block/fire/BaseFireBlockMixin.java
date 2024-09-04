@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.fire;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -39,7 +39,7 @@ public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.Client.SOUL_FIRE_SOUNDS && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
+		if (WWBlockConfig.Client.SOUL_FIRE_SOUNDS && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
@@ -66,7 +66,7 @@ public class BaseFireBlockMixin {
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Local(ordinal = 1) BlockState blockState2
 	) {
-		if (BlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
+		if (WWBlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
 			if (random.nextFloat() <= 0.0075F) {
 				level.addParticle(
 					ParticleTypes.LAVA,

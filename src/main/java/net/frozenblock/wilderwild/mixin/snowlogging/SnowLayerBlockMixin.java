@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -57,7 +57,7 @@ public abstract class SnowLayerBlockMixin {
 		BlockPlaceContext context, CallbackInfoReturnable<BlockState> info,
 		@Local BlockState blockState
 	) {
-		if (!BlockConfig.canSnowlog()) return;
+		if (!WWBlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 			int layers = SnowloggingUtils.getSnowLayers(blockState);
 			if (layers < 8) {
@@ -73,7 +73,7 @@ public abstract class SnowLayerBlockMixin {
 		cancellable = true
 	)
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
-		if (!BlockConfig.canSnowlog()) return;
+		if (!WWBlockConfig.canSnowlog()) return;
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
 			if (SnowloggingUtils.isSnowlogged(placementState)) {
@@ -102,7 +102,7 @@ public abstract class SnowLayerBlockMixin {
 		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
 		@Local(ordinal = 1) BlockState supportState
 	) {
-		if (!BlockConfig.canSnowlog()) return;
+		if (!WWBlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.isSnowlogged(supportState)) {
 			int layers = SnowloggingUtils.getSnowLayers(supportState);
 			if (layers == 8) {

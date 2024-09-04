@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -346,7 +346,7 @@ public final class WWSounds {
 
 	@NotNull
 	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull String string) {
-		return registerForHolder(WilderConstants.id(string));
+		return registerForHolder(WWConstants.id(string));
 	}
 
 	@NotNull
@@ -356,7 +356,7 @@ public final class WWSounds {
 
 	@NotNull
 	public static SoundEvent register(@NotNull String path) {
-		var id = WilderConstants.id(path);
+		var id = WWConstants.id(path);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, new SoundEvent(id, 16.0F, false));
 	}
 
@@ -366,7 +366,7 @@ public final class WWSounds {
 	}
 
 	public static void init() {
-		WilderConstants.logWithModId("Registering SoundEvents for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering SoundEvents for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 }

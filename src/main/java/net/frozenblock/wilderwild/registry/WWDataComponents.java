@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -38,6 +38,6 @@ public class WWDataComponents {
 	public static void init() {}
 
 	private static <T> @NotNull DataComponentType<T> register(String id, @NotNull UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
-		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, WilderConstants.id(id), unaryOperator.apply(DataComponentType.builder()).build());
+		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, WWConstants.id(id), unaryOperator.apply(DataComponentType.builder()).build());
 	}
 }

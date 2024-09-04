@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.block.mesoglea;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.entity.impl.InMesogleaInterface;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
@@ -52,7 +52,7 @@ public interface BlockGetterMixin {
 				BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
 				if (eyeState != null) {
 					inMesogleaInterface.wilderWild$setClipInMesoglea(
-						eyeState.is(WilderBlockTags.MESOGLEA)
+						eyeState.is(WWBlockTags.MESOGLEA)
 						&& !eyeState.getFluidState().isEmpty()
 					);
 				}
@@ -75,7 +75,7 @@ public interface BlockGetterMixin {
 			if (
 				entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
 					&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
-					&& state.is(WilderBlockTags.MESOGLEA)
+					&& state.is(WWBlockTags.MESOGLEA)
 					&& !state.getFluidState().isEmpty()
 			) {
 				shape = Shapes.empty();

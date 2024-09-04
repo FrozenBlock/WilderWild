@@ -19,34 +19,34 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.world.impl.features.AlgaeFeature;
-import net.frozenblock.wilderwild.world.impl.features.CattailFeature;
-import net.frozenblock.wilderwild.world.impl.features.LargeMesogleaFeature;
-import net.frozenblock.wilderwild.world.impl.features.NematocystFeature;
-import net.frozenblock.wilderwild.world.impl.features.PalmTreeFeature;
-import net.frozenblock.wilderwild.world.impl.features.ShelfFungusFeature;
-import net.frozenblock.wilderwild.world.impl.features.SnowAndFreezeDiskFeature;
-import net.frozenblock.wilderwild.world.impl.features.SnowBlanketFeature;
-import net.frozenblock.wilderwild.world.impl.features.SpongeBudFeature;
-import net.frozenblock.wilderwild.world.impl.features.config.AlgaeFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.CattailFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.LargeMesogleaConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.SnowAndIceDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.features.config.SpongeBudFeatureConfig;
-import net.frozenblock.wilderwild.world.impl.foliage.MapleFoliagePlacer;
-import net.frozenblock.wilderwild.world.impl.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.world.impl.foliage.ShortPalmFoliagePlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.BaobabTrunkPlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.FallenLargeTrunk;
-import net.frozenblock.wilderwild.world.impl.trunk.FallenTrunkWithLogs;
-import net.frozenblock.wilderwild.world.impl.trunk.FancyDarkOakTrunkPlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.JuniperTrunkPlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.LargeSnappedTrunkPlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.PalmTrunkPlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.SnappedTrunkPlacer;
-import net.frozenblock.wilderwild.world.impl.trunk.StraightTrunkWithBranches;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.worldgen.impl.features.AlgaeFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.CattailFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.LargeMesogleaFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.NematocystFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.PalmTreeFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.ShelfFungusFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.SnowAndFreezeDiskFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.SnowBlanketFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.SpongeBudFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.AlgaeFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.LargeMesogleaConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.SnowAndIceDiskFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.ShortPalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunk;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenTrunkWithLogs;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightTrunkWithBranches;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -89,16 +89,16 @@ public class WWFeatures {
 
 	@NotNull
 	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(@NotNull String id, @NotNull MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderConstants.id(id), new TrunkPlacerType<>(codec));
+		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WWConstants.id(id), new TrunkPlacerType<>(codec));
 	}
 
 	@NotNull
 	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(@NotNull String id, @NotNull MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderConstants.id(id), new FoliagePlacerType<>(codec));
+		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WWConstants.id(id), new FoliagePlacerType<>(codec));
 	}
 
 	@NotNull
 	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(@NotNull String id, @NotNull T feature) {
-		return Registry.register(BuiltInRegistries.FEATURE, WilderConstants.id(id), feature);
+		return Registry.register(BuiltInRegistries.FEATURE, WWConstants.id(id), feature);
 	}
 }

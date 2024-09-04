@@ -22,8 +22,8 @@ import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -83,10 +83,10 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		SoundEvent hitSound = WWSounds.ITEM_COCONUT_LAND;
 		Entity entity = result.getEntity();
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
-		if (this.getY() > entity.getEyeY() && !entity.getType().is(WilderEntityTags.COCONUT_CANT_BONK)) {
+		if (this.getY() > entity.getEyeY() && !entity.getType().is(WWEntityTags.COCONUT_CANT_BONK)) {
 			hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
 		}
-		if (!entity.getType().is(WilderEntityTags.COCONUT_CANT_SPLIT) && entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextFloat() < ENTITY_SPLIT_CHANCE) {
+		if (!entity.getType().is(WWEntityTags.COCONUT_CANT_SPLIT) && entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextFloat() < ENTITY_SPLIT_CHANCE) {
 			this.splitAndDiscard();
 		} else {
 			this.level().playSound(null, this.getX(), this.getY(), this.getZ(), hitSound, this.getSoundSource(), 1F, 0.9F + (this.random.nextFloat() * 0.2F));
@@ -96,7 +96,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		if (this.level().getBlockState(result.getBlockPos()).is(WilderBlockTags.SPLITS_COCONUT)) {
+		if (this.level().getBlockState(result.getBlockPos()).is(WWBlockTags.SPLITS_COCONUT)) {
 			this.splitAndDiscard();
 			return;
 		}

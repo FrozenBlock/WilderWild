@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.render.layer.ScorchedGlowingLayer;
@@ -32,7 +32,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class ScorchedRenderer<T extends Scorched> extends MobRenderer<T, SpiderModel<T>> {
-	private static final ResourceLocation SCORCHED_LOCATION = WilderConstants.id("textures/entity/scorched/scorched.png");
+	private static final ResourceLocation SCORCHED_LOCATION = WWConstants.id("textures/entity/scorched/scorched.png");
 	private static final float SCALE = 0.9F;
 
 	public ScorchedRenderer(EntityRendererProvider.Context context) {

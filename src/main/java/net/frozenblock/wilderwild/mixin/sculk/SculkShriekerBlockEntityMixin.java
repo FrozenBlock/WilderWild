@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.wilderwild.block.entity.impl.SculkShriekerTickInterface;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
@@ -73,7 +73,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		if (shrieker.getBlockState().getValue(WWBlockStateProperties.SOULS_TAKEN) == 2) {
 			info.cancel();
 		} else {
-			if (BlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+			if (WWBlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
 				this.wilderWild$bubbles = 50;
 			}
 		}

@@ -22,10 +22,10 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -75,15 +75,15 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
 			.add(WWItems.ANCIENT_HORN);
 
-		this.getOrCreateTagBuilder(WilderItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
+		this.getOrCreateTagBuilder(WWItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
 			.add(Items.BROWN_MUSHROOM)
-			.addOptional(WilderConstants.id("brown_shelf_fungus"));
+			.addOptional(WWConstants.id("brown_shelf_fungus"));
 
-		this.getOrCreateTagBuilder(WilderItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
+		this.getOrCreateTagBuilder(WWItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
 			.add(Items.RED_MUSHROOM)
-			.addOptional(WilderConstants.id("red_shelf_fungus"));
+			.addOptional(WWConstants.id("red_shelf_fungus"));
 
-		this.getOrCreateTagBuilder(WilderItemTags.MESOGLEA)
+		this.getOrCreateTagBuilder(WWItemTags.MESOGLEA)
 			.add(WWBlocks.BLUE_MESOGLEA.asItem())
 			.add(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.asItem())
 			.add(WWBlocks.LIME_MESOGLEA.asItem())
@@ -92,7 +92,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.RED_MESOGLEA.asItem())
 			.add(WWBlocks.YELLOW_MESOGLEA.asItem());
 
-		this.getOrCreateTagBuilder(WilderItemTags.NEMATOCYSTS)
+		this.getOrCreateTagBuilder(WWItemTags.NEMATOCYSTS)
 			.add(WWBlocks.BLUE_NEMATOCYST.asItem())
 			.add(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST.asItem())
 			.add(WWBlocks.LIME_NEMATOCYST.asItem())
@@ -101,18 +101,18 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.RED_NEMATOCYST.asItem())
 			.add(WWBlocks.YELLOW_NEMATOCYST.asItem());
 
-		this.getOrCreateTagBuilder(WilderItemTags.JELLYFISH_FOOD)
+		this.getOrCreateTagBuilder(WWItemTags.JELLYFISH_FOOD)
 			.add(Items.COD)
 			.add(Items.SALMON);
 
-		this.getOrCreateTagBuilder(WilderItemTags.PEARLESCENT_JELLYFISH_FOOD)
+		this.getOrCreateTagBuilder(WWItemTags.PEARLESCENT_JELLYFISH_FOOD)
 			.add(Items.COD)
 			.add(Items.SALMON);
 
-		this.getOrCreateTagBuilder(WilderItemTags.CRAB_FOOD)
+		this.getOrCreateTagBuilder(WWItemTags.CRAB_FOOD)
 			.add(Items.KELP);
 
-		this.getOrCreateTagBuilder(WilderItemTags.OSTRICH_FOOD)
+		this.getOrCreateTagBuilder(WWItemTags.OSTRICH_FOOD)
 			.add(WWBlocks.BUSH.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))

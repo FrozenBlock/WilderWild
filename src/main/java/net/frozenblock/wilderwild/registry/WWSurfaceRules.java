@@ -21,11 +21,11 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.impl.conditionsource.BetaBeachConditionSource;
-import net.frozenblock.wilderwild.world.impl.conditionsource.SnowUnderMountainConditionSource;
-import net.frozenblock.wilderwild.world.impl.noise.WilderNoise;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditionSource;
+import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SnowUnderMountainConditionSource;
+import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
@@ -355,7 +355,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.GRAVEL_BEACH),
+			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.GRAVEL_BEACH),
 			SurfaceRules.ifTrue(
 				SurfaceRules.UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -363,7 +363,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition(WWNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
 							fallingBlockAndSafeBlockRules(Blocks.GRAVEL, Blocks.STONE)
 						)
 					)
@@ -375,7 +375,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.SAND_BEACHES),
+			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.SAND_BEACHES),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -383,7 +383,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
 							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
@@ -395,7 +395,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
+			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.MULTI_LAYER_SAND_BEACHES),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -403,7 +403,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
 							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
@@ -443,7 +443,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				mapleGroveRules()
 			)
 		);
-		WilderConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+		WWConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
 	@NotNull
@@ -467,7 +467,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		return SurfaceRules.ifTrue(
 			SnowUnderMountainConditionSource.snowUnderMountainConditionSource(),
 			SurfaceRules.ifTrue(
-				FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.BELOW_SURFACE_SNOW),
+				FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BELOW_SURFACE_SNOW),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
@@ -489,6 +489,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				snowUnderMountains()
 			)
 		);
-		WilderConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
+		WWConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}
 }

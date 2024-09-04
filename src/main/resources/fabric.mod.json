@@ -37,9 +37,6 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
-    "fabric-gametest": [
-      "net.frozenblock.wilderwild.gametest.WWGameTest"
-    ],
     "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.WWSurfaceRules"
     ],
@@ -47,7 +44,7 @@
       "net.frozenblock.wilderwild.WilderWild"
     ],
     "modmenu": [
-      "net.frozenblock.wilderwild.config.gui.ModMenuIntegration"
+      "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"
     ],
     "terrablender": [
       "net.frozenblock.wilderwild.mod_compat.terrablender.BlenderInitializer"

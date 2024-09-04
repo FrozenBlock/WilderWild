@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
@@ -33,8 +33,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, EntityModel<T>> {
-	private static final ResourceLocation OSTRICH_LOCATION = WilderConstants.id("textures/entity/ostrich/ostrich.png");
-	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WilderConstants.id("textures/entity/ostrich/ostrich_saddle.png");
+	private static final ResourceLocation OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	private boolean isInbred = false;
 	private final EntityModel<T> normalModel = this.getModel();

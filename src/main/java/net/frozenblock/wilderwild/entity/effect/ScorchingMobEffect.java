@@ -22,7 +22,7 @@ import com.google.common.collect.Sets;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.function.ToIntFunction;
-import net.frozenblock.wilderwild.networking.packet.WilderScorchingFirePlacePacket;
+import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -108,7 +108,7 @@ public class ScorchingMobEffect extends MobEffect {
 				}
 				if (fireState.canSurvive(level, blockPos)) {
 					level.setBlock(blockPos, fireState, Block.UPDATE_ALL);
-					WilderScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
+					WWScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
 				}
 			}
 		}

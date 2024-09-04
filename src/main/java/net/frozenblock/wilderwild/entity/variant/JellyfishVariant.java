@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.entity.variant;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -31,14 +31,14 @@ public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceL
 
 
 
-	public static final JellyfishVariant BLUE = register(WilderConstants.id("blue"), WilderConstants.id("textures/entity/jellyfish/blue.png"), false, WilderItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant LIME = register(WilderConstants.id("lime"), WilderConstants.id("textures/entity/jellyfish/lime.png"), false, WilderItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant PINK = register(WilderConstants.id("pink"), WilderConstants.id("textures/entity/jellyfish/pink.png"), false, WilderItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant RED = register(WilderConstants.id("red"), WilderConstants.id("textures/entity/jellyfish/red.png"), false, WilderItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant YELLOW = register(WilderConstants.id("yellow"), WilderConstants.id("textures/entity/jellyfish/yellow.png"), false, WilderItemTags.JELLYFISH_FOOD);
+	public static final JellyfishVariant BLUE = register(WWConstants.id("blue"), WWConstants.id("textures/entity/jellyfish/blue.png"), false, WWItemTags.JELLYFISH_FOOD);
+	public static final JellyfishVariant LIME = register(WWConstants.id("lime"), WWConstants.id("textures/entity/jellyfish/lime.png"), false, WWItemTags.JELLYFISH_FOOD);
+	public static final JellyfishVariant PINK = register(WWConstants.id("pink"), WWConstants.id("textures/entity/jellyfish/pink.png"), false, WWItemTags.JELLYFISH_FOOD);
+	public static final JellyfishVariant RED = register(WWConstants.id("red"), WWConstants.id("textures/entity/jellyfish/red.png"), false, WWItemTags.JELLYFISH_FOOD);
+	public static final JellyfishVariant YELLOW = register(WWConstants.id("yellow"), WWConstants.id("textures/entity/jellyfish/yellow.png"), false, WWItemTags.JELLYFISH_FOOD);
 
-	public static final JellyfishVariant PEARLESCENT_BLUE = register(WilderConstants.id("pearlescent_blue"), WilderConstants.id("textures/entity/jellyfish/pearlescent_blue.png"), true, WilderItemTags.PEARLESCENT_JELLYFISH_FOOD);
-	public static final JellyfishVariant PEARLESCENT_PURPLE = register(WilderConstants.id("pearlescent_purple"), WilderConstants.id("textures/entity/jellyfish/pearlescent_purple.png"), true, WilderItemTags.PEARLESCENT_JELLYFISH_FOOD);
+	public static final JellyfishVariant PEARLESCENT_BLUE = register(WWConstants.id("pearlescent_blue"), WWConstants.id("textures/entity/jellyfish/pearlescent_blue.png"), true, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
+	public static final JellyfishVariant PEARLESCENT_PURPLE = register(WWConstants.id("pearlescent_purple"), WWConstants.id("textures/entity/jellyfish/pearlescent_purple.png"), true, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
 
 	public JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, TagKey<Item> reproductionFood) {
 		this.key = key;

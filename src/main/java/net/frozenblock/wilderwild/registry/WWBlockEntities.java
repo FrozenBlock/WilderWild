@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.datafixers.types.Type;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
@@ -40,13 +40,13 @@ public final class WWBlockEntities {
 	}
 
 	public static void register() {
-		WilderConstants.logWithModId("Registering BlockEntities for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering BlockEntities for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 	@NotNull
 	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.@NotNull Builder<T> builder) {
-		Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, WilderConstants.string(path));
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderConstants.id(path), builder.build(type));
+		Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, WWConstants.string(path));
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WWConstants.id(path), builder.build(type));
 	}
 
 	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", BlockEntityType.Builder.of(HangingTendrilBlockEntity::new, WWBlocks.HANGING_TENDRIL));

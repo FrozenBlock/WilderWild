@@ -18,12 +18,12 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
 public final class WWCriteria {
-	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(WilderConstants.string("firefly_bottle"), new FireflyBottleTrigger());
+	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(WWConstants.string("firefly_bottle"), new FireflyBottleTrigger());
 
 	private WWCriteria() {
 		throw new UnsupportedOperationException("RegisterCriteria contains only static declarations.");

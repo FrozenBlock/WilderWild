@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.warden;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -86,7 +86,7 @@ public class LivingEntityMixin {
 
 	@Unique
 	public boolean wilderWild$isWardenWithDeathAnimation() {
-		return LivingEntity.class.cast(this) instanceof WilderWarden wilderWarden && (EntityConfig.get().warden.wardenDeathAnimation || wilderWarden.wilderWild$isStella());
+		return LivingEntity.class.cast(this) instanceof WilderWarden wilderWarden && (WWEntityConfig.get().warden.wardenDeathAnimation || wilderWarden.wilderWild$isStella());
 	}
 
 }

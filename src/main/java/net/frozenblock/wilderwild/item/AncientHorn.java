@@ -22,8 +22,8 @@ import java.util.Optional;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -57,7 +57,7 @@ public class AncientHorn extends InstrumentItem {
 
 	public static int getCooldown(@Nullable Entity entity, int cooldown) {
 		if (entity instanceof Player player && player.isCreative()) {
-			return ItemConfig.get().ancientHorn.ancientHornCreativeCooldown;
+			return WWItemConfig.get().ancientHorn.ancientHornCreativeCooldown;
 		}
 		return cooldown;
 	}
@@ -91,7 +91,7 @@ public class AncientHorn extends InstrumentItem {
 		if (optional.isPresent()) {
 			user.startUsingItem(hand);
 			play(level, user, optional.get().value());
-			user.getCooldowns().addCooldown(WWItems.ANCIENT_HORN, getCooldown(user, ItemConfig.get().ancientHorn.ancientHornCooldown));
+			user.getCooldowns().addCooldown(WWItems.ANCIENT_HORN, getCooldown(user, WWItemConfig.get().ancientHorn.ancientHornCooldown));
 			if (level instanceof ServerLevel server) {
 				AncientHornVibration projectileEntity = new AncientHornVibration(level, user.getX(), user.getEyeY(), user.getZ());
 				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0F, 1F, 0F);
@@ -115,7 +115,7 @@ public class AncientHorn extends InstrumentItem {
 			}
 			return InteractionResultHolder.consume(itemStack);
 		} else {
-			WilderConstants.printStackTrace("Ancient Horn use failed!", true);
+			WWConstants.printStackTrace("Ancient Horn use failed!", true);
 			return InteractionResultHolder.fail(itemStack);
 		}
 	}

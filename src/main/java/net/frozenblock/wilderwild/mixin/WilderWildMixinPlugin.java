@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.config.MixinsConfig;
+import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class WilderWildMixinPlugin implements IMixinConfigPlugin {
-	private MixinsConfig mixinsConfig;
+	private WWMixinsConfig mixinsConfig;
 	private boolean hasEmbeddium;
 	private boolean disableNonSodium;
 
 	@Override
 	public void onLoad(String mixinPackage) {
-		this.mixinsConfig = MixinsConfig.get();
+		this.mixinsConfig = WWMixinsConfig.get();
 		this.hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
 		this.disableNonSodium = this.hasEmbeddium || FrozenBools.HAS_SODIUM;
 	}

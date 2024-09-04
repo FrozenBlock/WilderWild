@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.block.entity;
 import java.util.ArrayList;
 import java.util.Objects;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -194,7 +194,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void liftLid(float liftAmount, boolean ancient) {
 		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2F : liftAmount), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * BlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -203,7 +203,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * BlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -263,11 +263,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		if (otherStoneChest != null) {
 			this.syncValues(otherStoneChest);
 			if (shouldSend) {
-				WilderStoneChestLidPacket.sendToAll(otherStoneChest);
+				WWStoneChestLidPacket.sendToAll(otherStoneChest);
 			}
 		}
 		if (shouldSend) {
-			WilderStoneChestLidPacket.sendToAll(this);
+			WWStoneChestLidPacket.sendToAll(this);
 		}
 	}
 

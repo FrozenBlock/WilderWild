@@ -21,14 +21,14 @@ package net.frozenblock.wilderwild.datagen.recipe;
 import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 
 public class WWWoodRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
-		RecipeProvider.planksFromLogs(exporter, WWBlocks.BAOBAB_PLANKS, WilderItemTags.BAOBAB_LOGS, 4);
+		RecipeProvider.planksFromLogs(exporter, WWBlocks.BAOBAB_PLANKS, WWItemTags.BAOBAB_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.BAOBAB_WOOD, WWBlocks.BAOBAB_LOG);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.STRIPPED_BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_LOG);
 		RecipeProvider.woodenBoat(exporter, WWItems.BAOBAB_BOAT, WWBlocks.BAOBAB_PLANKS);
@@ -44,7 +44,7 @@ public class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenSign(exporter, WWItems.BAOBAB_SIGN, WWBlocks.BAOBAB_PLANKS);
 		RecipeProvider.hangingSign(exporter, WWItems.BAOBAB_HANGING_SIGN, WWBlocks.STRIPPED_BAOBAB_LOG);
 
-		RecipeProvider.planksFromLogs(exporter, WWBlocks.CYPRESS_PLANKS, WilderItemTags.CYPRESS_LOGS, 4);
+		RecipeProvider.planksFromLogs(exporter, WWBlocks.CYPRESS_PLANKS, WWItemTags.CYPRESS_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.CYPRESS_WOOD, WWBlocks.CYPRESS_LOG);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.STRIPPED_CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_LOG);
 		RecipeProvider.woodenBoat(exporter, WWItems.CYPRESS_BOAT, WWBlocks.CYPRESS_PLANKS);
@@ -60,7 +60,7 @@ public class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenSign(exporter, WWItems.CYPRESS_SIGN, WWBlocks.CYPRESS_PLANKS);
 		RecipeProvider.hangingSign(exporter, WWItems.CYPRESS_HANGING_SIGN, WWBlocks.STRIPPED_CYPRESS_LOG);
 
-		RecipeProvider.planksFromLogs(exporter, WWBlocks.PALM_PLANKS, WilderItemTags.PALM_LOGS, 4);
+		RecipeProvider.planksFromLogs(exporter, WWBlocks.PALM_PLANKS, WWItemTags.PALM_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.PALM_WOOD, WWBlocks.PALM_LOG);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.STRIPPED_PALM_WOOD, WWBlocks.STRIPPED_PALM_LOG);
 		RecipeProvider.woodenBoat(exporter, WWItems.PALM_BOAT, WWBlocks.PALM_PLANKS);
@@ -76,7 +76,7 @@ public class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenSign(exporter, WWItems.PALM_SIGN, WWBlocks.PALM_PLANKS);
 		RecipeProvider.hangingSign(exporter, WWItems.PALM_HANGING_SIGN, WWBlocks.STRIPPED_PALM_LOG);
 
-		RecipeProvider.planksFromLogs(exporter, WWBlocks.MAPLE_PLANKS, WilderItemTags.MAPLE_LOGS, 4);
+		RecipeProvider.planksFromLogs(exporter, WWBlocks.MAPLE_PLANKS, WWItemTags.MAPLE_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.MAPLE_WOOD, WWBlocks.MAPLE_LOG);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.STRIPPED_MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_LOG);
 		RecipeProvider.woodenBoat(exporter, WWItems.MAPLE_BOAT, WWBlocks.MAPLE_PLANKS);

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
 import net.frozenblock.lib.spotting_icons.impl.EntitySpottingIconInterface;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -34,9 +34,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class EntityMixin {
 
 	@Unique
-	private static final ResourceLocation WILDER_WILD$STELLA_TEXTURE = WilderConstants.id("textures/spotting_icons/stella.png");
+	private static final ResourceLocation WILDER_WILD$STELLA_TEXTURE = WWConstants.id("textures/spotting_icons/stella.png");
 	@Unique
-	private static final ResourceLocation WILDER_WILD$STELLA = WilderConstants.id("stella");
+	private static final ResourceLocation WILDER_WILD$STELLA = WWConstants.id("stella");
 
 	@Inject(method = "setCustomName", at = @At(value = "HEAD"))
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {

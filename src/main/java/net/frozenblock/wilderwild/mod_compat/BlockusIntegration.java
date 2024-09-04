@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mod_compat;
 import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
 
 public class BlockusIntegration extends ModIntegration {
@@ -31,7 +31,7 @@ public class BlockusIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier condition = () -> BlockConfig.get().blockSounds.leafSounds;
+		BooleanSupplier condition = () -> WWBlockConfig.get().blockSounds.leafSounds;
 		addBlock(id("white_oak_leaves"), LEAVES, condition);
 		addBlock(id("legacy_leaves"), LEAVES, condition);
 	}

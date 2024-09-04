@@ -28,8 +28,8 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
-import net.frozenblock.wilderwild.tag.WilderDamageTypeTags;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.frozenblock.wilderwild.tag.WWDamageTypeTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -156,7 +156,7 @@ public final class CrabAi {
 			0,
 			ImmutableList.of(
 				new AnimalPanic<>(1.65F, pathfinderMob -> {
-					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return WilderDamageTypeTags.EMPTY;
+					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return WWDamageTypeTags.EMPTY;
 					return pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
 				}),
 				new LookAtTargetSink(45, 90),
@@ -417,7 +417,7 @@ public final class CrabAi {
 
 	@NotNull
 	public static Ingredient getTemptations() {
-		return Ingredient.of(WilderItemTags.CRAB_FOOD);
+		return Ingredient.of(WWItemTags.CRAB_FOOD);
 	}
 
 	public static int getRandomDigCooldown(@NotNull LivingEntity entity) {

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -52,7 +52,7 @@ public class WWNaturalRecipeProvider {
 			.requires(WWItems.SPLIT_COCONUT, 2)
 			.group("bowl")
 			.unlockedBy(RecipeProvider.getHasName(WWItems.SPLIT_COCONUT), RecipeProvider.has(WWItems.SPLIT_COCONUT))
-			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
+			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.PEELED_PRICKLY_PEAR, 1)
 			.requires(WWItems.PRICKLY_PEAR)
@@ -68,7 +68,7 @@ public class WWNaturalRecipeProvider {
 			.pattern("###")
 			.pattern("###")
 			.unlockedBy(RecipeProvider.getHasName(WWItems.MILKWEED_POD), RecipeProvider.has(WWItems.MILKWEED_POD))
-			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWItems.MILKWEED_POD)));
+			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWItems.MILKWEED_POD)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', Ingredient.of(WWBlocks.CATTAIL))
@@ -76,7 +76,7 @@ public class WWNaturalRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy(RecipeProvider.getHasName(WWBlocks.CATTAIL), RecipeProvider.has(WWBlocks.CATTAIL))
-			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
+			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
 	}
 
 	private static void oneToOneConversionRecipe(RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {

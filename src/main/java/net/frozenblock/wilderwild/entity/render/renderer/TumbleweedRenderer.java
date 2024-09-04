@@ -22,9 +22,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WilderWildClient;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -72,7 +72,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 
 	@Override
 	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick, float scale) {
-		if (EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
+		if (WWEntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
 			matrixStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 		}
 	}
@@ -80,7 +80,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull Tumbleweed entity) {
-		return WilderConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+		return WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
 	}
 
 }

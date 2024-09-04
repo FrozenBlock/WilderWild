@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.projectile;
 
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +49,7 @@ public class AbstractArrowMixin {
 		)
 	)
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
-		if (this.lastState != null && ItemConfig.get().projectileBreakParticles) {
+		if (this.lastState != null && WWItemConfig.get().projectileBreakParticles) {
 			AbstractArrow arrow = AbstractArrow.class.cast(this);
 			if (arrow.level() instanceof ServerLevel server) {
 				int particleCalc = ((int) (arrow.getDeltaMovement().lengthSqr() * 1.5D));

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen.structure;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.config.WorldgenConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece;
@@ -38,7 +38,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newPlanks(Block original) {
-		if (WorldgenConfig.get().newWitchHuts) {
+		if (WWWorldgenConfig.get().newWitchHuts) {
 			return WWBlocks.CYPRESS_PLANKS;
 		}
 		return original;
@@ -52,7 +52,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newStairs(Block original) {
-		if (WorldgenConfig.get().newWitchHuts) {
+		if (WWWorldgenConfig.get().newWitchHuts) {
 			return WWBlocks.CYPRESS_STAIRS;
 		}
 		return original;

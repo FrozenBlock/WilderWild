@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SpriteSet;
@@ -78,7 +78,7 @@ public abstract class RainDropParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	public float wilderWild$windX(float original) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return (float) (ClientWindManager.windX * ParticleRainClient.config.rainDropGravity);
 		}
 		return original;
@@ -94,7 +94,7 @@ public abstract class RainDropParticleMixin extends WeatherParticle {
 		require = 0
 	)
 	public float wilderWild$windZ(float original) {
-		if (WilderClientWindManager.shouldUseWind()) {
+		if (WWClientWindManager.shouldUseWind()) {
 			return (float) (ClientWindManager.windZ * ParticleRainClient.config.rainDropGravity);
 		}
 		return original;

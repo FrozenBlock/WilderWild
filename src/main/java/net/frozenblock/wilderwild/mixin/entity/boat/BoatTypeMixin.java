@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.entity.boat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import net.frozenblock.wilderwild.WilderEnumValues;
+import net.frozenblock.wilderwild.WWEnumValues;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Block;
@@ -60,19 +60,19 @@ public class BoatTypeMixin {
 		var last = types.get(types.size() - 1);
 
 		var baobab = wilderWild$newType("WILDERWILDBAOBAB", last.ordinal() + 1, WWBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
-		WilderEnumValues.BAOBAB = baobab;
+		WWEnumValues.BAOBAB = baobab;
 		types.add(baobab);
 
 		var cypress = wilderWild$newType("WILDERWILDCYPRESS", last.ordinal() + 2, WWBlocks.CYPRESS_PLANKS, "wilderwildcypress");
-		WilderEnumValues.CYPRESS = cypress;
+		WWEnumValues.CYPRESS = cypress;
 		types.add(cypress);
 
 		var palm = wilderWild$newType("WILDERWILDPALM", last.ordinal() + 3, WWBlocks.PALM_PLANKS, "wilderwildpalm");
-		WilderEnumValues.PALM = palm;
+		WWEnumValues.PALM = palm;
 		types.add(palm);
 
 		var maple = wilderWild$newType("WILDERWILDMAPLE", last.ordinal() + 4, WWBlocks.MAPLE_PLANKS, "wilderwildmaple");
-		WilderEnumValues.MAPLE = maple;
+		WWEnumValues.MAPLE = maple;
 		types.add(maple);
 
 		$VALUES = types.toArray(new Boat.Type[0]);

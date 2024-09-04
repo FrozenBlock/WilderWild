@@ -25,7 +25,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import java.util.Map;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V100;
 import net.minecraft.util.datafix.schemas.V3328;
@@ -47,52 +47,52 @@ public class V3328Mixin {
 		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
-			WilderConstants.string("jellyfish"),
+			WWConstants.string("jellyfish"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderConstants.string("ostrich"),
+			WWConstants.string("ostrich"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderConstants.string("crab"),
+			WWConstants.string("crab"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderConstants.string("firefly"),
+			WWConstants.string("firefly"),
 			() -> V100.equipment(schema)
 		);
 		schema.register(
 			map,
-			WilderConstants.string("tumbleweed"),
+			WWConstants.string("tumbleweed"),
 			(string) -> DSL.optionalFields("Items", References.ITEM_STACK.in(schema), V100.equipment(schema))
 		);
 		schema.register(
 			map,
-			WilderConstants.string("ancient_horn_vibration"),
+			WWConstants.string("ancient_horn_vibration"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("coconut"),
+			WWConstants.string("coconut"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("chest_bubbler"),
+			WWConstants.string("chest_bubbler"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("sculk_spreader"),
+			WWConstants.string("sculk_spreader"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("scorched"),
+			WWConstants.string("scorched"),
 			() -> V100.equipment(schema)
 		);
 		return map;
