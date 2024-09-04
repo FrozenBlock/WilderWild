@@ -376,6 +376,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateTags() {
+		this.getOrCreateTagBuilder(WilderBlockTags.LEAF_CARPETS)
+			.add(RegisterBlocks.MAPLE_LEAF_CARPET);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.BAOBAB_LOGS)
 			.add(RegisterBlocks.BAOBAB_LOG)
 			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
@@ -844,8 +847,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WilderBlockTags.MESOGLEA)
 			.add(RegisterBlocks.SCORCHED_SAND)
 			.add(RegisterBlocks.SCORCHED_RED_SAND)
-			.add(RegisterBlocks.TERMITE_MOUND)
-			.add(RegisterBlocks.FOLIATED_GRASS);
+			.add(RegisterBlocks.TERMITE_MOUND);
 
 		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
 			.add(RegisterBlocks.BUSH)
@@ -889,7 +891,23 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.SCULK_WALL)
 			.add(RegisterBlocks.MOSSY_MUD_BRICK_WALL);
 
-		this.getOrCreateTagBuilder(BlockTags.DIRT)
-			.add(RegisterBlocks.FOLIATED_GRASS);
+		this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
+			.add(Blocks.COBWEB)
+			.add(Blocks.LILY_PAD)
+			.add(RegisterBlocks.FLOWERING_LILY_PAD)
+			.add(RegisterBlocks.ALGAE)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT)
+			.add(RegisterBlocks.SPONGE_BUD)
+			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS);
+
+		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
+			.addOptionalTag(WilderBlockTags.LEAF_CARPETS);
+
+		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
+			.addOptionalTag(WilderBlockTags.LEAF_CARPETS);
+
+		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
+			.addOptionalTag(WilderBlockTags.LEAF_CARPETS)
+			.add(RegisterBlocks.BUSH);
 	}
 }

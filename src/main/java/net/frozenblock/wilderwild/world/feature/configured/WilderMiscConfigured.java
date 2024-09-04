@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskCarpetFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
@@ -149,7 +150,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE GROVE
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> FOLIATED_GRASS_DISK = register("foliated_grass_disk");
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> MAPLE_LEAVES_CARPET = register("maple_leaves_carpet");
 
 	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
@@ -960,19 +961,17 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		FOLIATED_GRASS_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		MAPLE_LEAVES_CARPET.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.FOLIATED_GRASS.defaultBlockState()),
-				BlockStateProvider.simple(RegisterBlocks.FOLIATED_GRASS.defaultBlockState()),
+				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_CARPET.defaultBlockState()),
+				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_CARPET.defaultBlockState()),
 				UniformInt.of(2, 5),
 				0.95F,
 				0.925F,
 				0.65F,
 				0.65F,
-				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
-				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
 			)
 		);
 

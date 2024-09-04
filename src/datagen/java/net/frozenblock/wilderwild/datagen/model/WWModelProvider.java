@@ -26,6 +26,8 @@ import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWModelProvider extends FabricModelProvider {
@@ -70,6 +72,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
+
+		createCarpetBlock(generator, RegisterBlocks.MAPLE_LEAF_CARPET, RegisterBlocks.MAPLE_LEAVES);
 	}
 
 	@Override
@@ -103,5 +107,10 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		generator.generateFlatItem(RegisterItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
+	}
+
+	private void createCarpetBlock(@NotNull BlockModelGenerators generator, Block carpet, Block source) {
+		ResourceLocation resourceLocation = TexturedModel.CARPET.get(source).create(carpet, generator.modelOutput);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(carpet, resourceLocation));
 	}
 }

@@ -121,7 +121,9 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	public static boolean canColumnSurvive(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos.below());
-		return BlockConfig.MESOGLEA_BUBBLE_COLUMNS && (blockState.is(Blocks.BUBBLE_COLUMN) || blockState.is(Blocks.MAGMA_BLOCK) || blockState.is(Blocks.SOUL_SAND) || hasBubbleColumn(blockState));
+		return BlockConfig.MESOGLEA_BUBBLE_COLUMNS && (
+			blockState.is(Blocks.BUBBLE_COLUMN) || blockState.is(Blocks.MAGMA_BLOCK) || blockState.is(Blocks.SOUL_SAND) || hasBubbleColumn(blockState)
+		);
 	}
 
 	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState state) {

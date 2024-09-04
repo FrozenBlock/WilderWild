@@ -42,11 +42,11 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
-import net.frozenblock.wilderwild.block.FoliatedGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.LeafCarpetBlock;
 import net.frozenblock.wilderwild.block.MapleLeavesBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
@@ -108,7 +108,6 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
@@ -177,10 +176,6 @@ public final class RegisterBlocks {
 			.randomTicks()
 	);
 
-	public static final SnowyDirtBlock FOLIATED_GRASS = new FoliatedGrassBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK)
-	);
-
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
 		WWTreeGrowers.BAOBAB,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO)
@@ -213,9 +208,14 @@ public final class RegisterBlocks {
 	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
 
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
+
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
+
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
+
 	public static final Block MAPLE_LEAVES = new MapleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
+	public static final LeafCarpetBlock MAPLE_LEAF_CARPET = leafCarpet(MAPLE_LEAVES, RegisterParticles.MAPLE_LEAVES);
+
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
 	public static final HollowedLogBlock HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MapColor.SAND, MapColor.QUARTZ);
@@ -904,8 +904,6 @@ public final class RegisterBlocks {
 
 		registerBlock("scorched_sand", SCORCHED_SAND);
 		registerBlock("scorched_red_sand", SCORCHED_RED_SAND);
-
-		registerBlockBefore(Blocks.PODZOL, "foliated_grass_block", FOLIATED_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerWoods() {
@@ -988,6 +986,7 @@ public final class RegisterBlocks {
 		//MAPLE IN NATURE
 		registerBlockAfter(Blocks.CHERRY_LOG, wood + "_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Blocks.CHERRY_LEAVES, wood + "_leaves", MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(MAPLE_LEAVES, "maple_leaf_carpet", MAPLE_LEAF_CARPET, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlock(baobab + "_nut", BAOBAB_NUT);
 		registerBlock("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
@@ -1253,6 +1252,29 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
+	public static LeafCarpetBlock leafCarpet(Block sourceBlock, @NotNull ParticleOptions particleType) {
+		return leafCarpet(sourceBlock, particleType, true);
+	}
+
+	@NotNull
+	public static LeafCarpetBlock leafCarpet(Block sourceBlock, @NotNull ParticleOptions particleType, boolean ignites) {
+		BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(sourceBlock)
+			.noCollission()
+			.instabreak()
+			.replaceable()
+			.pushReaction(PushReaction.DESTROY)
+			.ignitedByLava();
+
+		if (ignites) {
+			properties.ignitedByLava();
+		}
+
+		LeafCarpetBlock leafCarpetBlock = new LeafCarpetBlock(properties);
+		LeafCarpetBlock.LeafParticleRegistry.registerLeafParticle(leafCarpetBlock, particleType);
+		return leafCarpetBlock;
+	}
+
+	@NotNull
 	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
 		MesogleaBlock mesogleaBlock = new MesogleaBlock(
 			pearlescent,
@@ -1411,6 +1433,7 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAVES, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_CARPET, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
@@ -1542,6 +1565,7 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_TRAPDOOR, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAF_CARPET, 200, 60);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_BUTTON, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_SIGN, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WALL_SIGN, 5, 20);
