@@ -60,7 +60,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
-public class RegisterFeatures {
+public class WWFeatures {
 	public static final TrunkPlacerType<StraightTrunkWithBranches> STRAIGHT_TRUNK_WITH_LOGS_PLACER = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithBranches.CODEC);
 	public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
 	public static final TrunkPlacerType<FallenLargeTrunk> FALLEN_LARGE_TRUNK_PLACER = registerTrunk("fallen_large_trunk_placer", FallenLargeTrunk.CODEC);

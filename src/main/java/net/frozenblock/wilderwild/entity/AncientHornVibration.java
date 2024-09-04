@@ -29,13 +29,13 @@ import net.frozenblock.wilderwild.config.ItemConfig;
 import static net.frozenblock.wilderwild.item.AncientHorn.getCooldown;
 import net.frozenblock.wilderwild.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterGameEvents;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWGameEvents;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -124,7 +124,7 @@ public class AncientHornVibration extends AbstractArrow {
 	}
 
 	public AncientHornVibration(@NotNull Level level, double x, double y, double z) {
-		super(RegisterEntities.ANCIENT_HORN_VIBRATION, x, y, z, level, ItemStack.EMPTY, null);
+		super(WWEntities.ANCIENT_HORN_VIBRATION, x, y, z, level, ItemStack.EMPTY, null);
 	}
 
 	@Override
@@ -309,7 +309,7 @@ public class AncientHornVibration extends AbstractArrow {
 
 	public void setCooldown(int cooldownTicks) {
 		if (this.getOwner() instanceof ServerPlayer user) {
-			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
+			user.getCooldowns().addCooldown(WWItems.ANCIENT_HORN, cooldownTicks);
 		}
 	}
 
@@ -334,12 +334,12 @@ public class AncientHornVibration extends AbstractArrow {
 	public void addCooldown(int cooldownTicks) {
 		if (this.getOwner() instanceof ServerPlayer user && !user.isCreative()) {
 			ItemCooldowns manager = user.getCooldowns();
-			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
+			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(WWItems.ANCIENT_HORN);
 			if (entry != null) {
-				manager.removeCooldown(RegisterItems.ANCIENT_HORN);
-				manager.addCooldown(RegisterItems.ANCIENT_HORN, (entry.endTime - entry.startTime) + cooldownTicks);
+				manager.removeCooldown(WWItems.ANCIENT_HORN);
+				manager.addCooldown(WWItems.ANCIENT_HORN, (entry.endTime - entry.startTime) + cooldownTicks);
 			} else {
-				manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
+				manager.addCooldown(WWItems.ANCIENT_HORN, cooldownTicks);
 			}
 		}
 	}
@@ -385,9 +385,9 @@ public class AncientHornVibration extends AbstractArrow {
 			var block = blockState.getBlock();
 			if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
 				if (ItemConfig.get().ancientHorn.ancientHornCanSummonWarden) {
-					if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
+					if (blockState.getValue(WWBlockStateProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
 						if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
-							server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
+							server.setBlockAndUpdate(pos, blockState.setValue(WWBlockStateProperties.SOULS_TAKEN, blockState.getValue(WWBlockStateProperties.SOULS_TAKEN) + 1));
 						} else {
 							server.setBlockAndUpdate(pos, blockState.setValue(SculkShriekerBlock.CAN_SUMMON, false));
 						}
@@ -411,15 +411,15 @@ public class AncientHornVibration extends AbstractArrow {
 				}
 			} else if (block instanceof SculkSensorBlock sculkSensor) {
 				if (level().getBlockEntity(pos) instanceof SculkSensorBlockEntity sculkSensorBlockEntity) {
-					if (blockState.getValue(RegisterProperties.HICCUPPING)) {
-						server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
+					if (blockState.getValue(WWBlockStateProperties.HICCUPPING)) {
+						server.setBlockAndUpdate(pos, blockState.setValue(WWBlockStateProperties.HICCUPPING, false));
 					} else {
-						server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
+						server.setBlockAndUpdate(pos, blockState.setValue(WWBlockStateProperties.HICCUPPING, true));
 					}
 
 					if (SculkSensorBlock.canActivate(blockState)) {
 						sculkSensor.activate(null, this.level(), pos, blockState, this.random.nextInt(15), sculkSensorBlockEntity.getLastVibrationFrequency());
-						this.level().gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+						this.level().gameEvent(null, WWGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 						setCooldown(getCooldown(owner, ItemConfig.get().ancientHorn.ancientHornSensorCooldown));
 					}
 				}
@@ -439,13 +439,13 @@ public class AncientHornVibration extends AbstractArrow {
 	@Override
 	@NotNull
 	protected SoundEvent getDefaultHitGroundSoundEvent() {
-		return RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_DISSIPATE;
+		return WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_DISSIPATE;
 	}
 
 	@Override
 	public boolean isNoPhysics() {
 		BlockState insideState = this.level().getBlockState(this.blockPosition());
-		if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level() instanceof ServerLevel server && this.canInteract()) { //HANGING TENDRIL
+		if (insideState.is(WWBlocks.HANGING_TENDRIL) && this.level() instanceof ServerLevel server && this.canInteract()) { //HANGING TENDRIL
 			BlockPos pos = this.blockPosition();
 			BlockEntity entity = this.level().getBlockEntity(pos);
 			if (entity instanceof HangingTendrilBlockEntity tendril) {
@@ -457,7 +457,7 @@ public class AncientHornVibration extends AbstractArrow {
 					FrozenSoundPackets.createLocalSound(
 						this.level(),
 						pos,
-						BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_BLAST.getLocation()).orElseThrow(),
+						BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_BLAST.getLocation()).orElseThrow(),
 						SoundSource.NEUTRAL,
 						1.5F,
 						1F,
@@ -474,7 +474,7 @@ public class AncientHornVibration extends AbstractArrow {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 				} else if (insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
-					if (ItemConfig.get().ancientHorn.ancientHornShattersGlass || insideState.is(RegisterBlocks.ECHO_GLASS)) { //GLASS INTERACTION
+					if (ItemConfig.get().ancientHorn.ancientHornShattersGlass || insideState.is(WWBlocks.ECHO_GLASS)) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level(), insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level().destroyBlock(this.blockPosition(), false, this);
 					}
@@ -617,9 +617,9 @@ public class AncientHornVibration extends AbstractArrow {
 		if (entity != owner) {
 			DamageSource damageSource;
 			if (owner == null) {
-				damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, this);
+				damageSource = this.damageSources().source(WWDamageTypes.ANCIENT_HORN, this, this);
 			} else {
-				damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, owner);
+				damageSource = this.damageSources().source(WWDamageTypes.ANCIENT_HORN, this, owner);
 				if (owner instanceof LivingEntity livingEntity) {
 					livingEntity.setLastHurtMob(entity);
 				}

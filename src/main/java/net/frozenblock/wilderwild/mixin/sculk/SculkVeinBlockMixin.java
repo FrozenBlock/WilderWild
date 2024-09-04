@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -68,13 +68,13 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 	) {
 		boolean canReturn = false;
 		if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			blockState3 = RegisterBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
+			blockState3 = WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
 			canReturn = true;
 		} else if (blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
-			blockState3 = RegisterBlocks.SCULK_WALL.withPropertiesOf(blockState2);
+			blockState3 = WWBlocks.SCULK_WALL.withPropertiesOf(blockState2);
 			canReturn = true;
 		} else if (blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			blockState3 = RegisterBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
+			blockState3 = WWBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
 			canReturn = true;
 		}
 
@@ -95,7 +95,7 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		)
 	)
 	private boolean wilderWild$onDischarged(BlockState state, Block block, Operation<Boolean> operation) {
-		return state.is(RegisterBlocks.SCULK_SLAB) || state.is(RegisterBlocks.SCULK_STAIRS) || state.is(RegisterBlocks.SCULK_WALL) || operation.call(state, block);
+		return state.is(WWBlocks.SCULK_SLAB) || state.is(WWBlocks.SCULK_STAIRS) || state.is(WWBlocks.SCULK_WALL) || operation.call(state, block);
 	}
 
 }

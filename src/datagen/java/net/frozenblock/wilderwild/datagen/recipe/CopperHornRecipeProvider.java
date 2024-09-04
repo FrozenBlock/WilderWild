@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.datagen.recipe;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,17 +38,17 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class CopperHornRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
-		copperHorn(exporter, "clarinet", Instruments.DREAM_GOAT_HORN, RegisterItems.CLARINET_COPPER_HORN);
-		copperHorn(exporter, "flute", Instruments.CALL_GOAT_HORN, RegisterItems.FLUTE_COPPER_HORN);
-		copperHorn(exporter, "oboe", Instruments.SING_GOAT_HORN, RegisterItems.OBOE_COPPER_HORN);
-		copperHorn(exporter, "sax", Instruments.PONDER_GOAT_HORN, RegisterItems.SAX_COPPER_HORN);
-		copperHorn(exporter, "trombone", Instruments.SEEK_GOAT_HORN, RegisterItems.TROMBONE_COPPER_HORN);
-		copperHorn(exporter, "trumpet", Instruments.ADMIRE_GOAT_HORN, RegisterItems.TRUMPET_COPPER_HORN);
-		copperHorn(exporter, "tuba", Instruments.FEEL_GOAT_HORN, RegisterItems.TUBA_COPPER_HORN);
+		copperHorn(exporter, "clarinet", Instruments.DREAM_GOAT_HORN, WWItems.CLARINET_COPPER_HORN);
+		copperHorn(exporter, "flute", Instruments.CALL_GOAT_HORN, WWItems.FLUTE_COPPER_HORN);
+		copperHorn(exporter, "oboe", Instruments.SING_GOAT_HORN, WWItems.OBOE_COPPER_HORN);
+		copperHorn(exporter, "sax", Instruments.PONDER_GOAT_HORN, WWItems.SAX_COPPER_HORN);
+		copperHorn(exporter, "trombone", Instruments.SEEK_GOAT_HORN, WWItems.TROMBONE_COPPER_HORN);
+		copperHorn(exporter, "trumpet", Instruments.ADMIRE_GOAT_HORN, WWItems.TRUMPET_COPPER_HORN);
+		copperHorn(exporter, "tuba", Instruments.FEEL_GOAT_HORN, WWItems.TUBA_COPPER_HORN);
 	}
 
 	private static void copperHorn(RecipeOutput exporter, String name, ResourceKey<Instrument> goatHornInstrument, ResourceKey<Instrument> copperHornInstrument) {
-		((ShapedRecipeBuilderExtension) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegisterItems.COPPER_HORN)
+		((ShapedRecipeBuilderExtension) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, WWItems.COPPER_HORN)
 			.group("wilderwild_copper_horn")
 			.define('C', Ingredient.of(Items.COPPER_INGOT))
 			.define('G', DefaultCustomIngredients.components(Ingredient.of(Items.GOAT_HORN),

@@ -19,20 +19,20 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.block.api.FallingLeafRegistry;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 
-public final class RegisterFallingLeaves {
-	private RegisterFallingLeaves() {
+public final class WWFallingLeaves {
+	private WWFallingLeaves() {
 		throw new UnsupportedOperationException("RegisterFallingLeaves contains only static declarations.");
 	}
 
 	public static void register() {
 		WilderConstants.logWithModId("Registering Falling Leaves for", WilderConstants.UNSTABLE_LOGGING);
-		FallingLeafRegistry.addFallingLeaf(
-			RegisterBlocks.MAPLE_LEAVES,
-			RegisterBlocks.MAPLE_LEAF_LITTER,
+		FallingLeafUtil.addFallingLeaf(
+			WWBlocks.MAPLE_LEAVES,
+			WWBlocks.MAPLE_LEAF_LITTER,
 			0.04F,
-			RegisterParticles.MAPLE_LEAVES
+			WWParticles.MAPLE_LEAVES
 		);
 	}
 

@@ -25,7 +25,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.minecraft.resources.ResourceKey;
@@ -103,7 +103,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
 		if (WorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3) {
-			info.setReturnValue(RegisterWorldgen.WARM_BEACH);
+			info.setReturnValue(WWWorldgen.WARM_BEACH);
 		}
 	}
 
@@ -116,9 +116,9 @@ public final class OverworldBiomeBuilderMixin {
 	private void wilderWild$accountForWarmRivers(OverworldBiomeBuilder instance, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> biomeKey, Operation<Void> operation) {
 		if (biomeKey.equals(Biomes.RIVER) && WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
-			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
+			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWWorldgen.WARM_RIVER);
 			Climate.Parameter jungleHumidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
-			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
+			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWWorldgen.WARM_RIVER);
 		}
 		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}

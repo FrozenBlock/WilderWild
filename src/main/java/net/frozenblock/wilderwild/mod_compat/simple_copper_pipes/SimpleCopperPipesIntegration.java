@@ -26,9 +26,9 @@ import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.lunade.copper.SimpleCopperPipesMain;
 import net.lunade.copper.blocks.CopperPipe;
 import net.lunade.copper.blocks.block_entity.CopperPipeEntity;
@@ -103,7 +103,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 							FrozenSoundPackets.createMovingRestrictionLoopingSound(
 								level,
 								projectileEntity,
-								BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
+								BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
 								SoundSource.NEUTRAL,
 								1F,
 								1F,
@@ -138,7 +138,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				}
 			}, (nbt, level, pos, blockState, blockEntity) -> true);
 
-			PoweredPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
+			PoweredPipeDispenses.register(WWItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 outputPos = getOutputPosition(position, direction);
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
 				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z());
@@ -148,7 +148,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 
 			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
-				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+				Tumbleweed tumbleweed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
 				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
 				tumbleweed.setPos(getOutputPosition(position, direction));
 				level.addFreshEntity(tumbleweed);

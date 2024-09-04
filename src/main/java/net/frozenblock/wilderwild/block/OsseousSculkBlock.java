@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -54,8 +54,8 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final double RIB_CAGE_CHANCE = 0.8D;
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	public static final IntegerProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
-	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
+	public static final IntegerProperty HEIGHT_LEFT = WWBlockStateProperties.PILLAR_HEIGHT_LEFT;
+	public static final IntegerProperty TOTAL_HEIGHT = WWBlockStateProperties.TOTAL_HEIGHT;
 	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 
 	public OsseousSculkBlock(@NotNull Properties settings) {
@@ -159,7 +159,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 											SoundType placedSoundType = ribState.getSoundType();
 											level.playSound(null, mutableBlockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
 											if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(Direction.DOWN))) && random.nextDouble() > (isWorldGeneration ? HANGING_TENDRIL_WORLDGEN_CHANCE : HANGING_TENDRIL_CHANCE)) {
-												BlockState tendrilState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
+												BlockState tendrilState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
 												level.setBlock(mutableBlockPos, tendrilState, UPDATE_ALL);
 												SoundType tendrilSoundType = tendrilState.getSoundType();
 												level.playSound(null, mutableBlockPos, tendrilSoundType.getPlaceSound(), SoundSource.BLOCKS, tendrilSoundType.getVolume(), tendrilSoundType.getPitch());

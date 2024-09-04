@@ -27,8 +27,8 @@ import java.util.Optional;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.block.impl.BubbleDirection;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWParticles;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -86,7 +86,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public static final int AMBIENT_WHIRLPOOL_SOUND_CHANCE = 200;
 	public static final int TICK_DELAY = 5;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = RegisterProperties.BUBBLE_DIRECTION;
+	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = WWBlockStateProperties.BUBBLE_DIRECTION;
 	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		Codec.BOOL.fieldOf("pearlescent").forGetter((mesogleaBlock) -> mesogleaBlock.pearlescent),
 		propertiesCodec()
@@ -422,7 +422,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		}
 
 		public static ParticleOptions getParticleForMesogleaOrDefault(@NotNull MesogleaBlock mesogleaBlock) {
-			return getParticleForMesoglea(mesogleaBlock).orElse(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA);
+			return getParticleForMesoglea(mesogleaBlock).orElse(WWParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA);
 		}
 	}
 }

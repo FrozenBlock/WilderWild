@@ -22,7 +22,7 @@ import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -91,7 +91,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	@Override
 	@NotNull
 	protected FoliagePlacerType<?> type() {
-		return RegisterFeatures.PALM_FOLIAGE_PLACER;
+		return WWFeatures.PALM_FOLIAGE_PLACER;
 	}
 
 	@Override

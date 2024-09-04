@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterMobEffects;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
@@ -50,7 +50,7 @@ public final class BeaconBlockEntityMixin {
 	private static List<Holder<MobEffect>> wilderWild$addReachBoost(List<Holder<MobEffect>> list) {
 		if (BlockConfig.get().reachBoostBeacon) {
 			ArrayList<Holder<MobEffect>> newList = new ArrayList<>(list);
-			newList.add(RegisterMobEffects.REACH_BOOST);
+			newList.add(WWMobEffects.REACH_BOOST);
 			return newList;
 		}
 		return list;

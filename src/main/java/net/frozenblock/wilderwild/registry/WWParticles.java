@@ -23,6 +23,8 @@ import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
+import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
+import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.core.Registry;
@@ -32,16 +34,27 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterParticles {
+public final class WWParticles {
 	public static final SimpleParticleType POLLEN = register("pollen");
-	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC);
-	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC);
-	public static final ParticleType<WindParticleOptions> WIND = register("wind", false, particleType -> WindParticleOptions.CODEC, particleType -> WindParticleOptions.STREAM_CODEC);
+	public static final ParticleType<SeedParticleOptions> SEED = register(
+		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC)
+		;
+	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register(
+		"floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC
+	);
+	public static final ParticleType<WindParticleOptions> WIND = register(
+		"wind", false, particleType -> WindParticleOptions.CODEC, particleType -> WindParticleOptions.STREAM_CODEC
+	);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
+	public static final ParticleType<LeafClusterParticleOptions> LEAF_CLUSTER_SPAWNER = register(
+		"leaf_cluster", false, particleType -> LeafClusterParticleOptions.CODEC, particleType -> LeafClusterParticleOptions.STREAM_CODEC
+	);
+	public static final ParticleType<LeafParticleOptions> MAPLE_LEAVES = createLeafParticle(WilderConstants.id("maple_leaves"));
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = register("blue_pearlescent_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = register("blue_pearlescent_landing_mesoglea_drip");
@@ -63,14 +76,19 @@ public final class RegisterParticles {
 	public static final SimpleParticleType BLUE_HANGING_MESOGLEA = register("blue_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_FALLING_MESOGLEA = register("blue_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_LANDING_MESOGLEA = register("blue_landing_mesoglea_drip");
-	public static final SimpleParticleType MAPLE_LEAVES = register("maple_leaves");
 
-	private RegisterParticles() {
+	private WWParticles() {
 		throw new UnsupportedOperationException("RegisterParticles contains only static declarations.");
 	}
 
 	public static void registerParticles() {
 		WilderConstants.logWithModId("Registering Particles for", WilderConstants.UNSTABLE_LOGGING);
+	}
+
+	public static @NotNull ParticleType<LeafParticleOptions> createLeafParticle(ResourceLocation location) {
+		return register(
+			location, false, particleType -> LeafParticleOptions.CODEC, particleType -> LeafParticleOptions.STREAM_CODEC
+		);
 	}
 
 	@NotNull
@@ -90,9 +108,19 @@ public final class RegisterParticles {
 		Function<ParticleType<T>, MapCodec<T>> function,
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderConstants.id(string), new ParticleType<T>(alwaysShow) {
+		return register(WilderConstants.id(string), alwaysShow, function, function2);
+	}
+
+	@NotNull
+	private static <T extends ParticleOptions> ParticleType<T> register(
+		ResourceLocation resourceLocation,
+		boolean alwaysShow,
+		Function<ParticleType<T>, MapCodec<T>> function,
+		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
+	) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, resourceLocation, new ParticleType<T>(alwaysShow) {
 			@Override
-			public MapCodec<T> codec() {
+			public @NotNull MapCodec<T> codec() {
 				return function.apply(this);
 			}
 

@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.lighting.LightEngine;
 
-public final class RegisterProperties {
+public final class WWBlockStateProperties {
 
 	//Osseous Sculk
 	public static final IntegerProperty PILLAR_HEIGHT_LEFT = IntegerProperty.create("pillar_height_left", 0, 15);
@@ -74,7 +74,7 @@ public final class RegisterProperties {
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
 
-	private RegisterProperties() {
+	private WWBlockStateProperties() {
 		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");
 	}
 

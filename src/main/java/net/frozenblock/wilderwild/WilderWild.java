@@ -39,29 +39,29 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.networking.WilderNetworking;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterCriteria;
-import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
-import net.frozenblock.wilderwild.registry.RegisterDataComponents;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterFallingLeaves;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
-import net.frozenblock.wilderwild.registry.RegisterGameEvents;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterLootTables;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.RegisterMobEffects;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.frozenblock.wilderwild.registry.RegisterPotions;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterResources;
-import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.RegisterVillagerTypes;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWCriteria;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWFallingLeaves;
+import net.frozenblock.wilderwild.registry.WWFeatures;
+import net.frozenblock.wilderwild.registry.WWGameEvents;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWLootTables;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
+import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWPotions;
+import net.frozenblock.wilderwild.registry.WWResources;
+import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.registry.WWSoundTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWVillagerTypes;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.world.modification.WilderWorldGen;
 import org.jetbrains.annotations.NotNull;
 
@@ -80,37 +80,37 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		RegisterDataComponents.init();
-		WilderRegistry.initRegistry();
-		RegisterBlocks.registerBlocks();
-		RegisterItems.registerItems();
-		RegisterItems.registerBlockItems();
-		RegisterGameEvents.registerEvents();
+		WWDataComponents.init();
+		WilderWildRegistries.initRegistry();
+		WWBlocks.registerBlocks();
+		WWItems.registerItems();
+		WWItems.registerBlockItems();
+		WWGameEvents.registerEvents();
 
-		RegisterSounds.init();
-		RegisterBlockSoundTypes.init();
-		RegisterBlockEntities.register();
-		RegisterEntities.init();
-		RegisterDamageTypes.init();
-		RegisterMemoryModuleTypes.register();
-		RegisterSensorTypes.register();
-		RegisterLootTables.init();
-		RegisterParticles.registerParticles();
-		RegisterResources.register(container);
-		RegisterProperties.init();
-		RegisterMobEffects.init();
-		RegisterPotions.init();
-		RegisterCriteria.init();
+		WWSounds.init();
+		WWSoundTypes.init();
+		WWBlockEntities.register();
+		WWEntities.init();
+		WWDamageTypes.init();
+		WWMemoryModuleTypes.register();
+		WWSensorTypes.register();
+		WWLootTables.init();
+		WWParticles.registerParticles();
+		WWResources.register(container);
+		WWBlockStateProperties.init();
+		WWMobEffects.init();
+		WWPotions.init();
+		WWCriteria.init();
 
-		RegisterFeatures.init();
-		RegisterWorldgen.init();
+		WWFeatures.init();
+		WWWorldgen.init();
 		WilderWorldGen.generateWildWorldGen();
 
 		TermiteManager.Termite.addDegradableBlocks();
 		TermiteManager.Termite.addNaturalDegradableBlocks();
-		RegisterBlocks.registerBlockProperties();
-		RegisterVillagerTypes.register();
-		RegisterFallingLeaves.register();
+		WWBlocks.registerBlockProperties();
+		WWVillagerTypes.register();
+		WWFallingLeaves.register();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();
@@ -127,7 +127,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		// TODO replace this with a config option at some point
 		ConfigRegistry.register(FrozenLibConfig.INSTANCE, new ConfigModification<>(config -> config.saveItemCooldowns = true));
 
-		RegisterBlocks.registerBlockProperties();
+		WWBlocks.registerBlockProperties();
 		WilderNetworking.init();
 	}
 

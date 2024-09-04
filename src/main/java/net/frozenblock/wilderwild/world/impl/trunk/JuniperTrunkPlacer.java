@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -71,7 +71,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.JUNIPER_TRUNK_PLACER;
+		return WWFeatures.JUNIPER_TRUNK_PLACER;
 	}
 
 	@Override

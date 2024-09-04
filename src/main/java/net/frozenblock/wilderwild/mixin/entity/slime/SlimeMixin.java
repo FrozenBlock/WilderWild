@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.slime;
 
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -48,7 +48,7 @@ public class SlimeMixin {
 	) {
 		if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
 			boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
-			if (test && RegisterBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
+			if (test && WWBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
 				info.setReturnValue(true);
 			}
 		}

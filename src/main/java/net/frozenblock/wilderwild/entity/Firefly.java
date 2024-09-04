@@ -30,10 +30,10 @@ import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
-import net.frozenblock.wilderwild.registry.RegisterCriteria;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.registry.WWCriteria;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -204,11 +204,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
 			FireflyColor color = this.getColor();
 			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
-			Item item = RegisterItems.FIREFLY_BOTTLE;
+			Item item = WWItems.FIREFLY_BOTTLE;
 			if (optionalItem.isPresent()) {
 				item = optionalItem.get();
 			}
-			this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
+			this.playSound(WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
 			if (!player.getAbilities().instabuild) {
 				player.getItemInHand(hand).shrink(1);
 			}
@@ -220,7 +220,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			Level level = this.level();
 			this.discard();
 			if (!level.isClientSide) {
-				RegisterCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer) player, bottleStack);
+				WWCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer) player, bottleStack);
 			}
 			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
 		} else {
@@ -291,7 +291,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public FireflyColor getColor() {
-		return WilderRegistry.FIREFLY_COLOR.getOptional(ResourceLocation.parse(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
+		return WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.parse(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
 	}
 
 	public void setColor(@NotNull FireflyColor color) {
@@ -374,12 +374,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-		return RegisterSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_FIREFLY_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return RegisterSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_FIREFLY_HURT;
 	}
 
 	@Override
@@ -403,7 +403,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 					FrozenSoundPackets.createMovingRestrictionLoopingSound(
 						server,
 						this,
-						BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_FIREFLY_NECTAR.getLocation()).orElseThrow(),
+						BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_FIREFLY_NECTAR.getLocation()).orElseThrow(),
 						SoundSource.NEUTRAL,
 						1F,
 						1F,
@@ -529,7 +529,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		compound.putFloat("scale", this.getAnimScale());
 		compound.putFloat("prevScale", this.getPrevAnimScale());
 		compound.putBoolean("despawning", this.despawning);
-		compound.putString("color", Objects.requireNonNull(WilderRegistry.FIREFLY_COLOR.getKey(this.getColor())).toString());
+		compound.putString("color", Objects.requireNonNull(WilderWildRegistries.FIREFLY_COLOR.getKey(this.getColor())).toString());
 		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
 		compound.putBoolean("wasNamedNectar", this.wasNamedNectar);
 		compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
@@ -562,7 +562,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (compound.contains("despawning")) {
 			this.despawning = compound.getBoolean("despawning");
 		}
-		FireflyColor color = WilderRegistry.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
+		FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
 		if (color != null) {
 			this.setColor(color);
 		}

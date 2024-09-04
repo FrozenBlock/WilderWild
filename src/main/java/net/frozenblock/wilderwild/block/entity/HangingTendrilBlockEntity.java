@@ -22,8 +22,8 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterGameEvents;
+import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -79,7 +79,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int lastVibrationFrequency;
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
+		super(WWBlockEntities.HANGING_TENDRIL, pos, state);
 		this.vibrationData = new VibrationSystem.Data();
 		this.vibrationListener = new VibrationSystem.Listener(this);
 	}
@@ -98,7 +98,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
 				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
-				level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
+				level.gameEvent(null, WWGameEvents.TENDRIL_EXTRACT_XP, pos);
 			}
 		}
 

@@ -71,6 +71,7 @@ import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
+import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.world.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -78,6 +79,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
@@ -125,7 +127,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterBlocks {
+public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WilderConstants.id("baobab"));
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WilderConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WilderConstants.id("palm"));
@@ -159,7 +161,7 @@ public final class RegisterBlocks {
 		SoundEvents.BRUSH_SAND_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.strength(1.5F)
-			.sound(RegisterBlockSoundTypes.SCORCHEDSAND)
+			.sound(WWSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.SAND)
 			.randomTicks()
 	);
@@ -171,7 +173,7 @@ public final class RegisterBlocks {
 		SoundEvents.BRUSH_SAND_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.strength(1.5F)
-			.sound(RegisterBlockSoundTypes.SCORCHEDSAND)
+			.sound(WWSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.COLOR_ORANGE)
 			.randomTicks()
 	);
@@ -179,7 +181,7 @@ public final class RegisterBlocks {
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
 		WWTreeGrowers.BAOBAB,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO)
-			.sound(RegisterBlockSoundTypes.BAOBAB_NUT)
+			.sound(WWSoundTypes.BAOBAB_NUT)
 	);
 	public static final Block POTTED_BAOBAB_NUT = Blocks.flowerPot(BAOBAB_NUT);
 
@@ -197,7 +199,7 @@ public final class RegisterBlocks {
 
 	public static final CoconutBlock COCONUT = new CoconutBlock(
 		WWTreeGrowers.PALM,
-		BlockBehaviour.Properties.of().instabreak().randomTicks().sound(RegisterBlockSoundTypes.COCONUT)
+		BlockBehaviour.Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
 	);
 	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 
@@ -214,7 +216,7 @@ public final class RegisterBlocks {
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 
 	public static final Block MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
-	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, RegisterParticles.MAPLE_LEAVES);
+	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticles.MAPLE_LEAVES);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -223,7 +225,7 @@ public final class RegisterBlocks {
 	public static final HollowedLogBlock HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.STONE);
 	public static final HollowedLogBlock HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN);
 	public static final HollowedLogBlock HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MapColor.COLOR_RED, MapColor.PODZOL);
-	public static final HollowedLogBlock HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
+	public static final HollowedLogBlock HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, WWSoundTypes.HOLLOWED_CHERRY_LOG);
 	public static final HollowedLogBlock HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MapColor.CRIMSON_STEM);
 	public static final HollowedLogBlock HOLLOWED_WARPED_STEM = createHollowedStemBlock(MapColor.WARPED_STEM);
 	public static final HollowedLogBlock HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN);
@@ -233,7 +235,7 @@ public final class RegisterBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_BIRCH_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_BIRCH_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), WWSoundTypes.HOLLOWED_CHERRY_LOG);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_JUNGLE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_JUNGLE_LOG.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_ACACIA_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_ACACIA_LOG.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_DARK_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_DARK_OAK_LOG.defaultMapColor());
@@ -258,7 +260,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.SAND)
 			.strength(2.0F)
-			.sound(RegisterBlockSoundTypes.OSSEOUS_SCULK)
+			.sound(WWSoundTypes.OSSEOUS_SCULK)
 	);
 
 	public static final HangingTendrilBlock HANGING_TENDRIL = new HangingTendrilBlock(
@@ -268,7 +270,7 @@ public final class RegisterBlocks {
 			.noOcclusion()
 			.randomTicks()
 			.lightLevel(state -> 1)
-			.sound(RegisterBlockSoundTypes.HANGING_TENDRIL)
+			.sound(WWSoundTypes.HANGING_TENDRIL)
 			.emissiveRendering((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state))
 	);
 
@@ -277,44 +279,44 @@ public final class RegisterBlocks {
 			.mapColor(MapColor.COLOR_CYAN)
 			.noOcclusion()
 			.randomTicks()
-			.sound(RegisterBlockSoundTypes.ECHO_GLASS)
+			.sound(WWSoundTypes.ECHO_GLASS)
 			.instrument(NoteBlockInstrument.HAT)
 	);
 
 	// Mesoglea
 	public static final MesogleaBlock BLUE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.QUARTZ,
-		RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA,
+		WWParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
 	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.COLOR_PURPLE,
-		RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
+		WWParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
 	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea(
 		MapColor.COLOR_YELLOW,
-		RegisterParticles.YELLOW_HANGING_MESOGLEA,
+		WWParticles.YELLOW_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_BLUE,
-		RegisterParticles.BLUE_HANGING_MESOGLEA,
+		WWParticles.BLUE_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock LIME_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_GREEN,
-		RegisterParticles.LIME_HANGING_MESOGLEA,
+		WWParticles.LIME_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock RED_MESOGLEA = mesoglea(
 		MapColor.COLOR_RED,
-		RegisterParticles.RED_HANGING_MESOGLEA,
+		WWParticles.RED_HANGING_MESOGLEA,
 		false
 	);
 	public static final MesogleaBlock PINK_MESOGLEA = mesoglea(
 		MapColor.COLOR_PINK,
-		RegisterParticles.PINK_HANGING_MESOGLEA,
+		WWParticles.PINK_HANGING_MESOGLEA,
 		false
 	);
 
@@ -332,7 +334,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
-			.sound(RegisterBlockSoundTypes.TERMITEMOUND)
+			.sound(WWSoundTypes.TERMITEMOUND)
 			.hasPostProcess(Blocks::always)
 			.randomTicks()
 	);
@@ -341,7 +343,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CHEST)
 			.sound(SoundType.DEEPSLATE)
 			.strength(35.0F, 12.0F),
-		() -> RegisterBlockEntities.STONE_CHEST
+		() -> WWBlockEntities.STONE_CHEST
 	);
 
 	// PLANTS
@@ -412,7 +414,7 @@ public final class RegisterBlocks {
 	public static final AlgaeBlock ALGAE = new AlgaeBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.FROGSPAWN)
 			.mapColor(MapColor.PLANT)
-			.sound(RegisterBlockSoundTypes.ALGAE)
+			.sound(WWSoundTypes.ALGAE)
 	);
 
 	public static final WilderBushBlock BUSH = new WilderBushBlock(
@@ -427,7 +429,7 @@ public final class RegisterBlocks {
 	public static final TumbleweedPlantBlock TUMBLEWEED_PLANT = new TumbleweedPlantBlock(
 		BlockBehaviour.Properties.of()
 			.noOcclusion()
-			.sound(RegisterBlockSoundTypes.TUMBLEWEED_PLANT)
+			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
 	public static final Block POTTED_TUMBLEWEED_PLANT = Blocks.flowerPot(TUMBLEWEED_PLANT);
@@ -435,7 +437,7 @@ public final class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.instabreak()
 			.noOcclusion()
-			.sound(RegisterBlockSoundTypes.TUMBLEWEED_PLANT)
+			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
 	public static final Block POTTED_TUMBLEWEED = Blocks.flowerPot(TUMBLEWEED);
@@ -453,7 +455,7 @@ public final class RegisterBlocks {
 			.randomTicks()
 			.noCollission()
 			.noOcclusion()
-			.sound(RegisterBlockSoundTypes.MUSHROOM)
+			.sound(WWSoundTypes.MUSHROOM)
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -462,7 +464,7 @@ public final class RegisterBlocks {
 			.randomTicks()
 			.noCollission()
 			.noOcclusion()
-			.sound(RegisterBlockSoundTypes.MUSHROOM)
+			.sound(WWSoundTypes.MUSHROOM)
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -470,7 +472,7 @@ public final class RegisterBlocks {
 	public static final PollenBlock POLLEN = new PollenBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
-			.sound(RegisterBlockSoundTypes.POLLEN)
+			.sound(WWSoundTypes.POLLEN)
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
 
@@ -493,17 +495,17 @@ public final class RegisterBlocks {
 
 	public static final Block NULL_BLOCK = new Block(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
-			.sound(RegisterBlockSoundTypes.NULL_BLOCK)
+			.sound(WWSoundTypes.NULL_BLOCK)
 	);
 
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
-			.lightLevel(state -> state.getValue(RegisterProperties.DISPLAY_LIGHT))
+			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
 	public static final GeyserBlock GEYSER = new GeyserBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
-			.sound(RegisterBlockSoundTypes.GEYSER)
+			.sound(WWSoundTypes.GEYSER)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
@@ -890,7 +892,7 @@ public final class RegisterBlocks {
 			.mapColor(MAPLE_BARK_COLOR)
 	);
 
-	private RegisterBlocks() {
+	private WWBlocks() {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
@@ -1211,7 +1213,7 @@ public final class RegisterBlocks {
 
 	@NotNull
 	public static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
-		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
+		return createHollowedLogBlock(topMapColor, sideMapColor, WWSoundTypes.HOLLOWED_LOG);
 	}
 
 	@NotNull
@@ -1220,7 +1222,7 @@ public final class RegisterBlocks {
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(2F)
-			.sound(RegisterBlockSoundTypes.HOLLOWED_STEM)
+			.sound(WWSoundTypes.HOLLOWED_STEM)
 		);
 	}
 
@@ -1238,7 +1240,7 @@ public final class RegisterBlocks {
 
 	@NotNull
 	public static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor) {
-		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
+		return createStrippedHollowedLogBlock(mapColor, WWSoundTypes.HOLLOWED_LOG);
 	}
 
 	@NotNull
@@ -1247,17 +1249,17 @@ public final class RegisterBlocks {
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(2F)
-			.sound(RegisterBlockSoundTypes.HOLLOWED_STEM)
+			.sound(WWSoundTypes.HOLLOWED_STEM)
 		);
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleOptions particleType) {
+	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
 		return leafLitter(sourceBlock, particleType, true);
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleOptions particleType, boolean ignites) {
+	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, boolean ignites) {
 		BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(sourceBlock)
 			.randomTicks()
 			.noCollission()
@@ -1271,7 +1273,7 @@ public final class RegisterBlocks {
 		}
 
 		LeafLitterBlock leafLitterBlock = new LeafLitterBlock(properties);
-		LeafLitterBlock.LeafParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);
+		LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);
 		return leafLitterBlock;
 	}
 
@@ -1286,7 +1288,7 @@ public final class RegisterBlocks {
 				.friction(0.8F)
 				.emissiveRendering(Blocks::always)
 				.lightLevel(state -> 7)
-				.sound(RegisterBlockSoundTypes.MESOGLEA)
+				.sound(WWSoundTypes.MESOGLEA)
 				.isSuffocating(Blocks::never)
 				.isViewBlocking(Blocks::never)
 				.dynamicShape()
@@ -1304,7 +1306,7 @@ public final class RegisterBlocks {
 				.noOcclusion()
 				.emissiveRendering(Blocks::always)
 				.lightLevel(state -> 4)
-				.sound(RegisterBlockSoundTypes.NEMATOCYST)
+				.sound(WWSoundTypes.NEMATOCYST)
 				.pushReaction(PushReaction.DESTROY)
 		);
 	}
@@ -1376,14 +1378,14 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerDispenses() {
-		DispenserBlock.registerBehavior(RegisterBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
+		DispenserBlock.registerBehavior(WWBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
 			@Override
 			@NotNull
 			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
 				Level level = source.level();
 				Direction direction = source.state().getValue(DispenserBlock.FACING);
 				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+				Tumbleweed tumbleweed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
 				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ()).normalize().add(level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D)).scale(1.1D);
 				tumbleweed.setDeltaMovement(vec3);
 				tumbleweed.setPos(position);
@@ -1438,8 +1440,8 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(RegisterItems.COCONUT, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(RegisterItems.SPLIT_COCONUT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALBA_GLORY_OF_THE_SNOW, 0.65F);
@@ -1454,132 +1456,132 @@ public final class RegisterBlocks {
 	private static void registerFlammability() {
 		WilderConstants.logWithModId("Registering Flammability for", WilderConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
-		flammableBlockRegistry.add(RegisterBlocks.POLLEN, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.CARNATION, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.CATTAIL, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.DATURA, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.MILKWEED, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.MARIGOLD, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.TUMBLEWEED, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.TUMBLEWEED_PLANT, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.BUSH, 90, 40);
+		flammableBlockRegistry.add(WWBlocks.POLLEN, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.SEEDING_DANDELION, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.CARNATION, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.CATTAIL, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.DATURA, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.MILKWEED, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.MARIGOLD, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.TUMBLEWEED, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.TUMBLEWEED_PLANT, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.BUSH, 90, 40);
 
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, 5, 5);
 
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_PLANKS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_STAIRS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_DOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_FENCE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_SLAB, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_LEAVES, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_BUTTON, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_PLANKS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_STAIRS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_DOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_FENCE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_SLAB, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_LEAVES, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_BUTTON, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.BAOBAB_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_PLANKS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_STAIRS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_DOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_FENCE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_SLAB, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_LEAVES, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_PLANKS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_STAIRS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_DOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_FENCE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_SLAB, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_LEAVES, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_BUTTON, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.CYPRESS_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_PLANKS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_STAIRS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_DOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_FENCE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_SLAB, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_FRONDS, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_BUTTON, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.PALM_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_PALM_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.PALM_PLANKS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_STAIRS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_DOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_FENCE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_SLAB, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_FRONDS, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.PALM_BUTTON, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.PALM_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_MAPLE_WOOD, 5, 5);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_PLANKS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_STAIRS, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_DOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_FENCE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_SLAB, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAF_LITTER, 200, 60);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_BUTTON, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.HOLLOWED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.STRIPPED_MAPLE_WOOD, 5, 5);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_PLANKS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_STAIRS, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_DOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_FENCE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_SLAB, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_BUTTON, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WWBlocks.MAPLE_WALL_HANGING_SIGN, 5, 20);
 	}
 
 	private static void registerFuels() {
 		WilderConstants.logWithModId("Registering Fuels for", WilderConstants.UNSTABLE_LOGGING);
 		FuelRegistry registry = FuelRegistry.INSTANCE;
 
-		registry.add(RegisterItems.BAOBAB_BOAT, 1200);
-		registry.add(RegisterItems.BAOBAB_CHEST_BOAT, 1200);
+		registry.add(WWItems.BAOBAB_BOAT, 1200);
+		registry.add(WWItems.BAOBAB_CHEST_BOAT, 1200);
 		registry.add(BAOBAB_LOG.asItem(), 300);
 		registry.add(STRIPPED_BAOBAB_LOG.asItem(), 300);
 		registry.add(BAOBAB_WOOD.asItem(), 300);
@@ -1592,12 +1594,12 @@ public final class RegisterBlocks {
 		registry.add(BAOBAB_TRAPDOOR.asItem(), 300);
 		registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
 		registry.add(BAOBAB_FENCE.asItem(), 300);
-		registry.add(RegisterItems.BAOBAB_SIGN, 300);
-		registry.add(RegisterItems.BAOBAB_HANGING_SIGN, 800);
-		registry.add(RegisterItems.BAOBAB_NUT, 100);
+		registry.add(WWItems.BAOBAB_SIGN, 300);
+		registry.add(WWItems.BAOBAB_HANGING_SIGN, 800);
+		registry.add(WWItems.BAOBAB_NUT, 100);
 
-		registry.add(RegisterItems.CYPRESS_BOAT, 1200);
-		registry.add(RegisterItems.CYPRESS_CHEST_BOAT, 1200);
+		registry.add(WWItems.CYPRESS_BOAT, 1200);
+		registry.add(WWItems.CYPRESS_CHEST_BOAT, 1200);
 		registry.add(CYPRESS_LOG.asItem(), 300);
 		registry.add(STRIPPED_CYPRESS_LOG.asItem(), 300);
 		registry.add(CYPRESS_WOOD.asItem(), 300);
@@ -1610,12 +1612,12 @@ public final class RegisterBlocks {
 		registry.add(CYPRESS_TRAPDOOR.asItem(), 300);
 		registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
 		registry.add(CYPRESS_FENCE.asItem(), 300);
-		registry.add(RegisterItems.CYPRESS_SIGN, 300);
-		registry.add(RegisterItems.CYPRESS_HANGING_SIGN, 800);
+		registry.add(WWItems.CYPRESS_SIGN, 300);
+		registry.add(WWItems.CYPRESS_HANGING_SIGN, 800);
 		registry.add(CYPRESS_SAPLING.asItem(), 100);
 
-		registry.add(RegisterItems.PALM_BOAT, 1200);
-		registry.add(RegisterItems.PALM_CHEST_BOAT, 1200);
+		registry.add(WWItems.PALM_BOAT, 1200);
+		registry.add(WWItems.PALM_CHEST_BOAT, 1200);
 		registry.add(PALM_LOG.asItem(), 300);
 		registry.add(STRIPPED_PALM_LOG.asItem(), 300);
 		registry.add(PALM_WOOD.asItem(), 300);
@@ -1628,13 +1630,13 @@ public final class RegisterBlocks {
 		registry.add(PALM_TRAPDOOR.asItem(), 300);
 		registry.add(PALM_FENCE_GATE.asItem(), 300);
 		registry.add(PALM_FENCE.asItem(), 300);
-		registry.add(RegisterItems.PALM_SIGN, 300);
-		registry.add(RegisterItems.PALM_HANGING_SIGN, 800);
-		registry.add(RegisterItems.COCONUT, 150); // COCONUT OIL IS KNOWN TO BE FLAMMABLE :)
-		registry.add(RegisterItems.SPLIT_COCONUT, 75);
+		registry.add(WWItems.PALM_SIGN, 300);
+		registry.add(WWItems.PALM_HANGING_SIGN, 800);
+		registry.add(WWItems.COCONUT, 150); // COCONUT OIL IS KNOWN TO BE FLAMMABLE :)
+		registry.add(WWItems.SPLIT_COCONUT, 75);
 
-		registry.add(RegisterItems.MAPLE_BOAT, 1200);
-		registry.add(RegisterItems.MAPLE_CHEST_BOAT, 1200);
+		registry.add(WWItems.MAPLE_BOAT, 1200);
+		registry.add(WWItems.MAPLE_CHEST_BOAT, 1200);
 		registry.add(MAPLE_LOG.asItem(), 300);
 		registry.add(STRIPPED_MAPLE_LOG.asItem(), 300);
 		registry.add(MAPLE_WOOD.asItem(), 300);
@@ -1647,8 +1649,8 @@ public final class RegisterBlocks {
 		registry.add(MAPLE_TRAPDOOR.asItem(), 300);
 		registry.add(MAPLE_FENCE_GATE.asItem(), 300);
 		registry.add(MAPLE_FENCE.asItem(), 300);
-		registry.add(RegisterItems.MAPLE_SIGN, 300);
-		registry.add(RegisterItems.MAPLE_HANGING_SIGN, 800);
+		registry.add(WWItems.MAPLE_SIGN, 300);
+		registry.add(WWItems.MAPLE_HANGING_SIGN, 800);
 		registry.add(MAPLE_SAPLING.asItem(), 100);
 
 		registry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
@@ -1716,35 +1718,35 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerAxe() {
-		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(RegisterBlocks.BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.PALM_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.MAPLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.HOLLOWED_MAPLE_LOG, false));
+		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_BIRCH_LOG, false));
+		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_CHERRY_LOG, false));
+		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_SPRUCE_LOG, false));
+		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_DARK_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_JUNGLE_LOG, false));
+		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_ACACIA_LOG, false));
+		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_MANGROVE_LOG, false));
+		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_CRIMSON_STEM, true));
+		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_WARPED_STEM, true));
+		AxeBehaviors.register(WWBlocks.BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_BAOBAB_LOG, false));
+		AxeBehaviors.register(WWBlocks.CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_CYPRESS_LOG, false));
+		AxeBehaviors.register(WWBlocks.PALM_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(WWBlocks.MAPLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_MAPLE_LOG, false));
 		//STRIPPED
-		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(RegisterBlocks.STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, true));
+		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, true));
+		AxeBehaviors.register(WWBlocks.STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
+		AxeBehaviors.register(WWBlocks.STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
+		AxeBehaviors.register(WWBlocks.STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(WWBlocks.STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, false));
 	}
 
 	private static void registerInventories() {

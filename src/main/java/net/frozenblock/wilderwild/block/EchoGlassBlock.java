@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -55,7 +55,7 @@ import org.jetbrains.annotations.Nullable;
 public class EchoGlassBlock extends TransparentBlock {
 	public static final int MIN_CRACK_PARTICLES = 18;
 	public static final int MAX_DAMAGE_PARTICLES = 25;
-	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
+	public static final IntegerProperty DAMAGE = WWBlockStateProperties.DAMAGE;
 	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 
 	public EchoGlassBlock(@NotNull Properties settings) {
@@ -72,7 +72,7 @@ public class EchoGlassBlock extends TransparentBlock {
 			level.playSound(
 				null,
 				pos,
-				RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
+				WWSounds.BLOCK_ECHO_GLASS_CRACK,
 				SoundSource.BLOCKS,
 				0.5F,
 				0.9F + level.random.nextFloat() * 0.2F
@@ -105,7 +105,7 @@ public class EchoGlassBlock extends TransparentBlock {
 			level.playSound(
 				null,
 				pos,
-				RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
+				WWSounds.BLOCK_ECHO_GLASS_REPAIR,
 				SoundSource.BLOCKS,
 				1F,
 				level.random.nextFloat() * 0.1F + 0.9F
@@ -189,9 +189,9 @@ public class EchoGlassBlock extends TransparentBlock {
 	@NotNull
 	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		int damage = state.getValue(RegisterProperties.DAMAGE);
+		int damage = state.getValue(WWBlockStateProperties.DAMAGE);
 		if (damage != 0) {
-			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.DAMAGE, damage);
+			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
 		}
 		return superStack;
 	}

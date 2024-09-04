@@ -42,7 +42,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterEntities {
+public final class WWEntities {
 	public static final EntityType<AncientHornVibration> ANCIENT_HORN_VIBRATION = register(
 		"ancient_horn_vibration",
 		EntityType.Builder.<AncientHornVibration>of(AncientHornVibration::new, MobCategory.MISC)
@@ -131,7 +131,7 @@ public final class RegisterEntities {
 			.build(WilderConstants.string("sculk_spreader"))
 	);
 
-	private RegisterEntities() {
+	private WWEntities() {
 		throw new UnsupportedOperationException("RegisterEntities contains only static declarations.");
 	}
 

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.fire;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
@@ -44,7 +44,7 @@ public class BaseFireBlockMixin {
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
 				pos.getZ() + 0.5D,
-				RegisterSounds.BLOCK_SOUL_FIRE_AMBIENT,
+				WWSounds.BLOCK_SOUL_FIRE_AMBIENT,
 				SoundSource.BLOCKS,
 				0.6F + random.nextFloat(),
 				random.nextFloat() * 0.7F + 0.3F,

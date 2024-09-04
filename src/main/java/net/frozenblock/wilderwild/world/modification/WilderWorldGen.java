@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.placed.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.placed.WilderPlacedFeatures;
@@ -66,7 +66,7 @@ public final class WilderWorldGen {
 	private static void configureBuiltInBiomes() {
 		BiomeModifications.create(WilderConstants.id("remove_fallen_trees")).add(
 				ModificationPhase.REMOVALS,
-				BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+				BiomeSelectors.includeByKey(WWWorldgen.CYPRESS_WETLANDS),
 				(context) -> {
 					if (!WorldgenConfig.get().fallenTrees) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
@@ -76,7 +76,7 @@ public final class WilderWorldGen {
 			)
 			.add(
 				ModificationPhase.REMOVALS,
-				BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
+				BiomeSelectors.includeByKey(WWWorldgen.MIXED_FOREST),
 				(context) -> {
 					if (!WorldgenConfig.get().fallenTrees) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
@@ -87,7 +87,7 @@ public final class WilderWorldGen {
 
 		BiomeModifications.create(WilderConstants.id("flowers_rainforest")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
+			BiomeSelectors.includeByKey(WWWorldgen.RAINFOREST),
 			context -> {
 				if (WorldgenConfig.get().flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
@@ -98,7 +98,7 @@ public final class WilderWorldGen {
 
 		BiomeModifications.create(WilderConstants.id("flowers_temperate_rainforest")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
+			BiomeSelectors.includeByKey(WWWorldgen.TEMPERATE_RAINFOREST),
 			context -> {
 				if (WorldgenConfig.get().flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();

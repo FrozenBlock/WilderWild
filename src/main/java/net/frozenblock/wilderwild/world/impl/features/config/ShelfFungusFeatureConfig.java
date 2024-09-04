@@ -25,7 +25,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import java.util.Objects;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
@@ -41,7 +41,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfiguration {
 		instance.group(
 			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
 				.flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success)
-				.orElse(RegisterBlocks.BROWN_SHELF_FUNGUS)
+				.orElse(WWBlocks.BROWN_SHELF_FUNGUS)
 				.forGetter(config -> config.fungus),
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
 				config -> config.searchRange

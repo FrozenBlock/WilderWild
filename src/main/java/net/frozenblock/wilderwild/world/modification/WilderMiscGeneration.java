@@ -25,7 +25,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
 import net.frozenblock.wilderwild.world.feature.placed.WilderMiscPlaced;
@@ -187,27 +187,27 @@ public final class WilderMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.MUD_LAKE.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.MIXED_FOREST)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.MIXED_FOREST)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.ARID_FOREST)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.ARID_FOREST)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ARID_COARSE_PATH.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.ARID_SAVANNA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.ARID_SAVANNA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ARID_COARSE_PATH.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.BIRCH_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.BIRCH_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_10.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_10.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.PILE_SNOW.getKey());
 						}
 

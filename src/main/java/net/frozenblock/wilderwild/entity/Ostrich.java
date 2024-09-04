@@ -30,9 +30,9 @@ import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichMoveControl;
-import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
@@ -318,7 +318,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
 					if (!this.isSilent()) {
 						boolean inbred = this.isInbred();
-						SoundEvent stuckSoundEvent = inbred ? RegisterSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK : RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK;
+						SoundEvent stuckSoundEvent = inbred ? WWSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK : WWSounds.ENTITY_OSTRICH_BEAK_STUCK;
 						float volume = inbred ? 8F : this.getSoundVolume();
 						this.level().playSound(null, beakBlockPos, stuckSoundEvent, this.getSoundSource(), volume, this.getVoicePitch());
 						if (inbred) {
@@ -355,7 +355,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				AttributeModifier.Operation.ADD_VALUE
 			)
 		);
-		boolean didHurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
+		boolean didHurt = entity.hurt(this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
 		if (!didHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
 		} else if (entity instanceof LivingEntity livingEntity) {
@@ -475,7 +475,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
 		this.setLastAttackCommander(commander);
-		SoundEvent soundEvent = this.isInbred() ? RegisterSounds.ENTITY_OSTRICH_INBRED_SWING : RegisterSounds.ENTITY_OSTRICH_SWING;
+		SoundEvent soundEvent = this.isInbred() ? WWSounds.ENTITY_OSTRICH_INBRED_SWING : WWSounds.ENTITY_OSTRICH_SWING;
 		this.playSound(soundEvent, 0.4F, 0.9F + this.random.nextFloat() * 0.2F);
 
 		if (this.attackHasCommander) {
@@ -630,7 +630,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
-			&& livingEntity.getType() != RegisterEntities.OSTRICH
+			&& livingEntity.getType() != WWEntities.OSTRICH
 			&& !this.isVehicle()
 			&& !(livingEntity instanceof Player && this.isTamed())
 			&& !livingEntity.isInvulnerable()
@@ -815,7 +815,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public Ostrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
-		return RegisterEntities.OSTRICH.create(level);
+		return WWEntities.OSTRICH.create(level);
 	}
 
 	@Override
@@ -910,21 +910,21 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public SoundEvent getEatingSound() {
-		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
-		return RegisterSounds.ENTITY_OSTRICH_EAT;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
+		return WWSounds.ENTITY_OSTRICH_EAT;
 	}
 
 	@NotNull
 	@Override
 	public SoundEvent getSaddleSoundEvent() {
-		return RegisterSounds.ENTITY_OSTRICH_SADDLE;
+		return WWSounds.ENTITY_OSTRICH_SADDLE;
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getAngrySound() {
-		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
-		return RegisterSounds.ENTITY_OSTRICH_GRUNT;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
+		return WWSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
 	@Override
@@ -936,23 +936,23 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public SoundEvent getAmbientSound() {
 		if (this.isInbred())
-			return this.random.nextFloat() <= 0.555F ? RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
-		return !this.isAggressive() ? RegisterSounds.ENTITY_OSTRICH_IDLE :
-			this.random.nextBoolean() ? RegisterSounds.ENTITY_OSTRICH_HISS : RegisterSounds.ENTITY_OSTRICH_GRUNT;
+			return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
+		return !this.isAggressive() ? WWSounds.ENTITY_OSTRICH_IDLE :
+			this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_HURT;
-		return RegisterSounds.ENTITY_OSTRICH_HURT;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_HURT;
+		return WWSounds.ENTITY_OSTRICH_HURT;
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getDeathSound() {
-		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_DEATH;
-		return RegisterSounds.ENTITY_OSTRICH_DEATH;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_DEATH;
+		return WWSounds.ENTITY_OSTRICH_DEATH;
 	}
 
 	@Override
@@ -963,7 +963,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
 		boolean inbred = this.isInbred();
-		SoundEvent soundEvent = inbred ? RegisterSounds.ENTITY_OSTRICH_INBRED_STEP : RegisterSounds.ENTITY_OSTRICH_STEP;
+		SoundEvent soundEvent = inbred ? WWSounds.ENTITY_OSTRICH_INBRED_STEP : WWSounds.ENTITY_OSTRICH_STEP;
 		float volume = inbred ? 0.5F : 0.1F;
 		this.playSound(soundEvent, volume, 0.9F + this.random.nextFloat() * 0.2F);
 	}

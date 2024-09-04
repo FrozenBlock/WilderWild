@@ -25,8 +25,8 @@ import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
@@ -65,11 +65,11 @@ public class AncientHorn extends InstrumentItem {
 	public static int decreaseCooldown(@NotNull Player user, int time) {
 		if (!user.isCreative()) {
 			ItemCooldowns manager = user.getCooldowns();
-			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
+			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(WWItems.ANCIENT_HORN);
 			if (entry != null) {
 				int between = entry.endTime - entry.startTime;
 				if (between > 140 && between >= time) {
-					((CooldownInterface) user.getCooldowns()).frozenLib$changeCooldown(RegisterItems.ANCIENT_HORN, -time);
+					((CooldownInterface) user.getCooldowns()).frozenLib$changeCooldown(WWItems.ANCIENT_HORN, -time);
 					return time;
 				}
 			}
@@ -91,7 +91,7 @@ public class AncientHorn extends InstrumentItem {
 		if (optional.isPresent()) {
 			user.startUsingItem(hand);
 			play(level, user, optional.get().value());
-			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, ItemConfig.get().ancientHorn.ancientHornCooldown));
+			user.getCooldowns().addCooldown(WWItems.ANCIENT_HORN, getCooldown(user, ItemConfig.get().ancientHorn.ancientHornCooldown));
 			if (level instanceof ServerLevel server) {
 				AncientHornVibration projectileEntity = new AncientHornVibration(level, user.getX(), user.getEyeY(), user.getZ());
 				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0F, 1F, 0F);
@@ -100,7 +100,7 @@ public class AncientHorn extends InstrumentItem {
 				FrozenSoundPackets.createMovingRestrictionLoopingSound(
 					server,
 					projectileEntity,
-					BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
+					BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
 					SoundSource.NEUTRAL,
 					1F,
 					1F,

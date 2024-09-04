@@ -24,7 +24,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -58,7 +58,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.LARGE_SNAPPED_TRUNK_PLACER;
+		return WWFeatures.LARGE_SNAPPED_TRUNK_PLACER;
 	}
 
 	@Override

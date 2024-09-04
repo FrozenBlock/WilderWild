@@ -27,8 +27,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public final class RegisterLootTables {
-	private RegisterLootTables() {
+public final class WWLootTables {
+	private WWLootTables() {
 		throw new UnsupportedOperationException("RegisterLootTables only supports static declarations.");
 	}
 
@@ -38,7 +38,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
 				LootPool.Builder pool = LootPool.lootPool();
-				pool.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT)
+				pool.add(LootItem.lootTableItem(WWItems.ANCIENT_HORN_FRAGMENT)
 					.setWeight(1)
 					.setQuality(Rarity.EPIC.ordinal() + 4)
 					.apply(
@@ -53,7 +53,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -62,7 +62,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -71,7 +71,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -80,7 +80,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -89,7 +89,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -98,7 +98,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 5.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 5.0F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -107,7 +107,7 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)));
 
 				tableBuilder.withPool(pool);
 			}

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.StringRepresentable;
@@ -26,9 +26,9 @@ import org.jetbrains.annotations.NotNull;
 
 public enum GeyserType implements StringRepresentable {
 	NONE("none", SoundEvents.EMPTY),
-	AIR("air", RegisterSounds.BLOCK_GEYSER_ERUPT_AIR),
-	WATER("water", RegisterSounds.BLOCK_GEYSER_ERUPT_WATER),
-	LAVA("lava", RegisterSounds.BLOCK_GEYSER_ERUPT_LAVA);
+	AIR("air", WWSounds.BLOCK_GEYSER_ERUPT_AIR),
+	WATER("water", WWSounds.BLOCK_GEYSER_ERUPT_WATER),
+	LAVA("lava", WWSounds.BLOCK_GEYSER_ERUPT_LAVA);
 
 	private final String name;
 	private final SoundEvent eruptionSound;

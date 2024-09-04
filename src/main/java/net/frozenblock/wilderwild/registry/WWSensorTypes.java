@@ -34,8 +34,8 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterSensorTypes {
-	private RegisterSensorTypes() {
+public final class WWSensorTypes {
+	private WWSensorTypes() {
 		throw new UnsupportedOperationException("RegisterSensorTypes contains only static declarations.");
 	}
 

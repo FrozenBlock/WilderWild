@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.item.api.axe.AxeBehaviors;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -147,7 +147,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 				0.1625D + offsetZ,
 				0.05D
 			);
-			SoundEvent hollowedSound = isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED;
+			SoundEvent hollowedSound = isStem ? WWSounds.STEM_HOLLOWED : WWSounds.LOG_HOLLOWED;
 			level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 		}
 	}

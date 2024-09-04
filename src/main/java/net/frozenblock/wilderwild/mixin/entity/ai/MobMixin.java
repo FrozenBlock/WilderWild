@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.entity.ai;
 
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Slime;
@@ -51,7 +51,7 @@ public class MobMixin {
 	@Inject(method = "checkSpawnObstruction", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$checkSpawnObstruction(LevelReader level, CallbackInfoReturnable<Boolean> info) {
 		if (Mob.class.cast(this) instanceof Slime slime) {
-			info.setReturnValue((!level.containsAnyLiquid(slime.getBoundingBox()) || RegisterBlocks.ALGAE.hasAmountNearby(slime.level(), slime.blockPosition(), 1, 3)) && level.isUnobstructed(slime));
+			info.setReturnValue((!level.containsAnyLiquid(slime.getBoundingBox()) || WWBlocks.ALGAE.hasAmountNearby(slime.level(), slime.blockPosition(), 1, 3)) && level.isUnobstructed(slime));
 		}
 	}
 

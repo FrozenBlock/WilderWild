@@ -32,14 +32,14 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterPotions {
+public final class WWPotions {
 
-	public static final Reference<Potion> REACH = register("reach", new Potion(new MobEffectInstance(RegisterMobEffects.REACH_BOOST, 3600)));
-	public static final Reference<Potion> LONG_REACH = register("long_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH_BOOST, 9600)));
-	public static final Reference<Potion> STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH_BOOST, 2700, 1)));
-	public static final Holder<Potion> SCORCHING = register("scorching", new Potion("scorching", new MobEffectInstance(RegisterMobEffects.SCORCHING, 2700)));
+	public static final Reference<Potion> REACH = register("reach", new Potion(new MobEffectInstance(WWMobEffects.REACH_BOOST, 3600)));
+	public static final Reference<Potion> LONG_REACH = register("long_reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 9600)));
+	public static final Reference<Potion> STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 2700, 1)));
+	public static final Holder<Potion> SCORCHING = register("scorching", new Potion("scorching", new MobEffectInstance(WWMobEffects.SCORCHING, 2700)));
 
-	private RegisterPotions() {
+	private WWPotions() {
 		throw new UnsupportedOperationException("RegisterPotions contains only static declarations.");
 	}
 
@@ -48,11 +48,11 @@ public final class RegisterPotions {
 
 		FabricBrewingRecipeRegistryBuilder.BUILD.register(boringBuilder -> {
 			if (boringBuilder instanceof FabricBrewingRecipeRegistryBuilder builder) {
-				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), REACH);
+				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH);
 				builder.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
 				builder.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
 
-				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.FERMENTED_SCORCHED_EYE), SCORCHING);
+				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.FERMENTED_SCORCHED_EYE), SCORCHING);
 			}
 		});
 	}

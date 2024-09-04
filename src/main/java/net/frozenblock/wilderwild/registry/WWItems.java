@@ -62,43 +62,43 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterItems {
+public final class WWItems {
 
 	// BLOCK ITEMS
-	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new Item.Properties().food(RegisterFood.BAOBAB_NUT));
+	public static final BlockItem BAOBAB_NUT = new BlockItem(WWBlocks.BAOBAB_NUT, new Item.Properties().food(WWFood.BAOBAB_NUT));
 	public static final SignItem BAOBAB_SIGN = new SignItem(new Item.Properties().stacksTo(16),
-		RegisterBlocks.BAOBAB_SIGN, RegisterBlocks.BAOBAB_WALL_SIGN
+		WWBlocks.BAOBAB_SIGN, WWBlocks.BAOBAB_WALL_SIGN
 	);
-	public static final HangingSignItem BAOBAB_HANGING_SIGN = new HangingSignItem(RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN,
+	public static final HangingSignItem BAOBAB_HANGING_SIGN = new HangingSignItem(WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
 	public static final SignItem CYPRESS_SIGN = new SignItem(new Item.Properties().stacksTo(16),
-		RegisterBlocks.CYPRESS_SIGN, RegisterBlocks.CYPRESS_WALL_SIGN
+		WWBlocks.CYPRESS_SIGN, WWBlocks.CYPRESS_WALL_SIGN
 	);
-	public static final HangingSignItem CYPRESS_HANGING_SIGN = new HangingSignItem(RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN,
+	public static final HangingSignItem CYPRESS_HANGING_SIGN = new HangingSignItem(WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
 	public static final SignItem PALM_SIGN = new SignItem(new Item.Properties().stacksTo(16),
-		RegisterBlocks.PALM_SIGN, RegisterBlocks.PALM_WALL_SIGN
+		WWBlocks.PALM_SIGN, WWBlocks.PALM_WALL_SIGN
 	);
-	public static final HangingSignItem PALM_HANGING_SIGN = new HangingSignItem(RegisterBlocks.PALM_HANGING_SIGN, RegisterBlocks.PALM_WALL_HANGING_SIGN,
+	public static final HangingSignItem PALM_HANGING_SIGN = new HangingSignItem(WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
 	public static final SignItem MAPLE_SIGN = new SignItem(new Item.Properties().stacksTo(16),
-		RegisterBlocks.MAPLE_SIGN, RegisterBlocks.MAPLE_WALL_SIGN
+		WWBlocks.MAPLE_SIGN, WWBlocks.MAPLE_WALL_SIGN
 	);
-	public static final HangingSignItem MAPLE_HANGING_SIGN = new HangingSignItem(RegisterBlocks.MAPLE_HANGING_SIGN, RegisterBlocks.MAPLE_WALL_HANGING_SIGN,
+	public static final HangingSignItem MAPLE_HANGING_SIGN = new HangingSignItem(WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
-	public static final CoconutItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new Item.Properties());
-	public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN, new Item.Properties());
-	public static final BlockItem SCORCHED_SAND = new BlockItem(RegisterBlocks.SCORCHED_SAND, new Item.Properties());
-	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(RegisterBlocks.SCORCHED_RED_SAND, new Item.Properties());
-	public static final BlockItem ECHO_GLASS = new BlockItem(RegisterBlocks.ECHO_GLASS, new Item.Properties());
-	public static final BlockItem DISPLAY_LANTERN = new BlockItem(RegisterBlocks.DISPLAY_LANTERN, new Item.Properties().component(RegisterDataComponents.FIREFLIES, ImmutableList.of()));
+	public static final CoconutItem COCONUT = new CoconutItem(WWBlocks.COCONUT, new Item.Properties());
+	public static final BlockItem POLLEN = new BlockItem(WWBlocks.POLLEN, new Item.Properties());
+	public static final BlockItem SCORCHED_SAND = new BlockItem(WWBlocks.SCORCHED_SAND, new Item.Properties());
+	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(WWBlocks.SCORCHED_RED_SAND, new Item.Properties());
+	public static final BlockItem ECHO_GLASS = new BlockItem(WWBlocks.ECHO_GLASS, new Item.Properties());
+	public static final BlockItem DISPLAY_LANTERN = new BlockItem(WWBlocks.DISPLAY_LANTERN, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
-	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(RegisterFood.SPLIT_COCONUT));
+	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(WWFood.SPLIT_COCONUT));
 	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WilderEnumValues.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WilderEnumValues.CYPRESS, new Item.Properties().stacksTo(1));
@@ -124,21 +124,21 @@ public final class RegisterItems {
 	public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.MAGENTA);
 	public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ORANGE);
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.WHITE);
-	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, RegisterDamageTypes.PRICKLY_PEAR);
+	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new Item.Properties().food(Foods.APPLE));
-	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
-	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(RegisterFood.CRAB_CLAW));
-	public static final Item COOKED_CRAB_CLAW = new Item(new Item.Properties().food(RegisterFood.COOKED_CRAB_CLAW));
-	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(RegisterFood.SCORCHED_EYE));
+	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(WWEntities.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
+	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(WWFood.CRAB_CLAW));
+	public static final Item COOKED_CRAB_CLAW = new Item(new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));
+	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(WWFood.SCORCHED_EYE));
 	public static final Item FERMENTED_SCORCHED_EYE = new Item(new Item.Properties());
 	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new Item.Properties().stacksTo(64));
 	// SPAWN EGGS
-	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new Item.Properties());
-	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new Item.Properties());
-	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new Item.Properties().stacksTo(1));
-	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(RegisterEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new Item.Properties());
-	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new Item.Properties());
-	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(RegisterEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new Item.Properties());
+	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(WWEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new Item.Properties());
+	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(WWEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new Item.Properties());
+	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(WWEntities.JELLYFISH, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new Item.Properties().stacksTo(1));
+	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(WWEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new Item.Properties());
+	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(WWEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new Item.Properties());
+	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(WWEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new Item.Properties());
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
 	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("ancient_horn"));
@@ -151,7 +151,7 @@ public final class RegisterItems {
 	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("trumpet_copper_horn"));
 	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderConstants.id("trombone_copper_horn"));
 
-	private RegisterItems() {
+	private WWItems() {
 		throw new UnsupportedOperationException("RegisterItems contains only static declarations.");
 	}
 
@@ -176,11 +176,11 @@ public final class RegisterItems {
 
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
 			var second = new ItemStack(SCORCHED_SAND);
-			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKED, true);
+			ItemBlockStateTagUtils.setProperty(second, WWBlockStateProperties.CRACKED, true);
 			entries.addAfter(SCORCHED_SAND, second);
 
 			var secondRed = new ItemStack(SCORCHED_RED_SAND);
-			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKED, true);
+			ItemBlockStateTagUtils.setProperty(secondRed, WWBlockStateProperties.CRACKED, true);
 			entries.addAfter(SCORCHED_RED_SAND, secondRed);
 		});
 
@@ -210,7 +210,7 @@ public final class RegisterItems {
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
-		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(WWBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.SWEET_BERRIES, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
@@ -219,14 +219,14 @@ public final class RegisterItems {
 		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);
 
-		Registry.register(BuiltInRegistries.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(WWSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
 
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WilderInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -250,16 +250,16 @@ public final class RegisterItems {
 		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
-		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(RegisterBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.LILY_PAD, new PlaceOnWaterBlockItem(RegisterBlocks.FLOWERING_LILY_PAD, new Item.Properties()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerItemAfter(Items.ECHO_SHARD, ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.INGREDIENTS);
 
 		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.COCONUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.COCONUT, 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
 		});
 
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);

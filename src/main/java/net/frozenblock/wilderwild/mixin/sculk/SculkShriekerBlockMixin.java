@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.wilderwild.block.entity.impl.SculkShriekerTickInterface;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
@@ -58,12 +58,12 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 
 	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(RegisterProperties.SOULS_TAKEN);
+		builder.add(WWBlockStateProperties.SOULS_TAKEN);
 	}
 
 	@Inject(at = @At("HEAD"), method = "stepOn", cancellable = true)
 	public void wilderWild$stepOn(Level level, BlockPos pos, BlockState state, Entity entity, CallbackInfo info) {
-		if (state.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+		if (state.getValue(WWBlockStateProperties.SOULS_TAKEN) == 2) {
 			info.cancel();
 		}
 	}

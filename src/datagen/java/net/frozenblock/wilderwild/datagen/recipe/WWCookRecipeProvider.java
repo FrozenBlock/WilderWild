@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -34,8 +34,8 @@ import net.minecraft.world.level.ItemLike;
 public class WWCookRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterItems.CRAB_CLAW), RecipeCategory.FOOD, RegisterItems.COOKED_CRAB_CLAW, 0.35F, 200)
-			.unlockedBy("has_crab_claw", RecipeProvider.has(RegisterItems.CRAB_CLAW))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
+			.unlockedBy("has_crab_claw", RecipeProvider.has(WWItems.CRAB_CLAW))
 			.save(exporter);
 		cookRecipes(exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
 		cookRecipes(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
@@ -44,7 +44,7 @@ public class WWCookRecipeProvider {
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
 		RecipeOutput exporter, String cooker, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipe, int cookingTime
 	) {
-		simpleCookingRecipe(exporter, cooker, serializer, recipe, cookingTime, RegisterItems.CRAB_CLAW, RegisterItems.COOKED_CRAB_CLAW, 0.35F);
+		simpleCookingRecipe(exporter, cooker, serializer, recipe, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
 	}
 
 	private static <T extends AbstractCookingRecipe> void simpleCookingRecipe(

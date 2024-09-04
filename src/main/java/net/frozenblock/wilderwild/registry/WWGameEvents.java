@@ -26,11 +26,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterGameEvents {
+public final class WWGameEvents {
 	public static final Reference<GameEvent> SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate");
 	public static final Reference<GameEvent> TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp");
 
-	private RegisterGameEvents() {
+	private WWGameEvents() {
 		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
 	}
 

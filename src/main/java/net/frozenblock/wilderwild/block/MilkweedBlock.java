@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -70,7 +70,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
+		ItemStack stack = new ItemStack(WWItems.MILKWEED_POD);
 		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
 		popResource(level, pos, stack);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
@@ -175,7 +175,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public void pickAndSpawnSeeds(Level level, BlockState state, BlockPos pos) {
-		level.playSound(null, pos, RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+		level.playSound(null, pos, WWSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
 		setAgeOnBothHalves(this, state, level, pos, 0, true);
 	}
 

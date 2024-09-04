@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.placed.WilderPlacedFeatures;
 import net.minecraft.world.level.biome.Biomes;
@@ -258,19 +258,19 @@ public final class WilderTreesGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.MIXED_FOREST)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.MIXED_FOREST)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.BIRCH_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.BIRCH_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(RegisterWorldgen.FLOWER_FIELD)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.FLOWER_FIELD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
 						}
 					}

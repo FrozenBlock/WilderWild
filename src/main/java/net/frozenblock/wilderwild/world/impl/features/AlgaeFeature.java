@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.world.impl.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.world.impl.features.config.AlgaeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,11 +61,11 @@ public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 							hasGeneratedThisRound = true;
 							if (fade) {
 								if (random.nextFloat() > 0.5F) {
-									level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
+									level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
 									bl = true;
 								}
 							} else {
-								level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
+								level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
 								bl = true;
 							}
 						}
@@ -96,11 +96,11 @@ public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 		if (random.nextFloat() > 0.2F) {
 			if (fade) {
 				if (random.nextFloat() > 0.5F) {
-					level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
+					level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
 					bl = true;
 				}
 			} else {
-				level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
+				level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
 				bl = true;
 			}
 		}

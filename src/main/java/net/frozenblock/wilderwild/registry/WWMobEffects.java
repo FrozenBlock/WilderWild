@@ -32,7 +32,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterMobEffects {
+public final class WWMobEffects {
 
 	public static final Reference<MobEffect> REACH_BOOST = register(
 		"reach_boost",
@@ -63,7 +63,7 @@ public final class RegisterMobEffects {
 		)
 	);
 
-	private RegisterMobEffects() {
+	private WWMobEffects() {
 		throw new UnsupportedOperationException("RegisterMobEffects contains only static declarations.");
 	}
 

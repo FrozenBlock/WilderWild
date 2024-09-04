@@ -25,8 +25,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -51,7 +51,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				RegisterItems.CRAB_BUCKET,
+				WWItems.CRAB_BUCKET,
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.description"),
 				null,
@@ -60,13 +60,13 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)))
+			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.CRAB_BUCKET)))
 			.save(writer, WilderConstants.string("husbandry/crab_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				RegisterItems.FIREFLY_BOTTLE,
+				WWItems.FIREFLY_BOTTLE,
 				Component.translatable("wilderwild.advancements.husbandry.firefly_in_a_bottle.title"),
 				Component.translatable("wilderwild.advancements.husbandry.firefly_in_a_bottle.description"),
 				null,
@@ -81,7 +81,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				RegisterItems.JELLYFISH_BUCKET,
+				WWItems.JELLYFISH_BUCKET,
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"),
 				null,
@@ -90,13 +90,13 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)))
+			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.JELLYFISH_BUCKET)))
 			.save(writer, WilderConstants.string("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				RegisterBlocks.NULL_BLOCK,
+				WWBlocks.NULL_BLOCK,
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.title"),
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.description"),
 				null,
@@ -105,13 +105,13 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(RegisterBlocks.NULL_BLOCK))
+			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK))
 			.save(writer, WilderConstants.string("adventure/obtain_null_block"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				RegisterItems.ANCIENT_HORN,
+				WWItems.ANCIENT_HORN,
 				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.title"),
 				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.description"),
 				null,
@@ -122,7 +122,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("use_ancient_horn",
 				CriteriaTriggers.USING_ITEM
-					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(RegisterItems.ANCIENT_HORN).build())))
+					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(WWItems.ANCIENT_HORN).build())))
 			)
 			.save(writer, WilderConstants.string("adventure/use_ancient_horn"));
 	}

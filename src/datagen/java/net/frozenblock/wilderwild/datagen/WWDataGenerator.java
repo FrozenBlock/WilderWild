@@ -35,10 +35,10 @@ import net.frozenblock.wilderwild.datagen.tag.WWDamageTypeTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWEntityTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWGameEventTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
-import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
-import net.frozenblock.wilderwild.registry.RegisterStructureProcessors;
-import net.frozenblock.wilderwild.registry.RegisterStructures;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWStructureProcessors;
+import net.frozenblock.wilderwild.registry.WWStructures;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.world.impl.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.impl.noise.WilderNoise;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -90,15 +90,15 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
 		WilderConstants.logWithModId("Registering Biomes for", WilderConstants.UNSTABLE_LOGGING);
 
-		registryBuilder.add(Registries.DAMAGE_TYPE, RegisterDamageTypes::bootstrap);
+		registryBuilder.add(Registries.DAMAGE_TYPE, WWDamageTypes::bootstrap);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, WilderFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, WilderFeatureBootstrap::bootstrapPlaced);
-		registryBuilder.add(Registries.BIOME, RegisterWorldgen::bootstrap);
+		registryBuilder.add(Registries.BIOME, WWWorldgen::bootstrap);
 		registryBuilder.add(Registries.NOISE, WilderNoise::bootstrap);
-		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructureProcessors::bootstrapProcessor);
-		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
-		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
-		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
+		registryBuilder.add(Registries.PROCESSOR_LIST, WWStructureProcessors::bootstrapProcessor);
+		registryBuilder.add(Registries.TEMPLATE_POOL, WWStructures::bootstrapTemplatePool);
+		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
+		registryBuilder.add(Registries.STRUCTURE_SET, WWStructures::bootstrapStructureSet);
 	}
 
 	public static AnyOfCondition.@NotNull Builder shouldSmeltLoot(HolderLookup.@NotNull Provider registries) {

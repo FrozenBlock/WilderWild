@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.impl.features;
 import com.mojang.serialization.Codec;
 import java.util.List;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.world.impl.features.config.SpongeBudFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -68,7 +68,7 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 
 	@Nullable
 	private static BlockState getStateForPlacement(RandomSource random, @NotNull BlockState currentState, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction lookingDirection) {
-		Block sponge = RegisterBlocks.SPONGE_BUD;
+		Block sponge = WWBlocks.SPONGE_BUD;
 		if (!isValidStateForPlacement(level, pos, lookingDirection)) {
 			return null;
 		} else {
@@ -126,7 +126,7 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 					for (int i = 0; i < config.searchRange; ++i) {
 						mutableBlockPos.setWithOffset(blockPos, direction);
 						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-						if (!isAirOrWater(blockState) && !blockState.is(RegisterBlocks.SPONGE_BUD)) {
+						if (!isAirOrWater(blockState) && !blockState.is(WWBlocks.SPONGE_BUD)) {
 							break;
 						}
 

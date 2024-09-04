@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
-import net.frozenblock.wilderwild.registry.RegisterMobEffects;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -101,7 +101,7 @@ public class Scorched extends Spider {
 		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getInBlockState().is(BlockTags.FIRE) || this.isInLava()) {
 			this.addEffect(
 				new MobEffectInstance(
-					RegisterMobEffects.SCORCHING,
+					WWMobEffects.SCORCHING,
 					200,
 					0
 				)
@@ -130,22 +130,22 @@ public class Scorched extends Spider {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.isInLava() ? RegisterSounds.ENTITY_SCORCHED_STEP_LAVA : RegisterSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
+		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA : WWSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return RegisterSounds.ENTITY_SCORCHED_AMBIENT;
+		return WWSounds.ENTITY_SCORCHED_AMBIENT;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return RegisterSounds.ENTITY_SCORCHED_HURT;
+		return WWSounds.ENTITY_SCORCHED_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return RegisterSounds.ENTITY_SCORCHED_DEATH;
+		return WWSounds.ENTITY_SCORCHED_DEATH;
 	}
 
 	@Override

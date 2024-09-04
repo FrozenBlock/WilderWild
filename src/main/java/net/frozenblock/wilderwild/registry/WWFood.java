@@ -22,7 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
-public final class RegisterFood {
+public final class WWFood {
 	public static final FoodProperties BAOBAB_NUT = new FoodProperties.Builder().nutrition(1).saturationModifier(0.2F).build();
 	public static final FoodProperties CRAB_CLAW = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1F).build();
 	public static final FoodProperties COOKED_CRAB_CLAW = new FoodProperties.Builder().nutrition(4).saturationModifier(0.4F).build();
@@ -34,7 +34,7 @@ public final class RegisterFood {
 		.effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1F)
 		.build();
 
-	private RegisterFood() {
+	private WWFood() {
 		throw new UnsupportedOperationException("RegisterFood contains only static declarations.");
 	}
 

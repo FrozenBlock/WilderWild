@@ -27,7 +27,7 @@ import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
-public final class WilderRegistry {
+public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR_REGISTRY = ResourceKey.createRegistryKey(WilderConstants.id("firefly_color"));
 	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WilderConstants.id("jellyfish_color"));
 	public static final MappedRegistry<FireflyColor> FIREFLY_COLOR = FabricRegistryBuilder.createSimple(FIREFLY_COLOR_REGISTRY)
@@ -37,7 +37,7 @@ public final class WilderRegistry {
 		.attribute(RegistryAttribute.SYNCED)
 		.buildAndRegister();
 
-	private WilderRegistry() {
+	private WilderWildRegistries() {
 		throw new UnsupportedOperationException("WilderRegistry contains only static declarations.");
 	}
 

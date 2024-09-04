@@ -25,8 +25,8 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -45,7 +45,7 @@ public final class WilderMusic {
 			BiomeSelectors.tag(ConventionalBiomeTags.BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 
@@ -54,7 +54,7 @@ public final class WilderMusic {
 			BiomeSelectors.tag(ConventionalBiomeTags.FOREST),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
 
@@ -65,8 +65,8 @@ public final class WilderMusic {
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeAmbience.deepDarkAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(RegisterSounds.AMBIENT_DEEP_DARK_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_DEEP_DARK_ADDITIONS, 0.005D));
+					context.setAmbientSound(WWSounds.AMBIENT_DEEP_DARK_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_DEEP_DARK_ADDITIONS, 0.005D));
 				}
 			});
 
@@ -76,8 +76,8 @@ public final class WilderMusic {
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeAmbience.dripstoneCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(RegisterSounds.AMBIENT_DRIPSTONE_CAVES_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_DRIPSTONE_CAVES_ADDITIONS, 0.01D));
+					context.setAmbientSound(WWSounds.AMBIENT_DRIPSTONE_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_DRIPSTONE_CAVES_ADDITIONS, 0.01D));
 				}
 			});
 
@@ -87,41 +87,41 @@ public final class WilderMusic {
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeAmbience.lushCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(RegisterSounds.AMBIENT_LUSH_CAVES_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_LUSH_CAVES_ADDITIONS, 0.01D));
+					context.setAmbientSound(WWSounds.AMBIENT_LUSH_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_LUSH_CAVES_ADDITIONS, 0.01D));
 				}
 			});
 
 		BiomeModifications.create(WilderConstants.id("modify_ambience_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(RegisterWorldgen.FROZEN_CAVES),
+			BiomeSelectors.includeByKey(WWWorldgen.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeAmbience.frozenCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(RegisterSounds.AMBIENT_FROZEN_CAVES_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.003D));
+					context.setAmbientSound(WWSounds.AMBIENT_FROZEN_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.003D));
 				}
 			});
 
 		BiomeModifications.create(WilderConstants.id("modify_ambience_jellyfish_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(RegisterWorldgen.JELLYFISH_CAVES),
+			BiomeSelectors.includeByKey(WWWorldgen.JELLYFISH_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeAmbience.jellyfishCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D));
+					context.setAmbientSound(WWSounds.AMBIENT_JELLYFISH_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D));
 				}
 			});
 
 		BiomeModifications.create(WilderConstants.id("modify_ambience_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(RegisterWorldgen.MAGMATIC_CAVES),
+			BiomeSelectors.includeByKey(WWWorldgen.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (AmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(RegisterSounds.AMBIENT_MAGMATIC_CAVES_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS, 0.005D));
+					context.setAmbientSound(WWSounds.AMBIENT_MAGMATIC_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS, 0.005D));
 				}
 			});
 	}

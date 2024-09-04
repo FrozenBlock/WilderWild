@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -32,33 +32,33 @@ public final class WilderSpawns {
 
 	public static void addFireflies() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 2, 1, 2);
+			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), WWEntities.FIREFLY, 2, 1, 2);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 2, 1, 2);
+			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), WWEntities.FIREFLY, 2, 1, 2);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.FIREFLY_SPAWNABLE),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 2, 1, 2);
+			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), WWEntities.FIREFLY, 2, 1, 2);
 	}
 
 	public static void addJellyfish() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_JELLYFISH),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"), RegisterEntities.JELLYFISH, 2, 1, 1);
+			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "jellyfish"), WWEntities.JELLYFISH, 2, 1, 1);
 	}
 
 	public static void addCrabs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_CRAB),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"), RegisterEntities.CRAB, 1, 1, 3);
+			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "crab"), WWEntities.CRAB, 1, 1, 3);
 	}
 
 	public static void addOstriches() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_OSTRICH),
-			MobCategory.CREATURE, RegisterEntities.OSTRICH, 4, 2, 4);
+			MobCategory.CREATURE, WWEntities.OSTRICH, 4, 2, 4);
 	}
 
 	public static void addTumbleweed() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"), RegisterEntities.TUMBLEWEED, 60, 1, 1);
+			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "tumbleweed"), WWEntities.TUMBLEWEED, 60, 1, 1);
 	}
 
 	public static void addRabbits() {

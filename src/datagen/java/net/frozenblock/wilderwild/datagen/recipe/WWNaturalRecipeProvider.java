@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -34,49 +34,49 @@ import org.jetbrains.annotations.Nullable;
 public class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
-		oneToOneConversionRecipe(exporter, Items.BLUE_DYE, RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, "blue_dye");
-		oneToOneConversionRecipe(exporter, Items.PINK_DYE, RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, "pink_dye");
-		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, "purple_dye");
-		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterBlocks.ALBA_GLORY_OF_THE_SNOW, "white_dye");
+		oneToOneConversionRecipe(exporter, Items.BLUE_DYE, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, "blue_dye");
+		oneToOneConversionRecipe(exporter, Items.PINK_DYE, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, "pink_dye");
+		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, "purple_dye");
+		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, WWBlocks.ALBA_GLORY_OF_THE_SNOW, "white_dye");
 
-		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, RegisterBlocks.DATURA, "light_gray_dye", 2);
+		oneToOneConversionRecipe(exporter, Items.LIGHT_GRAY_DYE, WWBlocks.DATURA, "light_gray_dye", 2);
 
-		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, RegisterBlocks.MILKWEED, "orange_dye", 2);
+		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, WWBlocks.MILKWEED, "orange_dye", 2);
 
-		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, RegisterBlocks.CARNATION, "purple_Dye");
+		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, WWBlocks.CARNATION, "purple_Dye");
 
-		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, RegisterBlocks.MARIGOLD, "orange_dye");
+		oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, WWBlocks.MARIGOLD, "orange_dye");
 
-		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, RegisterItems.SPLIT_COCONUT, "white_dye");
+		oneToOneConversionRecipe(exporter, Items.WHITE_DYE, WWItems.SPLIT_COCONUT, "white_dye");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BOWL, 2)
-			.requires(RegisterItems.SPLIT_COCONUT, 2)
+			.requires(WWItems.SPLIT_COCONUT, 2)
 			.group("bowl")
-			.unlockedBy(RecipeProvider.getHasName(RegisterItems.SPLIT_COCONUT), RecipeProvider.has(RegisterItems.SPLIT_COCONUT))
-			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, RegisterItems.SPLIT_COCONUT)));
+			.unlockedBy(RecipeProvider.getHasName(WWItems.SPLIT_COCONUT), RecipeProvider.has(WWItems.SPLIT_COCONUT))
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
 
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.PEELED_PRICKLY_PEAR, 1)
-			.requires(RegisterItems.PRICKLY_PEAR)
-			.unlockedBy(RecipeProvider.getHasName(RegisterItems.PRICKLY_PEAR), RecipeProvider.has(RegisterItems.PRICKLY_PEAR))
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.PEELED_PRICKLY_PEAR, 1)
+			.requires(WWItems.PRICKLY_PEAR)
+			.unlockedBy(RecipeProvider.getHasName(WWItems.PRICKLY_PEAR), RecipeProvider.has(WWItems.PRICKLY_PEAR))
 			.save(exporter);
 
-		WWRecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.MISC, RegisterItems.SPLIT_COCONUT, RegisterItems.COCONUT, 2);
+		WWRecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.MISC, WWItems.SPLIT_COCONUT, WWItems.COCONUT, 2);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING)
-			.define('#', RegisterItems.MILKWEED_POD)
+			.define('#', WWItems.MILKWEED_POD)
 			.group("string")
 			.pattern("###")
 			.pattern("###")
 			.pattern("###")
-			.unlockedBy(RecipeProvider.getHasName(RegisterItems.MILKWEED_POD), RecipeProvider.has(RegisterItems.MILKWEED_POD))
-			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterItems.MILKWEED_POD)));
+			.unlockedBy(RecipeProvider.getHasName(WWItems.MILKWEED_POD), RecipeProvider.has(WWItems.MILKWEED_POD))
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWItems.MILKWEED_POD)));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING)
-			.define('#', Ingredient.of(RegisterBlocks.CATTAIL))
+			.define('#', Ingredient.of(WWBlocks.CATTAIL))
 			.group("string")
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy(RecipeProvider.getHasName(RegisterBlocks.CATTAIL), RecipeProvider.has(RegisterBlocks.CATTAIL))
-			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, RegisterBlocks.CATTAIL)));
+			.unlockedBy(RecipeProvider.getHasName(WWBlocks.CATTAIL), RecipeProvider.has(WWBlocks.CATTAIL))
+			.save(exporter, WilderConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
 	}
 
 	private static void oneToOneConversionRecipe(RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {

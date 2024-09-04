@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 import net.frozenblock.wilderwild.block.entity.impl.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -62,7 +62,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 	private void wilderWild$canRespond(ServerLevel level, CallbackInfoReturnable<Boolean> info) {
 		SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
 		BlockState blockState = entity.getBlockState();
-		if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+		if (blockState.getValue(WWBlockStateProperties.SOULS_TAKEN) == 2) {
 			info.setReturnValue(false);
 		}
 	}
@@ -70,7 +70,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 	@Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
 	public void wilderWild$shriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo info) {
 		SculkShriekerBlockEntity shrieker = SculkShriekerBlockEntity.class.cast(this);
-		if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+		if (shrieker.getBlockState().getValue(WWBlockStateProperties.SOULS_TAKEN) == 2) {
 			info.cancel();
 		} else {
 			if (BlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
@@ -129,7 +129,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 
 		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
 		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, Holder<GameEvent> holder, GameEvent.Context eventContext, CallbackInfoReturnable<Boolean> info) {
-			if (this.field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+			if (this.field_44621.getBlockState().getValue(WWBlockStateProperties.SOULS_TAKEN) == 2) {
 				info.setReturnValue(false);
 			}
 		}

@@ -24,3 +24,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Prickly Pears are now placed after Sweet Berries in the `Food & Drinks` tab of the creative inventory.
 - Crab Claws and Cooked Crab Claws are now placed before Cod in the creative inventory.
 - Baobab, Cypress, and Palm foliage is now found between Mangrove Leaves and Cherry Leaves in the creative inventory.
+
+# Technical Changes
+- Refactored every class in the `registry` package to start with the `WW` prefix.
+  - This change was made in order for mod compatibility development with Wilder Wild to be more organized.

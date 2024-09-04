@@ -27,7 +27,7 @@ import java.util.OptionalInt;
 import java.util.Set;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.world.impl.sapling.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -84,7 +84,7 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 						BlockState blockState = level.getBlockState(blockPos2);
 						setBlockKnownShape(level, blockPos2, blockState.setValue(BlockStateProperties.DISTANCE, k));
 						if (k <= CoconutBlock.VALID_FROND_DISTANCE && level.getRandom().nextFloat() <= COCONUT_CHANCE && box.isInside(coconutPos) && level.getBlockState(coconutPos).isAir()) {
-							level.setBlock(coconutPos, RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), 19);
+							level.setBlock(coconutPos, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), 19);
 							discreteVoxelShape.fill(coconutPos.getX() - box.minX(), coconutPos.getY() - box.minY(), coconutPos.getZ() - box.minZ());
 						}
 					}

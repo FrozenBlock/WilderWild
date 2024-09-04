@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.feature.placed;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.feature.WilderPlacementUtils;
 import net.frozenblock.wilderwild.world.feature.configured.WilderTreeConfigured;
@@ -303,27 +303,27 @@ public final class WilderTreePlaced {
 		// MAPLE
 
 		MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
 		DYING_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.DYING_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
 		MAPLE_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
 		TALL_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
 		TALL_DYING_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_DYING_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
 		TALL_MAPLE_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
 		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),
@@ -583,33 +583,33 @@ public final class WilderTreePlaced {
 		// BAOBAB
 
 		BAOBAB.makeAndSetHolder(WilderTreeConfigured.BAOBAB.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT)
 		);
 
 		BAOBAB_TALL.makeAndSetHolder(WilderTreeConfigured.BAOBAB_TALL.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT)
 		);
 
 		// CYPRESS
 
 		CYPRESS.makeAndSetHolder(WilderTreeConfigured.CYPRESS.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
 		FUNGUS_CYPRESS.makeAndSetHolder(WilderTreeConfigured.FUNGUS_CYPRESS.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
 		SHORT_CYPRESS.makeAndSetHolder(WilderTreeConfigured.SHORT_CYPRESS.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
 		SHORT_FUNGUS_CYPRESS.makeAndSetHolder(WilderTreeConfigured.SHORT_FUNGUS_CYPRESS.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
 		SWAMP_CYPRESS.makeAndSetHolder(WilderTreeConfigured.SWAMP_CYPRESS.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
 		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CYPRESS_TREE.getHolder(),
@@ -617,7 +617,7 @@ public final class WilderTreePlaced {
 		);
 
 		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CYPRESS.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
 		// SHRUB
@@ -641,19 +641,19 @@ public final class WilderTreePlaced {
 		// PALM
 
 		PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.PALM.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
 		TALL_PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_PALM.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
 		TALL_WINE_PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_WINE_PALM.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
 		SMALL_WINE_PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.SMALL_WINE_PALM.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
 		FALLEN_PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),

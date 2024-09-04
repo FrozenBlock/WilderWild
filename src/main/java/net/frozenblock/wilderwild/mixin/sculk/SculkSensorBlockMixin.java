@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -50,13 +50,13 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
 
 	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
 	private void wilderWild$addHiccuppingState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(RegisterProperties.HICCUPPING);
+		builder.add(WWBlockStateProperties.HICCUPPING);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$registerDefaultHiccupping(Properties properties, CallbackInfo info) {
 		SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
-		sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(RegisterProperties.HICCUPPING, false));
+		sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(WWBlockStateProperties.HICCUPPING, false));
 	}
 
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)

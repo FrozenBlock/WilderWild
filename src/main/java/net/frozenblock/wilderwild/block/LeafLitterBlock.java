@@ -23,11 +23,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -112,18 +113,27 @@ public class LeafLitterBlock extends CarpetBlock {
 				chance = (float) (entity.getDeltaMovement().length() * 0.35D);
 			}
 			if (serverLevel.random.nextFloat() <= chance) {
-				Optional<ParticleOptions> particle = LeafParticleRegistry.getParticleForCarpet(this);
-				particle.ifPresent(particleOptions -> serverLevel.sendParticles(
-					particleOptions,
-					pos.getX() + 0.5D,
-					pos.getY() + 0.1D,
-					pos.getZ() + 0.5D,
-					count,
-					0.3D,
-					0D,
-					0.3D,
-					0.05D
-				));
+				Optional<ParticleType<LeafParticleOptions>> optionalParticle = LeafLitterParticleRegistry.getParticleForCarpet(this);
+				if (optionalParticle.isPresent()) {
+					ParticleType<LeafParticleOptions> particleType = optionalParticle.get();
+					FallingLeafUtil.LeafParticleData particleData = FallingLeafUtil.getLeafParticleData(particleType);
+					LeafParticleOptions particleOptions = LeafParticleOptions.create(
+						particleType,
+						particleData.quadSize(),
+						particleData.particleGravityScale()
+					);
+					serverLevel.sendParticles(
+						particleOptions,
+						pos.getX() + 0.5D,
+						pos.getY() + 0.1D,
+						pos.getZ() + 0.5D,
+						count,
+						0.3D,
+						0D,
+						0.3D,
+						0.05D
+					);
+				}
 			}
 		}
 	}
@@ -144,15 +154,15 @@ public class LeafLitterBlock extends CarpetBlock {
 		return this.defaultBlockState().setValue(PERSISTENT, true);
 	}
 
-	public static class LeafParticleRegistry {
-		private static final Map<LeafLitterBlock, ParticleOptions> LEAF_PARTICLE_MAP = new LinkedHashMap<>();
+	public static class LeafLitterParticleRegistry {
+		private static final Map<LeafLitterBlock, ParticleType<LeafParticleOptions>> LEAF_PARTICLE_MAP = new LinkedHashMap<>();
 
-		public static ParticleOptions registerLeafParticle(@NotNull LeafLitterBlock leafCarpet, @NotNull ParticleOptions particleOptions) {
+		public static ParticleType<LeafParticleOptions> registerLeafParticle(@NotNull LeafLitterBlock leafCarpet, @NotNull ParticleType<LeafParticleOptions> particleOptions) {
 			LEAF_PARTICLE_MAP.put(leafCarpet, particleOptions);
 			return particleOptions;
 		}
 
-		public static Optional<ParticleOptions> getParticleForCarpet(@NotNull LeafLitterBlock leafCarpet) {
+		public static Optional<ParticleType<LeafParticleOptions>> getParticleForCarpet(@NotNull LeafLitterBlock leafCarpet) {
 			return Optional.ofNullable(LEAF_PARTICLE_MAP.getOrDefault(leafCarpet, null));
 		}
 	}

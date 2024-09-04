@@ -41,7 +41,7 @@
       "net.frozenblock.wilderwild.gametest.WWGameTest"
     ],
     "frozenlib:events": [
-      "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
+      "net.frozenblock.wilderwild.registry.WWSurfaceRules"
     ],
     "frozenlib:mob_categories": [
       "net.frozenblock.wilderwild.WilderWild"

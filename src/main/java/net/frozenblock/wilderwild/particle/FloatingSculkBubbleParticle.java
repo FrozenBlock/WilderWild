@@ -23,7 +23,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -53,7 +53,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		this.xd = velocity.x();
 		this.yd = velocity.y();
 		this.zd = velocity.z();
-		this.sound = size <= 0 ? RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
+		this.sound = size <= 0 ? WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
 		if (size >= 1) {
 			this.scale((float) (1.4F + size));
 		}

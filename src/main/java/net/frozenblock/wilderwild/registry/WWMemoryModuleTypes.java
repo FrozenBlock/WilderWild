@@ -30,8 +30,8 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterMemoryModuleTypes {
-	private RegisterMemoryModuleTypes() {
+public final class WWMemoryModuleTypes {
+	private WWMemoryModuleTypes() {
 		throw new UnsupportedOperationException("RegisterMemoryModuleTypes contains only static declarations.");
 	}
 

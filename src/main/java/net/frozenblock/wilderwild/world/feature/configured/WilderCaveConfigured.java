@@ -27,8 +27,8 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFea
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureUtils;
 import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
@@ -161,11 +161,11 @@ public class WilderCaveConfigured {
 
 		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
-					RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
 			)
@@ -173,11 +173,11 @@ public class WilderCaveConfigured {
 
 		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
-					RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
 			)
@@ -185,11 +185,11 @@ public class WilderCaveConfigured {
 
 		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
-					RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
 			)
@@ -197,11 +197,11 @@ public class WilderCaveConfigured {
 
 		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
-					RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
 			)
@@ -209,7 +209,7 @@ public class WilderCaveConfigured {
 
 		BLUE_MESOGLEA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
 			new PathFeatureConfig(
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				14,
 				1,
 				0.025,
@@ -229,7 +229,7 @@ public class WilderCaveConfigured {
 
 		PURPLE_MESOGLEA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
 			new PathFeatureConfig(
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				14,
 				1,
 				0.025,
@@ -247,11 +247,11 @@ public class WilderCaveConfigured {
 			)
 		);
 
-		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 10),
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				UniformFloat.of(0.2F, 0.75F),
 				0.15F,
 				UniformFloat.of(0.1F, 0.25F),
@@ -262,11 +262,11 @@ public class WilderCaveConfigured {
 			)
 		);
 
-		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 10),
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				UniformFloat.of(0.2F, 0.75F),
 				0.15F,
 				UniformFloat.of(0.1F, 0.25F),
@@ -280,7 +280,7 @@ public class WilderCaveConfigured {
 		BLUE_MESOGLEA_WITH_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -295,7 +295,7 @@ public class WilderCaveConfigured {
 		BLUE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -317,7 +317,7 @@ public class WilderCaveConfigured {
 		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				PlacementUtils.inlinePlaced(DOWNWARDS_BLUE_MESOGLEA_COLUMN.getHolder()),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -332,7 +332,7 @@ public class WilderCaveConfigured {
 		PURPLE_MESOGLEA_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -347,7 +347,7 @@ public class WilderCaveConfigured {
 		PURPLE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -369,7 +369,7 @@ public class WilderCaveConfigured {
 		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				PlacementUtils.inlinePlaced(DOWNWARDS_PURPLE_MESOGLEA_COLUMN.getHolder()),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -381,9 +381,9 @@ public class WilderCaveConfigured {
 			)
 		);
 
-		NEMATOCYST_BLUE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
+		NEMATOCYST_BLUE.makeAndSetHolder(WWFeatures.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
-				RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
+				WWBlocks.BLUE_PEARLESCENT_NEMATOCYST,
 				20,
 				true,
 				true,
@@ -396,9 +396,9 @@ public class WilderCaveConfigured {
 			)
 		);
 
-		NEMATOCYST_PURPLE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
+		NEMATOCYST_PURPLE.makeAndSetHolder(WWFeatures.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
-				RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
+				WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
 				20,
 				true,
 				true,
@@ -411,11 +411,11 @@ public class WilderCaveConfigured {
 			)
 		);
 
-		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 19),
-				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				UniformFloat.of(0.2F, 2.0F),
 				0.33F,
 				UniformFloat.of(0.1F, 0.9F),
@@ -426,11 +426,11 @@ public class WilderCaveConfigured {
 			)
 		);
 
-		LARGE_MESOGLEA_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
+		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 19),
-				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				UniformFloat.of(0.2F, 2.0F),
 				0.33F,
 				UniformFloat.of(0.1F, 0.9F),
@@ -641,25 +641,25 @@ public class WilderCaveConfigured {
 
 		GEYSER_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
 			new BlockPileConfiguration(
-				BlockStateProvider.simple(RegisterBlocks.GEYSER)
+				BlockStateProvider.simple(WWBlocks.GEYSER)
 			)
 		);
 
 		GEYSER_UP.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(RegisterBlocks.GEYSER)
+				BlockStateProvider.simple(WWBlocks.GEYSER)
 			)
 		);
 
 		GEYSER_DOWN.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))
+				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))
 			)
 		);
 
 		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				RegisterBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
+				WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
 				UniformInt.of(2, 4),
 				HolderSet.direct(
 					Blocks.LAVA.builtInRegistryHolder(),
@@ -670,7 +670,7 @@ public class WilderCaveConfigured {
 
 		UPWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				RegisterBlocks.GEYSER.defaultBlockState(),
+				WWBlocks.GEYSER.defaultBlockState(),
 				UniformInt.of(3, 5),
 				HolderSet.direct(
 					Blocks.LAVA.builtInRegistryHolder(),

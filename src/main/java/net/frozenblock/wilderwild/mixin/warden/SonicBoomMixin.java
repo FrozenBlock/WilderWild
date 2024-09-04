@@ -24,8 +24,8 @@ import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.impl.WilderSonicBoom;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -104,7 +104,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			if (hitPos != null) {
 				i = Mth.floor(vec32.length()) + 10;
 				info.cancel();
-				if (level.getBlockState(hitPos).is(RegisterBlocks.ECHO_GLASS)) {
+				if (level.getBlockState(hitPos).is(WWBlocks.ECHO_GLASS)) {
 					EchoGlassBlock.damage(level, hitPos, false);
 				}
 			}
@@ -120,7 +120,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		)
 	)
 	private static SoundEvent wilderWild$modifySound(SoundEvent original, Warden warden) {
-		return ((WilderWarden) warden).wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_BRAP : original;
+		return ((WilderWarden) warden).wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_BRAP : original;
 	}
 
 	@Unique
@@ -132,7 +132,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		boolean blocked = true;
 		for (Direction direction : Direction.values()) {
 			Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
-			BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
+			BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(WWBlocks.ECHO_GLASS)));
 			if (hit.getType() != HitResult.Type.BLOCK) {
 				blocked = false;
 			} else {

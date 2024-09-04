@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Ostrich;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -85,7 +85,7 @@ public class OstrichEggBlock extends Block {
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (shouldUpdateHatchLevel(level, pos)) {
 			if (!this.isReadyToHatch(state)) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+				level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 				level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
 			} else {
 				this.hatchOstrichEgg(level, pos, random);
@@ -109,7 +109,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void hatchOstrichEgg(@NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		level.playSound(null, pos, RegisterSounds.BLOCK_OSTRICH_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+		level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 		this.destroyBlock(level, pos);
 		this.spawnOstrich(level, pos, random);
 	}
@@ -119,7 +119,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void spawnOstrich(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		Ostrich ostrich = RegisterEntities.OSTRICH.create(level);
+		Ostrich ostrich = WWEntities.OSTRICH.create(level);
 		if (ostrich != null) {
 			ostrich.setBaby(true);
 			ostrich.moveTo(

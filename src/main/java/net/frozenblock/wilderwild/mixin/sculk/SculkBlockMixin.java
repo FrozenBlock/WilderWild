@@ -26,7 +26,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -87,7 +87,7 @@ public abstract class SculkBlockMixin {
 			}
 			BlockPos blockPos = var4.next();
 			BlockState blockState2 = level.getBlockState(blockPos);
-			if (blockState2.is(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(RegisterBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+			if (blockState2.is(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(WWBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
 				++i;
 			}
 			if (i >= 3) {
@@ -161,29 +161,29 @@ public abstract class SculkBlockMixin {
 			BlockPos belowCharge = chargePos.below();
 			if (this.wilderWild$canPlaceOsseousSculk) {
 				int pillarHeight = level.getRandom().nextInt(4, WILDERWILD$MAX_HEIGHT);
-				placementState.set(RegisterBlocks.OSSEOUS_SCULK.defaultBlockState()
+				placementState.set(WWBlocks.OSSEOUS_SCULK.defaultBlockState()
 					.setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight)
 					.setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1)
 					.setValue(OsseousSculkBlock.FACING, Direction.DOWN)
 				);
 			} else {
-				placementState.set(RegisterBlocks.HANGING_TENDRIL.defaultBlockState());
+				placementState.set(WWBlocks.HANGING_TENDRIL.defaultBlockState());
 			}
 			placementPos.set(belowCharge);
 			additionalGrowthCost.set(1);
 		}
 
-		if (isWorldgen && placementState.get() != null && placementState.get().is(RegisterBlocks.OSSEOUS_SCULK)) {
+		if (isWorldgen && placementState.get() != null && placementState.get().is(WWBlocks.OSSEOUS_SCULK)) {
 			additionalGrowthCost.set(growthSpawnCost);
 		}
 
 		BlockState chargePosState = level.getBlockState(chargePos);
 		if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			placementState.set(RegisterBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
+			placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
 		} else if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			placementState.set(RegisterBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
+			placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
 		} else if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
-			placementState.set(RegisterBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
+			placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
 		}
 
 		canPlace.set(placementState.get() != null && placementPos.get() != null);
@@ -264,7 +264,7 @@ public abstract class SculkBlockMixin {
 			for (int a = 0; a < growthAmount; a++) {
 				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, shouldConvertBlocks);
 			}
-		} else if (placedState.get().is(RegisterBlocks.SCULK_STAIRS) || placedState.get().is(RegisterBlocks.SCULK_SLAB) || placedState.get().is(RegisterBlocks.SCULK_WALL)) {
+		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS) || placedState.get().is(WWBlocks.SCULK_SLAB) || placedState.get().is(WWBlocks.SCULK_WALL)) {
 			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());
 		}
 		placedPos.set(null);
@@ -300,7 +300,7 @@ public abstract class SculkBlockMixin {
 	) {
 		if (this.wilderWild$canPlaceOsseousSculk && !blockState.is(Blocks.SCULK_SHRIEKER)) {
 			int pillarHeight = level.getRandom().nextInt(4, WILDERWILD$MAX_HEIGHT);
-			blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
+			blockState = WWBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			info.setReturnValue(blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState);
 		}
 	}

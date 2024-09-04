@@ -23,7 +23,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -62,8 +62,8 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
 		if (abstractRandom.nextFloat() <= this.probability) {
 			List<BlockPos> poses = generator.logs();
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			BlockState redState = RegisterBlocks.RED_SHELF_FUNGUS.defaultBlockState();
-			BlockState brownState = RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState();
+			BlockState redState = WWBlocks.RED_SHELF_FUNGUS.defaultBlockState();
+			BlockState brownState = WWBlocks.BROWN_SHELF_FUNGUS.defaultBlockState();
 			for (BlockPos pos : poses) {
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
 					if (abstractRandom.nextFloat() <= this.placementChance) {

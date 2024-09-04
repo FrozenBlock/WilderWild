@@ -31,7 +31,7 @@ import net.frozenblock.wilderwild.networking.packet.WilderScorchingFirePlacePack
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.wind.WilderClientWindManager;
 import net.minecraft.client.Minecraft;
@@ -97,7 +97,7 @@ public class WilderClientNetworking {
 				player.getX(),
 				player.getY(),
 				player.getZ(),
-				RegisterSounds.ENTITY_JELLYFISH_STING,
+				WWSounds.ENTITY_JELLYFISH_STING,
 				SoundSource.NEUTRAL,
 				1F,
 				packet.isBaby() ? Jellyfish.STING_PITCH_BABY : Jellyfish.STING_PITCH
@@ -154,7 +154,7 @@ public class WilderClientNetworking {
 
 			clientLevel.playLocalSound(
 				pos,
-				RegisterSounds.BLOCK_FIRE_IGNITE,
+				WWSounds.BLOCK_FIRE_IGNITE,
 				SoundSource.BLOCKS,
 				1.0F,
 				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1.0F,

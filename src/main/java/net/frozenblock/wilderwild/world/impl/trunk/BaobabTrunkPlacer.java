@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -103,7 +103,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.BAOBAB_TRUNK_PLACER;
+		return WWFeatures.BAOBAB_TRUNK_PLACER;
 	}
 
 	/**

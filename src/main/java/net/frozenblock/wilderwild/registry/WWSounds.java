@@ -26,7 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterSounds {
+public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_ADDITIONS = registerForHolder("ambient.deep_dark.additions");
 
 	//AMBIENT
@@ -340,7 +340,7 @@ public final class RegisterSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
-	private RegisterSounds() {
+	private WWSounds() {
 		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
 	}
 

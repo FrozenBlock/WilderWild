@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.world.structure;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterStructureProcessors;
-import net.frozenblock.wilderwild.registry.RegisterStructures;
+import net.frozenblock.wilderwild.registry.WWStructureProcessors;
+import net.frozenblock.wilderwild.registry.WWStructures;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -49,15 +49,15 @@ import org.jetbrains.annotations.NotNull;
  * Contains the StructureTemplatePool for Abandoned Cabins
  */
 public class AbandonedCabinGenerator {
-	public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY =  RegisterStructures.ofSet("abandoned_cabin");
-	private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = RegisterStructures.createKey("abandoned_cabin");
+	public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY =  WWStructures.ofSet("abandoned_cabin");
+	private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = WWStructures.createKey("abandoned_cabin");
 	public static final ResourceKey<StructureTemplatePool> ABANDONED_CABIN = Pools.parseKey(WilderConstants.string("abandoned_cabin"));
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> abandonedCabinDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.ABANDONED_CABIN_DEGRADATION);
+		Holder<StructureProcessorList> abandonedCabinDegradation = structureProcessorGetter.getOrThrow(WWStructureProcessors.ABANDONED_CABIN_DEGRADATION);
 
 		pool.register(
 			ABANDONED_CABIN,
@@ -80,7 +80,7 @@ public class AbandonedCabinGenerator {
 		context.register(
 			ABANDONED_CABIN_KEY,
 			new JigsawStructure(
-				RegisterStructures.structure(
+				WWStructures.structure(
 					holderGetter.getOrThrow(WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE),
 					GenerationStep.Decoration.UNDERGROUND_DECORATION,
 					TerrainAdjustment.BURY

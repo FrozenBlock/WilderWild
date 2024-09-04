@@ -22,8 +22,8 @@ import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -44,75 +44,75 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.family(RegisterBlocks.BAOBAB_PLANKS).generateFor(RegisterBlocks.BAOBAB);
-		generator.woodProvider(RegisterBlocks.BAOBAB_LOG).logWithHorizontal(RegisterBlocks.BAOBAB_LOG).wood(RegisterBlocks.BAOBAB_WOOD);
-		generator.woodProvider(RegisterBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(RegisterBlocks.STRIPPED_BAOBAB_LOG).wood(RegisterBlocks.STRIPPED_BAOBAB_WOOD);
-		generator.createHangingSign(RegisterBlocks.STRIPPED_BAOBAB_LOG, RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN);
-		generator.createTrivialBlock(RegisterBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES);
+		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.BAOBAB);
+		generator.woodProvider(WWBlocks.BAOBAB_LOG).logWithHorizontal(WWBlocks.BAOBAB_LOG).wood(WWBlocks.BAOBAB_WOOD);
+		generator.woodProvider(WWBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(WWBlocks.STRIPPED_BAOBAB_LOG).wood(WWBlocks.STRIPPED_BAOBAB_WOOD);
+		generator.createHangingSign(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
+		generator.createTrivialBlock(WWBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES);
 
-		generator.family(RegisterBlocks.CYPRESS_PLANKS).generateFor(RegisterBlocks.CYPRESS);
-		generator.woodProvider(RegisterBlocks.CYPRESS_LOG).logWithHorizontal(RegisterBlocks.CYPRESS_LOG).wood(RegisterBlocks.CYPRESS_WOOD);
-		generator.woodProvider(RegisterBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(RegisterBlocks.STRIPPED_CYPRESS_LOG).wood(RegisterBlocks.STRIPPED_CYPRESS_WOOD);
-		generator.createHangingSign(RegisterBlocks.STRIPPED_CYPRESS_LOG, RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN);
-		generator.createPlant(RegisterBlocks.CYPRESS_SAPLING, RegisterBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createTrivialBlock(RegisterBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
+		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.CYPRESS);
+		generator.woodProvider(WWBlocks.CYPRESS_LOG).logWithHorizontal(WWBlocks.CYPRESS_LOG).wood(WWBlocks.CYPRESS_WOOD);
+		generator.woodProvider(WWBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(WWBlocks.STRIPPED_CYPRESS_LOG).wood(WWBlocks.STRIPPED_CYPRESS_WOOD);
+		generator.createHangingSign(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
+		generator.createPlant(WWBlocks.CYPRESS_SAPLING, WWBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createTrivialBlock(WWBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
 
-		generator.family(RegisterBlocks.MAPLE_PLANKS).generateFor(RegisterBlocks.MAPLE);
-		generator.woodProvider(RegisterBlocks.MAPLE_LOG).logWithHorizontal(RegisterBlocks.MAPLE_LOG).wood(RegisterBlocks.MAPLE_WOOD);
-		generator.woodProvider(RegisterBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(RegisterBlocks.STRIPPED_MAPLE_LOG).wood(RegisterBlocks.STRIPPED_MAPLE_WOOD);
-		generator.createHangingSign(RegisterBlocks.STRIPPED_MAPLE_LOG, RegisterBlocks.MAPLE_HANGING_SIGN, RegisterBlocks.MAPLE_WALL_HANGING_SIGN);
-		generator.createPlant(RegisterBlocks.MAPLE_SAPLING, RegisterBlocks.POTTED_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createTrivialBlock(RegisterBlocks.MAPLE_LEAVES, TexturedModel.LEAVES);
+		generator.family(WWBlocks.MAPLE_PLANKS).generateFor(WWBlocks.MAPLE);
+		generator.woodProvider(WWBlocks.MAPLE_LOG).logWithHorizontal(WWBlocks.MAPLE_LOG).wood(WWBlocks.MAPLE_WOOD);
+		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG).wood(WWBlocks.STRIPPED_MAPLE_WOOD);
+		generator.createHangingSign(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
+		generator.createPlant(WWBlocks.MAPLE_SAPLING, WWBlocks.POTTED_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createTrivialBlock(WWBlocks.MAPLE_LEAVES, TexturedModel.LEAVES);
 
-		generator.createPlant(RegisterBlocks.SEEDING_DANDELION, RegisterBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createPlant(RegisterBlocks.CARNATION, RegisterBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createPlant(RegisterBlocks.MARIGOLD, RegisterBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
 
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
-		generator.createTrivialCube(RegisterBlocks.CRACKED_MUD_BRICKS);
-		generator.family(RegisterBlocks.MOSSY_MUD_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_MUD_BRICK);
+		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
+		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
+		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
 
-		generator.createSimpleFlatItemModel(RegisterBlocks.ALGAE);
-		generator.createSimpleFlatItemModel(RegisterBlocks.POLLEN);
-		generator.createSimpleFlatItemModel(RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
-		generator.createSimpleFlatItemModel(RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
-		generator.createSimpleFlatItemModel(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW);
-		generator.createSimpleFlatItemModel(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
+		generator.createSimpleFlatItemModel(WWBlocks.POLLEN);
+		generator.createSimpleFlatItemModel(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(WWBlocks.ALBA_GLORY_OF_THE_SNOW);
+		generator.createSimpleFlatItemModel(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
-		createLeafLitter(generator, RegisterBlocks.MAPLE_LEAF_LITTER);
+		createLeafLitter(generator, WWBlocks.MAPLE_LEAF_LITTER);
 	}
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
-		generator.generateFlatItem(RegisterBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterBlocks.CATTAIL.asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterBlocks.SPONGE_BUD.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.CATTAIL.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.SPONGE_BUD.asItem(), ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(RegisterItems.BAOBAB_NUT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.COCONUT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.SPLIT_COCONUT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.MILKWEED_POD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.PEELED_PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BAOBAB_NUT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.COCONUT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.SPLIT_COCONUT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MILKWEED_POD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PEELED_PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(RegisterItems.JELLYFISH_BUCKET, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CRAB_BUCKET, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CRAB_CLAW, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.COOKED_CRAB_CLAW, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.JELLYFISH_BUCKET, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CRAB_BUCKET, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CRAB_CLAW, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.COOKED_CRAB_CLAW, ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(RegisterItems.BAOBAB_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.BAOBAB_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CYPRESS_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CYPRESS_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.PALM_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.PALM_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.MAPLE_BOAT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.MAPLE_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BAOBAB_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BAOBAB_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CYPRESS_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CYPRESS_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PALM_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PALM_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MAPLE_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MAPLE_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(RegisterItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 	}
 
 	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WilderConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);

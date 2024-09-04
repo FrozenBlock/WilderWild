@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import net.frozenblock.wilderwild.block.ScorchedBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +35,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 	private long coolDownEndsAtTick;
 
 	public ScorchedBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		super(RegisterBlockEntities.SCORCHED_BLOCK, blockPos, blockState);
+		super(WWBlockEntities.SCORCHED_BLOCK, blockPos, blockState);
 	}
 
 	public boolean brush(long l) {

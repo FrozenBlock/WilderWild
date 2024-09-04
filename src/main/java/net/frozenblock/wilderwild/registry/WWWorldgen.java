@@ -52,7 +52,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterWorldgen {
+public final class WWWorldgen {
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = CypressWetlands.INSTANCE.getKey();
 	public static final ResourceKey<Biome> OASIS = Oasis.INSTANCE.getKey();
@@ -90,7 +90,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = OldGrowthDarkForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = SnowyOldGrowthPineTaiga.INSTANCE.getKey();
 
-	private RegisterWorldgen() {
+	private WWWorldgen() {
 		throw new UnsupportedOperationException("RegisterWorldgen contains only static declarations.");
 	}
 

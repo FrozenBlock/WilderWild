@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.tag.WilderDamageTypeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -38,27 +38,27 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 	@Override
 	public void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(DamageTypeTags.NO_ANGER)
-			.add(RegisterDamageTypes.TUMBLEWEED)
-			.add(RegisterDamageTypes.PRICKLY_PEAR);
+			.add(WWDamageTypes.TUMBLEWEED)
+			.add(WWDamageTypes.PRICKLY_PEAR);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
-			.add(RegisterDamageTypes.PRICKLY_PEAR)
-			.add(RegisterDamageTypes.ANCIENT_HORN);
+			.add(WWDamageTypes.PRICKLY_PEAR)
+			.add(WWDamageTypes.ANCIENT_HORN);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS)
-			.add(RegisterDamageTypes.PRICKLY_PEAR);
+			.add(WWDamageTypes.PRICKLY_PEAR);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS)
-			.add(RegisterDamageTypes.ANCIENT_HORN);
+			.add(WWDamageTypes.ANCIENT_HORN);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO)
-			.add(RegisterDamageTypes.ANCIENT_HORN);
+			.add(WWDamageTypes.ANCIENT_HORN);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.CAN_BREAK_ARMOR_STAND)
-			.add(RegisterDamageTypes.OSTRICH);
+			.add(WWDamageTypes.OSTRICH);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.PANIC_CAUSES)
-			.add(RegisterDamageTypes.TUMBLEWEED);
+			.add(WWDamageTypes.TUMBLEWEED);
 
 		this.getOrCreateTagBuilder(WilderDamageTypeTags.EMPTY);
 	}

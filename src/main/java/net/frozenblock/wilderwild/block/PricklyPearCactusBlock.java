@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -143,7 +143,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-		ItemStack pear = new ItemStack(RegisterItems.PRICKLY_PEAR);
+		ItemStack pear = new ItemStack(WWItems.PRICKLY_PEAR);
 		pear.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PEARS_FROM_HARVEST, MAX_PEARS_FROM_HARVEST));
 		popResource(level, pos, pear);
 	}
@@ -166,10 +166,10 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		if (!level.isClientSide) {
 			if (shears) {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-				level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+				level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 				level.gameEvent(entity, GameEvent.SHEAR, pos);
 			} else {
-				level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+				level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 			}
 		}
 	}

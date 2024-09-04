@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.variant;
 
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -49,7 +49,7 @@ public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceL
 
 	@NotNull
 	public static JellyfishVariant register(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, TagKey<Item> reproductionFood) {
-		return Registry.register(WilderRegistry.JELLYFISH_VARIANT, key, new JellyfishVariant(key, texture, pearlescent, reproductionFood));
+		return Registry.register(WilderWildRegistries.JELLYFISH_VARIANT, key, new JellyfishVariant(key, texture, pearlescent, reproductionFood));
 	}
 
 	public static void init() {

@@ -22,7 +22,7 @@ import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.impl.WilderEnderman;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -89,7 +89,7 @@ public abstract class EnderManMixin implements WilderEnderman {
 			FrozenSoundPackets.createMovingRestrictionLoopingSound(
 				enderMan.level(),
 				enderMan,
-				BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
+				BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
 				SoundSource.HOSTILE,
 				1F,
 				0.9F,

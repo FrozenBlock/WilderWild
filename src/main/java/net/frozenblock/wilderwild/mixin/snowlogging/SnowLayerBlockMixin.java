@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
@@ -61,7 +61,7 @@ public abstract class SnowLayerBlockMixin {
 		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 			int layers = SnowloggingUtils.getSnowLayers(blockState);
 			if (layers < 8) {
-				BlockState placementState = blockState.setValue(RegisterProperties.SNOW_LAYERS, layers + 1);
+				BlockState placementState = blockState.setValue(WWBlockStateProperties.SNOW_LAYERS, layers + 1);
 				info.setReturnValue(placementState);
 			}
 		}

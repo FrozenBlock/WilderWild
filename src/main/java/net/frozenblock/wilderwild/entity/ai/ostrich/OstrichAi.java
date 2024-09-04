@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -79,10 +79,10 @@ public class OstrichAi {
 	private static final ImmutableList<SensorType<? extends Sensor<? super Ostrich>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
-		RegisterSensorTypes.OSTRICH_TEMPTATIONS,
+		WWSensorTypes.OSTRICH_TEMPTATIONS,
 		SensorType.NEAREST_ADULT,
 		SensorType.NEAREST_PLAYERS,
-		RegisterSensorTypes.OSTRICH_SPECIFIC_SENSOR
+		WWSensorTypes.OSTRICH_SPECIFIC_SENSOR
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 		MemoryModuleType.IS_PANICKING,
@@ -108,7 +108,7 @@ public class OstrichAi {
 		MemoryModuleType.NEAREST_PLAYERS,
 		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
 		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		RegisterMemoryModuleTypes.NEARBY_OSTRICHES,
+		WWMemoryModuleTypes.NEARBY_OSTRICHES,
 		MemoryModuleType.ATTACK_COOLING_DOWN
 	);
 
@@ -134,7 +134,7 @@ public class OstrichAi {
 			0,
 			ImmutableList.of(
 				new Swim(0.8F),
-				new OstrichLayEgg(RegisterBlocks.OSTRICH_EGG),
+				new OstrichLayEgg(WWBlocks.OSTRICH_EGG),
 				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING, pathfinderMob -> pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES),
 				new OstrichRunAroundLikeCrazy(1.5F),
 				new LookAtTargetSink(45, 90),
@@ -151,7 +151,7 @@ public class OstrichAi {
 			Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(RegisterEntities.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(1, new AnimalMakeLove(WWEntities.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(
 					2,
 					new RunOne<>(
@@ -306,7 +306,7 @@ public class OstrichAi {
 
 	@NotNull
 	private static Optional<List<Ostrich>> getNearbyOstriches(@NotNull Ostrich ostrich) {
-		return ostrich.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_OSTRICHES);
+		return ostrich.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES);
 	}
 
 	public static Optional<Player> getNearestVisibleTargetablePlayer(@NotNull Ostrich ostrich) {

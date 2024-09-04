@@ -28,9 +28,9 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfi
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.feature.WilderFeatureUtils.register;
@@ -604,8 +604,8 @@ public final class WilderMiscConfigured {
 		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
 				UniformInt.of(2, 8),
 				0.95F,
 				0.925F,
@@ -620,8 +620,8 @@ public final class WilderMiscConfigured {
 		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
 				UniformInt.of(11, 15),
 				0.95F,
 				0.875F,
@@ -636,8 +636,8 @@ public final class WilderMiscConfigured {
 		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
 				UniformInt.of(1, 3),
 				0.85F,
 				0.925F,
@@ -703,8 +703,8 @@ public final class WilderMiscConfigured {
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 				UniformInt.of(2, 8),
 				0.95F,
 				0.925F,
@@ -719,8 +719,8 @@ public final class WilderMiscConfigured {
 		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 				UniformInt.of(11, 15),
 				0.95F,
 				0.875F,
@@ -735,8 +735,8 @@ public final class WilderMiscConfigured {
 		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
-				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 				UniformInt.of(1, 3),
 				0.85F,
 				0.925F,
@@ -964,8 +964,8 @@ public final class WilderMiscConfigured {
 		MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
 				UniformInt.of(2, 5),
 				0.95F,
 				0.925F,
@@ -975,9 +975,9 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		SNOW_BLANKET.makeAndSetHolder(RegisterFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
+		SNOW_BLANKET.makeAndSetHolder(WWFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
 
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(RegisterFeatures.SNOW_AND_FREEZE_DISK_FEATURE,
+		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WWFeatures.SNOW_AND_FREEZE_DISK_FEATURE,
 			new SnowAndIceDiskFeatureConfig(
 				UniformInt.of(6, 7),
 				UniformInt.of(2, 4),

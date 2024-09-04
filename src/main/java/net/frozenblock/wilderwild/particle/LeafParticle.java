@@ -18,47 +18,54 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.frozenblock.wilderwild.block.api.FallingLeafRegistry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class LeafParticle extends CherryParticle {
+
 	public LeafParticle(
 		ClientLevel world,
 		double x, double y, double z,
-		double velX, double velY, double velZ,
-		float quadSize,
-		float gravityScale,
-		float rotScale,
 		SpriteSet spriteProvider
 	) {
 		super(world, x, y, z, spriteProvider);
-		this.quadSize = quadSize;
-		this.gravity *= gravityScale;
-		this.rotSpeed *= rotScale;
-		this.xd = velX;
-		this.yd = velY;
-		this.zd = velZ;
 	}
 
-	public static @NotNull Particle createFallingLeafParticle(
-		ParticleOptions particleOptions,
-		ClientLevel level,
-		double x, double y, double z,
-		double velocityX, double velocityY, double velocityZ,
-		SpriteSet spriteProvider
-	) {
-		FallingLeafRegistry.LeafParticleData leafParticleData = FallingLeafRegistry.getLeafParticleData(particleOptions);
-		return new LeafParticle(
-			level,
-			x, y, z,
-			velocityX, velocityY, velocityZ,
-			leafParticleData.quadSize(), leafParticleData.particleGravityScale(), leafParticleData.particleGravityScale() * 0.5F,
-			spriteProvider
-		);
+	@Environment(EnvType.CLIENT)
+	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<LeafParticleOptions> {
+		@Override
+		@NotNull
+		public Particle createParticle(
+			@NotNull LeafParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
+		) {
+			LeafParticle leafParticle = new LeafParticle(level, x, y, z, this.spriteProvider);
+			leafParticle.quadSize = options.getQuadSize();
+			if (options.isFastFalling()) {
+				leafParticle.gravity = 0.04F;
+			} else {
+				leafParticle.gravity *= options.getGravityScale();
+			}
+			leafParticle.rotSpeed *= options.getGravityScale() * 0.5F;
+			if (options.shouldControlVelUponSpawn()) {
+				Vec3 velocity = options.getVelocity();
+				leafParticle.xd = velocity.x;
+				leafParticle.yd = velocity.y;
+				leafParticle.zd = velocity.z;
+			} else {
+				leafParticle.xd = xSpeed;
+				leafParticle.yd = ySpeed;
+				leafParticle.zd = zSpeed;
+			}
+			return leafParticle;
+		}
 	}
 }

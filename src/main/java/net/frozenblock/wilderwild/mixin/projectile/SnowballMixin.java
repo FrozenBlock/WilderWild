@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.ItemConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.phys.HitResult;
@@ -47,7 +47,7 @@ public class SnowballMixin {
 				snowball.getX(),
 				snowball.getY(),
 				snowball.getZ(),
-				RegisterSounds.ITEM_SNOWBALL_LAND,
+				WWSounds.ITEM_SNOWBALL_LAND,
 				SoundSource.BLOCKS,
 				0.3F,
 				0.85F + (snowball.getRandom().nextFloat() * 0.2F)

@@ -25,7 +25,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -65,7 +65,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.FANCY_DARK_OAK_TRUNK_PLACER;
+		return WWFeatures.FANCY_DARK_OAK_TRUNK_PLACER;
 	}
 
 	@Override

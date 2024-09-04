@@ -22,7 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -65,7 +65,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 			int placedPollen = 0;
-			BlockState pollenState = RegisterBlocks.POLLEN.defaultBlockState();
+			BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
 			for (BlockPos pos : poses) {
 				if (placedPollen >= this.maxCount) {
 					return;

@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -93,14 +93,14 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 			if (isFullyGrown(state)) {
 				if (random.nextInt(SNAP_CHANCE) == 0) {
 					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-					Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+					Tumbleweed weed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
 					level.addFreshEntity(weed);
 					weed.setPos(Vec3.atBottomCenterOf(pos));
 					int diff = level.getDifficulty().getId();
 					if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
-						weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+						weed.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
 					}
-					level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
+					level.playSound(null, pos, WWSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
 					level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 					level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 				}

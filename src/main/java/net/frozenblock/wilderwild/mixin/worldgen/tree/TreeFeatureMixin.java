@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.tree;
 import com.google.common.collect.Iterables;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Set;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.world.impl.sapling.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
@@ -72,24 +72,24 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 
 	@ModifyVariable(method = "method_49238", at = @At("HEAD"), ordinal = 0, argsOnly = true)
 	private static BlockState wilderWild$setTermiteEdibleA(BlockState state) {
-		if (state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
-			return state.setValue(RegisterProperties.TERMITE_EDIBLE, true);
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
 		}
 		return state;
 	}
 
 	@ModifyVariable(method = "method_35364", at = @At("HEAD"), ordinal = 0, argsOnly = true)
 	private static BlockState wilderWild$setTermiteEdibleB(BlockState state) {
-		if (state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
-			return state.setValue(RegisterProperties.TERMITE_EDIBLE, true);
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
 		}
 		return state;
 	}
 
 	@ModifyVariable(method = "method_43162", at = @At("HEAD"), ordinal = 0, argsOnly = true)
 	private static BlockState wilderWild$setTermiteEdibleC(BlockState state) {
-		if (state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
-			return state.setValue(RegisterProperties.TERMITE_EDIBLE, true);
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
 		}
 		return state;
 	}

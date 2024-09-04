@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.impl.foliage;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -46,7 +46,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected @NotNull FoliagePlacerType<?> type() {
-		return RegisterFeatures.MAPLE_FOLIAGE_PLACER;
+		return WWFeatures.MAPLE_FOLIAGE_PLACER;
 	}
 
 	@Override

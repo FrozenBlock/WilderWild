@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -44,7 +44,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
 	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
 		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
-		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
+		WilderWildRegistries.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
 	}};
 	private static final ResourceLocation TEXTURE = WilderConstants.id("textures/entity/firefly/firefly_off.png");

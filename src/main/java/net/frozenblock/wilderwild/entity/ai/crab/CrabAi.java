@@ -25,9 +25,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WilderDamageTypeTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.tags.DamageTypeTags;
@@ -76,11 +76,11 @@ public final class CrabAi {
 		SensorType.NEAREST_PLAYERS,
 		SensorType.NEAREST_ADULT,
 		SensorType.HURT_BY,
-		RegisterSensorTypes.CRAB_ATTACKABLES,
-		RegisterSensorTypes.CRAB_TEMPTATIONS,
-		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR,
-		RegisterSensorTypes.CRAB_NEARBY_PLAYER_SENSOR,
-		RegisterSensorTypes.CRAB_CAN_DIG_SENSOR
+		WWSensorTypes.CRAB_ATTACKABLES,
+		WWSensorTypes.CRAB_TEMPTATIONS,
+		WWSensorTypes.CRAB_SPECIFIC_SENSOR,
+		WWSensorTypes.CRAB_NEARBY_PLAYER_SENSOR,
+		WWSensorTypes.CRAB_CAN_DIG_SENSOR
 	);
 	public static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.NEAREST_LIVING_ENTITIES,
@@ -88,7 +88,7 @@ public final class CrabAi {
 		MemoryModuleType.NEAREST_PLAYERS,
 		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
 		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		RegisterMemoryModuleTypes.IS_PLAYER_NEARBY,
+		WWMemoryModuleTypes.IS_PLAYER_NEARBY,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
@@ -102,15 +102,15 @@ public final class CrabAi {
 		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
-		RegisterMemoryModuleTypes.CAN_DIG,
+		WWMemoryModuleTypes.CAN_DIG,
 		MemoryModuleType.TEMPTING_PLAYER,
 		MemoryModuleType.IS_TEMPTED,
 		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
 		MemoryModuleType.BREED_TARGET,
-		RegisterMemoryModuleTypes.IS_UNDERGROUND,
-		RegisterMemoryModuleTypes.NEARBY_CRABS,
-		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
-		RegisterMemoryModuleTypes.FIRST_BRAIN_TICK,
+		WWMemoryModuleTypes.IS_UNDERGROUND,
+		WWMemoryModuleTypes.NEARBY_CRABS,
+		WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
+		WWMemoryModuleTypes.FIRST_BRAIN_TICK,
 		MemoryModuleType.ANGRY_AT,
 		MemoryModuleType.UNIVERSAL_ANGER
 	);
@@ -185,13 +185,13 @@ public final class CrabAi {
 				Pair.of(1, new CrabDig<>(DIGGING_DURATION))
 			),
 			Set.of(
-				Pair.of(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT),
-				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
-				Pair.of(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, MemoryStatus.VALUE_ABSENT),
-				Pair.of(RegisterMemoryModuleTypes.CAN_DIG, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.IS_PLAYER_NEARBY, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.CAN_DIG, MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT)
 			)
 		);
@@ -205,7 +205,7 @@ public final class CrabAi {
 				Pair.of(1, CrabHeal.create())
 			),
 			Set.of(
-				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
+				Pair.of(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
 			)
 		);
 	}
@@ -214,7 +214,7 @@ public final class CrabAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(1, new AnimalMakeLove(RegisterEntities.CRAB, 0.8F, 2)),
+				Pair.of(1, new AnimalMakeLove(WWEntities.CRAB, 0.8F, 2)),
 				Pair.of(
 					2,
 					new RunOne<>(
@@ -228,7 +228,7 @@ public final class CrabAi {
 				Pair.of(
 					4,
 					new RunOne<>(
-						Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
+						Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, WWMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
 						List.of(
 							Pair.of(RandomStroll.swim(1F), 2),
 							Pair.of(RandomStroll.stroll(1F), 2),
@@ -335,7 +335,7 @@ public final class CrabAi {
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
 			return;
 		}
-		if (crab.getBrain().checkMemory(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
+		if (crab.getBrain().checkMemory(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
 			clearDigCooldown(crab);
 		}
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
@@ -388,7 +388,7 @@ public final class CrabAi {
 
 	@NotNull
 	private static Optional<List<Crab>> getNearbyCrabs(@NotNull Crab crab) {
-		return crab.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_CRABS);
+		return crab.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_CRABS);
 	}
 
 	public static Optional<Player> getNearestVisibleTargetablePlayer(@NotNull Crab crab) {
@@ -408,7 +408,7 @@ public final class CrabAi {
 	}
 
 	public static boolean isUnderground(@NotNull Crab crab) {
-		return crab.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.IS_UNDERGROUND);
+		return crab.getBrain().hasMemoryValue(WWMemoryModuleTypes.IS_UNDERGROUND);
 	}
 
 	public static boolean isIdle(@NotNull Crab crab) {

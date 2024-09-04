@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
@@ -58,7 +58,7 @@ public class LevelRendererMixin {
 					(double) pos.getX() + 0.5D,
 					(double) pos.getY() + SculkShriekerBlock.TOP_Y,
 					(double) pos.getZ() + 0.5D,
-					RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+					WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
 					SoundSource.BLOCKS,
 					2.0F,
 					0.6F + this.level.random.nextFloat() * 0.4F,

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -36,60 +36,60 @@ public class HollowedLogRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		planksFromHollowed(WilderItemTags.HOLLOWED_ACACIA_LOGS, Items.ACACIA_PLANKS, exporter, "acacia");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_ACACIA_LOG, Items.ACACIA_WOOD, exporter, "acacia");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, Items.STRIPPED_ACACIA_WOOD, exporter, "acacia");
+		woodFromHollowed(WWBlocks.HOLLOWED_ACACIA_LOG, Items.ACACIA_WOOD, exporter, "acacia");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, Items.STRIPPED_ACACIA_WOOD, exporter, "acacia");
 
-		planksFromHollowed(WilderItemTags.HOLLOWED_BAOBAB_LOGS, RegisterBlocks.BAOBAB_PLANKS, exporter, "baobab");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_BAOBAB_LOG, RegisterBlocks.BAOBAB_WOOD, exporter, "baobab");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, RegisterBlocks.STRIPPED_BAOBAB_WOOD, exporter, "baobab");
+		planksFromHollowed(WilderItemTags.HOLLOWED_BAOBAB_LOGS, WWBlocks.BAOBAB_PLANKS, exporter, "baobab");
+		woodFromHollowed(WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.BAOBAB_WOOD, exporter, "baobab");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_WOOD, exporter, "baobab");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_BIRCH_LOGS, Items.BIRCH_PLANKS, exporter, "birch");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_BIRCH_LOG, Items.BIRCH_WOOD, exporter, "birch");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, Items.STRIPPED_BIRCH_WOOD, exporter, "birch");
+		woodFromHollowed(WWBlocks.HOLLOWED_BIRCH_LOG, Items.BIRCH_WOOD, exporter, "birch");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, Items.STRIPPED_BIRCH_WOOD, exporter, "birch");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_CHERRY_LOGS, Items.CHERRY_PLANKS, exporter, "cherry");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_CHERRY_LOG, Items.CHERRY_WOOD, exporter, "cherry");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, Items.STRIPPED_CHERRY_WOOD, exporter, "cherry");
+		woodFromHollowed(WWBlocks.HOLLOWED_CHERRY_LOG, Items.CHERRY_WOOD, exporter, "cherry");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, Items.STRIPPED_CHERRY_WOOD, exporter, "cherry");
 
-		planksFromHollowed(WilderItemTags.HOLLOWED_CYPRESS_LOGS, RegisterBlocks.CYPRESS_PLANKS, exporter, "cypress");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_WOOD, exporter, "cypress");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, RegisterBlocks.STRIPPED_CYPRESS_WOOD, exporter, "cypress");
+		planksFromHollowed(WilderItemTags.HOLLOWED_CYPRESS_LOGS, WWBlocks.CYPRESS_PLANKS, exporter, "cypress");
+		woodFromHollowed(WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.CYPRESS_WOOD, exporter, "cypress");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_WOOD, exporter, "cypress");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_DARK_OAK_LOGS, Items.DARK_OAK_PLANKS, exporter, "dark_oak");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, Items.DARK_OAK_WOOD, exporter, "dark_oak");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, Items.STRIPPED_DARK_OAK_WOOD, exporter, "dark_oak");
+		woodFromHollowed(WWBlocks.HOLLOWED_DARK_OAK_LOG, Items.DARK_OAK_WOOD, exporter, "dark_oak");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, Items.STRIPPED_DARK_OAK_WOOD, exporter, "dark_oak");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_JUNGLE_LOGS, Items.JUNGLE_PLANKS, exporter, "jungle");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_JUNGLE_LOG, Items.JUNGLE_WOOD, exporter, "jungle");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, Items.STRIPPED_JUNGLE_WOOD, exporter, "jungle");
+		woodFromHollowed(WWBlocks.HOLLOWED_JUNGLE_LOG, Items.JUNGLE_WOOD, exporter, "jungle");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, Items.STRIPPED_JUNGLE_WOOD, exporter, "jungle");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_MANGROVE_LOGS, Items.MANGROVE_PLANKS, exporter, "mangrove");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_MANGROVE_LOG, Items.MANGROVE_WOOD, exporter, "mangrove");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, Items.STRIPPED_MANGROVE_WOOD, exporter, "mangrove");
+		woodFromHollowed(WWBlocks.HOLLOWED_MANGROVE_LOG, Items.MANGROVE_WOOD, exporter, "mangrove");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, Items.STRIPPED_MANGROVE_WOOD, exporter, "mangrove");
 
-		planksFromHollowed(WilderItemTags.HOLLOWED_MAPLE_LOGS, RegisterBlocks.MAPLE_PLANKS, exporter, "maple");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_MAPLE_LOG, RegisterBlocks.MAPLE_WOOD, exporter, "maple");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, RegisterBlocks.STRIPPED_MAPLE_WOOD, exporter, "maple");
+		planksFromHollowed(WilderItemTags.HOLLOWED_MAPLE_LOGS, WWBlocks.MAPLE_PLANKS, exporter, "maple");
+		woodFromHollowed(WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.MAPLE_WOOD, exporter, "maple");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_WOOD, exporter, "maple");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_OAK_LOGS, Items.OAK_PLANKS, exporter, "oak");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_OAK_LOG, Items.OAK_WOOD, exporter, "oak");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, Items.STRIPPED_OAK_WOOD, exporter, "oak");
+		woodFromHollowed(WWBlocks.HOLLOWED_OAK_LOG, Items.OAK_WOOD, exporter, "oak");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG, Items.STRIPPED_OAK_WOOD, exporter, "oak");
 
-		planksFromHollowed(WilderItemTags.HOLLOWED_PALM_LOGS, RegisterBlocks.PALM_PLANKS, exporter, "palm");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_PALM_LOG, RegisterBlocks.PALM_WOOD, exporter, "palm");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, RegisterBlocks.STRIPPED_PALM_WOOD, exporter, "palm");
+		planksFromHollowed(WilderItemTags.HOLLOWED_PALM_LOGS, WWBlocks.PALM_PLANKS, exporter, "palm");
+		woodFromHollowed(WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.PALM_WOOD, exporter, "palm");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_PALM_WOOD, exporter, "palm");
 
 		planksFromHollowed(WilderItemTags.HOLLOWED_SPRUCE_LOGS, Items.SPRUCE_PLANKS, exporter, "spruce");
-		woodFromHollowed(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Items.SPRUCE_WOOD, exporter, "spruce");
-		strippedWoodFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, Items.STRIPPED_SPRUCE_WOOD, exporter, "spruce");
+		woodFromHollowed(WWBlocks.HOLLOWED_SPRUCE_LOG, Items.SPRUCE_WOOD, exporter, "spruce");
+		strippedWoodFromHollowed(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, Items.STRIPPED_SPRUCE_WOOD, exporter, "spruce");
 
 		planksFromHollowedStem(WilderItemTags.HOLLOWED_CRIMSON_STEMS, Items.CRIMSON_PLANKS, exporter, "crimson");
-		hyphaeFromHollowed(RegisterBlocks.HOLLOWED_CRIMSON_STEM, Items.CRIMSON_HYPHAE, exporter, "crimson");
-		strippedHyphaeFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, Items.STRIPPED_CRIMSON_HYPHAE, exporter, "crimson");
+		hyphaeFromHollowed(WWBlocks.HOLLOWED_CRIMSON_STEM, Items.CRIMSON_HYPHAE, exporter, "crimson");
+		strippedHyphaeFromHollowed(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, Items.STRIPPED_CRIMSON_HYPHAE, exporter, "crimson");
 
 		planksFromHollowedStem(WilderItemTags.HOLLOWED_WARPED_STEMS, Items.WARPED_PLANKS, exporter, "warped");
-		hyphaeFromHollowed(RegisterBlocks.HOLLOWED_WARPED_STEM, Items.WARPED_HYPHAE, exporter, "warped");
-		strippedHyphaeFromHollowed(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Items.STRIPPED_WARPED_HYPHAE, exporter, "warped");
+		hyphaeFromHollowed(WWBlocks.HOLLOWED_WARPED_STEM, Items.WARPED_HYPHAE, exporter, "warped");
+		strippedHyphaeFromHollowed(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Items.STRIPPED_WARPED_HYPHAE, exporter, "warped");
 	}
 
 	public static void planksFromHollowed(TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {

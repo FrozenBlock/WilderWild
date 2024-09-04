@@ -36,9 +36,9 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterStructures {
+public final class WWStructures {
 
-	private RegisterStructures() {
+	private WWStructures() {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
 	}
 

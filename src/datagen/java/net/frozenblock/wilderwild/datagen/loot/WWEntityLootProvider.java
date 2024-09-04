@@ -23,8 +23,8 @@ import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.wilderwild.datagen.WWDataGenerator;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
@@ -52,13 +52,13 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		HolderLookup.Provider registryLookup = this.registries.join();
 		output.accept(
-			RegisterEntities.CRAB.getDefaultLootTable(),
+			WWEntities.CRAB.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(RegisterItems.CRAB_CLAW)
+							LootItem.lootTableItem(WWItems.CRAB_CLAW)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
 								.apply(SmeltItemFunction.smelted().when(WWDataGenerator.shouldSmeltLoot(registryLookup)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
@@ -67,7 +67,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			RegisterEntities.OSTRICH.getDefaultLootTable(),
+			WWEntities.OSTRICH.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -81,7 +81,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			RegisterEntities.SCORCHED.getDefaultLootTable(),
+			WWEntities.SCORCHED.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -96,7 +96,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(RegisterItems.SCORCHED_EYE)
+							LootItem.lootTableItem(WWItems.SCORCHED_EYE)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
@@ -105,7 +105,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			RegisterEntities.TUMBLEWEED.getDefaultLootTable(),
+			WWEntities.TUMBLEWEED.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

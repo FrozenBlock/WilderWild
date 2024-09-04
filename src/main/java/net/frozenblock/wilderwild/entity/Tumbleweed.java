@@ -24,10 +24,10 @@ import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
@@ -151,15 +151,15 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 					this.setItem(new ItemStack(itemLike), true);
 				}
 			} else if (this.random.nextInt(TUMBLEWEED_PLANT_ITEM_CHANCE) == 0) {
-				this.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+				this.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
 
 	public static void spawnFromShears(@NotNull Level level, BlockPos pos) {
-		level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
-		Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+		level.playSound(null, pos, WWSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
+		Tumbleweed weed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
 		level.addFreshEntity(weed);
 		weed.setPos(Vec3.atBottomCenterOf(pos));
 		weed.spawnedFromShears = true;
@@ -173,7 +173,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			super.doPush(entity);
 		}
 		if (this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			boolean hurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.TUMBLEWEED, this), 2F);
+			boolean hurt = entity.hurt(this.damageSources().source(WWDamageTypes.TUMBLEWEED, this), 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) {
 				this.destroy(false);
@@ -346,7 +346,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	public void destroy(boolean killed) {
 		if (this.isAlive()) {
-			this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BREAK, this.getSoundVolume(), this.getVoicePitch());
+			this.playSound(WWSounds.ENTITY_TUMBLEWEED_BREAK, this.getSoundVolume(), this.getVoicePitch());
 		}
 		this.dropItem(killed);
 		this.spawnBreakParticles();
@@ -395,17 +395,17 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-		return RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE;
+		return WWSounds.ENTITY_TUMBLEWEED_DAMAGE;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return RegisterSounds.ENTITY_TUMBLEWEED_BREAK;
+		return WWSounds.ENTITY_TUMBLEWEED_BREAK;
 	}
 
 	@Override
 	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-		this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.2F, 1F);
+		this.playSound(WWSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.2F, 1F);
 	}
 
 	@Override
@@ -493,7 +493,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Nullable
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(RegisterBlocks.TUMBLEWEED);
+		return new ItemStack(WWBlocks.TUMBLEWEED);
 	}
 
 	@Override
@@ -501,7 +501,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		super.die(damageSource);
 		if (!this.level().isClientSide && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
 			if (isSilkTouchOrShears(damageSource)) {
-				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));
+				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED)));
 			}
 		}
 		this.destroy(true);
@@ -510,7 +510,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public void spawnBreakParticles() {
 		if (this.level() instanceof ServerLevel level) {
 			level.sendParticles(
-				new BlockParticleOption(ParticleTypes.BLOCK, RegisterBlocks.TUMBLEWEED.defaultBlockState()),
+				new BlockParticleOption(ParticleTypes.BLOCK, WWBlocks.TUMBLEWEED.defaultBlockState()),
 				this.getX(),
 				this.getY(0.6666666666666666D),
 				this.getZ(),

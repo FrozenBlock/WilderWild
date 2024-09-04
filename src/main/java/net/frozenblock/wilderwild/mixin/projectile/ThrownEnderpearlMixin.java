@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.projectile;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.ItemConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -53,10 +53,10 @@ public class ThrownEnderpearlMixin {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.isSilent()) {
 				float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
-				level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
+				level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), WWSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
 				FrozenSoundPackets.createLocalPlayerSound(
 					owner,
-					BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ITEM_ENDER_PEARL_LAND.getLocation()).orElseThrow(),
+					BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ITEM_ENDER_PEARL_LAND.getLocation()).orElseThrow(),
 					0.6F,
 					pitch
 				);
@@ -94,7 +94,7 @@ public class ThrownEnderpearlMixin {
 					pearl.getX(),
 					pearl.getY(),
 					pearl.getZ(),
-					RegisterSounds.ITEM_ENDER_PEARL_LAND,
+					WWSounds.ITEM_ENDER_PEARL_LAND,
 					owner.getSoundSource(),
 					0.6F,
 					0.85F + (level.random.nextFloat() * 0.2F)

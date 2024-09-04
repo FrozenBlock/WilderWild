@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.ItemConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -44,11 +44,11 @@ public abstract class ThrownPotionMixin {
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownPotion potion = ThrownPotion.class.cast(this);
-			potion.playSound(RegisterSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
+			potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
 			if (potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getAllEffects().iterator().hasNext()) {
-				potion.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.getRandom().nextFloat() * 0.2F));
+				potion.playSound(WWSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.getRandom().nextFloat() * 0.2F));
 				if (this.isLingering()) {
-					potion.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (potion.getRandom().nextFloat() * 0.2F));
+					potion.playSound(WWSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (potion.getRandom().nextFloat() * 0.2F));
 				}
 			}
 		}

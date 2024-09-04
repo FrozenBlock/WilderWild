@@ -25,7 +25,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -79,7 +79,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return RegisterFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER;
+		return WWFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER;
 	}
 
 	@Override

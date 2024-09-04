@@ -23,8 +23,8 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWParticles;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -164,7 +164,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -180,7 +180,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -211,7 +211,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -227,7 +227,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -258,7 +258,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.BLUE_LANDING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.BLUE_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -274,7 +274,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.BLUE_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -305,7 +305,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_LANDING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.YELLOW_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -321,7 +321,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.YELLOW_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -352,7 +352,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.LIME_LANDING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.LIME_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -368,7 +368,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.LIME_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.LIME_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -399,7 +399,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.RED_HANGING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.RED_HANGING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -415,7 +415,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.RED_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.RED_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -446,7 +446,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.PINK_LANDING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticles.PINK_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
@@ -462,7 +462,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.PINK_FALLING_MESOGLEA, sprite);
+			return new DripHangParticle(clientLevel, d, e, f, WWParticles.PINK_FALLING_MESOGLEA, sprite);
 		}
 	}
 
@@ -529,7 +529,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 			if (this.onGround) {
 				this.remove();
 				this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0D, 0D, 0D);
-				SoundEvent soundEvent = RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND;
+				SoundEvent soundEvent = WWSounds.PARTICLE_MESOGLEA_DRIP_LAND;
 				float f = Mth.randomBetween(this.random, 0.3F, 1F);
 				this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1F, false);
 			}

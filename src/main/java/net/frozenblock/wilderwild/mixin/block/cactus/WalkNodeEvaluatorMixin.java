@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.cactus;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
@@ -48,7 +48,7 @@ public class WalkNodeEvaluatorMixin {
 		)
 	)
 	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState blockState, Block block, Operation<Boolean> operation) {
-		return operation.call(blockState, block) || operation.call(blockState, RegisterBlocks.PRICKLY_PEAR_CACTUS);
+		return operation.call(blockState, block) || operation.call(blockState, WWBlocks.PRICKLY_PEAR_CACTUS);
 	}
 
 }

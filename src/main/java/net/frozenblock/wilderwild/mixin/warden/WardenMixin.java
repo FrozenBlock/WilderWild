@@ -28,8 +28,8 @@ import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -131,7 +131,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@ModifyReturnValue(at = @At("RETURN"), method = "getDeathSound")
 	public SoundEvent wilderWild$getDeathSound(SoundEvent soundEvent) {
-		return this.wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH : soundEvent;
+		return this.wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_KIRBY_DEATH : soundEvent;
 	}
 
 	@Inject(at = @At("TAIL"), method = "finalizeSpawn")
@@ -186,7 +186,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@ModifyArgs(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0))
 	private void wilderWild$stellaHeartbeat(Args args) {
 		if (this.wilderWild$isStella()) {
-			args.set(3, RegisterSounds.ENTITY_WARDEN_STELLA_HEARTBEAT);
+			args.set(3, WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT);
 		}
 	}
 
@@ -298,7 +298,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		) {
 			boolean isHiccuping = false;
 			if (level.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-				if (level.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+				if (level.getBlockState(pos).getValue(WWBlockStateProperties.HICCUPPING)) {
 					isHiccuping = true;
 				}
 			}

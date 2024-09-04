@@ -24,9 +24,9 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.block.impl.FlowerColor;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterFeatures;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureUtils;
 import net.frozenblock.wilderwild.world.feature.placed.WilderTreePlaced;
@@ -167,16 +167,16 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WilderFeatureUtils.register("flower_meadow");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = WilderFeatureUtils.register("milkweed");
 	public static final SimpleWeightedRandomList<BlockState> GLORY_OF_THE_SNOW_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 3)
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 3)
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 1)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.BLUE), 3)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PURPLE), 3)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.WHITE), 1)
 		.build();
 	public static final SimpleWeightedRandomList<BlockState> GLORY_OF_THE_SNOW_JUNGLE_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 1)
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 1)
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
-		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 2)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.BLUE), 1)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PURPLE), 1)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
+		.add(WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.WHITE), 2)
 		.build();
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW = WilderFeatureUtils.register("glory_of_the_snow");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW_JUNGLE = WilderFeatureUtils.register("glory_of_the_snow_jungle");
@@ -189,11 +189,11 @@ public final class WilderConfiguredFeatures {
 		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 12)
 		.add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
 		.add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
-		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 2)
+		.add(WWBlocks.SEEDING_DANDELION.defaultBlockState(), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CHERRY_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.DATURA.defaultBlockState(), 2)
+		.add(WWBlocks.DATURA.defaultBlockState(), 2)
 		.add(Blocks.LILAC.defaultBlockState(), 7)
 		.add(Blocks.POPPY.defaultBlockState(), 9)
 		.add(Blocks.ROSE_BUSH.defaultBlockState(), 3)
@@ -222,30 +222,30 @@ public final class WilderConfiguredFeatures {
 
 	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 8)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> DEAD_BUSH_AND_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 5)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> BUSH_AND_DEAD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 2)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> JUNGLE_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> SPARSE_JUNGLE_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 3)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 3)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS = WilderFeatureUtils.register("oasis_grass");
@@ -256,20 +256,20 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_BUSH = WilderFeatureUtils.register("sparse_bush");
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_BUSH = WilderFeatureUtils.register("flower_field_bush");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GENERIC_BUSH = WilderFeatureUtils.register("bush");
 	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_BUSH = WilderFeatureUtils.register("desert_bush");
@@ -281,10 +281,10 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = WilderFeatureUtils.register("patch_cactus_tall_badlands");
 
 	public static final SimpleWeightedRandomList<BlockState> PRICKLY_PEAR_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
-		.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
-		.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
-		.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 4)
+		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
+		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
+		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
+		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 4)
 		.add(Blocks.CACTUS.defaultBlockState(), 2)
 		.build();
 
@@ -335,10 +335,10 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED = WilderFeatureUtils.register("termite_mound_baobab");
 
 	public static final SimpleWeightedRandomList<BlockState> TUMBLEWEED_PLANT_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
-		.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1)
-		.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
-		.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
+		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
+		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1)
+		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
+		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = WilderFeatureUtils.register("tumbleweed");
@@ -1134,7 +1134,7 @@ public final class WilderConfiguredFeatures {
 				48,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.SEEDING_DANDELION))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEEDING_DANDELION))
 				)
 			)
 		);
@@ -1144,7 +1144,7 @@ public final class WilderConfiguredFeatures {
 				48,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.CARNATION))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.CARNATION))
 				)
 			)
 		);
@@ -1154,7 +1154,7 @@ public final class WilderConfiguredFeatures {
 				40,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MARIGOLD))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MARIGOLD))
 				)
 			)
 		);
@@ -1164,7 +1164,7 @@ public final class WilderConfiguredFeatures {
 				24,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MARIGOLD))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MARIGOLD))
 				)
 			)
 		);
@@ -1173,7 +1173,7 @@ public final class WilderConfiguredFeatures {
 			FeatureUtils.simpleRandomPatchConfiguration(
 				64,
 				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.DATURA))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.DATURA))
 				)
 			)
 		);
@@ -1192,7 +1192,7 @@ public final class WilderConfiguredFeatures {
 							0.010833334F,
 							List.of(
 								Blocks.WHITE_TULIP.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
@@ -1206,9 +1206,9 @@ public final class WilderConfiguredFeatures {
 								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
@@ -1234,14 +1234,14 @@ public final class WilderConfiguredFeatures {
 							0.007833334F,
 							List.of(
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState()
 							)
@@ -1256,7 +1256,7 @@ public final class WilderConfiguredFeatures {
 				20,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED))
 				)
 			)
 		);
@@ -1296,7 +1296,7 @@ public final class WilderConfiguredFeatures {
 							List.of(
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.WHITE_TULIP.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
@@ -1309,8 +1309,8 @@ public final class WilderConfiguredFeatures {
 								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
@@ -1357,33 +1357,33 @@ public final class WilderConfiguredFeatures {
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.WHITE_TULIP.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ORANGE_TULIP.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.ROSE_BUSH.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.PEONY.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState()
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState()
 							)
 						)
 					)
@@ -1405,13 +1405,13 @@ public final class WilderConfiguredFeatures {
 							0.023833334F,
 							List.of(
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.ROSE_BUSH.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState()
 							)
@@ -1440,7 +1440,7 @@ public final class WilderConfiguredFeatures {
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.ROSE_BUSH.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState()
 							)
@@ -1488,14 +1488,14 @@ public final class WilderConfiguredFeatures {
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
@@ -1503,14 +1503,14 @@ public final class WilderConfiguredFeatures {
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
@@ -1597,27 +1597,27 @@ public final class WilderConfiguredFeatures {
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.PEONY.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.BLUE_ORCHID.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
@@ -1643,13 +1643,13 @@ public final class WilderConfiguredFeatures {
 							new NormalNoise.NoiseParameters(0, 1D),
 							0.054833334F,
 							List.of(
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
-								RegisterBlocks.MARIGOLD.defaultBlockState(),
-								RegisterBlocks.MARIGOLD.defaultBlockState(),
+								WWBlocks.MARIGOLD.defaultBlockState(),
+								WWBlocks.MARIGOLD.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState()
 							)
@@ -1673,13 +1673,13 @@ public final class WilderConfiguredFeatures {
 							0.054833334F,
 							List.of(
 								Blocks.WHITE_TULIP.defaultBlockState(),
-								RegisterBlocks.DATURA.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.DATURA.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.PEONY.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.BLUE_ORCHID.defaultBlockState()
@@ -1704,17 +1704,17 @@ public final class WilderConfiguredFeatures {
 							0.054833334F,
 							List.of(
 								Blocks.WHITE_TULIP.defaultBlockState(),
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.SUNFLOWER.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.ORANGE_TULIP.defaultBlockState(),
 								Blocks.RED_TULIP.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
-								RegisterBlocks.MILKWEED.defaultBlockState(),
+								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.LILAC.defaultBlockState(),
-								RegisterBlocks.CARNATION.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.PEONY.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState()
 							)
@@ -1740,7 +1740,7 @@ public final class WilderConfiguredFeatures {
 						Feature.RANDOM_PATCH,
 						FeatureUtils.simplePatchConfiguration(
 							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED)),
+							new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED)),
 							List.of(),
 							9
 						)
@@ -2041,7 +2041,7 @@ public final class WilderConfiguredFeatures {
 
 		POLLEN_CONFIGURED.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				RegisterBlocks.POLLEN,
+				WWBlocks.POLLEN,
 				20,
 				true,
 				true,
@@ -2054,9 +2054,9 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(RegisterFeatures.SHELF_FUNGUS_FEATURE,
+		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WWFeatures.SHELF_FUNGUS_FEATURE,
 			new ShelfFungusFeatureConfig(
-				RegisterBlocks.BROWN_SHELF_FUNGUS,
+				WWBlocks.BROWN_SHELF_FUNGUS,
 				20,
 				true,
 				true,
@@ -2068,9 +2068,9 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(RegisterFeatures.SHELF_FUNGUS_FEATURE,
+		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WWFeatures.SHELF_FUNGUS_FEATURE,
 			new ShelfFungusFeatureConfig(
-				RegisterBlocks.RED_SHELF_FUNGUS,
+				WWBlocks.RED_SHELF_FUNGUS,
 				20,
 				true,
 				true,
@@ -2082,7 +2082,7 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		CATTAIL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
+		CATTAIL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
@@ -2091,7 +2091,7 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		CATTAIL_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
+		CATTAIL_SMALL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-5, 5),
 				UniformInt.of(6, 12),
@@ -2100,7 +2100,7 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		CATTAIL_MUD.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
+		CATTAIL_MUD.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
@@ -2109,7 +2109,7 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		CATTAIL_MUD_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
+		CATTAIL_MUD_SMALL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				UniformInt.of(-5, 5),
 				UniformInt.of(6, 12),
@@ -2125,22 +2125,22 @@ public final class WilderConfiguredFeatures {
 				3,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.FLOWERING_LILY_PAD))
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD))
 				)
 			)
 		);
 
-		PATCH_ALGAE.makeAndSetHolder(RegisterFeatures.ALGAE_FEATURE,
+		PATCH_ALGAE.makeAndSetHolder(WWFeatures.ALGAE_FEATURE,
 			new AlgaeFeatureConfig(UniformInt.of(4, 10))
 		);
 
-		PATCH_ALGAE_SMALL.makeAndSetHolder(RegisterFeatures.ALGAE_FEATURE,
+		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.ALGAE_FEATURE,
 			new AlgaeFeatureConfig(UniformInt.of(2, 6))
 		);
 
 		TERMITE_CONFIGURED.makeAndSetHolder(FrozenFeatures.COLUMN_WITH_DISK_FEATURE,
 			new ColumnWithDiskFeatureConfig(
-				RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true),
+				WWBlocks.TERMITE_MOUND.defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true),
 				UniformInt.of(4, 9),
 				UniformInt.of(3, 7),
 				UniformInt.of(1, 3),
@@ -2165,7 +2165,7 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		SPONGE_BUD.makeAndSetHolder(RegisterFeatures.SPONGE_BUD_FEATURE,
+		SPONGE_BUD.makeAndSetHolder(WWFeatures.SPONGE_BUD_FEATURE,
 			new SpongeBudFeatureConfig(
 				20,
 				true,

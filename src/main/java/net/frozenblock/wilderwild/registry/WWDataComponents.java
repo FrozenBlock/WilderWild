@@ -28,7 +28,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import org.jetbrains.annotations.NotNull;
 
-public class RegisterDataComponents {
+public class WWDataComponents {
 	public static final DataComponentType<List<DisplayLanternBlockEntity.Occupant>> FIREFLIES = register(
 		"fireflies",
 		builder -> builder.persistent(DisplayLanternBlockEntity.Occupant.LIST_CODEC)

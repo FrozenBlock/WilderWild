@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -56,6 +56,6 @@ public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock 
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), UPDATE_CLIENTS);
+		level.setBlock(pos.below(), WWBlocks.BAOBAB_NUT.getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 }

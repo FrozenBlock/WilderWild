@@ -28,7 +28,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.world.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.feature.placed.WilderCavePlaced;
 import net.minecraft.core.Holder;
@@ -141,7 +141,7 @@ public final class FrozenCaves extends FrozenBiome {
 
 	@Override
 	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_FROZEN_CAVES);
+		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_FROZEN_CAVES);
 	}
 
 	@Override

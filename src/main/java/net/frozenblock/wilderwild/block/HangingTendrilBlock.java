@@ -21,9 +21,9 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -76,8 +76,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final EnumProperty<SculkSensorPhase> PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final BooleanProperty TWITCHING = RegisterProperties.TWITCHING;
-	public static final BooleanProperty WRINGING_OUT = RegisterProperties.WRINGING_OUT;
+	public static final BooleanProperty TWITCHING = WWBlockStateProperties.TWITCHING;
+	public static final BooleanProperty WRINGING_OUT = WWBlockStateProperties.WRINGING_OUT;
 	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 
@@ -95,7 +95,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static void deactivate(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
 		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(POWER, 0), UPDATE_ALL);
 		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(null, pos, RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
+			level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
 		}
 
 		SculkSensorBlock.updateNeighbours(level, pos, state);
@@ -202,9 +202,9 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
+		return !level.isClientSide ? createTickerHelper(type, WWBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.serverTick(worldx, pos, statex)
-		) : createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
+		) : createTickerHelper(type, WWBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.clientTick(statex));
 	}
 
@@ -238,7 +238,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
 				pos.getZ() + 0.5D,
-				RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING,
+				WWSounds.BLOCK_HANGING_TENDRIL_CLICKING,
 				SoundSource.BLOCKS,
 				1F,
 				level.random.nextFloat() * 0.2F + 0.8F
@@ -298,7 +298,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 						level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
 						level.playSound(null,
 							pos,
-							RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
+							WWSounds.BLOCK_HANGING_TENDRIL_WRING,
 							SoundSource.BLOCKS,
 							1F,
 							level.getRandom().nextFloat() * 0.1F + 0.9F

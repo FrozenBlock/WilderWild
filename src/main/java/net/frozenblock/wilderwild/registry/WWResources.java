@@ -25,8 +25,8 @@ import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
 
-public final class RegisterResources {
-	private RegisterResources() {
+public final class WWResources {
+	private WWResources() {
 		throw new UnsupportedOperationException("RegisterResources contains only static declarations.");
 	}
 
