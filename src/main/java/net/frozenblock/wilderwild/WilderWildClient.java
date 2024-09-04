@@ -67,7 +67,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.networking.WilderClientNetworking;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
-import net.frozenblock.wilderwild.particle.MapleParticle;
+import net.frozenblock.wilderwild.particle.LeafParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
@@ -256,7 +256,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
 		particleRegistry.register(RegisterParticles.MAPLE_LEAVES,
 			sprite -> (type, world, x, y, z, velocityX, velocityY, velocityZ) ->
-				new MapleParticle(world, x, y, z, sprite)
+				new LeafParticle(world, x, y, z, velocityX, velocityY, velocityY, 0.225F, 3F, 1.5F, sprite)
 		);
 
 		EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);

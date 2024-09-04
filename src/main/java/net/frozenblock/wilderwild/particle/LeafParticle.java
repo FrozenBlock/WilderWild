@@ -22,11 +22,22 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
 import net.minecraft.client.particle.SpriteSet;
 
-public class MapleParticle extends CherryParticle {
-	public MapleParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
+public class LeafParticle extends CherryParticle {
+	public LeafParticle(
+		ClientLevel world,
+		double x, double y, double z,
+		double velX, double velY, double velZ,
+		float quadSize,
+		float gravityScale,
+		float rotScale,
+		SpriteSet spriteProvider
+	) {
 		super(world, x, y, z, spriteProvider);
-		this.quadSize = 0.225F;
-		this.gravity *= 3F;
-		this.rotSpeed *= 1.576F;
+		this.quadSize = quadSize;
+		this.gravity *= gravityScale;
+		this.rotSpeed *= rotScale;
+		this.xd = velX;
+		this.yd = velY;
+		this.zd = velZ;
 	}
 }
