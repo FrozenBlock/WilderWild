@@ -115,15 +115,15 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 	}
 
-	private static final ModelTemplate LEAF_CARPET_MODEL = new ModelTemplate(Optional.of(WilderConstants.id("block/template_leaf_carpet")), Optional.empty(), TextureSlot.TEXTURE);
-	private static final TexturedModel.Provider LEAF_CARPET_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_CARPET_MODEL);
+	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WilderConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
+	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block carpet) {
 		createLeafLitter(generator, carpet, carpet);
 	}
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block carpet, Block source) {
-		ResourceLocation resourceLocation = LEAF_CARPET_PROVIDER.get(source).create(carpet, generator.modelOutput);
+		ResourceLocation resourceLocation = LEAF_LITTER_PROVIDER.get(source).create(carpet, generator.modelOutput);
 		ModelTemplates.FLAT_ITEM
 			.create(ModelLocationUtils.getModelLocation(carpet.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(source)), generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(carpet, resourceLocation));
