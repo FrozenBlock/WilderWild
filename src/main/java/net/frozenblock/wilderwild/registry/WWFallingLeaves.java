@@ -28,7 +28,7 @@ public final class WWFallingLeaves {
 
 	public static void register() {
 		WilderConstants.logWithModId("Registering Falling Leaves for", WilderConstants.UNSTABLE_LOGGING);
-		FallingLeafUtil.addFallingLeaf(
+		FallingLeafUtil.registerFallingLeaf(
 			WWBlocks.MAPLE_LEAVES,
 			WWBlocks.MAPLE_LEAF_LITTER,
 			0.04F,

@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.mixin.block.leaves;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -63,11 +62,6 @@ public class LeavesBlockMixin {
 			return Mth.clamp(integer, 1, 7);
 		}
 		return original;
-	}
-
-	@Inject(method = "randomTick", at = @At("HEAD"))
-	public void wilderWild$potentiallySpawnLeaves(BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo info) {
-		FallingLeafUtil.potentiallySpawnLeaves(state, world, pos, random);
 	}
 
 	@Inject(method = "animateTick", at = @At("HEAD"))

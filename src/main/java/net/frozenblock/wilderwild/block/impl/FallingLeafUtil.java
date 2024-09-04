@@ -22,10 +22,13 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
+import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
@@ -47,29 +50,29 @@ public class FallingLeafUtil {
 	private static final Map<Block, FallingLeafData> LEAVES_TO_FALLING_LEAF_DATA = new Object2ObjectLinkedOpenHashMap<>();
 	private static final Map<ParticleType<LeafParticleOptions>, LeafParticleData> PARTICLE_TO_LEAF_PARTICLE_DATA = new Object2ObjectLinkedOpenHashMap<>();
 
-	public static void addFallingLeaf(
+	public static void registerFallingLeaf(
 		Block block,
 		LeafLitterBlock leafLitterBlock, float litterChance,
 		ParticleType<LeafParticleOptions> leafParticle
 	) {
-		addFallingLeaf(
+		registerFallingLeaf(
 			block, new FallingLeafData(leafLitterBlock, litterChance, leafParticle),
 			leafParticle, null
 		);
 	}
 
-	public static void addFallingLeaf(
+	public static void registerFallingLeaf(
 		Block block,
 		LeafLitterBlock leafLitterBlock, float litterChance,
 		ParticleType<LeafParticleOptions> leafParticle, float particleChance, float quadSize, float particleGravityScale
 	) {
-		addFallingLeaf(
+		registerFallingLeaf(
 			block, new FallingLeafData(leafLitterBlock, litterChance, leafParticle),
 			leafParticle, new LeafParticleData(particleChance, quadSize, particleGravityScale)
 		);
 	}
 
-	private static void addFallingLeaf(
+	private static void registerFallingLeaf(
 		Block block, FallingLeafData fallingLeafData, ParticleType<LeafParticleOptions> leafParticle, @Nullable LeafParticleData leafParticleData
 	) {
 		if (block instanceof LeavesBlock leavesBlock) {
@@ -91,35 +94,82 @@ public class FallingLeafUtil {
 		return PARTICLE_TO_LEAF_PARTICLE_DATA.getOrDefault(leafParticle, DEFAULT_LEAF_PARTICLE_DATA);
 	}
 
-	public static void potentiallySpawnLeaves(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+	public static void onRandomTick(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		if (state.getValue(LeavesBlock.DISTANCE) < 7 && !state.getValue(LeavesBlock.PERSISTENT)) {
-			Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+			Block block = state.getBlock();
+			if (world.getBlockTicks().hasScheduledTick(pos, block)) return;
+
+			Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(block);
 			if (optionalFallingLeafData.isPresent()) {
 				FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
 				BlockPos belowPos = pos.below();
 				BlockState belowState = world.getBlockState(belowPos);
 				if (!Block.isFaceFull(belowState.getCollisionShape(world, belowPos), Direction.UP)) {
 					if (random.nextFloat() <= fallingLeafData.litterChance()) {
-						BlockHitResult hitResult = world.clip(
-							new ClipContext(
-								Vec3.atBottomCenterOf(pos),
-								Vec3.atCenterOf(pos.below(10)),
-								ClipContext.Block.COLLIDER,
-								ClipContext.Fluid.ANY,
-								CollisionContext.empty()
-							)
+						BlockHitResult hitResult = createFallingClusterHitResult(world, pos);
+						world.sendParticles(
+							new BlockParticleOption(ParticleTypes.BLOCK, state),
+							pos.getX() + 0.5D,
+							pos.getY() - 0.1D,
+							pos.getZ() + 0.5D,
+							random.nextInt(12, 24),
+							0D, 0D, 0D,
+							0.5D
+						);
+						world.sendParticles(
+							LeafClusterParticleOptions.create(fallingLeafData.particle),
+							pos.getX(), pos.getY(), pos.getZ(),
+							1,
+							0D, 0D, 0D,
+							0D
 						);
 						if (hitResult.getType() != HitResult.Type.MISS) {
 							BlockPos hitPos = hitResult.getBlockPos();
 							BlockPos placePos = hitPos.above();
 							if (!placePos.equals(pos)) {
-								BlockState stateToReplace = world.getBlockState(placePos);
-								Block leafLitter = fallingLeafData.leafLitterBlock();
-								if (isSafePosToPlaceLitter(world, placePos, stateToReplace, leafLitter)) {
-									world.setBlockAndUpdate(placePos, leafLitter.defaultBlockState());
+								int distance = pos.getY() - placePos.getY();
+								double yd = 0.05D;
+								double traveledDistance = 0D;
+								int tickDelay = 0;
+								while(traveledDistance < distance) {
+									yd += 0.04D;
+									traveledDistance += yd;
+									tickDelay += 1;
 								}
+								world.scheduleTick(pos, block, tickDelay);
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+
+	public static void createLitterOnScheduledTick(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+		if (optionalFallingLeafData.isPresent()) {
+			FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
+			BlockPos belowPos = pos.below();
+			BlockState belowState = world.getBlockState(belowPos);
+			if (!Block.isFaceFull(belowState.getCollisionShape(world, belowPos), Direction.UP)) {
+				BlockHitResult hitResult = createFallingClusterHitResult(world, pos);
+				if (hitResult.getType() != HitResult.Type.MISS) {
+					BlockPos hitPos = hitResult.getBlockPos();
+					BlockPos placePos = hitPos.above();
+					BlockState stateToReplace = world.getBlockState(placePos);
+					Block leafLitter = fallingLeafData.leafLitterBlock();
+					if (isSafePosToPlaceLitter(world, placePos, stateToReplace, leafLitter)) {
+						BlockState litterState = leafLitter.defaultBlockState();
+						world.setBlockAndUpdate(placePos, litterState);
+						world.sendParticles(
+							new BlockParticleOption(ParticleTypes.BLOCK, litterState),
+							placePos.getX() + 0.5D,
+							placePos.getY() + 0.1D,
+							placePos.getZ() + 0.5D,
+							random.nextInt(8, 18),
+							0D, 0D, 0D,
+							0.5D
+						);
 					}
 				}
 			}
@@ -147,6 +197,17 @@ public class FallingLeafUtil {
 				}
 			}
 		}
+	}
+
+	public static @NotNull BlockHitResult createFallingClusterHitResult(@NotNull Level world, BlockPos pos) {
+		return world.clip(
+			new ClipContext(
+				Vec3.atBottomCenterOf(pos),
+				Vec3.atCenterOf(pos.below(20)),
+				ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY,
+				CollisionContext.empty()
+			)
+		);
 	}
 
 	public static @NotNull LeafParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData) {

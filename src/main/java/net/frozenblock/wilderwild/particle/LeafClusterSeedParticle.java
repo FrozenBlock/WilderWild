@@ -40,14 +40,14 @@ public class LeafClusterSeedParticle extends NoRenderParticle {
 
 	LeafClusterSeedParticle(ParticleType<LeafParticleOptions> spawnedParticle, ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f, 0D, 0D, 0D);
-		this.lifetime = 3;
+		this.lifetime = 5;
 		this.spawnedParticle = spawnedParticle;
 		this.pos = BlockPos.containing(d, e, f);
 	}
 
 	@Override
 	public void tick() {
-		int leafCount = this.random.nextInt(5) + 1;
+		int leafCount = this.random.nextInt(4) + 1;
 		for (int i = 0; i < leafCount; i++) {
 			FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(this.spawnedParticle);
 			LeafParticleOptions leafParticleOptions = LeafParticleOptions.createFastFalling(this.spawnedParticle, leafParticleData.quadSize());

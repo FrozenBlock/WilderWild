@@ -71,7 +71,7 @@ public class LeafParticleOptions implements ParticleOptions {
 
 	@NotNull
 	public static LeafParticleOptions createFastFalling(ParticleType<LeafParticleOptions> type, float quadSize) {
-		return new LeafParticleOptions(type, 0D, -0.05D, 0D, quadSize, 0.2F, true);
+		return new LeafParticleOptions(type, 0D, -0.05D, 0D, quadSize, 25F, true);
 	}
 
 	private LeafParticleOptions(
