@@ -21,20 +21,18 @@ package net.frozenblock.wilderwild.entity.render.layer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.SpiderModel;
+import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
+import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ScorchedGlowingLayer<T extends EntityRenderState> extends EyesLayer<T, EntityModel<ScorchedRenderState>> {
+public class ScorchedGlowingLayer extends EyesLayer<ScorchedRenderState, ScorchedModel> {
 	private static final RenderType SCORCHED_GLOWING = RenderType.eyes(WWConstants.id("textures/entity/scorched/scorched_glowing.png"));
 
-	public ScorchedGlowingLayer(RenderLayerParent<T, ScorchedRenderState> renderLayerParent) {
+	public ScorchedGlowingLayer(RenderLayerParent<ScorchedRenderState, ScorchedModel> renderLayerParent) {
 		super(renderLayerParent);
 	}
 

@@ -24,14 +24,13 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.render.layer.ScorchedGlowingLayer;
 import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
-import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class ScorchedRenderer<T extends Scorched> extends MobRenderer<T, SpiderModel<T>> {
+public class ScorchedRenderer extends MobRenderer<Scorched, ScorchedRenderState, ScorchedModel> {
 	private static final ResourceLocation SCORCHED_LOCATION = WWConstants.id("textures/entity/scorched/scorched.png");
 	private static final float SCALE = 0.9F;
 
@@ -40,20 +39,31 @@ public class ScorchedRenderer<T extends Scorched> extends MobRenderer<T, SpiderM
 	}
 
 	public ScorchedRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
-		super(context, new ScorchedModel<>(context.bakeLayer(layer)), 0.8F);
-		this.addLayer(new ScorchedGlowingLayer<>(this));
+		super(context, new ScorchedModel(context.bakeLayer(layer)), 0.8F);
+		this.addLayer(new ScorchedGlowingLayer(this));
 		this.shadowRadius *= SCALE;
 	}
 
 	@Override
-	public void scale(Scorched livingEntity, @NotNull PoseStack poseStack, float partialTickTime) {
+	public void scale(ScorchedRenderState renderState, @NotNull PoseStack poseStack) {
 		poseStack.scale(SCALE, SCALE, SCALE);
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(Scorched entity) {
+	public @NotNull ResourceLocation getTextureLocation(ScorchedRenderState renderState) {
 		return SCORCHED_LOCATION;
 	}
 
+	@Override
+	@NotNull
+	public ScorchedRenderState createRenderState() {
+		return new ScorchedRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Scorched entity, ScorchedRenderState renderState, float partialTick) {
+		super.extractRenderState(entity, renderState, partialTick);
+		renderState.lavaAnimProgress = entity.getLavaAnimProgress(partialTick);
+	}
 }
 
