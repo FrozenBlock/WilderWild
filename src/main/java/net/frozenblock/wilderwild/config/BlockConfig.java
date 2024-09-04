@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
@@ -84,11 +83,8 @@ public final class BlockConfig {
 	}
 
 	public static final class Client {
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean MESOGLEA_LIQUID = false;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean POLLEN_ENABLED = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean SOUL_FIRE_SOUNDS = true;
 	}
 

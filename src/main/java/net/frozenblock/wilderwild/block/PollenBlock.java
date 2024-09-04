@@ -48,7 +48,7 @@ public class PollenBlock extends FlowerLichenBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (BlockConfig.get().pollenParticles) {
+		if (BlockConfig.Client.POLLEN_ENABLED) {
 			int i = pos.getX();
 			int j = pos.getY();
 			int k = pos.getZ();
