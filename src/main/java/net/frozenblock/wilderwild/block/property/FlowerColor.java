@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.block.impl;
+package net.frozenblock.wilderwild.block.property;
 
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;

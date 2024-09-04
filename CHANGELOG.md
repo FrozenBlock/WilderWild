@@ -29,3 +29,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 # Technical Changes
 - Refactored every class in the `registry` package to start with the `WW` prefix.
   - This change was made in order for mod compatibility development with Wilder Wild to be more organized.
+- Refactored custom BlockState Property-related classes to `block/property,` from `block/impl.`
