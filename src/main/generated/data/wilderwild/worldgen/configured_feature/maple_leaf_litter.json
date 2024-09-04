@@ -8,7 +8,7 @@
     "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:maple_leaf_carpet",
+        "Name": "wilderwild:maple_leaf_litter",
         "Properties": {
           "persistent": "false"
         }
@@ -17,7 +17,7 @@
     "outer_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:maple_leaf_carpet",
+        "Name": "wilderwild:maple_leaf_litter",
         "Properties": {
           "persistent": "false"
         }

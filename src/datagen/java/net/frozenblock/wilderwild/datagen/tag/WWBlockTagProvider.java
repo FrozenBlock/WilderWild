@@ -377,7 +377,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	private void generateTags() {
 		this.getOrCreateTagBuilder(WilderBlockTags.LEAF_CARPETS)
-			.add(RegisterBlocks.MAPLE_LEAF_CARPET);
+			.add(RegisterBlocks.MAPLE_LEAF_LITTER);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.BAOBAB_LOGS)
 			.add(RegisterBlocks.BAOBAB_LOG)

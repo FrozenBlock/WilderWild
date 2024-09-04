@@ -79,7 +79,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
-		createLeafCarpet(generator, RegisterBlocks.MAPLE_LEAF_CARPET, RegisterBlocks.MAPLE_LEAVES);
+		createLeafLitter(generator, RegisterBlocks.MAPLE_LEAF_LITTER);
 	}
 
 	@Override
@@ -118,7 +118,11 @@ public final class WWModelProvider extends FabricModelProvider {
 	private static final ModelTemplate LEAF_CARPET_MODEL = new ModelTemplate(Optional.of(WilderConstants.id("block/template_leaf_carpet")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_CARPET_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_CARPET_MODEL);
 
-	private void createLeafCarpet(@NotNull BlockModelGenerators generator, Block carpet, Block source) {
+	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block carpet) {
+		createLeafLitter(generator, carpet, carpet);
+	}
+
+	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block carpet, Block source) {
 		ResourceLocation resourceLocation = LEAF_CARPET_PROVIDER.get(source).create(carpet, generator.modelOutput);
 		ModelTemplates.FLAT_ITEM
 			.create(ModelLocationUtils.getModelLocation(carpet.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(source)), generator.modelOutput);

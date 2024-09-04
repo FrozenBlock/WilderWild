@@ -142,7 +142,7 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature COARSE_TRANSITION_DISK = WilderPlacementUtils.register("coarse_dirt_transition_disk");
 
 	// MAPLE GROVE
-	public static final FrozenPlacedFeature MAPLE_LEAVES_CARPET = WilderPlacementUtils.register("maple_leaves_carpet");
+	public static final FrozenPlacedFeature MAPLE_LEAF_LITTER = WilderPlacementUtils.register("maple_leaf_litter");
 
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = WilderPlacementUtils.register("snow_blanket");
@@ -633,7 +633,7 @@ public final class WilderMiscPlaced {
 
 		// MAPLE GROVE
 
-		MAPLE_LEAVES_CARPET.makeAndSetHolder(WilderMiscConfigured.MAPLE_LEAVES_CARPET.getHolder(),
+		MAPLE_LEAF_LITTER.makeAndSetHolder(WilderMiscConfigured.MAPLE_LEAF_LITTER.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,

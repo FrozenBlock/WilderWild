@@ -150,7 +150,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE GROVE
-	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> MAPLE_LEAVES_CARPET = register("maple_leaves_carpet");
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> MAPLE_LEAF_LITTER = register("maple_leaf_litter");
 
 	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
@@ -961,11 +961,11 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		MAPLE_LEAVES_CARPET.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+		MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_CARPET.defaultBlockState()),
-				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_CARPET.defaultBlockState()),
+				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(RegisterBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
 				UniformInt.of(2, 5),
 				0.95F,
 				0.925F,

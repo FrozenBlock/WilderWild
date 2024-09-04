@@ -156,7 +156,7 @@ public final class MapleGrove extends FrozenBiome {
 		BiomeDefaultFeatures.addSavannaExtraGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MAPLE_LEAVES_CARPET.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MAPLE_LEAF_LITTER.getKey());
 	}
 
 	@Override

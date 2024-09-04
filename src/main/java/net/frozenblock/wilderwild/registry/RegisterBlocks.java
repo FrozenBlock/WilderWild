@@ -46,7 +46,7 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
-import net.frozenblock.wilderwild.block.LeafCarpetBlock;
+import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.MapleLeavesBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
@@ -214,7 +214,7 @@ public final class RegisterBlocks {
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 
 	public static final Block MAPLE_LEAVES = new MapleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
-	public static final LeafCarpetBlock MAPLE_LEAF_CARPET = leafCarpet(MAPLE_LEAVES, RegisterParticles.MAPLE_LEAVES);
+	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, RegisterParticles.MAPLE_LEAVES);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -986,7 +986,7 @@ public final class RegisterBlocks {
 		//MAPLE IN NATURE
 		registerBlockAfter(Blocks.CHERRY_LOG, wood + "_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Blocks.CHERRY_LEAVES, wood + "_leaves", MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(MAPLE_LEAVES, "maple_leaf_carpet", MAPLE_LEAF_CARPET, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(MAPLE_LEAVES, "maple_leaf_litter", MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlock(baobab + "_nut", BAOBAB_NUT);
 		registerBlock("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
@@ -1252,13 +1252,14 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	public static LeafCarpetBlock leafCarpet(Block sourceBlock, @NotNull ParticleOptions particleType) {
-		return leafCarpet(sourceBlock, particleType, true);
+	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleOptions particleType) {
+		return leafLitter(sourceBlock, particleType, true);
 	}
 
 	@NotNull
-	public static LeafCarpetBlock leafCarpet(Block sourceBlock, @NotNull ParticleOptions particleType, boolean ignites) {
+	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleOptions particleType, boolean ignites) {
 		BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(sourceBlock)
+			.randomTicks()
 			.noCollission()
 			.instabreak()
 			.replaceable()
@@ -1269,9 +1270,9 @@ public final class RegisterBlocks {
 			properties.ignitedByLava();
 		}
 
-		LeafCarpetBlock leafCarpetBlock = new LeafCarpetBlock(properties);
-		LeafCarpetBlock.LeafParticleRegistry.registerLeafParticle(leafCarpetBlock, particleType);
-		return leafCarpetBlock;
+		LeafLitterBlock leafLitterBlock = new LeafLitterBlock(properties);
+		LeafLitterBlock.LeafParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);
+		return leafLitterBlock;
 	}
 
 	@NotNull
@@ -1433,7 +1434,7 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_CARPET, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
@@ -1565,7 +1566,7 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_TRAPDOOR, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAF_CARPET, 200, 60);
+		flammableBlockRegistry.add(RegisterBlocks.MAPLE_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_BUTTON, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_SIGN, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.MAPLE_WALL_SIGN, 5, 20);

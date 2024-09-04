@@ -1,6 +1,6 @@
 {
   "parent": "wilderwild:block/template_leaf_carpet",
   "textures": {
-    "texture": "wilderwild:block/maple_leaves"
+    "texture": "wilderwild:block/maple_leaf_litter"
   }
 }

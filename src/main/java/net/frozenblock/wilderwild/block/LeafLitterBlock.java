@@ -39,17 +39,17 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 
-public class LeafCarpetBlock extends CarpetBlock {
-	public static final MapCodec<LeafCarpetBlock> CODEC = simpleCodec(LeafCarpetBlock::new);
+public class LeafLitterBlock extends CarpetBlock {
+	public static final MapCodec<LeafLitterBlock> CODEC = simpleCodec(LeafLitterBlock::new);
 	public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
-	public LeafCarpetBlock(Properties settings) {
+	public LeafLitterBlock(Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(PERSISTENT, false));
 	}
 
 	@Override
-	public @NotNull MapCodec<? extends LeafCarpetBlock> codec() {
+	public @NotNull MapCodec<? extends LeafLitterBlock> codec() {
 		return CODEC;
 	}
 
@@ -123,14 +123,14 @@ public class LeafCarpetBlock extends CarpetBlock {
 	}
 
 	public static class LeafParticleRegistry {
-		private static final Map<LeafCarpetBlock, ParticleOptions> LEAF_PARTICLE_MAP = new LinkedHashMap<>();
+		private static final Map<LeafLitterBlock, ParticleOptions> LEAF_PARTICLE_MAP = new LinkedHashMap<>();
 
-		public static ParticleOptions registerLeafParticle(@NotNull LeafCarpetBlock leafCarpet, @NotNull ParticleOptions particleOptions) {
+		public static ParticleOptions registerLeafParticle(@NotNull LeafLitterBlock leafCarpet, @NotNull ParticleOptions particleOptions) {
 			LEAF_PARTICLE_MAP.put(leafCarpet, particleOptions);
 			return particleOptions;
 		}
 
-		public static Optional<ParticleOptions> getParticleForCarpet(@NotNull LeafCarpetBlock leafCarpet) {
+		public static Optional<ParticleOptions> getParticleForCarpet(@NotNull LeafLitterBlock leafCarpet) {
 			return Optional.ofNullable(LEAF_PARTICLE_MAP.getOrDefault(leafCarpet, null));
 		}
 	}

@@ -340,7 +340,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			MAPLE_LEAVES
 		}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{
-			MAPLE_LEAF_CARPET
+			MAPLE_LEAF_LITTER
 		}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> BlockConfig.get().blockSounds.lilyPadSounds);
 		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
