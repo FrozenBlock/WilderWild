@@ -27,6 +27,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
+import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.spongepowered.asm.mixin.Final;
@@ -38,26 +39,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEmissiveLayer.class)
-public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends WardenModel<T>> extends RenderLayer<T, M> {
+public abstract class WardenEmissiveLayerMixin extends RenderLayer<WardenRenderState, WardenModel> {
 
 	@Shadow
 	@Final
 	public ResourceLocation texture;
 
-	public WardenEmissiveLayerMixin(RenderLayerParent<T, M> context) {
+	public WardenEmissiveLayerMixin(RenderLayerParent<WardenRenderState, WardenModel> context) {
 		super(context);
 	}
 
 	@Inject(
 		at = @At("HEAD"),
-		method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V",
+		method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/WardenRenderState;FF)V",
 		cancellable = true
 	)
 	public void wilderWild$cancelIfStella(
-		PoseStack matrices, MultiBufferSource vertexConsumers, int i, T warden, float f, float g, float h, float j, float k, float l, CallbackInfo info
-	) {
-		if (warden instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) {
-			info.cancel();
+		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, WardenRenderState renderState, float f, float g, CallbackInfo ci) {
+		if (renderState instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) {
+			ci.cancel();
 		}
 	}
 }

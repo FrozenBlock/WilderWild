@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import static net.frozenblock.wilderwild.item.AncientHorn.getCooldown;
+import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -61,10 +62,10 @@ import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -309,7 +310,7 @@ public class AncientHornVibration extends AbstractArrow {
 
 	public void setCooldown(int cooldownTicks) {
 		if (this.getOwner() instanceof ServerPlayer user) {
-			user.getCooldowns().addCooldown(WWItems.ANCIENT_HORN, cooldownTicks);
+			user.getCooldowns().addCooldown(AncientHorn.ID, cooldownTicks);
 		}
 	}
 
@@ -334,12 +335,12 @@ public class AncientHornVibration extends AbstractArrow {
 	public void addCooldown(int cooldownTicks) {
 		if (this.getOwner() instanceof ServerPlayer user && !user.isCreative()) {
 			ItemCooldowns manager = user.getCooldowns();
-			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(WWItems.ANCIENT_HORN);
+			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(AncientHorn.ID);
 			if (entry != null) {
-				manager.removeCooldown(WWItems.ANCIENT_HORN);
-				manager.addCooldown(WWItems.ANCIENT_HORN, (entry.endTime - entry.startTime) + cooldownTicks);
+				manager.removeCooldown(AncientHorn.ID);
+				manager.addCooldown(AncientHorn.ID, (entry.endTime - entry.startTime) + cooldownTicks);
 			} else {
-				manager.addCooldown(WWItems.ANCIENT_HORN, cooldownTicks);
+				manager.addCooldown(AncientHorn.ID, cooldownTicks);
 			}
 		}
 	}
@@ -431,7 +432,7 @@ public class AncientHornVibration extends AbstractArrow {
 
 	private static void trySpawnWarden(@NotNull ServerLevel level, @NotNull BlockPos pos) {
 		if (level.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
-			Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, level, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
+			Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, EntitySpawnReason.TRIGGERED, level, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
 			warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.WARDEN_AGITATED, 5F, 1.0F));
 		}
 	}

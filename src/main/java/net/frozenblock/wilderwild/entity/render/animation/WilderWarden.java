@@ -30,6 +30,8 @@ public interface WilderWarden {
 
 	boolean wilderWild$isStella();
 
+	default void wilderWild$setIsStella(boolean value) {}
+
 	void wilderWild$setDeathTicks(int i);
 
 	int wilderWild$getDeathTicks();

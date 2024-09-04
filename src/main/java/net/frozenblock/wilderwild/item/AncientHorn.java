@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -48,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AncientHorn extends InstrumentItem {
+	public static final ResourceLocation ID = WilderConstants.id("ancient_horn");
 	public static final int MIN_BUBBLES = 10;
 	public static final int MAX_BUBBLES = 25;
 

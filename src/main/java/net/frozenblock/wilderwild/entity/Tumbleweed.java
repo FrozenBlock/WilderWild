@@ -58,12 +58,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -119,8 +119,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
-	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().tumbleweed.spawnTumbleweed) return false;
+	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().tumbleweed.spawnTumbleweed) return false;
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(SPAWN_CHANCE) == 0 && pos.getY() > level.getSeaLevel();
 	}
 
@@ -140,8 +140,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-		if (this.inventory.get(0).isEmpty() && reason == MobSpawnType.NATURAL) {
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+		if (this.inventory.getFirst().isEmpty() && reason == EntitySpawnReason.NATURAL) {
 			int diff = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = this.random.nextInt(1, 6);

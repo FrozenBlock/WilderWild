@@ -135,6 +135,8 @@
     "client.sodium.BlockRendererMixin",
     "client.sodium.FluidRendererMixin",
     "client.warden.WardenModelMixin",
+    "client.warden.WardenRendererMixin",
+    "client.warden.WardenRenderStateMixin",
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",
     "client.wind.CherryParticleMixin",

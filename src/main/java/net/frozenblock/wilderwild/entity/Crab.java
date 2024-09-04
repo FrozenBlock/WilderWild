@@ -76,10 +76,10 @@ import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -187,8 +187,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		CRABS_PER_LEVEL.clear();
 	}
 
-	public static boolean checkCrabSpawnRules(@NotNull EntityType<Crab> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (MobSpawnType.isSpawner(spawnType)) return true;
+	public static boolean checkCrabSpawnRules(@NotNull EntityType<Crab> type, @NotNull ServerLevelAccessor level, @NotNull EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (EntitySpawnReason.isSpawner(spawnType)) return true;
 		if (!WWEntityConfig.get().crab.spawnCrabs) return false;
 		Holder<Biome> biome = level.getBiome(pos);
 		int randomBound = SPAWN_CHANCE;
@@ -256,7 +256,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(this));
 		switch (reason) {
 			case BUCKET -> {
@@ -344,7 +344,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 					//this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				}
 				//TODO: (Treetrain) find a way to get the face the Crab is walking on
-				Direction climbedDirection = Direction.getNearest(usedMovement.x(), usedMovement.y(), usedMovement.z());
+				Direction climbedDirection = Direction.getApproximateNearest(usedMovement.x(), usedMovement.y(), usedMovement.z());
 				this.setClimbingFace(climbedDirection);
 				if (usedMovement.x == 0D && usedMovement.z == 0D) usedMovement = this.prevMovement;
 				this.setTargetClimbAnimX(
@@ -735,7 +735,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
-		Crab crab = WWEntities.CRAB.create(level);
+		Crab crab = WWEntities.CRAB.create(level, EntitySpawnReason.BREEDING);
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
