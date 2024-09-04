@@ -637,7 +637,8 @@ public final class WilderMiscPlaced {
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			WilderPlacementUtils.TREE_CLEARING_FILTER
 		);
 
 		// SNOW
