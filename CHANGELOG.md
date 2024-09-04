@@ -25,6 +25,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Crab Claws and Cooked Crab Claws are now placed before Cod in the creative inventory.
 - Baobab, Cypress, and Palm foliage is now found between Mangrove Leaves and Cherry Leaves in the creative inventory.
 - Fixed potential worldgen feature cycle crashes when certain config options were disabled.
+- Data generation no longer crashes with a Wilder Wild build imported.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
