@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.warden;
 
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
-import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

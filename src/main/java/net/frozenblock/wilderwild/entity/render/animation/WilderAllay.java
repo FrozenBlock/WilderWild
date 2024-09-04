@@ -16,22 +16,12 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.animations;
+package net.frozenblock.wilderwild.entity.render.animation;
 
 import net.minecraft.world.entity.AnimationState;
 
-public interface WilderWarden {
+public interface WilderAllay {
 
-	AnimationState wilderWild$getDyingAnimationState();
-
-	AnimationState wilderWild$getSwimmingDyingAnimationState();
-
-	AnimationState wilderWild$getKirbyDeathAnimationState();
-
-	boolean wilderWild$isStella();
-
-	void wilderWild$setDeathTicks(int i);
-
-	int wilderWild$getDeathTicks();
+	AnimationState wilderWild$getDancingAnimationState();
 
 }

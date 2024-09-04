@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.client.easter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.entity.render.animations.WilderWardenModel;
+import net.frozenblock.wilderwild.entity.render.animation.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.layer.StellaWardenLayer;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

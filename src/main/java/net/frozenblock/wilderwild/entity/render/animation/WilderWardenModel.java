@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.animations;
+package net.frozenblock.wilderwild.entity.render.animation;
 
 import java.util.List;
 import net.minecraft.client.model.geom.ModelPart;
