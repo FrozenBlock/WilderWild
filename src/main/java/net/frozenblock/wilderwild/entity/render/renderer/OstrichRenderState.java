@@ -28,4 +28,5 @@ public class OstrichRenderState extends LivingEntityRenderState {
 	public boolean isInbred;
 	public float beakAnimProgress;
 	public float targetStraightProgress;
+	public boolean isSaddled;
 }

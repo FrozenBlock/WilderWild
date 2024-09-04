@@ -42,7 +42,7 @@ public class OstrichRenderer extends MobRenderer<Ostrich, OstrichRenderState, En
 	private final EntityModel<OstrichRenderState> inbredModel;
 
 	public OstrichRenderer(EntityRendererProvider.Context context) {
-		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), 0.75F);
+		super(context, new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH)), 0.75F);
 		this.inbredModel = new OstrichInbredModel(context.bakeLayer(WWModelLayers.OSTRICH_INBRED));
 		this.addLayer(new SaddleLayer<>(this, new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
 	}
@@ -79,6 +79,7 @@ public class OstrichRenderer extends MobRenderer<Ostrich, OstrichRenderState, En
 		renderState.isInbred = entity.isInbred();
 		renderState.beakAnimProgress = entity.getBeakAnimProgress(partialTick);
 		renderState.targetStraightProgress = entity.getTargetStraightProgress(partialTick);
+		renderState.isSaddled = entity.isSaddled();
 	}
 }
 
