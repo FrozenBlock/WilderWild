@@ -31,37 +31,54 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Math;
 
-public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, EntityModel<T>> {
+public class OstrichRenderer extends MobRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
 	private static final ResourceLocation OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
 	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	private boolean isInbred = false;
-	private final EntityModel<T> normalModel = this.getModel();
-	private final EntityModel<T> inbredModel;
+	private final EntityModel<OstrichRenderState> normalModel = this.getModel();
+	private final EntityModel<OstrichRenderState> inbredModel;
 
 	public OstrichRenderer(EntityRendererProvider.Context context) {
 		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), 0.75F);
-		this.inbredModel = new OstrichInbredModel<>(context.bakeLayer(WWModelLayers.OSTRICH_INBRED));
-		this.addLayer(new SaddleLayer<>(this, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
+		this.inbredModel = new OstrichInbredModel(context.bakeLayer(WWModelLayers.OSTRICH_INBRED));
+		this.addLayer(new SaddleLayer<>(this, new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
 	}
 
 	@Override
-	public void render(@NotNull T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-		boolean isOstrichInbred = entity.isInbred();
+	public void render(OstrichRenderState renderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight) {
+		boolean isOstrichInbred = renderState.isInbred;
 		if (this.isInbred != isOstrichInbred) {
 			this.model = !isOstrichInbred ? this.normalModel : this.inbredModel;
 			this.isInbred = isOstrichInbred;
 		}
-		super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+		super.render(renderState, poseStack, multiBufferSource, packedLight);
 	}
 
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull T entity) {
+	public ResourceLocation getTextureLocation(@NotNull OstrichRenderState renderState) {
 		return OSTRICH_LOCATION;
 	}
 
+	@Override
+	@NotNull
+	public OstrichRenderState createRenderState() {
+		return new OstrichRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Ostrich entity, OstrichRenderState renderState, float partialTick) {
+		super.extractRenderState(entity, renderState, partialTick);
+		renderState.walkAnimationPos *= 1.65F;
+		renderState.walkAnimationSpeed = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);
+
+		renderState.isInbred = entity.isInbred();
+		renderState.beakAnimProgress = entity.getBeakAnimProgress(partialTick);
+		renderState.targetStraightProgress = entity.getTargetStraightProgress(partialTick);
+	}
 }
 
