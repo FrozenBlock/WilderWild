@@ -60,7 +60,7 @@ public class LeafCarpetBlock extends CarpetBlock {
 
 	@Override
 	protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		if (this.decaying(state) && random.nextInt(40) == 0) {
+		if (this.decaying(state) && random.nextInt(60) == 0) {
 			dropResources(state, world, pos);
 			world.removeBlock(pos, false);
 		}
