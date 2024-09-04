@@ -48,18 +48,6 @@ public class WindParticleOptions implements ParticleOptions {
 		WindParticleOptions::new
 	);
 
-	@NotNull
-	@Contract("_ -> new")
-	public static Vec3 readVec3(@NotNull StringReader reader) throws CommandSyntaxException {
-		reader.expect(' ');
-		double f = reader.readDouble();
-		reader.expect(' ');
-		double g = reader.readDouble();
-		reader.expect(' ');
-		double h = reader.readDouble();
-		return new Vec3(f, g, h);
-	}
-
 	private final int lifespan;
 	private final Vec3 velocity;
 

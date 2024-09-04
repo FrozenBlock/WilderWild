@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterDataComponents;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterFallingLeaves;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -109,6 +110,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		TermiteManager.Termite.addNaturalDegradableBlocks();
 		RegisterBlocks.registerBlockProperties();
 		RegisterVillagerTypes.register();
+		RegisterFallingLeaves.register();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();

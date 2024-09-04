@@ -18,9 +18,13 @@
 
 package net.frozenblock.wilderwild.particle;
 
+import net.frozenblock.wilderwild.block.api.FallingLeafRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.particles.ParticleOptions;
+import org.jetbrains.annotations.NotNull;
 
 public class LeafParticle extends CherryParticle {
 	public LeafParticle(
@@ -39,5 +43,22 @@ public class LeafParticle extends CherryParticle {
 		this.xd = velX;
 		this.yd = velY;
 		this.zd = velZ;
+	}
+
+	public static @NotNull Particle createFallingLeafParticle(
+		ParticleOptions particleOptions,
+		ClientLevel level,
+		double x, double y, double z,
+		double velocityX, double velocityY, double velocityZ,
+		SpriteSet spriteProvider
+	) {
+		FallingLeafRegistry.LeafParticleData leafParticleData = FallingLeafRegistry.getLeafParticleData(particleOptions);
+		return new LeafParticle(
+			level,
+			x, y, z,
+			velocityX, velocityY, velocityZ,
+			leafParticleData.quadSize(), leafParticleData.particleGravityScale(), leafParticleData.particleGravityScale() * 0.5F,
+			spriteProvider
+		);
 	}
 }

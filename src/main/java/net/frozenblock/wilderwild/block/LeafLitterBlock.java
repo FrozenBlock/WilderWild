@@ -22,6 +22,9 @@ import com.mojang.serialization.MapCodec;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -37,6 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class LeafLitterBlock extends CarpetBlock {
@@ -60,9 +64,10 @@ public class LeafLitterBlock extends CarpetBlock {
 
 	@Override
 	protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		if (this.decaying(state) && random.nextInt(60) == 0) {
+		if (this.decaying(state) && random.nextInt(55) == 0) {
 			dropResources(state, world, pos);
 			world.removeBlock(pos, false);
+			this.spawnWindParticle(world, pos);
 		}
 	}
 
@@ -82,12 +87,29 @@ public class LeafLitterBlock extends CarpetBlock {
 		this.spawnLeafParticles(world, pos, entity, false);
 	}
 
+	public void spawnWindParticle(Level level, BlockPos pos) {
+		if (level instanceof ServerLevel serverLevel) {
+			Vec3 windMovement = WindManager.getWindManager(serverLevel).getWindMovement(pos).normalize().scale(0.1D);
+			serverLevel.sendParticles(
+				new WindParticleOptions(5, windMovement),
+				pos.getX() + 0.5D,
+				pos.getY() + 0.1D,
+				pos.getZ() + 0.5D,
+				1,
+				0D,
+				0D,
+				0D,
+				0.05D
+			);
+		}
+	}
+
 	public void spawnLeafParticles(Level level, BlockPos pos, Entity entity, boolean destroy) {
 		if (level instanceof ServerLevel serverLevel) {
 			float chance = destroy ? 1F : 0.005F;
 			int count = destroy ? 4 : 1;
 			if (!destroy && entity != null) {
-				chance = (float) (entity.getDeltaMovement().length() * 0.15D);
+				chance = (float) (entity.getDeltaMovement().length() * 0.35D);
 			}
 			if (serverLevel.random.nextFloat() <= chance) {
 				Optional<ParticleOptions> particle = LeafParticleRegistry.getParticleForCarpet(this);
