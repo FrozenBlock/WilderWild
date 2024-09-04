@@ -23,12 +23,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,7 +87,7 @@ public class LeafCarpetBlock extends CarpetBlock {
 			float chance = destroy ? 1F : 0.005F;
 			int count = destroy ? 4 : 1;
 			if (!destroy && entity != null) {
-				chance = (float) (entity.getDeltaMovement().length() * 0.125D);
+				chance = (float) (entity.getDeltaMovement().length() * 0.15D);
 			}
 			if (serverLevel.random.nextFloat() <= chance) {
 				Optional<ParticleOptions> particle = LeafParticleRegistry.getParticleForCarpet(this);
@@ -102,6 +104,12 @@ public class LeafCarpetBlock extends CarpetBlock {
 				));
 			}
 		}
+	}
+
+	@Override
+	public boolean canSurvive(BlockState state, @NotNull LevelReader world, @NotNull BlockPos pos) {
+		BlockState belowState = world.getBlockState(pos.below());
+		return Block.isFaceFull(belowState.getCollisionShape(world, pos.below()), Direction.UP);
 	}
 
 	@Override

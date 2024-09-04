@@ -1,3 +1,6 @@
 {
-  "parent": "wilderwild:block/maple_leaf_carpet"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wilderwild:block/maple_leaves"
+  }
 }

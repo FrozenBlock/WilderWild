@@ -18,13 +18,19 @@
 
 package net.frozenblock.wilderwild.datagen.model;
 
+import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -73,7 +79,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(RegisterBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
-		createCarpetBlock(generator, RegisterBlocks.MAPLE_LEAF_CARPET, RegisterBlocks.MAPLE_LEAVES);
+		createLeafCarpet(generator, RegisterBlocks.MAPLE_LEAF_CARPET, RegisterBlocks.MAPLE_LEAVES);
 	}
 
 	@Override
@@ -109,8 +115,13 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 	}
 
-	private void createCarpetBlock(@NotNull BlockModelGenerators generator, Block carpet, Block source) {
-		ResourceLocation resourceLocation = TexturedModel.CARPET.get(source).create(carpet, generator.modelOutput);
+	private static final ModelTemplate LEAF_CARPET_MODEL = new ModelTemplate(Optional.of(WilderConstants.id("block/template_leaf_carpet")), Optional.empty(), TextureSlot.TEXTURE);
+	private static final TexturedModel.Provider LEAF_CARPET_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_CARPET_MODEL);
+
+	private void createLeafCarpet(@NotNull BlockModelGenerators generator, Block carpet, Block source) {
+		ResourceLocation resourceLocation = LEAF_CARPET_PROVIDER.get(source).create(carpet, generator.modelOutput);
+		ModelTemplates.FLAT_ITEM
+			.create(ModelLocationUtils.getModelLocation(carpet.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(source)), generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(carpet, resourceLocation));
 	}
 }

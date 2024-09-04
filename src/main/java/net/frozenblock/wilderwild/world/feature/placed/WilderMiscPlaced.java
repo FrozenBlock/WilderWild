@@ -634,6 +634,7 @@ public final class WilderMiscPlaced {
 		// MAPLE GROVE
 
 		MAPLE_LEAVES_CARPET.makeAndSetHolder(WilderMiscConfigured.MAPLE_LEAVES_CARPET.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
