@@ -17,6 +17,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - The foliage and grass colors of the Oasis biome are no longer a saturated green.
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.
+- Removed the Cherry Grove panorama.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
@@ -36,3 +37,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Refactored custom BlockState Property-related classes to `block/property,` from `block/impl.`
 - A lot more refactoring.
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
+- Split the contents of WilderWildClient into multiple classes.

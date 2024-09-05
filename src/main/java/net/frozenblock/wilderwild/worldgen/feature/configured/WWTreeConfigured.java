@@ -34,8 +34,15 @@ import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTr
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.ShelfFungusTreeDecorator;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.*;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkPlacer;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;

@@ -25,7 +25,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -44,7 +44,7 @@ public class AncientHornProjectileRenderer<T extends AncientHornVibration> exten
 
 	public AncientHornProjectileRenderer(@NotNull EntityRendererProvider.Context context) {
 		super(context);
-		this.model = new AncientHornProjectileModel(context.bakeLayer(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
+		this.model = new AncientHornProjectileModel(context.bakeLayer(WWModelLayers.ANCIENT_HORN_PROJECTILE_LAYER));
 	}
 
 	@Override

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.render.layer.ScorchedGlowingLayer;
 import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
@@ -36,7 +36,7 @@ public class ScorchedRenderer<T extends Scorched> extends MobRenderer<T, SpiderM
 	private static final float SCALE = 0.9F;
 
 	public ScorchedRenderer(EntityRendererProvider.Context context) {
-		this(context, WilderWildClient.SCORCHED);
+		this(context, WWModelLayers.SCORCHED);
 	}
 
 	public ScorchedRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {

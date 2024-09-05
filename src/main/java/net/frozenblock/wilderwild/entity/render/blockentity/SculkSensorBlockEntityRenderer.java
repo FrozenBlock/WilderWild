@@ -22,8 +22,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -50,7 +50,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	private final ModelPart sw;
 
 	public SculkSensorBlockEntityRenderer(@NotNull Context ctx) {
-		this.root = ctx.bakeLayer(WilderWildClient.SCULK_SENSOR);
+		this.root = ctx.bakeLayer(WWModelLayers.SCULK_SENSOR);
 		this.ne = this.root.getChild("ne");
 		this.se = this.root.getChild("se");
 		this.nw = this.root.getChild("nw");

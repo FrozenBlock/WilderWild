@@ -22,9 +22,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.model.geom.ModelPart;
@@ -70,13 +70,13 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 	public StoneChestBlockEntityRenderer(@NotNull BlockEntityRendererProvider.Context ctx) {
 		super(ctx);
 
-		ModelPart modelPart = ctx.bakeLayer(WilderWildClient.STONE_CHEST);
+		ModelPart modelPart = ctx.bakeLayer(WWModelLayers.STONE_CHEST);
 		this.singleChestBase = modelPart.getChild(BASE);
 		this.singleChestLid = modelPart.getChild(LID);
-		ModelPart modelPart2 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_LEFT);
+		ModelPart modelPart2 = ctx.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_LEFT);
 		this.doubleChestLeftBase = modelPart2.getChild(BASE);
 		this.doubleChestLeftLid = modelPart2.getChild(LID);
-		ModelPart modelPart3 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_RIGHT);
+		ModelPart modelPart3 = ctx.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_RIGHT);
 		this.doubleChestRightBase = modelPart3.getChild(BASE);
 		this.doubleChestRightLid = modelPart3.getChild(LID);
 	}

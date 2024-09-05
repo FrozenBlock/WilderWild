@@ -24,7 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -39,7 +39,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/white.png");
 
 	public JellyfishRenderer(@NotNull Context context) {
-		super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
+		super(context, new JellyfishModel<>(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
 	}
 
 	@Override
