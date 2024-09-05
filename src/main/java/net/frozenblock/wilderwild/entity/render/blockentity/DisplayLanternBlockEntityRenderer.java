@@ -24,6 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
+import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -42,7 +43,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 	private final ItemRenderer itemRenderer;
 
 	public DisplayLanternBlockEntityRenderer(@NotNull Context ctx) {
-		ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
+		ctx.bakeLayer(WWModelLayers.DISPLAY_LANTERN);
 		this.itemRenderer = ctx.getItemRenderer();
 	}
 
