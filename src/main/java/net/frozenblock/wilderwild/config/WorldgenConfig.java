@@ -25,7 +25,7 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderConstants.configPath;
+import net.frozenblock.wilderwild.WilderPreLoadConstants;
 import net.frozenblock.wilderwild.world.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.impl.conditionsource.SnowUnderMountainConditionSource;
 
@@ -35,7 +35,7 @@ public final class WorldgenConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			WorldgenConfig.class,
-			configPath("worldgen", true),
+			WilderPreLoadConstants.configPath("worldgen", true),
 			JsonType.JSON5,
 			null,
 			null

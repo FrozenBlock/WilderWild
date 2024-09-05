@@ -30,7 +30,7 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderConstants.configPath;
+import net.frozenblock.wilderwild.WilderPreLoadConstants;
 
 public final class EntityConfig {
 
@@ -38,7 +38,7 @@ public final class EntityConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			EntityConfig.class,
-			configPath("entity", true),
+			WilderPreLoadConstants.configPath("entity", true),
 			JsonType.JSON5,
 			null,
 			null

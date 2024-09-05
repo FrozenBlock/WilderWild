@@ -72,7 +72,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
-		if (WilderDatagenConstants.IS_DATAGEN) {
+		if (WilderPreLoadConstants.IS_DATAGEN) {
 			ConfigRegistry.register(BlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
 

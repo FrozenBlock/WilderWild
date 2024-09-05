@@ -18,12 +18,11 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.particle.api.FrozenParticleTypes;
 import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
 import net.frozenblock.wilderwild.WilderConstants;
 import net.frozenblock.wilderwild.config.EntityConfig;
@@ -260,27 +259,20 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
+	public AABB createAttackBox(float tickDelta) {
+		double height = ATTACK_BOX_HEIGHT * this.getScale();
+		double width = ATTACK_BOX_WIDTH * this.getScale();
+		return AABB.ofSize(this.getBeakPos(tickDelta), width, height, width).move(0D, -height * 0.5D, 0D);
+	}
+
 	private void handleAttackAndStuck() {
 		if (this.isAttacking()) {
 			if (!EntityConfig.get().ostrich.allowAttack && this.attackHasCommander) {
 				this.cancelAttack(true);
 			}
-			Vec3 beakPos = this.getBeakPos();
-			BlockPos beakBlockPos = BlockPos.containing(beakPos);
+			BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
 			boolean hasAttacked = false;
-			double height = ATTACK_BOX_HEIGHT * this.getScale();
-			double width = ATTACK_BOX_WIDTH * this.getScale();
-
-			AABB attackBox = AABB.ofSize(beakPos, width, height, width).move(0D, -height * 0.5D, 0D);
-			if (WilderConstants.UNSTABLE_LOGGING && this.level() instanceof ServerLevel serverLevel) {
-				for (double xCorner : ImmutableList.of(attackBox.minX, attackBox.maxX)) {
-					for (double yCorner : ImmutableList.of(attackBox.minY, attackBox.maxY)) {
-						for (double zCorner : ImmutableList.of(attackBox.minZ, attackBox.maxZ)) {
-							serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, xCorner, yCorner, zCorner, 1, 0, 0, 0, 0);
-						}
-					}
-				}
-			}
+			AABB attackBox = this.createAttackBox(1F);
 
 			if (this.isBeakTouchingFluid()) this.cancelAttack(false);
 
@@ -695,25 +687,45 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
 		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
 		Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
-
-		if (WilderConstants.UNSTABLE_LOGGING) {
-			if (this.level() instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, neckBasePos.x, neckBasePos.y, neckBasePos.z, 1, 0, 0, 0, 0);
-				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, headBasePos.x, headBasePos.y, headBasePos.z, 1, 0, 0, 0, 0);
-				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, beakPos.x, beakPos.y, beakPos.z, 1, 0, 0, 0, 0);
-			}
-		}
 		return beakPos;
 	}
 
 	@NotNull
-	public Vec3 getPrevBeakPos() {
+	public List<Vec3> getDebugRenderingPoses(float tickDelta) {
+		List<Vec3> poses = new ArrayList<>();
+		double scale = this.getScale() * this.getAgeScale();
+		float beakAnimProgress = this.getBeakAnimProgress(tickDelta);
+		Vec3 currentPos = this.getPosition(tickDelta).add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
+		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, Mth.lerp(tickDelta, this.yHeadRotO, this.yHeadRot)));
+		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
+
+		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
+		Vec3 headBasePos = neckBasePos.add(0D, headBaseRotPos.x(), 0D).add(lookOrientation.scale(headBaseRotPos.z()));
+
+		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
+		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
+		Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
+
+		poses.add(neckBasePos);
+		poses.add(headBasePos);
+		poses.add(beakPos);
+
+		return poses;
+	}
+
+	@NotNull
+	private Vec3 getPrevBeakPos() {
 		return this.prevBeakPosition != null ? this.prevBeakPosition : (this.prevBeakPosition = this.makeBeakPos());
 	}
 
 	@NotNull
-	public Vec3 getBeakPos() {
+	private Vec3 getBeakPos() {
 		return this.beakPosition != null ? this.beakPosition : (this.beakPosition = this.makeBeakPos());
+	}
+
+	@NotNull
+	public Vec3 getBeakPos(float tickDelta) {
+		return this.getPrevBeakPos().lerp(this.getBeakPos(), tickDelta);
 	}
 
 	@NotNull

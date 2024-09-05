@@ -18,19 +18,30 @@
 
 package net.frozenblock.wilderwild;
 
+import java.nio.file.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * This class was created to fix issue #289: <a href="https://github.com/FrozenBlock/WilderWild/issues/289">...</a>.
  */
-public class WilderDatagenConstants {
+public class WilderPreLoadConstants {
+	public static final String PROJECT_ID = "Wilder Wild";
+	public static final String MOD_ID = "wilderwild";
+	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
 	public static final boolean IS_DATAGEN = isDatagen();
 
 	private static boolean isDatagen() {
 		boolean isDatagen = false;
 		try {
-			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator", false, WilderDatagenConstants.class.getClassLoader());
+			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator", false, WilderPreLoadConstants.class.getClassLoader());
 			isDatagen = true;
 		} catch (ClassNotFoundException ignored) {}
 
 		return isDatagen;
+	}
+
+	public static Path configPath(String name, boolean json5) {
+		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
 }
