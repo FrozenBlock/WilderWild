@@ -47,7 +47,7 @@ public class FrostedIceBlockMixin {
 	private void wilderWild$slightlyMelt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
 		if (WWBlockConfig.get().frostedIceCracking) {
 			SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
-			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.01F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.003F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
 		}
 	}
 
