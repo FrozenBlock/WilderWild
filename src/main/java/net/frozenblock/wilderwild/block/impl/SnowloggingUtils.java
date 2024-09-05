@@ -169,4 +169,12 @@ public class SnowloggingUtils {
 		HitResult hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
 		return shouldHitSnow(state, pos, level, hitResult.getLocation());
 	}
+
+	public static BlockState getHitState(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
+		if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+			return SnowloggingUtils.getSnowEquivalent(state);
+		} else {
+			return SnowloggingUtils.getStateWithoutSnow(state);
+		}
+	}
 }

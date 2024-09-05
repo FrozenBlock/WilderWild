@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
@@ -33,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -80,6 +82,9 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		}
 	}
 
+	/**
+	 * If the snow layer is getting broken, run the super method instead.
+	 */
 	@WrapOperation(method = "playerWillDestroy",
 		at = @At(
 			value = "INVOKE",
@@ -89,12 +94,34 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	public void wilderWild$playerWillDestroySurvival(
 		BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack itemStack, Operation<Void> original
 	) {
-//		Player player = (Player) entity;
-//		if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
-//			super.playerWillDestroy(level, pos, state, player);
-//			return;
-//		}
+		Player player = (Player) entity;
+		if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+			super.playerWillDestroy(level, pos, SnowloggingUtils.getSnowEquivalent(state), player);
+			return;
+		}
 		original.call(state, level, pos, blockEntity, entity, itemStack);
+	}
+
+	/**
+	 * The original method replaces the block with air. The method now only does this if the broken block isn't snow.
+	 *
+	 * @param blockState air
+	 * @param paramState the original broken block. Is either the plant or snow layers.
+	 */
+	@WrapOperation(method = "playerDestroy",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BushBlock;playerDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V")
+	)
+	private void wilderWild$playerDestroy(
+		DoublePlantBlock instance, Level level, Player player, BlockPos pos, BlockState blockState, BlockEntity blockEntity, ItemStack itemStack, Operation<Void> original,
+		@Local(argsOnly = true) BlockState paramState
+	) {
+		if (paramState.is(Blocks.SNOW)) {
+			original.call(instance, level, player, pos, paramState, blockEntity, itemStack);
+		} else {
+			original.call(instance, level, player, pos, blockState, blockEntity, itemStack);
+		}
 	}
 
 	@ModifyExpressionValue(
@@ -124,9 +151,9 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		Level level, BlockPos paramPos, BlockState paramState, Player player,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {
-			setState = SnowloggingUtils.getSnowEquivalent(blockState.get());
-		}
+//		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {
+//			setState = SnowloggingUtils.getSnowEquivalent(blockState.get());
+//		}
 		return original.call(instance, setPos, setState, flags);
 	}
 
