@@ -53,7 +53,6 @@ val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
-val terralith_version: String by project
 val fallingleaves_version: String by project
 
 val sodium_version: String by project
