@@ -35,3 +35,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - This change was made in order for mod compatibility development with Wilder Wild to be more organized.
 - Refactored custom BlockState Property-related classes to `block/property,` from `block/impl.`
 - A lot more refactoring.
+- Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
