@@ -47,9 +47,6 @@ val fabric_api_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
-val natures_spirit_version: String by project
-val betterend_version: String by project
-val betternether_version: String by project
 val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
@@ -228,15 +225,6 @@ dependencies {
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
-
-    // BetterEnd
-    modCompileOnly("maven.modrinth:betterend:${betterend_version}")
-
-    // BetterNether
-    modCompileOnly("maven.modrinth:betternether:${betternether_version}")
-
-    // NaturesSpirit
-    modCompileOnly("maven.modrinth:natures-spirit:${natures_spirit_version}")
 
     "datagenImplementation"(sourceSets.main.get().output)
 }
