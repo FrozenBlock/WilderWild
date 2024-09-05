@@ -341,6 +341,15 @@ public class FrozenLibIntegration extends ModIntegration {
 		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{
 			OAK_LEAF_LITTER,
+			SPRUCE_LEAF_LITTER,
+			BIRCH_LEAF_LITTER,
+			JUNGLE_LEAF_LITTER,
+			ACACIA_LEAF_LITTER,
+			DARK_OAK_LEAF_LITTER,
+			MANGROVE_LEAF_LITTER,
+			BAOBAB_LEAF_LITTER,
+			CYPRESS_LEAF_LITTER,
+			PALM_FROND_LITTER,
 			MAPLE_LEAF_LITTER
 		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);

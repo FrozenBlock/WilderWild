@@ -42,7 +42,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class IgnoreMesogleaBlockCollisions extends AbstractIterator<VoxelShape> {
+public class IgnoringMesogleaBlockCollisions extends AbstractIterator<VoxelShape> {
 	private final AABB box;
 	private final CollisionContext context;
 	private final Cursor3D cursor;
@@ -54,11 +54,11 @@ public class IgnoreMesogleaBlockCollisions extends AbstractIterator<VoxelShape> 
 	private BlockGetter cachedBlockGetter;
 	private long cachedBlockGetterPos;
 
-	public IgnoreMesogleaBlockCollisions(CollisionGetter collisionGetter, @Nullable Entity entity, AABB box) {
+	public IgnoringMesogleaBlockCollisions(CollisionGetter collisionGetter, @Nullable Entity entity, AABB box) {
 		this(collisionGetter, entity, box, false);
 	}
 
-	public IgnoreMesogleaBlockCollisions(CollisionGetter collisionGetter, @Nullable Entity entity, AABB box, boolean onlySuffocatingBlocks) {
+	public IgnoringMesogleaBlockCollisions(CollisionGetter collisionGetter, @Nullable Entity entity, AABB box, boolean onlySuffocatingBlocks) {
 		this.context = entity == null ? CollisionContext.empty() : CollisionContext.of(entity);
 		this.pos = new BlockPos.MutableBlockPos();
 		this.entityShape = Shapes.create(box);
@@ -75,7 +75,7 @@ public class IgnoreMesogleaBlockCollisions extends AbstractIterator<VoxelShape> 
 	}
 
 	public static boolean noJellyCollision(Level level, @Nullable Entity entity, AABB collisionBox) {
-		for (VoxelShape voxelShape : IgnoreMesogleaBlockCollisions.getJellyBlockCollisions(entity, collisionBox, level)) {
+		for (VoxelShape voxelShape : IgnoringMesogleaBlockCollisions.getJellyBlockCollisions(entity, collisionBox, level)) {
 			if (voxelShape.isEmpty()) continue;
 			return false;
 		}
@@ -92,7 +92,7 @@ public class IgnoreMesogleaBlockCollisions extends AbstractIterator<VoxelShape> 
 
 	@NotNull
 	public static Iterable<VoxelShape> getJellyBlockCollisions(@Nullable Entity entity, AABB collisionBox, Level level) {
-		return () -> new IgnoreMesogleaBlockCollisions(level, entity, collisionBox);
+		return () -> new IgnoringMesogleaBlockCollisions(level, entity, collisionBox);
 	}
 
 	@Nullable

@@ -49,10 +49,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MapleGrove extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL.min(), 0F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.46F, -0.075F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.2F, 0.2F);
-	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.375F);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.4F, Erosion.EROSION_6.max());
+	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.05F);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.5F;

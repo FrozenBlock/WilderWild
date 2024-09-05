@@ -16,11 +16,11 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild;
+package net.frozenblock.wilderwild.entity.impl;
 
 import net.minecraft.world.entity.vehicle.Boat;
 
-public final class WWEnumValues {
+public final class WWBoatTypes {
 	public static Boat.Type BAOBAB;
 	public static Boat.Type CYPRESS;
 	public static Boat.Type PALM;

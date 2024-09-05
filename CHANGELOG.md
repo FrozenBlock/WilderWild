@@ -9,6 +9,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
   - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
+- Added leaf litters.
+- Added falling leaves.
 
 # Changes
 - Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
@@ -35,6 +37,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
   - This change was made in order for mod compatibility development with Wilder Wild to be more organized.
 - Refactored custom BlockState Property-related classes to `block/property,` from `block/impl.`
+- Refactored `WilderEnumValues` to `WWBoatTypes.`
 - A lot more refactoring.
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
 - Split the contents of WilderWildClient into multiple classes.
