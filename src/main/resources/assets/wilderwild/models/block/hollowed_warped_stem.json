@@ -1,8 +1,0 @@
-{
-  "parent": "wilderwild:block/template_hollowed_log",
-  "textures": {
-    "end": "wilderwild:block/hollowed_warped_stem_top",
-    "side": "wilderwild:block/hollowed_warped_stem",
-    "inner": "minecraft:block/stripped_warped_stem"
-  }
-}

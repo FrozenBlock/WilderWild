@@ -1,8 +1,0 @@
-{
-  "parent": "wilderwild:block/template_hollowed_log",
-  "textures": {
-    "end": "minecraft:block/cherry_log_top",
-    "side": "wilderwild:block/hollowed_cherry_log",
-    "inner": "minecraft:block/stripped_cherry_log"
-  }
-}
