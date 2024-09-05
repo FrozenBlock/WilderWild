@@ -35,6 +35,7 @@ public final class WWModIntegrations {
 	public static final ModIntegration EDENRING_INTEGRATION = registerAndGet(EdenRingIntegration::new, "edenring");
 	public static final ModIntegration TECHREBORN_INTEGRATION = registerAndGet(TechRebornIntegration::new, "techreborn");
 	public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
+	public static final ModIntegration NATURES_SPIRIT_INTEGRATION = registerAndGet(NaturesSpiritIntegration::new, "natures_spirit");
 	public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(
 		SimpleCopperPipesIntegration::new, NoOpSimpleCopperPipesIntegration::new, "copper_pipe"
 	);

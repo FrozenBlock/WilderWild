@@ -20,6 +20,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
+- Added more block sound type compatability for BetterNether and BetterEnd.
+- Added block sound type compatability for Nature's Spirit.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.

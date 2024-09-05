@@ -282,7 +282,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
-		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> WWBlockConfig.get().blockSounds.cactusSounds);
+		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
 		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		addBlock(COARSE_DIRT, COARSEDIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);

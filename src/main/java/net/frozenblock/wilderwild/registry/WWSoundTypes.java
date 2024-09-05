@@ -158,7 +158,7 @@ public final class WWSoundTypes {
 	);
 
 	//VANILLA SOUNDS
-	public static final SoundType CACTI = new SoundType(0.8F, 1.0F,
+	public static final SoundType CACTUS = new SoundType(0.8F, 1.0F,
 		WWSounds.BLOCK_CACTUS_BREAK,
 		WWSounds.BLOCK_CACTUS_STEP,
 		WWSounds.BLOCK_CACTUS_PLACE,
