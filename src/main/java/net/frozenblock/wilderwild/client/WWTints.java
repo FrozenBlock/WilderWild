@@ -63,7 +63,7 @@ public class WWTints {
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.JUNGLE_LEAF_LITTER);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.ACACIA_LEAF_LITTER);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.DARK_OAK_LEAF_LITTER);
-		TintRegistryHelper.registerMangroveFoliageColorForBlock(WWBlocks.MANGROVE_LEAF_LITTER);
+		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.MANGROVE_LEAF_LITTER);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BAOBAB_LEAF_LITTER);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.CYPRESS_LEAF_LITTER);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.PALM_FROND_LITTER);
