@@ -26,7 +26,7 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderConstants.configPath;
+import net.frozenblock.wilderwild.WilderPreLoadConstants;
 
 public final class AmbienceAndMiscConfig {
 
@@ -34,7 +34,7 @@ public final class AmbienceAndMiscConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			AmbienceAndMiscConfig.class,
-			configPath("misc", true),
+			WilderPreLoadConstants.configPath("misc", true),
 			JsonType.JSON5,
 			null,
 			null

@@ -18,18 +18,16 @@
 
 package net.frozenblock.wilderwild;
 
-import java.nio.file.Path;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class WilderConstants {
-	public static final String PROJECT_ID = "Wilder Wild";
-	public static final String MOD_ID = "wilderwild";
-	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
+	public static final String PROJECT_ID = WilderPreLoadConstants.PROJECT_ID;
+	public static final String MOD_ID = WilderPreLoadConstants.MOD_ID;
+	public static final Logger LOGGER = WilderPreLoadConstants.LOGGER;
 	/**
 	 * Used for features that may be unstable and crash in public builds.
 	 * <p>
@@ -100,9 +98,5 @@ public class WilderConstants {
 	 */
 	public static Component tooltip(String key) {
 		return Component.translatable("tooltip." + MOD_ID + "." + key);
-	}
-
-	public static Path configPath(String name, boolean json5) {
-		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
 }

@@ -84,6 +84,8 @@
     "sculk.SculkVeinBlockMixin",
     "sculk.SculkVeinSpreaderConfigMixin",
     "snowlogging.AmethystClusterBlockMixin",
+    "snowlogging.BambooSaplingBlockMixin",
+    "snowlogging.BambooStalkBlockMixin",
     "snowlogging.BlockItemMixin",
     "snowlogging.BlockMixin",
     "snowlogging.BlockStateBaseMixin",

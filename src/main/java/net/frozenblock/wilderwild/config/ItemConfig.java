@@ -25,7 +25,7 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WilderConstants.MOD_ID;
-import static net.frozenblock.wilderwild.WilderConstants.configPath;
+import net.frozenblock.wilderwild.WilderPreLoadConstants;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 
 public final class ItemConfig {
@@ -34,7 +34,7 @@ public final class ItemConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			ItemConfig.class,
-			configPath("item", true),
+			WilderPreLoadConstants.configPath("item", true),
 			JsonType.JSON5,
 			null,
 			null

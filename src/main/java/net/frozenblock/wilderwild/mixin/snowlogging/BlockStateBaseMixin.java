@@ -156,15 +156,6 @@ public abstract class BlockStateBaseMixin {
 		}
 	}
 
-	@ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))
-	public float wilderWild$getDestroySpeed(float original, BlockGetter level, BlockPos pos) {
-		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			return SnowloggingUtils.getSnowDestroySpeed(state, level, pos);
-		}
-		return original;
-	}
-
 	@WrapOperation(
 		method = "getDestroyProgress",
 		at = @At(
@@ -262,7 +253,7 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
-	// Occludes if it nroamlly would occlude, or if the block is fully snowlogged.
+	// Occludes if it normally occludes, or if the block is fully snowlogged.
 	// Done this way to get around a pair of bugs.
 	@ModifyExpressionValue(
 		method = "<init>",

@@ -133,6 +133,10 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 		int j = posY + random.nextIntBetweenInclusive(-range, range);
 		int k = posZ + random.nextIntBetweenInclusive(-range, range);
 		blockPos.set(i, j, k);
+		if (ClientWindManager.getWindDisturbances().stream().noneMatch(windDisturbance -> windDisturbance.affectedArea.contains(i, j, k))) {
+			return;
+		}
+
 		BlockState blockState = level.getBlockState(blockPos);
 
 		if (!blockState.isCollisionShapeFullBlock(level, blockPos)) {

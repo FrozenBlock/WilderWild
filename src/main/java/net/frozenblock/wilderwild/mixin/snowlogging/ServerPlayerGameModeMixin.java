@@ -62,11 +62,7 @@ public abstract class ServerPlayerGameModeMixin {
 	) {
 		destroyedState.set(original);
 		if (SnowloggingUtils.isSnowlogged(original)) {
-			if (SnowloggingUtils.shouldHitSnow(original, pos, level, player)) {
-				return SnowloggingUtils.getSnowEquivalent(original);
-			} else {
-				return SnowloggingUtils.getStateWithoutSnow(original);
-			}
+			return SnowloggingUtils.getHitState(original, pos, level, player);
 		}
 		return original;
 	}
@@ -82,11 +78,11 @@ public abstract class ServerPlayerGameModeMixin {
 		ServerLevel level, BlockPos pos, boolean isMoving, Operation<Boolean> original,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
-		BlockState destryoed = destroyedState.get();
-		if (SnowloggingUtils.isSnowlogged(destryoed)) {
-			if (SnowloggingUtils.shouldHitSnow(destryoed, pos, level, player)) {
-				if (destryoed.canSurvive(level, pos)) {
-					level.setBlock(pos, destryoed.setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
+		BlockState destroyed = destroyedState.get();
+		if (SnowloggingUtils.isSnowlogged(destroyed)) {
+			if (SnowloggingUtils.shouldHitSnow(destroyed, pos, level, player)) {
+				if (destroyed.canSurvive(level, pos)) {
+					level.setBlock(pos, destroyed.setValue(SnowloggingUtils.SNOW_LAYERS, 0), Block.UPDATE_ALL);
 				}
 			} else {
 				level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), Block.UPDATE_ALL);
