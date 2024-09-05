@@ -141,7 +141,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			PoweredPipeDispenses.register(WWItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 outputPos = getOutputPosition(position, direction);
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
-				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z());
+				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z(), stack);
 				coconut.shoot(velocity.x(), velocity.y(), velocity.z(), 0.8F, 0.8F);
 				level.addFreshEntity(coconut);
 			});

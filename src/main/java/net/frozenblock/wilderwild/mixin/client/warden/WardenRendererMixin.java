@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
+import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
+import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
@@ -40,5 +42,13 @@ public class WardenRendererMixin {
 		wilderRenderState.wilderWild$getKirbyDeathAnimationState().copyFrom(wilderWarden.wilderWild$getKirbyDeathAnimationState());
 		wilderRenderState.wilderWild$setDeathTicks(wilderWarden.wilderWild$getDeathTicks());
 		wilderRenderState.wilderWild$setIsStella(wilderWarden.wilderWild$isStella());
+
+		// check if disabled in mixins config
+		if (warden instanceof SwimmingWardenInterface swimmingWarden) {
+			SwimmingWardenState swimmingWardenState = (SwimmingWardenState) wilderRenderState;
+
+			swimmingWardenState.wilderWild$setSwimAmount(warden.getSwimAmount(partialTick));
+			swimmingWardenState.wilderWild$setWadingProgress(swimmingWarden.wilderWild$getWadingProgress(partialTick));
+		}
 	}
 }

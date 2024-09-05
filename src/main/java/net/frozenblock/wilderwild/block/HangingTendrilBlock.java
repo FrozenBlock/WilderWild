@@ -216,7 +216,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	public VoxelShape getOcclusionShape(@NotNull BlockState state) {
 		return OUTLINE_SHAPE;
 	}
 

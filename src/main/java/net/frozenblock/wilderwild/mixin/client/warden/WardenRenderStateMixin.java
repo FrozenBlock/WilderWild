@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
+import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.AnimationState;
@@ -25,7 +26,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(WardenRenderState.class)
-public class WardenRenderStateMixin implements WilderWarden {
+public class WardenRenderStateMixin implements WilderWarden, SwimmingWardenState {
 
 	@Unique
 	private final AnimationState dyingAnimationState = new AnimationState();
@@ -37,6 +38,10 @@ public class WardenRenderStateMixin implements WilderWarden {
 	private boolean isStella;
 	@Unique
 	private int deathTicks;
+	@Unique
+	private float swimAmount;
+	@Unique
+	private float wadingProgress;
 
 	@Override
 	public AnimationState wilderWild$getDyingAnimationState() {
@@ -71,5 +76,25 @@ public class WardenRenderStateMixin implements WilderWarden {
 	@Override
 	public int wilderWild$getDeathTicks() {
 		return this.deathTicks;
+	}
+
+	@Override
+	public float wilderWild$getSwimAmount() {
+		return this.swimAmount;
+	}
+
+	@Override
+	public float wilderWild$getWadingProgress() {
+		return this.wadingProgress;
+	}
+
+	@Override
+	public void wilderWild$setSwimAmount(float amount) {
+		this.swimAmount = amount;
+	}
+
+	@Override
+	public void wilderWild$setWadingProgress(float progress) {
+		this.wadingProgress = progress;
 	}
 }

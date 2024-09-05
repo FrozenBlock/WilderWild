@@ -86,6 +86,7 @@ import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -93,10 +94,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.WolfVariants;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -209,7 +212,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					BlockState state = level.getBlockState(source.get().getBlockPos());
 					if (state.hasProperty(BlockStateProperties.FACING)) {
 						Direction direction = state.getValue(BlockStateProperties.FACING);
-						Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+						Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 						double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
 						double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
 						return new WindDisturbance.DisturbanceResult(
@@ -230,7 +233,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					BlockState state = level.getBlockState(source.get().getBlockPos());
 					if (state.hasProperty(BlockStateProperties.FACING)) {
 						Direction direction = state.getValue(BlockStateProperties.FACING);
-						Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+						Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 						double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
 						double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
 						return new WindDisturbance.DisturbanceResult(
@@ -439,6 +442,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		}
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
+			HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+			HolderGetter<EntityType<?>> entities = registries.lookupOrThrow(Registries.ENTITY_TYPE);
 			Advancement advancement = holder.value();
 			if (WWAmbienceAndMiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
@@ -473,25 +478,25 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.BAOBAB_NUT).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.BAOBAB_NUT)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.SPLIT_COCONUT).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.SPLIT_COCONUT)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.CRAB_CLAW).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.CRAB_CLAW)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.COOKED_CRAB_CLAW).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.COOKED_CRAB_CLAW)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.PRICKLY_PEAR).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.PRICKLY_PEAR)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.PEELED_PRICKLY_PEAR).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.PEELED_PRICKLY_PEAR)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.SCORCHED_EYE).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.SCORCHED_EYE)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
@@ -545,7 +550,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(WWEntities.CRAB)).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntities.CRAB)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new
 								AdvancementRequirements(List.of(
@@ -557,10 +562,10 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:husbandry/tactical_fishing" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.CRAB_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.JELLYFISH_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -581,7 +586,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(WWEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntities.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -591,7 +596,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(WWEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntities.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(

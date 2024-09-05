@@ -29,12 +29,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
+import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.frozenblock.wilderwild.entity.render.animation.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -50,7 +52,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenModel.class)
-public abstract class WardenModelMixin<T extends Warden> extends HierarchicalModel<T> {
+public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 	@Unique
 	private static final float WILDERWILD$PI_02 = Mth.PI * 0.2F;
 	@Final
@@ -83,14 +85,14 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 
 	@Inject(at = @At("TAIL"), method = "animateTendrils", require = 0)
 	private void wilderWild$animateCustomTendrils(
-		T warden, float animationProgress, float tickDelta, CallbackInfo info,
-		@Local(ordinal = 2) float cos
+		WardenRenderState warden, float animationProgress, CallbackInfo info,
+		@Local(ordinal = 1) float cos
 	) {
 		if (WWEntityConfig.Client.WARDEN_CUSTOM_TENDRIL_ANIMATION) {
 			this.leftTendril.xRot = cos;
 			this.rightTendril.xRot = cos;
 
-			float sinDiv = (warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin(animationProgress * 2.25D) * Mth.PI * 0.1F)) / 2F;
+			float sinDiv = (warden.tendrilAnimation * (float) (-Math.sin(animationProgress * 2.25D) * Mth.PI * 0.1F)) / 2F;
 			this.leftTendril.yRot = sinDiv;
 			this.rightTendril.yRot = -sinDiv;
 
@@ -149,7 +151,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 	}
 
 	@WrapOperation(
-		method = "setupAnim*",
+		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WardenRenderState;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/model/WardenModel;animateHeadLookTarget(FF)V"
@@ -157,16 +159,15 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		require = 0
 	)
 	private void wilderWild$scaleBackHeadWhenSwimming(
-		WardenModel<T> instance, float pitch, float yaw, Operation<Void> original,
-		T warden, float limbAngle, float limbDistance, float animationProgress,
+		WardenModel instance, float pitch, float yaw, Operation<Void> original,
+		WardenRenderState warden,
 		@Share("wilderWild$animateSwimming") LocalBooleanRef wilderWild$animateSwimming,
 		@Share("wilderWild$swimAmount") LocalFloatRef wilderWild$swimAmount,
 		@Share("wilderWild$wadeAmount") LocalFloatRef wilderWild$wadeAmount
 	) {
-		if (WWEntityConfig.WARDEN_SWIMS && WWEntityConfig.Client.WARDEN_SWIM_ANIMATION && warden instanceof SwimmingWardenInterface swimmingWardenInterface) {
-			float tickDelta = animationProgress - warden.tickCount;
-			float swimAmount = warden.getSwimAmount(tickDelta);
-			float wadeProgress = swimmingWardenInterface.wilderWild$getWadingProgress(tickDelta);
+		if (WWEntityConfig.WARDEN_SWIMS && WWEntityConfig.Client.WARDEN_SWIM_ANIMATION && warden instanceof SwimmingWardenState swimmingState) {
+			float swimAmount = swimmingState.wilderWild$getSwimAmount();
+			float wadeProgress = swimmingState.wilderWild$getWadingProgress();
 			wilderWild$animateSwimming.set(wadeProgress > 0F);
 			wilderWild$swimAmount.set(swimAmount);
 			wilderWild$wadeAmount.set(wadeProgress);
@@ -179,7 +180,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 	}
 
 	@WrapOperation(
-		method = "setupAnim*",
+		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WardenRenderState;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/model/WardenModel;animateWalk(FF)V"
@@ -187,7 +188,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		require = 0
 	)
 	private void wilderWild$scaleBackWalkWhenSwimming(
-		WardenModel<T> instance, float angle, float distance, Operation<Void> original,
+		WardenModel instance, float angle, float distance, Operation<Void> original,
 		@Share("wilderWild$swimAmount") LocalFloatRef wilderWild$swimAmount
 	) {
 		distance *= 1F - wilderWild$swimAmount.get();
@@ -195,17 +196,16 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 	}
 
 	@Inject(
-		method = "setupAnim*",
+		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WardenRenderState;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/model/WardenModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
+			ordinal = 0
 		),
 		require = 0
 	)
 	private void wilderWild$setupAnim(
-		T warden, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo info,
+		WardenRenderState warden, CallbackInfo info,
 		@Share("wilderWild$animateSwimming") LocalBooleanRef wilderWild$animateSwimming,
 		@Share("wilderWild$swimAmount") LocalFloatRef wilderWild$swimAmount,
 		@Share("wilderWild$wadeAmount") LocalFloatRef wilderWild$wadeAmount
@@ -213,11 +213,7 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 		if (warden instanceof WilderWarden wilderWarden) {
 			if (wilderWild$animateSwimming.get()) {
 				this.wilderWild$animateSwimming(
-					angle,
-					distance,
-					anim,
-					headYaw,
-					headPitch,
+					warden,
 					!warden.hasPose(Pose.ROARING) && !warden.hasPose(Pose.EMERGING) && !warden.hasPose(Pose.DIGGING),
 					!warden.hasPose(Pose.EMERGING)
 						&& !warden.hasPose(Pose.DIGGING)
@@ -228,24 +224,25 @@ public abstract class WardenModelMixin<T extends Warden> extends HierarchicalMod
 					wilderWild$wadeAmount.get()
 				);
 			}
-			this.animate(wilderWarden.wilderWild$getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
-			this.animate(wilderWarden.wilderWild$getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
-			this.animate(wilderWarden.wilderWild$getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
+			this.animate(wilderWarden.wilderWild$getDyingAnimationState(), CustomWardenAnimations.DYING, warden.ageInTicks);
+			this.animate(wilderWarden.wilderWild$getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, warden.ageInTicks);
+			this.animate(wilderWarden.wilderWild$getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, warden.ageInTicks);
 		}
 	}
 
 	@Unique
 	private void wilderWild$animateSwimming(
-		float angle,
-		float distance,
-		float animationProgress,
-		float headYaw,
-		float headPitch,
+		WardenRenderState renderState,
 		boolean moveLimbs,
 		boolean canSwim,
 		float swimAmount,
 		float wadeAmount
 	) {
+		float angle = renderState.walkAnimationPos;
+		float distance = renderState.walkAnimationSpeed;
+		float animationProgress = renderState.ageInTicks;
+		float headYaw = renderState.yRot;
+		float headPitch = renderState.xRot;
 		float speedDelta = Math.min(distance / 0.3F, 1F) * swimAmount;
 		float swimLerp = swimAmount * speedDelta;
 
