@@ -48,13 +48,13 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	@NotNull
-	private static BlockState updateDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
+	private static BlockState updateFrondDistanceDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		int i = DECAY_DISTANCE;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
 		for (Direction direction : Direction.values()) {
 			mutableBlockPos.setWithOffset(pos, direction);
-			i = Math.min(i, getDistanceAt(level.getBlockState(mutableBlockPos)) + 1);
+			i = Math.min(i, getFrondDistanceAt(level.getBlockState(mutableBlockPos)) + 1);
 			if (i == 1) {
 				break;
 			}
@@ -63,12 +63,12 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		return state.setValue(DISTANCE, i);
 	}
 
-	private static int getDistanceAt(BlockState neighbor) {
-		return getOptionalDistanceAt(neighbor).orElse(DECAY_DISTANCE);
+	private static int getFrondDistanceAt(BlockState neighbor) {
+		return getOptionalFrondDistanceAt(neighbor).orElse(DECAY_DISTANCE);
 	}
 
 	@NotNull
-	public static OptionalInt getOptionalDistanceAt(@NotNull BlockState state) {
+	public static OptionalInt getOptionalFrondDistanceAt(@NotNull BlockState state) {
 		if (state.is(BlockTags.LOGS)) return OptionalInt.of(0);
 		if (!state.hasProperty(DISTANCE)) return OptionalInt.empty();
 
@@ -113,7 +113,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		level.setBlock(pos, updateDistance(state, level, pos), UPDATE_ALL);
+		level.setBlock(pos, updateFrondDistanceDistance(state, level, pos), UPDATE_ALL);
 	}
 
 	@Override
@@ -122,6 +122,6 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		BlockState blockState = this.defaultBlockState()
 			.setValue(PERSISTENT, Boolean.TRUE)
 			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-		return updateDistance(blockState, context.getLevel(), context.getClickedPos());
+		return updateFrondDistanceDistance(blockState, context.getLevel(), context.getClickedPos());
 	}
 }
