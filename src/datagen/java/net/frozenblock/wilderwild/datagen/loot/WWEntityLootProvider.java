@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.frozenblock.lib.entity.api.EntityLootHelper;
+import net.frozenblock.lib.datagen.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderLookup;

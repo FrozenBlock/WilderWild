@@ -24,7 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

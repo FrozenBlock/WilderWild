@@ -47,11 +47,4 @@ public abstract class BlockStateBaseMixin {
 			FallingLeafUtil.onRandomTick(this.asState(), level, pos, random);
 		}
 	}
-
-	@Inject(method = "tick", at = @At("HEAD"))
-	public void wilderWild$tick(ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (this.getBlock() instanceof LeavesBlock) {
-			FallingLeafUtil.createLitterOnScheduledTick(this.asState(), level, pos, random);
-		}
-	}
 }

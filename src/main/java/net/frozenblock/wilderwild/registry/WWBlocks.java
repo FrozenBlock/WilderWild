@@ -250,6 +250,86 @@ public final class WWBlocks {
 		0.225F,
 		2.5F
 	);
+	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = leafLitter(
+		Blocks.SPRUCE_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		2F
+	);
+	public static final LeafLitterBlock BIRCH_LEAF_LITTER = leafLitter(
+		Blocks.BIRCH_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.002F,
+		0.00125F,
+		0.225F,
+		2F
+	);
+	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = leafLitter(
+		Blocks.JUNGLE_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		3.5F
+	);
+	public static final LeafLitterBlock ACACIA_LEAF_LITTER = leafLitter(
+		Blocks.ACACIA_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.002F,
+		0.00125F,
+		0.225F,
+		2F
+	);
+	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = leafLitter(
+		Blocks.DARK_OAK_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		2.5F
+	);
+	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = leafLitter(
+		Blocks.MANGROVE_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		3.5F
+	);
+	public static final LeafLitterBlock CHERRY_LEAF_LITTER = leafLitter(
+		Blocks.DARK_OAK_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		1F
+	);
+	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = leafLitter(
+		BAOBAB_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.002F,
+		0.00125F,
+		0.225F,
+		2F
+	);
+	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = leafLitter(
+		CYPRESS_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		2F
+	);
+	public static final LeafLitterBlock PALM_FROND_LITTER = leafLitter(
+		Blocks.SPRUCE_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.001F,
+		0.000125F,
+		0.225F,
+		4.5F
+	);
 	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
 
 	// SCULK
@@ -919,115 +999,110 @@ public final class WWBlocks {
 	}
 
 	public static void registerWoods() {
-		String baobab = "baobab";
-		String cypress = "cypress";
-		String palm = "palm";
-		String maple = "maple";
-		String wood = baobab;
 		//BAOBAB IN BUILDING BLOCKS
-		registerBlockAfter(Items.MANGROVE_BUTTON, wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_LOG, wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_WOOD, "stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_BAOBAB_LOG, "stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_BAOBAB_WOOD, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_PLANKS, wood + "_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_STAIRS, wood + "_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_SLAB, wood + "_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_FENCE, wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_FENCE_GATE, wood + "_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_DOOR, wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_TRAPDOOR, wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_PRESSURE_PLATE, wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_BUTTON, "baobab_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_LOG, "baobab_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_WOOD, "stripped_baobab_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_BAOBAB_LOG, "stripped_baobab_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_BAOBAB_WOOD, "baobab_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_PLANKS, "baobab_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_STAIRS, "baobab_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_SLAB, "baobab_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_FENCE, "baobab_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_FENCE_GATE, "baobab_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_DOOR, "baobab_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_TRAPDOOR, "baobab_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_PRESSURE_PLATE, "baobab_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
-		registerBlockAfter(Items.MANGROVE_LOG, wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.MANGROVE_LEAVES, wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_LOG, "baobab_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_LEAVES, "baobab_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BAOBAB_LEAVES, "baobab_leaf_litter", BAOBAB_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
-		wood = cypress;
 		//CYPRESS IN BUILDING BLOCKS
-		registerBlockAfter(BAOBAB_BUTTON, wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_LOG, wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_WOOD, "stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_CYPRESS_LOG, "stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_CYPRESS_WOOD, wood + "_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_PLANKS, wood + "_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_STAIRS, wood + "_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_SLAB, wood + "_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_FENCE, wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_FENCE_GATE, wood + "_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_DOOR, wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_TRAPDOOR, wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_PRESSURE_PLATE, wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_BUTTON, "cypress_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_LOG, "cypress_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_WOOD, "stripped_cypress_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_CYPRESS_LOG, "stripped_cypress_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_CYPRESS_WOOD, "cypress_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_PLANKS, "cypress_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_STAIRS, "cypress_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_SLAB, "cypress_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_FENCE, "cypress_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_FENCE_GATE, "cypress_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_DOOR, "cypress_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_TRAPDOOR, "cypress_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_PRESSURE_PLATE, "cypress_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//CYPRESS IN NATURE
-		registerBlockAfter(BAOBAB_LOG, wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BAOBAB_LEAVES, wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BAOBAB_LOG, "cypress_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BAOBAB_LEAVES, "cypress_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LEAVES, "cypress_leaf_litter", CYPRESS_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
-		wood = palm;
 		//PALM IN BUILDING BLOCKS
-		registerBlockAfter(CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_WOOD, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_" + wood + "_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_PALM_WOOD, wood + "_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_PLANKS, wood + "_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_STAIRS, wood + "_slab", PALM_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_SLAB, wood + "_fence", PALM_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_FENCE, wood + "_fence_gate", PALM_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_FENCE_GATE, wood + "_door", PALM_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_DOOR, wood + "_trapdoor", PALM_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_TRAPDOOR, wood + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_BUTTON, "palm_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_LOG, "palm_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_WOOD, "stripped_palm_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_palm_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_PALM_WOOD, "palm_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_PLANKS, "palm_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_STAIRS, "palm_slab", PALM_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_SLAB, "palm_fence", PALM_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_FENCE, "palm_fence_gate", PALM_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_FENCE_GATE, "palm_door", PALM_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_DOOR, "palm_trapdoor", PALM_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_TRAPDOOR, "palm_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_PRESSURE_PLATE, "palm_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
-		registerBlockAfter(CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(CYPRESS_LEAVES, wood + "_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LOG, "palm_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LEAVES, "palm_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(PALM_FRONDS, "palm_frond_litter", PALM_FROND_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
-		wood = maple;
 		//MAPLE IN BUILDING BLOCKS
-		registerBlockAfter(Blocks.CHERRY_BUTTON, wood + "_log", MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_LOG, wood + "_wood", MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_WOOD, "stripped_" + wood + "_log", STRIPPED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_MAPLE_LOG, "stripped_" + wood + "_wood", STRIPPED_MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_MAPLE_WOOD, wood + "_planks", MAPLE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_PLANKS, wood + "_stairs", MAPLE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_STAIRS, wood + "_slab", MAPLE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_SLAB, wood + "_fence", MAPLE_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_FENCE, wood + "_fence_gate", MAPLE_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_FENCE_GATE, wood + "_door", MAPLE_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_DOOR, wood + "_trapdoor", MAPLE_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_TRAPDOOR, wood + "_pressure_plate", MAPLE_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_PRESSURE_PLATE, wood + "_button", MAPLE_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.CHERRY_BUTTON, "maple_log", MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_LOG, "maple_wood", MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_WOOD, "stripped_maple_log", STRIPPED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_MAPLE_LOG, "stripped_maple_wood", STRIPPED_MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_MAPLE_WOOD, "maple_planks", MAPLE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_PLANKS, "maple_stairs", MAPLE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_STAIRS, "maple_slab", MAPLE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_SLAB, "maple_fence", MAPLE_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_FENCE, "maple_fence_gate", MAPLE_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_FENCE_GATE, "maple_door", MAPLE_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_DOOR, "maple_trapdoor", MAPLE_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_TRAPDOOR, "maple_pressure_plate", MAPLE_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MAPLE_PRESSURE_PLATE, "maple_button", MAPLE_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//MAPLE IN NATURE
-		registerBlockAfter(Blocks.CHERRY_LOG, wood + "_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.CHERRY_LEAVES, wood + "_leaves", MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.CHERRY_LOG, "maple_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.CHERRY_LEAVES, "maple_leaves", MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MAPLE_LEAVES, "maple_leaf_litter", MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
-		registerBlock(baobab + "_nut", BAOBAB_NUT);
-		registerBlock("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
+		registerBlock("baobab_nut", BAOBAB_NUT);
+		registerBlock("potted_baobab_nut", POTTED_BAOBAB_NUT);
 
-		registerBlockAfter(Items.MANGROVE_PROPAGULE, cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
+		registerBlockAfter(Items.MANGROVE_PROPAGULE, "cypress_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_cypress_sapling", POTTED_CYPRESS_SAPLING);
 
 		registerBlock("coconut", COCONUT);
 		registerBlock("potted_coconut", POTTED_COCONUT);
 
-		registerBlockAfter(Items.CHERRY_SAPLING, maple + "_sapling", MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_" + maple + "_sapling", POTTED_MAPLE_SAPLING);
+		registerBlockAfter(Items.CHERRY_SAPLING, "maple_sapling", MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_maple_sapling", POTTED_MAPLE_SAPLING);
 
-		registerBlock(baobab + "_sign", BAOBAB_SIGN);
-		registerBlock(baobab + "_wall_sign", BAOBAB_WALL_SIGN);
-		registerBlock(baobab + "_hanging_sign", BAOBAB_HANGING_SIGN);
-		registerBlock(baobab + "_wall_hanging_sign", BAOBAB_WALL_HANGING_SIGN);
-		registerBlock(cypress + "_sign", CYPRESS_SIGN);
-		registerBlock(cypress + "_wall_sign", CYPRESS_WALL_SIGN);
-		registerBlock(cypress + "_hanging_sign", CYPRESS_HANGING_SIGN);
-		registerBlock(cypress + "_wall_hanging_sign", CYPRESS_WALL_HANGING_SIGN);
-		registerBlock(palm + "_sign", PALM_SIGN);
-		registerBlock(palm + "_wall_sign", PALM_WALL_SIGN);
-		registerBlock(palm + "_hanging_sign", PALM_HANGING_SIGN);
-		registerBlock(palm + "_wall_hanging_sign", PALM_WALL_HANGING_SIGN);
-		registerBlock(maple + "_sign", MAPLE_SIGN);
-		registerBlock(maple + "_wall_sign", MAPLE_WALL_SIGN);
-		registerBlock(maple + "_hanging_sign", MAPLE_HANGING_SIGN);
-		registerBlock(maple + "_wall_hanging_sign", MAPLE_WALL_HANGING_SIGN);
+		registerBlock("baobab_sign", BAOBAB_SIGN);
+		registerBlock("baobab_wall_sign", BAOBAB_WALL_SIGN);
+		registerBlock("baobab_hanging_sign", BAOBAB_HANGING_SIGN);
+		registerBlock("baobab_wall_hanging_sign", BAOBAB_WALL_HANGING_SIGN);
+		registerBlock("cypress_sign", CYPRESS_SIGN);
+		registerBlock("cypress_wall_sign", CYPRESS_WALL_SIGN);
+		registerBlock("cypress_hanging_sign", CYPRESS_HANGING_SIGN);
+		registerBlock("cypress_wall_hanging_sign", CYPRESS_WALL_HANGING_SIGN);
+		registerBlock("palm_sign", PALM_SIGN);
+		registerBlock("palm_wall_sign", PALM_WALL_SIGN);
+		registerBlock("palm_hanging_sign", PALM_HANGING_SIGN);
+		registerBlock("palm_wall_hanging_sign", PALM_WALL_HANGING_SIGN);
+		registerBlock("maple_sign", MAPLE_SIGN);
+		registerBlock("maple_wall_sign", MAPLE_WALL_SIGN);
+		registerBlock("maple_hanging_sign", MAPLE_HANGING_SIGN);
+		registerBlock("maple_wall_hanging_sign", MAPLE_WALL_HANGING_SIGN);
 	}
 
 	public static void registerHollowedLogs() {
@@ -1116,6 +1191,13 @@ public final class WWBlocks {
 		registerBlock("potted_prickly_pear", POTTED_PRICKLY_PEAR);
 
 		registerBlockAfter(Blocks.OAK_LEAVES, "oak_leaf_litter", OAK_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.SPRUCE_LEAVES, "spruce_leaf_litter", SPRUCE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.BIRCH_LEAVES, "birch_leaf_litter", BIRCH_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.JUNGLE_LEAVES, "jungle_leaf_litter", JUNGLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.ACACIA_LEAVES, "acacia_leaf_litter", ACACIA_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.DARK_OAK_LEAVES, "dark_oak_leaf_litter", DARK_OAK_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.MANGROVE_LEAVES, "mangrove_leaf_litter", MANGROVE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.CHERRY_LEAVES, "cherry_leaf_litter", CHERRY_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerNotSoPlants() {
@@ -1413,7 +1495,7 @@ public final class WWBlocks {
 	}
 
 	private static void registerDispenses() {
-		DispenserBlock.registerBehavior(WWBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
+		DispenserBlock.registerBehavior(TUMBLEWEED, new DefaultDispenseItemBehavior() {
 			@Override
 			@NotNull
 			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
@@ -1486,133 +1568,153 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(OAK_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(SPRUCE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(BIRCH_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(JUNGLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(ACACIA_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(DARK_OAK_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(MANGROVE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(CHERRY_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(PALM_FROND_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_LITTER, 0.1F);
-
 	}
 
 	private static void registerFlammability() {
 		WWConstants.logWithModId("Registering Flammability for", WWConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
-		flammableBlockRegistry.add(WWBlocks.POLLEN, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.SEEDING_DANDELION, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.CARNATION, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.CATTAIL, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.DATURA, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.MILKWEED, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.MARIGOLD, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.TUMBLEWEED, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.TUMBLEWEED_PLANT, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.BUSH, 90, 40);
+		flammableBlockRegistry.add(POLLEN, 100, 60);
+		flammableBlockRegistry.add(SEEDING_DANDELION, 100, 60);
+		flammableBlockRegistry.add(CARNATION, 100, 60);
+		flammableBlockRegistry.add(CATTAIL, 100, 60);
+		flammableBlockRegistry.add(DATURA, 100, 60);
+		flammableBlockRegistry.add(MILKWEED, 100, 60);
+		flammableBlockRegistry.add(MARIGOLD, 100, 60);
+		flammableBlockRegistry.add(GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
+		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
+		flammableBlockRegistry.add(BUSH, 90, 40);
 
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_CHERRY_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_ACACIA_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_JUNGLE_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_DARK_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_MANGROVE_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);
+		flammableBlockRegistry.add(HOLLOWED_SPRUCE_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_BIRCH_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_CHERRY_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_ACACIA_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_JUNGLE_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_DARK_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_MANGROVE_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_SPRUCE_LOG, 5, 5);
 
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_PLANKS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_STAIRS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_DOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_FENCE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_SLAB, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_LEAVES, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_BUTTON, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.BAOBAB_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(HOLLOWED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(BAOBAB_WOOD, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_BAOBAB_WOOD, 5, 5);
+		flammableBlockRegistry.add(BAOBAB_PLANKS, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_STAIRS, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_DOOR, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_FENCE, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_SLAB, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_LEAVES, 100, 60);
+		flammableBlockRegistry.add(BAOBAB_BUTTON, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_SIGN, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_PLANKS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_STAIRS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_DOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_FENCE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_SLAB, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_LEAVES, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_BUTTON, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.CYPRESS_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(HOLLOWED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(CYPRESS_WOOD, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_CYPRESS_WOOD, 5, 5);
+		flammableBlockRegistry.add(CYPRESS_PLANKS, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_STAIRS, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_DOOR, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_FENCE, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_SLAB, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_LEAVES, 100, 60);
+		flammableBlockRegistry.add(CYPRESS_BUTTON, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_SIGN, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_PALM_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.PALM_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_PALM_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.PALM_PLANKS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_STAIRS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_DOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_FENCE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_SLAB, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_FRONDS, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.PALM_BUTTON, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.PALM_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(HOLLOWED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(PALM_WOOD, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_PALM_WOOD, 5, 5);
+		flammableBlockRegistry.add(PALM_PLANKS, 5, 20);
+		flammableBlockRegistry.add(PALM_STAIRS, 5, 20);
+		flammableBlockRegistry.add(PALM_DOOR, 5, 20);
+		flammableBlockRegistry.add(PALM_FENCE, 5, 20);
+		flammableBlockRegistry.add(PALM_SLAB, 5, 20);
+		flammableBlockRegistry.add(PALM_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(PALM_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(PALM_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(PALM_FRONDS, 100, 60);
+		flammableBlockRegistry.add(PALM_BUTTON, 5, 20);
+		flammableBlockRegistry.add(PALM_SIGN, 5, 20);
+		flammableBlockRegistry.add(PALM_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(PALM_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(PALM_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(WWBlocks.HOLLOWED_MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_MAPLE_LOG, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.STRIPPED_MAPLE_WOOD, 5, 5);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_PLANKS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_STAIRS, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_DOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_FENCE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_SLAB, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_FENCE_GATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_PRESSURE_PLATE, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_LEAF_LITTER, 200, 60);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_BUTTON, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_WALL_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_HANGING_SIGN, 5, 20);
-		flammableBlockRegistry.add(WWBlocks.MAPLE_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(HOLLOWED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_MAPLE_LOG, 5, 5);
+		flammableBlockRegistry.add(MAPLE_WOOD, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_MAPLE_WOOD, 5, 5);
+		flammableBlockRegistry.add(MAPLE_PLANKS, 5, 20);
+		flammableBlockRegistry.add(MAPLE_STAIRS, 5, 20);
+		flammableBlockRegistry.add(MAPLE_DOOR, 5, 20);
+		flammableBlockRegistry.add(MAPLE_FENCE, 5, 20);
+		flammableBlockRegistry.add(MAPLE_SLAB, 5, 20);
+		flammableBlockRegistry.add(MAPLE_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(MAPLE_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(MAPLE_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(MAPLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(MAPLE_BUTTON, 5, 20);
+		flammableBlockRegistry.add(MAPLE_SIGN, 5, 20);
+		flammableBlockRegistry.add(MAPLE_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(MAPLE_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(MAPLE_WALL_HANGING_SIGN, 5, 20);
 
-		flammableBlockRegistry.add(WWBlocks.OAK_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(OAK_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(SPRUCE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(BIRCH_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(JUNGLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(ACACIA_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(DARK_OAK_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(MANGROVE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(CHERRY_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(BAOBAB_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(CYPRESS_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(PALM_FROND_LITTER, 200, 60);
+		flammableBlockRegistry.add(MAPLE_LEAF_LITTER, 200, 60);
 	}
 
 	private static void registerFuels() {
@@ -1757,35 +1859,35 @@ public final class WWBlocks {
 	}
 
 	private static void registerAxe() {
-		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(WWBlocks.BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(WWBlocks.CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(WWBlocks.PALM_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(WWBlocks.MAPLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.HOLLOWED_MAPLE_LOG, false));
+		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_BIRCH_LOG, false));
+		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_CHERRY_LOG, false));
+		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_SPRUCE_LOG, false));
+		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_DARK_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_JUNGLE_LOG, false));
+		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_ACACIA_LOG, false));
+		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_MANGROVE_LOG, false));
+		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(HOLLOWED_CRIMSON_STEM, true));
+		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(HOLLOWED_WARPED_STEM, true));
+		AxeBehaviors.register(BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_BAOBAB_LOG, false));
+		AxeBehaviors.register(CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_CYPRESS_LOG, false));
+		AxeBehaviors.register(PALM_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(MAPLE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_MAPLE_LOG, false));
 		//STRIPPED
-		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(WWBlocks.STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(WWBlocks.STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(WWBlocks.STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(WWBlocks.STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_BIRCH_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CHERRY_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_SPRUCE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_JUNGLE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_ACACIA_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_MANGROVE_LOG, false));
+		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CRIMSON_STEM, true));
+		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_WARPED_STEM, true));
+		AxeBehaviors.register(STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_BAOBAB_LOG, false));
+		AxeBehaviors.register(STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CYPRESS_LOG, false));
+		AxeBehaviors.register(STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_PALM_LOG, false));
+		AxeBehaviors.register(STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_MAPLE_LOG, false));
 	}
 
 	private static void registerInventories() {

@@ -22,8 +22,10 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
+import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.registry.WWEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -39,7 +41,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
@@ -106,7 +107,6 @@ public class FallingLeafUtil {
 				BlockState belowState = world.getBlockState(belowPos);
 				if (!Block.isFaceFull(belowState.getCollisionShape(world, belowPos), Direction.UP)) {
 					if (random.nextFloat() <= fallingLeafData.litterChance()) {
-						BlockHitResult hitResult = createFallingClusterHitResult(world, pos);
 						world.sendParticles(
 							new BlockParticleOption(ParticleTypes.BLOCK, state),
 							pos.getX() + 0.5D,
@@ -123,55 +123,12 @@ public class FallingLeafUtil {
 							0D, 0D, 0D,
 							0D
 						);
-						if (hitResult.getType() != HitResult.Type.MISS) {
-							BlockPos hitPos = hitResult.getBlockPos();
-							BlockPos placePos = hitPos.above();
-							if (!placePos.equals(pos)) {
-								int distance = pos.getY() - placePos.getY();
-								double yd = 0.05D;
-								double traveledDistance = 0D;
-								int tickDelay = 0;
-								while(traveledDistance < distance) {
-									yd += 0.04D;
-									traveledDistance += yd;
-									tickDelay += 1;
-								}
-								world.scheduleTick(pos, block, tickDelay);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public static void createLitterOnScheduledTick(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
-		if (optionalFallingLeafData.isPresent()) {
-			FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-			BlockPos belowPos = pos.below();
-			BlockState belowState = world.getBlockState(belowPos);
-			if (!Block.isFaceFull(belowState.getCollisionShape(world, belowPos), Direction.UP)) {
-				BlockHitResult hitResult = createFallingClusterHitResult(world, pos);
-				if (hitResult.getType() != HitResult.Type.MISS) {
-					BlockPos hitPos = hitResult.getBlockPos();
-					BlockPos placePos = hitPos.above();
-					BlockState stateToReplace = world.getBlockState(placePos);
-					Block leafLitter = fallingLeafData.leafLitterBlock();
-					if (!placePos.equals(pos)) {
-						if (isSafePosToPlaceLitter(world, placePos, stateToReplace, leafLitter)) {
-							BlockState litterState = leafLitter.defaultBlockState();
-							world.setBlockAndUpdate(placePos, litterState);
-							world.sendParticles(
-								new BlockParticleOption(ParticleTypes.BLOCK, litterState),
-								placePos.getX() + 0.5D,
-								placePos.getY() + 0.1D,
-								placePos.getZ() + 0.5D,
-								random.nextInt(8, 18),
-								0.3D, 0D, 0.3D,
-								0.05D
-							);
-						}
+						FallingLeafTicker.createAndSpawn(
+							WWEntities.FALLING_LEAF_TICKER,
+							world,
+							pos,
+							fallingLeafData.leafLitterBlock
+						);
 					}
 				}
 			}

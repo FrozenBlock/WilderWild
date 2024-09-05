@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.render.layer.ScorchedGlowingLayer;
 import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;

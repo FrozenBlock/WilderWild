@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.block.api.entity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;

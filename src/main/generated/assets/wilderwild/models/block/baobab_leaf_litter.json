@@ -1,0 +1,6 @@
+{
+  "parent": "wilderwild:block/template_leaf_litter_tinted",
+  "textures": {
+    "texture": "wilderwild:block/baobab_leaves"
+  }
+}

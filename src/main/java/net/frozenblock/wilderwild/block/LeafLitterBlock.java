@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -47,7 +48,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LeafLitterBlock extends CarpetBlock {
 	public static final MapCodec<LeafLitterBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		Block.CODEC.fieldOf("leaves_block").forGetter((litterBlock) -> litterBlock.leavesBlock),
+		BuiltInRegistries.BLOCK.byNameCodec().fieldOf("leaves_block").forGetter((litterBlock) -> litterBlock.leavesBlock),
 		propertiesCodec()
 	).apply(instance, LeafLitterBlock::new));
 	public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
@@ -57,7 +58,7 @@ public class LeafLitterBlock extends CarpetBlock {
 	public LeafLitterBlock(Block leavesBlock, Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(PERSISTENT, false));
-		this.leavesBlock = leavesBlock;;
+		this.leavesBlock = leavesBlock;
 	}
 
 	@Override

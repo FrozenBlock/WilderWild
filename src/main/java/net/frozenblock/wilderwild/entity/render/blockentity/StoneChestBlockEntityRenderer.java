@@ -24,7 +24,7 @@ import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.model.geom.ModelPart;

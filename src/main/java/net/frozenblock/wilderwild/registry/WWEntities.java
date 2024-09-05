@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
@@ -116,7 +117,7 @@ public final class WWEntities {
 	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
 		"chest_bubbler",
 		EntityType.Builder.<ChestBubbleTicker>of(ChestBubbleTicker::new, MobCategory.MISC)
-			.sized(1F, 1F)
+			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
 			.build(WWConstants.string("chest_bubbler"))
@@ -125,10 +126,19 @@ public final class WWEntities {
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
 		"sculk_spreader",
 		EntityType.Builder.<SculkSpreadTicker>of(SculkSpreadTicker::new, MobCategory.MISC)
-			.sized(1F, 1F)
+			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
 			.build(WWConstants.string("sculk_spreader"))
+	);
+
+	public static final EntityType<FallingLeafTicker> FALLING_LEAF_TICKER = register(
+		"falling_leaf_ticker",
+		EntityType.Builder.<FallingLeafTicker>of(FallingLeafTicker::new, MobCategory.MISC)
+			.sized(0F, 0F)
+			.clientTrackingRange(0)
+			.updateInterval(10)
+			.build(WWConstants.string("falling_leaf_ticker"))
 	);
 
 	private WWEntities() {

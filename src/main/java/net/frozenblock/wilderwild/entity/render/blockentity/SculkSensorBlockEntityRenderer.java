@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;

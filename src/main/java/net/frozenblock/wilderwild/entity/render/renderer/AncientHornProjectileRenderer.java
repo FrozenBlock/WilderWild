@@ -25,7 +25,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.minecraft.client.renderer.MultiBufferSource;

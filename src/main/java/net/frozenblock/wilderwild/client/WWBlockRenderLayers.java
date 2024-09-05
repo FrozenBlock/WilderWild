@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.client.rendering;
+package net.frozenblock.wilderwild.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -124,6 +124,16 @@ public class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED, RenderType.cutout());
 
 		renderLayerRegistry.putBlock(WWBlocks.OAK_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.SPRUCE_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.BIRCH_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.JUNGLE_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.ACACIA_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.DARK_OAK_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.MANGROVE_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.CHERRY_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.PALM_FROND_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 	}
 }

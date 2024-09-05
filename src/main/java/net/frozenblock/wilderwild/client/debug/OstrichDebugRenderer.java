@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.client.rendering.debug;
+package net.frozenblock.wilderwild.client.debug;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;

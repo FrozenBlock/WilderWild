@@ -23,7 +23,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.rendering.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
