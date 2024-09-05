@@ -58,6 +58,7 @@
           "Name": "wilderwild:hollowed_maple_log",
           "Properties": {
             "axis": "y",
+            "termite_edible": "false",
             "waterlogged": "false"
           }
         }

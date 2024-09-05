@@ -20,7 +20,11 @@ package net.frozenblock.wilderwild.entity.impl;
 
 import net.minecraft.world.entity.vehicle.Boat;
 
+<<<<<<<< HEAD:src/main/java/net/frozenblock/wilderwild/entity/impl/WWBoatTypes.java
 public final class WWBoatTypes {
+========
+public final class WWEnumValues {
+>>>>>>>> eff76f04a (rebase from 2.5):src/main/java/net/frozenblock/wilderwild/WWEnumValues.java
 	public static Boat.Type BAOBAB;
 	public static Boat.Type CYPRESS;
 	public static Boat.Type PALM;

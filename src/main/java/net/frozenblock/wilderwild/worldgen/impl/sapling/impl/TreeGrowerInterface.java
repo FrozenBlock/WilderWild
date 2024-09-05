@@ -16,7 +16,11 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
+<<<<<<<< HEAD:src/main/java/net/frozenblock/wilderwild/worldgen/impl/sapling/impl/TreeGrowerInterface.java
 package net.frozenblock.wilderwild.worldgen.impl.sapling.impl;
+========
+package net.frozenblock.wilderwild.worldgen.impl.sapling;
+>>>>>>>> eff76f04a (rebase from 2.5):src/main/java/net/frozenblock/wilderwild/worldgen/impl/sapling/TreeGrowerInterface.java
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

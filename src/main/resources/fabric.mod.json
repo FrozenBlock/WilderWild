@@ -50,7 +50,7 @@
       "net.frozenblock.wilderwild.mod_compat.terrablender.BlenderInitializer"
     ],
     "fabric-datagen": [
-      "net.frozenblock.wilderwild.datagen.WWDataGenerator"
+      "net.frozenblock.wilderwild.datagen.WWDatagenEntrypoint"
     ]
   },
   "mixins": [

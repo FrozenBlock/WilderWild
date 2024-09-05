@@ -211,7 +211,9 @@ public final class WWBlocks {
 	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
 
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
+
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
+
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 	public static final Block MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
 
@@ -1718,7 +1720,7 @@ public final class WWBlocks {
 	}
 
 	private static void registerFuels() {
-		WilderConstants.logWithModId("Registering Fuels for", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Registering Fuels for", WWConstants.UNSTABLE_LOGGING);
 
 		FuelRegistry.add(WWItems.BAOBAB_BOAT, 1200);
 		FuelRegistry.add(WWItems.BAOBAB_CHEST_BOAT, 1200);

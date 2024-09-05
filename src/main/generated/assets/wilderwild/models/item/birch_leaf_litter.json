@@ -1,6 +1,10 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
+<<<<<<<< HEAD:src/main/generated/assets/wilderwild/models/item/birch_leaf_litter.json
     "layer0": "minecraft:block/birch_leaves"
+========
+    "layer0": "wilderwild:item/maple_boat"
+>>>>>>>> eff76f04a (rebase from 2.5):src/main/generated/assets/wilderwild/models/item/maple_boat.json
   }
 }

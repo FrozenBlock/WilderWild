@@ -141,7 +141,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
-		this.temptationItem = Ingredient.of(level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(WilderItemTags.OSTRICH_FOOD));
+		this.temptationItem = Ingredient.of(level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(WWItemTags.OSTRICH_FOOD));
 		this.moveControl = new OstrichMoveControl(this);
 		this.lookControl = new OstrichLookControl(this);
 		GroundPathNavigation groundPathNavigation = (GroundPathNavigation) this.getNavigation();

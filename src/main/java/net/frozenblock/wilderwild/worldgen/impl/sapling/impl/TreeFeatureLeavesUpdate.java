@@ -16,7 +16,11 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
+<<<<<<<< HEAD:src/main/java/net/frozenblock/wilderwild/worldgen/impl/sapling/impl/TreeFeatureLeavesUpdate.java
 package net.frozenblock.wilderwild.worldgen.impl.sapling.impl;
+========
+package net.frozenblock.wilderwild.worldgen.impl.sapling;
+>>>>>>>> eff76f04a (rebase from 2.5):src/main/java/net/frozenblock/wilderwild/worldgen/impl/sapling/TreeFeatureLeavesUpdate.java
 
 import java.util.Set;
 import net.minecraft.core.BlockPos;
