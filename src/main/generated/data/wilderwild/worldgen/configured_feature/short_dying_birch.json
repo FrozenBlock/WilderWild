@@ -47,7 +47,7 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "wilderwild:straight_trunk_logs_placer",
+      "type": "wilderwild:straight_with_logs_trunk_placer",
       "base_height": 6,
       "branch_chance": 0.12,
       "branch_height_from_top": {
@@ -69,8 +69,7 @@
       "state": {
         "Name": "minecraft:birch_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

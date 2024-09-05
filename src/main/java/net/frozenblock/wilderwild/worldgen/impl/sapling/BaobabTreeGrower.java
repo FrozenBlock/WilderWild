@@ -34,9 +34,9 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
+public abstract class BaobabTreeGrower extends TreeGrower {
 
-	public BaobabTreeSaplingGenerator(String string) {
+	public BaobabTreeGrower(String string) {
 		super(string, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 

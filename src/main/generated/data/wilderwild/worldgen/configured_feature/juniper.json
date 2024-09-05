@@ -64,8 +64,7 @@
       "state": {
         "Name": "wilderwild:cypress_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

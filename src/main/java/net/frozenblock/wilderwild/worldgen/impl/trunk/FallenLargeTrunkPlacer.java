@@ -42,15 +42,15 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class FallenLargeTrunk extends TrunkPlacer {
-	public static final MapCodec<FallenLargeTrunk> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		fallenTrunkCodec(instance).apply(instance, FallenLargeTrunk::new));
+public class FallenLargeTrunkPlacer extends TrunkPlacer {
+	public static final MapCodec<FallenLargeTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+		fallenTrunkCodec(instance).apply(instance, FallenLargeTrunkPlacer::new));
 
 	public final float successInWaterChance;
 	public final int minHeight;
 	public final int maxHeight;
 
-	public FallenLargeTrunk(int baseHeight, int firstRandomHeight, int secondRandomHeight, float successInWaterChance) {
+	public FallenLargeTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float successInWaterChance) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.minHeight = baseHeight;
 		this.maxHeight = baseHeight + firstRandomHeight + secondRandomHeight;
@@ -58,7 +58,7 @@ public class FallenLargeTrunk extends TrunkPlacer {
 	}
 
 	@Contract("_ -> new")
-	protected static <P extends FallenLargeTrunk> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+	protected static <P extends FallenLargeTrunkPlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance));
 	}

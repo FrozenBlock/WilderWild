@@ -28,7 +28,7 @@ import java.util.Set;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.worldgen.impl.sapling.TreeFeatureLeavesUpdate;
+import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;

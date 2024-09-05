@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.frozenblock.wilderwild.datagen.WWDataGenerator;
+import net.frozenblock.lib.entity.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderLookup;
@@ -60,7 +60,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						.add(
 							LootItem.lootTableItem(WWItems.CRAB_CLAW)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
-								.apply(SmeltItemFunction.smelted().when(WWDataGenerator.shouldSmeltLoot(registryLookup)))
+								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
 				)

@@ -46,8 +46,7 @@
               "state": {
                 "Name": "minecraft:basalt",
                 "Properties": {
-                  "axis": "y",
-                  "termite_edible": "true"
+                  "axis": "y"
                 }
               }
             },
@@ -75,8 +74,7 @@
               "state": {
                 "Name": "minecraft:basalt",
                 "Properties": {
-                  "axis": "y",
-                  "termite_edible": "true"
+                  "axis": "y"
                 }
               }
             },

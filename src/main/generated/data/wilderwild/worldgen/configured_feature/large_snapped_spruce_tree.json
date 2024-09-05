@@ -66,8 +66,7 @@
       "state": {
         "Name": "minecraft:spruce_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "true"
+          "axis": "y"
         }
       }
     }

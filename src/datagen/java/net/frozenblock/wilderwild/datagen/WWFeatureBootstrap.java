@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.worldgen.impl;
+package net.frozenblock.wilderwild.datagen;
 
 import java.util.Arrays;
 import java.util.List;

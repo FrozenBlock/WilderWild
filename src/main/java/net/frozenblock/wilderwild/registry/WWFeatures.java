@@ -37,16 +37,15 @@ import net.frozenblock.wilderwild.worldgen.impl.features.config.SnowAndIceDiskFe
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunk;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenTrunkWithLogs;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightTrunkWithBranches;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkPlacer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -61,9 +60,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class WWFeatures {
-	public static final TrunkPlacerType<StraightTrunkWithBranches> STRAIGHT_TRUNK_WITH_LOGS_PLACER = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithBranches.CODEC);
-	public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
-	public static final TrunkPlacerType<FallenLargeTrunk> FALLEN_LARGE_TRUNK_PLACER = registerTrunk("fallen_large_trunk_placer", FallenLargeTrunk.CODEC);
+	public static final TrunkPlacerType<StraightWithBranchesTrunkPlacer> STRAIGHT_WITH_LOGS_TRUNK_PLACER = registerTrunk("straight_with_logs_trunk_placer", StraightWithBranchesTrunkPlacer.CODEC);
+	public static final TrunkPlacerType<FallenWithLogsTrunkPlacer> FALLEN_WITH_LOGS_TRUNK_PLACER = registerTrunk("fallen_with_logs_trunk_placer", FallenWithLogsTrunkPlacer.CODEC);
+	public static final TrunkPlacerType<FallenLargeTrunkPlacer> FALLEN_LARGE_TRUNK_PLACER = registerTrunk("fallen_large_trunk_placer", FallenLargeTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<JuniperTrunkPlacer> JUNIPER_TRUNK_PLACER = registerTrunk("juniper_trunk_placer", JuniperTrunkPlacer.CODEC);
@@ -72,7 +71,6 @@ public class WWFeatures {
 	public static final TrunkPlacerType<LargeSnappedTrunkPlacer> LARGE_SNAPPED_TRUNK_PLACER = registerTrunk("large_snapped_trunk_placer", LargeSnappedTrunkPlacer.CODEC);
 
 	public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER = registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
-	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER = registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<MapleFoliagePlacer> MAPLE_FOLIAGE_PLACER = registerFoliage("maple_foliage_placer", MapleFoliagePlacer.CODEC);
 
 	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));

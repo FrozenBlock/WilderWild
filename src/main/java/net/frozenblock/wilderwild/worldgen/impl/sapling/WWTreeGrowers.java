@@ -22,6 +22,7 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
@@ -36,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWTreeGrowers {
-	public static final TreeGrower BAOBAB = new BaobabTreeSaplingGenerator(WWConstants.string("baobab")) {
+	public static final TreeGrower BAOBAB = new BaobabTreeGrower(WWConstants.string("baobab")) {
 		@Override
 		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
 			return random.nextFloat() < 0.856F ? WWTreeConfigured.BAOBAB.getKey() : WWTreeConfigured.BAOBAB_TALL.getKey();
@@ -51,16 +52,17 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
-			TreeGrowerInterface treeGrowerInterface = TreeGrowerInterface.class.cast(this);
-			ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
-			BlockPos pos = treeGrowerInterface.wilderWild$getPos();
-			if (level != null && pos != null) {
-				if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
-					return WWTreeConfigured.SWAMP_CYPRESS.getKey();
-				}
-				Holder<Biome> biome = level.getBiome(pos);
-				if (biome.is(BiomeTags.IS_BADLANDS)) {
-					return WWTreeConfigured.JUNIPER.getKey();
+			if ((Object) this instanceof TreeGrowerInterface treeGrowerInterface) {
+				ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
+				BlockPos pos = treeGrowerInterface.wilderWild$getPos();
+				if (level != null && pos != null) {
+					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
+						return WWTreeConfigured.SWAMP_CYPRESS.getKey();
+					}
+					Holder<Biome> biome = level.getBiome(pos);
+					if (biome.is(BiomeTags.IS_BADLANDS)) {
+						return WWTreeConfigured.JUNIPER.getKey();
+					}
 				}
 			}
 			if (random.nextFloat() > 0.4F) {

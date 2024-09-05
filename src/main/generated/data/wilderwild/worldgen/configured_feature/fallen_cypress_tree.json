@@ -46,7 +46,7 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "wilderwild:fallen_trunk_logs_placer",
+      "type": "wilderwild:fallen_with_logs_trunk_placer",
       "base_height": 3,
       "branch_chance": 0.0,
       "height_rand_a": 2,
@@ -57,8 +57,7 @@
         "state": {
           "Name": "wilderwild:cypress_log",
           "Properties": {
-            "axis": "y",
-            "termite_edible": "false"
+            "axis": "y"
           }
         }
       },
@@ -74,8 +73,7 @@
       "state": {
         "Name": "wilderwild:cypress_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

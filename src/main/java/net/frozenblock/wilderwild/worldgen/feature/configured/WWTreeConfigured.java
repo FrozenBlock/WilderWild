@@ -29,21 +29,13 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.ShelfFungusTreeDecorator;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunk;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenTrunkWithLogs;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightTrunkWithBranches;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.*;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -830,7 +822,7 @@ public final class WWTreeConfigured {
 		DEAD_OAK.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
-				new StraightTrunkWithBranches(
+				new StraightWithBranchesTrunkPlacer(
 					6,
 					2,
 					1,
@@ -854,7 +846,7 @@ public final class WWTreeConfigured {
 		DEAD_OAK_BRANCHES.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
-				new StraightTrunkWithBranches(
+				new StraightWithBranchesTrunkPlacer(
 					7,
 					2,
 					1,
@@ -1646,14 +1638,14 @@ public final class WWTreeConfigured {
 
 	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkWithBranches(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightWithBranchesTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), 3),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenTrunkBuilder(Block log, Block hollowedLog, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, IntProvider maxLogs, float hollowedChance) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, BlockStateProvider.simple(hollowedLog), logChance, 0.8F, hollowedChance, maxLogs),
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenWithLogsTrunkPlacer(baseHeight, firstRHeight, secondRHeight, BlockStateProvider.simple(hollowedLog), logChance, 0.8F, hollowedChance, maxLogs),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
@@ -1682,7 +1674,7 @@ public final class WWTreeConfigured {
 	@Contract("_, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new ShortPalmFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), BlockStateProvider.simple(WWBlocks.PALM_LOG)),
+			BlockStateProvider.simple(leaves), new FancyFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(2), 4),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
@@ -1851,7 +1843,7 @@ public final class WWTreeConfigured {
 
 	@Contract("_, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeFallenBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenLargeTrunk(baseHeight, firstRHeight, secondRHeight, 0.8F),
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenLargeTrunkPlacer(baseHeight, firstRHeight, secondRHeight, 0.8F),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}

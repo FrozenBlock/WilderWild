@@ -39,8 +39,8 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
-public class StraightTrunkWithBranches extends TrunkPlacer {
-	public static final MapCodec<StraightTrunkWithBranches> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
+	public static final MapCodec<StraightWithBranchesTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		trunkPlacerParts(instance)
 			.and(
 				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),
@@ -48,7 +48,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_height_from_top").forGetter((trunkPlacer) -> trunkPlacer.branchHeightFromTop),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
 				)
-			).apply(instance, StraightTrunkWithBranches::new));
+			).apply(instance, StraightWithBranchesTrunkPlacer::new));
 
 	private final float branchChance;
 	private final IntProvider maxLogCount;
@@ -56,7 +56,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 	private final IntProvider branchLength;
 
 
-	public StraightTrunkWithBranches(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchChance, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchHeightFromTop, @NotNull IntProvider branchLength) {
+	public StraightWithBranchesTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchChance, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchHeightFromTop, @NotNull IntProvider branchLength) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.branchChance = branchChance;
 		this.maxLogCount = maxLogCount;
@@ -67,7 +67,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.STRAIGHT_TRUNK_WITH_LOGS_PLACER;
+		return WWFeatures.STRAIGHT_WITH_LOGS_TRUNK_PLACER;
 	}
 
 	@Override

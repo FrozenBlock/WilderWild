@@ -80,8 +80,7 @@
       "state": {
         "Name": "minecraft:cherry_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

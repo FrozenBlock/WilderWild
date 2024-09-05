@@ -9,18 +9,9 @@
       }
     },
     "foliage_placer": {
-      "type": "wilderwild:short_palm_foliage_placer",
-      "crown_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "wilderwild:palm_log",
-          "Properties": {
-            "axis": "y",
-            "termite_edible": "false"
-          }
-        }
-      },
-      "offset": 0,
+      "type": "minecraft:fancy_foliage_placer",
+      "height": 4,
+      "offset": 2,
       "radius": 2
     },
     "foliage_provider": {
@@ -53,8 +44,7 @@
       "state": {
         "Name": "wilderwild:palm_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

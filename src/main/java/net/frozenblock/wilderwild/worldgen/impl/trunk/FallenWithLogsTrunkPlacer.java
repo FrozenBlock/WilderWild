@@ -43,9 +43,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class FallenTrunkWithLogs extends TrunkPlacer {
-	public static final MapCodec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
+public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
+	public static final MapCodec<FallenWithLogsTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+		fallenTrunkCodec(instance).apply(instance, FallenWithLogsTrunkPlacer::new));
 
 	public final BlockStateProvider hollowedState;
 	public final float branchChance;
@@ -53,7 +53,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	public final float hollowedLogChance;
 	public final float successInWaterChance;
 
-	public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float branchChance, float successInWaterChance, float hollowedLogProbability, @NotNull IntProvider maxBranchCount) {
+	public FallenWithLogsTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float branchChance, float successInWaterChance, float hollowedLogProbability, @NotNull IntProvider maxBranchCount) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.hollowedState = hollowedState;
 		this.branchChance = branchChance;
@@ -63,7 +63,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	}
 
 	@Contract("_ -> new")
-	protected static <P extends FallenTrunkWithLogs> Products.@NotNull P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider, Float, Float, Float, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+	protected static <P extends FallenWithLogsTrunkPlacer> Products.@NotNull P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider, Float, Float, Float, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 			.and(BlockStateProvider.CODEC.fieldOf("hollowed_state").forGetter((trunkPlacer) -> trunkPlacer.hollowedState))
 			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance))
@@ -79,7 +79,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER;
+		return WWFeatures.FALLEN_WITH_LOGS_TRUNK_PLACER;
 	}
 
 	@Override

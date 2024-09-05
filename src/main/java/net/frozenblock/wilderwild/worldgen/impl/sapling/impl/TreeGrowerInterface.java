@@ -16,22 +16,15 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.worldgen.impl.sapling;
+package net.frozenblock.wilderwild.worldgen.impl.sapling.impl;
 
-import java.util.Set;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.server.level.ServerLevel;
 
-public interface TreeFeatureLeavesUpdate {
+public interface TreeGrowerInterface {
 
-	DiscreteVoxelShape wilderWild$updateLeaves(
-		LevelAccessor level,
-		@NotNull BoundingBox box,
-		Set<BlockPos> rootPositions,
-		Set<BlockPos> trunkPositions,
-		Set<BlockPos> foliagePositions
-	);
+	ServerLevel wilderWild$getLevel();
+
+	BlockPos wilderWild$getPos();
+
 }
