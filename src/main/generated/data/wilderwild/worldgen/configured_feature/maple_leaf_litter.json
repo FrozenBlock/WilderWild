@@ -1,10 +1,10 @@
 {
   "type": "frozenlib:fading_disk_carpet_feature",
   "config": {
-    "fade_start_distance_percent": 0.65,
+    "fade_start_distance_percent": 0.5,
     "heightmap": "MOTION_BLOCKING_NO_LEAVES",
     "inner_chance": 0.65,
-    "inner_percent": 0.925,
+    "inner_percent": 0.5,
     "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -23,7 +23,7 @@
         }
       }
     },
-    "placement_chance": 0.95,
+    "placement_chance": 0.75,
     "radius": {
       "type": "minecraft:uniform",
       "max_inclusive": 5,

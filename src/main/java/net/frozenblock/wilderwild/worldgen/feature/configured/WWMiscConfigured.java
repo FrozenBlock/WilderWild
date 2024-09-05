@@ -967,10 +967,10 @@ public final class WWMiscConfigured {
 				BlockStateProvider.simple(WWBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
 				BlockStateProvider.simple(WWBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
 				UniformInt.of(2, 5),
-				0.95F,
-				0.925F,
+				0.75F,
+				0.5F,
 				0.65F,
-				0.65F,
+				0.5F,
 				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
 			)
 		);
