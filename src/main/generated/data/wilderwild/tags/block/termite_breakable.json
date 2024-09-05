@@ -5,6 +5,10 @@
       "required": false
     },
     {
+      "id": "#wilderwild:leaf_litters",
+      "required": false
+    },
+    {
       "id": "#wilderwild:stripped_hollowed_logs",
       "required": false
     },

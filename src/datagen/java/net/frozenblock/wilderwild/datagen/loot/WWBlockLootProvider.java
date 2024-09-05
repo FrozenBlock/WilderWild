@@ -694,6 +694,14 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MOSSY_MUD_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_MUD_BRICK_WALL);
 
+		this.add(WWBlocks.OAK_LEAF_LITTER,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(WWBlocks.OAK_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
+				)
+		);
 		this.add(WWBlocks.MAPLE_LEAF_LITTER,
 			LootTable.lootTable()
 				.withPool(

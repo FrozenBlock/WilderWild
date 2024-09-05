@@ -73,6 +73,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
+		WWModelHelper.createLeafLitter(generator, WWBlocks.OAK_LEAF_LITTER, Blocks.OAK_LEAVES);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.MAPLE_LEAF_LITTER);
 
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG, Blocks.STRIPPED_OAK_LOG, Blocks.OAK_LOG);

@@ -376,7 +376,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateTags() {
-		this.getOrCreateTagBuilder(WWBlockTags.LEAF_CARPETS)
+		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTERS)
+			.add(WWBlocks.OAK_LEAF_LITTER)
 			.add(WWBlocks.MAPLE_LEAF_LITTER);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BAOBAB_LOGS)
@@ -777,6 +778,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_BREAKABLE)
 			.addOptionalTag(BlockTags.LEAVES)
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
 			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS)
 			.add(Blocks.BAMBOO)
 			.add(Blocks.DEAD_BUSH)
@@ -901,13 +903,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
-			.addOptionalTag(WWBlockTags.LEAF_CARPETS);
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
-			.addOptionalTag(WWBlockTags.LEAF_CARPETS);
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
-			.addOptionalTag(WWBlockTags.LEAF_CARPETS)
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
 			.add(WWBlocks.BUSH);
 	}
 }

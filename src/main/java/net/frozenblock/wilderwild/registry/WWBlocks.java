@@ -211,13 +211,9 @@ public final class WWBlocks {
 	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
 
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
-
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
-
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
-
 	public static final Block MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
-	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -244,6 +240,17 @@ public final class WWBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_MANGROVE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_MANGROVE_LOG.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
+
+	// LEAF LITTER
+	public static final LeafLitterBlock OAK_LEAF_LITTER = leafLitter(
+		Blocks.OAK_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		2.5F
+	);
+	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
 
 	// SCULK
 	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
@@ -1107,6 +1114,8 @@ public final class WWBlocks {
 		registerBlock("potted_bush", POTTED_BUSH);
 		registerBlock("prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlock("potted_prickly_pear", POTTED_PRICKLY_PEAR);
+
+		registerBlockAfter(Blocks.OAK_LEAVES, "oak_leaf_litter", OAK_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerNotSoPlants() {
@@ -1462,7 +1471,6 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
@@ -1477,6 +1485,9 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(OAK_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_LITTER, 0.1F);
+
 	}
 
 	private static void registerFlammability() {
@@ -1600,6 +1611,8 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(WWBlocks.MAPLE_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(WWBlocks.MAPLE_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(WWBlocks.MAPLE_WALL_HANGING_SIGN, 5, 20);
+
+		flammableBlockRegistry.add(WWBlocks.OAK_LEAF_LITTER, 200, 60);
 	}
 
 	private static void registerFuels() {

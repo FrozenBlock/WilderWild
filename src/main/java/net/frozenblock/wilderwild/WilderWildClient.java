@@ -223,6 +223,8 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED, RenderType.cutout());
+
+		renderLayerRegistry.putBlock(WWBlocks.OAK_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();

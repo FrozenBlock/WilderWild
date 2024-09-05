@@ -130,7 +130,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> FOLIATED_GRASS_DISK_REPLACEABLE = bind("foliated_grass_disk_replaceable");
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Block> NEMATOCYSTS = bind("nematocysts");
-	public static final TagKey<Block> LEAF_CARPETS = bind("leaf_carpets");
+	public static final TagKey<Block> LEAF_LITTERS = bind("leaf_litters");
 
 	private WWBlockTags() {
 		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");
