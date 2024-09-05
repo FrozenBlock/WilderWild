@@ -44,8 +44,11 @@ import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkPlacer;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -244,7 +247,8 @@ public final class WWTreeConfigured {
 		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
 	}
 
-	public static void registerTreeConfigured() {
+	public static void registerTreeConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+		HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
 		WWConstants.logWithModId("Registering WilderTreeConfigured for", true);
 
@@ -800,7 +804,7 @@ public final class WWTreeConfigured {
 		);
 
 		FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-			fancySemiDeadOak().decorators(
+			fancySemiDeadOak(blocks).decorators(
 				List.of(
 					SHELF_FUNGUS_002,
 					VINES_012_UNDER_260
@@ -809,7 +813,7 @@ public final class WWTreeConfigured {
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-			smallFancySemiDeadOak().decorators(
+			smallFancySemiDeadOak(blocks).decorators(
 				List.of(
 					SHELF_FUNGUS_002,
 					VINES_012_UNDER_260
@@ -818,7 +822,7 @@ public final class WWTreeConfigured {
 		);
 
 		SMALL_FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-			smallFancySemiDeadOak().decorators(
+			smallFancySemiDeadOak(blocks).decorators(
 				List.of(
 					SHELF_FUNGUS_002,
 					VINES_012_UNDER_260
@@ -989,7 +993,7 @@ public final class WWTreeConfigured {
 							new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)
 						),
 						new MangroveRootPlacement(
-							BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
+							blocks.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
 							HolderSet.direct(
 								Block::builtInRegistryHolder,
 								Blocks.MUD
@@ -1413,7 +1417,7 @@ public final class WWTreeConfigured {
 					UniformInt.of(4, 5),
 					0.2F,
 					UniformInt.of(1, 3),
-					BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+					blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 				),
 				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14),
@@ -1753,8 +1757,8 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(10, 6, 1, UniformInt.of(3, 5), 0.3F, UniformInt.of(3, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
+	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak(HolderGetter<Block> blocks) {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(10, 6, 1, UniformInt.of(3, 5), 0.3F, UniformInt.of(3, 5), blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
 	}
 
 	@NotNull
@@ -1763,8 +1767,8 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder smallFancySemiDeadOak() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(7, 3, 1, UniformInt.of(2, 4), 0.3F, UniformInt.of(2, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
+	private static TreeConfiguration.TreeConfigurationBuilder smallFancySemiDeadOak(HolderGetter<Block> blocks) {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(7, 3, 1, UniformInt.of(2, 4), 0.3F, UniformInt.of(2, 5), blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
 	}
 
 	@NotNull

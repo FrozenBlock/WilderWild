@@ -39,6 +39,7 @@ public class AncientHornProjectileModel extends Model {
 	private static final float BONE_PITCH_YAW = 1.57079632F;
 	private static final float PULSE_2_EXTRA = 8F / 1.5F;
 	private static final float PULSE_3_EXTRA = 8F / 3F;
+	private final ModelPart root;
 	private final ModelPart bone;
 	private final ModelPart front;
 	private final ModelPart middle;
@@ -48,6 +49,7 @@ public class AncientHornProjectileModel extends Model {
 
 	public AncientHornProjectileModel(@NotNull ModelPart root) {
 		super(FrozenRenderType::entityTranslucentEmissiveFixed);
+		this.root = root;
 		this.bone = root.getChild("bone");
 		this.front = bone.getChild("front");
 		this.middle = bone.getChild("middle");
@@ -65,7 +67,7 @@ public class AncientHornProjectileModel extends Model {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	@Override
+	/*@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		float aliveDelta = this.projectile.getAliveTicks() + this.partialTick;
 
@@ -86,5 +88,11 @@ public class AncientHornProjectileModel extends Model {
 		this.back.z = pulse2 * 2F + 2F;
 
 		this.bone.render(poseStack, buffer, packedLight, packedOverlay, color);
+	}*/
+
+	@Override
+	@NotNull
+	public ModelPart root() {
+		return this.root;
 	}
 }

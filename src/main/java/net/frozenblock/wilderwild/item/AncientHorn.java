@@ -49,7 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AncientHorn extends InstrumentItem {
-	public static final ResourceLocation ID = WilderConstants.id("ancient_horn");
+	public static final ResourceLocation ID = WWConstants.id("ancient_horn");
 	public static final int MIN_BUBBLES = 10;
 	public static final int MAX_BUBBLES = 25;
 
@@ -67,7 +67,7 @@ public class AncientHorn extends InstrumentItem {
 	public static int decreaseCooldown(@NotNull Player user, int time) {
 		if (!user.isCreative()) {
 			ItemCooldowns manager = user.getCooldowns();
-			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(WWItems.ANCIENT_HORN);
+			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(AncientHorn.ID);
 			if (entry != null) {
 				int between = entry.endTime - entry.startTime;
 				if (between > 140 && between >= time) {
@@ -121,11 +121,4 @@ public class AncientHorn extends InstrumentItem {
 			return InteractionResult.FAIL;
 		}
 	}
-
-	@Override
-	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
-		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack, livingEntity.registryAccess());
-		return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
-	}
-
 }

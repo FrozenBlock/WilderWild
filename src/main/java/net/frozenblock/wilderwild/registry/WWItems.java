@@ -129,7 +129,7 @@ public final class WWItems {
 	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(WWEntities.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
 	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(WWFood.CRAB_CLAW));
 	public static final Item COOKED_CRAB_CLAW = new Item(new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));
-	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(WWFood.SCORCHED_EYE));
+	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(WWFood.SCORCHED_EYE, WWFood.SCORCHED_EYE_CONSUMABLE));
 	public static final Item FERMENTED_SCORCHED_EYE = new Item(new Item.Properties());
 	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new Item.Properties().stacksTo(64));
 	// SPAWN EGGS

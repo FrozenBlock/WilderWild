@@ -337,9 +337,9 @@ public class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.matchesTag(WWBlockTags.NETHER_GEYSER_REPLACEABLE),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal().above(), Fluids.LAVA),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal().above().above(), Fluids.LAVA)
+					BlockPredicate.matchesFluids(Direction.UP.getUnitVec3i(), Fluids.LAVA),
+					BlockPredicate.matchesFluids(Direction.UP.getUnitVec3i().above(), Fluids.LAVA),
+					BlockPredicate.matchesFluids(Direction.UP.getUnitVec3i().above().above(), Fluids.LAVA)
 				),
 				BlockPredicate.replaceable(),
 				12

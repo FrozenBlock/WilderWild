@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -64,6 +65,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.NotNull;
@@ -416,8 +418,8 @@ public final class CrabAi {
 	}
 
 	@NotNull
-	public static Ingredient getTemptations() {
-		return Ingredient.of(WWItemTags.CRAB_FOOD);
+	public static Predicate<ItemStack> getTemptations() {
+		return itemStack -> itemStack.is(WWItemTags.CRAB_FOOD);
 	}
 
 	public static int getRandomDigCooldown(@NotNull LivingEntity entity) {

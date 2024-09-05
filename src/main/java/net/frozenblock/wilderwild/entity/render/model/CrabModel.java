@@ -23,7 +23,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.render.animation.CrabAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -34,7 +35,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
-public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
+public class CrabModel extends EntityModel<CrabRenderState> {
 	private static final float DOUBLE_PI = Mth.PI * 2F;
 	private static final float RAD_50 = 50F * Mth.DEG_TO_RAD;
 
@@ -112,29 +113,29 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 85F;
-		this.scale = entity.getAgeScale();
-	}
-
-	@Override
-	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(CrabRenderState renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.hidingAnimationState, CrabAnimations.CRAB_EMERGE_WAIT, ageInTicks);
-		this.animate(entity.diggingAnimationState, CrabAnimations.CRAB_DIG, ageInTicks);
-		this.animate(entity.emergingAnimationState, CrabAnimations.CRAB_EMERGE, ageInTicks);
-		bobClaw(this.main_claw, ageInTicks, 2F);
-		bobClaw(this.left_claw, ageInTicks, -2F);
+		this.xRot = renderState.climbXRot;
+		this.scale = renderState.ageScale;
 
-		float movementDelta = Math.min(limbSwingAmount * 4F, 1F);
-		limbSwing *= 4.75F;
-		float fastAngle = limbSwing * 0.3331F;
-		float limbSwing5 = Math.min(1F, limbSwingAmount * 5) * 0.5F;
+		this.animate(renderState.hidingAnimationState, CrabAnimations.CRAB_EMERGE_WAIT, renderState.ageInTicks);
+		this.animate(renderState.diggingAnimationState, CrabAnimations.CRAB_DIG, renderState.ageInTicks);
+		this.animate(renderState.emergingAnimationState, CrabAnimations.CRAB_EMERGE, renderState.ageInTicks);
+
+		float walkPos = renderState.walkAnimationPos;
+		float walkSpeed = renderState.walkAnimationSpeed;
+		bobClaw(this.main_claw, renderState.ageInTicks, 2F);
+		bobClaw(this.left_claw, renderState.ageInTicks, -2F);
+
+		float movementDelta = Math.min(walkSpeed * 4F, 1F);
+		walkPos *= 4.75F;
+		float fastAngle = walkPos * 0.3331F;
+		float limbSwing5 = Math.min(1F, walkSpeed * 5) * 0.5F;
 		float fastAngleSin = Math.sin(fastAngle);
 		float walkA = Mth.lerp(movementDelta, 0F, ((1F - fastAngleSin) * limbSwing5) - 0.5F);
 		float walkB = Mth.lerp(movementDelta, 0F, ((1F + fastAngleSin) * limbSwing5) - 0.5F);
 
-		float legRoll = Math.sin(fastAngle) * 0.4F * limbSwingAmount;
+		float legRoll = Math.sin(fastAngle) * 0.4F * walkSpeed;
 		float lerpedWalkA = Mth.lerp(walkA, -legRoll, RAD_50);
 		float lerpedWalkB = Mth.lerp(walkB, legRoll, RAD_50);
 		this.back_right_leg.zRot += lerpedWalkA;
@@ -153,7 +154,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.y -= walkA;
 		this.front_left_leg.y -= walkB;
 
-		float fastAngleDelayed = (float) ((limbSwing + Math.PI) * 0.3331F);
+		float fastAngleDelayed = (float) ((walkPos + Math.PI) * 0.3331F);
 		float fastAngleDelayedSin = Math.sin(fastAngleDelayed);
 		float walkADelayed = Mth.lerp(movementDelta, 0F, (((1F - fastAngleDelayedSin) * limbSwing5) - 0.5F));
 		float walkBDelayed = Mth.lerp(movementDelta, 0F, (((1F + fastAngleDelayedSin) * limbSwing5) - 0.5F));
@@ -170,8 +171,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.legs.zRot += climbRotRadians;
 
 		//Attack Anim
-		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (DOUBLE_PI)) * -0.2F;
-		float attackSin = Mth.sin(this.attackTime * (float) Math.PI);
+		this.body.yRot = Mth.sin(Mth.sqrt(renderState.attackTime) * (DOUBLE_PI)) * -0.2F;
+		float attackSin = Mth.sin(renderState.attackTime * (float) Math.PI);
 		this.main_claw.x += attackSin * 1.5F;
 		this.main_claw.xRot += attackSin * -80F * Mth.DEG_TO_RAD;
 		this.main_claw.yRot += attackSin * 100F * Mth.DEG_TO_RAD;
@@ -180,7 +181,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.claw_bottom.zRot -= this.claw_top.zRot;
 	}
 
-	@Override
+	/*@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		poseStack.pushPose();
 		poseStack.translate(0F, 1.3F, 0F);
@@ -188,7 +189,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		poseStack.scale(this.scale, this.scale, this.scale);
 		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
-	}
+	}*/
 
 	@Override
 	@NotNull

@@ -294,8 +294,8 @@ public final class WWMiscConfigured {
 						new RuleBasedBlockStateProvider.Rule(
 							BlockPredicate.not(
 								BlockPredicate.anyOf(
-									BlockPredicate.solid(Direction.UP.getNormal()),
-									BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.WATER)
+									BlockPredicate.solid(Direction.UP.getUnitVec3i()),
+									BlockPredicate.matchesFluids(Direction.UP.getUnitVec3i(), Fluids.WATER)
 								)
 							),
 							BlockStateProvider.simple(Blocks.MUD)

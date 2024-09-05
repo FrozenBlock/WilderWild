@@ -27,6 +27,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -119,7 +120,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void spawnOstrich(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		Ostrich ostrich = WWEntities.OSTRICH.create(level);
+		Ostrich ostrich = WWEntities.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 		if (ostrich != null) {
 			ostrich.setBaby(true);
 			ostrich.moveTo(

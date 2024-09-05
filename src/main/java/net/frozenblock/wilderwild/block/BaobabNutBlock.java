@@ -98,7 +98,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		Vec3 vec3d = state.getOffset(level, pos);
+		Vec3 vec3d = state.getOffset(pos);
 		VoxelShape voxelShape;
 		if (!state.getValue(HANGING)) {
 			voxelShape = SHAPES[4];

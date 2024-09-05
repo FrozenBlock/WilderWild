@@ -64,7 +64,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		CattailFeatureConfig config = context.config();
 		int posX = blockPos.getX();
 		int posZ = blockPos.getZ();
-		int maxHeight = level.getMaxBuildHeight() - 1;
+		int maxHeight = level.getMaxY() - 1;
 		BlockPos.MutableBlockPos bottomBlockPos = blockPos.mutable();
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
 		BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);

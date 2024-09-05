@@ -99,12 +99,13 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level instanceof ServerLevel) {
 			if (hasColor(state) && stack.is(Items.SHEARS)) {
 				shear(level, pos, state, player);
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
@@ -114,7 +115,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		VoxelShape shape = state.getValue(COLOR_STATE) == FlowerColor.NONE ? SHAPE : GROWN_SHAPE;
-		Vec3 vec3d = state.getOffset(level, pos);
+		Vec3 vec3d = state.getOffset(pos);
 		return shape.move(vec3d.x, vec3d.y, vec3d.z);
 	}
 

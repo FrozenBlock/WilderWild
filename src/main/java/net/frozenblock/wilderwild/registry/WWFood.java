@@ -21,6 +21,9 @@ package net.frozenblock.wilderwild.registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
 public final class WWFood {
 	public static final FoodProperties BAOBAB_NUT = new FoodProperties.Builder().nutrition(1).saturationModifier(0.2F).build();
@@ -31,7 +34,10 @@ public final class WWFood {
 	public static final FoodProperties SCORCHED_EYE = new FoodProperties.Builder()
 		.nutrition(3)
 		.saturationModifier(0.8F)
-		.effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1F)
+		.build();
+
+	public static final Consumable SCORCHED_EYE_CONSUMABLE = Consumables.defaultFood()
+		.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1F))
 		.build();
 
 	private WWFood() {

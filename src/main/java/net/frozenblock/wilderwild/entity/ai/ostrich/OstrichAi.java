@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -63,7 +64,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -329,8 +330,8 @@ public class OstrichAi {
 		return SPEED_MULTIPLIER_WHEN_ATTACKING;
 	}
 
-	public static Ingredient getTemptations() {
-		return Ostrich.TEMPTATION_ITEM;
+	public static Predicate<ItemStack> getTemptations() {
+		return itemStack -> itemStack.is(WWItemTags.OSTRICH_FOOD);
 	}
 
 }

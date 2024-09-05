@@ -52,6 +52,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -213,7 +214,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	private void doFireflySpawns(@NotNull Level level) {
 		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (Occupant firefly : this.getFireflies()) {
-			Firefly entity = WWEntities.FIREFLY.create(level);
+			Firefly entity = WWEntities.FIREFLY.create(level, EntitySpawnReason.LOAD);
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
 				entity.setFromBottle(true);

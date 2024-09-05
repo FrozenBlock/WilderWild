@@ -201,7 +201,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			addWindDisturbanceToClient(baseWindDisturbance);
 		}
 
-		Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
+		Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 		for (Entity entity : entities) {
 			AABB boundingBox = entity.getBoundingBox();
 			if (eruption.intersects(boundingBox)) {

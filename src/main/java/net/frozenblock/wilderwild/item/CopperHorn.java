@@ -81,11 +81,4 @@ public class CopperHorn extends InstrumentItem {
 			return InteractionResult.FAIL;
 		}
 	}
-
-	@Override
-	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
-		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
-		return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
-	}
-
 }

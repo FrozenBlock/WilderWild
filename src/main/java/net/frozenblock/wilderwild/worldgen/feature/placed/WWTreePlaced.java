@@ -35,7 +35,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 public final class WWTreePlaced {
 	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
-		Direction.DOWN.getNormal(),
+		Direction.DOWN.getUnitVec3i(),
 		Blocks.SNOW_BLOCK,
 		Blocks.POWDER_SNOW
 	);
@@ -155,7 +155,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SNAPPED_CYPRESS_CHECKED = WWPlacementUtils.register("snapped_cypress_checked");
 	//TREE ON SAND
 	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(
-		Direction.DOWN.getNormal(),
+		Direction.DOWN.getUnitVec3i(),
 		Blocks.RED_SAND,
 		Blocks.SAND,
 		Blocks.GRASS_BLOCK
@@ -247,11 +247,11 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_BIRCH_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_BIRCH_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_BIRCH.getHolder(),
@@ -289,15 +289,15 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_CHERRY_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_CHERRY_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// MAPLE
@@ -327,15 +327,15 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_MAPLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// OAK
@@ -385,27 +385,27 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_OAK_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		FALLEN_OAK_NO_MOSS_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_OAK_TREE_NO_MOSS.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_OAK_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_STRAIGHT_OAK_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		CLEAN_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		OLD_DYING_FANCY_OAK_BEES_0004.makeAndSetHolder(WWTreeConfigured.OLD_FANCY_DYING_OAK_BEES_0004.getHolder(),
@@ -469,7 +469,7 @@ public final class WWTreePlaced {
 		);
 
 		LARGE_FALLEN_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_DARK_OAK.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		LARGE_SNAPPED_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_DARK_OAK.getHolder(),
@@ -521,7 +521,7 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SHORT_MEGA_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_SPRUCE.getHolder(),
@@ -573,11 +573,11 @@ public final class WWTreePlaced {
 		);
 
 		DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.DECORATED_LARGE_FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_LARGE_FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// BAOBAB
@@ -613,7 +613,7 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_CYPRESS_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CYPRESS.getHolder(),
@@ -657,7 +657,7 @@ public final class WWTreePlaced {
 		);
 
 		FALLEN_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// JUNIPER
@@ -669,7 +669,7 @@ public final class WWTreePlaced {
 		//JUNGLE
 
 		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_JUNGLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_JUNGLE.getHolder(),
@@ -677,7 +677,7 @@ public final class WWTreePlaced {
 		);
 
 		LARGE_FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_JUNGLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		LARGE_SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_JUNGLE.getHolder(),
@@ -687,7 +687,7 @@ public final class WWTreePlaced {
 		//ACACIA
 
 		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_ACACIA_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_ACACIA_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_ACACIA.getHolder(),
@@ -697,7 +697,7 @@ public final class WWTreePlaced {
 		//MANGROVE
 
 		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MANGROVE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// TREE ON GRASS

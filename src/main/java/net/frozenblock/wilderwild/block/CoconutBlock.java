@@ -151,7 +151,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		Vec3 vec3d = state.getOffset(level, pos);
+		Vec3 vec3d = state.getOffset(pos);
 		VoxelShape voxelShape;
 		if (!state.getValue(HANGING)) {
 			voxelShape = SHAPES[3];
@@ -209,7 +209,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	public boolean propagatesSkylightDown(@NotNull BlockState state) {
 		return state.getFluidState().isEmpty();
 	}
 
@@ -240,7 +240,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (pos.getY() < level.getMinBuildHeight() || state.is(this) && !isHanging(state)) {
+		if (pos.getY() < level.getMinY() || state.is(this) && !isHanging(state)) {
 			return;
 		}
 		if (state.is(this) && isHanging(state) && !state.canSurvive(level, pos)) {

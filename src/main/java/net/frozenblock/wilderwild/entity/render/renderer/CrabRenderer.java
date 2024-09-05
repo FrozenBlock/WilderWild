@@ -27,9 +27,10 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
-public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
+public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {
 	private static final ResourceLocation CRAB_LOCATION = WWConstants.id("textures/entity/crab/crab.png");
 	private static final ResourceLocation CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
 
@@ -38,12 +39,12 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	}
 
 	public CrabRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
-		super(context, new CrabModel<>(context.bakeLayer(layer)), 0.3F);
+		super(context, new CrabModel(context.bakeLayer(layer)), 0.3F);
 	}
 
 	@Override
-	protected void setupRotations(@NotNull T crab, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
-		poseStack.translate(0D, crab.isBaby() ? -0.1D : 0D, 0D);
+	protected void setupRotations(CrabRenderState renderState, @NotNull PoseStack poseStack, float f, float g) {
+		poseStack.translate(0D, renderState.isBaby ? -0.1D : 0D, 0D);
 		/*
 		float newYaw = Mth.lerp(
 			Mth.lerp(partialTicks, crab.prevClimbDirectionAmount, crab.climbDirectionAmount),
@@ -51,19 +52,35 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 			Mth.lerp(partialTicks, crab.prevClimbAnimY, crab.climbAnimY)
 		);
 		 */
-		super.setupRotations(crab, poseStack, ageInTicks, rotationYaw, partialTicks, scale);
+		super.setupRotations(renderState, poseStack, f, g);
 	}
 
 	@Override
-	protected float getFlipDegrees(@NotNull T livingEntity) {
+	protected float getFlipDegrees() {
 		return 180F;
 	}
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return !entity.isDitto() ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
+	public ResourceLocation getTextureLocation(CrabRenderState entity) {
+		return !entity.isDitto ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
 	}
 
+	@Override
+	@NotNull
+	public CrabRenderState createRenderState() {
+		return new CrabRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Crab entity, CrabRenderState renderState, float partialTick) {
+		super.extractRenderState(entity, renderState, partialTick);
+		renderState.climbXRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 85F;
+		renderState.attackTime = entity.getAttackAnim(partialTick);
+		renderState.isDitto = entity.isDitto();
+		renderState.hidingAnimationState.copyFrom(entity.hidingAnimationState);
+		renderState.diggingAnimationState.copyFrom(entity.diggingAnimationState);
+		renderState.emergingAnimationState.copyFrom(entity.emergingAnimationState);
+	}
 }
 

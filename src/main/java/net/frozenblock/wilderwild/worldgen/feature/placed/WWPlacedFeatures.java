@@ -368,13 +368,13 @@ public final class WWPlacedFeatures {
 		);
 
 		FALLEN_PALM_PLACED.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)),
 			RarityFilter.onAverageOnceEvery(60), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)),
 			RarityFilter.onAverageOnceEvery(135), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);

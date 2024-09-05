@@ -62,6 +62,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
@@ -334,7 +335,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public int getLightBlock(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+	public int getLightBlock(@NotNull BlockState blockState) {
 		return blockState.getValue(WATERLOGGED) ? WATERLOGGED_LIGHT_BLOCK : LIGHT_BLOCK;
 	}
 
@@ -369,7 +370,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos neighborPos, boolean movedByPiston) {
+	protected void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
 		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			level.scheduleTick(pos, this, TICK_DELAY);
 		}

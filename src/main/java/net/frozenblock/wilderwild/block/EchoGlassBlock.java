@@ -132,13 +132,13 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+	protected boolean propagatesSkylightDown(BlockState blockState) {
 		return false;
 	}
 
 	@Override
-	public int getLightBlock(BlockState state, @NotNull BlockGetter level, BlockPos pos) {
-		return level.getMaxLightLevel();
+	public int getLightBlock(BlockState state) {
+		return 15;
 	}
 
 	@Override

@@ -57,7 +57,7 @@ public class WWFeatureBootstrap {
 
 		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
-		WWTreeConfigured.registerTreeConfigured();
+		WWTreeConfigured.registerTreeConfigured(entries);
 		WWMiscConfigured.registerMiscConfigured();
 		WWCaveConfigured.registerCaveConfigured(entries);
 		WWConfiguredFeatures.registerConfiguredFeatures(entries);

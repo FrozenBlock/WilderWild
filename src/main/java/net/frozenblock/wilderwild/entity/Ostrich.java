@@ -38,7 +38,6 @@ import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -76,7 +75,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -121,7 +119,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<Integer> BEAK_COOLDOWN = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
 	public static final EntityDataAccessor<Integer> STUCK_TICKS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
-	public final Ingredient temptationItem;
 	public boolean attackHasCommander;
 	public boolean commanderWasPlayer;
 	private float prevStraightProgress;
@@ -141,7 +138,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
-		this.temptationItem = Ingredient.of(level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(WWItemTags.OSTRICH_FOOD));
 		this.moveControl = new OstrichMoveControl(this);
 		this.lookControl = new OstrichLookControl(this);
 		GroundPathNavigation groundPathNavigation = (GroundPathNavigation) this.getNavigation();
@@ -548,7 +544,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public boolean isFood(@NotNull ItemStack stack) {
-		return this.temptationItem.test(stack);
+		return stack.is(WWItemTags.OSTRICH_FOOD);
 	}
 
 	@Override
