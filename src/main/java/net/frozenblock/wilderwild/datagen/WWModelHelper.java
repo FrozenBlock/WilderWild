@@ -69,12 +69,12 @@ public class WWModelHelper {
 	public static void createHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideSource, Block insideSource, Block endSource) {
 		TextureMapping sideTextureMapping = TextureMapping.logColumn(sideSource);
 		TextureMapping insideTextureMapping = TextureMapping.logColumn(insideSource);
-		TextureMapping endTextureMaping = TextureMapping.logColumn(endSource);
+		TextureMapping endTextureMapping = TextureMapping.logColumn(endSource);
 
 		TextureMapping hollowedTextureMapping = new TextureMapping();
 		hollowedTextureMapping.put(TextureSlot.SIDE, sideTextureMapping.get(TextureSlot.SIDE));
 		hollowedTextureMapping.put(TextureSlot.INSIDE, insideTextureMapping.get(TextureSlot.SIDE));
-		hollowedTextureMapping.put(TextureSlot.END, endTextureMaping.get(TextureSlot.END));
+		hollowedTextureMapping.put(TextureSlot.END, endTextureMapping.get(TextureSlot.END));
 
 		ResourceLocation modelId = HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
 		MultiVariantGenerator multiVariantGenerator = MultiVariantGenerator.multiVariant(hollowedLog)
