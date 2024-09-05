@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.datagen.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.datagen.model.WWModelProvider;
 import net.frozenblock.wilderwild.datagen.recipe.WWRecipeProvider;
+import net.frozenblock.wilderwild.datagen.registry.WWInstrumentRegistry;
 import net.frozenblock.wilderwild.datagen.tag.WWBiomeTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWBlockTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWDamageTypeTagProvider;
@@ -78,6 +79,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.DAMAGE_TYPE, WWDamageTypes::bootstrap);
+		registryBuilder.add(Registries.INSTRUMENT, WWInstrumentRegistry::bootstrap);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, WWFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, WWFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, WWWorldgen::bootstrap);

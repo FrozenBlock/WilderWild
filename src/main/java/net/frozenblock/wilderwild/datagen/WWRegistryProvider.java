@@ -34,8 +34,10 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 	@Override
 	protected void configure(@NotNull HolderLookup.Provider registries, @NotNull Entries entries) {
 		final var damageTypes = registries.lookupOrThrow(Registries.DAMAGE_TYPE);
+		final var instruments = registries.lookupOrThrow(Registries.INSTRUMENT);
 
 		entries.addAll(damageTypes);
+		entries.addAll(instruments);
 
 		WWFeatureBootstrap.bootstrap(entries);
 	}

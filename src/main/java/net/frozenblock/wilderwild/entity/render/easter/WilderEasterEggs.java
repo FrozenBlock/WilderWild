@@ -23,25 +23,29 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.EntityTextureOverride;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.client.renderer.entity.AxolotlRenderer;
+import net.minecraft.client.renderer.entity.DolphinRenderer;
+import net.minecraft.client.renderer.entity.FrogRenderer;
+import net.minecraft.client.renderer.entity.GoatRenderer;
+import net.minecraft.client.renderer.entity.WardenRenderer;
 
 @Environment(EnvType.CLIENT)
 public class WilderEasterEggs {
 
 	public static void hatchEasterEggs() {
-		EntityTextureOverride.register(WWConstants.id("stella_warden"), EntityType.WARDEN, WWConstants.id("textures/entity/warden/stella_warden.png"),
+		EntityTextureOverride.register(WWConstants.id("stella_warden"), WardenRenderer.class, WWConstants.id("textures/entity/warden/stella_warden.png"),
 			(entity -> entity instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella())
 		);
-		EntityTextureOverride.register(WWConstants.id("treetrain1_goat"), EntityType.GOAT, WWConstants.id("textures/entity/goat/treetrain1_goat.png"),
+		EntityTextureOverride.register(WWConstants.id("treetrain1_goat"), GoatRenderer.class, WWConstants.id("textures/entity/goat/treetrain1_goat.png"),
 			true, "Treetrain1", "Treetrain"
 		);
-		EntityTextureOverride.register(WWConstants.id("xfrtrex_frog"), EntityType.FROG, WWConstants.id("textures/entity/frog/sus_frog.png"),
+		EntityTextureOverride.register(WWConstants.id("xfrtrex_frog"), FrogRenderer.class, WWConstants.id("textures/entity/frog/sus_frog.png"),
 			"Xfrtrex", "BluePhoenixLOL"
 		);
-		EntityTextureOverride.register(WWConstants.id("saisho_axolotl"), EntityType.AXOLOTL, WWConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
+		EntityTextureOverride.register(WWConstants.id("saisho_axolotl"), AxolotlRenderer.class, WWConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
 			true, "Saisho"
 		);
-		EntityTextureOverride.register(WWConstants.id("alex_dolphin"), EntityType.DOLPHIN, WWConstants.id("textures/entity/dolphin/alex_dolphin.png"),
+		EntityTextureOverride.register(WWConstants.id("alex_dolphin"), DolphinRenderer.class, WWConstants.id("textures/entity/dolphin/alex_dolphin.png"),
 			"AlexTheDolphin0"
 		);
 	}

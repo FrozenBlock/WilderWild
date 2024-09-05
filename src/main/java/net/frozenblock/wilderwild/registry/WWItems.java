@@ -219,15 +219,6 @@ public final class WWItems {
 		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);
 
-		Registry.register(BuiltInRegistries.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(WWSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
-
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WWInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WWInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerInstrumentBefore(Items.BOW, ANCIENT_HORN, "ancient_horn", WWInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.COMBAT);

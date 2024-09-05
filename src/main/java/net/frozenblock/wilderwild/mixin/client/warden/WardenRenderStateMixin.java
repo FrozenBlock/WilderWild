@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
-import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.AnimationState;
 import org.spongepowered.asm.mixin.Mixin;
