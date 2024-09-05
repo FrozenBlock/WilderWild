@@ -34,7 +34,7 @@ public class WWPreLoadConstants {
 	private static boolean isDatagen() {
 		boolean isDatagen = false;
 		try {
-			Class.forName("net.frozenblock.wilderwild.datagen.WWDataGenerator", false, WWPreLoadConstants.class.getClassLoader());
+			Class.forName("net.frozenblock.wilderwild.datagen.WWDatagenModule", false, WWPreLoadConstants.class.getClassLoader());
 			isDatagen = true;
 		} catch (ClassNotFoundException ignored) {}
 
