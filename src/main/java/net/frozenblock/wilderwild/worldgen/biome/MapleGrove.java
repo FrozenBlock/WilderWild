@@ -49,10 +49,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MapleGrove extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.46F, -0.075F);
+	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.46F, -0.075F);
+	public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.2F, 0.2F);
-	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-1F, -0.05F);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-1F, -0.05F);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(0.05F, 1F);
+	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
+	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.5F;
@@ -168,11 +171,20 @@ public final class MapleGrove extends FrozenBiome {
 		if (WWWorldgenConfig.get().biomeGeneration.generateMapleGrove) {
 			this.addSurfaceBiome(
 				parameters,
-				TEMPERATURE,
+				TEMPERATURE_A,
 				HUMIDITY,
 				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS,
+				EROSION_A,
+				WEIRDNESS_A,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_B,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_B,
+				WEIRDNESS_B,
 				0F
 			);
 		}
