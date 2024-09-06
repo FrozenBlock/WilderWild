@@ -1054,7 +1054,7 @@ public final class WWBlocks {
 		registerBlockAfter(CYPRESS_PRESSURE_PLATE, "cypress_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//CYPRESS IN NATURE
 		registerBlockAfter(BAOBAB_LOG, "cypress_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BAOBAB_LEAVES, "cypress_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BAOBAB_LEAF_LITTER, "cypress_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(CYPRESS_LEAVES, "cypress_leaf_litter", CYPRESS_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
 		//PALM IN BUILDING BLOCKS
@@ -1073,7 +1073,7 @@ public final class WWBlocks {
 		registerBlockAfter(PALM_PRESSURE_PLATE, "palm_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
 		registerBlockAfter(CYPRESS_LOG, "palm_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(CYPRESS_LEAVES, "palm_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LEAF_LITTER, "palm_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(PALM_FRONDS, "palm_frond_litter", PALM_FROND_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
 		//MAPLE IN BUILDING BLOCKS
@@ -1092,7 +1092,7 @@ public final class WWBlocks {
 		registerBlockAfter(MAPLE_PRESSURE_PLATE, "maple_button", MAPLE_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//MAPLE IN NATURE
 		registerBlockAfter(Blocks.CHERRY_LOG, "maple_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.CHERRY_LEAVES, "yellow_maple_leaves", YELLOW_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CHERRY_LEAF_LITTER, "yellow_maple_leaves", YELLOW_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(YELLOW_MAPLE_LEAVES, "yellow_maple_leaf_litter", YELLOW_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(YELLOW_MAPLE_LEAF_LITTER, "orange_maple_leaves", ORANGE_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(ORANGE_MAPLE_LEAVES, "orange_maple_leaf_litter", ORANGE_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
