@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.frozenblock.wilderwild.datagen.WWModelHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -75,19 +74,19 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.OAK_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.SPRUCE_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.BIRCH_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.JUNGLE_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.ACACIA_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.DARK_OAK_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.MANGROVE_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.OAK_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.SPRUCE_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.BIRCH_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.JUNGLE_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.ACACIA_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.DARK_OAK_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.MANGROVE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.CHERRY_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.AZALEA_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.FLOWERING_AZALEA_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.BAOBAB_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.CYPRESS_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.PALM_FROND_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.BAOBAB_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.CYPRESS_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.PALM_FROND_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);

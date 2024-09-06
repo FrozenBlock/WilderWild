@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen;
+package net.frozenblock.wilderwild.datagen.model;
 
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
@@ -41,8 +41,6 @@ import org.jetbrains.annotations.NotNull;
 public class WWModelHelper {
 	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
-	private static final ModelTemplate TINTED_LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter_tinted")), Optional.empty(), TextureSlot.TEXTURE);
-	private static final TexturedModel.Provider TINTED_LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, TINTED_LEAF_LITTER_MODEL);
 	private static final ModelTemplate HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
 		Optional.empty(),
@@ -55,17 +53,6 @@ public class WWModelHelper {
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter, Block source) {
 		ResourceLocation resourceLocation = LEAF_LITTER_PROVIDER.get(source).create(litter, generator.modelOutput);
-		ModelTemplates.FLAT_ITEM
-			.create(ModelLocationUtils.getModelLocation(litter.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(source)), generator.modelOutput);
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(litter, resourceLocation));
-	}
-
-	public static void createTintedLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
-		createTintedLeafLitter(generator, litter, litter);
-	}
-
-	public static void createTintedLeafLitter(@NotNull BlockModelGenerators generator, Block litter, Block source) {
-		ResourceLocation resourceLocation = TINTED_LEAF_LITTER_PROVIDER.get(source).create(litter, generator.modelOutput);
 		ModelTemplates.FLAT_ITEM
 			.create(ModelLocationUtils.getModelLocation(litter.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(source)), generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(litter, resourceLocation));
