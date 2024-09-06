@@ -63,12 +63,23 @@ public class SnowloggingUtils {
 		return state.getValue(SNOW_LAYERS);
 	}
 
+	/**
+	 * Takes the snow layers of the source
+	 * and returns a version of the destination with the same number of snow layers if possible.
+	 *
+	 * @param source      The blockstate whose snow layers are getting copied.
+	 * @param destination The blockstate which is getting snow layers pasted onto.
+	 * @return A version of destination with snow layers copied from the source.
+	 */
 	public static BlockState copySnowLayers(@NotNull BlockState source, @NotNull BlockState destination) {
-		if (supportsSnowlogging(source)) {
-			return destination.setValue(SNOW_LAYERS, getSnowLayers(source));
-		}
-		if (source.is(Blocks.SNOW)) {
-			return destination.setValue(SNOW_LAYERS, source.getValue(SnowLayerBlock.LAYERS));
+		if (supportsSnowlogging(destination)) {
+			if (supportsSnowlogging(source)) {
+				return destination.setValue(SNOW_LAYERS, getSnowLayers(source));
+			}
+			if (source.is(Blocks.SNOW)) {
+				return destination.setValue(SNOW_LAYERS, source.getValue(SnowLayerBlock.LAYERS));
+			}
+			return destination.setValue(SNOW_LAYERS, 0);
 		}
 		return destination;
 	}
@@ -181,11 +192,21 @@ public class SnowloggingUtils {
 		return shouldHitSnow(state, pos, level, hitResult.getLocation());
 	}
 
+	/**
+	 * Returns the snow layers if the player is looking at them, or the original block if not.
+	 *
+	 * @return the snow layers if the player is looking at them, or the original block if not.
+	 */
 	public static BlockState getHitState(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
-		if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
-			return SnowloggingUtils.getSnowEquivalent(state);
-		} else {
-			return SnowloggingUtils.getStateWithoutSnow(state);
-		}
+		return shouldHitSnow(state, pos, level, player) ? getSnowEquivalent(state) : getStateWithoutSnow(state);
+	}
+
+	/**
+	 * Returns the original block if the player is looking at the snow layers, and vice versa.
+	 *
+	 * @return the original block if the player is looking at the snow layers, and vice versa.
+	 */
+	public static BlockState getUnhitState(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
+		return shouldHitSnow(state, pos, level, player) ? getStateWithoutSnow(state) : getSnowEquivalent(state);
 	}
 }
