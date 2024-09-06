@@ -49,6 +49,9 @@ public final class WWBlockTags {
 	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Block> HOLLOWED_MAPLE_LOGS = bind("hollowed_maple_logs");
 
+	public static final TagKey<Block> LEAF_LITTER_CANNOT_SURVIVE_ON = bind("leaf_litter_cannot_survive_on");
+	public static final TagKey<Block> LEAF_LITTER_CAN_SURVIVE_ON = bind("leaf_litter_can_survive_on");
+
 	public static final TagKey<Block> NO_LIGHTNING_BLOCK_PARTICLES = bind("no_lightning_block_particles");
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_CAN_HIDE = bind("crab_can_hide");

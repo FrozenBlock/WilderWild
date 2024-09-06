@@ -18,8 +18,10 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import java.util.Optional;
 import net.frozenblock.lib.entity.api.SilentTicker;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -40,6 +42,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 
 public class FallingLeafTicker extends SilentTicker {
+	private boolean hasVisibleLeaves = false;
 	private double yd = -0.05D;
 	private Block leafLitter;
 
@@ -55,6 +58,7 @@ public class FallingLeafTicker extends SilentTicker {
 	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos, Block leafLitter) {
 		FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(entityType, level, pos);
 		fallingLeafTicker.leafLitter = leafLitter;
+		fallingLeafTicker.hasVisibleLeaves = true;
 		level.addFreshEntity(fallingLeafTicker);
 	}
 
@@ -62,6 +66,13 @@ public class FallingLeafTicker extends SilentTicker {
 	public void tick(@NotNull Level level, @NotNull Vec3 vec3, @NotNull BlockPos pos, int ticks) {
 		if (vec3.y > level.getMinBuildHeight() && this.leafLitter != null) {
 			if (level instanceof ServerLevel serverLevel) {
+				if (!this.hasVisibleLeaves) {
+					this.hasVisibleLeaves = true;
+					if (this.leafLitter instanceof LeafLitterBlock litterBlock) {
+						Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(litterBlock.getLeavesBlock());
+						optionalFallingLeafData.ifPresent(fallingLeafData -> FallingLeafUtil.sendLeafClusterParticle(serverLevel, pos, fallingLeafData));
+					}
+				}
 				this.yd -= 0.04D;
 				this.setPos(vec3.add(0D, this.yd, 0D));
 				BlockHitResult hitResult = this.createHitResultFromMovement(level, vec3);

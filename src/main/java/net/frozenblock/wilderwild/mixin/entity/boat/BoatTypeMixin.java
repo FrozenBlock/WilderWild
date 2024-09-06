@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.entity.boat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.entity.vehicle.Boat;

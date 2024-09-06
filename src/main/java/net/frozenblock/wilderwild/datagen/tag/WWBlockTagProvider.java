@@ -395,6 +395,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
 
+		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)
+			.add(Blocks.BARRIER)
+			.addOptionalTag(BlockTags.LEAVES);
+
+		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON)
+			.add(Blocks.HONEY_BLOCK)
+			.add(Blocks.SOUL_SAND)
+			.add(Blocks.MUD);
+
 		this.getOrCreateTagBuilder(WWBlockTags.BAOBAB_LOGS)
 			.add(WWBlocks.BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_BAOBAB_LOG)
