@@ -633,7 +633,8 @@ public final class WWMiscPlaced {
 
 		// MAPLE GROVE
 
-		MAPLE_LEAF_LITTER.makeAndSetHolder(WWMiscConfigured.MAPLE_LEAF_LITTER.getHolder(),
+		MAPLE_LEAF_LITTER.makeAndSetHolder(
+			WWMiscConfigured.MAPLE_LEAF_LITTER.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,

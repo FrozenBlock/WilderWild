@@ -49,11 +49,13 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
@@ -150,7 +152,10 @@ public final class WWMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE GROVE
-	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> MAPLE_LEAF_LITTER = register("maple_leaf_litter");
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLE_LEAF_LITTER = register("maple_leaf_litter");
 
 	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
@@ -961,17 +966,56 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
 				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
-				UniformInt.of(2, 5),
+				UniformInt.of(2, 4),
 				0.75F,
 				0.5F,
 				0.65F,
 				0.5F,
 				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+			)
+		);
+
+		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+			new FadingDiskCarpetFeatureConfig(
+				true,
+				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
+				UniformInt.of(2, 4),
+				0.75F,
+				0.5F,
+				0.65F,
+				0.5F,
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+			)
+		);
+
+		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+			new FadingDiskCarpetFeatureConfig(
+				true,
+				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),
+				UniformInt.of(2, 4),
+				0.75F,
+				0.5F,
+				0.65F,
+				0.5F,
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+			)
+		);
+
+		MAPLE_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(YELLOW_MAPLE_LEAF_LITTER.getHolder()), 0.5F),
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(ORANGE_MAPLE_LEAF_LITTER.getHolder()), 0.5F),
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(RED_MAPLE_LEAF_LITTER.getHolder()), 0.25F)
+				),
+				PlacementUtils.inlinePlaced(YELLOW_MAPLE_LEAF_LITTER.getHolder())
 			)
 		);
 

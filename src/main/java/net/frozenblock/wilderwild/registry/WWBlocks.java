@@ -1266,10 +1266,10 @@ public final class WWBlocks {
 		WWConstants.logWithModId("Registering Blocks for", WWConstants.UNSTABLE_LOGGING);
 
 		registerDecorativeBlocks();
+		registerPlants();
 		registerWoods();
 		registerHollowedLogs();
 		registerDeepDark();
-		registerPlants();
 		registerNotSoPlants();
 		registerMisc();
 	}
