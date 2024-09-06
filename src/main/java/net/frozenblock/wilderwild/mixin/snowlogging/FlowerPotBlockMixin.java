@@ -49,8 +49,7 @@ public abstract class FlowerPotBlockMixin extends Block {
 	public boolean wilderWild$useItemOn(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
 										ItemStack stack, BlockState originalState) {
 		if (SnowloggingUtils.isSnowlogged(originalState)) {
-			int layers = SnowloggingUtils.getSnowLayers(originalState);
-			state = state.setValue(SnowloggingUtils.SNOW_LAYERS, layers);
+			state = SnowloggingUtils.copySnowLayers(originalState, state);
 		}
 		return original.call(instance, pos, state, flags);
 	}
@@ -59,8 +58,7 @@ public abstract class FlowerPotBlockMixin extends Block {
 	public boolean wilderWild$useWithoutItem(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
 											 BlockState originalState) {
 		if (SnowloggingUtils.isSnowlogged(originalState)) {
-			int layers = SnowloggingUtils.getSnowLayers(originalState);
-			state = state.setValue(SnowloggingUtils.SNOW_LAYERS, layers);
+			state = SnowloggingUtils.copySnowLayers(originalState, state);
 		}
 		return original.call(instance, pos, state, flags);
 	}

@@ -143,11 +143,7 @@ public abstract class BlockStateBaseMixin {
 		if (lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player player) {
 			BlockPos blockPos = BlockPos.containing(lootParams.getOptionalParameter(LootContextParams.ORIGIN));
 			Level level = lootParams.getLevel();
-			if (SnowloggingUtils.shouldHitSnow(state, blockPos, level, player)) {
-				return SnowloggingUtils.getSnowEquivalent(state).getDrops(lootParams);
-			} else {
-				return SnowloggingUtils.getStateWithoutSnow(state).getDrops(lootParams);
-			}
+			return SnowloggingUtils.getHitState(state, blockPos, level, player).getDrops(lootParams);
 		} else {
 			List<ItemStack> finalList = new ArrayList<>(original);
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);

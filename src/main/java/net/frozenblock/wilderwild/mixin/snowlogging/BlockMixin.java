@@ -38,7 +38,7 @@ public class BlockMixin {
 		)
 	)
 	public int wilderWild$spawnDestroyParticles(BlockState state, Operation<Integer> original, Level world, Player player, BlockPos pos) {
-		if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.shouldHitSnow(state, pos, world, player)) {
+		if (SnowloggingUtils.shouldHitSnow(state, pos, world, player)) {
 			return original.call(SnowloggingUtils.getSnowEquivalent(state));
 		}
 		return original.call(state);

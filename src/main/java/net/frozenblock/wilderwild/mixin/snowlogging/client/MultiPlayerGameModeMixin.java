@@ -78,11 +78,7 @@ public class MultiPlayerGameModeMixin {
 	) {
 		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
 			assert minecraft.player != null;
-			if (SnowloggingUtils.shouldHitSnow(destroyedState.get(), pos, level, minecraft.player)) {
-				level.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
-			} else {
-				level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(destroyedState.get()), flags);
-			}
+			level.setBlock(pos, SnowloggingUtils.getUnhitState(destroyedState.get(), pos, level, minecraft.player), flags);
 			return true;
 		}
 		return original.call(level, pos, newState, flags);
