@@ -128,7 +128,7 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_POLLEN_HIT,
 		WWSounds.BLOCK_POLLEN_FALL
 	);
-	public static final SoundType TERMITEMOUND = new SoundType(0.8F, 1.0F,
+	public static final SoundType TERMITE_MOUND = new SoundType(0.8F, 1.0F,
 		WWSounds.BLOCK_TERMITE_MOUND_BREAK,
 		WWSounds.BLOCK_TERMITE_MOUND_STEP,
 		WWSounds.BLOCK_TERMITE_MOUND_PLACE,
@@ -214,7 +214,7 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_FLOWER_HIT,
 		WWSounds.BLOCK_FLOWER_FALL
 	);
-	public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
+	public static final SoundType LILY_PAD = new SoundType(1.0F, 1.0F,
 		SoundEvents.BIG_DRIPLEAF_BREAK,
 		SoundEvents.BIG_DRIPLEAF_STEP,
 		SoundEvents.LILY_PAD_PLACE,
@@ -235,7 +235,7 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_SUGAR_CANE_HIT,
 		WWSounds.BLOCK_SUGAR_CANE_FALL
 	);
-	public static final SoundType COARSEDIRT = new SoundType(0.8F, 1.0F,
+	public static final SoundType COARSE_DIRT = new SoundType(0.8F, 1.0F,
 		WWSounds.BLOCK_COARSE_DIRT_BREAK,
 		WWSounds.BLOCK_COARSE_DIRT_STEP,
 		WWSounds.BLOCK_COARSE_DIRT_PLACE,
@@ -249,14 +249,14 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_SANDSTONE_HIT,
 		WWSounds.BLOCK_SANDSTONE_FALL
 	);
-	public static final SoundType SCORCHEDSAND = new SoundType(0.8F, 1.0F,
+	public static final SoundType SCORCHED_SAND = new SoundType(0.8F, 1.0F,
 		WWSounds.BLOCK_SCORCHED_SAND_BREAK,
 		WWSounds.BLOCK_SCORCHED_SAND_STEP,
 		WWSounds.BLOCK_SCORCHED_SAND_PLACE,
 		WWSounds.BLOCK_SCORCHED_SAND_HIT,
 		WWSounds.BLOCK_SCORCHED_SAND_FALL
 	);
-	public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
+	public static final SoundType REINFORCED_DEEPSLATE = new SoundType(1.0F, 1.0F,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,

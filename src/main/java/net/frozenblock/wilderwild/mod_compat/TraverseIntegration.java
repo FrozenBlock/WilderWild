@@ -25,17 +25,25 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.SAPLING;
 
-public class BlockusIntegration extends ModIntegration {
-	public BlockusIntegration() {
-		super("blockus");
+public class TraverseIntegration extends ModIntegration {
+	public TraverseIntegration() {
+		super("traverse");
 	}
 
 	@Override
 	public void init() {
-		BooleanSupplier condition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		addBlock(id("white_oak_leaves"), LEAVES, condition);
+		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
+		addBlock(id("brown_autumnal_leaves"), LEAVES, leavesCondition);
+		addBlock(id("fir_leaves"), LEAVES, leavesCondition);
+		addBlock(id("orange_autumnal_leaves"), LEAVES, leavesCondition);
+		addBlock(id("red_autumnal_leaves"), LEAVES, leavesCondition);
+		addBlock(id("yellow_autumnal_leaves"), LEAVES, leavesCondition);
 
 		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		addBlock(id("white_oak_sapling"), SAPLING, saplingCondition);
+		addBlock(id("brown_autumnal_sapling"), SAPLING, saplingCondition);
+		addBlock(id("fir_sapling"), SAPLING, saplingCondition);
+		addBlock(id("orange_autumnal_sapling"), SAPLING, saplingCondition);
+		addBlock(id("red_autumnal_sapling"), SAPLING, saplingCondition);
+		addBlock(id("yellow_autumnal_sapling"), SAPLING, saplingCondition);
 	}
 }

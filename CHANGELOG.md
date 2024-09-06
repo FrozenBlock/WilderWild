@@ -11,6 +11,13 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
 - Added leaf litters.
 - Added falling leaves.
+- Added more block sound type compatibility for BetterNether and BetterEnd.
+- Added block sound type compatibility for Nature's Spirit.
+- Added block sound type compatibility for Biomes O' Plenty.
+- Added block sound type compatibility for Terrestria.
+- Added block sound type compatibility for Regions Unexplored.
+- Added block sound type compatibility for Traverse.
+- Added block sound type compatibility for Excessive Building.
 
 # Changes
 - Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
@@ -20,8 +27,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
-- Added more block sound type compatability for BetterNether and BetterEnd.
-- Added block sound type compatability for Nature's Spirit.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.

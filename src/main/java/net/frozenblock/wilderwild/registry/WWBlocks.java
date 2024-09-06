@@ -162,7 +162,7 @@ public final class WWBlocks {
 		SoundEvents.BRUSH_SAND_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.strength(1.5F)
-			.sound(WWSoundTypes.SCORCHEDSAND)
+			.sound(WWSoundTypes.SCORCHED_SAND)
 			.mapColor(MapColor.SAND)
 			.randomTicks()
 	);
@@ -174,7 +174,7 @@ public final class WWBlocks {
 		SoundEvents.BRUSH_SAND_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.strength(1.5F)
-			.sound(WWSoundTypes.SCORCHEDSAND)
+			.sound(WWSoundTypes.SCORCHED_SAND)
 			.mapColor(MapColor.COLOR_ORANGE)
 			.randomTicks()
 	);
@@ -424,7 +424,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
-			.sound(WWSoundTypes.TERMITEMOUND)
+			.sound(WWSoundTypes.TERMITE_MOUND)
 			.hasPostProcess(Blocks::always)
 			.randomTicks()
 	);

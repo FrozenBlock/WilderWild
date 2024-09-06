@@ -25,17 +25,19 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.SAPLING;
 
-public class BlockusIntegration extends ModIntegration {
-	public BlockusIntegration() {
-		super("blockus");
+public class ExcessiveBuildingIntegration extends ModIntegration {
+	public ExcessiveBuildingIntegration() {
+		super("excessive_building");
 	}
 
 	@Override
 	public void init() {
 		BooleanSupplier condition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		addBlock(id("white_oak_leaves"), LEAVES, condition);
+		addBlock(id("ancient_leaves"), LEAVES, condition);
+		addBlock(id("gloom_leaves"), LEAVES, condition);
 
 		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		addBlock(id("white_oak_sapling"), SAPLING, saplingCondition);
+		addBlock(id("ancient_sapling"), SAPLING, saplingCondition);
+		addBlock(id("gloom_sapling"), SAPLING, saplingCondition);
 	}
 }
