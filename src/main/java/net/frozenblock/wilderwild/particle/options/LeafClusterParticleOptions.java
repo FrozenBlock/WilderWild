@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 public class LeafClusterParticleOptions implements ParticleOptions {
 	public static final MapCodec<LeafClusterParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
-				ResourceLocation.CODEC.fieldOf("spawnedParticleType").forGetter(LeafClusterParticleOptions::getParticleId)
+				ResourceLocation.CODEC.fieldOf("spawned_particle").forGetter(LeafClusterParticleOptions::getParticleId)
 			)
 			.apply(instance, LeafClusterParticleOptions::createCodecParticleOptions)
 	);
@@ -56,7 +56,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
 			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.get(particleId);
 		} else {
-			particleType = WWParticleTypes.MAPLE_LEAVES;
+			particleType = WWParticleTypes.OAK_LEAVES;
 		}
 		return new LeafClusterParticleOptions(particleType);
 	}

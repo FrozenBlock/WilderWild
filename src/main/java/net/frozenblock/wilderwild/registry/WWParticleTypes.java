@@ -54,7 +54,22 @@ public final class WWParticleTypes {
 	public static final ParticleType<LeafClusterParticleOptions> LEAF_CLUSTER_SPAWNER = register(
 		"leaf_cluster", false, particleType -> LeafClusterParticleOptions.CODEC, particleType -> LeafClusterParticleOptions.STREAM_CODEC
 	);
-	public static final ParticleType<LeafParticleOptions> MAPLE_LEAVES = createLeafParticle(WWConstants.id("maple_leaves"));
+	public static final ParticleType<LeafParticleOptions> OAK_LEAVES = createLeafParticle(WWConstants.id("oak_leaves"));
+	public static final ParticleType<LeafParticleOptions> SPRUCE_LEAVES = createLeafParticle(WWConstants.id("spruce_leaves"));
+	public static final ParticleType<LeafParticleOptions> BIRCH_LEAVES = createLeafParticle(WWConstants.id("birch_leaves"));
+	public static final ParticleType<LeafParticleOptions> JUNGLE_LEAVES = createLeafParticle(WWConstants.id("jungle_leaves"));
+	public static final ParticleType<LeafParticleOptions> ACACIA_LEAVES = createLeafParticle(WWConstants.id("acacia_leaves"));
+	public static final ParticleType<LeafParticleOptions> DARK_OAK_LEAVES = createLeafParticle(WWConstants.id("dark_oak_leaves"));
+	public static final ParticleType<LeafParticleOptions> MANGROVE_LEAVES = createLeafParticle(WWConstants.id("mangrove_leaves"));
+	public static final ParticleType<LeafParticleOptions> CHERRY_LEAVES = createLeafParticle(WWConstants.id("cherry_leaves"));
+	public static final ParticleType<LeafParticleOptions> AZALEA_LEAVES = createLeafParticle(WWConstants.id("azalea_leaves"));
+	public static final ParticleType<LeafParticleOptions> FLOWERING_AZALEA_LEAVES = createLeafParticle(WWConstants.id("flowering_azalea_leaves"));
+	public static final ParticleType<LeafParticleOptions> BAOBAB_LEAVES = createLeafParticle(WWConstants.id("baobab_leaves"));
+	public static final ParticleType<LeafParticleOptions> CYPRESS_LEAVES = createLeafParticle(WWConstants.id("cypress_leaves"));
+	public static final ParticleType<LeafParticleOptions> PALM_FRONDS = createLeafParticle(WWConstants.id("palm_fronds"));
+	public static final ParticleType<LeafParticleOptions> YELLOW_MAPLE_LEAVES = createLeafParticle(WWConstants.id("yellow_maple_leaves"));
+	public static final ParticleType<LeafParticleOptions> ORANGE_MAPLE_LEAVES = createLeafParticle(WWConstants.id("orange_maple_leaves"));
+	public static final ParticleType<LeafParticleOptions> RED_MAPLE_LEAVES = createLeafParticle(WWConstants.id("red_maple_leaves"));
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = register("blue_pearlescent_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = register("blue_pearlescent_landing_mesoglea_drip");

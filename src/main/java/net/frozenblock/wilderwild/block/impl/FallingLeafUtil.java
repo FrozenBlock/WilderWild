@@ -43,20 +43,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FallingLeafUtil {
-	private static final LeafParticleData DEFAULT_LEAF_PARTICLE_DATA = new LeafParticleData(0.0125F, 0.225F, 3F);
+	private static final LeafParticleData DEFAULT_LEAF_PARTICLE_DATA = new LeafParticleData(Blocks.OAK_LEAVES, 0.0125F, 0.125F, 3F);
 	private static final Map<Block, FallingLeafData> LEAVES_TO_FALLING_LEAF_DATA = new Object2ObjectLinkedOpenHashMap<>();
 	private static final Map<ParticleType<LeafParticleOptions>, LeafParticleData> PARTICLE_TO_LEAF_PARTICLE_DATA = new Object2ObjectLinkedOpenHashMap<>();
-
-	public static void registerFallingLeaf(
-		Block block,
-		LeafLitterBlock leafLitterBlock, float litterChance,
-		ParticleType<LeafParticleOptions> leafParticle
-	) {
-		registerFallingLeaf(
-			block, new FallingLeafData(leafLitterBlock, litterChance, leafParticle),
-			leafParticle, null
-		);
-	}
 
 	public static void registerFallingLeaf(
 		Block block,
@@ -65,7 +54,7 @@ public class FallingLeafUtil {
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(leafLitterBlock, litterChance, leafParticle),
-			leafParticle, new LeafParticleData(particleChance, quadSize, particleGravityScale)
+			leafParticle, new LeafParticleData(block, particleChance, quadSize, particleGravityScale)
 		);
 	}
 
@@ -166,5 +155,5 @@ public class FallingLeafUtil {
 
 	public record FallingLeafData(LeafLitterBlock leafLitterBlock, float litterChance, ParticleType<LeafParticleOptions> particle) {}
 
-	public record LeafParticleData(float particleChance, float quadSize, float particleGravityScale) {}
+	public record LeafParticleData(Block leavesBlock, float particleChance, float quadSize, float particleGravityScale) {}
 }

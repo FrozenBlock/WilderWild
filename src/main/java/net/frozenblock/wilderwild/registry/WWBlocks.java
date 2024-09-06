@@ -246,111 +246,111 @@ public final class WWBlocks {
 	// LEAF LITTER
 	public static final LeafLitterBlock OAK_LEAF_LITTER = leafLitter(
 		Blocks.OAK_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.OAK_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2.5F
 	);
 	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = leafLitter(
 		Blocks.SPRUCE_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.SPRUCE_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock BIRCH_LEAF_LITTER = leafLitter(
 		Blocks.BIRCH_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.BIRCH_LEAVES,
 		0.002F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = leafLitter(
 		Blocks.JUNGLE_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.JUNGLE_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		3.5F
 	);
 	public static final LeafLitterBlock ACACIA_LEAF_LITTER = leafLitter(
 		Blocks.ACACIA_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.ACACIA_LEAVES,
 		0.002F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = leafLitter(
 		Blocks.DARK_OAK_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.DARK_OAK_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2.5F
 	);
 	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = leafLitter(
 		Blocks.MANGROVE_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.MANGROVE_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		3.5F
 	);
 	public static final LeafLitterBlock CHERRY_LEAF_LITTER = leafLitter(
 		Blocks.DARK_OAK_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.CHERRY_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		1F
 	);
 	public static final LeafLitterBlock AZALEA_LEAF_LITTER = leafLitter(
 		Blocks.AZALEA_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.AZALEA_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock FLOWERING_AZALEA_LEAF_LITTER = leafLitter(
 		Blocks.FLOWERING_AZALEA_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.FLOWERING_AZALEA_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = leafLitter(
 		BAOBAB_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.BAOBAB_LEAVES,
 		0.002F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = leafLitter(
 		CYPRESS_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.CYPRESS_LEAVES,
 		0.004F,
 		0.00125F,
-		0.225F,
+		0.125F,
 		2F
 	);
 	public static final LeafLitterBlock PALM_FROND_LITTER = leafLitter(
 		Blocks.SPRUCE_LEAVES,
-		WWParticleTypes.MAPLE_LEAVES,
+		WWParticleTypes.PALM_FRONDS,
 		0.001F,
 		0.000125F,
-		0.225F,
+		0.125F,
 		4.5F
 	);
-	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.YELLOW_MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.ORANGE_MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.RED_MAPLE_LEAVES, 0.04F);
 
 	// SCULK
 	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
@@ -1380,7 +1380,10 @@ public final class WWBlocks {
 			sourceBlock,
 			leafLitterBlock,
 			litterChance,
-			particleType
+			particleType,
+			0.0125F,
+			0.125F,
+			3F
 		);
 		return leafLitterBlock;
 	}
