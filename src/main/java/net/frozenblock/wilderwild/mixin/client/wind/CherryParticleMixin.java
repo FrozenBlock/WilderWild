@@ -58,7 +58,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 	) {
 		wind.set(Vec3.ZERO);
 		if (WWClientWindManager.shouldUseWind()) {
-			Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
+			Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
 				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 			wind.set(currentWind);
 			return currentWind.x;

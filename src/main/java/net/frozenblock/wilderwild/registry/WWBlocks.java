@@ -341,7 +341,7 @@ public final class WWBlocks {
 		2F
 	);
 	public static final LeafLitterBlock PALM_FROND_LITTER = leafLitter(
-		Blocks.SPRUCE_LEAVES,
+		PALM_FRONDS,
 		WWParticleTypes.PALM_FRONDS,
 		0.001F,
 		0.00055F,
