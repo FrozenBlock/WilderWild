@@ -16,11 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-<<<<<<<< HEAD:src/main/java/net/frozenblock/wilderwild/datagen/WWFeatureBootstrap.java
 package net.frozenblock.wilderwild.datagen;
-========
-package net.frozenblock.wilderwild.worldgen.impl;
->>>>>>>> eff76f04a (rebase from 2.5):src/main/java/net/frozenblock/wilderwild/worldgen/impl/WWFeatureBootstrap.java
 
 import java.util.Arrays;
 import java.util.List;

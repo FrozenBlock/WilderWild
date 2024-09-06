@@ -67,11 +67,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-<<<<<<<< HEAD:src/main/java/net/frozenblock/wilderwild/worldgen/impl/trunk/StraightWithBranchesTrunkPlacer.java
 		return WWFeatures.STRAIGHT_WITH_LOGS_TRUNK_PLACER;
-========
-		return WWFeatures.STRAIGHT_TRUNK_WITH_LOGS_PLACER;
->>>>>>>> eff76f04a (rebase from 2.5):src/main/java/net/frozenblock/wilderwild/worldgen/impl/trunk/StraightTrunkWithBranches.java
 	}
 
 	@Override

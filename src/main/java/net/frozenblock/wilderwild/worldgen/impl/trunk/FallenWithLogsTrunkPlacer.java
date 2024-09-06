@@ -79,11 +79,7 @@ public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-<<<<<<<< HEAD:src/main/java/net/frozenblock/wilderwild/worldgen/impl/trunk/FallenWithLogsTrunkPlacer.java
 		return WWFeatures.FALLEN_WITH_LOGS_TRUNK_PLACER;
-========
-		return WWFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER;
->>>>>>>> eff76f04a (rebase from 2.5):src/main/java/net/frozenblock/wilderwild/worldgen/impl/trunk/FallenTrunkWithLogs.java
 	}
 
 	@Override
