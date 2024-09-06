@@ -34,6 +34,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -60,6 +61,16 @@ public class SnowloggingUtils {
 
 	public static int getSnowLayers(@NotNull BlockState state) {
 		return state.getValue(SNOW_LAYERS);
+	}
+
+	public static BlockState copySnowLayers(@NotNull BlockState source, @NotNull BlockState destination) {
+		if (supportsSnowlogging(source)) {
+			return destination.setValue(SNOW_LAYERS, getSnowLayers(source));
+		}
+		if (source.is(Blocks.SNOW)) {
+			return destination.setValue(SNOW_LAYERS, source.getValue(SnowLayerBlock.LAYERS));
+		}
+		return destination;
 	}
 
 	public static boolean isSnowlogged(@Nullable BlockState state) {
