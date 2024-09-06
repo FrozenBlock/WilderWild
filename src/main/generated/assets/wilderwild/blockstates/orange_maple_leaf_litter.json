@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "wilderwild:block/orange_maple_leaf_litter"
-    }
+    "": [
+      {
+        "model": "wilderwild:block/orange_maple_leaf_litter"
+      },
+      {
+        "model": "wilderwild:block/orange_maple_leaf_litter",
+        "y": 90
+      },
+      {
+        "model": "wilderwild:block/orange_maple_leaf_litter",
+        "y": 180
+      },
+      {
+        "model": "wilderwild:block/orange_maple_leaf_litter",
+        "y": 270
+      }
+    ]
   }
 }
