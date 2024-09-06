@@ -114,12 +114,27 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_CHERRY_TREE = register("fallen_cherry_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CHERRY_TREE = register("snapped_cherry_tree");
 	//MAPLE
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MAPLE_TREE = register("maple");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_MAPLE_TREE = register("dying_maple");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_MAPLE_TREE = register("tall_maple");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DYING_MAPLE_TREE = register("tall_dying_maple");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MAPLE_BEES_0004 = register("maple_bees_025");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_MAPLE_BEES_0004 = register("tall_maple_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> YELLOW_MAPLE_TREE = register("yellow_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_YELLOW_MAPLE_TREE = register("dying_yellow_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_YELLOW_MAPLE_TREE = register("tall_yellow_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_YELLOW_DYING_MAPLE_TREE = register("tall_dying_yellow_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> YELLOW_MAPLE_BEES_0004 = register("yellow_maple_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_YELLOW_MAPLE_BEES_0004 = register("tall_yellow_maple_bees_025");
+
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> ORANGE_MAPLE_TREE = register("orange_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_ORANGE_MAPLE_TREE = register("dying_orange_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_ORANGE_MAPLE_TREE = register("tall_orange_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_ORANGE_DYING_MAPLE_TREE = register("tall_dying_orange_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> ORANGE_MAPLE_BEES_0004 = register("orange_maple_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_ORANGE_MAPLE_BEES_0004 = register("tall_orange_maple_bees_025");
+
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> RED_MAPLE_TREE = register("red_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_RED_MAPLE_TREE = register("dying_red_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_RED_MAPLE_TREE = register("tall_red_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_RED_DYING_MAPLE_TREE = register("tall_dying_red_maple");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> RED_MAPLE_BEES_0004 = register("red_maple_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_RED_MAPLE_BEES_0004 = register("tall_red_maple_bees_025");
+
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_MAPLE_TREE = register("mossy_fallen_maple_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MAPLE_TREE = register("fallen_maple_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
@@ -498,16 +513,16 @@ public final class WWTreeConfigured {
 
 		// MAPLE
 
-		MAPLE_TREE.makeAndSetHolder(Feature.TREE,
-			maple().decorators(
+		YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			yellowMaple().decorators(
 				List.of(
 					SHELF_FUNGUS_006
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
-			maple().decorators(
+		DYING_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			yellowMaple().decorators(
 				List.of(
 					SHELF_FUNGUS_006,
 					VINES_1_UNDER_260_03
@@ -515,16 +530,16 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		TALL_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
-			tallMaple().decorators(
+		TALL_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallYellowMaple().decorators(
 				List.of(
 					SHELF_FUNGUS_006
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		TALL_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
-			tallMaple().decorators(
+		TALL_YELLOW_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallYellowMaple().decorators(
 				List.of(
 					SHELF_FUNGUS_006,
 					VINES_1_UNDER_260_03
@@ -532,8 +547,8 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
-			maple().decorators(
+		YELLOW_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			yellowMaple().decorators(
 				List.of(
 					BEES_0004,
 					POLLEN_01,
@@ -542,8 +557,116 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		TALL_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
-			tallMaple().decorators(
+		TALL_YELLOW_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			tallYellowMaple().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			orangeMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DYING_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			orangeMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallOrangeMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_ORANGE_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallOrangeMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		ORANGE_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			orangeMaple().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_ORANGE_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			tallOrangeMaple().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			redMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DYING_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			redMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallRedMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_RED_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			tallRedMaple().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		RED_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			redMaple().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		TALL_RED_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
+			tallRedMaple().decorators(
 				List.of(
 					BEES_0004,
 					POLLEN_01,
@@ -565,7 +688,7 @@ public final class WWTreeConfigured {
 			fallenTrunkBuilder(
 				WWBlocks.MAPLE_LOG,
 				WWBlocks.HOLLOWED_MAPLE_LOG,
-				WWBlocks.MAPLE_LEAVES,
+				WWBlocks.YELLOW_MAPLE_LEAVES,
 				3,
 				1,
 				2,
@@ -583,7 +706,7 @@ public final class WWTreeConfigured {
 		SNAPPED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(
 				WWBlocks.MAPLE_LOG,
-				WWBlocks.MAPLE_LEAVES,
+				WWBlocks.YELLOW_MAPLE_LEAVES,
 				2,
 				1,
 				1
@@ -1729,7 +1852,7 @@ public final class WWTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
-		return fallenTrunkBuilder(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.MAPLE_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), 0.075F).ignoreVines();
+		return fallenTrunkBuilder(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
 	@NotNull
@@ -1806,13 +1929,33 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder maple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.MAPLE_LEAVES, 10, 1, 2);
+	private static TreeConfiguration.TreeConfigurationBuilder yellowMaple() {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 10, 1, 2);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.MAPLE_LEAVES, 14, 1, 1);
+	private static TreeConfiguration.TreeConfigurationBuilder tallYellowMaple() {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 14, 1, 1);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder orangeMaple() {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 10, 1, 2);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder tallOrangeMaple() {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 14, 1, 1);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder redMaple() {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 10, 1, 2);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder tallRedMaple() {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 14, 1, 1);
 	}
 
 	@NotNull

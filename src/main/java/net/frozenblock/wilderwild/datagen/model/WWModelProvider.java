@@ -56,7 +56,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG).wood(WWBlocks.STRIPPED_MAPLE_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
 		generator.createPlant(WWBlocks.MAPLE_SAPLING, WWBlocks.POTTED_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createTrivialBlock(WWBlocks.MAPLE_LEAVES, TexturedModel.LEAVES);
+		generator.createTrivialBlock(WWBlocks.YELLOW_MAPLE_LEAVES, TexturedModel.LEAVES);
+		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
+		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
 		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
@@ -73,20 +75,22 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.OAK_LEAF_LITTER, WWBlocks.OAK_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.BIRCH_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.JUNGLE_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.ACACIA_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.DARK_OAK_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.MANGROVE_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
-		WWModelHelper.createLeafLitter(generator, WWBlocks.CHERRY_LEAF_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
-		WWModelHelper.createLeafLitter(generator, WWBlocks.AZALEA_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
-		WWModelHelper.createLeafLitter(generator, WWBlocks.FLOWERING_AZALEA_LEAF_LITTER, WWBlocks.FLOWERING_AZALEA_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.BAOBAB_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.CYPRESS_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
-		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.PALM_FROND_LITTER, WWBlocks.PALM_FRONDS);
-		WWModelHelper.createLeafLitter(generator, WWBlocks.MAPLE_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.OAK_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.SPRUCE_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.BIRCH_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.JUNGLE_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.ACACIA_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.DARK_OAK_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.MANGROVE_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.CHERRY_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.AZALEA_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.FLOWERING_AZALEA_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.BAOBAB_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.CYPRESS_LEAF_LITTER);
+		WWModelHelper.createTintedLeafLitter(generator, WWBlocks.PALM_FROND_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
+		WWModelHelper.createLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);
 
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG, Blocks.STRIPPED_OAK_LOG, Blocks.OAK_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG, Blocks.SPRUCE_LOG);

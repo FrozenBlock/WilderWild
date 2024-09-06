@@ -136,6 +136,8 @@ public class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.PALM_FROND_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 	}
 }

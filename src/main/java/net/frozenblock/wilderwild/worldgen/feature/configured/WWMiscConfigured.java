@@ -964,8 +964,8 @@ public final class WWMiscConfigured {
 		MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
 				UniformInt.of(2, 5),
 				0.75F,
 				0.5F,

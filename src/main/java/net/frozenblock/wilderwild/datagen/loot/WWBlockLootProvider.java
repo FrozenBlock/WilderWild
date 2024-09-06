@@ -182,7 +182,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.MAPLE_SIGN);
 		this.dropSelf(WWBlocks.MAPLE_HANGING_SIGN);
 		this.dropSelf(WWBlocks.MAPLE_SAPLING);
-		this.add(WWBlocks.MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.YELLOW_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.ORANGE_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.RED_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
 
 		this.dropSelf(WWBlocks.HOLLOWED_ACACIA_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
@@ -798,12 +800,28 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.add(LootItem.lootTableItem(WWBlocks.PALM_FROND_LITTER).when(this.hasShearsOrSilkTouch()))
 				)
 		);
-		this.add(WWBlocks.MAPLE_LEAF_LITTER,
+		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWBlocks.MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
+						.add(LootItem.lootTableItem(WWBlocks.YELLOW_MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
+				)
+		);
+		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(WWBlocks.ORANGE_MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
+				)
+		);
+		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(WWBlocks.RED_MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
 				)
 		);
 	}

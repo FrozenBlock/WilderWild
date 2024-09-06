@@ -213,7 +213,9 @@ public final class WWBlocks {
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
-	public static final Block MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
+	public static final Block YELLOW_MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW));
+	public static final Block ORANGE_MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
+	public static final Block RED_MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED));
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -346,7 +348,9 @@ public final class WWBlocks {
 		0.225F,
 		4.5F
 	);
-	public static final LeafLitterBlock MAPLE_LEAF_LITTER = leafLitter(MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.MAPLE_LEAVES, 0.04F);
 
 	// SCULK
 	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
@@ -1088,8 +1092,12 @@ public final class WWBlocks {
 		registerBlockAfter(MAPLE_PRESSURE_PLATE, "maple_button", MAPLE_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//MAPLE IN NATURE
 		registerBlockAfter(Blocks.CHERRY_LOG, "maple_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.CHERRY_LEAVES, "maple_leaves", MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(MAPLE_LEAVES, "maple_leaf_litter", MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.CHERRY_LEAVES, "yellow_maple_leaves", YELLOW_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(YELLOW_MAPLE_LEAVES, "yellow_maple_leaf_litter", YELLOW_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(YELLOW_MAPLE_LEAF_LITTER, "orange_maple_leaves", ORANGE_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(ORANGE_MAPLE_LEAVES, "orange_maple_leaf_litter", ORANGE_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(ORANGE_MAPLE_LEAF_LITTER, "red_maple_leaves", RED_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(RED_MAPLE_LEAVES, "red_maple_leaf_litter", RED_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlock("baobab_nut", BAOBAB_NUT);
 		registerBlock("potted_baobab_nut", POTTED_BAOBAB_NUT);
@@ -1570,7 +1578,9 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAVES, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAVES, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAVES, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
@@ -1598,7 +1608,9 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FROND_LITTER, 0.1F);
-		CompostingChanceRegistry.INSTANCE.add(MAPLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.1F);
 	}
 
 	private static void registerFlammability() {
@@ -1715,8 +1727,12 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MAPLE_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(MAPLE_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(MAPLE_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(MAPLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(YELLOW_MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(ORANGE_MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(RED_MAPLE_LEAVES, 100, 60);
+		flammableBlockRegistry.add(YELLOW_MAPLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(ORANGE_MAPLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(RED_MAPLE_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(MAPLE_BUTTON, 5, 20);
 		flammableBlockRegistry.add(MAPLE_SIGN, 5, 20);
 		flammableBlockRegistry.add(MAPLE_WALL_SIGN, 5, 20);
@@ -1736,7 +1752,6 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(BAOBAB_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(CYPRESS_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(PALM_FROND_LITTER, 200, 60);
-		flammableBlockRegistry.add(MAPLE_LEAF_LITTER, 200, 60);
 	}
 
 	private static void registerFuels() {
