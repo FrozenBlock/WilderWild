@@ -31,8 +31,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShapeRenderer;
 import net.minecraft.client.renderer.debug.DebugRenderer;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -40,7 +41,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
-	private static final int NECK_LINE_COLOR = FastColor.ARGB32.color(255, 100, 255, 255);
+	private static final int NECK_LINE_COLOR = ARGB.color(255, 100, 255, 255);
 	private final Minecraft minecraft;
 	private List<Entity> surroundEntities = Collections.emptyList();
 
@@ -65,7 +66,7 @@ public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		for (Entity entity2 : this.surroundEntities) {
 			if (entity2 instanceof Ostrich ostrich) {
 				AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
-				LevelRenderer.renderLineBox(
+				ShapeRenderer.renderLineBox(
 					matrices,
 					lineConsumer,
 					attackBox,

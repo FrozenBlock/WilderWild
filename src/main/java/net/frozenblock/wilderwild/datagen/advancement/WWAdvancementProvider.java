@@ -35,8 +35,12 @@ import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.UsingItemTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class WWAdvancementProvider extends FabricAdvancementProvider {
 	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -45,6 +49,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
+		HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
 		AdvancementHolder adventure = Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/root"));
 		AdvancementHolder husbandry = Advancement.Builder.advancement().build(WWConstants.vanillaId("husbandry/root"));
 
@@ -60,7 +65,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.CRAB_BUCKET)))
+			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/crab_in_a_bucket"));
 
 		Advancement.Builder.advancement()
@@ -90,7 +95,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.JELLYFISH_BUCKET)))
+			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
@@ -122,7 +127,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("use_ancient_horn",
 				CriteriaTriggers.USING_ITEM
-					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(WWItems.ANCIENT_HORN).build())))
+					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(items, WWItems.ANCIENT_HORN).build())))
 			)
 			.save(writer, WWConstants.string("adventure/use_ancient_horn"));
 	}

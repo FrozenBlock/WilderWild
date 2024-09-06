@@ -33,21 +33,22 @@ import net.minecraft.world.level.ItemLike;
 
 public class WWCookRecipeProvider {
 
-	static void buildRecipes(RecipeOutput exporter) {
+	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
-			.unlockedBy("has_crab_claw", RecipeProvider.has(WWItems.CRAB_CLAW))
+			.unlockedBy("has_crab_claw", provider.has(WWItems.CRAB_CLAW))
 			.save(exporter);
-		cookRecipes(exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
-		cookRecipes(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+		cookRecipes(provider, exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
+		cookRecipes(provider, exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
 	}
 
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
-		RecipeOutput exporter, String cooker, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipe, int cookingTime
+		RecipeProvider provider, RecipeOutput exporter, String cooker, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipe, int cookingTime
 	) {
-		simpleCookingRecipe(exporter, cooker, serializer, recipe, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
+		simpleCookingRecipe(provider, exporter, cooker, serializer, recipe, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
 	}
 
 	private static <T extends AbstractCookingRecipe> void simpleCookingRecipe(
+		RecipeProvider provider,
 		RecipeOutput exporter,
 		String cooker,
 		RecipeSerializer<T> serializer,
@@ -58,7 +59,7 @@ public class WWCookRecipeProvider {
 		float experience
 	) {
 		SimpleCookingRecipeBuilder.generic(Ingredient.of(input), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipe)
-			.unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
+			.unlockedBy(RecipeProvider.getHasName(input), provider.has(input))
 			.save(exporter, WWConstants.id(RecipeProvider.getItemName(output) + "_from_" + cooker));
 	}
 }

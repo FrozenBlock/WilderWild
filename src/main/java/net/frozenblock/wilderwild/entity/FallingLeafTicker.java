@@ -60,7 +60,7 @@ public class FallingLeafTicker extends SilentTicker {
 
 	@Override
 	public void tick(@NotNull Level level, @NotNull Vec3 vec3, @NotNull BlockPos pos, int ticks) {
-		if (vec3.y > level.getMinBuildHeight() && this.leafLitter != null) {
+		if (vec3.y > level.getMinY() && this.leafLitter != null) {
 			if (level instanceof ServerLevel serverLevel) {
 				this.yd -= 0.04D;
 				this.setPos(vec3.add(0D, this.yd, 0D));

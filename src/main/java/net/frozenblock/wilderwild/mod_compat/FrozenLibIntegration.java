@@ -104,6 +104,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import static net.minecraft.world.level.block.Blocks.CACTUS;
 import static net.minecraft.world.level.block.Blocks.CLAY;
 import static net.minecraft.world.level.block.Blocks.FROSTED_ICE;
 import static net.minecraft.world.level.block.Blocks.GRAVEL;

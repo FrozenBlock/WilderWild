@@ -26,7 +26,7 @@ import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WWEnumValues;
+import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CoconutItem;

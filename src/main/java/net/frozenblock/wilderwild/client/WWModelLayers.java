@@ -43,6 +43,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
 import net.frozenblock.wilderwild.registry.WWEntities;
+import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -87,7 +88,7 @@ public class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntities.SCORCHED, ScorchedRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(SCORCHED, ScorchedModel::createSpiderBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(SCORCHED, SpiderModel::createSpiderBodyLayer);
 
 		EntityRendererRegistry.register(WWEntities.COCONUT, ThrownItemRenderer::new);
 
