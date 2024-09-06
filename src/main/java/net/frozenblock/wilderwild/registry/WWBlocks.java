@@ -306,6 +306,22 @@ public final class WWBlocks {
 		0.225F,
 		1F
 	);
+	public static final LeafLitterBlock AZALEA_LEAF_LITTER = leafLitter(
+		Blocks.AZALEA_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		2F
+	);
+	public static final LeafLitterBlock FLOWERING_AZALEA_LEAF_LITTER = leafLitter(
+		Blocks.FLOWERING_AZALEA_LEAVES,
+		WWParticleTypes.MAPLE_LEAVES,
+		0.004F,
+		0.00125F,
+		0.225F,
+		2F
+	);
 	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = leafLitter(
 		BAOBAB_LEAVES,
 		WWParticleTypes.MAPLE_LEAVES,
@@ -1198,6 +1214,8 @@ public final class WWBlocks {
 		registerBlockAfter(Blocks.DARK_OAK_LEAVES, "dark_oak_leaf_litter", DARK_OAK_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Blocks.MANGROVE_LEAVES, "mangrove_leaf_litter", MANGROVE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Blocks.CHERRY_LEAVES, "cherry_leaf_litter", CHERRY_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.AZALEA_LEAVES, "azalea_leaf_litter", AZALEA_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.FLOWERING_AZALEA_LEAVES, "flowering_azalea_leaf_litter", FLOWERING_AZALEA_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerNotSoPlants() {
@@ -1575,6 +1593,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(DARK_OAK_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(MANGROVE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CHERRY_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(AZALEA_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(FLOWERING_AZALEA_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FROND_LITTER, 0.1F);
@@ -1711,6 +1731,8 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(DARK_OAK_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(MANGROVE_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(CHERRY_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(AZALEA_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(FLOWERING_AZALEA_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(BAOBAB_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(CYPRESS_LEAF_LITTER, 200, 60);
 		flammableBlockRegistry.add(PALM_FROND_LITTER, 200, 60);

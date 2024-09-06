@@ -758,6 +758,22 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.add(LootItem.lootTableItem(WWBlocks.CHERRY_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
 				)
 		);
+		this.add(WWBlocks.AZALEA_LEAF_LITTER,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(WWBlocks.AZALEA_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
+				)
+		);
+		this.add(WWBlocks.FLOWERING_AZALEA_LEAF_LITTER,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(WWBlocks.FLOWERING_AZALEA_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
+				)
+		);
 		this.add(WWBlocks.BAOBAB_LEAF_LITTER,
 			LootTable.lootTable()
 				.withPool(

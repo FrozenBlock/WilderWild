@@ -1,6 +1,6 @@
 {
   "parent": "wilderwild:block/template_leaf_litter_tinted",
   "textures": {
-    "texture": "wilderwild:block/cypress_leaves"
+    "texture": "wilderwild:block/cypress_leaf_litter"
   }
 }

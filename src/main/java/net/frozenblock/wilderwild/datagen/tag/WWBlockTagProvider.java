@@ -385,6 +385,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.DARK_OAK_LEAF_LITTER)
 			.add(WWBlocks.MANGROVE_LEAF_LITTER)
 			.add(WWBlocks.CHERRY_LEAF_LITTER)
+			.add(WWBlocks.AZALEA_LEAF_LITTER)
+			.add(WWBlocks.FLOWERING_AZALEA_LEAF_LITTER)
 			.add(WWBlocks.BAOBAB_LEAF_LITTER)
 			.add(WWBlocks.CYPRESS_LEAF_LITTER)
 			.add(WWBlocks.PALM_FROND_LITTER)
