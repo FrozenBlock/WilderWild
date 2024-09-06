@@ -24,8 +24,8 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.minecraft.client.model.HierarchicalModel;
+import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -37,16 +37,9 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
+public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 	private final ModelPart root;
 	private final ModelPart tumbleweed;
-	private float partialTick;
-	private float prevPitch;
-	private float pitch;
-	private float prevRoll;
-	private float roll;
-	private float prevTumble;
-	private float tumble;
 
 	public TumbleweedModel(@NotNull ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
@@ -65,27 +58,15 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
-		this.partialTick = partialTick;
-		this.prevPitch = entity.prevPitch;
-		this.pitch = entity.pitch;
-		this.prevRoll = entity.prevRoll;
-		this.roll = entity.roll;
-		this.prevTumble = entity.prevTumble;
-		this.tumble = entity.tumble;
-	}
-
-	@Override
-	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(TumbleweedRenderState renderState) {
 		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
-			this.root.xRot = (Mth.lerp(this.partialTick, this.prevTumble, this.tumble)) * Mth.DEG_TO_RAD;
+			this.root.xRot = renderState.tumbleRot;
 		} else {
 			this.root.xRot = 0F;
 		}
 	}
 
-	@Override
+	/*@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
 		poseStack.pushPose();
 		poseStack.translate(0D, 1.3D, 0D);
@@ -103,7 +84,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, color);
 		}
 		poseStack.popPose();
-	}
+	}*/
 
 	@Override
 	@NotNull

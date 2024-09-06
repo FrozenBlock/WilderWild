@@ -40,47 +40,63 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<Tumbleweed>> {
+public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRenderState, TumbleweedModel> {
 	private final ItemRenderer itemRenderer;
 
 	public TumbleweedRenderer(@NotNull Context context) {
-		super(context, new TumbleweedModel<>(context.bakeLayer(WWModelLayers.TUMBLEWEED)), 0.6F);
+		super(context, new TumbleweedModel(context.bakeLayer(WWModelLayers.TUMBLEWEED)), 0.6F);
 		this.itemRenderer = context.getItemRenderer();
 	}
 
 	@Override
 	@NotNull
-	public Vec3 getRenderOffset(@NotNull Tumbleweed entity, float partialTicks) {
+	public Vec3 getRenderOffset(TumbleweedRenderState entityRenderState) {
 		return new Vec3(0D, 0.2375D, 0D);
 	}
 
 	@Override
-	public void render(@NotNull Tumbleweed entity, float entityYaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-		super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
-		ItemStack stack = entity.getVisibleItem();
+	public void render(TumbleweedRenderState renderState, PoseStack poseStack, MultiBufferSource buffer, int i) {
+		super.render(renderState, poseStack, buffer, i);
+		ItemStack stack = renderState.visibleItem;
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.translate(entity.itemX, 0.4375D, entity.itemZ);
-			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD));
+			poseStack.translate(renderState.itemX, 0.4375D, renderState.itemZ);
+			poseStack.mulPose(Axis.XP.rotation(renderState.pitch));
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD));
-			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), 1);
+			poseStack.mulPose(Axis.ZP.rotation(renderState.roll));
+			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, i, OverlayTexture.NO_OVERLAY, poseStack, buffer, renderState.level, 1);
 			poseStack.popPose();
 			poseStack.popPose();
 		}
 	}
 
 	@Override
-	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick, float scale) {
+	protected void setupRotations(TumbleweedRenderState livingEntityRenderState, PoseStack poseStack, float rotationYaw, float scale) {
 		if (WWEntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
-			matrixStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
+			poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 		}
 	}
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull Tumbleweed entity) {
+	public ResourceLocation getTextureLocation(@NotNull TumbleweedRenderState renderState) {
 		return WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
 	}
 
+	@Override
+	@NotNull
+	public TumbleweedRenderState createRenderState() {
+		return new TumbleweedRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Tumbleweed entity, TumbleweedRenderState renderState, float partialTick) {
+		super.extractRenderState(entity, renderState, partialTick);
+		renderState.tumbleRot = Mth.lerp(partialTick, entity.prevTumble, entity.tumble) * Mth.DEG_TO_RAD;
+		renderState.itemX = entity.itemX;
+		renderState.itemZ = entity.itemZ;
+		renderState.pitch = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD;
+		renderState.roll = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD;
+		renderState.level = entity.level();
+	}
 }
