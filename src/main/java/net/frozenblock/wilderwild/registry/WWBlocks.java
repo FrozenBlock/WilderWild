@@ -301,7 +301,7 @@ public final class WWBlocks {
 		3.5F
 	);
 	public static final LeafLitterBlock CHERRY_LEAF_LITTER = leafLitter(
-		Blocks.DARK_OAK_LEAVES,
+		Blocks.CHERRY_LEAVES,
 		WWParticleTypes.CHERRY_LEAVES,
 		0.004F,
 		0.0125F,
