@@ -26,6 +26,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -40,7 +41,7 @@ public class LevelEventHandlerMixin {
 	@Shadow
 	@Final
 	@Nullable
-	private ClientLevel level;
+	private Level level;
 
 	@ModifyExpressionValue(
 		method = "levelEvent",
