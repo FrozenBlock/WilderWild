@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.render.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderState;
+import net.frozenblock.wilderwild.entity.render.renderer.state.ScorchedRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;

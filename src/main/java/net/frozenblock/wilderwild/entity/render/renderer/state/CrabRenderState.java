@@ -16,14 +16,17 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.renderer;
+package net.frozenblock.wilderwild.entity.render.renderer.state;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.world.entity.AnimationState;
 
-@Environment(EnvType.CLIENT)
-public class ScorchedRenderState extends LivingEntityRenderState {
+public class CrabRenderState extends LivingEntityRenderState {
 
-	public float lavaAnimProgress;
+	public float climbXRot;
+	public float attackTime;
+	public boolean isDitto;
+	public final AnimationState hidingAnimationState = new AnimationState();
+	public final AnimationState diggingAnimationState = new AnimationState();
+	public final AnimationState emergingAnimationState = new AnimationState();
 }

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.render.model;
 
-import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderState;
+import net.frozenblock.wilderwild.entity.render.renderer.state.OstrichRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

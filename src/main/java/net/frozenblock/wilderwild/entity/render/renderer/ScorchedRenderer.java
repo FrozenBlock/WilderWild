@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.render.layer.ScorchedGlowingLayer;
 import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
+import net.frozenblock.wilderwild.entity.render.renderer.state.ScorchedRenderState;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

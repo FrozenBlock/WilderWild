@@ -16,17 +16,23 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.renderer;
+package net.frozenblock.wilderwild.entity.render.renderer.state;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.world.entity.AnimationState;
+import net.minecraft.client.renderer.entity.state.SaddleableRenderState;
 
-public class CrabRenderState extends LivingEntityRenderState {
+@Environment(EnvType.CLIENT)
+public class OstrichRenderState extends LivingEntityRenderState implements SaddleableRenderState {
 
-	public float climbXRot;
-	public float attackTime;
-	public boolean isDitto;
-	public final AnimationState hidingAnimationState = new AnimationState();
-	public final AnimationState diggingAnimationState = new AnimationState();
-	public final AnimationState emergingAnimationState = new AnimationState();
+	public boolean isInbred;
+	public float beakAnimProgress;
+	public float targetStraightProgress;
+	public boolean isSaddled;
+
+	@Override
+	public boolean isSaddled() {
+		return this.isSaddled;
+	}
 }

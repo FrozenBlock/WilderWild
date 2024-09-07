@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
-import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderState;
+import net.frozenblock.wilderwild.entity.render.renderer.state.ScorchedRenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;

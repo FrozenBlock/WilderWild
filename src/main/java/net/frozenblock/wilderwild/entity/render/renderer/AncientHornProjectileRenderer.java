@@ -31,10 +31,11 @@ import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -58,7 +59,7 @@ public class AncientHornProjectileRenderer<T extends AncientHornVibration> exten
 		float scale = (multiplier * 0.5F) + 1F;
 		float alpha = 1F - (multiplier / 15F);
 		float correctedAlpha = Math.max(alpha, 0.01F);
-		int color = FastColor.ARGB32.colorFromFloat(correctedAlpha, 1F, 1F, 1F);
+		int color = ARGB.colorFromFloat(correctedAlpha, 1F, 1F, 1F);
 
 		poseStack.scale(scale, scale, scale);
 
@@ -79,5 +80,15 @@ public class AncientHornProjectileRenderer<T extends AncientHornVibration> exten
 	@Override
 	protected int getBlockLightLevel(@NotNull T entity, @NotNull BlockPos blockPos) {
 		return 15;
+	}
+
+	@Override
+	public ResourceLocation getTextureLocation(EntityRenderState entityRenderState) {
+		return null;
+	}
+
+	@Override
+	public EntityRenderState createRenderState() {
+		return null;
 	}
 }

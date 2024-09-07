@@ -16,23 +16,22 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.renderer;
+package net.frozenblock.wilderwild.entity.render.renderer.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.client.renderer.entity.state.SaddleableRenderState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 @Environment(EnvType.CLIENT)
-public class OstrichRenderState extends LivingEntityRenderState implements SaddleableRenderState {
+public class TumbleweedRenderState extends LivingEntityRenderState {
 
-	public boolean isInbred;
-	public float beakAnimProgress;
-	public float targetStraightProgress;
-	public boolean isSaddled;
-
-	@Override
-	public boolean isSaddled() {
-		return this.isSaddled;
-	}
+	public float tumbleRot;
+	public float pitch;
+	public float roll;
+	public ItemStack visibleItem;
+	public float itemX;
+	public float itemZ;
+	public Level level;
 }
