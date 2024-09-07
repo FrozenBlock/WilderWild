@@ -25,7 +25,6 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderState extends LivingEntityRenderState {
-
 	public int tickCount;
 	public boolean isRGB;
 	public JellyfishVariant variant;

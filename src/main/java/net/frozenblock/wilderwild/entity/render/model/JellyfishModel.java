@@ -19,6 +19,9 @@
 package net.frozenblock.wilderwild.entity.render.model;
 
 import java.util.Arrays;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
@@ -31,6 +34,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,14 +46,12 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
 	private final ModelPart[] tentacles = new ModelPart[JELLYFISH_TENTACLES];
-	public float xRot;
-	public float tentXRot;
+
+	public JellyfishRenderState jellyfishRenderState;
 
 	public float red;
 	public float green;
 	public float blue;
-
-	public float scale = 1F;
 
 	public JellyfishModel(@NotNull ModelPart root) {
 		super(FrozenRenderType::entityTranslucentEmissiveFixed);
@@ -110,23 +112,23 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		return g + f * angleCalc;
 	}
 
-	/*@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
-		poseStack.scale(this.scale, this.scale, this.scale);
+	@Override
+	public void renderToBuffer(@NotNull PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int colorBad) {
+		poseStack.scale(this.jellyfishRenderState.jellyScale, this.jellyfishRenderState.jellyScale, this.jellyfishRenderState.jellyScale);
 		poseStack.pushPose();
-		poseStack.mulPose(Axis.XP.rotationDegrees(this.xRot));
-		var color = FastColor.ARGB32.colorFromFloat(1F, this.red, this.green, this.blue);
-		this.body.render(poseStack, buffer, packedLight, packedOverlay, color);
+		poseStack.mulPose(Axis.XP.rotationDegrees(this.jellyfishRenderState.jellyXRot));
+		var color = ARGB.colorFromFloat(1F, this.red, this.green, this.blue);
+		this.body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 
 		poseStack.pushPose();
-		poseStack.mulPose(Axis.XP.rotationDegrees(this.tentXRot));
-		this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, color);
+		poseStack.mulPose(Axis.XP.rotationDegrees(this.jellyfishRenderState.tentXRot));
+		this.tentacleBase.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 		poseStack.popPose();
-	}*/
+	}
 
 	@Override
-	public void setupAnim(JellyfishRenderState renderState) {
+	public void setupAnim(@NotNull JellyfishRenderState renderState) {
 		float walkPos = renderState.walkAnimationPos;
 		float walkSpeed = renderState.walkAnimationSpeed;
 

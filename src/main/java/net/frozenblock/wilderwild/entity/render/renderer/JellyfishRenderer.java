@@ -44,7 +44,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	}
 
 	@Override
-	protected void setupRotations(JellyfishRenderState renderState, PoseStack poseStack, float rotationYaw, float g) {
+	protected void setupRotations(@NotNull JellyfishRenderState renderState, @NotNull PoseStack poseStack, float rotationYaw, float g) {
 		poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 		poseStack.translate(0, renderState.isBaby ? -1.1 : -1, 0);
 		poseStack.scale(0.8F, 0.8F, 0.8F);
@@ -69,6 +69,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 			model.green = 1;
 			model.blue = 1;
 		}
+		model.jellyfishRenderState = renderState;
 	}
 
 	@Override
