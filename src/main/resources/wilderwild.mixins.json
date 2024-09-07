@@ -121,6 +121,8 @@
   ],
   "client": [
     "client.allay.AllayModelMixin",
+    "client.allay.AllayRendererMixin",
+    "client.allay.AllayRenderStateMixin",
     "client.brush.LevelRendererMixin",
     "client.easter.ScottTheWozMixin",
     "client.easter.StellaWardenModel",
