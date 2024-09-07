@@ -26,6 +26,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.render.renderer.state.FireflyRenderState;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -39,7 +40,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
-public class FireflyRenderer extends EntityRenderer<Firefly> {
+public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState> {
 	//CREDIT TO magistermaks ON GITHUB!!
 
 	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
@@ -59,7 +60,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		super(ctx);
 	}
 
-	public static void renderFirefly(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, boolean nectar, int overlay, int age, float tickDelta, boolean flickers, FireflyColor color, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
+	public static void renderFirefly(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, boolean nectar, int overlay, int age, float calcColor, boolean flickers, FireflyColor color, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, scale);
 		poseStack.translate(xOffset, yOffset, zOffset);
@@ -106,11 +107,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			vertexConsumer = buffer.getBuffer(LAYERS.get(FireflyColor.ON.key()));
 		}
 
-		float calcColor = (float) (flickers ?
-			(((age + tickDelta) * Mth.PI) * -4F) / 255F :
-			Math.max(((Math.cos(((age + tickDelta) * Mth.PI) * 0.05F))), 0F)
-		);
-
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
 			.setColor(calcColor, calcColor, calcColor, calcColor)
@@ -148,38 +144,61 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	}
 
 	@Override
-	public void render(@NotNull Firefly entity, float yaw, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light) {
+	public void render(FireflyRenderState renderState, PoseStack poseStack, MultiBufferSource buffer, int light) {
 		boolean nectar = false;
 
-		Component component = entity.getCustomName();
+		Component component = renderState.customName;
 		if (component != null) {
 			nectar = component.getString().toLowerCase().contains("nectar");
 		}
 
-		float prevScale = entity.getPrevAnimScale();
-		float scale = prevScale + (tickDelta * (entity.getAnimScale() - prevScale));
+		float scale = renderState.animScale;
 
-		int overlay = getOverlay(entity, 0);
+		int overlay = renderState.overlay;
 
-		int age = entity.getFlickerAge();
-		boolean flickers = entity.flickers();
+		int age = renderState.flickerAge;
+		boolean flickers = renderState.flickers;
 
 
 		poseStack.pushPose();
-		float f = entity.getScale();
+		float f = renderState.scale;
 		poseStack.scale(f, f, f);
-		renderFirefly(poseStack, buffer, light, nectar, overlay, age, tickDelta, flickers, entity.getColor(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
+		renderFirefly(poseStack, buffer, light, nectar, overlay, age, renderState.calcColor, flickers, renderState.color, scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
-		if (this.shouldShowName(entity)) {
-			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light, tickDelta);
+		if (renderState.shouldShowName) {
+			this.renderNameTag(renderState, renderState.nameTag, poseStack, buffer, light);
 		}
 		poseStack.popPose();
 	}
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull Firefly entity) {
+	public ResourceLocation getTextureLocation(@NotNull FireflyRenderState renderState) {
 		return TEXTURE;
 	}
 
+	@Override
+	@NotNull
+	public FireflyRenderState createRenderState() {
+		return new FireflyRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Firefly entity, FireflyRenderState renderState, float partialTick) {
+		super.extractRenderState(entity, renderState, partialTick);
+
+		renderState.overlay = getOverlay(entity, 0);
+		renderState.flickerAge = entity.getFlickerAge();
+		renderState.flickers = entity.flickers();
+
+		float prevAnimScale = entity.getPrevAnimScale();
+		renderState.animScale = prevAnimScale + (partialTick * (entity.getAnimScale() - prevAnimScale));
+		renderState.color = entity.getColor();
+		renderState.calcColor = (float) (renderState.flickers ?
+			(((renderState.flickerAge + partialTick) * Mth.PI) * -4F) / 255F :
+			Math.max(((Math.cos(((renderState.flickerAge + prevAnimScale) * Mth.PI) * 0.05F))), 0F)
+		);
+
+		renderState.shouldShowName = this.shouldShowName(entity, renderState.distanceToCameraSq);
+	}
 }
