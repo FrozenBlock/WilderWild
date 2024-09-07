@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged")
-	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, Orientation orientation, boolean isMoving, CallbackInfo info) {
 		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock bubbleColumnBlock && !level.isClientSide && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			level.scheduleTick(pos, bubbleColumnBlock, 5);
 		}
