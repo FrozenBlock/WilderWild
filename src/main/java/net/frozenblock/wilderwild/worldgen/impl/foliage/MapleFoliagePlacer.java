@@ -89,7 +89,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 
 		for (double j = -radius + 0.6D; j <= radius - 0.6D; j += 0.2D) {
 			for (double k = -radius + 0.6D; k <= radius - 0.6D; k += 0.2D) {
-				if (!this.shouldSkipMapleLocationSigned(random, j, y, k, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) {
+				if (!this.shouldSkipMapleLocationSigned(j, k, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) {
 					mutableBlockPos.setWithOffset(centerPos, (int) j, y, (int) k);
 					tryPlaceLeaf(world, placer, random, config, mutableBlockPos);
 				}
@@ -98,7 +98,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 	}
 
 	protected boolean shouldSkipMapleLocationSigned(
-		RandomSource random, double dx, int y, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight
+		double dx, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight
 	) {
 		double i;
 		double j;
@@ -110,11 +110,11 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 			j = Math.abs(dz);
 		}
 
-		return this.shouldSkipMapleLocation(random, i, y, j, radius, giantTrunk, totalHeight, currentHeight, trunkHeight);
+		return this.shouldSkipMapleLocation(i, j, radius, totalHeight, currentHeight, trunkHeight);
 	}
 
 	protected boolean shouldSkipMapleLocation(
-		RandomSource random, double xDistance, int y, double zDistance, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight
+		 double xDistance, double zDistance, double radius, int totalHeight, int currentHeight, int trunkHeight
 	) {
 		double mapleFunction = this.getMapleFoliageFunction(totalHeight, currentHeight, radius, currentHeight <= trunkHeight);
 		Vec3 vec3 = new Vec3(xDistance, 0, zDistance);

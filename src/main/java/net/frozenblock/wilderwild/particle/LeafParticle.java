@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class LeafParticle extends CherryParticle {
-	private static final int COLOR = FastColor.ARGB32.color(255, 255, 255);
+	private static final int UNTINTED = FastColor.ARGB32.color(255, 255, 255);
 	private final ParticleType<LeafParticleOptions> particleType;
 
 	public LeafParticle(
@@ -51,7 +51,7 @@ public class LeafParticle extends CherryParticle {
 		super(world, x, y, z, spriteProvider);
 		this.particleType = particleType;
 		FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(this.particleType);
-		int color = COLOR;
+		int color = UNTINTED;
 		if (leafParticleData != null) {
 			Block leavesBlock = leafParticleData.leavesBlock();
 			BlockColor blockColor = ColorProviderRegistry.BLOCK.get(leavesBlock);

@@ -19,65 +19,23 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import java.util.OptionalInt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
-	public static final int DECAY_DISTANCE = 12;
 	public static final MapCodec<PalmFrondsBlock> CODEC = simpleCodec(PalmFrondsBlock::new);
-	public static final int BONEMEAL_DISTANCE = 1;
+	public static final int BONEMEAL_DISTANCE = CoconutBlock.VALID_FROND_DISTANCE;
 
 	public PalmFrondsBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.defaultBlockState().setValue(DISTANCE, DECAY_DISTANCE));
-	}
-
-	@NotNull
-	private static BlockState updateFrondDistanceDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		int i = DECAY_DISTANCE;
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-
-		for (Direction direction : Direction.values()) {
-			mutableBlockPos.setWithOffset(pos, direction);
-			i = Math.min(i, getFrondDistanceAt(level.getBlockState(mutableBlockPos)) + 1);
-			if (i == 1) {
-				break;
-			}
-		}
-
-		return state.setValue(DISTANCE, i);
-	}
-
-	private static int getFrondDistanceAt(BlockState neighbor) {
-		return getOptionalFrondDistanceAt(neighbor).orElse(DECAY_DISTANCE);
-	}
-
-	@NotNull
-	public static OptionalInt getOptionalFrondDistanceAt(@NotNull BlockState state) {
-		if (state.is(BlockTags.LOGS)) return OptionalInt.of(0);
-		if (!state.hasProperty(DISTANCE)) return OptionalInt.empty();
-
-		Block block = state.getBlock();
-		int distance = state.getValue(DISTANCE);
-		if (!(block instanceof PalmFrondsBlock) && distance == LeavesBlock.DECAY_DISTANCE) {
-			return OptionalInt.of(DECAY_DISTANCE);
-		}
-		return OptionalInt.of(distance);
 	}
 
 	@NotNull
@@ -101,27 +59,15 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 
-	@Override
-	public boolean isRandomlyTicking(@NotNull BlockState state) {
-		return state.getValue(DISTANCE) == DECAY_DISTANCE && !state.getValue(PERSISTENT);
-	}
-
-	@Override
-	protected boolean decaying(@NotNull BlockState state) {
-		return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == DECAY_DISTANCE;
-	}
-
-	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		level.setBlock(pos, updateFrondDistanceDistance(state, level, pos), UPDATE_ALL);
-	}
-
-	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		BlockState blockState = this.defaultBlockState()
-			.setValue(PERSISTENT, Boolean.TRUE)
-			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-		return updateFrondDistanceDistance(blockState, context.getLevel(), context.getClickedPos());
+	public boolean canPalmFrondDecay(ServerLevel world, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutablePos = pos.mutable();
+		for (Direction direction : UPDATE_SHAPE_ORDER) {
+			BlockPos offsetPos = mutablePos.setWithOffset(pos, direction);
+			BlockState blockState = world.getBlockState(offsetPos);
+			if (blockState.getBlock() instanceof LeavesBlock leavesBlock) {
+				if (!leavesBlock.decaying(blockState)) return false;
+			}
+		}
+		return true;
 	}
 }

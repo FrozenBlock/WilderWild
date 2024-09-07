@@ -37,7 +37,7 @@ import net.frozenblock.wilderwild.worldgen.impl.features.config.SnowAndIceDiskFe
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.foliage.WinePalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;
@@ -72,7 +72,7 @@ public class WWFeatures {
 	public static final TrunkPlacerType<LargeSnappedTrunkPlacer> LARGE_SNAPPED_TRUNK_PLACER = registerTrunk("large_snapped_trunk_placer", LargeSnappedTrunkPlacer.CODEC);
 
 	public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER = registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
-	public static final FoliagePlacerType<WinePalmFoliagePlacer> WINE_PALM_FOLIAGE_PLACER = registerFoliage("wine_palm_foliage_placer", WinePalmFoliagePlacer.CODEC);
+	public static final FoliagePlacerType<WindmillPalmFoliagePlacer> WINDMILL_PALM_FOLIAGE_PLACER = registerFoliage("windmill_palm_foliage_placer", WindmillPalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<MapleFoliagePlacer> MAPLE_FOLIAGE_PLACER = registerFoliage("maple_foliage_placer", MapleFoliagePlacer.CODEC);
 
 	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));

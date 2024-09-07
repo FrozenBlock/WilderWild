@@ -122,6 +122,7 @@ accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lne
 accessible method net/minecraft/world/level/block/state/BlockBehaviour canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible class net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
 accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
+accessible method net/minecraft/world/level/block/LeavesBlock decaying (Lnet/minecraft/world/level/block/state/BlockState;)Z
 
 # Block Entities
 accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;

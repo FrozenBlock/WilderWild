@@ -31,7 +31,6 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
-    "block.palm_fronds.BlockStatePropertiesMixin",
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",

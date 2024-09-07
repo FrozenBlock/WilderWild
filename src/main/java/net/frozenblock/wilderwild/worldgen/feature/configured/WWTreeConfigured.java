@@ -29,7 +29,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.foliage.WinePalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
@@ -48,6 +48,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -213,8 +214,8 @@ public final class WWTreeConfigured {
 	//PALM
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALM = register("palm");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALM = register("tall_palm");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_WINE_PALM = register("small_wine_palm");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_WINE_PALM = register("tall_wine_palm");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_WINDMILL_PALM = register("small_windmill_palm");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_WINDMILL_PALM = register("tall_windmill_palm");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_PALM = register("fallen_palm");
 	//JUNIPER
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> JUNIPER = register("juniper");
@@ -1606,8 +1607,8 @@ public final class WWTreeConfigured {
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
 				6, 2, 1,
-				1, 3,
-				4, 9
+				1, 2,
+				1, 2
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1616,26 +1617,24 @@ public final class WWTreeConfigured {
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
 				8, 3, 2,
-				1, 3,
-				5, 10
+				2, 2,
+				1, 2
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		SMALL_WINE_PALM.makeAndSetHolder(WWFeatures.PALM_TREE_FEATURE,
-			winePalmBuilder(
+		TALL_WINDMILL_PALM.makeAndSetHolder(WWFeatures.PALM_TREE_FEATURE,
+			windmillPalmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
-				5, 1, 2,
-				6, 9
+				10, 3, 3
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		TALL_WINE_PALM.makeAndSetHolder(WWFeatures.PALM_TREE_FEATURE,
-			winePalmBuilder(
+		SHORT_WINDMILL_PALM.makeAndSetHolder(WWFeatures.PALM_TREE_FEATURE,
+			windmillPalmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
-				10, 3, 3,
-				6, 9
+				5, 1, 2
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1785,16 +1784,16 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFronds, int maxFronds) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFrondLength, int maxFrondLength) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds)),
+			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), BiasedToBottomInt.of(minFrondLength + 1, maxFrondLength + 1)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	@Contract("_, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minFronds, int maxFronds) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new WinePalmFoliagePlacer(ConstantInt.of(0), UniformInt.of(minFronds, maxFronds)),
+	@Contract("_, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder windmillPalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
+			BlockStateProvider.simple(leaves), new WindmillPalmFoliagePlacer(ConstantInt.of(2)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 

@@ -187,8 +187,8 @@ public final class WWTreePlaced {
 	//PALM
 	public static final FrozenPlacedFeature PALM_CHECKED = WWPlacementUtils.register("palm_checked");
 	public static final FrozenPlacedFeature TALL_PALM_CHECKED = WWPlacementUtils.register("tall_palm_checked");
-	public static final FrozenPlacedFeature TALL_WINE_PALM_CHECKED = WWPlacementUtils.register("tall_wine_palm_checked");
-	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED = WWPlacementUtils.register("small_wine_palm_checked");
+	public static final FrozenPlacedFeature TALL_WINDMILL_PALM_CHECKED = WWPlacementUtils.register("tall_windmill_palm_checked");
+	public static final FrozenPlacedFeature SMALL_WINDMILL_PALM_CHECKED = WWPlacementUtils.register("small_windmill_palm_checked");
 	public static final FrozenPlacedFeature FALLEN_PALM_CHECKED = WWPlacementUtils.register("fallen_palm_checked");
 	//JUNIPER
 	public static final FrozenPlacedFeature JUNIPER = WWPlacementUtils.register("juniper");
@@ -712,11 +712,11 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
-		TALL_WINE_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_WINE_PALM.getHolder(),
+		TALL_WINDMILL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_WINDMILL_PALM.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
-		SMALL_WINE_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.SMALL_WINE_PALM.getHolder(),
+		SMALL_WINDMILL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_WINDMILL_PALM.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT)
 		);
 
@@ -774,11 +774,11 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
-		TALL_WINE_PALM_CHECKED_DIRT.makeAndSetHolder(WWTreeConfigured.TALL_WINE_PALM.getHolder(),
+		TALL_WINE_PALM_CHECKED_DIRT.makeAndSetHolder(WWTreeConfigured.TALL_WINDMILL_PALM.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
-		SMALL_WINE_PALM_CHECKED_DIRT.makeAndSetHolder(WWTreeConfigured.SMALL_WINE_PALM.getHolder(),
+		SMALL_WINE_PALM_CHECKED_DIRT.makeAndSetHolder(WWTreeConfigured.SHORT_WINDMILL_PALM.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 	}

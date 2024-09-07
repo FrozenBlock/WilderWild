@@ -22,7 +22,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 # Changes
 - Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
   - Warm Beaches will still have Palms.
-- The foliage of Wine Palms now uses Vanilla's `FancyFoliagePlacer.`
+- Rewrote the foliage generation of Palm trees.
+  - Normal Palm trees now look more "Minecrafty" and no longer use realistic frond generation.
+    - In other words, they're visually pleasing and no longer messy!
+  - Palms that generated with circular foliage have now also receive upgraded foliage generation, mirroring the real-world Windmill Palm.
+  - Thanks to this new generation, the mixin that modifies the `distance` property's maximum value has been removed.
+  - A minimum of one Coconut is now guaranteed to generate on each Palm tree.
 - The foliage and grass colors of the Oasis biome are no longer a saturated green.
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.

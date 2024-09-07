@@ -9,20 +9,15 @@
       }
     },
     "foliage_placer": {
-      "type": "wilderwild:wine_palm_foliage_placer",
-      "frond_count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 9,
-        "min_inclusive": 6
-      },
-      "offset": 0
+      "type": "wilderwild:windmill_palm_foliage_placer",
+      "radius": 2
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:palm_fronds",
         "Properties": {
-          "distance": "12",
+          "distance": "7",
           "persistent": "false",
           "waterlogged": "false"
         }
@@ -37,10 +32,10 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 10,
-      "height_rand_a": 3,
-      "height_rand_b": 3
+      "type": "wilderwild:palm_trunk_placer",
+      "base_height": 5,
+      "height_rand_a": 1,
+      "height_rand_b": 2
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
