@@ -23,8 +23,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.PigRenderer;
+import net.minecraft.client.renderer.entity.state.PigRenderState;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Pig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,14 +38,16 @@ public final class UppyBalloo {
 	private static final ResourceLocation WILDERWILD$UPPY_BALLOO = WWConstants.id("textures/entity/pig/uppy_balloo.png");
 
 	@Inject(
-		method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Pig;)Lnet/minecraft/resources/ResourceLocation;",
+		method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/PigRenderState;)Lnet/minecraft/resources/ResourceLocation;",
 		at = @At("RETURN"),
 		cancellable = true,
 		require = 0
 	)
-	public void getTextureLocation(Pig pig, CallbackInfoReturnable<ResourceLocation> info) {
-		if (ChatFormatting.stripFormatting(pig.getName().getString()).equalsIgnoreCase("a view from the top")) {
-			info.setReturnValue(WILDERWILD$UPPY_BALLOO);
+	public void wilderWild$getTextureLocation(PigRenderState pigRenderState, CallbackInfoReturnable<ResourceLocation> info) {
+		if (pigRenderState.customName != null) {
+			if (ChatFormatting.stripFormatting(pigRenderState.customName.getString()).equalsIgnoreCase("a view from the top")) {
+				info.setReturnValue(WILDERWILD$UPPY_BALLOO);
+			}
 		}
 	}
 }
