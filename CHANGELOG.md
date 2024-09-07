@@ -5,6 +5,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 -----------------
 # Additions
 - Added Maple trees.
+- Added Maple Grove biome
+  - Chestnut Wolves spawn here
 - Added Marigold.
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
@@ -44,6 +46,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Crab Claws and Cooked Crab Claws are now placed before Cod in the creative inventory.
 - Baobab, Cypress, and Palm foliage is now found between Mangrove Leaves and Cherry Leaves in the creative inventory.
 - Fixed potential worldgen feature cycle crashes when certain config options were disabled.
+- Removed many duplicate spawn entries in Wilder Wild's biomes.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

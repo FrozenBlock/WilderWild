@@ -158,8 +158,8 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.farmAnimals(spawns);
 		BiomeDefaultFeatures.commonSpawns(spawns);
+		BiomeDefaultFeatures.farmAnimals(spawns);
 	}
 
 	@Override

@@ -156,7 +156,7 @@ public final class AridForest extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.commonSpawns(spawns);
+		BiomeDefaultFeatures.desertSpawns(spawns);
 	}
 
 	@Override

@@ -257,8 +257,6 @@ public class FrozenLibIntegration extends ModIntegration {
 			)
 		);
 
-		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST, 3);
-
 		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntities.STONE_CHEST);
 
 		FrozenBools.useNewDripstoneLiquid = true;
@@ -381,6 +379,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWWorldgen.DARK_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(WWWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
+		WolfVariantBiomeRegistry.register(WWWorldgen.MAPLE_GROVE, WolfVariants.CHESTNUT);
 
 		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntities.STONE_CHEST);
 
