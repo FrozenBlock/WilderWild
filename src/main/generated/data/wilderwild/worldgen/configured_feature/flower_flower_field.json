@@ -17,70 +17,136 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:lily_of_the_valley"
+                "Name": "minecraft:lily_of_the_valley",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:white_tulip"
+                "Name": "minecraft:white_tulip",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "wilderwild:seeding_dandelion"
+                "Name": "wilderwild:seeding_dandelion",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:oxeye_daisy"
+                "Name": "minecraft:oxeye_daisy",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:dandelion",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:dandelion",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:dandelion",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:orange_tulip"
+                "Name": "minecraft:orange_tulip",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:orange_tulip"
+                "Name": "minecraft:orange_tulip",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:poppy"
+                "Name": "minecraft:poppy",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:poppy"
+                "Name": "minecraft:poppy",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:red_tulip"
+                "Name": "minecraft:red_tulip",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:pink_tulip"
+                "Name": "minecraft:pink_tulip",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:pink_tulip"
+                "Name": "minecraft:pink_tulip",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:allium"
+                "Name": "minecraft:allium",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "wilderwild:carnation"
+                "Name": "wilderwild:carnation",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "wilderwild:carnation"
+                "Name": "wilderwild:carnation",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:cornflower"
+                "Name": "minecraft:cornflower",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:cornflower"
+                "Name": "minecraft:cornflower",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:cornflower"
+                "Name": "minecraft:cornflower",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:blue_orchid"
+                "Name": "minecraft:blue_orchid",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:blue_orchid"
+                "Name": "minecraft:blue_orchid",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               }
             ]
           }

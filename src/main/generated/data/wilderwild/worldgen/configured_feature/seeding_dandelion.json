@@ -8,7 +8,10 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "wilderwild:seeding_dandelion"
+              "Name": "wilderwild:seeding_dandelion",
+              "Properties": {
+                "snow_layers": "0"
+              }
             }
           }
         }
