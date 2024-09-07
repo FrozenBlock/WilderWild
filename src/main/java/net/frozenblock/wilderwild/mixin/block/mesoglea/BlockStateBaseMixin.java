@@ -26,18 +26,21 @@ import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Orientation;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BlockBehaviour.class)
-public class BlockBehaviourMixin {
+@Mixin(BlockBehaviour.BlockStateBase.class)
+public abstract class BlockStateBaseMixin {
 
-	@Inject(at = @At("HEAD"), method = "neighborChanged")
-	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, Orientation orientation, boolean isMoving, CallbackInfo info) {
-		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock bubbleColumnBlock && !level.isClientSide && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+	@Shadow
+	protected abstract BlockState asState();
+
+	@Inject(at = @At("HEAD"), method = "handleNeighborChanged")
+	public void wilderWild$neighborChanged(Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
+		if (this.asState().getBlock() instanceof BubbleColumnBlock bubbleColumnBlock && !level.isClientSide && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			level.scheduleTick(pos, bubbleColumnBlock, 5);
 		}
 	}

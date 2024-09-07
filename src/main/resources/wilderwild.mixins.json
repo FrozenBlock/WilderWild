@@ -23,7 +23,7 @@
     "block.lava.LavaFluidMixin",
     "block.leaves.BlockStateBaseMixin",
     "block.leaves.LeavesBlockMixin",
-    "block.mesoglea.BlockBehaviourMixin",
+    "block.mesoglea.BlockStateBaseMixin",
     "block.mesoglea.BlockGetterMixin",
     "block.mesoglea.BreathAirGoalMixin",
     "block.mesoglea.BubbleColumnBlockMixin",

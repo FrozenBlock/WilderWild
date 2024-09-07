@@ -40,7 +40,7 @@ public abstract class BlockStateBaseMixin {
 	@Shadow
 	protected abstract BlockState asState();
 
-	@Inject(at = @At("HEAD"), method = "handleNeighborChanged", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "handleNeighborChanged")
 	public void wilderWild$neighborChanged(Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
 		BlockState state = this.asState();
 		if (state.getBlock() instanceof BigDripleafStemBlock && !level.isClientSide && WWBlockConfig.get().dripleafPowering) {
@@ -49,7 +49,6 @@ public abstract class BlockStateBaseMixin {
 			if (state.getValue(BlockStateProperties.POWERED) != receivingPower) {
 				level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, receivingPower), 3);
 			}
-			info.cancel();
 		}
 	}
 
