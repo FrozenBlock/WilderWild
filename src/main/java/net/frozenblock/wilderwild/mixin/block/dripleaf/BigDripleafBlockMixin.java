@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.dripleaf;
 
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.redstone.Orientation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -61,10 +63,11 @@ public final class BigDripleafBlockMixin {
 	}
 
 	@Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
 		if (WWBlockConfig.get().dripleafPowering) {
-			if (fromPos.equals(pos.below())) {
-				BlockState downState = level.getBlockState(fromPos);
+			boolean wasChangedBelow = orientation.getVerticalDirections().contains(Direction.DOWN);
+			if (wasChangedBelow) {
+				BlockState downState = level.getBlockState(pos.below());
 				if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
 					state = state.setValue(BlockStateProperties.POWERED, downState.getValue(BlockStateProperties.POWERED));
 					level.setBlock(pos, state, 3);
