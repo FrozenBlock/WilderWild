@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
+import net.frozenblock.wilderwild.entity.render.renderer.state.JellyfishRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
@@ -35,31 +36,31 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
+public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
 	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/white.png");
 
 	public JellyfishRenderer(@NotNull Context context) {
-		super(context, new JellyfishModel<>(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
+		super(context, new JellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
 	}
 
 	@Override
-	public void setupRotations(@NotNull Jellyfish jelly, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float scale) {
+	protected void setupRotations(JellyfishRenderState renderState, PoseStack poseStack, float rotationYaw, float g) {
 		poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
-		poseStack.translate(0, jelly.isBaby() ? -1.1 : -1, 0);
+		poseStack.translate(0, renderState.isBaby ? -1.1 : -1, 0);
 		poseStack.scale(0.8F, 0.8F, 0.8F);
-		JellyfishModel<Jellyfish> model = this.getModel();
+		JellyfishModel model = this.getModel();
 
-		if (this.isShaking(jelly)) {
-			poseStack.mulPose(Axis.YP.rotationDegrees((float) (Math.cos((double) jelly.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
+		if (this.isShaking(renderState)) {
+			poseStack.mulPose(Axis.YP.rotationDegrees((float) (Math.cos((double) renderState.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
 		}
 
-		if (isEntityUpsideDown(jelly)) {
-			poseStack.translate(0F, jelly.getBbHeight() + 0.1F, 0F);
+		if (renderState.isUpsideDown) {
+			poseStack.translate(0F, renderState.boundingBoxHeight + 0.1F, 0F);
 			poseStack.mulPose(Axis.ZP.rotationDegrees(180F));
 		}
 
-		if (jelly.isRGB()) {
-			float time = (ClientWindManager.time + partialTick) * 0.05F;
+		if (renderState.isRGB) {
+			float time = renderState.windTime;
 			model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1, 0, 1);
 			model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1, 0, 1);
 			model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1, 0, 1);
@@ -77,10 +78,30 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
-		if (jellyfish.isRGB()) {
+	public ResourceLocation getTextureLocation(@NotNull JellyfishRenderState jellyfish) {
+		if (jellyfish.isRGB) {
 			return WHITE_TEXTURE;
 		}
-		return jellyfish.getVariant().texture();
+		return jellyfish.variant.texture();
+	}
+
+	@Override
+	@NotNull
+	public JellyfishRenderState createRenderState() {
+		return new JellyfishRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Jellyfish entity, JellyfishRenderState renderState, float partialTick) {
+		super.extractRenderState(entity, renderState, partialTick);
+
+		renderState.tickCount = entity.tickCount;
+		renderState.isRGB = entity.isRGB();
+		renderState.variant = entity.getVariant();
+		renderState.windTime = (ClientWindManager.time + partialTick) * 0.05F;
+
+		renderState.xRot = -(entity.xRot1 + partialTick * (entity.xBodyRot - entity.xRot1));
+		renderState.tentXRot = -(entity.xRot6 + partialTick * (entity.xRot5 - entity.xRot6));
+		renderState.scale = (entity.prevScale + partialTick * (entity.scale - entity.prevScale)) * entity.getAgeScale();
 	}
 }

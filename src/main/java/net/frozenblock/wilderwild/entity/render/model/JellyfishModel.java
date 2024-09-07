@@ -18,28 +18,24 @@
 
 package net.frozenblock.wilderwild.entity.render.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.minecraft.client.model.HierarchicalModel;
+import net.frozenblock.wilderwild.entity.render.renderer.state.JellyfishRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
+public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private static final int JELLYFISH_TENTACLES = WWEntityConfig.get().jellyfish.jellyfishTentacles;
 	private static final float EIGHT_PI = -8F * Mth.DEG_TO_RAD;
 	private final ModelPart root;
@@ -114,7 +110,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		return g + f * angleCalc;
 	}
 
-	@Override
+	/*@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.scale(this.scale, this.scale, this.scale);
 		poseStack.pushPose();
@@ -127,23 +123,19 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		poseStack.mulPose(Axis.XP.rotationDegrees(this.tentXRot));
 		this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
-	}
+	}*/
 
 	@Override
-	public void prepareMobModel(@NotNull T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
-		this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
-		this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.scale = (jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale)) * jelly.getAgeScale();
-	}
+	public void setupAnim(JellyfishRenderState renderState) {
+		float walkPos = renderState.walkAnimationPos;
+		float walkSpeed = renderState.walkAnimationSpeed;
 
-	@Override
-	public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float animation = limbSwing * 2;
-		float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1F);
+		float animation = walkPos * 2;
+		float movementDelta = Math.min(walkSpeed * 26.6666667F, 1F);
 
 		//SQUASH & STRETCH
 		float sin = (float) -Math.sin(animation);
-		float sinIdle = (float) (Math.sin(ageInTicks * 0.1F) * 0.2F);
+		float sinIdle = (float) (Math.sin(renderState.ageInTicks * 0.1F) * 0.2F);
 		float squashStretch = 1F + (-sin * 0.25F);
 		float squash = Mth.lerp(movementDelta, sinIdle + 1F, squashStretch);
 
@@ -154,11 +146,11 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		this.body.y = Mth.lerp(movementDelta, 0F, 3.5F - (squashStretch * 3.5F));
 		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 2F);
 
-		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD);
+		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD);
 		for (ModelPart modelPart : this.tentacles) {
 			PartPose initialPose = modelPart.getInitialPose();
-			modelPart.x = initialPose.x * squash;
-			modelPart.z = initialPose.z * squash;
+			modelPart.x = initialPose.x() * squash;
+			modelPart.z = initialPose.z() * squash;
 			modelPart.xRot = tentRot;
 		}
 	}
