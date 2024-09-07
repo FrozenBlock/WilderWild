@@ -25,56 +25,54 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import java.text.DecimalFormat;
 
-public class PalmFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
+public class WinePalmFoliagePlacer extends FoliagePlacer {
+	public static final MapCodec<WinePalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+		winePalmCodec(instance).apply(instance, WinePalmFoliagePlacer::new)
 	);
-	private static final double SURROUNDING_LEAF_THRESHOLD = 0.0;
+	private static final double SURROUNDING_LEAF_THRESHOLD = 0D;
 	public final IntProvider frondCount;
 
-	public PalmFoliagePlacer(@NotNull IntProvider radius, @NotNull IntProvider offset, @NotNull IntProvider frondCount) {
-		super(radius, offset);
+	public WinePalmFoliagePlacer(@NotNull IntProvider offset, @NotNull IntProvider frondCount) {
+		super(ConstantInt.of(2), offset);
 		this.frondCount = frondCount;
 	}
 
 	@Contract("_ -> new")
-	protected static <P extends PalmFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
-		return foliagePlacerParts(builder)
+	protected static <P extends WinePalmFoliagePlacer> Products.@NotNull P2<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider> winePalmCodec(
+		RecordCodecBuilder.@NotNull Instance<P> instance
+	) {
+		return instance.group(IntProvider.codec(0, 16).fieldOf("offset").forGetter(placer -> placer.offset))
 			.and(IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount));
 	}
 
-	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(BlockPos.containing(offX, offY, offZ));
-		BlockPos basePos = mutableBlockPos.immutable();
+	public static void placeLeavesAtPos(
+		@NotNull LevelSimulatedReader level,
+		@NotNull FoliageSetter blockSetter,
+		@NotNull RandomSource random,
+		@NotNull TreeConfiguration config,
+		@NotNull Vec3 pos
+	) {
+		BlockPos basePos = BlockPos.containing(pos);
+		BlockPos.MutableBlockPos mutableBlockPos = basePos.mutable();
+		Vec3 offsetVec = pos.subtract(Vec3.atCenterOf(basePos));
 		tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos);
-		if (shouldPlaceAbove(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.move(1, 0, 0));
-		}
-		if (shouldPlaceBelow(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(-1, 0, 0));
-		}
-		if (shouldPlaceAbove(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 1, 0));
-		}
-		if (shouldPlaceBelow(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, -1, 0));
-		}
-		if (shouldPlaceAbove(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, 1));
-		}
-		if (shouldPlaceBelow(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, -1));
-		}
+		if (shouldPlaceAbove(offsetVec.x)) tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.move(1, 0, 0));
+		if (shouldPlaceBelow(offsetVec.x)) tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(-1, 0, 0));
+		if (shouldPlaceAbove(offsetVec.y)) tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 1, 0));
+		if (shouldPlaceBelow(offsetVec.y)) tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, -1, 0));
+		if (shouldPlaceAbove(offsetVec.z)) tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, 1));
+		if (shouldPlaceBelow(offsetVec.z)) tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, -1));
 	}
 
 	public static boolean shouldPlaceAbove(double d) {
@@ -88,7 +86,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	@Override
 	@NotNull
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.PALM_FOLIAGE_PLACER;
+		return WWFeatures.WINE_PALM_FOLIAGE_PLACER;
 	}
 
 	@Override
@@ -104,10 +102,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		int l
 	) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
-		BlockPos belowPos = blockPos.below();
-		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-		double minRadius = this.radius.getMinValue();
-		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
+		Vec3 origin = Vec3.atCenterOf(blockPos);
+		double radius = 1.25D;
 		double minus = (Math.PI * radius) / (radius * radius);
 		int fronds = this.frondCount.sample(random);
 		double rotAngle = 360D / (double) fronds;
@@ -119,7 +115,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 			double dirZ = offsetPos.z - origin.z;
 			for (double r = 0D; r < radius; r += 0.2D) {
 				double yOffset = (2D * (Math.sin((Math.PI * (r - 0.1D)) / radius) - minus)) + (4.2D * (minus * 0.4D));
-				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
+				Vec3 placementVec = Vec3.atCenterOf(blockPos).add(dirX * r, yOffset, dirZ * r);
+				placeLeavesAtPos(level, blockSetter, random, config, placementVec);
 			}
 			angle += rotAngle;
 		}
@@ -132,10 +129,6 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
-		if (localY == 0) {
-			return (localX > 1 || localZ > 1) && localX != 0 && localZ != 0;
-		} else {
-			return localX == range && localZ == range && range > 0;
-		}
+		return false;
 	}
 }

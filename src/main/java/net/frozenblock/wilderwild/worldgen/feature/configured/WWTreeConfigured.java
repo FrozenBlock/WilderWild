@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.WinePalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
@@ -1604,12 +1605,9 @@ public final class WWTreeConfigured {
 			palmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
-				6, 2,
-				1,
-				1,
-				3,
-				4,
-				9
+				6, 2, 1,
+				1, 3,
+				4, 9
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1617,13 +1615,9 @@ public final class WWTreeConfigured {
 			palmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
-				8,
-				3,
-				2,
-				1,
-				3,
-				5,
-				10
+				8, 3, 2,
+				1, 3,
+				5, 10
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1631,10 +1625,8 @@ public final class WWTreeConfigured {
 			winePalmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
-				5,
-				1,
-				2,
-				2
+				5, 1, 2,
+				6, 9
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1642,10 +1634,8 @@ public final class WWTreeConfigured {
 			winePalmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
-				10,
-				3,
-				3,
-				2
+				10, 3, 3,
+				6, 9
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1797,14 +1787,14 @@ public final class WWTreeConfigured {
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFronds, int maxFronds) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds), BlockStateProvider.simple(WWBlocks.PALM_LOG)),
+			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	@Contract("_, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
+	@Contract("_, _, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minFronds, int maxFronds) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new FancyFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(2), 4),
+			BlockStateProvider.simple(leaves), new WinePalmFoliagePlacer(ConstantInt.of(0), UniformInt.of(minFronds, maxFronds)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
