@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;

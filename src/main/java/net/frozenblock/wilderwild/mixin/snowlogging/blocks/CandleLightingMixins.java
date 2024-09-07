@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;

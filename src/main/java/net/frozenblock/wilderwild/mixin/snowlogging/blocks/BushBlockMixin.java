@@ -16,26 +16,26 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.SeagrassBlock;
+import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(VineBlock.class)
-public abstract class VineBlockMixin extends Block {
+@Mixin(BushBlock.class)
+public class BushBlockMixin extends Block {
 
-	public VineBlockMixin(Properties properties) {
+	public BushBlockMixin(Properties properties) {
 		super(properties);
 	}
 
@@ -45,13 +45,21 @@ public abstract class VineBlockMixin extends Block {
 		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
-	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
-	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
-		return SnowloggingUtils.getSnowPlacementState(original, context);
+	@Unique
+	@Override
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		BushBlock thisBush = (BushBlock) (Object) this;
+		if (thisBush instanceof WaterlilyBlock || thisBush instanceof SeagrassBlock) {
+			return;
+		}
+		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
-	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
+	@Unique
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
 	}
 }

@@ -16,45 +16,44 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.block.SugarCaneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SweetBerryBushBlock.class)
-public abstract class SweetBerryBushBlockMixin {
+@Mixin(SugarCaneBlock.class)
+public class SugarCaneBlockMixin extends Block {
 
-	@Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$isRandomlyTicking(BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.setReturnValue(true);
-		}
+	public SugarCaneBlockMixin(Properties properties) {
+		super(properties);
+	}
+
+	@Unique
+	@Override
+	protected boolean isRandomlyTicking(BlockState state) {
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
+	}
+
+	@Unique
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
-	}
-
-	/**
-	 * Prevents sweet berry bushes from poking at and slowing entities if fully covered.
-	 */
-	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$thornsCovered(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
-		if (SnowloggingUtils.isOriginalBlockCovered(state, level, pos)) {
-			info.cancel();
-		}
 	}
 }

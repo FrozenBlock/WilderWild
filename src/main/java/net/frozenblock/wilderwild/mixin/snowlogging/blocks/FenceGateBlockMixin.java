@@ -16,29 +16,41 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PinkPetalsBlock.class)
-public abstract class PinkPetalsBlockMixin {
+@Mixin(FenceGateBlock.class)
+public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
+
+	public FenceGateBlockMixin(Properties properties) {
+		super(properties);
+	}
+
+	@Unique
+	@Override
+	protected boolean isRandomlyTicking(BlockState state) {
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
+	}
 
 	@ModifyExpressionValue(
 		method = "getStateForPlacement",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/PinkPetalsBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
+			target = "Lnet/minecraft/world/level/block/FenceGateBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
 	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
@@ -47,6 +59,7 @@ public abstract class PinkPetalsBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
+		if ((BlockConfig.get().snowlogging.snowlogWalls && BlockConfig.get().snowlogging.snowlogging))
+			builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 }

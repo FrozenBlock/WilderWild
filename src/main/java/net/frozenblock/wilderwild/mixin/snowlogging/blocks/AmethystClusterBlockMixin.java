@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
