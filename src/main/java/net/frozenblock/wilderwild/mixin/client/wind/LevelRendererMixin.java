@@ -82,7 +82,7 @@ public class LevelRendererMixin {
 			vec3 = new Vec3(cameraX, cameraY, cameraZ);
 		}
 
-		original.call(instance, frameGraphBuilder, matrix4f, matrix4f2, cloudStatus, vec3, partialTick, cloudColor, cloudHeight);
+		original.call(instance, frameGraphBuilder, matrix4f, matrix4f2, cloudStatus, vec3, ticks, cloudColor, cloudHeight);
 	}
 
 }
