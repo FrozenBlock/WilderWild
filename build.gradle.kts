@@ -221,7 +221,7 @@ dependencies {
         modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // Continuity
-    modImplementation("maven.modrinth:continuity:${continuity_version}")
+    modCompileOnly("maven.modrinth:continuity:${continuity_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
