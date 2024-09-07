@@ -27,6 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,13 +42,12 @@ public class ThrownEnderpearlMixin {
 		method = "onHit",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/Entity;resetFallDistance()V",
-			ordinal = 0
+			target = "Lnet/minecraft/world/entity/player/Player;resetFallDistance()V"
 		)
 	)
 	public void wilderWild$onHitWithServerPlayer
 		(HitResult result, CallbackInfo info,
-		 @Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Entity entity
+		 @Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Player entity
 		) {
 		if (WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds && entity instanceof ServerPlayer owner) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
@@ -78,8 +78,7 @@ public class ThrownEnderpearlMixin {
 		method = "onHit",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/Entity;resetFallDistance()V",
-			ordinal = 1
+			target = "Lnet/minecraft/world/entity/Entity;resetFallDistance()V"
 		)
 	)
 	public void wilderWild$onHitWithoutServerPlayer(
