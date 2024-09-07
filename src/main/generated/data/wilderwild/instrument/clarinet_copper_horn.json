@@ -1,0 +1,8 @@
+{
+  "description": {
+    "translate": "instrument.wilderwild.clarinet_copper_horn"
+  },
+  "range": 64.0,
+  "sound_event": "wilderwild:item.copper_horn.clarinet.loop",
+  "use_duration": 32767.0
+}

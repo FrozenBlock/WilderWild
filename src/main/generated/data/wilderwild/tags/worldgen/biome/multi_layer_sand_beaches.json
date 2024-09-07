@@ -16,10 +16,6 @@
     {
       "id": "wilderwild:arid_savanna",
       "required": false
-    },
-    {
-      "id": "terralith:arid_highlands",
-      "required": false
     }
   ]
 }

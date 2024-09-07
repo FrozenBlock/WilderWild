@@ -562,8 +562,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWWorldgen.BIRCH_JUNGLE)
 			.addOptional(WWWorldgen.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWWorldgen.ARID_SAVANNA)
-			.addOptional(ResourceLocation.parse("terralith:arid_highlands"));
+			.addOptional(WWWorldgen.ARID_SAVANNA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BELOW_SURFACE_SNOW)
 			.add(Biomes.FROZEN_PEAKS)
