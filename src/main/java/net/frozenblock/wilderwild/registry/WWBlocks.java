@@ -248,7 +248,7 @@ public final class WWBlocks {
 		Blocks.OAK_LEAVES,
 		WWParticleTypes.OAK_LEAVES,
 		0.004F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		2.5F
 	);
@@ -264,7 +264,7 @@ public final class WWBlocks {
 		Blocks.BIRCH_LEAVES,
 		WWParticleTypes.BIRCH_LEAVES,
 		0.002F,
-		0.0055F,
+		0.0025F,
 		0.125F,
 		2F
 	);
@@ -272,7 +272,7 @@ public final class WWBlocks {
 		Blocks.JUNGLE_LEAVES,
 		WWParticleTypes.JUNGLE_LEAVES,
 		0.004F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		3.5F
 	);
@@ -280,7 +280,7 @@ public final class WWBlocks {
 		Blocks.ACACIA_LEAVES,
 		WWParticleTypes.ACACIA_LEAVES,
 		0.002F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		2F
 	);
@@ -288,7 +288,7 @@ public final class WWBlocks {
 		Blocks.DARK_OAK_LEAVES,
 		WWParticleTypes.DARK_OAK_LEAVES,
 		0.004F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		2.5F
 	);
@@ -296,7 +296,7 @@ public final class WWBlocks {
 		Blocks.MANGROVE_LEAVES,
 		WWParticleTypes.MANGROVE_LEAVES,
 		0.004F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		3.5F
 	);
@@ -312,7 +312,7 @@ public final class WWBlocks {
 		Blocks.AZALEA_LEAVES,
 		WWParticleTypes.AZALEA_LEAVES,
 		0.004F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		2F
 	);
@@ -320,7 +320,7 @@ public final class WWBlocks {
 		Blocks.FLOWERING_AZALEA_LEAVES,
 		WWParticleTypes.FLOWERING_AZALEA_LEAVES,
 		0.004F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		2F
 	);
@@ -328,7 +328,7 @@ public final class WWBlocks {
 		BAOBAB_LEAVES,
 		WWParticleTypes.BAOBAB_LEAVES,
 		0.002F,
-		0.0125F,
+		0.0075F,
 		0.125F,
 		2F
 	);
