@@ -88,9 +88,7 @@ public abstract class BambooSaplingBlockMixin extends Block {
 	)
 	public boolean wilderWild$growBamboo(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original, Level level) {
 		BlockState originalState = level.getBlockState(pos);
-		if (originalState.is(Blocks.SNOW)) {
-			state = SnowloggingUtils.copySnowLayers(originalState, state);
-		}
+		state = SnowloggingUtils.copySnowLayers(originalState, state);
 		return original.call(instance, pos, state, flags);
 	}
 }

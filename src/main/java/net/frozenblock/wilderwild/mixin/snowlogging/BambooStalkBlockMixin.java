@@ -63,13 +63,9 @@ public abstract class BambooStalkBlockMixin {
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z")
 	)
-	public boolean wilderWild$growBamboo(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
-										 @Local(argsOnly = true) Level level
-	) {
+	public boolean wilderWild$growBamboo(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original, @Local(argsOnly = true) Level level) {
 		BlockState originalState = level.getBlockState(pos);
-		if (originalState.is(Blocks.SNOW)) {
-			state = SnowloggingUtils.copySnowLayers(originalState, state);
-		}
+		state = SnowloggingUtils.copySnowLayers(originalState, state);
 		return original.call(instance, pos, state, flags);
 	}
 }

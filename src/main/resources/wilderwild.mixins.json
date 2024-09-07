@@ -113,6 +113,7 @@
     "snowlogging.SpreadingSnowyDirtBlockMixin",
     "snowlogging.SugarCaneBlockMixin",
     "snowlogging.SweetBerryBushBlockMixin",
+    "snowlogging.TallGrassBlockMixin",
     "snowlogging.VineBlockMixin",
     "snowlogging.WallBlockMixin",
     "snowlogging.worldgen.BiomeMixin",

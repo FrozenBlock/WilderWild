@@ -23,6 +23,8 @@ import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.SeagrassBlock;
+import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +49,10 @@ public class BushBlockMixin extends Block {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
+		BushBlock thisBush = (BushBlock) (Object) this;
+		if (thisBush instanceof WaterlilyBlock || thisBush instanceof SeagrassBlock) {
+			return;
+		}
 		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

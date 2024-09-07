@@ -22,8 +22,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
@@ -37,6 +35,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.TallSeagrassBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -124,41 +123,12 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		}
 	}
 
-	@ModifyExpressionValue(
-		method = "preventDropFromBottomPart",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	private static BlockState wilderWild$preventDropFromBottomPartA(
-		BlockState original,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
-	) {
-		blockState.set(original);
-		return original;
-	}
-
-	@WrapOperation(
-		method = "preventDropFromBottomPart",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
-		)
-	)
-	private static boolean wilderWild$preventDropFromBottomPartB(
-		Level instance, BlockPos setPos, BlockState setState, int flags, Operation<Boolean> original,
-		Level level, BlockPos paramPos, BlockState paramState, Player player,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
-	) {
-//		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {
-//			setState = SnowloggingUtils.getSnowEquivalent(blockState.get());
-//		}
-		return original.call(instance, setPos, setState, flags);
-	}
-
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		DoublePlantBlock thisPlant = (DoublePlantBlock) (Object) this;
+		if (thisPlant instanceof TallSeagrassBlock) {
+			return;
+		}
 		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 }
