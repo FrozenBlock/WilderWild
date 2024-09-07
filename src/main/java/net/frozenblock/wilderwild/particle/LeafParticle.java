@@ -32,14 +32,14 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class LeafParticle extends CherryParticle {
-	private static final int COLOR = FastColor.ARGB32.color(255, 255, 255);
+	private static final int COLOR = ARGB.color(255, 255, 255);
 	private final ParticleType<LeafParticleOptions> particleType;
 
 	public LeafParticle(
@@ -63,9 +63,9 @@ public class LeafParticle extends CherryParticle {
 				} catch (Exception ignored) {}
 			}
 		}
-		this.rCol = FastColor.ARGB32.red(color) / 255F;
-		this.bCol = FastColor.ARGB32.blue(color) / 255F;
-		this.gCol = FastColor.ARGB32.green(color) / 255F;
+		this.rCol = ARGB.red(color) / 255F;
+		this.bCol = ARGB.blue(color) / 255F;
+		this.gCol = ARGB.green(color) / 255F;
 	}
 
 	@Environment(EnvType.CLIENT)
