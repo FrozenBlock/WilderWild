@@ -1,34 +1,32 @@
 {
-  "type": "frozenlib:fading_disk_carpet_feature",
+  "type": "minecraft:random_selector",
   "config": {
-    "fade_start_distance_percent": 0.5,
-    "heightmap": "MOTION_BLOCKING_NO_LEAVES",
-    "inner_chance": 0.65,
-    "inner_percent": 0.5,
-    "inner_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:maple_leaf_litter",
-        "Properties": {
-          "persistent": "false"
+    "default": {
+      "feature": "wilderwild:yellow_maple_leaf_litter",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": "wilderwild:yellow_maple_leaf_litter",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": "wilderwild:orange_maple_leaf_litter",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.25,
+        "feature": {
+          "feature": "wilderwild:red_maple_leaf_litter",
+          "placement": []
         }
       }
-    },
-    "outer_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:maple_leaf_litter",
-        "Properties": {
-          "persistent": "false"
-        }
-      }
-    },
-    "placement_chance": 0.75,
-    "radius": {
-      "type": "minecraft:uniform",
-      "max_inclusive": 5,
-      "min_inclusive": 2
-    },
-    "use_heightmap_instead_of_circular_placement": true
+    ]
   }
 }

@@ -10,15 +10,6 @@
     },
     "foliage_placer": {
       "type": "wilderwild:palm_foliage_placer",
-      "crown_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "wilderwild:palm_log",
-          "Properties": {
-            "axis": "y"
-          }
-        }
-      },
       "frond_count": {
         "type": "minecraft:uniform",
         "max_inclusive": 9,

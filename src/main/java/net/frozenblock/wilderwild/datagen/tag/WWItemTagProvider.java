@@ -115,6 +115,77 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(WWItemTags.OSTRICH_FOOD)
 			.add(WWBlocks.BUSH.asItem());
 
+		this.getOrCreateTagBuilder(ItemTags.LEAVES)
+			.add(WWBlocks.BAOBAB_LEAVES.asItem())
+			.add(WWBlocks.CYPRESS_LEAVES.asItem())
+			.add(WWBlocks.PALM_FRONDS.asItem())
+			.add(WWBlocks.YELLOW_MAPLE_LEAVES.asItem())
+			.add(WWBlocks.ORANGE_MAPLE_LEAVES.asItem())
+			.add(WWBlocks.RED_MAPLE_LEAVES.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.BOATS)
+			.add(WWItems.BAOBAB_BOAT)
+			.add(WWItems.CYPRESS_BOAT)
+			.add(WWItems.PALM_BOAT)
+			.add(WWItems.MAPLE_BOAT);
+
+		this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
+			.add(WWItems.BAOBAB_CHEST_BOAT)
+			.add(WWItems.CYPRESS_CHEST_BOAT)
+			.add(WWItems.PALM_CHEST_BOAT)
+			.add(WWItems.MAPLE_CHEST_BOAT);
+
+		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
+			.add(WWBlocks.POLLEN.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.BIRCH_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_BIRCH_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.CHERRY_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_CHERRY_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.CRIMSON_STEMS)
+			.addOptionalTag(WWItemTags.HOLLOWED_CRIMSON_STEMS);
+
+		this.getOrCreateTagBuilder(ItemTags.DARK_OAK_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_DARK_OAK_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.JUNGLE_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_JUNGLE_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.MANGROVE_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_MANGROVE_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.OAK_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_OAK_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.SPRUCE_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_SPRUCE_LOGS);
+
+		this.getOrCreateTagBuilder(ItemTags.WARPED_STEMS)
+			.addOptionalTag(WWItemTags.HOLLOWED_WARPED_STEMS);
+
+		this.getOrCreateTagBuilder(ItemTags.PLANKS)
+			.add(WWBlocks.BAOBAB_PLANKS.asItem())
+			.add(WWBlocks.CYPRESS_PLANKS.asItem())
+			.add(WWBlocks.PALM_PLANKS.asItem())
+			.add(WWBlocks.MAPLE_PLANKS.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.SAPLINGS)
+			.add(WWItems.BAOBAB_NUT)
+			.add(WWBlocks.CYPRESS_SAPLING.asItem())
+			.add(WWItems.COCONUT)
+			.add(WWBlocks.MAPLE_SAPLING.asItem());
+
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(WWBlocks.BUSH.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
@@ -145,7 +216,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BROWN_SHELF_FUNGUS.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGUS.asItem());
+			.add(WWBlocks.RED_SHELF_FUNGUS.asItem())
+			.add(WWBlocks.MARIGOLD.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.GLORY_OF_THE_SNOW.asItem())

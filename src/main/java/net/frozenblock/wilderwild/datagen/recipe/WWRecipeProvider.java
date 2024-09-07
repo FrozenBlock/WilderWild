@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import com.google.common.collect.ImmutableList;
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;

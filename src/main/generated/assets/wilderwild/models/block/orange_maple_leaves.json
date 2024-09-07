@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "wilderwild:block/orange_maple_leaves"
+  }
+}

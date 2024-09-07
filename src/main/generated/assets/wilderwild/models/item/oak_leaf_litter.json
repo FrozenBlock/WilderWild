@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:block/oak_leaves"
+    "layer0": "wilderwild:block/oak_leaf_litter"
   }
 }

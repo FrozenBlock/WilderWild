@@ -1,16 +1,16 @@
 {
-	"ambientocclusion": false,
-	"textures": {
-		"particle": "#texture"
-	},
-	"elements": [
-		{
-			"from": [0, 1, 0],
-			"to": [16, 1, 16],
-			"faces": {
-				"up": {"uv": [16, 16, 0, 0], "texture": "#texture"},
-				"down": {"uv": [16, 0, 0, 16], "texture": "#texture"}
-			}
-		}
-	]
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#texture"
+  },
+  "elements": [
+    {
+      "from": [0, 1, 0],
+      "to": [16, 1, 16],
+      "faces": {
+        "up": {"uv": [16, 16, 0, 0], "tintindex": 0, "texture": "#texture"},
+        "down": {"uv": [16, 0, 0, 16], "tintindex": 0, "texture": "#texture"}
+      }
+    }
+  ]
 }

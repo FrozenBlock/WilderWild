@@ -22,8 +22,8 @@ import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.minecraft.world.level.block.SoundType;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
+import net.minecraft.world.level.block.SoundType;
 
 public class NaturesSpiritIntegration extends ModIntegration {
 	public NaturesSpiritIntegration() {
@@ -117,6 +117,9 @@ public class NaturesSpiritIntegration extends ModIntegration {
 		addBlock(id("marigold"), FLOWER, flowerCondition);
 		addBlock(id("snapdragon"), FLOWER, flowerCondition);
 		addBlock(id("lavender"), FLOWER, flowerCondition);
+
+		BooleanSupplier coarseDirtCondition = () -> WWBlockConfig.get().blockSounds.coarseDirtSounds;
+		addBlock(id("sandy_soil"), COARSE_DIRT, coarseDirtCondition);
 
 		addBlock(id("cattail"), SoundType.WET_GRASS, () -> true);
 

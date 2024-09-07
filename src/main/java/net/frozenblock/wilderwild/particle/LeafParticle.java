@@ -20,24 +20,52 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class LeafParticle extends CherryParticle {
+	private static final int COLOR = FastColor.ARGB32.color(255, 255, 255);
+	private final ParticleType<LeafParticleOptions> particleType;
 
 	public LeafParticle(
 		ClientLevel world,
 		double x, double y, double z,
-		SpriteSet spriteProvider
+		SpriteSet spriteProvider,
+		ParticleType<LeafParticleOptions> particleType
 	) {
 		super(world, x, y, z, spriteProvider);
+		this.particleType = particleType;
+		FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(this.particleType);
+		int color = COLOR;
+		if (leafParticleData != null) {
+			Block leavesBlock = leafParticleData.leavesBlock();
+			BlockColor blockColor = ColorProviderRegistry.BLOCK.get(leavesBlock);
+			if (blockColor != null) {
+				BlockPos particlePos = BlockPos.containing(x, y, z);
+				color = world.getBlockTint(particlePos, BiomeColors.FOLIAGE_COLOR_RESOLVER);
+				try {
+					color = blockColor.getColor(leavesBlock.defaultBlockState(), world, particlePos, 0);
+				} catch (Exception ignored) {}
+			}
+		}
+		this.rCol = FastColor.ARGB32.red(color) / 255F;
+		this.bCol = FastColor.ARGB32.blue(color) / 255F;
+		this.gCol = FastColor.ARGB32.green(color) / 255F;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -47,7 +75,7 @@ public class LeafParticle extends CherryParticle {
 		public Particle createParticle(
 			@NotNull LeafParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
 		) {
-			LeafParticle leafParticle = new LeafParticle(level, x, y, z, this.spriteProvider);
+			LeafParticle leafParticle = new LeafParticle(level, x, y, z, this.spriteProvider, (ParticleType<LeafParticleOptions>) options.getType());
 			leafParticle.quadSize = options.getQuadSize();
 			if (options.isFastFalling()) {
 				leafParticle.gravity = 0.04F;

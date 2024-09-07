@@ -27,6 +27,7 @@ import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleType;
@@ -149,7 +150,11 @@ public class LeafLitterBlock extends CarpetBlock {
 	@Override
 	public boolean canSurvive(BlockState state, @NotNull LevelReader world, @NotNull BlockPos pos) {
 		BlockState belowState = world.getBlockState(pos.below());
-		return Block.isFaceFull(belowState.getCollisionShape(world, pos.below()), Direction.UP);
+		if (belowState.is(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)) {
+			return false;
+		} else {
+			return belowState.is(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON) || Block.isFaceFull(belowState.getCollisionShape(world, pos.below()), Direction.UP);
+		}
 	}
 
 	@Override
@@ -160,6 +165,10 @@ public class LeafLitterBlock extends CarpetBlock {
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(PERSISTENT, true);
+	}
+
+	public Block getLeavesBlock() {
+		return this.leavesBlock;
 	}
 
 	public static class LeafLitterParticleRegistry {

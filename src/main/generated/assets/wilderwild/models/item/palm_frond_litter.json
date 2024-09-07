@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:block/palm_fronds"
+    "layer0": "wilderwild:block/palm_frond_litter"
   }
 }

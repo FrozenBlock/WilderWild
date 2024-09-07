@@ -1,6 +1,6 @@
 {
-  "parent": "wilderwild:block/template_leaf_litter_tinted",
+  "parent": "wilderwild:block/template_leaf_litter",
   "textures": {
-    "texture": "wilderwild:block/palm_fronds"
+    "texture": "wilderwild:block/palm_frond_litter"
   }
 }

@@ -23,6 +23,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
+import static net.frozenblock.wilderwild.registry.WWSoundTypes.SAPLING;
 
 public class BlockusIntegration extends ModIntegration {
 	public BlockusIntegration() {
@@ -33,6 +34,8 @@ public class BlockusIntegration extends ModIntegration {
 	public void init() {
 		BooleanSupplier condition = () -> WWBlockConfig.get().blockSounds.leafSounds;
 		addBlock(id("white_oak_leaves"), LEAVES, condition);
-		addBlock(id("legacy_leaves"), LEAVES, condition);
+
+		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
+		addBlock(id("white_oak_sapling"), SAPLING, saplingCondition);
 	}
 }

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "wilderwild:block/flowering_azalea_leaf_litter"
+      },
+      {
+        "model": "wilderwild:block/flowering_azalea_leaf_litter",
+        "y": 90
+      },
+      {
+        "model": "wilderwild:block/flowering_azalea_leaf_litter",
+        "y": 180
+      },
+      {
+        "model": "wilderwild:block/flowering_azalea_leaf_litter",
+        "y": 270
+      }
+    ]
+  }
+}

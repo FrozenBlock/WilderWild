@@ -91,10 +91,10 @@ public final class WWTreeGrowers {
 		0.05F,
 		Optional.empty(),
 		Optional.empty(),
-		Optional.of(WWTreeConfigured.MAPLE_TREE.getKey()),
-		Optional.of(WWTreeConfigured.TALL_MAPLE_TREE.getKey()),
-		Optional.of(WWTreeConfigured.MAPLE_BEES_0004.getKey()),
-		Optional.of(WWTreeConfigured.TALL_MAPLE_BEES_0004.getKey())
+		Optional.of(WWTreeConfigured.YELLOW_MAPLE_TREE.getKey()),
+		Optional.of(WWTreeConfigured.TALL_YELLOW_MAPLE_TREE.getKey()),
+		Optional.of(WWTreeConfigured.YELLOW_MAPLE_BEES_0004.getKey()),
+		Optional.of(WWTreeConfigured.TALL_YELLOW_MAPLE_BEES_0004.getKey())
 	);
 
 	private WWTreeGrowers() {

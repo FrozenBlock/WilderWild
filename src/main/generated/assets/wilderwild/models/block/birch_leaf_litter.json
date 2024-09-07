@@ -1,6 +1,6 @@
 {
-  "parent": "wilderwild:block/template_leaf_litter_tinted",
+  "parent": "wilderwild:block/template_leaf_litter",
   "textures": {
-    "texture": "minecraft:block/birch_leaves"
+    "texture": "wilderwild:block/birch_leaf_litter"
   }
 }

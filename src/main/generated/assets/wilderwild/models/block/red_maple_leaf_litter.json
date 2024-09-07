@@ -1,0 +1,6 @@
+{
+  "parent": "wilderwild:block/template_leaf_litter",
+  "textures": {
+    "texture": "wilderwild:block/red_maple_leaf_litter"
+  }
+}

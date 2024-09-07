@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.mod_compat;
 import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 
 public class BetterEndIntegration extends ModIntegration {
 	public BetterEndIntegration() {

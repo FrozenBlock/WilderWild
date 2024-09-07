@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:block/mangrove_leaves"
+    "layer0": "wilderwild:block/mangrove_leaf_litter"
   }
 }

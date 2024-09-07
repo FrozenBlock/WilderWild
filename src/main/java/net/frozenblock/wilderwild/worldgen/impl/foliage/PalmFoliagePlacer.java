@@ -41,19 +41,16 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	);
 	private static final double SURROUNDING_LEAF_THRESHOLD = 0.0;
 	public final IntProvider frondCount;
-	public final BlockStateProvider crownState;
 
-	public PalmFoliagePlacer(@NotNull IntProvider radius, @NotNull IntProvider offset, @NotNull IntProvider frondCount, @NotNull BlockStateProvider crownState) {
+	public PalmFoliagePlacer(@NotNull IntProvider radius, @NotNull IntProvider offset, @NotNull IntProvider frondCount) {
 		super(radius, offset);
 		this.frondCount = frondCount;
-		this.crownState = crownState;
 	}
 
 	@Contract("_ -> new")
-	protected static <P extends PalmFoliagePlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider, BlockStateProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
+	protected static <P extends PalmFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
 		return foliagePlacerParts(builder)
-			.and(IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount))
-			.and(BlockStateProvider.CODEC.fieldOf("crown_state").forGetter(placer -> placer.crownState));
+			.and(IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount));
 	}
 
 	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
@@ -108,7 +105,6 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		BlockPos belowPos = blockPos.below();
-		blockSetter.set(belowPos, this.crownState.getState(random, belowPos));
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 		double minRadius = this.radius.getMinValue();
 		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());

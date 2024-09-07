@@ -40,7 +40,22 @@ public class WWParticleEngine {
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 
 		particleRegistry.register(WWParticleTypes.LEAF_CLUSTER_SPAWNER, LeafClusterSeedParticle.Factory::new);
-		particleRegistry.register(WWParticleTypes.MAPLE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.OAK_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.SPRUCE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.BIRCH_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.JUNGLE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.ACACIA_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.DARK_OAK_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.MANGROVE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.CHERRY_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.AZALEA_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.FLOWERING_AZALEA_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.BAOBAB_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.CYPRESS_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.PALM_FRONDS, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.YELLOW_MAPLE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.ORANGE_MAPLE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.RED_MAPLE_LEAVES, LeafParticle.Factory::new);
 
 		particleRegistry.register(WWParticleTypes.POLLEN, PollenParticle.PollenFactory::new);
 		particleRegistry.register(WWParticleTypes.SEED, SeedParticle.Factory::new);

@@ -88,7 +88,7 @@ public class LeafParticleOptions implements ParticleOptions {
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
 			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.get(particleId);
 		} else {
-			particleType = WWParticleTypes.MAPLE_LEAVES;
+			particleType = WWParticleTypes.OAK_LEAVES;
 		}
 		return new LeafParticleOptions(particleType, velocity, quadSize, gravityScale, isFastFalling, controlVelUponSpawn);
 	}
