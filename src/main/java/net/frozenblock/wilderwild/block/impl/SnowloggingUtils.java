@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.HitResult;
@@ -57,6 +58,11 @@ public class SnowloggingUtils {
 	public static boolean canSnowlog(@Nullable BlockState state) {
 		//noinspection DataFlowIssue
 		return supportsSnowlogging(state) && state.getFluidState().isEmpty();
+	}
+
+	public static StateDefinition.Builder<Block, BlockState> addSnowLayersToDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
+		return builder;
 	}
 
 	public static int getSnowLayers(@NotNull BlockState state) {

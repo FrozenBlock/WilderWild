@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
@@ -53,7 +52,7 @@ public class BushBlockMixin extends Block {
 		if (thisBush instanceof WaterlilyBlock || thisBush instanceof SeagrassBlock) {
 			return;
 		}
-		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.addSnowLayersToDefinition(builder);
 	}
 
 	@Unique

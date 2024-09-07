@@ -129,6 +129,6 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		if (thisPlant instanceof TallSeagrassBlock) {
 			return;
 		}
-		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.addSnowLayersToDefinition(builder);
 	}
 }

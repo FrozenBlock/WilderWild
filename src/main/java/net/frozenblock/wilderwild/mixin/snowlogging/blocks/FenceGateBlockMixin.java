@@ -59,7 +59,6 @@ public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if ((BlockConfig.get().snowlogging.snowlogWalls && BlockConfig.get().snowlogging.snowlogging))
-			builder.add(SnowloggingUtils.SNOW_LAYERS);
+		if (BlockConfig.get().snowlogging.snowlogWalls) SnowloggingUtils.addSnowLayersToDefinition(builder);
 	}
 }
