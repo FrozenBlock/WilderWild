@@ -61,8 +61,6 @@ public final class WWMixinsConfig {
 
 	// COMMON
 
-	public boolean block_beacon = true;
-
 	public boolean block_cactus = true;
 
 	public boolean block_chest = true;

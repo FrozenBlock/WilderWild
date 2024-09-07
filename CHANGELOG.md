@@ -53,3 +53,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - A lot more refactoring.
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
 - Split the contents of WilderWildClient into multiple classes.
+- Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`
