@@ -30,8 +30,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -71,10 +71,10 @@ public final class InstrumentItemMixin {
 		method = "use",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"
+			target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/ItemStack;I)V"
 		)
 	)
-	private boolean wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration) {
+	private boolean wilderWild$bypassCooldown(ItemCooldowns instance, ItemStack itemStack, int i) {
 		return !WWItemConfig.get().restrictInstrumentSound;
 	}
 
