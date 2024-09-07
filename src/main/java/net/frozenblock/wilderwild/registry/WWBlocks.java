@@ -1381,7 +1381,7 @@ public final class WWBlocks {
 			leafLitterBlock,
 			litterChance,
 			particleType,
-			0.0125F,
+			0.0225F,
 			0.125F,
 			3F
 		);
