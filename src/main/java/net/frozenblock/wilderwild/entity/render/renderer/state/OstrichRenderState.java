@@ -25,7 +25,6 @@ import net.minecraft.client.renderer.entity.state.SaddleableRenderState;
 
 @Environment(EnvType.CLIENT)
 public class OstrichRenderState extends LivingEntityRenderState implements SaddleableRenderState {
-
 	public boolean isInbred;
 	public float beakAnimProgress;
 	public float targetStraightProgress;

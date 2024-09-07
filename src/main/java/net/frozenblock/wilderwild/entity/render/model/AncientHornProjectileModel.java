@@ -18,12 +18,10 @@
 
 package net.frozenblock.wilderwild.entity.render.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
-import net.frozenblock.wilderwild.entity.AncientHornVibration;
+import net.frozenblock.wilderwild.entity.render.renderer.state.AncientHornVibrationRenderState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -44,8 +42,6 @@ public class AncientHornProjectileModel extends Model {
 	private final ModelPart front;
 	private final ModelPart middle;
 	private final ModelPart back;
-	public AncientHornVibration projectile;
-	public float partialTick;
 
 	public AncientHornProjectileModel(@NotNull ModelPart root) {
 		super(FrozenRenderType::entityTranslucentEmissiveFixed);
@@ -67,13 +63,12 @@ public class AncientHornProjectileModel extends Model {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	/*@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-		float aliveDelta = this.projectile.getAliveTicks() + this.partialTick;
+	public void animateHornVibration(@NotNull AncientHornVibrationRenderState renderState) {
+		float age = renderState.ageInTicks + renderState.partialTick;
 
-		float pulse = (((float) Math.sin((aliveDelta * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
-		float pulse2 = (((float) Math.sin(((aliveDelta + PULSE_2_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
-		float pulse3 = (((float) Math.sin(((aliveDelta + PULSE_3_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
+		float pulse = (((float) Math.sin((age * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
+		float pulse2 = (((float) Math.sin(((age + PULSE_2_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
+		float pulse3 = (((float) Math.sin(((age + PULSE_3_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1F);
 
 		this.front.xScale = pulse;
 		this.front.yScale = pulse;
@@ -86,13 +81,11 @@ public class AncientHornProjectileModel extends Model {
 		this.back.xScale = pulse3;
 		this.back.yScale = pulse3;
 		this.back.z = pulse2 * 2F + 2F;
-
-		this.bone.render(poseStack, buffer, packedLight, packedOverlay, color);
-	}*/
+	}
 
 	@Override
 	@NotNull
 	public ModelPart root() {
-		return this.root;
+		return this.bone;
 	}
 }

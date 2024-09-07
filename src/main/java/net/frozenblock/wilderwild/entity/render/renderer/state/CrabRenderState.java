@@ -22,7 +22,6 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.AnimationState;
 
 public class CrabRenderState extends LivingEntityRenderState {
-
 	public float climbXRot;
 	public float attackTime;
 	public boolean isDitto;

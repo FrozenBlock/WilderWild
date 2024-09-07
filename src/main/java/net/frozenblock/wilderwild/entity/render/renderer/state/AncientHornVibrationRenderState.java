@@ -20,9 +20,15 @@ package net.frozenblock.wilderwild.entity.render.renderer.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
 @Environment(EnvType.CLIENT)
-public class ScorchedRenderState extends LivingEntityRenderState {
-	public float lavaAnimProgress;
+public class AncientHornVibrationRenderState extends EntityRenderState {
+	public float partialTick;
+	public float boundingBoxMultiplier;
+	public float yRot;
+	public float prevYRot;
+	public float xRot;
+	public float prevXRot;
 }

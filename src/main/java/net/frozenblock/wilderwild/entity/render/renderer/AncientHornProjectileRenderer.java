@@ -28,10 +28,10 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
+import net.frozenblock.wilderwild.entity.render.renderer.state.AncientHornVibrationRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -39,7 +39,7 @@ import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class AncientHornProjectileRenderer<T extends AncientHornVibration> extends EntityRenderer<T> {
+public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornVibration, AncientHornVibrationRenderState> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/ancient_horn_projectile.png");
 	private final AncientHornProjectileModel model;
 
@@ -49,46 +49,62 @@ public class AncientHornProjectileRenderer<T extends AncientHornVibration> exten
 	}
 
 	@Override
-	public void render(@NotNull T projectile, float yaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light) {
-		poseStack.pushPose();
-		poseStack.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90F));
-		poseStack.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90F));
-		VertexConsumer vertexConsumer = buffer.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(getTextureLocation(projectile), false));
+	public void extractRenderState(AncientHornVibration ancientHornVibration, AncientHornVibrationRenderState renderState, float partialTick) {
+		super.extractRenderState(ancientHornVibration, renderState, partialTick);
+		renderState.partialTick = partialTick;
+		renderState.boundingBoxMultiplier = ancientHornVibration.getBoundingBoxMultiplier(partialTick);
+		renderState.prevYRot = ancientHornVibration.yRotO;
+		renderState.yRot = ancientHornVibration.getYRot();
+		renderState.prevXRot = ancientHornVibration.xRotO;
+		renderState.xRot = ancientHornVibration.getXRot();
+	}
 
-		float multiplier = projectile.getBoundingBoxMultiplier(partialTick);
+	@Override
+	public void render(@NotNull AncientHornVibrationRenderState renderState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light) {
+		poseStack.pushPose();
+		poseStack.mulPose(
+			Axis.YP.rotationDegrees(
+				(
+					renderState.prevYRot + renderState.partialTick * (renderState.yRot - renderState.prevYRot)
+				) - 90F
+			)
+		);
+		poseStack.mulPose(
+			Axis.ZP.rotationDegrees(
+				(
+					renderState.prevXRot + renderState.partialTick * (renderState.xRot - renderState.prevXRot)
+					+ 90F
+				)
+			)
+		);
+		VertexConsumer vertexConsumer = buffer.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(getTextureLocation(renderState), false));
+
+		float multiplier = renderState.boundingBoxMultiplier;
 		float scale = (multiplier * 0.5F) + 1F;
 		float alpha = 1F - (multiplier / 15F);
 		float correctedAlpha = Math.max(alpha, 0.01F);
 		int color = ARGB.colorFromFloat(correctedAlpha, 1F, 1F, 1F);
 
 		poseStack.scale(scale, scale, scale);
-
-		this.model.partialTick = partialTick;
-		this.model.projectile = projectile;
+		this.model.animateHornVibration(renderState);
 		this.model.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, color);
-
 		poseStack.popPose();
-		super.render(projectile, yaw, partialTick, poseStack, buffer, light);
+
+		super.render(renderState, poseStack, buffer, light);
 	}
 
 	@Override
-	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return TEXTURE;
-	}
-
-	@Override
-	protected int getBlockLightLevel(@NotNull T entity, @NotNull BlockPos blockPos) {
+	protected int getBlockLightLevel(AncientHornVibration entity, BlockPos blockPos) {
 		return 15;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(EntityRenderState entityRenderState) {
-		return null;
+	public @NotNull ResourceLocation getTextureLocation(AncientHornVibrationRenderState entityRenderState) {
+		return TEXTURE;
 	}
 
 	@Override
-	public EntityRenderState createRenderState() {
-		return null;
+	public @NotNull AncientHornVibrationRenderState createRenderState() {
+		return new AncientHornVibrationRenderState();
 	}
 }
