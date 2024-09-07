@@ -14,7 +14,7 @@
     "block.dispenser.ShearsDispenseItemBehaviorMixin",
     "block.dripleaf.BigDripleafBlockMixin",
     "block.dripleaf.BigDripleafStemBlockMixin",
-    "block.dripleaf.BlockBehaviourMixin",
+    "block.dripleaf.BlockStateBaseMixin",
     "block.dripleaf.BlockMixin",
     "block.dripstone.FallingBlockMixin",
     "block.fire.BaseFireBlockMixin",

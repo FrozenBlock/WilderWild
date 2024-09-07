@@ -27,18 +27,23 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.redstone.Orientation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BlockBehaviour.class)
-public class BlockBehaviourMixin {
+@Mixin(BlockBehaviour.BlockStateBase.class)
+public abstract class BlockStateBaseMixin {
 
-	@Inject(at = @At("HEAD"), method = "neighborChanged", cancellable = true)
-	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock && !level.isClientSide && WWBlockConfig.get().dripleafPowering) {
+	@Shadow
+	protected abstract BlockState asState();
+
+	@Inject(at = @At("HEAD"), method = "handleNeighborChanged", cancellable = true)
+	public void wilderWild$neighborChanged(Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
+		BlockState state = this.asState();
+		if (state.getBlock() instanceof BigDripleafStemBlock && !level.isClientSide && WWBlockConfig.get().dripleafPowering) {
 			BlockState downState = level.getBlockState(pos.below());
 			boolean receivingPower = level.hasNeighborSignal(pos) || (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED));
 			if (state.getValue(BlockStateProperties.POWERED) != receivingPower) {
