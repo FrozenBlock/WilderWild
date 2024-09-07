@@ -27,7 +27,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Rewrote the foliage generation of Palm trees.
   - Normal Palm trees now look more "Minecrafty" and no longer use realistic frond generation.
     - In other words, they're visually pleasing and no longer messy!
-  - Palms that generated with circular foliage have now also receive upgraded foliage generation, mirroring the real-world Windmill Palm.
+  - Palms that generated with circular foliage have also received upgraded foliage generation, mirroring the real-world Windmill Palm.
   - Thanks to this new generation, the mixin that modifies the `distance` property's maximum value has been removed.
   - A minimum of one Coconut is now guaranteed to generate on each Palm tree.
 - The foliage and grass colors of the Oasis biome are no longer a saturated green.
