@@ -260,10 +260,22 @@ public final class WWBlocks {
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
 
-	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(Properties.ofFullCopy(CYPRESS_LEAVES));
-	public static final Block YELLOW_MAPLE_LEAVES = new LeavesBlock(Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW));
-	public static final Block ORANGE_MAPLE_LEAVES = new LeavesBlock(Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
-	public static final Block RED_MAPLE_LEAVES = new LeavesBlock(Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED));
+	public static final PalmFrondsBlock PALM_FRONDS = register("palm_fronds",
+		PalmFrondsBlock::new,
+		Properties.ofFullCopy(CYPRESS_LEAVES)
+	);
+	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
+		LeavesBlock::new,
+		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW)
+	);
+	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
+		LeavesBlock::new,
+		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE)
+	);
+	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
+		LeavesBlock::new,
+		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED)
+	);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = register("hollowed_oak_log",
 		HollowedLogBlock::new,
@@ -361,149 +373,152 @@ public final class WWBlocks {
 	);
 
 	// LEAF LITTER
-	public static final LeafLitterBlock OAK_LEAF_LITTER = register("oak_leaf_litter", properties -> leafLitter(
+	public static final LeafLitterBlock OAK_LEAF_LITTER = leafLitter("oak_leaf_litter",
 		Blocks.OAK_LEAVES,
 		WWParticleTypes.OAK_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2.5F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = register("spruce_leaf_litter", properties -> leafLitter(
+		2.5F
+	);
+	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = leafLitter("spruce_leaf_litter",
 		Blocks.SPRUCE_LEAVES,
 		WWParticleTypes.SPRUCE_LEAVES,
 		0.004F,
 		0.0025F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock BIRCH_LEAF_LITTER = register("birch_leaf_litter", properties -> leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock BIRCH_LEAF_LITTER = leafLitter("birch_leaf_litter",
 		Blocks.BIRCH_LEAVES,
 		WWParticleTypes.BIRCH_LEAVES,
 		0.002F,
 		0.0025F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = register("jungle_leaf_litter", properties -> leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = leafLitter("jungle_leaf_litter",
 		Blocks.JUNGLE_LEAVES,
 		WWParticleTypes.JUNGLE_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		3.5F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock ACACIA_LEAF_LITTER = register("acacia_leaf_litter", properties -> leafLitter(
+		3.5F
+	);
+	public static final LeafLitterBlock ACACIA_LEAF_LITTER = leafLitter("acacia_leaf_litter",
 		Blocks.ACACIA_LEAVES,
 		WWParticleTypes.ACACIA_LEAVES,
 		0.002F,
 		0.0075F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = register("darkk_oak_leaf_litter", properties -> leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = leafLitter("darkk_oak_leaf_litter",
 		Blocks.DARK_OAK_LEAVES,
 		WWParticleTypes.DARK_OAK_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2.5F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = register("mangrove_leaf_litter", properties -> leafLitter(
+		2.5F
+	);
+	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = leafLitter("mangrove_leaf_litter",
 		Blocks.MANGROVE_LEAVES,
 		WWParticleTypes.MANGROVE_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		3.5F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock CHERRY_LEAF_LITTER = register("cherry_leaf_litter", properties -> leafLitter(
+		3.5F
+	);
+	public static final LeafLitterBlock CHERRY_LEAF_LITTER = leafLitter("cherry_leaf_litter",
 		Blocks.CHERRY_LEAVES,
 		WWParticleTypes.CHERRY_LEAVES,
 		0.004F,
 		0.0125F,
 		0.125F,
-		1F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock AZALEA_LEAF_LITTER = register("azalea_leaf_litter", properties -> leafLitter(
+		1F
+	);
+	public static final LeafLitterBlock AZALEA_LEAF_LITTER = leafLitter("azalea_leaf_litter",
 		Blocks.AZALEA_LEAVES,
 		WWParticleTypes.AZALEA_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock FLOWERING_AZALEA_LEAF_LITTER = register("flowering_azalea_leaf_litter", properties ->leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock FLOWERING_AZALEA_LEAF_LITTER = leafLitter("flowering_azalea_leaf_litter",
 		Blocks.FLOWERING_AZALEA_LEAVES,
 		WWParticleTypes.FLOWERING_AZALEA_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = register("baobab_leaf_litter", properties -> leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = leafLitter("baobab_leaf_litter",
 		BAOBAB_LEAVES,
 		WWParticleTypes.BAOBAB_LEAVES,
 		0.002F,
 		0.0075F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = register("cypress_leaf_litter", properties -> leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = leafLitter("cypress_leaf_litter",
 		CYPRESS_LEAVES,
 		WWParticleTypes.CYPRESS_LEAVES,
 		0.004F,
 		0.0025F,
 		0.125F,
-		2F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock PALM_FROND_LITTER = register("palm_frond_litter", properties -> leafLitter(
+		2F
+	);
+	public static final LeafLitterBlock PALM_FROND_LITTER = leafLitter("palm_frond_litter",
 		PALM_FRONDS,
 		WWParticleTypes.PALM_FRONDS,
 		0.001F,
 		0.00055F,
 		0.125F,
-		4.5F,
-		properties
-	), Properties.of());
-	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.YELLOW_MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.ORANGE_MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.RED_MAPLE_LEAVES, 0.04F);
+		4.5F
+	);
+	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter("yellow_maple_leaf_litter",
+		YELLOW_MAPLE_LEAVES,
+		WWParticleTypes.YELLOW_MAPLE_LEAVES,
+		0.04F
+	);
+	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter("orange_maple_leaf_litter",
+		ORANGE_MAPLE_LEAVES,
+		WWParticleTypes.ORANGE_MAPLE_LEAVES,
+		0.04F
+	);
+	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter("red_maple_leaf_litter",
+		RED_MAPLE_LEAVES,
+		WWParticleTypes.RED_MAPLE_LEAVES,
+		0.04F
+	);
 
 	// SCULK
-	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
-		Blocks.SCULK.defaultBlockState(),
+	public static final SculkStairBlock SCULK_STAIRS = register("sculk_stairs",
+		properties -> new SculkStairBlock(Blocks.SCULK.defaultBlockState(), properties),
 		Properties.ofFullCopy(Blocks.SCULK)
 	);
 
-	public static final SculkSlabBlock SCULK_SLAB = new SculkSlabBlock(
+	public static final SculkSlabBlock SCULK_SLAB = register("sculk_slab",
+		SculkSlabBlock::new,
 		Properties.ofFullCopy(Blocks.SCULK)
 	);
 
-	public static final SculkWallBlock SCULK_WALL = new SculkWallBlock(
+	public static final SculkWallBlock SCULK_WALL = register("sculk_wall",
+		SculkWallBlock::new,
 		Properties.ofFullCopy(Blocks.SCULK)
 	);
 
-	public static final OsseousSculkBlock OSSEOUS_SCULK = new OsseousSculkBlock(
+	public static final OsseousSculkBlock OSSEOUS_SCULK = register("osseous_sculk",
+		OsseousSculkBlock::new,
 		Properties.of()
 			.mapColor(MapColor.SAND)
 			.strength(2.0F)
 			.sound(WWSoundTypes.OSSEOUS_SCULK)
 	);
 
-	public static final HangingTendrilBlock HANGING_TENDRIL = new HangingTendrilBlock(
+	public static final HangingTendrilBlock HANGING_TENDRIL = register("hanging_tendril",
+		HangingTendrilBlock::new,
 		Properties.ofFullCopy(Blocks.SCULK_SENSOR)
 			.strength(0.7F)
 			.noCollission()
@@ -514,7 +529,8 @@ public final class WWBlocks {
 			.emissiveRendering((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state))
 	);
 
-	public static final EchoGlassBlock ECHO_GLASS = new EchoGlassBlock(
+	public static final EchoGlassBlock ECHO_GLASS = register("echo_glass",
+		EchoGlassBlock::new,
 		Properties.ofFullCopy(Blocks.TINTED_GLASS)
 			.mapColor(MapColor.COLOR_CYAN)
 			.noOcclusion()
@@ -1497,7 +1513,12 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, float litterChance) {
+	public static LeafLitterBlock leafLitter(
+		String id,
+		Block sourceBlock,
+		@NotNull ParticleType<LeafParticleOptions> particleType,
+		float litterChance
+	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeaf(
 			sourceBlock,
@@ -1513,16 +1534,15 @@ public final class WWBlocks {
 
 	@NotNull
 	public static LeafLitterBlock leafLitter(
+		String id,
 		Block sourceBlock,
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
 		float particleChance,
 		float quadSize,
-		float particleGravityScale,
-		Properties properties
+		float particleGravityScale
 	) {
-		// TODO: do something with properties
-		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
+		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeaf(
 			sourceBlock,
 			leafLitterBlock,
@@ -1535,7 +1555,7 @@ public final class WWBlocks {
 		return leafLitterBlock;
 	}
 
-	private static @NotNull LeafLitterBlock createLeafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
+	private static @NotNull LeafLitterBlock createLeafLitter(String id, Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
 		Properties properties = Properties.ofFullCopy(sourceBlock)
 			.randomTicks()
 			.noCollission()
@@ -1543,15 +1563,15 @@ public final class WWBlocks {
 			.replaceable()
 			.pushReaction(PushReaction.DESTROY);
 
-		LeafLitterBlock leafLitterBlock = new LeafLitterBlock(sourceBlock, properties);
+		LeafLitterBlock leafLitterBlock = register(id, properties1 -> new LeafLitterBlock(sourceBlock, properties1), properties);
 		LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);
 		return leafLitterBlock;
 	}
 
 	@NotNull
-	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
-		MesogleaBlock mesogleaBlock = new MesogleaBlock(
-			pearlescent,
+	public static MesogleaBlock mesoglea(String id, @NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
+		MesogleaBlock mesogleaBlock = register(id,
+			properties -> new MesogleaBlock(pearlescent, properties),
 			Properties.of()
 				.mapColor(mapColor)
 				.noOcclusion()
