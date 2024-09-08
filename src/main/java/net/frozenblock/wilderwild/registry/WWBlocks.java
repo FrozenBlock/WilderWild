@@ -361,86 +361,96 @@ public final class WWBlocks {
 	);
 
 	// LEAF LITTER
-	public static final LeafLitterBlock OAK_LEAF_LITTER = leafLitter(
+	public static final LeafLitterBlock OAK_LEAF_LITTER = register("oak_leaf_litter", properties -> leafLitter(
 		Blocks.OAK_LEAVES,
 		WWParticleTypes.OAK_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2.5F
-	);
-	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = leafLitter(
+		2.5F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = register("spruce_leaf_litter", properties -> leafLitter(
 		Blocks.SPRUCE_LEAVES,
 		WWParticleTypes.SPRUCE_LEAVES,
 		0.004F,
 		0.0025F,
 		0.125F,
-		2F
-	);
-	public static final LeafLitterBlock BIRCH_LEAF_LITTER = leafLitter(
+		2F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock BIRCH_LEAF_LITTER = register("birch_leaf_litter", properties -> leafLitter(
 		Blocks.BIRCH_LEAVES,
 		WWParticleTypes.BIRCH_LEAVES,
 		0.002F,
 		0.0025F,
 		0.125F,
-		2F
-	);
-	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = leafLitter(
+		2F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = register("jungle_leaf_litter", properties -> leafLitter(
 		Blocks.JUNGLE_LEAVES,
 		WWParticleTypes.JUNGLE_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		3.5F
-	);
-	public static final LeafLitterBlock ACACIA_LEAF_LITTER = leafLitter(
+		3.5F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock ACACIA_LEAF_LITTER = register("acacia_leaf_litter", properties -> leafLitter(
 		Blocks.ACACIA_LEAVES,
 		WWParticleTypes.ACACIA_LEAVES,
 		0.002F,
 		0.0075F,
 		0.125F,
-		2F
-	);
-	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = leafLitter(
+		2F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = register("darkk_oak_leaf_litter", properties -> leafLitter(
 		Blocks.DARK_OAK_LEAVES,
 		WWParticleTypes.DARK_OAK_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2.5F
-	);
-	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = leafLitter(
+		2.5F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = register("mangrove_leaf_litter", properties -> leafLitter(
 		Blocks.MANGROVE_LEAVES,
 		WWParticleTypes.MANGROVE_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		3.5F
-	);
-	public static final LeafLitterBlock CHERRY_LEAF_LITTER = leafLitter(
+		3.5F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock CHERRY_LEAF_LITTER = register("cherry_leaf_litter", properties -> leafLitter(
 		Blocks.CHERRY_LEAVES,
 		WWParticleTypes.CHERRY_LEAVES,
 		0.004F,
 		0.0125F,
 		0.125F,
-		1F
-	);
-	public static final LeafLitterBlock AZALEA_LEAF_LITTER = leafLitter(
+		1F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock AZALEA_LEAF_LITTER = register("azalea_leaf_litter", properties -> leafLitter(
 		Blocks.AZALEA_LEAVES,
 		WWParticleTypes.AZALEA_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2F
-	);
-	public static final LeafLitterBlock FLOWERING_AZALEA_LEAF_LITTER = leafLitter(
+		2F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock FLOWERING_AZALEA_LEAF_LITTER = register("flowering_azalea_leaf_litter", properties ->leafLitter(
 		Blocks.FLOWERING_AZALEA_LEAVES,
 		WWParticleTypes.FLOWERING_AZALEA_LEAVES,
 		0.004F,
 		0.0075F,
 		0.125F,
-		2F
-	);
+		2F,
+		properties
+	), Properties.of());
 	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = register("baobab_leaf_litter", properties -> leafLitter(
 		BAOBAB_LEAVES,
 		WWParticleTypes.BAOBAB_LEAVES,
@@ -450,22 +460,24 @@ public final class WWBlocks {
 		2F,
 		properties
 	), Properties.of());
-	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = leafLitter(
+	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = register("cypress_leaf_litter", properties -> leafLitter(
 		CYPRESS_LEAVES,
 		WWParticleTypes.CYPRESS_LEAVES,
 		0.004F,
 		0.0025F,
 		0.125F,
-		2F
-	);
-	public static final LeafLitterBlock PALM_FROND_LITTER = leafLitter(
+		2F,
+		properties
+	), Properties.of());
+	public static final LeafLitterBlock PALM_FROND_LITTER = register("palm_frond_litter", properties -> leafLitter(
 		PALM_FRONDS,
 		WWParticleTypes.PALM_FRONDS,
 		0.001F,
 		0.00055F,
 		0.125F,
-		4.5F
-	);
+		4.5F,
+		properties
+	), Properties.of());
 	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.YELLOW_MAPLE_LEAVES, 0.04F);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.ORANGE_MAPLE_LEAVES, 0.04F);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.RED_MAPLE_LEAVES, 0.04F);
