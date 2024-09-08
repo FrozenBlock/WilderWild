@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -82,6 +83,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWDataComponents.init();
 		WilderWildRegistries.initRegistry();
 		WWBlocks.registerBlocks();
+		WWCreativeInventorySorting.init();
 		WWItems.registerItems();
 		WWItems.registerBlockItems();
 		WWGameEvents.registerEvents();
