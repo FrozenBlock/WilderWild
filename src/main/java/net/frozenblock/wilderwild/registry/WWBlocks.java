@@ -540,49 +540,70 @@ public final class WWBlocks {
 	);
 
 	// Mesoglea
-	public static final MesogleaBlock BLUE_PEARLESCENT_MESOGLEA = mesoglea(
+	public static final MesogleaBlock BLUE_PEARLESCENT_MESOGLEA = mesoglea("blue_pearlescent_mesoglea",
 		MapColor.QUARTZ,
 		WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
-	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea(
+	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea("purple_pearlescent_mesoglea",
 		MapColor.COLOR_PURPLE,
 		WWParticleTypes.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
 		true
 	);
-	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea(
+	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea("yellow_mesoglea",
 		MapColor.COLOR_YELLOW,
 		WWParticleTypes.YELLOW_HANGING_MESOGLEA,
 		false
 	);
-	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea(
+	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea("blue_mesoglea",
 		MapColor.COLOR_LIGHT_BLUE,
 		WWParticleTypes.BLUE_HANGING_MESOGLEA,
 		false
 	);
-	public static final MesogleaBlock LIME_MESOGLEA = mesoglea(
+	public static final MesogleaBlock LIME_MESOGLEA = mesoglea("lime_mesoglea",
 		MapColor.COLOR_LIGHT_GREEN,
 		WWParticleTypes.LIME_HANGING_MESOGLEA,
 		false
 	);
-	public static final MesogleaBlock RED_MESOGLEA = mesoglea(
+	public static final MesogleaBlock RED_MESOGLEA = mesoglea("red_mesoglea",
 		MapColor.COLOR_RED,
 		WWParticleTypes.RED_HANGING_MESOGLEA,
 		false
 	);
-	public static final MesogleaBlock PINK_MESOGLEA = mesoglea(
+	public static final MesogleaBlock PINK_MESOGLEA = mesoglea("pink_mesoglea",
 		MapColor.COLOR_PINK,
 		WWParticleTypes.PINK_HANGING_MESOGLEA,
 		false
 	);
 
-	public static final NematocystBlock BLUE_PEARLESCENT_NEMATOCYST = nematocyst(MapColor.QUARTZ);
-	public static final NematocystBlock PURPLE_PEARLESCENT_NEMATOCYST = nematocyst(MapColor.COLOR_PURPLE);
-	public static final NematocystBlock YELLOW_NEMATOCYST = nematocyst(MapColor.COLOR_YELLOW);
-	public static final NematocystBlock BLUE_NEMATOCYST = nematocyst(MapColor.COLOR_BLUE);
-	public static final NematocystBlock LIME_NEMATOCYST = nematocyst(MapColor.COLOR_LIGHT_GREEN);
-	public static final NematocystBlock RED_NEMATOCYST = nematocyst(MapColor.COLOR_RED);
-	public static final NematocystBlock PINK_NEMATOCYST = nematocyst(MapColor.COLOR_PINK);
+	public static final NematocystBlock BLUE_PEARLESCENT_NEMATOCYST = register("blue_pearlescent_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.QUARTZ)
+	);
+	public static final NematocystBlock PURPLE_PEARLESCENT_NEMATOCYST = register("purple_pearlescent_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.COLOR_PURPLE)
+	);
+	public static final NematocystBlock YELLOW_NEMATOCYST = register("yellow_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.COLOR_YELLOW)
+	);
+	public static final NematocystBlock BLUE_NEMATOCYST = register("blue_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.COLOR_BLUE)
+	);
+	public static final NematocystBlock LIME_NEMATOCYST = register("lime_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.COLOR_LIGHT_GREEN)
+	);
+	public static final NematocystBlock RED_NEMATOCYST = register("red_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.COLOR_RED)
+	);
+	public static final NematocystBlock PINK_NEMATOCYST = register("pink_nematocyst",
+		NematocystBlock::new,
+		nematocystProperties(MapColor.COLOR_PINK)
+	);
 
 	// MISC
 
@@ -1589,17 +1610,15 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static NematocystBlock nematocyst(@NotNull MapColor mapColor) {
-		return new NematocystBlock(
-			Properties.of()
-				.mapColor(mapColor)
-				.noCollission()
-				.noOcclusion()
-				.emissiveRendering(Blocks::always)
-				.lightLevel(state -> 4)
-				.sound(WWSoundTypes.NEMATOCYST)
-				.pushReaction(PushReaction.DESTROY)
-		);
+	public static Properties nematocystProperties(@NotNull MapColor mapColor) {
+		return Properties.of()
+			.mapColor(mapColor)
+			.noCollission()
+			.noOcclusion()
+			.emissiveRendering(Blocks::always)
+			.lightLevel(state -> 4)
+			.sound(WWSoundTypes.NEMATOCYST)
+			.pushReaction(PushReaction.DESTROY);
 	}
 
 	public static void registerBlockProperties() {
