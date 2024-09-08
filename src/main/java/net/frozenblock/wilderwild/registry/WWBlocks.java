@@ -319,16 +319,46 @@ public final class WWBlocks {
 	);
 
 	// STRIPPED HOLLOWED LOGS
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_OAK_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_OAK_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_SPRUCE_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_SPRUCE_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_BIRCH_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_BIRCH_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_CHERRY_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), WWSoundTypes.HOLLOWED_CHERRY_LOG);
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_JUNGLE_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_JUNGLE_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_ACACIA_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_ACACIA_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_DARK_OAK_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_DARK_OAK_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_MANGROVE_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_MANGROVE_LOG.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = strippedHollowedStemProperties(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor());
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = strippedHollowedStemProperties(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_OAK_LOG = register("stripped_hollowed_oak_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_OAK_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_SPRUCE_LOG = register("stripped_hollowed_spruce_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_SPRUCE_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_BIRCH_LOG = register("stripped_hollowed_birch_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_BIRCH_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_CHERRY_LOG = register("stripped_hollowed_cherry_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), WWSoundTypes.HOLLOWED_CHERRY_LOG)
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_JUNGLE_LOG = register("stripped_hollowed_jungle_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_JUNGLE_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_ACACIA_LOG = register("stripped_hollowed_acacia_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_ACACIA_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_DARK_OAK_LOG = register("stripped_hollowed_dark_oak_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_DARK_OAK_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_MANGROVE_LOG = register("stripped_hollowed_mangrove_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_MANGROVE_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = register("stripped_hollowed_crimson_stem",
+		HollowedLogBlock::new,
+		strippedHollowedStemProperties(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = register("stripped_hollowed_warped_stem",
+		HollowedLogBlock::new,
+		strippedHollowedStemProperties(Blocks.STRIPPED_WARPED_STEM.defaultMapColor())
+	);
 
 	// LEAF LITTER
 	public static final LeafLitterBlock OAK_LEAF_LITTER = leafLitter(
