@@ -105,6 +105,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -145,26 +146,44 @@ public final class WWBlocks {
 
 	// OTHER (BUILDING BLOCKS)
 
-	public static final Block CHISELED_MUD_BRICKS = new Block(Properties.ofFullCopy(Blocks.MUD_BRICKS));
-	public static final Block CRACKED_MUD_BRICKS = new Block(Properties.ofFullCopy(Blocks.MUD_BRICKS));
-	public static final Block MOSSY_MUD_BRICKS = new Block(Properties.ofFullCopy(Blocks.MUD_BRICKS));
-	public static final Block MOSSY_MUD_BRICK_STAIRS = new StairBlock(
-		MOSSY_MUD_BRICKS.defaultBlockState(),
+	public static final Block CHISELED_MUD_BRICKS = register("chiseled_mud_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.MUD_BRICKS)
+	);
+	public static final Block CRACKED_MUD_BRICKS = register("cracked_mud_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.MUD_BRICKS)
+	);
+	public static final Block MOSSY_MUD_BRICKS = register("mossy_mud_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.MUD_BRICKS)
+	);
+	public static final Block MOSSY_MUD_BRICK_STAIRS = register("mossy_mud_brick_stairs",
+		properties -> new StairBlock(MOSSY_MUD_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_MUD_BRICKS)
 	);
-	public static final Block MOSSY_MUD_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_MUD_BRICKS));
-	public static final Block MOSSY_MUD_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_MUD_BRICKS));
+	public static final Block MOSSY_MUD_BRICK_SLAB = register("mossy_mud_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_MUD_BRICKS)
+	);
+	public static final Block MOSSY_MUD_BRICK_WALL = register("mossy_mud_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_MUD_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_MUD_BRICK = BlockFamilies.familyBuilder(MOSSY_MUD_BRICKS)
 		.stairs(MOSSY_MUD_BRICK_STAIRS)
 		.slab(MOSSY_MUD_BRICK_SLAB)
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SCORCHED_SAND = new ScorchedBlock(
-		Blocks.SAND.defaultBlockState(),
-		true,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED,
+	public static final ScorchedBlock SCORCHED_SAND = register("scorched_sand",
+		properties -> new ScorchedBlock(
+			Blocks.SAND.defaultBlockState(),
+			true,
+			SoundEvents.BRUSH_SAND,
+			SoundEvents.BRUSH_SAND_COMPLETED,
+			properties
+		),
 		Properties.of()
 			.strength(1.5F)
 			.sound(WWSoundTypes.SCORCHED_SAND)
@@ -172,11 +191,14 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_RED_SAND = new ScorchedBlock(
-		Blocks.RED_SAND.defaultBlockState(),
-		true,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED,
+	public static final ScorchedBlock SCORCHED_RED_SAND = register("scorched_red_sand",
+		properties ->new ScorchedBlock(
+			Blocks.RED_SAND.defaultBlockState(),
+			true,
+			SoundEvents.BRUSH_SAND,
+			SoundEvents.BRUSH_SAND_COMPLETED,
+			properties
+		),
 		Properties.of()
 			.strength(1.5F)
 			.sound(WWSoundTypes.SCORCHED_SAND)
@@ -184,38 +206,54 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
-		WWTreeGrowers.BAOBAB,
+	public static final BaobabNutBlock BAOBAB_NUT = register("baobab_nut",
+		properties -> new BaobabNutBlock(WWTreeGrowers.BAOBAB, properties),
 		Properties.ofFullCopy(Blocks.BAMBOO)
 			.sound(WWSoundTypes.BAOBAB_NUT)
 	);
-	public static final Block POTTED_BAOBAB_NUT = Blocks.flowerPot(BAOBAB_NUT);
+	public static final Block POTTED_BAOBAB_NUT = register("potted_baobab_nut",
+		properties -> new FlowerPotBlock(BAOBAB_NUT, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(
+	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = register("prickly_pear_cactus",
+		PricklyPearCactusBlock::new,
 		Properties.ofFullCopy(Blocks.CACTUS)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 
-	public static final WaterloggableSaplingBlock CYPRESS_SAPLING = new WaterloggableSaplingBlock(
-		WWTreeGrowers.CYPRESS,
+	public static final WaterloggableSaplingBlock CYPRESS_SAPLING = register("cypress_sapling",
+		properties -> new WaterloggableSaplingBlock(WWTreeGrowers.CYPRESS, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
-	public static final Block POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
+	public static final Block POTTED_CYPRESS_SAPLING = register("potted_cypress_sapling",
+		properties -> new FlowerPotBlock(CYPRESS_SAPLING, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final CoconutBlock COCONUT = new CoconutBlock(
-		WWTreeGrowers.PALM,
+	public static final CoconutBlock COCONUT = register("coconut",
+		properties -> new CoconutBlock(WWTreeGrowers.PALM, properties),
 		Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
 	);
-	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
+	public static final Block POTTED_COCONUT = register("potted_coconut",
+		properties -> new FlowerPotBlock(COCONUT, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final SaplingBlock MAPLE_SAPLING = new SaplingBlock(
-		WWTreeGrowers.MAPLE,
+	public static final SaplingBlock MAPLE_SAPLING = register("maple_sapling",
+		properties -> new SaplingBlock(WWTreeGrowers.MAPLE, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
-	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
+	public static final Block POTTED_MAPLE_SAPLING = register("potted_maple_sapling",
+		properties -> new FlowerPotBlock(MAPLE_SAPLING, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
+	public static final Block CYPRESS_LEAVES = register("cypress_leaves",
+		LeavesBlock::new,
+		Blocks.leavesProperties(SoundType.GRASS)
+	); // in front so the other leaves can have a copy of its settings
 
 	public static final Block BAOBAB_LEAVES = register("baobab_leaves",
 		BaobabLeavesBlock::new,
