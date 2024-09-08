@@ -1061,59 +1061,70 @@ public final class WWBlocks {
 	);
 
 	private static final MapColor PALM_PLANKS_COLOR = MapColor.TERRACOTTA_WHITE;
-	public static final Block PALM_PLANKS = new Block(
+	public static final Block PALM_PLANKS = register("palm_planks",
+		Block::new,
 		Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final StairBlock PALM_STAIRS = new StairBlock(
-		PALM_PLANKS.defaultBlockState(),
+	public static final StairBlock PALM_STAIRS = register("palm_stairs",
+		properties -> new StairBlock(PALM_PLANKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(PALM_PLANKS)
 	);
-	public static final Block PALM_FENCE_GATE = new FenceGateBlock(
-		PALM_WOOD_TYPE,
+	public static final Block PALM_FENCE_GATE = register("palm_fence_gate",
+		properties -> new FenceGateBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(PALM_PLANKS.defaultMapColor())
 	);
-	public static final SlabBlock PALM_SLAB = new SlabBlock(
+	public static final SlabBlock PALM_SLAB = register("palm_slab",
+		SlabBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final Block PALM_BUTTON = Blocks.woodenButton(PALM_SET);
-	public static final PressurePlateBlock PALM_PRESSURE_PLATE = new PressurePlateBlock(
-		PALM_SET,
+	public static final Block PALM_BUTTON = register("palm_button",
+		properties -> new ButtonBlock(PALM_SET, 30, properties),
+		Blocks.buttonProperties()
+	);
+	public static final PressurePlateBlock PALM_PRESSURE_PLATE = register("palm_pressure_plate",
+		properties -> new PressurePlateBlock(PALM_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final DoorBlock PALM_DOOR = new DoorBlock(
-		PALM_SET,
+	public static final DoorBlock PALM_DOOR = register("palm_door",
+		properties -> new DoorBlock(PALM_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_DOOR)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final TrapDoorBlock PALM_TRAPDOOR = new TrapDoorBlock(
-		PALM_SET,
+	public static final TrapDoorBlock PALM_TRAPDOOR = register("palm_trapdoor",
+		properties -> new TrapDoorBlock(PALM_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final FenceBlock PALM_FENCE = new FenceBlock(
+	public static final FenceBlock PALM_FENCE = register("palm_fence",
+		FenceBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_PALM_LOG = strippedHollowedLogProperties(PALM_PLANKS_COLOR);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_PALM_LOG = register("stripped_hollowed_palm_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(PALM_PLANKS_COLOR)
+	);
 
 	private static final MapColor PALM_BARK_COLOR = MapColor.COLOR_LIGHT_GRAY;
-	public static final Block PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
-	public static final FrozenSignBlock PALM_SIGN = new FrozenSignBlock(
-		Properties.ofFullCopy(Blocks.OAK_SIGN)
-			.mapColor(PALM_LOG.defaultMapColor()),
-		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/palm_sign"))
+	public static final Block PALM_LOG = register("palm_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final FrozenWallSignBlock PALM_WALL_SIGN = new FrozenWallSignBlock(
+	public static final SignBlock PALM_SIGN = register("palm_sign",
+		properties -> new StandingSignBlock(PALM_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_SIGN)
+			.mapColor(PALM_LOG.defaultMapColor())
+	);
+	public static final SignBlock PALM_WALL_SIGN = register("palm_wall_sign",
+		properties -> new WallSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
-			.dropsLike(PALM_SIGN),
-		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/palm_sign"))
+			.overrideDescription(PALM_SIGN.getDescriptionId())
+			.overrideLootTable(PALM_SIGN.getLootTable())
 	);
 
 	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
@@ -1130,28 +1141,36 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = new CeilingHangingSignBlock(
-		PALM_WOOD_TYPE,
+	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = register("palm_hanging_sign",
+		properties -> new CeilingHangingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = new WallHangingSignBlock(
-		PALM_WOOD_TYPE,
+	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = register("palm_wall_hanging_sign",
+		properties -> new WallHangingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
 			.overrideDescription(PALM_HANGING_SIGN.getDescriptionId())
 			.overrideLootTable(PALM_HANGING_SIGN.getLootTable())
 	);
-	public static final Block STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
-	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(
+	public static final Block STRIPPED_PALM_LOG = register("stripped_palm_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, SoundType.WOOD)
+	);
+	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = register("stripped_palm_wood",
+		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final RotatedPillarBlock PALM_WOOD = new RotatedPillarBlock(
+	public static final RotatedPillarBlock PALM_WOOD = register("palm_wood",
+		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(PALM_BARK_COLOR)
 	);
-	public static final HollowedLogBlock HOLLOWED_PALM_LOG = hollowedLogProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
+	public static final HollowedLogBlock HOLLOWED_PALM_LOG = register("hollowed_palm_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR)
+	);
 
 	// MAPLE
 
