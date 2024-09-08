@@ -607,7 +607,8 @@ public final class WWBlocks {
 
 	// MISC
 
-	public static final TermiteMoundBlock TERMITE_MOUND = new TermiteMoundBlock(
+	public static final TermiteMoundBlock TERMITE_MOUND = register("termite_mound",
+		TermiteMoundBlock::new,
 		Properties.of()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
@@ -616,117 +617,160 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final StoneChestBlock STONE_CHEST = new StoneChestBlock(
+	public static final StoneChestBlock STONE_CHEST = register("stone_chest",
+		properties -> new StoneChestBlock(() -> WWBlockEntities.STONE_CHEST, properties),
 		Properties.ofFullCopy(Blocks.CHEST)
 			.sound(SoundType.DEEPSLATE)
-			.strength(35.0F, 12.0F),
-		() -> WWBlockEntities.STONE_CHEST
+			.strength(35.0F, 12.0F)
 	);
 
 	// PLANTS
 
-	public static final SeedingFlowerBlock SEEDING_DANDELION = new SeedingFlowerBlock(
-		MobEffects.SLOW_FALLING,
-		12,
+	public static final SeedingFlowerBlock SEEDING_DANDELION = register("seeding_dandelion",
+		properties -> new SeedingFlowerBlock(MobEffects.SLOW_FALLING, 12, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final Block POTTED_SEEDING_DANDELION = Blocks.flowerPot(SEEDING_DANDELION);
+	public static final Block POTTED_SEEDING_DANDELION = register("potted_seeding_dandelion",
+		properties -> new FlowerPotBlock(SEEDING_DANDELION, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final FlowerBlock CARNATION = new FlowerBlock(
-		MobEffects.REGENERATION,
-		12,
+	public static final FlowerBlock CARNATION = register("carnation",
+		properties -> new FlowerBlock(MobEffects.REGENERATION, 12, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final Block POTTED_CARNATION = Blocks.flowerPot(CARNATION);
+	public static final Block POTTED_CARNATION = register("potted_carnation",
+		properties -> new FlowerPotBlock(CARNATION, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final FlowerBlock MARIGOLD = new FlowerBlock(
-		MobEffects.DAMAGE_RESISTANCE,
-		8,
+	public static final FlowerBlock MARIGOLD = register("marigold",
+		properties -> new FlowerBlock(MobEffects.DAMAGE_RESISTANCE, 8, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final Block POTTED_MARIGOLD = Blocks.flowerPot(MARIGOLD);
+	public static final Block POTTED_MARIGOLD = register("potted_marigold",
+		properties -> new FlowerPotBlock(MARIGOLD, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
+	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = register("glory_of_the_snow",
+		GloryOfTheSnowBlock::new,
 		Properties.ofFullCopy(Blocks.DANDELION)
 			.randomTicks()
 	);
-	public static final FlowerLichenBlock ALBA_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock ALBA_GLORY_OF_THE_SNOW = register("alba_glory_of_the_snow",
+		FlowerLichenBlock::new,
 		Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
 			.sound(SoundType.VINE)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
-	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = register("pink_giant_glory_of_the_snow",
+		FlowerLichenBlock::new,
 		Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.CRIMSON_STEM)
 	);
-	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = register("violet_beauty_glory_of_the_snow",
+		FlowerLichenBlock::new,
 		Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.COLOR_PURPLE)
 	);
-	public static final FlowerLichenBlock BLUE_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock BLUE_GIANT_GLORY_OF_THE_SNOW = register("blue_giant_glory_of_the_snow",
+		FlowerLichenBlock::new,
 		Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
 			.mapColor(MapColor.COLOR_BLUE)
 	);
 
-	public static final TallFlowerBlock DATURA = new TallFlowerBlock(Properties.ofFullCopy(Blocks.SUNFLOWER));
+	public static final TallFlowerBlock DATURA = register("datura",
+		TallFlowerBlock::new,
+		Properties.ofFullCopy(Blocks.SUNFLOWER)
+	);
 
-	public static final MilkweedBlock MILKWEED = new MilkweedBlock(
+	public static final MilkweedBlock MILKWEED = register("milkweed",
+		MilkweedBlock::new,
 		Properties.ofFullCopy(Blocks.SUNFLOWER)
 			.randomTicks()
 	);
 
-	public static final Block CATTAIL = new WaterloggableTallFlowerBlock(
+	public static final Block CATTAIL = register("cattail",
+		WaterloggableTallFlowerBlock::new,
 		Properties.ofFullCopy(Blocks.ROSE_BUSH)
 			.sound(SoundType.WET_GRASS)
 			.strength(0.0F)
 			.noOcclusion()
 	);
 
-	public static final WaterlilyBlock FLOWERING_LILY_PAD = new WaterlilyBlock(
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = register("flowering_lily_pad",
+		WaterlilyBlock::new,
 		Properties.ofFullCopy(Blocks.LILY_PAD)
 	);
 
-	public static final AlgaeBlock ALGAE = new AlgaeBlock(
+	public static final AlgaeBlock ALGAE = register("algae",
+		AlgaeBlock::new,
 		Properties.ofFullCopy(Blocks.FROGSPAWN)
 			.mapColor(MapColor.PLANT)
 			.sound(WWSoundTypes.ALGAE)
 	);
 
-	public static final WilderBushBlock BUSH = new WilderBushBlock(
+	public static final WilderBushBlock BUSH = register("bush",
+		WilderBushBlock::new,
 		Properties.ofFullCopy(Blocks.DEAD_BUSH)
 			.mapColor(MapColor.PLANT)
 			.noOcclusion()
 			.randomTicks()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
-	public static final Block POTTED_BUSH = Blocks.flowerPot(BUSH);
+	public static final Block POTTED_BUSH = register("potted_bush",
+		properties -> new FlowerPotBlock(BUSH, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final TumbleweedPlantBlock TUMBLEWEED_PLANT = new TumbleweedPlantBlock(
+	public static final TumbleweedPlantBlock TUMBLEWEED_PLANT = register("tumbleweed_plant",
+		TumbleweedPlantBlock::new,
 		Properties.of()
 			.noOcclusion()
 			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
-	public static final Block POTTED_TUMBLEWEED_PLANT = Blocks.flowerPot(TUMBLEWEED_PLANT);
-	public static final TumbleweedBlock TUMBLEWEED = new TumbleweedBlock(
+	public static final Block POTTED_TUMBLEWEED_PLANT = register("potted_tumbleweed_plant",
+		properties -> new FlowerPotBlock(TUMBLEWEED_PLANT, properties),
+		Blocks.flowerPotProperties()
+	);
+	public static final TumbleweedBlock TUMBLEWEED = register("tumbleweed",
+		TumbleweedBlock::new,
 		Properties.of()
 			.instabreak()
 			.noOcclusion()
 			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
-	public static final Block POTTED_TUMBLEWEED = Blocks.flowerPot(TUMBLEWEED);
+	public static final Block POTTED_TUMBLEWEED = register("potted_tumbleweed",
+		properties -> new FlowerPotBlock(TUMBLEWEED, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final Block POTTED_BIG_DRIPLEAF = Blocks.flowerPot(Blocks.BIG_DRIPLEAF);
-	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
+	public static final Block POTTED_BIG_DRIPLEAF = register("potted_big_dripleaf",
+		properties -> new FlowerPotBlock(Blocks.BIG_DRIPLEAF, properties),
+		Blocks.flowerPotProperties()
+	);
+	public static final Block POTTED_SMALL_DRIPLEAF = register("potted_small_dripleaf",
+		properties -> new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final Block POTTED_SHORT_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
+	public static final Block POTTED_SHORT_GRASS = register("potted_short_grass",
+		properties -> new FlowerPotBlock(Blocks.SHORT_GRASS, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
+	public static final Block POTTED_PRICKLY_PEAR = register("potted_prickly_pear",
+		properties -> new FlowerPotBlock(PRICKLY_PEAR_CACTUS, properties),
+		Blocks.flowerPotProperties()
+	);
 
-	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = new ShelfFungusBlock(
+	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = register("brown_shelf_fungus",
+		ShelfFungusBlock::new,
 		Properties.ofFullCopy(Blocks.BROWN_MUSHROOM_BLOCK)
 			.lightLevel(state -> 1)
 			.randomTicks()
@@ -736,7 +780,8 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final ShelfFungusBlock RED_SHELF_FUNGUS = new ShelfFungusBlock(
+	public static final ShelfFungusBlock RED_SHELF_FUNGUS = register("red_shelf_fungus",
+		ShelfFungusBlock::new,
 		Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK)
 			.randomTicks()
 			.noCollission()
@@ -746,14 +791,16 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final PollenBlock POLLEN = new PollenBlock(
+	public static final PollenBlock POLLEN = register("pollen",
+		PollenBlock::new,
 		Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
 			.sound(WWSoundTypes.POLLEN)
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
 
-	public static final SpongeBudBlock SPONGE_BUD = new SpongeBudBlock(
+	public static final SpongeBudBlock SPONGE_BUD = register("sponge_bud",
+		SpongeBudBlock::new,
 		Properties.ofFullCopy(Blocks.SPONGE)
 			.strength(0.1F)
 			.noCollission()

@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class SeedingFlowerBlock extends FlowerBlock {
 	public static final float SEED_SPAWN_CHANCE = 0.95F;
 	public static final double SEED_SPAWN_HEIGHT = 0.3D;

@@ -138,8 +138,8 @@ public class StoneChestBlock extends ChestBlock {
 
 	};
 
-	public StoneChestBlock(@NotNull Properties settings, @NotNull Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
-		super(settings, supplier);
+	public StoneChestBlock(@NotNull Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, @NotNull Properties properties) {
+		super(supplier, properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(ANCIENT, false).setValue(SCULK, false));
 	}
 
