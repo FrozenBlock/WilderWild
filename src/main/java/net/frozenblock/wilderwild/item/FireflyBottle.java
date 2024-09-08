@@ -46,7 +46,7 @@ public class FireflyBottle extends Item {
 
 	public final FireflyColor color;
 
-	public FireflyBottle(@NotNull Properties settings, @NotNull FireflyColor color) {
+	public FireflyBottle(@NotNull FireflyColor color, @NotNull Properties settings) {
 		super(settings);
 		this.color = color;
 	}

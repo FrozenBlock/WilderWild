@@ -67,6 +67,16 @@ import java.util.function.Function;
 
 public final class WWItems {
 
+	// BOATS
+	public static final BoatItem BAOBAB_BOAT = registerItem("baobab_boat", properties -> new BoatItem(false, WWBoatTypes.BAOBAB, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem BAOBAB_CHEST_BOAT = registerItem("baobab_chest_boat", properties -> new BoatItem(true, WWBoatTypes.BAOBAB, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem CYPRESS_BOAT = registerItem("cypress_boat", properties -> new BoatItem(false, WWBoatTypes.CYPRESS, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem CYPRESS_CHEST_BOAT = registerItem("cypress_chest_boat", properties -> new BoatItem(true, WWBoatTypes.CYPRESS, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem PALM_BOAT = registerItem("palm_boat", properties -> new BoatItem(false, WWBoatTypes.PALM, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem PALM_CHEST_BOAT = registerItem("palm_chest_boat", properties -> new BoatItem(true, WWBoatTypes.PALM, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem MAPLE_BOAT = registerItem("maple_boat", properties -> new BoatItem(false, WWBoatTypes.MAPLE, properties), new Item.Properties().stacksTo(1));
+	public static final BoatItem MAPLE_CHEST_BOAT = registerItem("maple_chest_boat", properties -> new BoatItem(false, WWBoatTypes.MAPLE, properties), new Item.Properties().stacksTo(1));
+
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(WWBlocks.BAOBAB_NUT, new Item.Properties().food(WWFood.BAOBAB_NUT));
 	public static final SignItem BAOBAB_SIGN = new SignItem(new Item.Properties().stacksTo(16),
@@ -102,33 +112,25 @@ public final class WWItems {
 	public static final BlockItem ECHO_GLASS = registerBlock(WWBlocks.ECHO_GLASS, BlockItem::new, new Item.Properties());
 	public static final BlockItem DISPLAY_LANTERN = registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 	// ITEMS
-	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
-	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(WWFood.SPLIT_COCONUT));
-	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WWBoatTypes.BAOBAB, new Item.Properties().stacksTo(1));
-	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WWBoatTypes.BAOBAB, new Item.Properties().stacksTo(1));
-	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WWBoatTypes.CYPRESS, new Item.Properties().stacksTo(1));
-	public static final BoatItem CYPRESS_CHEST_BOAT = new BoatItem(true, WWBoatTypes.CYPRESS, new Item.Properties().stacksTo(1));
-	public static final BoatItem PALM_BOAT = new BoatItem(false, WWBoatTypes.PALM, new Item.Properties().stacksTo(1));
-	public static final BoatItem PALM_CHEST_BOAT = new BoatItem(true, WWBoatTypes.PALM, new Item.Properties().stacksTo(1));
-	public static final BoatItem MAPLE_BOAT = new BoatItem(false, WWBoatTypes.MAPLE, new Item.Properties().stacksTo(1));
-	public static final BoatItem MAPLE_CHEST_BOAT = new BoatItem(true, WWBoatTypes.MAPLE, new Item.Properties().stacksTo(1));
-	public static final FireflyBottle FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ON);
-	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BLACK);
-	public static final FireflyBottle RED_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.RED);
-	public static final FireflyBottle GREEN_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.GREEN);
-	public static final FireflyBottle BROWN_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BROWN);
-	public static final FireflyBottle BLUE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BLUE);
-	public static final FireflyBottle PURPLE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.PURPLE);
-	public static final FireflyBottle CYAN_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.CYAN);
-	public static final FireflyBottle LIGHT_GRAY_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.LIGHT_GRAY);
-	public static final FireflyBottle GRAY_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.GRAY);
-	public static final FireflyBottle PINK_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.PINK);
-	public static final FireflyBottle LIME_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.LIME);
-	public static final FireflyBottle YELLOW_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.YELLOW);
-	public static final FireflyBottle LIGHT_BLUE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.LIGHT_BLUE);
-	public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.MAGENTA);
-	public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ORANGE);
-	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.WHITE);
+	public static final MilkweedPod MILKWEED_POD = registerItem("milkweed_pod", MilkweedPod::new, new Item.Properties().stacksTo(64));
+	public static final Item SPLIT_COCONUT = registerItem("split_coconut", Item::new, new Item.Properties().food(WWFood.SPLIT_COCONUT));
+	public static final FireflyBottle FIREFLY_BOTTLE = registerItem("firefly_bottle", properties -> new FireflyBottle(FireflyColor.ON, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = registerItem("black_firefly_bottle", properties -> new FireflyBottle(FireflyColor.BLACK, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle RED_FIREFLY_BOTTLE = registerItem("red_firefly_bottle", properties -> new FireflyBottle(FireflyColor.RED, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle GREEN_FIREFLY_BOTTLE = registerItem("green_firefly_bottle", properties -> new FireflyBottle(FireflyColor.GREEN, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle BROWN_FIREFLY_BOTTLE = registerItem("brown_firefly_bottle", properties -> new FireflyBottle(FireflyColor.BROWN, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle BLUE_FIREFLY_BOTTLE = registerItem("blue_firefly_bottle", properties -> new FireflyBottle(FireflyColor.BLUE, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle PURPLE_FIREFLY_BOTTLE = registerItem("purple_firefly_bottle", properties -> new FireflyBottle(FireflyColor.PURPLE, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle CYAN_FIREFLY_BOTTLE = registerItem("cyan_firefly_bottle", properties -> new FireflyBottle(FireflyColor.CYAN, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle LIGHT_GRAY_FIREFLY_BOTTLE = registerItem("light_gray_firefly_bottle", properties -> new FireflyBottle(FireflyColor.LIGHT_GRAY, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle GRAY_FIREFLY_BOTTLE = registerItem("gray_firefly_bottle", properties -> new FireflyBottle(FireflyColor.GRAY, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle PINK_FIREFLY_BOTTLE = registerItem("pink_firefly_bottle", properties -> new FireflyBottle(FireflyColor.PINK, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle LIME_FIREFLY_BOTTLE = registerItem("lime_firefly_bottle", properties -> new FireflyBottle(FireflyColor.LIME, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle YELLOW_FIREFLY_BOTTLE = registerItem("yellow_firefly_bottle", properties -> new FireflyBottle(FireflyColor.YELLOW, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle LIGHT_BLUE_FIREFLY_BOTTLE = registerItem("light_blue_firefly_bottle", properties -> new FireflyBottle(FireflyColor.LIGHT_BLUE, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = registerItem("magenta_firefly_bottle", properties -> new FireflyBottle(FireflyColor.MAGENTA, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = registerItem("orange_firefly_bottle", properties -> new FireflyBottle(FireflyColor.ORANGE, properties), new Item.Properties().stacksTo(32));
+	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = registerItem("white_firefly_bottle", properties -> new FireflyBottle(FireflyColor.WHITE, properties), new Item.Properties().stacksTo(32));
 	public static final DamageOnUseBlockItem PRICKLY_PEAR = new DamageOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new Item.Properties().food(Foods.APPLE));
 	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(WWEntities.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
