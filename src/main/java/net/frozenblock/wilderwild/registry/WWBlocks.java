@@ -25,10 +25,6 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
-import net.frozenblock.lib.block.api.FrozenSignBlock;
-import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
-import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.FuelRegistry;
 import net.frozenblock.lib.item.api.axe.AxeBehaviors;
@@ -86,6 +82,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -101,6 +98,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
@@ -110,12 +109,16 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
+import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -127,6 +130,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.Function;
 
 public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
@@ -648,7 +652,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final Block BAOBAB_BUTTON = Blocks.woodenButton(BAOBAB_SET);
+	public static final Block BAOBAB_BUTTON = new ButtonBlock(BAOBAB_SET, 30, Blocks.buttonProperties());
 	public static final PressurePlateBlock BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
 		BAOBAB_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR)
@@ -668,19 +672,19 @@ public final class WWBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_BAOBAB_LOG = createStrippedHollowedLogBlock(BAOBAB_PLANKS_COLOR);
 
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
-	public static final Block BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR);
-	public static final FrozenSignBlock BAOBAB_SIGN = new FrozenSignBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
-			.mapColor(BAOBAB_LOG.defaultMapColor()),
+	public static final Block BAOBAB_LOG = new RotatedPillarBlock(Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD));
+	public static final SignBlock BAOBAB_SIGN = new StandingSignBlock(
 		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/baobab_sign"))
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
+			.mapColor(BAOBAB_LOG.defaultMapColor())
+			.setId(ResourceKey.create(Registries.BLOCK, WWConstants.id("blocks/baobab_sign")))
 	);
-	public static final FrozenWallSignBlock BAOBAB_WALL_SIGN = new FrozenWallSignBlock(
+	public static final SignBlock BAOBAB_WALL_SIGN = new WallSignBlock(
+		BAOBAB_WOOD_TYPE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
-			.dropsLike(BAOBAB_SIGN),
-		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/baobab_sign"))
+			.overrideDescription(BAOBAB_SIGN.getDescriptionId())
+			.overrideLootTable(BAOBAB_SIGN.getLootTable())
 	);
 
 	public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
@@ -697,18 +701,17 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final FrozenCeilingHangingSignBlock BAOBAB_HANGING_SIGN = new FrozenCeilingHangingSignBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
-			.mapColor(BAOBAB_LOG.defaultMapColor()),
+	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(
 		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/baobab_hanging_sign"))
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
+			.mapColor(BAOBAB_LOG.defaultMapColor())
 	);
-	public static final FrozenWallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
+	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(
+		BAOBAB_WOOD_TYPE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
-			.dropsLike(BAOBAB_HANGING_SIGN),
-		BAOBAB_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/baobab_hanging_sign"))
+			.overrideDescription(BAOBAB_HANGING_SIGN.getDescriptionId())
+			.overrideLootTable(BAOBAB_HANGING_SIGN.getLootTable())
 	);
 	public static final Block STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
 	public static final RotatedPillarBlock STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(
@@ -884,18 +887,17 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final FrozenCeilingHangingSignBlock PALM_HANGING_SIGN = new FrozenCeilingHangingSignBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
-			.mapColor(PALM_LOG.defaultMapColor()),
+	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = new CeilingHangingSignBlock(
 		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/palm_hanging_sign"))
+		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
+			.mapColor(PALM_LOG.defaultMapColor())
 	);
-	public static final FrozenWallHangingSignBlock PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
+	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = new WallHangingSignBlock(
+		PALM_WOOD_TYPE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
-			.dropsLike(PALM_HANGING_SIGN),
-		PALM_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/palm_hanging_sign"))
+			.overrideDescription(PALM_HANGING_SIGN.getDescriptionId())
+			.overrideLootTable(PALM_HANGING_SIGN.getLootTable())
 	);
 	public static final Block STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(
@@ -1276,20 +1278,25 @@ public final class WWBlocks {
 		registerMisc();
 	}
 
-	private static void registerBlock(String path, Block block) {
-		actualRegisterBlock(path, block);
+	private static <T extends Block> T register(String path, Function<BlockBehaviour.Properties, T> block, BlockBehaviour.Properties properties) {
+		ResourceLocation id = WWConstants.id(path);
+		return doRegister(id, makeBlock(block, properties, id));
 	}
 
 	@SafeVarargs
-	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, ResourceKey<CreativeModeTab>... tabs) {
+	private static <T extends Block> T registerBlockBefore(ItemLike comparedItem, String path, Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties, ResourceKey<CreativeModeTab>... tabs) {
+		ResourceLocation id = WWConstants.id(path);
+		T block = makeBlock(function, properties, id);
 		registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-		actualRegisterBlock(path, block);
+		return doRegister(id, block);
 	}
 
 	@SafeVarargs
-	private static void registerBlockAfter(ItemLike comparedItem, String path, Block block, ResourceKey<CreativeModeTab>... tabs) {
+	private static <T extends Block> T registerBlockAfter(ItemLike comparedItem, String path, Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties, ResourceKey<CreativeModeTab>... tabs) {
+		ResourceLocation id = WWConstants.id(path);
+		T block = makeBlock(function, properties, id);
 		registerBlockItemAfter(comparedItem, path, block, tabs);
-		actualRegisterBlock(path, block);
+		return doRegister(id, block);
 	}
 
 	@SafeVarargs
@@ -1309,16 +1316,21 @@ public final class WWBlocks {
 		FrozenCreativeTabs.addAfter(comparedItem, block, visibility, tabs);
 	}
 
-	private static void actualRegisterBlock(String path, Block block) {
-		if (BuiltInRegistries.BLOCK.getOptional(WWConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.BLOCK, WWConstants.id(path), block);
+	private static <T extends Block> T doRegister(ResourceLocation id, T block) {
+		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
+			return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		}
+		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
 	}
 
 	private static void actualRegisterBlockItem(String path, Block block) {
 		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WWConstants.id(path), new BlockItem(block, new Item.Properties()));
 		}
+	}
+
+	private static <T extends Block> T makeBlock(Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties, ResourceLocation id) {
+		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
 	}
 
 	@NotNull
