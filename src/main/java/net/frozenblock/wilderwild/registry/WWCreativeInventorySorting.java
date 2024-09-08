@@ -18,11 +18,22 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
+import net.frozenblock.wilderwild.tag.WWInstrumentTags;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 
 public class WWCreativeInventorySorting {
 
@@ -45,6 +56,15 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.BAOBAB_LOG);
 		addAfterInNaturalBlocks(Items.MANGROVE_LEAVES, WWBlocks.BAOBAB_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAF_LITTER);
+		// BAOBAB (FUNCTIONAL BLOCKS)
+		addAfterInFunctionalBlocks(Items.MANGROVE_HANGING_SIGN, WWItems.BAOBAB_SIGN);
+		addAfterInFunctionalBlocks(WWItems.BAOBAB_SIGN, WWItems.BAOBAB_HANGING_SIGN);
+		// BAOBAB (TOOLS AND UTILITIES)
+		addAfterInToolsAndUtilities(Items.MANGROVE_CHEST_BOAT, WWItems.BAOBAB_BOAT);
+		addAfterInToolsAndUtilities(WWItems.BAOBAB_BOAT, WWItems.BAOBAB_CHEST_BOAT);
+		// BAOBAB NUT
+		addAfterInFoodAndDrinks(Items.GLOW_BERRIES, WWItems.BAOBAB_NUT);
+		addAfterInNaturalBlocks(Items.MANGROVE_PROPAGULE, WWItems.BAOBAB_NUT);
 
 		// CYPRESS (BUILDING BLOCKS)
 		addAfterInBuildingBlocks(WWBlocks.BAOBAB_BUTTON, WWBlocks.CYPRESS_LOG);
@@ -65,6 +85,12 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAF_LITTER, WWBlocks.CYPRESS_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAF_LITTER);
 		addAfterInNaturalBlocks(Items.MANGROVE_PROPAGULE, WWBlocks.CYPRESS_SAPLING);
+		// CYPRESS (FUNCTIONAL BLOCKS)
+		addAfterInFunctionalBlocks(WWItems.BAOBAB_HANGING_SIGN, WWItems.CYPRESS_SIGN);
+		addAfterInFunctionalBlocks(WWItems.CYPRESS_SIGN, WWItems.CYPRESS_HANGING_SIGN);
+		// CYPRESS (TOOLS AND UTILITIES)
+		addAfterInToolsAndUtilities(WWItems.BAOBAB_CHEST_BOAT, WWItems.CYPRESS_BOAT);
+		addAfterInToolsAndUtilities(WWItems.CYPRESS_BOAT, WWItems.CYPRESS_CHEST_BOAT);
 
 		// PALM (BUILDING BLOCKS)
 		addAfterInBuildingBlocks(WWBlocks.CYPRESS_BUTTON, WWBlocks.PALM_LOG);
@@ -84,6 +110,16 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.PALM_LOG);
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAF_LITTER, WWBlocks.PALM_FRONDS);
 		addAfterInNaturalBlocks(WWBlocks.PALM_FRONDS, WWBlocks.PALM_FROND_LITTER);
+		// PALM (FUNCTIONAL BLOCKS)
+		addAfterInFunctionalBlocks(WWItems.CYPRESS_HANGING_SIGN, WWItems.PALM_SIGN);
+		addAfterInFunctionalBlocks(WWItems.PALM_SIGN, WWItems.PALM_HANGING_SIGN);
+		// PALM (TOOLS AND UTILITIES)
+		addAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
+		addAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
+		// COCONUT
+		addAfterInCombat(Items.EGG, WWItems.COCONUT);
+		addAfterInNaturalBlocks(WWBlocks.CYPRESS_SAPLING, WWItems.COCONUT);
+		addAfterInFoodAndDrinks(WWItems.BAOBAB_NUT, WWItems.SPLIT_COCONUT);
 
 		// MAPLE (BUILDING BLOCKS)
 		addAfterInBuildingBlocks(Items.CHERRY_BUTTON, WWBlocks.MAPLE_LOG);
@@ -108,6 +144,12 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, WWBlocks.RED_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.RED_MAPLE_LEAVES, WWBlocks.RED_MAPLE_LEAF_LITTER);
+		// MAPLE (FUNCTIONAL BLOCKS)
+		addAfterInFunctionalBlocks(Blocks.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
+		addAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
+		// MAPLE (TOOLS AND UTILITIES)
+		addAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
+		addAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);
 
 		// OTHER LEAF LITTERS
 		addAfterInNaturalBlocks(Blocks.OAK_LEAVES, WWBlocks.OAK_LEAF_LITTER);
@@ -181,12 +223,19 @@ public class WWCreativeInventorySorting {
 		// TALL FLOWERS
 		addAfterInNaturalBlocks(Items.PEONY, WWBlocks.DATURA);
 		addAfterInNaturalBlocks(WWBlocks.DATURA, WWBlocks.MILKWEED);
+		addBeforeInIngredients(Items.INK_SAC, WWItems.MILKWEED_POD);
 		addAfterInNaturalBlocks(WWBlocks.MILKWEED, WWBlocks.CATTAIL);
 
 		// PLANTS
-		addAfterInNaturalBlocks(Items.CACTUS, WWBlocks.TUMBLEWEED_PLANT);
+		addAfterInNaturalBlocks(Items.GLOW_LICHEN, WWItems.POLLEN);
+		addAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
+		addAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
+		addAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
+		addAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWBlocks.TUMBLEWEED_PLANT);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
+		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
+		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
 		// SHELF FUNGUS
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.RED_SHELF_FUNGUS);
@@ -232,16 +281,75 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.SCULK, WWBlocks.OSSEOUS_SCULK);
 		addAfterInNaturalBlocks(Items.SCULK_SENSOR, WWBlocks.HANGING_TENDRIL);
 
+		// SCORCHED SAND
+		addAfterInNaturalBlocks(Items.SAND, WWItems.SCORCHED_SAND);
+		addAfterInNaturalBlocks(Items.RED_SAND, WWItems.SCORCHED_RED_SAND);
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+			var second = new ItemStack(WWItems.SCORCHED_SAND);
+			ItemBlockStateTagUtils.setProperty(second, WWBlockStateProperties.CRACKED, true);
+			entries.addAfter(WWItems.SCORCHED_SAND, second);
+
+			var secondRed = new ItemStack(WWItems.SCORCHED_RED_SAND);
+			ItemBlockStateTagUtils.setProperty(secondRed, WWBlockStateProperties.CRACKED, true);
+			entries.addAfter(WWItems.SCORCHED_RED_SAND, secondRed);
+		});
+
 		// STORAGE
 		addAfterInFunctionalBlocks(Items.CHEST, WWBlocks.STONE_CHEST);
-		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
-		addBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWBlocks.GEYSER);
+		addAfterInFunctionalBlocks(Items.SOUL_LANTERN, WWItems.DISPLAY_LANTERN);
 
 		// FUNCTIONAL BLOCK ENTITIES
 		addBeforeInNaturalBlocks(Items.BEE_NEST, WWBlocks.TERMITE_MOUND);
+		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
+		addBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWBlocks.GEYSER);
 
 		// MISC
+		addAfterInFunctionalBlocks(Items.TINTED_GLASS, WWItems.ECHO_GLASS);
 		addBeforeInBuildingBlocks(Items.GLASS, WWBlocks.NULL_BLOCK);
+
+		// FIREFLY
+		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
+		addInToolsAndUtilities(WWItems.FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.WHITE_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.GRAY_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.BLACK_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.BROWN_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.RED_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.ORANGE_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.YELLOW_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.LIME_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.GREEN_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.CYAN_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.BLUE_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.PURPLE_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.MAGENTA_FIREFLY_BOTTLE);
+		addInToolsAndUtilities(WWItems.PINK_FIREFLY_BOTTLE);
+
+		// JELLYFISH
+		addAfterInSpawnEggs(Items.HUSK_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
+		addAfterInToolsAndUtilities(Items.AXOLOTL_BUCKET, WWItems.JELLYFISH_BUCKET);
+
+		// CRAB
+		addBeforeInSpawnEggs(Items.CREEPER_SPAWN_EGG, WWItems.CRAB_SPAWN_EGG);
+		addAfterInToolsAndUtilities(WWItems.JELLYFISH_BUCKET, WWItems.CRAB_BUCKET);
+		addAfterInFoodAndDrinks(Items.COOKED_COD, WWItems.CRAB_CLAW);
+		addAfterInFoodAndDrinks(WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW);
+
+		// OSTRICH
+		addAfterInSpawnEggs(Items.OCELOT_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
+
+		// SCORCHED
+		addAfterInSpawnEggs(Items.SALMON_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
+		addAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
+		addAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
+
+		// HORNS
+		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.COPPER_HORN, WWInstrumentTags.COPPER_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);
+		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.ANCIENT_HORN, WWInstrumentTags.ANCIENT_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);
+		addInstrumentBefore(Items.BOW, WWItems.ANCIENT_HORN, WWInstrumentTags.ANCIENT_HORNS, CreativeModeTabs.COMBAT);
+		addAfterInIngredients(Items.ECHO_SHARD, WWItems.ANCIENT_HORN_FRAGMENT);
 	}
 
 	private static void addBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
@@ -274,5 +382,52 @@ public class WWCreativeInventorySorting {
 
 	private static void addBeforeInRedstoneBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.REDSTONE_BLOCKS);
+	}
+
+	private static void addInToolsAndUtilities(ItemLike item) {
+		FrozenCreativeTabs.add(item, CreativeModeTabs.TOOLS_AND_UTILITIES);
+	}
+
+	private static void addAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
+	}
+
+	private static void addBeforeInIngredients(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.INGREDIENTS);
+	}
+
+	private static void addAfterInIngredients(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.INGREDIENTS);
+	}
+
+
+	private static void addBeforeInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.FOOD_AND_DRINKS);
+	}
+
+	private static void addAfterInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.FOOD_AND_DRINKS);
+	}
+
+	private static void addAfterInCombat(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.COMBAT);
+	}
+
+	private static void addBeforeInSpawnEggs(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
+	}
+
+	private static void addAfterInSpawnEggs(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
+	}
+
+	@SafeVarargs
+	private static void addInstrumentBefore(
+		@NotNull Item comparedItem,
+		@NotNull Item instrument,
+		@NotNull TagKey<Instrument> tagKey,
+		@NotNull ResourceKey<CreativeModeTab>... tabs
+	) {
+		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 }

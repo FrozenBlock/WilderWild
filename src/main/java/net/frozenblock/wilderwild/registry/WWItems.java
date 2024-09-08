@@ -92,6 +92,8 @@ public final class WWItems {
 	);
 	public static final CoconutItem COCONUT = new CoconutItem(WWBlocks.COCONUT, new Item.Properties());
 	public static final BlockItem POLLEN = new BlockItem(WWBlocks.POLLEN, new Item.Properties());
+	public static final PlaceOnWaterBlockItem ALGAE = new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties());
+	public static final PlaceOnWaterBlockItem FLOWERING_LILY_PAD = new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties());
 	public static final BlockItem SCORCHED_SAND = new BlockItem(WWBlocks.SCORCHED_SAND, new Item.Properties());
 	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(WWBlocks.SCORCHED_RED_SAND, new Item.Properties());
 	public static final BlockItem ECHO_GLASS = new BlockItem(WWBlocks.ECHO_GLASS, new Item.Properties());
@@ -241,8 +243,8 @@ public final class WWItems {
 		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
-		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemBefore(Items.LILY_PAD, ALGAE, "algae", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.LILY_PAD, FLOWERING_LILY_PAD, "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerItemAfter(Items.ECHO_SHARD, ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.INGREDIENTS);
 
