@@ -111,8 +111,9 @@ public final class WWItems {
 	public static final BlockItem SCORCHED_RED_SAND = registerBlock(WWBlocks.SCORCHED_RED_SAND, BlockItem::new, new Item.Properties());
 	public static final BlockItem ECHO_GLASS = registerBlock(WWBlocks.ECHO_GLASS, BlockItem::new, new Item.Properties());
 	public static final BlockItem DISPLAY_LANTERN = registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
+
 	// ITEMS
-	public static final MilkweedPod MILKWEED_POD = registerItem("milkweed_pod", MilkweedPod::new, new Item.Properties().stacksTo(64));
+	public static final MilkweedPod MILKWEED_POD = registerItem("milkweed_pod", MilkweedPod::new, new Item.Properties());
 	public static final Item SPLIT_COCONUT = registerItem("split_coconut", Item::new, new Item.Properties().food(WWFood.SPLIT_COCONUT));
 	public static final FireflyBottle FIREFLY_BOTTLE = registerItem("firefly_bottle", properties -> new FireflyBottle(FireflyColor.ON, properties), new Item.Properties().stacksTo(32));
 	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = registerItem("black_firefly_bottle", properties -> new FireflyBottle(FireflyColor.BLACK, properties), new Item.Properties().stacksTo(32));
@@ -131,21 +132,25 @@ public final class WWItems {
 	public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = registerItem("magenta_firefly_bottle", properties -> new FireflyBottle(FireflyColor.MAGENTA, properties), new Item.Properties().stacksTo(32));
 	public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = registerItem("orange_firefly_bottle", properties -> new FireflyBottle(FireflyColor.ORANGE, properties), new Item.Properties().stacksTo(32));
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = registerItem("white_firefly_bottle", properties -> new FireflyBottle(FireflyColor.WHITE, properties), new Item.Properties().stacksTo(32));
-	public static final DamageOnUseBlockItem PRICKLY_PEAR = new DamageOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
-	public static final Item PEELED_PRICKLY_PEAR = new Item(new Item.Properties().food(Foods.APPLE));
-	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(WWEntities.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
-	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(WWFood.CRAB_CLAW));
-	public static final Item COOKED_CRAB_CLAW = new Item(new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));
-	public static final Item SCORCHED_EYE = new Item(new Item.Properties().food(WWFood.SCORCHED_EYE, WWFood.SCORCHED_EYE_CONSUMABLE));
-	public static final Item FERMENTED_SCORCHED_EYE = new Item(new Item.Properties());
-	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new Item.Properties().stacksTo(64));
-	// SPAWN EGGS
-	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(WWEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new Item.Properties());
-	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(WWEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new Item.Properties());
-	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(WWEntities.JELLYFISH, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new Item.Properties().stacksTo(1));
-	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(WWEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new Item.Properties());
-	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(WWEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new Item.Properties());
-	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(WWEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new Item.Properties());
+
+	// FOOD
+	public static final DamageOnUseBlockItem PRICKLY_PEAR = registerBlock(WWBlocks.PRICKLY_PEAR_CACTUS, ((block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR)), new Item.Properties().food(WWFood.PRICKLY_PEAR));
+	public static final Item PEELED_PRICKLY_PEAR = registerItem("peeled_prickly_pear", Item::new, new Item.Properties().food(Foods.APPLE));
+	public static final Item CRAB_CLAW = registerItem("crab_claw", Item::new, new Item.Properties().food(WWFood.CRAB_CLAW));
+	public static final Item COOKED_CRAB_CLAW = registerItem("cooked_crab_claw", Item::new, new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));
+	public static final Item SCORCHED_EYE = registerItem("scorched_eye", Item::new, new Item.Properties().food(WWFood.SCORCHED_EYE, WWFood.SCORCHED_EYE_CONSUMABLE));
+	public static final Item FERMENTED_SCORCHED_EYE = registerItem("fermented_scorched_eye", Item::new, new Item.Properties());
+	public static final Item ANCIENT_HORN_FRAGMENT = registerItem("ancient_horn_fragment", Item::new, new Item.Properties());
+
+	// SPAWN EGGS & BUCKETS
+	public static final SpawnEggItem FIREFLY_SPAWN_EGG = registerItem("firefly_spawn_egg", properties -> new SpawnEggItem(WWEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), properties), new Item.Properties());
+	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = registerItem("jellyfish_spawn_egg", properties -> new SpawnEggItem(WWEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), properties), new Item.Properties());
+	public static final MobBucketItem JELLYFISH_BUCKET = registerItem("jellyfish_bucket", properties -> new MobBucketItem(WWEntities.JELLYFISH, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, properties), new Item.Properties().stacksTo(1));
+	public static final SpawnEggItem CRAB_SPAWN_EGG = registerItem("crab_spawn_egg", properties -> new SpawnEggItem(WWEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), properties), new Item.Properties());
+	public static final MobBucketItem CRAB_BUCKET = registerItem("crab_bucket", properties -> new MobBucketItem(WWEntities.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, properties), new Item.Properties().stacksTo(1));
+	public static final SpawnEggItem OSTRICH_SPAWN_EGG = registerItem("ostrich_spawn_egg", properties -> new SpawnEggItem(WWEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), properties), new Item.Properties());
+	public static final SpawnEggItem SCORCHED_SPAWN_EGG = registerItem("scorched_spawn_egg", properties -> new SpawnEggItem(WWEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), properties), new Item.Properties());
+
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), WWInstrumentTags.ANCIENT_HORNS);
 	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("ancient_horn"));
@@ -174,84 +179,14 @@ public final class WWItems {
 		registerItemAfter(PALM_SIGN, PALM_HANGING_SIGN, "palm_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(Blocks.CHERRY_HANGING_SIGN, MAPLE_SIGN, "maple_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(MAPLE_SIGN, MAPLE_HANGING_SIGN, "maple_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-
-		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(Items.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
-
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
-			var second = new ItemStack(SCORCHED_SAND);
-			ItemBlockStateTagUtils.setProperty(second, WWBlockStateProperties.CRACKED, true);
-			entries.addAfter(SCORCHED_SAND, second);
-
-			var secondRed = new ItemStack(SCORCHED_RED_SAND);
-			ItemBlockStateTagUtils.setProperty(secondRed, WWBlockStateProperties.CRACKED, true);
-			entries.addAfter(SCORCHED_RED_SAND, secondRed);
-		});
-
-		registerItemAfter(Items.SOUL_LANTERN, DISPLAY_LANTERN, "display_lantern", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
 	public static void registerItems() {
 		WWConstants.logWithModId("Registering Items for", WWConstants.UNSTABLE_LOGGING);
-		//BOATS
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(BAOBAB_BOAT, BAOBAB_CHEST_BOAT, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(BAOBAB_CHEST_BOAT, CYPRESS_BOAT, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(CYPRESS_BOAT, CYPRESS_CHEST_BOAT, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(CYPRESS_CHEST_BOAT, PALM_BOAT, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(PALM_BOAT, PALM_CHEST_BOAT, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.CHERRY_CHEST_BOAT, MAPLE_BOAT, "maple_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(MAPLE_BOAT, MAPLE_CHEST_BOAT, "maple_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-
-		registerItemBefore(Items.INK_SAC, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(Items.EVOKER_SPAWN_EGG, FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
-		registerItemAfter(Items.HUSK_SPAWN_EGG, JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
-		registerItemAfter(Items.AXOLOTL_BUCKET, JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemBefore(Items.CREEPER_SPAWN_EGG, CRAB_SPAWN_EGG, "crab_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
-		registerItemAfter(Items.OCELOT_SPAWN_EGG, OSTRICH_SPAWN_EGG, "ostrich_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
-		registerItemAfter(Items.SALMON_SPAWN_EGG, SCORCHED_SPAWN_EGG, "scorched_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
-		registerItemAfter(JELLYFISH_BUCKET, CRAB_BUCKET, "crab_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
-		registerItemAfter(WWBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(Items.SWEET_BERRIES, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemBefore(Items.COOKED_COD, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(CRAB_CLAW, COOKED_CRAB_CLAW, "cooked_crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);
 
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WWInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WWInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerInstrumentBefore(Items.BOW, ANCIENT_HORN, "ancient_horn", WWInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.COMBAT);
-
-		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(LIGHT_GRAY_FIREFLY_BOTTLE, "light_gray_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(GRAY_FIREFLY_BOTTLE, "gray_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(BLACK_FIREFLY_BOTTLE, "black_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(BROWN_FIREFLY_BOTTLE, "brown_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(RED_FIREFLY_BOTTLE, "red_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(ORANGE_FIREFLY_BOTTLE, "orange_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(YELLOW_FIREFLY_BOTTLE, "yellow_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(LIME_FIREFLY_BOTTLE, "lime_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(GREEN_FIREFLY_BOTTLE, "green_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(CYAN_FIREFLY_BOTTLE, "cyan_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(LIGHT_BLUE_FIREFLY_BOTTLE, "light_blue_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(BLUE_FIREFLY_BOTTLE, "blue_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(PURPLE_FIREFLY_BOTTLE, "purple_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-
-		registerItemBefore(Items.LILY_PAD, ALGAE, "algae", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.LILY_PAD, FLOWERING_LILY_PAD, "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerItemAfter(Items.ECHO_SHARD, ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.INGREDIENTS);
 
 		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
 			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));
