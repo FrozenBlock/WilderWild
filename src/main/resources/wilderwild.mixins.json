@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
-    "block.beacon.BeaconBlockEntityMixin",
     "block.cactus.CactusBlockMixin",
     "block.cactus.EntityTypeMixin",
     "block.cactus.WalkNodeEvaluatorMixin",
@@ -31,7 +30,6 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
-    "block.palm_fronds.BlockStatePropertiesMixin",
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",

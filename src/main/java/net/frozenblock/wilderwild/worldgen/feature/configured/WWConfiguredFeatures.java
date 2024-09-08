@@ -867,7 +867,7 @@ public final class WWConfiguredFeatures {
 				new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
 				new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getHolder(), 0.08F),
 				new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getHolder(), 0.065F),
-				new WeightedPlacedFeature(WWTreePlaced.SMALL_WINE_PALM_CHECKED.getHolder(), 0.052F),
+				new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.052F),
 				new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getHolder(), 0.02F)), placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED)
 			)
 		);
@@ -951,7 +951,7 @@ public final class WWConfiguredFeatures {
 		PALMS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.TALL_WINE_PALM_CHECKED.getHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.TALL_WINDMILL_PALM_CHECKED.getHolder(), 0.1F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_PALM_CHECKED.getHolder(), 0.4F)
 				),
 				WWTreePlaced.PALM_CHECKED.getHolder()
@@ -973,8 +973,8 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.TALL_PALM_CHECKED.getHolder(), 0.5F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_WINE_PALM_CHECKED.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINE_PALM_CHECKED.getHolder(), 0.37F)
+					new WeightedPlacedFeature(WWTreePlaced.TALL_WINDMILL_PALM_CHECKED.getHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.37F)
 				),
 				WWTreePlaced.PALM_CHECKED.getHolder()
 			)

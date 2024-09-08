@@ -82,7 +82,7 @@ public final class WWTreeGrowers {
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
 			return random.nextDouble() > 0.4 ? WWTreeConfigured.PALM.getKey()
 				: random.nextDouble() > 0.3 ? WWTreeConfigured.TALL_PALM.getKey()
-				: WWTreeConfigured.TALL_WINE_PALM.getKey();
+				: WWTreeConfigured.TALL_WINDMILL_PALM.getKey();
 		}
 	};
 

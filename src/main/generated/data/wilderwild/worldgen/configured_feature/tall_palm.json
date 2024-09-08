@@ -10,16 +10,16 @@
     },
     "foliage_placer": {
       "type": "wilderwild:palm_foliage_placer",
-      "frond_count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 10,
-        "min_inclusive": 5
+      "frond_length": {
+        "type": "minecraft:biased_to_bottom",
+        "max_inclusive": 3,
+        "min_inclusive": 2
       },
       "offset": 0,
       "radius": {
         "type": "minecraft:uniform",
-        "max_inclusive": 3,
-        "min_inclusive": 1
+        "max_inclusive": 2,
+        "min_inclusive": 2
       }
     },
     "foliage_provider": {
@@ -27,7 +27,7 @@
       "state": {
         "Name": "wilderwild:palm_fronds",
         "Properties": {
-          "distance": "12",
+          "distance": "7",
           "persistent": "false",
           "waterlogged": "false"
         }

@@ -19,9 +19,11 @@
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -44,22 +46,27 @@ public class LeavesBlockMixin {
 	)
 	public Comparable<?> wilderWild$isRandomlyTicking(Comparable<?> original) {
 		if (original instanceof Integer) {
-			return 7;
+			if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).isPresent()) {
+				return 7;
+			}
 		}
 		return original;
 	}
 
 	@ModifyExpressionValue(
-		method = "decaying",
+		method = "randomTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
-			ordinal = 1
+			target = "Lnet/minecraft/world/level/block/LeavesBlock;decaying(Lnet/minecraft/world/level/block/state/BlockState;)Z",
+			ordinal = 0
 		)
 	)
-	public Comparable<?> wilderWild$decaying(Comparable<?> original) {
-		if (original instanceof Integer integer) {
-			return Mth.clamp(integer, 1, 7);
+	public boolean wilderWild$fixPalmFrondDecay(
+		boolean original,
+		@Local(argsOnly = true) ServerLevel world, @Local(argsOnly = true) BlockPos pos
+	) {
+		if (LeavesBlock.class.cast(this) instanceof PalmFrondsBlock palmFrondsBlock) {
+			if (!palmFrondsBlock.canPalmFrondDecay(world, pos)) return false;
 		}
 		return original;
 	}

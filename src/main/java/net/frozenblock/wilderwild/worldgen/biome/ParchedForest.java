@@ -153,7 +153,6 @@ public class ParchedForest extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.commonSpawns(spawns);
 		BiomeDefaultFeatures.plainsSpawns(spawns);
 	}
 

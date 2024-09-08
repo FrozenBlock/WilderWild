@@ -21,16 +21,17 @@ package net.frozenblock.wilderwild.worldgen.impl.foliage;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.lib.math.api.AdvancedMath;
+import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -39,50 +40,20 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
 	);
-	private static final double SURROUNDING_LEAF_THRESHOLD = 0.0;
-	public final IntProvider frondCount;
 
-	public PalmFoliagePlacer(@NotNull IntProvider radius, @NotNull IntProvider offset, @NotNull IntProvider frondCount) {
+	protected final IntProvider frondLength;
+
+	public PalmFoliagePlacer(@NotNull IntProvider radius, @NotNull IntProvider offset, @NotNull IntProvider frondLength) {
 		super(radius, offset);
-		this.frondCount = frondCount;
+		this.frondLength = frondLength;
 	}
 
 	@Contract("_ -> new")
-	protected static <P extends PalmFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
-		return foliagePlacerParts(builder)
-			.and(IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount));
-	}
-
-	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(BlockPos.containing(offX, offY, offZ));
-		BlockPos basePos = mutableBlockPos.immutable();
-		tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos);
-		if (shouldPlaceAbove(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.move(1, 0, 0));
-		}
-		if (shouldPlaceBelow(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(-1, 0, 0));
-		}
-		if (shouldPlaceAbove(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 1, 0));
-		}
-		if (shouldPlaceBelow(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, -1, 0));
-		}
-		if (shouldPlaceAbove(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, 1));
-		}
-		if (shouldPlaceBelow(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, -1));
-		}
-	}
-
-	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.5D + SURROUNDING_LEAF_THRESHOLD;
-	}
-
-	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.5D - SURROUNDING_LEAF_THRESHOLD;
+	protected static <P extends PalmFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(
+		RecordCodecBuilder.@NotNull Instance<P> instance
+	) {
+		return foliagePlacerParts(instance)
+			.and(IntProvider.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength));
 	}
 
 	@Override
@@ -93,36 +64,88 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected void createFoliage(
-		@NotNull LevelSimulatedReader level,
-		@NotNull FoliageSetter blockSetter,
-		@NotNull RandomSource random,
-		@NotNull TreeConfiguration config,
-		int i,
-		@NotNull FoliageAttachment foliageAttachment,
-		int j,
-		int k,
-		int l
+		LevelSimulatedReader world,
+		FoliagePlacer.FoliageSetter placer,
+		RandomSource random,
+		TreeConfiguration config,
+		int trunkHeight,
+		FoliagePlacer.@NotNull FoliageAttachment node,
+		int foliageHeight,
+		int radius,
+		int offset
 	) {
-		BlockPos blockPos = foliageAttachment.pos().above(l);
-		BlockPos belowPos = blockPos.below();
-		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-		double minRadius = this.radius.getMinValue();
-		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
-		double minus = (Math.PI * radius) / (radius * radius);
-		int fronds = this.frondCount.sample(random);
-		double rotAngle = 360D / (double) fronds;
-		double angle = random.nextDouble() * 360D;
+		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+		boolean isSmall = radius <= 1;
 
-		for (int a = 0; a < fronds; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
-			double dirX = offsetPos.x - origin.x;
-			double dirZ = offsetPos.z - origin.z;
-			for (double r = 0D; r < radius; r += 0.2D) {
-				double yOffset = (2D * (Math.sin((Math.PI * (r - 0.1D)) / radius) - minus)) + (4.2D * (minus * 0.4D));
-				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
+		BlockPos topLayerPos = node.pos().above(offset);
+		Vec3 topLayerCenter = Vec3.atCenterOf(topLayerPos);
+		if (isSmall) {
+			tryPlaceLeaf(world, placer, random, config, topLayerPos);
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				mutablePos.setWithOffset(topLayerPos, direction);
+				tryPlaceLeaf(world, placer, random, config, mutablePos);
 			}
-			angle += rotAngle;
+		} else {
+			for (int xOff = -radius; xOff <= radius; ++xOff) {
+				for (int zOff = -radius; zOff <= radius; ++zOff) {
+					mutablePos.setWithOffset(topLayerPos, xOff, 0, zOff);
+					Vec3 placePosCenter = Vec3.atCenterOf(mutablePos);
+					if (placePosCenter.closerThan(topLayerCenter, radius + 0.5D)) {
+						tryPlaceLeaf(world, placer, random, config, mutablePos);
+					}
+				}
+			}
 		}
+
+
+		int decreasedRadius = radius - 1;
+		BlockPos middleLayerPos = topLayerPos.below();
+		Vec3 middleLayerCenter = Vec3.atCenterOf(middleLayerPos);
+		List<BlockPos> cornerFrondPoses = new ArrayList<>();
+		List<BlockPos> frondPoses = new ArrayList<>();
+
+		for (int xOff = -radius; xOff <= radius; ++xOff) {
+			for (int zOff = -radius; zOff <= radius; ++zOff) {
+				mutablePos.setWithOffset(middleLayerPos, xOff, 0, zOff);
+				Vec3 placePosCenter = Vec3.atCenterOf(mutablePos);
+				if (!middleLayerCenter.closerThan(placePosCenter, decreasedRadius + 0.25D)) {
+					tryPlaceLeaf(world, placer, random, config, mutablePos);
+					if (isCorner(xOff, zOff, radius)) {
+						if (!isSmall) {
+							BlockPos frondPos = mutablePos.immutable();
+							frondPoses.add(frondPos);
+							cornerFrondPoses.add(frondPos);
+						}
+					} else if (isEdge(xOff, zOff, radius)) {
+						Direction offsetDir = Direction.getNearest(xOff, 0, zOff);
+						mutablePos.move(offsetDir.getNormal());
+						tryPlaceLeaf(world, placer, random, config, mutablePos);
+						frondPoses.add(mutablePos.immutable());
+					}
+				}
+			}
+		}
+
+		for (BlockPos frondPos : frondPoses) {
+			int frondLength;
+			if (cornerFrondPoses.contains(frondPos)) {
+				frondLength = 2;
+			} else {
+				frondLength = this.frondLength.sample(random);
+			}
+			for (int i = 0; i < frondLength; ++i) {
+				mutablePos.setWithOffset(frondPos, 0, -i, 0);
+				tryPlaceLeaf(world, placer, random, config, mutablePos);
+			}
+		}
+	}
+
+	private static boolean isCorner(int xOff, int zOff, int radius) {
+		return Math.abs(xOff) == radius && Math.abs(zOff) == radius;
+	}
+
+	private static boolean isEdge(int xOff, int zOff, int radius) {
+		return (Math.abs(xOff) == radius && zOff == 0) || (Math.abs(zOff) == radius && xOff == 0);
 	}
 
 	@Override
@@ -132,10 +155,6 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
-		if (localY == 0) {
-			return (localX > 1 || localZ > 1) && localX != 0 && localZ != 0;
-		} else {
-			return localX == range && localZ == range && range > 0;
-		}
+		return false;
 	}
 }

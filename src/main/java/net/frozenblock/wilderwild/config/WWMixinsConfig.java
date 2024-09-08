@@ -61,8 +61,6 @@ public final class WWMixinsConfig {
 
 	// COMMON
 
-	public boolean block_beacon = true;
-
 	public boolean block_cactus = true;
 
 	public boolean block_chest = true;
@@ -80,8 +78,6 @@ public final class WWMixinsConfig {
 	public boolean block_leaves = true;
 
 	public boolean block_mesoglea = true;
-
-	public boolean block_palm_fronds = true;
 
 	public boolean block_reinforced_deepslate = true;
 

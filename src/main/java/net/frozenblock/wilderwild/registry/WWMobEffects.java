@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.lib.block.api.beacon.BeaconEffectRegistry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
@@ -69,6 +70,7 @@ public final class WWMobEffects {
 
 	public static void init() {
 		WWConstants.logWithModId("Registering MobEffects for", WWConstants.UNSTABLE_LOGGING);
+		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST, 3);
 	}
 
 	private static @NotNull Reference<MobEffect> register(String id, MobEffect entry) {
