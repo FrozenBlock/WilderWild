@@ -19,7 +19,6 @@ accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBloc
 # Items
 extendable method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/HolderLookup$Provider;)Ljava/util/Optional;
 accessible method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/HolderLookup$Provider;)Ljava/util/Optional;
-extendable method net/minecraft/world/level/block/state/BlockBehaviour getLootTable ()Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/ItemCooldowns cooldowns Ljava/util/Map;
 accessible field net/minecraft/world/item/ItemCooldowns tickCount I
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I
@@ -62,7 +61,6 @@ accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriorit
 # Entity Spawns
 accessible class net/minecraft/world/entity/SpawnPlacements$Data
 accessible method net/minecraft/world/level/block/Blocks ocelotOrParrot (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
-accessible field net/minecraft/client/model/SpiderModel root Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/SpiderModel head Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/SpiderModel rightHindLeg Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/SpiderModel leftHindLeg Lnet/minecraft/client/model/geom/ModelPart;
@@ -122,6 +120,7 @@ accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lne
 accessible method net/minecraft/world/level/block/state/BlockBehaviour canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible class net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
 accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
+accessible method net/minecraft/world/level/block/Blocks wallVariant (Lnet/minecraft/world/level/block/Block;Z)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 
 # Block Entities
 accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
