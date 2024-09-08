@@ -35,6 +35,8 @@ import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -52,7 +54,6 @@ public final class WWEntities {
 			.eyeHeight(0.3F) // eye height is the height * 0.5F
 			.clientTrackingRange(64)
 			.updateInterval(2)
-			.build(WWConstants.string("ancient_horn_vibration"))
 	);
 
 	public static final EntityType<Firefly> FIREFLY = register(
@@ -60,7 +61,6 @@ public final class WWEntities {
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
-			.build(WWConstants.string("firefly"))
 	);
 
 	public static final EntityType<Jellyfish> JELLYFISH = register(
@@ -68,7 +68,6 @@ public final class WWEntities {
 		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"))
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
-			.build(WWConstants.string("jellyfish"))
 	);
 
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
@@ -76,7 +75,6 @@ public final class WWEntities {
 		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
-			.build(WWConstants.string("tumbleweed"))
 	);
 
 	public static final EntityType<Crab> CRAB = register(
@@ -84,7 +82,6 @@ public final class WWEntities {
 		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
-			.build(WWConstants.string("crab"))
 	);
 
 	public static final EntityType<Ostrich> OSTRICH = register(
@@ -92,7 +89,6 @@ public final class WWEntities {
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
-			.build(WWConstants.string("ostrich"))
 	);
 
 	public static final EntityType<Scorched> SCORCHED = register(
@@ -102,7 +98,6 @@ public final class WWEntities {
 			.eyeHeight(0.585F)
 			.fireImmune()
 			.clientTrackingRange(8)
-			.build(WWConstants.string("scorched"))
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
@@ -111,7 +106,6 @@ public final class WWEntities {
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
-			.build(WWConstants.string("coconut"))
 	);
 
 	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
@@ -120,7 +114,6 @@ public final class WWEntities {
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build(WWConstants.string("chest_bubbler"))
 	);
 
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
@@ -129,7 +122,6 @@ public final class WWEntities {
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build(WWConstants.string("sculk_spreader"))
 	);
 
 	public static final EntityType<FallingLeafTicker> FALLING_LEAF_TICKER = register(
@@ -138,7 +130,6 @@ public final class WWEntities {
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build(WWConstants.string("falling_leaf_ticker"))
 	);
 
 	private WWEntities() {
@@ -146,6 +137,9 @@ public final class WWEntities {
 	}
 
 	public static void init() {
+	}
+
+	static {
 		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
 
 		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());
@@ -196,8 +190,8 @@ public final class WWEntities {
 		);
 	}
 
-	@NotNull
-	private static <E extends Entity, T extends EntityType<E>> T register(@NotNull String path, @NotNull T entityType) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, WWConstants.id(path), entityType);
+	private static <T extends Entity> @NotNull EntityType<T> register(String string, EntityType.@NotNull Builder<T> builder) {
+		ResourceKey<EntityType<?>> resourceKey = ResourceKey.create(Registries.ENTITY_TYPE, WWConstants.id(string));
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, resourceKey, builder.build(resourceKey));
 	}
 }
