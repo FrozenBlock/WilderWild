@@ -74,8 +74,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
-	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec((properties) ->
-		new StoneChestBlock(properties, () -> WWBlockEntities.STONE_CHEST)
+	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(properties ->
+		new StoneChestBlock(() -> WWBlockEntities.STONE_CHEST, properties)
 	);
 	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;

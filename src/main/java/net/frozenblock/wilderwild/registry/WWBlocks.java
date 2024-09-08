@@ -808,7 +808,8 @@ public final class WWBlocks {
 			.sound(SoundType.SPONGE)
 	);
 
-	public static final OstrichEggBlock OSTRICH_EGG = new OstrichEggBlock(
+	public static final OstrichEggBlock OSTRICH_EGG = register("ostrich_egg",
+		OstrichEggBlock::new,
 		Properties.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
@@ -817,17 +818,20 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final Block NULL_BLOCK = new Block(
+	public static final Block NULL_BLOCK = register("null_block",
+		Block::new,
 		Properties.ofFullCopy(Blocks.STONE)
 			.sound(WWSoundTypes.NULL_BLOCK)
 	);
 
-	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(
+	public static final DisplayLanternBlock DISPLAY_LANTERN = register("display_lantern",
+		DisplayLanternBlock::new,
 		Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
-	public static final GeyserBlock GEYSER = new GeyserBlock(
+	public static final GeyserBlock GEYSER = register("geyser",
+		GeyserBlock::new,
 		Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
 			.sound(WWSoundTypes.GEYSER)
 			.instrument(NoteBlockInstrument.BASEDRUM)
@@ -883,7 +887,10 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_BAOBAB_LOG = strippedHollowedLogProperties(BAOBAB_PLANKS_COLOR);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_BAOBAB_LOG = register("stripped_hollowed_baobab_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(BAOBAB_PLANKS_COLOR)
+	);
 
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
 	public static final Block BAOBAB_LOG = register("baobab_log",
@@ -917,13 +924,13 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(
-		BAOBAB_WOOD_TYPE,
+	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = register("baobab_hanging_sign",
+		properties -> new CeilingHangingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(
-		BAOBAB_WOOD_TYPE,
+	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = register("baobab_wall_hanging_sign",
+		properties -> new WallHangingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 			.overrideDescription(BAOBAB_HANGING_SIGN.getDescriptionId())
@@ -945,59 +952,70 @@ public final class WWBlocks {
 	);
 
 	private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
-	public static final Block CYPRESS_PLANKS = new Block(
+	public static final Block CYPRESS_PLANKS = register("cypress_planks",
+		Block::new,
 		Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final StairBlock CYPRESS_STAIRS = new StairBlock(
-		CYPRESS_PLANKS.defaultBlockState(),
+	public static final StairBlock CYPRESS_STAIRS = register("cypress_stairs",
+		properties -> new StairBlock(CYPRESS_PLANKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(CYPRESS_PLANKS)
 	);
-	public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(
-		CYPRESS_WOOD_TYPE,
+	public static final Block CYPRESS_FENCE_GATE = register("cypress_fence_gate",
+		properties -> new FenceGateBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final SlabBlock CYPRESS_SLAB = new SlabBlock(
+	public static final SlabBlock CYPRESS_SLAB = register("cypress_slab",
+		SlabBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final Block CYPRESS_BUTTON = Blocks.woodenButton(CYPRESS_SET);
-	public static final PressurePlateBlock CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(
-		CYPRESS_SET,
+	public static final Block CYPRESS_BUTTON = register("cypress_button",
+		properties -> new ButtonBlock(CYPRESS_SET, 30, properties),
+		Blocks.buttonProperties()
+	);
+	public static final PressurePlateBlock CYPRESS_PRESSURE_PLATE = register("cypress_pressure_plate",
+		properties -> new PressurePlateBlock(CYPRESS_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final DoorBlock CYPRESS_DOOR = new DoorBlock(
-		CYPRESS_SET,
+	public static final DoorBlock CYPRESS_DOOR = register("cypress_door",
+		properties -> new DoorBlock(CYPRESS_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_DOOR)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final TrapDoorBlock CYPRESS_TRAPDOOR = new TrapDoorBlock(
-		CYPRESS_SET,
+	public static final TrapDoorBlock CYPRESS_TRAPDOOR = register("cypress_trapdoor",
+		properties -> new TrapDoorBlock(CYPRESS_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final FenceBlock CYPRESS_FENCE = new FenceBlock(
+	public static final FenceBlock CYPRESS_FENCE = register("cypress_fence",
+		FenceBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_CYPRESS_LOG = strippedHollowedLogProperties(CYPRESS_PLANKS_COLOR);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_CYPRESS_LOG = register("stripped_hollowed_cypress_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(CYPRESS_PLANKS_COLOR)
+	);
 
 	private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE;
-	public static final Block CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
-	public static final FrozenSignBlock CYPRESS_SIGN = new FrozenSignBlock(
-		Properties.ofFullCopy(Blocks.OAK_SIGN)
-			.mapColor(CYPRESS_LOG.defaultMapColor()),
-		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/cypress_sign"))
+	public static final Block CYPRESS_LOG = register("cypress_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final FrozenWallSignBlock CYPRESS_WALL_SIGN = new FrozenWallSignBlock(
+	public static final SignBlock CYPRESS_SIGN = register("cypress_sign",
+		properties -> new StandingSignBlock(CYPRESS_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_SIGN)
+			.mapColor(CYPRESS_LOG.defaultMapColor())
+	);
+	public static final SignBlock CYPRESS_WALL_SIGN = register("cypress_wall_sign",
+		properties -> new WallSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
-			.dropsLike(CYPRESS_SIGN),
-		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/cypress_sign"))
+			.overrideDescription(CYPRESS_SIGN.getDescriptionId())
+			.overrideLootTable(CYPRESS_SIGN.getLootTable())
 	);
 
 	public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
@@ -1014,26 +1032,30 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final FrozenCeilingHangingSignBlock CYPRESS_HANGING_SIGN = new FrozenCeilingHangingSignBlock(
+	public static final CeilingHangingSignBlock CYPRESS_HANGING_SIGN = register("cypress_hanging_sign",
+		properties -> new CeilingHangingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
-			.mapColor(CYPRESS_LOG.defaultMapColor()),
-		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/cypress_hanging_sign"))
+			.mapColor(CYPRESS_LOG.defaultMapColor())
 	);
-	public static final FrozenWallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
+	public static final WallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = register("cypress_wall_hanging_sign",
+		properties -> new WallHangingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
-			.dropsLike(CYPRESS_HANGING_SIGN),
-		CYPRESS_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/cypress_hanging_sign"))
+			.overrideDescription(CYPRESS_HANGING_SIGN.getDescriptionId())
+			.overrideLootTable(CYPRESS_HANGING_SIGN.getLootTable())
 	);
 
-	public static final Block STRIPPED_CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
-	public static final RotatedPillarBlock STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(
+	public static final Block STRIPPED_CYPRESS_LOG = register("stripped_cypress_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, SoundType.WOOD)
+	);
+	public static final RotatedPillarBlock STRIPPED_CYPRESS_WOOD = register("stripped_cypress_wood",
+		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final RotatedPillarBlock CYPRESS_WOOD = new RotatedPillarBlock(
+	public static final RotatedPillarBlock CYPRESS_WOOD = register("cypress_wood",
+		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(CYPRESS_BARK_COLOR)
 	);
