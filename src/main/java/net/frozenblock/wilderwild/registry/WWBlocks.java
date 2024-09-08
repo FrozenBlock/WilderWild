@@ -913,10 +913,7 @@ public final class WWBlocks {
 	// MAPLE
 
 	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
-	public static final Block MAPLE_PLANKS = new Block(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
-			.mapColor(MAPLE_PLANKS_COLOR)
-	);
+	public static final Block MAPLE_PLANKS = register("maple_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR));
 	public static final StairBlock MAPLE_STAIRS = new StairBlock(
 		MAPLE_PLANKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(MAPLE_PLANKS)
