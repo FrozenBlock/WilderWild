@@ -216,7 +216,10 @@ public final class WWBlocks {
 
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
 
-	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
+	public static final Block BAOBAB_LEAVES = register("baobab_leaves",
+		BaobabLeavesBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES)
+	);
 
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 	public static final Block YELLOW_MAPLE_LEAVES = new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW));
@@ -330,14 +333,15 @@ public final class WWBlocks {
 		0.125F,
 		2F
 	);
-	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = leafLitter(
+	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = register("baobab_leaf_litter", properties -> leafLitter(
 		BAOBAB_LEAVES,
 		WWParticleTypes.BAOBAB_LEAVES,
 		0.002F,
 		0.0075F,
 		0.125F,
-		2F
-	);
+		2F,
+		properties
+	), BlockBehaviour.Properties.of());
 	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = leafLitter(
 		CYPRESS_LEAVES,
 		WWParticleTypes.CYPRESS_LEAVES,
@@ -635,57 +639,60 @@ public final class WWBlocks {
 
 	// WOOD
 
-	public static final Block BAOBAB_PLANKS = new Block(
+	public static final Block BAOBAB_PLANKS = register("baobab_planks",
+		Block::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final StairBlock BAOBAB_STAIRS = new StairBlock(
-		BAOBAB_PLANKS.defaultBlockState(),
+	public static final StairBlock BAOBAB_STAIRS = register("baobab_planks",
+		properties -> new StairBlock(BAOBAB_PLANKS.defaultBlockState(), properties),
 		BlockBehaviour.Properties.ofFullCopy(BAOBAB_PLANKS)
 	);
-	public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(
-		BAOBAB_WOOD_TYPE,
+	public static final Block BAOBAB_FENCE_GATE = register("baobab_fence_gate",
+		properties -> new FenceGateBlock(BAOBAB_WOOD_TYPE, properties),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final Block BAOBAB_SLAB = new SlabBlock(
+	public static final Block BAOBAB_SLAB = register("baobab_slab",
+		SlabBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final PressurePlateBlock BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
-		BAOBAB_SET,
+	public static final PressurePlateBlock BAOBAB_PRESSURE_PLATE = register("baobab_pressure_plate",
+		properties -> new PressurePlateBlock(BAOBAB_SET, properties),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final Block BAOBAB_BUTTON = registerBlockAfter(BAOBAB_PRESSURE_PLATE,
-		"baobab_button",
+	public static final Block BAOBAB_BUTTON = register("baobab_button",
 		properties -> new ButtonBlock(BAOBAB_SET, 30, properties),
-		Blocks.buttonProperties(),
-		CreativeModeTabs.BUILDING_BLOCKS
+		Blocks.buttonProperties()
 	);
-	public static final DoorBlock BAOBAB_DOOR = new DoorBlock(
-		BAOBAB_SET,
+	public static final DoorBlock BAOBAB_DOOR = register("baobab_door",
+		properties -> new DoorBlock(BAOBAB_SET, properties),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final TrapDoorBlock BAOBAB_TRAPDOOR = new TrapDoorBlock(
-		BAOBAB_SET,
+	public static final TrapDoorBlock BAOBAB_TRAPDOOR = register("baobab_trapdoor",
+		properties -> new TrapDoorBlock(BAOBAB_SET, properties),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final FenceBlock BAOBAB_FENCE = new FenceBlock(
+	public static final FenceBlock BAOBAB_FENCE = register("baobab_fence",
+		FenceBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_BAOBAB_LOG = createStrippedHollowedLogBlock(BAOBAB_PLANKS_COLOR);
 
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
-	public static final Block BAOBAB_LOG = new RotatedPillarBlock(Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD));
-	public static final SignBlock BAOBAB_SIGN = new StandingSignBlock(
-		BAOBAB_WOOD_TYPE,
+	public static final Block BAOBAB_LOG = register("baobab_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD)
+	);
+	public static final SignBlock BAOBAB_SIGN = register("baobab_sign",
+		properties -> new StandingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
-			.setId(ResourceKey.create(Registries.BLOCK, WWConstants.id("blocks/baobab_sign")))
 	);
-	public static final SignBlock BAOBAB_WALL_SIGN = new WallSignBlock(
-		BAOBAB_WOOD_TYPE,
+	public static final SignBlock BAOBAB_WALL_SIGN = register("baobab_wall_sign",
+		properties -> new WallSignBlock(BAOBAB_WOOD_TYPE, properties),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 			.overrideDescription(BAOBAB_SIGN.getDescriptionId())
@@ -718,12 +725,17 @@ public final class WWBlocks {
 			.overrideDescription(BAOBAB_HANGING_SIGN.getDescriptionId())
 			.overrideLootTable(BAOBAB_HANGING_SIGN.getLootTable())
 	);
-	public static final Block STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
-	public static final RotatedPillarBlock STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(
+	public static final Block STRIPPED_BAOBAB_LOG = register("stripped_baobab_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR, SoundType.WOOD)
+	);
+	public static final RotatedPillarBlock STRIPPED_BAOBAB_WOOD = register("stripped_baobab_wood",
+		RotatedPillarBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final RotatedPillarBlock BAOBAB_WOOD = new RotatedPillarBlock(
+	public static final RotatedPillarBlock BAOBAB_WOOD = register("baobab_wood",
+		RotatedPillarBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(BAOBAB_BARK_COLOR)
 	);
@@ -1025,24 +1037,6 @@ public final class WWBlocks {
 	}
 
 	public static void registerWoods() {
-		//BAOBAB IN BUILDING BLOCKS
-		registerBlockAfter(Items.MANGROVE_BUTTON, "baobab_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_LOG, "baobab_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_WOOD, "stripped_baobab_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_BAOBAB_LOG, "stripped_baobab_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_BAOBAB_WOOD, "baobab_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_PLANKS, "baobab_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_STAIRS, "baobab_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_SLAB, "baobab_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_FENCE, "baobab_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_FENCE_GATE, "baobab_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_DOOR, "baobab_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_TRAPDOOR, "baobab_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		//BAOBAB IN NATURE
-		registerBlockAfter(Items.MANGROVE_LOG, "baobab_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.MANGROVE_LEAVES, "baobab_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BAOBAB_LEAVES, "baobab_leaf_litter", BAOBAB_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-
 		//CYPRESS IN BUILDING BLOCKS
 		registerBlockAfter(BAOBAB_BUTTON, "cypress_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CYPRESS_LOG, "cypress_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
@@ -1410,8 +1404,10 @@ public final class WWBlocks {
 		float litterChance,
 		float particleChance,
 		float quadSize,
-		float particleGravityScale
+		float particleGravityScale,
+		BlockBehaviour.Properties properties
 	) {
+		// TODO: do something with properties
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeaf(
 			sourceBlock,
