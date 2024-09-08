@@ -65,8 +65,24 @@ public class SnowloggingUtils {
 		return builder;
 	}
 
+	/**
+	 * Gets the snow layers of a snowloggable block.
+	 *
+	 * @return snow layers of a snowloggable block.
+	 */
 	public static int getSnowLayers(@NotNull BlockState state) {
 		return state.getValue(SNOW_LAYERS);
+	}
+
+	/**
+	 * Gets the snow layers of a snowloggable block or of a snow layer block.
+	 *
+	 * @return snow layers of a snowloggable block or of a snow layer block.
+	 */
+	public static int getAnySnowLayers(@NotNull BlockState state) {
+		if (supportsSnowlogging(state)) return state.getValue(SNOW_LAYERS);
+		if (state.is(Blocks.SNOW)) return state.getValue(SnowLayerBlock.LAYERS);
+		return 0;
 	}
 
 	/**
@@ -79,13 +95,7 @@ public class SnowloggingUtils {
 	 */
 	public static BlockState copySnowLayers(@NotNull BlockState source, @NotNull BlockState destination) {
 		if (supportsSnowlogging(destination)) {
-			if (supportsSnowlogging(source)) {
-				return destination.setValue(SNOW_LAYERS, getSnowLayers(source));
-			}
-			if (source.is(Blocks.SNOW)) {
-				return destination.setValue(SNOW_LAYERS, source.getValue(SnowLayerBlock.LAYERS));
-			}
-			return destination.setValue(SNOW_LAYERS, 0);
+			return destination.setValue(SNOW_LAYERS, getAnySnowLayers(source));
 		}
 		return destination;
 	}

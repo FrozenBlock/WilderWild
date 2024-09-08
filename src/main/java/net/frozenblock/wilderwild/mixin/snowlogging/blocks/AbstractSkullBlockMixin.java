@@ -37,6 +37,7 @@ public abstract class AbstractSkullBlockMixin extends BaseEntityBlock {
 		return SnowloggingUtils.getSnowPlacementState(original, context);
 	}
 
+	// Without doing this, the snow layers become invisible
 	@Override
 	protected RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
