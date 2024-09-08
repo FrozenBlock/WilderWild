@@ -652,10 +652,15 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final Block BAOBAB_BUTTON = new ButtonBlock(BAOBAB_SET, 30, Blocks.buttonProperties());
 	public static final PressurePlateBlock BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
 		BAOBAB_SET,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR)
+	);
+	public static final Block BAOBAB_BUTTON = registerBlockAfter(BAOBAB_PRESSURE_PLATE,
+		"baobab_button",
+		properties -> new ButtonBlock(BAOBAB_SET, 30, properties),
+		Blocks.buttonProperties(),
+		CreativeModeTabs.BUILDING_BLOCKS
 	);
 	public static final DoorBlock BAOBAB_DOOR = new DoorBlock(
 		BAOBAB_SET,
@@ -1033,7 +1038,6 @@ public final class WWBlocks {
 		registerBlockAfter(BAOBAB_FENCE_GATE, "baobab_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(BAOBAB_DOOR, "baobab_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(BAOBAB_TRAPDOOR, "baobab_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_PRESSURE_PLATE, "baobab_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
 		registerBlockAfter(Items.MANGROVE_LOG, "baobab_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.MANGROVE_LEAVES, "baobab_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
