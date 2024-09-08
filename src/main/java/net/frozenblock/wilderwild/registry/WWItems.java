@@ -58,9 +58,12 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public final class WWItems {
 
@@ -90,14 +93,14 @@ public final class WWItems {
 	public static final HangingSignItem MAPLE_HANGING_SIGN = new HangingSignItem(WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
-	public static final CoconutItem COCONUT = new CoconutItem(WWBlocks.COCONUT, new Item.Properties());
-	public static final BlockItem POLLEN = new BlockItem(WWBlocks.POLLEN, new Item.Properties());
-	public static final PlaceOnWaterBlockItem ALGAE = new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties());
-	public static final PlaceOnWaterBlockItem FLOWERING_LILY_PAD = new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties());
-	public static final BlockItem SCORCHED_SAND = new BlockItem(WWBlocks.SCORCHED_SAND, new Item.Properties());
-	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(WWBlocks.SCORCHED_RED_SAND, new Item.Properties());
-	public static final BlockItem ECHO_GLASS = new BlockItem(WWBlocks.ECHO_GLASS, new Item.Properties());
-	public static final BlockItem DISPLAY_LANTERN = new BlockItem(WWBlocks.DISPLAY_LANTERN, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
+	public static final CoconutItem COCONUT = registerBlock(WWBlocks.COCONUT, CoconutItem::new, new Item.Properties());
+	public static final BlockItem POLLEN = registerBlock(WWBlocks.POLLEN, BlockItem::new, new Item.Properties());
+	public static final PlaceOnWaterBlockItem ALGAE = registerBlock(WWBlocks.ALGAE, PlaceOnWaterBlockItem::new, new Item.Properties());
+	public static final PlaceOnWaterBlockItem FLOWERING_LILY_PAD = registerBlock(WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new, new Item.Properties());
+	public static final BlockItem SCORCHED_SAND = registerBlock(WWBlocks.SCORCHED_SAND, BlockItem::new, new Item.Properties());
+	public static final BlockItem SCORCHED_RED_SAND = registerBlock(WWBlocks.SCORCHED_RED_SAND, BlockItem::new, new Item.Properties());
+	public static final BlockItem ECHO_GLASS = registerBlock(WWBlocks.ECHO_GLASS, BlockItem::new, new Item.Properties());
+	public static final BlockItem DISPLAY_LANTERN = registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 	// ITEMS
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
 	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(WWFood.SPLIT_COCONUT));
@@ -261,47 +264,15 @@ public final class WWItems {
 		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
 	}
 
-	@SafeVarargs
-	private static void registerInstrumentBefore(@NotNull Item comparedItem, @NotNull Item instrument, @NotNull String path, @NotNull TagKey<Instrument> tagKey, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(instrument, path);
-		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, tabVisibility, tabs);
+	private static <T extends Item> @NotNull T registerBlock(@NotNull Block block, BiFunction<Block, Item.Properties, Item> biFunction, Item.@NotNull Properties properties) {
+		return (T) Items.registerItem(
+			ResourceKey.create(Registries.ITEM, block.builtInRegistryHolder().key().location()),
+			propertiesx -> biFunction.apply(block, propertiesx),
+			properties.useBlockDescriptionPrefix()
+		);
 	}
 
-	@SafeVarargs
-	private static void registerItem(@NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(item, path);
-		FrozenCreativeTabs.add(item, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerItemBefore(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		registerItemBefore(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerItemBefore(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(item, path);
-		FrozenCreativeTabs.addBefore(comparedItem, item, tabVisibility, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerItemAfter(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		registerItemAfter(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerItemAfter(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(item, path);
-		FrozenCreativeTabs.addAfter(comparedItem, item, tabVisibility, tabs);
-	}
-
-	private static void actualRegister(@NotNull Item item, @NotNull String path) {
-		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, WWConstants.id(path), item);
-		}
-	}
-
-	private static <S extends RecipeSerializer<T>, T extends Recipe<?>> @NotNull S registerSerializer(String key, S recipeSerializer) {
-		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WWConstants.id(key), recipeSerializer);
+	private static @NotNull <T extends Item> T registerItem(String name, @NotNull Function<Item.Properties, Item> function, Item.@NotNull Properties properties) {
+		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, WWConstants.id(name)), function, properties);
 	}
 }
