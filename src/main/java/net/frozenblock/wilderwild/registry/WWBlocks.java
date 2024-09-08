@@ -265,19 +265,58 @@ public final class WWBlocks {
 	public static final Block ORANGE_MAPLE_LEAVES = new LeavesBlock(Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
 	public static final Block RED_MAPLE_LEAVES = new LeavesBlock(Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED));
 
-	public static final HollowedLogBlock HOLLOWED_OAK_LOG = hollowedLogProperties(MapColor.WOOD, MapColor.PODZOL);
-	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  hollowedLogProperties(MapColor.PODZOL, MapColor.COLOR_BROWN);
-	public static final HollowedLogBlock HOLLOWED_BIRCH_LOG = hollowedLogProperties(MapColor.SAND, MapColor.QUARTZ);
-	public static final HollowedLogBlock HOLLOWED_JUNGLE_LOG = hollowedLogProperties(MapColor.DIRT, MapColor.PODZOL);
-	public static final HollowedLogBlock HOLLOWED_ACACIA_LOG = hollowedLogProperties(MapColor.COLOR_ORANGE, MapColor.STONE);
-	public static final HollowedLogBlock HOLLOWED_DARK_OAK_LOG = hollowedLogProperties(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN);
-	public static final HollowedLogBlock HOLLOWED_MANGROVE_LOG = hollowedLogProperties(MapColor.COLOR_RED, MapColor.PODZOL);
-	public static final HollowedLogBlock HOLLOWED_CHERRY_LOG = hollowedLogProperties(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, WWSoundTypes.HOLLOWED_CHERRY_LOG);
-	public static final HollowedLogBlock HOLLOWED_CRIMSON_STEM = hollowedStemProperties(MapColor.CRIMSON_STEM);
-	public static final HollowedLogBlock HOLLOWED_WARPED_STEM = hollowedStemProperties(MapColor.WARPED_STEM);
-	public static final HollowedLogBlock HOLLOWED_BAOBAB_LOG = hollowedLogProperties(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN);
-	public static final HollowedLogBlock HOLLOWED_CYPRESS_LOG = hollowedLogProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.STONE);
-	public static final HollowedLogBlock HOLLOWED_MAPLE_LOG = hollowedLogProperties(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_YELLOW);
+	public static final HollowedLogBlock HOLLOWED_OAK_LOG = register("hollowed_oak_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.WOOD, MapColor.PODZOL)
+	);
+	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG = register("hollowed_spruce_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.PODZOL, MapColor.COLOR_BROWN)
+	);
+	public static final HollowedLogBlock HOLLOWED_BIRCH_LOG = register("hollowed_birch_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.SAND, MapColor.QUARTZ)
+	);
+	public static final HollowedLogBlock HOLLOWED_JUNGLE_LOG = register("hollowed_jungle_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.DIRT, MapColor.PODZOL)
+	);
+	public static final HollowedLogBlock HOLLOWED_ACACIA_LOG = register("hollowed_acacia_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.COLOR_ORANGE, MapColor.STONE)
+	);
+	public static final HollowedLogBlock HOLLOWED_DARK_OAK_LOG = register("hollowed_dark_oak_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN)
+	);
+	public static final HollowedLogBlock HOLLOWED_MANGROVE_LOG = register("hollowed_mangrove_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.COLOR_RED, MapColor.PODZOL)
+	);
+	public static final HollowedLogBlock HOLLOWED_CHERRY_LOG = register("hollowed_cherry_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, WWSoundTypes.HOLLOWED_CHERRY_LOG)
+	);
+	public static final HollowedLogBlock HOLLOWED_CRIMSON_STEM = register("hollowed_crimson_stem",
+		HollowedLogBlock::new,
+		hollowedStemProperties(MapColor.CRIMSON_STEM)
+	);
+	public static final HollowedLogBlock HOLLOWED_WARPED_STEM = register("hollowed_warp_stem",
+		HollowedLogBlock::new,
+		hollowedStemProperties(MapColor.WARPED_STEM)
+	);
+	public static final HollowedLogBlock HOLLOWED_BAOBAB_LOG = register("hollowed_baobab_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN)
+	);
+	public static final HollowedLogBlock HOLLOWED_CYPRESS_LOG = register("hollowed_cypress_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.STONE)
+	);
+	public static final HollowedLogBlock HOLLOWED_MAPLE_LOG = register("hollowed_maple_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_YELLOW)
+	);
 
 	// STRIPPED HOLLOWED LOGS
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_OAK_LOG = strippedHollowedLogProperties(Blocks.STRIPPED_OAK_LOG.defaultMapColor());
