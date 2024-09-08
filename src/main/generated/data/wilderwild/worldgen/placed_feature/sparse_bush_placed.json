@@ -20,7 +20,8 @@
           "Name": "wilderwild:bush",
           "Properties": {
             "age": "0",
-            "half": "lower"
+            "half": "lower",
+            "snow_layers": "0"
           }
         }
       }
