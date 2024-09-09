@@ -61,21 +61,6 @@ public abstract class CalibratedSculkSensorBlockEntityMixin extends BlockEntity 
 	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, @NotNull BlockState state) {
 		CalibratedSculkSensorBlockEntity sensor = CalibratedSculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.createVibrationUser());
-		if (state.getValue(WWBlockStateProperties.HICCUPPING)) {
-			RandomSource random = level.getRandom();
-			if (random.nextBoolean() && random.nextBoolean()) {
-				double x = (pos.getX() - 0.1D) + (random.nextDouble() * 1.2D);
-				double y = pos.getY() + random.nextDouble();
-				double z = (pos.getZ() - 0.1D) + (random.nextDouble() * 1.2D);
-				WWSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
-			}
-			if (SculkSensorBlock.canActivate(state) && random.nextInt(320) <= 1) {
-				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, random.nextInt(15), sensor.getLastVibrationFrequency());
-				level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-				level.gameEvent(null, WWGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-				level.playSound(null, pos, WWSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.1F + 0.7F);
-			}
-		}
 		int animTicks = this.wilderWild$getAnimTicks();
 		this.wilderWild$setPrevAnimTicks(animTicks);
 		if (this.wilderWild$getAnimTicks() > 0) {

@@ -86,21 +86,6 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, @NotNull BlockState state) {
 		SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
-		if (state.getValue(WWBlockStateProperties.HICCUPPING)) {
-			RandomSource random = level.getRandom();
-			if (random.nextBoolean() && random.nextBoolean()) {
-				double x = (pos.getX() - 0.1) + (random.nextFloat() * 1.2);
-				double y = pos.getY() + random.nextFloat();
-				double z = (pos.getZ() - 0.1) + (random.nextFloat() * 1.2);
-				WWSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
-			}
-			if (SculkSensorBlock.canActivate(state) && random.nextInt(320) <= 1) {
-				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, random.nextInt(15), sensor.getLastVibrationFrequency());
-				level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-				level.gameEvent(null, WWGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-				level.playSound(null, pos, WWSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.1F + 0.7F);
-			}
-		}
 		int animTicks = this.wilderWild$getAnimTicks();
 		this.wilderWild$setPrevAnimTicks(animTicks);
 		if (this.wilderWild$getAnimTicks() > 0) {
@@ -231,10 +216,6 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V", shift = At.Shift.AFTER), method = "onReceiveVibration")
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {
 			world.gameEvent(entity, WWGameEvents.SCULK_SENSOR_ACTIVATE, this.blockPos);
-			BlockState blockState = world.getBlockState(this.blockPos);
-			if (blockState.hasProperty(WWBlockStateProperties.HICCUPPING)) {
-				world.setBlockAndUpdate(this.blockPos, blockState.setValue(WWBlockStateProperties.HICCUPPING, false));
-			}
 		}
 	}
 

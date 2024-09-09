@@ -22,6 +22,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added block sound type compatibility for Excessive Building.
 
 # Changes
+- The Ancient Horn has been completely reworked and is no longer viable as a primary weapon.
+  - It now pushes entities and only does minimal damage.
+  - It no longer has special interactions with Sculk blocks, outside activating Sculk Sensors.
 - Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
   - Warm Beaches will still have Palms.
 - Rewrote the foliage generation of Palm trees.

@@ -42,17 +42,10 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
-			.add(WWDamageTypes.PRICKLY_PEAR)
-			.add(WWDamageTypes.ANCIENT_HORN);
+			.add(WWDamageTypes.PRICKLY_PEAR);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS)
 			.add(WWDamageTypes.PRICKLY_PEAR);
-
-		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS)
-			.add(WWDamageTypes.ANCIENT_HORN);
-
-		this.getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO)
-			.add(WWDamageTypes.ANCIENT_HORN);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.CAN_BREAK_ARMOR_STAND)
 			.add(WWDamageTypes.OSTRICH);

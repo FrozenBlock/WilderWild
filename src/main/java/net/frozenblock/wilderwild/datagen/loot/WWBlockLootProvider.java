@@ -483,25 +483,6 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
-		this.add(Blocks.SCULK_SHRIEKER,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							LootItem.lootTableItem(Blocks.SCULK_SHRIEKER).when(this.hasSilkTouch())
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
-								.apply(CopyBlockState.copyState(Blocks.SCULK_SHRIEKER).copy(WWBlockStateProperties.SOULS_TAKEN)
-									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SCULK_SHRIEKER)
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.SOULS_TAKEN, 0))
-											.invert()
-									)
-								)
-						)
-				)
-		);
-
 		this.add(WWBlocks.SCORCHED_SAND,
 			LootTable.lootTable()
 				.withPool(

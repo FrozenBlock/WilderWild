@@ -29,48 +29,46 @@ import net.minecraft.world.level.lighting.LightEngine;
 
 public final class WWBlockStateProperties {
 
-	//Osseous Sculk
+	// Osseous Sculk
 	public static final IntegerProperty PILLAR_HEIGHT_LEFT = IntegerProperty.create("pillar_height_left", 0, 15);
 	public static final IntegerProperty TOTAL_HEIGHT = IntegerProperty.create("total_pillar_height", 0, 16);
 
-	//Hanging Tendril
+	// Hanging Tendril
 	public static final BooleanProperty TWITCHING = BooleanProperty.create("twitching");
 	public static final BooleanProperty WRINGING_OUT = BooleanProperty.create("wringing_out");
 
-	//Echo Glass
+	// Echo Glass
 	public static final IntegerProperty DAMAGE = IntegerProperty.create("damage", 0, 3);
 
-	//Shelf Fungus
+	// Shelf Fungus
 	public static final IntegerProperty FUNGUS_STAGE = IntegerProperty.create("shelf_fungus_stage", 1, 4);
 
-	//Termite Mound
+	// Termite Mound
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural"); // Also used for Geysers
 	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
 	public static final BooleanProperty CAN_SPAWN_TERMITE = BooleanProperty.create("can_spawn_termites");
 
-	//Glory of The Snow
+	// Glory of The Snow
 	public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
 
-	//Firefly Lantern
+	// Firefly Lantern
 	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, LightEngine.MAX_LEVEL);
 
-	//Stone Chest
+	// Stone Chest
 	public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
 	public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
 
-	//Mesoglea
+	// Mesoglea
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = EnumProperty.create("bubble_direction", BubbleDirection.class);
 
-	//Scorched Sand
+	// Scorched Sand
 	public static final BooleanProperty CRACKED = BooleanProperty.create("cracked");
 
-	//Geyser
+	// Geyser
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);
 
-	//Vanilla Blocks
-	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
-	public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor
+	// Vanilla Blocks
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
 

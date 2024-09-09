@@ -48,17 +48,6 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
 		super(properties);
 	}
 
-	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-	private void wilderWild$addHiccuppingState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(WWBlockStateProperties.HICCUPPING);
-	}
-
-	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$registerDefaultHiccupping(Properties properties, CallbackInfo info) {
-		SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
-		sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(WWBlockStateProperties.HICCUPPING, false));
-	}
-
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
 	public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
 		if (level.isClientSide) {

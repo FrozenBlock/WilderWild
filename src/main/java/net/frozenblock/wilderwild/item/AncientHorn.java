@@ -62,21 +62,6 @@ public class AncientHorn extends InstrumentItem {
 		return cooldown;
 	}
 
-	public static int decreaseCooldown(@NotNull Player user, int time) {
-		if (!user.isCreative()) {
-			ItemCooldowns manager = user.getCooldowns();
-			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(WWItems.ANCIENT_HORN);
-			if (entry != null) {
-				int between = entry.endTime - entry.startTime;
-				if (between > 140 && between >= time) {
-					((CooldownInterface) user.getCooldowns()).frozenLib$changeCooldown(WWItems.ANCIENT_HORN, -time);
-					return time;
-				}
-			}
-		}
-		return -1;
-	}
-
 	private static void play(@NotNull Level level, @NotNull Player player, @NotNull Instrument instrument) {
 		SoundEvent soundEvent = instrument.soundEvent().value();
 		float range = instrument.range() / 16F;
