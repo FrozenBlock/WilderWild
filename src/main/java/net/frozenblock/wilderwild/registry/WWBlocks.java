@@ -212,7 +212,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = registerBlock("prickly_pear_cactus",
+	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = registerBlock("prickly_pear",
 		PricklyPearCactusBlock::new,
 		Properties.ofFullCopy(Blocks.CACTUS)
 			.noCollission()
