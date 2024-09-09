@@ -3,9 +3,7 @@
   "category": "building_blocks",
   "group": "red_sandstone",
   "key": {
-    "#": {
-      "item": "minecraft:red_sand"
-    }
+    "#": "minecraft:red_sand"
   },
   "pattern": [
     "##",

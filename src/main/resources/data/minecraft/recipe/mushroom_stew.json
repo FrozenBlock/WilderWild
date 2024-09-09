@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "wilderwild:brown_mushroom_stew_ingredients"
-    },
-    {
-      "tag": "wilderwild:red_mushroom_stew_ingredients"
-    },
-    {
-      "item": "minecraft:bowl"
-    }
+    "#wilderwild:brown_mushroom_stew_ingredients",
+    "#wilderwild:red_mushroom_stew_ingredients",
+    "minecraft:bowl"
   ],
   "result": {
     "id": "minecraft:mushroom_stew"

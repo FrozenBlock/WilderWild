@@ -3,9 +3,7 @@
   "category": "building_blocks",
   "group": "sandstone",
   "key": {
-    "#": {
-      "item": "minecraft:sand"
-    }
+    "#": "minecraft:sand"
   },
   "pattern": [
     "##",
