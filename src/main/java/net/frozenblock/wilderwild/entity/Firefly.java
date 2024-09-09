@@ -403,7 +403,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 					FrozenSoundPackets.createMovingRestrictionLoopingSound(
 						server,
 						this,
-						BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_FIREFLY_NECTAR.getLocation()).orElseThrow(),
+						BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_FIREFLY_NECTAR.getLocation()).orElseThrow(),
 						SoundSource.NEUTRAL,
 						1F,
 						1F,
@@ -463,11 +463,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		FireflyAi.updateActivities(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
-	}
-
-	@Override
-	public boolean canTakeItem(@NotNull ItemStack stack) {
-		return false;
 	}
 
 	@Override
@@ -562,7 +557,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (compound.contains("despawning")) {
 			this.despawning = compound.getBoolean("despawning");
 		}
-		FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
+		FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.getValue(ResourceLocation.tryParse(compound.getString("color")));
 		if (color != null) {
 			this.setColor(color);
 		}

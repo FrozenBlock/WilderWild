@@ -33,12 +33,10 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
-	private final ModelPart root;
 	private final ModelPart tumbleweed;
 
 	public TumbleweedModel(@NotNull ModelPart root) {
-		super(RenderType::entityCutoutNoCull);
-		this.root = root;
+		super(root, RenderType::entityCutoutNoCull);
 		this.tumbleweed = root.getChild("tumbleweed");
 	}
 
@@ -80,10 +78,4 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 		}
 		poseStack.popPose();
 	}*/
-
-	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.root;
-	}
 }

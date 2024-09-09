@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -47,7 +49,7 @@ public class BoatTypeMixin {
 
 	@SuppressWarnings("InvokerTarget")
 	@Invoker("<init>")
-	private static Boat.Type wilderWild$newType(String internalName, int internalId, Block baseBlock, String name) {
+	private static Boat.Type wilderWild$newType(String internalName, int internalId, Item planks, Item boat, String name, String description) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BoatTypeMixin.");
 	}
 
@@ -59,19 +61,19 @@ public class BoatTypeMixin {
 		var types = new ArrayList<>(Arrays.asList($VALUES));
 		var last = types.get(types.size() - 1);
 
-		var baobab = wilderWild$newType("WILDERWILDBAOBAB", last.ordinal() + 1, WWBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
+		var baobab = wilderWild$newType("WILDERWILDBAOBAB", last.ordinal() + 1, WWBlocks.BAOBAB_PLANKS.asItem(), WWItems.BAOBAB_BOAT, "wilderwildbaobab", "item.wilderwild.baobab_boat");
 		WWBoatTypes.BAOBAB = baobab;
 		types.add(baobab);
 
-		var cypress = wilderWild$newType("WILDERWILDCYPRESS", last.ordinal() + 2, WWBlocks.CYPRESS_PLANKS, "wilderwildcypress");
+		var cypress = wilderWild$newType("WILDERWILDCYPRESS", last.ordinal() + 2, WWBlocks.CYPRESS_PLANKS.asItem(), WWItems.CYPRESS_BOAT, "wilderwildcypress", "item.wilderwild.cypress_boat");
 		WWBoatTypes.CYPRESS = cypress;
 		types.add(cypress);
 
-		var palm = wilderWild$newType("WILDERWILDPALM", last.ordinal() + 3, WWBlocks.PALM_PLANKS, "wilderwildpalm");
+		var palm = wilderWild$newType("WILDERWILDPALM", last.ordinal() + 3, WWBlocks.PALM_PLANKS.asItem(), WWItems.PALM_BOAT, "wilderwildpalm", "item.wilderwild.palm_boat");
 		WWBoatTypes.PALM = palm;
 		types.add(palm);
 
-		var maple = wilderWild$newType("WILDERWILDMAPLE", last.ordinal() + 4, WWBlocks.MAPLE_PLANKS, "wilderwildmaple");
+		var maple = wilderWild$newType("WILDERWILDMAPLE", last.ordinal() + 4, WWBlocks.MAPLE_PLANKS.asItem(), WWItems.MAPLE_BOAT, "wilderwildmaple", "item.wilderwild.maple_boat");
 		WWBoatTypes.MAPLE = maple;
 		types.add(maple);
 

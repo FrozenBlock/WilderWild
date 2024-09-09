@@ -43,9 +43,8 @@ public class AbstractArrowMixin {
 		method = "onHitBlock",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
+			target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;getWeaponItem()Lnet/minecraft/world/item/ItemStack;",
+			ordinal = 0
 		)
 	)
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {

@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ScorchedModel extends EntityModel<ScorchedRenderState> {
-	public final ModelPart root;
 	public final ModelPart head;
 	public final ModelPart rightHindLeg;
 	public final ModelPart leftHindLeg;
@@ -43,7 +42,7 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 	private final ModelPart body1;
 
 	public ScorchedModel(ModelPart root) {
-		this.root = root;
+		super(root);
 		this.head = root.getChild("head");
 		this.rightHindLeg = root.getChild("right_hind_leg");
 		this.leftHindLeg = root.getChild("left_hind_leg");
@@ -55,12 +54,6 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 		this.leftFrontLeg = root.getChild("left_front_leg");
 		this.body0 = root.getChild("body0");
 		this.body1 = root.getChild("body1");
-	}
-
-	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.root;
 	}
 
 	@Override

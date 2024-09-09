@@ -173,12 +173,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull FireflyRenderState renderState) {
-		return TEXTURE;
-	}
-
-	@Override
-	@NotNull
 	public FireflyRenderState createRenderState() {
 		return new FireflyRenderState();
 	}

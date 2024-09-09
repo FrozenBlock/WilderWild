@@ -40,7 +40,6 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	private static final float RAD_025 = Mth.DEG_TO_RAD * 0.25F;
 	private static final float RAD_065 = Mth.DEG_TO_RAD * 0.65F;
 
-	private final ModelPart root;
 	private final ModelPart legs;
 	private final ModelPart left_leg;
 	private final ModelPart left_foot;
@@ -56,7 +55,7 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	private float scale;
 	private float yOffset;
 	public OstrichInbredModel(@NotNull ModelPart root) {
-		this.root = root;
+		super(root);
 
 		this.legs = root.getChild("legs");
 
@@ -393,11 +392,4 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 	}*/
-
-	@NotNull
-	@Override
-	public ModelPart root() {
-		return this.root;
-	}
-
 }

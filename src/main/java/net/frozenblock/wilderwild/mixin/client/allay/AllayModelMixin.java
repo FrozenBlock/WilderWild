@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.render.animation.WilderAllay;
 import net.minecraft.client.model.AllayModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,6 +37,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(AllayModel.class)
 public abstract class AllayModelMixin extends EntityModel<AllayRenderState> implements ArmedModel {
+
+	protected AllayModelMixin(ModelPart modelPart) {
+		super(modelPart);
+	}
 
 	@Inject(
 		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/AllayRenderState;)V",

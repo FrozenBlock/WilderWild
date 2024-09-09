@@ -103,7 +103,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 							FrozenSoundPackets.createMovingRestrictionLoopingSound(
 								level,
 								projectileEntity,
-								BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
+								BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
 								SoundSource.NEUTRAL,
 								1F,
 								1F,
@@ -146,7 +146,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				level.addFreshEntity(coconut);
 			});
 
-			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
+			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.getValue(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
 				Tumbleweed tumbleweed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
 				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);

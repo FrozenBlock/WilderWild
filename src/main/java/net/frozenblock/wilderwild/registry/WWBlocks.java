@@ -25,7 +25,6 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.FuelRegistry;
 import net.frozenblock.lib.item.api.axe.AxeBehaviors;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
@@ -88,12 +87,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -176,7 +172,7 @@ public final class WWBlocks {
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SCORCHED_SAND = register("scorched_sand",
+	public static final ScorchedBlock SCORCHED_SAND = registerBlock("scorched_sand",
 		properties -> new ScorchedBlock(
 			Blocks.SAND.defaultBlockState(),
 			true,
@@ -191,7 +187,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_RED_SAND = register("scorched_red_sand",
+	public static final ScorchedBlock SCORCHED_RED_SAND = registerBlock("scorched_red_sand",
 		properties ->new ScorchedBlock(
 			Blocks.RED_SAND.defaultBlockState(),
 			true,
@@ -206,7 +202,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final BaobabNutBlock BAOBAB_NUT = register("baobab_nut",
+	public static final BaobabNutBlock BAOBAB_NUT = registerBlock("baobab_nut",
 		properties -> new BaobabNutBlock(WWTreeGrowers.BAOBAB, properties),
 		Properties.ofFullCopy(Blocks.BAMBOO)
 			.sound(WWSoundTypes.BAOBAB_NUT)
@@ -216,7 +212,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = register("prickly_pear_cactus",
+	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = registerBlock("prickly_pear_cactus",
 		PricklyPearCactusBlock::new,
 		Properties.ofFullCopy(Blocks.CACTUS)
 			.noCollission()
@@ -232,7 +228,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final CoconutBlock COCONUT = register("coconut",
+	public static final CoconutBlock COCONUT = registerBlock("coconut",
 		properties -> new CoconutBlock(WWTreeGrowers.PALM, properties),
 		Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
 	);
@@ -529,7 +525,7 @@ public final class WWBlocks {
 			.emissiveRendering((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state))
 	);
 
-	public static final EchoGlassBlock ECHO_GLASS = register("echo_glass",
+	public static final EchoGlassBlock ECHO_GLASS = registerBlock("echo_glass",
 		EchoGlassBlock::new,
 		Properties.ofFullCopy(Blocks.TINTED_GLASS)
 			.mapColor(MapColor.COLOR_CYAN)
@@ -687,7 +683,7 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.SUNFLOWER)
 	);
 
-	public static final MilkweedBlock MILKWEED = register("milkweed",
+	public static final MilkweedBlock MILKWEED = registerBlock("milkweed",
 		MilkweedBlock::new,
 		Properties.ofFullCopy(Blocks.SUNFLOWER)
 			.randomTicks()
@@ -701,12 +697,12 @@ public final class WWBlocks {
 			.noOcclusion()
 	);
 
-	public static final WaterlilyBlock FLOWERING_LILY_PAD = register("flowering_lily_pad",
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = registerBlock("flowering_lily_pad",
 		WaterlilyBlock::new,
 		Properties.ofFullCopy(Blocks.LILY_PAD)
 	);
 
-	public static final AlgaeBlock ALGAE = register("algae",
+	public static final AlgaeBlock ALGAE = registerBlock("algae",
 		AlgaeBlock::new,
 		Properties.ofFullCopy(Blocks.FROGSPAWN)
 			.mapColor(MapColor.PLANT)
@@ -791,7 +787,7 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final PollenBlock POLLEN = register("pollen",
+	public static final PollenBlock POLLEN = registerBlock("pollen",
 		PollenBlock::new,
 		Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
@@ -824,7 +820,7 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.NULL_BLOCK)
 	);
 
-	public static final DisplayLanternBlock DISPLAY_LANTERN = register("display_lantern",
+	public static final DisplayLanternBlock DISPLAY_LANTERN = registerBlock("display_lantern",
 		DisplayLanternBlock::new,
 		Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
@@ -852,7 +848,7 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final StairBlock BAOBAB_STAIRS = register("baobab_planks",
+	public static final StairBlock BAOBAB_STAIRS = register("baobab_stairs",
 		properties -> new StairBlock(BAOBAB_PLANKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(BAOBAB_PLANKS)
 	);
@@ -897,12 +893,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock BAOBAB_SIGN = register("baobab_sign",
+	public static final SignBlock BAOBAB_SIGN = registerBlock("baobab_sign",
 		properties -> new StandingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 	);
-	public static final SignBlock BAOBAB_WALL_SIGN = register("baobab_wall_sign",
+	public static final SignBlock BAOBAB_WALL_SIGN = registerBlock("baobab_wall_sign",
 		properties -> new WallSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
@@ -924,12 +920,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = register("baobab_hanging_sign",
+	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = registerBlock("baobab_hanging_sign",
 		properties -> new CeilingHangingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = register("baobab_wall_hanging_sign",
+	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = registerBlock("baobab_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
@@ -1005,12 +1001,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock CYPRESS_SIGN = register("cypress_sign",
+	public static final SignBlock CYPRESS_SIGN = registerBlock("cypress_sign",
 		properties -> new StandingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 	);
-	public static final SignBlock CYPRESS_WALL_SIGN = register("cypress_wall_sign",
+	public static final SignBlock CYPRESS_WALL_SIGN = registerBlock("cypress_wall_sign",
 		properties -> new WallSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
@@ -1032,12 +1028,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock CYPRESS_HANGING_SIGN = register("cypress_hanging_sign",
+	public static final CeilingHangingSignBlock CYPRESS_HANGING_SIGN = registerBlock("cypress_hanging_sign",
 		properties -> new CeilingHangingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = register("cypress_wall_hanging_sign",
+	public static final WallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = registerBlock("cypress_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
@@ -1114,12 +1110,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock PALM_SIGN = register("palm_sign",
+	public static final SignBlock PALM_SIGN = registerBlock("palm_sign",
 		properties -> new StandingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
 	);
-	public static final SignBlock PALM_WALL_SIGN = register("palm_wall_sign",
+	public static final SignBlock PALM_WALL_SIGN = registerBlock("palm_wall_sign",
 		properties -> new WallSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
@@ -1141,12 +1137,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = register("palm_hanging_sign",
+	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = registerBlock("palm_hanging_sign",
 		properties -> new CeilingHangingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = register("palm_wall_hanging_sign",
+	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = registerBlock("palm_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
@@ -1175,56 +1171,70 @@ public final class WWBlocks {
 	// MAPLE
 
 	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
-	public static final Block MAPLE_PLANKS = register("maple_planks", Block::new, Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR));
-	public static final StairBlock MAPLE_STAIRS = new StairBlock(
-		MAPLE_PLANKS.defaultBlockState(),
+	public static final Block MAPLE_PLANKS = register("maple_planks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.OAK_PLANKS)
+			.mapColor(MAPLE_PLANKS_COLOR)
+	);
+	public static final StairBlock MAPLE_STAIRS = register("maple_stairs",
+		properties -> new StairBlock(MAPLE_PLANKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MAPLE_PLANKS)
 	);
-	public static final Block MAPLE_FENCE_GATE = new FenceGateBlock(
-		MAPLE_WOOD_TYPE,
+	public static final Block MAPLE_FENCE_GATE = register("maple_fence_gate",
+		properties -> new FenceGateBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final SlabBlock MAPLE_SLAB = new SlabBlock(
+	public static final SlabBlock MAPLE_SLAB = register("maple_slab",
+		SlabBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_SLAB)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final Block MAPLE_BUTTON = Blocks.woodenButton(MAPLE_SET);
-	public static final PressurePlateBlock MAPLE_PRESSURE_PLATE = new PressurePlateBlock(
-		MAPLE_SET,
+	public static final Block MAPLE_BUTTON = register("maple_button",
+		properties -> new ButtonBlock(MAPLE_SET, 30, properties),
+		Blocks.buttonProperties()
+	);
+	public static final PressurePlateBlock MAPLE_PRESSURE_PLATE = register("maple_pressure_plate",
+		properties -> new PressurePlateBlock(MAPLE_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final DoorBlock MAPLE_DOOR = new DoorBlock(
-		MAPLE_SET,
+	public static final DoorBlock MAPLE_DOOR = register("maple_door",
+		properties -> new DoorBlock(MAPLE_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_DOOR)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final TrapDoorBlock MAPLE_TRAPDOOR = new TrapDoorBlock(
-		MAPLE_SET,
+	public static final TrapDoorBlock MAPLE_TRAPDOOR = register("maple_trapdoor",
+		properties -> new TrapDoorBlock(MAPLE_SET, properties),
 		Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final FenceBlock MAPLE_FENCE = new FenceBlock(
+	public static final FenceBlock MAPLE_FENCE = register("maple_fence",
+		FenceBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_FENCE)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_MAPLE_LOG = strippedHollowedLogProperties(MAPLE_PLANKS_COLOR);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_MAPLE_LOG = register("stripped_hollowed_maple_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(MAPLE_PLANKS_COLOR)
+	);
 
 	private static final MapColor MAPLE_BARK_COLOR = MapColor.STONE;
-	public static final Block MAPLE_LOG = Blocks.log(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR);
-	public static final FrozenSignBlock MAPLE_SIGN = new FrozenSignBlock(
-		Properties.ofFullCopy(Blocks.OAK_SIGN)
-			.mapColor(MAPLE_LOG.defaultMapColor()),
-		MAPLE_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/maple_sign"))
+	public static final Block MAPLE_LOG = register("maple_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final FrozenWallSignBlock MAPLE_WALL_SIGN = new FrozenWallSignBlock(
+	public static final SignBlock MAPLE_SIGN = registerBlock("maple_sign",
+		properties -> new StandingSignBlock(MAPLE_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_SIGN)
+			.mapColor(MAPLE_LOG.defaultMapColor())
+	);
+	public static final WallSignBlock MAPLE_WALL_SIGN = registerBlock("maple_wall_sign",
+		properties -> new WallSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
-			.dropsLike(MAPLE_SIGN),
-		MAPLE_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/maple_sign"))
+			.overrideDescription(MAPLE_SIGN.getDescriptionId())
+			.overrideLootTable(MAPLE_SIGN.getLootTable())
 	);
 
 	public static final BlockFamily MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
@@ -1241,26 +1251,30 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final FrozenCeilingHangingSignBlock MAPLE_HANGING_SIGN = new FrozenCeilingHangingSignBlock(
+	public static final CeilingHangingSignBlock MAPLE_HANGING_SIGN = registerBlock("maple_hanging_sign",
+		properties -> new CeilingHangingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
-			.mapColor(MAPLE_LOG.defaultMapColor()),
-		MAPLE_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/maple_hanging_sign"))
+			.mapColor(MAPLE_LOG.defaultMapColor())
 	);
-	public static final FrozenWallHangingSignBlock MAPLE_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(
+	public static final WallHangingSignBlock MAPLE_WALL_HANGING_SIGN = registerBlock("maple_wall_hanging_sign",
+		properties -> new WallHangingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
-			.dropsLike(MAPLE_HANGING_SIGN),
-		MAPLE_WOOD_TYPE,
-		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/maple_hanging_sign"))
+			.overrideDescription(MAPLE_HANGING_SIGN.getDescriptionId())
+			.overrideLootTable(MAPLE_HANGING_SIGN.getLootTable())
 	);
 
-	public static final Block STRIPPED_MAPLE_LOG = Blocks.log(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR);
-	public static final RotatedPillarBlock STRIPPED_MAPLE_WOOD = new RotatedPillarBlock(
+	public static final Block STRIPPED_MAPLE_LOG = register("stripped_maple_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, SoundType.WOOD)
+	);
+	public static final RotatedPillarBlock STRIPPED_MAPLE_WOOD = register("stripped_maple_wood",
+		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
 			.mapColor(MAPLE_PLANKS_COLOR)
 	);
-	public static final RotatedPillarBlock MAPLE_WOOD = new RotatedPillarBlock(
+	public static final RotatedPillarBlock MAPLE_WOOD = register("maple_wood",
+		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(MAPLE_BARK_COLOR)
 	);
@@ -1269,291 +1283,18 @@ public final class WWBlocks {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
-	public static void registerDecorativeBlocks() {
-		registerBlockAfter(Blocks.MUD_BRICKS, "cracked_mud_bricks", CRACKED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.MUD_BRICK_WALL, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_MUD_BRICKS, "mossy_mud_bricks", MOSSY_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_MUD_BRICKS, "mossy_mud_brick_stairs", MOSSY_MUD_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_MUD_BRICK_STAIRS, "mossy_mud_brick_slab", MOSSY_MUD_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_MUD_BRICK_SLAB, "mossy_mud_brick_wall", MOSSY_MUD_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlock("scorched_sand", SCORCHED_SAND);
-		registerBlock("scorched_red_sand", SCORCHED_RED_SAND);
-	}
-
-	public static void registerWoods() {
-		//CYPRESS IN BUILDING BLOCKS
-		registerBlockAfter(BAOBAB_BUTTON, "cypress_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_LOG, "cypress_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_WOOD, "stripped_cypress_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_CYPRESS_LOG, "stripped_cypress_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_CYPRESS_WOOD, "cypress_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_PLANKS, "cypress_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_STAIRS, "cypress_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_SLAB, "cypress_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_FENCE, "cypress_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_FENCE_GATE, "cypress_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_DOOR, "cypress_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_TRAPDOOR, "cypress_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_PRESSURE_PLATE, "cypress_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
-		//CYPRESS IN NATURE
-		registerBlockAfter(BAOBAB_LOG, "cypress_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BAOBAB_LEAF_LITTER, "cypress_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(CYPRESS_LEAVES, "cypress_leaf_litter", CYPRESS_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-
-		//PALM IN BUILDING BLOCKS
-		registerBlockAfter(CYPRESS_BUTTON, "palm_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_LOG, "palm_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_WOOD, "stripped_palm_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_palm_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_PALM_WOOD, "palm_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_PLANKS, "palm_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_STAIRS, "palm_slab", PALM_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_SLAB, "palm_fence", PALM_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_FENCE, "palm_fence_gate", PALM_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_FENCE_GATE, "palm_door", PALM_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_DOOR, "palm_trapdoor", PALM_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_TRAPDOOR, "palm_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_PRESSURE_PLATE, "palm_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
-		//PALM IN NATURE
-		registerBlockAfter(CYPRESS_LOG, "palm_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(CYPRESS_LEAF_LITTER, "palm_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PALM_FRONDS, "palm_frond_litter", PALM_FROND_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-
-		//MAPLE IN BUILDING BLOCKS
-		registerBlockAfter(Blocks.CHERRY_BUTTON, "maple_log", MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_LOG, "maple_wood", MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_WOOD, "stripped_maple_log", STRIPPED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_MAPLE_LOG, "stripped_maple_wood", STRIPPED_MAPLE_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(STRIPPED_MAPLE_WOOD, "maple_planks", MAPLE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_PLANKS, "maple_stairs", MAPLE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_STAIRS, "maple_slab", MAPLE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_SLAB, "maple_fence", MAPLE_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_FENCE, "maple_fence_gate", MAPLE_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_FENCE_GATE, "maple_door", MAPLE_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_DOOR, "maple_trapdoor", MAPLE_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_TRAPDOOR, "maple_pressure_plate", MAPLE_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_PRESSURE_PLATE, "maple_button", MAPLE_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
-		//MAPLE IN NATURE
-		registerBlockAfter(Blocks.CHERRY_LOG, "maple_log", MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(CHERRY_LEAF_LITTER, "yellow_maple_leaves", YELLOW_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(YELLOW_MAPLE_LEAVES, "yellow_maple_leaf_litter", YELLOW_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(YELLOW_MAPLE_LEAF_LITTER, "orange_maple_leaves", ORANGE_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(ORANGE_MAPLE_LEAVES, "orange_maple_leaf_litter", ORANGE_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(ORANGE_MAPLE_LEAF_LITTER, "red_maple_leaves", RED_MAPLE_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_MAPLE_LEAVES, "red_maple_leaf_litter", RED_MAPLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerBlock("baobab_nut", BAOBAB_NUT);
-		registerBlock("potted_baobab_nut", POTTED_BAOBAB_NUT);
-
-		registerBlockAfter(Items.MANGROVE_PROPAGULE, "cypress_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_cypress_sapling", POTTED_CYPRESS_SAPLING);
-
-		registerBlock("coconut", COCONUT);
-		registerBlock("potted_coconut", POTTED_COCONUT);
-
-		registerBlockAfter(Items.CHERRY_SAPLING, "maple_sapling", MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_maple_sapling", POTTED_MAPLE_SAPLING);
-
-		registerBlock("baobab_sign", BAOBAB_SIGN);
-		registerBlock("baobab_wall_sign", BAOBAB_WALL_SIGN);
-		registerBlock("baobab_hanging_sign", BAOBAB_HANGING_SIGN);
-		registerBlock("baobab_wall_hanging_sign", BAOBAB_WALL_HANGING_SIGN);
-		registerBlock("cypress_sign", CYPRESS_SIGN);
-		registerBlock("cypress_wall_sign", CYPRESS_WALL_SIGN);
-		registerBlock("cypress_hanging_sign", CYPRESS_HANGING_SIGN);
-		registerBlock("cypress_wall_hanging_sign", CYPRESS_WALL_HANGING_SIGN);
-		registerBlock("palm_sign", PALM_SIGN);
-		registerBlock("palm_wall_sign", PALM_WALL_SIGN);
-		registerBlock("palm_hanging_sign", PALM_HANGING_SIGN);
-		registerBlock("palm_wall_hanging_sign", PALM_WALL_HANGING_SIGN);
-		registerBlock("maple_sign", MAPLE_SIGN);
-		registerBlock("maple_wall_sign", MAPLE_WALL_SIGN);
-		registerBlock("maple_hanging_sign", MAPLE_HANGING_SIGN);
-		registerBlock("maple_wall_hanging_sign", MAPLE_WALL_HANGING_SIGN);
-	}
-
-	public static void registerHollowedLogs() {
-		registerBlockAfter(Items.OAK_LOG, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_OAK_LOG, "stripped_hollowed_oak_log", STRIPPED_HOLLOWED_OAK_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.SPRUCE_LOG, "hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_SPRUCE_LOG, "stripped_hollowed_spruce_log", STRIPPED_HOLLOWED_SPRUCE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.BIRCH_LOG, "hollowed_birch_log", HOLLOWED_BIRCH_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_BIRCH_LOG, "stripped_hollowed_birch_log", STRIPPED_HOLLOWED_BIRCH_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_JUNGLE_LOG, "stripped_hollowed_jungle_log", STRIPPED_HOLLOWED_JUNGLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_ACACIA_LOG, "stripped_hollowed_acacia_log", STRIPPED_HOLLOWED_ACACIA_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_DARK_OAK_LOG, "stripped_hollowed_dark_oak_log", STRIPPED_HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.CRIMSON_STEM, "hollowed_crimson_stem", HOLLOWED_CRIMSON_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_CRIMSON_STEM, "stripped_hollowed_crimson_stem", STRIPPED_HOLLOWED_CRIMSON_STEM, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.WARPED_STEM, "hollowed_warped_stem", HOLLOWED_WARPED_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_WARPED_STEM, "stripped_hollowed_warped_stem", STRIPPED_HOLLOWED_WARPED_STEM, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_MANGROVE_LOG, "stripped_hollowed_mangrove_log", STRIPPED_HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Items.CHERRY_LOG, "hollowed_cherry_log", HOLLOWED_CHERRY_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_CHERRY_LOG, "stripped_hollowed_cherry_log", STRIPPED_HOLLOWED_CHERRY_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockBefore(BAOBAB_WOOD, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_BAOBAB_LOG, "stripped_hollowed_baobab_log", STRIPPED_HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(BAOBAB_LOG, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerBlockBefore(CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_CYPRESS_LOG, "stripped_hollowed_cypress_log", STRIPPED_HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CYPRESS_LOG, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerBlockBefore(PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_PALM_LOG, "stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerBlockBefore(MAPLE_WOOD, "hollowed_maple_log", HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_MAPLE_LOG, "stripped_hollowed_maple_log", STRIPPED_HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MAPLE_LOG, "hollowed_maple_log", HOLLOWED_MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-	}
-
-	public static void registerDeepDark() {
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "sculk_wall", SCULK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "sculk_slab", SCULK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "sculk_stairs", SCULK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.SCULK, "osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.SCULK_SENSOR, "hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("echo_glass", ECHO_GLASS);
-	}
-
-	public static void registerPlants() {
-		registerBlock("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
-		registerBlock("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
-		registerBlock("potted_short_grass", POTTED_SHORT_GRASS);
-		registerBlockAfter(Items.DANDELION, "seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
-		registerBlockAfter(Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_carnation", POTTED_CARNATION);
-		registerBlockAfter(CARNATION, "marigold", MARIGOLD, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_marigold", POTTED_MARIGOLD);
-		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "blue_giant_glory_of_the_snow", BLUE_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "pink_giant_glory_of_the_snow", PINK_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "violet_beauty_glory_of_the_snow", VIOLET_BEAUTY_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "alba_glory_of_the_snow", ALBA_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.CACTUS, "tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_tumbleweed_plant", POTTED_TUMBLEWEED_PLANT);
-		registerBlockAfter(TUMBLEWEED_PLANT, "tumbleweed", TUMBLEWEED, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_tumbleweed", POTTED_TUMBLEWEED);
-		registerBlockAfter(TUMBLEWEED, "bush", BUSH, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_bush", POTTED_BUSH);
-		registerBlock("prickly_pear", PRICKLY_PEAR_CACTUS);
-		registerBlock("potted_prickly_pear", POTTED_PRICKLY_PEAR);
-
-		registerBlockAfter(Blocks.OAK_LEAVES, "oak_leaf_litter", OAK_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.SPRUCE_LEAVES, "spruce_leaf_litter", SPRUCE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.BIRCH_LEAVES, "birch_leaf_litter", BIRCH_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.JUNGLE_LEAVES, "jungle_leaf_litter", JUNGLE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.ACACIA_LEAVES, "acacia_leaf_litter", ACACIA_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.DARK_OAK_LEAVES, "dark_oak_leaf_litter", DARK_OAK_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.MANGROVE_LEAVES, "mangrove_leaf_litter", MANGROVE_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.CHERRY_LEAVES, "cherry_leaf_litter", CHERRY_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.AZALEA_LEAVES, "azalea_leaf_litter", AZALEA_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Blocks.FLOWERING_AZALEA_LEAVES, "flowering_azalea_leaf_litter", FLOWERING_AZALEA_LEAF_LITTER, CreativeModeTabs.NATURAL_BLOCKS);
-	}
-
-	public static void registerNotSoPlants() {
-		registerBlock("pollen", POLLEN);
-		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
-		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("algae"), ALGAE);
-		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
-	}
-
-	public static void registerMisc() {
-		registerBlockBefore(Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.GLASS, "null_block", NULL_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.CHEST, "stone_chest", STONE_CHEST, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlock("display_lantern", DISPLAY_LANTERN);
-
-		registerBlockBefore(Items.SPONGE, "blue_pearlescent_mesoglea", BLUE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BLUE_PEARLESCENT_MESOGLEA, "purple_pearlescent_mesoglea", PURPLE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PURPLE_PEARLESCENT_MESOGLEA, "blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BLUE_MESOGLEA, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PINK_MESOGLEA, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_MESOGLEA, "yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(YELLOW_MESOGLEA, "lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerBlockBefore(Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BLUE_PEARLESCENT_NEMATOCYST, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PURPLE_PEARLESCENT_NEMATOCYST, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BLUE_NEMATOCYST, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(PINK_NEMATOCYST, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_NEMATOCYST, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(YELLOW_NEMATOCYST, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-
-		registerBlockAfter(Items.MAGMA_BLOCK, "geyser", GEYSER, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockBefore(Items.SCULK_SENSOR, "geyser", GEYSER, CreativeModeTabs.REDSTONE_BLOCKS);
-	}
-
 	public static void registerBlocks() {
 		WWConstants.logWithModId("Registering Blocks for", WWConstants.UNSTABLE_LOGGING);
-
-		registerDecorativeBlocks();
-		registerPlants();
-		registerWoods();
-		registerHollowedLogs();
-		registerDeepDark();
-		registerNotSoPlants();
-		registerMisc();
 	}
-
-	private static <T extends Block> T register(String path, Function<Properties, T> block, Properties properties) {
+	private static <T extends Block> T registerBlock(String path, Function<Properties, T> block, Properties properties) {
 		ResourceLocation id = WWConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
-	@SafeVarargs
-	private static <T extends Block> T registerBlockBefore(ItemLike comparedItem, String path, Function<Properties, T> function, Properties properties, ResourceKey<CreativeModeTab>... tabs) {
-		ResourceLocation id = WWConstants.id(path);
-		T block = makeBlock(function, properties, id);
-		registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-		return doRegister(id, block);
-	}
-
-	@SafeVarargs
-	private static <T extends Block> T registerBlockAfter(ItemLike comparedItem, String path, Function<Properties, T> function, Properties properties, ResourceKey<CreativeModeTab>... tabs) {
-		ResourceLocation id = WWConstants.id(path);
-		T block = makeBlock(function, properties, id);
-		registerBlockItemAfter(comparedItem, path, block, tabs);
-		return doRegister(id, block);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
-		actualRegisterBlockItem(path, block);
-		FrozenCreativeTabs.addBefore(comparedItem, block, tabVisibility, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemAfter(ItemLike comparedItem, String name, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemAfter(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemAfter(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility visibility, ResourceKey<CreativeModeTab>... tabs) {
-		actualRegisterBlockItem(path, block);
-		FrozenCreativeTabs.addAfter(comparedItem, block, visibility, tabs);
+	private static <T extends Block> T register(String path, Function<Properties, T> block, Properties properties) {
+		T registered = registerBlock(path, block, properties);
+		Items.registerBlock(registered);
+		return registered;
 	}
 
 	private static <T extends Block> T doRegister(ResourceLocation id, T block) {
@@ -1561,12 +1302,6 @@ public final class WWBlocks {
 			return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		}
 		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
-	}
-
-	private static void actualRegisterBlockItem(String path, Block block) {
-		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, WWConstants.id(path), new BlockItem(block, new Item.Properties()));
-		}
 	}
 
 	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, ResourceLocation id) {
@@ -1628,7 +1363,7 @@ public final class WWBlocks {
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance
 	) {
-		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
+		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeaf(
 			sourceBlock,
 			leafLitterBlock,

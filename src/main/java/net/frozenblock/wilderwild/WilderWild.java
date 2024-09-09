@@ -85,7 +85,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWBlocks.registerBlocks();
 		WWCreativeInventorySorting.init();
 		WWItems.registerItems();
-		WWItems.registerBlockItems();
 		WWGameEvents.registerEvents();
 
 		WWSounds.init();

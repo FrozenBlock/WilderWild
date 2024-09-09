@@ -89,7 +89,7 @@ public abstract class EnderManMixin implements WilderEnderman {
 			FrozenSoundPackets.createMovingRestrictionLoopingSound(
 				enderMan.level(),
 				enderMan,
-				BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
+				BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
 				SoundSource.HOSTILE,
 				1F,
 				0.9F,

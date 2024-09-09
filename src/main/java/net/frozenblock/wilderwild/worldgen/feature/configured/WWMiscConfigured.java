@@ -808,7 +808,7 @@ public final class WWMiscConfigured {
 				false,
 				false,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.OASIS_PATH_REPLACEABLE
 				),
 				0.8F
@@ -828,7 +828,7 @@ public final class WWMiscConfigured {
 				false,
 				false,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.OASIS_PATH_REPLACEABLE
 				),
 				0.725F
@@ -850,7 +850,7 @@ public final class WWMiscConfigured {
 				false,
 				false,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					BlockTags.DIRT
 				),
 				0.825F

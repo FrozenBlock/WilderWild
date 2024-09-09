@@ -35,7 +35,6 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 	private static final float DOUBLE_PI = Mth.PI * 2F;
 	private static final float RAD_50 = 50F * Mth.DEG_TO_RAD;
 
-	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart torso;
 	private final ModelPart main_claw;
@@ -55,7 +54,7 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 	public float scale;
 
 	public CrabModel(@NotNull ModelPart root) {
-		this.root = root;
+		super(root);
 
 		this.body = root.getChild("body");
 		this.torso = body.getChild("torso");
@@ -186,10 +185,4 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
 		poseStack.popPose();
 	}*/
-
-	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.root;
-	}
 }

@@ -23,29 +23,36 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
+import java.util.function.Function;
 
 @Mixin(Blocks.class)
-public final class BlocksMixin {
+public abstract class BlocksMixin {
+
+	@Shadow
+	private static Block register(String string, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties properties) {
+		return null;
+	}
 
 	@Redirect(
 		method = "<clinit>",
 		at = @At(
-			value = "NEW",
-			target = "(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;",
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Blocks;register(Ljava/lang/String;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;",
 			ordinal = 0
 		),
 		slice = @Slice(
 			from = @At(
 				value = "CONSTANT",
-				args = "stringValue=reinforced_deepslate"
+				args = "stringValue=frogspawn"
 			)
 		)
 	)
-	private static Block wilderWild$newReinforced(BlockBehaviour.Properties properties) {
-		return new RotatedPillarBlock(properties);
+	private static Block wilderWild$newReinforced(String string, BlockBehaviour.Properties properties) {
+		return register(string, RotatedPillarBlock::new, properties);
 	}
 
 }

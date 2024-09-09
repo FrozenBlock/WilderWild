@@ -18,41 +18,47 @@
 
 package net.frozenblock.wilderwild.entity.variant;
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.Registry;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.IntFunction;
 
-public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, @NotNull TagKey<Item> reproductionFood) {
+@SuppressWarnings("deprecation")
+public enum JellyfishVariant implements StringRepresentable {
 
+	BLUE(WWConstants.id("blue"), WWConstants.id("textures/entity/jellyfish/blue.png"), false, WWItemTags.JELLYFISH_FOOD),
+	LIME(WWConstants.id("lime"), WWConstants.id("textures/entity/jellyfish/lime.png"), false, WWItemTags.JELLYFISH_FOOD),
+	PINK(WWConstants.id("pink"), WWConstants.id("textures/entity/jellyfish/pink.png"), false, WWItemTags.JELLYFISH_FOOD),
+	RED(WWConstants.id("red"), WWConstants.id("textures/entity/jellyfish/red.png"), false, WWItemTags.JELLYFISH_FOOD),
+	YELLOW(WWConstants.id("yellow"), WWConstants.id("textures/entity/jellyfish/yellow.png"), false, WWItemTags.JELLYFISH_FOOD),
 
+	PEARLESCENT_BLUE(WWConstants.id("pearlescent_blue"), WWConstants.id("textures/entity/jellyfish/pearlescent_blue.png"), true, WWItemTags.PEARLESCENT_JELLYFISH_FOOD),
+	PEARLESCENT_PURPLE(WWConstants.id("pearlescent_purple"), WWConstants.id("textures/entity/jellyfish/pearlescent_purple.png"), true, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
 
-	public static final JellyfishVariant BLUE = register(WWConstants.id("blue"), WWConstants.id("textures/entity/jellyfish/blue.png"), false, WWItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant LIME = register(WWConstants.id("lime"), WWConstants.id("textures/entity/jellyfish/lime.png"), false, WWItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant PINK = register(WWConstants.id("pink"), WWConstants.id("textures/entity/jellyfish/pink.png"), false, WWItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant RED = register(WWConstants.id("red"), WWConstants.id("textures/entity/jellyfish/red.png"), false, WWItemTags.JELLYFISH_FOOD);
-	public static final JellyfishVariant YELLOW = register(WWConstants.id("yellow"), WWConstants.id("textures/entity/jellyfish/yellow.png"), false, WWItemTags.JELLYFISH_FOOD);
+	public static final EnumCodec<JellyfishVariant> CODEC = StringRepresentable.fromEnum(JellyfishVariant::values);
+	public static final StreamCodec<ByteBuf, JellyfishVariant> STREAM_CODEC = ByteBufCodecs.fromCodec(CODEC);
 
-	public static final JellyfishVariant PEARLESCENT_BLUE = register(WWConstants.id("pearlescent_blue"), WWConstants.id("textures/entity/jellyfish/pearlescent_blue.png"), true, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
-	public static final JellyfishVariant PEARLESCENT_PURPLE = register(WWConstants.id("pearlescent_purple"), WWConstants.id("textures/entity/jellyfish/pearlescent_purple.png"), true, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
+	private final ResourceLocation key;
+	private final ResourceLocation texture;
+	private final boolean pearlescent;
+	private final TagKey<Item> reproductionFood;
 
-	public JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, TagKey<Item> reproductionFood) {
+	JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, TagKey<Item> reproductionFood) {
 		this.key = key;
 		this.texture = texture;
 		this.pearlescent = pearlescent;
 		this.reproductionFood = reproductionFood;
-	}
-
-	@NotNull
-	public static JellyfishVariant register(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, TagKey<Item> reproductionFood) {
-		return Registry.register(WilderWildRegistries.JELLYFISH_VARIANT, key, new JellyfishVariant(key, texture, pearlescent, reproductionFood));
-	}
-
-	public static void init() {
 	}
 
 	@NotNull
@@ -65,7 +71,21 @@ public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceL
 		return this.texture;
 	}
 
+	public boolean pearlescent() {
+		return this.pearlescent;
+	}
+
+	public TagKey<Item> reproductionFood() {
+		return this.reproductionFood;
+	}
+
 	public boolean isNormal() {
 		return !this.pearlescent;
+	}
+
+	@Override
+	@NotNull
+	public String getSerializedName() {
+		return this.key().toString();
 	}
 }

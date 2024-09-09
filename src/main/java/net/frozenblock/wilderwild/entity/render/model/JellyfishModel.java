@@ -42,7 +42,6 @@ import org.jetbrains.annotations.NotNull;
 public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private static final int JELLYFISH_TENTACLES = WWEntityConfig.get().jellyfish.jellyfishTentacles;
 	private static final float EIGHT_PI = -8F * Mth.DEG_TO_RAD;
-	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
 	private final ModelPart[] tentacles = new ModelPart[JELLYFISH_TENTACLES];
@@ -54,8 +53,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	public float blue;
 
 	public JellyfishModel(@NotNull ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveFixed);
-		this.root = root;
+		super(root, FrozenRenderType::entityTranslucentEmissiveFixed);
 		ModelPart bone = root.getChild("bone");
 		this.body = bone.getChild("body");
 		this.tentacleBase = bone.getChild("tentacleBase");
@@ -155,11 +153,5 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 			modelPart.z = initialPose.z() * squash;
 			modelPart.xRot = tentRot;
 		}
-	}
-
-	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.root;
 	}
 }

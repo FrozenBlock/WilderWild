@@ -458,7 +458,7 @@ public class AncientHornVibration extends AbstractArrow {
 					FrozenSoundPackets.createLocalSound(
 						this.level(),
 						pos,
-						BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_BLAST.getLocation()).orElseThrow(),
+						BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_BLAST.getLocation()).orElseThrow(),
 						SoundSource.NEUTRAL,
 						1.5F,
 						1F,

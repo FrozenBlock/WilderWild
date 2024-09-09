@@ -37,15 +37,13 @@ public class AncientHornProjectileModel extends Model {
 	private static final float BONE_PITCH_YAW = 1.57079632F;
 	private static final float PULSE_2_EXTRA = 8F / 1.5F;
 	private static final float PULSE_3_EXTRA = 8F / 3F;
-	private final ModelPart root;
 	private final ModelPart bone;
 	private final ModelPart front;
 	private final ModelPart middle;
 	private final ModelPart back;
 
 	public AncientHornProjectileModel(@NotNull ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveFixed);
-		this.root = root;
+		super(root, FrozenRenderType::entityTranslucentEmissiveFixed);
 		this.bone = root.getChild("bone");
 		this.front = bone.getChild("front");
 		this.middle = bone.getChild("middle");
@@ -81,11 +79,5 @@ public class AncientHornProjectileModel extends Model {
 		this.back.xScale = pulse3;
 		this.back.yScale = pulse3;
 		this.back.z = pulse2 * 2F + 2F;
-	}
-
-	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.bone;
 	}
 }

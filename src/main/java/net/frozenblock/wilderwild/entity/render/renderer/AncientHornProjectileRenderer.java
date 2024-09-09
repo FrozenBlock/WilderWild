@@ -77,7 +77,7 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornVib
 				)
 			)
 		);
-		VertexConsumer vertexConsumer = buffer.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(getTextureLocation(renderState), false));
+		VertexConsumer vertexConsumer = buffer.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
 
 		float multiplier = renderState.boundingBoxMultiplier;
 		float scale = (multiplier * 0.5F) + 1F;
@@ -96,11 +96,6 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornVib
 	@Override
 	protected int getBlockLightLevel(AncientHornVibration entity, BlockPos blockPos) {
 		return 15;
-	}
-
-	@Override
-	public @NotNull ResourceLocation getTextureLocation(AncientHornVibrationRenderState entityRenderState) {
-		return TEXTURE;
 	}
 
 	@Override

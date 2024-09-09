@@ -2063,7 +2063,7 @@ public final class WWConfiguredFeatures {
 				true,
 				0.5F,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.POLLEN_FEATURE_PLACEABLE
 				)
 			)
@@ -2077,7 +2077,7 @@ public final class WWConfiguredFeatures {
 				true,
 				true,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE
 				)
 			)
@@ -2091,7 +2091,7 @@ public final class WWConfiguredFeatures {
 				true,
 				true,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE
 				)
 			)
@@ -2160,11 +2160,11 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(3, 7),
 				UniformInt.of(1, 3),
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.TERMITE_DISC_REPLACEABLE
 				),
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.TERMITE_DISC_BLOCKS
 				)
 			)

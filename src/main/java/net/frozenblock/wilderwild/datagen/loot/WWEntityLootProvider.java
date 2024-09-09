@@ -23,10 +23,14 @@ import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.lib.datagen.api.EntityLootHelper;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -51,8 +55,28 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	@Override
 	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		HolderLookup.Provider registryLookup = this.registries.join();
+
+		WWLootData.NEMATOCYST_BY_DYE.forEach((variant, item) -> {
+			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(variant.key().getNamespace(), "entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntities.JELLYFISH).getPath() + '_' + variant.key().getPath());
+			output.accept(
+				ResourceKey.create(Registries.LOOT_TABLE, id),
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.setBonusRolls(ConstantValue.exactly(0F))
+							.add(
+								LootItem.lootTableItem(item)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
+									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+							)
+					)
+					.setRandomSequence(id)
+			);
+		});
+
 		output.accept(
-			WWEntities.CRAB.getDefaultLootTable(),
+			WWEntities.CRAB.getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -67,7 +91,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			WWEntities.OSTRICH.getDefaultLootTable(),
+			WWEntities.OSTRICH.getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -81,7 +105,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			WWEntities.SCORCHED.getDefaultLootTable(),
+			WWEntities.SCORCHED.getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -105,7 +129,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			WWEntities.TUMBLEWEED.getDefaultLootTable(),
+			WWEntities.TUMBLEWEED.getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

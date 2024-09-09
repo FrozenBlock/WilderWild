@@ -220,7 +220,7 @@ public class WWCaveConfigured {
 				true,
 				false,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.MESOGLEA_PATH_REPLACEABLE
 				),
 				1F
@@ -240,7 +240,7 @@ public class WWCaveConfigured {
 				true,
 				false,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.MESOGLEA_PATH_REPLACEABLE
 				),
 				1F
@@ -390,7 +390,7 @@ public class WWCaveConfigured {
 				true,
 				0.98F,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE
 				)
 			)
@@ -405,7 +405,7 @@ public class WWCaveConfigured {
 				true,
 				0.98F,
 				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
+					BuiltInRegistries.BLOCK,
 					WWBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE
 				)
 			)

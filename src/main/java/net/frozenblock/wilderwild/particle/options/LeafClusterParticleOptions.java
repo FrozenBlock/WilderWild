@@ -54,7 +54,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 	) {
 		ParticleType<LeafParticleOptions> particleType;
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
-			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.get(particleId);
+			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.getValue(particleId);
 		} else {
 			particleType = WWParticleTypes.OAK_LEAVES;
 		}

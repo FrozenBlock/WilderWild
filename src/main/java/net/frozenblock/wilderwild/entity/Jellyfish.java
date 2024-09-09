@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,11 +117,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final int HIDING_CHANCE = 25;
 	public static final @NotNull ResourceLocation JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
 	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderWildRegistries.JELLYFISH_VARIANT.stream()
+	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(Arrays.stream(JellyfishVariant.values())
 		.filter(JellyfishVariant::isNormal)
 		.collect(Collectors.toList())
 	);
-	public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderWildRegistries.JELLYFISH_VARIANT.stream()
+	public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(Arrays.stream(JellyfishVariant.values())
 		.filter(JellyfishVariant::pearlescent)
 		.collect(Collectors.toList())
 	);
@@ -635,12 +636,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public ResourceKey<LootTable> getDefaultLootTable() {
-		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntities.JELLYFISH);
-		return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath()));
-	}
-
-	@Override
 	@NotNull
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(WWItems.JELLYFISH_BUCKET);
@@ -648,7 +643,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	public JellyfishVariant getVariant() {
-		return WilderWildRegistries.JELLYFISH_VARIANT.getOptional(ResourceLocation.parse(this.entityData.get(VARIANT))).orElse(JellyfishVariant.PINK);
+		return JellyfishVariant.CODEC.byName(this.entityData.get(VARIANT));
 	}
 
 	public void setVariant(@NotNull JellyfishVariant variant) {
@@ -735,7 +730,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			compoundTag.putString("variant", Objects.requireNonNull(WilderWildRegistries.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+			compoundTag.putString("variant", Objects.requireNonNull(this.getVariant().getSerializedName()));
 			compoundTag.putBoolean("canReproduce", this.canReproduce());
 			compoundTag.putInt("fullness", this.fullness);
 			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
@@ -749,7 +744,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void loadFromBucketTag(@NotNull CompoundTag tag) {
 		Bucketable.loadDefaultDataFromBucketTag(this, tag);
 		if (tag.contains("variant")) {
-			JellyfishVariant variant = WilderWildRegistries.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
+			JellyfishVariant variant = JellyfishVariant.CODEC.byName(tag.getString("variant"));
 			if (variant != null) {
 				this.setVariant(variant);
 			}
@@ -767,7 +762,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putString("variant", Objects.requireNonNull(WilderWildRegistries.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compound.putString("variant", this.getVariant().getSerializedName());
 		compound.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
 		compound.putBoolean("canReproduce", this.canReproduce());
 		compound.putInt("fullness", this.fullness);
@@ -780,7 +775,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		JellyfishVariant variant = WilderWildRegistries.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
+		JellyfishVariant variant = JellyfishVariant.CODEC.byName(compound.getString("variant"));
 		if (variant != null) {
 			this.setVariant(variant);
 		}

@@ -54,7 +54,7 @@ public final class InstrumentItemMixin {
 				FrozenSoundPackets.createMovingRestrictionSound(
 					level,
 					player,
-					BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow(),
+					BuiltInRegistries.SOUND_EVENT.get(soundEvent.getLocation()).orElseThrow(),
 					soundSource,
 					volume,
 					pitch,

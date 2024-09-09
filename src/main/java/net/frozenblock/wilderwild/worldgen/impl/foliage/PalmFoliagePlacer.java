@@ -117,8 +117,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 							cornerFrondPoses.add(frondPos);
 						}
 					} else if (isEdge(xOff, zOff, radius)) {
-						Direction offsetDir = Direction.getNearest(xOff, 0, zOff);
-						mutablePos.move(offsetDir.getNormal());
+						Direction offsetDir = Direction.getApproximateNearest(xOff, 0, zOff);
+						mutablePos.move(offsetDir.getUnitVec3i());
 						tryPlaceLeaf(world, placer, random, config, mutablePos);
 						frondPoses.add(mutablePos.immutable());
 					}

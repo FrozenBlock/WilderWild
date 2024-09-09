@@ -53,8 +53,8 @@ public class AncientHorn extends InstrumentItem {
 	public static final int MIN_BUBBLES = 10;
 	public static final int MAX_BUBBLES = 25;
 
-	public AncientHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> instruments) {
-		super(settings, instruments);
+	public AncientHorn(@NotNull TagKey<Instrument> instruments, @NotNull Properties settings) {
+		super(instruments, settings);
 	}
 
 	public static int getCooldown(@Nullable Entity entity, int cooldown) {
@@ -102,7 +102,7 @@ public class AncientHorn extends InstrumentItem {
 				FrozenSoundPackets.createMovingRestrictionLoopingSound(
 					server,
 					projectileEntity,
-					BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
+					BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
 					SoundSource.NEUTRAL,
 					1F,
 					1F,

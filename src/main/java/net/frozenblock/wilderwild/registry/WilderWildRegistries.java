@@ -29,11 +29,7 @@ import net.minecraft.resources.ResourceKey;
 
 public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR_REGISTRY = ResourceKey.createRegistryKey(WWConstants.id("firefly_color"));
-	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WWConstants.id("jellyfish_color"));
 	public static final MappedRegistry<FireflyColor> FIREFLY_COLOR = FabricRegistryBuilder.createSimple(FIREFLY_COLOR_REGISTRY)
-		.attribute(RegistryAttribute.SYNCED)
-		.buildAndRegister();
-	public static final MappedRegistry<JellyfishVariant> JELLYFISH_VARIANT = FabricRegistryBuilder.createSimple(JELLYFISH_VARIANT_REGISTRY)
 		.attribute(RegistryAttribute.SYNCED)
 		.buildAndRegister();
 
@@ -43,6 +39,5 @@ public final class WilderWildRegistries {
 
 	public static void initRegistry() {
 		FireflyColor.init();
-		JellyfishVariant.init();
 	}
 }

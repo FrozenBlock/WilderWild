@@ -83,6 +83,10 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 	@Shadow
 	protected ModelPart rightArm;
 
+	protected WardenModelMixin(ModelPart modelPart) {
+		super(modelPart);
+	}
+
 	@Inject(at = @At("TAIL"), method = "animateTendrils", require = 0)
 	private void wilderWild$animateCustomTendrils(
 		WardenRenderState warden, float animationProgress, CallbackInfo info,
