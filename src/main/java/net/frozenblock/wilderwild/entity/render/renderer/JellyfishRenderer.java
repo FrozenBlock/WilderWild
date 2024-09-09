@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,9 +47,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	@Override
 	protected void setupRotations(@NotNull JellyfishRenderState renderState, @NotNull PoseStack poseStack, float rotationYaw, float g) {
 		poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
-		poseStack.translate(0, renderState.isBaby ? -1.1 : -1, 0);
+		poseStack.translate(0F, -0.3F * renderState.scale, 0F);
 		poseStack.scale(0.8F, 0.8F, 0.8F);
-		JellyfishModel model = this.getModel();
 
 		if (this.isShaking(renderState)) {
 			poseStack.mulPose(Axis.YP.rotationDegrees((float) (Math.cos((double) renderState.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
@@ -58,18 +58,22 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 			poseStack.translate(0F, renderState.boundingBoxHeight + 0.1F, 0F);
 			poseStack.mulPose(Axis.ZP.rotationDegrees(180F));
 		}
+	}
 
-		if (renderState.isRGB) {
-			float time = renderState.windTime;
-			model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1, 0, 1);
-			model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1, 0, 1);
-			model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1, 0, 1);
-		} else {
-			model.red = 1;
-			model.green = 1;
-			model.blue = 1;
-		}
-		model.jellyfishRenderState = renderState;
+	@Override
+	protected int getModelTint(@NotNull JellyfishRenderState renderState) {
+		return !renderState.isRGB ? super.getModelTint(renderState)
+			: ARGB.color(
+			(int) (Mth.clamp(Math.abs((renderState.windTime % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Mth.clamp(Math.abs(((renderState.windTime - 2) % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Mth.clamp(Math.abs(((renderState.windTime - 4) % 6) - 3) - 1, 0, 1) * 255)
+		);
+	}
+
+	@Override
+	protected void scale(JellyfishRenderState renderState, PoseStack poseStack) {
+		super.scale(renderState, poseStack);
+		poseStack.scale(renderState.jellyScale, renderState.jellyScale, renderState.jellyScale);
 	}
 
 	@Override
@@ -101,8 +105,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 		renderState.variant = entity.getVariant();
 		renderState.windTime = (ClientWindManager.time + partialTick) * 0.05F;
 
-		renderState.xRot = -(entity.xRot1 + partialTick * (entity.xBodyRot - entity.xRot1));
-		renderState.tentXRot = -(entity.xRot6 + partialTick * (entity.xRot5 - entity.xRot6));
-		renderState.scale = (entity.prevScale + partialTick * (entity.scale - entity.prevScale)) * entity.getAgeScale();
+		renderState.jellyXRot = -(entity.xRot1 + partialTick * (entity.xBodyRot - entity.xRot1)) * Mth.DEG_TO_RAD;
+		renderState.tentXRot = -(entity.xRot6 + partialTick * (entity.xRot5 - entity.xRot6)) * Mth.DEG_TO_RAD;
+		renderState.jellyScale = (entity.prevScale + partialTick * (entity.scale - entity.prevScale)) * entity.getAgeScale();
 	}
 }

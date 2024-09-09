@@ -19,9 +19,6 @@
 package net.frozenblock.wilderwild.entity.render.model;
 
 import java.util.Arrays;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
@@ -34,7 +31,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,12 +41,6 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
 	private final ModelPart[] tentacles = new ModelPart[JELLYFISH_TENTACLES];
-
-	public JellyfishRenderState jellyfishRenderState;
-
-	public float red;
-	public float green;
-	public float blue;
 
 	public JellyfishModel(@NotNull ModelPart root) {
 		super(root, FrozenRenderType::entityTranslucentEmissiveFixed);
@@ -65,12 +55,12 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		MeshDefinition meshDefinition = new MeshDefinition();
 		PartDefinition partDefinition = meshDefinition.getRoot();
 
-		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0F, 14F, 0F));
+		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.ZERO);
 
-		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2F, -4F, 8F, 5F, 8F)
+		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -2F, -4F, 8F, 5F, 8F)
 			.texOffs(4, 13).addBox(-3F, -1F, -3F, 6F, 3F, 6F), PartPose.ZERO);
 
-		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.offset(0F, 6F, 0F));
+		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.ZERO);
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
 		return LayerDefinition.create(meshDefinition, 64, 64);
@@ -83,7 +73,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 			partDefinition.addOrReplaceChild(createTentacleName(i), tentacle, PartPose.offsetAndRotation(
 					(float) Math.cos(rot) * 2.5F,
 					0F,
-                    (float) (Math.sin(rot) * 2.5F),
+                    (float) Math.sin(rot) * 2.5F,
 					0F,
                     i * Mth.PI * -2F / amount + 1.5707963267948966F,
 					0F
@@ -111,22 +101,10 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int colorBad) {
-		poseStack.scale(this.jellyfishRenderState.jellyScale, this.jellyfishRenderState.jellyScale, this.jellyfishRenderState.jellyScale);
-		poseStack.pushPose();
-		poseStack.mulPose(Axis.XP.rotationDegrees(this.jellyfishRenderState.jellyXRot));
-		var color = ARGB.colorFromFloat(1F, this.red, this.green, this.blue);
-		this.body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		poseStack.popPose();
-
-		poseStack.pushPose();
-		poseStack.mulPose(Axis.XP.rotationDegrees(this.jellyfishRenderState.tentXRot));
-		this.tentacleBase.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		poseStack.popPose();
-	}
-
-	@Override
 	public void setupAnim(@NotNull JellyfishRenderState renderState) {
+		this.body.xRot = renderState.jellyXRot;
+		this.tentacleBase.xRot = renderState.tentXRot;
+
 		float walkPos = renderState.walkAnimationPos;
 		float walkSpeed = renderState.walkAnimationSpeed;
 
@@ -147,6 +125,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 2F);
 
 		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD);
+
 		for (ModelPart modelPart : this.tentacles) {
 			PartPose initialPose = modelPart.getInitialPose();
 			modelPart.x = initialPose.x() * squash;
