@@ -137,11 +137,6 @@ public final class WWEntities {
 	}
 
 	public static void init() {
-	}
-
-	static {
-		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
-
 		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());
 		SpawnPlacements.register(
 			FIREFLY,
@@ -188,6 +183,10 @@ public final class WWEntities {
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
 		);
+	}
+
+	static {
+		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 	private static <T extends Entity> @NotNull EntityType<T> register(String string, EntityType.@NotNull Builder<T> builder) {
