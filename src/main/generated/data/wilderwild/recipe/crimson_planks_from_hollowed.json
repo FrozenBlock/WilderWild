@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#wilderwild:hollowed_crimson_stems"
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:crimson_planks"
+  }
+}

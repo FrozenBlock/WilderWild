@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "mesoglea",
+  "key": {
+    "#": "wilderwild:pink_nematocyst"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wilderwild:pink_mesoglea"
+  }
+}

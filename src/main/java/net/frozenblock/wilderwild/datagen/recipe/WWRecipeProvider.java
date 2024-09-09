@@ -48,6 +48,9 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 	@Override
 	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput exporter) {
 		return new RecipeProvider(registries, exporter) {
+			{
+				this.buildRecipes();
+			}
 			@Override
 			public void buildRecipes() {
 				HollowedLogRecipeProvider.buildRecipes(this, exporter);

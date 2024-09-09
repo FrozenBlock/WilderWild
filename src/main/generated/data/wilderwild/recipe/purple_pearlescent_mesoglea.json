@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "mesoglea",
+  "key": {
+    "#": "wilderwild:purple_pearlescent_nematocyst"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wilderwild:purple_pearlescent_mesoglea"
+  }
+}

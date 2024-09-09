@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "wilderwild:prickly_pear"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wilderwild:peeled_prickly_pear"
+  }
+}

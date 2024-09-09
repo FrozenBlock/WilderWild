@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": "wilderwild:crab_claw",
+  "result": {
+    "id": "wilderwild:cooked_crab_claw"
+  }
+}

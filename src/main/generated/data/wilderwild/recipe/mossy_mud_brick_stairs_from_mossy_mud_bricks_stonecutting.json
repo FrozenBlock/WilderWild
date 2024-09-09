@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "wilderwild:mossy_mud_bricks",
+  "result": {
+    "count": 1,
+    "id": "wilderwild:mossy_mud_brick_stairs"
+  }
+}

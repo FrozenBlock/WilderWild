@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:echo_shard",
+    "minecraft:echo_shard",
+    "minecraft:tinted_glass"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wilderwild:echo_glass"
+  }
+}
