@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.EntityUtils;
@@ -189,6 +190,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 		}
 		int seaLevel = level.getSeaLevel();
 		return (random.nextInt(0, SPAWN_CHANCE) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - SPAWN_HEIGHT_NORMAL_SEA_OFFSET);
+	}
+
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(VARIANT, JellyfishVariant.PINK.key().toString());
+		builder.define(CAN_REPRODUCE, false);
+		builder.define(IS_BABY, false);
 	}
 
 	@NotNull
@@ -719,11 +728,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(VARIANT, JellyfishVariant.PINK.key().toString());
-		builder.define(CAN_REPRODUCE, false);
-		builder.define(IS_BABY, false);
+	public @NotNull Optional<ResourceKey<LootTable>> getLootTable() {
+		JellyfishVariant variant = this.getVariant();
+		return Optional.of(
+			ResourceKey.create(
+				Registries.LOOT_TABLE,
+				ResourceLocation.fromNamespaceAndPath(
+					variant.key().getNamespace(),
+					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntities.JELLYFISH).getPath() + '_' + variant.key().getPath())
+			)
+		);
 	}
 
 	@Override
