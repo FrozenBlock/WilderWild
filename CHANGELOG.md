@@ -52,6 +52,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed potential worldgen feature cycle crashes when certain config options were disabled.
 - Removed many duplicate spawn entries in Wilder Wild's biomes.
 - Tumbleweed no longer drop feathers.
+- Palm Fronds are now compostable.
+- Prickly Pears and Peeled Prickly Pears can now be composted.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

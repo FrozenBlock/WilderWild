@@ -1598,6 +1598,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(OAK_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(SPRUCE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(BIRCH_LEAF_LITTER, 0.1F);
