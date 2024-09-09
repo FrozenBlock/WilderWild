@@ -49,10 +49,6 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 	private final ModelPart middle_left_leg;
 	private final ModelPart front_left_leg;
 
-	public float xRot;
-
-	public float scale;
-
 	public CrabModel(@NotNull ModelPart root) {
 		super(root);
 
@@ -108,10 +104,9 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 	}
 
 	@Override
-	public void setupAnim(CrabRenderState renderState) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.xRot = renderState.climbXRot;
-		this.scale = renderState.ageScale;
+	public void setupAnim(@NotNull CrabRenderState renderState) {
+		super.setupAnim(renderState);
+		this.root.y = 23.9F;
 
 		this.animate(renderState.hidingAnimationState, CrabAnimations.CRAB_EMERGE_WAIT, renderState.ageInTicks);
 		this.animate(renderState.diggingAnimationState, CrabAnimations.CRAB_DIG, renderState.ageInTicks);
@@ -161,7 +156,7 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		this.middle_left_leg.x -= walkBDelayed;
 		this.front_left_leg.x -= walkADelayed;
 
-		float climbRotRadians = xRot * Mth.DEG_TO_RAD;
+		float climbRotRadians = renderState.climbXRot * Mth.DEG_TO_RAD;
 		this.body.zRot += legRoll + climbRotRadians;
 		this.legs.zRot += climbRotRadians;
 
@@ -175,14 +170,4 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		this.claw_top.zRot += attackSin * 45F * Mth.DEG_TO_RAD;
 		this.claw_bottom.zRot -= this.claw_top.zRot;
 	}
-
-	/*@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-		poseStack.pushPose();
-		poseStack.translate(0F, 1.3F, 0F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(90F));
-		poseStack.scale(this.scale, this.scale, this.scale);
-		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
-		poseStack.popPose();
-	}*/
 }

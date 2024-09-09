@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -44,8 +45,9 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	protected void setupRotations(CrabRenderState renderState, @NotNull PoseStack poseStack, float f, float g) {
-		poseStack.translate(0D, renderState.isBaby ? -0.1D : 0D, 0D);
+	protected void setupRotations(@NotNull CrabRenderState renderState, @NotNull PoseStack poseStack, float f, float g) {
+		poseStack.translate(0F, 0.17F * renderState.ageScale, 0F);
+		poseStack.mulPose(Axis.YP.rotationDegrees(-90F));
 		/*
 		float newYaw = Mth.lerp(
 			Mth.lerp(partialTicks, crab.prevClimbDirectionAmount, crab.climbDirectionAmount),
@@ -57,13 +59,19 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
+	protected void scale(CrabRenderState renderState, PoseStack poseStack) {
+		super.scale(renderState, poseStack);
+		poseStack.scale(renderState.ageScale, renderState.ageScale, renderState.ageScale);
+	}
+
+	@Override
 	protected float getFlipDegrees() {
 		return 180F;
 	}
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(CrabRenderState entity) {
+	public ResourceLocation getTextureLocation(@NotNull CrabRenderState entity) {
 		return !entity.isDitto ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
 	}
 
