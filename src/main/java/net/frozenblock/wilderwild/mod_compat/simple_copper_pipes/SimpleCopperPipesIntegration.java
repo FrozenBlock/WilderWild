@@ -19,28 +19,22 @@
 package net.frozenblock.wilderwild.mod_compat.simple_copper_pipes;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.FrozenSharedConstants;
-import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.WWEntities;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.lunade.copper.SimpleCopperPipesMain;
 import net.lunade.copper.blocks.CopperPipe;
 import net.lunade.copper.blocks.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.block_entity.pipe_nbt.MoveablePipeDataHandler;
 import net.lunade.copper.registry.PipeMovementRestrictions;
 import net.lunade.copper.registry.PoweredPipeDispenses;
-import net.lunade.copper.registry.RegisterPipeNbtMethods;
 import net.lunade.copper.registry.RegisterSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
-import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +43,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -86,58 +79,6 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	public void init() {
 		if (SimpleCopperPipesMain.getCompatID() == 4) {
 			WWConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
-
-			RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
-				if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
-					BlockState state = level.getBlockState(pos);
-					if (state.getBlock() instanceof CopperPipe pipe) {
-						Direction direction = state.getValue(BlockStateProperties.FACING);
-						if (nbt.getEntity(level) != null) {
-							nbt.withUseCount(nbt.getUseCount() + 1);
-							AncientHornVibration projectileEntity = new AncientHornVibration(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
-							projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1F, 0F);
-							projectileEntity.setOwner(nbt.foundEntity);
-							projectileEntity.setShotByPlayer(true);
-							projectileEntity.canInteractWithPipe = false;
-							level.addFreshEntity(projectileEntity);
-							FrozenSoundPackets.createMovingRestrictionLoopingSound(
-								level,
-								projectileEntity,
-								BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
-								SoundSource.NEUTRAL,
-								1F,
-								1F,
-								FrozenSharedConstants.id("default"),
-								true
-							);
-						}
-					}
-				}
-			}, (nbt, level, pos, blockState, blockEntity) -> {
-
-			}, (nbt, level, pos, blockState, blockEntity) -> {
-				if (nbt.foundEntity != null) {
-					nbt.vec3d2 = nbt.foundEntity.position();
-				}
-				if (blockState.getBlock() instanceof CopperPipe pipe) {
-					Direction direction = blockState.getValue(BlockStateProperties.FACING);
-					RandomSource random = level.getRandom();
-					for (int i = 0; i < random.nextIntBetweenInclusive(10, 20); i++) {
-						level.sendParticles(
-							new DustColorTransitionOptions(DustColorTransitionOptions.SCULK_PARTICLE_COLOR, DustColorTransitionOptions.SCULK_PARTICLE_COLOR, 1F),
-							pos.getX() + pipe.getDripX(direction, random),
-							pos.getY() + pipe.getDripY(direction, random),
-							pos.getZ() + pipe.getDripZ(direction, random),
-							1,
-							0D,
-							0D,
-							0D,
-							0.7D
-						);
-					}
-				}
-			}, (nbt, level, pos, blockState, blockEntity) -> true);
-
 			PoweredPipeDispenses.register(WWItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 outputPos = getOutputPosition(position, direction);
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);

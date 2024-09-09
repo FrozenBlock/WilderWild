@@ -59,21 +59,6 @@ public class WWRecipeProvider extends FabricRecipeProvider {
 		WWCookRecipeProvider.buildRecipes(exporter);
 
 		ShapedRecipeUtil.withResultPatch(
-			ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, WWItems.ANCIENT_HORN)
-				.group("wilderwild_ancient_horn")
-				.define('#', Ingredient.of(WWItems.ANCIENT_HORN_FRAGMENT))
-				.define('I', Ingredient.of(Items.ECHO_SHARD))
-				.define('G', Ingredient.of(Items.GOLD_INGOT))
-				.pattern("#G#")
-				.pattern("#I#")
-				.pattern("I#I")
-				.unlockedBy(RecipeProvider.getHasName(WWItems.ANCIENT_HORN_FRAGMENT), RecipeProvider.has(WWItems.ANCIENT_HORN_FRAGMENT)),
-			DataComponentPatch.builder()
-				.set(DataComponents.INSTRUMENT, BuiltInRegistries.INSTRUMENT.getHolderOrThrow(WWItems.ANCIENT_HORN_INSTRUMENT))
-				.build()
-		).save(exporter);
-
-		ShapedRecipeUtil.withResultPatch(
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, WWBlocks.DISPLAY_LANTERN)
 				.define('X', Ingredient.of(Items.IRON_NUGGET))
 				.define('#', Ingredient.of(Items.GLASS_PANE))

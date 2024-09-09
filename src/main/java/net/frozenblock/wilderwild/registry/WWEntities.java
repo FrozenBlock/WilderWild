@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -44,17 +43,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWEntities {
-	public static final EntityType<AncientHornVibration> ANCIENT_HORN_VIBRATION = register(
-		"ancient_horn_vibration",
-		EntityType.Builder.<AncientHornVibration>of(AncientHornVibration::new, MobCategory.MISC)
-			.fireImmune()
-			.sized(0.6F, 0.6F)
-			.eyeHeight(0.3F) // eye height is the height * 0.5F
-			.clientTrackingRange(64)
-			.updateInterval(2)
-			.build(WWConstants.string("ancient_horn_vibration"))
-	);
-
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"))

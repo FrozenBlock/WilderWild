@@ -26,7 +26,6 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
-import net.frozenblock.wilderwild.entity.AncientHornVibration;
 
 public final class WWItemConfig {
 
@@ -40,9 +39,6 @@ public final class WWItemConfig {
 			null
 		)
 	);
-
-	@CollapsibleObject
-	public final AncientHornConfig ancientHorn = new AncientHornConfig();
 
 	@CollapsibleObject
 	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
@@ -65,41 +61,6 @@ public final class WWItemConfig {
 
 	public static WWItemConfig getWithSync() {
 		return INSTANCE.configWithSync();
-	}
-
-	public static class AncientHornConfig {
-		@EntrySyncData("ancientHornCanSummonWarden")
-		public boolean ancientHornCanSummonWarden = true;
-
-		@EntrySyncData("ancientHornLifespan")
-		public int ancientHornLifespan = AncientHornVibration.DEFAULT_LIFESPAN;
-
-		@EntrySyncData("ancientHornMobDamage")
-		public int ancientHornMobDamage = 22;
-
-		@EntrySyncData("ancientHornPlayerDamage")
-		public int ancientHornPlayerDamage = 15;
-
-		@EntrySyncData("ancientHornShattersGlass")
-		public boolean ancientHornShattersGlass = false;
-
-		@EntrySyncData("ancientHornSizeMultiplier")
-		public float ancientHornSizeMultiplier = 0.01F;
-
-		@EntrySyncData("ancientHornCooldown")
-		public int ancientHornCooldown = 600;
-
-		@EntrySyncData("ancientHornCreativeCooldown")
-		public int ancientHornCreativeCooldown = 5;
-
-		@EntrySyncData("ancientHornSensorCooldown")
-		public int ancientHornSensorCooldown = 800;
-
-		@EntrySyncData("ancientHornShriekerCooldown")
-		public int ancientHornShriekerCooldown = 1200;
-
-		@EntrySyncData("ancientHornTendrilCooldown")
-		public int ancientHornTendrilCooldown = 780;
 	}
 
 	public static class ProjectileLandingSoundsConfig {

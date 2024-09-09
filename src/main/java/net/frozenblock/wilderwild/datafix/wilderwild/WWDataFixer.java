@@ -108,7 +108,6 @@ public class WWDataFixer {
 		Schema schemaV16 = builder.addSchema(16, NamespacedSchema::new);
 		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_back with minecraft:music_disc_5", WWConstants.id("music_disc_back"), WWConstants.vanillaId("music_disc_5"), schemaV16);
 		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_goathorn_symphony with minecraft:music_disc_otherside", WWConstants.id("music_disc_goathorn_symphony"), WWConstants.vanillaId("music_disc_otherside"), schemaV16);
-		SimpleFixes.addEntityRenameFix(builder, "Rename ancient_horn_projectile to ancient_horn_vibration", WWConstants.id("ancient_horn_projectile"), WWConstants.id("ancient_horn_vibration"), schemaV16);
 
 		Schema schemaV17 = builder.addSchema(17, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", Map.of(WWConstants.id("magma_caves"), WWConstants.id("magmatic_caves")), schemaV17);
@@ -120,6 +119,8 @@ public class WWDataFixer {
 		Schema schemaV19 = builder.addSchema(19, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename small_sponge to sponge_bud", WWConstants.id("small_sponge"), WWConstants.id("sponge_bud"), schemaV19);
 		SimpleFixes.addItemRenameFix(builder, "Rename small_sponge to sponge_bud", WWConstants.id("small_sponge"), WWConstants.id("sponge_bud"), schemaV19);
+		SimpleFixes.addItemRenameFix(builder, "Rename ancient_horn to echo_glass", WWConstants.id("ancient_horn"), WWConstants.id("echo_glass"), schemaV19);
+		SimpleFixes.addItemRenameFix(builder, "Rename ancient_horn_fragment to echo_glass", WWConstants.id("ancient_horn_fragment"), WWConstants.id("echo_glass"), schemaV19);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

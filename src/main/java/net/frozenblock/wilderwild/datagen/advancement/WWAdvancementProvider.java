@@ -107,23 +107,5 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK))
 			.save(writer, WWConstants.string("adventure/obtain_null_block"));
-
-		Advancement.Builder.advancement()
-			.parent(adventure)
-			.display(
-				WWItems.ANCIENT_HORN,
-				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.title"),
-				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.description"),
-				null,
-				AdvancementType.GOAL,
-				true,
-				true,
-				false
-			)
-			.addCriterion("use_ancient_horn",
-				CriteriaTriggers.USING_ITEM
-					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(WWItems.ANCIENT_HORN).build())))
-			)
-			.save(writer, WWConstants.string("adventure/use_ancient_horn"));
 	}
 }

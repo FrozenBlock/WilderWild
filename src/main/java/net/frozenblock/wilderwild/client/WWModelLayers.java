@@ -27,14 +27,12 @@ import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockE
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
 import net.frozenblock.wilderwild.entity.render.model.ScorchedModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
-import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
@@ -50,7 +48,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @Environment(EnvType.CLIENT)
 public class WWModelLayers {
-	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WWConstants.id("ancient_horn_projectile"), "main");
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WWConstants.id("sculk_sensor"), "main");
 	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WWConstants.id("hanging_tendril"), "main");
 	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WWConstants.id("display_lantern"), "main");
@@ -68,9 +65,6 @@ public class WWModelLayers {
 
 	public static void init() {
 		EntityRendererRegistry.register(WWEntities.FIREFLY, FireflyRenderer::new);
-
-		EntityRendererRegistry.register(WWEntities.ANCIENT_HORN_VIBRATION, AncientHornProjectileRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntities.JELLYFISH, JellyfishRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);

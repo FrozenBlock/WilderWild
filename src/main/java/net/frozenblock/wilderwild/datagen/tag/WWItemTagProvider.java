@@ -72,9 +72,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.STRIPPED_CYPRESS_WOOD.asItem())
 			.add(WWBlocks.STRIPPED_PALM_WOOD.asItem());
 
-		this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
-			.add(WWItems.ANCIENT_HORN);
-
 		this.getOrCreateTagBuilder(WWItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
 			.add(Items.BROWN_MUSHROOM)
 			.addOptional(WWConstants.id("brown_shelf_fungus"));
