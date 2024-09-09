@@ -28,9 +28,6 @@ import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
 public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent, @NotNull TagKey<Item> reproductionFood) {
-
-
-
 	public static final JellyfishVariant BLUE = register(WWConstants.id("blue"), WWConstants.id("textures/entity/jellyfish/blue.png"), false, WWItemTags.JELLYFISH_FOOD);
 	public static final JellyfishVariant LIME = register(WWConstants.id("lime"), WWConstants.id("textures/entity/jellyfish/lime.png"), false, WWItemTags.JELLYFISH_FOOD);
 	public static final JellyfishVariant PINK = register(WWConstants.id("pink"), WWConstants.id("textures/entity/jellyfish/pink.png"), false, WWItemTags.JELLYFISH_FOOD);
