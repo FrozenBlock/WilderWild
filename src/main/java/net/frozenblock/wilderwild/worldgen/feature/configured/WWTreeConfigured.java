@@ -94,17 +94,22 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIRCH_BEES_0004 = register("birch_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIRCH_BEES_025 = register("birch_bees_025");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_BIRCH = register("dying_birch");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_BIRCH_BEES_0004 = register("short_birch_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH_BEES_0004 = register("super_birch_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_SUPER_BIRCH = register("dying_super_birch");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_BIRCH_TREE = register("fallen_birch_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_BIRCH_TREE = register("mossy_fallen_birch_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_BIRCH_BEES_0004 = register("short_birch_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_BIRCH = register("short_birch");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_DYING_BIRCH = register("short_dying_birch");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MEDIUM_BIRCH_BEES_0004 = register("medium_birch_bees_0004");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MEDIUM_BIRCH_BEES_025 = register("medium_birch_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MEDIUM_BIRCH = register("medium_birch");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MEDIUM_DYING_BIRCH = register("medium_dying_birch");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH_BEES = register("super_birch_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH = register("super_birch");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_BIRCH = register("snapped_birch_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_BIRCH = register("dead_birch");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_MEDIUM_BIRCH = register("dead_medium_birch");
 	//CHERRY
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> CHERRY_TREE = register("cherry");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_CHERRY_TREE = register("dying_cherry");
@@ -307,15 +312,6 @@ public final class WWTreeConfigured {
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		SHORT_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
-			shortBirch().decorators(
-				List.of(
-					BEES_0004,
-					SHELF_FUNGUS_006,
-					POLLEN_01)
-			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
 		SUPER_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
 			superBirch().decorators(
 				List.of(
@@ -361,6 +357,16 @@ public final class WWTreeConfigured {
 				)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		SHORT_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
+			shortBirch().decorators(
+				List.of(
+					BEES_0004,
+					SHELF_FUNGUS_006,
+					POLLEN_01
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		SHORT_BIRCH.makeAndSetHolder(Feature.TREE,
 			shortBirch().decorators(
 				List.of(
@@ -371,6 +377,43 @@ public final class WWTreeConfigured {
 
 		SHORT_DYING_BIRCH.makeAndSetHolder(Feature.TREE,
 			shortBirch().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MEDIUM_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
+			mediumBirch().decorators(
+				List.of(
+					BEES_0004,
+					SHELF_FUNGUS_006,
+					POLLEN_01
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MEDIUM_BIRCH_BEES_025.makeAndSetHolder(Feature.TREE,
+			mediumBirch().decorators(
+				List.of(
+					BEES_025,
+					SHELF_FUNGUS_006,
+					POLLEN_01
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MEDIUM_BIRCH.makeAndSetHolder(Feature.TREE,
+			mediumBirch().decorators(
+				List.of(
+					SHELF_FUNGUS_006
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MEDIUM_DYING_BIRCH.makeAndSetHolder(Feature.TREE,
+			mediumBirch().decorators(
 				List.of(
 					SHELF_FUNGUS_006,
 					VINES_1_UNDER_260_03
@@ -408,7 +451,16 @@ public final class WWTreeConfigured {
 		);
 
 		DEAD_BIRCH.makeAndSetHolder(Feature.TREE,
-			deadbirch().decorators(
+			deadBirch().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DEAD_MEDIUM_BIRCH.makeAndSetHolder(Feature.TREE,
+			deadMediumBirch().decorators(
 				List.of(
 					SHELF_FUNGUS_006,
 					VINES_1_UNDER_260_03
@@ -1852,8 +1904,17 @@ public final class WWTreeConfigured {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 6, 2, 2, 0.12F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadbirch() {
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder mediumBirch() {
+		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 2, 2, 0.12F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
+	}
+
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBirch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.AIR, 7, 4, 2, 0.355F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
+	}
+
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadMediumBirch() {
+		return builder(Blocks.BIRCH_LOG, Blocks.AIR, 6, 2, 2, 0.355F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
 	@NotNull

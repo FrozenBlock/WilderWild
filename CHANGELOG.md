@@ -35,6 +35,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
+- Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
+  - Old Growth Birch Forests will still have many tall trees.
+- Birch Saplings can now grow Medium and Super Birches.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.

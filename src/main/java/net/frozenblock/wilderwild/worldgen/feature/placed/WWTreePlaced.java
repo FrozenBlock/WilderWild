@@ -51,6 +51,9 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SHORT_BIRCH = WWPlacementUtils.register("short_birch");
 	public static final FrozenPlacedFeature DYING_SHORT_BIRCH = WWPlacementUtils.register("dying_short_birch");
 	public static final FrozenPlacedFeature SHORT_BIRCH_BEES_0004 = WWPlacementUtils.register("short_birch_bees_0004");
+	public static final FrozenPlacedFeature MEDIUM_BIRCH = WWPlacementUtils.register("medium_birch");
+	public static final FrozenPlacedFeature DYING_MEDIUM_BIRCH = WWPlacementUtils.register("dying_medium_birch");
+	public static final FrozenPlacedFeature MEDIUM_BIRCH_BEES_0004 = WWPlacementUtils.register("medium_birch_bees_0004");
 	public static final FrozenPlacedFeature DYING_SUPER_BIRCH = WWPlacementUtils.register("dying_super_birch");
 	public static final FrozenPlacedFeature SUPER_BIRCH_BEES_0004 = WWPlacementUtils.register("super_birch_bees_0004");
 	public static final FrozenPlacedFeature SUPER_BIRCH_BEES = WWPlacementUtils.register("super_birch_bees");
@@ -59,6 +62,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = WWPlacementUtils.register("mossy_fallen_birch_checked");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_CHECKED = WWPlacementUtils.register("snapped_birch_checked");
 	public static final FrozenPlacedFeature DEAD_BIRCH = WWPlacementUtils.register("dead_birch");
+	public static final FrozenPlacedFeature DEAD_MEDIUM_BIRCH = WWPlacementUtils.register("dead_medium_birch");
 	//CHERRY
 	public static final FrozenPlacedFeature CHERRY_CHECKED = WWPlacementUtils.register("cherry_checked");
 	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = WWPlacementUtils.register("dying_cherry_checked");
@@ -248,6 +252,18 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
+		MEDIUM_BIRCH.makeAndSetHolder(WWTreeConfigured.MEDIUM_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		DYING_MEDIUM_BIRCH.makeAndSetHolder(WWTreeConfigured.MEDIUM_DYING_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		MEDIUM_BIRCH_BEES_0004.makeAndSetHolder(WWTreeConfigured.MEDIUM_BIRCH_BEES_0004.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
 		DYING_SUPER_BIRCH.makeAndSetHolder(WWTreeConfigured.DYING_SUPER_BIRCH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
@@ -277,6 +293,10 @@ public final class WWTreePlaced {
 		);
 
 		DEAD_BIRCH.makeAndSetHolder(WWTreeConfigured.DEAD_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		DEAD_MEDIUM_BIRCH.makeAndSetHolder(WWTreeConfigured.DEAD_MEDIUM_BIRCH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 

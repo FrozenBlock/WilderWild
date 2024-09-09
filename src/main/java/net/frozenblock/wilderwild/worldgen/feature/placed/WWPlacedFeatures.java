@@ -101,7 +101,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature DARK_BIRCH_FOREST_VEGETATION = register("dark_birch_forest_vegetation");
 	public static final FrozenPlacedFeature DARK_TAIGA_VEGETATION = register("dark_taiga_vegetation");
 	public static final FrozenPlacedFeature TREES_BIRCH = register("trees_birch");
-	public static final FrozenPlacedFeature BIRCH_TALL = register("birch_tall");
+	public static final FrozenPlacedFeature TREES_BIRCH_TALL = register("trees_birch_tall");
 	public static final FrozenPlacedFeature SPRUCE_PLACED = register("spruce_placed");
 	public static final FrozenPlacedFeature SHORT_SPRUCE_PLACED = register("short_spruce_placed");
 	public static final FrozenPlacedFeature SHORT_SPRUCE_RARE_PLACED = register("short_spruce_rare_placed");
@@ -527,7 +527,7 @@ public final class WWPlacedFeatures {
 				).build()
 		);
 
-		BIRCH_TALL.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH_TALL.getHolder(),
+		TREES_BIRCH_TALL.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH_TALL.getHolder(),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
 				.add(
 					WWPlacementUtils.TREE_CLEARING_FILTER
