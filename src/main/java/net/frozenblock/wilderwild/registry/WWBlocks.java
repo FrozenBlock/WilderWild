@@ -309,7 +309,7 @@ public final class WWBlocks {
 		HollowedLogBlock::new,
 		hollowedStemProperties(MapColor.CRIMSON_STEM)
 	);
-	public static final HollowedLogBlock HOLLOWED_WARPED_STEM = register("hollowed_warp_stem",
+	public static final HollowedLogBlock HOLLOWED_WARPED_STEM = register("hollowed_warped_stem",
 		HollowedLogBlock::new,
 		hollowedStemProperties(MapColor.WARPED_STEM)
 	);
