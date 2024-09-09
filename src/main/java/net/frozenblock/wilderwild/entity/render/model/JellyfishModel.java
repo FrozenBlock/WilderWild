@@ -46,7 +46,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		super(root, FrozenRenderType::entityTranslucentEmissiveFixed);
 		ModelPart bone = root.getChild("bone");
 		this.body = bone.getChild("body");
-		this.tentacleBase = bone.getChild("tentacleBase");
+		this.tentacleBase = this.body.getChild("tentacleBase");
 		Arrays.setAll(this.tentacles, i -> tentacleBase.getChild(createTentacleName(i)));
 	}
 
@@ -57,10 +57,10 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 
 		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.ZERO);
 
-		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -2F, -4F, 8F, 5F, 8F)
+		PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -2F, -4F, 8F, 5F, 8F)
 			.texOffs(4, 13).addBox(-3F, -1F, -3F, 6F, 3F, 6F), PartPose.ZERO);
 
-		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.ZERO);
+		PartDefinition tentacleBase = body.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.ZERO);
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
 		return LayerDefinition.create(meshDefinition, 64, 64);
@@ -102,13 +102,14 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 
 	@Override
 	public void setupAnim(@NotNull JellyfishRenderState renderState) {
+		super.setupAnim(renderState);
 		this.body.xRot = renderState.jellyXRot;
-		this.tentacleBase.xRot = renderState.tentXRot;
+		this.tentacleBase.xRot = renderState.jellyXRot - renderState.tentXRot;
 
 		float walkPos = renderState.walkAnimationPos;
 		float walkSpeed = renderState.walkAnimationSpeed;
 
-		float animation = walkPos * 2;
+		float animation = walkPos * 2F;
 		float movementDelta = Math.min(walkSpeed * 26.6666667F, 1F);
 
 		//SQUASH & STRETCH
@@ -116,15 +117,26 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		float sinIdle = (float) (Math.sin(renderState.ageInTicks * 0.1F) * 0.2F);
 		float squashStretch = 1F + (-sin * 0.25F);
 		float squash = Mth.lerp(movementDelta, sinIdle + 1F, squashStretch);
+		float stretch = Mth.lerp(movementDelta, -sinIdle + 1F, 1.25F + (sin * 0.75F));
 
 		this.body.xScale = squash;
 		this.body.zScale = squash;
-		this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1F, 1.25F + (sin * 0.75F));
+		this.body.yScale = stretch;
+
+		float antiSquash = 1F / squash;
+		this.tentacleBase.xScale = antiSquash;
+		this.tentacleBase.zScale = antiSquash;
+		this.tentacleBase.yScale = 1F / stretch;
+
 
 		this.body.y = Mth.lerp(movementDelta, 0F, 3.5F - (squashStretch * 3.5F));
-		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 2F);
-
-		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD);
+		this.tentacleBase.y -= this.body.y;
+		this.tentacleBase.y += Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 1.5F);
+		float tentRot = -fasterRotLerp(
+			movementDelta,
+			(float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI,
+			(float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD
+		);
 
 		for (ModelPart modelPart : this.tentacles) {
 			PartPose initialPose = modelPart.getInitialPose();

@@ -46,18 +46,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 	@Override
 	protected void setupRotations(@NotNull JellyfishRenderState renderState, @NotNull PoseStack poseStack, float rotationYaw, float g) {
-		poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
-		poseStack.translate(0F, -0.3F * renderState.scale, 0F);
-		poseStack.scale(0.8F, 0.8F, 0.8F);
-
-		if (this.isShaking(renderState)) {
-			poseStack.mulPose(Axis.YP.rotationDegrees((float) (Math.cos((double) renderState.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
-		}
-
-		if (renderState.isUpsideDown) {
-			poseStack.translate(0F, renderState.boundingBoxHeight + 0.1F, 0F);
-			poseStack.mulPose(Axis.ZP.rotationDegrees(180F));
-		}
+		super.setupRotations(renderState, poseStack, rotationYaw, g);
+		poseStack.translate(0F, -1F * renderState.ageScale, 0F);
 	}
 
 	@Override
@@ -73,6 +63,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	@Override
 	protected void scale(JellyfishRenderState renderState, PoseStack poseStack) {
 		super.scale(renderState, poseStack);
+		poseStack.scale(0.8F, 0.8F, 0.8F);
 		poseStack.scale(renderState.jellyScale, renderState.jellyScale, renderState.jellyScale);
 	}
 
@@ -83,11 +74,9 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull JellyfishRenderState jellyfish) {
-		if (jellyfish.isRGB) {
-			return WHITE_TEXTURE;
-		}
-		return jellyfish.variant.texture();
+	public ResourceLocation getTextureLocation(@NotNull JellyfishRenderState renderState) {
+		if (renderState.isRGB) return WHITE_TEXTURE;
+		return renderState.variant.texture();
 	}
 
 	@Override
