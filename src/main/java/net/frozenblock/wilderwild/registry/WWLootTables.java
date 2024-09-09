@@ -34,21 +34,6 @@ public final class WWLootTables {
 
 	public static void init() {
 		WWConstants.logWithModId("Registering Loot Table Modifications for", WWConstants.UNSTABLE_LOGGING);
-		//ANCIENT HORN FRAGMENT
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
-			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
-				LootPool.Builder pool = LootPool.lootPool();
-				pool.add(LootItem.lootTableItem(WWItems.ANCIENT_HORN_FRAGMENT)
-					.setWeight(1)
-					.setQuality(Rarity.EPIC.ordinal() + 4)
-					.apply(
-						SetItemCountFunction.setCount(UniformGenerator.between(-3.75F, 1.0F))
-					)
-				);
-
-				tableBuilder.withPool(pool);
-			}
-		});
 		//ALGAE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
