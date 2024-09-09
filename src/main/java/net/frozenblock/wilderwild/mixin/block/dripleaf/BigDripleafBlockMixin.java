@@ -64,7 +64,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
-		if (WWBlockConfig.get().dripleafPowering) {
+		if (orientation != null && WWBlockConfig.get().dripleafPowering) {
 			boolean wasChangedBelow = orientation.getVerticalDirections().contains(Direction.DOWN);
 			if (wasChangedBelow) {
 				BlockState downState = level.getBlockState(pos.below());
