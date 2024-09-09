@@ -135,7 +135,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(Items.FEATHER)
+							LootItem.lootTableItem(Items.STICK)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
