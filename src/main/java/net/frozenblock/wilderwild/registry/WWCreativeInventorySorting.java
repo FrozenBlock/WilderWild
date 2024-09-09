@@ -51,6 +51,7 @@ public class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.BAOBAB_FENCE_GATE, WWBlocks.BAOBAB_DOOR);
 		addAfterInBuildingBlocks(WWBlocks.BAOBAB_DOOR, WWBlocks.BAOBAB_TRAPDOOR);
 		addAfterInBuildingBlocks(WWBlocks.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_PRESSURE_PLATE);
+		addAfterInBuildingBlocks(WWBlocks.BAOBAB_PRESSURE_PLATE, WWBlocks.BAOBAB_BUTTON);
 		// BAOBAB (NATURAL BLOCKS)
 		addAfterInNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.BAOBAB_LOG);
 		addAfterInNaturalBlocks(Items.MANGROVE_LEAVES, WWBlocks.BAOBAB_LEAVES);

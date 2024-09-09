@@ -98,6 +98,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 		renderState.itemZ = entity.itemZ;
 		renderState.pitch = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD;
 		renderState.roll = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD;
+		renderState.visibleItem = entity.getVisibleItem();
 		renderState.level = entity.level();
 	}
 }
