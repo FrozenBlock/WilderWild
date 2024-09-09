@@ -683,7 +683,7 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.SUNFLOWER)
 	);
 
-	public static final MilkweedBlock MILKWEED = registerBlock("milkweed",
+	public static final MilkweedBlock MILKWEED = register("milkweed",
 		MilkweedBlock::new,
 		Properties.ofFullCopy(Blocks.SUNFLOWER)
 			.randomTicks()
