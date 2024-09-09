@@ -409,7 +409,7 @@ public final class WWBlocks {
 		0.125F,
 		2F
 	);
-	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = leafLitter("darkk_oak_leaf_litter",
+	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = leafLitter("dark_oak_leaf_litter",
 		Blocks.DARK_OAK_LEAVES,
 		WWParticleTypes.DARK_OAK_LEAVES,
 		0.004F,
