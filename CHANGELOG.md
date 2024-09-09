@@ -34,6 +34,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
+- The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
@@ -47,6 +48,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Baobab, Cypress, and Palm foliage is now found between Mangrove Leaves and Cherry Leaves in the creative inventory.
 - Fixed potential worldgen feature cycle crashes when certain config options were disabled.
 - Removed many duplicate spawn entries in Wilder Wild's biomes.
+- Tumbleweed no longer drop feathers.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
