@@ -55,7 +55,8 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
 			this.root.xRot = renderState.tumbleRot;
 		} else {
-			this.root.xRot = 0F;
+			this.root.xRot = renderState.pitch;
+			this.root.zRot = renderState.roll;
 		}
 	}
 
