@@ -64,10 +64,10 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
-		if (WWBlockConfig.get().dripleafPowering) {
+		if (orientation != null && WWBlockConfig.get().dripleafPowering) {
 			boolean wasChangedBelow = orientation.getVerticalDirections().contains(Direction.DOWN);
+			BlockState downState = level.getBlockState(pos.below());
 			if (wasChangedBelow) {
-				BlockState downState = level.getBlockState(pos.below());
 				if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
 					state = state.setValue(BlockStateProperties.POWERED, downState.getValue(BlockStateProperties.POWERED));
 					level.setBlock(pos, state, 3);
@@ -77,7 +77,6 @@ public final class BigDripleafBlockMixin {
 					info.cancel();
 				}
 			} else {
-				BlockState downState = level.getBlockState(pos.below());
 				boolean hasNeighborSignal = level.hasNeighborSignal(pos);
 				if (!(downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) && state.getValue(BlockStateProperties.POWERED) != hasNeighborSignal) {
 					level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, hasNeighborSignal), 3);

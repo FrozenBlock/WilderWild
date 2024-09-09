@@ -19,8 +19,8 @@
       "type": "wilderwild:maple_foliage_placer",
       "length": {
         "type": "minecraft:uniform",
-        "max_inclusive": 11,
-        "min_inclusive": 8
+        "max_inclusive": 3,
+        "min_inclusive": 0
       },
       "offset": {
         "type": "minecraft:uniform",
@@ -54,7 +54,7 @@
     },
     "trunk_placer": {
       "type": "minecraft:straight_trunk_placer",
-      "base_height": 14,
+      "base_height": 6,
       "height_rand_a": 1,
       "height_rand_b": 1
     },

@@ -718,7 +718,7 @@ public final class WWPlacedFeatures {
 		);
 
 		MAPLE_TREES.makeAndSetHolder(WWConfiguredFeatures.MAPLES.getHolder(),
-			PlacementUtils.countExtra(4, 0.1F, 2), InSquarePlacement.spread(),
+			PlacementUtils.countExtra(6, 0.1F, 2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING),
 			TREE_THRESHOLD,

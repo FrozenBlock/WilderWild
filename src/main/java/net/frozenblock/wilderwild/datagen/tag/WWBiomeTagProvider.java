@@ -1219,7 +1219,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.RAINFOREST)
 			.addOptional(WWWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(WWWorldgen.DYING_FOREST)
-			.addOptional(WWWorldgen.DYING_MIXED_FOREST);
+			.addOptional(WWWorldgen.DYING_MIXED_FOREST)
+			.addOptional(WWWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PLAINS_FLOWERS)
 			.add(Biomes.PLAINS)
