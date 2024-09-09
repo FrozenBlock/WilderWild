@@ -22,7 +22,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -65,7 +65,7 @@ public class FireflyBottle extends Item {
 			float g = -Mth.sin((pitch + roll) * Mth.DEG_TO_RAD);
 			float h = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 			ItemStack stack = player.getItemInHand(usedHand);
-			Firefly entity = WWEntities.FIREFLY.create(server);
+			Firefly entity = WWEntityTypes.FIREFLY.create(server);
 			if (entity != null) {
 				entity.setDeltaMovement(f * 0.7D, g * 0.7D, h * 0.7D);
 				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());

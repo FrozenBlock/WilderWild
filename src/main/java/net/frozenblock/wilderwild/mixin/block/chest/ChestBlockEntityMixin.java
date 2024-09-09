@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.chest;
 
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -104,11 +104,11 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level != null) {
 			if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-				ChestBubbleTicker.createAndSpawn(WWEntities.CHEST_BUBBLER, level, pos);
+				ChestBubbleTicker.createAndSpawn(WWEntityTypes.CHEST_BUBBLER, level, pos);
 				this.wilderWild$canBubble = false;
 				ChestBlockEntity otherChest = wilderWild$getOtherEntity(level, pos, state);
 				if (otherChest != null) {
-					ChestBubbleTicker.createAndSpawn(WWEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
+					ChestBubbleTicker.createAndSpawn(WWEntityTypes.CHEST_BUBBLER, level, otherChest.getBlockPos());
 					((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
 				}
 			}

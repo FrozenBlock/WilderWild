@@ -23,7 +23,7 @@ import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.lib.datagen.api.EntityLootHelper;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -52,7 +52,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		HolderLookup.Provider registryLookup = this.registries.join();
 		output.accept(
-			WWEntities.CRAB.getDefaultLootTable(),
+			WWEntityTypes.CRAB.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -67,7 +67,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			WWEntities.OSTRICH.getDefaultLootTable(),
+			WWEntityTypes.OSTRICH.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -81,7 +81,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			WWEntities.SCORCHED.getDefaultLootTable(),
+			WWEntityTypes.SCORCHED.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -105,7 +105,7 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		output.accept(
-			WWEntities.TUMBLEWEED.getDefaultLootTable(),
+			WWEntityTypes.TUMBLEWEED.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

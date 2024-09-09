@@ -42,7 +42,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
-public final class WWEntities {
+public final class WWEntityTypes {
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"))
@@ -120,16 +120,16 @@ public final class WWEntities {
 			.build(WWConstants.string("sculk_spreader"))
 	);
 
-	public static final EntityType<FallingLeafTicker> FALLING_LEAF_TICKER = register(
-		"falling_leaf_ticker",
+	public static final EntityType<FallingLeafTicker> FALLING_LEAVES = register(
+		"falling_leaves",
 		EntityType.Builder.<FallingLeafTicker>of(FallingLeafTicker::new, MobCategory.MISC)
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
-			.build(WWConstants.string("falling_leaf_ticker"))
+			.build(WWConstants.string("falling_leaves"))
 	);
 
-	private WWEntities() {
+	private WWEntityTypes() {
 		throw new UnsupportedOperationException("RegisterEntities contains only static declarations.");
 	}
 

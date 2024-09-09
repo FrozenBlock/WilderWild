@@ -31,7 +31,7 @@ import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichMoveControl;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -630,7 +630,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
-			&& livingEntity.getType() != WWEntities.OSTRICH
+			&& livingEntity.getType() != WWEntityTypes.OSTRICH
 			&& !this.isVehicle()
 			&& !(livingEntity instanceof Player && this.isTamed())
 			&& !livingEntity.isInvulnerable()
@@ -815,7 +815,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public Ostrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
-		return WWEntities.OSTRICH.create(level);
+		return WWEntityTypes.OSTRICH.create(level);
 	}
 
 	@Override

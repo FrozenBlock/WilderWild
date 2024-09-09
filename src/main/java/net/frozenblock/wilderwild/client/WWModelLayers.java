@@ -40,7 +40,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntities;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -64,26 +64,26 @@ public class WWModelLayers {
 
 
 	public static void init() {
-		EntityRendererRegistry.register(WWEntities.FIREFLY, FireflyRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.FIREFLY, FireflyRenderer::new);
 
-		EntityRendererRegistry.register(WWEntities.JELLYFISH, JellyfishRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.JELLYFISH, JellyfishRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
 
-		EntityRendererRegistry.register(WWEntities.TUMBLEWEED, TumbleweedRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.TUMBLEWEED, TumbleweedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
 
-		EntityRendererRegistry.register(WWEntities.CRAB, CrabRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.CRAB, CrabRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(CRAB, CrabModel::createBodyLayer);
 
-		EntityRendererRegistry.register(WWEntities.OSTRICH, OstrichRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.OSTRICH, OstrichRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
 
-		EntityRendererRegistry.register(WWEntities.SCORCHED, ScorchedRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.SCORCHED, ScorchedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SCORCHED, ScorchedModel::createSpiderBodyLayer);
 
-		EntityRendererRegistry.register(WWEntities.COCONUT, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
 
 		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
 		BlockEntityRenderers.register(BlockEntityType.CALIBRATED_SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);

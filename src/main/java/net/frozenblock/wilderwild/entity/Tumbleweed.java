@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
@@ -159,7 +159,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	public static void spawnFromShears(@NotNull Level level, BlockPos pos) {
 		level.playSound(null, pos, WWSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
-		Tumbleweed weed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
+		Tumbleweed weed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
 		level.addFreshEntity(weed);
 		weed.setPos(Vec3.atBottomCenterOf(pos));
 		weed.spawnedFromShears = true;

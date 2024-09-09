@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
@@ -40,10 +40,10 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.SLIME)
 			.add(EntityType.WARDEN)
 			.add(EntityType.WITHER)
-			.add(WWEntities.JELLYFISH);
+			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WWEntityTags.STAYS_IN_MESOGLEA)
-			.add(WWEntities.JELLYFISH);
+			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WWEntityTags.JELLYFISH_CANT_STING)
 			.add(EntityType.SQUID)
@@ -53,8 +53,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.PUFFERFISH)
 			.add(EntityType.AXOLOTL)
 			.add(EntityType.TURTLE)
-			.add(WWEntities.JELLYFISH)
-			.add(WWEntities.TUMBLEWEED);
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.TUMBLEWEED);
 
 		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_BONK)
 			.add(EntityType.SQUID)
@@ -62,11 +62,11 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.SPIDER)
 			.add(EntityType.CAVE_SPIDER)
-			.add(WWEntities.SCORCHED)
+			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntities.FIREFLY)
-			.add(WWEntities.JELLYFISH)
-			.add(WWEntities.TUMBLEWEED)
+			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
 		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
@@ -79,11 +79,11 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.PUFFERFISH)
 			.add(EntityType.SPIDER)
 			.add(EntityType.CAVE_SPIDER)
-			.add(WWEntities.SCORCHED)
+			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntities.FIREFLY)
-			.add(WWEntities.JELLYFISH)
-			.add(WWEntities.TUMBLEWEED)
+			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
 		this.getOrCreateTagBuilder(WWEntityTags.ANCIENT_HORN_IMMUNE)
@@ -96,11 +96,11 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
-			.add(WWEntities.CRAB)
-			.add(WWEntities.JELLYFISH);
+			.add(WWEntityTypes.CRAB)
+			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
-			.add(WWEntities.JELLYFISH);
+			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
 			.add(EntityType.SQUID)
@@ -115,19 +115,19 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.SPECTRAL_ARROW);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
-			.add(WWEntities.OSTRICH)
-			.add(WWEntities.SCORCHED);
+			.add(WWEntityTypes.OSTRICH)
+			.add(WWEntityTypes.SCORCHED);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.ARTHROPOD)
-			.add(WWEntities.CRAB)
-			.add(WWEntities.SCORCHED);
+			.add(WWEntityTypes.CRAB)
+			.add(WWEntityTypes.SCORCHED);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.AQUATIC)
-			.add(WWEntities.CRAB)
-			.add(WWEntities.JELLYFISH);
+			.add(WWEntityTypes.CRAB)
+			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
-			.add(WWEntities.SCORCHED);
+			.add(WWEntityTypes.SCORCHED);
 
 	}
 }

@@ -27,7 +27,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.minecraft.tags.DamageTypeTags;
@@ -151,7 +151,7 @@ public class OstrichAi {
 			Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(WWEntities.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(1, new AnimalMakeLove(WWEntityTypes.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(
 					2,
 					new RunOne<>(

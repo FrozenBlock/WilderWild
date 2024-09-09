@@ -34,7 +34,7 @@ import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -202,7 +202,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (checkConfig && !WWEntityConfig.get().jellyfish.spawnJellyfish) {
 			return;
 		}
-		Jellyfish jellyfish = new Jellyfish(WWEntities.JELLYFISH, level);
+		Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
 		double additionalX = 0D;
 		double additionalZ = 0D;
@@ -501,7 +501,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
-			&& livingEntity.getType() != WWEntities.JELLYFISH
+			&& livingEntity.getType() != WWEntityTypes.JELLYFISH
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
@@ -583,7 +583,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void spawnChild(ServerLevel level) {
-		Jellyfish jellyfish = WWEntities.JELLYFISH.create(level);
+		Jellyfish jellyfish = WWEntityTypes.JELLYFISH.create(level);
 		if (jellyfish == null) {
 			return;
 		}
@@ -636,7 +636,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public ResourceKey<LootTable> getDefaultLootTable() {
-		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntities.JELLYFISH);
+		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
 		return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath()));
 	}
 

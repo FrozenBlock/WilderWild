@@ -1531,7 +1531,7 @@ public final class WWBlocks {
 				Level level = source.level();
 				Direction direction = source.state().getValue(DispenserBlock.FACING);
 				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-				Tumbleweed tumbleweed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
+				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
 				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ()).normalize().add(level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D)).scale(1.1D);
 				tumbleweed.setDeltaMovement(vec3);
 				tumbleweed.setPos(position);
