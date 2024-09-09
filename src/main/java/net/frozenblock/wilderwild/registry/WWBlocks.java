@@ -86,8 +86,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -172,7 +170,7 @@ public final class WWBlocks {
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SCORCHED_SAND = registerBlock("scorched_sand",
+	public static final ScorchedBlock SCORCHED_SAND = registerWithoutItem("scorched_sand",
 		properties -> new ScorchedBlock(
 			Blocks.SAND.defaultBlockState(),
 			true,
@@ -187,7 +185,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_RED_SAND = registerBlock("scorched_red_sand",
+	public static final ScorchedBlock SCORCHED_RED_SAND = registerWithoutItem("scorched_red_sand",
 		properties ->new ScorchedBlock(
 			Blocks.RED_SAND.defaultBlockState(),
 			true,
@@ -202,7 +200,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final BaobabNutBlock BAOBAB_NUT = registerBlock("baobab_nut",
+	public static final BaobabNutBlock BAOBAB_NUT = registerWithoutItem("baobab_nut",
 		properties -> new BaobabNutBlock(WWTreeGrowers.BAOBAB, properties),
 		Properties.ofFullCopy(Blocks.BAMBOO)
 			.sound(WWSoundTypes.BAOBAB_NUT)
@@ -212,7 +210,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = registerBlock("prickly_pear",
+	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = registerWithoutItem("prickly_pear",
 		PricklyPearCactusBlock::new,
 		Properties.ofFullCopy(Blocks.CACTUS)
 			.noCollission()
@@ -228,7 +226,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final CoconutBlock COCONUT = registerBlock("coconut",
+	public static final CoconutBlock COCONUT = registerWithoutItem("coconut",
 		properties -> new CoconutBlock(WWTreeGrowers.PALM, properties),
 		Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
 	);
@@ -525,7 +523,7 @@ public final class WWBlocks {
 			.emissiveRendering((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state))
 	);
 
-	public static final EchoGlassBlock ECHO_GLASS = registerBlock("echo_glass",
+	public static final EchoGlassBlock ECHO_GLASS = registerWithoutItem("echo_glass",
 		EchoGlassBlock::new,
 		Properties.ofFullCopy(Blocks.TINTED_GLASS)
 			.mapColor(MapColor.COLOR_CYAN)
@@ -697,12 +695,12 @@ public final class WWBlocks {
 			.noOcclusion()
 	);
 
-	public static final WaterlilyBlock FLOWERING_LILY_PAD = registerBlock("flowering_lily_pad",
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = registerWithoutItem("flowering_lily_pad",
 		WaterlilyBlock::new,
 		Properties.ofFullCopy(Blocks.LILY_PAD)
 	);
 
-	public static final AlgaeBlock ALGAE = registerBlock("algae",
+	public static final AlgaeBlock ALGAE = registerWithoutItem("algae",
 		AlgaeBlock::new,
 		Properties.ofFullCopy(Blocks.FROGSPAWN)
 			.mapColor(MapColor.PLANT)
@@ -787,7 +785,7 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final PollenBlock POLLEN = registerBlock("pollen",
+	public static final PollenBlock POLLEN = registerWithoutItem("pollen",
 		PollenBlock::new,
 		Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
@@ -820,7 +818,7 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.NULL_BLOCK)
 	);
 
-	public static final DisplayLanternBlock DISPLAY_LANTERN = registerBlock("display_lantern",
+	public static final DisplayLanternBlock DISPLAY_LANTERN = registerWithoutItem("display_lantern",
 		DisplayLanternBlock::new,
 		Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
@@ -893,12 +891,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock BAOBAB_SIGN = registerBlock("baobab_sign",
+	public static final SignBlock BAOBAB_SIGN = registerWithoutItem("baobab_sign",
 		properties -> new StandingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 	);
-	public static final SignBlock BAOBAB_WALL_SIGN = registerBlock("baobab_wall_sign",
+	public static final SignBlock BAOBAB_WALL_SIGN = registerWithoutItem("baobab_wall_sign",
 		properties -> new WallSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
@@ -920,12 +918,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = registerBlock("baobab_hanging_sign",
+	public static final CeilingHangingSignBlock BAOBAB_HANGING_SIGN = registerWithoutItem("baobab_hanging_sign",
 		properties -> new CeilingHangingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = registerBlock("baobab_wall_hanging_sign",
+	public static final WallHangingSignBlock BAOBAB_WALL_HANGING_SIGN = registerWithoutItem("baobab_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(BAOBAB_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(BAOBAB_LOG.defaultMapColor())
@@ -1001,12 +999,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock CYPRESS_SIGN = registerBlock("cypress_sign",
+	public static final SignBlock CYPRESS_SIGN = registerWithoutItem("cypress_sign",
 		properties -> new StandingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 	);
-	public static final SignBlock CYPRESS_WALL_SIGN = registerBlock("cypress_wall_sign",
+	public static final SignBlock CYPRESS_WALL_SIGN = registerWithoutItem("cypress_wall_sign",
 		properties -> new WallSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
@@ -1028,12 +1026,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock CYPRESS_HANGING_SIGN = registerBlock("cypress_hanging_sign",
+	public static final CeilingHangingSignBlock CYPRESS_HANGING_SIGN = registerWithoutItem("cypress_hanging_sign",
 		properties -> new CeilingHangingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = registerBlock("cypress_wall_hanging_sign",
+	public static final WallHangingSignBlock CYPRESS_WALL_HANGING_SIGN = registerWithoutItem("cypress_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(CYPRESS_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(CYPRESS_LOG.defaultMapColor())
@@ -1110,12 +1108,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock PALM_SIGN = registerBlock("palm_sign",
+	public static final SignBlock PALM_SIGN = registerWithoutItem("palm_sign",
 		properties -> new StandingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
 	);
-	public static final SignBlock PALM_WALL_SIGN = registerBlock("palm_wall_sign",
+	public static final SignBlock PALM_WALL_SIGN = registerWithoutItem("palm_wall_sign",
 		properties -> new WallSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
@@ -1137,12 +1135,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = registerBlock("palm_hanging_sign",
+	public static final CeilingHangingSignBlock PALM_HANGING_SIGN = registerWithoutItem("palm_hanging_sign",
 		properties -> new CeilingHangingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = registerBlock("palm_wall_hanging_sign",
+	public static final WallHangingSignBlock PALM_WALL_HANGING_SIGN = registerWithoutItem("palm_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(PALM_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(PALM_LOG.defaultMapColor())
@@ -1224,12 +1222,12 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, SoundType.WOOD)
 	);
-	public static final SignBlock MAPLE_SIGN = registerBlock("maple_sign",
+	public static final SignBlock MAPLE_SIGN = registerWithoutItem("maple_sign",
 		properties -> new StandingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
 	);
-	public static final WallSignBlock MAPLE_WALL_SIGN = registerBlock("maple_wall_sign",
+	public static final WallSignBlock MAPLE_WALL_SIGN = registerWithoutItem("maple_wall_sign",
 		properties -> new WallSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
@@ -1251,12 +1249,12 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	public static final CeilingHangingSignBlock MAPLE_HANGING_SIGN = registerBlock("maple_hanging_sign",
+	public static final CeilingHangingSignBlock MAPLE_HANGING_SIGN = registerWithoutItem("maple_hanging_sign",
 		properties -> new CeilingHangingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
 	);
-	public static final WallHangingSignBlock MAPLE_WALL_HANGING_SIGN = registerBlock("maple_wall_hanging_sign",
+	public static final WallHangingSignBlock MAPLE_WALL_HANGING_SIGN = registerWithoutItem("maple_wall_hanging_sign",
 		properties -> new WallHangingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
@@ -1286,13 +1284,13 @@ public final class WWBlocks {
 	public static void registerBlocks() {
 		WWConstants.logWithModId("Registering Blocks for", WWConstants.UNSTABLE_LOGGING);
 	}
-	private static <T extends Block> T registerBlock(String path, Function<Properties, T> block, Properties properties) {
+	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
 		ResourceLocation id = WWConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
 	private static <T extends Block> T register(String path, Function<Properties, T> block, Properties properties) {
-		T registered = registerBlock(path, block, properties);
+		T registered = registerWithoutItem(path, block, properties);
 		Items.registerBlock(registered);
 		return registered;
 	}
