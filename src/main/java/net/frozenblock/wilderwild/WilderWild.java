@@ -58,7 +58,7 @@ import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WWVillagerTypes;
+import net.frozenblock.wilderwild.registry.WWVillagers;
 import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.modification.WilderWorldGen;
@@ -108,7 +108,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		TermiteManager.Termite.addDegradableBlocks();
 		TermiteManager.Termite.addNaturalDegradableBlocks();
 		WWBlocks.registerBlockProperties();
-		WWVillagerTypes.register();
+		WWVillagers.register();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();

@@ -19,13 +19,15 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Map;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 
-public final class WWVillagerTypes {
-	private WWVillagerTypes() {
-		throw new UnsupportedOperationException("RegisterVillagerTypes contains only static declarations.");
+public final class WWVillagers {
+	private WWVillagers() {
+		throw new UnsupportedOperationException("WWVillagers contains only static declarations.");
 	}
 
 	public static void register() {
@@ -48,5 +50,12 @@ public final class WWVillagerTypes {
 		villagerTypeMap.put(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA, VillagerType.TAIGA);
 		villagerTypeMap.put(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWWorldgen.FLOWER_FIELD, VillagerType.PLAINS);
+
+		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.COCONUT, 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
+		});
 	}
 }

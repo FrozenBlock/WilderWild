@@ -246,13 +246,6 @@ public final class WWItems {
 		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
 
-		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.COCONUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
-		});
-
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
@@ -297,9 +290,5 @@ public final class WWItems {
 		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WWConstants.id(path), item);
 		}
-	}
-
-	private static <S extends RecipeSerializer<T>, T extends Recipe<?>> @NotNull S registerSerializer(String key, S recipeSerializer) {
-		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WWConstants.id(key), recipeSerializer);
 	}
 }
