@@ -168,8 +168,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_PLACED = register("snapped_dark_oak");
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_CLEARING_PLACED = register("snapped_dark_oak_clearing");
 	//MUSHROOMS
-	public static final FrozenPlacedFeature BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed");
-	public static final FrozenPlacedFeature RED_SHELF_FUNGUS_PLACED = register("red_shelf_fungus_placed");
+	public static final FrozenPlacedFeature BROWN_SHELF_FUNGI = register("brown_shelf_fungi");
+	public static final FrozenPlacedFeature RED_SHELF_FUNGI = register("red_shelf_fungi");
+	public static final FrozenPlacedFeature CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi");
+	public static final FrozenPlacedFeature WARPED_SHELF_FUNGI = register("warped_shelf_fungi");
 	public static final FrozenPlacedFeature BROWN_MUSHROOM_PLACED = register("brown_mushroom_placed");
 	public static final FrozenPlacedFeature RED_MUSHROOM_PLACED = register("red_mushroom_placed");
 	public static final FrozenPlacedFeature DARK_FOREST_MUSHROOM_PLACED = register("dark_forest_mushroom_placed");
@@ -869,14 +871,28 @@ public final class WWPlacedFeatures {
 
 		// MUSHROOMS
 
-		BROWN_SHELF_FUNGUS_PLACED.makeAndSetHolder(WWConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED.getHolder(),
-			RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+		BROWN_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.BROWN_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(11),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
-		RED_SHELF_FUNGUS_PLACED.makeAndSetHolder(WWConfiguredFeatures.RED_SHELF_FUNGUS_CONFIGURED.getHolder(),
-			RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+		RED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.RED_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(11),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+		);
+
+		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(80),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
+		);
+
+		WARPED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
+			 CountPlacement.of(80),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
 		);
 
 		BROWN_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BROWN_MUSHROOM),

@@ -22,7 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -62,17 +62,17 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
 		if (abstractRandom.nextFloat() <= this.probability) {
 			List<BlockPos> poses = generator.logs();
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			BlockState redState = WWBlocks.RED_SHELF_FUNGUS.defaultBlockState();
-			BlockState brownState = WWBlocks.BROWN_SHELF_FUNGUS.defaultBlockState();
+			BlockState redState = WWBlocks.RED_SHELF_FUNGI.defaultBlockState();
+			BlockState brownState = WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState();
 			for (BlockPos pos : poses) {
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
 					if (abstractRandom.nextFloat() <= this.placementChance) {
 						mutableBlockPos.setWithOffset(pos, direction);
 						if (generator.isAir(mutableBlockPos)) {
 							if (generator.random().nextFloat() < redShelfFungusChance) {
-								generator.setBlock(mutableBlockPos, redState.setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
+								generator.setBlock(mutableBlockPos, redState.setValue(ShelfFungiBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungiBlock.FACE, AttachFace.WALL).setValue(ShelfFungiBlock.FACING, direction));
 							} else {
-								generator.setBlock(mutableBlockPos, brownState.setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
+								generator.setBlock(mutableBlockPos, brownState.setValue(ShelfFungiBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungiBlock.FACE, AttachFace.WALL).setValue(ShelfFungiBlock.FACING, direction));
 							}
 						}
 					}

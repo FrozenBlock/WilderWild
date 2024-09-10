@@ -1113,7 +1113,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.GROVE)
 			.addOptional(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_SHELF_FUNGUS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_SHELF_FUNGI)
 			.add(Biomes.DARK_FOREST)
 			.add(Biomes.FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1135,7 +1135,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.DYING_MIXED_FOREST)
 			.addOptional(WWWorldgen.SNOWY_DYING_MIXED_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BROWN_SHELF_FUNGUS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BROWN_SHELF_FUNGI)
 			.add(Biomes.DARK_FOREST)
 			.add(Biomes.FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1164,6 +1164,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.DYING_MIXED_FOREST)
 			.addOptional(WWWorldgen.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWWorldgen.MAPLE_GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI)
+			.add(Biomes.WARPED_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RAINFOREST_MUSHROOM)
 			.addOptional(WWWorldgen.RAINFOREST)

@@ -24,7 +24,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import java.util.Objects;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
@@ -36,12 +36,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class ShelfFungusFeatureConfig implements FeatureConfiguration {
-	public static final Codec<ShelfFungusFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+public class ShelfFungiFeatureConfig implements FeatureConfiguration {
+	public static final Codec<ShelfFungiFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
-				.flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success)
-				.orElse(WWBlocks.BROWN_SHELF_FUNGUS)
+				.flatXmap(ShelfFungiFeatureConfig::validateBlock, DataResult::success)
+				.orElse(WWBlocks.BROWN_SHELF_FUNGI)
 				.forGetter(config -> config.fungus),
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
 				config -> config.searchRange
@@ -58,10 +58,10 @@ public class ShelfFungusFeatureConfig implements FeatureConfiguration {
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(
 				config -> config.canPlaceOn
 			)
-		).apply(instance, ShelfFungusFeatureConfig::new)
+		).apply(instance, ShelfFungiFeatureConfig::new)
 	);
 
-	public final ShelfFungusBlock fungus;
+	public final ShelfFungiBlock fungus;
 	public final int searchRange;
 	public final boolean placeOnFloor;
 	public final boolean placeOnCeiling;
@@ -69,7 +69,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfiguration {
 	public final HolderSet<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public ShelfFungusFeatureConfig(ShelfFungusBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
+	public ShelfFungiFeatureConfig(ShelfFungiBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
 		this.fungus = fungus;
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;
@@ -94,9 +94,9 @@ public class ShelfFungusFeatureConfig implements FeatureConfiguration {
 
 	}
 
-	private static DataResult<ShelfFungusBlock> validateBlock(Block block) {
-		DataResult<ShelfFungusBlock> var10000;
-		if (block instanceof ShelfFungusBlock shelfFungusBlock) {
+	private static DataResult<ShelfFungiBlock> validateBlock(Block block) {
+		DataResult<ShelfFungiBlock> var10000;
+		if (block instanceof ShelfFungiBlock shelfFungusBlock) {
 			var10000 = DataResult.success(shelfFungusBlock);
 		} else {
 			var10000 = DataResult.error(() -> "Growth block should be a shelf fungus block bruh bruh bruh bruh bruh");

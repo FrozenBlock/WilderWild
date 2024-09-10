@@ -13,6 +13,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
 - Added leaf litters.
 - Added falling leaves.
+- Added Warped and Crimson Shelf Fungi, which generate naturally in their respective biomes.
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
 - Added block sound type compatibility for Biomes O' Plenty.
@@ -39,6 +40,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
   - Old Growth Birch Forests will still keep their tall trees.
 - Birch Saplings can now grow Medium and Super Birches.
+- Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
@@ -55,6 +57,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Tumbleweed no longer drop feathers.
 - Palm Fronds are now compostable.
 - Prickly Pears and Peeled Prickly Pears can now be composted.
+- The loot tables of Shelf Fungi have been fixed.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.worldgen.impl.features;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungiFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -33,13 +33,13 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.jetbrains.annotations.NotNull;
 
-public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
+public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 
-	public ShelfFungusFeature(@NotNull Codec<ShelfFungusFeatureConfig> codec) {
+	public ShelfFungiFeature(@NotNull Codec<ShelfFungiFeatureConfig> codec) {
 		super(codec);
 	}
 
-	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungusFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
+	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungiFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
 		MutableBlockPos mutable = pos.mutable();
 
 		Direction placementDirection = null;
@@ -57,9 +57,9 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 
 		if (placementDirection != null) {
 			level.setBlock(pos, config.fungus.defaultBlockState()
-				.setValue(ShelfFungusBlock.FACING, placementDirection)
-				.setValue(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(placementDirection.getOpposite()))
-				.setValue(ShelfFungusBlock.STAGE, random.nextInt(3) + 1), 3);
+				.setValue(ShelfFungiBlock.FACING, placementDirection)
+				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
+				.setValue(ShelfFungiBlock.STAGE, random.nextInt(3) + 1), 3);
 			level.getChunk(pos).markPosForPostprocessing(pos);
 			return true;
 		}
@@ -72,11 +72,11 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
+	public boolean place(@NotNull FeaturePlaceContext<ShelfFungiFeatureConfig> context) {
 		WorldGenLevel structureWorldAccess = context.level();
 		RandomSource abstractRandom = context.random();
 		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
-		ShelfFungusFeatureConfig shelfFungusFeatureConfig = context.config();
+		ShelfFungiFeatureConfig shelfFungusFeatureConfig = context.config();
 		if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) {
 			return false;
 		} else {

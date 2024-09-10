@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wilderwild:item/red_shelf_fungus"
+    "layer0": "wilderwild:item/crimson_shelf_fungi"
   }
 }

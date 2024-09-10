@@ -1,10 +1,6 @@
 {
-  "feature": "wilderwild:brown_shelf_fungus",
+  "feature": "wilderwild:brown_shelf_fungi",
   "placement": [
-    {
-      "type": "minecraft:rarity_filter",
-      "chance": 1
-    },
     {
       "type": "minecraft:count",
       "count": 11

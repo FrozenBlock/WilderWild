@@ -60,7 +60,7 @@ import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
@@ -106,6 +106,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -559,7 +560,7 @@ public final class WWBlocks {
 
 	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
 
-	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = new ShelfFungusBlock(
+	public static final ShelfFungiBlock BROWN_SHELF_FUNGI = new ShelfFungiBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM_BLOCK)
 			.lightLevel(state -> 1)
 			.randomTicks()
@@ -569,12 +570,35 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final ShelfFungusBlock RED_SHELF_FUNGUS = new ShelfFungusBlock(
+	public static final ShelfFungiBlock RED_SHELF_FUNGI = new ShelfFungiBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK)
 			.randomTicks()
 			.noCollission()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final ShelfFungiBlock CRIMSON_SHELF_FUNGI = new ShelfFungiBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.NETHER)
+			.strength(0.2F)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(SoundType.FUNGUS)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final ShelfFungiBlock WARPED_SHELF_FUNGI = new ShelfFungiBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.NETHER)
+			.strength(0.2F)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(SoundType.FUNGUS)
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -1228,8 +1252,10 @@ public final class WWBlocks {
 
 	public static void registerNotSoPlants() {
 		registerBlock("pollen", POLLEN);
-		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungi", RED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungi", BROWN_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.WARPED_FUNGUS, "crimson_shelf_fungi", CRIMSON_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CRIMSON_SHELF_FUNGI, "warped_shelf_fungi", WARPED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1576,8 +1602,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGI, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);

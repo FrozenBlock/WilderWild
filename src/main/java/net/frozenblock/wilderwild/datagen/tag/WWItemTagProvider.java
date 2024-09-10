@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.frozenblock.lib.tag.api.FrozenItemTags;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -191,8 +190,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
 			.add(WWBlocks.COCONUT.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGUS.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGUS.asItem())
+			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
+			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
 			.add(WWBlocks.TUMBLEWEED_PLANT.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
@@ -203,8 +202,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
 			.add(WWBlocks.COCONUT.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGUS.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGUS.asItem())
+			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
+			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
 			.add(WWBlocks.TUMBLEWEED_PLANT.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
@@ -212,14 +211,14 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.GLORY_OF_THE_SNOW.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGUS.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGUS.asItem())
+			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
+			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
 			.add(WWBlocks.MARIGOLD.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.GLORY_OF_THE_SNOW.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGUS.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGUS.asItem());
+			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
+			.add(WWBlocks.RED_SHELF_FUNGI.asItem());
 	}
 }

@@ -128,8 +128,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_DARK_OAK = bind("has_snapped_dark_oak");
 	public static final TagKey<Biome> HAS_POLLEN = bind("has_pollen");
 	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("has_field_flowers");
-	public static final TagKey<Biome> HAS_RED_SHELF_FUNGUS = bind("has_red_shelf_fungus");
-	public static final TagKey<Biome> HAS_BROWN_SHELF_FUNGUS = bind("has_brown_shelf_fungus");
+	public static final TagKey<Biome> HAS_RED_SHELF_FUNGI = bind("has_red_shelf_fungi");
+	public static final TagKey<Biome> HAS_BROWN_SHELF_FUNGI = bind("has_brown_shelf_fungi");
+	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI = bind("has_crimson_shelf_fungi");
+	public static final TagKey<Biome> HAS_WARPED_SHELF_FUNGI = bind("has_warped_shelf_fungi");
 	public static final TagKey<Biome> HAS_RAINFOREST_MUSHROOM = bind("has_rainforest_mushroom");
 	public static final TagKey<Biome> HAS_MIXED_MUSHROOM = bind("has_mixed_mushroom");
 	public static final TagKey<Biome> HAS_GLORY_OF_THE_SNOW = bind("has_glory_of_the_snow");

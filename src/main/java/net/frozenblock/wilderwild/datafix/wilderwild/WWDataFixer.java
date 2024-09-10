@@ -33,7 +33,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class WWDataFixer {
-	public static final int DATA_VERSION = 19;
+	public static final int DATA_VERSION = 20;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WilderDataFixer contains only static declarations.");
@@ -121,6 +121,12 @@ public class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename small_sponge to sponge_bud", WWConstants.id("small_sponge"), WWConstants.id("sponge_bud"), schemaV19);
 		SimpleFixes.addItemRenameFix(builder, "Rename ancient_horn to echo_glass", WWConstants.id("ancient_horn"), WWConstants.id("echo_glass"), schemaV19);
 		SimpleFixes.addItemRenameFix(builder, "Rename ancient_horn_fragment to echo_glass", WWConstants.id("ancient_horn_fragment"), WWConstants.id("echo_glass"), schemaV19);
+
+		Schema schemaV20 = builder.addSchema(20, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename brown_shelf_fungus to brown_shelf_fungi", WWConstants.id("brown_shelf_fungus"), WWConstants.id("brown_shelf_fungi"), schemaV20);
+		SimpleFixes.addItemRenameFix(builder, "Rename brown_shelf_fungus to brown_shelf_fungi", WWConstants.id("brown_shelf_fungus"), WWConstants.id("brown_shelf_fungi"), schemaV20);
+		SimpleFixes.addBlockRenameFix(builder, "Rename red_shelf_fungus to red_shelf_fungi", WWConstants.id("red_shelf_fungus"), WWConstants.id("red_shelf_fungi"), schemaV20);
+		SimpleFixes.addItemRenameFix(builder, "Rename red_shelf_fungus to red_shelf_fungi", WWConstants.id("red_shelf_fungus"), WWConstants.id("red_shelf_fungi"), schemaV20);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

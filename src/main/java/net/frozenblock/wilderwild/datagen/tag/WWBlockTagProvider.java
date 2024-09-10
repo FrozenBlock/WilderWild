@@ -74,8 +74,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BAOBAB_NUT)
 			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.BROWN_SHELF_FUNGUS)
-			.add(WWBlocks.RED_SHELF_FUNGUS)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
 			.add(WWBlocks.TUMBLEWEED_PLANT);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
@@ -86,8 +86,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BAOBAB_NUT)
 			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.BROWN_SHELF_FUNGUS)
-			.add(WWBlocks.RED_SHELF_FUNGUS)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
 			.add(WWBlocks.TUMBLEWEED_PLANT);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
@@ -95,15 +95,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.CYPRESS_SAPLING)
-			.add(WWBlocks.BROWN_SHELF_FUNGUS)
-			.add(WWBlocks.RED_SHELF_FUNGUS)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
 			.add(WWBlocks.MARIGOLD);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.BROWN_SHELF_FUNGUS)
-			.add(WWBlocks.RED_SHELF_FUNGUS);
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:unbreakable_infertile_crops"))
 			.add(WWBlocks.BUSH)
@@ -114,8 +114,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BAOBAB_NUT)
 			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.BROWN_SHELF_FUNGUS)
-			.add(WWBlocks.RED_SHELF_FUNGUS)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
 			.add(WWBlocks.TUMBLEWEED)
 			.add(WWBlocks.TUMBLEWEED_PLANT);
 
@@ -303,9 +303,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.getOrCreateTagBuilder(WWBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE)
 			.add(Blocks.MUSHROOM_STEM)
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE_NETHER)
+			.addOptionalTag(BlockTags.CRIMSON_STEMS)
+			.addOptionalTag(BlockTags.WARPED_STEMS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
 			.add(Blocks.SAND)
@@ -885,8 +889,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CATTAIL)
 			.add(WWBlocks.FLOWERING_LILY_PAD)
 			.add(WWBlocks.ALGAE)
-			.add(WWBlocks.BROWN_SHELF_FUNGUS)
-			.add(WWBlocks.RED_SHELF_FUNGUS)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
+			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
+			.add(WWBlocks.WARPED_SHELF_FUNGI)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);

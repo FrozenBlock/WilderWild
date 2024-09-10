@@ -32,7 +32,7 @@ import net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureConfig;
-import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungiFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
@@ -323,8 +323,10 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = WWFeatureUtils.register("fern_and_grass");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = WWFeatureUtils.register("grass_and_fern");
 	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN_CONFIGURED = WWFeatureUtils.register("pollen");
-	public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> BROWN_SHELF_FUNGUS_CONFIGURED = WWFeatureUtils.register("brown_shelf_fungus");
-	public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> RED_SHELF_FUNGUS_CONFIGURED = WWFeatureUtils.register("red_shelf_fungus");
+	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> BROWN_SHELF_FUNGI = WWFeatureUtils.register("brown_shelf_fungi");
+	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> RED_SHELF_FUNGI = WWFeatureUtils.register("red_shelf_fungi");
+	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> CRIMSON_SHELF_FUNGI = WWFeatureUtils.register("crimson_shelf_fungi");
+	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> WARPED_SHELF_FUNGI = WWFeatureUtils.register("warped_shelf_fungi");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
@@ -2078,30 +2080,58 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WWFeatures.SHELF_FUNGUS_FEATURE,
-			new ShelfFungusFeatureConfig(
-				WWBlocks.BROWN_SHELF_FUNGUS,
+		BROWN_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
+			new ShelfFungiFeatureConfig(
+				WWBlocks.BROWN_SHELF_FUNGI,
 				20,
 				true,
 				true,
 				true,
 				new HolderSet.Named<>(
 					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE
+					WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE
 				)
 			)
 		);
 
-		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WWFeatures.SHELF_FUNGUS_FEATURE,
-			new ShelfFungusFeatureConfig(
-				WWBlocks.RED_SHELF_FUNGUS,
+		RED_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
+			new ShelfFungiFeatureConfig(
+				WWBlocks.RED_SHELF_FUNGI,
 				20,
 				true,
 				true,
 				true,
 				new HolderSet.Named<>(
 					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE
+					WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE
+				)
+			)
+		);
+
+		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
+			new ShelfFungiFeatureConfig(
+				WWBlocks.CRIMSON_SHELF_FUNGI,
+				8,
+				true,
+				true,
+				true,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE_NETHER
+				)
+			)
+		);
+
+		WARPED_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
+			new ShelfFungiFeatureConfig(
+				WWBlocks.WARPED_SHELF_FUNGI,
+				8,
+				true,
+				true,
+				true,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE_NETHER
 				)
 			)
 		);
