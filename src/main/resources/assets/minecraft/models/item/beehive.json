@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/beehive",
-	"overrides": [
-		{"predicate": {"honey": 1}, "model": "minecraft:item/beehive_honey"}
-	]
-}

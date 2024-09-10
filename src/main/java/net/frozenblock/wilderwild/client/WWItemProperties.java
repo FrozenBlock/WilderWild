@@ -26,8 +26,6 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 @Environment(EnvType.CLIENT)
 public class WWItemProperties {
@@ -38,8 +36,6 @@ public class WWItemProperties {
 		ItemProperties.register(WWItems.SCORCHED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(WWItems.SCORCHED_RED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(WWItems.ECHO_GLASS, WWConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, WWBlockStateProperties.DAMAGE, 0)) / 4F);
-		ItemProperties.register(Items.BEE_NEST, WWConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.BEEHIVE, WWConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 
 		ItemProperties.register(WWItems.FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 		ItemProperties.register(WWItems.CYAN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
