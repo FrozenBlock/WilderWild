@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.frozenblock.wilderwild.block.CoconutBlock;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.features.PalmTreeFeature;
 import net.minecraft.Util;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(TreeFeature.class)
 public class TreeFeatureMixin {
@@ -71,6 +73,30 @@ public class TreeFeatureMixin {
 			}
 		}
 		return original;
+	}
+
+	@ModifyVariable(method = "method_49238", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	private static BlockState wilderWild$setTermiteEdibleA(BlockState state) {
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
+	}
+
+	@ModifyVariable(method = "method_35364", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	private static BlockState wilderWild$setTermiteEdibleB(BlockState state) {
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
+	}
+
+	@ModifyVariable(method = "method_43162", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	private static BlockState wilderWild$setTermiteEdibleC(BlockState state) {
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
 	}
 
 }
