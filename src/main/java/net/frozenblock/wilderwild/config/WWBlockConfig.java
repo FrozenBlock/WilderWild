@@ -50,6 +50,7 @@ public final class WWBlockConfig {
 			@Override
 			public void onSync(WWBlockConfig syncInstance) {
 				var config = this.config();
+				DRIPLEAF_POWERING = config.dripleafPowering;
 				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
 				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
 				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
@@ -64,6 +65,7 @@ public final class WWBlockConfig {
 		}
 	);
 
+	public static volatile boolean DRIPLEAF_POWERING = true;
 	public static volatile boolean MESOGLEA_BUBBLE_COLUMNS = true;
 	public static volatile boolean FIRE_MAGMA_PARTICLES = true;
 	public static volatile boolean SNOWLOGGING = true;

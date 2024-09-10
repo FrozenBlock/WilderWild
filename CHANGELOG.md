@@ -46,6 +46,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - The strength and resistance of Echo Glass have been increased.
 - Echo Glass now heals when the light level at 8 or below instead of 7.
 - Echo Glass now takes 25% longer on average between cracking in light.
+- Slightly optimized more config getter calls.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes

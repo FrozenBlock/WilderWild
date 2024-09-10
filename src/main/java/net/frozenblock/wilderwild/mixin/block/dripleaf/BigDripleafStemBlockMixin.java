@@ -38,11 +38,11 @@ public abstract class BigDripleafStemBlockMixin extends HorizontalDirectionalBlo
 		super(properties);
 	}
 
-	@Inject(method = "<init>", at = @At("RETURN"))
-	public void wilderWild$init(CallbackInfo info) {
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void wilderWild$bigDripleafStemBlock(BlockBehaviour.Properties setting, CallbackInfo info) {
 		if (WWBlockConfig.get().dripleafPowering) {
-			BigDripleafStemBlock bigDripleafStemBlock = BigDripleafStemBlock.class.cast(this);
-			bigDripleafStemBlock.registerDefaultState(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+			BigDripleafStemBlock stem = BigDripleafStemBlock.class.cast(this);
+			stem.registerDefaultState(stem.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 		}
 	}
 
@@ -50,14 +50,6 @@ public abstract class BigDripleafStemBlockMixin extends HorizontalDirectionalBlo
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (WWBlockConfig.get().dripleafPowering) {
 			builder.add(BlockStateProperties.POWERED);
-		}
-	}
-
-	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$bigDripleafStemBlock(BlockBehaviour.Properties setting, CallbackInfo info) {
-		if (WWBlockConfig.get().dripleafPowering) {
-			BigDripleafStemBlock stem = BigDripleafStemBlock.class.cast(this);
-			stem.registerDefaultState(stem.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 		}
 	}
 

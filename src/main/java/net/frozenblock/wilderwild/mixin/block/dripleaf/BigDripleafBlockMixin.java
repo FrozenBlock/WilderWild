@@ -54,7 +54,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "tick", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (WWBlockConfig.get().dripleafPowering && state.getValue(BlockStateProperties.POWERED)) {
+		if (WWBlockConfig.DRIPLEAF_POWERING && state.getValue(BlockStateProperties.POWERED)) {
 			resetTilt(state, level, pos);
 			info.cancel();
 		}
@@ -62,7 +62,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (WWBlockConfig.get().dripleafPowering) {
+		if (WWBlockConfig.DRIPLEAF_POWERING) {
 			if (fromPos.equals(pos.below())) {
 				BlockState downState = level.getBlockState(fromPos);
 				if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
@@ -85,7 +85,7 @@ public final class BigDripleafBlockMixin {
 
 	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
-		if (!level.isClientSide && WWBlockConfig.get().dripleafPowering && state.getValue(BlockStateProperties.POWERED)) {
+		if (!level.isClientSide && WWBlockConfig.DRIPLEAF_POWERING && state.getValue(BlockStateProperties.POWERED)) {
 			info.cancel();
 		}
 	}

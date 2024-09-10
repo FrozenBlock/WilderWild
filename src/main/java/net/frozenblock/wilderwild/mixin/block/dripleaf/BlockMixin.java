@@ -36,10 +36,12 @@ public final class BlockMixin {
 
 	@Inject(at = @At("RETURN"), method = "getStateForPlacement", cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock && WWBlockConfig.get().dripleafPowering) {
-			info.setReturnValue(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
-		} else if (BlockBehaviour.class.cast(this) instanceof BigDripleafBlock bigDripleafBlock) {
-			info.setReturnValue(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
+		if (WWBlockConfig.DRIPLEAF_POWERING) {
+			if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock) {
+				info.setReturnValue(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
+			} else if (BlockBehaviour.class.cast(this) instanceof BigDripleafBlock bigDripleafBlock) {
+				info.setReturnValue(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
+			}
 		}
 	}
 
