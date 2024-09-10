@@ -42,6 +42,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - Old Growth Birch Forests will still keep their tall trees.
 - Birch Saplings can now grow Medium and Super Birches.
 - Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
+- Removed the custom item models for Beehives and Bee Nests filled with honey for 1.21.2 versions, as this has been added to Vanilla.
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
