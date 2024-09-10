@@ -174,6 +174,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_TALL_BADLANDS_CACTUS = bind("has_tall_badlands_cactus");
 	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("has_common_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("has_moss_pile");
+	public static final TagKey<Biome> HAS_STONE_PILE_COMMON = bind("has_stone_pile_common");
 	public static final TagKey<Biome> HAS_STONE_PILE = bind("has_stone_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE_RARE = bind("has_stone_pile_rare");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PILE_WITH_DISK = bind("has_coarse_dirt_pile_with_disk");

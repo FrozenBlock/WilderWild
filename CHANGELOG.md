@@ -10,7 +10,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added Marigold.
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
-  - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
+  - This is controlled with the `wilderwild:has_stone_pile_common,` `wilderwild:has_stone_pile,` and `wilderwild:has_stone_pile_rare` tags.
 - Added leaf litters.
 - Added falling leaves.
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
