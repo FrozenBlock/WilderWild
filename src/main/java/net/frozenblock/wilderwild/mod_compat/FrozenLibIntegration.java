@@ -57,13 +57,17 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.registry.*;
-
+import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import static net.frozenblock.wilderwild.registry.WWBlocks.*;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
+import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
-
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;

@@ -407,7 +407,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.get().mesoglea.mesogleaLiquid ? RenderShape.INVISIBLE : RenderShape.MODEL;
+		return state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.Client.MESOGLEA_LIQUID ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	public static class MesogleaParticleRegistry {

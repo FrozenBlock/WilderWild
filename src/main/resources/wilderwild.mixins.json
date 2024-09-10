@@ -11,11 +11,8 @@
     "block.chest.ChestBlockEntityMixin",
     "block.chest.ChestBlockMixin",
     "block.dispenser.ShearsDispenseItemBehaviorMixin",
-    "block.dripleaf.BigDripleafBlockMixin",
-    "block.dripleaf.BigDripleafStemBlockMixin",
-    "block.dripleaf.BlockStateBaseMixin",
-    "block.dripleaf.BlockMixin",
     "block.dripstone.FallingBlockMixin",
+    "block.echo_glass.ServerPlayerGameModeMixin",
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",
     "block.ice.FrostedIceBlockMixin",
@@ -114,6 +111,7 @@
     "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
+    "block.echo_glass.client.MultiPlayerGameModeMixin",
     "client.allay.AllayModelMixin",
     "client.allay.AllayRendererMixin",
     "client.allay.AllayRenderStateMixin",

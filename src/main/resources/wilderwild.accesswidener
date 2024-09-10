@@ -121,6 +121,8 @@ accessible class net/minecraft/world/level/block/state/BlockBehaviour$BlockState
 accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 accessible method net/minecraft/world/level/block/Blocks wallVariant (Lnet/minecraft/world/level/block/Block;Z)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible method net/minecraft/world/level/block/LeavesBlock decaying (Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties instrument Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
 
 # Block Entities
 accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;

@@ -76,6 +76,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
 		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
 		if (mixinClassName.contains("block.dripstone.")) return this.mixinsConfig.block_dripstone;
+		if (mixinClassName.contains("block.echo_glass.")) return this.mixinsConfig.block_echo_glass;
 		if (mixinClassName.contains("block.fire.")) return this.mixinsConfig.block_fire;
 		if (mixinClassName.contains("block.ice.")) return this.mixinsConfig.block_ice;
 		if (mixinClassName.contains("block.lava.")) return this.mixinsConfig.block_lava;

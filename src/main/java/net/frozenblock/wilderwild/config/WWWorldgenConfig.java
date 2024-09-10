@@ -51,9 +51,12 @@ public final class WWWorldgenConfig {
 				var config = this.config();
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;
+				NEW_WITCH_HUTS = config.newWitchHuts;
 			}
 		}
 	);
+
+	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
 	public final BiomeGeneration biomeGeneration = new BiomeGeneration();
