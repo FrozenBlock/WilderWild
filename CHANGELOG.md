@@ -66,6 +66,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Prickly Pears and Peeled Prickly Pears can now be composted.
 - The loot tables of Shelf Fungi have been fixed.
 - Echo Glass no longer flickers upon being damaged by players.
+- Fixed many random blocks having the `termite_edible` blockstate property.
+  - This checks if the Note Block Instrument for the block is `BASS` and if the block's sound type is not `STEM.`
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
