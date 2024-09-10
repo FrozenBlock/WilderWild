@@ -44,6 +44,7 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 		crab.setPose(Pose.EMERGING);
 		crab.playSound(WWSounds.ENTITY_CRAB_EMERGE, 0.5F, 1F);
 		crab.resetDiggingTicks();
+		crab.stopInPlace();
 	}
 
 	@Override

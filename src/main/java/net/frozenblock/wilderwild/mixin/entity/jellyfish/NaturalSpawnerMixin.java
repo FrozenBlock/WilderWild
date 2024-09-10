@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.entity.jellyfish;
 
 import net.frozenblock.wilderwild.entity.impl.IgnoringMesogleaBlockCollisions;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobCategory;
@@ -54,8 +54,10 @@ public class NaturalSpawnerMixin {
 		double distance,
 		CallbackInfoReturnable<Boolean> info
 	) {
-		if (data.type == WWEntities.JELLYFISH) {
-			info.setReturnValue(IgnoringMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D)));
+		if (data.type == WWEntityTypes.JELLYFISH) {
+			info.setReturnValue(
+				IgnoringMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D))
+			);
 		}
 	}
 

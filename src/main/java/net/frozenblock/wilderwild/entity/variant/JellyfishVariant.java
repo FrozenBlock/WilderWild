@@ -18,21 +18,16 @@
 
 package net.frozenblock.wilderwild.entity.variant;
 
-import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWItemTags;
-import net.minecraft.core.Registry;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
-import java.util.function.IntFunction;
 
 @SuppressWarnings("deprecation")
 public enum JellyfishVariant implements StringRepresentable {

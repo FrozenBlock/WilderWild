@@ -57,17 +57,13 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.*;
+
 import static net.frozenblock.wilderwild.registry.WWBlocks.*;
-import net.frozenblock.wilderwild.registry.WWEntities;
-import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWMobEffects;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
-import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
+
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;
@@ -556,7 +552,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntities.CRAB)).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.CRAB)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new
 								AdvancementRequirements(List.of(
@@ -592,7 +588,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -602,7 +598,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(

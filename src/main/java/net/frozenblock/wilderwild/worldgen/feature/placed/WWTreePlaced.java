@@ -27,11 +27,19 @@ import net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 
 public final class WWTreePlaced {
 	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
@@ -51,6 +59,9 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SHORT_BIRCH = WWPlacementUtils.register("short_birch");
 	public static final FrozenPlacedFeature DYING_SHORT_BIRCH = WWPlacementUtils.register("dying_short_birch");
 	public static final FrozenPlacedFeature SHORT_BIRCH_BEES_0004 = WWPlacementUtils.register("short_birch_bees_0004");
+	public static final FrozenPlacedFeature MEDIUM_BIRCH = WWPlacementUtils.register("medium_birch");
+	public static final FrozenPlacedFeature DYING_MEDIUM_BIRCH = WWPlacementUtils.register("dying_medium_birch");
+	public static final FrozenPlacedFeature MEDIUM_BIRCH_BEES_0004 = WWPlacementUtils.register("medium_birch_bees_0004");
 	public static final FrozenPlacedFeature DYING_SUPER_BIRCH = WWPlacementUtils.register("dying_super_birch");
 	public static final FrozenPlacedFeature SUPER_BIRCH_BEES_0004 = WWPlacementUtils.register("super_birch_bees_0004");
 	public static final FrozenPlacedFeature SUPER_BIRCH_BEES = WWPlacementUtils.register("super_birch_bees");
@@ -59,6 +70,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = WWPlacementUtils.register("mossy_fallen_birch_checked");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_CHECKED = WWPlacementUtils.register("snapped_birch_checked");
 	public static final FrozenPlacedFeature DEAD_BIRCH = WWPlacementUtils.register("dead_birch");
+	public static final FrozenPlacedFeature DEAD_MEDIUM_BIRCH = WWPlacementUtils.register("dead_medium_birch");
 	//CHERRY
 	public static final FrozenPlacedFeature CHERRY_CHECKED = WWPlacementUtils.register("cherry_checked");
 	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = WWPlacementUtils.register("dying_cherry_checked");
@@ -205,6 +217,12 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = WWPlacementUtils.register("snapped_acacia_checked");
 	//MANGROVE
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = WWPlacementUtils.register("fallen_mangrove_checked");
+	//CRIMSON
+	public static final FrozenPlacedFeature FALLEN_CRIMSON_FUNGI = WWPlacementUtils.register("fallen_crimson_fungi");
+	public static final FrozenPlacedFeature SNAPPED_CRIMSON_FUNGI = WWPlacementUtils.register("snapped_crimson_fungi");
+	//WARPED
+	public static final FrozenPlacedFeature FALLEN_WARPED_FUNGI = WWPlacementUtils.register("fallen_warped_fungi");
+	public static final FrozenPlacedFeature SNAPPED_WARPED_FUNGI = WWPlacementUtils.register("snapped_warped_fungi");
 	//TREE ON GRASS
 	public static final FrozenPlacedFeature PALM_CHECKED_DIRT = WWPlacementUtils.register("palm_checked_dirt");
 	public static final FrozenPlacedFeature TALL_PALM_CHECKED_DIRT = WWPlacementUtils.register("tall_palm_checked_dirt");
@@ -248,6 +266,18 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
+		MEDIUM_BIRCH.makeAndSetHolder(WWTreeConfigured.MEDIUM_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		DYING_MEDIUM_BIRCH.makeAndSetHolder(WWTreeConfigured.MEDIUM_DYING_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		MEDIUM_BIRCH_BEES_0004.makeAndSetHolder(WWTreeConfigured.MEDIUM_BIRCH_BEES_0004.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
 		DYING_SUPER_BIRCH.makeAndSetHolder(WWTreeConfigured.DYING_SUPER_BIRCH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
@@ -277,6 +307,10 @@ public final class WWTreePlaced {
 		);
 
 		DEAD_BIRCH.makeAndSetHolder(WWTreeConfigured.DEAD_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		DEAD_MEDIUM_BIRCH.makeAndSetHolder(WWTreeConfigured.DEAD_MEDIUM_BIRCH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
@@ -777,6 +811,58 @@ public final class WWTreePlaced {
 
 		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MANGROVE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		//CRIMSON
+
+		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(WWTreeConfigured.FALLEN_CRIMSON_FUNGI.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
+		);
+
+		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(WWTreeConfigured.SNAPPED_CRIMSON_FUNGI.getHolder(),
+			CountPlacement.of(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
+		);
+
+		//WARPED
+
+		FALLEN_WARPED_FUNGI.makeAndSetHolder(WWTreeConfigured.FALLEN_WARPED_FUNGI.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
+		);
+
+		SNAPPED_WARPED_FUNGI.makeAndSetHolder(WWTreeConfigured.SNAPPED_WARPED_FUNGI.getHolder(),
+			CountPlacement.of(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
 		);
 
 		// TREE ON GRASS

@@ -28,7 +28,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWCavePlaced;
@@ -182,7 +182,7 @@ public final class MagmaticCaves extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(WWEntities.SCORCHED, 385, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(WWEntityTypes.SCORCHED, 385, 4, 4));
 	}
 
 	@Override

@@ -172,9 +172,10 @@ public final class WilderWorldGen {
 					}
 				});
 
-		BiomeModifications.create(WWConstants.id("replace_birch_trees")).add(
+		BiomeModifications.create(WWConstants.id("replace_birch_trees"))
+			.add(
 				ModificationPhase.REPLACEMENTS,
-				BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
+				BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST),
 				context -> {
 					if (WWWorldgenConfig.get().treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
@@ -189,7 +190,7 @@ public final class WilderWorldGen {
 					if (WWWorldgenConfig.get().treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.BIRCH_TALL);
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIRCH_TALL.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_BIRCH_TALL.getKey());
 					}
 				})
 			.add(

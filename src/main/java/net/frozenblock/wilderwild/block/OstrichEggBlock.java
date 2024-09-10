@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Ostrich;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -120,7 +120,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void spawnOstrich(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		Ostrich ostrich = WWEntities.OSTRICH.create(level, EntitySpawnReason.BREEDING);
+		Ostrich ostrich = WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 		if (ostrich != null) {
 			ostrich.setBaby(true);
 			ostrich.moveTo(

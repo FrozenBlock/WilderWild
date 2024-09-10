@@ -36,7 +36,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabNavigation;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -322,17 +322,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void tick() {
-		if (this.isDiggingOrEmerging()) {
-			this.stopInPlace();
-		}
 		boolean isClient = this.level().isClientSide;
 		if (this.level() instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 		}
 		super.tick();
-		if (this.isDiggingOrEmerging()) {
-			this.stopInPlace();
-		}
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
@@ -419,10 +413,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
 		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
-		if (this.isDiggingOrEmerging()) {
-			this.xxa = 0F;
-			this.zza = 0F;
-		}
 	}
 
 	public double getEmptyAreaSearchDistance() {
@@ -566,7 +556,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
-			&& livingEntity.getType() != WWEntities.CRAB
+			&& livingEntity.getType() != WWEntityTypes.CRAB
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
@@ -735,7 +725,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
-		Crab crab = WWEntities.CRAB.create(level, EntitySpawnReason.BREEDING);
+		Crab crab = WWEntityTypes.CRAB.create(level, EntitySpawnReason.BREEDING);
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));

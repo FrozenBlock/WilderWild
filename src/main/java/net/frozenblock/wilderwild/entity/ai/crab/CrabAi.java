@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WWDamageTypeTags;
@@ -216,7 +216,7 @@ public final class CrabAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(1, new AnimalMakeLove(WWEntities.CRAB, 0.8F, 2)),
+				Pair.of(1, new AnimalMakeLove(WWEntityTypes.CRAB, 0.8F, 2)),
 				Pair.of(
 					2,
 					new RunOne<>(

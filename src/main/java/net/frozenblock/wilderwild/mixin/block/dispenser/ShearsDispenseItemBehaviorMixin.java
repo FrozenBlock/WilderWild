@@ -23,7 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
@@ -87,8 +87,8 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearShelfFungus(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() instanceof ShelfFungusBlock) {
-			return ShelfFungusBlock.shear(level, pos, blockState, null);
+		if (blockState.getBlock() instanceof ShelfFungiBlock) {
+			return ShelfFungiBlock.shear(level, pos, blockState, null);
 		}
 		return false;
 	}

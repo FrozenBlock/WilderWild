@@ -29,7 +29,6 @@ import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
-import net.frozenblock.lib.sound.api.FlyBySoundHub;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWItemProperties;
@@ -39,12 +38,9 @@ import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.debug.OstrichDebugRenderer;
 import net.frozenblock.wilderwild.entity.render.easter.WilderEasterEggs;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
-import net.frozenblock.wilderwild.registry.WWEntities;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -65,8 +61,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWTints.initItems();
 
 		WWClientNetworking.registerPacketReceivers();
-
-		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(WWEntities.ANCIENT_HORN_VIBRATION, new FlyBySoundHub.FlyBySound(1F, 0.5F, SoundSource.PLAYERS, WWSounds.ENTITY_ANCIENT_HORN_VIBRATION_FLYBY));
 
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

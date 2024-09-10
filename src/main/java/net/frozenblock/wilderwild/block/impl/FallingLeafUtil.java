@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -103,7 +103,7 @@ public class FallingLeafUtil {
 						);
 						sendLeafClusterParticle(world, pos, fallingLeafData);
 						FallingLeafTicker.createAndSpawn(
-							WWEntities.FALLING_LEAF_TICKER,
+							WWEntityTypes.FALLING_LEAVES,
 							world,
 							pos,
 							fallingLeafData.leafLitterBlock

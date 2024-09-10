@@ -31,11 +31,8 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.frozenblock.wilderwild.registry.WWEntities;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.*;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -214,7 +211,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	private void doFireflySpawns(@NotNull Level level) {
 		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (Occupant firefly : this.getFireflies()) {
-			Firefly entity = WWEntities.FIREFLY.create(level, EntitySpawnReason.LOAD);
+			Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
 				entity.setFromBottle(true);

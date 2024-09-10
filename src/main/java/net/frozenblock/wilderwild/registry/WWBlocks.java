@@ -55,7 +55,7 @@ import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
@@ -371,7 +371,7 @@ public final class WWBlocks {
 		Blocks.OAK_LEAVES,
 		WWParticleTypes.OAK_LEAVES,
 		0.004F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		2.5F
 	);
@@ -395,7 +395,7 @@ public final class WWBlocks {
 		Blocks.JUNGLE_LEAVES,
 		WWParticleTypes.JUNGLE_LEAVES,
 		0.004F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		3.5F
 	);
@@ -403,7 +403,7 @@ public final class WWBlocks {
 		Blocks.ACACIA_LEAVES,
 		WWParticleTypes.ACACIA_LEAVES,
 		0.002F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		2F
 	);
@@ -411,7 +411,7 @@ public final class WWBlocks {
 		Blocks.DARK_OAK_LEAVES,
 		WWParticleTypes.DARK_OAK_LEAVES,
 		0.004F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		2.5F
 	);
@@ -419,7 +419,7 @@ public final class WWBlocks {
 		Blocks.MANGROVE_LEAVES,
 		WWParticleTypes.MANGROVE_LEAVES,
 		0.004F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		3.5F
 	);
@@ -435,7 +435,7 @@ public final class WWBlocks {
 		Blocks.AZALEA_LEAVES,
 		WWParticleTypes.AZALEA_LEAVES,
 		0.004F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		2F
 	);
@@ -443,7 +443,7 @@ public final class WWBlocks {
 		Blocks.FLOWERING_AZALEA_LEAVES,
 		WWParticleTypes.FLOWERING_AZALEA_LEAVES,
 		0.004F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		2F
 	);
@@ -451,7 +451,7 @@ public final class WWBlocks {
 		BAOBAB_LEAVES,
 		WWParticleTypes.BAOBAB_LEAVES,
 		0.002F,
-		0.0075F,
+		0.0045F,
 		0.125F,
 		2F
 	);
@@ -763,8 +763,8 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = register("brown_shelf_fungus",
-		ShelfFungusBlock::new,
+	public static final ShelfFungiBlock BROWN_SHELF_FUNGI = register("brown_shelf_fungi",
+		ShelfFungiBlock::new,
 		Properties.ofFullCopy(Blocks.BROWN_MUSHROOM_BLOCK)
 			.lightLevel(state -> 1)
 			.randomTicks()
@@ -774,13 +774,40 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final ShelfFungusBlock RED_SHELF_FUNGUS = register("red_shelf_fungus",
-		ShelfFungusBlock::new,
+
+	public static final ShelfFungiBlock RED_SHELF_FUNGI = register("red_shelf_fungi",
+		ShelfFungiBlock::new,
 		Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK)
 			.randomTicks()
 			.noCollission()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final ShelfFungiBlock CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi",
+		ShelfFungiBlock::new,
+		Properties.of()
+			.mapColor(MapColor.NETHER)
+			.strength(0.2F)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(SoundType.FUNGUS)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final ShelfFungiBlock WARPED_SHELF_FUNGI = register("warped_shelf_fungi",
+		ShelfFungiBlock::new,
+		Properties.of()
+			.mapColor(MapColor.NETHER)
+			.strength(0.2F)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(SoundType.FUNGUS)
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -1516,7 +1543,7 @@ public final class WWBlocks {
 				Level level = source.level();
 				Direction direction = source.state().getValue(DispenserBlock.FACING);
 				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-				Tumbleweed tumbleweed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
+				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
 				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ()).normalize().add(level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D)).scale(1.1D);
 				tumbleweed.setDeltaMovement(vec3);
 				tumbleweed.setPos(position);
@@ -1561,8 +1588,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGI, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
@@ -1583,6 +1610,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(OAK_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(SPRUCE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(BIRCH_LEAF_LITTER, 0.1F);

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -52,11 +52,11 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	public CoconutProjectile(@NotNull Level level, @NotNull LivingEntity shooter, ItemStack stack) {
-		super(WWEntities.COCONUT, shooter, level, stack);
+		super(WWEntityTypes.COCONUT, shooter, level, stack);
 	}
 
 	public CoconutProjectile(@NotNull Level level, double x, double y, double z, ItemStack stack) {
-		super(WWEntities.COCONUT, x, y, z, level, stack);
+		super(WWEntityTypes.COCONUT, x, y, z, level, stack);
 	}
 
 	@Override

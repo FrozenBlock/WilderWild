@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -152,6 +153,14 @@ public final class WWTreeGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_DARK_OAK)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_DARK_OAK_CLEARING_PLACED.getKey());
 						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_CRIMSON_FUNGI)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlaced.SNAPPED_CRIMSON_FUNGI.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_WARPED_FUNGI)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlaced.SNAPPED_WARPED_FUNGI.getKey());
+						}
 					}
 				});
 
@@ -272,6 +281,14 @@ public final class WWTreeGeneration {
 
 						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.FLOWER_FIELD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_CRIMSON_FUNGI)) {
+							generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlaced.FALLEN_CRIMSON_FUNGI.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_WARPED_FUNGI)) {
+							generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlaced.FALLEN_WARPED_FUNGI.getKey());
 						}
 					}
 				});

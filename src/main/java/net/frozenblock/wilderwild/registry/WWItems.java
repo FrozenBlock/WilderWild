@@ -19,13 +19,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.google.common.collect.ImmutableList;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
@@ -33,22 +31,17 @@ import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
@@ -172,27 +165,22 @@ public final class WWItems {
 	public static final Item COOKED_CRAB_CLAW = registerItem("cooked_crab_claw", Item::new, new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));
 	public static final Item SCORCHED_EYE = registerItem("scorched_eye", Item::new, new Item.Properties().food(WWFood.SCORCHED_EYE, WWFood.SCORCHED_EYE_CONSUMABLE));
 	public static final Item FERMENTED_SCORCHED_EYE = registerItem("fermented_scorched_eye", Item::new, new Item.Properties());
-	public static final Item ANCIENT_HORN_FRAGMENT = registerItem("ancient_horn_fragment", Item::new, new Item.Properties());
 
 	// SPAWN EGGS & BUCKETS
-	public static final SpawnEggItem FIREFLY_SPAWN_EGG = registerItem("firefly_spawn_egg", properties -> new SpawnEggItem(WWEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), properties), new Item.Properties());
-	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = registerItem("jellyfish_spawn_egg", properties -> new SpawnEggItem(WWEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), properties), new Item.Properties());
-	public static final MobBucketItem JELLYFISH_BUCKET = registerItem("jellyfish_bucket", properties -> new MobBucketItem(WWEntities.JELLYFISH, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, properties), new Item.Properties().stacksTo(1));
-	public static final SpawnEggItem CRAB_SPAWN_EGG = registerItem("crab_spawn_egg", properties -> new SpawnEggItem(WWEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), properties), new Item.Properties());
-	public static final MobBucketItem CRAB_BUCKET = registerItem("crab_bucket", properties -> new MobBucketItem(WWEntities.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, properties), new Item.Properties().stacksTo(1));
-	public static final SpawnEggItem OSTRICH_SPAWN_EGG = registerItem("ostrich_spawn_egg", properties -> new SpawnEggItem(WWEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), properties), new Item.Properties());
-	public static final SpawnEggItem SCORCHED_SPAWN_EGG = registerItem("scorched_spawn_egg", properties -> new SpawnEggItem(WWEntities.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), properties), new Item.Properties());
+	public static final SpawnEggItem FIREFLY_SPAWN_EGG = registerItem("firefly_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), properties), new Item.Properties());
+	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = registerItem("jellyfish_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), properties), new Item.Properties());
+	public static final MobBucketItem JELLYFISH_BUCKET = registerItem("jellyfish_bucket", properties -> new MobBucketItem(WWEntityTypes.JELLYFISH, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, properties), new Item.Properties().stacksTo(1));
+	public static final SpawnEggItem CRAB_SPAWN_EGG = registerItem("crab_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), properties), new Item.Properties());
+	public static final MobBucketItem CRAB_BUCKET = registerItem("crab_bucket", properties -> new MobBucketItem(WWEntityTypes.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, properties), new Item.Properties().stacksTo(1));
+	public static final SpawnEggItem OSTRICH_SPAWN_EGG = registerItem("ostrich_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), properties), new Item.Properties());
+	public static final SpawnEggItem SCORCHED_SPAWN_EGG = registerItem("scorched_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), properties), new Item.Properties());
 
 	// INSTRUMENT
-	public static final AncientHorn ANCIENT_HORN = registerItem("ancient_horn",
-		properties -> new AncientHorn(WWInstrumentTags.ANCIENT_HORNS, properties),
-		new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)
-	);
-	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("ancient_horn"));
 	public static final CopperHorn COPPER_HORN = registerItem("copper_horn",
 		properties -> new CopperHorn(WWInstrumentTags.COPPER_HORNS, properties),
 		new Item.Properties().stacksTo(1)
 	);
+
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
 	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("tuba_copper_horn"));
 	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("flute_copper_horn"));
@@ -207,14 +195,6 @@ public final class WWItems {
 
 	public static void registerItems() {
 		WWConstants.logWithModId("Registering Items for", WWConstants.UNSTABLE_LOGGING);
-
-		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.COCONUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
-		});
-
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);

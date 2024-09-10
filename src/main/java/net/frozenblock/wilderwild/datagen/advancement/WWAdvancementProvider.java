@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.datagen.advancement;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -30,17 +29,14 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.UsingItemTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 
 public class WWAdvancementProvider extends FabricAdvancementProvider {
 	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -112,23 +108,5 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK))
 			.save(writer, WWConstants.string("adventure/obtain_null_block"));
-
-		Advancement.Builder.advancement()
-			.parent(adventure)
-			.display(
-				WWItems.ANCIENT_HORN,
-				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.title"),
-				Component.translatable("wilderwild.advancements.adventure.use_ancient_horn.description"),
-				null,
-				AdvancementType.GOAL,
-				true,
-				true,
-				false
-			)
-			.addCriterion("use_ancient_horn",
-				CriteriaTriggers.USING_ITEM
-					.createCriterion(new UsingItemTrigger.TriggerInstance(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(items, WWItems.ANCIENT_HORN).build())))
-			)
-			.save(writer, WWConstants.string("adventure/use_ancient_horn"));
 	}
 }

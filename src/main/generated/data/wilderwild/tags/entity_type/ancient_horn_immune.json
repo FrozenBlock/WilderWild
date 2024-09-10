@@ -2,8 +2,6 @@
   "values": [
     "minecraft:wither",
     "minecraft:warden",
-    "minecraft:ender_dragon",
-    "wilderwild:tumbleweed",
-    "minecraft:breeze"
+    "minecraft:ender_dragon"
   ]
 }

@@ -72,8 +72,8 @@ public class V3328Mixin {
 		);
 		schema.register(
 			map,
-			WWConstants.string("ancient_horn_vibration"),
-			DSL::remainder
+			WWConstants.string("falling_leaves"),
+			(string) -> DSL.optionalFields("LeafLitterBlock", References.BLOCK_NAME.in(schema))
 		);
 		schema.register(
 			map,

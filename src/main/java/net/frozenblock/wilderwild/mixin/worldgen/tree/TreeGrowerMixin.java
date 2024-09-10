@@ -67,7 +67,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	}
 
 	@Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
+	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (!WWWorldgenConfig.get().treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
@@ -75,31 +75,37 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			if (this.wilderWild$getLevel() != null && this.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
 				Holder<Biome> biome = this.wilderWild$getLevel().getBiome(this.wilderWild$getPos());
 				if (biome.is(WWBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
-					cir.setReturnValue(WWTreeConfigured.SWAMP_TREE.getKey());
+					info.setReturnValue(WWTreeConfigured.SWAMP_TREE.getKey());
 					return;
 				}
 			}
 			if (random.nextInt(10) == 0) {
-				cir.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
+				info.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
 				if (random.nextFloat() < 0.075F) {
-					cir.setReturnValue(random.nextBoolean() ? WWTreeConfigured.SHRUB.getKey() : WWTreeConfigured.BIG_SHRUB.getKey());
+					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.SHRUB.getKey() : WWTreeConfigured.BIG_SHRUB.getKey());
 					return;
 				}
-				cir.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
+				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
 		} else if (treeGrower == TreeGrower.SPRUCE) {
-			cir.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
+			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
 		} else if (treeGrower == TreeGrower.BIRCH) {
-			if (random.nextFloat() < 0.15F)
-				cir.setReturnValue(flowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
-			else
-				cir.setReturnValue(flowers ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
+			if (random.nextFloat() < 0.15F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
+			} else if (random.nextFloat() < 0.65F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.MEDIUM_BIRCH_BEES_025.getKey() : WWTreeConfigured.MEDIUM_BIRCH.getKey());
+			} else if (random.nextFloat() < 0.85F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
+			} else {
+				info.setReturnValue(flowers ? WWTreeConfigured.SUPER_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SUPER_BIRCH.getKey());
+			}
 		} else if (treeGrower == TreeGrower.CHERRY) {
-			if (random.nextFloat() < 0.15F)
-				cir.setReturnValue(flowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
-			else
-				cir.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
+			if (random.nextFloat() < 0.15F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
+			} else {
+				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
+			}
 		}
 	}
 

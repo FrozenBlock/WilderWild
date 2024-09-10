@@ -55,8 +55,10 @@ public class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.ECHO_GLASS, RenderType.translucent());
 		renderLayerRegistry.putBlock(WWBlocks.HANGING_TENDRIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.BROWN_SHELF_FUNGUS, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.RED_SHELF_FUNGUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.BROWN_SHELF_FUNGI, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.RED_SHELF_FUNGI, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.CRIMSON_SHELF_FUNGI, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WARPED_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PALM_DOOR, RenderType.cutout());

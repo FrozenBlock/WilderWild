@@ -237,9 +237,11 @@ public class WWCreativeInventorySorting {
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
-		// SHELF FUNGUS
-		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.RED_SHELF_FUNGUS);
-		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGUS);
+		// SHELF FUNGI
+		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);
+		addAfterInNaturalBlocks(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
+		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.CRIMSON_SHELF_FUNGI);
+		addAfterInNaturalBlocks(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
 
 		// SPONGE
 		addAfterInNaturalBlocks(Items.WET_SPONGE, WWBlocks.SPONGE_BUD);
@@ -347,9 +349,6 @@ public class WWCreativeInventorySorting {
 
 		// HORNS
 		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.COPPER_HORN, WWInstrumentTags.COPPER_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);
-		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.ANCIENT_HORN, WWInstrumentTags.ANCIENT_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);
-		addInstrumentBefore(Items.BOW, WWItems.ANCIENT_HORN, WWInstrumentTags.ANCIENT_HORNS, CreativeModeTabs.COMBAT);
-		addAfterInIngredients(Items.ECHO_SHARD, WWItems.ANCIENT_HORN_FRAGMENT);
 	}
 
 	private static void addBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {

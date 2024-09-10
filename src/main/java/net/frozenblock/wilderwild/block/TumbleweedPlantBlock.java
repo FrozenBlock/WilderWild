@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -93,7 +93,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 			if (isFullyGrown(state)) {
 				if (random.nextInt(SNAP_CHANCE) == 0) {
 					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-					Tumbleweed weed = new Tumbleweed(WWEntities.TUMBLEWEED, level);
+					Tumbleweed weed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
 					level.addFreshEntity(weed);
 					weed.setPos(Vec3.atBottomCenterOf(pos));
 					int diff = level.getDifficulty().getId();

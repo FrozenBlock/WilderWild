@@ -25,14 +25,14 @@ import net.frozenblock.wilderwild.worldgen.impl.features.CattailFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.NematocystFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.PalmTreeFeature;
-import net.frozenblock.wilderwild.worldgen.impl.features.ShelfFungusFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.ShelfFungiFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.SnowBlanketFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.SpongeBudFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.LargeMesogleaConfig;
-import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungiFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SnowAndIceDiskFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
@@ -75,7 +75,7 @@ public class WWFeatures {
 	public static final FoliagePlacerType<WindmillPalmFoliagePlacer> WINDMILL_PALM_FOLIAGE_PLACER = registerFoliage("windmill_palm_foliage_placer", WindmillPalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<MapleFoliagePlacer> MAPLE_FOLIAGE_PLACER = registerFoliage("maple_foliage_placer", MapleFoliagePlacer.CODEC);
 
-	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
+	public static final Feature<ShelfFungiFeatureConfig> SHELF_FUNGI_FEATURE = register("shelf_fungi_feature", new ShelfFungiFeature(ShelfFungiFeatureConfig.CODEC));
 	public static final Feature<SpongeBudFeatureConfig> SPONGE_BUD_FEATURE = register("sponge_bud_feature", new SpongeBudFeature(SpongeBudFeatureConfig.CODEC));
 	public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(CattailFeatureConfig.CODEC));
 	public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(AlgaeFeatureConfig.CODEC));

@@ -22,7 +22,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
-import net.frozenblock.wilderwild.registry.WWEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
@@ -53,13 +53,13 @@ public class SpreadSculkCommand {
 	}
 
 	private static int spreadSculk(@NotNull CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
-		SculkSpreadTicker.createAndSpawn(WWEntities.SCULK_SPREADER, source.getLevel(), pos, worldGen, charge);
+		SculkSpreadTicker.createAndSpawn(WWEntityTypes.SCULK_SPREADER, source.getLevel(), pos, worldGen, charge);
 		source.sendSuccess(() -> Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.getX(), pos.getY(), pos.getZ(), charge), true);
 		return 1;
 	}
 
 	private static int spreadSculk(@NotNull CommandSourceStack source, Vec3 pos, boolean worldGen, int charge) {
-		SculkSpreadTicker.createAndSpawn(WWEntities.SCULK_SPREADER, source.getLevel(), BlockPos.containing(pos), worldGen, charge);
+		SculkSpreadTicker.createAndSpawn(WWEntityTypes.SCULK_SPREADER, source.getLevel(), BlockPos.containing(pos), worldGen, charge);
 		source.sendSuccess(() -> Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.x(), pos.y(), pos.z(), charge), true);
 		return 1;
 	}

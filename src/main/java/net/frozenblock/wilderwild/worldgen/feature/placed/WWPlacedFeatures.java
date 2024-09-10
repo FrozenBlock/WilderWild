@@ -41,10 +41,13 @@ import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.heightproviders.TrapezoidHeight;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -101,7 +104,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature DARK_BIRCH_FOREST_VEGETATION = register("dark_birch_forest_vegetation");
 	public static final FrozenPlacedFeature DARK_TAIGA_VEGETATION = register("dark_taiga_vegetation");
 	public static final FrozenPlacedFeature TREES_BIRCH = register("trees_birch");
-	public static final FrozenPlacedFeature BIRCH_TALL = register("birch_tall");
+	public static final FrozenPlacedFeature TREES_BIRCH_TALL = register("trees_birch_tall");
 	public static final FrozenPlacedFeature SPRUCE_PLACED = register("spruce_placed");
 	public static final FrozenPlacedFeature SHORT_SPRUCE_PLACED = register("short_spruce_placed");
 	public static final FrozenPlacedFeature SHORT_SPRUCE_RARE_PLACED = register("short_spruce_rare_placed");
@@ -168,8 +171,12 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_PLACED = register("snapped_dark_oak");
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_CLEARING_PLACED = register("snapped_dark_oak_clearing");
 	//MUSHROOMS
-	public static final FrozenPlacedFeature BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed");
-	public static final FrozenPlacedFeature RED_SHELF_FUNGUS_PLACED = register("red_shelf_fungus_placed");
+	public static final FrozenPlacedFeature BROWN_SHELF_FUNGI = register("brown_shelf_fungi");
+	public static final FrozenPlacedFeature RED_SHELF_FUNGI = register("red_shelf_fungi");
+	public static final FrozenPlacedFeature CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi");
+	public static final FrozenPlacedFeature WARPED_SHELF_FUNGI = register("warped_shelf_fungi");
+	public static final FrozenPlacedFeature CRIMSON_SHELF_FUNGI_RARE = register("crimson_shelf_fungi_rare");
+	public static final FrozenPlacedFeature WARPED_SHELF_FUNGI_RARE = register("warped_shelf_fungi_rare");
 	public static final FrozenPlacedFeature BROWN_MUSHROOM_PLACED = register("brown_mushroom_placed");
 	public static final FrozenPlacedFeature RED_MUSHROOM_PLACED = register("red_mushroom_placed");
 	public static final FrozenPlacedFeature DARK_FOREST_MUSHROOM_PLACED = register("dark_forest_mushroom_placed");
@@ -527,7 +534,7 @@ public final class WWPlacedFeatures {
 				).build()
 		);
 
-		BIRCH_TALL.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH_TALL.getHolder(),
+		TREES_BIRCH_TALL.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH_TALL.getHolder(),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
 				.add(
 					WWPlacementUtils.TREE_CLEARING_FILTER
@@ -869,19 +876,45 @@ public final class WWPlacedFeatures {
 
 		// MUSHROOMS
 
-		BROWN_SHELF_FUNGUS_PLACED.makeAndSetHolder(WWConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED.getHolder(),
-			RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+		BROWN_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.BROWN_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(11),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
-		RED_SHELF_FUNGUS_PLACED.makeAndSetHolder(WWConfiguredFeatures.RED_SHELF_FUNGUS_CONFIGURED.getHolder(),
-			RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+		RED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.RED_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(11),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
 		BROWN_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BROWN_MUSHROOM),
 			CountPlacement.of(1), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(230),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
+		);
+
+		WARPED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(230),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
+		);
+
+		CRIMSON_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(40),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
+		);
+
+		WARPED_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(40),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
 		);
 
 		RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_RED_MUSHROOM),

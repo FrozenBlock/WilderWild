@@ -27,7 +27,8 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public final class WWTreeDecorators {
-	public static final TreeDecoratorType<ShelfFungusTreeDecorator> FUNGUS_TREE_DECORATOR = register("shelf_fungus_tree_decorator", ShelfFungusTreeDecorator.CODEC);
+	public static final TreeDecoratorType<ShelfFungiTreeDecorator> SHELF_FUNGI_TREE_DECORATOR = register("shelf_fungi_tree_decorator", ShelfFungiTreeDecorator.CODEC);
+	public static final TreeDecoratorType<NetherShelfFungiTreeDecorator> NETHER_SHELF_FUNGI_TREE_DECORATOR = register("nether_shelf_fungi_tree_decorator", NetherShelfFungiTreeDecorator.CODEC);
 	public static final TreeDecoratorType<HeightBasedVineTreeDecorator> HEIGHT_BASED_VINE_TREE_DECORATOR = register("height_based_vine_tree_decorator", HeightBasedVineTreeDecorator.CODEC);
 	public static final TreeDecoratorType<HeightBasedCobwebTreeDecorator> HEIGHT_BASED_COBWEB_TREE_DECORATOR = register("height_based_cobweb_tree_decorator", HeightBasedCobwebTreeDecorator.CODEC);
 	public static final TreeDecoratorType<PollenTreeDecorator> POLLEN_TREE_DECORATOR = register("pollen_tree_decorator", PollenTreeDecorator.CODEC);

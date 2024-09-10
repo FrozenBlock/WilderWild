@@ -10,9 +10,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added Marigold.
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
-  - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
+  - This is controlled with the `wilderwild:has_stone_pile_common,` `wilderwild:has_stone_pile,` and `wilderwild:has_stone_pile_rare` tags.
 - Added leaf litters.
 - Added falling leaves.
+- Added Crimson and Warped Shelf Fungi, which generate naturally.
+- Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
 - Added block sound type compatibility for Biomes O' Plenty.
@@ -22,6 +24,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added block sound type compatibility for Excessive Building.
 
 # Changes
+- The Ancient Horn has finally been removed, as it was incredibly out-of-place and overpowered.
 - Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
   - Warm Beaches will still have Palms.
 - Rewrote the foliage generation of Palm trees.
@@ -35,6 +38,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
+- Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
+  - Old Growth Birch Forests will still keep their tall trees.
+- Birch Saplings can now grow Medium and Super Birches.
+- Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
@@ -49,6 +56,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed potential worldgen feature cycle crashes when certain config options were disabled.
 - Removed many duplicate spawn entries in Wilder Wild's biomes.
 - Tumbleweed no longer drop feathers.
+- Palm Fronds are now compostable.
+- Prickly Pears and Peeled Prickly Pears can now be composted.
+- The loot tables of Shelf Fungi have been fixed.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

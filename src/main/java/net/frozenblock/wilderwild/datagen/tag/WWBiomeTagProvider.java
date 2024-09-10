@@ -1112,7 +1112,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.GROVE)
 			.addOptional(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_SHELF_FUNGUS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_SHELF_FUNGI)
 			.add(Biomes.DARK_FOREST)
 			.add(Biomes.FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1134,7 +1134,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.DYING_MIXED_FOREST)
 			.addOptional(WWWorldgen.SNOWY_DYING_MIXED_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BROWN_SHELF_FUNGUS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BROWN_SHELF_FUNGI)
 			.add(Biomes.DARK_FOREST)
 			.add(Biomes.FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1163,6 +1163,30 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.DYING_MIXED_FOREST)
 			.addOptional(WWWorldgen.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWWorldgen.MAPLE_GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI)
+			.add(Biomes.WARPED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI_RARE)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI_RARE)
+			.add(Biomes.WARPED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_CRIMSON_FUNGI)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNAPPED_CRIMSON_FUNGI)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_WARPED_FUNGI)
+			.add(Biomes.WARPED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNAPPED_WARPED_FUNGI)
+			.add(Biomes.WARPED_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RAINFOREST_MUSHROOM)
 			.addOptional(WWWorldgen.RAINFOREST)
@@ -1377,13 +1401,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.ARID_SAVANNA)
 			.addOptional(WWWorldgen.ARID_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE)
-			.add(Biomes.STONY_SHORE)
-			.addOptional(WWWorldgen.MAPLE_GROVE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_COMMON)
+			.add(Biomes.STONY_SHORE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_RARE)
 			.add(Biomes.SUNFLOWER_PLAINS)
-			.add(Biomes.FLOWER_FOREST);
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
 			.addOptional(WWWorldgen.DYING_FOREST)

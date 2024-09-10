@@ -1,8 +1,0 @@
-{
-  "description": {
-    "translate": "instrument.wilderwild.ancient_horn"
-  },
-  "range": 256.0,
-  "sound_event": "wilderwild:item.ancient_horn.call",
-  "use_duration": 300.0
-}
