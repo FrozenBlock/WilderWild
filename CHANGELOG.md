@@ -47,6 +47,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Echo Glass now heals when the light level at 8 or below instead of 7.
 - Echo Glass now takes 25% longer on average between cracking in light.
 - Slightly optimized more config getter calls.
+- Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes

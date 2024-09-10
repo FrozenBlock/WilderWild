@@ -448,8 +448,6 @@
   "tooltip.wilderwild.shrieker_gargling": "Khối Sculk La Hét 'sủi bọt' khi bị ngập nước.",
   "option.wilderwild.cactus_placement": "Đặt Xương Rồng Mới",
   "tooltip.wilderwild.cactus_placement": "Xương rồng có thể đặt cạnh các khối khác không.\nNếu bạn có các trang trại Xương rồng, nên tắt tùy chọn này.",
-  "option.wilderwild.dripleaf_powering": "Kích hoạt Dripleaf",
-  "tooltip.wilderwild.dripleaf_powering": "Dripleaf sẽ có trạng thái kích hoạt và truyền Redstone qua thân của chúng.",
   "option.wilderwild.frosted_ice_cracking": "Vỡ băng băng giá mới",
   "tooltip.wilderwild.frosted_ice_cracking": "Liệu băng tuyết có xuất hiện các hạt vỡ và phát ra âm thanh vỡ nhẹ khi nứt không.",
   "option.wilderwild.log_hollowing": "Khoét Rỗng Khúc Gỗ",

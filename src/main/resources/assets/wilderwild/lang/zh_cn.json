@@ -526,8 +526,6 @@
   "tooltip.wilderwild.log_hollowing": "斧头是否可以挖空原木。可能有助于与模组的兼容性。",
   "tooltip.wilderwild.cactus_placement": "仙人掌是否可以放置在其他方块旁边。如果你有仙人掌农场，建议禁用此选项。",
   "tooltip.wilderwild.frosted_ice_cracking": "霜冰是否会在破碎时产生粒子和发出轻微的破碎声。",
-  "tooltip.wilderwild.dripleaf_powering": "滴叶是否会有激活状态并通过其茎发送红石信号。",
-  "tooltip.wilderwild.leaf_distance": "叶子开始衰变的方块距离。默认设置为12，以适应棕榈叶。",
   "tooltip.wilderwild.biome_ambience": "生物群系音效选项。",
   "tooltip.wilderwild.biome_music": "生物群系音乐选项。",
   "tooltip.wilderwild.biome_generation": "包含决定 Wilder Wild 的生物群系生成的选项。",

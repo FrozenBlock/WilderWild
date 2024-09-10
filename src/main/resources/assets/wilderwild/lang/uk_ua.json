@@ -402,8 +402,6 @@
   "tooltip.wilderwild.shrieker_gargling": "Скалкові крикуни «булькають», коли залиті водою.",
   "option.wilderwild.cactus_placement": "Нове розміщення кактуса",
   "tooltip.wilderwild.cactus_placement": "Чи можливо розміщувати кактус поблизу інших блоків.\nЯкщо ви маєте кактусові ферми, рекомендуємо вам вимкнути це.",
-  "option.wilderwild.dripleaf_powering": "Заживлення краплелиста",
-  "tooltip.wilderwild.dripleaf_powering": "Чи повинні краплелисти мати заживлений стан та надсилати редстоуновий сигнал через свої стебла.",
   "option.wilderwild.frosted_ice_cracking": "Нове ламанання морозного льоду",
   "tooltip.wilderwild.frosted_ice_cracking": "Чи повинен морозний лід викликати частинки ламання та відтворювати тихий звук ламання при трісканні.",
   "option.wilderwild.log_hollowing": "Видовбування колод",
