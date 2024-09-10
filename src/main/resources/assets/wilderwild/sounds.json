@@ -2257,42 +2257,6 @@
     ],
     "subtitle": "subtitles.block.ostrich_egg.hatch"
   },
-  "entity.ancient_horn_vibration.blast": {
-    "sounds": [
-      "wilderwild:entity/ancient_horn_vibration/blast1",
-      "wilderwild:entity/ancient_horn_vibration/blast2"
-    ],
-    "subtitle": "subtitles.entity.ancient_horn_vibration.blast"
-  },
-  "entity.ancient_horn_vibration.dissipate": {
-    "sounds": [
-      "wilderwild:entity/ancient_horn_vibration/dissipate1",
-      "wilderwild:entity/ancient_horn_vibration/dissipate2"
-    ],
-    "subtitle": "subtitles.entity.ancient_horn_vibration.dissipate"
-  },
-  "entity.ancient_horn_vibration.flyby": {
-    "sounds": [
-      {
-        "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_vibration/flyby1"
-      },
-      {
-        "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_vibration/flyby2"
-      },
-      {
-        "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_vibration/flyby3"
-      }
-    ],
-    "subtitle": "subtitles.entity.ancient_horn_vibration.flyby"
-  },
-  "entity.ancient_horn_vibration.loop": {
-    "sounds": [
-      "wilderwild:entity/ancient_horn_vibration/loop"
-    ]
-  },
   "entity.firefly.hide": {
     "sounds": [
       {
@@ -2735,14 +2699,6 @@
       "wilderwild:mob/frog/sus_death"
     ],
     "subtitle": "subtitles.entity.frog.sus_death"
-  },
-  "item.ancient_horn.call": {
-    "sounds": [
-      "wilderwild:item/ancient_horn/horn1",
-      "wilderwild:item/ancient_horn/horn2",
-      "wilderwild:item/ancient_horn/horn3"
-    ],
-    "subtitle": "subtitles.item.ancient_horn.call"
   },
   "entity.player.hurt.cactus": {
     "sounds": [

@@ -30,8 +30,8 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public final class WorldgenConfigGui {
-	private WorldgenConfigGui() {
+public final class WWWorldgenConfigGui {
+	private WWWorldgenConfigGui() {
 		throw new UnsupportedOperationException("WorldgenConfigGui contains only static declarations.");
 	}
 

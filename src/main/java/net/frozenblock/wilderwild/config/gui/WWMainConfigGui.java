@@ -52,7 +52,7 @@ public final class WWMainConfigGui {
 		var item = configBuilder.getOrCreateCategory(text("item"));
 		WWItemConfigGui.setupEntries(item, entryBuilder);
 		var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
-		WorldgenConfigGui.setupEntries(worldgen, entryBuilder);
+		WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
 		var misc = configBuilder.getOrCreateCategory(text("misc"));
 		WWAmbienceAndMiscConfigGui.setupEntries(misc, entryBuilder);
 		return configBuilder.build();
