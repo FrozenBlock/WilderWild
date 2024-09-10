@@ -712,8 +712,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
-								WWBlocks.RED_SHELF_FUNGI,
-								LootItem.lootTableItem(Blocks.RED_MUSHROOM).apply(
+								WWBlocks.CRIMSON_SHELF_FUNGI,
+								LootItem.lootTableItem(Blocks.CRIMSON_FUNGUS).apply(
 									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
 										.when(
 											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
@@ -785,8 +785,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							this.applyExplosionDecay(
-								WWBlocks.RED_SHELF_FUNGI,
-								LootItem.lootTableItem(Blocks.RED_MUSHROOM).apply(
+								WWBlocks.WARPED_SHELF_FUNGI,
+								LootItem.lootTableItem(Blocks.WARPED_FUNGUS).apply(
 									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
 										.when(
 											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
