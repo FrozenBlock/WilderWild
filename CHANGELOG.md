@@ -15,6 +15,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added falling leaves.
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
+- Added translations for Vietnamese thanks to [godkyo98](https://github.com/FrozenBlock/WilderWild/pull/411)!
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
 - Added block sound type compatibility for Biomes O' Plenty.

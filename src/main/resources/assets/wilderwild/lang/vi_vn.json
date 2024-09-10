@@ -180,7 +180,7 @@
   "block.wilderwild.palm_frond_litter": "Lá Cọ Khô",
 
   "block.wilderwild.algae": "Tảo",
-  "block.wilderwild.brown_shelf_fungus": "Nấm Kệ Nâu",
+  "block.wilderwild.brown_shelf_fungi": "Nấm Kệ Nâu",
   "block.wilderwild.cattail": "Cỏ Đuôi Mèo",
   "block.wilderwild.datura": "Hoa Datura",
   "block.wilderwild.echo_glass": "Kính Vang",
@@ -191,7 +191,7 @@
   "block.wilderwild.potted_prickly_big_dripleaf": "Chậu Cây Cánh Cụt Lớn",
   "block.wilderwild.potted_prickly_small_dripleaf": "Chậu Cây Cánh Cụt Nhỏ",
   "block.wilderwild.potted_short_grass": "Chậu Cỏ Thấp",
-  "block.wilderwild.red_shelf_fungus": "Nấm Kệ Đỏ",
+  "block.wilderwild.red_shelf_fungi": "Nấm Kệ Đỏ",
   "block.wilderwild.scorched_sand": "Cát Cháy Xém",
   "block.wilderwild.scorched_red_sand": "Cát Đỏ Cháy Xém",
   "block.wilderwild.blue_pearlescent_mesoglea": "Chất Keo Trung Bì Xà Cừ Xanh",
@@ -256,7 +256,7 @@
   "item.wilderwild.peeled_prickly_pear": "Quả Lê Gai đã lột vỏ",
   "item.wilderwild.prickly_pear": "Quả Lê Gai",
   "death.attack.prickly_pear": "%1$s nhét gai vào miệng",
-  
+
   "block.wilderwild.seeding_dandelion": "Bồ Công Anh Đang Gieo",
   "block.wilderwild.potted_seeding_dandelion": "Chậu Bồ Công Anh Đang Gieo",
 
@@ -414,7 +414,7 @@
   "subtitles.entity.tumbleweed.damage": "Cây Bụi Lăn nứt ra",
   "death.attack.tumbleweed": "%1$s bị cuốn bay",
   "death.attack.tumbleweed.item": "%1$s bị cuốn bay bởi %2$s dùng %3$s",
- 
+
   "subtitles.entity.warden.brap": "Warden làm hôi nơi này",
   "subtitles.entity.warden.dying_underwater": "Warden kêu ục ục",
   "subtitles.entity.warden.stella_heartbeat": "Tim của Warden đập",
@@ -484,7 +484,7 @@
   "tooltip.wilderwild.max_termite_distance": "Kiểm soát khoảng cách tối đa mà mối có thể sống từ đống mối của chúng.",
   "option.wilderwild.max_natural_termite_distance": "Khoảng Cách Tối Đa Từ Đống Mối Tự Nhiên",
   "tooltip.wilderwild.max_natural_termite_distance": "Kiểm soát khoảng cách tối đa mà mối có thể sống từ đống mối của chúng\nkhi đống mối được tạo ra tự nhiên.",
-  
+
   "option.wilderwild.block_sounds": "Âm Thanh Khối",
   "tooltip.wilderwild.block_sounds": "Bao gồm các tùy chọn để ghi đè âm thanh khối.",
   "option.wilderwild.cactus_sounds": "Âm Thanh Xương Rồng",
@@ -523,7 +523,7 @@
   "tooltip.wilderwild.wither_rose_sounds": "Liệu âm thanh của Hoa Khô Héo có nên được ghi đè không.",
   "option.wilderwild.sandstone_sounds": "Âm Thanh Cát kết",
   "tooltip.wilderwild.sandstone_sounds": "Liệu âm thanh của Cát kết có nên được ghi đè không.",
-  
+
   "option.wilderwild.entity": "Thực Thể",
   "option.wilderwild.allay": "Allay",
   "tooltip.wilderwild.allay": "Bao gồm các tùy chọn cho Allay.",
@@ -784,7 +784,7 @@
   "tooltip.wilderwild.generate_snowy_dying_mixed_forest": "Có nên tạo Rừng Hỗn Hợp Sắp Chết Tuyết Phủ hay không.",
   "option.wilderwild.biome.false": "§cTắt",
   "option.wilderwild.biome.true": "§aBật",
-  
+
   "option.wilderwild.misc": "Không Gian & Khác",
   "option.wilderwild.biome_ambience": "Không Gian Sinh Thái",
   "tooltip.wilderwild.biome_ambience": "Chứa các tùy chọn cho không gian sinh thái.",
@@ -858,7 +858,7 @@
   "tooltip.wilderwild.wind_disturbance_particle_spawn_attempts": "Số lần mỗi tích hạt gió nhiễu loạn sẽ thử xuất hiện.",
   "option.wilderwild.title_resource_pack_enabled_by_default": "Gói tài nguyên được kích hoạt mặc định",
   "tooltip.wilderwild.title_resource_pack_enabled_by_default": "Gói tài nguyên của Wild Wild trên menu chính có được kích hoạt mặc định hay không.\nHữu ích khi tạo các gói mod với menu chính tùy chỉnh.\nNếu không, bạn có thể tắt nó thủ công trong menu Gói tài nguyên.",
-  
+
   "option.wilderwild.simple_bool.false": "§cTẮT",
   "option.wilderwild.simple_bool.true": "§aBẬT",
 

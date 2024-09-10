@@ -117,6 +117,9 @@ mayonaka8478:
 Moonisky:
  - Chinese translation.
 
+godkyo98:
+ - Vietnamese translation.
+
 Ostrich Sounds:
 Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
 https://xeno-canto.org/845946
