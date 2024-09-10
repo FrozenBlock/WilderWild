@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -57,17 +56,5 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), UPDATE_CLIENTS);
-	}
-
-	public boolean canPalmFrondDecay(ServerLevel world, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutablePos = pos.mutable();
-		for (Direction direction : UPDATE_SHAPE_ORDER) {
-			BlockPos offsetPos = mutablePos.setWithOffset(pos, direction);
-			BlockState blockState = world.getBlockState(offsetPos);
-			if (blockState.getBlock() instanceof LeavesBlock leavesBlock) {
-				if (!leavesBlock.decaying(blockState)) return false;
-			}
-		}
-		return true;
 	}
 }
