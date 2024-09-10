@@ -1402,15 +1402,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.ARID_SAVANNA)
 			.addOptional(WWWorldgen.ARID_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE)
-			.addOptional(WWWorldgen.MAPLE_GROVE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_COMMON)
 			.add(Biomes.STONY_SHORE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_RARE)
 			.add(Biomes.SUNFLOWER_PLAINS)
-			.add(Biomes.FLOWER_FOREST);
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
 			.addOptional(WWWorldgen.DYING_FOREST)
