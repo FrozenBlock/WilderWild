@@ -891,13 +891,13 @@ public final class WWPlacedFeatures {
 		);
 
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(150),
+			CountPlacement.of(180),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
 		);
 
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(150),
+			CountPlacement.of(180),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
 		);
