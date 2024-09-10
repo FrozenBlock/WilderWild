@@ -41,10 +41,13 @@ import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.heightproviders.TrapezoidHeight;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -891,27 +894,27 @@ public final class WWPlacedFeatures {
 		);
 
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(180),
+			CountPlacement.of(230),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
 		);
 
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(180),
+			CountPlacement.of(230),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
 		);
 
 		CRIMSON_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(60),
+			CountPlacement.of(40),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
 		);
 
 		WARPED_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(60),
+			CountPlacement.of(40),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
+			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP), BiomeFilter.biome()
 		);
 
 		RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_RED_MUSHROOM),
