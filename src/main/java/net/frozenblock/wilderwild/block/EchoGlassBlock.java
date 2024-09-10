@@ -153,12 +153,14 @@ public class EchoGlassBlock extends TransparentBlock {
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		int light = getLightLevel(level, pos);
-		if (light <= 7) {
+		if (light <= 8) {
 			if (random.nextBoolean()) {
 				heal(level, pos);
 			}
 		} else {
-			damage(level, pos, state, true);
+			if (random.nextFloat() <= 0.75F) {
+				damage(level, pos, state, true);
+			}
 		}
 	}
 

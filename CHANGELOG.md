@@ -43,6 +43,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - Old Growth Birch Forests will still keep their tall trees.
 - Birch Saplings can now grow Medium and Super Birches.
 - Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
+- The strength and resistance of Echo Glass have been increased.
+- Echo Glass now heals when the light level at 8 or below instead of 7.
+- Echo Glass now takes 25% longer on average between cracking in light.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes

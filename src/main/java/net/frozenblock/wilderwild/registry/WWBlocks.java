@@ -386,11 +386,11 @@ public final class WWBlocks {
 
 	public static final EchoGlassBlock ECHO_GLASS = new EchoGlassBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.TINTED_GLASS)
+			.strength(1F)
 			.mapColor(MapColor.COLOR_CYAN)
 			.noOcclusion()
 			.randomTicks()
 			.sound(WWSoundTypes.ECHO_GLASS)
-			.instrument(NoteBlockInstrument.HAT)
 	);
 
 	// Mesoglea
