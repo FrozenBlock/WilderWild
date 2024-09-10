@@ -38,7 +38,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newPlanks(Block original) {
-		if (WWWorldgenConfig.get().newWitchHuts) {
+		if (WWWorldgenConfig.NEW_WITCH_HUTS) {
 			return WWBlocks.CYPRESS_PLANKS;
 		}
 		return original;
@@ -52,7 +52,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newStairs(Block original) {
-		if (WWWorldgenConfig.get().newWitchHuts) {
+		if (WWWorldgenConfig.NEW_WITCH_HUTS) {
 			return WWBlocks.CYPRESS_STAIRS;
 		}
 		return original;
