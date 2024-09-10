@@ -56,7 +56,9 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-	public <T extends BlockEntity> void wilderWild$getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+	public <T extends BlockEntity> void wilderWild$getTicker(
+		Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info
+	) {
 		if (!level.isClientSide) {
 			info.setReturnValue(
 				BaseEntityBlock.createTickerHelper(

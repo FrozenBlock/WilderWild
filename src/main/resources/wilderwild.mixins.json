@@ -69,7 +69,7 @@
     "projectile.ThrownEnderpearlMixin",
     "projectile.ThrownExperienceBottleMixin",
     "projectile.ThrownPotionMixin",
-    "sculk.CalibratedSculkSensorBlockEntityMixin",
+    "sculk.BlockEntityMixin",
     "sculk.CalibratedSculkSensorBlockMixin",
     "sculk.SculkBlockMixin",
     "sculk.SculkSensorBlockEntityMixin",

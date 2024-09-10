@@ -20,24 +20,17 @@ package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.networking.packet.WWSensorHiccupPacket;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
@@ -46,7 +39,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -114,19 +106,6 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		}
 		this.wilderWild$setAnimTicks(animTicks);
 		this.wilderWild$setAge(this.wilderWild$getAge() + 1);
-	}
-
-	@Unique
-	@Override
-	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(SculkSensorBlockEntity.class.cast(this));
-	}
-
-	@Unique
-	@NotNull
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
 	}
 
 	@Unique
@@ -213,8 +192,17 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		@Final
 		protected BlockPos blockPos;
 
-		@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V", shift = At.Shift.AFTER), method = "onReceiveVibration")
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {
+		@Inject(
+			method = "onReceiveVibration",
+			at = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V",
+				shift = At.Shift.AFTER
+			)
+		)
+		private void wilderWild$onReceiveVibration(
+			ServerLevel world, BlockPos pos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info
+		) {
 			world.gameEvent(entity, WWGameEvents.SCULK_SENSOR_ACTIVATE, this.blockPos);
 		}
 	}
