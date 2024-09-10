@@ -26,11 +26,16 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,6 +46,10 @@ public abstract class MultiPlayerGameModeMixin {
 
 	@Shadow
 	public abstract GameType getPlayerMode();
+
+	@Shadow
+	@Final
+	private Minecraft minecraft;
 
 	@ModifyExpressionValue(
 		method = "destroyBlock",
@@ -70,7 +79,10 @@ public abstract class MultiPlayerGameModeMixin {
 	) {
 		BlockState blockState = destroyedState.get();
 		if (blockState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(blockState) && !this.getPlayerMode().isCreative()) {
-			EchoGlassBlock.setDamagedState(instance, pos, blockState);
+			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.minecraft.player.getMainHandItem()) < 1) {
+				EchoGlassBlock.setDamagedState(instance, pos, blockState);
+			}
 			return true;
 		}
 		return original.call(instance, pos, newState, flags);
