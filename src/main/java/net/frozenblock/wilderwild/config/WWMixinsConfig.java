@@ -69,6 +69,8 @@ public final class WWMixinsConfig {
 
 	public boolean block_dripstone = true;
 
+	public boolean block_echo_glass = true;
+
 	public boolean block_fire = true;
 
 	public boolean block_ice = true;

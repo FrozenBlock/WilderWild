@@ -36,6 +36,7 @@ import net.minecraft.world.entity.ai.behavior.warden.SonicBoom;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.ClipBlockStateContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -104,8 +105,9 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			if (hitPos != null) {
 				i = Mth.floor(vec32.length()) + 10;
 				info.cancel();
-				if (level.getBlockState(hitPos).is(WWBlocks.ECHO_GLASS)) {
-					EchoGlassBlock.damage(level, hitPos, false);
+				BlockState hitState = level.getBlockState(hitPos);
+				if (hitState.getBlock() instanceof EchoGlassBlock) {
+					EchoGlassBlock.damage(level, hitPos, hitState, false);
 				}
 			}
 		}

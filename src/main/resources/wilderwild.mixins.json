@@ -16,6 +16,7 @@
     "block.dripleaf.BlockBehaviourMixin",
     "block.dripleaf.BlockMixin",
     "block.dripstone.FallingBlockMixin",
+    "block.echo_glass.ServerPlayerGameModeMixin",
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",
     "block.ice.FrostedIceBlockMixin",
@@ -115,6 +116,7 @@
     "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
+    "block.echo_glass.client.MultiPlayerGameModeMixin",
     "client.allay.AllayModelMixin",
     "client.brush.LevelRendererMixin",
     "client.easter.ScottTheWozMixin",

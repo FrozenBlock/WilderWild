@@ -62,12 +62,17 @@ public class EchoGlassBlock extends TransparentBlock {
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
 	}
 
-	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean shouldDrop) {
-		BlockState state = level.getBlockState(pos);
-		if (!state.hasProperty(DAMAGE)) return;
+	public static boolean canDamage(@NotNull BlockState state) {
+		return state.hasProperty(DAMAGE) && state.getValue(DAMAGE) < 3;
+	}
 
-		if (state.getValue(DAMAGE) < 3) {
-			level.setBlockAndUpdate(pos, state.cycle(DAMAGE));
+	public static void setDamagedState(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState blockState) {
+		level.setBlockAndUpdate(pos, blockState.cycle(DAMAGE));
+	}
+
+	public static void damage(@NotNull Level level, @NotNull BlockPos pos, BlockState blockState, boolean shouldDrop) {
+		if (canDamage(blockState)) {
+			setDamagedState(level, pos, blockState);
 			level.playSound(
 				null,
 				pos,
@@ -78,7 +83,7 @@ public class EchoGlassBlock extends TransparentBlock {
 			);
 			if (level instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(
-					new BlockParticleOption(ParticleTypes.BLOCK, state),
+					new BlockParticleOption(ParticleTypes.BLOCK, blockState),
 					pos.getX() + 0.5D,
 					pos.getY() + 0.5D,
 					pos.getZ() + 0.5D,
@@ -153,7 +158,7 @@ public class EchoGlassBlock extends TransparentBlock {
 				heal(level, pos);
 			}
 		} else {
-			damage(level, pos, true);
+			damage(level, pos, state, true);
 		}
 	}
 
@@ -178,8 +183,8 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-		damage(level, hit.getBlockPos(), true);
 		super.onProjectileHit(level, state, hit, projectile);
+		damage(level, hit.getBlockPos(), state, true);
 	}
 
 	@Override

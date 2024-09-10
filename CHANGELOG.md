@@ -60,6 +60,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Palm Fronds are now compostable.
 - Prickly Pears and Peeled Prickly Pears can now be composted.
 - The loot tables of Shelf Fungi have been fixed.
+- Echo Glass no longer flickers upon being damaged by players.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
