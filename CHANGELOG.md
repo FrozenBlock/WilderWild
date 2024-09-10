@@ -13,7 +13,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
   - This is controlled with the `wilderwild:has_stone_pile` and `wilderwild:has_stone_pile_rare` tags.
 - Added leaf litters.
 - Added falling leaves.
-- Added Warped and Crimson Shelf Fungi, which generate naturally in their respective biomes.
+- Added Crimson and Warped Shelf Fungi, which generate naturally.
+- Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
 - Added block sound type compatibility for Biomes O' Plenty.

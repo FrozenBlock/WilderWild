@@ -27,11 +27,19 @@ import net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 
 public final class WWTreePlaced {
 	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
@@ -209,6 +217,12 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = WWPlacementUtils.register("snapped_acacia_checked");
 	//MANGROVE
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = WWPlacementUtils.register("fallen_mangrove_checked");
+	//CRIMSON
+	public static final FrozenPlacedFeature FALLEN_CRIMSON_FUNGI = WWPlacementUtils.register("fallen_crimson_fungi");
+	public static final FrozenPlacedFeature SNAPPED_CRIMSON_FUNGI = WWPlacementUtils.register("snapped_crimson_fungi");
+	//WARPED
+	public static final FrozenPlacedFeature FALLEN_WARPED_FUNGI = WWPlacementUtils.register("fallen_warped_fungi");
+	public static final FrozenPlacedFeature SNAPPED_WARPED_FUNGI = WWPlacementUtils.register("snapped_warped_fungi");
 	//TREE ON GRASS
 	public static final FrozenPlacedFeature PALM_CHECKED_DIRT = WWPlacementUtils.register("palm_checked_dirt");
 	public static final FrozenPlacedFeature TALL_PALM_CHECKED_DIRT = WWPlacementUtils.register("tall_palm_checked_dirt");
@@ -797,6 +811,58 @@ public final class WWTreePlaced {
 
 		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MANGROVE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		//CRIMSON
+
+		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(WWTreeConfigured.FALLEN_CRIMSON_FUNGI.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
+		);
+
+		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(WWTreeConfigured.SNAPPED_CRIMSON_FUNGI.getHolder(),
+			CountPlacement.of(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
+		);
+
+		//WARPED
+
+		FALLEN_WARPED_FUNGI.makeAndSetHolder(WWTreeConfigured.FALLEN_WARPED_FUNGI.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
+		);
+
+		SNAPPED_WARPED_FUNGI.makeAndSetHolder(WWTreeConfigured.SNAPPED_WARPED_FUNGI.getHolder(),
+			CountPlacement.of(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
+				12
+			)
 		);
 
 		// TREE ON GRASS
