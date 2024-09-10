@@ -57,8 +57,6 @@ val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
 
-val continuity_version: String by project
-
 base {
     archivesName = archives_base_name
 }
@@ -219,9 +217,6 @@ dependencies {
         modImplementation("maven.modrinth:sodium:${sodium_version}")
     else
         modCompileOnly("maven.modrinth:sodium:${sodium_version}")
-
-    // Continuity
-    modImplementation("maven.modrinth:continuity:${continuity_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
