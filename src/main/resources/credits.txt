@@ -112,6 +112,7 @@ nekkok:
 
 unroman:
  - Ukranian translation.
+ - And the new Ukranian translation!
 
 mayonaka8478:
  - Japanese translation.
