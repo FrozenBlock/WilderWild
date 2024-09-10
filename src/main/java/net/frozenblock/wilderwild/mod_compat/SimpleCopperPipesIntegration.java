@@ -16,63 +16,29 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mod_compat.simple_copper_pipes;
+package net.frozenblock.wilderwild.mod_compat;
 
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.lunade.copper.SimpleCopperPipesMain;
-import net.lunade.copper.blocks.CopperPipe;
-import net.lunade.copper.blocks.block_entity.CopperPipeEntity;
-import net.lunade.copper.blocks.block_entity.pipe_nbt.MoveablePipeDataHandler;
 import net.lunade.copper.registry.PipeMovementRestrictions;
 import net.lunade.copper.registry.PoweredPipeDispenses;
-import net.lunade.copper.registry.RegisterSoundEvents;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
-	public static final ResourceLocation HORN = WWConstants.id("ancient_horn");
+public class SimpleCopperPipesIntegration extends ModIntegration {
 
 	public SimpleCopperPipesIntegration() {
-		super();
-	}
-
-	@Override
-	public boolean addHornNbtToBlock(@NotNull ServerLevel level, BlockPos pos, @NotNull Entity owner) {
-		BlockEntity entity = level.getBlockEntity(pos);
-		if (entity != null) {
-			if (entity instanceof CopperPipeEntity pipe) {
-				level.playSound(null, pos, RegisterSoundEvents.ITEM_IN, SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
-				pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(HORN));
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public boolean isCopperPipe(BlockState state) {
-		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
-			return state.getBlock() instanceof CopperPipe;
-		}
-		return false;
+		super("copper_pipe");
 	}
 
 	@Override
@@ -103,23 +69,6 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 		} else {
 			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);
 		}
-	}
-
-	public static void spawnSeedParticleFromPipe(boolean isMilkweed, @NotNull ServerLevel level, int i, @NotNull Direction direction, @NotNull Position position, boolean corroded) {
-		Vec3 outputPos = getOutputPosition(position, direction);
-		RandomSource random = level.getRandom();
-		Vec3 velocity = getVelocity(random, direction, 3.5D, i);
-		level.sendParticles(
-			SeedParticleOptions.controlled(isMilkweed, (float) (velocity.x() * 1.5F), (float) (velocity.y() + 0.035F), (float) (velocity.z() * 1.5F)),
-			outputPos.x(),
-			outputPos.y(),
-			outputPos.z(),
-			random.nextIntBetweenInclusive(1, 10),
-			0.3D,
-			0.3D,
-			0.3D,
-			0D
-		);
 	}
 
 	@NotNull
