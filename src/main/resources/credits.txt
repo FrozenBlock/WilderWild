@@ -35,12 +35,14 @@ Zhen:
  - Updated the Milkweed Pod texture in 2.4.3.
  - Retextured the entire Cypress set in 2.4.3.
  - Retextured the Reach Boost icon in 2.4.4.
- - Made the Cracked & Mossy Mud Bricks textures.
+ - Cracked & Mossy Mud Bricks textures.
+ - All Maple, Leaf Litter, and Leaf particle textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
  - Scorching effect icon.
  - Retextured Null Blocks in 2.4.3.
+ - Crimson and Warped Shelf Fungi textures.
 
 LudoCrypt:
  - New music.
