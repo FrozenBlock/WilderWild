@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:warped_shelf_fungi",
+  "feature": "wilderwild:crimson_shelf_fungi",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 150
+      "count": 60
     },
     {
       "type": "minecraft:in_square"

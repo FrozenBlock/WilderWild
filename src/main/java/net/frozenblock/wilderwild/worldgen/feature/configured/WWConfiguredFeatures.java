@@ -2111,7 +2111,7 @@ public final class WWConfiguredFeatures {
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
 			new ShelfFungiFeatureConfig(
 				WWBlocks.CRIMSON_SHELF_FUNGI,
-				8,
+				12,
 				true,
 				true,
 				true,
@@ -2125,7 +2125,7 @@ public final class WWConfiguredFeatures {
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
 			new ShelfFungiFeatureConfig(
 				WWBlocks.WARPED_SHELF_FUNGI,
-				8,
+				12,
 				true,
 				true,
 				true,

@@ -373,6 +373,14 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.WARPED_SHELF_FUNGI.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.CRIMSON_SHELF_FUNGI_RARE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WARPED_SHELF_FUNGI_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.WARPED_SHELF_FUNGI_RARE.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RAINFOREST_MUSHROOMS_PLACED.getKey());
 						}

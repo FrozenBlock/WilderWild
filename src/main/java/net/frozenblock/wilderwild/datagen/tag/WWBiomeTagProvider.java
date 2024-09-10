@@ -1171,6 +1171,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI)
 			.add(Biomes.WARPED_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI_RARE)
+			.add(Biomes.CRIMSON_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI_RARE)
+			.add(Biomes.WARPED_FOREST);
+
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RAINFOREST_MUSHROOM)
 			.addOptional(WWWorldgen.RAINFOREST)
 			.addOptional(WWWorldgen.TEMPERATE_RAINFOREST);

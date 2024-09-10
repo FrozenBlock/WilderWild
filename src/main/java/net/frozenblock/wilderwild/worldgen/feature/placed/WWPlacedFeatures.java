@@ -172,6 +172,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature RED_SHELF_FUNGI = register("red_shelf_fungi");
 	public static final FrozenPlacedFeature CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi");
 	public static final FrozenPlacedFeature WARPED_SHELF_FUNGI = register("warped_shelf_fungi");
+	public static final FrozenPlacedFeature CRIMSON_SHELF_FUNGI_RARE = register("crimson_shelf_fungi_rare");
+	public static final FrozenPlacedFeature WARPED_SHELF_FUNGI_RARE = register("warped_shelf_fungi_rare");
 	public static final FrozenPlacedFeature BROWN_MUSHROOM_PLACED = register("brown_mushroom_placed");
 	public static final FrozenPlacedFeature RED_MUSHROOM_PLACED = register("red_mushroom_placed");
 	public static final FrozenPlacedFeature DARK_FOREST_MUSHROOM_PLACED = register("dark_forest_mushroom_placed");
@@ -883,21 +885,33 @@ public final class WWPlacedFeatures {
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
+		BROWN_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BROWN_MUSHROOM),
+			CountPlacement.of(1), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
-			CountPlacement.of(80),
+			CountPlacement.of(150),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
 		);
 
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
-			 CountPlacement.of(80),
+			CountPlacement.of(150),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
 		);
 
-		BROWN_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BROWN_MUSHROOM),
-			CountPlacement.of(1), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		CRIMSON_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(60),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
+		);
+
+		WARPED_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI.getHolder(),
+			CountPlacement.of(60),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE, BiomeFilter.biome()
 		);
 
 		RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_RED_MUSHROOM),
