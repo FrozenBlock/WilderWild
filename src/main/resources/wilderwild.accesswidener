@@ -81,6 +81,7 @@ accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/worl
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
 accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
+extendable method net/minecraft/world/entity/Mob getLootTable ()Ljava/util/Optional;
 
 # Projectiles
 accessible field net/minecraft/world/entity/projectile/Projectile hasBeenShot Z
