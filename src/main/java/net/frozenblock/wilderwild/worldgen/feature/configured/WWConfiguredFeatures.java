@@ -573,15 +573,18 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getHolder(), 0.012F),
 				new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getHolder(), 0.035F),
-				new WeightedPlacedFeature(WWTreePlaced.BIRCH_BEES_0004.getHolder(), 0.25F)), WWTreePlaced.MEDIUM_BIRCH_BEES_0004.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004.getHolder(), 0.04F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.01F),
+				new WeightedPlacedFeature(WWTreePlaced.BIRCH_BEES_0004.getHolder(), 0.05F)), WWTreePlaced.MEDIUM_BIRCH_BEES_0004.getHolder()
 			)
 		);
 
 		TREES_BIRCH_TALL.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004.getHolder(), 0.002F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.0001F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SUPER_BIRCH.getHolder(), 0.032F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.001F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SUPER_BIRCH.getHolder(), 0.075F),
 				new WeightedPlacedFeature(WWTreePlaced.BIRCH_BEES_0004.getHolder(), 0.02F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getHolder(), 0.177F)), WWTreePlaced.SUPER_BIRCH_BEES_0004.getHolder()
 			)

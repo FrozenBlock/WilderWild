@@ -106,7 +106,6 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -387,11 +386,11 @@ public final class WWBlocks {
 
 	public static final EchoGlassBlock ECHO_GLASS = new EchoGlassBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.TINTED_GLASS)
+			.strength(1F)
 			.mapColor(MapColor.COLOR_CYAN)
 			.noOcclusion()
 			.randomTicks()
 			.sound(WWSoundTypes.ECHO_GLASS)
-			.instrument(NoteBlockInstrument.HAT)
 	);
 
 	// Mesoglea

@@ -37,9 +37,9 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
-public final class WilderWorldGen {
-	private WilderWorldGen() {
-		throw new UnsupportedOperationException("WilderWorldGen contains only static declarations.");
+public final class WWWorldGen {
+	private WWWorldGen() {
+		throw new UnsupportedOperationException("WWWorldGen contains only static declarations.");
 	}
 
 	public static void generateWildWorldGen() {

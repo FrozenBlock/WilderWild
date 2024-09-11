@@ -157,20 +157,6 @@ public final class WWBlockConfigGui {
 			)
 		);
 
-		var dripleafPowering = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("dripleaf_powering"), modifiedConfig.dripleafPowering)
-					.setDefaultValue(defaultConfig.dripleafPowering)
-					.setSaveConsumer(newValue -> config.dripleafPowering = newValue)
-					.setTooltip(tooltip("dripleaf_powering"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"dripleafPowering",
-				configInstance
-			)
-		);
-
 		var bigFungusGrowth = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("big_fungus_growth"), modifiedConfig.bigFungusGrowth)

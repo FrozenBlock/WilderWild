@@ -130,9 +130,6 @@ public final class WWBlockConfig {
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 
-	@EntrySyncData("dripleafPowering")
-	public boolean dripleafPowering = true;
-
 	@EntrySyncData("bigFungusGrowth")
 	public boolean bigFungusGrowth = true;
 

@@ -16,26 +16,37 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging.client;
+package net.frozenblock.wilderwild.mixin.block.echo_glass;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Environment(EnvType.CLIENT)
-@Mixin(MultiPlayerGameMode.class)
-public class MultiPlayerGameModeMixin {
+@Mixin(ServerPlayerGameMode.class)
+public abstract class ServerPlayerGameModeMixin {
+
+	@Shadow
+	public abstract GameType getGameModeForPlayer();
+
+	@Shadow
+	@Final
+	protected ServerPlayer player;
 
 	@ModifyExpressionValue(
 		method = "destroyBlock",
@@ -44,7 +55,7 @@ public class MultiPlayerGameModeMixin {
 			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public BlockState wilderWild$destroyBlockA(
+	public BlockState wilderWild$destroyBlockEchoA(
 		BlockState original,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
@@ -56,18 +67,22 @@ public class MultiPlayerGameModeMixin {
 		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
 		)
 	)
-	public boolean wilderWild$destroyBlockB(
-		Level instance, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original,
+	public boolean wilderWild$destroyBlockEchoB(
+		ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
-		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
-			return true;
+		BlockState blockState = destroyedState.get();
+		if (blockState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(blockState) && !this.getGameModeForPlayer().isCreative()) {
+			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.player.getMainHandItem()) < 1) {
+				EchoGlassBlock.setDamagedState(instance, pos, blockState);
+				return true;
+			}
 		}
-		return original.call(instance, pos, newState, flags);
+		return original.call(instance, pos, b);
 	}
 
 }

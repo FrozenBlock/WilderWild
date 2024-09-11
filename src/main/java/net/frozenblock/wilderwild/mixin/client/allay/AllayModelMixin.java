@@ -48,7 +48,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
 		require = 0
 	)
 	private boolean wilderWild$alterDanceCheck(boolean original) {
-		return original && !WWEntityConfig.Client.KEYFRAME_ALLAY_DANCE;
+		return original && !WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE;
 	}
 
 	@Inject(
@@ -63,7 +63,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
 		require = 0
 	)
 	private void wilderWild$runKeyframeDance(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {
-		if (WWEntityConfig.Client.KEYFRAME_ALLAY_DANCE && allay instanceof WilderAllay wilderAllay) {
+		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && allay instanceof WilderAllay wilderAllay) {
 			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), CustomAllayAnimations.DANCING, ageInTicks);
 		}
 	}

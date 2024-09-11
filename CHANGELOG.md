@@ -15,6 +15,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added falling leaves.
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
+- Added translations for Vietnamese thanks to [godkyo98](https://github.com/FrozenBlock/WilderWild/pull/411)!
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
 - Added block sound type compatibility for Biomes O' Plenty.
@@ -38,10 +39,18 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
+- Jellyfish now have 2D tentacles by default, looking much cleaner than before.
+  - This can be toggled on-the-fly with the config.
 - Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
   - Old Growth Birch Forests will still keep their tall trees.
 - Birch Saplings can now grow Medium and Super Birches.
 - Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
+- The strength and resistance of Echo Glass have been increased.
+- Echo Glass now heals when the light level at 8 or below instead of 7.
+- Echo Glass now takes 25% longer on average between cracking in light.
+- Slightly optimized more config getter calls.
+- Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
+- Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
@@ -59,6 +68,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Palm Fronds are now compostable.
 - Prickly Pears and Peeled Prickly Pears can now be composted.
 - The loot tables of Shelf Fungi have been fixed.
+- Echo Glass no longer flickers upon being damaged by players.
+- Fixed many random blocks having the `termite_edible` blockstate property.
+  - This checks if the Note Block Instrument for the block is `BASS` and if the block's sound type is not `STEM.`
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
