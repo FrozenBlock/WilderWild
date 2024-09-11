@@ -208,13 +208,25 @@ public class SnowloggingUtils {
 	}
 
 	/**
+	 * Returns if a block is hit and the location is at or beneath the snow level.
+	 *
+	 * @return if a block is hit and the location is at or beneath the snow level.
+	 */
+	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, HitResult hitResult) {
+		if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
+			return shouldHitSnow(state, pos, level, hitResult.getLocation());
+		}
+		return false;
+	}
+
+	/**
 	 * Returns if the location the player is looking at is at or beneath the snow level.
 	 *
 	 * @return if the location the player is looking at is at or beneath the snow level.
 	 */
 	public static boolean shouldHitSnow(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
 		HitResult hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
-		return shouldHitSnow(state, pos, level, hitResult.getLocation());
+		return shouldHitSnow(state, pos, level, hitResult);
 	}
 
 	/**
@@ -233,5 +245,14 @@ public class SnowloggingUtils {
 	 */
 	public static BlockState getUnhitState(BlockState state, BlockPos pos, Level level, @NotNull Player player) {
 		return shouldHitSnow(state, pos, level, player) ? getStateWithoutSnow(state) : getSnowEquivalent(state);
+	}
+
+	/**
+	 * Returns the original block if the player is looking at the snow layers, and vice versa.
+	 *
+	 * @return the original block if the player is looking at the snow layers, and vice versa.
+	 */
+	public static BlockState getUnhitState(BlockState state, BlockPos pos, Level level, HitResult hitResult) {
+		return shouldHitSnow(state, pos, level, hitResult) ? getStateWithoutSnow(state) : getSnowEquivalent(state);
 	}
 }

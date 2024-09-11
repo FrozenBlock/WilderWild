@@ -62,7 +62,7 @@ public abstract class ServerPlayerGameModeMixin {
 	) {
 		destroyedState.set(original);
 		if (SnowloggingUtils.isSnowlogged(original)) {
-			return SnowloggingUtils.getHitState(original, pos, level, player);
+			return SnowloggingUtils.getHitState(original, pos, this.level, this.player);
 		}
 		return original;
 	}
@@ -80,7 +80,7 @@ public abstract class ServerPlayerGameModeMixin {
 	) {
 		BlockState blockState = destroyedState.get();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			level.setBlock(pos, SnowloggingUtils.getUnhitState(blockState, pos, level, player), Block.UPDATE_ALL);
+			level.setBlock(pos, SnowloggingUtils.getUnhitState(blockState, pos, level, this.player), Block.UPDATE_ALL);
 			return true;
 		}
 		return original.call(level, pos, isMoving);

@@ -68,8 +68,7 @@ public class MultiPlayerGameModeMixin {
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
 	) {
 		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			assert minecraft.player != null;
-			level.setBlock(pos, SnowloggingUtils.getUnhitState(destroyedState.get(), pos, level, minecraft.player), flags);
+			level.setBlock(pos, SnowloggingUtils.getUnhitState(destroyedState.get(), pos, level, minecraft.hitResult), flags);
 			return true;
 		}
 		return original.call(level, pos, newState, flags);
