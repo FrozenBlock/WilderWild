@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.snowlogging.blocks.bamboo_sapling;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

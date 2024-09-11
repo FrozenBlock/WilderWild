@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.snowlogging.blocks.spore_blossom;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
