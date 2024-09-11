@@ -119,7 +119,6 @@
     "snowlogging.blocks.bush.BlockMixin",
     "snowlogging.blocks.candle.AbstractCandleBlockMixin",
     "snowlogging.blocks.candle.BlockBehaviourMixin",
-    "snowlogging.blocks.candle.BlockMixin",
     "snowlogging.blocks.candle.CandleBlockMixin",
     "snowlogging.blocks.candle.CandleCanLightMixin",
     "snowlogging.blocks.flower_pot.BlockMixin",
