@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -60,8 +61,16 @@ public class SnowloggingUtils {
 		return supportsSnowlogging(state) && state.getFluidState().isEmpty();
 	}
 
-	public static StateDefinition.Builder<Block, BlockState> addSnowLayersToDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		if (BlockConfig.get().snowlogging.snowlogging) builder.add(SnowloggingUtils.SNOW_LAYERS);
+	public static StateDefinition.Builder<Block, BlockState> addSnowLayersToDefinitionAndBlock(
+		StateDefinition.Builder<Block, BlockState> builder,
+		BlockBehaviour blockBehaviour
+	) {
+		if (BlockConfig.get().snowlogging.snowlogging) {
+			builder.add(SnowloggingUtils.SNOW_LAYERS);
+			if (blockBehaviour instanceof BlockBehaviourSnowloggingInterface snowloggingInterface) {
+				snowloggingInterface.wilderWild$enableSnowlogging();
+			}
+		}
 		return builder;
 	}
 

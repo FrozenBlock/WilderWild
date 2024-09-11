@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SweetBerryBushBlock.class)
-public abstract class SweetBerryBushBlockMixin {
+public class SweetBerryBushBlockMixin {
 
 	@Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$isRandomlyTicking(BlockState state, CallbackInfoReturnable<Boolean> info) {
@@ -44,7 +44,7 @@ public abstract class SweetBerryBushBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, SweetBerryBushBlock.class.cast(this));
 	}
 
 	/**

@@ -29,7 +29,7 @@ public class BambooStalkBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, BambooStalkBlock.class.cast(this));
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
@@ -41,7 +41,8 @@ public class BambooStalkBlockMixin {
 		method = "randomTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/level/ServerLevel;isEmptyBlock(Lnet/minecraft/core/BlockPos;)Z")
+			target = "Lnet/minecraft/server/level/ServerLevel;isEmptyBlock(Lnet/minecraft/core/BlockPos;)Z"
+		)
 	)
 	public boolean wilderWild$randomTick(ServerLevel instance, BlockPos pos, Operation<Boolean> original) {
 		return original.call(instance, pos) || instance.getBlockState(pos).is(Blocks.SNOW);
@@ -51,7 +52,8 @@ public class BambooStalkBlockMixin {
 		method = "performBonemeal",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/level/ServerLevel;isEmptyBlock(Lnet/minecraft/core/BlockPos;)Z")
+			target = "Lnet/minecraft/server/level/ServerLevel;isEmptyBlock(Lnet/minecraft/core/BlockPos;)Z"
+		)
 	)
 	public boolean wilderWild$performBonemeal(ServerLevel instance, BlockPos pos, Operation<Boolean> original) {
 		return original.call(instance, pos) || instance.getBlockState(pos).is(Blocks.SNOW);
@@ -61,7 +63,8 @@ public class BambooStalkBlockMixin {
 		method = "growBamboo",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z")
+			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+		)
 	)
 	public boolean wilderWild$growBamboo(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original, @Local(argsOnly = true) Level level) {
 		BlockState originalState = level.getBlockState(pos);

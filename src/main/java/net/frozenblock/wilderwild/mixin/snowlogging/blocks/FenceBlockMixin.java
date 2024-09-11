@@ -47,6 +47,6 @@ public class FenceBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.get().snowlogging.snowlogWalls) SnowloggingUtils.addSnowLayersToDefinition(builder);
+		if (BlockConfig.get().snowlogging.snowlogWalls) SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, FenceBlock.class.cast(this));
 	}
 }

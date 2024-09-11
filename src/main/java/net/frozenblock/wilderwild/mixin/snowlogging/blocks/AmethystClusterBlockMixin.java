@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AmethystClusterBlock.class)
-public class AmethystClusterBlockMixin{
+public class AmethystClusterBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, AmethystClusterBlock.class.cast(this));
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))

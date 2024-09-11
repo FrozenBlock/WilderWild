@@ -1,42 +1,18 @@
-package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks.flower_pot;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(FlowerPotBlock.class)
-public abstract class FlowerPotBlockMixin extends Block {
-
-	public FlowerPotBlockMixin(Properties settings) {
-		super(settings);
-	}
-
-	@Unique
-	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
-	}
-
-	@Unique
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
-	}
+public class FlowerPotBlockMixin {
 
 	@WrapOperation(
 		method = "useItemOn",

@@ -40,6 +40,6 @@ public class VineBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, VineBlock.class.cast(this));
 	}
 }

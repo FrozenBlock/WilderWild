@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LadderBlock.class)
-public abstract class LadderBlockMixin {
+public class LadderBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, LadderBlock.class.cast(this));
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))

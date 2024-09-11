@@ -69,7 +69,8 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		}
 	}
 
-	@WrapOperation(method = "playerWillDestroy",
+	@WrapOperation(
+		method = "playerWillDestroy",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;preventDropFromBottomPart(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V"
@@ -94,10 +95,11 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	public void wilderWild$playerWillDestroySurvival(
 		BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack itemStack, Operation<Void> original
 	) {
-		Player player = (Player) entity;
-		if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
-			super.playerWillDestroy(level, pos, SnowloggingUtils.getSnowEquivalent(state), player);
-			return;
+		if (entity instanceof Player player) {
+			if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+				super.playerWillDestroy(level, pos, SnowloggingUtils.getSnowEquivalent(state), player);
+				return;
+			}
 		}
 		original.call(state, level, pos, blockEntity, entity, itemStack);
 	}
@@ -108,8 +110,8 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	 * @param blockState air
 	 * @param paramState the original broken block. Is either the plant or snow layers.
 	 */
-	@WrapOperation
-		(method = "playerDestroy",
+	@WrapOperation(
+		method = "playerDestroy",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/BushBlock;playerDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V"
@@ -128,10 +130,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		DoublePlantBlock thisPlant = (DoublePlantBlock) (Object) this;
-		if (thisPlant instanceof TallSeagrassBlock) {
-			return;
-		}
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		if (DoublePlantBlock.class.cast(this) instanceof TallSeagrassBlock) return;
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, this);
 	}
 }

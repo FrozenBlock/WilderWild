@@ -27,7 +27,7 @@ public class BuddingAmethystBlockMixin {
 		)
 	)
 	public BlockState wilderWild$randomTick(BlockState blockState, @Local(ordinal = 1) BlockState oldBlockState) {
-		if (!BlockConfig.SNOWLOGGING) return blockState;
+		if (!BlockConfig.canSnowlog()) return blockState;
 		return SnowloggingUtils.copySnowLayers(oldBlockState, blockState);
 	}
 }

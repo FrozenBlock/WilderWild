@@ -54,7 +54,7 @@ public abstract class PointedDripstoneBlockMixin extends Block {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.addSnowLayersToDefinition(builder);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, PointedDripstoneBlock.class.cast(this));
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))

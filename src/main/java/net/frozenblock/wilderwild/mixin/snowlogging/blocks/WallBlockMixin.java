@@ -81,6 +81,6 @@ public class WallBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.get().snowlogging.snowlogWalls) SnowloggingUtils.addSnowLayersToDefinition(builder);
+		if (BlockConfig.get().snowlogging.snowlogWalls) SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, WallBlock.class.cast(this));
 	}
 }
