@@ -27,7 +27,6 @@
   "biome.wilderwild.snowy_dying_forest": "Snowy Dying Forest",
   "biome.wilderwild.dying_mixed_forest": "Dying Mixed Forest",
   "biome.wilderwild.snowy_dying_mixed_forest": "Snowy Dying Mixed Forest",
-
   "item.wilderwild.baobab_nut": "Baobab Nut",
   "item.wilderwild.baobab_boat": "Baobab Boat",
   "item.wilderwild.baobab_chest_boat": "Baobab Boat with Chest",
@@ -51,7 +50,6 @@
   "block.wilderwild.baobab_wall_hanging_sign": "Baobab Wall Hanging Sign",
   "block.wilderwild.baobab_wall_sign": "Baobab Wall Sign",
   "block.wilderwild.baobab_wood": "Baobab Wood",
-
   "item.wilderwild.cypress_boat": "Cypress Boat",
   "item.wilderwild.cypress_chest_boat": "Cypress Boat with Chest",
   "block.wilderwild.cypress_button": "Cypress Button",
@@ -74,7 +72,6 @@
   "block.wilderwild.cypress_wall_hanging_sign": "Cypress Wall Hanging Sign",
   "block.wilderwild.cypress_wall_sign": "Cypress Wall Sign",
   "block.wilderwild.cypress_wood": "Cypress Wood",
-
   "item.wilderwild.palm_boat": "Palm Boat",
   "item.wilderwild.palm_chest_boat": "Palm Boat with Chest",
   "block.wilderwild.palm_button": "Palm Button",
@@ -103,7 +100,6 @@
   "subtitles.item.coconut.break": "Coconut splits",
   "subtitles.block.coconut.split": "Coconut splits",
   "subtitles.item.coconut.throw": "Coconut thrown",
-
   "item.wilderwild.maple_boat": "Maple Boat",
   "item.wilderwild.maple_chest_boat": "Maple Boat with Chest",
   "block.wilderwild.maple_button": "Maple Button",
@@ -128,7 +124,6 @@
   "block.wilderwild.maple_wall_hanging_sign": "Maple Wall Hanging Sign",
   "block.wilderwild.maple_wall_sign": "Maple Wall Sign",
   "block.wilderwild.maple_wood": "Maple Wood",
-
   "block.wilderwild.hollowed_acacia_log": "Hollowed Acacia Log",
   "block.wilderwild.hollowed_baobab_log": "Hollowed Baobab Log",
   "block.wilderwild.hollowed_birch_log": "Hollowed Birch Log",
@@ -143,7 +138,6 @@
   "block.wilderwild.hollowed_oak_log": "Hollowed Oak Log",
   "block.wilderwild.hollowed_spruce_log": "Hollowed Spruce Log",
   "block.wilderwild.hollowed_palm_log": "Hollowed Palm Log",
-
   "block.wilderwild.stripped_hollowed_acacia_log": "Stripped Hollowed Acacia Log",
   "block.wilderwild.stripped_hollowed_baobab_log": "Stripped Hollowed Baobab Log",
   "block.wilderwild.stripped_hollowed_birch_log": "Stripped Hollowed Birch Log",
@@ -158,10 +152,8 @@
   "block.wilderwild.stripped_hollowed_oak_log": "Stripped Hollowed Oak Log",
   "block.wilderwild.stripped_hollowed_spruce_log": "Stripped Hollowed Spruce Log",
   "block.wilderwild.stripped_hollowed_palm_log": "Stripped Hollowed Palm Log",
-
   "subtitles.block.log_hollowed": "Axe hollows",
   "subtitles.block.stem_hollowed": "Axe hollows",
-
   "block.wilderwild.acacia_leaf_litter": "Acacia Leaf Litter",
   "block.wilderwild.azalea_leaf_litter": "Azalea Leaf Litter",
   "block.wilderwild.baobab_leaf_litter": "Baobab Leaf Litter",
@@ -178,7 +170,6 @@
   "block.wilderwild.oak_leaf_litter": "Oak Leaf Litter",
   "block.wilderwild.spruce_leaf_litter": "Spruce Leaf Litter",
   "block.wilderwild.palm_frond_litter": "Palm Frond Litter",
-
   "block.wilderwild.algae": "Algae",
   "block.wilderwild.brown_shelf_fungi": "Brown Shelf Fungi",
   "block.wilderwild.cattail": "Cattail",
@@ -210,62 +201,49 @@
   "block.wilderwild.lime_nematocyst": "Lime Nematocyst",
   "block.wilderwild.pink_nematocyst": "Pink Nematocyst",
   "block.wilderwild.sponge_bud": "Sponge Bud",
-
   "block.wilderwild.bush": "Bush",
   "block.wilderwild.potted_bush": "Potted Bush",
-
   "block.wilderwild.carnation": "Carnation",
   "block.wilderwild.potted_carnation": "Potted Carnation",
-
   "block.wilderwild.display_lantern": "Display Lantern",
   "item.wilderwild.display_lantern": "Display Lantern",
-
   "block.wilderwild.geyser": "Geyser",
   "subtitles.block.geyser.boil": "Geyser boils",
   "subtitles.block.geyser.erupt": "Geyser erupts",
-
   "block.wilderwild.glory_of_the_snow": "Glory of the Snow",
   "block.wilderwild.alba_glory_of_the_snow": "Alba Glory of the Snow",
   "block.wilderwild.blue_giant_glory_of_the_snow": "Blue Giant Glory of the Snow",
   "block.wilderwild.pink_giant_glory_of_the_snow": "Pink Giant Glory of the Snow",
   "block.wilderwild.violet_beauty_glory_of_the_snow": "Violet Beauty Glory of the Snow",
-
   "block.wilderwild.hanging_tendril": "Hanging Tendril",
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
   "subtitles.block.hanging_tendril.clicking": "Hanging Tendril clicks",
   "subtitles.block.hanging_tendril.clicking_stop": "Hanging Tendril stops clicking",
   "subtitles.particle.floating_sculk_bubble.big_pop": "Big Floating Sculk Bubble pops",
   "subtitles.particle.floating_sculk_bubble.pop": "Floating Sculk Bubble pops",
-
   "block.wilderwild.milkweed": "Milkweed",
   "item.wilderwild.milkweed_pod": "Milkweed Pod",
   "subtitles.block.milkweed.rustle": "Milkweed rustled",
-
   "block.wilderwild.marigold": "Marigold",
   "block.wilderwild.potted_marigold": "Potted Marigold",
-
   "block.wilderwild.chiseled_mud_bricks": "Chiseled Mud Bricks",
   "block.wilderwild.cracked_mud_bricks": "Cracked Mud Bricks",
   "block.wilderwild.mossy_mud_bricks": "Mossy Mud Bricks",
   "block.wilderwild.mossy_mud_brick_stairs": "Mossy Mud Brick Stairs",
   "block.wilderwild.mossy_mud_brick_slab": "Mossy Mud Brick Slab",
   "block.wilderwild.mossy_mud_brick_wall": "Mossy Mud Brick Wall",
-
   "block.wilderwild.prickly_pear": "Prickly Pear",
   "block.wilderwild.potted_prickly_pear": "Potted Prickly Pear",
   "subtitles.block.prickly_pear.pick": "Prickly Pear picked",
   "item.wilderwild.peeled_prickly_pear": "Peeled Prickly Pear",
   "item.wilderwild.prickly_pear": "Prickly Pear",
   "death.attack.prickly_pear": "%1$s shoved spikes in their mouth",
-
   "subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",
   "block.wilderwild.sculk_slab": "Sculk Slab",
   "block.wilderwild.sculk_stairs": "Sculk Stairs",
   "block.wilderwild.sculk_wall": "Sculk Wall",
-
   "block.wilderwild.seeding_dandelion": "Seeding Dandelion",
   "block.wilderwild.potted_seeding_dandelion": "Potted Seeding Dandelion",
-
   "block.wilderwild.stone_chest": "Stone Chest",
   "container.double_stone_chest": "Large Stone Chest",
   "container.stone_chest": "Stone Chest",
@@ -274,16 +252,13 @@
   "subtitles.block.stone_chest.lift": "Stone Lid lifts",
   "subtitles.block.stone_chest.open": "Stone Lid opened",
   "subtitles.block.stone_chest.slam": "Stone Lid slams",
-
   "block.wilderwild.termite_mound": "Termite Mound",
   "subtitles.block.termite_mound.termites": "Termites swarm",
   "subtitles.block.termite_mound.termite_gnaw": "Termites gnaw",
   "subtitles.block.termite_mound.termite_gnaw_finish": "Termites eat",
   "subtitles.block.termite_mound.enter": "Termites enter mound",
   "subtitles.block.termite_mound.exit": "Termites exit mound",
-
   "block.wilderwild.warped_shelf_fungi": "Warped Shelf Fungi",
-
   "item.wilderwild.copper_horn": "Copper Horn",
   "instrument.wilderwild.clarinet_copper_horn": "Clarinet",
   "instrument.wilderwild.flute_copper_horn": "Flute",
@@ -293,7 +268,6 @@
   "instrument.wilderwild.trumpet_copper_horn": "Trumpet",
   "instrument.wilderwild.tuba_copper_horn": "Tuba",
   "subtitles.item.copper_horn.call": "Copper Horn plays",
-
   "entity.wilderwild.crab": "Crab",
   "item.wilderwild.crab_spawn_egg": "Crab Spawn Egg",
   "item.wilderwild.crab_claw": "Crab Claw",
@@ -313,7 +287,6 @@
   "item.minecraft.splash_potion.effect.reach": "Splash Potion of Reaching",
   "item.minecraft.lingering_potion.effect.reach": "Lingering Potion of Reaching",
   "item.minecraft.tipped_arrow.effect.reach": "Arrow of Reaching",
-
   "entity.wilderwild.firefly": "Firefly",
   "item.wilderwild.firefly_spawn_egg": "Firefly Spawn Egg",
   "subtitles.entity.firefly.hide": "Firefly hides",
@@ -339,7 +312,6 @@
   "subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
   "subtitles.item.bottle.put_in_lantern_firefly": "Firefly placed in lantern",
   "subtitles.item.bottle.release_firefly": "Firefly released from bottle",
-
   "entity.wilderwild.jellyfish": "Jellyfish",
   "item.wilderwild.jellyfish_spawn_egg": "Jellyfish Spawn Egg",
   "subtitles.entity.jellyfish.ambient": "Jellyfish gurgles",
@@ -354,7 +326,6 @@
   "subtitles.item.bucket.fill_jellyfish": "Jellyfish scooped",
   "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title": "Sting!",
   "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description": "Catch a Jellyfish in a Bucket",
-
   "entity.wilderwild.ostrich": "Ostrich",
   "debug.ostrich": "Ostrich",
   "item.wilderwild.ostrich_spawn_egg": "Ostrich Spawn Egg",
@@ -379,7 +350,6 @@
   "block.wilderwild.ostrich_egg": "Ostrich Egg",
   "subtitles.block.ostrich_egg.crack": "Ostrich Egg cracks",
   "subtitles.block.ostrich_egg.hatch": "Ostrich Egg hatches",
-
   "entity.wilderwild.scorched": "Scorched",
   "item.wilderwild.scorched_eye": "Scorched Eye",
   "item.wilderwild.fermented_scorched_eye": "Fermented Scorched Eye",
@@ -392,7 +362,6 @@
   "item.minecraft.splash_potion.effect.scorching": "Splash Potion of Scorching",
   "item.minecraft.lingering_potion.effect.scorching": "Lingering Potion of Scorching",
   "item.minecraft.tipped_arrow.effect.scorching": "Arrow of Scorching",
-
   "entity.wilderwild.tumbleweed": "Tumbleweed",
   "block.wilderwild.tumbleweed": "Tumbleweed",
   "block.wilderwild.potted_tumbleweed": "Potted Tumbleweed",
@@ -404,25 +373,19 @@
   "subtitles.entity.tumbleweed.damage": "Tumbleweed cracks",
   "death.attack.tumbleweed": "%1$s was tumbled",
   "death.attack.tumbleweed.item": "%1$s was tumbled by %2$s using %3$s",
-
   "subtitles.entity.warden.brap": "Warden stinks up the place",
   "subtitles.entity.warden.dying_underwater": "Warden gurgles",
   "subtitles.entity.warden.stella_heartbeat": "Warden's heart ironically beats",
   "subtitles.entity.warden.swim": "Warden swims",
-
   "subtitles.block.fire.ignite": "Fire ignites",
-
   "subtitles.entity.frog.sus_death": "Sussy frog dies L",
   "subtitles.entity.egg.land": "Egg splatters",
   "subtitles.entity.ender_pearl.land": "Ender Pearl shatters",
   "subtitles.entity.potion.magic": "Effect emanates",
   "subtitles.entity.potion.linger": "Effect lingers",
   "subtitles.entity.snowball.land": "Snowball lands",
-
   "subtitles.particle.mesoglea_drip.land": "Mesoglea drips",
-
   "option.wilderwild.component.title": "Wilder Wild Options",
-
   "option.wilderwild.block": "Block",
   "option.wilderwild.billboard_tendrils": "Billboard Hanging Tendrils",
   "tooltip.wilderwild.billboard_tendrils": "Whether Hanging Tendrils should use a billboard model\n(Flat plane that points at the camera.)",
@@ -440,6 +403,8 @@
   "tooltip.wilderwild.cactus_placement": "Whether Cacti can be placed next to other blocks.\nIf you have Cactus farms, it is recommended you disable this.",
   "option.wilderwild.frosted_ice_cracking": "New Frosted Ice Cracking",
   "tooltip.wilderwild.frosted_ice_cracking": "Whether Frosted Ice will spawn break particles and play a quiet break sound upon cracking.",
+  "option.wilderwild.thick_big_fungus_growth": "Growable Thick Huge Fungi",
+  "tooltip.wilderwild.thick_big_fungus_growth": "Whether thick huge fungi should be grown from Nether fungi.\nPlace five fungi in a plus shape to get a thick huge fungus.",
   "option.wilderwild.log_hollowing": "Log Hollowing",
   "tooltip.wilderwild.log_hollowing": "Whether Logs can be hollowed with axes.\nMay help with mod compatability.",
   "option.wilderwild.reach_boost_beacon": "Reach Boost Beacons",
@@ -472,7 +437,6 @@
   "tooltip.wilderwild.max_termite_distance": "Controls how many blocks away from their Mound Termites can survive.",
   "option.wilderwild.max_natural_termite_distance": "Max Distance From Natural Mound",
   "tooltip.wilderwild.max_natural_termite_distance": "Controls how many blocks away from their Mound Termites can survive\nwhen the Mound was generated naturally.",
-
   "option.wilderwild.block_sounds": "Block Sounds",
   "tooltip.wilderwild.block_sounds": "Contains options that override block sounds.",
   "option.wilderwild.cactus_sounds": "Cactus Sounds",
@@ -511,7 +475,6 @@
   "tooltip.wilderwild.wither_rose_sounds": "Whether Wither Rose sounds should be overridden.",
   "option.wilderwild.sandstone_sounds": "Sandstone Sounds",
   "tooltip.wilderwild.sandstone_sounds": "Whether Sandstone sounds should be overridden.",
-
   "option.wilderwild.entity": "Entity",
   "option.wilderwild.allay": "Allay",
   "tooltip.wilderwild.allay": "Contains options for the Allay.",
@@ -610,7 +573,6 @@
   "tooltip.wilderwild.warden_improved_dig": "Whether the Warden should use a slightly improved dig animation.",
   "option.wilderwild.warden_improved_emerge": "Warden Emerge Animation",
   "tooltip.wilderwild.warden_improved_emerge": "Whether the Warden should use a slightly improved emerge animation.",
-
   "option.wilderwild.item": "Item",
   "option.wilderwild.projectile_break_particles": "Landing Projectiles Emit Block Particles",
   "tooltip.wilderwild.projectile_break_particles": "Whether projectiles like Arrows or Tridents\nshould emit block breaking particles when colliding.",
@@ -626,7 +588,6 @@
   "tooltip.wilderwild.potion_landing_sounds": "Whether Potions should make unique sounds upon landing.\n(Sounds vary based on potion type and effect.)",
   "option.wilderwild.restrict_instrument_sound": "Restrict Instrument Sounds",
   "tooltip.wilderwild.restrict_instrument_sound": "Whether instruments, such as the Goat Horn, should stop their sound when the user releases the mouse button",
-
   "option.wilderwild.worldgen": "Worldgen",
   "option.wilderwild.algae_generation": "Algae Generation",
   "tooltip.wilderwild.algae_generation": "Whether Algae is placed in worldgen.",
@@ -672,7 +633,6 @@
   "tooltip.wilderwild.tree_generation": "Whether worldgen should use our custom tree types or the Vanilla tree types.",
   "option.wilderwild.tumbleweed_generation": "Tumbleweed Generation",
   "tooltip.wilderwild.tumbleweed_generation": "Whether Tumbleweed are placed in worldgen.",
-
   "option.wilderwild.biome_placement": "Biome Placement",
   "tooltip.wilderwild.biome_placement": "Contains options that change where biomes are placed into the world.",
   "option.wilderwild.modify_jungle_placement": "Jungle Placement",
@@ -689,7 +649,6 @@
   "tooltip.wilderwild.modify_stony_shore_placement": "Whether Stony Shores should use Wilder Wild's or Vanilla's placement.\nWilder Wild's placement replaces Beaches with Stony Shores when near Taigas.",
   "option.wilderwild.biome_placement.false": "§cVanilla",
   "option.wilderwild.biome_placement.true": "§aNew",
-
   "option.wilderwild.biome_generation": "Biome Generation",
   "tooltip.wilderwild.biome_generation": "Contains options that dictate whether Wilder Wild's biomes should generate or not.",
   "option.wilderwild.generate_cypress_wetlands": "Generate Cypress Wetlands",
@@ -750,7 +709,6 @@
   "tooltip.wilderwild.generate_snowy_dying_mixed_forest": "Whether Snowy Dying Mixed Forests should generate.",
   "option.wilderwild.biome.false": "§cDisabled",
   "option.wilderwild.biome.true": "§aEnabled",
-
   "option.wilderwild.misc": "Ambience & Misc",
   "option.wilderwild.biome_ambience": "Biome Ambience",
   "tooltip.wilderwild.biome_ambience": "Contains options for biome ambience.",
@@ -824,15 +782,12 @@
   "tooltip.wilderwild.wind_disturbance_particle_spawn_attempts": "The number of times per tick a Wind Disturbance Particle will attempt to spawn.",
   "option.wilderwild.title_resource_pack_enabled_by_default": "Resource Pack Enabled By Default",
   "tooltip.wilderwild.title_resource_pack_enabled_by_default": "Whether Wild Wild's main menu resource pack should be enabled by default.\nCan be useful when making modpacks with a custom main menu.\nOtherwise, you can manually disable it in the Resource Packs menu.",
-
   "option.wilderwild.simple_bool.false": "§cOFF",
   "option.wilderwild.simple_bool.true": "§aON",
-
   "wilderwild.advancements.adventure.obtain_null_block.title": "Hackermode = §aON",
   "wilderwild.advancements.adventure.obtain_null_block.description": "Obtain a Null Block",
   "wilderwild.advancements.husbandry.firefly_in_a_bottle.title": "Lightning in a Bottle",
   "wilderwild.advancements.husbandry.firefly_in_a_bottle.description": "Catch a Firefly in a Bottle",
-
   "commands.sculkspread.success": "Spread Sculk at %s, %s, %s with a charge of %s.",
   "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s."
 }

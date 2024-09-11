@@ -157,15 +157,15 @@ public final class WWBlockConfigGui {
 			)
 		);
 
-		var bigFungusGrowth = category.addEntry(
+		var thickBigFungusGrowth = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("big_fungus_growth"), modifiedConfig.bigFungusGrowth)
-					.setDefaultValue(defaultConfig.bigFungusGrowth)
-					.setSaveConsumer(newValue -> config.bigFungusGrowth = newValue)
-					.setTooltip(tooltip("big_fungus_growth"))
+				entryBuilder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
+					.setDefaultValue(defaultConfig.thickBigFungusGrowth)
+					.setSaveConsumer(newValue -> config.thickBigFungusGrowth = newValue)
+					.setTooltip(tooltip("thick_big_fungus_growth"))
 					.build(),
 				clazz,
-				"bigFungusGrowth",
+				"thickBigFungusGrowth",
 				configInstance
 			)
 		);
