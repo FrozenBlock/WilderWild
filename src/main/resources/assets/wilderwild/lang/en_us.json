@@ -548,6 +548,8 @@
   "tooltip.wilderwild.jellyfish_hiding": "Whether naturally-spawned Jellyfish should be able\nto vanish inside Mesoglea/Nematocyst.",
   "option.wilderwild.jellyfish_tentacles": "Jellyfish Tentacles",
   "tooltip.wilderwild.jellyfish_tentacles": "Controls the amount of tentacles Jellyfish have.",
+  "option.wilderwild.plane_tentacles": "2D Tentacles",
+  "tooltip.wilderwild.plane_tentacles": "Whether Jellyfish should have 2D tentacles.",
   "option.wilderwild.lightning": "Lightning Bolt",
   "tooltip.wilderwild.lightning": "Contains options for Lightning Bolts.",
   "option.wilderwild.lightning_scorches_sand": "Lightning Scorches Sand",

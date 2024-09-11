@@ -19,13 +19,11 @@
 package net.frozenblock.wilderwild.datagen.loot;
 
 import com.google.common.collect.Maps;
+import java.util.Map;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.Util;
 import net.minecraft.world.level.ItemLike;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class WWLootData {
 

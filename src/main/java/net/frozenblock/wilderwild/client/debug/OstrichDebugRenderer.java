@@ -28,7 +28,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShapeRenderer;

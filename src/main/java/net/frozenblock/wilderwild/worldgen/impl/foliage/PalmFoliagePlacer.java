@@ -97,42 +97,30 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 			}
 		}
 
-
-		int decreasedRadius = radius - 1;
 		BlockPos middleLayerPos = topLayerPos.below();
-		Vec3 middleLayerCenter = Vec3.atCenterOf(middleLayerPos);
-		List<BlockPos> cornerFrondPoses = new ArrayList<>();
 		List<BlockPos> frondPoses = new ArrayList<>();
 
 		for (int xOff = -radius; xOff <= radius; ++xOff) {
 			for (int zOff = -radius; zOff <= radius; ++zOff) {
 				mutablePos.setWithOffset(middleLayerPos, xOff, 0, zOff);
-				Vec3 placePosCenter = Vec3.atCenterOf(mutablePos);
-				if (!middleLayerCenter.closerThan(placePosCenter, decreasedRadius + 0.25D)) {
-					tryPlaceLeaf(world, placer, random, config, mutablePos);
-					if (isCorner(xOff, zOff, radius)) {
-						if (!isSmall) {
-							BlockPos frondPos = mutablePos.immutable();
-							frondPoses.add(frondPos);
-							cornerFrondPoses.add(frondPos);
-						}
-					} else if (isEdge(xOff, zOff, radius)) {
-						Direction offsetDir = Direction.getApproximateNearest(xOff, 0, zOff);
-						mutablePos.move(offsetDir.getUnitVec3i());
-						tryPlaceLeaf(world, placer, random, config, mutablePos);
-						frondPoses.add(mutablePos.immutable());
+				tryPlaceLeaf(world, placer, random, config, mutablePos);
+				if (isCorner(xOff, zOff, radius)) {
+					if (!isSmall) {
+						BlockPos frondPos = mutablePos.immutable();
+						frondPoses.add(frondPos);
 					}
+				} else if (isEdge(xOff, zOff, radius)) {
+					Direction offsetDir = Direction.getApproximateNearest(xOff, 0, zOff);
+					mutablePos.move(offsetDir.getUnitVec3i());
+					tryPlaceLeaf(world, placer, random, config, mutablePos);
+					frondPoses.add(mutablePos.immutable());
 				}
 			}
 		}
 
 		for (BlockPos frondPos : frondPoses) {
 			int frondLength;
-			if (cornerFrondPoses.contains(frondPos)) {
-				frondLength = 2;
-			} else {
-				frondLength = this.frondLength.sample(random);
-			}
+			frondLength = this.frondLength.sample(random);
 			for (int i = 0; i < frondLength; ++i) {
 				mutablePos.setWithOffset(frondPos, 0, -i, 0);
 				tryPlaceLeaf(world, placer, random, config, mutablePos);

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.reinforced_deepslate;
 
+import java.util.function.Function;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -27,7 +28,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
-import java.util.function.Function;
 
 @Mixin(Blocks.class)
 public abstract class BlocksMixin {

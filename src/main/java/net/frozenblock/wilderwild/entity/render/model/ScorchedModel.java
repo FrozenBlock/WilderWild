@@ -115,20 +115,20 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 		this.leftFrontLeg.y -= yPos * lavaProgress;
 	}
 
-	private void spiderAnim(LivingEntityRenderState renderState) {
+	private void spiderAnim(@NotNull LivingEntityRenderState renderState) {
 		this.root.getAllParts().forEach(ModelPart::resetPose);
-		this.head.yRot = renderState.yRot * (float) (Math.PI / 180.0);
-		this.head.xRot = renderState.xRot * (float) (Math.PI / 180.0);
+		this.head.yRot = renderState.yRot * Mth.DEG_TO_RAD;
+		this.head.xRot = renderState.xRot * Mth.DEG_TO_RAD;
 		float f = renderState.walkAnimationPos * 0.6662F;
 		float g = renderState.walkAnimationSpeed;
-		float h = -(Mth.cos(f * 2.0F + 0.0F) * 0.4F) * g;
-		float i = -(Mth.cos(f * 2.0F + (float) Math.PI) * 0.4F) * g;
-		float j = -(Mth.cos(f * 2.0F + (float) (Math.PI / 2)) * 0.4F) * g;
-		float k = -(Mth.cos(f * 2.0F + (float) (Math.PI * 3.0 / 2.0)) * 0.4F) * g;
-		float l = Math.abs(Mth.sin(f + 0.0F) * 0.4F) * g;
-		float m = Math.abs(Mth.sin(f + (float) Math.PI) * 0.4F) * g;
-		float n = Math.abs(Mth.sin(f + (float) (Math.PI / 2)) * 0.4F) * g;
-		float o = Math.abs(Mth.sin(f + (float) (Math.PI * 3.0 / 2.0)) * 0.4F) * g;
+		float h = -(Mth.cos(f * 2F) * 0.4F) * g;
+		float i = -(Mth.cos(f * 2F + Mth.PI) * 0.4F) * g;
+		float j = -(Mth.cos(f * 2F + (Mth.PI / 2)) * 0.4F) * g;
+		float k = -(Mth.cos(f * 2F + (Mth.PI * 3F / 2F)) * 0.4F) * g;
+		float l = Math.abs(Mth.sin(f) * 0.4F) * g;
+		float m = Math.abs(Mth.sin(f + Mth.PI) * 0.4F) * g;
+		float n = Math.abs(Mth.sin(f + (Mth.PI / 2F)) * 0.4F) * g;
+		float o = Math.abs(Mth.sin(f + (Mth.PI * 3F / 2F)) * 0.4F) * g;
 		this.rightHindLeg.yRot += h;
 		this.leftHindLeg.yRot -= h;
 		this.rightMiddleHindLeg.yRot += i;

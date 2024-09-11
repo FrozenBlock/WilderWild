@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import com.mojang.datafixers.types.Type;
+import java.util.Set;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
@@ -34,7 +34,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
-import java.util.Set;
 
 public final class WWBlockEntities {
 	private WWBlockEntities() {

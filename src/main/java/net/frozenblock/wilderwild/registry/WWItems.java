@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.google.common.collect.ImmutableList;
+import java.util.function.Function;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
@@ -38,14 +39,13 @@ import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import static net.minecraft.world.item.Items.registerBlock;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
-import java.util.function.Function;
-import static net.minecraft.world.item.Items.registerBlock;
 
 public final class WWItems {
 

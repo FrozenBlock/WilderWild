@@ -28,7 +28,6 @@ import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.frozenblock.wilderwild.entity.render.animation.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
