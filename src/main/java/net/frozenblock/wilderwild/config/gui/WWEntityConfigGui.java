@@ -165,7 +165,6 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.firefly.spawnFireflies)
 				.setSaveConsumer(newValue -> firefly.spawnFireflies = newValue)
 				.setTooltip(tooltip("spawn_fireflies"))
-				.requireRestart()
 				.build(),
 			firefly.getClass(),
 			"spawnFireflies",
@@ -195,7 +194,6 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.jellyfish.spawnJellyfish)
 				.setSaveConsumer(newValue -> jellyfish.spawnJellyfish = newValue)
 				.setTooltip(tooltip("spawn_jellyfish"))
-				.requireRestart()
 				.build(),
 			jellyfish.getClass(),
 			"spawnJellyfish",
@@ -219,7 +217,6 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.jellyfish.jellyfishHiding)
 				.setSaveConsumer(newValue -> jellyfish.jellyfishHiding = newValue)
 				.setTooltip(tooltip("jellyfish_hiding"))
-				.requireRestart()
 				.build(),
 			jellyfish.getClass(),
 			"jellyfishHiding",
@@ -238,10 +235,21 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var planeTentacles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("plane_tentacles"), modifiedJellyfish.planeTentacles)
+				.setDefaultValue(defaultConfig.jellyfish.planeTentacles)
+				.setSaveConsumer(newValue -> jellyfish.planeTentacles = newValue)
+				.setTooltip(tooltip("plane_tentacles"))
+				.build(),
+			jellyfish.getClass(),
+			"planeTentacles",
+			configInstance
+		);
+
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles
+			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles, planeTentacles
 		);
 
 		var spawnCrabs = FrozenClothConfig.syncedEntry(
@@ -249,7 +257,6 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.crab.spawnCrabs)
 				.setSaveConsumer(newValue -> crab.spawnCrabs = newValue)
 				.setTooltip(tooltip("spawn_crabs"))
-				.requireRestart()
 				.build(),
 			crab.getClass(),
 			"spawnCrabs",
@@ -330,6 +337,7 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.scorched.scorchedInTrialChambers)
 				.setSaveConsumer(newValue -> scorched.scorchedInTrialChambers = newValue)
 				.setTooltip(tooltip("scorched_in_trial_chambers"))
+				.requireRestart()
 				.build(),
 			scorched.getClass(),
 			"scorchedInTrialChambers",
@@ -347,7 +355,6 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.tumbleweed.spawnTumbleweed)
 				.setSaveConsumer(newValue -> tumbleweed.spawnTumbleweed = newValue)
 				.setTooltip(tooltip("spawn_tumbleweed"))
-				.requireRestart()
 				.build(),
 			tumbleweed.getClass(),
 			"spawnTumbleweed",

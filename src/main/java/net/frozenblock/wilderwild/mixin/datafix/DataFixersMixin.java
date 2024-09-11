@@ -39,7 +39,8 @@ public class DataFixersMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/datafixers/DataFixerBuilder;addSchema(ILjava/util/function/BiFunction;)Lcom/mojang/datafixers/schemas/Schema;",
-			ordinal = 0
+			ordinal = 0,
+			remap = false
 		),
 		slice = @Slice(
 			from = @At(

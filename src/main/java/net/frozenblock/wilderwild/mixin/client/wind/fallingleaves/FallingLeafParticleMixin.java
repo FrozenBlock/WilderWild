@@ -44,7 +44,7 @@ import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 @Mixin(FallingLeafParticle.class)
 public abstract class FallingLeafParticleMixin extends TextureSheetParticle {
 
-	@Shadow
+	@Shadow(remap = false)
 	@Final
 	protected float windCoefficient;
 
