@@ -29,7 +29,7 @@ public class HugeFungusFeatureMixin {
 											 @Share("wilderWild$newPos") LocalRef<BlockPos> newPos) {
 		newPos.set(context.origin());
 		if (original) return true;
-		if (context.config().planted && WWBlockConfig.get().bigFungusGrowth) {
+		if (context.config().planted && WWBlockConfig.get().thickBigFungusGrowth) {
 			Level level = (Level) context.level();
 			BlockPos pos = context.origin();
 			Block fungus = level.getBlockState(pos).getBlock();
