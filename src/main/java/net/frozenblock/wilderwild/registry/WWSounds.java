@@ -195,7 +195,6 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_SCORCHED_SAND_BREAK = register("block.scorched_sand.break");
 	public static final SoundEvent BLOCK_SCORCHED_SAND_STEP = register("block.scorched_sand.step");
 	public static final SoundEvent BLOCK_SCORCHED_SAND_FALL = register("block.scorched_sand.fall");
-	public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = register("block.sculk_sensor.hiccup");
 	public static final SoundEvent BLOCK_SCULK_SHRIEKER_GARGLE = register("block.sculk_shrieker.gargle");
 	public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START = register("block.stone_chest.close_start");
 	public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER = register("block.stone_chest.close_start_underwater");
@@ -247,10 +246,6 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_FIRE_IGNITE = register("block.fire.ignite");
 
 	//ENTITY
-	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_BLAST = register("entity.ancient_horn_vibration.blast");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_LOOP = register("entity.ancient_horn_vibration.loop");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_FLYBY = register("entity.ancient_horn_vibration.flyby");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_DISSIPATE = register("entity.ancient_horn_vibration.dissipate");
 	public static final SoundEvent ENTITY_FIREFLY_HIDE = register("entity.firefly.hide");
 	public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
 	public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
@@ -301,7 +296,6 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_WARDEN_BRAP = register("entity.warden.brap");
 	public static final SoundEvent ENTITY_WARDEN_STELLA_HEARTBEAT = register("entity.warden.stella_heartbeat");
 	public static final SoundEvent ENTITY_FROG_SUS_DEATH = register("entity.frog.sus_death");
-	public static final Holder.Reference<SoundEvent> ITEM_ANCIENT_HORN_CALL = registerForHolder("item.ancient_horn.call");
 
 	//ITEM
 	public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
