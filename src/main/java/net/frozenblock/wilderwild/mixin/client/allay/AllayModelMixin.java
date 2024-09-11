@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.client.allay;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -41,19 +40,6 @@ public abstract class AllayModelMixin extends EntityModel<AllayRenderState> impl
 
 	protected AllayModelMixin(ModelPart modelPart) {
 		super(modelPart);
-	}
-
-	@ModifyExpressionValue(
-		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/AllayRenderState;)V",
-		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/client/renderer/entity/state/AllayRenderState;isDancing:Z",
-			ordinal = 0
-		),
-		require = 0
-	)
-	private boolean wilderWild$alterDanceCheck(boolean original) {
-		return original && !WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE;
 	}
 
 	@Inject(
