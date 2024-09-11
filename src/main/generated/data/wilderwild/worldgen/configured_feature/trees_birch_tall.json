@@ -8,11 +8,11 @@
         "feature": "wilderwild:short_birch_bees_0004"
       },
       {
-        "chance": 1.0E-4,
+        "chance": 0.001,
         "feature": "wilderwild:dying_short_birch"
       },
       {
-        "chance": 0.032,
+        "chance": 0.15,
         "feature": "wilderwild:dying_super_birch"
       },
       {

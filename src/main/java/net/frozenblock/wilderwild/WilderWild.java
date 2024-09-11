@@ -61,7 +61,7 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWVillagers;
 import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.worldgen.modification.WilderWorldGen;
+import net.frozenblock.wilderwild.worldgen.modification.WWWorldGen;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
@@ -103,7 +103,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		WWFeatures.init();
 		WWWorldgen.init();
-		WilderWorldGen.generateWildWorldGen();
+		WWWorldGen.generateWildWorldGen();
 
 		TermiteManager.Termite.addDegradableBlocks();
 		TermiteManager.Termite.addNaturalDegradableBlocks();

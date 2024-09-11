@@ -12,7 +12,19 @@
         "feature": "wilderwild:medium_birch"
       },
       {
-        "chance": 0.25,
+        "chance": 0.02,
+        "feature": "wilderwild:short_birch"
+      },
+      {
+        "chance": 0.04,
+        "feature": "wilderwild:short_birch_bees_0004"
+      },
+      {
+        "chance": 0.01,
+        "feature": "wilderwild:dying_short_birch"
+      },
+      {
+        "chance": 0.1,
         "feature": "wilderwild:birch_bees_0004"
       }
     ]
