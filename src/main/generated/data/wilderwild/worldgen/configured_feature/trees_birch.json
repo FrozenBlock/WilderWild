@@ -24,7 +24,7 @@
         "feature": "wilderwild:dying_short_birch"
       },
       {
-        "chance": 0.1,
+        "chance": 0.05,
         "feature": "wilderwild:birch_bees_0004"
       }
     ]
