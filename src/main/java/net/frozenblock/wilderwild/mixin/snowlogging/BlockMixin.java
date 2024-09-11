@@ -60,7 +60,7 @@ public class BlockMixin {
 		BlockState original,
 		BlockPlaceContext context
 	) {
-		if (BlockState.class.cast(this) instanceof BlockBehaviourSnowloggingInterface snowloggingInterface && snowloggingInterface.wilderWild$hasSnowlogging()) {
+		if (Block.class.cast(this) instanceof BlockBehaviourSnowloggingInterface snowloggingInterface && snowloggingInterface.wilderWild$hasSnowlogging()) {
 			return SnowloggingUtils.getSnowPlacementState(original, context);
 		}
 		return original;
