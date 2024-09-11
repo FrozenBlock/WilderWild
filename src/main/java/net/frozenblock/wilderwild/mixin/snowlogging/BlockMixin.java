@@ -18,9 +18,15 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.impl.BlockBehaviourSnowloggingInterface;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,17 +35,34 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Block.class)
 public class BlockMixin {
 
-	@WrapOperation(method = "spawnDestroyParticles",
+	@WrapOperation(
+		method = "spawnDestroyParticles",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;getId(Lnet/minecraft/world/level/block/state/BlockState;)I"
 		)
 	)
-	public int wilderWild$spawnDestroyParticles(BlockState state, Operation<Integer> original) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
+	public int wilderWild$spawnDestroyParticles(BlockState state, Operation<Integer> original, Level world, Player player, BlockPos pos) {
+		if (SnowloggingUtils.shouldHitSnow(state, pos, world, player)) {
 			return original.call(SnowloggingUtils.getSnowEquivalent(state));
 		}
 		return original.call(state);
 	}
 
+	@ModifyExpressionValue(
+		method = "getStateForPlacement",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
+		)
+	)
+	public BlockState wilderWild$getStateForPlacement(
+		BlockState original,
+		BlockPlaceContext context
+	) {
+		if (Block.class.cast(this) instanceof BlockBehaviourSnowloggingInterface snowloggingInterface && snowloggingInterface.wilderWild$hasSnowlogging()) {
+			return SnowloggingUtils.getSnowPlacementState(original, context);
+		}
+		return original;
+	}
 }

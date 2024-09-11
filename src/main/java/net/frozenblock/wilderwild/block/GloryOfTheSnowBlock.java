@@ -74,7 +74,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GIANT_GLORY_OF_THE_SNOW.asItem() :
 			color == FlowerColor.PURPLE ? RegisterBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.ALBA_GLORY_OF_THE_SNOW.asItem();
 		popResource(level, pos, new ItemStack(item, 1));
-		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+		level.setBlockAndUpdate(pos, state.setValue(COLOR_STATE, FlowerColor.NONE));
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 	}

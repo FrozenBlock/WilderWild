@@ -44,5 +44,4 @@ public class EntityMixin {
 		}
 		return original.call(type, state);
 	}
-
 }

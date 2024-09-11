@@ -16,10 +16,12 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SweetBerryBushBlock.class)
-public abstract class SweetBerryBushBlockMixin {
+public class SweetBerryBushBlockMixin {
 
 	@Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$isRandomlyTicking(BlockState state, CallbackInfoReturnable<Boolean> info) {
@@ -42,8 +44,16 @@ public abstract class SweetBerryBushBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, SweetBerryBushBlock.class.cast(this));
 	}
 
+	/**
+	 * Prevents sweet berry bushes from poking at and slowing entities if fully covered.
+	 */
+	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$thornsCovered(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
+		if (SnowloggingUtils.isOriginalBlockCovered(state, level, pos)) {
+			info.cancel();
+		}
+	}
 }

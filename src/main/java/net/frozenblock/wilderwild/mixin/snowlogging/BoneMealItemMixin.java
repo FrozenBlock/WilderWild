@@ -33,7 +33,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BoneMealItem.class)
 public class BoneMealItemMixin {
 
-	@Inject(method = "useOn",
+	/**
+	 * Prevents the use of bonemeal on the snowlogged portions of blocks.
+	 */
+	@Inject(
+		method = "useOn",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/item/BoneMealItem;growCrop(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z",
@@ -44,12 +48,10 @@ public class BoneMealItemMixin {
 	)
 	public void wilderWild$useOn(
 		UseOnContext context, CallbackInfoReturnable<InteractionResult> info,
-		@Local Level level,
-		@Local(ordinal = 0) BlockPos blockPos
+		@Local Level level, @Local(ordinal = 0) BlockPos blockPos
 	) {
-		if (SnowloggingUtils.isSnowlogged(level.getBlockState(blockPos))) {
+		if (SnowloggingUtils.shouldHitSnow(level.getBlockState(blockPos), blockPos, level, context.getClickLocation())) {
 			info.setReturnValue(InteractionResult.PASS);
 		}
 	}
-
 }

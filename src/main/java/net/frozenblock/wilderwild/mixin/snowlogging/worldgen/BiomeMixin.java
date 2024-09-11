@@ -31,7 +31,8 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Biome.class)
 public class BiomeMixin {
 
-	@WrapOperation(method = "shouldSnow",
+	@WrapOperation(
+		method = "shouldSnow",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"

@@ -16,14 +16,11 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.SugarCaneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,24 +28,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PinkPetalsBlock.class)
-public abstract class PinkPetalsBlockMixin {
-
-	@ModifyExpressionValue(
-		method = "getStateForPlacement",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/PinkPetalsBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
-		return SnowloggingUtils.getSnowPlacementState(original, context);
-	}
+@Mixin(SugarCaneBlock.class)
+public class SugarCaneBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, SugarCaneBlock.class.cast(this));
 	}
-
 }

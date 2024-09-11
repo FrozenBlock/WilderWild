@@ -16,28 +16,29 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.TallSeagrassBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -68,76 +69,68 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		}
 	}
 
-	@ModifyExpressionValue(
+	@WrapOperation(
 		method = "playerWillDestroy",
 		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/world/level/Level;isClientSide:Z"
-		)
-	)
-	public boolean wilderWild$playerWillDestroy(boolean original, Level level, BlockPos pos, BlockState state, Player player) {
-		boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
-		if (!original && !player.isCreative() && !snowlogged) {
-			if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-				BlockPos belowPos = pos.below();
-				BlockState belowState = level.getBlockState(belowPos);
-				if (SnowloggingUtils.isSnowlogged(belowState)) {
-					Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
-				}
-			}
-		}
-		return original || snowlogged;
-	}
-
-	@ModifyExpressionValue(
-		method = "preventDropFromBottomPart",
-		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
+			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;preventDropFromBottomPart(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V"
 		)
 	)
-	private static BlockState wilderWild$preventDropFromBottomPartA(
-		BlockState original,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
-	) {
-		blockState.set(original);
-		return original;
+	public void wilderWild$playerWillDestroyCreative(Level level, BlockPos pos, BlockState state, Player player, Operation<Void> original) {
+		if (!SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+			original.call(level, pos, state, player);
+		}
 	}
 
+	/**
+	 * If the snow layer is getting broken, run the super method instead.
+	 */
 	@WrapOperation(
-		method = "preventDropFromBottomPart",
+		method = "playerWillDestroy",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V"
 		)
 	)
-	private static boolean wilderWild$preventDropFromBottomPartB(
-		Level instance, BlockPos setPos, BlockState setState, int flags, Operation<Boolean> original,
-		Level level, BlockPos paramPos, BlockState state, Player player,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
+	public void wilderWild$playerWillDestroySurvival(
+		BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack itemStack, Operation<Void> original
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {
-			setState = SnowloggingUtils.getSnowEquivalent(blockState.get());
+		if (entity instanceof Player player) {
+			if (SnowloggingUtils.shouldHitSnow(state, pos, level, player)) {
+				super.playerWillDestroy(level, pos, SnowloggingUtils.getSnowEquivalent(state), player);
+				return;
+			}
 		}
-		return original.call(instance, setPos, setState, flags);
+		original.call(state, level, pos, blockEntity, entity, itemStack);
 	}
 
-
-	@Inject(method = "playerDestroy", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.cancel();
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) {
-				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-			}
+	/**
+	 * The original method replaces the block with air. The method now only does this if the broken block isn't snow.
+	 *
+	 * @param blockState air
+	 * @param paramState the original broken block. Is either the plant or snow layers.
+	 */
+	@WrapOperation(
+		method = "playerDestroy",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BushBlock;playerDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V"
+		)
+	)
+	private void wilderWild$playerDestroy(
+		DoublePlantBlock instance, Level level, Player player, BlockPos pos, BlockState blockState, BlockEntity blockEntity, ItemStack itemStack, Operation<Void> original,
+		@Local(argsOnly = true) BlockState paramState
+	) {
+		if (paramState.is(Blocks.SNOW)) {
+			original.call(instance, level, player, pos, paramState, blockEntity, itemStack);
+		} else {
+			original.call(instance, level, player, pos, blockState, blockEntity, itemStack);
 		}
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		if (DoublePlantBlock.class.cast(this) instanceof TallSeagrassBlock) return;
+		SnowloggingUtils.addSnowLayersToDefinitionAndBlock(builder, this);
 	}
-
 }
