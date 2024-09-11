@@ -133,6 +133,9 @@ public final class WWBlockConfig {
 	@EntrySyncData("dripleafPowering")
 	public boolean dripleafPowering = true;
 
+	@EntrySyncData("bigFungusGrowth")
+	public boolean bigFungusGrowth = true;
+
 	public static WWBlockConfig get() {
 		return get(false);
 	}
