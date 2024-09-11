@@ -32,7 +32,8 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(BlockBehaviour.BlockStateBase.Cache.class)
 public class CacheMixin {
 
-	@WrapOperation(method = "<init>",
+	@WrapOperation(
+		method = "<init>",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;propagatesSkylightDown(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z"

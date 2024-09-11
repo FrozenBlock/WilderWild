@@ -8,23 +8,12 @@ import net.minecraft.world.level.block.LadderBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LadderBlock.class)
-public abstract class LadderBlockMixin extends Block {
-
-	public LadderBlockMixin(Properties settings) {
-		super(settings);
-	}
-
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
+public abstract class LadderBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {

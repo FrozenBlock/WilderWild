@@ -40,12 +40,6 @@ public class BushBlockMixin extends Block {
 
 	@Unique
 	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
-	@Unique
-	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		BushBlock thisBush = (BushBlock) (Object) this;

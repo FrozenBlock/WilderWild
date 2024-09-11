@@ -32,7 +32,8 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(SnowAndFreezeFeature.class)
 public class SnowAndFreezeFeatureMixin {
 
-	@WrapOperation(method = "place",
+	@WrapOperation(
+		method = "place",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",

@@ -26,12 +26,6 @@ public abstract class BambooSaplingBlockMixin extends Block {
 	}
 
 	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
-	@Unique
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {

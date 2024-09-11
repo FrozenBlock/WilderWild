@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -21,7 +20,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BambooStalkBlock.class)
-public abstract class BambooStalkBlockMixin {
+public class BambooStalkBlockMixin {
+
 	@ModifyReturnValue(method = "isRandomlyTicking", at = @At("RETURN"))
 	public boolean wilderWild$isRandomlyTicking(boolean original, BlockState state) {
 		return original || SnowloggingUtils.isSnowlogged(state);

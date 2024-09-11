@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SugarCaneBlock;
@@ -37,12 +36,6 @@ public class SugarCaneBlockMixin extends Block {
 
 	public SugarCaneBlockMixin(Properties properties) {
 		super(properties);
-	}
-
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@Unique

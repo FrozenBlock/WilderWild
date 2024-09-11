@@ -31,23 +31,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockItem.class)
 public class BlockItemMixin {
-
-	@Shadow
-	@Final
-	@Deprecated
-	private Block block;
 
 	@WrapOperation(
 		method = "place",
@@ -57,7 +49,7 @@ public class BlockItemMixin {
 		)
 	)
 	public SoundType wilderWild$placeSound(BlockState instance, Operation<SoundType> original) {
-		return (BlockConfig.canSnowlog() && (instance.hasProperty(SnowloggingUtils.SNOW_LAYERS) && instance.getValue(SnowloggingUtils.SNOW_LAYERS) > 0)) ?
+		return (BlockConfig.canSnowlog() && SnowloggingUtils.isSnowlogged(instance)) ?
 			original.call(SnowloggingUtils.getSnowEquivalent(instance)) : original.call(instance);
 	}
 
@@ -69,9 +61,16 @@ public class BlockItemMixin {
 		}
 	}
 
-	@WrapOperation(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"))
-	public BlockState wilderWild$placeIsSnowlogged(Level instance, BlockPos pos, Operation<BlockState> original,
-												   @Local ItemStack itemStack, @Share("wilderWild$isAddingSnow") LocalRef<Boolean> isAddingSnow
+	@WrapOperation(
+		method = "place",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
+		)
+	)
+	public BlockState wilderWild$placeIsSnowlogged(
+		Level instance, BlockPos pos, Operation<BlockState> original,
+		@Local ItemStack itemStack, @Share("wilderWild$isAddingSnow") LocalRef<Boolean> isAddingSnow
 	) {
 		BlockState state = original.call(instance, pos);
 		isAddingSnow.set(SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.isItemSnow(itemStack));
@@ -85,8 +84,9 @@ public class BlockItemMixin {
 			target = "Lnet/minecraft/world/item/BlockItem;updateCustomBlockEntityTag(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Z"
 		)
 	)
-	public boolean wilderWild$placeUpdateCustomBlockEntityTag(BlockItem instance, BlockPos pos, Level world, Player player, ItemStack stack, BlockState state,
-															   Operation<Boolean> original, @Share("wilderWild$isAddingSnow") LocalRef<Boolean> isAddingSnow
+	public boolean wilderWild$placeUpdateCustomBlockEntityTag(
+		BlockItem instance, BlockPos pos, Level world, Player player, ItemStack stack, BlockState state,
+		Operation<Boolean> original, @Share("wilderWild$isAddingSnow") LocalRef<Boolean> isAddingSnow
 	) {
 		if (isAddingSnow.get()) return false;
 		return original.call(instance, pos, world, player, stack, state);
@@ -99,8 +99,9 @@ public class BlockItemMixin {
 			target = "Lnet/minecraft/world/item/BlockItem;updateBlockEntityComponents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"
 		)
 	)
-	public void wilderWild$placeUpdateBlockEntityComponents(Level world, BlockPos pos, ItemStack stack, Operation<Void> original,
-															@Share("wilderWild$isAddingSnow") LocalRef<Boolean> isAddingSnow
+	public void wilderWild$placeUpdateBlockEntityComponents(
+		Level world, BlockPos pos, ItemStack stack, Operation<Void> original,
+		@Share("wilderWild$isAddingSnow") LocalRef<Boolean> isAddingSnow
 	) {
 		if (isAddingSnow.get()) return;
 		original.call(world, pos, stack);

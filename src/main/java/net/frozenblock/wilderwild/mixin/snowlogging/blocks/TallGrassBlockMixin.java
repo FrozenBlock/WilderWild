@@ -13,14 +13,17 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(TallGrassBlock.class)
 public class TallGrassBlockMixin {
+
 	@WrapOperation(
 		method = "performBonemeal",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;placeAt(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;I)V")
+			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;placeAt(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;I)V"
+		)
 	)
-	public void wilderWild$performBonemeal(LevelAccessor world, BlockState state, BlockPos pos, int flags, Operation<Void> original,
-										   @Local(argsOnly = true) BlockState originalState
+	public void wilderWild$performBonemeal(
+		LevelAccessor world, BlockState state, BlockPos pos, int flags, Operation<Void> original,
+		@Local(argsOnly = true) BlockState originalState
 	) {
 		state = SnowloggingUtils.copySnowLayers(originalState, state);
 		original.call(world, state, pos, flags);

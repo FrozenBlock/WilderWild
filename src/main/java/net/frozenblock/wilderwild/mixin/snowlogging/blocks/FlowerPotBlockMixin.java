@@ -26,12 +26,6 @@ public abstract class FlowerPotBlockMixin extends Block {
 
 	@Unique
 	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
-	@Unique
-	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		SnowloggingUtils.addSnowLayersToDefinition(builder);
@@ -44,18 +38,34 @@ public abstract class FlowerPotBlockMixin extends Block {
 		return SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
 	}
 
-	@WrapOperation(method = "useItemOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
-	public boolean wilderWild$useItemOn(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
-										ItemStack stack, BlockState originalState) {
+	@WrapOperation(
+		method = "useItemOn",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+		)
+	)
+	public boolean wilderWild$useItemOn(
+		Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
+		ItemStack stack, BlockState originalState
+	) {
 		if (SnowloggingUtils.isSnowlogged(originalState)) {
 			state = SnowloggingUtils.copySnowLayers(originalState, state);
 		}
 		return original.call(instance, pos, state, flags);
 	}
 
-	@WrapOperation(method = "useWithoutItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
-	public boolean wilderWild$useWithoutItem(Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
-											 BlockState originalState) {
+	@WrapOperation(
+		method = "useWithoutItem",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+		)
+	)
+	public boolean wilderWild$useWithoutItem(
+		Level instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
+		BlockState originalState
+	) {
 		if (SnowloggingUtils.isSnowlogged(originalState)) {
 			state = SnowloggingUtils.copySnowLayers(originalState, state);
 		}

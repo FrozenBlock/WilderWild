@@ -84,7 +84,8 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	/**
 	 * If the snow layer is getting broken, run the super method instead.
 	 */
-	@WrapOperation(method = "playerWillDestroy",
+	@WrapOperation(
+		method = "playerWillDestroy",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/DoublePlantBlock;dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V"
@@ -107,10 +108,12 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 	 * @param blockState air
 	 * @param paramState the original broken block. Is either the plant or snow layers.
 	 */
-	@WrapOperation(method = "playerDestroy",
+	@WrapOperation
+		(method = "playerDestroy",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/BushBlock;playerDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V")
+			target = "Lnet/minecraft/world/level/block/BushBlock;playerDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V"
+		)
 	)
 	private void wilderWild$playerDestroy(
 		DoublePlantBlock instance, Level level, Player player, BlockPos pos, BlockState blockState, BlockEntity blockEntity, ItemStack itemStack, Operation<Void> original,

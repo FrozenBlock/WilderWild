@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks.candle;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -13,14 +13,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin({FlintAndSteelItem.class, FireChargeItem.class})
-public abstract class CandleLightingMixins {
+public class CandleCanLightMixin {
+
 	/**
 	 * Replaces canLight() with canLight() and !shouldHitSnow()
 	 *
 	 * @param original canLight()
 	 * @return canLight() and !shouldHitSnow()
 	 */
-	@ModifyExpressionValue(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/CandleBlock;canLight(Lnet/minecraft/world/level/block/state/BlockState;)Z"))
+	@ModifyExpressionValue(
+		method = "useOn",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/CandleBlock;canLight(Lnet/minecraft/world/level/block/state/BlockState;)Z"
+		)
+	)
 	public boolean wilderWild$useOn(
 		boolean original, UseOnContext context,
 		@Local Level level, @Local BlockPos blockPos, @Local BlockState blockState

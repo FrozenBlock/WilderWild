@@ -36,7 +36,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SpreadingSnowyDirtBlock.class)
 public class SpreadingSnowyDirtBlockMixin {
 
-	@Inject(method = "canBeGrass",
+	@Inject(
+		method = "canBeGrass",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
@@ -45,7 +46,7 @@ public class SpreadingSnowyDirtBlockMixin {
 		),
 		cancellable = true
 	)
-	private static void wilderWild$canBeGrassFirstCheck(
+	private static void wilderWild$canBeGrass(
 		BlockState state, LevelReader levelReader, BlockPos pos, CallbackInfoReturnable<Boolean> info,
 		@Local(ordinal = 1) BlockState blockState
 	) {

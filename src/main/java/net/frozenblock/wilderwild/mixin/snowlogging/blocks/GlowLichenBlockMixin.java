@@ -16,14 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GlowLichenBlock.class)
 public abstract class GlowLichenBlockMixin extends MultifaceBlock {
+
 	public GlowLichenBlockMixin(Properties properties) {
 		super(properties);
-	}
-
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))

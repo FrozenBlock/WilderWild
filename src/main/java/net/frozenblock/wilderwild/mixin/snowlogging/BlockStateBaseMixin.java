@@ -228,14 +228,16 @@ public abstract class BlockStateBaseMixin {
 		return state;
 	}
 
-	@WrapOperation(method = "propagatesSkylightDown",
+	@WrapOperation(
+		method = "propagatesSkylightDown",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;propagatesSkylightDown(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
 	public boolean wilderWild$propagatesSkylightDown(Block instance, BlockState blockState, BlockGetter blockGetter, BlockPos pos, Operation<Boolean> original) {
-		return original.call(instance, blockState, blockGetter, pos) && !(SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
+		return original.call(instance, blockState, blockGetter, pos)
+			&& !(SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
 	}
 
 	@WrapOperation(

@@ -57,11 +57,10 @@ public abstract class SnowLayerBlockMixin {
 		BlockPlaceContext context, CallbackInfoReturnable<BlockState> info,
 		@Local BlockState blockState
 	) {
-		if (!BlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 			int layers = SnowloggingUtils.getSnowLayers(blockState);
-			if (layers < 8) {
-				BlockState placementState = blockState.setValue(RegisterProperties.SNOW_LAYERS, layers + 1);
+			if (layers < SnowloggingUtils.MAX_LAYERS) {
+				BlockState placementState = blockState.cycle(RegisterProperties.SNOW_LAYERS);
 				info.setReturnValue(placementState);
 			}
 		}
@@ -102,10 +101,9 @@ public abstract class SnowLayerBlockMixin {
 		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
 		@Local(ordinal = 1) BlockState supportState
 	) {
-		if (!BlockConfig.canSnowlog()) return;
 		if (SnowloggingUtils.isSnowlogged(supportState)) {
 			int layers = SnowloggingUtils.getSnowLayers(supportState);
-			if (layers == 8) {
+			if (layers == SnowloggingUtils.MAX_LAYERS) {
 				info.setReturnValue(true);
 			}
 		}

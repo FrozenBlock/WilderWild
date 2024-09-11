@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.snowlogging.blocks;
+package net.frozenblock.wilderwild.mixin.snowlogging.blocks.candle;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CandleBlock.class)
 public abstract class CandleBlockMixin extends AbstractCandleBlock {
+
 	@Shadow
 	@Final
 	public static BooleanProperty LIT;

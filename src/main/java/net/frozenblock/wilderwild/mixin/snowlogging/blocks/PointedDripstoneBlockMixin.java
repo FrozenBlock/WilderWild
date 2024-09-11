@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,7 +30,13 @@ public abstract class PointedDripstoneBlockMixin extends Block {
 	/**
 	 * Checks if the player landed on a snow layer, and cancels the dripstone damage if so.
 	 */
-	@WrapOperation(method = "fallOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
+	@WrapOperation(
+		method = "fallOn",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/Entity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"
+		)
+	)
 	public boolean wilderWild$fallOn(
 		Entity entity, float modifiedFallDistance, float damageMultiplier, DamageSource damageSource, Operation<Boolean> original,
 		Level world, BlockState state, BlockPos pos, Entity entityOriginal, float fallDistanceOriginal
@@ -45,12 +50,6 @@ public abstract class PointedDripstoneBlockMixin extends Block {
 			}
 		}
 		return original.call(entity, modifiedFallDistance, damageMultiplier, damageSource);
-	}
-
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
