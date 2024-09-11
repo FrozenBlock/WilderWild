@@ -123,6 +123,7 @@
     "snowlogging.blocks.FlowerPotBlockMixin",
     "snowlogging.blocks.SporeBlossomBlockMixin",
     "snowlogging.blocks.SugarCaneBlockMixin",
+    "snowlogging.client.BlockDestructionProgressMixin",
     "snowlogging.worldgen.BiomeMixin",
     "snowlogging.worldgen.ServerLevelMixin",
     "snowlogging.worldgen.SnowAndFreezeFeatureMixin",
@@ -172,6 +173,7 @@
     "client.wind.particlerain.SnowFlakeParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
+    "snowlogging.client.LevelRendererMixin",
     "snowlogging.client.MultiPlayerGameModeMixin",
     "snowlogging.client.TerrainRenderContextMixin"
   ],
