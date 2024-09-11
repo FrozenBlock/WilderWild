@@ -32,25 +32,25 @@ public class HugeFungusFeatureMixin {
 		return isCorner;
 	}
 
-//	@WrapOperation(method = "placeStem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/WorldGenLevel;destroyBlock(Lnet/minecraft/core/BlockPos;Z)Z"))
-//	public boolean wilderWild$placeStemPlantedA(
-//		WorldGenLevel instance, BlockPos pos, boolean drop, Operation<Boolean> original, @Local(argsOnly = true) RandomSource random,
-//		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
-//	) {
-//		if (!isCorner.get() && random.nextFloat() < 0.1F) {
-//			shouldPlace.set(false);
-//			return false;
-//		}
-//		shouldPlace.set(true);
-//		return original.call(instance, pos, drop);
-//	}
+	@WrapOperation(method = "placeStem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/WorldGenLevel;destroyBlock(Lnet/minecraft/core/BlockPos;Z)Z"))
+	public boolean wilderWild$placeStemPlantedA(
+		WorldGenLevel instance, BlockPos pos, boolean drop, Operation<Boolean> original, @Local(argsOnly = true) RandomSource random,
+		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
+	) {
+		if (!isCorner.get() || random.nextFloat() < 0.1F) {
+			shouldPlace.set(true);
+			return original.call(instance, pos, drop);
+		}
+		shouldPlace.set(false);
+		return false;
+	}
 
 	@WrapOperation(method = "placeStem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
 	public boolean wilderWild$placeStemPlantedB(
 		WorldGenLevel instance, BlockPos pos, BlockState blockState, int flag, Operation<Boolean> original,
-		@Local(argsOnly = true) RandomSource random, @Share("wilderWild$isCorner") LocalRef<Boolean> isCorner
+		@Local(argsOnly = true) RandomSource random, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
-		if (!isCorner.get() || (random.nextFloat() < 0.1F)) {
+		if (shouldPlace.get()) {
 			return original.call(instance, pos, blockState, flag);
 		}
 		return false;
