@@ -55,6 +55,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Split most Tall and Short flower generation into separate features for noise-based flower placement.
 - Decreased flower generation overall.
 - Rose Bushes now generate in Birch Forest biomes.
+- Peonies now generate in Birch Forest biomes.
+- Lilacs now generate in Birch Forest biomes.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes

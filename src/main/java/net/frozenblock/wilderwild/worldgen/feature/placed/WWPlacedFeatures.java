@@ -228,7 +228,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature DATURA = register("datura");
 	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
 	public static final FrozenPlacedFeature ROSE_BUSH = register("rose_bush");
-	public static final FrozenPlacedFeature COMMON_ROSE_BUSH = register("common_rose_bush");
+	public static final FrozenPlacedFeature PEONY = register("peony");
+	public static final FrozenPlacedFeature LILAC = register("lilac");
 	public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
 	public static final FrozenPlacedFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
@@ -1183,8 +1184,13 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		COMMON_ROSE_BUSH.makeAndSetHolder(WWConfiguredFeatures.ROSE_BUSH.getHolder(),
-			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+		PEONY.makeAndSetHolder(WWConfiguredFeatures.PEONY.getHolder(),
+			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		LILAC.makeAndSetHolder(WWConfiguredFeatures.LILAC.getHolder(),
+			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

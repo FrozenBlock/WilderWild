@@ -13,10 +13,6 @@
     {
       "id": "wilderwild:semi_birch_forest",
       "required": false
-    },
-    {
-      "id": "wilderwild:maple_grove",
-      "required": false
     }
   ]
 }

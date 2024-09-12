@@ -59,6 +59,14 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ROSE_BUSH.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PEONY)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PEONY.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LILAC)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LILAC.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.CHERRY_FLOWERS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_CHERRY.getKey());
 						}

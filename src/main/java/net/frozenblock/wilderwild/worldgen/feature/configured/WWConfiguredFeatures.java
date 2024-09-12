@@ -166,6 +166,8 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD_SPARSE = WWFeatureUtils.register("marigold_sparse");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = WWFeatureUtils.register("datura");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ROSE_BUSH = WWFeatureUtils.register("rose_bush");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PEONY = WWFeatureUtils.register("peony");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LILAC = WWFeatureUtils.register("lilac");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WWFeatureUtils.register("flower_plain");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = WWFeatureUtils.register("milkweed");
@@ -1203,6 +1205,24 @@ public final class WWConfiguredFeatures {
 				48,
 				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ROSE_BUSH))
+				)
+			)
+		);
+
+		PEONY.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				40,
+				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PEONY))
+				)
+			)
+		);
+
+		LILAC.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				48,
+				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.LILAC))
 				)
 			)
 		);
