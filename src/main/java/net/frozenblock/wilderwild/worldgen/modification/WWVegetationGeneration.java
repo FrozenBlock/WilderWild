@@ -55,6 +55,10 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DATURA.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ROSE_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ROSE_BUSH.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.CHERRY_FLOWERS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_CHERRY.getKey());
 						}
