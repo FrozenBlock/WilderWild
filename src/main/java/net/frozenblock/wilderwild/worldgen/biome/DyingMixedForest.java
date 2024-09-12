@@ -59,7 +59,7 @@ public class DyingMixedForest extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.100F);
 	public static final Climate.Parameter TEMPERATURE_MAPLE = Temperature.COOL;
 	public static final Climate.Parameter HUMIDITY_MAPLE = Climate.Parameter.span(-1F, 0.1F);
-	public static final Climate.Parameter WEIRDNESS_MAPLE = Climate.Parameter.span(-0.4F, -0.2F);
+	public static final Climate.Parameter WEIRDNESS_MAPLE = Climate.Parameter.span(-0.3F, -0.2F);
 	public static final Climate.Parameter EROSION_MAPLE = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.35F;
