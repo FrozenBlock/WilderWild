@@ -91,6 +91,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_OAK_AND_BIRCH_DARK_FOREST = WWFeatureUtils.register("fallen_oak_and_birch_dark_forest");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_MANGROVE = WWFeatureUtils.register("fallen_mangrove");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_DARK_OAKS = WWFeatureUtils.register("fallen_dark_oaks");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_MAPLE = WWFeatureUtils.register("fallen_maple");
 
 	// TREES
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PLAINS = WWFeatureUtils.register("trees_plains");
@@ -158,6 +159,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_ACACIA_AND_OAK = WWFeatureUtils.register("snapped_acacia_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_CHERRY = WWFeatureUtils.register("snapped_cherry");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_DARK_OAKS = WWFeatureUtils.register("snapped_dark_oaks");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_MAPLE = WWFeatureUtils.register("snapped_maple");
 
 	// FLOWERS
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
@@ -363,7 +365,7 @@ public final class WWConfiguredFeatures {
 				new WeightedPlacedFeature(WWTreePlaced.FALLEN_BIRCH_CHECKED.getHolder(), 0.4F)), WWTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder()));
 
 		FALLEN_BIRCH.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.FALLEN_BIRCH_CHECKED.getHolder(), 1.0F)),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.FALLEN_BIRCH_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.FALLEN_BIRCH_CHECKED.getHolder()));
 
 		FALLEN_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
@@ -371,27 +373,27 @@ public final class WWConfiguredFeatures {
 				new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED.getHolder(), 0.4F)), WWTreePlaced.FALLEN_CHERRY_CHECKED.getHolder()));
 
 		FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder()));
 
 		CLEAN_FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.CLEAN_FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.CLEAN_FALLEN_SPRUCE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.CLEAN_FALLEN_SPRUCE_CHECKED.getHolder()));
 
 		FALLEN_OAK_SWAMP.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.getHolder(), 1.0F)),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.getHolder()));
 
 		DECORATED_LARGE_FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.getHolder()
 			)
 		);
 
 		CLEAN_LARGE_FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.getHolder()
 			)
 		);
@@ -414,7 +416,7 @@ public final class WWConfiguredFeatures {
 
 		FALLEN_LARGE_JUNGLE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_FALLEN_JUNGLE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_FALLEN_JUNGLE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_FALLEN_JUNGLE_CHECKED.getHolder()
 			)
 		);
@@ -433,13 +435,20 @@ public final class WWConfiguredFeatures {
 
 		FALLEN_MANGROVE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder(), 1.0F)),
+				new WeightedPlacedFeature(WWTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder()));
 
 		FALLEN_DARK_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_FALLEN_DARK_OAK_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_FALLEN_DARK_OAK_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_FALLEN_DARK_OAK_CHECKED.getHolder()
+			)
+		);
+
+		FALLEN_MAPLE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WWTreePlaced.FALLEN_MAPLE_CHECKED.getHolder(), 1F)),
+				WWTreePlaced.FALLEN_MAPLE_CHECKED.getHolder()
 			)
 		);
 
@@ -935,7 +944,7 @@ public final class WWConfiguredFeatures {
 		);
 
 		BIG_COARSE_SHRUBS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_COARSE_CHECKED.getHolder(), 1.0F)),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_COARSE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.BIG_SHRUB_COARSE_CHECKED.getHolder())
 		);
 
@@ -1029,14 +1038,14 @@ public final class WWConfiguredFeatures {
 
 		SNAPPED_BIRCHES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder()
 			)
 		);
 
 		SNAPPED_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_OAK_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_OAK_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_OAK_CHECKED.getHolder()
 			)
 		);
@@ -1050,28 +1059,28 @@ public final class WWConfiguredFeatures {
 
 		SNAPPED_SPRUCES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder()
 			)
 		);
 
 		SNAPPED_SPRUCES_ON_SNOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_SPRUCE_ON_SNOW.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_SPRUCE_ON_SNOW.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_SPRUCE_ON_SNOW.getHolder()
 			)
 		);
 
 		SNAPPED_LARGE_SPRUCES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_SPRUCE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_SPRUCE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_SNAPPED_SPRUCE_CHECKED.getHolder()
 			)
 		);
 
 		SNAPPED_LARGE_SPRUCES_ON_SNOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder()
 			)
 		);
@@ -1095,21 +1104,21 @@ public final class WWConfiguredFeatures {
 
 		SNAPPED_CYPRESSES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_CYPRESS_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_CYPRESS_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_CYPRESS_CHECKED.getHolder()
 			)
 		);
 
 		SNAPPED_JUNGLES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_JUNGLE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_JUNGLE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_JUNGLE_CHECKED.getHolder()
 			)
 		);
 
 		SNAPPED_LARGE_JUNGLES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_JUNGLE_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_JUNGLE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_SNAPPED_JUNGLE_CHECKED.getHolder()
 			)
 		);
@@ -1123,7 +1132,7 @@ public final class WWConfiguredFeatures {
 
 		SNAPPED_ACACIAS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder()
 			)
 		);
@@ -1137,15 +1146,22 @@ public final class WWConfiguredFeatures {
 
 		SNAPPED_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder()
 			)
 		);
 
 		SNAPPED_DARK_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
-				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder(), 1.0F)),
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_MAPLE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_MAPLE_CHECKED.getHolder(), 1F)),
+				WWTreePlaced.SNAPPED_MAPLE_CHECKED.getHolder()
 			)
 		);
 

@@ -84,6 +84,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature FALLEN_DARK_OAK_PLACED = register("fallen_dark_oak_placed");
 	public static final FrozenPlacedFeature FALLEN_DARK_OAK_COMMON_PLACED = register("fallen_dark_oak_common_placed");
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_PLACED = register("fallen_mangrove_placed");
+	public static final FrozenPlacedFeature FALLEN_MAPLE_PLACED = register("fallen_maple_placed");
 	//TREES
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
 	public static final FrozenPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
@@ -169,6 +170,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature SNAPPED_CHERRY_PLACED = register("snapped_cherry");
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_PLACED = register("snapped_dark_oak");
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_CLEARING_PLACED = register("snapped_dark_oak_clearing");
+	public static final FrozenPlacedFeature SNAPPED_MAPLE_PLACED = register("snapped_maple");
+	public static final FrozenPlacedFeature SNAPPED_MAPLE_CLEARING_PLACED = register("snapped_maple_clearing");
 	//MUSHROOMS
 	public static final FrozenPlacedFeature BROWN_SHELF_FUNGI = register("brown_shelf_fungi");
 	public static final FrozenPlacedFeature RED_SHELF_FUNGI = register("red_shelf_fungi");
@@ -426,6 +429,11 @@ public final class WWPlacedFeatures {
 
 		FALLEN_MANGROVE_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_MANGROVE.getHolder(),
 			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_MAPLE_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_MAPLE.getHolder(),
+			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -876,6 +884,17 @@ public final class WWPlacedFeatures {
 		);
 
 		SNAPPED_DARK_OAK_CLEARING_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_DARK_OAKS.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
+		);
+
+		SNAPPED_MAPLE_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_MAPLE.getHolder(),
+			treePlacement(RarityFilter.onAverageOnceEvery(32))
+		);
+
+		SNAPPED_MAPLE_CLEARING_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_MAPLE.getHolder(),
 			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
 				.add(
 					WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED
