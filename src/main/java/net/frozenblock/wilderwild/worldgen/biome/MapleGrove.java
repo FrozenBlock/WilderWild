@@ -55,7 +55,7 @@ public final class MapleGrove extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_B = Temperature.COOL;
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, 0.1F);
 	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-1F, -0.05F);
-	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(-0.5F, 0.5F);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(-0.2F, 0.6F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
 	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
