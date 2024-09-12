@@ -59,7 +59,7 @@ public class DyingForest extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY_MAPLE = Climate.Parameter.span(-1F, 0.1F);
 	public static final Climate.Parameter WEIRDNESS_MAPLE = Climate.Parameter.span(0.6F, 1F);
 	public static final Climate.Parameter EROSION_MAPLE = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
-	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.MID_INLAND);
+	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.65F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
