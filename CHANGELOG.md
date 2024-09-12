@@ -52,7 +52,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
 - Significantly decreased Glory of the Snow generation outside Jungles.
-- Split Tall and Short flower generation into separate features for noise-based flower placement.
+- Split most Tall and Short flower generation into separate features for noise-based flower placement.
 - Decreased flower generation overall.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
