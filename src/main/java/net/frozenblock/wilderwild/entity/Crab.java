@@ -66,6 +66,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -404,12 +406,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	protected void customServerAiStep() {
-		this.level().getProfiler().push("crabBrain");
+		ProfilerFiller profiler = Profiler.get();
+		profiler.push("crabBrain");
 		this.getBrain().tick((ServerLevel) this.level(), this);
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("crabActivityUpdate");
+		profiler.pop();
+		profiler.push("crabActivityUpdate");
 		CrabAi.updateActivity(this);
-		this.level().getProfiler().pop();
+		profiler.pop();
 		super.customServerAiStep();
 		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
 	}

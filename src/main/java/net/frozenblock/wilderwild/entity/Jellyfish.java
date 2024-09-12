@@ -60,6 +60,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -521,13 +523,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected void customServerAiStep() {
+		ProfilerFiller profiler = Profiler.get();
 		ServerLevel serverLevel = (ServerLevel) this.level();
-		serverLevel.getProfiler().push("jellyfishBrain");
+		profiler.push("jellyfishBrain");
 		this.getBrain().tick(serverLevel, this);
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("jellyfishActivityUpdate");
+		profiler.pop();
+		profiler.push("jellyfishActivityUpdate");
 		JellyfishAi.updateActivity(this);
-		this.level().getProfiler().pop();
+		profiler.pop();
 		super.customServerAiStep();
 	}
 

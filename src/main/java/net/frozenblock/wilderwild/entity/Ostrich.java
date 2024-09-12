@@ -49,6 +49,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -200,13 +202,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public void customServerAiStep() {
-		this.level().getProfiler().push("ostrichBrain");
+		ProfilerFiller profiler = Profiler.get();
+		profiler.push("ostrichBrain");
 		Brain<Ostrich> brain = this.getBrain();
 		brain.tick((ServerLevel) this.level(), this);
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("ostrichActivityUpdate");
+		profiler.pop();
+		profiler.push("ostrichActivityUpdate");
 		OstrichAi.updateActivity(this);
-		this.level().getProfiler().pop();
+		profiler.pop();
 		super.customServerAiStep();
 	}
 

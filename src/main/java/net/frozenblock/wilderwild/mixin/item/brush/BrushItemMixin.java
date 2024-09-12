@@ -91,7 +91,7 @@ public class BrushItemMixin {
 		method = "onUseTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;isClientSide()Z",
+			target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;",
 			shift = At.Shift.BEFORE
 		),
 		cancellable = true

@@ -108,7 +108,7 @@ public class Scorched extends Spider {
 			);
 		}
 		this.scorchedInLava();
-		this.checkInsideBlocks();
+		this.applyEffectsFromBlocks();
         float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
 		this.prevLavaAnimProgress = this.lavaAnimProgress;
 		this.lavaAnimProgress = this.lavaAnimProgress + (targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
@@ -150,7 +150,7 @@ public class Scorched extends Spider {
 
 	@Override
 	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
-		this.checkInsideBlocks();
+		this.applyEffectsFromBlocks();
 		if (this.isInLava()) {
 			this.resetFallDistance();
 		} else {

@@ -51,6 +51,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -456,12 +458,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	protected void customServerAiStep() {
-		this.level().getProfiler().push("fireflyBrain");
+		ProfilerFiller profiler = Profiler.get();
+		profiler.push("fireflyBrain");
 		this.getBrain().tick((ServerLevel) this.level(), this);
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("fireflyActivityUpdate");
+		profiler.pop();
+		profiler.push("fireflyActivityUpdate");
 		FireflyAi.updateActivities(this);
-		this.level().getProfiler().pop();
+		profiler.pop();
 		super.customServerAiStep();
 	}
 
