@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -35,7 +35,7 @@ public final class WWLootTables {
 	public static void init() {
 		WWConstants.logWithModId("Registering Loot Table Modifications for", WWConstants.UNSTABLE_LOGGING);
 		//ALGAE
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -44,7 +44,7 @@ public final class WWLootTables {
 			}
 		});
 		//BAOBAB NUT
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -53,7 +53,7 @@ public final class WWLootTables {
 			}
 		});
 		//BAOBAB LOG
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -62,7 +62,7 @@ public final class WWLootTables {
 			}
 		});
 		//COCONUT
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -71,7 +71,7 @@ public final class WWLootTables {
 			}
 		});
 		//PALM LOG
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
@@ -80,7 +80,7 @@ public final class WWLootTables {
 			}
 		});
 		//OSSEOUS SCULK
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 5.0F)));
@@ -89,7 +89,7 @@ public final class WWLootTables {
 			}
 		});
 		//HANGING TENDRIL
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)));
