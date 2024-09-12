@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.feature.placed;
 
 import java.util.List;
+import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -29,12 +30,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
 
 public final class WWTreePlaced {
 	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
@@ -84,6 +88,8 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature YELLOW_MAPLE_BEES_CHECKED = WWPlacementUtils.register("yellow_maple_bees_checked");
 	public static final FrozenPlacedFeature TALL_YELLOW_MAPLE_BEES_CHECKED = WWPlacementUtils.register("tall_yellow_maple_bees_checked");
 	public static final FrozenPlacedFeature SHORT_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("short_yellow_maple_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_yellow_maple_checked");
+
 
 	public static final FrozenPlacedFeature ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("orange_maple_checked");
 	public static final FrozenPlacedFeature DYING_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("dying_orange_maple_checked");
@@ -92,6 +98,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature ORANGE_MAPLE_BEES_CHECKED = WWPlacementUtils.register("orange_maple_bees_checked");
 	public static final FrozenPlacedFeature TALL_ORANGE_MAPLE_BEES_CHECKED = WWPlacementUtils.register("tall_orange_maple_bees_checked");
 	public static final FrozenPlacedFeature SHORT_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("short_orange_maple_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_orange_maple_checked");
 
 	public static final FrozenPlacedFeature RED_MAPLE_CHECKED = WWPlacementUtils.register("red_maple_checked");
 	public static final FrozenPlacedFeature DYING_RED_MAPLE_CHECKED = WWPlacementUtils.register("dying_red_maple_checked");
@@ -100,6 +107,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature RED_MAPLE_BEES_CHECKED = WWPlacementUtils.register("red_maple_bees_checked");
 	public static final FrozenPlacedFeature TALL_RED_MAPLE_BEES_CHECKED = WWPlacementUtils.register("tall_red_maple_bees_checked");
 	public static final FrozenPlacedFeature SHORT_RED_MAPLE_CHECKED = WWPlacementUtils.register("short_red_maple_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_RED_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_red_maple_checked");
 
 	public static final FrozenPlacedFeature FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("fallen_maple_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("mossy_fallen_maple_checked");
@@ -377,6 +385,10 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
+		BIG_SHRUB_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_YELLOW_MAPLE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+		);
+
 		ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ORANGE_MAPLE_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
@@ -402,6 +414,10 @@ public final class WWTreePlaced {
 		);
 
 		SHORT_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_ORANGE_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+		);
+
+		BIG_SHRUB_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_ORANGE_MAPLE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
@@ -433,6 +449,9 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
+		BIG_SHRUB_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_RED_MAPLE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+		);
 
 		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
