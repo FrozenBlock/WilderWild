@@ -35,6 +35,12 @@
                 }
               },
               {
+                "Name": "wilderwild:seeding_dandelion",
+                "Properties": {
+                  "snow_layers": "0"
+                }
+              },
+              {
                 "Name": "minecraft:oxeye_daisy",
                 "Properties": {
                   "snow_layers": "0"
@@ -47,31 +53,13 @@
                 }
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:orange_tulip",
                 "Properties": {
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "minecraft:orange_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:poppy",
+                "Name": "wilderwild:marigold",
                 "Properties": {
                   "snow_layers": "0"
                 }
@@ -84,12 +72,6 @@
               },
               {
                 "Name": "minecraft:red_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:pink_tulip",
                 "Properties": {
                   "snow_layers": "0"
                 }

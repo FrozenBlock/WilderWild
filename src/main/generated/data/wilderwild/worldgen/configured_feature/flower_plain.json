@@ -53,18 +53,6 @@
                 }
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:orange_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:orange_tulip",
                 "Properties": {
                   "snow_layers": "0"
@@ -120,12 +108,6 @@
               },
               {
                 "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:cornflower",
                 "Properties": {
                   "snow_layers": "0"
                 }

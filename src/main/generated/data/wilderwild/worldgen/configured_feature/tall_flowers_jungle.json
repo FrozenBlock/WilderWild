@@ -17,51 +17,9 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:white_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:sunflower",
+                "Name": "wilderwild:datura",
                 "Properties": {
                   "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:orange_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:red_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:pink_tulip",
-                "Properties": {
                   "snow_layers": "0"
                 }
               },
@@ -74,8 +32,9 @@
                 }
               },
               {
-                "Name": "minecraft:allium",
+                "Name": "minecraft:rose_bush",
                 "Properties": {
+                  "half": "lower",
                   "snow_layers": "0"
                 }
               },
@@ -87,21 +46,9 @@
                 }
               },
               {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:peony",
                 "Properties": {
                   "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:cornflower",
-                "Properties": {
                   "snow_layers": "0"
                 }
               }
@@ -119,7 +66,7 @@
         }
       ]
     },
-    "tries": 18,
+    "tries": 10,
     "xz_spread": 8,
     "y_spread": 3
   }

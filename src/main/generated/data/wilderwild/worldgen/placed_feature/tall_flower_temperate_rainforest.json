@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:flowers_rainforest_vanilla",
+  "feature": "wilderwild:tall_flowers_temperate_rainforest",
   "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 3
+    },
     {
       "type": "minecraft:in_square"
     },

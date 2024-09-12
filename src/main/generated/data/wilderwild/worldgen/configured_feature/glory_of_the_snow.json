@@ -6,47 +6,43 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.010833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "blue",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 3
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "white",
+                  "snow_layers": "0"
+                }
               },
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "purple",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 3
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "pink",
+                  "snow_layers": "0"
+                }
               },
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "pink",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 2
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "purple",
+                  "snow_layers": "0"
+                }
               },
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "white",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 1
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "blue",
+                  "snow_layers": "0"
+                }
               }
             ]
           }

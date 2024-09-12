@@ -232,6 +232,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
 	public static final FrozenPlacedFeature FLOWER_FOREST_FLOWERS = register("flower_forest_flowers");
 	public static final FrozenPlacedFeature CYPRESS_WETLANDS_FLOWERS = register("cypress_wetlands_flowers");
+	public static final FrozenPlacedFeature CYPRESS_WETLANDS_FLOWERS_TALL = register("cypress_wetlands_flowers_tall");
 	public static final FrozenPlacedFeature MILKWEED = register("milkweed");
 	public static final FrozenPlacedFeature MILKWEED_RARE = register("milkweed_rare");
 	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW = register("glory_of_the_snow");
@@ -239,10 +240,15 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_SPARSE_JUNGLE = register("glory_of_the_snow_sparse_jungle");
 	public static final FrozenPlacedFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
 	public static final FrozenPlacedFeature FLOWER_TEMPERATE_RAINFOREST = register("flower_temperate_rainforest");
+	public static final FrozenPlacedFeature TALL_FLOWER_TEMPERATE_RAINFOREST = register("tall_flower_temperate_rainforest");
 	public static final FrozenPlacedFeature FLOWER_TEMPERATE_RAINFOREST_VANILLA = register("flower_temperate_rainforest_vanilla");
+	public static final FrozenPlacedFeature TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA = register("tall_flower_temperate_rainforest_vanilla");
 	public static final FrozenPlacedFeature FLOWER_RAINFOREST = register("flower_rainforest");
+	public static final FrozenPlacedFeature TALL_FLOWER_RAINFOREST = register("tall_flower_rainforest");
 	public static final FrozenPlacedFeature FLOWER_RAINFOREST_VANILLA = register("flower_rainforest_vanilla");
+	public static final FrozenPlacedFeature TALL_FLOWER_RAINFOREST_VANILLA = register("tall_flower_rainforest_vanilla");
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
+	public static final FrozenPlacedFeature TALL_FLOWER_JUNGLE = register("tall_flower_jungle");
 	public static final FrozenPlacedFeature FLOWER_SUNFLOWER_PLAINS = register("flower_sunflower_plains");
 	public static final FrozenPlacedFeature FLOWER_BIRCH_CLEARING = register("flower_birch_clearing");
 	public static final FrozenPlacedFeature FLOWER_FOREST_CLEARING = register("flower_forest_clearing");
@@ -1198,6 +1204,12 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		CYPRESS_WETLANDS_FLOWERS_TALL.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_CYPRESS_WETLANDS.getHolder(),
+			CountPlacement.of(1),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
 		MILKWEED.makeAndSetHolder(WWConfiguredFeatures.MILKWEED.getHolder(),
 			RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
@@ -1209,7 +1221,7 @@ public final class WWPlacedFeatures {
 		);
 
 		GLORY_OF_THE_SNOW.makeAndSetHolder(WWConfiguredFeatures.GLORY_OF_THE_SNOW.getHolder(),
-			RarityFilter.onAverageOnceEvery(11), CountPlacement.of(2), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1233,8 +1245,18 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		TALL_FLOWER_TEMPERATE_RAINFOREST.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_TEMPERATE_RAINFOREST.getHolder(),
+			CountPlacement.of(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
 		FLOWER_TEMPERATE_RAINFOREST_VANILLA.makeAndSetHolder(WWConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST_VANILLA.getHolder(),
 			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_TEMPERATE_RAINFOREST_VANILLA.getHolder(),
+			CountPlacement.of(3), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1243,13 +1265,28 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		TALL_FLOWER_RAINFOREST.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_RAINFOREST.getHolder(),
+			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
 		FLOWER_RAINFOREST_VANILLA.makeAndSetHolder(WWConfiguredFeatures.FLOWERS_RAINFOREST_VANILLA.getHolder(),
-			CountPlacement.of(2), InSquarePlacement.spread(),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		TALL_FLOWER_RAINFOREST_VANILLA.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_RAINFOREST_VANILLA.getHolder(),
+			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),
-			CountPlacement.of(17), InSquarePlacement.spread(),
+			CountPlacement.of(15), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		TALL_FLOWER_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_JUNGLE.getHolder(),
+			CountPlacement.of(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

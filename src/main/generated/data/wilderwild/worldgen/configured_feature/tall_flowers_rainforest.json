@@ -13,42 +13,42 @@
               ],
               "firstOctave": 0
             },
-            "scale": 0.023833334,
+            "scale": 0.034833334,
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:lily_of_the_valley",
+                "Name": "wilderwild:datura",
                 "Properties": {
+                  "half": "lower",
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "wilderwild:seeding_dandelion",
+                "Name": "minecraft:rose_bush",
                 "Properties": {
+                  "half": "lower",
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "minecraft:dandelion",
+                "Name": "wilderwild:milkweed",
                 "Properties": {
+                  "age": "0",
+                  "half": "lower",
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "minecraft:poppy",
+                "Name": "minecraft:lilac",
                 "Properties": {
+                  "half": "lower",
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "minecraft:poppy",
+                "Name": "minecraft:peony",
                 "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:allium",
-                "Properties": {
+                  "half": "lower",
                   "snow_layers": "0"
                 }
               }
@@ -66,7 +66,7 @@
         }
       ]
     },
-    "tries": 24,
+    "tries": 10,
     "xz_spread": 8,
     "y_spread": 3
   }
