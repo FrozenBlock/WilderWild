@@ -92,6 +92,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SWAMP_MUSHROOM = bind("has_swamp_mushroom");
 	public static final TagKey<Biome> HAS_BIG_MUSHROOM_PATCH = bind("has_big_mushroom_patch");
 	public static final TagKey<Biome> HAS_DATURA = bind("has_datura");
+	public static final TagKey<Biome> HAS_ROSE_BUSH = bind("has_rose_bush");
+	public static final TagKey<Biome> HAS_COMMON_ROSE_BUSH = bind("has_common_rose_bush");
 	public static final TagKey<Biome> HAS_CARNATION = bind("has_carnation");
 	public static final TagKey<Biome> HAS_MARIGOLD = bind("has_marigold");
 	public static final TagKey<Biome> HAS_MARIGOLD_SPARSE = bind("has_marigold_sparse");

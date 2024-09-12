@@ -54,6 +54,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Significantly decreased Glory of the Snow generation outside Jungles.
 - Split most Tall and Short flower generation into separate features for noise-based flower placement.
 - Decreased flower generation overall.
+- Rose Bushes now generate in Birch Forest biomes.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes

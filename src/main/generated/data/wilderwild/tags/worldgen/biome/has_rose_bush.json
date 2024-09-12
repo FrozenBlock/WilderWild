@@ -1,0 +1,26 @@
+{
+  "values": [
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    {
+      "id": "minecraft:cherry_grove",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
+    }
+  ]
+}

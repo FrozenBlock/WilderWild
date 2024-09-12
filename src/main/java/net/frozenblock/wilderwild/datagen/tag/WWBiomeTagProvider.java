@@ -846,6 +846,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.SEMI_BIRCH_FOREST)
 			.addOptional(WWWorldgen.MAPLE_GROVE);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ROSE_BUSH)
+			.add(Biomes.BIRCH_FOREST)
+			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+			.addOptional(Biomes.CHERRY_GROVE)
+			.addOptional(WWWorldgen.BIRCH_TAIGA)
+			.addOptional(WWWorldgen.DARK_BIRCH_FOREST)
+			.addOptional(WWWorldgen.SEMI_BIRCH_FOREST)
+			.addOptional(WWWorldgen.MAPLE_GROVE);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CATTAIL)
 			.add(Biomes.DARK_FOREST)
 			.add(Biomes.JUNGLE)

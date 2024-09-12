@@ -8,7 +8,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "wilderwild:datura",
+              "Name": "minecraft:rose_bush",
               "Properties": {
                 "half": "lower",
                 "snow_layers": "0"
@@ -27,7 +27,7 @@
         }
       ]
     },
-    "tries": 56,
+    "tries": 48,
     "xz_spread": 7,
     "y_spread": 3
   }
