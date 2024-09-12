@@ -38,7 +38,6 @@ public class WWWindManager implements WindManagerExtension {
 	public double cloudY;
 	public double cloudZ;
 
-
 	public WWWindManager(WindManager manager) {
 		this.manager = manager;
 	}

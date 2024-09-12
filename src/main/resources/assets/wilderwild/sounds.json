@@ -1918,14 +1918,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.sculk_sensor.hiccup": {
-    "sounds": [
-      "wilderwild:block/sculk_sensor/hiccup1",
-      "wilderwild:block/sculk_sensor/hiccup2",
-      "wilderwild:block/sculk_sensor/hiccup3"
-    ],
-    "subtitle": "subtitles.block.sculk_sensor.hiccup"
-  },
   "block.sculk_shrieker.gargle": {
     "sounds": [
       "wilderwild:block/sculk_shrieker/gargle_1",
