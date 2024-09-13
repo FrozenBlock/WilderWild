@@ -3222,6 +3222,56 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.melon.break": {
+    "sounds": [
+      "wilderwild:block/melon/break1",
+      "wilderwild:block/melon/break2",
+      "wilderwild:block/melon/break3",
+      "wilderwild:block/melon/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.melon.fall": {
+    "sounds": [
+      "wilderwild:block/melon/step1",
+      "wilderwild:block/melon/step2",
+      "wilderwild:block/melon/step3",
+      "wilderwild:block/melon/step4",
+      "wilderwild:block/melon/step5",
+      "wilderwild:block/melon/step6"
+    ]
+  },
+  "block.melon.hit": {
+    "sounds": [
+      "wilderwild:block/melon/step1",
+      "wilderwild:block/melon/step2",
+      "wilderwild:block/melon/step3",
+      "wilderwild:block/melon/step4",
+      "wilderwild:block/melon/step5",
+      "wilderwild:block/melon/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.melon.place": {
+    "sounds": [
+      "wilderwild:block/melon/place1",
+      "wilderwild:block/melon/place2",
+      "wilderwild:block/melon/place3",
+      "wilderwild:block/melon/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.melon.step": {
+    "sounds": [
+      "wilderwild:block/melon/step1",
+      "wilderwild:block/melon/step2",
+      "wilderwild:block/melon/step3",
+      "wilderwild:block/melon/step4",
+      "wilderwild:block/melon/step5",
+      "wilderwild:block/melon/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.fire.ignite": {
     "sounds": [
       "minecraft:mob/ghast/fireball4"

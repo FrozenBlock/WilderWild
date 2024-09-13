@@ -365,6 +365,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(SUGAR_CANE, SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
 		addBlock(MAGMA_BLOCK, MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
+		addBlocks(new Block[]{PUMPKIN, CARVED_PUMPKIN, JACK_O_LANTERN, Blocks.MELON}, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
 
 		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWWorldgen.RAINFOREST, WolfVariants.WOODS);

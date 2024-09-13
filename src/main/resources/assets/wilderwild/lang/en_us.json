@@ -495,6 +495,8 @@
   "tooltip.wilderwild.leaf_sounds": "Whether Leaf sounds should be overridden.",
   "option.wilderwild.lily_pad_sounds": "Lily Pad Sounds",
   "tooltip.wilderwild.lily_pad_sounds": "Whether Lily Pad sounds should be overridden.",
+  "option.wilderwild.melon_sounds": "Melon Sounds",
+  "tooltip.wilderwild.melon_sounds": "Whether Melon-like sounds should be overridden.",
   "option.wilderwild.magma_sounds": "Magma Sounds",
   "tooltip.wilderwild.magma_sounds": "Whether Magma sounds should be overridden.",
   "option.wilderwild.mushroom_block_sounds": "Mushroom Block Sounds",

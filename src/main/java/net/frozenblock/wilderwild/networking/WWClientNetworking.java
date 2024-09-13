@@ -156,8 +156,8 @@ public final class WWClientNetworking {
 				pos,
 				WWSounds.BLOCK_FIRE_IGNITE,
 				SoundSource.BLOCKS,
-				1.0F,
-				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1.0F,
+				0.5F,
+				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F,
 				true
 			);
 		});

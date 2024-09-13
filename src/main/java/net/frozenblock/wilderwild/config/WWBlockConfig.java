@@ -181,7 +181,10 @@ public final class WWBlockConfig {
 		@EntrySyncData(value = "lilyPadSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean lilyPadSounds = true;
 
-		@EntrySyncData(value = "mushromBlockSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData(value = "melonSounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean melonSounds = true;
+
+		@EntrySyncData(value = "mushroomBlockSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean mushroomBlockSounds = true;
 
 		@EntrySyncData(value = "podzolSounds", behavior = SyncBehavior.UNSYNCABLE)

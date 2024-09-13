@@ -144,7 +144,6 @@ https://freesound.org/people/pigeonfriend/sounds/384065/
 https://freesound.org/people/HerbertBoland/sounds/29695/
 https://freesound.org/people/ChrisReierson/sounds/433749/
 https://freesound.org/people/Ezcah/sounds/243715/
-Additional sound effects were taken and edited from Minecraft itself.
 
 Geyser/Magmatic Caves Sounds:
 https://freesound.org/people/hdrck16/sounds/135010/
@@ -176,6 +175,12 @@ https://freesound.org/people/SDLx/sounds/211163/
 https://freesound.org/people/j_p_higgins/sounds/262634/
 https://freesound.org/people/dheming/sounds/268023/
 https://freesound.org/people/felix.blume/sounds/646589/
+
+Melon/Pumpkin Sounds:
+https://freesound.org/people/alien_s/sounds/169571/
+https://freesound.org/people/d.n.audio.uk/sounds/461048/
+https://freesound.org/people/lidem_soundfx/sounds/458476/
+https://freesound.org/people/lidem_soundfx/sounds/458477/
 
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.

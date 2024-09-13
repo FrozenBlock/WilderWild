@@ -385,6 +385,12 @@ public final class WWBlockConfigGui {
 			.setTooltip(tooltip("lily_pad_sounds"))
 			.build();
 
+		var melonSounds = entryBuilder.startBooleanToggle(text("melon_sounds"), modifiedBlockSounds.melonSounds)
+			.setDefaultValue(defaultConfig.blockSounds.melonSounds)
+			.setSaveConsumer(newValue -> blockSounds.melonSounds = newValue)
+			.setTooltip(tooltip("melon_sounds"))
+			.build();
+
 		var mushroomBlockSounds = entryBuilder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
 			.setDefaultValue(defaultConfig.blockSounds.mushroomBlockSounds)
 			.setSaveConsumer(newValue -> blockSounds.mushroomBlockSounds = newValue)
@@ -426,7 +432,7 @@ public final class WWBlockConfigGui {
 			tooltip("block_sounds"),
 			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds,
 			flowerSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
-			magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
+			melonSounds, magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
 		);
 	}
