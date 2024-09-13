@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.renderer.RenderType;
 
 @Environment(EnvType.CLIENT)
-public class WWBlockRenderLayers {
+public final class WWBlockRenderLayers {
 
 	public static void init() {
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;

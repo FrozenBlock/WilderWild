@@ -38,13 +38,9 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class WWFluidRendering {
+public final class WWFluidRendering {
 
-	public static void init() {
-		setupMesogleaRendering();
-	}
-
-	private static void setupMesogleaRendering() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
+	public static void init() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
 		FluidRenderHandler originalHandler = FluidRenderHandlerRegistry.INSTANCE.get(Fluids.WATER);
 		// Assert that the original handler exists now, otherwise the crash will happen later inside our handler
 		Objects.requireNonNull(originalHandler);

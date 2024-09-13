@@ -31,7 +31,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 
-public class WWCookRecipeProvider {
+public final class WWCookRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)

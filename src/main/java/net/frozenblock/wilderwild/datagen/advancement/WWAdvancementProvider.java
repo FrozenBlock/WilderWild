@@ -35,7 +35,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
-public class WWAdvancementProvider extends FabricAdvancementProvider {
+public final class WWAdvancementProvider extends FabricAdvancementProvider {
 	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}

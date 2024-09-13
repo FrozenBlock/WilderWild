@@ -39,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
+public final class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	private static final int NECK_LINE_COLOR = FastColor.ARGB32.color(255, 100, 255, 255);
 	private final Minecraft minecraft;
 	private List<Entity> surroundEntities = Collections.emptyList();

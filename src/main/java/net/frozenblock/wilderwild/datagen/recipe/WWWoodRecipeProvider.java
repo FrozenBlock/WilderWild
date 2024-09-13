@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 
-public class WWWoodRecipeProvider {
+public final class WWWoodRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		RecipeProvider.planksFromLogs(exporter, WWBlocks.BAOBAB_PLANKS, WWItemTags.BAOBAB_LOGS, 4);

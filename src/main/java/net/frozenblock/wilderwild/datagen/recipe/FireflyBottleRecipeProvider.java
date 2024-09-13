@@ -29,7 +29,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
-public class FireflyBottleRecipeProvider {
+public final class FireflyBottleRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		FrozenRecipeProvider.colorWithDyes(

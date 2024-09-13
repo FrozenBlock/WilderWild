@@ -35,7 +35,7 @@ import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class CopperHornRecipeProvider {
+public final class CopperHornRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		copperHorn(exporter, "clarinet", Instruments.DREAM_GOAT_HORN, WWItems.CLARINET_COPPER_HORN);

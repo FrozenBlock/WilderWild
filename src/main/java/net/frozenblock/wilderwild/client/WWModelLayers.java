@@ -47,7 +47,7 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @Environment(EnvType.CLIENT)
-public class WWModelLayers {
+public final class WWModelLayers {
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WWConstants.id("sculk_sensor"), "main");
 	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WWConstants.id("hanging_tendril"), "main");
 	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WWConstants.id("display_lantern"), "main");

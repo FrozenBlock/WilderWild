@@ -26,7 +26,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-public class MesogleaRecipeProvider {
+public final class MesogleaRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		mesoglea(WWBlocks.BLUE_NEMATOCYST, WWBlocks.BLUE_MESOGLEA, exporter);

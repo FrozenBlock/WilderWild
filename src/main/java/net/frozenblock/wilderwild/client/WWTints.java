@@ -25,7 +25,7 @@ import net.frozenblock.lib.client.TintRegistryHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 
 @Environment(EnvType.CLIENT)
-public class WWTints {
+public final class WWTints {
 
 	public static void initItems() {
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAVES);

@@ -31,8 +31,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class SpreadSculkCommand {
-
+public final class SpreadSculkCommand {
 	public static void register(@NotNull CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("sculkspread")
 			.requires(source -> source.hasPermission(2))
@@ -63,5 +62,4 @@ public class SpreadSculkCommand {
 		source.sendSuccess(() -> Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.x(), pos.y(), pos.z(), charge), true);
 		return 1;
 	}
-
 }

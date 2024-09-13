@@ -40,7 +40,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
-public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
+public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
 
 	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {

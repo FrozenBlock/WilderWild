@@ -32,7 +32,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
-public class WWDataFixer {
+public final class WWDataFixer {
 	public static final int DATA_VERSION = 20;
 
 	private WWDataFixer() {

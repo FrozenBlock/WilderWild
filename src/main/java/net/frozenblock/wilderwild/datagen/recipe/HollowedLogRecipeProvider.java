@@ -32,7 +32,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-public class HollowedLogRecipeProvider {
+public final class HollowedLogRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
 		planksFromHollowed(WWItemTags.HOLLOWED_ACACIA_LOGS, Items.ACACIA_PLANKS, exporter, "acacia");

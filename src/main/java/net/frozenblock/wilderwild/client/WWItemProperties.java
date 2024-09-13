@@ -30,7 +30,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 @Environment(EnvType.CLIENT)
-public class WWItemProperties {
+public final class WWItemProperties {
 
 	public static void init() {
 		ItemProperties.register(WWItems.COPPER_HORN, WWConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
