@@ -57,7 +57,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import static net.frozenblock.wilderwild.registry.WWBlocks.*;
@@ -256,7 +256,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			)
 		);
 
-		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntities.STONE_CHEST);
+		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntityTypes.STONE_CHEST);
 
 		FrozenBools.useNewDripstoneLiquid = true;
 		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
@@ -380,7 +380,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 		WolfVariantBiomeRegistry.register(WWWorldgen.MAPLE_GROVE, WolfVariants.CHESTNUT);
 
-		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntities.STONE_CHEST);
+		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
 
 		if (WWWorldgenConfig.get().decayTrailRuins) {
 			StructureProcessorApi.addProcessor(

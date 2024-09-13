@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWFeatureUtils {
 	private WWFeatureUtils() {
-		throw new UnsupportedOperationException("WilderFeatureUtils contains only static declarations.");
+		throw new UnsupportedOperationException("WWFeatureUtils contains only static declarations.");
 	}
 
 	@NotNull

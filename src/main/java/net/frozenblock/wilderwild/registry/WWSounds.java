@@ -335,7 +335,7 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
 	private WWSounds() {
-		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
+		throw new UnsupportedOperationException("WWSounds contains only static declarations.");
 	}
 
 	@NotNull

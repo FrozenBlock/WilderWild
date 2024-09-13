@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MixedForest extends FrozenBiome {
+public final class MixedForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.255F, -0.140F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
 	public static final float TEMP = 0.5F;

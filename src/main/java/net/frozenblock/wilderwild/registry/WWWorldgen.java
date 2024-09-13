@@ -91,7 +91,7 @@ public final class WWWorldgen {
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = SnowyOldGrowthPineTaiga.INSTANCE.getKey();
 
 	private WWWorldgen() {
-		throw new UnsupportedOperationException("RegisterWorldgen contains only static declarations.");
+		throw new UnsupportedOperationException("WWWorldgen contains only static declarations.");
 	}
 
 	public static void init() {

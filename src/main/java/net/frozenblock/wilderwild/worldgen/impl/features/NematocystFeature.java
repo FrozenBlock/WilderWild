@@ -24,6 +24,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
@@ -47,7 +48,7 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 					return false;
 				}
 
-				level.setBlock(pos, blockState2, 3);
+				level.setBlock(pos, blockState2, Block.UPDATE_ALL);
 				level.getChunk(pos).markPosForPostprocessing(pos);
 				var optional = config.placeBlock.getSpreader().spreadFromFaceTowardRandomDirection(blockState2, level, pos, direction, random, true);
 				for (int i = 0; i < random.nextInt(2) + 3; ++i) {

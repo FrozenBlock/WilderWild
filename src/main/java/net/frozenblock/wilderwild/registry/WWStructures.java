@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 public final class WWStructures {
 
 	private WWStructures() {
-		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
+		throw new UnsupportedOperationException("WWStructures contains only static declarations.");
 	}
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {

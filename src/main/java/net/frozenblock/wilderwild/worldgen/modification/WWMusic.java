@@ -33,7 +33,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class WWMusic {
 	private WWMusic() {
-		throw new UnsupportedOperationException("WilderMusic contains only static declarations.");
+		throw new UnsupportedOperationException("WWMusic contains only static declarations.");
 	}
 
 	public static void playMusic() {

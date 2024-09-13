@@ -93,7 +93,7 @@ public final class WWParticleTypes {
 	public static final SimpleParticleType BLUE_LANDING_MESOGLEA = register("blue_landing_mesoglea_drip");
 
 	private WWParticleTypes() {
-		throw new UnsupportedOperationException("RegisterParticles contains only static declarations.");
+		throw new UnsupportedOperationException("WWParticleTypes contains only static declarations.");
 	}
 
 	public static void registerParticles() {

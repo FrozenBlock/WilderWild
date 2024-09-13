@@ -53,7 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class WWClientNetworking {
+public final class WWClientNetworking {
 
 	public static void registerPacketReceivers() {
 		receiveWindExtensionSyncPacket();
@@ -236,5 +236,4 @@ public class WWClientNetworking {
 			angle += rotAngle;
 		}
 	}
-
 }

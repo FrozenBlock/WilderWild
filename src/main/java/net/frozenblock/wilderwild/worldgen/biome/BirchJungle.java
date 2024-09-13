@@ -47,7 +47,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BirchJungle extends FrozenBiome {
+public final class BirchJungle extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.FOUR, Climate.Parameter.point(0.35F));
 	public static final float TEMP = 0.825F;

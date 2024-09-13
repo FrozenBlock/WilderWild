@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class WWClientWindManager implements ClientWindManagerExtension {
+public final class WWClientWindManager implements ClientWindManagerExtension {
 	public static double prevCloudX;
 	public static double prevCloudY;
 	public static double prevCloudZ;
@@ -63,9 +63,9 @@ public class WWClientWindManager implements ClientWindManagerExtension {
 		prevCloudY = cloudY;
 		prevCloudZ = cloudZ;
 
-		cloudX += (laggedWindX * 0.007);
-		cloudY += (laggedWindY * 0.01);
-		cloudZ += (laggedWindZ * 0.007);
+		cloudX += (laggedWindX * 0.007D);
+		cloudY += (laggedWindY * 0.01D);
+		cloudZ += (laggedWindZ * 0.007D);
 
 		Minecraft minecraft = Minecraft.getInstance();
 		ClientLevel level = minecraft.level;

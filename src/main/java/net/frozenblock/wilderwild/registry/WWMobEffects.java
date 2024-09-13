@@ -65,7 +65,7 @@ public final class WWMobEffects {
 	);
 
 	private WWMobEffects() {
-		throw new UnsupportedOperationException("RegisterMobEffects contains only static declarations.");
+		throw new UnsupportedOperationException("WWMobEffects contains only static declarations.");
 	}
 
 	public static void init() {

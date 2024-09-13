@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -37,6 +38,7 @@ public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 		super(codec);
 	}
 
+	@Override
 	public boolean place(@NotNull FeaturePlaceContext<AlgaeFeatureConfig> context) {
 		boolean bl = false;
 		BlockPos blockPos = context.origin();
@@ -54,18 +56,18 @@ public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 				double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
 				if (distance < radius * radius) {
 					mutableDisk.set(x, y, z);
-					boolean fade = !mutableDisk.closerThan(s, radius * 0.8);
+					boolean fade = !mutableDisk.closerThan(s, radius * 0.8D);
 					boolean hasGeneratedThisRound = false;
 					if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
 						if (random.nextFloat() > 0.2F) {
 							hasGeneratedThisRound = true;
 							if (fade) {
-								if (random.nextFloat() > 0.5F) {
-									level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
+								if (random.nextBoolean()) {
+									level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), Block.UPDATE_ALL);
 									bl = true;
 								}
 							} else {
-								level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
+								level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), Block.UPDATE_ALL);
 								bl = true;
 							}
 						}
@@ -96,11 +98,11 @@ public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 		if (random.nextFloat() > 0.2F) {
 			if (fade) {
 				if (random.nextFloat() > 0.5F) {
-					level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
+					level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), Block.UPDATE_ALL);
 					bl = true;
 				}
 			} else {
-				level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), 3);
+				level.setBlock(mutableDisk, WWBlocks.ALGAE.defaultBlockState(), Block.UPDATE_ALL);
 				bl = true;
 			}
 		}

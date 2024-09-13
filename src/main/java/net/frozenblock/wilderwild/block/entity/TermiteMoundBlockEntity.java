@@ -24,7 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
@@ -49,7 +49,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	public final IntArrayList prevClientTermiteIDs = new IntArrayList();
 
 	public TermiteMoundBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		super(WWBlockEntities.TERMITE_MOUND, pos, state);
+		super(WWBlockEntityTypes.TERMITE_MOUND, pos, state);
 		this.termiteManager = new TermiteManager();
 	}
 

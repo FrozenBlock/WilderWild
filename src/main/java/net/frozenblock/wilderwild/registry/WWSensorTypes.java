@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWSensorTypes {
 	private WWSensorTypes() {
-		throw new UnsupportedOperationException("RegisterSensorTypes contains only static declarations.");
+		throw new UnsupportedOperationException("WWSensorTypes contains only static declarations.");
 	}
 
 	public static void register() {

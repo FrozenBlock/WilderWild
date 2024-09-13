@@ -453,7 +453,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CHEST)
 			.sound(SoundType.DEEPSLATE)
 			.strength(35.0F, 12.0F),
-		() -> WWBlockEntities.STONE_CHEST
+		() -> WWBlockEntityTypes.STONE_CHEST
 	);
 
 	// PLANTS
@@ -1026,7 +1026,7 @@ public final class WWBlocks {
 	);
 
 	private WWBlocks() {
-		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+		throw new UnsupportedOperationException("WWBlocks contains only static declarations.");
 	}
 
 	public static void registerDecorativeBlocks() {

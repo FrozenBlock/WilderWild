@@ -34,9 +34,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
 
-public final class WWBlockEntities {
-	private WWBlockEntities() {
-		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+public final class WWBlockEntityTypes {
+	private WWBlockEntityTypes() {
+		throw new UnsupportedOperationException("WWBlockEntityTypes contains only static declarations.");
 	}
 
 	public static void register() {

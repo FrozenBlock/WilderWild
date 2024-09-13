@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DarkTaiga extends FrozenBiome {
+public final class DarkTaiga extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.point(0.275F), Humidity.HUMID);
 	public static final float TEMP = 0.45F;

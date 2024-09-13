@@ -155,7 +155,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		}
 
 		private int getHeight() {
-			return this.getHeightAtRadius(0.0F);
+			return this.getHeightAtRadius(0F);
 		}
 
 		boolean moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(@NotNull WorldGenLevel level, @NotNull WindOffsetter windOffsetter) {

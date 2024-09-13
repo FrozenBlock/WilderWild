@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
@@ -75,7 +75,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
 	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec((properties) ->
-		new StoneChestBlock(properties, () -> WWBlockEntities.STONE_CHEST)
+		new StoneChestBlock(properties, () -> WWBlockEntityTypes.STONE_CHEST)
 	);
 	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
@@ -271,7 +271,7 @@ public class StoneChestBlock extends ChestBlock {
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, WWBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, WWBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
+		return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
 	}
 
 	@Override

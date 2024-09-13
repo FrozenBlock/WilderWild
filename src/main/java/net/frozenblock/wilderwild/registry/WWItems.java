@@ -57,7 +57,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWItems {
-
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(WWBlocks.BAOBAB_NUT, new Item.Properties().food(WWFood.BAOBAB_NUT));
 	public static final SignItem BAOBAB_SIGN = new SignItem(new Item.Properties().stacksTo(16),
@@ -143,7 +142,7 @@ public final class WWItems {
 	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trombone_copper_horn"));
 
 	private WWItems() {
-		throw new UnsupportedOperationException("RegisterItems contains only static declarations.");
+		throw new UnsupportedOperationException("WWItems contains only static declarations.");
 	}
 
 	public static void registerBlockItems() {

@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWMemoryModuleTypes {
 	private WWMemoryModuleTypes() {
-		throw new UnsupportedOperationException("RegisterMemoryModuleTypes contains only static declarations.");
+		throw new UnsupportedOperationException("WWMemoryModuleTypes contains only static declarations.");
 	}
 
 	public static void register() {

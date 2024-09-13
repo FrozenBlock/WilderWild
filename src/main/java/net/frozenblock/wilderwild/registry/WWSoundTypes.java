@@ -265,10 +265,9 @@ public final class WWSoundTypes {
 	);
 
 	private WWSoundTypes() {
-		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");
 	}
 
 	public static void init() {
-		//Just to make sure this class gets loaded.
 	}
 }

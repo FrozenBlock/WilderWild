@@ -31,7 +31,7 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -74,7 +74,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
-		super(WWBlockEntities.DISPLAY_LANTERN, pos, blockState);
+		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, blockState);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 

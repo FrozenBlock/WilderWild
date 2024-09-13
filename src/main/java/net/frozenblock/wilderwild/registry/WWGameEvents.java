@@ -31,7 +31,7 @@ public final class WWGameEvents {
 	public static final Reference<GameEvent> TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp");
 
 	private WWGameEvents() {
-		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
+		throw new UnsupportedOperationException("WWGameEvents contains only static declarations.");
 	}
 
 	public static void registerEvents() {

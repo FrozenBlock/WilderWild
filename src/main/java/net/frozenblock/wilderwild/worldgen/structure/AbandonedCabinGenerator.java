@@ -48,7 +48,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Contains the StructureTemplatePool for Abandoned Cabins
  */
-public class AbandonedCabinGenerator {
+public final class AbandonedCabinGenerator {
 	public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY =  WWStructures.ofSet("abandoned_cabin");
 	private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = WWStructures.createKey("abandoned_cabin");
 	public static final ResourceKey<StructureTemplatePool> ABANDONED_CABIN = Pools.parseKey(WWConstants.string("abandoned_cabin"));

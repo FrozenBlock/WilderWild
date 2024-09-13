@@ -31,10 +31,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWSharedWorldgen {
-
 	private WWSharedWorldgen() {
-		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
+		throw new UnsupportedOperationException("WWSharedWorldgen contains only static declarations.");
 	}
+
 	public static final int STOCK_FOG_COLOR = 12638463;
 	public static final int COLD_WATER_COLOR = 4020182;
 	public static final int COLD_WATER_FOG_COLOR = 329011;

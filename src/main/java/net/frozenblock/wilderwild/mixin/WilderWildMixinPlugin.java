@@ -29,7 +29,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-public class WilderWildMixinPlugin implements IMixinConfigPlugin {
+public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private WWMixinsConfig mixinsConfig;
 	private boolean hasEmbeddium;
 	private boolean disableNonSodium;

@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class OldGrowthDarkForest extends FrozenBiome {
+public final class OldGrowthDarkForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
 	public static final float TEMP = 0.7F;

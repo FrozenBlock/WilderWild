@@ -24,7 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-public class WWConstants {
+public final class WWConstants {
 	public static final String PROJECT_ID = WWPreLoadConstants.PROJECT_ID;
 	public static final String MOD_ID = WWPreLoadConstants.MOD_ID;
 	public static final Logger LOGGER = WWPreLoadConstants.LOGGER;

@@ -52,7 +52,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
-public class WWCavePlaced {
+public final class WWCavePlaced {
 	// JELLYFISH CAVES
 	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = WWPlacementUtils.register("extra_glow_lichen");
 	public static final FrozenPlacedFeature STONE_POOL = WWPlacementUtils.register("stone_pool");

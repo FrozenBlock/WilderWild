@@ -38,7 +38,7 @@ public final class WilderWildRegistries {
 		.buildAndRegister();
 
 	private WilderWildRegistries() {
-		throw new UnsupportedOperationException("WilderRegistry contains only static declarations.");
+		throw new UnsupportedOperationException("WilderWildRegistries contains only static declarations.");
 	}
 
 	public static void initRegistry() {

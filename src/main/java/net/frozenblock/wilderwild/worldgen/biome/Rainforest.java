@@ -52,7 +52,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Rainforest extends FrozenBiome {
+public final class Rainforest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.WARM);
 	public static final Climate.Parameter HUMIDITY_A = Humidity.NEUTRAL;
 	public static final Climate.Parameter CONTINENTALNESS_A = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);

@@ -52,7 +52,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DyingForest extends FrozenBiome {
+public final class DyingForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.465F, -0.300F);
 	public static final Climate.Parameter HUMIDITY_A = Climate.Parameter.span(-0.105F, 0.050F);
 	public static final Climate.Parameter TEMPERATURE_MAPLE = Temperature.COOL;

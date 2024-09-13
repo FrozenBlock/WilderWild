@@ -50,7 +50,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SnowyOldGrowthPineTaiga extends FrozenBiome {
+public final class SnowyOldGrowthPineTaiga extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
 	public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
 	public static final float TEMP = -0.5F;

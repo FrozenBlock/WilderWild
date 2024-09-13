@@ -32,7 +32,7 @@ import net.frozenblock.wilderwild.block.property.GeyserStage;
 import net.frozenblock.wilderwild.block.property.GeyserType;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.client.Minecraft;
@@ -90,7 +90,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	private float eruptionProgress;
 
 	public GeyserBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		super(WWBlockEntities.GEYSER, pos, state);
+		super(WWBlockEntityTypes.GEYSER, pos, state);
 	}
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
