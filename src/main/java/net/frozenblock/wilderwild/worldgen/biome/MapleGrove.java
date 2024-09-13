@@ -88,7 +88,7 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public boolean hasPrecipitation() {
-		return false;
+		return true;
 	}
 
 	@Override
