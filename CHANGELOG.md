@@ -63,6 +63,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Fixed a few tags that were still unfinished and excluded the Palm set.
 - Fixed the Carnation's dye recipe being in the `orange_dye` group.
 - Cherry particles are now much more responsive to wind, and no longer get removed upon spawning.
+- Seeding Dandelion and Milkweed seed particles' spawn positions now match the block's random model offset.
 - Baobab, Cypress, and Palm's sign types are now placed after the Mangrove Hanging Sign in the creative inventory, instead of between the Mangrove Sign and Mangrove Hanging Sign.
 - Ostrich Eggs are now placed before Sniffer Eggs in the creative inventory.
 - Scorched Sand is no longer found in the `Functional Items` tab of the creative inventory.
