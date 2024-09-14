@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -51,9 +51,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MapleGrove extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, 0.1F);
-	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-0.2F, 0.6F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.215F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.3F);
+	public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.6F;

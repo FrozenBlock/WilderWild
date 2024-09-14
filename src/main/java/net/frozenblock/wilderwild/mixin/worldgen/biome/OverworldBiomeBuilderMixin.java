@@ -107,13 +107,25 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
-	@WrapOperation(method = "addValleys",
+	@WrapOperation(
+		method = "addValleys",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V"
 		)
 	)
-	private void wilderWild$accountForWarmRivers(OverworldBiomeBuilder instance, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> biomeKey, Operation<Void> operation) {
+	private void wilderWild$accountForWarmRivers(
+		OverworldBiomeBuilder instance,
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
+		Climate.Parameter temperature,
+		Climate.Parameter humidity,
+		Climate.Parameter continentalness,
+		Climate.Parameter erosion,
+		Climate.Parameter depth,
+		float weirdness,
+		ResourceKey<Biome> biomeKey,
+		Operation<Void> operation
+	) {
 		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.get().biomeGeneration.generateWarmRiver) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
 			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWWorldgen.WARM_RIVER);
@@ -127,7 +139,18 @@ public final class OverworldBiomeBuilderMixin {
 		method = {"addMidSlice", "addLowSlice", "addValleys"},
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V")
 	)
-	public void wilderWild$replaceMidSwamp(OverworldBiomeBuilder instance, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> biomeKey, Operation<Void> operation) {
+	public void wilderWild$replaceMidSwamp(
+		OverworldBiomeBuilder instance,
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
+		Climate.Parameter temperature,
+		Climate.Parameter humidity,
+		Climate.Parameter continentalness,
+		Climate.Parameter erosion,
+		Climate.Parameter depth,
+		float weirdness,
+		ResourceKey<Biome> biomeKey,
+		Operation<Void> operation
+	) {
 		if (biomeKey.equals(Biomes.SWAMP) && WWWorldgenConfig.get().biomePlacement.modifySwampPlacement) {
 			temperature = WWSharedWorldgen.Swamp.TEMPERATURE;
 			humidity = WWSharedWorldgen.Swamp.HUMIDITY;
