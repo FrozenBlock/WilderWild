@@ -440,6 +440,8 @@
   "tooltip.wilderwild.cactus_placement": "Whether Cacti can be placed next to other blocks.\nIf you have Cactus farms, it is recommended you disable this.",
   "option.wilderwild.frosted_ice_cracking": "New Frosted Ice Cracking",
   "tooltip.wilderwild.frosted_ice_cracking": "Whether Frosted Ice will spawn break particles and play a quiet break sound upon cracking.",
+  "option.wilderwild.thick_big_fungus_growth": "Thick Big Fungus Growth",
+  "tooltip.wilderwild.thick_big_fungus_growth": "Whether the thick variant of Big Fungi found in the Nether can be grown from Fungus or not.",
   "option.wilderwild.log_hollowing": "Log Hollowing",
   "tooltip.wilderwild.log_hollowing": "Whether Logs can be hollowed with axes.\nMay help with mod compatability.",
   "option.wilderwild.reach_boost_beacon": "Reach Boost Beacons",

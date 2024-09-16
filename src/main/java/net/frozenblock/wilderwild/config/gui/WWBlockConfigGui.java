@@ -157,6 +157,19 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		var thickBigFungusGrowth = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
+					.setDefaultValue(defaultConfig.thickBigFungusGrowth)
+					.setSaveConsumer(newValue -> config.thickBigFungusGrowth = newValue)
+					.setTooltip(tooltip("thick_big_fungus_growth"))
+					.build(),
+				clazz,
+				"thickBigFungusGrowth",
+				configInstance
+			)
+		);
+
 		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
@@ -305,7 +318,7 @@ public final class WWBlockConfigGui {
 				fire.getClass(),
 				"soulFireSounds",
 				configInstance
-		);
+			);
 
 		var fireCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("fire"),
 			false,
