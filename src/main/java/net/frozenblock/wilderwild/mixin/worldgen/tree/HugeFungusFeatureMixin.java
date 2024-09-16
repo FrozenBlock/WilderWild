@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.block.nether_fungus;
+package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -24,26 +24,28 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(HugeFungusFeature.class)
 public class HugeFungusFeatureMixin {
-	@ModifyVariable(method = "place", at = @At(value = "STORE"))
-	public boolean wilderWild$placeThickener(boolean original, FeaturePlaceContext<HugeFungusConfiguration> context,
-											 @Share("wilderWild$newPos") LocalRef<BlockPos> newPos) {
+	@ModifyVariable(method = "place", at = @At(value = "STORE"), ordinal = 0)
+	public boolean wilderWild$placeThickener(
+		boolean original, FeaturePlaceContext<HugeFungusConfiguration> context,
+		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
+	) {
 		newPos.set(context.origin());
 		if (original) return true;
 		if (context.config().planted && WWBlockConfig.get().thickBigFungusGrowth) {
 			Level level = (Level) context.level();
 			BlockPos pos = context.origin();
 			Block fungus = level.getBlockState(pos).getBlock();
-			if (canGrowThickFungus(level, pos, fungus)) {
+			if (wilderWild$canGrowThickFungus(level, pos, fungus)) {
 				newPos.set(pos);
-				clearFungi(level, pos);
+				wilderWild$clearFungi(level, pos);
 				return true;
 			}
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				BlockPos adjacentPos = pos.relative(direction);
 				if (level.getBlockState(adjacentPos).is(fungus)) {
-					if (canGrowThickFungus(level, adjacentPos, fungus)) {
+					if (wilderWild$canGrowThickFungus(level, adjacentPos, fungus)) {
 						newPos.set(adjacentPos);
-						clearFungi(level, adjacentPos);
+						wilderWild$clearFungi(level, adjacentPos);
 						return true;
 					}
 				}
@@ -52,13 +54,20 @@ public class HugeFungusFeatureMixin {
 		return false;
 	}
 
-	@ModifyVariable(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"), ordinal = 1)
+	@ModifyVariable(
+		method = "place",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+		),
+		ordinal = 1
+	)
 	public BlockPos wilderWild$placeUpdateOrigin(BlockPos value, @Share("wilderWild$newPos") LocalRef<BlockPos> newPos) {
 		return newPos.get();
 	}
 
 	@Unique
-	private boolean canGrowThickFungus(Level level, BlockPos pos, Block fungus) {
+	private boolean wilderWild$canGrowThickFungus(Level level, BlockPos pos, Block fungus) {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			if (!level.getBlockState(pos.relative(direction)).is(fungus)) return false;
 		}
@@ -66,7 +75,7 @@ public class HugeFungusFeatureMixin {
 	}
 
 	@Unique
-	private void clearFungi(Level level, BlockPos pos) {
+	private void wilderWild$clearFungi(Level level, BlockPos pos) {
 		level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_INVISIBLE);
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			level.setBlock(pos.relative(direction), Blocks.AIR.defaultBlockState(), Block.UPDATE_INVISIBLE);
@@ -82,7 +91,13 @@ public class HugeFungusFeatureMixin {
 		return isCorner;
 	}
 
-	@WrapOperation(method = "placeStem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/WorldGenLevel;destroyBlock(Lnet/minecraft/core/BlockPos;Z)Z"))
+	@WrapOperation(
+		method = "placeStem",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/WorldGenLevel;destroyBlock(Lnet/minecraft/core/BlockPos;Z)Z"
+		)
+	)
 	public boolean wilderWild$placeStemPlantedA(
 		WorldGenLevel instance, BlockPos pos, boolean drop, Operation<Boolean> original, @Local(argsOnly = true) RandomSource random,
 		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
@@ -95,7 +110,13 @@ public class HugeFungusFeatureMixin {
 		return false;
 	}
 
-	@WrapOperation(method = "placeStem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
+	@WrapOperation(
+		method = "placeStem",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+		)
+	)
 	public boolean wilderWild$placeStemPlantedB(
 		WorldGenLevel instance, BlockPos pos, BlockState blockState, int flag, Operation<Boolean> original,
 		@Local(argsOnly = true) RandomSource random, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace

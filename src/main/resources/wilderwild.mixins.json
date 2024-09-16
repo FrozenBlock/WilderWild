@@ -27,7 +27,7 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
-    "block.nether_fungus.HugeFungusFeatureMixin",
+    "worldgen.tree.HugeFungusFeatureMixin",
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
