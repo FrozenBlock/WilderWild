@@ -52,6 +52,7 @@ hi
 - Slightly optimized more config getter calls.
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
+- The thick variant of Big Nether Fungi can now be grown by placing Fungi in a `+` shape.
 - Significantly decreased Glory of the Snow generation outside Jungles.
 - Split most Tall and Short flower generation into separate features for noise-based flower placement.
 - Decreased flower generation overall.
