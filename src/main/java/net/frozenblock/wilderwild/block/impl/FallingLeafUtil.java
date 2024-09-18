@@ -93,7 +93,6 @@ public class FallingLeafUtil {
 	public static void onRandomTick(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		if (state.getValue(LeavesBlock.DISTANCE) < 7 && !state.getValue(LeavesBlock.PERSISTENT)) {
 			Block block = state.getBlock();
-			if (world.getBlockTicks().hasScheduledTick(pos, block)) return;
 
 			Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(block);
 			if (optionalFallingLeafData.isPresent()) {
