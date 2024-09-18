@@ -39,31 +39,31 @@ public final class WWConstants {
 	// LOGGING
 	public static void log(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WWConstants.LOGGER.info(message);
+			LOGGER.info(message);
 		}
 	}
 
 	public static void logWithModId(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WWConstants.LOGGER.info(message + " " + WWConstants.MOD_ID);
+			LOGGER.info(message + " " + MOD_ID);
 		}
 	}
 
 	public static void warn(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WWConstants.LOGGER.warn(message);
+			LOGGER.warn(message);
 		}
 	}
 
 	public static void error(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WWConstants.LOGGER.error(message);
+			LOGGER.error(message);
 		}
 	}
 
 	public static void printStackTrace(String message, boolean shouldPrint) {
 		if (shouldPrint) {
-			WWConstants.LOGGER.error(message, new Throwable(message).fillInStackTrace());
+			LOGGER.error(message, new Throwable(message).fillInStackTrace());
 		}
 	}
 
@@ -79,7 +79,7 @@ public final class WWConstants {
 
 	@NotNull
 	public static String string(@NotNull String path) {
-		return WWConstants.id(path).toString();
+		return id(path).toString();
 	}
 
 	public static String safeString(String path) {
