@@ -26,7 +26,7 @@ public final class WWCriteria {
 	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(WWConstants.string("firefly_bottle"), new FireflyBottleTrigger());
 
 	private WWCriteria() {
-		throw new UnsupportedOperationException("RegisterCriteria contains only static declarations.");
+		throw new UnsupportedOperationException("WWCriteria contains only static declarations.");
 	}
 
 	public static void init() {

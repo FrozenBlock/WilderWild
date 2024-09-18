@@ -34,21 +34,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 public class SpongeBudFeatureConfig implements FeatureConfiguration {
 	public static final Codec<SpongeBudFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
-			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
-				config -> config.searchRange
-			),
-			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
-				config -> config.placeOnFloor
-			),
-			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
-				config -> config.placeOnCeiling
-			),
-			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
-				config -> config.placeOnWalls
-			),
-			TagKey.codec(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(
-				config -> config.canPlaceOn
-			)
+			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
+			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
+			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
+			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
+			TagKey.codec(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
 		).apply(instance, SpongeBudFeatureConfig::new)
 	);
 

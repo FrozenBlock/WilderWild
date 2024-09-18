@@ -382,19 +382,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	private void generateTags() {
 		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTERS)
-			.add(WWBlocks.OAK_LEAF_LITTER)
-			.add(WWBlocks.SPRUCE_LEAF_LITTER)
-			.add(WWBlocks.BIRCH_LEAF_LITTER)
-			.add(WWBlocks.JUNGLE_LEAF_LITTER)
-			.add(WWBlocks.ACACIA_LEAF_LITTER)
-			.add(WWBlocks.DARK_OAK_LEAF_LITTER)
-			.add(WWBlocks.MANGROVE_LEAF_LITTER)
-			.add(WWBlocks.CHERRY_LEAF_LITTER)
-			.add(WWBlocks.AZALEA_LEAF_LITTER)
-			.add(WWBlocks.FLOWERING_AZALEA_LEAF_LITTER)
-			.add(WWBlocks.BAOBAB_LEAF_LITTER)
-			.add(WWBlocks.CYPRESS_LEAF_LITTER)
-			.add(WWBlocks.PALM_FROND_LITTER)
 			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);

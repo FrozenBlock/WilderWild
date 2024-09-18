@@ -55,7 +55,6 @@ public class WWCreativeInventorySorting {
 		// BAOBAB (NATURAL BLOCKS)
 		addAfterInNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.BAOBAB_LOG);
 		addAfterInNaturalBlocks(Items.MANGROVE_LEAVES, WWBlocks.BAOBAB_LEAVES);
-		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAF_LITTER);
 		// BAOBAB (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(Items.MANGROVE_HANGING_SIGN, WWItems.BAOBAB_SIGN);
 		addAfterInFunctionalBlocks(WWItems.BAOBAB_SIGN, WWItems.BAOBAB_HANGING_SIGN);
@@ -82,8 +81,7 @@ public class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.CYPRESS_PRESSURE_PLATE, WWBlocks.CYPRESS_BUTTON);
 		// CYPRESS (NATURAL_BLOCKS)
 		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.CYPRESS_LOG);
-		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAF_LITTER, WWBlocks.CYPRESS_LEAVES);
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAVES, WWBlocks.CYPRESS_LEAVES);
 		addAfterInNaturalBlocks(Items.MANGROVE_PROPAGULE, WWBlocks.CYPRESS_SAPLING);
 		// CYPRESS (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(WWItems.BAOBAB_HANGING_SIGN, WWItems.CYPRESS_SIGN);
@@ -108,8 +106,7 @@ public class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.PALM_PRESSURE_PLATE, WWBlocks.PALM_BUTTON);
 		// PALM (NATURAL BLOCKS)
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.PALM_LOG);
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAF_LITTER, WWBlocks.PALM_FRONDS);
-		addAfterInNaturalBlocks(WWBlocks.PALM_FRONDS, WWBlocks.PALM_FROND_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAVES, WWBlocks.PALM_FRONDS);
 		// PALM (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(WWItems.CYPRESS_HANGING_SIGN, WWItems.PALM_SIGN);
 		addAfterInFunctionalBlocks(WWItems.PALM_SIGN, WWItems.PALM_HANGING_SIGN);
@@ -138,7 +135,7 @@ public class WWCreativeInventorySorting {
 		// MAPLE (NATURAL BLOCKS)
 		addAfterInNaturalBlocks(Items.CHERRY_LOG, WWBlocks.MAPLE_LOG);
 		addAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWBlocks.MAPLE_SAPLING);
-		addAfterInNaturalBlocks(WWBlocks.CHERRY_LEAF_LITTER, WWBlocks.YELLOW_MAPLE_LEAVES);
+		addAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWBlocks.YELLOW_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAVES, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
@@ -150,18 +147,6 @@ public class WWCreativeInventorySorting {
 		// MAPLE (TOOLS AND UTILITIES)
 		addAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
 		addAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);
-
-		// OTHER LEAF LITTERS
-		addAfterInNaturalBlocks(Blocks.OAK_LEAVES, WWBlocks.OAK_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.SPRUCE_LEAVES, WWBlocks.SPRUCE_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.BIRCH_LEAVES, WWBlocks.BIRCH_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.JUNGLE_LEAVES, WWBlocks.JUNGLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.ACACIA_LEAVES, WWBlocks.ACACIA_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.DARK_OAK_LEAVES, WWBlocks.DARK_OAK_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.MANGROVE_LEAVES, WWBlocks.MANGROVE_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWBlocks.CHERRY_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.AZALEA_LEAVES, WWBlocks.AZALEA_LEAF_LITTER);
-		addAfterInNaturalBlocks(Blocks.FLOWERING_AZALEA_LEAVES, WWBlocks.FLOWERING_AZALEA_LEAF_LITTER);
 
 		// HOLLOWED LOGS
 		addAfterInBuildingAndNaturalBlocks(Items.OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);

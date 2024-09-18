@@ -114,6 +114,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_MAGMA_HIT,
 		WWSounds.BLOCK_MAGMA_FALL
 	);
+	public static final SoundType MELON = new SoundType(1.0F, 1.0F,
+		WWSounds.BLOCK_MELON_BREAK,
+		WWSounds.BLOCK_MELON_STEP,
+		WWSounds.BLOCK_MELON_PLACE,
+		WWSounds.BLOCK_MELON_HIT,
+		WWSounds.BLOCK_MELON_FALL
+	);
 	public static final SoundType MESOGLEA = new SoundType(0.8F, 1.0F,
 		WWSounds.BLOCK_MESOGLEA_BREAK,
 		WWSounds.BLOCK_MESOGLEA_STEP,
@@ -265,10 +272,9 @@ public final class WWSoundTypes {
 	);
 
 	private WWSoundTypes() {
-		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");
 	}
 
 	public static void init() {
-		//Just to make sure this class gets loaded.
 	}
 }

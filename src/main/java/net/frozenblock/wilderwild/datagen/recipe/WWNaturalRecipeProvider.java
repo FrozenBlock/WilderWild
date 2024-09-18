@@ -29,7 +29,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
-public class WWNaturalRecipeProvider {
+public final class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
 		oneToOneConversionRecipe(provider, exporter, Items.BLUE_DYE, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, "blue_dye");

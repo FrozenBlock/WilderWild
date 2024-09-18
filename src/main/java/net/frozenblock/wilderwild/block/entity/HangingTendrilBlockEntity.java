@@ -22,7 +22,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -79,7 +79,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int lastVibrationFrequency;
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		super(WWBlockEntities.HANGING_TENDRIL, pos, state);
+		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
 		this.vibrationData = new VibrationSystem.Data();
 		this.vibrationListener = new VibrationSystem.Listener(this);
 	}

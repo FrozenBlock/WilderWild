@@ -29,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedingFlowerBlock extends FlowerBlock {
@@ -46,11 +47,12 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (random.nextFloat() > SEED_SPAWN_CHANCE) {
+			Vec3 offset = state.getOffset(pos);
 			level.addParticle(
 				SeedParticleOptions.unControlled(false),
-				pos.getX() + 0.5D,
+				pos.getX() + 0.5D + offset.x,
 				pos.getY() + SEED_SPAWN_HEIGHT,
-				pos.getZ() + 0.5D,
+				pos.getZ() + 0.5D + offset.z,
 				0D,
 				0D,
 				0D
@@ -61,11 +63,12 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		if (level instanceof ServerLevel server && server.getRandom().nextFloat() > SEED_SPAWN_CHANCE) {
+			Vec3 offset = state.getOffset(pos);
 			server.sendParticles(
 				SeedParticleOptions.unControlled(false),
-				pos.getX() + 0.5D,
+				pos.getX() + 0.5D + offset.x,
 				pos.getY() + SEED_SPAWN_HEIGHT,
-				pos.getZ() + 0.5D,
+				pos.getZ() + 0.5D + offset.z,
 				server.getRandom().nextIntBetweenInclusive(MIN_SEEDS, MAX_SEEDS),
 				0D,
 				0D,
@@ -80,11 +83,12 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		BlockState original = super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
+			Vec3 offset = state.getOffset(pos);
 			server.sendParticles(
 				SeedParticleOptions.unControlled(false),
-				pos.getX() + 0.5D,
+				pos.getX() + 0.5D + offset.x,
 				pos.getY() + SEED_SPAWN_HEIGHT,
-				pos.getZ() + 0.5D,
+				pos.getZ() + 0.5D + offset.z,
 				server.getRandom().nextIntBetweenInclusive(MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY),
 				0D,
 				0D,

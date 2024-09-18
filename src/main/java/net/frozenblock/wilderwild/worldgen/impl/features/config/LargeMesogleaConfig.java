@@ -28,27 +28,16 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 public class LargeMesogleaConfig implements FeatureConfiguration {
 	public static final Codec<LargeMesogleaConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
-			Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter((config) ->
-				config.floorToCeilingSearchRange
-			), IntProvider.codec(1, 60).fieldOf("column_radius").forGetter((config) ->
-				config.columnRadius
-			), BlockStateProvider.CODEC.fieldOf("block").forGetter((config) ->
-				config.pathBlock
-			), FloatProvider.codec(0.0F, 20.0F).fieldOf("height_scale").forGetter((config) ->
-				config.heightScale
-			), Codec.floatRange(0.1F, 1.0F).fieldOf("max_column_radius_to_cave_height_ratio").forGetter((config) ->
-				config.maxColumnRadiusToCaveHeightRatio
-			), FloatProvider.codec(0.1F, 10.0F).fieldOf("stalactite_bluntness").forGetter((config) ->
-				config.stalactiteBluntness
-			), FloatProvider.codec(0.1F, 10.0F).fieldOf("stalagmite_bluntness").forGetter((config) ->
-				config.stalagmiteBluntness
-			), FloatProvider.codec(0.0F, 2.0F).fieldOf("wind_speed").forGetter((config) ->
-				config.windSpeed
-			), Codec.intRange(0, 100).fieldOf("min_radius_for_wind").forGetter((config) ->
-				config.minRadiusForWind
-			), Codec.floatRange(0.0F, 5.0F).fieldOf("min_bluntness_for_wind").forGetter((config) ->
-				config.minBluntnessForWind
-			)
+			Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter((config) -> config.floorToCeilingSearchRange),
+			IntProvider.codec(1, 60).fieldOf("column_radius").forGetter((config) -> config.columnRadius),
+			BlockStateProvider.CODEC.fieldOf("block").forGetter((config) -> config.pathBlock),
+			FloatProvider.codec(0F, 20F).fieldOf("height_scale").forGetter((config) -> config.heightScale),
+			Codec.floatRange(0.1F, 1F).fieldOf("max_column_radius_to_cave_height_ratio").forGetter((config) -> config.maxColumnRadiusToCaveHeightRatio),
+			FloatProvider.codec(0.1F, 10F).fieldOf("stalactite_bluntness").forGetter((config) -> config.stalactiteBluntness),
+			FloatProvider.codec(0.1F, 10F).fieldOf("stalagmite_bluntness").forGetter((config) -> config.stalagmiteBluntness),
+			FloatProvider.codec(0F, 2F).fieldOf("wind_speed").forGetter((config) -> config.windSpeed),
+			Codec.intRange(0, 100).fieldOf("min_radius_for_wind").forGetter((config) -> config.minRadiusForWind),
+			Codec.floatRange(0F, 5F).fieldOf("min_bluntness_for_wind").forGetter((config) -> config.minBluntnessForWind)
 		).apply(instance, LargeMesogleaConfig::new)
 	);
 

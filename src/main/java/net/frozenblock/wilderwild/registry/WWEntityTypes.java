@@ -122,7 +122,7 @@ public final class WWEntityTypes {
 	);
 
 	private WWEntityTypes() {
-		throw new UnsupportedOperationException("RegisterEntities contains only static declarations.");
+		throw new UnsupportedOperationException("WWEntityTypes contains only static declarations.");
 	}
 
 	public static void init() {

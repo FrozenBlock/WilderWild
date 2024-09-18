@@ -49,9 +49,9 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DyingMixedForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.255F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
+public final class DyingMixedForest extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.465F, -0.255F);
+	public static final Climate.Parameter HUMIDITY_A = Climate.Parameter.span(0.050F, 0.155F);
 	public static final Climate.Parameter TEMPERATURE_WEIRD = Climate.Parameter.span(-0.465F, -0.425F);
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.100F);
 	public static final float TEMP = 0.35F;
@@ -170,8 +170,8 @@ public class DyingMixedForest extends FrozenBiome {
 				boolean weird = point.weirdness().max() < 0L;
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE,
-					HUMIDITY,
+					TEMPERATURE_A,
+					HUMIDITY_A,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),

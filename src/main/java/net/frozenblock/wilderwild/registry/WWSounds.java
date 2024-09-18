@@ -243,6 +243,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MAGMA_BREAK = register("block.magma.break");
 	public static final SoundEvent BLOCK_MAGMA_STEP = register("block.magma.step");
 	public static final SoundEvent BLOCK_MAGMA_FALL = register("block.magma.fall");
+	public static final SoundEvent BLOCK_MELON_PLACE = register("block.melon.place");
+	public static final SoundEvent BLOCK_MELON_HIT = register("block.melon.hit");
+	public static final SoundEvent BLOCK_MELON_BREAK = register("block.melon.break");
+	public static final SoundEvent BLOCK_MELON_STEP = register("block.melon.step");
+	public static final SoundEvent BLOCK_MELON_FALL = register("block.melon.fall");
 	public static final SoundEvent BLOCK_FIRE_IGNITE = register("block.fire.ignite");
 
 	//ENTITY
@@ -335,7 +340,7 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
 	private WWSounds() {
-		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
+		throw new UnsupportedOperationException("WWSounds contains only static declarations.");
 	}
 
 	@NotNull

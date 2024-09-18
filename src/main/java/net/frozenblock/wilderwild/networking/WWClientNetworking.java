@@ -53,7 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class WWClientNetworking {
+public final class WWClientNetworking {
 
 	public static void registerPacketReceivers() {
 		receiveWindExtensionSyncPacket();
@@ -156,8 +156,8 @@ public class WWClientNetworking {
 				pos,
 				WWSounds.BLOCK_FIRE_IGNITE,
 				SoundSource.BLOCKS,
-				1.0F,
-				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1.0F,
+				0.5F,
+				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F,
 				true
 			);
 		});
@@ -236,5 +236,4 @@ public class WWClientNetworking {
 			angle += rotAngle;
 		}
 	}
-
 }

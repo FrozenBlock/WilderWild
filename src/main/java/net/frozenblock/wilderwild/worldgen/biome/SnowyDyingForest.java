@@ -47,7 +47,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SnowyDyingForest extends FrozenBiome {
+public final class SnowyDyingForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
 	public static final float TEMP = 0.05F;

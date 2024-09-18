@@ -23,7 +23,7 @@ import java.util.Objects;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
@@ -97,7 +97,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	protected long updateTime;
 
 	public StoneChestBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		super(WWBlockEntities.STONE_CHEST, blockPos, blockState);
+		super(WWBlockEntityTypes.STONE_CHEST, blockPos, blockState);
 	}
 
 	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {

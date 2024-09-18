@@ -23,17 +23,7 @@
                 }
               },
               {
-                "Name": "wilderwild:datura",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:dandelion",
@@ -48,36 +38,14 @@
                 }
               },
               {
-                "Name": "minecraft:rose_bush",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:poppy",
                 "Properties": {
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "wilderwild:milkweed",
-                "Properties": {
-                  "age": "0",
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:allium",
                 "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:lilac",
-                "Properties": {
-                  "half": "lower",
                   "snow_layers": "0"
                 }
               }
@@ -95,7 +63,7 @@
         }
       ]
     },
-    "tries": 36,
+    "tries": 24,
     "xz_spread": 8,
     "y_spread": 3
   }

@@ -34,7 +34,7 @@ import net.frozenblock.wilderwild.particle.factory.WilderParticleFactories;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 
 @Environment(EnvType.CLIENT)
-public class WWParticleEngine {
+public final class WWParticleEngine {
 
 	public static void init() {
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();

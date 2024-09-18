@@ -1,7 +1,7 @@
 Please clear changelog after each release.
 Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
-
+hi
 -----------------
 # Additions
 - Added Maple trees.
@@ -15,6 +15,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Added falling leaves.
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
+- Added new sounds for Melon and Pumpkin blocks.
 - Added translations for Vietnamese thanks to [godkyo98](https://github.com/FrozenBlock/WilderWild/pull/411)!
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
@@ -51,12 +52,21 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 - Echo Glass now takes 25% longer on average between cracking in light.
 - Slightly optimized more config getter calls.
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
+- Crabs no longer have a maximum spawning height past sea level.
+- The thick variant of Big Nether Fungi can now be grown by placing Fungi in a `+` shape.
+- Significantly decreased Glory of the Snow generation outside Jungles.
+- Split most Tall and Short flower generation into separate features for noise-based flower placement.
+- Decreased flower generation overall.
+- Rose Bushes now generate in Birch Forest biomes.
+- Peonies now generate in Birch Forest biomes.
+- Lilacs now generate in Birch Forest biomes.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes
 - Fixed a few tags that were still unfinished and excluded the Palm set.
 - Fixed the Carnation's dye recipe being in the `orange_dye` group.
 - Cherry particles are now much more responsive to wind, and no longer get removed upon spawning.
+- Seeding Dandelion and Milkweed seed particles' spawn positions now match the block's random model offset.
 - Baobab, Cypress, and Palm's sign types are now placed after the Mangrove Hanging Sign in the creative inventory, instead of between the Mangrove Sign and Mangrove Hanging Sign.
 - Ostrich Eggs are now placed before Sniffer Eggs in the creative inventory.
 - Scorched Sand is no longer found in the `Functional Items` tab of the creative inventory.

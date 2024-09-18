@@ -38,7 +38,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 
-public class WWAdvancementProvider extends FabricAdvancementProvider {
+public final class WWAdvancementProvider extends FabricAdvancementProvider {
 	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}

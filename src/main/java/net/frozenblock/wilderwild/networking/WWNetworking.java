@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WWWindPacket;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
-public class WWNetworking {
+public final class WWNetworking {
 
 	public static void init() {
 		PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.playS2C();
@@ -38,5 +38,4 @@ public class WWNetworking {
 		registry.register(WWStoneChestLidPacket.PACKET_TYPE, WWStoneChestLidPacket.CODEC);
 		registry.register(WWScorchingFirePlacePacket.PACKET_TYPE, WWScorchingFirePlacePacket.CODEC);
 	}
-
 }

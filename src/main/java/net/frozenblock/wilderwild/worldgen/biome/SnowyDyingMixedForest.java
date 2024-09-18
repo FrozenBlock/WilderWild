@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
@@ -50,10 +52,15 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SnowyDyingMixedForest extends FrozenBiome {
+public final class SnowyDyingMixedForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.155F);
+	public static final Climate.Parameter TEMPERATURE_MAPLE = Climate.Parameter.span(-0.475F, -0.45F);
+	public static final Climate.Parameter HUMIDITY_MAPLE = Climate.Parameter.span(-1F, 0.105F);
+	public static final Climate.Parameter WEIRDNESS_MAPLE = Climate.Parameter.span(-0.205F, 0.605F);
+	public static final Climate.Parameter EROSION_MAPLE = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
+	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = -0.4F;
 	public static final float DOWNFALL = 0.425F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -179,6 +186,17 @@ public class SnowyDyingMixedForest extends FrozenBiome {
 					point.erosion(),
 					point.weirdness(),
 					point.offset()
+				);
+			}
+			if (WWWorldgenConfig.get().biomeGeneration.generateMapleGrove) {
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE,
+					HUMIDITY_MAPLE,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE,
+					WEIRDNESS_MAPLE,
+					0F
 				);
 			}
 		}

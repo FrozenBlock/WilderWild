@@ -27,6 +27,7 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -59,7 +60,7 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 			level.setBlock(pos, config.fungus.defaultBlockState()
 				.setValue(ShelfFungiBlock.FACING, placementDirection)
 				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
-				.setValue(ShelfFungiBlock.STAGE, random.nextInt(3) + 1), 3);
+				.setValue(ShelfFungiBlock.STAGE, random.nextInt(3) + 1), Block.UPDATE_ALL);
 			level.getChunk(pos).markPosForPostprocessing(pos);
 			return true;
 		}

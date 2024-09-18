@@ -52,7 +52,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Rainforest extends FrozenBiome {
+public final class Rainforest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.WARM);
 	public static final Climate.Parameter HUMIDITY_A = Humidity.NEUTRAL;
 	public static final Climate.Parameter CONTINENTALNESS_A = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
@@ -156,6 +156,7 @@ public class Rainforest extends FrozenBiome {
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.RAINFOREST_TREES.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_FLOWER_RAINFOREST_VANILLA.getKey());
 		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);

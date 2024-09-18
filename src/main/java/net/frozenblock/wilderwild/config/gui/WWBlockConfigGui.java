@@ -157,6 +157,19 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		var thickBigFungusGrowth = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
+					.setDefaultValue(defaultConfig.thickBigFungusGrowth)
+					.setSaveConsumer(newValue -> config.thickBigFungusGrowth = newValue)
+					.setTooltip(tooltip("thick_big_fungus_growth"))
+					.build(),
+				clazz,
+				"thickBigFungusGrowth",
+				configInstance
+			)
+		);
+
 		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
@@ -305,7 +318,7 @@ public final class WWBlockConfigGui {
 				fire.getClass(),
 				"soulFireSounds",
 				configInstance
-		);
+			);
 
 		var fireCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("fire"),
 			false,
@@ -385,6 +398,12 @@ public final class WWBlockConfigGui {
 			.setTooltip(tooltip("lily_pad_sounds"))
 			.build();
 
+		var melonSounds = entryBuilder.startBooleanToggle(text("melon_sounds"), modifiedBlockSounds.melonSounds)
+			.setDefaultValue(defaultConfig.blockSounds.melonSounds)
+			.setSaveConsumer(newValue -> blockSounds.melonSounds = newValue)
+			.setTooltip(tooltip("melon_sounds"))
+			.build();
+
 		var mushroomBlockSounds = entryBuilder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
 			.setDefaultValue(defaultConfig.blockSounds.mushroomBlockSounds)
 			.setSaveConsumer(newValue -> blockSounds.mushroomBlockSounds = newValue)
@@ -426,7 +445,7 @@ public final class WWBlockConfigGui {
 			tooltip("block_sounds"),
 			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds,
 			flowerSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
-			magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
+			melonSounds, magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
 		);
 	}

@@ -57,7 +57,7 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 				}
 
 				if (blockState2.getValue(SpongeBudBlock.WATERLOGGED)) {
-					level.setBlock(pos, blockState2, 3);
+					level.setBlock(pos, blockState2, Block.UPDATE_ALL);
 					level.getChunk(pos).markPosForPostprocessing(pos);
 					return true;
 				}

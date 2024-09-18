@@ -25,7 +25,7 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -78,7 +78,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final int MAX_FIREFLIES = 4;
 	public static final int LIGHT_PER_FIREFLY = 3;
@@ -273,8 +272,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ?
-			createTickerHelper(type, WWBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) :
-			createTickerHelper(type, WWBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(level, pos));
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) :
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(level, pos));
 	}
 
 	@Override

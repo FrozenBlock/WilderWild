@@ -47,13 +47,23 @@ public class FallingLeafUtil {
 	private static final Map<Block, FallingLeafData> LEAVES_TO_FALLING_LEAF_DATA = new Object2ObjectLinkedOpenHashMap<>();
 	private static final Map<ParticleType<LeafParticleOptions>, LeafParticleData> PARTICLE_TO_LEAF_PARTICLE_DATA = new Object2ObjectLinkedOpenHashMap<>();
 
-	public static void registerFallingLeaf(
+	public static void registerFallingLeafWithLitter(
 		Block block,
 		LeafLitterBlock leafLitterBlock, float litterChance,
 		ParticleType<LeafParticleOptions> leafParticle, float particleChance, float quadSize, float particleGravityScale
 	) {
 		registerFallingLeaf(
-			block, new FallingLeafData(leafLitterBlock, litterChance, leafParticle),
+			block, new FallingLeafData(Optional.of(leafLitterBlock), litterChance, leafParticle),
+			leafParticle, new LeafParticleData(block, particleChance, quadSize, particleGravityScale)
+		);
+	}
+
+	public static void registerFallingLeaf(
+		Block block,
+		ParticleType<LeafParticleOptions> leafParticle, float particleChance, float quadSize, float particleGravityScale
+	) {
+		registerFallingLeaf(
+			block, new FallingLeafData(Optional.empty(), 0F, leafParticle),
 			leafParticle, new LeafParticleData(block, particleChance, quadSize, particleGravityScale)
 		);
 	}
@@ -66,7 +76,7 @@ public class FallingLeafUtil {
 			if (leafParticleData != null) {
 				PARTICLE_TO_LEAF_PARTICLE_DATA.put(leafParticle, leafParticleData);
 			}
-			LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(fallingLeafData.leafLitterBlock, leafParticle);
+			fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, leafParticle));
 		} else {
 			throw new IllegalStateException("Block should be an instance of LeavesBlock!");
 		}
@@ -102,12 +112,12 @@ public class FallingLeafUtil {
 							0.05D
 						);
 						sendLeafClusterParticle(world, pos, fallingLeafData);
-						FallingLeafTicker.createAndSpawn(
+						fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> FallingLeafTicker.createAndSpawn(
 							WWEntityTypes.FALLING_LEAVES,
 							world,
 							pos,
-							fallingLeafData.leafLitterBlock
-						);
+							leafLitterBlock
+						));
 					}
 				}
 			}
@@ -153,7 +163,7 @@ public class FallingLeafUtil {
 		return LeafParticleOptions.create(fallingLeafData.particle, leafParticleData.quadSize, leafParticleData.particleGravityScale);
 	}
 
-	public record FallingLeafData(LeafLitterBlock leafLitterBlock, float litterChance, ParticleType<LeafParticleOptions> particle) {}
+	public record FallingLeafData(Optional<LeafLitterBlock> leafLitterBlock, float litterChance, ParticleType<LeafParticleOptions> particle) {}
 
 	public record LeafParticleData(Block leavesBlock, float particleChance, float quadSize, float particleGravityScale) {}
 }

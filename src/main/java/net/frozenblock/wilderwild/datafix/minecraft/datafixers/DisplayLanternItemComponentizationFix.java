@@ -40,7 +40,7 @@ import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayLanternItemComponentizationFix extends DataFix {
+public final class DisplayLanternItemComponentizationFix extends DataFix {
 	private static final String ITEM_ID = WWConstants.string("display_lantern");
 
 	public DisplayLanternItemComponentizationFix(Schema outputSchema) {

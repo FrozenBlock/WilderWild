@@ -10,8 +10,7 @@
             "state": {
               "Name": "wilderwild:datura",
               "Properties": {
-                "half": "lower",
-                "snow_layers": "0"
+                "half": "lower"
               }
             }
           }
@@ -27,7 +26,7 @@
         }
       ]
     },
-    "tries": 64,
+    "tries": 56,
     "xz_spread": 7,
     "y_spread": 3
   }

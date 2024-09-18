@@ -29,10 +29,10 @@
                 }
               },
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
+              },
+              {
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:oxeye_daisy",
@@ -47,34 +47,13 @@
                 }
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:orange_tulip",
                 "Properties": {
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "minecraft:orange_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:marigold"
               },
               {
                 "Name": "minecraft:poppy",
@@ -95,28 +74,16 @@
                 }
               },
               {
-                "Name": "minecraft:pink_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:allium",
                 "Properties": {
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:carnation"
               },
               {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:carnation"
               },
               {
                 "Name": "minecraft:cornflower",

@@ -92,7 +92,9 @@ public final class WWWorldGen {
 				if (WWWorldgenConfig.get().flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(WWPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
+					generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_RAINFOREST_VANILLA.getKey());
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_RAINFOREST.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_FLOWER_RAINFOREST.getKey());
 				}
 			});
 
@@ -103,7 +105,9 @@ public final class WWWorldGen {
 				if (WWWorldgenConfig.get().flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
+					generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST.getKey());
 				}
 			});
 	}

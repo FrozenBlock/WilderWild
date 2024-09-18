@@ -17,16 +17,10 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:dandelion",
@@ -47,16 +41,10 @@
                 }
               },
               {
-                "Name": "wilderwild:marigold",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:marigold"
               },
               {
-                "Name": "wilderwild:marigold",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:marigold"
               },
               {
                 "Name": "minecraft:poppy",
@@ -84,7 +72,7 @@
         }
       ]
     },
-    "tries": 24,
+    "tries": 20,
     "xz_spread": 7,
     "y_spread": 3
   }

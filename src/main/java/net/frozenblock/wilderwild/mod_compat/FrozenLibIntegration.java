@@ -57,7 +57,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import static net.frozenblock.wilderwild.registry.WWBlocks.*;
@@ -259,7 +259,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			)
 		);
 
-		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntities.STONE_CHEST);
+		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntityTypes.STONE_CHEST);
 
 		FrozenBools.useNewDripstoneLiquid = true;
 		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
@@ -344,21 +344,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			ORANGE_MAPLE_LEAVES,
 			RED_MAPLE_LEAVES
 		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
-		addBlocks(new Block[]{
-			OAK_LEAF_LITTER,
-			SPRUCE_LEAF_LITTER,
-			BIRCH_LEAF_LITTER,
-			JUNGLE_LEAF_LITTER,
-			ACACIA_LEAF_LITTER,
-			DARK_OAK_LEAF_LITTER,
-			MANGROVE_LEAF_LITTER,
-			BAOBAB_LEAF_LITTER,
-			CYPRESS_LEAF_LITTER,
-			PALM_FROND_LITTER,
-			YELLOW_MAPLE_LEAF_LITTER,
-			ORANGE_MAPLE_LEAF_LITTER,
-			RED_MAPLE_LEAF_LITTER
-		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{YELLOW_MAPLE_LEAF_LITTER, ORANGE_MAPLE_LEAF_LITTER, RED_MAPLE_LEAF_LITTER}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{Blocks.LILY_PAD, FLOWERING_LILY_PAD}, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
 		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
 		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
@@ -368,6 +354,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(SUGAR_CANE, SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
 		addBlock(MAGMA_BLOCK, MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
+		addBlocks(new Block[]{PUMPKIN, CARVED_PUMPKIN, JACK_O_LANTERN, Blocks.MELON}, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
 
 		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWWorldgen.RAINFOREST, WolfVariants.WOODS);
@@ -383,7 +370,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 		WolfVariantBiomeRegistry.register(WWWorldgen.MAPLE_GROVE, WolfVariants.CHESTNUT);
 
-		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntities.STONE_CHEST);
+		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
 
 		if (WWWorldgenConfig.get().decayTrailRuins) {
 			StructureProcessorApi.addProcessor(

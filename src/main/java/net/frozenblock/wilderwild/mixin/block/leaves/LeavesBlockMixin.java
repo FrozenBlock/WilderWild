@@ -43,7 +43,7 @@ public class LeavesBlockMixin {
 	)
 	public Comparable<?> wilderWild$isRandomlyTicking(Comparable<?> original) {
 		if (original instanceof Integer) {
-			if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).isPresent()) {
+			if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).map(fallingLeafData -> fallingLeafData.leafLitterBlock().isPresent()).orElse(false)) {
 				return 7;
 			}
 		}

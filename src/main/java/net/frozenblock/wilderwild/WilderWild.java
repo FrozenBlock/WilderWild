@@ -39,8 +39,7 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
-import net.frozenblock.wilderwild.registry.WWBlockEntities;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
@@ -89,7 +88,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		WWSounds.init();
 		WWSoundTypes.init();
-		WWBlockEntities.register();
+		WWBlockEntityTypes.register();
 		WWEntityTypes.init();
 		WWDamageTypes.init();
 		WWMemoryModuleTypes.register();
@@ -97,7 +96,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWLootTables.init();
 		WWParticleTypes.registerParticles();
 		WWResources.register(container);
-		WWBlockStateProperties.init();
 		WWMobEffects.init();
 		WWPotions.init();
 		WWCriteria.init();

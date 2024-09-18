@@ -26,7 +26,7 @@ import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 import org.jetbrains.annotations.NotNull;
 
-public class WWDamageTypes {
+public final class WWDamageTypes {
 	public static final ResourceKey<DamageType> ANCIENT_HORN = bind("ancient_horn");
 	public static final ResourceKey<DamageType> PRICKLY_PEAR = bind("prickly_pear");
 	public static final ResourceKey<DamageType> TUMBLEWEED = bind("tumbleweed");

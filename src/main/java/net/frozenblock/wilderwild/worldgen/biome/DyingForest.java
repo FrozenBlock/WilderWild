@@ -49,9 +49,9 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DyingForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.300F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
+public final class DyingForest extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.465F, -0.300F);
+	public static final Climate.Parameter HUMIDITY_A = Climate.Parameter.span(-0.105F, 0.050F);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.65F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -167,8 +167,8 @@ public class DyingForest extends FrozenBiome {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE,
-					HUMIDITY,
+					TEMPERATURE_A,
+					HUMIDITY_A,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),

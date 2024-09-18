@@ -27,7 +27,7 @@ import net.minecraft.network.chat.Component;
 
 public final class WWResources {
 	private WWResources() {
-		throw new UnsupportedOperationException("RegisterResources contains only static declarations.");
+		throw new UnsupportedOperationException("WWResources contains only static declarations.");
 	}
 
 	public static void register(ModContainer container) {

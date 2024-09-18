@@ -40,7 +40,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-public class WWRecipeProvider extends FabricRecipeProvider {
+public final class WWRecipeProvider extends FabricRecipeProvider {
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}

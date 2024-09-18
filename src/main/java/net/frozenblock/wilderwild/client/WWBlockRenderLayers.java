@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.renderer.RenderType;
 
 @Environment(EnvType.CLIENT)
-public class WWBlockRenderLayers {
+public final class WWBlockRenderLayers {
 
 	public static void init() {
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
@@ -125,19 +125,6 @@ public class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED, RenderType.cutout());
 
-		renderLayerRegistry.putBlock(WWBlocks.OAK_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.SPRUCE_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.BIRCH_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.JUNGLE_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.ACACIA_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.DARK_OAK_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.MANGROVE_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.CHERRY_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.AZALEA_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.FLOWERING_AZALEA_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAF_LITTER, RenderType.cutoutMipped());
-		renderLayerRegistry.putBlock(WWBlocks.PALM_FROND_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());

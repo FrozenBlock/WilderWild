@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.lighting.LightEngine;
 
 public final class WWBlockStateProperties {
-
 	// Osseous Sculk
 	public static final IntegerProperty PILLAR_HEIGHT_LEFT = IntegerProperty.create("pillar_height_left", 0, 15);
 	public static final IntegerProperty TOTAL_HEIGHT = IntegerProperty.create("total_pillar_height", 0, 16);
@@ -73,10 +72,6 @@ public final class WWBlockStateProperties {
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
 
 	private WWBlockStateProperties() {
-		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");
+		throw new UnsupportedOperationException("WWBlockStateProperties contains only static declarations.");
 	}
-
-	public static void init() {
-	}
-
 }

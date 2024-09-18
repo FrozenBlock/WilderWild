@@ -35,7 +35,7 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayLanternComponentizationFix extends DataFix {
+public final class DisplayLanternComponentizationFix extends DataFix {
 	public DisplayLanternComponentizationFix(Schema outputSchema) {
 		super(outputSchema, true);
 	}

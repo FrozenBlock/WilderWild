@@ -86,9 +86,9 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 				BlockState topState = level.getBlockState(topBlockPos);
 				if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater)) && topState.isAir() && bottomPlaceState.canSurvive(level, bottomBlockPos) && (!waterPlacement || (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) && level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) {
 					bottomPlaceState = bottomPlaceState.setValue(WaterloggableTallFlowerBlock.WATERLOGGED, bottomStateIsWater);
-					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, 3);
+					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_ALL);
 					if (topPlaceState.canSurvive(level, topBlockPos)) {
-						level.setBlock(topBlockPos, topPlaceState, 3);
+						level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_ALL);
 					}
 					generated = true;
 				}

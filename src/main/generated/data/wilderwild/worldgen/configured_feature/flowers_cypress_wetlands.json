@@ -23,54 +23,13 @@
                 }
               },
               {
-                "Name": "minecraft:lily_of_the_valley",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:lily_of_the_valley",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:white_tulip",
                 "Properties": {
                   "snow_layers": "0"
                 }
               },
               {
-                "Name": "wilderwild:datura",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:datura",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:azure_bluet",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:azure_bluet",
@@ -85,42 +44,8 @@
                 }
               },
               {
-                "Name": "wilderwild:milkweed",
-                "Properties": {
-                  "age": "0",
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:oxeye_daisy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:dandelion",
                 "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:milkweed",
-                "Properties": {
-                  "age": "0",
-                  "half": "lower",
                   "snow_layers": "0"
                 }
               },
@@ -137,47 +62,7 @@
                 }
               },
               {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:rose_bush",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
                 "Name": "minecraft:pink_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:pink_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:milkweed",
-                "Properties": {
-                  "age": "0",
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:lilac",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "minecraft:allium",
                 "Properties": {
                   "snow_layers": "0"
                 }
@@ -189,29 +74,10 @@
                 }
               },
               {
-                "Name": "minecraft:peony",
-                "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:carnation"
               },
               {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
-              },
-              {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:carnation"
               }
             ]
           }
@@ -227,7 +93,7 @@
         }
       ]
     },
-    "tries": 38,
+    "tries": 24,
     "xz_spread": 8,
     "y_spread": 3
   }

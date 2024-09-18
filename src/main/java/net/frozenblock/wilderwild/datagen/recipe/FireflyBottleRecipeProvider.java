@@ -27,7 +27,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
-public class FireflyBottleRecipeProvider {
+public final class FireflyBottleRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
 		FrozenRecipeProvider.colorWithDyes(

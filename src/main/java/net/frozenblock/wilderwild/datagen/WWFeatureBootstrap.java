@@ -45,7 +45,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
-public class WWFeatureBootstrap {
+public final class WWFeatureBootstrap {
 
 	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);

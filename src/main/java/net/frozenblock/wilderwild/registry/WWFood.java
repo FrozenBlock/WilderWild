@@ -41,7 +41,7 @@ public final class WWFood {
 		.build();
 
 	private WWFood() {
-		throw new UnsupportedOperationException("RegisterFood contains only static declarations.");
+		throw new UnsupportedOperationException("WWFood contains only static declarations.");
 	}
 
 }

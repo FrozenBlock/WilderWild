@@ -29,7 +29,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
-public class WWMinecraftDataFixer {
+public final class WWMinecraftDataFixer {
 	// 3 is 24w09a (components, display lantern fixes)
 	// 2 is 1.20.4 (short grass)
 	// 1 is 1.20.1 (base version)

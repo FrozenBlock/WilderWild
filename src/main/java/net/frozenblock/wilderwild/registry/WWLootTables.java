@@ -29,7 +29,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class WWLootTables {
 	private WWLootTables() {
-		throw new UnsupportedOperationException("RegisterLootTables only supports static declarations.");
+		throw new UnsupportedOperationException("WWLootTables only supports static declarations.");
 	}
 
 	public static void init() {

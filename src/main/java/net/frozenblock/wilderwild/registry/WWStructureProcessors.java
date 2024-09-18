@@ -35,7 +35,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
-public class WWStructureProcessors {
+public final class WWStructureProcessors {
 	public static final ResourceKey<StructureProcessorList> ABANDONED_CABIN_DEGRADATION = createKey("abandoned_cabin");
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {

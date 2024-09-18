@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -51,13 +51,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MapleGrove extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.46F, -0.075F);
-	public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.2F, 0.2F);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-1F, -0.05F);
-	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(0.05F, 1F);
-	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
-	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.215F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.3F);
+	public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.5F;
@@ -91,7 +88,7 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public boolean hasPrecipitation() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -174,20 +171,11 @@ public final class MapleGrove extends FrozenBiome {
 		if (WWWorldgenConfig.get().biomeGeneration.generateMapleGrove) {
 			this.addSurfaceBiome(
 				parameters,
-				TEMPERATURE_A,
+				TEMPERATURE,
 				HUMIDITY,
 				CONTINENTALNESS,
-				EROSION_A,
-				WEIRDNESS_A,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE_B,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION_B,
-				WEIRDNESS_B,
+				EROSION,
+				WEIRDNESS,
 				0F
 			);
 		}

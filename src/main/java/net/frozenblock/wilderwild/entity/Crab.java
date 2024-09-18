@@ -200,7 +200,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			}
 		}
 		int seaLevel = level.getSeaLevel();
-		return random.nextInt(0, randomBound) == 0 && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel + 3 && level.getBlockState(pos.below()).is(WWBlockTags.CRAB_CAN_HIDE);
+		return random.nextInt(0, randomBound) == 0 && pos.getY() >= seaLevel - 33 && level.getBlockState(pos.below()).is(WWBlockTags.CRAB_CAN_HIDE);
 	}
 
 	public static int getCrabsPerLevel(@NotNull ServerLevel level) {

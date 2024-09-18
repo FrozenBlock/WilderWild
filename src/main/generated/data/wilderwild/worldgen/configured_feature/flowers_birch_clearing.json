@@ -25,15 +25,11 @@
               {
                 "Name": "wilderwild:datura",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:pink_tulip",
@@ -45,8 +41,7 @@
                 "Name": "wilderwild:milkweed",
                 "Properties": {
                   "age": "0",
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
@@ -63,10 +58,7 @@
                 }
               },
               {
-                "Name": "wilderwild:carnation",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:carnation"
               },
               {
                 "Name": "minecraft:peony",
@@ -101,7 +93,7 @@
         }
       ]
     },
-    "tries": 24,
+    "tries": 18,
     "xz_spread": 8,
     "y_spread": 3
   }

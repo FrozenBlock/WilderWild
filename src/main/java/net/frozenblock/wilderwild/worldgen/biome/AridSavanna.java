@@ -47,7 +47,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class AridSavanna extends FrozenBiome {
+public final class AridSavanna extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.125F);
 	public static final float TEMP = 2F;

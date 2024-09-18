@@ -66,7 +66,7 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import org.jetbrains.annotations.NotNull;
 
-public class WWCaveConfigured {
+public final class WWCaveConfigured {
 	// JELLYFISH CAVES
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = register("stone_pool");

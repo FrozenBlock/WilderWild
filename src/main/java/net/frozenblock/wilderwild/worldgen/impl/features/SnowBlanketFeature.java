@@ -25,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -72,13 +73,13 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		if (biomeHolder.value().shouldSnow(level, pos)) {
 			BlockState replacingState = level.getBlockState(pos);
 			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
-				level.setBlock(pos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), 2);
+				level.setBlock(pos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
 			} else {
-				level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
+				level.setBlock(pos, Blocks.SNOW.defaultBlockState(), Block.UPDATE_CLIENTS);
 			}
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
 			}
 			pos.move(Direction.UP);
 			return true;

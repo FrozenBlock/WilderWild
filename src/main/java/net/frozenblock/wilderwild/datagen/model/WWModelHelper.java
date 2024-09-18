@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
-public class WWModelHelper {
+public final class WWModelHelper {
 	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
 	private static final ModelTemplate HOLLOWED_LOG_MODEL = new ModelTemplate(
