@@ -59,6 +59,7 @@ hi
 - Rose Bushes now generate in Birch Forest biomes.
 - Peonies now generate in Birch Forest biomes.
 - Lilacs now generate in Birch Forest biomes.
+- Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes
@@ -81,6 +82,7 @@ hi
 - Echo Glass no longer flickers upon being damaged by players.
 - Fixed many random blocks having the `termite_edible` blockstate property.
   - This checks if the Note Block Instrument for the block is `BASS` and if the block's sound type is not `STEM.`
+- Termite Mounds now generate as intended once again.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

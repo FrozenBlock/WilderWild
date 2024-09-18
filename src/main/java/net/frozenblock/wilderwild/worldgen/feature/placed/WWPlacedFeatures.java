@@ -274,7 +274,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
 	public static final FrozenPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
-	public static final FrozenPlacedFeature TERMITE_PLACED = register("termite_placed");
+	public static final FrozenPlacedFeature TERMITE_MOUND = register("termite_mound");
 	public static final FrozenPlacedFeature TUMBLEWEED = register("tumbleweed");
 	public static final FrozenPlacedFeature PRICKLY_PEAR = register("prickly_pear");
 	public static final FrozenPlacedFeature PRICKLY_PEAR_RARE = register("prickly_pear_rare");
@@ -1368,7 +1368,7 @@ public final class WWPlacedFeatures {
 
 		// VEGETATION
 
-		POLLEN_PLACED.makeAndSetHolder(WWConfiguredFeatures.POLLEN_CONFIGURED.getHolder(),
+		POLLEN_PLACED.makeAndSetHolder(WWConfiguredFeatures.POLLEN.getHolder(),
 			RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
@@ -1423,7 +1423,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		TERMITE_PLACED.makeAndSetHolder(WWConfiguredFeatures.TERMITE_CONFIGURED.getHolder(),
+		TERMITE_MOUND.makeAndSetHolder(WWConfiguredFeatures.TERMITE_MOUND.getHolder(),
 			RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);

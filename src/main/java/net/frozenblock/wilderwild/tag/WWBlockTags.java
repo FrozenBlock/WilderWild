@@ -115,8 +115,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SMALL_COARSE_DIRT_PATH_REPLACEABLE = bind("small_coarse_dirt_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_BADLANDS_REPLACEABLE = bind("packed_mud_path_badlands_replaceable");
 	public static final TagKey<Block> POLLEN_FEATURE_PLACEABLE = bind("pollen_feature_placeable");
-	public static final TagKey<Block> TERMITE_DISC_REPLACEABLE = bind("termite_disc_replaceable");
-	public static final TagKey<Block> TERMITE_DISC_BLOCKS = bind("termite_disc_blocks");
+	public static final TagKey<Block> TERMITE_DISK_REPLACEABLE = bind("termite_disk_replaceable");
+	public static final TagKey<Block> TERMITE_DISK_BLOCKS = bind("termite_disk_blocks");
 	public static final TagKey<Block> BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("blue_nematocyst_feature_placeable");
 	public static final TagKey<Block> PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("purple_nematocyst_feature_placeable");
 	public static final TagKey<Block> SHELF_FUNGI_FEATURE_PLACEABLE = bind("shelf_fungi_feature_placeable");
