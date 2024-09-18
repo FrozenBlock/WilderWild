@@ -341,21 +341,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			ORANGE_MAPLE_LEAVES,
 			RED_MAPLE_LEAVES
 		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
-		addBlocks(new Block[]{
-			OAK_LEAF_LITTER,
-			SPRUCE_LEAF_LITTER,
-			BIRCH_LEAF_LITTER,
-			JUNGLE_LEAF_LITTER,
-			ACACIA_LEAF_LITTER,
-			DARK_OAK_LEAF_LITTER,
-			MANGROVE_LEAF_LITTER,
-			BAOBAB_LEAF_LITTER,
-			CYPRESS_LEAF_LITTER,
-			PALM_FROND_LITTER,
-			YELLOW_MAPLE_LEAF_LITTER,
-			ORANGE_MAPLE_LEAF_LITTER,
-			RED_MAPLE_LEAF_LITTER
-		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{YELLOW_MAPLE_LEAF_LITTER, ORANGE_MAPLE_LEAF_LITTER, RED_MAPLE_LEAF_LITTER}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{Blocks.LILY_PAD, FLOWERING_LILY_PAD}, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
 		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
 		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);

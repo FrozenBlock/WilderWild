@@ -31,17 +31,6 @@ public final class WWTints {
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAVES);
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAVES);
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FRONDS);
-
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.OAK_LEAF_LITTER);
-		TintRegistryHelper.registerEvergreenFoliageColorForItem(WWBlocks.SPRUCE_LEAF_LITTER);
-		TintRegistryHelper.registerBirchFoliageColorForItem(WWBlocks.BIRCH_LEAF_LITTER);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.JUNGLE_LEAF_LITTER);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.ACACIA_LEAF_LITTER);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.DARK_OAK_LEAF_LITTER);
-		TintRegistryHelper.registerMangroveFoliageColorForItem(WWBlocks.MANGROVE_LEAF_LITTER);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAF_LITTER);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAF_LITTER);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FROND_LITTER);
 	}
 
 	public static void initBlocks() {
@@ -56,16 +45,5 @@ public final class WWTints {
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHORT_GRASS);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BUSH);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_BUSH);
-
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.OAK_LEAF_LITTER);
-		TintRegistryHelper.registerEvergreenFoliageColorForBlock(WWBlocks.SPRUCE_LEAF_LITTER);
-		TintRegistryHelper.registerBirchFoliageColorForBlock(WWBlocks.BIRCH_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.JUNGLE_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.ACACIA_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.DARK_OAK_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.MANGROVE_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BAOBAB_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.CYPRESS_LEAF_LITTER);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.PALM_FROND_LITTER);
 	}
 }
