@@ -67,7 +67,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWCaveConfigured {
-	// JELLYFISH CAVES
+	// MESOGLEA CAVES
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = register("stone_pool");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BLUE_MESOGLEA_COLUMN = register("blue_mesoglea_column");
@@ -134,7 +134,7 @@ public final class WWCaveConfigured {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		// JELLYFISH CAVES
+		// MESOGLEA CAVES
 
 		ORE_CALCITE.makeAndSetHolder(Feature.ORE,
 			new OreConfiguration(

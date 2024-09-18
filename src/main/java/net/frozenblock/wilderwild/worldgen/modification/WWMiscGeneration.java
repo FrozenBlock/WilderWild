@@ -59,7 +59,7 @@ public final class WWMiscGeneration {
 					if (WWWorldgenConfig.get().termiteGen) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TERMITE_MOUND)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TERMITE_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWPlacedFeatures.TERMITE_MOUND.getKey());
 						}
 					}
 				});

@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
-import net.frozenblock.wilderwild.networking.packet.WWSensorHiccupPacket;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WWWindPacket;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -32,7 +31,6 @@ public final class WWNetworking {
 	public static void init() {
 		PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.playS2C();
 		registry.register(WWWindPacket.PACKET_TYPE, WWWindPacket.CODEC);
-		registry.register(WWSensorHiccupPacket.PACKET_TYPE, WWSensorHiccupPacket.CODEC);
 		registry.register(WWJellyfishStingPacket.PACKET_TYPE, WWJellyfishStingPacket.CODEC);
 		registry.register(WWLightningStrikePacket.PACKET_TYPE, WWLightningStrikePacket.CODEC);
 		registry.register(WWStoneChestLidPacket.PACKET_TYPE, WWStoneChestLidPacket.CODEC);

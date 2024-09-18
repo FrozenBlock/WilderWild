@@ -172,17 +172,17 @@ public final class WWAmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
-		var jellyfishCavesAmbience = entryBuilder.startBooleanToggle(text("jellyfish_caves_ambience"), biomeAmbience.jellyfishCavesAmbience)
-			.setDefaultValue(defaultConfig.biomeAmbience.jellyfishCavesAmbience)
-			.setSaveConsumer(newValue -> biomeAmbience.jellyfishCavesAmbience = newValue)
-			.setTooltip(tooltip("fjellyfish_caves_ambience"))
+		var mesogleaCavesAmbience = entryBuilder.startBooleanToggle(text("mesoglea_caves_ambience"), biomeAmbience.mesogleaCavesAmbience)
+			.setDefaultValue(defaultConfig.biomeAmbience.mesogleaCavesAmbience)
+			.setSaveConsumer(newValue -> biomeAmbience.mesogleaCavesAmbience = newValue)
+			.setTooltip(tooltip("mesoglea_caves_ambience"))
 			.requireRestart()
 			.build();
 
-		var jellyfishCavesFog = entryBuilder.startBooleanToggle(text("jellyfish_caves_fog"), biomeAmbience.jellyfishCavesFog)
-			.setDefaultValue(defaultConfig.biomeAmbience.jellyfishCavesFog)
-			.setSaveConsumer(newValue -> biomeAmbience.jellyfishCavesFog = newValue)
-			.setTooltip(tooltip("jellyfish_caves_fog"))
+		var mesogleaCavesFog = entryBuilder.startBooleanToggle(text("mesoglea_caves_fog"), biomeAmbience.mesogleaCavesFog)
+			.setDefaultValue(defaultConfig.biomeAmbience.mesogleaCavesFog)
+			.setSaveConsumer(newValue -> biomeAmbience.mesogleaCavesFog = newValue)
+			.setTooltip(tooltip("mesoglea_caves_fog"))
 			.requireRestart()
 			.build();
 
@@ -214,8 +214,8 @@ public final class WWAmbienceAndMiscConfigGui {
 			dripstoneCavesAmbience,
 			lushCavesAmbience,
 			frozenCavesAmbience, frozenCavesFog,
-			jellyfishCavesAmbience, jellyfishCavesFog,
-			magmaticCavesAmbience, magmaticCavesFog, magmaticCavesParticles
+			magmaticCavesAmbience, magmaticCavesFog, magmaticCavesParticles,
+			mesogleaCavesAmbience, mesogleaCavesFog
 		);
 
 		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)

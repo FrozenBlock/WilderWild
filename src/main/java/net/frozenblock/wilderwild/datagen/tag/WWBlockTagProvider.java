@@ -279,14 +279,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
-		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_DISC_REPLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_DISK_REPLACEABLE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_DISC_BLOCKS)
+		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_DISK_BLOCKS)
 			.add(Blocks.COARSE_DIRT)
-			.add(Blocks.SAND)
 			.add(Blocks.PACKED_MUD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE)

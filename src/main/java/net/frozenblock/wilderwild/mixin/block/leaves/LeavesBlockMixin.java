@@ -18,13 +18,15 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
 
-	@ModifyExpressionValue(
+	@WrapOperation(
 		method = "isRandomlyTicking",
 		at = @At(
 			value = "INVOKE",
@@ -41,13 +43,13 @@ public class LeavesBlockMixin {
 			ordinal = 0
 		)
 	)
-	public Comparable<?> wilderWild$isRandomlyTicking(Comparable<?> original) {
-		if (original instanceof Integer) {
+	public Comparable<?> wilderWild$isRandomlyTicking(BlockState instance, Property property, Operation<Comparable> original) {
+		if (property == LeavesBlock.DISTANCE) {
 			if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).map(fallingLeafData -> fallingLeafData.leafLitterBlock().isPresent()).orElse(false)) {
 				return 7;
 			}
 		}
-		return original;
+		return original.call(instance, property);
 	}
 
 	@Inject(method = "animateTick", at = @At("HEAD"))

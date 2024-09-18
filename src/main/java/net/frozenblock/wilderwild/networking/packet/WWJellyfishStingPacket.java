@@ -40,10 +40,6 @@ public record WWJellyfishStingPacket(boolean isBaby) implements CustomPacketPayl
 		ServerPlayNetworking.send(serverPlayer, new WWJellyfishStingPacket(isBaby));
 	}
 
-	public void write(@NotNull FriendlyByteBuf buf) {
-		buf.writeBoolean(this.isBaby());
-	}
-
 	@NotNull
 	@Override
 	public Type<?> type() {

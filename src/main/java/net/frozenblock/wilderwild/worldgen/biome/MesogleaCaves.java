@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class JellyfishCaves extends FrozenBiome {
+public final class MesogleaCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
@@ -61,7 +61,7 @@ public final class JellyfishCaves extends FrozenBiome {
 	public static final int WATER_FOG_COLOR = 6069471;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0F);
-	public static final JellyfishCaves INSTANCE = new JellyfishCaves();
+	public static final MesogleaCaves INSTANCE = new MesogleaCaves();
 
 	@Override
 	public String modID() {
@@ -70,7 +70,7 @@ public final class JellyfishCaves extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "jellyfish_caves";
+		return "mesoglea_caves";
 	}
 
 	@Override
@@ -140,14 +140,14 @@ public final class JellyfishCaves extends FrozenBiome {
 
 	@Override
 	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
+		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MESOGLEA_CAVES);
 	}
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.JELLYFISH_STONE_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.MESOGLEA_CAVES_STONE_POOL.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
@@ -181,7 +181,7 @@ public final class JellyfishCaves extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateJellyfishCaves) {
+		if (WWWorldgenConfig.get().biomeGeneration.generateMesogleaCaves) {
 			this.addSemiDeepBiome(
 				parameters,
 				TEMPERATURE,

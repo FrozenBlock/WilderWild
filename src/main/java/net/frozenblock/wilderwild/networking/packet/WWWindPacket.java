@@ -18,12 +18,10 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,10 +34,6 @@ public record WWWindPacket(Vec3 cloudPos) implements CustomPacketPayload {
 
 	public WWWindPacket(@NotNull FriendlyByteBuf buf) {
 		this(buf.readVec3());
-	}
-
-	public static void sendTo(ServerPlayer serverPlayer, Vec3 cloudPos) {
-		ServerPlayNetworking.send(serverPlayer, new WWWindPacket(cloudPos));
 	}
 
 	public void write(@NotNull FriendlyByteBuf buf) {

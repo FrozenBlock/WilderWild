@@ -53,12 +53,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
-	// JELLYFISH CAVES
+	// MESOGLEA CAVES
 	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = WWPlacementUtils.register("extra_glow_lichen");
 	public static final FrozenPlacedFeature STONE_POOL = WWPlacementUtils.register("stone_pool");
 	public static final FrozenPlacedFeature ORE_CALCITE = WWPlacementUtils.register("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
-	public static final FrozenPlacedFeature JELLYFISH_STONE_POOL = WWPlacementUtils.register("jellyfish_stone_pool");
+	public static final FrozenPlacedFeature MESOGLEA_CAVES_STONE_POOL = WWPlacementUtils.register("mesoglea_caves_stone_pool");
 	public static final FrozenPlacedFeature MESOGLEA_PILLAR = WWPlacementUtils.register("blue_mesoglea_pillar");
 	public static final FrozenPlacedFeature PURPLE_MESOGLEA_PILLAR = WWPlacementUtils.register("purple_mesoglea_pillar");
 	public static final FrozenPlacedFeature BLUE_MESOGLEA_PATH = WWPlacementUtils.register("blue_mesoglea_path");
@@ -119,9 +119,9 @@ public final class WWCavePlaced {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WWConstants.logWithModId("Registering WilderCavePlaced for", true);
+		WWConstants.log("Registering WWCavePlaced.", true);
 
-		// JELLYFISH CAVES
+		// MESOGLEA CAVES
 
 		EXTRA_GLOW_LICHEN.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.GLOW_LICHEN),
 			CountPlacement.of(UniformInt.of(104, 157)),
@@ -144,7 +144,7 @@ public final class WWCavePlaced {
 			modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
 		);
 
-		JELLYFISH_STONE_POOL.makeAndSetHolder(WWCaveConfigured.STONE_POOL.getHolder(),
+		MESOGLEA_CAVES_STONE_POOL.makeAndSetHolder(WWCaveConfigured.STONE_POOL.getHolder(),
 			CountPlacement.of(60),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
