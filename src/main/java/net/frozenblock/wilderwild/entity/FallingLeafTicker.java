@@ -52,7 +52,7 @@ public class FallingLeafTicker extends SilentTicker {
 
 	public FallingLeafTicker(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
 		super(entityType, level);
-		this.setPos(Vec3.atBottomCenterOf(pos));
+		this.moveTo(Vec3.atBottomCenterOf(pos));
 	}
 
 	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos, Block leafLitter) {
@@ -79,7 +79,7 @@ public class FallingLeafTicker extends SilentTicker {
 				if (hitResult.getType() != HitResult.Type.MISS) {
 					BlockPos hitPos = hitResult.getBlockPos();
 					BlockPos placePos = hitPos.above();
-					BlockState stateToReplace = level.getBlockState(placePos);;
+					BlockState stateToReplace = level.getBlockState(placePos);
 					if (FallingLeafUtil.isSafePosToPlaceLitter(level, placePos, stateToReplace, this.leafLitter)) {
 						BlockState litterState = this.leafLitter.defaultBlockState();
 						level.setBlockAndUpdate(placePos, litterState);

@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -27,24 +29,22 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
-public abstract class BlockStateBaseMixin {
+public class BlockStateBaseMixin {
 
-	@Shadow
-	protected abstract BlockState asState();
-
-	@Shadow
-	public abstract Block getBlock();
-
-	@Inject(method = "randomTick", at = @At("HEAD"))
-	public void wilderWild$randomTick(ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (this.getBlock() instanceof LeavesBlock) {
-			FallingLeafUtil.onRandomTick(this.asState(), level, pos, random);
+	@WrapOperation(
+		method = "randomTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;randomTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V"
+		)
+	)
+	public void wilderWild$randomTick(Block instance, BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, Operation<Void> original) {
+		if (instance instanceof LeavesBlock) {
+			FallingLeafUtil.onRandomTick(blockState, serverLevel, blockPos, randomSource);
 		}
+		original.call(instance, blockState, serverLevel, blockPos, randomSource);
 	}
 }
