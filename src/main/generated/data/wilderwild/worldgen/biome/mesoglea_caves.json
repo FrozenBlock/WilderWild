@@ -19,7 +19,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.jellyfish_caves"
+      "sound": "wilderwild:music.overworld.mesoglea_caves"
     },
     "sky_color": 8364543,
     "water_color": 9817343,
@@ -28,7 +28,7 @@
   "features": [
     [],
     [
-      "wilderwild:jellyfish_stone_pool",
+      "wilderwild:mesoglea_caves_stone_pool",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],

@@ -34,8 +34,8 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_ADDITIONS = registerForHolder("ambient.dripstone_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_LOOP = registerForHolder("ambient.dripstone_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_GENERIC_CAVES_LOOP = registerForHolder("ambient.generic_caves.loop");
-	public static final Holder.Reference<SoundEvent> AMBIENT_JELLYFISH_CAVES_ADDITIONS = registerForHolder("ambient.jellyfish_caves.additions");
-	public static final Holder.Reference<SoundEvent> AMBIENT_JELLYFISH_CAVES_LOOP = registerForHolder("ambient.jellyfish_caves.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_ADDITIONS = registerForHolder("ambient.mesoglea_caves.additions");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_LOOP = registerForHolder("ambient.mesoglea_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_LOOP = registerForHolder("ambient.lush_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_ADDITIONS = registerForHolder("ambient.magmatic_caves.additions");
@@ -336,7 +336,7 @@ public final class WWSounds {
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
-	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 
 	private WWSounds() {

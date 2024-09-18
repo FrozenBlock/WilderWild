@@ -103,14 +103,14 @@ public final class WWMusic {
 				}
 			});
 
-		BiomeModifications.create(WWConstants.id("modify_ambience_jellyfish_caves")).add(
+		BiomeModifications.create(WWConstants.id("modify_ambience_mesoglea_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.JELLYFISH_CAVES),
+			BiomeSelectors.includeByKey(WWWorldgen.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.jellyfishCavesAmbience) {
+				if (WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setAmbientSound(WWSounds.AMBIENT_JELLYFISH_CAVES_LOOP);
-					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D));
+					context.setAmbientSound(WWSounds.AMBIENT_MESOGLEA_CAVES_LOOP);
+					context.setAdditionsSound(new AmbientAdditionsSettings(WWSounds.AMBIENT_MESOGLEA_CAVES_ADDITIONS, 0.005D));
 				}
 			});
 

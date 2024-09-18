@@ -165,8 +165,8 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("generateCypressWetlands")
 		public boolean generateCypressWetlands = true;
 
-		@EntrySyncData("generateJellyfishCaves")
-		public boolean generateJellyfishCaves = true;
+		@EntrySyncData("generateMesogleaCaves")
+		public boolean generateMesogleaCaves = true;
 
 		@EntrySyncData("generateMixedForest")
 		public boolean generateMixedForest = true;

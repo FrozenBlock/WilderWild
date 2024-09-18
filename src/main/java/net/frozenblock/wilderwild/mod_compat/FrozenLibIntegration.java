@@ -441,7 +441,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWWorldgen.WARM_RIVER, registries);
 						addBiomeRequirement(advancement, WWWorldgen.WARM_BEACH, registries);
 						addBiomeRequirement(advancement, WWWorldgen.FROZEN_CAVES, registries);
-						addBiomeRequirement(advancement, WWWorldgen.JELLYFISH_CAVES, registries);
+						addBiomeRequirement(advancement, WWWorldgen.MESOGLEA_CAVES, registries);
 						addBiomeRequirement(advancement, WWWorldgen.MAGMATIC_CAVES, registries);
 						addBiomeRequirement(advancement, WWWorldgen.ARID_FOREST, registries);
 						addBiomeRequirement(advancement, WWWorldgen.ARID_SAVANNA, registries);

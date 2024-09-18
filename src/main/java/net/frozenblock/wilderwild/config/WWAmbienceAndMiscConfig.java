@@ -141,11 +141,11 @@ public final class WWAmbienceAndMiscConfig {
 		@EntrySyncData(value = "frozenCavesFog", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean frozenCavesFog = false;
 
-		@EntrySyncData(value = "jellyfishCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean jellyfishCavesAmbience = true;
+		@EntrySyncData(value = "mesogleaCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean mesogleaCavesAmbience = true;
 
-		@EntrySyncData(value = "jellyfishCavesFog", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean jellyfishCavesFog = true;
+		@EntrySyncData(value = "mesogleaCavesFog", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean mesogleaCavesFog = true;
 
 		@EntrySyncData(value = "magmaticCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean magmaticCavesAmbience = true;

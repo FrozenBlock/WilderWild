@@ -53,11 +53,11 @@ public final class WWBiomeSettings {
 				}
 			});
 
-		BiomeModifications.create(WWConstants.id("fog_jellyfish_caves")).add(
+		BiomeModifications.create(WWConstants.id("fog_mesoglea_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.JELLYFISH_CAVES),
+			BiomeSelectors.includeByKey(WWWorldgen.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.jellyfishCavesFog) {
+				if (WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesFog) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
 					context.setFogColor(0);
 				}

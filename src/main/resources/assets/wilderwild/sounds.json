@@ -167,69 +167,69 @@
       }
     ]
   },
-  "ambient.jellyfish_caves.additions": {
+  "ambient.mesoglea_caves.additions": {
     "sounds": [
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/dribble1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/dribble1",
         "volume": 0.4,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/dribble2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/dribble2",
         "volume": 0.4,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/dribble3",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/dribble3",
         "volume": 0.4,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/sludge1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/sludge1",
         "volume": 0.6,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/sludge2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/sludge2",
         "volume": 0.6,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/sludge3",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/sludge3",
         "volume": 0.6,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/drip1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/drip1",
         "volume": 0.9,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/drip2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/drip2",
         "volume": 0.9,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/drip3",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/drip3",
         "volume": 0.9,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/jelly1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/jelly1",
         "volume": 0.7,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/jelly2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/jelly2",
         "volume": 0.7,
         "weight": 1
       }
     ]
   },
-  "ambient.jellyfish_caves.loop": {
+  "ambient.mesoglea_caves.loop": {
     "sounds": [
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/ambience",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/ambience",
         "stream": true,
         "volume": 1.0
       }
@@ -2964,7 +2964,7 @@
       }
     ]
   },
-  "music.overworld.jellyfish_caves": {
+  "music.overworld.mesoglea_caves": {
     "sounds": [
       {
         "name": "music/game/water/axolotl",
@@ -2987,7 +2987,7 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/ludocrypt/jellyfish_caves/dove",
+        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
         "stream": true,
         "volume": 0.8,
         "weight": 5

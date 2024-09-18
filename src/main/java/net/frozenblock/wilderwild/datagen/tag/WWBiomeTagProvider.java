@@ -57,7 +57,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 	private void generateCompat() {
 		this.getOrCreateTagBuilder(getTag("sereneseasons:blacklisted_biomes"))
 			.add(WWWorldgen.FROZEN_CAVES)
-			.add(WWWorldgen.JELLYFISH_CAVES)
+			.add(WWWorldgen.MESOGLEA_CAVES)
 			.add(WWWorldgen.MAGMATIC_CAVES)
 			.add(WWWorldgen.WARM_RIVER)
 			.add(WWWorldgen.WARM_BEACH);
@@ -82,7 +82,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.WARM_RIVER)
 			.addOptional(WWWorldgen.WARM_BEACH)
 			.addOptional(WWWorldgen.FROZEN_CAVES)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.MAGMATIC_CAVES)
 			.addOptional(WWWorldgen.ARID_FOREST)
 			.addOptional(WWWorldgen.ARID_SAVANNA)
@@ -114,7 +114,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_CAVE)
 			.addOptional(WWWorldgen.FROZEN_CAVES)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.MAGMATIC_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.DARK_FOREST)
@@ -229,7 +229,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.RAINFOREST)
 			.addOptional(WWWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(WWWorldgen.DARK_TAIGA)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES);
+			.addOptional(WWWorldgen.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_DRY_OVERWORLD)
 			.addOptional(WWWorldgen.ARID_SAVANNA)
@@ -310,7 +310,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_AQUATIC)
 			.addOptional(WWWorldgen.WARM_RIVER)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES);
+			.addOptional(WWWorldgen.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_JUNGLE_TREE)
 			.addOptional(WWWorldgen.BIRCH_JUNGLE)
@@ -358,7 +358,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_UNDERGROUND)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.MAGMATIC_CAVES)
 			.addOptional(WWWorldgen.FROZEN_CAVES);
 
@@ -431,16 +431,16 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WARM_OCEAN)
 			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.LUKEWARM_OCEAN)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES);
+			.addOptional(WWWorldgen.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.NO_POOLS)
 			.addOptional(Biomes.DEEP_DARK);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.PEARLESCENT_JELLYFISH)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES);
+			.addOptional(WWWorldgen.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES);
+			.addOptional(WWWorldgen.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRAB)
 			.add(Biomes.BEACH)
@@ -480,7 +480,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG)
 			.addOptional(WWWorldgen.CYPRESS_WETLANDS)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.FROZEN_CAVES);
 
 		this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
@@ -505,7 +505,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)
 			.addOptional(WWWorldgen.WARM_RIVER)
 			.addOptional(WWWorldgen.WARM_BEACH)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.OASIS)
 			.addOptional(WWWorldgen.CYPRESS_WETLANDS);
 
@@ -519,7 +519,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(BiomeTags.WATER_ON_MAP_OUTLINES)
 			.addOptional(WWWorldgen.WARM_RIVER)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.OASIS)
 			.addOptional(WWWorldgen.CYPRESS_WETLANDS);
 
@@ -1769,7 +1769,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.WARM_RIVER)
 			.addOptional(WWWorldgen.WARM_BEACH)
 			.addOptional(WWWorldgen.FROZEN_CAVES)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES)
+			.addOptional(WWWorldgen.MESOGLEA_CAVES)
 			.addOptional(WWWorldgen.ARID_FOREST)
 			.addOptional(WWWorldgen.ARID_SAVANNA)
 			.addOptional(WWWorldgen.PARCHED_FOREST)
@@ -1829,7 +1829,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.SPARSE_BIRCH_JUNGLE);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_OCEAN)
-			.addOptional(WWWorldgen.JELLYFISH_CAVES);
+			.addOptional(WWWorldgen.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_SWAMP)
 			.addOptional(WWWorldgen.CYPRESS_WETLANDS);

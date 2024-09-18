@@ -84,16 +84,15 @@ public final class WWWorldgenConfigGui {
 			"generateCypressWetlands",
 			configInstance
 		);
-
-		var jellyfishCaves = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("generate_jellyfish_caves"), modifiedBiomes.generateJellyfishCaves)
-				.setDefaultValue(defaultConfig.biomeGeneration.generateJellyfishCaves)
-				.setSaveConsumer(newValue -> biomes.generateJellyfishCaves = newValue)
-				.setTooltip(tooltip("generate_jellyfish_caves"))
+		var mesogleaCaves = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_mesoglea_caves"), modifiedBiomes.generateMesogleaCaves)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateMesogleaCaves)
+				.setSaveConsumer(newValue -> biomes.generateMesogleaCaves = newValue)
+				.setTooltip(tooltip("generate_mesoglea_caves"))
 				.requireRestart()
 				.build(),
 			biomes.getClass(),
-			"generateJellyfishCaves",
+			"generateMesogleaCaves",
 			configInstance
 		);
 		var mixedForest = FrozenClothConfig.syncedEntry(
@@ -387,7 +386,7 @@ public final class WWWorldgenConfigGui {
 			false,
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
-			jellyfishCaves, magmaticCaves, mapleGrove, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
+			magmaticCaves, mapleGrove, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
 			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 
