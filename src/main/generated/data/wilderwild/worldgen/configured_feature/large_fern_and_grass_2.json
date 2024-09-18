@@ -12,8 +12,7 @@
                 "data": {
                   "Name": "minecraft:tall_grass",
                   "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
+                    "half": "lower"
                   }
                 },
                 "weight": 5
@@ -22,8 +21,7 @@
                 "data": {
                   "Name": "minecraft:large_fern",
                   "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
+                    "half": "lower"
                   }
                 },
                 "weight": 1

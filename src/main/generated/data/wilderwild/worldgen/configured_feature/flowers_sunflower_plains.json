@@ -17,58 +17,31 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "wilderwild:seeding_dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "wilderwild:marigold",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:marigold"
               },
               {
-                "Name": "wilderwild:marigold",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "wilderwild:marigold"
               },
               {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:poppy"
               }
             ]
           }

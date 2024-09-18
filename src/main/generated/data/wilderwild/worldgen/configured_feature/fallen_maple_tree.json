@@ -7,11 +7,6 @@
         "max_height": 260,
         "placement_chance": 0.75,
         "probability": 0.8
-      },
-      {
-        "type": "wilderwild:moss_carpet_tree_decorator",
-        "placement_chance": 0.2,
-        "probability": 0.47
       }
     ],
     "dirt_provider": {
@@ -48,8 +43,8 @@
     "trunk_placer": {
       "type": "wilderwild:fallen_with_logs_trunk_placer",
       "base_height": 3,
-      "branch_chance": 0.05,
-      "height_rand_a": 1,
+      "branch_chance": 0.0,
+      "height_rand_a": 2,
       "height_rand_b": 2,
       "hollowed_log_chance": 0.075,
       "hollowed_state": {
@@ -62,11 +57,7 @@
           }
         }
       },
-      "max_branch_count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 2,
-        "min_inclusive": 1
-      },
+      "max_branch_count": 0,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {

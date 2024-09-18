@@ -452,10 +452,6 @@ public final class WWTreePlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
-		MOSSY_FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_MAPLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
-		);
-
 		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);

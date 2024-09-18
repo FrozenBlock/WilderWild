@@ -19,37 +19,32 @@
               {
                 "Name": "wilderwild:datura",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
                 "Name": "wilderwild:milkweed",
                 "Properties": {
                   "age": "0",
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
                 "Name": "minecraft:rose_bush",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
                 "Name": "minecraft:lilac",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
                 "Name": "minecraft:peony",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               }
             ]

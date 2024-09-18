@@ -17,46 +17,25 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:lily_of_the_valley",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "Name": "minecraft:oxeye_daisy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:allium",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:allium"
               },
               {
-                "Name": "minecraft:cornflower",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:cornflower"
               },
               {
-                "Name": "minecraft:blue_orchid",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:blue_orchid"
               }
             ]
           }

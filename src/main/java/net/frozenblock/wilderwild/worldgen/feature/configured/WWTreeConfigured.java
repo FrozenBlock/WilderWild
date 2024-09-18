@@ -149,7 +149,6 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_RED_MAPLE_TREE = register("short_red_maple");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB_RED_MAPLE = register("big_shrub_red_maple");
 
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_MAPLE_TREE = register("mossy_fallen_maple_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MAPLE_TREE = register("fallen_maple_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
 	//OAK
@@ -269,7 +268,6 @@ public final class WWTreeConfigured {
 	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F);
 	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F);
 	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F);
-	private static final MossCarpetTreeDecorator MOSS_MAPLE = new MossCarpetTreeDecorator(0.47F, 0.2F);
 	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F);
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
@@ -802,27 +800,7 @@ public final class WWTreeConfigured {
 		FALLEN_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenMaple().decorators(
 				List.of(
-					VINES_08_UNDER_260_075,
-					MOSS_MAPLE
-				)
-			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
-		MOSSY_FALLEN_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
-			fallenTrunkBuilder(
-				WWBlocks.MAPLE_LOG,
-				WWBlocks.HOLLOWED_MAPLE_LOG,
-				WWBlocks.YELLOW_MAPLE_LEAVES,
-				3,
-				1,
-				2,
-				0.075F,
-				UniformInt.of(1, 2),
-				0.075F
-			).ignoreVines().decorators(
-				List.of(
-					VINES_08_UNDER_260_075,
-					MOSS_MOSSY
+					VINES_08_UNDER_260_075
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -837,7 +815,6 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
-					MOSS_MAPLE,
 					SHELF_FUNGUS_006
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -2019,7 +1996,7 @@ public final class WWTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
-		return fallenTrunkBuilder(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), 0.075F).ignoreVines();
+		return fallenTrunkBuilder(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 3, 2, 2, 0F, ConstantInt.of(0), 0.075F).ignoreVines();
 	}
 
 	@NotNull
