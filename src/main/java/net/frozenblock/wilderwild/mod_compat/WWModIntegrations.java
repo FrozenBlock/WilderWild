@@ -23,6 +23,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
 import net.frozenblock.wilderwild.WWConstants;
+import org.jetbrains.annotations.NotNull;
 
 public final class WWModIntegrations {
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
@@ -39,18 +40,19 @@ public final class WWModIntegrations {
 	public static final ModIntegration TRAVERSE_INTEGRATION = registerAndGet(TraverseIntegration::new, "traverse");
 	public static final ModIntegration EXCESSIVE_BUILDING_INTEGRATION = registerAndGet(ExcessiveBuildingIntegration::new, "excessive_building");
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "copper_pipe");
+
 	private WWModIntegrations() {
-		throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");
+		throw new UnsupportedOperationException("WWModIntegrations contains only static declarations.");
 	}
 
 	public static void init() {
 	}
 
-	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
+	public static @NotNull ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
 		return ModIntegrations.register(integration, WWConstants.MOD_ID, modID);
 	}
 
-	public static <T extends ModIntegration> ModIntegrationSupplier<T> register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
+	public static <T extends ModIntegration> @NotNull ModIntegrationSupplier<T> register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
 		return ModIntegrations.register(integration, unloadedIntegration, WWConstants.MOD_ID, modID);
 	}
 
