@@ -17,61 +17,34 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:lily_of_the_valley",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "Name": "minecraft:white_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:white_tulip"
               },
               {
                 "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "minecraft:azure_bluet",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "minecraft:oxeye_daisy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "Name": "minecraft:dandelion",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "minecraft:orange_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:orange_tulip"
               },
               {
-                "Name": "minecraft:poppy",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:pink_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:pink_tulip"
               },
               {
-                "Name": "minecraft:allium",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:allium"
               },
               {
                 "Name": "wilderwild:carnation"
