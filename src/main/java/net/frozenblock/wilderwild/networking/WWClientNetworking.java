@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
-import net.frozenblock.wilderwild.networking.packet.WWSensorHiccupPacket;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.networking.packet.WWWindPacket;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -40,7 +39,6 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
@@ -57,7 +55,6 @@ public final class WWClientNetworking {
 
 	public static void registerPacketReceivers() {
 		receiveWindExtensionSyncPacket();
-		receiveSensorHiccupPacket();
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();
@@ -70,21 +67,6 @@ public final class WWClientNetworking {
 			WWClientWindManager.cloudX = cloudPos.x();
 			WWClientWindManager.cloudY = cloudPos.y();
 			WWClientWindManager.cloudZ = cloudPos.z();
-		});
-	}
-
-	public static void receiveSensorHiccupPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WWSensorHiccupPacket.PACKET_TYPE, (packet, ctx) -> {
-			ClientLevel clientLevel = ctx.client().level;
-			clientLevel.addParticle(
-				ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, WWSensorHiccupPacket.PARTICLE_COLOR),
-				packet.x(),
-				packet.y(),
-				packet.z(),
-				1D,
-				1D,
-				1D
-			);
 		});
 	}
 
