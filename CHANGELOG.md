@@ -61,6 +61,7 @@ hi
 - Lilacs now generate in Birch Forest biomes.
 - Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Jellyfish Caves have been renamed to Mesoglea Caves.
+- Changed the volume of Deep Dark ambience.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes
@@ -84,6 +85,7 @@ hi
 - Fixed many random blocks having the `termite_edible` blockstate property.
   - This checks if the Note Block Instrument for the block is `BASS` and if the block's sound type is not `STEM.`
 - Termite Mounds now generate as intended once again.
+- Fixed the main ambient loop in the Deep Dark not properly looping.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
