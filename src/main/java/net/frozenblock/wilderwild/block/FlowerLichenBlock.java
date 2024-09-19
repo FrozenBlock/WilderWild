@@ -75,6 +75,12 @@ public class FlowerLichenBlock extends MultifaceBlock {
 	}
 
 	@Override
+	public boolean isValidStateForPlacement(BlockGetter view, @NotNull BlockState state, BlockPos pos, Direction dir) {
+		if (!state.getFluidState().isEmpty()) return false;
+		return super.isValidStateForPlacement(view, state, pos, dir);
+	}
+
+	@Override
 	@NotNull
 	public MultifaceSpreader getSpreader() {
 		return this.spreader;
