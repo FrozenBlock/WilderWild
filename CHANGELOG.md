@@ -86,6 +86,7 @@ hi
   - This checks if the Note Block Instrument for the block is `BASS` and if the block's sound type is not `STEM.`
 - Termite Mounds now generate as intended once again.
 - Fixed the main ambient loop in the Deep Dark not properly looping.
+- Pollen can no longer generate in Water during worldgen.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
