@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureCo
 import net.frozenblock.wilderwild.worldgen.impl.features.config.ShelfFungiFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -255,6 +256,7 @@ public final class WWConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_BUSH = WWFeatureUtils.register("flower_field_bush");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GENERIC_BUSH = WWFeatureUtils.register("bush");
+
 	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
 		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
@@ -1905,9 +1907,10 @@ public final class WWConfiguredFeatures {
 		OASIS_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				23,
-				PlacementUtils.onlyWhenEmpty(
+				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)),
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 				)
 			)
 		);
@@ -1935,9 +1938,11 @@ public final class WWConfiguredFeatures {
 		JUNGLE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				8,
-				PlacementUtils.onlyWhenEmpty(
+				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_BUSH_POOL)),
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+
 				)
 			)
 		);
@@ -1945,9 +1950,11 @@ public final class WWConfiguredFeatures {
 		SPARSE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				4,
-				PlacementUtils.onlyWhenEmpty(
+				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_BUSH_POOL)),
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+
 				)
 			)
 		);
@@ -1955,9 +1962,11 @@ public final class WWConfiguredFeatures {
 		FLOWER_FIELD_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				18,
-				PlacementUtils.onlyWhenEmpty(
+				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL)),
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+
 				)
 			)
 		);
@@ -1965,9 +1974,10 @@ public final class WWConfiguredFeatures {
 		GENERIC_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				12,
-				PlacementUtils.onlyWhenEmpty(
+				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL)),
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 				)
 			)
 		);
