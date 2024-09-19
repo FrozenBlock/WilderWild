@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SeedingFlowerBlock extends FlowerBlock {
 	public static final float SEED_SPAWN_CHANCE = 0.95F;
-	public static final double SEED_SPAWN_HEIGHT = 0.3D;
+	public static final double SEED_SPAWN_HEIGHT = 0.5D;
 	public static final int MIN_SEEDS = 1;
 	public static final int MAX_SEEDS = 3;
 	public static final int MIN_SEEDS_DESTROY = 3;
