@@ -10,51 +10,15 @@
             "entries": [
               {
                 "data": {
-                  "Name": "wilderwild:datura",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 2
-              },
-              {
-                "data": {
-                  "Name": "minecraft:lilac",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 7
-              },
-              {
-                "data": {
                   "Name": "minecraft:poppy"
                 },
                 "weight": 9
               },
               {
                 "data": {
-                  "Name": "minecraft:rose_bush",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 3
-              },
-              {
-                "data": {
                   "Name": "minecraft:pink_tulip"
                 },
                 "weight": 5
-              },
-              {
-                "data": {
-                  "Name": "minecraft:peony",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
               }
             ]
           }
@@ -70,7 +34,7 @@
         }
       ]
     },
-    "tries": 36,
+    "tries": 24,
     "xz_spread": 7,
     "y_spread": 3
   }

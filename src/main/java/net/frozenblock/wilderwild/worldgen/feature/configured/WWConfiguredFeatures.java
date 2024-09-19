@@ -179,12 +179,8 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET = WWFeatureUtils.register("moss_carpet");
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CHERRY_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.DATURA.defaultBlockState(), 2)
-		.add(Blocks.LILAC.defaultBlockState(), 7)
 		.add(Blocks.POPPY.defaultBlockState(), 9)
-		.add(Blocks.ROSE_BUSH.defaultBlockState(), 3)
 		.add(Blocks.PINK_TULIP.defaultBlockState(), 5)
-		.add(Blocks.PEONY.defaultBlockState(), 1)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = WWFeatureUtils.register("flowers_cypress_wetlands");
@@ -370,7 +366,7 @@ public final class WWConfiguredFeatures {
 
 		FALLEN_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WWTreePlaced.FALLEN_CHERRY_CHECKED.getHolder(), 0.6F)),
-				new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED.getHolder(), 0.4F)), WWTreePlaced.FALLEN_CHERRY_CHECKED.getHolder()));
+				new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_CHERRY_CHECKED.getHolder(), 0.4F)), WWTreePlaced.FALLEN_CHERRY_CHECKED.getHolder()));
 
 		FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WWTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 1F)),
@@ -1888,7 +1884,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWERS_CHERRY.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				36,
+				24,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_CHERRY_POOL))

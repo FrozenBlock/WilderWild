@@ -55,6 +55,7 @@ hi
 - The thick variant of Big Nether Fungi can now be grown by placing Fungi in a `+` shape.
 - Significantly decreased Glory of the Snow generation outside Jungles.
 - Split most Tall and Short flower generation into separate features for noise-based flower placement.
+  - This change makes flower generation noticeably easier on the eyes, especially in biomes like the Cherry Grove.
 - Decreased flower generation overall.
 - Rose Bushes now generate in Birch Forest biomes.
 - Peonies now generate in Birch Forest biomes.
@@ -87,6 +88,7 @@ hi
 - Termite Mounds now generate as intended once again.
 - Fixed the main ambient loop in the Deep Dark not properly looping.
 - Pollen can no longer generate in Water during worldgen.
+- Fallen Birch trees no longer generate in Cherry Groves.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
