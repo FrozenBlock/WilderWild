@@ -63,6 +63,7 @@ hi
 - Bushes will no longer generate naturally on Sand in certain biomes.
 - Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Jellyfish Caves have been renamed to Mesoglea Caves.
+- Decreased the amount of space Parched Forests take up.
 - Changed the volume of Deep Dark ambience.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
