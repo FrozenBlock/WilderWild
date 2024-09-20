@@ -25,17 +25,17 @@ import java.util.List;
 import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterDataComponents;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -74,7 +74,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
-		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
+		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, blockState);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
@@ -84,7 +84,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			this.firstTick = true;
 			if (hasFireflies) {
 				BlockState state = this.getBlockState();
-				level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
+				level.setBlockAndUpdate(pos, state.setValue(WWBlockStateProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
 			}
 		}
 		if (hasFireflies) {
@@ -140,7 +140,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		if (tag.contains("fireflies")) {
 			Occupant.LIST_CODEC
 				.parse(NbtOps.INSTANCE, tag.get("fireflies"))
-				.resultOrPartial(WilderConstants.LOGGER::error)
+				.resultOrPartial(WWConstants.LOGGER::error)
 				.ifPresent(this.fireflies::addAll);
 		}
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -161,14 +161,14 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void applyImplicitComponents(DataComponentInput input) {
 		super.applyImplicitComponents(input);
 		this.fireflies.clear();
-		List<Occupant> occupants = input.getOrDefault(RegisterDataComponents.FIREFLIES, List.of());
+		List<Occupant> occupants = input.getOrDefault(WWDataComponents.FIREFLIES, List.of());
 		this.fireflies.addAll(occupants);
 	}
 
 	@Override
 	public void collectImplicitComponents(DataComponentMap.Builder builder) {
 		super.collectImplicitComponents(builder);
-		builder.set(RegisterDataComponents.FIREFLIES, this.fireflies);
+		builder.set(WWDataComponents.FIREFLIES, this.fireflies);
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	private void doFireflySpawns(@NotNull Level level) {
 		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (Occupant firefly : this.getFireflies()) {
-			Firefly entity = RegisterEntities.FIREFLY.create(level);
+			Firefly entity = WWEntityTypes.FIREFLY.create(level);
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
 				entity.setFromBottle(true);
@@ -226,7 +226,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
+					WWConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 				}
 			}
 		}
@@ -294,7 +294,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			if (isNectar != wasNamedNectar) {
 				if (isNectar) {
 					if (level.getGameTime() % NECTAR_SOUND_INTERVAL == 0L) {
-						level.playSound(null, pos, RegisterSounds.BLOCK_DISPLAY_LANTERN_NECTAR_LOOP, SoundSource.AMBIENT, 0.5F, 1.0F);
+						level.playSound(null, pos, WWSounds.BLOCK_DISPLAY_LANTERN_NECTAR_LOOP, SoundSource.AMBIENT, 0.5F, 1.0F);
 					}
 					this.wasNamedNectar = true;
 				} else {

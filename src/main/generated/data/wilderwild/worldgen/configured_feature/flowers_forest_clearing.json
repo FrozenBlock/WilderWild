@@ -6,95 +6,70 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.054833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "wilderwild:milkweed",
-                  "Properties": {
-                    "age": "0",
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
+                "Name": "minecraft:white_tulip"
               },
               {
-                "data": {
-                  "Name": "minecraft:sunflower",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "data": {
-                  "Name": "wilderwild:seeding_dandelion"
-                },
-                "weight": 3
+                "Name": "minecraft:sunflower",
+                "Properties": {
+                  "half": "lower"
+                }
               },
               {
-                "data": {
-                  "Name": "minecraft:cornflower"
-                },
-                "weight": 2
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "wilderwild:carnation"
-                },
-                "weight": 3
+                "Name": "minecraft:orange_tulip"
               },
               {
-                "data": {
-                  "Name": "minecraft:dandelion"
-                },
-                "weight": 3
+                "Name": "minecraft:red_tulip"
               },
               {
-                "data": {
-                  "Name": "minecraft:poppy"
-                },
-                "weight": 5
+                "Name": "minecraft:poppy"
               },
               {
-                "data": {
-                  "Name": "minecraft:orange_tulip"
-                },
-                "weight": 2
+                "Name": "minecraft:pink_tulip"
               },
               {
-                "data": {
-                  "Name": "minecraft:pink_tulip"
-                },
-                "weight": 1
+                "Name": "wilderwild:milkweed",
+                "Properties": {
+                  "age": "0",
+                  "half": "lower"
+                }
               },
               {
-                "data": {
-                  "Name": "minecraft:red_tulip"
-                },
-                "weight": 2
+                "Name": "minecraft:allium"
               },
               {
-                "data": {
-                  "Name": "minecraft:white_tulip"
-                },
-                "weight": 2
+                "Name": "minecraft:lilac",
+                "Properties": {
+                  "half": "lower"
+                }
               },
               {
-                "data": {
-                  "Name": "minecraft:allium"
-                },
-                "weight": 1
+                "Name": "wilderwild:carnation"
               },
               {
-                "data": {
-                  "Name": "minecraft:peony",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
+                "Name": "minecraft:peony",
+                "Properties": {
+                  "half": "lower"
+                }
+              },
+              {
+                "Name": "minecraft:cornflower"
               }
             ]
           }
@@ -110,8 +85,8 @@
         }
       ]
     },
-    "tries": 24,
-    "xz_spread": 7,
+    "tries": 18,
+    "xz_spread": 8,
     "y_spread": 3
   }
 }

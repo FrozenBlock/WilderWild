@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "orange_dye",
+  "group": "purple_Dye",
   "ingredients": [
     {
       "item": "wilderwild:carnation"

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sponge_bud": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:sponge_bud"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:sponge_from_sponge_bud"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sponge_bud"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:sponge_from_sponge_bud"
+    ]
+  }
+}

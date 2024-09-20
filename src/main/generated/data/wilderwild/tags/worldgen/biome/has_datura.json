@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:cherry_grove",
     "minecraft:birch_forest",
     "minecraft:old_growth_birch_forest",
     {
@@ -16,6 +17,10 @@
     },
     {
       "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
       "required": false
     }
   ]

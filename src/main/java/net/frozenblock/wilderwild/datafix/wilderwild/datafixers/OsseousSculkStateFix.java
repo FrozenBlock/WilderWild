@@ -28,8 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
-public class OsseousSculkStateFix extends DataFix {
-
+public final class OsseousSculkStateFix extends DataFix {
 	private static final String OLD_STATE = "axis";
 	private static final String NEW_STATE = "facing";
 	private static final String DEFAULT_VALUE = "y";

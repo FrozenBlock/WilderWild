@@ -6,104 +6,42 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.054833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "wilderwild:milkweed",
-                  "Properties": {
-                    "age": "0",
-                    "half": "lower"
-                  }
-                },
-                "weight": 5
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "data": {
-                  "Name": "wilderwild:datura",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "data": {
-                  "Name": "wilderwild:seeding_dandelion"
-                },
-                "weight": 4
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "data": {
-                  "Name": "minecraft:lilac",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 3
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:dandelion"
-                },
-                "weight": 6
+                "Name": "minecraft:poppy"
               },
               {
-                "data": {
-                  "Name": "minecraft:blue_orchid"
-                },
-                "weight": 3
+                "Name": "minecraft:allium"
               },
               {
-                "data": {
-                  "Name": "minecraft:poppy"
-                },
-                "weight": 4
+                "Name": "wilderwild:carnation"
               },
               {
-                "data": {
-                  "Name": "wilderwild:carnation"
-                },
-                "weight": 3
+                "Name": "minecraft:blue_orchid"
               },
               {
-                "data": {
-                  "Name": "minecraft:orange_tulip"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "minecraft:pink_tulip"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "minecraft:red_tulip"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "minecraft:white_tulip"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "minecraft:allium"
-                },
-                "weight": 3
-              },
-              {
-                "data": {
-                  "Name": "minecraft:peony",
-                  "Properties": {
-                    "half": "lower"
-                  }
-                },
-                "weight": 3
+                "Name": "minecraft:cornflower"
               }
             ]
           }
@@ -119,8 +57,8 @@
         }
       ]
     },
-    "tries": 8,
-    "xz_spread": 7,
+    "tries": 10,
+    "xz_spread": 8,
     "y_spread": 3
   }
 }

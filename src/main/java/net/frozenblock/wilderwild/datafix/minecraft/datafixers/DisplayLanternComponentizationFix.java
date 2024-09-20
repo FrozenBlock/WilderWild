@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
+import com.google.common.collect.Lists;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.OpticFinder;
@@ -29,13 +30,12 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.util.datafix.fixes.References;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayLanternComponentizationFix extends DataFix {
+public final class DisplayLanternComponentizationFix extends DataFix {
 	public DisplayLanternComponentizationFix(Schema outputSchema) {
 		super(outputSchema, true);
 	}
@@ -63,7 +63,7 @@ public class DisplayLanternComponentizationFix extends DataFix {
 	@NotNull
 	private static Dynamic<?> fixOccupantColor(@NotNull Dynamic<?> dynamic) {
 		List<Dynamic<?>> list = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
-		String colorID = WilderConstants.string("on");
+		String colorID = WWConstants.string("on");
 		if (!list.isEmpty()) {
 			colorID = ((StringTag) list.get(0).getValue()).getAsString();
 		}
@@ -72,14 +72,14 @@ public class DisplayLanternComponentizationFix extends DataFix {
 
 	@Override
 	protected TypeRewriteRule makeRule() {
-		Type<?> type = this.getInputSchema().getChoiceType(References.BLOCK_ENTITY, WilderConstants.string("display_lantern"));
-		OpticFinder<?> opticFinder = DSL.namedChoice(WilderConstants.string("display_lantern"), type);
+		Type<?> type = this.getInputSchema().getChoiceType(References.BLOCK_ENTITY, WWConstants.string("display_lantern"));
+		OpticFinder<?> opticFinder = DSL.namedChoice(WWConstants.string("display_lantern"), type);
 
 		return this.fixTypeEverywhereTyped(
 			"Display Lantern componentization fix",
 			this.getInputSchema().getType(References.BLOCK_ENTITY),
 			this.getOutputSchema().getType(References.BLOCK_ENTITY),
-			typed -> typed.updateTyped(opticFinder, this.getOutputSchema().getChoiceType(References.BLOCK_ENTITY, WilderConstants.string("display_lantern")), this::fix)
+			typed -> typed.updateTyped(opticFinder, this.getOutputSchema().getChoiceType(References.BLOCK_ENTITY, WWConstants.string("display_lantern")), this::fix)
 		);
 	}
 

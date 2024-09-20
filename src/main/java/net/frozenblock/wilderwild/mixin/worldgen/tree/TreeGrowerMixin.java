@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
-import net.frozenblock.wilderwild.world.impl.sapling.TreeGrowerInterface;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
@@ -67,55 +67,61 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	}
 
 	@Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
-		if (!WorldgenConfig.get().treeGeneration) return;
+	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
+		if (!WWWorldgenConfig.get().treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.OAK) {
 			if (this.wilderWild$getLevel() != null && this.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
 				Holder<Biome> biome = this.wilderWild$getLevel().getBiome(this.wilderWild$getPos());
-				if (biome.is(WilderBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
-					cir.setReturnValue(WilderTreeConfigured.SWAMP_TREE.getKey());
+				if (biome.is(WWBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
+					info.setReturnValue(WWTreeConfigured.SWAMP_TREE.getKey());
 					return;
 				}
 			}
 			if (random.nextInt(10) == 0) {
-				cir.setReturnValue(flowers ? WilderTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WilderTreeConfigured.FANCY_OAK.getKey());
+				info.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
 				if (random.nextFloat() < 0.075F) {
-					cir.setReturnValue(random.nextBoolean() ? WilderTreeConfigured.SHRUB.getKey() : WilderTreeConfigured.BIG_SHRUB.getKey());
+					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.SHRUB.getKey() : WWTreeConfigured.BIG_SHRUB.getKey());
 					return;
 				}
-				cir.setReturnValue(flowers ? WilderTreeConfigured.OAK_BEES_0004.getKey() : WilderTreeConfigured.OAK.getKey());
+				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
 		} else if (treeGrower == TreeGrower.SPRUCE) {
-			cir.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getKey() : WilderTreeConfigured.SPRUCE.getKey());
+			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
 		} else if (treeGrower == TreeGrower.BIRCH) {
-			if (random.nextFloat() < 0.15F)
-				cir.setReturnValue(flowers ? WilderTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WilderTreeConfigured.SHORT_BIRCH.getKey());
-			else
-				cir.setReturnValue(flowers ? WilderTreeConfigured.BIRCH_BEES_025.getKey() : WilderTreeConfigured.BIRCH_TREE.getKey());
+			if (random.nextFloat() < 0.15F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
+			} else if (random.nextFloat() < 0.65F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.MEDIUM_BIRCH_BEES_025.getKey() : WWTreeConfigured.MEDIUM_BIRCH.getKey());
+			} else if (random.nextFloat() < 0.85F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
+			} else {
+				info.setReturnValue(flowers ? WWTreeConfigured.SUPER_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SUPER_BIRCH.getKey());
+			}
 		} else if (treeGrower == TreeGrower.CHERRY) {
-			if (random.nextFloat() < 0.15F)
-				cir.setReturnValue(flowers ? WilderTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WilderTreeConfigured.TALL_CHERRY_TREE.getKey());
-			else
-				cir.setReturnValue(flowers ? WilderTreeConfigured.CHERRY_BEES_025.getKey() : WilderTreeConfigured.CHERRY_TREE.getKey());
+			if (random.nextFloat() < 0.15F) {
+				info.setReturnValue(flowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
+			} else {
+				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
+			}
 		}
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
 	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
-		if (!WorldgenConfig.get().treeGeneration) return;
+		if (!WWWorldgenConfig.get().treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.SPRUCE) {
 			if (random.nextFloat() < 0.25F)
-				cir.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+				cir.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
 		} else if (treeGrower == TreeGrower.DARK_OAK) {
 			if (random.nextFloat() < 0.2F)
-				cir.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
+				cir.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
 			else if (random.nextFloat() < 0.2F)
-				cir.setReturnValue(WilderTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+				cir.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 		}
 	}
 }

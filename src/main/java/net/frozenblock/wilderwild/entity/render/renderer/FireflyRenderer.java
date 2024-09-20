@@ -24,10 +24,10 @@ import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -44,14 +44,14 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
 	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
 		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
-		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
+		WilderWildRegistries.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
 	}};
-	private static final ResourceLocation TEXTURE = WilderConstants.id("textures/entity/firefly/firefly_off.png");
+	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/firefly/firefly_off.png");
 	private static final RenderType LAYER = RenderType.entityCutout(TEXTURE);
-	private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderConstants.id("textures/entity/firefly/nectar.png"));
-	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderConstants.id("textures/entity/firefly/nectar_wings_down.png"));
-	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
+	private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WWConstants.id("textures/entity/firefly/nectar.png"));
+	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WWConstants.id("textures/entity/firefly/nectar_wings_down.png"));
+	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WWConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 	private static final float Y_OFFSET = 0.155F;
 	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
 

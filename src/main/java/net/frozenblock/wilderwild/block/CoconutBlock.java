@@ -21,9 +21,9 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -101,7 +101,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@NotNull
 	public static BlockState getHangingState(int age) {
-		return RegisterBlocks.COCONUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+		return WWBlocks.COCONUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
 	}
 
 	@NotNull
@@ -166,7 +166,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
 		return state.is(this) && isHanging(state) ?
-			stateAbove.is(RegisterBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= VALID_FROND_DISTANCE || stateAbove.getValue(BlockStateProperties.PERSISTENT))
+			stateAbove.is(WWBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= VALID_FROND_DISTANCE || stateAbove.getValue(BlockStateProperties.PERSISTENT))
 			: this.mayPlaceOn(level.getBlockState(pos.below()));
 	}
 
@@ -262,8 +262,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void onBrokenAfterFall(@NotNull Level level, @NotNull BlockPos pos, @NotNull FallingBlockEntity fallingBlock) {
-		level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, new ItemStack(RegisterItems.COCONUT, 3)));
-		level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_BREAK, SoundSource.BLOCKS, 1F, 1F);
+		level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, new ItemStack(WWItems.COCONUT, 3)));
+		level.playSound(null, pos, WWSounds.BLOCK_COCONUT_BREAK, SoundSource.BLOCKS, 1F, 1F);
 	}
 
 	@Override

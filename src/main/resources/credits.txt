@@ -27,32 +27,34 @@ Soro:
 
 Contributors:
 
-Merp:
- - Lead texture artist prior to 2.3.
- - Sound designer prior to 2.2.
- - Occasional gameplay designer & feedback.
-
- Zhen:
-  - Retextured all Baobab Nut textures in 2.4.
-  - Retextured all Glory of the Snow textures in 2.4.
-  - Retextured all Milkweed block textures in 2.4.
-  - Updated Flowering Lily Pad textures in 2.4.3.
-  - Updated the Milkweed Pod texture in 2.4.3.
-  - Retextured the entire Cypress set in 2.4.3.
-  - Retextured the Reach Boost icon in 2.4.4.
-
-Enri:
- - Italian translation.
- - Came up with Jellyfish being in Shipwreck Chests.
- - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
+Zhen:
+ - Retextured all Baobab Nut textures in 2.4.
+ - Retextured all Glory of the Snow textures in 2.4.
+ - Retextured all Milkweed block textures in 2.4.
+ - Updated Flowering Lily Pad textures in 2.4.3.
+ - Updated the Milkweed Pod texture in 2.4.3.
+ - Retextured the entire Cypress set in 2.4.3.
+ - Retextured the Reach Boost icon in 2.4.4.
+ - Cracked & Mossy Mud Bricks textures.
+ - All Maple, Leaf Litter, and Leaf particle textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
  - Scorching effect icon.
  - Retextured Null Blocks in 2.4.3.
+ - Crimson and Warped Shelf Fungi textures.
 
 LudoCrypt:
  - New music.
+
+Merp:
+ - Lead texture artist prior to 2.3.
+ - Sound designer prior to 2.2.
+
+Enri:
+ - Italian translation.
+ - Came up with Jellyfish being in Shipwreck Chests.
+ - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
 
 LiukRast:
  - Baobab Tree generation.
@@ -60,6 +62,9 @@ LiukRast:
 Xfrtrex:
  - Prickly Pear and Tumbleweed ideas.
  - Came up with Firework Rockets being impacted by the wind.
+
+wet.noodle/Kluski42:
+ - Thick Big Fungus growing from Fungi.
 
 JarethTheRad:
  - Structure assistance.
@@ -110,12 +115,16 @@ nekkok:
 
 unroman:
  - Ukranian translation.
+ - And the new Ukranian translation!
 
 mayonaka8478:
  - Japanese translation.
 
 Moonisky:
  - Chinese translation.
+
+godkyo98:
+ - Vietnamese translation.
 
 Ostrich Sounds:
 Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
@@ -138,7 +147,6 @@ https://freesound.org/people/pigeonfriend/sounds/384065/
 https://freesound.org/people/HerbertBoland/sounds/29695/
 https://freesound.org/people/ChrisReierson/sounds/433749/
 https://freesound.org/people/Ezcah/sounds/243715/
-Additional sound effects were taken and edited from Minecraft itself.
 
 Geyser/Magmatic Caves Sounds:
 https://freesound.org/people/hdrck16/sounds/135010/
@@ -170,6 +178,12 @@ https://freesound.org/people/SDLx/sounds/211163/
 https://freesound.org/people/j_p_higgins/sounds/262634/
 https://freesound.org/people/dheming/sounds/268023/
 https://freesound.org/people/felix.blume/sounds/646589/
+
+Melon/Pumpkin Sounds:
+https://freesound.org/people/alien_s/sounds/169571/
+https://freesound.org/people/d.n.audio.uk/sounds/461048/
+https://freesound.org/people/lidem_soundfx/sounds/458476/
+https://freesound.org/people/lidem_soundfx/sounds/458477/
 
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.

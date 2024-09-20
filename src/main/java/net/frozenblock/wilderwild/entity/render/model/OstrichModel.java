@@ -59,6 +59,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 	private float partialTick;
 	private float scale;
 	private float yOffset;
+
 	public OstrichModel(@NotNull ModelPart root) {
 		this.root = root;
 

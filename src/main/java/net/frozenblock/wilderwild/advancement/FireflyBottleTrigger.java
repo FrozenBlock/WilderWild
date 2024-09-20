@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.advancement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
-import net.frozenblock.wilderwild.registry.RegisterCriteria;
+import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -65,7 +65,7 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 
 		@NotNull
 		public static Criterion<TriggerInstance> fireflyBottle(@Nullable ItemPredicate item) {
-			return RegisterCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
+			return WWCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
 		}
 
 		public boolean matches(ItemStack item) {

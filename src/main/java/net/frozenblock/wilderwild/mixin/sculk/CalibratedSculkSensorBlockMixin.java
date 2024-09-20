@@ -23,7 +23,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,10 +33,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CalibratedSculkSensorBlock.class)
-public abstract class CalibratedSculkSensorBlockMixin extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public abstract class CalibratedSculkSensorBlockMixin extends BaseEntityBlock {
 
-	private CalibratedSculkSensorBlockMixin(Properties properties) {
-		super(properties);
+	protected CalibratedSculkSensorBlockMixin(Properties settings) {
+		super(settings);
 	}
 
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)

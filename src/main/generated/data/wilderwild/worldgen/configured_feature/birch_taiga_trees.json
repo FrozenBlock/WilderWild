@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:birch_checked",
+    "default": "wilderwild:short_birch",
     "features": [
       {
         "chance": 0.39,
@@ -21,19 +21,15 @@
       },
       {
         "chance": 0.37,
-        "feature": "wilderwild:birch_checked"
+        "feature": "wilderwild:medium_birch"
       },
       {
         "chance": 0.01,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_medium_birch"
       },
       {
         "chance": 0.01,
         "feature": "wilderwild:dying_short_birch"
-      },
-      {
-        "chance": 0.455,
-        "feature": "wilderwild:short_birch"
       }
     ]
   }

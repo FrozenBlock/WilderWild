@@ -26,9 +26,9 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -75,7 +75,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
 	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec((properties) ->
-		new StoneChestBlock(properties, () -> RegisterBlockEntities.STONE_CHEST)
+		new StoneChestBlock(properties, () -> WWBlockEntityTypes.STONE_CHEST)
 	);
 	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
@@ -89,8 +89,8 @@ public class StoneChestBlock extends ChestBlock {
 	public static final double ITEM_DELTA_TRIANGLE_B = 0.11485D;
 	public static final double ITEM_DELTA_TRIANGLE_A_Y = 0.2D;
 	public static final double ITEM_DELTA_TRIANGLE_A_XZ = 0D;
-	public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
-	public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
+	public static final BooleanProperty ANCIENT = WWBlockStateProperties.ANCIENT;
+	public static final BooleanProperty SCULK = WWBlockStateProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
 
 		@Override
@@ -250,7 +250,7 @@ public class StoneChestBlock extends ChestBlock {
 							Jellyfish.spawnFromChest(level, state, pos, true);
 						}
 					}
-					StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
+					StoneChestBlockEntity.playSound(level, pos, state, first ? WWSounds.BLOCK_STONE_CHEST_OPEN : WWSounds.BLOCK_STONE_CHEST_LIFT, first ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
 					level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
 				}
 			}
@@ -271,7 +271,7 @@ public class StoneChestBlock extends ChestBlock {
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
+		return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
 	}
 
 	@Override
@@ -397,7 +397,7 @@ public class StoneChestBlock extends ChestBlock {
 				stoneChestBlock.unpackLootTable(null);
 				ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
 				if (!ancientItems.isEmpty()) {
-					level.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
+					level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
 					for (ItemStack taunt : ancientItems) {
 						for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
 							spawnBreakParticles(level, taunt, pos);

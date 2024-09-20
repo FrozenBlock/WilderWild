@@ -9,6 +9,10 @@
       },
       {
         "chance": 0.07,
+        "feature": "wilderwild:dead_medium_birch"
+      },
+      {
+        "chance": 0.07,
         "feature": "wilderwild:dead_birch"
       },
       {

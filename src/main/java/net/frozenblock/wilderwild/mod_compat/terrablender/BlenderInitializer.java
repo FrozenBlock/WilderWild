@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mod_compat.terrablender;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import terrablender.api.Regions;
 import terrablender.api.TerraBlenderApi;
 
@@ -26,6 +26,6 @@ public final class BlenderInitializer implements TerraBlenderApi {
 
 	@Override
 	public void onTerraBlenderInitialized() {
-		Regions.register(new WilderOverworldRegion(WilderConstants.id("overworld"), 1));
+		Regions.register(new WWOverworldRegion(WWConstants.id("overworld"), 1));
 	}
 }

@@ -10,25 +10,15 @@
     },
     "foliage_placer": {
       "type": "wilderwild:palm_foliage_placer",
-      "crown_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "wilderwild:palm_log",
-          "Properties": {
-            "axis": "y",
-            "termite_edible": "false"
-          }
-        }
-      },
-      "frond_count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 9,
-        "min_inclusive": 4
+      "frond_length": {
+        "type": "minecraft:biased_to_bottom",
+        "max_inclusive": 3,
+        "min_inclusive": 2
       },
       "offset": 0,
       "radius": {
         "type": "minecraft:uniform",
-        "max_inclusive": 3,
+        "max_inclusive": 2,
         "min_inclusive": 1
       }
     },
@@ -37,7 +27,7 @@
       "state": {
         "Name": "wilderwild:palm_fronds",
         "Properties": {
-          "distance": "12",
+          "distance": "7",
           "persistent": "false",
           "waterlogged": "false"
         }
@@ -62,8 +52,7 @@
       "state": {
         "Name": "wilderwild:palm_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

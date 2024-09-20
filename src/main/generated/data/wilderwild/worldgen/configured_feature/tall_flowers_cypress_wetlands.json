@@ -1,0 +1,75 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.043833334,
+            "seed": 5050,
+            "states": [
+              {
+                "Name": "wilderwild:datura",
+                "Properties": {
+                  "half": "lower"
+                }
+              },
+              {
+                "Name": "wilderwild:milkweed",
+                "Properties": {
+                  "age": "0",
+                  "half": "lower"
+                }
+              },
+              {
+                "Name": "minecraft:rose_bush",
+                "Properties": {
+                  "half": "lower"
+                }
+              },
+              {
+                "Name": "wilderwild:milkweed",
+                "Properties": {
+                  "age": "0",
+                  "half": "lower"
+                }
+              },
+              {
+                "Name": "minecraft:lilac",
+                "Properties": {
+                  "half": "lower"
+                }
+              },
+              {
+                "Name": "minecraft:peony",
+                "Properties": {
+                  "half": "lower"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 12,
+    "xz_spread": 8,
+    "y_spread": 3
+  }
+}

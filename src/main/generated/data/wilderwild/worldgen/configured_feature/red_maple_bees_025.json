@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:beehive",
+        "probability": 0.004
+      },
+      {
+        "type": "wilderwild:pollen_tree_decorator",
+        "max_count": 3,
+        "placement_chance": 0.025,
+        "probability": 0.1
+      },
+      {
+        "type": "wilderwild:shelf_fungi_tree_decorator",
+        "placement_chance": 0.25,
+        "probability": 0.064,
+        "red_shelf_fungi_chance": 0.15
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "wilderwild:maple_foliage_placer",
+      "length": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 7,
+        "min_inclusive": 4
+      },
+      "offset": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 0
+      },
+      "radius": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 4,
+        "min_inclusive": 3
+      }
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:red_maple_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "minecraft:straight_trunk_placer",
+      "base_height": 10,
+      "height_rand_a": 1,
+      "height_rand_b": 2
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:maple_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

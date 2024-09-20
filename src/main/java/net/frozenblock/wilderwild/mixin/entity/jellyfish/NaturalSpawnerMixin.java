@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.entity.jellyfish;
 
-import net.frozenblock.wilderwild.entity.impl.IgnoreMesogleaBlockCollisions;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.entity.impl.IgnoringMesogleaBlockCollisions;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobCategory;
@@ -35,10 +35,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(NaturalSpawner.class)
 public class NaturalSpawnerMixin {
 
-	@Inject(method = "isValidSpawnPostitionForType", at = @At(value = "RETURN", ordinal = 5, shift = At.Shift.BEFORE), cancellable = true)
-	private static void wilderWild$isValidSpawnPostitionForType(ServerLevel level, MobCategory category, StructureManager structureManager, ChunkGenerator generator, MobSpawnSettings.SpawnerData data, BlockPos.MutableBlockPos pos, double distance, CallbackInfoReturnable<Boolean> info) {
-		if (data.type == RegisterEntities.JELLYFISH) {
-			info.setReturnValue(IgnoreMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)));
+	@Inject(
+		method = "isValidSpawnPostitionForType",
+		at = @At(
+			value = "RETURN",
+			ordinal = 5,
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
+	)
+	private static void wilderWild$isValidSpawnPostitionForType(
+		ServerLevel level,
+		MobCategory category,
+		StructureManager structureManager,
+		ChunkGenerator generator,
+		MobSpawnSettings.SpawnerData data,
+		BlockPos.MutableBlockPos pos,
+		double distance,
+		CallbackInfoReturnable<Boolean> info
+	) {
+		if (data.type == WWEntityTypes.JELLYFISH) {
+			info.setReturnValue(
+				IgnoringMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D))
+			);
 		}
 	}
 

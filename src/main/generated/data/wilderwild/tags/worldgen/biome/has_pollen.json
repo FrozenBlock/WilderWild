@@ -32,6 +32,10 @@
     {
       "id": "wilderwild:rainforest",
       "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
     }
   ]
 }

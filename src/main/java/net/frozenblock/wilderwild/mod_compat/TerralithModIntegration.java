@@ -22,10 +22,10 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 
 public class TerralithModIntegration extends ModIntegration {
 	public TerralithModIntegration() {
@@ -41,6 +41,6 @@ public class TerralithModIntegration extends ModIntegration {
 		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
 
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(getBiomeKey("cave/underground_jungle")),
-			FrozenMobCategories.getCategory(WilderConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"), WWEntityTypes.FIREFLY, 12, 2, 4);
 	}
 }

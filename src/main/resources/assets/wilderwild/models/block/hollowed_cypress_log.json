@@ -1,8 +1,0 @@
-{
-  "parent": "wilderwild:block/template_hollowed_log",
-  "textures": {
-    "end": "wilderwild:block/cypress_log_top",
-    "side": "wilderwild:block/hollowed_cypress_log",
-    "inner": "wilderwild:block/stripped_cypress_log"
-  }
-}

@@ -21,10 +21,10 @@ package net.frozenblock.wilderwild.mixin.client.wind;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
@@ -32,11 +32,11 @@ import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
@@ -53,11 +53,6 @@ public class LevelRendererMixin {
 		}
 	}
 
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return AmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
-	}
-
 	@WrapOperation(
 		method = "renderLevel",
 		at = @At(
@@ -69,13 +64,13 @@ public class LevelRendererMixin {
 		LevelRenderer instance, PoseStack matrices, Matrix4f projectionMatrix, Matrix4f matrix4f, float tickDelta, double cameraX, double cameraY, double cameraZ,
 		Operation<Void> operation
 	) {
-		boolean useWind = wilderWild$useWind();
+		boolean useWind = WWClientWindManager.shouldUseWind();
 
-		cameraX = useWind ? (cameraX - WilderClientWindManager.getCloudX(tickDelta) * 12D) - (double)(((float)this.ticks + tickDelta) * 0.03F)
+		cameraX = useWind ? (cameraX - WWClientWindManager.getCloudX(tickDelta) * 12D) - (double)(((float)this.ticks + tickDelta) * 0.03F)
 			: cameraX;
-		cameraY = useWind ? (float) (cameraY - Mth.clamp(WilderClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D))
+		cameraY = useWind ? (float) (cameraY - Mth.clamp(WWClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D))
 			: cameraY;
-		cameraZ = useWind ? cameraZ - WilderClientWindManager.getCloudZ(tickDelta) * 12D
+		cameraZ = useWind ? cameraZ - WWClientWindManager.getCloudZ(tickDelta) * 12D
 			: cameraZ;
 
 		operation.call(instance, matrices, projectionMatrix, matrix4f, tickDelta, cameraX, cameraY, cameraZ);

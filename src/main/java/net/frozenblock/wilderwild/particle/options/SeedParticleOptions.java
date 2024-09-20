@@ -22,7 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -77,7 +77,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<?> getType() {
-		return RegisterParticles.SEED;
+		return WWParticleTypes.SEED;
 	}
 
 	public boolean isMilkweed() {

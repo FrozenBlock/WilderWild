@@ -38,7 +38,10 @@ public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "getCollisionShape", cancellable = true)
 	public void wilderWild$getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
-		if (BlockBehaviour.class.cast(this) instanceof LeavesBlock && context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Tumbleweed tumbleweed) {
+		if (BlockBehaviour.class.cast(this) instanceof LeavesBlock
+			&& context instanceof EntityCollisionContext entityCollisionContext
+			&& entityCollisionContext.getEntity() instanceof Tumbleweed tumbleweed
+		) {
 			tumbleweed.isTouchingStickingBlock = true;
 			info.setReturnValue(Shapes.empty());
 		}

@@ -26,24 +26,12 @@ import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LootTable.class)
-public final class LootTableMixin {
-
-	@Unique
-	private boolean wilderWild$isStoneChest = false;
-
-	@Inject(method = "fill", at = @At("HEAD"))
-	public void wilderWild$fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
-		this.wilderWild$isStoneChest = container instanceof StoneChestBlockEntity;
-	}
+public class LootTableMixin {
 
 	@WrapOperation(
 		method = "fill",
@@ -54,7 +42,7 @@ public final class LootTableMixin {
 		)
 	)
 	public void wilderWild$setStoneItem(Container instance, int i, ItemStack itemStack, Operation<Void> original) {
-		if (this.wilderWild$isStoneChest) {
+		if (instance instanceof StoneChestBlockEntity) {
 			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.put("wilderwild_is_ancient", ByteTag.valueOf(true)));
 		}
 		original.call(instance, i, itemStack);

@@ -1,8 +1,0 @@
-{
-  "parent": "wilderwild:block/template_hollowed_log",
-  "textures": {
-    "end": "minecraft:block/stripped_spruce_log_top",
-    "side": "wilderwild:block/stripped_hollowed_spruce_log",
-    "inner": "minecraft:block/stripped_spruce_log"
-  }
-}

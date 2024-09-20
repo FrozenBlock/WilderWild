@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:barrier",
+    {
+      "id": "#minecraft:leaves",
+      "required": false
+    }
+  ]
+}

@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -181,7 +181,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			if (!level.isClientSide) {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 				if (isFullyGrown(state)) {
-					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.75D, pos.getZ() + 0.5D, new ItemStack(RegisterBlocks.BUSH));
+					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.75D, pos.getZ() + 0.5D, new ItemStack(WWBlocks.BUSH));
 					level.addFreshEntity(itemEntity);
 				}
 				state = this.setAgeOnBothHalves(state, level, pos, state.getValue(AGE) - 1, true);
@@ -196,7 +196,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(WilderBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
+		return state.is(WWBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
 	@Override

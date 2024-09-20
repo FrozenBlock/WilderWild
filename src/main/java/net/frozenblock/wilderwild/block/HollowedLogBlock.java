@@ -19,8 +19,9 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.lib.item.api.axe.AxeBehaviors;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -49,6 +51,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -105,13 +108,27 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
 	}
 
-	public static boolean hollow(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Direction face, @NotNull Block result, boolean isStem) {
-		if (BlockConfig.get().logHollowing && !level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-			hollowEffects(level, face, state, pos, isStem);
-			level.setBlockAndUpdate(pos, result.withPropertiesOf(state));
-			return true;
-		}
-		return false;
+	@Contract(value = "_, _ -> new", pure = true)
+	public static AxeBehaviors.@NotNull AxeBehavior createHollowBehavior(
+		@NotNull Block result,
+		boolean isStem
+	) {
+		return new AxeBehaviors.AxeBehavior() {
+			@Override
+			public boolean meetsRequirements(LevelReader level, BlockPos pos, Direction direction, BlockState state) {
+				return WWBlockConfig.get().logHollowing && state.hasProperty(BlockStateProperties.AXIS) && direction.getAxis().equals(state.getValue(BlockStateProperties.AXIS));
+			}
+
+			@Override
+			public BlockState getOutputBlockState(BlockState state) {
+				return result.withPropertiesOf(state);
+			}
+
+			@Override
+			public void onSuccess(Level level, BlockPos pos, Direction direction, BlockState state, BlockState oldState) {
+				hollowEffects(level, direction, oldState, pos, isStem);
+			}
+		};
 	}
 
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
@@ -130,7 +147,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 				0.1625D + offsetZ,
 				0.05D
 			);
-			SoundEvent hollowedSound = isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED;
+			SoundEvent hollowedSound = isStem ? WWSounds.STEM_HOLLOWED : WWSounds.LOG_HOLLOWED;
 			level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 		}
 	}

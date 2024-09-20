@@ -21,9 +21,9 @@ package net.frozenblock.wilderwild.mixin.entity.lightning;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
-import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
-import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -57,13 +57,11 @@ public class LightningBoltMixin {
 		if (LightningBolt.class.cast(this).level() instanceof ServerLevel serverLevel) {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState state = serverLevel.getBlockState(blockPos);
-			if (!LightningBolt.class.cast(this).level().isClientSide) {
-				WilderLightningStrikePacket.sendToAll(
-					LightningBolt.class.cast(this),
-					state,
-					this.wilderWild$age
-				);
-			}
+			WWLightningStrikePacket.sendToAll(
+				LightningBolt.class.cast(this),
+				state,
+				this.wilderWild$age
+			);
 			this.wilderWild$age += 1;
 			strikePosLocalRef.set(blockPos);
 			strikeStateLocalRef.set(state);
@@ -87,14 +85,11 @@ public class LightningBoltMixin {
 
 	@Unique
 	private void wilderWild$scorchSand(@NotNull LightningBolt bolt, BlockPos strikePose, BlockState strikeState) {
-		if (this.visualOnly || bolt.level().isClientSide) {
-			return;
-		}
-		if (bolt.level() instanceof ServerLevel serverLevel && EntityConfig.get().lightning.lightningScorchesSand && strikeState.is(BlockTags.SAND)) {
+		if (!this.visualOnly && bolt.level() instanceof ServerLevel serverLevel && WWEntityConfig.get().lightning.lightningScorchesSand && strikeState.is(BlockTags.SAND)) {
 			ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
 			RandomSource randomSource = serverLevel.getRandom();
-			WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
-			WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
+			WWMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
+			WWMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
 			ScorchedBlock.scorch(strikeState, serverLevel, strikePose);
 		}
 	}

@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.mod_compat;
 import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 
 public class BetterNetherIntegration extends ModIntegration {
 	public BetterNetherIntegration() {
@@ -31,9 +31,25 @@ public class BetterNetherIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier condition = () -> BlockConfig.get().blockSounds.leafSounds;
-		addBlock(id("willow_leaves"), LEAVES, condition);
-		addBlock(id("rubeus_leaves"), LEAVES, condition);
-		addBlock(id("anchor_tree_leaves"), LEAVES, condition);
+		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
+		addBlock(id("willow_leaves"), LEAVES, leavesCondition);
+		addBlock(id("rubeus_leaves"), LEAVES, leavesCondition);
+		addBlock(id("anchor_tree_leaves"), LEAVES, leavesCondition);
+		addBlock(id("nether_sakura_leaves"), LEAVES, leavesCondition);
+
+		BooleanSupplier flowerCondition = () -> WWBlockConfig.get().blockSounds.flowerSounds;
+		addBlock(id("soul_lily"), FLOWER, flowerCondition);
+		addBlock(id("soul_lily_sapling"), FLOWER, flowerCondition);
+
+		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
+		addBlock(id("red_large_mushroom"), MUSHROOM_BLOCK, mushroomCondition);
+		addBlock(id("brown_large_mushroom"), MUSHROOM_BLOCK, mushroomCondition);
+		addBlock(id("wall_mushroom_red"), MUSHROOM_BLOCK, mushroomCondition);
+		addBlock(id("wall_mushroom_brown"), MUSHROOM_BLOCK, mushroomCondition);
+		addBlock(id("lucis_mushroom"), MUSHROOM_BLOCK, mushroomCondition);
+
+		BooleanSupplier cactusCondition = () -> WWBlockConfig.get().blockSounds.cactusSounds;
+		addBlock(id("barrel_cactus"), CACTUS, cactusCondition);
+		addBlock(id("nether_cactus"), CACTUS, cactusCondition);
 	}
 }

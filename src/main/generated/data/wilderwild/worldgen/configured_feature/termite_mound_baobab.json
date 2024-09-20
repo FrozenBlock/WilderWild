@@ -1,12 +1,7 @@
 {
   "type": "frozenlib:column_with_disk_feature",
   "config": {
-    "additional_height": {
-      "type": "minecraft:uniform",
-      "max_inclusive": 3,
-      "min_inclusive": 1
-    },
-    "disk_blocks": "#wilderwild:termite_disc_blocks",
+    "disk_blocks": "#wilderwild:termite_disk_blocks",
     "height": {
       "type": "minecraft:uniform",
       "max_inclusive": 7,
@@ -17,7 +12,7 @@
       "max_inclusive": 9,
       "min_inclusive": 4
     },
-    "replaceable_blocks": "#wilderwild:termite_disc_replaceable",
+    "replaceable_blocks": "#wilderwild:termite_disk_replaceable",
     "state": {
       "Name": "wilderwild:termite_mound",
       "Properties": {
@@ -25,6 +20,7 @@
         "natural": "true",
         "termites_awake": "false"
       }
-    }
+    },
+    "surrounding_pillar_chance": 0.75
   }
 }

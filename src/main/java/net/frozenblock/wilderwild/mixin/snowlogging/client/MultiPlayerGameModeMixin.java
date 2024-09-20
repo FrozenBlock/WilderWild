@@ -23,6 +23,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
@@ -31,10 +33,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Environment(EnvType.CLIENT)
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
 
-	@ModifyExpressionValue(method = "destroyBlock",
+	@ModifyExpressionValue(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
@@ -48,7 +52,8 @@ public class MultiPlayerGameModeMixin {
 		return original;
 	}
 
-	@WrapOperation(method = "destroyBlock",
+	@WrapOperation(
+		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"

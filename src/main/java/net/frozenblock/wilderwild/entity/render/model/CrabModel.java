@@ -22,7 +22,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.entity.render.animations.CrabAnimations;
+import net.frozenblock.wilderwild.entity.render.animation.CrabAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

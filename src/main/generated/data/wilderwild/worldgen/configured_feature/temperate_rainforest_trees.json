@@ -16,8 +16,12 @@
         "feature": "wilderwild:short_oak_checked"
       },
       {
-        "chance": 0.061,
+        "chance": 0.021,
         "feature": "wilderwild:dying_birch"
+      },
+      {
+        "chance": 0.041,
+        "feature": "wilderwild:dying_medium_birch"
       },
       {
         "chance": 0.05,

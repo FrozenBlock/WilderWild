@@ -24,7 +24,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +63,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "setPlacedBy", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack, CallbackInfo info) {
-		if (SnowloggingUtils.isItemSnow(stack) && BlockConfig.canSnowlog()) {
+		if (SnowloggingUtils.isItemSnow(stack) && WWBlockConfig.canSnowlog()) {
 			info.cancel();
 		}
 	}
@@ -136,7 +136,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.canSnowlog()) return;
+		if (!WWBlockConfig.get().snowlogging.snowlogging) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

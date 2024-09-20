@@ -6,43 +6,39 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.010833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "blue"
-                  }
-                },
-                "weight": 3
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "white"
+                }
               },
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "purple"
-                  }
-                },
-                "weight": 3
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "pink"
+                }
               },
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "pink"
-                  }
-                },
-                "weight": 2
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "purple"
+                }
               },
               {
-                "data": {
-                  "Name": "wilderwild:glory_of_the_snow",
-                  "Properties": {
-                    "flower_color": "white"
-                  }
-                },
-                "weight": 1
+                "Name": "wilderwild:glory_of_the_snow",
+                "Properties": {
+                  "flower_color": "blue"
+                }
               }
             ]
           }
@@ -58,7 +54,7 @@
         }
       ]
     },
-    "tries": 64,
+    "tries": 20,
     "xz_spread": 7,
     "y_spread": 3
   }

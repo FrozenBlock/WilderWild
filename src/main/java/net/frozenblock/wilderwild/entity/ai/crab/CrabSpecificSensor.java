@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -38,7 +38,7 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 	@Override
 	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(RegisterMemoryModuleTypes.NEARBY_CRABS, MemoryModuleType.NEAREST_LIVING_ENTITIES);
+		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_CRABS, MemoryModuleType.NEAREST_LIVING_ENTITIES);
 	}
 
 	@Override
@@ -51,6 +51,6 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 				crabs.add(crab);
 			}
 		}
-		brain.setMemory(RegisterMemoryModuleTypes.NEARBY_CRABS, crabs);
+		brain.setMemory(WWMemoryModuleTypes.NEARBY_CRABS, crabs);
 	}
 }

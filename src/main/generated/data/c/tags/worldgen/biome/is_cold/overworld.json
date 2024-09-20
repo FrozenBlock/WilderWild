@@ -35,6 +35,10 @@
     {
       "id": "wilderwild:frozen_caves",
       "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
     }
   ]
 }

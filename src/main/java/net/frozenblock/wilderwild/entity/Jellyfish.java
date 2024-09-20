@@ -29,18 +29,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
-import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -117,11 +116,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final int HIDING_CHANCE = 25;
 	public static final UUID JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = UUID.fromString("6cb0de31-da1e-4136-b338-f30aeac92c3e");
 	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, "movement_speed_modifier_baby", 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderWildRegistries.JELLYFISH_VARIANT.stream()
 		.filter(JellyfishVariant::isNormal)
 		.collect(Collectors.toList())
 	);
-	public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+	public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderWildRegistries.JELLYFISH_VARIANT.stream()
 		.filter(JellyfishVariant::pearlescent)
 		.collect(Collectors.toList())
 	);
@@ -175,14 +174,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (MobSpawnType.isSpawner(spawnType)) {
 			return true;
-		} else if (!EntityConfig.get().jellyfish.spawnJellyfish) {
+		} else if (!WWEntityConfig.get().jellyfish.spawnJellyfish) {
 			return false;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (!biome.is(WWBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
-		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
+		if (biome.is(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
 			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) {
 				return true;
 			}
@@ -200,10 +199,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, boolean checkConfig) {
-		if (checkConfig && !EntityConfig.get().jellyfish.spawnJellyfish) {
+		if (checkConfig && !WWEntityConfig.get().jellyfish.spawnJellyfish) {
 			return;
 		}
-		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
+		Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
 		double additionalX = 0D;
 		double additionalZ = 0D;
@@ -253,7 +252,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	private JellyfishVariant setVariant(@NotNull Holder<Biome> biome, RandomSource randomSource) {
 		this.setVariant(JellyfishVariant.PINK);
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
+		if (biome.is(WWBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
 			this.setVariant(PEARLESCENT_VARIANTS.get(randomSource.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
 			this.setVariant(COLORED_VARIANTS.get(randomSource.nextInt(COLORED_VARIANTS.size())));
@@ -271,13 +270,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
+		return this.isInWaterOrBubble() ? WWSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
 	}
 
 	@Override
 	@NotNull
 	protected SoundEvent getSwimSound() {
-		return RegisterSounds.ENTITY_JELLYFISH_SWIM;
+		return WWSounds.ENTITY_JELLYFISH_SWIM;
 	}
 
 	@Override
@@ -290,12 +289,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-		return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_HURT_WATER : RegisterSounds.ENTITY_JELLYFISH_HURT;
+		return this.isInWaterOrBubble() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER : WWSounds.ENTITY_JELLYFISH_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_DEATH_WATER : RegisterSounds.ENTITY_JELLYFISH_DEATH;
+		return this.isInWaterOrBubble() ? WWSounds.ENTITY_JELLYFISH_DEATH_WATER : WWSounds.ENTITY_JELLYFISH_DEATH;
 	}
 
 	@Override
@@ -385,7 +384,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
-				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, this.getVoicePitch());
+				this.playSound(WWSounds.ENTITY_JELLYFISH_HIDE, 0.8F, this.getVoicePitch());
 				return;
 			} else {
 				this.scale -= 0.25F;
@@ -470,9 +469,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 							Player playSoundForExcept = null;
 							if (entity instanceof ServerPlayer player) {
 								playSoundForExcept = player;
-								WilderJellyfishStingPacket.sendTo(player, baby);
+								WWJellyfishStingPacket.sendTo(player, baby);
 							}
-							this.level().playSound(playSoundForExcept, entity.getX(), entity.getY(), entity.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, this.getSoundSource(), 1F, baby ? STING_PITCH_BABY : STING_PITCH);
+							this.level().playSound(playSoundForExcept, entity.getX(), entity.getY(), entity.getZ(), WWSounds.ENTITY_JELLYFISH_STING, this.getSoundSource(), 1F, baby ? STING_PITCH_BABY : STING_PITCH);
 						}
 					}
 				}
@@ -502,12 +501,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
-			&& livingEntity.getType() != RegisterEntities.JELLYFISH
+			&& livingEntity.getType() != WWEntityTypes.JELLYFISH
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
 			&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
-			&& !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING)
+			&& !livingEntity.getType().is(WWEntityTags.JELLYFISH_CANT_STING)
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 
@@ -530,7 +529,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
-			&& EntityConfig.get().jellyfish.jellyfishHiding
+			&& WWEntityConfig.get().jellyfish.jellyfishHiding
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
 			&& this.random.nextInt(HIDING_CHANCE) == 0;
@@ -539,7 +538,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	@NotNull
 	public SoundEvent getPickupSound() {
-		return RegisterSounds.ITEM_BUCKET_FILL_JELLYFISH;
+		return WWSounds.ITEM_BUCKET_FILL_JELLYFISH;
 	}
 
 	@Override
@@ -584,7 +583,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void spawnChild(ServerLevel level) {
-		Jellyfish jellyfish = RegisterEntities.JELLYFISH.create(level);
+		Jellyfish jellyfish = WWEntityTypes.JELLYFISH.create(level);
 		if (jellyfish == null) {
 			return;
 		}
@@ -637,19 +636,19 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public ResourceKey<LootTable> getDefaultLootTable() {
-		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
+		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
 		return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath()));
 	}
 
 	@Override
 	@NotNull
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
+		return new ItemStack(WWItems.JELLYFISH_BUCKET);
 	}
 
 	@NotNull
 	public JellyfishVariant getVariant() {
-		return WilderRegistry.JELLYFISH_VARIANT.getOptional(new ResourceLocation(this.entityData.get(VARIANT))).orElse(JellyfishVariant.PINK);
+		return WilderWildRegistries.JELLYFISH_VARIANT.getOptional(new ResourceLocation(this.entityData.get(VARIANT))).orElse(JellyfishVariant.PINK);
 	}
 
 	public void setVariant(@NotNull JellyfishVariant variant) {
@@ -736,7 +735,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+			compoundTag.putString("variant", Objects.requireNonNull(WilderWildRegistries.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
 			compoundTag.putBoolean("canReproduce", this.canReproduce());
 			compoundTag.putInt("fullness", this.fullness);
 			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
@@ -750,7 +749,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void loadFromBucketTag(@NotNull CompoundTag tag) {
 		Bucketable.loadDefaultDataFromBucketTag(this, tag);
 		if (tag.contains("variant")) {
-			JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
+			JellyfishVariant variant = WilderWildRegistries.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
 			if (variant != null) {
 				this.setVariant(variant);
 			}
@@ -768,7 +767,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compound.putString("variant", Objects.requireNonNull(WilderWildRegistries.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
 		compound.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
 		compound.putBoolean("canReproduce", this.canReproduce());
 		compound.putInt("fullness", this.fullness);
@@ -781,7 +780,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
+		JellyfishVariant variant = WilderWildRegistries.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
 		if (variant != null) {
 			this.setVariant(variant);
 		}

@@ -28,8 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
-public class ScorchedSandStateFix2 extends DataFix {
-
+public final class ScorchedSandStateFix2 extends DataFix {
 	private static final String STATE = "crackedness";
 	private static final String NEW_STATE = "cracked";
 	private static final String DEFAULT_VALUE = "false";

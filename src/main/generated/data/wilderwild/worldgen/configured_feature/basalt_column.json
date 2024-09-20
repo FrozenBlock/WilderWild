@@ -13,8 +13,7 @@
     "state": {
       "Name": "minecraft:basalt",
       "Properties": {
-        "axis": "y",
-        "termite_edible": "false"
+        "axis": "y"
       }
     }
   }

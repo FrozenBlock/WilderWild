@@ -18,20 +18,17 @@
 
 package net.frozenblock.wilderwild.particle.options;
 
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class WindParticleOptions implements ParticleOptions {
@@ -48,18 +45,6 @@ public class WindParticleOptions implements ParticleOptions {
 		WindParticleOptions::new
 	);
 
-	@NotNull
-	@Contract("_ -> new")
-	public static Vec3 readVec3(@NotNull StringReader reader) throws CommandSyntaxException {
-		reader.expect(' ');
-		double f = reader.readDouble();
-		reader.expect(' ');
-		double g = reader.readDouble();
-		reader.expect(' ');
-		double h = reader.readDouble();
-		return new Vec3(f, g, h);
-	}
-
 	private final int lifespan;
 	private final Vec3 velocity;
 
@@ -75,7 +60,7 @@ public class WindParticleOptions implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<?> getType() {
-		return RegisterParticles.WIND;
+		return WWParticleTypes.WIND;
 	}
 
 

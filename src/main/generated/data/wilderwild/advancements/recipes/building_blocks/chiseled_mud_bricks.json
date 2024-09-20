@@ -1,11 +1,31 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
+    "has_chiseled_mud_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:chiseled_mud_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_mud_brick_slab": {
       "conditions": {
         "items": [
           {
             "items": "minecraft:mud_brick_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_mud_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:mud_bricks"
           }
         ]
       },
@@ -21,7 +41,9 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_mud_brick_slab"
+      "has_mud_bricks",
+      "has_mud_brick_slab",
+      "has_chiseled_mud_bricks"
     ]
   ],
   "rewards": {
