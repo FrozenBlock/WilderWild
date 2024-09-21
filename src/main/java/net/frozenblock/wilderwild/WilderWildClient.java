@@ -21,12 +21,8 @@ package net.frozenblock.wilderwild;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
-import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
-import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
@@ -35,7 +31,6 @@ import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWTints;
-import net.frozenblock.wilderwild.client.debug.OstrichDebugRenderer;
 import net.frozenblock.wilderwild.entity.render.easter.WilderEasterEggs;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.minecraft.resources.ResourceLocation;
@@ -86,20 +81,6 @@ public final class WilderWildClient implements ClientModInitializer {
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WWConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
-		});
-
-		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
-			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
-
-			ClientTickEvents.START_WORLD_TICK.register(clientLevel -> {
-				if (FrozenLibConfig.IS_DEBUG) {
-					ostrichDebugRenderer.tick();
-				}
-			});
-
-			DebugRenderManager.addClearRunnable(ostrichDebugRenderer::clear);
-
-			DebugRenderManager.registerRenderer(WWConstants.id("ostrich"), ostrichDebugRenderer::render);
 		});
 	}
 
