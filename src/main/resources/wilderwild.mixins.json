@@ -27,7 +27,6 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
-    "worldgen.tree.HugeFungusFeatureMixin",
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
@@ -115,7 +114,8 @@
     "worldgen.tree.DarkOakTreeGrowerMixin",
     "worldgen.tree.OakTreeGrowerMixin",
     "worldgen.tree.SpruceTreeGrowerMixin",
-    "worldgen.tree.TreeFeatureMixin"
+    "worldgen.tree.TreeFeatureMixin",
+    "worldgen.tree.HugeFungusFeatureMixin"
   ],
   "client": [
     "block.echo_glass.client.MultiPlayerGameModeMixin",
@@ -127,6 +127,7 @@
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
     "client.enderman.EnderManMixin",
+    "client.indium.BlockRendererMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
     "client.mesoglea.LiquidBlockRendererMixin",

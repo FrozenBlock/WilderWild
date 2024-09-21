@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.mixin.client.indium;
 
 import link.infra.indium.renderer.render.TerrainRenderContext;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderContext;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockModelShaper;
@@ -35,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
+@Environment(EnvType.CLIENT)
 @Mixin(TerrainRenderContext.class)
 public abstract class BlockRendererMixin {
 
