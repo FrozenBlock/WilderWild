@@ -55,6 +55,8 @@ public final class WWMixinsConfig {
 	@Comment("Only applies if Sodium is installed, otherwise ignores this option.")
 	public boolean client_sodium = true;
 
+	public boolean client_indium = true;
+
 	public boolean client_warden = true;
 
 	public boolean client_wind = true;
