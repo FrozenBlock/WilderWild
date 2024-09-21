@@ -105,7 +105,6 @@
     "warden.SonicBoomMixin",
     "warden.WardenMixin",
     "warden.WardenSwimMixin",
-    "worldgen.LakeFeatureFixMixin",
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
     "worldgen.tree.HugeFungusFeatureMixin",
