@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,7 +42,7 @@ public abstract class SweetBerryBushBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!BlockConfig.canSnowlog()) return;
+		if (!WWBlockConfig.get().snowlogging.snowlogging) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

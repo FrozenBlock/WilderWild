@@ -18,12 +18,12 @@
 
 package net.frozenblock.wilderwild.item;
 
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -63,7 +63,7 @@ public class FireflyBottle extends Item {
 			float g = -Mth.sin((pitch + roll) * Mth.DEG_TO_RAD);
 			float h = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 			ItemStack stack = player.getItemInHand(usedHand);
-			Firefly entity = RegisterEntities.FIREFLY.create(server);
+			Firefly entity = WWEntityTypes.FIREFLY.create(server);
 			if (entity != null) {
 				entity.setDeltaMovement(f * 0.7D, g * 0.7D, h * 0.7D);
 				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
@@ -72,7 +72,7 @@ public class FireflyBottle extends Item {
 				if (spawned) {
 					player.setItemInHand(usedHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-					entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+					entity.playSound(WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(this.color);
@@ -81,7 +81,7 @@ public class FireflyBottle extends Item {
 					}
 					player.gameEvent(GameEvent.ENTITY_PLACE);
 				} else {
-					WilderConstants.printStackTrace("Couldn't spawn Firefly from bottle!", true);
+					WWConstants.printStackTrace("Couldn't spawn Firefly from bottle!", true);
 				}
 			}
 		}

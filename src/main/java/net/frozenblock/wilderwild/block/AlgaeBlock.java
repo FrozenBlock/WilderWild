@@ -22,7 +22,7 @@ import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -104,7 +104,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 			if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
 				level.destroyBlock(pos, false);
 			}
-			if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
+			if (!entity.getType().is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
 				entity.setDeltaMovement(entity.getDeltaMovement().multiply(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN));
 			}
 		}

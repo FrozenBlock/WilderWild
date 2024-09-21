@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SuspendedParticle;
@@ -25,6 +27,7 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
+@Environment(EnvType.CLIENT)
 @Mixin(SuspendedParticle.class)
 public abstract class SuspendedParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
 

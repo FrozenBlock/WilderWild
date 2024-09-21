@@ -28,8 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
-public class NematocystStateFix extends DataFix {
-
+public final class NematocystStateFix extends DataFix {
 	private static final String OLD_STATE = "facing";
 	private static final String DEFAULT_VALUE = "up";
 	private final String name;

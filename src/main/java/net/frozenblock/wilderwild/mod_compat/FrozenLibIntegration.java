@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
+import com.google.common.collect.ImmutableList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,27 +45,30 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterMobEffects;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.wind.CloudWindManager;
-import net.frozenblock.wilderwild.wind.WilderClientWindManager;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import static net.frozenblock.wilderwild.registry.WWBlocks.*;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
+import net.frozenblock.wilderwild.registry.WWSoundTypes;
+import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWWorldgen;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
+import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -108,20 +112,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WilderConstants.id("instrument");
-	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WilderConstants.id("nectar");
-	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WilderConstants.id("enderman_anger");
-	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WilderConstants.id("geyser_effective");
-	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WilderConstants.id("geyser");
+	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
+	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WWConstants.id("nectar");
+	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WWConstants.id("enderman_anger");
+	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
+	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -139,9 +146,9 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void initPreFreeze() {
-		WilderConstants.log("FrozenLib pre-freeze mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WilderConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, new SoundPredicate.LoopPredicate<LivingEntity>() {
+		WWConstants.log("FrozenLib pre-freeze mod integration ran!", WWConstants.UNSTABLE_LOGGING);
+		SpottingIconPredicate.register(WWConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
 			private ItemStack lastStack;
@@ -178,11 +185,11 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		SoundPredicate.register(NECTAR_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<Firefly>) entity ->
+		SoundPredicate.register(NECTAR_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 
-		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
+		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
 				return false;
 			}
@@ -234,11 +241,17 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		WilderConstants.log("FrozenLib mod integration ran!", WilderConstants.UNSTABLE_LOGGING);
+		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderConstants.id("cactus")));
+		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(
+			level.damageSources().cactus(),
+			WWSounds.PLAYER_HURT_CACTUS,
+			WWConstants.id("cactus")
+			)
+		);
 
-		HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
+		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntityTypes.STONE_CHEST);
+
 		FrozenBools.useNewDripstoneLiquid = true;
 		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
 			BlockState blockState = Blocks.SPONGE.defaultBlockState();
@@ -260,93 +273,198 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		WindManager.addExtension(CloudWindManager::new);
+		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
-		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
-		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
-		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
-		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);
-		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
-		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, () -> BlockConfig.get().blockSounds.iceSounds);
-		addBlock(FROSTED_ICE, RegisterBlockSoundTypes.FROSTED_ICE, () -> BlockConfig.get().blockSounds.frostedIceSounds);
-		addBlock(GRAVEL, RegisterBlockSoundTypes.GRAVEL, () -> BlockConfig.get().blockSounds.gravelSounds);
-		addBlocks(new Block[]{ACACIA_SAPLING, BIRCH_SAPLING, DARK_OAK_SAPLING, JUNGLE_SAPLING, MANGROVE_PROPAGULE, OAK_SAPLING, SPRUCE_SAPLING, CYPRESS_SAPLING, BUSH}, SAPLING, () -> BlockConfig.get().blockSounds.saplingSounds);
-		addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_FRONDS}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
-		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> BlockConfig.get().blockSounds.lilyPadSounds);
-		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> BlockConfig.get().blockSounds.podzolSounds);
-		addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, () -> BlockConfig.get().blockSounds.reinforcedDeepslateSounds);
-		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, RegisterBlockSoundTypes.SANDSTONE, () -> BlockConfig.get().blockSounds.sandstoneSounds);
-		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
-		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
-		addBlock(MAGMA_BLOCK, MAGMA, () -> BlockConfig.get().blockSounds.magmaSounds);
+		addBlocks(new Block[]{Blocks.CACTUS, PRICKLY_PEAR_CACTUS}, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
+		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
+		addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
+		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
+		addBlocks(new Block[]{DANDELION,
+			POPPY,
+			BLUE_ORCHID,
+			ALLIUM,
+			AZURE_BLUET,
+			RED_TULIP,
+			ORANGE_TULIP,
+			WHITE_TULIP,
+			PINK_TULIP,
+			OXEYE_DAISY,
+			CORNFLOWER,
+			LILY_OF_THE_VALLEY,
+			SEEDING_DANDELION,
+			CARNATION,
+			MARIGOLD,
+			GLORY_OF_THE_SNOW,
+			DATURA,
+			MILKWEED,
+			SUNFLOWER,
+			ROSE_BUSH,
+			PEONY,
+			LILAC,
+			TORCHFLOWER,
+			PINK_PETALS
+		}, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
+		addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
+		addBlock(GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
+		addBlocks(new Block[]{
+			ACACIA_SAPLING,
+			BIRCH_SAPLING,
+			DARK_OAK_SAPLING,
+			JUNGLE_SAPLING,
+			MANGROVE_PROPAGULE,
+			OAK_SAPLING,
+			SPRUCE_SAPLING,
+			CYPRESS_SAPLING,
+			MAPLE_SAPLING,
+			BUSH
+		}, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
+		addBlocks(new Block[]{
+			ACACIA_LEAVES,
+			BIRCH_LEAVES,
+			DARK_OAK_LEAVES,
+			JUNGLE_LEAVES,
+			MANGROVE_LEAVES,
+			OAK_LEAVES,
+			SPRUCE_LEAVES,
+			BAOBAB_LEAVES,
+			CYPRESS_LEAVES,
+			PALM_FRONDS,
+			YELLOW_MAPLE_LEAVES,
+			ORANGE_MAPLE_LEAVES,
+			RED_MAPLE_LEAVES
+		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{YELLOW_MAPLE_LEAF_LITTER, ORANGE_MAPLE_LEAF_LITTER, RED_MAPLE_LEAF_LITTER}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{Blocks.LILY_PAD, FLOWERING_LILY_PAD}, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
+		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
+		addBlock(Blocks.REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
+		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
+		addBlock(SUGAR_CANE, SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
+		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
+		addBlock(MAGMA_BLOCK, MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
+		addBlocks(new Block[]{PUMPKIN, CARVED_PUMPKIN, JACK_O_LANTERN, Blocks.MELON}, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
 
-		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.STONE_CHEST, RegisterBlockEntities.STONE_CHEST);
+		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
 
-		if (EntityConfig.get().scorched.scorchedInTrialChambers) {
+		if (WWWorldgenConfig.get().decayTrailRuins) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.TRAIL_RUINS.location(),
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, CRACKED_MUD_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICKS.defaultBlockState())
+					)
+				)
+			);
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.TRAIL_RUINS.location(),
+				new BlockStateRespectingRuleProcessor(
+					ImmutableList.of(
+						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_STAIRS),
+						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_SLAB),
+						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_WALL)
+					)
+				)
+			);
+		}
+
+		if (WWWorldgenConfig.get().newDesertVillages) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.VILLAGE_DESERT.location(),
+				new BlockStateRespectingRuleProcessor(
+					ImmutableList.of(
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_BUTTON), AlwaysTrueTest.INSTANCE, PALM_BUTTON),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_DOOR), AlwaysTrueTest.INSTANCE, PALM_DOOR),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_FENCE), AlwaysTrueTest.INSTANCE, PALM_FENCE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_FENCE_GATE), AlwaysTrueTest.INSTANCE, PALM_FENCE_GATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SIGN), AlwaysTrueTest.INSTANCE, PALM_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_LOG), AlwaysTrueTest.INSTANCE, PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, PALM_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, STRIPPED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, STRIPPED_PALM_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, HOLLOWED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, STRIPPED_HOLLOWED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_PLANKS), AlwaysTrueTest.INSTANCE, PALM_PLANKS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, PALM_PRESSURE_PLATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SLAB), AlwaysTrueTest.INSTANCE, PALM_SLAB),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_STAIRS), AlwaysTrueTest.INSTANCE, PALM_STAIRS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.COCONUT),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_LEAVES), AlwaysTrueTest.INSTANCE, PALM_FRONDS)
+
+					)
+				)
+			);
+		}
+
+		if (WWEntityConfig.get().scorched.scorchedInTrialChambers) {
 			RandomPoolAliasApi.addTarget(
-				WilderConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
-				WilderConstants.id("trial_chambers/spawner/small_melee/scorched"),
+				WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
+				WWConstants.id("trial_chambers/spawner/small_melee/scorched"),
 				1
 			);
 		}
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
-			if (AmbienceAndMiscConfig.get().modifyAdvancements) {
+			if (WWAmbienceAndMiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/adventuring_time" -> {
-						addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
-						addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
-						addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
-						addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
-						addBiomeRequirement(advancement, RegisterWorldgen.FROZEN_CAVES);
-						addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
-						addBiomeRequirement(advancement, RegisterWorldgen.MAGMATIC_CAVES);
-						addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
-						addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
-						addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
-						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
-						addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
-						addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
-						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
-						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
-						addBiomeRequirement(advancement, RegisterWorldgen.DYING_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.DYING_MIXED_FOREST);
-						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.CYPRESS_WETLANDS);
+						addBiomeRequirement(advancement, WWWorldgen.MIXED_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.OASIS);
+						addBiomeRequirement(advancement, WWWorldgen.WARM_RIVER);
+						addBiomeRequirement(advancement, WWWorldgen.WARM_BEACH);
+						addBiomeRequirement(advancement, WWWorldgen.FROZEN_CAVES);
+						addBiomeRequirement(advancement, WWWorldgen.MESOGLEA_CAVES);
+						addBiomeRequirement(advancement, WWWorldgen.MAGMATIC_CAVES);
+						addBiomeRequirement(advancement, WWWorldgen.ARID_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.ARID_SAVANNA);
+						addBiomeRequirement(advancement, WWWorldgen.PARCHED_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.BIRCH_JUNGLE);
+						addBiomeRequirement(advancement, WWWorldgen.SPARSE_BIRCH_JUNGLE);
+						addBiomeRequirement(advancement, WWWorldgen.BIRCH_TAIGA);
+						addBiomeRequirement(advancement, WWWorldgen.SEMI_BIRCH_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.DARK_BIRCH_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.FLOWER_FIELD);
+						addBiomeRequirement(advancement, WWWorldgen.TEMPERATE_RAINFOREST);
+						addBiomeRequirement(advancement, WWWorldgen.RAINFOREST);
+						addBiomeRequirement(advancement, WWWorldgen.DARK_TAIGA);
+						addBiomeRequirement(advancement, WWWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+						addBiomeRequirement(advancement, WWWorldgen.OLD_GROWTH_DARK_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+						addBiomeRequirement(advancement, WWWorldgen.DYING_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.MAPLE_GROVE);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.BAOBAB_NUT).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.BAOBAB_NUT).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SPLIT_COCONUT).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.SPLIT_COCONUT).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.CRAB_CLAW).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.CRAB_CLAW).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.COOKED_CRAB_CLAW).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.COOKED_CRAB_CLAW).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PRICKLY_PEAR).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.PRICKLY_PEAR).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.PEELED_PRICKLY_PEAR).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SCORCHED_EYE).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.SCORCHED_EYE).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
@@ -400,7 +518,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(WWEntityTypes.CRAB)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new
 								AdvancementRequirements(List.of(
@@ -412,10 +530,10 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:husbandry/tactical_fishing" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.CRAB_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -429,14 +547,14 @@ public class FrozenLibIntegration extends ModIntegration {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(RegisterMobEffects.REACH_BOOST.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
-							map.put(RegisterMobEffects.SCORCHING.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(WWMobEffects.REACH_BOOST.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(WWMobEffects.SCORCHING.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
 					}
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -446,7 +564,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.SCORCHED)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
@@ -463,67 +581,69 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		StructureProcessorApi.addNamespaceWithKeywordTarget(ResourceLocation.DEFAULT_NAMESPACE, "ancient_city",
-			new RuleProcessor(
-				List.of(
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState()),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(RegisterProperties.ANCIENT, true)
-					),
+		if (WWWorldgenConfig.get().addStoneChests) {
+			StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState()),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
 
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
-					),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
 
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
-					),
-					new ProcessorRule(
-						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						),
+						new ProcessorRule(
+							new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
+							AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						)
 					)
 				)
-			)
-		);
+			);
+		}
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void clientInit() {
-		ClientWindManager.addExtension(WilderClientWindManager::new);
+		ClientWindManager.addExtension(WWClientWindManager::new);
 	}
 }

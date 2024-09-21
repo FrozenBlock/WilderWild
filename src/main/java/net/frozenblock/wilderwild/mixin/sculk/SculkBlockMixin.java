@@ -19,18 +19,17 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.Iterator;
-import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -47,19 +46,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(value = SculkBlock.class, priority = 69420)
 public abstract class SculkBlockMixin {
-
-	/**
-	 * The height multiplier of the Osseous Sculk pillars.
-	 * <p>
-	 * At higher values, most Osseous Sculk pillars will be taller.
-	 */
-	@Unique
-	private static final int WILDERWILD$HEIGHT_MULTIPLIER = 25;
 
 	/**
 	 * The maximum height of an Osseous Sculk pillar.
@@ -70,29 +60,12 @@ public abstract class SculkBlockMixin {
 	private static final int WILDERWILD$MAX_HEIGHT = 15;
 
 	/**
-	 * The randomness that the Osseous Sculk pillars will grow.
-	 * <p>
-	 * At lower values, the heights of the Osseous Sculk pillars will grow more gradually.
-	 */
-	@Unique
-	private static final double WILDERWILD$RANDOMNESS = 0.9;
-
-	/**
-	 * The radius that the Osseous Sculk pillars can grow in.
-	 * <p>
-	 * At larger values, the area the pillars can grow in will increase,
-	 * but the distance between the pillars will also increase.
-	 */
-	@Unique
-	private static final double WILDERWILD$OSSEOUS_SCULK_AREA_SIZE = 0.09;
-
-	/**
 	 * Decides how commonly Osseous Sculk pillars will grow during worldgen.
 	 * <p>
 	 * If set to 1 or higher, the pillars will never grow.
 	 */
 	@Unique
-	private static final double WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD = 0.16;
+	private static final double WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD = 0.16D;
 
 	@Unique
 	private volatile boolean wilderWild$canPlaceOsseousSculk;
@@ -114,7 +87,7 @@ public abstract class SculkBlockMixin {
 			}
 			BlockPos blockPos = var4.next();
 			BlockState blockState2 = level.getBlockState(blockPos);
-			if (blockState2.is(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(RegisterBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+			if (blockState2.is(WWBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(WWBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
 				++i;
 			}
 			if (i >= 3) {
@@ -127,7 +100,7 @@ public abstract class SculkBlockMixin {
 	private static boolean wilderWild$canPlaceOsseousSculk(BlockPos pos, boolean worldGen, LevelAccessor level) {
 		if (worldGen) {
 			if (!wilderWild$ancientCityOrPillarNearby(level, pos)) {
-				return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$OSSEOUS_SCULK_AREA_SIZE, true, true) > WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD;
+				return level.getRandom().nextFloat() <= WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD;
 			}
 			return false;
 		}
@@ -159,8 +132,7 @@ public abstract class SculkBlockMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"
-		),
-		locals = LocalCapture.CAPTURE_FAILHARD
+		)
 	)
 	private void wilderWild$getPlacementState(
 		SculkSpreader.ChargeCursor cursor,
@@ -170,10 +142,10 @@ public abstract class SculkBlockMixin {
 		@NotNull SculkSpreader spreader,
 		boolean shouldConvertBlocks,
 		CallbackInfoReturnable<Integer> info,
-		int chargeAmount,
-		BlockPos chargePos,
-		int growthSpawnCost,
-		BlockPos aboveChargePos,
+		@Local(ordinal = 0) int chargeAmount,
+		@Local(ordinal = 1) BlockPos chargePos,
+		@Local(ordinal = 1) int growthSpawnCost,
+		@Local(ordinal = 2) BlockPos aboveChargePos,
 		@Share("wilderWild$placementPos") LocalRef<BlockPos> placementPos,
 		@Share("wilderWild$placementState") LocalRef<BlockState> placementState,
 		@Share("wilderWild$placingBelow") LocalBooleanRef placingBelow,
@@ -188,30 +160,30 @@ public abstract class SculkBlockMixin {
 		if (placingBelow.get()) {
 			BlockPos belowCharge = chargePos.below();
 			if (this.wilderWild$canPlaceOsseousSculk) {
-				int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, belowCharge, WILDERWILD$RANDOMNESS, false, false) * WILDERWILD$HEIGHT_MULTIPLIER, 2, WILDERWILD$MAX_HEIGHT);
-				placementState.set(RegisterBlocks.OSSEOUS_SCULK.defaultBlockState()
+				int pillarHeight = level.getRandom().nextInt(4, WILDERWILD$MAX_HEIGHT);
+				placementState.set(WWBlocks.OSSEOUS_SCULK.defaultBlockState()
 					.setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight)
 					.setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1)
 					.setValue(OsseousSculkBlock.FACING, Direction.DOWN)
 				);
 			} else {
-				placementState.set(RegisterBlocks.HANGING_TENDRIL.defaultBlockState());
+				placementState.set(WWBlocks.HANGING_TENDRIL.defaultBlockState());
 			}
 			placementPos.set(belowCharge);
 			additionalGrowthCost.set(1);
 		}
 
-		if (isWorldgen && placementState.get() != null && placementState.get().is(RegisterBlocks.OSSEOUS_SCULK)) {
-			additionalGrowthCost.set(growthSpawnCost + 2);
+		if (isWorldgen && placementState.get() != null && placementState.get().is(WWBlocks.OSSEOUS_SCULK)) {
+			additionalGrowthCost.set(growthSpawnCost);
 		}
 
 		BlockState chargePosState = level.getBlockState(chargePos);
-		if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			placementState.set(RegisterBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
-		} else if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			placementState.set(RegisterBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
-		} else if ((isWorldgen && chargePosState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
-			placementState.set(RegisterBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
+		if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
+			placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
+		} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
+			placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
+		} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
+			placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
 		}
 
 		canPlace.set(placementState.get() != null && placementPos.get() != null);
@@ -280,7 +252,7 @@ public abstract class SculkBlockMixin {
 		RandomSource random,
 		SculkSpreader spreader,
 		boolean shouldConvertBlocks,
-		CallbackInfoReturnable<Integer> cir,
+		CallbackInfoReturnable<Integer> info,
 		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
 		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
@@ -288,11 +260,11 @@ public abstract class SculkBlockMixin {
 			return;
 		}
 		if (spreader.isWorldGeneration() && placedState.get().getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
-			int growthAmount = Math.max(0, placedState.get().getValue(OsseousSculkBlock.HEIGHT_LEFT));
+			int growthAmount = placedState.get().getValue(OsseousSculkBlock.HEIGHT_LEFT);
 			for (int a = 0; a < growthAmount; a++) {
 				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, shouldConvertBlocks);
 			}
-		} else if (placedState.get().is(RegisterBlocks.SCULK_STAIRS) || placedState.get().is(RegisterBlocks.SCULK_SLAB) || placedState.get().is(RegisterBlocks.SCULK_WALL)) {
+		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS) || placedState.get().is(WWBlocks.SCULK_SLAB) || placedState.get().is(WWBlocks.SCULK_WALL)) {
 			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());
 		}
 		placedPos.set(null);
@@ -320,16 +292,15 @@ public abstract class SculkBlockMixin {
 			value = "RETURN",
 			shift = At.Shift.BEFORE
 		),
-		locals = LocalCapture.CAPTURE_FAILHARD,
 		cancellable = true
 	)
 	private void wilderWild$getRandomGrowthState(
 		LevelAccessor level, BlockPos pos, RandomSource random, boolean randomize, CallbackInfoReturnable<BlockState> info,
-		BlockState blockState
+		@Local(ordinal = 0) BlockState blockState
 	) {
 		if (this.wilderWild$canPlaceOsseousSculk && !blockState.is(Blocks.SCULK_SHRIEKER)) {
-			int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.sampleAbs(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$RANDOMNESS, false, false) * WILDERWILD$HEIGHT_MULTIPLIER, 2, WILDERWILD$MAX_HEIGHT);
-			blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
+			int pillarHeight = level.getRandom().nextInt(4, WILDERWILD$MAX_HEIGHT);
+			blockState = WWBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			info.setReturnValue(blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState);
 		}
 	}

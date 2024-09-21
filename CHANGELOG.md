@@ -1,14 +1,103 @@
 Please clear changelog after each release.
 Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
-
+hi
 -----------------
-- Added dynamic stone chest replacement
-  - Rather than replacing Anicent City nbt, stone chests are dynamically added into ancient cities
-  - Adds support for custom ancient cities
-- Removed changes to the center building in Ancient Cities
-- Fixed conversion of palm crown blocks (removed in 2.4.5) to palm logs
-- Snowlogged double-tall plants will no longer remove the bottom half of the plant when Snow Layers on the top half are broken.
-- Bumped protocol version to 8
-- Changed version scheme to (mod version)-mc(minecraft version)
-- Renamed `WilderSharedConstants` to `WilderConstants`
+# Additions
+- Added Maple trees.
+- Added Maple Grove biome
+  - Chestnut Wolves spawn here
+- Added Marigold.
+- Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
+- Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
+  - This is controlled with the `wilderwild:has_stone_pile_common,` `wilderwild:has_stone_pile,` and `wilderwild:has_stone_pile_rare` tags.
+- Added leaf litters.
+- Added falling leaves.
+- Added Crimson and Warped Shelf Fungi, which generate naturally.
+- Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
+- Added new sounds for Melon and Pumpkin blocks.
+- Added translations for Vietnamese thanks to [godkyo98](https://github.com/FrozenBlock/WilderWild/pull/411)!
+- Added more block sound type compatibility for BetterNether and BetterEnd.
+- Added block sound type compatibility for Nature's Spirit.
+- Added block sound type compatibility for Biomes O' Plenty.
+- Added block sound type compatibility for Terrestria.
+- Added block sound type compatibility for Regions Unexplored.
+- Added block sound type compatibility for Traverse.
+- Added block sound type compatibility for Excessive Building.
+
+# Changes
+- The Ancient Horn has finally been removed, as it was incredibly out-of-place and overpowered.
+- Removed Palms from normal beaches as it was immersion-breaking in cooler areas.
+  - Warm Beaches will still have Palms.
+- Rewrote the foliage generation of Palm trees.
+  - Normal Palm trees now look more "Minecrafty" and no longer use realistic frond generation.
+    - In other words, they're visually pleasing and no longer messy!
+  - Palms that generated with circular foliage have also received upgraded foliage generation, mirroring the real-world Windmill Palm.
+  - Thanks to this new generation, the mixin that modifies the `distance` property's maximum value has been removed.
+  - A minimum of one Coconut is now guaranteed to generate on each Palm tree.
+- The foliage and grass colors of the Oasis biome are no longer a saturated green.
+- Sunflower Plains have been revamped again, and are no longer an eyesore.
+- Renamed the Small Sponge to Sponge Bud.
+- Removed the Cherry Grove panorama.
+- The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
+- Jellyfish now have 2D tentacles by default, looking much cleaner than before.
+  - This can be toggled on-the-fly with the config.
+- Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
+  - Old Growth Birch Forests will still keep their tall trees.
+- Birch Saplings can now grow Medium and Super Birches.
+- Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
+- The strength and resistance of Echo Glass have been increased.
+- Echo Glass now heals when the light level at 8 or below instead of 7.
+- Echo Glass now takes 25% longer on average between cracking in light.
+- Slightly optimized more config getter calls.
+- Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
+- Crabs no longer have a maximum spawning height past sea level.
+- The thick variant of Big Nether Fungi can now be grown by placing Fungi in a `+` shape.
+- Significantly decreased Glory of the Snow generation outside Jungles.
+- Split most Tall and Short flower generation into separate features for noise-based flower placement.
+  - This change makes flower generation noticeably easier on the eyes, especially in biomes like the Cherry Grove.
+- Decreased flower generation overall.
+- Rose Bushes now generate in Birch Forest biomes.
+- Peonies now generate in Birch Forest biomes.
+- Lilacs now generate in Birch Forest biomes.
+- Bushes will no longer generate naturally on Sand in certain biomes.
+- Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
+- Jellyfish Caves have been renamed to Mesoglea Caves.
+- Decreased the amount of space Parched Forests take up.
+- Changed the volume of Deep Dark ambience.
+- Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
+
+# Bug Fixes
+- Fixed a few tags that were still unfinished and excluded the Palm set.
+- Fixed the Carnation's dye recipe being in the `orange_dye` group.
+- Cherry particles are now much more responsive to wind, and no longer get removed upon spawning.
+- Seeding Dandelion and Milkweed seed particles' spawn positions now match the block's random model offset.
+- Baobab, Cypress, and Palm's sign types are now placed after the Mangrove Hanging Sign in the creative inventory, instead of between the Mangrove Sign and Mangrove Hanging Sign.
+- Ostrich Eggs are now placed before Sniffer Eggs in the creative inventory.
+- Scorched Sand is no longer found in the `Functional Items` tab of the creative inventory.
+- Prickly Pears are now placed after Sweet Berries in the `Food & Drinks` tab of the creative inventory.
+- Crab Claws and Cooked Crab Claws are now placed before Cod in the creative inventory.
+- Baobab, Cypress, and Palm foliage is now found between Mangrove Leaves and Cherry Leaves in the creative inventory.
+- Fixed potential worldgen feature cycle crashes when certain config options were disabled.
+- Removed many duplicate spawn entries in Wilder Wild's biomes.
+- Tumbleweed no longer drop feathers.
+- Palm Fronds are now compostable.
+- Prickly Pears and Peeled Prickly Pears can now be composted.
+- The loot tables of Shelf Fungi have been fixed.
+- Echo Glass no longer flickers upon being damaged by players.
+- Fixed many random blocks having the `termite_edible` blockstate property.
+  - This checks if the Note Block Instrument for the block is `BASS` and if the block's sound type is not `STEM.`
+- Termite Mounds now generate as intended once again.
+- Fixed the main ambient loop in the Deep Dark not properly looping.
+- Pollen can no longer generate in Water during worldgen.
+- Fallen Birch trees no longer generate in Cherry Groves.
+
+# Technical Changes
+- Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
+  - This change was made in order for mod compatibility development with Wilder Wild to be more organized.
+- Refactored custom BlockState Property-related classes to `block/property,` from `block/impl.`
+- Refactored `WilderEnumValues` to `WWBoatTypes.`
+- A lot more refactoring.
+- Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
+- Split the contents of WilderWildClient into multiple classes.
+- Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`

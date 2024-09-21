@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.entity.ai.firefly;
 import jdk.jfr.Experimental;
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;
@@ -53,7 +53,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	@Override
 	protected void tick(@NotNull ServerLevel level, @NotNull Firefly owner, long gameTime) {
 		if (this.isReachedTarget()) {
-			owner.playSound(RegisterSounds.ENTITY_FIREFLY_HIDE, 0.6F, 1.2F);
+			owner.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 1.2F);
 			owner.discard();
 		}
 
@@ -62,7 +62,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 
 	@Override
 	public boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		return level.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
+		return level.getBlockState(pos).is(WWBlockTags.FIREFLY_HIDEABLE_BLOCKS);
 	}
 
 	@Override

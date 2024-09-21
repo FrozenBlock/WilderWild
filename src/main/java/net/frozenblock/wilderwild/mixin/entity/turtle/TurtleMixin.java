@@ -41,14 +41,14 @@ public class TurtleMixin implements TurtleCooldownInterface {
 
 	@ModifyReturnValue(method = "createAttributes", at = @At("RETURN"))
 	private static AttributeSupplier.Builder wilderWild$createAttributes(AttributeSupplier.Builder original) {
-		original.add(Attributes.ATTACK_DAMAGE, 3.0);
+		original.add(Attributes.ATTACK_DAMAGE, 3D);
 		return original;
 	}
 
 	@Inject(method = "registerGoals", at = @At("TAIL"))
 	public void wilderWild$registerGoals(CallbackInfo info) {
 		Turtle turtle = Turtle.class.cast(this);
-		turtle.goalSelector.addGoal(3, new MeleeAttackGoal(turtle, 1.0, true));
+		turtle.goalSelector.addGoal(3, new MeleeAttackGoal(turtle, 1D, true));
 		turtle.targetSelector.addGoal(10, new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class, false));
 	}
 
@@ -65,7 +65,7 @@ public class TurtleMixin implements TurtleCooldownInterface {
 	@Inject(method = "aiStep", at = @At("TAIL"))
 	public void wilderWild$aiStep(CallbackInfo info) {
 		if (this.wilderWild$attackCooldown > 0) {
-			this.wilderWild$attackCooldown = this.wilderWild$attackCooldown - 1;
+			this.wilderWild$attackCooldown -= 1;
 		}
 	}
 

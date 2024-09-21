@@ -25,7 +25,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import java.util.Map;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V3438;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,32 +46,32 @@ public class V3438Mixin {
 		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
-			WilderConstants.string("display_lantern"),
+			WWConstants.string("display_lantern"),
 			() -> DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema)))
 		);
 		schema.register(
 			map,
-			WilderConstants.string("hanging_tendril"),
+			WWConstants.string("hanging_tendril"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("scorched_block"),
+			WWConstants.string("scorched_block"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("stone_chest"),
+			WWConstants.string("stone_chest"),
 			() -> DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema)))
 		);
 		schema.register(
 			map,
-			WilderConstants.string("termite_mound"),
+			WWConstants.string("termite_mound"),
 			DSL::remainder
 		);
 		schema.register(
 			map,
-			WilderConstants.string("geyser"),
+			WWConstants.string("geyser"),
 			DSL::remainder
 		);
 		return map;

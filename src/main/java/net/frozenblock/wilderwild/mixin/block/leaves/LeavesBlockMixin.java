@@ -18,29 +18,43 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.util.Mth;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
 
-	@ModifyExpressionValue(method = "isRandomlyTicking", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0))
-	public Comparable<?> wilderWild$isRandomlyTicking(Comparable<?> original) {
-		if (original instanceof Integer integer) {
-			return Mth.clamp(integer, 1, 7);
+	@WrapOperation(
+		method = "isRandomlyTicking",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
+			ordinal = 0
+		)
+	)
+	public Comparable<?> wilderWild$isRandomlyTicking(BlockState instance, Property property, Operation<Comparable> original) {
+		if (property == LeavesBlock.DISTANCE) {
+			if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).map(fallingLeafData -> fallingLeafData.leafLitterBlock().isPresent()).orElse(false)) {
+				return 7;
+			}
 		}
-		return original;
+		return original.call(instance, property);
 	}
 
-	@ModifyExpressionValue(method = "decaying", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 1))
-	public Comparable<?> wilderWild$decaying(Comparable<?> original) {
-		if (original instanceof Integer integer) {
-			return Mth.clamp(integer, 1, 7);
-		}
-		return original;
+	@Inject(method = "animateTick", at = @At("HEAD"))
+	public void wilderWild$fallingLeafParticles(BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info) {
+		FallingLeafUtil.addFallingLeafParticles(state, world, pos, random);
 	}
 
 }

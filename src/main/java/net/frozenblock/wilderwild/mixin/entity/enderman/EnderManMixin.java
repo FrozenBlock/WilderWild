@@ -19,10 +19,11 @@
 package net.frozenblock.wilderwild.mixin.entity.enderman;
 
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.WilderEnderman;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundSource;
@@ -82,13 +83,13 @@ public abstract class EnderManMixin implements WilderEnderman {
 	@Unique
 	@Override
 	public void wilderWild$createAngerLoop() {
-		if (EntityConfig.get().enderMan.angerLoopSound && this.wilderWild$canPlayLoopingSound) {
+		if (WWEntityConfig.get().enderMan.angerLoopSound && this.wilderWild$canPlayLoopingSound) {
 			this.wilderWild$canPlayLoopingSound = false;
 			EnderMan enderMan = EnderMan.class.cast(this);
 			FrozenSoundPackets.createMovingRestrictionLoopingSound(
 				enderMan.level(),
 				enderMan,
-				RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP,
+				WWSounds.ENTITY_ENDERMAN_ANGER_LOOP,
 				SoundSource.HOSTILE,
 				1F,
 				0.9F,

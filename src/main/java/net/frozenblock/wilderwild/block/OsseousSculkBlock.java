@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -54,8 +54,8 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final double RIB_CAGE_CHANCE = 0.8D;
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	public static final IntegerProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
-	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
+	public static final IntegerProperty HEIGHT_LEFT = WWBlockStateProperties.PILLAR_HEIGHT_LEFT;
+	public static final IntegerProperty TOTAL_HEIGHT = WWBlockStateProperties.TOTAL_HEIGHT;
 	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 
 	public OsseousSculkBlock(@NotNull Properties settings) {
@@ -122,15 +122,22 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	@Override
-	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertBlocks) {
+	public int attemptUseCharge(
+		@NotNull SculkSpreader.ChargeCursor cursor,
+		@NotNull LevelAccessor level,
+		@NotNull BlockPos catalystPos,
+		@NotNull RandomSource random,
+		@NotNull SculkSpreader spreader,
+		boolean shouldConvertBlocks
+	) {
 		boolean isWorldGeneration = spreader.isWorldGeneration();
-		int i = cursor.getCharge();
-		int j = 1;
+		int cursorCharge = cursor.getCharge();
+		int cost = 1;
 		BlockPos blockPos = cursor.getPos();
 		BlockState firstState = level.getBlockState(blockPos);
 		if (firstState.is(this)) {
-			if ((i != 0 && random.nextInt(GROWTH_CHANCE) == 0) || isWorldGeneration) {
-				if (!blockPos.closerThan(catalystPos, spreader.noGrowthRadius()) || isWorldGeneration) {
+			if (isWorldGeneration || (cursorCharge != 0 && random.nextInt(GROWTH_CHANCE) == 0)) {
+				if (isWorldGeneration || !blockPos.closerThan(catalystPos, spreader.noGrowthRadius())) {
 					int pillarHeightLeft = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
 					if (pillarHeightLeft > 0) {
 						BlockPos topPos = getTop(level, blockPos, pillarHeightLeft);
@@ -152,7 +159,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 											SoundType placedSoundType = ribState.getSoundType();
 											level.playSound(null, mutableBlockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
 											if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(Direction.DOWN))) && random.nextDouble() > (isWorldGeneration ? HANGING_TENDRIL_WORLDGEN_CHANCE : HANGING_TENDRIL_CHANCE)) {
-												BlockState tendrilState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
+												BlockState tendrilState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
 												level.setBlock(mutableBlockPos, tendrilState, UPDATE_ALL);
 												SoundType tendrilSoundType = tendrilState.getSoundType();
 												level.playSound(null, mutableBlockPos, tendrilSoundType.getPlaceSound(), SoundSource.BLOCKS, tendrilSoundType.getVolume(), tendrilSoundType.getPitch());
@@ -166,7 +173,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 								workOnBottom(level, mutableBlockPos, state);
 								cursor.pos = mutableBlockPos.immutable();
 								if (!isWorldGeneration) {
-									return Math.max(0, i - j);
+									return Math.max(0, cursorCharge - cost);
 								}
 							}
 						}
@@ -174,7 +181,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 				}
 			}
 		}
-		return i;
+		return cursorCharge;
 	}
 
 	private BlockState getGrowthState(@NotNull RandomSource random, int pillarHeightLeft, @NotNull BlockState state, @NotNull Direction direction) {

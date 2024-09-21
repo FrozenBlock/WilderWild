@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.ai.crab;
 
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -32,16 +32,16 @@ public class CrabCanDigSensor extends Sensor<Crab> {
 	@Override
 	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
-		return Set.of(RegisterMemoryModuleTypes.CAN_DIG);
+		return Set.of(WWMemoryModuleTypes.CAN_DIG);
 	}
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull Crab crab) {
 		Brain<?> brain = crab.getBrain();
 		if (crab.canHideOnGround()) {
-			brain.setMemory(RegisterMemoryModuleTypes.CAN_DIG, true);
+			brain.setMemory(WWMemoryModuleTypes.CAN_DIG, true);
 		} else {
-			brain.eraseMemory(RegisterMemoryModuleTypes.CAN_DIG);
+			brain.eraseMemory(WWMemoryModuleTypes.CAN_DIG);
 		}
 	}
 

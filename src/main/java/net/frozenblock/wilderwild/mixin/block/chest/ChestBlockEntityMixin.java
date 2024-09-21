@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.mixin.block.chest;
 
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -73,9 +73,9 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		) {
 			SoundEvent sound = args.get(4);
 			if (sound == SoundEvents.CHEST_OPEN) {
-				args.set(4, RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER);
+				args.set(4, WWSounds.BLOCK_CHEST_OPEN_UNDERWATER);
 			} else if (sound == SoundEvents.CHEST_CLOSE) {
-				args.set(4, RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER);
+				args.set(4, WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER);
 			}
 		}
 	}
@@ -103,11 +103,11 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level != null) {
 			if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-				ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, pos);
+				ChestBubbleTicker.createAndSpawn(WWEntityTypes.CHEST_BUBBLER, level, pos);
 				this.wilderWild$canBubble = false;
 				ChestBlockEntity otherChest = wilderWild$getOtherEntity(level, pos, state);
 				if (otherChest != null) {
-					ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
+					ChestBubbleTicker.createAndSpawn(WWEntityTypes.CHEST_BUBBLER, level, otherChest.getBlockPos());
 					((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
 				}
 			}

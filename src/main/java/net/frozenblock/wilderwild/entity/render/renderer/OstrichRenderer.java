@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
@@ -33,17 +33,17 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, EntityModel<T>> {
-	private static final ResourceLocation OSTRICH_LOCATION = WilderConstants.id("textures/entity/ostrich/ostrich.png");
-	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WilderConstants.id("textures/entity/ostrich/ostrich_saddle.png");
+	private static final ResourceLocation OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	private boolean isInbred = false;
 	private final EntityModel<T> normalModel = this.getModel();
 	private final EntityModel<T> inbredModel;
 
 	public OstrichRenderer(EntityRendererProvider.Context context) {
-		super(context, new OstrichModel<>(context.bakeLayer(WilderWildClient.OSTRICH)), 0.75F);
-		this.inbredModel = new OstrichInbredModel<>(context.bakeLayer(WilderWildClient.OSTRICH_INBRED));
-		this.addLayer(new SaddleLayer<>(this, new OstrichModel<>(context.bakeLayer(WilderWildClient.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
+		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), 0.75F);
+		this.inbredModel = new OstrichInbredModel<>(context.bakeLayer(WWModelLayers.OSTRICH_INBRED));
+		this.addLayer(new SaddleLayer<>(this, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
 	}
 
 	@Override

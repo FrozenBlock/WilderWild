@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "wilderwild:block/maple_door_bottom",
+    "top": "wilderwild:block/maple_door_top"
+  }
+}

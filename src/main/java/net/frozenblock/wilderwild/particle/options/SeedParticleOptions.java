@@ -21,11 +21,9 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.minecraft.core.particles.DustParticleOptions;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -91,7 +89,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<?> getType() {
-		return RegisterParticles.SEED;
+		return WWParticleTypes.SEED;
 	}
 
 	@Override

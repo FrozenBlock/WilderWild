@@ -6,7 +6,7 @@
     "placement_attempts": {
       "type": "minecraft:uniform",
       "value": {
-        "max_inclusive": 18,
+        "max_inclusive": 12,
         "min_inclusive": 6
       }
     },

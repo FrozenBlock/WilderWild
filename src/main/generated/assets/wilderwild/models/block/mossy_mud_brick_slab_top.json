@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "wilderwild:block/mossy_mud_bricks",
+    "side": "wilderwild:block/mossy_mud_bricks",
+    "top": "wilderwild:block/mossy_mud_bricks"
+  }
+}

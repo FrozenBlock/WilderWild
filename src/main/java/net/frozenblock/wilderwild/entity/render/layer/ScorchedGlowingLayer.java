@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.render.layer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ScorchedGlowingLayer<T extends Entity, M extends SpiderModel<T>> extends EyesLayer<T, M> {
-	private static final RenderType SCORCHED_GLOWING = RenderType.eyes(WilderConstants.id("textures/entity/scorched/scorched_glowing.png"));
+	private static final RenderType SCORCHED_GLOWING = RenderType.eyes(WWConstants.id("textures/entity/scorched/scorched_glowing.png"));
 
 	public ScorchedGlowingLayer(RenderLayerParent<T, M> renderLayerParent) {
 		super(renderLayerParent);

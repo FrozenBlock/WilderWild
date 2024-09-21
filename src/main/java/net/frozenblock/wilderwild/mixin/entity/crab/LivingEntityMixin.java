@@ -27,7 +27,13 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
 
-	@ModifyExpressionValue(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"))
+	@ModifyExpressionValue(
+		method = "travel",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"
+		)
+	)
 	public boolean wilderWild$crabTravel(boolean original) {
 		if (LivingEntity.class.cast(this) instanceof Crab crab) {
 			return crab.isClimbing();
@@ -35,7 +41,13 @@ public class LivingEntityMixin {
 		return original;
 	}
 
-	@ModifyExpressionValue(method = "handleRelativeFrictionAndCalculateMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"))
+	@ModifyExpressionValue(
+		method = "handleRelativeFrictionAndCalculateMovement",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"
+		)
+	)
 	public boolean wilderWild$crabHandleRelativeFrictionAndCalculateMovement(boolean original) {
 		if (LivingEntity.class.cast(this) instanceof Crab crab) {
 			return crab.isClimbing();

@@ -3,118 +3,118 @@
     "sounds": [
       {
         "name": "wilderwild:ambient/cave/deep_dark/additions1",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 4
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/additions2",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 4
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/additions3",
-        "volume": 0.8,
+        "volume": 0.1,
         "weight": 4
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/clicking1",
-        "volume": 0.2,
+        "volume": 0.1,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/clicking2",
-        "volume": 0.3,
+        "volume": 0.1,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/clicking3",
-        "volume": 0.3,
+        "volume": 0.1,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/mood1",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/mood2",
-        "volume": 0.5,
+        "volume": 0.2,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/mood3",
-        "volume": 0.7,
+        "volume": 0.2,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk1",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk2",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk3",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk4",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices1",
-        "volume": 0.7,
+        "volume": 0.05,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices2",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices3",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices4",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices5",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes1",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes2",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes3",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes4",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/wind",
-        "volume": 1.0,
-        "weight": 15
+        "volume": 0.1,
+        "weight": 5
       }
     ]
   },
@@ -167,69 +167,69 @@
       }
     ]
   },
-  "ambient.jellyfish_caves.additions": {
+  "ambient.mesoglea_caves.additions": {
     "sounds": [
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/dribble1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/dribble1",
         "volume": 0.4,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/dribble2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/dribble2",
         "volume": 0.4,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/dribble3",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/dribble3",
         "volume": 0.4,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/sludge1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/sludge1",
         "volume": 0.6,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/sludge2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/sludge2",
         "volume": 0.6,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/sludge3",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/sludge3",
         "volume": 0.6,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/drip1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/drip1",
         "volume": 0.9,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/drip2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/drip2",
         "volume": 0.9,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/drip3",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/drip3",
         "volume": 0.9,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/jelly1",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/jelly1",
         "volume": 0.7,
         "weight": 1
       },
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/jelly2",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/jelly2",
         "volume": 0.7,
         "weight": 1
       }
     ]
   },
-  "ambient.jellyfish_caves.loop": {
+  "ambient.mesoglea_caves.loop": {
     "sounds": [
       {
-        "name": "wilderwild:ambient/cave/jellyfish_caves/ambience",
+        "name": "wilderwild:ambient/cave/mesoglea_caves/ambience",
         "stream": true,
         "volume": 1.0
       }
@@ -1918,14 +1918,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.sculk_sensor.hiccup": {
-    "sounds": [
-      "wilderwild:block/sculk_sensor/hiccup1",
-      "wilderwild:block/sculk_sensor/hiccup2",
-      "wilderwild:block/sculk_sensor/hiccup3"
-    ],
-    "subtitle": "subtitles.block.sculk_sensor.hiccup"
-  },
   "block.sculk_shrieker.gargle": {
     "sounds": [
       "wilderwild:block/sculk_shrieker/gargle_1",
@@ -2256,42 +2248,6 @@
       }
     ],
     "subtitle": "subtitles.block.ostrich_egg.hatch"
-  },
-  "entity.ancient_horn_vibration.blast": {
-    "sounds": [
-      "wilderwild:entity/ancient_horn_vibration/blast1",
-      "wilderwild:entity/ancient_horn_vibration/blast2"
-    ],
-    "subtitle": "subtitles.entity.ancient_horn_vibration.blast"
-  },
-  "entity.ancient_horn_vibration.dissipate": {
-    "sounds": [
-      "wilderwild:entity/ancient_horn_vibration/dissipate1",
-      "wilderwild:entity/ancient_horn_vibration/dissipate2"
-    ],
-    "subtitle": "subtitles.entity.ancient_horn_vibration.dissipate"
-  },
-  "entity.ancient_horn_vibration.flyby": {
-    "sounds": [
-      {
-        "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_vibration/flyby1"
-      },
-      {
-        "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_vibration/flyby2"
-      },
-      {
-        "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_vibration/flyby3"
-      }
-    ],
-    "subtitle": "subtitles.entity.ancient_horn_vibration.flyby"
-  },
-  "entity.ancient_horn_vibration.loop": {
-    "sounds": [
-      "wilderwild:entity/ancient_horn_vibration/loop"
-    ]
   },
   "entity.firefly.hide": {
     "sounds": [
@@ -2736,14 +2692,6 @@
     ],
     "subtitle": "subtitles.entity.frog.sus_death"
   },
-  "item.ancient_horn.call": {
-    "sounds": [
-      "wilderwild:item/ancient_horn/horn1",
-      "wilderwild:item/ancient_horn/horn2",
-      "wilderwild:item/ancient_horn/horn3"
-    ],
-    "subtitle": "subtitles.item.ancient_horn.call"
-  },
   "entity.player.hurt.cactus": {
     "sounds": [
       "wilderwild:entity/player/hurt/prickly_pear_hurt1",
@@ -3016,7 +2964,7 @@
       }
     ]
   },
-  "music.overworld.jellyfish_caves": {
+  "music.overworld.mesoglea_caves": {
     "sounds": [
       {
         "name": "music/game/water/axolotl",
@@ -3039,7 +2987,7 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/ludocrypt/jellyfish_caves/dove",
+        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
         "stream": true,
         "volume": 0.8,
         "weight": 5
@@ -3261,5 +3209,61 @@
       "wilderwild:block/magma/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.melon.break": {
+    "sounds": [
+      "wilderwild:block/melon/place1",
+      "wilderwild:block/melon/place2",
+      "wilderwild:block/melon/place3",
+      "wilderwild:block/melon/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.melon.fall": {
+    "sounds": [
+      "wilderwild:block/melon/step1",
+      "wilderwild:block/melon/step2",
+      "wilderwild:block/melon/step3",
+      "wilderwild:block/melon/step4",
+      "wilderwild:block/melon/step5",
+      "wilderwild:block/melon/step6"
+    ]
+  },
+  "block.melon.hit": {
+    "sounds": [
+      "wilderwild:block/melon/step1",
+      "wilderwild:block/melon/step2",
+      "wilderwild:block/melon/step3",
+      "wilderwild:block/melon/step4",
+      "wilderwild:block/melon/step5",
+      "wilderwild:block/melon/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.melon.place": {
+    "sounds": [
+      "wilderwild:block/melon/place1",
+      "wilderwild:block/melon/place2",
+      "wilderwild:block/melon/place3",
+      "wilderwild:block/melon/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.melon.step": {
+    "sounds": [
+      "wilderwild:block/melon/step1",
+      "wilderwild:block/melon/step2",
+      "wilderwild:block/melon/step3",
+      "wilderwild:block/melon/step4",
+      "wilderwild:block/melon/step5",
+      "wilderwild:block/melon/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.fire.ignite": {
+    "sounds": [
+      "minecraft:mob/ghast/fireball4"
+    ],
+    "subtitle": "subtitles.block.fire.ignite"
   }
 }

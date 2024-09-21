@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "wilderwild:block/mossy_mud_bricks",
+    "side": "wilderwild:block/mossy_mud_bricks",
+    "top": "wilderwild:block/mossy_mud_bricks"
+  }
+}

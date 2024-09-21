@@ -1,7 +1,0 @@
-{
-   "pack": {
-     "pack_format": 22,
-     "supported_formats": [15,16,17,18,19,20,21,22],
-     "description": "Cycles through older Wilder Wild panoramas"
-   }
-}

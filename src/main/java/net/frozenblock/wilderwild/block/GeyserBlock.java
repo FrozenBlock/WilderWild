@@ -22,11 +22,11 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
-import net.frozenblock.wilderwild.block.impl.GeyserStage;
-import net.frozenblock.wilderwild.block.impl.GeyserType;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.block.property.GeyserStage;
+import net.frozenblock.wilderwild.block.property.GeyserType;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.particle.Particle;
@@ -61,10 +61,10 @@ import org.jetbrains.annotations.Nullable;
 public class GeyserBlock extends BaseEntityBlock {
 	public static final float BOIL_SOUND_CHANCE_NATURAL = 0.0085F;
 	public static final float BOIL_SOUND_CHANCE = 0.002F;
-	public static final EnumProperty<GeyserType> GEYSER_TYPE = RegisterProperties.GEYSER_TYPE;
-	public static final EnumProperty<GeyserStage> GEYSER_STAGE = RegisterProperties.GEYSER_STAGE;
+	public static final EnumProperty<GeyserType> GEYSER_TYPE = WWBlockStateProperties.GEYSER_TYPE;
+	public static final EnumProperty<GeyserStage> GEYSER_STAGE = WWBlockStateProperties.GEYSER_STAGE;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	public static final BooleanProperty NATURAL = RegisterProperties.NATURAL;
+	public static final BooleanProperty NATURAL = WWBlockStateProperties.NATURAL;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
@@ -94,6 +94,24 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(GEYSER_TYPE, GEYSER_STAGE, FACING, NATURAL, POWERED);
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos) {
+		GeyserStage stage = state.getValue(GEYSER_STAGE);
+		if (stage == GeyserStage.DORMANT) {
+			return 0;
+		} else if (stage == GeyserStage.ACTIVE) {
+			return 5;
+		} else if (stage == GeyserStage.ERUPTING) {
+			return 15;
+		}
+		return super.getAnalogOutputSignal(state, world, pos);
 	}
 
 	@Override
@@ -186,7 +204,7 @@ public class GeyserBlock extends BaseEntityBlock {
 				GeyserBlockEntity.spawnActiveParticles(level, blockPos, geyserType, direction, random);
 			}
 			if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
-				level.playLocalSound(blockPos, RegisterSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
+				level.playLocalSound(blockPos, WWSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 			}
 		}
 	}
@@ -200,8 +218,8 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ?
-			createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex, worldx.random))
-			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
+			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex, worldx.random))
+			: createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
 	}
 
 	public static boolean isActive(GeyserType geyserType) {

@@ -21,11 +21,11 @@ package net.frozenblock.wilderwild.block.entity;
 import java.util.ArrayList;
 import java.util.Objects;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.networking.packet.WilderStoneChestLidPacket;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -94,7 +94,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	protected long updateTime;
 
 	public StoneChestBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
+		super(WWBlockEntityTypes.STONE_CHEST, blockPos, blockState);
 	}
 
 	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
@@ -114,7 +114,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
 				if (!stoneChest.closing) {
 					stoneChest.closing = true;
-					playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
+					playSound(serverLevel, pos, state, WWSounds.BLOCK_STONE_CHEST_CLOSE_START, WWSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
 				}
 				if (stoneChest.openProgress <= 0F) {
 					stoneChest.onLidSlam(serverLevel, pos, state, otherChest);
@@ -191,7 +191,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void liftLid(float liftAmount, boolean ancient) {
 		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2F : liftAmount), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * BlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -200,7 +200,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * BlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -231,7 +231,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 						otherPos.getX() + 0.5D,
 						otherPos.getY() + 0.625D,
 						otherPos.getZ() + 0.5,
-						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(RegisterProperties.ANCIENT) ? 4 : 2)),
+						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(WWBlockStateProperties.ANCIENT) ? 4 : 2)),
 						0.21875D,
 						0D,
 						0.21875D,
@@ -239,7 +239,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 					);
 				}
 			}
-			playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, RegisterSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER, 0.5F + (this.highestLidPoint / 5F));
+			playSound(level, pos, state, WWSounds.BLOCK_STONE_CHEST_SLAM, WWSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER, 0.5F + (this.highestLidPoint / 5F));
 		}
 		this.closing = false;
 		this.cooldownTicks = 15;
@@ -260,11 +260,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		if (otherStoneChest != null) {
 			this.syncValues(otherStoneChest);
 			if (shouldSend) {
-				WilderStoneChestLidPacket.sendToAll(otherStoneChest);
+				WWStoneChestLidPacket.sendToAll(otherStoneChest);
 			}
 		}
 		if (shouldSend) {
-			WilderStoneChestLidPacket.sendToAll(this);
+			WWStoneChestLidPacket.sendToAll(this);
 		}
 	}
 

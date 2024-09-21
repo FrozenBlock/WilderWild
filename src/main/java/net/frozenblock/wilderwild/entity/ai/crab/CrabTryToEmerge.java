@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -34,7 +34,7 @@ public class CrabTryToEmerge {
 	public static @NotNull BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.IS_EMERGING),
-			instance.present(RegisterMemoryModuleTypes.IS_UNDERGROUND),
+			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND),
 			instance.registered(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(MemoryModuleType.NEAREST_PLAYERS)
 		).apply(instance, (isEmerging, underground, digCooldown, players) -> (world, crab, l) -> {

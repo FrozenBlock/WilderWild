@@ -1,0 +1,34 @@
+{
+  "feature": "wilderwild:snapped_maple",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 3
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "frozenlib:noise_filter",
+      "fade_distance": 0.175,
+      "maxThresh": 1.0,
+      "min_threshold": 0.675,
+      "must_be_inside": true,
+      "noise": 4,
+      "noise_scale": 0.0065,
+      "scale_y": false,
+      "use_y": false
+    }
+  ]
+}

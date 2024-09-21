@@ -1,0 +1,104 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:yellow_maple_bees_checked",
+    "features": [
+      {
+        "chance": 0.00875,
+        "feature": "wilderwild:yellow_maple_checked"
+      },
+      {
+        "chance": 0.0875,
+        "feature": "wilderwild:tall_yellow_maple_checked"
+      },
+      {
+        "chance": 0.027475001,
+        "feature": "wilderwild:dying_yellow_maple_checked"
+      },
+      {
+        "chance": 0.2345,
+        "feature": "wilderwild:tall_yellow_maple_bees_checked"
+      },
+      {
+        "chance": 0.027475001,
+        "feature": "wilderwild:tall_dying_yellow_maple_checked"
+      },
+      {
+        "chance": 0.2345,
+        "feature": "wilderwild:yellow_maple_bees_checked"
+      },
+      {
+        "chance": 0.14,
+        "feature": "wilderwild:short_yellow_maple_checked"
+      },
+      {
+        "chance": 0.0322,
+        "feature": "wilderwild:big_shrub_yellow_maple_checked"
+      },
+      {
+        "chance": 0.00875,
+        "feature": "wilderwild:orange_maple_checked"
+      },
+      {
+        "chance": 0.0875,
+        "feature": "wilderwild:tall_orange_maple_checked"
+      },
+      {
+        "chance": 0.027475001,
+        "feature": "wilderwild:dying_orange_maple_checked"
+      },
+      {
+        "chance": 0.2345,
+        "feature": "wilderwild:tall_orange_maple_bees_checked"
+      },
+      {
+        "chance": 0.027475001,
+        "feature": "wilderwild:tall_dying_orange_maple_checked"
+      },
+      {
+        "chance": 0.2345,
+        "feature": "wilderwild:orange_maple_bees_checked"
+      },
+      {
+        "chance": 0.14,
+        "feature": "wilderwild:short_orange_maple_checked"
+      },
+      {
+        "chance": 0.0322,
+        "feature": "wilderwild:big_shrub_orange_maple_checked"
+      },
+      {
+        "chance": 0.0037500001,
+        "feature": "wilderwild:red_maple_checked"
+      },
+      {
+        "chance": 0.0375,
+        "feature": "wilderwild:tall_red_maple_checked"
+      },
+      {
+        "chance": 0.011775001,
+        "feature": "wilderwild:dying_red_maple_checked"
+      },
+      {
+        "chance": 0.10050001,
+        "feature": "wilderwild:tall_red_maple_bees_checked"
+      },
+      {
+        "chance": 0.011775001,
+        "feature": "wilderwild:tall_dying_red_maple_checked"
+      },
+      {
+        "chance": 0.10050001,
+        "feature": "wilderwild:red_maple_bees_checked"
+      },
+      {
+        "chance": 0.14,
+        "feature": "wilderwild:short_red_maple_checked"
+      },
+      {
+        "chance": 0.0322,
+        "feature": "wilderwild:big_shrub_red_maple_checked"
+      }
+    ]
+  }
+}

@@ -26,7 +26,7 @@ import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -59,7 +59,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
-	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
+	private static final BooleanProperty CRACKEDNESS = WWBlockStateProperties.CRACKED;
 	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
 		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
@@ -182,8 +182,8 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@NotNull
 	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		if (state.getValue(RegisterProperties.CRACKED)) {
-			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKED, true);
+		if (state.getValue(WWBlockStateProperties.CRACKED)) {
+			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.CRACKED, true);
 		}
 		return superStack;
 	}
