@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -42,10 +42,10 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class MilkweedBlock extends TallFlowerBlock {
 	public static final int GROWTH_CHANCE = 5;
 	public static final int MIN_SEEDS_ON_RUSTLE = 14;
@@ -68,7 +68,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
+		ItemStack stack = new ItemStack(WWItems.MILKWEED_POD);
 		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
 		popResource(level, pos, stack);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
@@ -94,16 +94,16 @@ public class MilkweedBlock extends TallFlowerBlock {
 			int particles = (int) (serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS_ON_RUSTLE, MAX_SEEDS_ON_RUSTLE) * 0.5D);
 			double firstYHeight = isUpper ? 0.3D : 0.5D;
 			double firstYOffset = isUpper ? 0.3D : 0.5D;
-
+			Vec3 offset = state.getOffset(level, pos);
 			serverLevel.sendParticles(
 				SeedParticleOptions.unControlled(true),
-				pos.getX() + 0.5D,
+				pos.getX() + 0.5D + offset.x,
 				pos.getY() + firstYHeight,
-				pos.getZ() + 0.5D,
+				pos.getZ() + 0.5D + offset.z,
 				particles,
-				0.2D,
+				0.1D,
 				firstYOffset,
-				0.2D,
+				0.1D,
 				0D
 			);
 
@@ -161,8 +161,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return super.use(state, level, pos, player, hand, hit);
 	}
 
-	public void pickAndSpawnSeeds(Level level, BlockState state, BlockPos pos) {
-		level.playSound(null, pos, RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+	public void pickAndSpawnSeeds(@NotNull Level level, BlockState state, BlockPos pos) {
+		level.playSound(null, pos, WWSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
 		setAgeOnBothHalves(this, state, level, pos, 0, true);
 	}
 

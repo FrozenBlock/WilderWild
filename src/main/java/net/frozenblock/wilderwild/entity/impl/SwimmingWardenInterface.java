@@ -24,4 +24,6 @@ public interface SwimmingWardenInterface {
 
 	boolean wilderWild$isSubmergedInWaterOrLava();
 
+	float wilderWild$getWadingProgress(float tickDelta);
+
 }

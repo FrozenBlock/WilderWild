@@ -31,8 +31,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Entity.class)
 public class EntityMixin {
 
-	@WrapOperation(method = "spawnSprintParticle", at = @At(value = "NEW", target = "(Lnet/minecraft/core/particles/ParticleType;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/particles/BlockParticleOption;"))
-	public BlockParticleOption wilderWild$spawnSprintParticle(ParticleType type, BlockState state, Operation<BlockParticleOption> original) {
+	@WrapOperation(
+		method = "spawnSprintParticle",
+		at = @At(
+			value = "NEW",
+			target = "(Lnet/minecraft/core/particles/ParticleType;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/particles/BlockParticleOption;"
+		)
+	)
+	public BlockParticleOption wilderWild$spawnSprintParticle(ParticleType<?> type, BlockState state, Operation<BlockParticleOption> original) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			state = SnowloggingUtils.getSnowEquivalent(state);
 		}

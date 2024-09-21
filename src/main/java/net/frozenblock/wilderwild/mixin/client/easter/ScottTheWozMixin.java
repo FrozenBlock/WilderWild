@@ -49,10 +49,11 @@ public class ScottTheWozMixin {
 	private User user;
 
 	@Inject(method = "getSplash", at = @At("TAIL"), cancellable = true, require = 0)
-	public void getSplash(CallbackInfoReturnable<SplashRenderer> cir) {
+	public void getSplash(CallbackInfoReturnable<SplashRenderer> info) {
 		String lowerName = this.user.getName().toLowerCase();
-		if (this.user != null && (RANDOM.nextInt(this.splashes.size()) == 42 || lowerName.contains("scot") || lowerName.contains("skot") || lowerName.contains("sct") || lowerName.contains("skt"))) {
-			cir.setReturnValue(new SplashRenderer("Hey all, " + this.user.getName() + " here."));
+		if (this.user != null && (RANDOM.nextInt(this.splashes.size()) == 42 ||
+			((lowerName.contains("scot") || lowerName.contains("skot") || lowerName.contains("sct") || lowerName.contains("skt")) && RANDOM.nextFloat() < 0.05F))) {
+			info.setReturnValue(new SplashRenderer("Hey all, " + this.user.getName() + " here."));
 		}
 	}
 }

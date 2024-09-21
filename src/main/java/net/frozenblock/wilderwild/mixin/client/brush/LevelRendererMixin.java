@@ -40,10 +40,15 @@ public class LevelRendererMixin {
 	@Nullable
 	private ClientLevel level;
 
-	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;"))
+	@ModifyExpressionValue(
+		method = "levelEvent",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;"
+		)
+	)
 	private Block scorchedBrush(Block original, int eventId, BlockPos pos, int data) {
-		if (this.level == null) return original;
-		if (original instanceof ScorchedBlock scorchedBlock) {
+		if (this.level != null && original instanceof ScorchedBlock scorchedBlock) {
 			this.level.playLocalSound(pos, scorchedBlock.brushCompletedSound, SoundSource.PLAYERS, 1F, 1F, false);
 		}
 		return original;

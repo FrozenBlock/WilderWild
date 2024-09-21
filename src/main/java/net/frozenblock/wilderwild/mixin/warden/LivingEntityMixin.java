@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.warden;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
-import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
@@ -76,9 +76,9 @@ public class LivingEntityMixin {
 			WilderWarden wilderWarden = (WilderWarden) warden;
 			if (!wilderWarden.wilderWild$isStella()) {
 				if (!(warden instanceof SwimmingWardenInterface swimmingWardenInterface) || !swimmingWardenInterface.wilderWild$isSubmergedInWaterOrLava()) {
-					warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+					warden.playSound(WWSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
 				} else {
-					warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 5.0F, warden.getVoicePitch());
+					warden.playSound(WWSounds.ENTITY_WARDEN_UNDERWATER_DYING, 5.0F, warden.getVoicePitch());
 				}
 			}
 		}
@@ -86,7 +86,7 @@ public class LivingEntityMixin {
 
 	@Unique
 	public boolean wilderWild$isWardenWithDeathAnimation() {
-		return LivingEntity.class.cast(this) instanceof Warden warden && (EntityConfig.get().warden.wardenDeathAnimation || ((WilderWarden) warden).wilderWild$isStella());
+		return LivingEntity.class.cast(this) instanceof WilderWarden wilderWarden && (WWEntityConfig.get().warden.wardenDeathAnimation || wilderWarden.wilderWild$isStella());
 	}
 
 }

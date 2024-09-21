@@ -21,12 +21,12 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.frozenblock.wilderwild.WilderConstants;
-import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -70,13 +70,13 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 	public StoneChestBlockEntityRenderer(@NotNull BlockEntityRendererProvider.Context ctx) {
 		super(ctx);
 
-		ModelPart modelPart = ctx.bakeLayer(WilderWildClient.STONE_CHEST);
+		ModelPart modelPart = ctx.bakeLayer(WWModelLayers.STONE_CHEST);
 		this.singleChestBase = modelPart.getChild(BASE);
 		this.singleChestLid = modelPart.getChild(LID);
-		ModelPart modelPart2 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_LEFT);
+		ModelPart modelPart2 = ctx.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_LEFT);
 		this.doubleChestLeftBase = modelPart2.getChild(BASE);
 		this.doubleChestLeftLid = modelPart2.getChild(LID);
-		ModelPart modelPart3 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_RIGHT);
+		ModelPart modelPart3 = ctx.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_RIGHT);
 		this.doubleChestRightBase = modelPart3.getChild(BASE);
 		this.doubleChestRightLid = modelPart3.getChild(LID);
 	}
@@ -124,14 +124,14 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 
 	@NotNull
 	public static Material getChestTextureId(@NotNull String variant) {
-		return new Material(Sheets.CHEST_SHEET, WilderConstants.id("entity/stone_chest/" + variant));
+		return new Material(Sheets.CHEST_SHEET, WWConstants.id("entity/stone_chest/" + variant));
 	}
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		Level level = entity.getLevel();
 		boolean bl = level != null;
-		BlockState blockState = bl ? entity.getBlockState() : RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
+		BlockState blockState = bl ? entity.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
 		ChestType chestType = blockState.hasProperty(StoneChestBlock.TYPE) ? blockState.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
 		Block block = blockState.getBlock();
 		if (block instanceof AbstractChestBlock<?> abstractStoneChestBlock) {
@@ -152,7 +152,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 			openProg = 1F - openProg;
 			openProg = 1F - openProg * openProg * openProg;
 			int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
-			Material spriteIdentifier = getChestTexture(chestType, entity.getBlockState().getValue(RegisterProperties.HAS_SCULK));
+			Material spriteIdentifier = getChestTexture(chestType, entity.getBlockState().getValue(WWBlockStateProperties.HAS_SCULK));
 			VertexConsumer vertexConsumer = spriteIdentifier.buffer(buffer, RenderType::entityCutout);
 			if (isDouble) {
 				if (chestType == ChestType.LEFT) {

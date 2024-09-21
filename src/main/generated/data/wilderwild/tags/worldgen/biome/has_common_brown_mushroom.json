@@ -30,6 +30,10 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
     }
   ]
 }

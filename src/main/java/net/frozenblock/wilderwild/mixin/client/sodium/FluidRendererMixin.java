@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import me.jellysquid.mods.sodium.client.model.color.ColorProvider;
 import me.jellysquid.mods.sodium.client.model.light.LightMode;
 import me.jellysquid.mods.sodium.client.model.light.LightPipeline;
@@ -36,13 +37,11 @@ import me.jellysquid.mods.sodium.client.world.WorldSlice;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -60,18 +59,17 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Pseudo
 @Mixin(FluidRenderer.class)
 public abstract class FluidRendererMixin {
 
-	@Unique
-	private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
+	@Shadow
+	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
+
 	@Shadow
 	@Final
 	private BlockPos.MutableBlockPos scratchPos;
@@ -81,23 +79,26 @@ public abstract class FluidRendererMixin {
 	@Shadow(remap = false)
 	@Final
 	private LightPipelineProvider lighters;
-	@Unique
-	private float wilderWild$u0;
-	@Unique
-	private float wilderWild$u1;
-	@Unique
-	private float wilderWild$v0;
-	@Unique
-	private float wilderWild$v1;
-	@Unique
-	private boolean wilderWild$isWater;
 
 	@Shadow(remap = false)
 	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
 	}
 
-	@Inject(method = "isFluidOccluded", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 1), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT, require = 0)
-	private void wilderWild$isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info, BlockPos pos, BlockState blockState) {
+	@Inject(
+		method = "isFluidOccluded",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;",
+			ordinal = 1
+		),
+		cancellable = true,
+		locals = LocalCapture.CAPTURE_FAILSOFT,
+		require = 0
+	)
+	private void wilderWild$isFluidOccluded(
+		BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info,
+		@Local BlockState blockState
+	) {
 		if (blockState.getBlock() instanceof MesogleaBlock && dir != Direction.UP) {
 			info.setReturnValue(true);
 		}
@@ -106,12 +107,10 @@ public abstract class FluidRendererMixin {
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true, require = 0)
 	private void wilderWild$getIsWater(WorldSlice world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info) {
 		BlockState blockState = world.getBlockState(pos);
-		if (BlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
+		if (WWBlockConfig.Client.MESOGLEA_LIQUID && blockState.getBlock() instanceof MesogleaBlock) {
 			this.wilderWild$renderWithSingleTexture(world, fluidState, pos, offset, buffers, blockState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
-			return;
 		}
-		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
 
 	@Unique
@@ -332,49 +331,6 @@ public abstract class FluidRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1), require = 0, remap = false)
-	private void wilderWild$switchSprites(Args args) {
-		if (this.wilderWild$isWater) {
-			args.set(0, this.wilderWild$waterOverlay);
-		}
-	}
-
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 4), require = 0, remap = false)
-	private void wilderWild$sideTextureBottom1(Args args) {
-		if (this.wilderWild$isWater) {
-			this.wilderWild$u0 = this.wilderWild$waterOverlay.getU0();
-			this.wilderWild$u1 = this.wilderWild$waterOverlay.getU1();
-			this.wilderWild$v0 = this.wilderWild$waterOverlay.getV0();
-			this.wilderWild$v1 = this.wilderWild$waterOverlay.getV1();
-			args.set(5, this.wilderWild$u0);
-			args.set(6, this.wilderWild$v1);
-		}
-	}
-
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 5), require = 0, remap = false)
-	private void wilderWild$sideTextureBottom2(Args args) {
-		if (this.wilderWild$isWater) {
-			args.set(5, this.wilderWild$u0);
-			args.set(6, this.wilderWild$v0);
-		}
-	}
-
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 6), require = 0, remap = false)
-	private void wilderWild$sideTextureBottom3(Args args) {
-		if (this.wilderWild$isWater) {
-			args.set(5, this.wilderWild$u1);
-			args.set(6, this.wilderWild$v0);
-		}
-	}
-
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 7), require = 0, remap = false)
-	private void wilderWild$sideTextureBottom4(Args args) {
-		if (this.wilderWild$isWater) {
-			args.set(5, this.wilderWild$u1);
-			args.set(6, this.wilderWild$v1);
-		}
-	}
-
 	@Unique
 	private boolean isFluidOccludedAndNotSameBlock(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, BlockState blockState) {
 		return isFluidOccluded(world, x, y, z, dir, fluid) && isNeighborSameFluidAndBlock(world, x, y, z, dir, fluid, blockState);
@@ -409,7 +365,4 @@ public abstract class FluidRendererMixin {
 
 	@Shadow
 	protected abstract float fluidHeight(BlockAndTintGetter world, Fluid fluid, BlockPos blockPos, Direction direction);
-
-	@Shadow
-	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
 }

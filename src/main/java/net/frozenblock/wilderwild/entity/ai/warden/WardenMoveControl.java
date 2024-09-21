@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.warden;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -46,7 +46,7 @@ public class WardenMoveControl extends MoveControl {
 	@Override
 	public void tick() {
 		if (!this.mob.isDiggingOrEmerging()) {
-			if (EntityConfig.get().warden.wardenSwims && this.touchingWaterOrLava(this.mob)) {
+			if (WWEntityConfig.get().warden.wardenSwims && this.touchingWaterOrLava(this.mob)) {
 				if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
 					double d = this.wantedX - this.mob.getX();
 					double e = this.wantedY - this.mob.getY();

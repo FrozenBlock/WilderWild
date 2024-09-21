@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "wilderwild:baobab_fence_gate",
-    "wilderwild:cypress_fence_gate"
+    "wilderwild:cypress_fence_gate",
+    "wilderwild:palm_fence_gate",
+    "wilderwild:maple_fence_gate"
   ]
 }

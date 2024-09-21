@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.warden;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.control.LookControl;
@@ -40,7 +40,7 @@ public class WardenLookControl extends LookControl {
 
 	@Override
 	public void tick() {
-		if (!EntityConfig.get().warden.wardenSwims || !entityTouchingWaterOrLava(this.mob)) {
+		if (!WWEntityConfig.get().warden.wardenSwims || !entityTouchingWaterOrLava(this.mob)) {
 			super.tick();
 		} else {
 			if (this.lookAtCooldown > 0) {

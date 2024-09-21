@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging.worldgen;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,7 +38,7 @@ public class BiomeMixin {
 		)
 	)
 	public boolean wilderWild$shouldSnow(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || (SnowloggingUtils.canSnowlog(instance) && BlockConfig.canSnowlogNaturally());
+		return original.call(instance, block) || (SnowloggingUtils.canSnowlog(instance) && WWBlockConfig.canSnowlogNaturally());
 	}
 
 }

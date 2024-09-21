@@ -47,27 +47,15 @@ val fabric_api_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
-val betterend_version: String by project
-val betternether_version: String by project
 val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
-val terralith_version: String by project
 val fallingleaves_version: String by project
 
 val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
-val indium_version: String by project
-val run_indium: String by project
-val shouldRunIndium = (run_sodium == "true") && shouldRunSodium
-
-val continuity_version: String by project
-
-val embeddium_version: String by project
-val run_embeddium: String by project
-val shouldRunEmbeddium = run_embeddium == "true"
 
 base {
     archivesName = archives_base_name
@@ -200,13 +188,14 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
-    if (local_frozenlib)
-        api(project(":FrozenLib", configuration = "namedElements"))?.let { include(it) }
-    else
+    if (local_frozenlib) {
+        api(project(":FrozenLib", configuration = "namedElements"))
+        modCompileOnly(project(":FrozenLib"))?.let { include(it) }
+    } else
         modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
 
     // Simple Copper Pipes
-    modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+    modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
     modImplementation("com.terraformersmc:modmenu:$modmenu_version")
@@ -224,35 +213,19 @@ dependencies {
     modApi("com.jamieswhiteshirt:reach-entity-attributes:2.4.0")?.let { include(it) }
 
     // Particle Rain
-    modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
+    modCompileOnly("maven.modrinth:particle-rain:2.1.4")
 
     // Sodium
-    if (shouldRunSodium)
-        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
-
-    // Embeddium
-    if (shouldRunEmbeddium)
-        modImplementation("maven.modrinth:embeddium:$embeddium_version")
-    else
-        modCompileOnly("maven.modrinth:embeddium:$embeddium_version")
-
-    // Indium
-    if (shouldRunSodium)
-        modImplementation("maven.modrinth:indium:${indium_version}")
-    else
-        modCompileOnly("maven.modrinth:indium:${indium_version}")
-
-    // Continuity
-    modImplementation("maven.modrinth:continuity:${continuity_version}")
+    if (shouldRunSodium) {
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
+        modImplementation("maven.modrinth:indium:1.0.34+mc1.20.1")
+    } else {
+        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+        modCompileOnly("maven.modrinth:indium:1.0.34+mc1.20.1")
+    }
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
-
-    // BetterEnd
-    modCompileOnly("maven.modrinth:betterend:${betterend_version}")
-
-    // BetterNether
-    modCompileOnly("maven.modrinth:betternether:${betternether_version}")
 
     "datagenImplementation"(sourceSets.main.get().output)
 }

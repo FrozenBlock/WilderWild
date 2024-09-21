@@ -19,9 +19,8 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.wilderwild.block.entity.impl.SculkShriekerTickInterface;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -29,20 +28,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlockEntity.class)
 public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
@@ -56,24 +51,11 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 	@Shadow
 	public abstract VibrationSystem.User getVibrationUser();
 
-	@Inject(at = @At("HEAD"), method = "canRespond", cancellable = true)
-	private void wilderWild$canRespond(ServerLevel level, CallbackInfoReturnable<Boolean> info) {
-		SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-		BlockState blockState = entity.getBlockState();
-		if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-			info.setReturnValue(false);
-		}
-	}
-
-	@Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "tryShriek")
 	public void wilderWild$shriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo info) {
 		SculkShriekerBlockEntity shrieker = SculkShriekerBlockEntity.class.cast(this);
-		if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-			info.cancel();
-		} else {
-			if (BlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-				this.wilderWild$bubbles = 50;
-			}
+		if (WWBlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+			this.wilderWild$bubbles = 50;
 		}
 	}
 
@@ -117,21 +99,4 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 			}
 		}
 	}
-
-	@Mixin(SculkShriekerBlockEntity.VibrationUser.class)
-	public static class VibrationUserMixin {
-
-		@Shadow
-		@Final
-		SculkShriekerBlockEntity field_44621;
-
-		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
-		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context eventContext, CallbackInfoReturnable<Boolean> info) {
-			if (this.field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-				info.setReturnValue(false);
-			}
-		}
-
-	}
-
 }

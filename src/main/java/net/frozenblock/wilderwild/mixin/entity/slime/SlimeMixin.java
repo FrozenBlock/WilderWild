@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.slime;
 
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -35,11 +35,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Slime.class)
 public class SlimeMixin {
 
-	@Inject(method = "checkSlimeSpawnRules", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;getBiome(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;", shift = At.Shift.BEFORE), cancellable = true)
-	private static void wilderWild$spawnInAlgae(EntityType<Slime> type, @NotNull LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info) {
+	@Inject(
+		method = "checkSlimeSpawnRules",
+		at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/LevelAccessor;getBiome(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;",
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
+	)
+	private static void wilderWild$spawnInAlgae(
+		EntityType<Slime> type, @NotNull LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
+	) {
 		if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
 			boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
-			if (test && RegisterBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
+			if (test && WWBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
 				info.setReturnValue(true);
 			}
 		}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:crimson_stems",
+      "required": false
+    },
+    {
+      "id": "#minecraft:warped_stems",
+      "required": false
+    }
+  ]
+}

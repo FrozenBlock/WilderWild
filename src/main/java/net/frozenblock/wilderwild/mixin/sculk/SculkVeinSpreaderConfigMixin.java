@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkVeinBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,10 +39,10 @@ public final class SculkVeinSpreaderConfigMixin {
 		)
 	)
 	private boolean wilderWild$restrictGrowthOnNewBlocks(BlockState state, Block block, Operation<Boolean> operation) {
-		return state.is(RegisterBlocks.OSSEOUS_SCULK) ||
-			state.is(RegisterBlocks.SCULK_SLAB) ||
-			state.is(RegisterBlocks.SCULK_STAIRS) ||
-			state.is(RegisterBlocks.SCULK_WALL) ||
+		return state.is(WWBlocks.OSSEOUS_SCULK) ||
+			state.is(WWBlocks.SCULK_SLAB) ||
+			state.is(WWBlocks.SCULK_STAIRS) ||
+			state.is(WWBlocks.SCULK_WALL) ||
 			operation.call(state, block);
 	}
 

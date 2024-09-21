@@ -3,10 +3,10 @@
   "config": {
     "decorators": [
       {
-        "type": "wilderwild:shelf_fungus_tree_decorator",
+        "type": "wilderwild:shelf_fungi_tree_decorator",
         "placement_chance": 0.25,
         "probability": 0.02,
-        "red_shelf_fungus_chance": 0.4
+        "red_shelf_fungi_chance": 0.4
       },
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
@@ -53,8 +53,7 @@
       "state": {
         "Name": "minecraft:oak_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

@@ -28,27 +28,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 
 public class FlowerLichenBlock extends MultifaceBlock {
-	private final MultifaceSpreader grower = new MultifaceSpreader(this);
+	private final MultifaceSpreader spreader = new MultifaceSpreader(new FlowerLichenSpreaderConfig());
 
 	public FlowerLichenBlock(@NotNull Properties settings) {
 		super(settings);
 	}
 
 	public static boolean canAttachToNoWater(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
-	}
-
-	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		for (Direction direction : DIRECTIONS) {
-			if (this.isFaceSupported(direction)) {
-				builder.add(getFaceProperty(direction));
-			}
-		}
+		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite())
+			|| Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite())
+			&& !level.getBlockState(pos).is(Blocks.WATER);
 	}
 
 	@Override
@@ -75,8 +67,25 @@ public class FlowerLichenBlock extends MultifaceBlock {
 	}
 
 	@Override
+	public boolean isValidStateForPlacement(BlockGetter view, @NotNull BlockState state, BlockPos pos, Direction dir) {
+		if (!state.getFluidState().isEmpty()) return false;
+		return super.isValidStateForPlacement(view, state, pos, dir);
+	}
+
+	@Override
 	@NotNull
 	public MultifaceSpreader getSpreader() {
-		return grower;
+		return this.spreader;
+	}
+
+	public class FlowerLichenSpreaderConfig extends MultifaceSpreader.DefaultSpreaderConfig {
+		public FlowerLichenSpreaderConfig() {
+			super(FlowerLichenBlock.this);
+		}
+
+		@Override
+		public boolean stateCanBeReplaced(BlockGetter view, BlockPos posA, BlockPos posB, Direction dir, @NotNull BlockState state) {
+			return state.getFluidState().isEmpty() && super.stateCanBeReplaced(view, posA, posB, dir, state);
+		}
 	}
 }

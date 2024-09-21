@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "wilderwild:block/cracked_mud_bricks"
+  }
+}

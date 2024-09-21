@@ -75,8 +75,7 @@
         "state": {
           "Name": "wilderwild:stripped_baobab_log",
           "Properties": {
-            "axis": "y",
-            "termite_edible": "false"
+            "axis": "y"
           }
         }
       }
@@ -86,8 +85,7 @@
       "state": {
         "Name": "wilderwild:baobab_log",
         "Properties": {
-          "axis": "y",
-          "termite_edible": "false"
+          "axis": "y"
         }
       }
     }

@@ -23,12 +23,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
@@ -57,7 +57,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearMilkweed(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.MILKWEED && MilkweedBlock.isFullyGrown(blockState)) {
+		if (blockState.getBlock() == WWBlocks.MILKWEED && MilkweedBlock.isFullyGrown(blockState)) {
 			MilkweedBlock.shear(level, pos, blockState, null);
 			return true;
 		}
@@ -67,7 +67,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearGloryOfTheSnow(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.GLORY_OF_THE_SNOW && GloryOfTheSnowBlock.hasColor(blockState)) {
+		if (blockState.getBlock() == WWBlocks.GLORY_OF_THE_SNOW && GloryOfTheSnowBlock.hasColor(blockState)) {
 			GloryOfTheSnowBlock.shear(level, pos, blockState, null);
 			return true;
 		}
@@ -77,7 +77,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearPricklyPear(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.PRICKLY_PEAR_CACTUS && PricklyPearCactusBlock.isFullyGrown(blockState)) {
+		if (blockState.getBlock() == WWBlocks.PRICKLY_PEAR_CACTUS && PricklyPearCactusBlock.isFullyGrown(blockState)) {
 			PricklyPearCactusBlock.pick(level, pos, blockState, true, null);
 			return true;
 		}
@@ -87,8 +87,8 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearShelfFungus(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() instanceof ShelfFungusBlock) {
-			return ShelfFungusBlock.shear(level, pos, blockState, null);
+		if (blockState.getBlock() instanceof ShelfFungiBlock) {
+			return ShelfFungiBlock.shear(level, pos, blockState, null);
 		}
 		return false;
 	}
@@ -96,8 +96,8 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearSmallSponge(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.SMALL_SPONGE) {
-			return SmallSpongeBlock.shear(level, pos, blockState, null);
+		if (blockState.getBlock() == WWBlocks.SPONGE_BUD) {
+			return SpongeBudBlock.shear(level, pos, blockState, null);
 		}
 		return false;
 	}
@@ -105,7 +105,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweed(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.TUMBLEWEED) {
+		if (blockState.getBlock() == WWBlocks.TUMBLEWEED) {
 			return TumbleweedBlock.shear(level, pos, null);
 		}
 		return false;
@@ -114,7 +114,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweedStem(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.TUMBLEWEED_PLANT) {
+		if (blockState.getBlock() == WWBlocks.TUMBLEWEED_PLANT) {
 			return TumbleweedPlantBlock.shear(level, pos, blockState, null);
 		}
 		return false;

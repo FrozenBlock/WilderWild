@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wilderwild:block/mossy_mud_brick_slab"
+    },
+    "type=double": {
+      "model": "wilderwild:block/mossy_mud_bricks"
+    },
+    "type=top": {
+      "model": "wilderwild:block/mossy_mud_brick_slab_top"
+    }
+  }
+}

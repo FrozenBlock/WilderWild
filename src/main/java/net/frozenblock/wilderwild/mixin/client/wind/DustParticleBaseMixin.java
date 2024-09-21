@@ -18,8 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.config.AmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.DustParticleBase;
 import net.minecraft.client.particle.TextureSheetParticle;
@@ -29,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(DustParticleBase.class)
 public abstract class DustParticleBaseMixin extends TextureSheetParticle {
 
@@ -39,7 +42,7 @@ public abstract class DustParticleBaseMixin extends TextureSheetParticle {
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-			.scale(AmbienceAndMiscConfig.getParticleWindIntensity());
+			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;

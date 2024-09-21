@@ -6,74 +6,33 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.023833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "wilderwild:milkweed",
-                  "Properties": {
-                    "age": "0",
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 3
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "data": {
-                  "Name": "wilderwild:datura",
-                  "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 5
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "data": {
-                  "Name": "wilderwild:seeding_dandelion",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 5
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:lilac",
-                  "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 6
+                "Name": "minecraft:poppy"
               },
               {
-                "data": {
-                  "Name": "minecraft:dandelion",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 10
+                "Name": "minecraft:poppy"
               },
               {
-                "data": {
-                  "Name": "minecraft:blue_orchid",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 8
-              },
-              {
-                "data": {
-                  "Name": "minecraft:poppy",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 10
+                "Name": "minecraft:allium"
               }
             ]
           }
@@ -89,8 +48,8 @@
         }
       ]
     },
-    "tries": 32,
-    "xz_spread": 7,
+    "tries": 24,
+    "xz_spread": 8,
     "y_spread": 3
   }
 }

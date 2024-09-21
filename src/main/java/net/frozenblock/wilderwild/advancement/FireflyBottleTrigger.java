@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.advancement;
 
 import com.google.gson.JsonObject;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
@@ -29,7 +29,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
-	static final ResourceLocation ID = WilderConstants.id("firefly_bottle");
+	static final ResourceLocation ID = WWConstants.id("firefly_bottle");
 
 	@Override
 	@NotNull

@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#wilderwild:leaf_litters",
+      "required": false
+    },
+    {
       "id": "#wilderwild:stripped_hollowed_logs",
       "required": false
     },
@@ -22,6 +26,7 @@
     "wilderwild:stripped_baobab_wood",
     "wilderwild:stripped_cypress_wood",
     "wilderwild:stripped_palm_wood",
+    "wilderwild:stripped_maple_wood",
     {
       "id": "immersive_weathering:leaf_piles",
       "required": false

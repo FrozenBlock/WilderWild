@@ -24,9 +24,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.LavaFluid;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,15 +32,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LavaFluid.class)
 public class LavaFluidMixin {
 
-	@Inject(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/RandomSource;nextInt(I)I", ordinal = 0, shift = At.Shift.BEFORE))
+	@Inject(
+		method = "randomTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/util/RandomSource;nextInt(I)I",
+			ordinal = 0,
+			shift = At.Shift.BEFORE
+		)
+	)
 	public void wilderWild$randomTick(Level level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
-		this.wilderWild$scorchTick(level, pos.below(), random);
-	}
-
-	@Unique
-	public void wilderWild$scorchTick(Level level, BlockPos pos, @NotNull RandomSource random) {
 		if (random.nextFloat() <= 0.275F) {
-			ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
+			BlockPos belowPos = pos.below();
+			ScorchedBlock.scorch(level.getBlockState(belowPos), level, belowPos);
 		}
 	}
 

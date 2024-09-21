@@ -1,7 +1,0 @@
-{
-	"parent": "minecraft:block/sculk_shrieker",
-	"overrides": [
-		{"predicate": {"souls_taken": 0.5}, "model": "wilderwild:item/sculk_shrieker_one_soul"},
-		{"predicate": {"souls_taken": 1}, "model": "wilderwild:item/sculk_shrieker_no_soul"}
-	]
-}

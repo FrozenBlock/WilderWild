@@ -5,10 +5,6 @@
     "wilderwild:cattail",
     "wilderwild:milkweed",
     "wilderwild:bush",
-    "wilderwild:pollen",
-    {
-      "id": "wilderwild:pink_petals",
-      "required": false
-    }
+    "wilderwild:pollen"
   ]
 }

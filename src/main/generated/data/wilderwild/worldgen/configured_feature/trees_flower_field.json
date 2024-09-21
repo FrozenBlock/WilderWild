@@ -28,6 +28,13 @@
         }
       },
       {
+        "chance": 0.1,
+        "feature": {
+          "feature": "wilderwild:medium_birch_bees_025",
+          "placement": []
+        }
+      },
+      {
         "chance": 0.5,
         "feature": {
           "feature": "wilderwild:big_shrub",

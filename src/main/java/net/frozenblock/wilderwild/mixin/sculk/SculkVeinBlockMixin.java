@@ -20,13 +20,11 @@ package net.frozenblock.wilderwild.mixin.sculk;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import java.util.Iterator;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -43,7 +41,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(SculkVeinBlock.class)
 public abstract class SculkVeinBlockMixin extends MultifaceBlock implements SculkBehaviour, SimpleWaterloggedBlock {
@@ -63,22 +60,21 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 			target = "Lnet/minecraft/core/Direction;getOpposite()Lnet/minecraft/core/Direction;",
 			opcode = 0,
 			shift = At.Shift.AFTER
-		),
-		locals = LocalCapture.CAPTURE_FAILHARD
+		)
 	)
 	private void wilderWild$attemptPlaceSculk(
 		SculkSpreader sculkBehavior, LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info,
-		BlockState blockState, TagKey<Block> replaceableBlocks, Iterator<Direction> var7, Direction direction, BlockPos blockPos, BlockState blockState2, BlockState blockState3
+		@Local(ordinal = 1) BlockPos blockPos, @Local(ordinal = 1) BlockState blockState2, @Local(ordinal = 2) BlockState blockState3
 	) {
 		boolean canReturn = false;
-		if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			blockState3 = RegisterBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
+		if (blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
+			blockState3 = WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
 			canReturn = true;
-		} else if (blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
-			blockState3 = RegisterBlocks.SCULK_WALL.withPropertiesOf(blockState2);
+		} else if (blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
+			blockState3 = WWBlocks.SCULK_WALL.withPropertiesOf(blockState2);
 			canReturn = true;
-		} else if (blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			blockState3 = RegisterBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
+		} else if (blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
+			blockState3 = WWBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
 			canReturn = true;
 		}
 
@@ -99,7 +95,7 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		)
 	)
 	private boolean wilderWild$onDischarged(BlockState state, Block block, Operation<Boolean> operation) {
-		return state.is(RegisterBlocks.SCULK_SLAB) || state.is(RegisterBlocks.SCULK_STAIRS) || state.is(RegisterBlocks.SCULK_WALL) || operation.call(state, block);
+		return state.is(WWBlocks.SCULK_SLAB) || state.is(WWBlocks.SCULK_STAIRS) || state.is(WWBlocks.SCULK_WALL) || operation.call(state, block);
 	}
 
 }

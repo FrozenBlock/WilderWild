@@ -22,9 +22,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.block.api.entity.BillboardBlockEntityRenderer;
-import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -46,7 +46,7 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
-		if (BlockConfig.get().billboardTendrils) {
+		if (WWBlockConfig.get().billboardTendrils) {
 			super.render(entity, partialTick, poseStack, buffer, light, overlay);
 		}
 	}
@@ -60,6 +60,6 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 	@Override
 	@NotNull
 	public ModelPart getRoot(@NotNull Context ctx) {
-		return ctx.bakeLayer(WilderWildClient.HANGING_TENDRIL);
+		return ctx.bakeLayer(WWModelLayers.HANGING_TENDRIL);
 	}
 }

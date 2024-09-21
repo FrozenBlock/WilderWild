@@ -10,16 +10,16 @@
     "Soro"
   ],
   "contributors": [
-    "Enri",
     "zhen",
     "voxelotl",
-    "zozozrob_",
     "LudoCrypt",
     "Liukrast",
+    "zozozrob_",
     "Xfrtrex",
     "SaishoVibes",
     "magistermaks",
     "Osmiooo",
+    "Enri",
     "Merp"
   ],
   "contact": {
@@ -37,17 +37,14 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
-    "fabric-gametest": [
-      "net.frozenblock.wilderwild.gametest.WWGameTest"
-    ],
     "frozenlib:events": [
-      "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
+      "net.frozenblock.wilderwild.registry.WWSurfaceRules"
     ],
     "frozenlib:mob_categories": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
     "modmenu": [
-      "net.frozenblock.wilderwild.config.gui.ModMenuIntegration"
+      "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"
     ],
     "terrablender": [
       "net.frozenblock.wilderwild.mod_compat.terrablender.BlenderInitializer"
@@ -71,7 +68,8 @@
     "terrablender": "*"
   },
   "breaks": {
-    "sodium": "<0.5.0"
+    "sodium": "<0.5.0",
+    "particlerain": "<2.1.0"
   },
   "custom": {
     "modmenu": {

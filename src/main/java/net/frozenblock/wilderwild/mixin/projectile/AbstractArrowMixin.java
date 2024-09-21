@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.projectile;
 
-import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +31,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(AbstractArrow.class)
 public class AbstractArrowMixin {
@@ -42,15 +41,19 @@ public class AbstractArrowMixin {
 
 	@Inject(
 		method = "onHitBlock",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V", ordinal = 0, shift = At.Shift.BEFORE),
-		locals = LocalCapture.CAPTURE_FAILHARD
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V",
+			ordinal = 0,
+			shift = At.Shift.BEFORE
+		)
 	)
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
-		if (this.lastState != null && ItemConfig.get().projectileBreakParticles) {
+		if (this.lastState != null && WWItemConfig.get().projectileBreakParticles) {
 			AbstractArrow arrow = AbstractArrow.class.cast(this);
-			if (!arrow.level().isClientSide && arrow.level() instanceof ServerLevel server) {
+			if (arrow.level() instanceof ServerLevel server) {
 				int particleCalc = ((int) (arrow.getDeltaMovement().lengthSqr() * 1.5D));
-				if (particleCalc > 1 || (particleCalc == 1 && arrow.level().random.nextBoolean())) {
+				if (particleCalc > 1 || (particleCalc == 1 && server.random.nextBoolean())) {
 					server.sendParticles(
 						new BlockParticleOption(ParticleTypes.BLOCK, this.lastState),
 						blockHitResult.getLocation().x(),

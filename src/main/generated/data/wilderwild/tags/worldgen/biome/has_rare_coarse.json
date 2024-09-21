@@ -39,6 +39,10 @@
     {
       "id": "wilderwild:dying_mixed_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
     }
   ]
 }

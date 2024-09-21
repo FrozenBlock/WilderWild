@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "wilderwild:block/maple_planks",
+    "side": "wilderwild:block/maple_planks",
+    "top": "wilderwild:block/maple_planks"
+  }
+}

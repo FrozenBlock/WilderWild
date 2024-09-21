@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sponge",
+  "key": {
+    "#": {
+      "item": "wilderwild:sponge_bud"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:sponge"
+  },
+  "show_notification": true
+}

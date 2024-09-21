@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.projectile;
 
-import net.frozenblock.wilderwild.config.ItemConfig;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.config.WWItemConfig;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.world.entity.projectile.ThrownExperienceBottle;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,11 +30,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ThrownExperienceBottle.class)
 public class ThrownExperienceBottleMixin {
 
-	@Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V", ordinal = 0))
+	@Inject(
+		method = "onHit",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V",
+			ordinal = 0
+		)
+	)
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
+		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownExperienceBottle expBottle = ThrownExperienceBottle.class.cast(this);
-			expBottle.playSound(RegisterSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH, 1.0F, 0.85F + (expBottle.level().random.nextFloat() * 0.2F));
+			expBottle.playSound(WWSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH, 1.0F, 0.85F + (expBottle.level().random.nextFloat() * 0.2F));
 		}
 	}
 
