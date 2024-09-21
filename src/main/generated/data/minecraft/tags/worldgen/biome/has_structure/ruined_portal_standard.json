@@ -52,6 +52,10 @@
     {
       "id": "wilderwild:magmatic_caves",
       "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
     }
   ]
 }

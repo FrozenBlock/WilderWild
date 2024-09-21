@@ -1,0 +1,8 @@
+{
+  "parent": "wilderwild:block/template_hollowed_log",
+  "textures": {
+    "end": "wilderwild:block/baobab_log_top",
+    "inside": "wilderwild:block/stripped_baobab_log",
+    "side": "wilderwild:block/hollowed_baobab_log"
+  }
+}

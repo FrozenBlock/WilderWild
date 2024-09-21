@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -36,8 +36,8 @@ public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged")
 	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock && !level.isClientSide && BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			level.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
+		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock bubbleColumnBlock && !level.isClientSide && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+			level.scheduleTick(pos, bubbleColumnBlock, 5);
 		}
 	}
 

@@ -62,9 +62,6 @@ public abstract class BlockStateBaseMixin {
 	@Shadow
 	protected abstract BlockState asState();
 
-	@Shadow
-	public abstract Block getBlock();
-
 	@ModifyReturnValue(
 		method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
 		at = @At("RETURN")
@@ -169,9 +166,16 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, state, player, blockGetter, pos);
 	}
 
-	@Inject(method = "randomTick", at = @At("HEAD"))
-	public void wilderWild$randomTick(ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		SnowloggingUtils.onRandomTick(this.asState(), level, pos);
+	@WrapOperation(
+		method = "randomTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;randomTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V"
+		)
+	)
+	public void wilderWild$randomTick(Block instance, BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, Operation<Void> original) {
+		SnowloggingUtils.onRandomTick(blockState, serverLevel, blockPos);
+		original.call(instance, blockState, serverLevel, blockPos, randomSource);
 	}
 
 	@Inject(method = "use", at = @At("HEAD"), cancellable = true)

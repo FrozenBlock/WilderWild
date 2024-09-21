@@ -20,8 +20,12 @@
         "feature": "wilderwild:old_dying_fancy_oak_bees_0004"
       },
       {
-        "chance": 0.072,
+        "chance": 0.022,
         "feature": "wilderwild:dying_birch"
+      },
+      {
+        "chance": 0.052,
+        "feature": "wilderwild:dying_medium_birch"
       },
       {
         "chance": 0.12,
@@ -36,8 +40,12 @@
         "feature": "wilderwild:short_oak_checked"
       },
       {
-        "chance": 0.21,
+        "chance": 0.02,
         "feature": "wilderwild:birch_checked"
+      },
+      {
+        "chance": 0.19,
+        "feature": "wilderwild:medium_birch"
       }
     ]
   }

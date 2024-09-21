@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.DarkOakTreeGrower;
@@ -34,11 +34,11 @@ public class DarkOakTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
 	public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().treeGeneration) {
+		if (WWWorldgenConfig.get().treeGeneration) {
 			if (randomSource.nextFloat() < 0.2F) {
-				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
+				info.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
 			} else if (randomSource.nextFloat() < 0.2F) {
-				info.setReturnValue(WilderTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 			}
 		}
 	}

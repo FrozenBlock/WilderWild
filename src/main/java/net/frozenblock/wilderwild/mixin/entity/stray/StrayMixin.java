@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.entity.stray;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -38,7 +38,7 @@ public class StrayMixin {
 		)
 	)
 	private static boolean wilderWild$spawnInFrozenCaves(ServerLevelAccessor instance, BlockPos pos, Operation<Boolean> original) {
-		return original.call(instance, pos) || instance.getBiome(pos).is(WilderBiomeTags.STRAYS_CAN_SPAWN_UNDERGROUND);
+		return original.call(instance, pos) || instance.getBiome(pos).is(WWBiomeTags.STRAYS_CAN_SPAWN_UNDERGROUND);
 	}
 
 }

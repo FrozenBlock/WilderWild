@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.mixin.snowlogging.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Environment(EnvType.CLIENT)
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
 

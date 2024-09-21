@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blaze_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blaze_powder"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_scorched_eye": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "wilderwild:scorched_eye"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:scorched_eye"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blaze_powder",
+      "has_scorched_eye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:scorched_eye"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "wilderwild:mossy_mud_bricks"
+  },
+  "result": "wilderwild:mossy_mud_brick_slab"
+}

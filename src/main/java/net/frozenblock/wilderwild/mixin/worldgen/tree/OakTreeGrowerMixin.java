@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.world.impl.sapling.AbstractTreeGrowerInterface;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.AbstractTreeGrowerInterface;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -38,23 +38,23 @@ public class OakTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
 	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().treeGeneration) {
+		if (WWWorldgenConfig.get().treeGeneration) {
 			AbstractTreeGrowerInterface treeGrowerInterface = (AbstractTreeGrowerInterface) OakTreeGrower.class.cast(this);
 			if (treeGrowerInterface.wilderWild$getLevel() != null && treeGrowerInterface.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
 				Holder<Biome> biome = treeGrowerInterface.wilderWild$getLevel().getBiome(treeGrowerInterface.wilderWild$getPos());
-				if (biome.is(WilderBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
-					info.setReturnValue(WilderTreeConfigured.SWAMP_TREE.getKey());
+				if (biome.is(WWBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
+					info.setReturnValue(WWTreeConfigured.SWAMP_TREE.getKey());
 					return;
 				}
 			}
 			if (random.nextInt(10) == 0) {
-				info.setReturnValue(bees ? WilderTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WilderTreeConfigured.FANCY_OAK.getKey());
+				info.setReturnValue(bees ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
 				if (random.nextFloat() < 0.075F) {
-					info.setReturnValue(random.nextBoolean() ? WilderTreeConfigured.SHRUB.getKey() : WilderTreeConfigured.BIG_SHRUB.getKey());
+					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.SHRUB.getKey() : WWTreeConfigured.BIG_SHRUB.getKey());
 					return;
 				}
-				info.setReturnValue(bees ? WilderTreeConfigured.OAK_BEES_0004.getKey() : WilderTreeConfigured.OAK.getKey());
+				info.setReturnValue(bees ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
 		}
 	}

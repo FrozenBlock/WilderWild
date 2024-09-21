@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.crab;
 
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
@@ -36,7 +36,7 @@ public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	private boolean isHuntTarget(@NotNull LivingEntity attacker, LivingEntity target) {
-		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.getType().is(WilderEntityTags.CRAB_HUNT_TARGETS);
+		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.getType().is(WWEntityTags.CRAB_HUNT_TARGETS);
 	}
 
 	private boolean isClose(LivingEntity attacker, @NotNull LivingEntity target) {

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:snapped_maple_checked",
+    "features": [
+      {
+        "chance": 1.0,
+        "feature": "wilderwild:snapped_maple_checked"
+      }
+    ]
+  }
+}

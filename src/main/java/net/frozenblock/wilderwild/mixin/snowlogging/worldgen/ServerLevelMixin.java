@@ -58,8 +58,8 @@ public class ServerLevelMixin {
 			ordinal = 0
 		)
 	)
-	public Comparable wilderWild$tickPrecipitationB(
-		BlockState instance, Property property, Operation<Comparable> original,
+	public Comparable<?> wilderWild$tickPrecipitationB(
+		BlockState instance, Property<?> property, Operation<Comparable<?>> original,
 		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
 		return runSnowlogging.get() ? snowloggedLayers.get() : original.call(instance, property);
@@ -73,7 +73,7 @@ public class ServerLevelMixin {
 		)
 	)
 	public Object wilderWild$tickPrecipitationC(
-		BlockState instance, Property property, Comparable comparable, Operation<Object> original,
+		BlockState instance, Property<?> property, Comparable<?> comparable, Operation<Object> original,
 		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
 		return original.call(instance, runSnowlogging.get() ? SnowloggingUtils.SNOW_LAYERS : property, comparable);

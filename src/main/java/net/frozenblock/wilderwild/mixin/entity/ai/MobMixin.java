@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.entity.ai;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Slime;
@@ -43,7 +43,7 @@ public class MobMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo info) {
-		if (EntityConfig.get().unpassableRail) {
+		if (WWEntityConfig.get().unpassableRail) {
 			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
 		}
 	}
@@ -51,7 +51,7 @@ public class MobMixin {
 	@Inject(method = "checkSpawnObstruction", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$checkSpawnObstruction(LevelReader level, CallbackInfoReturnable<Boolean> info) {
 		if (Mob.class.cast(this) instanceof Slime slime) {
-			info.setReturnValue((!level.containsAnyLiquid(slime.getBoundingBox()) || RegisterBlocks.ALGAE.hasAmountNearby(slime.level(), slime.blockPosition(), 1, 3)) && level.isUnobstructed(slime));
+			info.setReturnValue((!level.containsAnyLiquid(slime.getBoundingBox()) || WWBlocks.ALGAE.hasAmountNearby(slime.level(), slime.blockPosition(), 1, 3)) && level.isUnobstructed(slime));
 		}
 	}
 

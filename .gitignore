@@ -47,5 +47,8 @@ replay_*.log
 *.hprof
 *.jfr
 
+# kotlin
+.kotlin/
+
 # Git
 /FrozenLib/

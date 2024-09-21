@@ -4,8 +4,12 @@
     "default": "wilderwild:dead_oak_branches_checked",
     "features": [
       {
-        "chance": 0.52,
+        "chance": 0.22,
         "feature": "wilderwild:dead_birch"
+      },
+      {
+        "chance": 0.32,
+        "feature": "wilderwild:dead_medium_birch"
       },
       {
         "chance": 0.075,

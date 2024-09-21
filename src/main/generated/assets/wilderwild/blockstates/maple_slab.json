@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wilderwild:block/maple_slab"
+    },
+    "type=double": {
+      "model": "wilderwild:block/maple_planks"
+    },
+    "type=top": {
+      "model": "wilderwild:block/maple_slab_top"
+    }
+  }
+}

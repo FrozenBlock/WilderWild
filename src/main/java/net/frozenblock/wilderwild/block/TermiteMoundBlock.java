@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -51,9 +51,9 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		super(settings);
 		this.registerDefaultState(
 			this.stateDefinition.any()
-				.setValue(RegisterProperties.NATURAL, false)
-				.setValue(RegisterProperties.TERMITES_AWAKE, false)
-				.setValue(RegisterProperties.CAN_SPAWN_TERMITE, false)
+				.setValue(WWBlockStateProperties.NATURAL, false)
+				.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
+				.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false)
 		);
 	}
 
@@ -85,18 +85,18 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE, RegisterProperties.CAN_SPAWN_TERMITE);
+		builder.add(WWBlockStateProperties.NATURAL, WWBlockStateProperties.TERMITES_AWAKE, WWBlockStateProperties.CAN_SPAWN_TERMITE);
 	}
 
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
-		if (isSafe != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
-			state = state.setValue(RegisterProperties.TERMITES_AWAKE, isSafe);
+		if (isSafe != state.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
+			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, isSafe);
 		}
-		if (isSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
-			state = state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, isSafe);
+		if (isSafe != state.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
+			state = state.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, isSafe);
 		}
 		return state;
 	}
@@ -120,11 +120,11 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
-		if (canAwaken != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
-			level.setBlock(pos, state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken), UPDATE_ALL);
+		if (canAwaken != state.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
+			level.setBlock(pos, state.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken), UPDATE_ALL);
 		}
-		if (areTermitesSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
-			level.setBlock(pos, state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, areTermitesSafe), UPDATE_ALL);
+		if (areTermitesSafe != state.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
+			level.setBlock(pos, state.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe), UPDATE_ALL);
 		}
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}
@@ -138,15 +138,15 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ?
-			createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) ->
+			createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) ->
 				blockEntity.tickServer(
 					worldx,
 					pos,
-					statex.getValue(RegisterProperties.NATURAL),
-					statex.getValue(RegisterProperties.TERMITES_AWAKE),
-					statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE)
+					statex.getValue(WWBlockStateProperties.NATURAL),
+					statex.getValue(WWBlockStateProperties.TERMITES_AWAKE),
+					statex.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)
 				)
 			)
-			: createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
+			: createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
 	}
 }

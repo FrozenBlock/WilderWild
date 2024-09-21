@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.SpruceTreeGrower;
@@ -34,16 +34,16 @@ public class SpruceTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
 	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().treeGeneration) {
-			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getKey() : WilderTreeConfigured.SPRUCE.getKey());
+		if (WWWorldgenConfig.get().treeGeneration) {
+			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
 		}
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().treeGeneration) {
+		if (WWWorldgenConfig.get().treeGeneration) {
 			if (random.nextFloat() < 0.25F) {
-				info.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+				info.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
 			}
 		}
 	}

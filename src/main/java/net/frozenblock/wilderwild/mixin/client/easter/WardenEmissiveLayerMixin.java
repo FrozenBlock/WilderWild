@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.client.easter;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -48,9 +48,15 @@ public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends Warde
 		super(context);
 	}
 
-	@Inject(at = @At("HEAD"), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V", cancellable = true)
-	public void preventIfStella(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float partialTick, float j, float k, float l, CallbackInfo info) {
-		if (((WilderWarden) wardenEntity).wilderWild$isStella()) {
+	@Inject(
+		at = @At("HEAD"),
+		method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V",
+		cancellable = true
+	)
+	public void wilderWild$cancelIfStella(
+		PoseStack matrices, MultiBufferSource vertexConsumers, int i, T warden, float f, float g, float h, float j, float k, float l, CallbackInfo info
+	) {
+		if (warden instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) {
 			info.cancel();
 		}
 	}

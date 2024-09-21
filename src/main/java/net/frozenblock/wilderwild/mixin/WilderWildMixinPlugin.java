@@ -22,19 +22,23 @@ import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.WilderPreMixinInjectConstants;
-import net.frozenblock.wilderwild.config.MixinsConfig;
+import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-public class WilderWildMixinPlugin implements IMixinConfigPlugin {
+public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
+	private WWMixinsConfig mixinsConfig;
+	private boolean hasEmbeddium;
+	private boolean disableNonSodium;
 
 	@Override
 	public void onLoad(String mixinPackage) {
-
+		this.mixinsConfig = WWMixinsConfig.get();
+		this.hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
+		this.disableNonSodium = this.hasEmbeddium || FrozenBools.HAS_SODIUM;
 	}
 
 	@Override
@@ -45,85 +49,73 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
-		MixinsConfig config = MixinsConfig.get();
-		boolean hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
-		boolean disableNonSodium = hasEmbeddium || FrozenBools.HAS_SODIUM;
-		boolean enableSodium = FrozenBools.HAS_SODIUM;
-		boolean enableIndium = FrozenBools.HAS_INDIUM;
-		if (mixinClassName.contains("client.sodium")) {
-			return config.client_sodium && enableSodium && !hasEmbeddium;
-		} else if (mixinClassName.contains("client.embeddium")) {
-			return config.client_sodium && hasEmbeddium;
+		if (mixinClassName.contains("client.sodium.")) {
+			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddium;
 		}
-		if (mixinClassName.contains("client.indium")) {
-			return config.client_indium && enableIndium;
+		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
+		if (mixinClassName.contains("client.brush.")) return this.mixinsConfig.client_brush;
+		if (mixinClassName.contains("client.easter.")) return this.mixinsConfig.client_easter;
+		if (mixinClassName.contains("client.mesoglea.")) {
+			if ((mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("EntityRenderDispatcher")) && this.disableNonSodium)
+				return false;
+			return this.mixinsConfig.client_mesoglea;
 		}
-		if (mixinClassName.contains("client.allay")) return config.client_allay;
-		if (mixinClassName.contains("client.brush")) return config.client_brush;
-		if (mixinClassName.contains("client.easter")) return config.client_easter;
-		if (mixinClassName.contains("client.mesoglea")) {
-			if ((mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("EntityRenderDispatcher")) && disableNonSodium)
+		if (mixinClassName.contains("client.shrieker.")) return this.mixinsConfig.client_shrieker;
+		if (mixinClassName.contains("client.warden.")) return this.mixinsConfig.client_warden;
+		if (mixinClassName.contains("client.wind.")) {
+			if (mixinClassName.contains("fallingleaves") && !FabricLoader.getInstance().isModLoaded("fallingleaves"))
 				return false;
-			return config.client_mesoglea;
-		}
-		if (mixinClassName.contains("client.shrieker")) return config.client_shrieker;
-		if (mixinClassName.contains("client.warden")) return config.client_warden;
-		if (mixinClassName.contains("client.wind")) {
-			if (mixinClassName.contains("fallingleaves") && !WilderPreMixinInjectConstants.HAS_FALLINGLEAVES)
+			if (mixinClassName.contains("particlerain") && !FabricLoader.getInstance().isModLoaded("particlerain"))
 				return false;
-			if (mixinClassName.contains("particlerain") && !WilderPreMixinInjectConstants.HAS_PARTICLERAIN)
+			if (mixinClassName.contains("CloudRenderer") && this.disableNonSodium)
 				return false;
-			if (mixinClassName.contains("CloudRenderer") && disableNonSodium)
-				return false;
-			return config.client_wind;
+			return this.mixinsConfig.client_wind;
 		}
 
-		if (mixinClassName.contains("block.beacon")) return config.block_beacon;
-		if (mixinClassName.contains("block.cactus")) return config.block_cactus;
-		if (mixinClassName.contains("block.chest")) return config.block_chest;
-		if (mixinClassName.contains("block.dripleaf")) return config.block_dripleaf;
-		if (mixinClassName.contains("block.dripstone")) return config.block_dripstone;
-		if (mixinClassName.contains("block.fire")) return config.block_fire;
-		if (mixinClassName.contains("block.ice")) return config.block_ice;
-		if (mixinClassName.contains("block.lava")) return config.block_lava;
-		if (mixinClassName.contains("block.leaves")) return config.block_leaves;
-		if (mixinClassName.contains("block.mesoglea")) return config.block_mesoglea;
-		if (mixinClassName.contains("block.palm_fronds")) return config.block_palm_fronds;
-		if (mixinClassName.contains("block.reinforced_deepslate")) return config.block_reinforced_deepslate;
-		if (mixinClassName.contains("block.spawner")) return config.block_spawner;
-		if (mixinClassName.contains("block.termite")) return config.block_termite;
-		if (mixinClassName.contains("snowlogging")) return config.snowlogging;
-		if (mixinClassName.contains("entity.ai")) return config.entity_ai;
-		if (mixinClassName.contains("entity.allay")) return config.entity_allay;
-		if (mixinClassName.contains("entity.boat")) return config.entity_boat;
-		if (mixinClassName.contains("entity.easter")) return config.entity_easter;
-		if (mixinClassName.contains("entity.enderman")) return config.entity_enderman;
-		if (mixinClassName.contains("entity.experience")) return config.entity_experience;
-		if (mixinClassName.contains("entity.jellyfish")) return config.entity_jellyfish;
-		if (mixinClassName.contains("entity.lightning")) return config.entity_lightning;
-		if (mixinClassName.contains("entity.slime")) return config.entity_slime;
-		if (mixinClassName.contains("entity.stray")) return config.entity_stray;
-		if (mixinClassName.contains("entity.tumbleweed")) return config.entity_tumbleweed;
-		if (mixinClassName.contains("entity.turtle")) return config.entity_turtle;
-		if (mixinClassName.contains("entity.firework_rocket")) return config.entity_firework_rocket;
-		if (mixinClassName.contains("item.axe")) return config.item_axe;
-		if (mixinClassName.contains("item.brush")) return config.item_brush;
-		if (mixinClassName.contains("item.instrument")) return config.item_instrument;
-		if (mixinClassName.contains("loot")) return config.loot;
-		if (mixinClassName.contains("projectile")) return config.projectile;
-		if (mixinClassName.contains("sculk")) return config.sculk;
-		if (mixinClassName.contains("warden")) return config.warden;
-		if (mixinClassName.contains("worldgen.biome")) return config.worldgen_biome;
-		if (mixinClassName.contains("worldgen.structure")) return config.worldgen_structure;
-		if (mixinClassName.contains("worldgen.tree")) return config.worldgen_tree;
+		if (mixinClassName.contains("block.cactus.")) return this.mixinsConfig.block_cactus;
+		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
+		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
+		if (mixinClassName.contains("block.dripstone.")) return this.mixinsConfig.block_dripstone;
+		if (mixinClassName.contains("block.echo_glass.")) return this.mixinsConfig.block_echo_glass;
+		if (mixinClassName.contains("block.fire.")) return this.mixinsConfig.block_fire;
+		if (mixinClassName.contains("block.ice.")) return this.mixinsConfig.block_ice;
+		if (mixinClassName.contains("block.lava.")) return this.mixinsConfig.block_lava;
+		if (mixinClassName.contains("block.leaves.")) return this.mixinsConfig.block_leaves;
+		if (mixinClassName.contains("block.mesoglea.")) return this.mixinsConfig.block_mesoglea;
+		if (mixinClassName.contains("block.reinforced_deepslate.")) return this.mixinsConfig.block_reinforced_deepslate;
+		if (mixinClassName.contains("block.spawner.")) return this.mixinsConfig.block_spawner;
+		if (mixinClassName.contains("block.termite.")) return this.mixinsConfig.block_termite;
+		if (mixinClassName.contains("snowlogging.")) return this.mixinsConfig.snowlogging;
+		if (mixinClassName.contains("entity.ai.")) return this.mixinsConfig.entity_ai;
+		if (mixinClassName.contains("entity.allay.")) return this.mixinsConfig.entity_allay;
+		if (mixinClassName.contains("entity.boat.")) return this.mixinsConfig.entity_boat;
+		if (mixinClassName.contains("entity.easter.")) return this.mixinsConfig.entity_easter;
+		if (mixinClassName.contains("entity.enderman.")) return this.mixinsConfig.entity_enderman;
+		if (mixinClassName.contains("entity.experience.")) return this.mixinsConfig.entity_experience;
+		if (mixinClassName.contains("entity.jellyfish.")) return this.mixinsConfig.entity_jellyfish;
+		if (mixinClassName.contains("entity.lightning.")) return this.mixinsConfig.entity_lightning;
+		if (mixinClassName.contains("entity.scorching.")) return this.mixinsConfig.entity_scorching;
+		if (mixinClassName.contains("entity.slime.")) return this.mixinsConfig.entity_slime;
+		if (mixinClassName.contains("entity.stray.")) return this.mixinsConfig.entity_stray;
+		if (mixinClassName.contains("entity.tumbleweed.")) return this.mixinsConfig.entity_tumbleweed;
+		if (mixinClassName.contains("entity.turtle.")) return this.mixinsConfig.entity_turtle;
+		if (mixinClassName.contains("entity.firework_rocket.")) return this.mixinsConfig.entity_firework_rocket;
+		if (mixinClassName.contains("item.axe.")) return this.mixinsConfig.item_axe;
+		if (mixinClassName.contains("item.brush.")) return this.mixinsConfig.item_brush;
+		if (mixinClassName.contains("item.instrument.")) return this.mixinsConfig.item_instrument;
+		if (mixinClassName.contains("loot.")) return this.mixinsConfig.loot;
+		if (mixinClassName.contains("projectile.")) return this.mixinsConfig.projectile;
+		if (mixinClassName.contains("sculk.")) return this.mixinsConfig.sculk;
+		if (mixinClassName.contains("warden.")) return this.mixinsConfig.warden;
+		if (mixinClassName.contains("worldgen.biome.")) return this.mixinsConfig.worldgen_biome;
+		if (mixinClassName.contains("worldgen.structure.")) return this.mixinsConfig.worldgen_structure;
+		if (mixinClassName.contains("worldgen.tree.")) return this.mixinsConfig.worldgen_tree;
 
 		return true;
 	}
 
 	@Override
-	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
-	}
+	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 
 	@Override
 	@Nullable
@@ -132,11 +124,8 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	}
 
 	@Override
-	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-	}
+	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
 
 	@Override
-	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
-	}
+	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
 }

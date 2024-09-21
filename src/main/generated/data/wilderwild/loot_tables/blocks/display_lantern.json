@@ -22,7 +22,10 @@
               "predicate": {
                 "enchantments": [
                   {
-                    "enchantment": "minecraft:silk_touch"
+                    "enchantment": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
                   }
                 ]
               }
@@ -33,29 +36,10 @@
             {
               "op": "replace",
               "source": "Fireflies",
-              "target": "BlockEntityTag.Fireflies"
+              "target": "Fireflies"
             }
           ],
           "source": "block_entity"
-        },
-        {
-          "block": "wilderwild:display_lantern",
-          "conditions": [
-            {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "enchantments": [
-                  {
-                    "enchantment": "minecraft:silk_touch"
-                  }
-                ]
-              }
-            }
-          ],
-          "function": "minecraft:copy_state",
-          "properties": [
-            "display_light"
-          ]
         }
       ],
       "rolls": 1.0

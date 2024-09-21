@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sunflower_plains",
     "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",
     {

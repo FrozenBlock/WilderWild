@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -35,16 +35,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MagmaBlock.class)
 public class MagmaBlockMixin {
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.AFTER))
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
+			shift = At.Shift.AFTER
+		)
+	)
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			MesogleaBlock.updateColumn(level, pos.above(), state);
 		}
 	}
 
-	@ModifyExpressionValue(method = "updateShape", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
+	@ModifyExpressionValue(
+		method = "updateShape",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+		)
+	)
 	public boolean wilderWild$updateShape(boolean original, BlockState state, Direction direction, BlockState neighborState) {
-		if (BlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
 		}
 		return original;

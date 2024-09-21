@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -39,11 +39,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SnowloggingUtils {
-	public static final IntegerProperty SNOW_LAYERS = RegisterProperties.SNOW_LAYERS;
+	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
-		if (!BlockConfig.SNOWLOGGING) return false;
+		if (!WWBlockConfig.SNOWLOGGING) return false;
 		//noinspection ConstantValue
 		return state != null && state.getValues() != null && state.hasProperty(SNOW_LAYERS);
 	}

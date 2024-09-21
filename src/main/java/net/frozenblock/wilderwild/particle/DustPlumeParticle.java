@@ -35,9 +35,9 @@ public class DustPlumeParticle extends BaseAshSmokeParticle {
 	protected DustPlumeParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, float j, SpriteSet spriteSet) {
 		super(world, d, e, f, 0.7F, 0.6F, 0.7F, g, h + 0.15F, i, j, spriteSet, 0.5F, 7, 0.5F, false);
 		float k = (float)Math.random() * 0.2F;
-		this.rCol = (float) FastColor.ARGB32.red(12235202) / 255.0F - k;
-		this.gCol = (float)FastColor.ARGB32.green(12235202) / 255.0F - k;
-		this.bCol = (float)FastColor.ARGB32.blue(12235202) / 255.0F - k;
+		this.rCol = (float) FastColor.ARGB32.red(COLOR_RGB24) / 255.0F - k;
+		this.gCol = (float)FastColor.ARGB32.green(COLOR_RGB24) / 255.0F - k;
+		this.bCol = (float)FastColor.ARGB32.blue(COLOR_RGB24) / 255.0F - k;
 	}
 
 	@Override

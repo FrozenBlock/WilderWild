@@ -1,0 +1,17 @@
+{
+  "feature": "wilderwild:tall_orange_maple_bees_025",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "wilderwild:maple_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    }
+  ]
+}

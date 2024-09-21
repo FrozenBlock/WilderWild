@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "wilderwild:block/stripped_maple_log_top",
+    "side": "wilderwild:block/stripped_maple_log"
+  }
+}

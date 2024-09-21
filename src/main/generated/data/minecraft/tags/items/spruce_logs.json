@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#wilderwild:hollowed_spruce_logs",
+      "required": false
+    }
+  ]
+}

@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterGameEvents;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -68,7 +68,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	public int ringOutTicksLeft;
 	private int activeTicks;
 	//CLIENT ONLY
-	public ResourceLocation texture = WilderConstants.id("textures/entity/hanging_tendril/inactive1.png");
+	public ResourceLocation texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
 	public boolean twitching;
 	public boolean active;
 	public boolean milking;
@@ -77,7 +77,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int lastVibrationFrequency;
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
+		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
 		this.vibrationData = new VibrationSystem.Data();
 		this.vibrationListener = new VibrationSystem.Listener(this);
 	}
@@ -96,7 +96,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
 				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
-				level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
+				level.gameEvent(null, WWGameEvents.TENDRIL_EXTRACT_XP, pos);
 			}
 		}
 
@@ -115,13 +115,13 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.active = !SculkSensorBlock.canActivate(state);
 		++this.ticks;
 		if (milking) {
-			this.texture = WilderConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
 		} else if (active) {
-			this.texture = WilderConstants.id(BASE_TEXTURE + "active" + (((this.ticks / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "active" + (((this.ticks / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
 		} else if (twitching) {
-			this.texture = WilderConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
 		} else {
-			this.texture = WilderConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
 		}
 	}
 

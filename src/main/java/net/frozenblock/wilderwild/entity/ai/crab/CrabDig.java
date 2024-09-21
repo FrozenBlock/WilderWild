@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.entity.ai.crab;
 
 import java.util.Map;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Pose;
@@ -36,7 +36,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 		super(
 			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED
+				WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED
 			),
 			duration
 		);
@@ -51,17 +51,17 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	protected void start(@NotNull ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.endNavigation();
 		crab.setPose(Pose.DIGGING);
-		crab.playSound(RegisterSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
+		crab.playSound(WWSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
 		crab.resetDiggingTicks();
 	}
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E crab, long gameTime) {
 		if (crab.hasPose(Pose.DIGGING)) {
-			crab.getBrain().setMemory(RegisterMemoryModuleTypes.IS_UNDERGROUND, true);
+			crab.getBrain().setMemory(WWMemoryModuleTypes.IS_UNDERGROUND, true);
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(crab));
 		} else {
-			crab.getBrain().eraseMemory(RegisterMemoryModuleTypes.IS_UNDERGROUND);
+			crab.getBrain().eraseMemory(WWMemoryModuleTypes.IS_UNDERGROUND);
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 40L);
 		}
 	}

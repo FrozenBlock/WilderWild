@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.advancement;
 
 import com.google.gson.JsonObject;
-import net.frozenblock.wilderwild.registry.RegisterCriteria;
+import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
@@ -50,7 +50,7 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 
 		@NotNull
 		public static Criterion<TriggerInstance> fireflyBottle() {
-			return RegisterCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty()));
+			return WWCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty()));
 		}
 	}
 }

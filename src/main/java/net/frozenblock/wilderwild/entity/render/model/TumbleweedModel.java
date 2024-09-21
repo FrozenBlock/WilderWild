@@ -23,7 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
 	private final ModelPart root;
-	private final ModelPart bone;
+	private final ModelPart tumbleweed;
 	private float partialTick;
 	private float prevPitch;
 	private float pitch;
@@ -51,13 +51,13 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public TumbleweedModel(@NotNull ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
 		this.root = root;
-		this.bone = root.getChild("bone");
+		this.tumbleweed = root.getChild("tumbleweed");
 	}
 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
-		meshdefinition.getRoot().addOrReplaceChild("bone", CubeListBuilder.create()
+		meshdefinition.getRoot().addOrReplaceChild("tumbleweed", CubeListBuilder.create()
 			.texOffs(0, 28).addBox(-6F, -6F, -6F, 12F, 12F, 12F)
 			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F), PartPose.ZERO);
 
@@ -78,7 +78,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
+		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
 			this.root.xRot = (Mth.lerp(this.partialTick, this.prevTumble, this.tumble)) * Mth.DEG_TO_RAD;
 		} else {
 			this.root.xRot = 0F;
@@ -89,7 +89,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.pushPose();
 		poseStack.translate(0D, 1.3D, 0D);
-		if (!EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
+		if (!WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
 			poseStack.pushPose();
 			poseStack.mulPose(Axis.XP.rotation(Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * Mth.DEG_TO_RAD));
 			poseStack.pushPose();

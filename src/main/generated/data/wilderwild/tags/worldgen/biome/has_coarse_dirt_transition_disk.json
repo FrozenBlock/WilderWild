@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:old_growth_spruce_taiga",
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_grove",
+      "required": false
+    }
+  ]
+}

@@ -6,102 +6,57 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.034833334,
+            "seed": 5050,
+            "states": [
               {
-                "data": {
-                  "Name": "wilderwild:milkweed",
-                  "Properties": {
-                    "age": "0",
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 5
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "data": {
-                  "Name": "wilderwild:datura",
-                  "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 7
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "data": {
-                  "Name": "wilderwild:seeding_dandelion",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 7
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "data": {
-                  "Name": "minecraft:lilac",
-                  "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 3
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:dandelion",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 4
+                "Name": "minecraft:dandelion"
               },
               {
-                "data": {
-                  "Name": "minecraft:blue_orchid",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 3
+                "Name": "minecraft:poppy"
               },
               {
-                "data": {
-                  "Name": "minecraft:poppy",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 4
+                "Name": "minecraft:poppy"
               },
               {
-                "data": {
-                  "Name": "wilderwild:carnation",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 8
+                "Name": "minecraft:allium"
               },
               {
-                "data": {
-                  "Name": "minecraft:allium",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 2
+                "Name": "minecraft:allium"
               },
               {
-                "data": {
-                  "Name": "minecraft:peony",
-                  "Properties": {
-                    "half": "lower",
-                    "snow_layers": "0"
-                  }
-                },
-                "weight": 2
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:blue_orchid"
               }
             ]
           }
@@ -117,8 +72,8 @@
         }
       ]
     },
-    "tries": 32,
-    "xz_spread": 7,
+    "tries": 24,
+    "xz_spread": 8,
     "y_spread": 3
   }
 }

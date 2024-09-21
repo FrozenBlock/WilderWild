@@ -22,19 +22,20 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.GeyserBlock;
-import net.frozenblock.wilderwild.block.impl.GeyserStage;
-import net.frozenblock.wilderwild.block.impl.GeyserType;
+import net.frozenblock.wilderwild.block.property.GeyserStage;
+import net.frozenblock.wilderwild.block.property.GeyserType;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.particle.Particle;
@@ -52,6 +53,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -65,8 +67,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class GeyserBlockEntity extends BlockEntity {
+	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
 	public static final double ERUPTION_DISTANCE = 6D;
 	public static final int MIN_ACTIVE_TICKS = 100;
 	public static final int MAX_ACTIVE_TICKS = 200;
@@ -88,7 +92,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	private float eruptionProgress;
 
 	public GeyserBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		super(RegisterBlockEntities.GEYSER, pos, state);
+		super(WWBlockEntityTypes.GEYSER, pos, state);
 	}
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
@@ -120,8 +124,8 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	private static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
-		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WilderBlockTags.GEYSER_CAN_PASS_THROUGH))
-				|| state.is(WilderBlockTags.GEYSER_CANNOT_PASS_THROUGH));
+		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WWBlockTags.GEYSER_CAN_PASS_THROUGH))
+				|| state.is(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}
 
 	@NotNull
@@ -143,18 +147,20 @@ public class GeyserBlockEntity extends BlockEntity {
 		Optional<BlockPos> damageCutoffPos = Optional.empty();
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < 5; i++) {
-			BlockState state = level.getBlockState(mutablePos.move(direction));
-			if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
-				break;
-			}
-			boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
-			boolean mismatchesWater = geyserType == GeyserType.WATER && !state.getFluidState().is(Fluids.WATER);
-			boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
-			if (mismatchesAir || mismatchesWater || mismatchesLava) {
-				if (cutoffPos.isEmpty()) cutoffPos = Optional.of(mutablePos.immutable());
-			}
-			if (geyserType == GeyserType.LAVA && state.getFluidState().is(FluidTags.WATER)) {
-				if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
+			if (level.hasChunkAt(mutablePos.move(direction))) {
+				BlockState state = level.getBlockState(mutablePos);
+				if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
+					break;
+				}
+				boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
+				boolean mismatchesWater = geyserType == GeyserType.WATER && !state.getFluidState().is(Fluids.WATER);
+				boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
+				if (mismatchesAir || mismatchesWater || mismatchesLava) {
+					if (cutoffPos.isEmpty()) cutoffPos = Optional.of(mutablePos.immutable());
+				}
+				if (geyserType == GeyserType.LAVA && state.getFluidState().is(FluidTags.WATER)) {
+					if (damageCutoffPos.isEmpty()) damageCutoffPos = Optional.of(mutablePos.immutable());
+				}
 			}
 		}
 		AABB eruption = aabb(pos, mutablePos.immutable());
@@ -175,24 +181,25 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 		Vec3 geyserStartPos = Vec3.atCenterOf(pos);
 
+		Vector3f step = direction.step().mul(0.5F);
 		WindDisturbance effectiveWindDisturbance = new WindDisturbance(
 			Optional.of(this),
 			geyserStartPos,
-			effectiveEruption.inflate(0.5D),
-			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElseThrow()
+			effectiveEruption.inflate(0.5D).move(step.x, step.y, step.z),
+			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 		WindDisturbance baseWindDisturbance = new WindDisturbance(
 			Optional.of(this),
 			geyserStartPos,
-			eruption.inflate(0.5D),
-			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElseThrow()
+			eruption.inflate(0.5D).move(step.x, step.y, step.z),
+			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 
 		if (level instanceof ServerLevel serverLevel) {
 			WindManager windManager = WindManager.getWindManager(serverLevel);
 			windManager.addWindDisturbance(effectiveWindDisturbance);
 			windManager.addWindDisturbance(baseWindDisturbance);
-		} else if (level.isClientSide) {
+		} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			addWindDisturbanceToClient(effectiveWindDisturbance);
 			addWindDisturbanceToClient(baseWindDisturbance);
 		}
@@ -202,17 +209,10 @@ public class GeyserBlockEntity extends BlockEntity {
 			AABB boundingBox = entity.getBoundingBox();
 			if (eruption.intersects(boundingBox)) {
 				double intensity = (ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE;
-				double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WilderEntityTags.GEYSER_PUSHES_EXTRA) ? 1.5D : 1D);
+				double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_EXTRA) ? 1.5D : 1D);
 				double overallIntensity = intensity * pushIntensity;
 				Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
 				entity.setDeltaMovement(deltaMovement);
-				if (direction == Direction.UP) {
-					if (deltaMovement.y >= 0) {
-						entity.resetFallDistance();
-					} else {
-						entity.fallDistance = (float) (entity.fallDistance * ((0.4F - overallIntensity) * 0.5F));
-					}
-				}
 				if (damagingEruption.intersects(boundingBox)) {
 					double damageIntensity = Math.max((ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE, ERUPTION_DISTANCE * 0.1D);
 					if (geyserType == GeyserType.LAVA) {
@@ -226,7 +226,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
-			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos))) {
+			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos)) && level.hasChunkAt(blockPos)) {
 				BlockState state = level.getBlockState(blockPos);
 
 				if (geyserType == GeyserType.LAVA) {
@@ -300,6 +300,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 	}
 
+	@Environment(EnvType.CLIENT)
 	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
 		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
@@ -451,7 +452,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, ACTIVE_DUST_MIN_VELOCITY, ACTIVE_DUST_MAX_VELOCITY);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, ACTIVE_DUST_RANDOM_VELOCITY));
 					level.addParticle(
-						RegisterParticles.DUST_PLUME,
+						WWParticleTypes.DUST_PLUME,
 						false,
 						particlePos.x,
 						particlePos.y,
@@ -497,7 +498,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.8D, 1.4D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.275D));
 					level.addParticle(
-						RegisterParticles.DUST_PLUME,
+						WWParticleTypes.DUST_PLUME,
 						false,
 						particlePos.x,
 						particlePos.y,

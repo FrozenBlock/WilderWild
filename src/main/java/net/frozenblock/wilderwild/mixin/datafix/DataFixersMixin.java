@@ -23,7 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import java.util.function.BiFunction;
-import net.frozenblock.wilderwild.WilderConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.AddNewChoices;
 import net.minecraft.util.datafix.fixes.References;
@@ -39,7 +39,8 @@ public class DataFixersMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/datafixers/DataFixerBuilder;addSchema(ILjava/util/function/BiFunction;)Lcom/mojang/datafixers/schemas/Schema;",
-			ordinal = 0
+			ordinal = 0,
+			remap = false
 		),
 		slice = @Slice(
 			from = @At(
@@ -50,12 +51,12 @@ public class DataFixersMixin {
 	)
 	private static Schema wilderWild$addFixers3807(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("display_lantern"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("scorched_block"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("stone_chest"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("termite_mound"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("geyser"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("display_lantern"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("scorched_block"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("stone_chest"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("termite_mound"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("geyser"), References.BLOCK_ENTITY));
 		return schema;
 	}
 
@@ -76,16 +77,16 @@ public class DataFixersMixin {
 	)
 	private static Schema wilderWild$addFixers3816(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("jellyfish"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("ostrich"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("crab"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("firefly"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("tumbleweed"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("ancient_horn_vibration"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("coconut"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("chest_bubbler"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("sculk_spreader"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WilderConstants.string("scorched"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("jellyfish"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ostrich"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("crab"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("firefly"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("tumbleweed"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ancient_horn_vibration"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("coconut"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("chest_bubbler"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("sculk_spreader"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("scorched"), References.ENTITY));
 		return schema;
 	}
 

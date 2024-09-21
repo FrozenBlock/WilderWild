@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -40,7 +40,7 @@ public class PollenBlock extends FlowerLichenBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (BlockConfig.get().pollenParticles) {
+		if (WWBlockConfig.Client.POLLEN_ENABLED) {
 			int i = pos.getX();
 			int j = pos.getY();
 			int k = pos.getZ();
@@ -54,7 +54,7 @@ public class PollenBlock extends FlowerLichenBlock {
 				BlockState blockState = level.getBlockState(mutable);
 				if (!blockState.isCollisionShapeFullBlock(level, mutable) && !level.isRainingAt(mutable)) {
 					level.addParticle(
-						RegisterParticles.POLLEN,
+						WWParticleTypes.POLLEN,
 						mutable.getX() + random.nextDouble(),
 						mutable.getY() + random.nextDouble(),
 						mutable.getZ() + random.nextDouble(),

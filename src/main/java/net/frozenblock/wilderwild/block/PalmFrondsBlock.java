@@ -18,64 +18,21 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.OptionalInt;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
-	public static final int DECAY_DISTANCE = 12;
-	public static final int BONEMEAL_DISTANCE = 1;
+	public static final int BONEMEAL_DISTANCE = CoconutBlock.VALID_FROND_DISTANCE;
 
 	public PalmFrondsBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.defaultBlockState().setValue(DISTANCE, DECAY_DISTANCE));
-	}
-
-	@NotNull
-	private static BlockState updateDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		int i = DECAY_DISTANCE;
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-
-		for (Direction direction : Direction.values()) {
-			mutableBlockPos.setWithOffset(pos, direction);
-			i = Math.min(i, getDistanceAt(level.getBlockState(mutableBlockPos)) + 1);
-			if (i == 1) {
-				break;
-			}
-		}
-
-		return state.setValue(DISTANCE, i);
-	}
-
-	private static int getDistanceAt(BlockState neighbor) {
-		return getOptionalDistanceAt(neighbor).orElse(DECAY_DISTANCE);
-	}
-
-	@NotNull
-	public static OptionalInt getOptionalDistanceAt(@NotNull BlockState state) {
-		if (state.is(BlockTags.LOGS)) return OptionalInt.of(0);
-		if (!state.hasProperty(DISTANCE)) return OptionalInt.empty();
-
-		Block block = state.getBlock();
-		int distance = state.getValue(DISTANCE);
-		if (!(block instanceof PalmFrondsBlock) && distance == LeavesBlock.DECAY_DISTANCE) {
-			return OptionalInt.of(DECAY_DISTANCE);
-		}
-		return OptionalInt.of(distance);
 	}
 
 	@Override
@@ -91,29 +48,5 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), UPDATE_CLIENTS);
-	}
-
-	@Override
-	public boolean isRandomlyTicking(@NotNull BlockState state) {
-		return state.getValue(DISTANCE) == DECAY_DISTANCE && !state.getValue(PERSISTENT);
-	}
-
-	@Override
-	protected boolean decaying(@NotNull BlockState state) {
-		return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == DECAY_DISTANCE;
-	}
-
-	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		level.setBlock(pos, updateDistance(state, level, pos), UPDATE_ALL);
-	}
-
-	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		BlockState blockState = this.defaultBlockState()
-			.setValue(PERSISTENT, Boolean.TRUE)
-			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-		return updateDistance(blockState, context.getLevel(), context.getClickedPos());
 	}
 }

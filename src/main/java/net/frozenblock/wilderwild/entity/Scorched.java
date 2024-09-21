@@ -18,12 +18,13 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
-import net.frozenblock.wilderwild.registry.RegisterMobEffects;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -94,6 +95,15 @@ public class Scorched extends Spider {
 	@Override
 	public void tick() {
 		super.tick();
+		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getFeetBlockState().is(BlockTags.FIRE) || this.isInLava()) {
+			this.addEffect(
+				new MobEffectInstance(
+					WWMobEffects.SCORCHING,
+					200,
+					0
+				)
+			);
+		}
 		this.scorchedInLava();
 		this.checkInsideBlocks();
         float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
@@ -103,13 +113,6 @@ public class Scorched extends Spider {
 
 	private void scorchedInLava() {
 		if (this.isInLava()) {
-			this.addEffect(
-				new MobEffectInstance(
-					RegisterMobEffects.SCORCHING,
-					200,
-					0
-				)
-			);
 			CollisionContext collisionContext = CollisionContext.of(this);
 			if (
 				collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true)
@@ -124,22 +127,22 @@ public class Scorched extends Spider {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.isInLava() ? RegisterSounds.ENTITY_SCORCHED_STEP_LAVA : RegisterSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
+		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA : WWSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return RegisterSounds.ENTITY_SCORCHED_AMBIENT;
+		return WWSounds.ENTITY_SCORCHED_AMBIENT;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return RegisterSounds.ENTITY_SCORCHED_HURT;
+		return WWSounds.ENTITY_SCORCHED_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return RegisterSounds.ENTITY_SCORCHED_DEATH;
+		return WWSounds.ENTITY_SCORCHED_DEATH;
 	}
 
 	@Override
@@ -194,7 +197,7 @@ public class Scorched extends Spider {
 
 	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (spawnType != MobSpawnType.SPAWNER && !EntityConfig.get().scorched.spawnScorched) return false;
+		if (spawnType != MobSpawnType.SPAWNER && !WWEntityConfig.get().scorched.spawnScorched) return false;
 		return Scorched.isDarkEnoughToSpawn(level, pos, random);
 	}
 

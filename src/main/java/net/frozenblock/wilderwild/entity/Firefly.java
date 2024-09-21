@@ -26,15 +26,15 @@ import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.lib.wind.api.WindManager;
-import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
-import net.frozenblock.wilderwild.registry.RegisterCriteria;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.registry.WWCriteria;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -123,13 +123,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (spawnType != MobSpawnType.SPAWNER && !EntityConfig.get().firefly.spawnFireflies) return false;
+		if (spawnType != MobSpawnType.SPAWNER && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
-		if (biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
+		if (biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
 			return chance && level.getBrightness(LightLayer.SKY, pos) == 0;
 		}
-		return chance && ((biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
+		return chance && ((biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
 	}
 
 	@NotNull
@@ -202,11 +202,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
 			FireflyColor color = this.getColor();
 			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
-			Item item = RegisterItems.FIREFLY_BOTTLE;
+			Item item = WWItems.FIREFLY_BOTTLE;
 			if (optionalItem.isPresent()) {
 				item = optionalItem.get();
 			}
-			this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
+			this.playSound(WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
 			if (!player.getAbilities().instabuild) {
 				player.getItemInHand(hand).shrink(1);
 			}
@@ -218,7 +218,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			Level level = this.level();
 			this.discard();
 			if (!level.isClientSide) {
-				RegisterCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer) player);
+				WWCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer) player);
 			}
 			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
 		} else {
@@ -289,7 +289,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public FireflyColor getColor() {
-		return WilderRegistry.FIREFLY_COLOR.getOptional(new ResourceLocation(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
+		return WilderWildRegistries.FIREFLY_COLOR.getOptional(new ResourceLocation(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
 	}
 
 	public void setColor(@NotNull FireflyColor color) {
@@ -319,7 +319,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	public boolean shouldHide() {
 		return this.natural
-			&& !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+			&& !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 			&& this.level().isDay()
 			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
 	}
@@ -372,12 +372,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-		return RegisterSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_FIREFLY_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return RegisterSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_FIREFLY_HURT;
 	}
 
 	@Override
@@ -401,7 +401,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 					FrozenSoundPackets.createMovingRestrictionLoopingSound(
 						server,
 						this,
-						RegisterSounds.ENTITY_FIREFLY_NECTAR,
+						WWSounds.ENTITY_FIREFLY_NECTAR,
 						SoundSource.NEUTRAL,
 						1F,
 						1F,
@@ -493,8 +493,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			if (entity != null) {
 				int i;
 				double d = entity.distanceToSqr(this);
-				boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
-				boolean caveKey = this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+				boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE);
+				boolean caveKey = this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
 				if (this.removeWhenFarAway(d) && Math.sqrt(d) > 18D) {
 					if (dayKey) {
 						this.despawning = true;
@@ -527,7 +527,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		compound.putFloat("scale", this.getAnimScale());
 		compound.putFloat("prevScale", this.getPrevAnimScale());
 		compound.putBoolean("despawning", this.despawning);
-		compound.putString("color", Objects.requireNonNull(WilderRegistry.FIREFLY_COLOR.getKey(this.getColor())).toString());
+		compound.putString("color", Objects.requireNonNull(WilderWildRegistries.FIREFLY_COLOR.getKey(this.getColor())).toString());
 		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
 		compound.putBoolean("wasNamedNectar", this.wasNamedNectar);
 		compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
@@ -560,7 +560,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (compound.contains("despawning")) {
 			this.despawning = compound.getBoolean("despawning");
 		}
-		FireflyColor color = WilderRegistry.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
+		FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
 		if (color != null) {
 			this.setColor(color);
 		}

@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import net.frozenblock.wilderwild.config.WorldgenConfig;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.BirchTreeGrower;
@@ -34,11 +34,11 @@ public class BirchTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WorldgenConfig.get().treeGeneration) {
+		if (WWWorldgenConfig.get().treeGeneration) {
 			if (random.nextFloat() < 0.15F) {
-				info.setReturnValue(bees ? WilderTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WilderTreeConfigured.SHORT_BIRCH.getKey());
+				info.setReturnValue(bees ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
 			} else {
-				info.setReturnValue(bees ? WilderTreeConfigured.BIRCH_BEES_025.getKey() : WilderTreeConfigured.BIRCH_TREE.getKey());
+				info.setReturnValue(bees ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
 			}
 		}
 	}

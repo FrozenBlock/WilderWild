@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.sounds.SoundSource;
@@ -62,7 +62,7 @@ public class CoconutItem extends BlockItem {
 			player.getX(),
 			player.getY(),
 			player.getZ(),
-			RegisterSounds.ITEM_COCONUT_THROW,
+			WWSounds.ITEM_COCONUT_THROW,
 			SoundSource.NEUTRAL,
 			0.5F,
 			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
