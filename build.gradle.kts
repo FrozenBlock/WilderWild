@@ -218,10 +218,10 @@ dependencies {
     // Sodium
     if (shouldRunSodium) {
         modImplementation("maven.modrinth:sodium:${sodium_version}")
-        modImplementation("maven.modrinth:indium:1.0.28+mc1.20.4")
+        modImplementation("maven.modrinth:indium:1.0.31+mc1.20.4")
     } else {
         modCompileOnly("maven.modrinth:sodium:${sodium_version}")
-        modCompileOnly("maven.modrinth:indium:1.0.28+mc1.20.4")
+        modCompileOnly("maven.modrinth:indium:1.0.31+mc1.20.4")
     }
 
     // FallingLeaves
