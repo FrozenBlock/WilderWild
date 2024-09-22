@@ -66,7 +66,7 @@ public class BaseFireBlockMixin {
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Local(ordinal = 1) BlockState blockState2
 	) {
-		if (WWBlockConfig.get().fire.extraMagmaParticles && blockState2.is(Blocks.MAGMA_BLOCK)) {
+		if (WWBlockConfig.FIRE_MAGMA_PARTICLES && blockState2.is(Blocks.MAGMA_BLOCK)) {
 			if (random.nextFloat() <= 0.0075F) {
 				level.addParticle(
 					ParticleTypes.LAVA,
