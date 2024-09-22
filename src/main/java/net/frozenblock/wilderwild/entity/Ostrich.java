@@ -94,7 +94,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
 	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WWItemTags.OSTRICH_FOOD);

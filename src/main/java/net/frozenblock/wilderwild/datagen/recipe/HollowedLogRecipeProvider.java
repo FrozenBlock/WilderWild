@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -31,7 +32,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import java.util.function.Consumer;
 
 public final class HollowedLogRecipeProvider {
 

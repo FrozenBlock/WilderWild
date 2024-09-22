@@ -18,9 +18,10 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.minecraft.data.recipes.FinishedRecipe;
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -28,7 +29,6 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import java.util.function.Consumer;
 
 public final class WWCookRecipeProvider {
 

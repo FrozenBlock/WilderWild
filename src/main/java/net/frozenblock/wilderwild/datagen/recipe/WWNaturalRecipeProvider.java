@@ -18,10 +18,11 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import net.minecraft.data.recipes.FinishedRecipe;
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -30,7 +31,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
-import java.util.function.Consumer;
 
 public final class WWNaturalRecipeProvider {
 

@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import com.google.common.collect.ImmutableList;
+import java.util.function.Consumer;
 import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -28,7 +29,6 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import java.util.function.Consumer;
 
 public final class FireflyBottleRecipeProvider {
 

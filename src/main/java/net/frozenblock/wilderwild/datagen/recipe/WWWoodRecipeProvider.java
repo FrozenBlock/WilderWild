@@ -18,13 +18,13 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
+import java.util.function.Consumer;
 import net.frozenblock.lib.recipe.api.FrozenRecipeProvider;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
-import java.util.function.Consumer;
 
 public final class WWWoodRecipeProvider {
 

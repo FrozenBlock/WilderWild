@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
+import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.wilderwild.WWConstants;
@@ -34,7 +35,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import java.util.function.Consumer;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
 	public WWRecipeProvider(FabricDataOutput output) {
