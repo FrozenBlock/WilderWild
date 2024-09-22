@@ -34,7 +34,7 @@ accessible method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/mi
 
 # Structures
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldPos (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
-accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
+accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;)V
 accessible method net/minecraft/world/level/levelgen/structure/ScatteredFeaturePiece updateAverageGroundHeight (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;I)Z
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece generateBox (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece placeBlock (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
@@ -177,8 +177,6 @@ accessible class  net/minecraft/world/level/levelgen/SurfaceRules$LazyYCondition
 accessible field net/minecraft/data/loot/EntityLootSubProvider ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
 accessible field net/minecraft/data/DataGenerator vanillaPackOutput Lnet/minecraft/data/PackOutput;
 accessible method net/minecraft/data/DataGenerator$PackGenerator <init> (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
-accessible method net/minecraft/data/loot/EntityLootSubProvider shouldSmeltLoot ()Lnet/minecraft/world/level/storage/loot/predicates/AnyOfCondition$Builder;
-accessible field net/minecraft/data/loot/EntityLootSubProvider registries Lnet/minecraft/core/HolderLookup$Provider;
 accessible field net/minecraft/data/loot/BlockLootSubProvider NORMAL_LEAVES_STICK_CHANCES [F
 
 # Registry
