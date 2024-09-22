@@ -19,13 +19,13 @@
 package net.frozenblock.wilderwild.entity.variant;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.Util;
+import java.util.List;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
 
 public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 	public static final Codec<FireflyColor> CODEC = ResourceLocation.CODEC

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.scorching;
 
+import java.util.Collection;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -29,7 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.Collection;
 
 @Mixin(LivingEntity.class)
 public abstract class ScorchingHurtMixin {

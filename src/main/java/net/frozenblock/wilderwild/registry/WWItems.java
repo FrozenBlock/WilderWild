@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
