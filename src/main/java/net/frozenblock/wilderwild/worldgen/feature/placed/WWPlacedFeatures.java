@@ -1328,7 +1328,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FLOWER_CHERRY.makeAndSetHolder(WWConfiguredFeatures.FLOWERS_CHERRY.getHolder(),
-			CountPlacement.of(UniformInt.of(3, 8)), InSquarePlacement.spread(),
+			CountPlacement.of(UniformInt.of(3, 7)), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

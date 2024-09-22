@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class ParchedForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Climate.Parameter.point(0.175F), Temperature.FOUR);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.13F, -0.07F);
 	public static final float TEMP = 1.35F;
 	public static final float DOWNFALL = 0.2F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;

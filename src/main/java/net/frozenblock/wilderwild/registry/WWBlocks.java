@@ -1506,7 +1506,7 @@ public final class WWBlocks {
 	private static void registerFlammability() {
 		WWConstants.logWithModId("Registering Flammability for", WWConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
-		flammableBlockRegistry.add(POLLEN, 100, 60);
+		flammableBlockRegistry.add(POLLEN, 200, 60);
 		flammableBlockRegistry.add(SEEDING_DANDELION, 100, 60);
 		flammableBlockRegistry.add(CARNATION, 100, 60);
 		flammableBlockRegistry.add(CATTAIL, 100, 60);

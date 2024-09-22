@@ -3,118 +3,118 @@
     "sounds": [
       {
         "name": "wilderwild:ambient/cave/deep_dark/additions1",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 4
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/additions2",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 4
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/additions3",
-        "volume": 0.8,
+        "volume": 0.1,
         "weight": 4
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/clicking1",
-        "volume": 0.2,
+        "volume": 0.1,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/clicking2",
-        "volume": 0.3,
+        "volume": 0.1,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/clicking3",
-        "volume": 0.3,
+        "volume": 0.1,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/mood1",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/mood2",
-        "volume": 0.5,
+        "volume": 0.2,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/mood3",
-        "volume": 0.7,
+        "volume": 0.2,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk1",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk2",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk3",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/sculk4",
-        "volume": 0.5,
+        "volume": 0.1,
         "weight": 3
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices1",
-        "volume": 0.7,
+        "volume": 0.05,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices2",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices3",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices4",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/voices5",
-        "volume": 0.7,
+        "volume": 0.1,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes1",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes2",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes3",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/chimes4",
-        "volume": 0.4,
+        "volume": 0.1,
         "weight": 7
       },
       {
         "name": "wilderwild:ambient/cave/deep_dark/wind",
-        "volume": 1.0,
-        "weight": 15
+        "volume": 0.1,
+        "weight": 5
       }
     ]
   },

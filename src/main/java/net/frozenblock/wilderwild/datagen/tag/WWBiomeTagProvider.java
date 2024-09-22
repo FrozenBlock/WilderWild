@@ -840,6 +840,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DATURA)
+			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(Biomes.CHERRY_GROVE)
@@ -849,6 +850,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ROSE_BUSH)
+			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWWorldgen.BIRCH_TAIGA)
@@ -857,6 +859,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PEONY)
+			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWWorldgen.BIRCH_TAIGA)
@@ -864,6 +867,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.SEMI_BIRCH_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LILAC)
+			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWWorldgen.BIRCH_TAIGA)

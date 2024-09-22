@@ -48,7 +48,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
-		if (!WWPreLoadConstants.IS_DATAGEN) return;
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
@@ -73,7 +72,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
-		if (!WWPreLoadConstants.IS_DATAGEN) return;
 		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.DAMAGE_TYPE, WWDamageTypes::bootstrap);

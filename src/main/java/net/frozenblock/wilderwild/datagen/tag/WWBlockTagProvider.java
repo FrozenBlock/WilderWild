@@ -731,9 +731,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ECHO_GLASS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON)
-			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
+
+		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND)
+			.addOptionalTag(BlockTags.TERRACOTTA)
+			.addOptionalTag(BlockTags.DIRT);
 
 		this.getOrCreateTagBuilder(WWBlockTags.KILLS_TERMITE)
 			.add(Blocks.WATER)

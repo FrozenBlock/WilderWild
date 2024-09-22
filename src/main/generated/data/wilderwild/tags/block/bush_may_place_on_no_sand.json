@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:terracotta",
+      "required": false
+    },
+    {
+      "id": "#minecraft:dirt",
+      "required": false
+    }
+  ]
+}
