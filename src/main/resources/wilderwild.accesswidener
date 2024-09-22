@@ -1,9 +1,9 @@
 accessWidener v2 named
 
 # Advancement
-accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
-accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
-mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+accessible class net/minecraft/advancements/critereon/MobEffectsPredicate
+accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effects Ljava/util/Map;
+mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effects Ljava/util/Map;
 
 # Sculk Spreading
 accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
