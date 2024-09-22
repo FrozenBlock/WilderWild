@@ -65,6 +65,7 @@ hi
 - Jellyfish Caves have been renamed to Mesoglea Caves.
 - Decreased the amount of space Parched Forests take up.
 - Changed the volume of Deep Dark ambience.
+- Added new ambience to the Dripstone Caves, also fixing a broken loop.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes

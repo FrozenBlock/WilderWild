@@ -133,27 +133,37 @@
       {
         "name": "wilderwild:ambient/cave/dripstone_caves/additions1",
         "weight": 15,
-        "volume": 1.0
+        "volume": 0.3
       },
       {
         "name": "wilderwild:ambient/cave/dripstone_caves/additions2",
         "weight": 15,
-        "volume": 1.0
+        "volume": 0.3
       },
       {
         "name": "wilderwild:ambient/cave/dripstone_caves/additions3",
         "weight": 15,
-        "volume": 1.0
+        "volume": 0.3
       },
       {
         "name": "wilderwild:ambient/cave/dripstone_caves/water1",
-        "weight": 5,
-        "volume": 1.0
+        "weight": 3,
+        "volume": 0.2
       },
       {
         "name": "wilderwild:ambient/cave/dripstone_caves/water2",
-        "weight": 5,
-        "volume": 1.0
+        "weight": 4,
+        "volume": 0.2
+      },
+      {
+        "name": "wilderwild:ambient/cave/dripstone_caves/crumble1",
+        "weight": 3,
+        "volume": 0.1
+      },
+      {
+        "name": "wilderwild:ambient/cave/dripstone_caves/crumble2",
+        "weight": 3,
+        "volume": 0.05
       }
     ]
   },
@@ -163,7 +173,7 @@
         "name": "wilderwild:ambient/cave/dripstone_caves/ambience",
         "preload": true,
         "stream": true,
-        "volume": 1.0
+        "volume": 0.15
       }
     ]
   },

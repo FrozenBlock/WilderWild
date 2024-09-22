@@ -185,5 +185,16 @@ https://freesound.org/people/d.n.audio.uk/sounds/461048/
 https://freesound.org/people/lidem_soundfx/sounds/458476/
 https://freesound.org/people/lidem_soundfx/sounds/458477/
 
+New Dripstone Caves Sounds In 2.5:
+https://freesound.org/people/inchadney/sounds/537193/
+https://freesound.org/people/Sacha.Julien/sounds/725343/
+https://freesound.org/people/paul.hayes/sounds/147809/
+https://freesound.org/people/naturenotesuk/sounds/631778/
+https://freesound.org/people/inchadney/sounds/43724/
+https://freesound.org/people/iwanPlays/sounds/567250/
+https://freesound.org/people/newlocknew/sounds/631485/
+https://freesound.org/people/blaukreuz/sounds/162673/
+
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.
+Sounds sources prior to 2.2 are unfortunately unknown as the previous artist and sound designer never credited sources, despite mentioning most of them were pulled from freesound.org.
