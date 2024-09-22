@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.advancement;
 
 import com.google.gson.JsonObject;
+import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
@@ -27,7 +28,6 @@ import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
 
