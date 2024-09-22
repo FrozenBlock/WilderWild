@@ -64,36 +64,36 @@ public final class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRend
 		VertexConsumer lineConsumer = vertexConsumers.getBuffer(RenderType.lines());
 		for (Entity entity2 : this.surroundEntities) {
 			if (entity2 instanceof Ostrich ostrich) {
-				AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
-				ShapeRenderer.renderLineBox(
-					matrices,
-					lineConsumer,
-					attackBox,
-					1F, 0F, 0F, 1F
-				);
-
-				List<Vec3> debugPoses = ostrich.getDebugRenderingPoses(DebugRenderManager.PARTIAL_TICK);
-				for (int i = 1; i < debugPoses.size(); i++) {
-					Vec3 previous = debugPoses.get(i - 1);
-					Vec3 target = debugPoses.get(i);
-					drawLine(
+				try {
+					AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
+					ShapeRenderer.renderLineBox(
 						matrices,
-						vertexConsumers,
-						cameraX, cameraY, cameraZ,
-						previous, target,
-						NECK_LINE_COLOR
+						lineConsumer,
+						attackBox,
+						1F, 0F, 0F, 1F
 					);
-				}
-				debugPoses.forEach(
-					vec3 -> {
-						renderFilledBox(
+
+					List<Vec3> debugPoses = ostrich.getDebugRenderingPoses(DebugRenderManager.PARTIAL_TICK);
+					for (int i = 1; i < debugPoses.size(); i++) {
+						Vec3 previous = debugPoses.get(i - 1);
+						Vec3 target = debugPoses.get(i);
+						drawLine(
+							matrices,
+							vertexConsumers,
+							cameraX, cameraY, cameraZ,
+							previous, target,
+							NECK_LINE_COLOR
+						);
+					}
+					debugPoses.forEach(
+						vec3 -> renderFilledBox(
 							matrices,
 							vertexConsumers,
 							AABB.ofSize(vec3, 0.1D, 0.1D, 0.1D),
 							cameraX, cameraY, cameraZ
-						);
-					}
-				);
+						)
+					);
+				} catch (Exception ignored) {}
 			}
 		}
 	}

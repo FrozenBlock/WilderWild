@@ -159,7 +159,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
-		this.natural = reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION || reason == EntitySpawnReason.SPAWNER || reason == EntitySpawnReason.SPAWN_EGG || reason == EntitySpawnReason.COMMAND;
+		this.natural = reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION || reason == EntitySpawnReason.SPAWNER || reason == EntitySpawnReason.SPAWN_ITEM_USE || reason == EntitySpawnReason.COMMAND;
 		this.hasHome = this.hasHome || !this.natural;
 		FireflyAi.rememberHome(this, this.blockPosition());
 

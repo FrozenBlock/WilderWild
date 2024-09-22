@@ -25,6 +25,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.SoulSandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -56,7 +58,16 @@ public class SoulSandBlockMixin {
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
 		)
 	)
-	public boolean wilderWild$updateShape(boolean original, BlockState state, Direction direction, BlockState neighborState) {
+	public boolean wilderWild$updateShape(
+		boolean original,
+		BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState
+	) {
 		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
 		}

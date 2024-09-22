@@ -1910,7 +1910,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 				)
 			)
 		);
@@ -1941,7 +1941,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 
 				)
 			)
@@ -1953,7 +1953,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 
 				)
 			)
@@ -1965,7 +1965,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 
 				)
 			)
@@ -1977,7 +1977,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
 				)
 			)
 		);

@@ -39,6 +39,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -143,15 +144,23 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (!state.canSurvive(level, currentPos)) {
-			level.scheduleTick(currentPos, this, 1);
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		if (!blockState.canSurvive(levelReader, blockPos)) {
+			scheduledTickAccess.scheduleTick(blockPos, this, 1);
 		}
-		if (state.getValue(WATERLOGGED)) {
-			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		if (blockState.getValue(WATERLOGGED)) {
+			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 		}
-		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -83,11 +84,13 @@ public class SnowloggingUtils {
 	}
 
 	@Nullable
-	public static BlockState onUpdateShape(BlockState state, LevelAccessor level, BlockPos pos) {
+	public static BlockState onUpdateShape(BlockState state, LevelReader level, BlockPos pos) {
 		if (isSnowlogged(state)) {
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
+				if (level instanceof LevelAccessor levelAccessor) {
+					levelAccessor.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
+				}
 				state = state.setValue(SNOW_LAYERS, 0);
 			}
 		}

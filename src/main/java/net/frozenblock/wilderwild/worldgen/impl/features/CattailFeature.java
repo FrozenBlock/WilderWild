@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.worldgen.impl.features;
 
 import com.mojang.serialization.Codec;
 import java.util.Iterator;
-import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
+import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureConfig;
 import net.minecraft.core.BlockPos;
@@ -67,7 +67,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		int maxHeight = level.getMaxY() - 1;
 		BlockPos.MutableBlockPos bottomBlockPos = blockPos.mutable();
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
-		BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
+		BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState().setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER);
 		int placementAttempts = config.placementAttempts().sample(random);
 		boolean waterPlacement = config.onlyPlaceInWater();
 		TagKey<Block> placeableBlocks = config.canBePlacedOn();
@@ -85,7 +85,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 				topBlockPos.set(bottomBlockPos).move(Direction.UP);
 				BlockState topState = level.getBlockState(topBlockPos);
 				if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater)) && topState.isAir() && bottomPlaceState.canSurvive(level, bottomBlockPos) && (!waterPlacement || (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) && level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) {
-					bottomPlaceState = bottomPlaceState.setValue(WaterloggableTallFlowerBlock.WATERLOGGED, bottomStateIsWater);
+					bottomPlaceState = bottomPlaceState.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater);
 					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_ALL);
 					if (topPlaceState.canSurvive(level, topBlockPos)) {
 						level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_ALL);

@@ -48,6 +48,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
@@ -348,25 +349,32 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
-		if (state.getValue(WATERLOGGED)) {
-			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		if (blockState.getValue(WATERLOGGED)) {
+			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 			if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-				if (hasBubbleColumn(state)) {
-					if (!canColumnSurvive(level, pos) || direction == Direction.DOWN || direction == Direction.UP && !hasBubbleColumn(neighborState) && canExistIn(neighborState)) {
-						level.scheduleTick(pos, this, TICK_DELAY);
+				if (hasBubbleColumn(blockState)) {
+					if (!canColumnSurvive(levelReader, blockPos) || direction == Direction.DOWN || direction == Direction.UP && !hasBubbleColumn(neighborState) && canExistIn(neighborState)) {
+						scheduledTickAccess.scheduleTick(blockPos, this, TICK_DELAY);
 					}
 				}
 				if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) {
-					level.scheduleTick(pos, this, TICK_DELAY);
+					scheduledTickAccess.scheduleTick(blockPos, this, TICK_DELAY);
 				}
 			}
 		} else {
-			state = state.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
-			level.setBlock(pos, state, UPDATE_CLIENTS);
+			return blockState.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
 		}
-		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}
 
 	@Override

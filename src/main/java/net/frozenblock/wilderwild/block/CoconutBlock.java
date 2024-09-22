@@ -39,6 +39,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -136,16 +137,24 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	@Override
-	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (state.is(this) && !state.canSurvive(level, currentPos)) {
-			if (!isHanging(state)) {
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		if (blockState.is(this) && !blockState.canSurvive(levelReader, blockPos)) {
+			if (!isHanging(blockState)) {
 				return Blocks.AIR.defaultBlockState();
 			} else {
-				level.scheduleTick(currentPos, this, this.getDelayAfterPlace());
+				scheduledTickAccess.scheduleTick(blockPos, this, this.getDelayAfterPlace());
 			}
 		}
-		return state;
+		return blockState;
 	}
 
 	@Override

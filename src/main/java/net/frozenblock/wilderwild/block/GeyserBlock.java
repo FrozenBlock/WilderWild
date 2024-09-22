@@ -41,6 +41,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -52,7 +54,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.Vec3;
@@ -64,7 +65,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final float BOIL_SOUND_CHANCE = 0.002F;
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = WWBlockStateProperties.GEYSER_TYPE;
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = WWBlockStateProperties.GEYSER_STAGE;
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty NATURAL = WWBlockStateProperties.NATURAL;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
@@ -148,15 +149,23 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (direction.equals(state.getValue(FACING))) {
-			GeyserType geyserType = getGeyserTypeForPos(level, state, currentPos);
-			if (geyserType != state.getValue(GEYSER_TYPE)) {
-				state = state.setValue(GEYSER_TYPE, geyserType);
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		@NotNull Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		if (direction.equals(blockState.getValue(FACING))) {
+			GeyserType geyserType = getGeyserTypeForPos(levelReader, blockState, blockPos);
+			if (geyserType != blockState.getValue(GEYSER_TYPE)) {
+				blockState = blockState.setValue(GEYSER_TYPE, geyserType);
 			}
 		}
-		return state;
+		return blockState;
 	}
 
 	@Override
@@ -164,11 +173,11 @@ public class GeyserBlock extends BaseEntityBlock {
 		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
-	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockState state, @NotNull BlockPos pos) {
+	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull BlockState state, @NotNull BlockPos pos) {
 		return getGeyserTypeForPos(level, state.getValue(FACING), pos);
 	}
 
-	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull Direction direction, @NotNull BlockPos pos) {
+	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull Direction direction, @NotNull BlockPos pos) {
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
 		if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {

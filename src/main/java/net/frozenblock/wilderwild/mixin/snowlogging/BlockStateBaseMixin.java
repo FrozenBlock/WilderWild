@@ -37,6 +37,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -215,13 +217,35 @@ public abstract class BlockStateBaseMixin {
 		method = "updateShape",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
+			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public BlockState wilderWild$updateShape(Block instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
-		BlockState newState = original.call(instance, SnowloggingUtils.onUpdateShape(state, levelAccessor, pos), direction, neighborState, levelAccessor, pos, neighborPos);
+	public BlockState wilderWild$updateShape(
+		Block instance,
+		BlockState state,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource,
+		Operation<BlockState> original
+	) {
+		BlockState newState = original.call(
+			instance,
+			SnowloggingUtils.onUpdateShape(state, levelReader, blockPos),
+			levelReader,
+			scheduledTickAccess,
+			blockPos,
+			direction,
+			neighborPos,
+			neighborState,
+			randomSource
+		);
 		BlockState snowEquivalent;
-		if (newState.isAir() && SnowloggingUtils.isSnowlogged(state) && Blocks.SNOW.canSurvive((snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)), levelAccessor, pos)) {
+		if (newState.isAir() && SnowloggingUtils.isSnowlogged(state)
+			&& Blocks.SNOW.canSurvive((snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)), levelReader, blockPos)) {
 			state = snowEquivalent;
 		} else {
 			state = newState;

@@ -29,7 +29,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -97,16 +99,24 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
-		if (isSafe != state.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
-			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, isSafe);
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		boolean isSafe = TermiteManager.isPosSafeForTermites(levelReader, neighborPos, neighborState);
+		if (isSafe != blockState.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
+			blockState = blockState.setValue(WWBlockStateProperties.TERMITES_AWAKE, isSafe);
 		}
-		if (isSafe != state.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
-			state = state.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, isSafe);
+		if (isSafe != blockState.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
+			blockState = blockState.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, isSafe);
 		}
-		return state;
+		return blockState;
 	}
 
 	@Override

@@ -24,10 +24,13 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.AbstractChestBlock;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -54,7 +57,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 
 	@Unique
 	@Nullable
-	private static ChestBlockEntity wilderWild$getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	private static ChestBlockEntity wilderWild$getOtherChest(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		if (chestType == ChestType.RIGHT) {
@@ -96,13 +99,23 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	}
 
 	@Inject(method = "updateShape", at = @At(value = "RETURN"))
-	public void wilderWild$updateShape(BlockState blockStateUnneeded, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
+	public void wilderWild$updateShape(
+		BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource,
+		CallbackInfoReturnable<BlockState> info
+	) {
 		BlockState state = info.getReturnValue();
-		ChestBlockEntity otherChest = wilderWild$getOtherChest(level, currentPos, state);
-		if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+		ChestBlockEntity otherChest = wilderWild$getOtherChest(levelReader, blockPos, state);
+		if (levelReader.getBlockEntity(blockPos) instanceof ChestBlockEntity chest) {
 			if (otherChest != null) {
-				BlockState otherState = level.getBlockState(otherChest.getBlockPos());
-				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
+				BlockState otherState = levelReader.getBlockState(otherChest.getBlockPos());
+				boolean wasLogged = blockState.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
 						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
@@ -112,12 +125,12 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 					}
 				}
 			} else {
-				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
+				boolean wasLogged = blockState.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
 				}
 			}
-			if (otherChest != null && level.getBlockEntity(currentPos) instanceof ChestBlockEntity sourceChest) {
+			if (otherChest != null && levelReader.getBlockEntity(blockPos) instanceof ChestBlockEntity sourceChest) {
 				((ChestBlockEntityInterface) sourceChest).wilderWild$syncBubble(sourceChest, otherChest);
 			}
 		}

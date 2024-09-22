@@ -52,6 +52,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
@@ -192,7 +194,7 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	@Nullable
-	public static StoneChestBlockEntity getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public static StoneChestBlockEntity getOtherChest(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		if (chestType == ChestType.RIGHT) {
@@ -294,32 +296,45 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	@Override
-	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (!state.hasProperty(WATERLOGGED)) return state;
-		if (state.getValue(WATERLOGGED)) {
-			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		if (!blockState.hasProperty(WATERLOGGED)) return blockState;
+		if (blockState.getValue(WATERLOGGED)) {
+			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 		}
 		if (neighborState.is(this) && direction.getAxis().isHorizontal()) {
 			//if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
 			ChestType chestType = neighborState.getValue(TYPE);
-			if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && state.getValue(ANCIENT) == neighborState.getValue(ANCIENT) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
-				BlockState retState = state.setValue(TYPE, chestType.getOpposite());
-				updateBubbles(state, retState, level, currentPos);
+			if (blockState.getValue(TYPE) == ChestType.SINGLE
+				&& chestType != ChestType.SINGLE
+				&& blockState.getValue(FACING) == neighborState.getValue(FACING)
+				&& blockState.getValue(ANCIENT) == neighborState.getValue(ANCIENT)
+				&& ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()
+			) {
+				BlockState retState = blockState.setValue(TYPE, chestType.getOpposite());
+				updateBubbles(blockState, retState, levelReader, blockPos);
 				return retState;
 			}
 			//}
-		} else if (ChestBlock.getConnectedDirection(state) == direction) {
-			BlockState retState = state.setValue(TYPE, ChestType.SINGLE);
-			updateBubbles(state, retState, level, currentPos);
+		} else if (ChestBlock.getConnectedDirection(blockState) == direction) {
+			BlockState retState = blockState.setValue(TYPE, ChestType.SINGLE);
+			updateBubbles(blockState, retState, levelReader, blockPos);
 			return retState;
 		}
-		BlockState retState = super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-		updateBubbles(state, retState, level, currentPos);
+		BlockState retState = super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		updateBubbles(blockState, retState, levelReader, blockPos);
 		return retState;
 	}
 
-	public void updateBubbles(@NotNull BlockState oldState, @NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos currentPos) {
+	public void updateBubbles(@NotNull BlockState oldState, @NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos currentPos) {
 		if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
 			StoneChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
 			if (otherChest != null) {

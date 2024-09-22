@@ -52,6 +52,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -88,7 +89,7 @@ public class TermiteManager {
 		return natural ? TERMITE_COUNT_NATURAL : TERMITE_COUNT;
 	}
 
-	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
+	public static boolean areTermitesSafe(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		for (Direction direction : Direction.values()) {
 			if (!isPosSafeForTermites(level, mutableBlockPos.move(direction))) {
@@ -99,11 +100,11 @@ public class TermiteManager {
 		return true;
 	}
 
-	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+	public static boolean isPosSafeForTermites(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		return isStateSafeForTermites(level.getBlockState(pos)) && level.getFluidState(pos).isEmpty();
 	}
 
-	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public static boolean isPosSafeForTermites(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return isStateSafeForTermites(state) && level.getFluidState(pos).isEmpty();
 	}
 

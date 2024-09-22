@@ -40,7 +40,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +53,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final double SCULK_CONVERSION_HEIGHT_THRESHOLD = 3D;
 	public static final double RIB_CAGE_CHANCE = 0.8D;
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final IntegerProperty HEIGHT_LEFT = WWBlockStateProperties.PILLAR_HEIGHT_LEFT;
 	public static final IntegerProperty TOTAL_HEIGHT = WWBlockStateProperties.TOTAL_HEIGHT;
 	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
