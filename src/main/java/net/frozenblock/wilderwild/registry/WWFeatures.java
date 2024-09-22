@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.worldgen.impl.features.AlgaeFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.CattailFeature;

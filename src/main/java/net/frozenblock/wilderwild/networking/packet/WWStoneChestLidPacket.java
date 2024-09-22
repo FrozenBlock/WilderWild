@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 

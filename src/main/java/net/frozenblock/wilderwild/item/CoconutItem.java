@@ -20,15 +20,12 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;

@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.WilderEnderman;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundSource;

@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
@@ -71,23 +70,14 @@ public final class WWEntityConfig {
 	public static volatile boolean WARDEN_SWIMS = true;
 
 	public static final class Client {
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean ALLAY_KEYFRAME_DANCE = false;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_SWIM_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_CUSTOM_TENDRIL_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_IMPROVED_DIM_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_IMPROVED_EMERGE_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean JELLYFISH_PLANE_TENTACLES = true;
 	}
 
