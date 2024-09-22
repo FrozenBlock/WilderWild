@@ -104,7 +104,7 @@ public abstract class FluidRendererMixin {
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true, require = 0)
 	private void wilderWild$getIsWater(WorldSlice world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info) {
 		BlockState blockState = world.getBlockState(pos);
-		if (WWBlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
+		if (WWBlockConfig.Client.MESOGLEA_LIQUID && blockState.getBlock() instanceof MesogleaBlock) {
 			this.wilderWild$renderWithSingleTexture(world, fluidState, pos, offset, buffers, blockState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
 		}

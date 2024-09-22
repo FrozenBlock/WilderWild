@@ -244,7 +244,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Unique
 	public boolean wilderWild$hasDeathAnimation() {
-		return WWEntityConfig.get().warden.wardenDeathAnimation || this.wilderWild$isStella();
+		return WWEntityConfig.Client.WARDEN_DEATH_ANIMATION || this.wilderWild$isStella();
 	}
 
 	@Unique
