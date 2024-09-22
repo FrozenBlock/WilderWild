@@ -12,22 +12,21 @@ accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinS
 extendable class net/minecraft/world/level/block/grower/TreeGrower
 extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
 extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
-accessible method net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType <init> (Lcom/mojang/serialization/MapCodec;)V
-accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
-accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
+accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType <init> (Lcom/mojang/serialization/Codec;)V
+accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer isDirt (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/data/worldgen/placement/VegetationPlacements treePlacementBase (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
 accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBlockKnownShape (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Items
 extendable method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
-extendable method net/minecraft/world/level/block/state/BlockBehaviour getLootTable ()Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/world/level/block/state/BlockBehaviour getLootTable ()Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/world/item/ItemCooldowns cooldowns Ljava/util/Map;
 accessible field net/minecraft/world/item/ItemCooldowns tickCount I
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance endTime I
 accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init> (II)V
-accessible field net/minecraft/world/item/ItemStack components Lnet/minecraft/core/component/PatchedDataComponentMap;
 accessible method net/minecraft/world/item/CreativeModeTabs generateInstrumentTypes (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/core/HolderLookup;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
 accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
@@ -120,7 +119,7 @@ accessible method net/minecraft/world/level/block/ChestBlock isBlockedChestByBlo
 accessible field net/minecraft/world/level/block/state/BlockBehaviour UPDATE_SHAPE_ORDER [Lnet/minecraft/core/Direction;
 accessible method net/minecraft/world/level/block/SculkBlock getDecayPenalty (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
 accessible method net/minecraft/world/level/block/BellBlock onProjectileHit (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/projectile/Projectile;)V
-accessible method net/minecraft/world/level/block/state/BlockBehaviour getSoundType (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour soundType Lnet/minecraft/world/level/block/SoundType;
 accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/world/level/block/state/BlockBehaviour canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible class net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
@@ -130,7 +129,7 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
 
 # Block Entities
-accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity lootTable Lnet/minecraft/resources/ResourceLocation;
 accessible class net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
 accessible class net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
@@ -148,11 +147,11 @@ accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_TRANS
 accessible method net/minecraft/client/renderer/RenderStateShard$ShaderStateShard <init> (Ljava/util/function/Supplier;)V
 
 # Spawn Placements
-accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 accessible field net/minecraft/world/entity/SpawnPlacements$Data predicate Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;
-accessible field net/minecraft/world/entity/SpawnPlacements$Data placement Lnet/minecraft/world/entity/SpawnPlacementType;
+accessible field net/minecraft/world/entity/SpawnPlacements$Data placement Lnet/minecraft/world/entity/SpawnPlacements$Type;
 accessible field net/minecraft/world/entity/SpawnPlacements$Data heightMap Lnet/minecraft/world/level/levelgen/Heightmap$Types;
-accessible method net/minecraft/world/entity/SpawnPlacements$Data <init> (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible method net/minecraft/world/entity/SpawnPlacements$Data <init> (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 
 # Biomes
 accessible method net/minecraft/data/worldgen/biome/OverworldBiomes calculateSkyColor (F)I
@@ -164,7 +163,7 @@ accessible field net/minecraft/data/worldgen/placement/VegetationPlacements TREE
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
 
 # Noise
-accessible method net/minecraft/data/worldgen/NoiseData register (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
+accessible method net/minecraft/data/worldgen/NoiseData register (Lnet/minecraft/data/worldgen/BootstapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
 
 # Surface Rules
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource <init> (Ljava/util/List;)V
