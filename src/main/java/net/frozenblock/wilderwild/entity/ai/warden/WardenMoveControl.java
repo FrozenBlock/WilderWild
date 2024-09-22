@@ -46,7 +46,7 @@ public class WardenMoveControl extends MoveControl {
 	@Override
 	public void tick() {
 		if (!this.mob.isDiggingOrEmerging()) {
-			if (WWEntityConfig.get().warden.wardenSwims && this.touchingWaterOrLava(this.mob)) {
+			if (WWEntityConfig.WARDEN_SWIMS && this.touchingWaterOrLava(this.mob)) {
 				if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
 					double d = this.wantedX - this.mob.getX();
 					double e = this.wantedY - this.mob.getY();
