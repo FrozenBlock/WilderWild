@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:geyser",
+        "Properties": {
+          "facing": "east",
+          "geyser_stage": "dormant",
+          "geyser_type": "none",
+          "natural": "true",
+          "powered": "false"
+        }
+      }
+    }
+  }
+}
