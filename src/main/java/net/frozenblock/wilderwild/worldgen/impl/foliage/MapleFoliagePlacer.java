@@ -22,6 +22,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -85,10 +86,12 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		int trunkHeight
 	) {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		double radius = providedRadius + ((random.nextDouble() - 0.5D) * 0.6D);
+		Vec3 center = centerPos.getCenter();
+		double radius = providedRadius + ((random.nextDouble() - 0.5D) * 0.75D);
+		double increment = radius * 0.05D;
 
-		for (double j = -radius + 0.6D; j <= radius - 0.6D; j += 0.2D) {
-			for (double k = -radius + 0.6D; k <= radius - 0.6D; k += 0.2D) {
+		for (double j = -radius; j <= radius; j += increment) {
+			for (double k = -radius; k <= radius; k += increment) {
 				if (!this.shouldSkipMapleLocationSigned(j, k, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) {
 					mutableBlockPos.setWithOffset(centerPos, (int) j, y, (int) k);
 					tryPlaceLeaf(world, placer, random, config, mutableBlockPos);
