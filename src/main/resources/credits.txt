@@ -195,6 +195,18 @@ https://freesound.org/people/iwanPlays/sounds/567250/
 https://freesound.org/people/newlocknew/sounds/631485/
 https://freesound.org/people/blaukreuz/sounds/162673/
 
+New Lush Caves Sounds in 2.5:
+https://freesound.org/people/klankbeeld/sounds/260604/
+https://freesound.org/people/Moulaythami/sounds/536930/
+https://freesound.org/people/Syphon64/sounds/135162/
+https://freesound.org/people/Emanuele_Correani/sounds/465164/
+https://freesound.org/people/bloodymilk/sounds/330646/
+https://freesound.org/people/miekyj/sounds/326457/
+https://freesound.org/people/werrie.f_/sounds/594510/
+https://freesound.org/people/crcavol/sounds/154657/
+https://freesound.org/people/Robinhood76/sounds/55691/
+https://freesound.org/people/felix.blume/sounds/584759/
+
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
 However, they all originate from freesound.org with some Minecraft sounds mixed in.
 Sounds sources prior to 2.2 are unfortunately unknown as the previous artist and sound designer never credited sources, despite mentioning most of them were pulled from freesound.org.

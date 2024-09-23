@@ -249,43 +249,143 @@
     "sounds": [
       {
         "name": "wilderwild:ambient/cave/lush_caves/axolotls1",
-        "weight": 15,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.5
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/axolotls2",
-        "weight": 15,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.5
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/axolotls3",
-        "weight": 15,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.5
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/axolotls4",
-        "weight": 15,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.5
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/splashes1",
-        "weight": 10,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.4
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/splashes2",
-        "weight": 10,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.4
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/rustling1",
-        "weight": 5,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.4
       },
       {
         "name": "wilderwild:ambient/cave/lush_caves/rustling2",
-        "weight": 5,
-        "volume": 1.0
+        "weight": 7,
+        "volume": 0.4
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bee1",
+        "weight": 1,
+        "volume": 0.005
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bee2",
+        "weight": 1,
+        "volume": 0.005
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bee3",
+        "weight": 1,
+        "volume": 0.005
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bee4",
+        "weight": 1,
+        "volume": 0.005
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bee5",
+        "weight": 1,
+        "volume": 0.005
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl1",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl2",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl3",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl4",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl5",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl6",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl7",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl8",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/bowl9",
+        "weight": 1,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/slip1",
+        "weight": 3,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/slip2",
+        "weight": 3,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/slip3",
+        "weight": 3,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/steps1",
+        "weight": 3,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/steps2",
+        "weight": 3,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/lush_caves/steps3",
+        "weight": 3,
+        "volume": 0.01
       }
     ]
   },
@@ -295,7 +395,7 @@
         "name": "wilderwild:ambient/cave/lush_caves/ambience",
         "preload": true,
         "stream": true,
-        "volume": 1.0
+        "volume": 0.4
       }
     ]
   },
