@@ -15,6 +15,7 @@ hi
 - Added falling leaves.
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
+- Sideways Geysers now generate naturally in Magmatic Caves.
 - Added new sounds for Melon and Pumpkin blocks.
 - Replaced the Dripstone Caves ambient loop.
 - Added two new ambient sounds for Dripstone Caves.
