@@ -70,6 +70,7 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
@@ -127,6 +128,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.Supplier;
 
 public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
@@ -244,9 +246,24 @@ public final class WWBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
 
 	// LEAF LITTER
-	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.YELLOW_MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.ORANGE_MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.RED_MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(
+		YELLOW_MAPLE_LEAVES,
+		WWParticleTypes.YELLOW_MAPLE_LEAVES,
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+	);
+	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(
+		ORANGE_MAPLE_LEAVES,
+		WWParticleTypes.ORANGE_MAPLE_LEAVES,
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+	);
+	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(
+		RED_MAPLE_LEAVES,
+		WWParticleTypes.RED_MAPLE_LEAVES,
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+	);
 
 	// SCULK
 	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
@@ -1281,7 +1298,12 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, float litterChance) {
+	public static LeafLitterBlock leafLitter(
+		Block sourceBlock,
+		@NotNull ParticleType<LeafParticleOptions> particleType,
+		float litterChance,
+		Supplier<Double> frequencyModifier
+	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
 			sourceBlock,
@@ -1289,6 +1311,7 @@ public final class WWBlocks {
 			litterChance,
 			particleType,
 			0.0225F,
+			frequencyModifier,
 			0.125F,
 			3F
 		);
@@ -1301,6 +1324,7 @@ public final class WWBlocks {
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
 		float particleChance,
+		Supplier<Double> frequencyModifier,
 		float quadSize,
 		float particleGravityScale
 	) {
@@ -1311,6 +1335,7 @@ public final class WWBlocks {
 			litterChance,
 			particleType,
 			particleChance,
+			frequencyModifier,
 			quadSize,
 			particleGravityScale
 		);
