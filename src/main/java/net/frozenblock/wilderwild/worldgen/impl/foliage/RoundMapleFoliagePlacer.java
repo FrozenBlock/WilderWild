@@ -31,32 +31,32 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class MapleFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
+public class RoundMapleFoliagePlacer extends FoliagePlacer {
+	public static final MapCodec<RoundMapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
 		(instance) -> foliagePlacerParts(instance)
 			.and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length))
-			.apply(instance, MapleFoliagePlacer::new)
+			.apply(instance, RoundMapleFoliagePlacer::new)
 	);
 	private final IntProvider length;
 
-	public MapleFoliagePlacer(IntProvider radius, IntProvider offset, IntProvider foliageHeight) {
+	public RoundMapleFoliagePlacer(IntProvider radius, IntProvider offset, IntProvider foliageHeight) {
 		super(radius, offset);
 		this.length = foliageHeight;
 	}
 
 	@Override
 	protected @NotNull FoliagePlacerType<?> type() {
-		return WWFeatures.MAPLE_FOLIAGE_PLACER;
+		return WWFeatures.ROUND_MAPLE_FOLIAGE_PLACER;
 	}
 
 	@Override
 	protected void createFoliage(
 		LevelSimulatedReader world,
-		FoliagePlacer.FoliageSetter placer,
+		FoliageSetter placer,
 		@NotNull RandomSource random,
 		TreeConfiguration config,
 		int trunkHeight,
-		FoliagePlacer.@NotNull FoliageAttachment node,
+		@NotNull FoliageAttachment node,
 		int foliageHeight,
 		int radius,
 		int offset
@@ -73,7 +73,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 
 	protected void placeLeavesInCircle(
 		LevelSimulatedReader world,
-		FoliagePlacer.FoliageSetter placer,
+		FoliageSetter placer,
 		@NotNull RandomSource random,
 		TreeConfiguration config,
 		BlockPos centerPos,
@@ -85,8 +85,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		int trunkHeight
 	) {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		Vec3 center = centerPos.getCenter();
-		double radius = providedRadius + ((random.nextDouble() - 0.5D) * 0.4D);
+		double radius = providedRadius + ((random.nextDouble() - 0.3D) * 0.5D);
 		double increment = radius * 0.05D;
 
 		for (double j = -radius; j <= radius; j += increment) {
@@ -131,13 +130,9 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		boolean hot
 	) {
 		double flippedHeight = totalHeight - height;
-		double functionHeight = totalHeight - 1D;
+		double function = Math.sin((flippedHeight * Math.PI) / totalHeight);
+		double finalFunction = (function * (radius - 1)) + 1D;
 
-		double functionInput = flippedHeight + (height / functionHeight);
-		double functionNumerator = (functionInput * functionInput) * Math.PI;
-		double functionDenominator = (functionHeight * functionHeight) + (functionHeight * 2.5D) + (totalHeight * radius);
-		double function = Math.sin(functionNumerator / functionDenominator);
-		double finalFunction = function * (radius * 0.75D) + 0.45D;
 		double min = 0D;
 		if (hot) {
 			min = 1.2D;

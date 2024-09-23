@@ -78,6 +78,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SNAPPED_CHERRY_CHECKED = WWPlacementUtils.register("snapped_cherry_checked");
 	//MAPLE
 	public static final FrozenPlacedFeature YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("yellow_maple_checked");
+	public static final FrozenPlacedFeature ROUND_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("round_yellow_maple_checked");
 	public static final FrozenPlacedFeature DYING_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("dying_yellow_maple_checked");
 	public static final FrozenPlacedFeature TALL_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("tall_yellow_maple_checked");
 	public static final FrozenPlacedFeature TALL_DYING_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("tall_dying_yellow_maple_checked");
@@ -87,6 +88,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature BIG_SHRUB_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_yellow_maple_checked");
 
 	public static final FrozenPlacedFeature ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("orange_maple_checked");
+	public static final FrozenPlacedFeature ROUND_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("round_orange_maple_checked");
 	public static final FrozenPlacedFeature DYING_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("dying_orange_maple_checked");
 	public static final FrozenPlacedFeature TALL_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("tall_orange_maple_checked");
 	public static final FrozenPlacedFeature TALL_DYING_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("tall_dying_orange_maple_checked");
@@ -96,6 +98,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature BIG_SHRUB_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_orange_maple_checked");
 
 	public static final FrozenPlacedFeature RED_MAPLE_CHECKED = WWPlacementUtils.register("red_maple_checked");
+	public static final FrozenPlacedFeature ROUND_RED_MAPLE_CHECKED = WWPlacementUtils.register("round_red_maple_checked");
 	public static final FrozenPlacedFeature DYING_RED_MAPLE_CHECKED = WWPlacementUtils.register("dying_red_maple_checked");
 	public static final FrozenPlacedFeature TALL_RED_MAPLE_CHECKED = WWPlacementUtils.register("tall_red_maple_checked");
 	public static final FrozenPlacedFeature TALL_DYING_RED_MAPLE_CHECKED = WWPlacementUtils.register("tall_dying_red_maple_checked");
@@ -356,6 +359,10 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
+		ROUND_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ROUND_YELLOW_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+		);
+
 		DYING_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_YELLOW_MAPLE_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
@@ -388,6 +395,10 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
+		ROUND_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ROUND_ORANGE_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+		);
+
 		DYING_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_ORANGE_MAPLE_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
@@ -417,6 +428,10 @@ public final class WWTreePlaced {
 		);
 
 		RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.RED_MAPLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+		);
+
+		ROUND_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ROUND_RED_MAPLE_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
 		);
 
