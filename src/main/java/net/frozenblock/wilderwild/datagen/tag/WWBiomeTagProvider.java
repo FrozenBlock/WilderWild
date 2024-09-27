@@ -839,6 +839,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.DYING_FOREST)
 			.addOptional(WWWorldgen.DYING_MIXED_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PINK_TULIP_UNCOMMON)
+			.addOptional(WWWorldgen.MAPLE_GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ALLIUM_UNCOMMON)
+			.addOptional(WWWorldgen.MAPLE_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DATURA)
 			.add(Biomes.CHERRY_GROVE)
