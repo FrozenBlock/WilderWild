@@ -124,7 +124,7 @@ public final class WWModelLayers {
 		EntityRendererRegistry.register(WWEntityTypes.MAPLE_CHEST_BOAT, context -> new BoatRenderer(context, MAPLE_CHEST_BOAT));
 
 		LayerDefinition boat = BoatModel.createBoatModel();
-		LayerDefinition chestBoat = BoatModel.createBoatModel();
+		LayerDefinition chestBoat = BoatModel.createChestBoatModel();
 		EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT, () -> boat);
 		EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, () -> chestBoat);
 		EntityModelLayerRegistry.registerModelLayer(CYPRESS_BOAT, () -> boat);
