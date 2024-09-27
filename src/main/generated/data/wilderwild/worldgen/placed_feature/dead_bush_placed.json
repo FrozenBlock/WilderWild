@@ -17,10 +17,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "minecraft:dead_bush",
-          "Properties": {
-            "snow_layers": "0"
-          }
+          "Name": "minecraft:dead_bush"
         }
       }
     },

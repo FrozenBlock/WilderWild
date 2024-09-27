@@ -129,5 +129,16 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
 			.add(WWEntityTypes.SCORCHED);
 
+		this.getOrCreateTagBuilder(EntityTypeTags.BOAT)
+			.add(
+				WWEntityTypes.BAOBAB_BOAT,
+				WWEntityTypes.BAOBAB_CHEST_BOAT,
+				WWEntityTypes.CYPRESS_BOAT,
+				WWEntityTypes.CYPRESS_CHEST_BOAT,
+				WWEntityTypes.PALM_BOAT,
+				WWEntityTypes.PALM_CHEST_BOAT,
+				WWEntityTypes.MAPLE_BOAT,
+				WWEntityTypes.MAPLE_CHEST_BOAT
+			);
 	}
 }

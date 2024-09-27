@@ -15,8 +15,7 @@
                     "state": {
                       "Name": "minecraft:lilac",
                       "Properties": {
-                        "half": "lower",
-                        "snow_layers": "0"
+                        "half": "lower"
                       }
                     }
                   }
@@ -89,8 +88,7 @@
                     "state": {
                       "Name": "minecraft:rose_bush",
                       "Properties": {
-                        "half": "lower",
-                        "snow_layers": "0"
+                        "half": "lower"
                       }
                     }
                   }
@@ -126,8 +124,7 @@
                     "state": {
                       "Name": "minecraft:peony",
                       "Properties": {
-                        "half": "lower",
-                        "snow_layers": "0"
+                        "half": "lower"
                       }
                     }
                   }

@@ -17,10 +17,7 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:white_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:white_tulip"
               },
               {
                 "Name": "wilderwild:datura",
@@ -32,10 +29,7 @@
                 "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "minecraft:pink_tulip",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:pink_tulip"
               },
               {
                 "Name": "wilderwild:milkweed",
@@ -45,16 +39,12 @@
                 }
               },
               {
-                "Name": "minecraft:allium",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:allium"
               },
               {
                 "Name": "minecraft:lilac",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
@@ -63,21 +53,14 @@
               {
                 "Name": "minecraft:peony",
                 "Properties": {
-                  "half": "lower",
-                  "snow_layers": "0"
+                  "half": "lower"
                 }
               },
               {
-                "Name": "minecraft:cornflower",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:cornflower"
               },
               {
-                "Name": "minecraft:blue_orchid",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:blue_orchid"
               }
             ]
           }

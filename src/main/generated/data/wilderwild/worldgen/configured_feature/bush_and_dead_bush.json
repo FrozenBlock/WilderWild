@@ -10,10 +10,7 @@
             "entries": [
               {
                 "data": {
-                  "Name": "minecraft:dead_bush",
-                  "Properties": {
-                    "snow_layers": "0"
-                  }
+                  "Name": "minecraft:dead_bush"
                 },
                 "weight": 2
               },

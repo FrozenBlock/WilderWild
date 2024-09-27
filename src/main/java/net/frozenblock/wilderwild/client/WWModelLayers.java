@@ -40,9 +40,12 @@ import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -61,6 +64,16 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WWConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
+
+	// BOATS
+	public static final ModelLayerLocation BAOBAB_BOAT = new ModelLayerLocation(WWConstants.id("boat/baobab"), "main");
+	public static final ModelLayerLocation BAOBAB_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/baobab"), "main");
+	public static final ModelLayerLocation CYPRESS_BOAT = new ModelLayerLocation(WWConstants.id("boat/cypress"), "main");
+	public static final ModelLayerLocation CYPRESS_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/cypress"), "main");
+	public static final ModelLayerLocation PALM_BOAT = new ModelLayerLocation(WWConstants.id("boat/palm"), "main");
+	public static final ModelLayerLocation PALM_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/palm"), "main");
+	public static final ModelLayerLocation MAPLE_BOAT = new ModelLayerLocation(WWConstants.id("boat/maple"), "main");
+	public static final ModelLayerLocation MAPLE_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/maple"), "main");
 
 
 	public static void init() {
@@ -99,5 +112,26 @@ public final class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::createSingleBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
+
+		// BOATS
+		EntityRendererRegistry.register(WWEntityTypes.BAOBAB_BOAT, context -> new BoatRenderer(context, BAOBAB_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.BAOBAB_CHEST_BOAT, context -> new BoatRenderer(context, BAOBAB_CHEST_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.CYPRESS_BOAT, context -> new BoatRenderer(context, CYPRESS_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.CYPRESS_CHEST_BOAT, context -> new BoatRenderer(context, CYPRESS_CHEST_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.PALM_BOAT, context -> new BoatRenderer(context, PALM_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.PALM_CHEST_BOAT, context -> new BoatRenderer(context, PALM_CHEST_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.MAPLE_BOAT, context -> new BoatRenderer(context, MAPLE_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.MAPLE_CHEST_BOAT, context -> new BoatRenderer(context, MAPLE_CHEST_BOAT));
+
+		LayerDefinition boat = BoatModel.createBoatModel();
+		LayerDefinition chestBoat = BoatModel.createBoatModel();
+		EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT, () -> boat);
+		EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, () -> chestBoat);
+		EntityModelLayerRegistry.registerModelLayer(CYPRESS_BOAT, () -> boat);
+		EntityModelLayerRegistry.registerModelLayer(CYPRESS_CHEST_BOAT, () -> chestBoat);
+		EntityModelLayerRegistry.registerModelLayer(PALM_BOAT, () -> boat);
+		EntityModelLayerRegistry.registerModelLayer(PALM_CHEST_BOAT, () -> chestBoat);
+		EntityModelLayerRegistry.registerModelLayer(MAPLE_BOAT, () -> boat);
+		EntityModelLayerRegistry.registerModelLayer(MAPLE_CHEST_BOAT, () -> chestBoat);
 	}
 }

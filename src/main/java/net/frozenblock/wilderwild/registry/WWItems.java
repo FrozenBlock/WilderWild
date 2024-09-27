@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
+import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.Foods;
@@ -43,6 +44,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
@@ -198,6 +200,19 @@ public final class WWItems {
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
 		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
+
+		registerDispenses();
+	}
+
+	private static void registerDispenses() {
+		DispenserBlock.registerBehavior(BAOBAB_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT));
+		DispenserBlock.registerBehavior(BAOBAB_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_CHEST_BOAT));
+		DispenserBlock.registerBehavior(CYPRESS_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_BOAT));
+		DispenserBlock.registerBehavior(CYPRESS_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_CHEST_BOAT));
+		DispenserBlock.registerBehavior(PALM_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.PALM_BOAT));
+		DispenserBlock.registerBehavior(PALM_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.PALM_CHEST_BOAT));
+		DispenserBlock.registerBehavior(MAPLE_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_BOAT));
+		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT));
 	}
 
 	private static @NotNull <T extends Item> T registerItem(String name, @NotNull Function<Item.Properties, Item> function, Item.@NotNull Properties properties) {
