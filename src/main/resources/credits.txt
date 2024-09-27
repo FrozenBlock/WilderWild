@@ -36,7 +36,7 @@ Zhen:
  - Retextured the entire Cypress set in 2.4.3.
  - Retextured the Reach Boost icon in 2.4.4.
  - Cracked & Mossy Mud Bricks textures.
- - All Maple, Leaf Litter, and Leaf particle textures.
+ - All Maple textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
