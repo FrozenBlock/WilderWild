@@ -66,6 +66,7 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
@@ -127,6 +128,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.Supplier;
 
 public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
@@ -370,17 +372,20 @@ public final class WWBlocks {
 	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter("yellow_maple_leaf_litter",
 		YELLOW_MAPLE_LEAVES,
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
-		0.04F
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter("orange_maple_leaf_litter",
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
-		0.04F
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter("red_maple_leaf_litter",
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
-		0.04F
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
 	);
 
 	// SCULK
@@ -1282,9 +1287,10 @@ public final class WWBlocks {
 		String id,
 		Block sourceBlock,
 		@NotNull ParticleType<LeafParticleOptions> particleType,
-		float litterChance
+		float litterChance,
+		Supplier<Double> frequencyModifier
 	) {
-		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, 0.125F, 3F);
+		return leafLitter(id, sourceBlock, particleType, litterChance, frequencyModifier, 0.0225F, 0.125F, 3F);
 	}
 
 	@NotNull
@@ -1294,6 +1300,7 @@ public final class WWBlocks {
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
 		float particleChance,
+		Supplier<Double> frequencyModifier,
 		float quadSize,
 		float particleGravityScale
 	) {
@@ -1304,6 +1311,7 @@ public final class WWBlocks {
 			litterChance,
 			particleType,
 			particleChance,
+			frequencyModifier,
 			quadSize,
 			particleGravityScale
 		);

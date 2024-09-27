@@ -49,7 +49,7 @@ public class DataFixersMixin {
 			)
 		)
 	)
-	private static Schema wilderWild$addFixers3807(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
+	private static Schema wilderWild$addFixers3438(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("display_lantern"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
@@ -75,18 +75,18 @@ public class DataFixersMixin {
 		),
 		remap = false
 	)
-	private static Schema wilderWild$addFixers3816(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
+	private static Schema wilderWild$addFixers3328(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("jellyfish"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ostrich"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("crab"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("firefly"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("tumbleweed"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ancient_horn_vibration"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("coconut"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("chest_bubbler"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("sculk_spreader"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("scorched"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("falling_leaves"), References.ENTITY));
 		return schema;
 	}
 

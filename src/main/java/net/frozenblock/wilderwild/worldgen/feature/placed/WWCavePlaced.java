@@ -31,6 +31,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -88,6 +90,10 @@ public final class WWCavePlaced {
 	public static final FrozenPlacedFeature NETHER_LAVA_GEYSER = WWPlacementUtils.register("nether_lava_geyser");
 	public static final FrozenPlacedFeature GEYSER_UP = WWPlacementUtils.register("geyser_up");
 	public static final FrozenPlacedFeature GEYSER_DOWN = WWPlacementUtils.register("geyser_down");
+	public static final FrozenPlacedFeature GEYSER_NORTH = WWPlacementUtils.register("geyser_north");
+	public static final FrozenPlacedFeature GEYSER_EAST = WWPlacementUtils.register("geyser_east");
+	public static final FrozenPlacedFeature GEYSER_SOUTH = WWPlacementUtils.register("geyser_south");
+	public static final FrozenPlacedFeature GEYSER_WEST = WWPlacementUtils.register("geyser_west");
 	public static final FrozenPlacedFeature DOWNWARDS_GEYSER_COLUMN = WWPlacementUtils.register("downwards_geyser_column");
 	public static final FrozenPlacedFeature DOWNWARDS_BASALT_COLUMN = WWPlacementUtils.register("downwards_basalt_column");
 	public static final FrozenPlacedFeature BASALT_SPIKE = WWPlacementUtils.register("basalt_spike");
@@ -363,6 +369,74 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
+		GEYSER_NORTH.makeAndSetHolder(WWCaveConfigured.GEYSER_NORTH.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.NORTH.getNormal()),
+					BlockPredicate.solid(Direction.SOUTH.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_EAST.makeAndSetHolder(WWCaveConfigured.GEYSER_EAST.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.EAST.getNormal()),
+					BlockPredicate.solid(Direction.WEST.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_SOUTH.makeAndSetHolder(WWCaveConfigured.GEYSER_SOUTH.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.SOUTH.getNormal()),
+					BlockPredicate.solid(Direction.NORTH.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_WEST.makeAndSetHolder(WWCaveConfigured.GEYSER_WEST.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.WEST.getNormal()),
+					BlockPredicate.solid(Direction.EAST.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
 		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GEYSER_COLUMN.getHolder(),
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
@@ -395,7 +469,7 @@ public final class WWCavePlaced {
 		);
 
 		FOSSIL_LAVA.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.FOSSIL_DIAMONDS),
-			RarityFilter.onAverageOnceEvery(13),
+			RarityFilter.onAverageOnceEvery(20),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
 			BiomeFilter.biome()

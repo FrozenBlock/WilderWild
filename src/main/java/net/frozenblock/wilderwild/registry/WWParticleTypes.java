@@ -20,9 +20,11 @@ package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
@@ -82,6 +84,7 @@ public final class WWParticleTypes {
 		WWConstants.id("oak_leaves"),
 		Blocks.OAK_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.OAK_LEAF_FREQUENCY,
 		0.125F,
 		2.5F
 	);
@@ -89,6 +92,7 @@ public final class WWParticleTypes {
 		WWConstants.id("spruce_leaves"),
 		Blocks.SPRUCE_LEAVES,
 		0.0025F,
+		() -> WWAmbienceAndMiscConfig.Client.SPRUCE_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -96,6 +100,7 @@ public final class WWParticleTypes {
 		WWConstants.id("birch_leaves"),
 		Blocks.BIRCH_LEAVES,
 		0.0025F,
+		() -> WWAmbienceAndMiscConfig.Client.BIRCH_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -103,6 +108,7 @@ public final class WWParticleTypes {
 		WWConstants.id("jungle_leaves"),
 		Blocks.JUNGLE_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.JUNGLE_LEAF_FREQUENCY,
 		0.125F,
 		3.5F
 	);
@@ -110,6 +116,7 @@ public final class WWParticleTypes {
 		WWConstants.id("acacia_leaves"),
 		Blocks.ACACIA_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.ACACIA_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -117,6 +124,7 @@ public final class WWParticleTypes {
 		WWConstants.id("dark_oak_leaves"),
 		Blocks.DARK_OAK_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.DARK_OAK_LEAF_FREQUENCY,
 		0.125F,
 		2.5F
 	);
@@ -124,6 +132,7 @@ public final class WWParticleTypes {
 		WWConstants.id("mangrove_leaves"),
 		Blocks.MANGROVE_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.MANGROVE_LEAF_FREQUENCY,
 		0.125F,
 		3.5F
 	);
@@ -131,6 +140,7 @@ public final class WWParticleTypes {
 		WWConstants.id("cherry_leaves"),
 		Blocks.CHERRY_LEAVES,
 		0.0125F,
+		() -> WWAmbienceAndMiscConfig.Client.CHERRY_LEAF_FREQUENCY,
 		0.125F,
 		1F
 	);
@@ -138,6 +148,7 @@ public final class WWParticleTypes {
 		WWConstants.id("azalea_leaves"),
 		Blocks.AZALEA_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.AZALEA_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -145,6 +156,7 @@ public final class WWParticleTypes {
 		WWConstants.id("flowering_azalea_leaves"),
 		Blocks.FLOWERING_AZALEA_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.FLOWERING_AZALEA_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -152,6 +164,7 @@ public final class WWParticleTypes {
 		WWConstants.id("baobab_leaves"),
 		WWBlocks.BAOBAB_LEAVES,
 		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.BAOBAB_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -159,6 +172,7 @@ public final class WWParticleTypes {
 		WWConstants.id("cypress_leaves"),
 		WWBlocks.CYPRESS_LEAVES,
 		0.0025F,
+		() -> WWAmbienceAndMiscConfig.Client.CYPRESS_LEAF_FREQUENCY,
 		0.125F,
 		2F
 	);
@@ -166,6 +180,7 @@ public final class WWParticleTypes {
 		WWConstants.id("palm_fronds"),
 		WWBlocks.PALM_FRONDS,
 		0.00055F,
+		() -> WWAmbienceAndMiscConfig.Client.PALM_FROND_FREQUENCY,
 		0.125F,
 		4.5F
 	);
@@ -188,13 +203,14 @@ public final class WWParticleTypes {
 	}
 
 	private static @NotNull ParticleType<LeafParticleOptions> createLeafParticle(
-		ResourceLocation location, Block sourceBlock, float particleChance, float quadSize, float particleGravityScale
+		ResourceLocation location, Block sourceBlock, float particleChance, Supplier<Double> frequencyModifier, float quadSize, float particleGravityScale
 	) {
 		ParticleType<LeafParticleOptions> leafParticle = createLeafParticle(location);
 		FallingLeafUtil.registerFallingLeaf(
 			sourceBlock,
 			leafParticle,
 			particleChance,
+			frequencyModifier,
 			quadSize,
 			particleGravityScale
 		);
@@ -202,9 +218,9 @@ public final class WWParticleTypes {
 	}
 
 	private static @NotNull ParticleType<LeafParticleOptions> createLeafParticle(
-		ResourceLocation location, Block sourceBlock
+		ResourceLocation location, Block sourceBlock, Supplier<Double> frequencyModifier
 	) {
-		return createLeafParticle(location, sourceBlock, 0.0225F, 0.125F, 3F);
+		return createLeafParticle(location, sourceBlock, 0.0225F, frequencyModifier, 0.125F, 3F);
 	}
 
 	@NotNull
