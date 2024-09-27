@@ -96,6 +96,7 @@ hi
 - Fixed the main ambient loop in the Deep Dark not properly looping.
 - Pollen can no longer generate in Water during worldgen.
 - Fallen Birch trees no longer generate in Cherry Groves.
+- Updated some previously mis-colored Cypress textures.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
