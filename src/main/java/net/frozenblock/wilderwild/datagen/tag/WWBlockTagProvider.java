@@ -324,10 +324,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(Blocks.RED_SAND);
 
-		this.getOrCreateTagBuilder(WWBlockTags.PACKED_ICE_REPLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.ICE_FEATURE_REPLACEABLE)
 			.add(Blocks.GRAVEL)
 			.addOptionalTag(BlockTags.DIRT)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.add(Blocks.SNOW_BLOCK)
+			.add(Blocks.SNOW);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MESOGLEA_PATH_REPLACEABLE)
 			.add(Blocks.CLAY)

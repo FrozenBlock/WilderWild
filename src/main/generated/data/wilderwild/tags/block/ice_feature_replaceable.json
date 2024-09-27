@@ -8,6 +8,8 @@
     {
       "id": "#minecraft:base_stone_overworld",
       "required": false
-    }
+    },
+    "minecraft:snow_block",
+    "minecraft:snow"
   ]
 }

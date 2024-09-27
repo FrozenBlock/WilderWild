@@ -42,6 +42,7 @@ hi
   - A minimum of one Coconut is now guaranteed to generate on each Palm tree.
 - The foliage and grass colors of the Oasis biome are no longer a saturated green.
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
+- Significantly improved the Frozen Caves biome, as well as its placement.
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
