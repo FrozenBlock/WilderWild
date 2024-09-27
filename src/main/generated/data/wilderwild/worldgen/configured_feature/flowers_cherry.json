@@ -10,13 +10,19 @@
             "entries": [
               {
                 "data": {
-                  "Name": "minecraft:poppy"
+                  "Name": "minecraft:poppy",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 9
               },
               {
                 "data": {
-                  "Name": "minecraft:pink_tulip"
+                  "Name": "minecraft:pink_tulip",
+                  "Properties": {
+                    "snow_layers": "0"
+                  }
                 },
                 "weight": 5
               }

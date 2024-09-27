@@ -41,6 +41,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
@@ -119,6 +121,80 @@ public final class WWEntityTypes {
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 			.updateInterval(10)
+	);
+
+	// BOATS
+
+	public static final EntityType<Boat> BAOBAB_BOAT = register(
+		"baobab_boat",
+		EntityType.Builder.of(EntityType.boatFactory(() -> WWItems.BAOBAB_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<ChestBoat> BAOBAB_CHEST_BOAT = register(
+		"baobab_chest_boat",
+		EntityType.Builder.of(EntityType.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<Boat> CYPRESS_BOAT = register(
+		"cypress_boat",
+		EntityType.Builder.of(EntityType.boatFactory(() -> WWItems.CYPRESS_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<ChestBoat> CYPRESS_CHEST_BOAT = register(
+		"cypress_chest_boat",
+		EntityType.Builder.of(EntityType.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<Boat> PALM_BOAT = register(
+		"palm_boat",
+		EntityType.Builder.of(EntityType.boatFactory(() -> WWItems.PALM_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<ChestBoat> PALM_CHEST_BOAT = register(
+		"palm_chest_boat",
+		EntityType.Builder.of(EntityType.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<Boat> MAPLE_BOAT = register(
+		"maple_boat",
+		EntityType.Builder.of(EntityType.boatFactory(() -> WWItems.MAPLE_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<ChestBoat> MAPLE_CHEST_BOAT = register(
+		"maple_chest_boat",
+		EntityType.Builder.of(EntityType.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
 	);
 
 	private WWEntityTypes() {

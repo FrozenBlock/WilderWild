@@ -19,19 +19,22 @@
               {
                 "Name": "minecraft:rose_bush",
                 "Properties": {
-                  "half": "lower"
+                  "half": "lower",
+                  "snow_layers": "0"
                 }
               },
               {
                 "Name": "minecraft:lilac",
                 "Properties": {
-                  "half": "lower"
+                  "half": "lower",
+                  "snow_layers": "0"
                 }
               },
               {
                 "Name": "minecraft:peony",
                 "Properties": {
-                  "half": "lower"
+                  "half": "lower",
+                  "snow_layers": "0"
                 }
               }
             ]

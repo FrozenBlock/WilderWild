@@ -1290,7 +1290,7 @@ public final class WWBlocks {
 		float litterChance,
 		Supplier<Double> frequencyModifier
 	) {
-		return leafLitter(id, sourceBlock, particleType, litterChance, frequencyModifier, 0.0225F, 0.125F, 3F);
+		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, 0.125F, 3F);
 	}
 
 	@NotNull

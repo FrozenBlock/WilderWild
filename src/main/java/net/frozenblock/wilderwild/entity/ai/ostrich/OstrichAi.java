@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WWItemTags;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -185,7 +186,7 @@ public class OstrichAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(
-					livingEntity -> !ostrich.canTargetEntity(livingEntity), OstrichAi::onTargetInvalid, true
+					(level, livingEntity) -> !ostrich.canTargetEntity(livingEntity), OstrichAi::onTargetInvalid, true
 				),
 				SetEntityLookTarget.create(livingEntity -> isTarget(ostrich, livingEntity), (float) ostrich.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(OstrichAi::getSpeedModifierChasing),
@@ -204,7 +205,7 @@ public class OstrichAi {
 		return ostrich.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
 	}
 
-	private static void onTargetInvalid(@NotNull Ostrich ostrich, @NotNull LivingEntity target) {
+	private static void onTargetInvalid(ServerLevel level, @NotNull Ostrich ostrich, @NotNull LivingEntity target) {
 		if (ostrich.getTarget() == target) {
 			removeAttackAndAngerTarget(ostrich);
 		}
@@ -212,10 +213,10 @@ public class OstrichAi {
 	}
 
 	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Ostrich ostrich) {
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, @NotNull Ostrich ostrich) {
 		Brain<Ostrich> brain = ostrich.getBrain();
 		Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(ostrich, MemoryModuleType.ANGRY_AT);
-		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(ostrich, optional.get())) {
+		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, optional.get())) {
 			return optional;
 		} else {
 			Optional<? extends LivingEntity> optional2;
@@ -229,9 +230,9 @@ public class OstrichAi {
 		}
 	}
 
-	public static void wasHurtBy(@NotNull Ostrich ostrich, LivingEntity target) {
+	public static void wasHurtBy(ServerLevel level, @NotNull Ostrich ostrich, LivingEntity target) {
 		if (ostrich.canTargetEntity(target)) {
-			if (!Sensor.isEntityAttackableIgnoringLineOfSight(ostrich, target)) {
+			if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) {
 				return;
 			}
 			if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(ostrich, target, 4.0)) {
@@ -239,68 +240,68 @@ public class OstrichAi {
 			}
 
 			if (ostrich.isBaby()) {
-				if (Sensor.isEntityAttackableIgnoringLineOfSight(ostrich, target)) {
-					broadcastAngerTarget(ostrich, target);
+				if (Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) {
+					broadcastAngerTarget(level, ostrich, target);
 				}
 				return;
 			}
 
-			if (target.getType() == EntityType.PLAYER && ostrich.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
-				setAngerTargetToNearestTargetablePlayerIfFound(ostrich, target);
-				broadcastUniversalAnger(ostrich);
+			if (target.getType() == EntityType.PLAYER && level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+				setAngerTargetToNearestTargetablePlayerIfFound(level, ostrich, target);
+				broadcastUniversalAnger(level, ostrich);
 			} else {
-				setAngerTarget(ostrich, target);
-				broadcastAngerTarget(ostrich, target);
+				setAngerTarget(level, ostrich, target);
+				broadcastAngerTarget(level, ostrich, target);
 			}
 		}
 	}
 
-	public static void setAngerTarget(@NotNull Ostrich ostrich, LivingEntity target) {
+	public static void setAngerTarget(ServerLevel level, @NotNull Ostrich ostrich, LivingEntity target) {
 		if (ostrich.isBaby()) {
 			return;
 		}
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(ostrich, target)) {
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) {
 			return;
 		}
 		ostrich.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		ostrich.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 		ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
-		if (target.getType() == EntityType.PLAYER && ostrich.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityType.PLAYER && level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
 			ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
 		}
 	}
 
-	private static void broadcastUniversalAnger(Ostrich ostrichEntity) {
+	private static void broadcastUniversalAnger(ServerLevel level, Ostrich ostrichEntity) {
 		Optional<List<Ostrich>> nearbyOstriches = getNearbyOstriches(ostrichEntity);
 		nearbyOstriches.ifPresent(
 			ostriches -> ostriches.forEach(
 				ostrich -> getNearestVisibleTargetablePlayer(ostrich).ifPresent(
-					player -> setAngerTarget(ostrich, player)
+					player -> setAngerTarget(level, ostrich, player)
 				)
 			)
 		);
 	}
 
-	public static void broadcastAngerTarget(@NotNull Ostrich crab, LivingEntity target) {
+	public static void broadcastAngerTarget(ServerLevel level, @NotNull Ostrich crab, LivingEntity target) {
 		Optional<List<Ostrich>> nearbyOstriches = getNearbyOstriches(crab);
-		nearbyOstriches.ifPresent(ostriches -> ostriches.forEach(listedOstrich -> setAngerTargetIfCloserThanCurrent(listedOstrich, target)));
+		nearbyOstriches.ifPresent(ostriches -> ostriches.forEach(listedOstrich -> setAngerTargetIfCloserThanCurrent(level, listedOstrich, target)));
 	}
 
-	private static void setAngerTargetIfCloserThanCurrent(@NotNull Ostrich ostrich, LivingEntity currentTarget) {
+	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, @NotNull Ostrich ostrich, LivingEntity currentTarget) {
 		Optional<LivingEntity> optional = getAngerTarget(ostrich);
 		LivingEntity livingEntity = BehaviorUtils.getNearestTarget(ostrich, optional, currentTarget);
 		if (optional.isPresent() && optional.get() == livingEntity) {
 			return;
 		}
-		setAngerTarget(ostrich, livingEntity);
+		setAngerTarget(level, ostrich, livingEntity);
 	}
 
-	private static void setAngerTargetToNearestTargetablePlayerIfFound(Ostrich ostrich, LivingEntity currentTarget) {
+	private static void setAngerTargetToNearestTargetablePlayerIfFound(ServerLevel level, Ostrich ostrich, LivingEntity currentTarget) {
 		Optional<Player> optional = getNearestVisibleTargetablePlayer(ostrich);
 		if (optional.isPresent()) {
-			setAngerTarget(ostrich, optional.get());
+			setAngerTarget(level, ostrich, optional.get());
 		} else {
-			setAngerTarget(ostrich, currentTarget);
+			setAngerTarget(level, ostrich, currentTarget);
 		}
 
 	}

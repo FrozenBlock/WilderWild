@@ -472,9 +472,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 			float damage = baby ? 1F : 3F;
 
 			int poisonDuration = baby ? POISON_DURATION_IN_SECONDS_BABY : POISON_DURATION_IN_SECONDS;
+			ServerLevel level = (ServerLevel) this.level();
 			for (LivingEntity entity : list) {
-				if (this.targetingConditions.test(this, entity)) {
-					if (entity.hurt(this.damageSources().mobAttack(this), damage)) {
+				if (this.targetingConditions.test(level, this, entity)) {
+					if (entity.hurtServer(level, this.damageSources().mobAttack(this), damage)) {
 						entity.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration * 20, 0), this);
 						if (!this.isSilent()) {
 							Player playSoundForExcept = null;
@@ -505,7 +506,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Contract("null->false")
-	public boolean canTargetEntity(@Nullable Entity entity) {
+	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
@@ -522,16 +523,15 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected void customServerAiStep() {
+	protected void customServerAiStep(ServerLevel level) {
 		ProfilerFiller profiler = Profiler.get();
-		ServerLevel serverLevel = (ServerLevel) this.level();
 		profiler.push("jellyfishBrain");
-		this.getBrain().tick(serverLevel, this);
+		this.getBrain().tick(level, this);
 		profiler.pop();
 		profiler.push("jellyfishActivityUpdate");
 		JellyfishAi.updateActivity(this);
 		profiler.pop();
-		super.customServerAiStep();
+		super.customServerAiStep(level);
 	}
 
 	public boolean shouldHide() {
@@ -633,11 +633,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
-		if (super.hurt(source, amount)) {
-			if (!this.level().isClientSide && this.level().getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
+		if (super.hurtServer(level, source, amount)) {
+			if (level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
 				LivingEntity target = this.getLastHurtByMob();
-				if (this.canTargetEntity(target)) {
+				if (this.canTargetEntity(target, level)) {
 					this.setAttackTarget(target);
 				}
 			}

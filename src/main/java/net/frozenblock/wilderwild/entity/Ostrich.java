@@ -201,16 +201,16 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	public void customServerAiStep() {
+	public void customServerAiStep(ServerLevel level) {
 		ProfilerFiller profiler = Profiler.get();
 		profiler.push("ostrichBrain");
 		Brain<Ostrich> brain = this.getBrain();
-		brain.tick((ServerLevel) this.level(), this);
+		brain.tick(level, this);
 		profiler.pop();
 		profiler.push("ostrichActivityUpdate");
 		OstrichAi.updateActivity(this);
 		profiler.pop();
-		super.customServerAiStep();
+		super.customServerAiStep(level);
 	}
 
 	@Override
@@ -241,7 +241,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.beakVoxelShape = this.getBeakState().getCollisionShape(this.level(), BlockPos.containing(this.getBeakPos()), CollisionContext.of(this));
 
 		if (!this.level().isClientSide) {
-			this.handleAttackAndStuck();
+			this.handleAttackAndStuck((ServerLevel) this.level());
 
 			if (this.getFirstPassenger() != null || this.isAggressive()) {
 				this.setTargetStraightProgress(1F);
@@ -265,7 +265,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return AABB.ofSize(this.getBeakPos(tickDelta), width, height, width).move(0D, -height * 0.5D, 0D);
 	}
 
-	private void handleAttackAndStuck() {
+	private void handleAttackAndStuck(ServerLevel level) {
 		if (this.isAttacking()) {
 			if (!WWEntityConfig.get().ostrich.allowAttack && this.attackHasCommander) {
 				this.cancelAttack(true);
@@ -293,7 +293,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 						Entity commander = this.getLastAttackCommander();
 						if (commander != null) {
 							if (!commander.isAlliedTo(entity) && commander != entity) {
-								hasAttacked = this.doHurtOnEntity(commander, entity);
+								hasAttacked = this.doHurtOnEntity(level, commander, entity);
 							}
 						} else {
 							if (this.attackHasCommander) {
@@ -301,7 +301,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 								return;
 							}
 							if (this.canTargetEntity(entity)) {
-								hasAttacked = this.doHurtOnEntity(null, entity);
+								hasAttacked = this.doHurtOnEntity(level, null, entity);
 							}
 						}
 					}
@@ -344,7 +344,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
-	public boolean doHurtOnEntity(@Nullable Entity commander, @NotNull Entity entity) {
+	public boolean doHurtOnEntity(ServerLevel level, @Nullable Entity commander, @NotNull Entity entity) {
 		float beakProgress = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F);
 		float beakDamage = beakProgress * (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
 		AttributeInstance knockback = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
@@ -355,7 +355,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				AttributeModifier.Operation.ADD_VALUE
 			)
 		);
-		boolean didHurt = entity.hurt(this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
+		boolean didHurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
 		if (!didHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
 		} else if (entity instanceof LivingEntity livingEntity) {
@@ -660,14 +660,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
-		boolean bl = super.hurt(source, amount);
-		if (this.level().isClientSide) {
-			return false;
-		}
+	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
+		boolean bl = super.hurtServer(level, source, amount);
 		if (bl) {
 			if (source.getEntity() instanceof LivingEntity livingEntity) {
-				OstrichAi.wasHurtBy(this, livingEntity);
+				OstrichAi.wasHurtBy(level, this, livingEntity);
 			}
 		}
 		return bl;
@@ -819,9 +816,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	public void actuallyHurt(@NotNull DamageSource damageSource, float damageAmount) {
+	public void actuallyHurt(ServerLevel level, @NotNull DamageSource damageSource, float damageAmount) {
 		this.emergeBeak();
-		super.actuallyHurt(damageSource, damageAmount);
+		super.actuallyHurt(level, damageSource, damageAmount);
 	}
 
 	@NotNull

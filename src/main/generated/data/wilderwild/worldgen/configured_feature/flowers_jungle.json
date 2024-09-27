@@ -17,31 +17,52 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:lily_of_the_valley"
+                "Name": "minecraft:lily_of_the_valley",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
                 "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "minecraft:oxeye_daisy"
+                "Name": "minecraft:oxeye_daisy",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:dandelion",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:poppy"
+                "Name": "minecraft:poppy",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:allium"
+                "Name": "minecraft:allium",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
                 "Name": "wilderwild:carnation"
               },
               {
-                "Name": "minecraft:blue_orchid"
+                "Name": "minecraft:blue_orchid",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               },
               {
-                "Name": "minecraft:cornflower"
+                "Name": "minecraft:cornflower",
+                "Properties": {
+                  "snow_layers": "0"
+                }
               }
             ]
           }

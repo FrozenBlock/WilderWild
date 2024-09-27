@@ -23,7 +23,6 @@ import java.util.function.Function;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
@@ -51,42 +50,42 @@ public final class WWItems {
 
 	// BOATS
 	public static final BoatItem BAOBAB_BOAT = registerItem("baobab_boat",
-		properties -> new BoatItem(false, WWBoatTypes.BAOBAB, properties),
+		properties -> new BoatItem(WWEntityTypes.BAOBAB_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem BAOBAB_CHEST_BOAT = registerItem("baobab_chest_boat",
-		properties -> new BoatItem(true, WWBoatTypes.BAOBAB, properties),
+		properties -> new BoatItem(WWEntityTypes.BAOBAB_CHEST_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem CYPRESS_BOAT = registerItem("cypress_boat",
-		properties -> new BoatItem(false, WWBoatTypes.CYPRESS, properties),
+		properties -> new BoatItem(WWEntityTypes.CYPRESS_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem CYPRESS_CHEST_BOAT = registerItem("cypress_chest_boat",
-		properties -> new BoatItem(true, WWBoatTypes.CYPRESS, properties),
+		properties -> new BoatItem(WWEntityTypes.CYPRESS_CHEST_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem PALM_BOAT = registerItem("palm_boat",
-		properties -> new BoatItem(false, WWBoatTypes.PALM, properties),
+		properties -> new BoatItem(WWEntityTypes.PALM_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem PALM_CHEST_BOAT = registerItem("palm_chest_boat",
-		properties -> new BoatItem(true, WWBoatTypes.PALM, properties),
+		properties -> new BoatItem(WWEntityTypes.PALM_CHEST_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem MAPLE_BOAT = registerItem("maple_boat",
-		properties -> new BoatItem(false, WWBoatTypes.MAPLE, properties),
+		properties -> new BoatItem(WWEntityTypes.MAPLE_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);
 	public static final BoatItem MAPLE_CHEST_BOAT = registerItem("maple_chest_boat",
-		properties -> new BoatItem(false, WWBoatTypes.MAPLE, properties),
+		properties -> new BoatItem(WWEntityTypes.MAPLE_CHEST_BOAT, properties),
 		new Item.Properties()
 			.stacksTo(1)
 	);

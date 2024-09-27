@@ -44,7 +44,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 		this(mob, class_, 10, bl, false, null);
 	}
 
-	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, int i, boolean bl, boolean bl2, @Nullable Predicate<LivingEntity> predicate) {
+	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, int i, boolean bl, boolean bl2, @Nullable TargetingConditions.Selector predicate) {
 		super(mob, bl, bl2);
 		this.targetType = class_;
 		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
@@ -67,7 +67,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 	}
 
 	protected void findTarget() {
-		this.target = this.targetType == Player.class || this.targetType == ServerPlayer.class ? this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+		this.target = this.targetType == Player.class || this.targetType == ServerPlayer.class ? getServerLevel(this.mob).getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : getServerLevel(this.mob).getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
 	}
 
 	@Override

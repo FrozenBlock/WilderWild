@@ -53,6 +53,8 @@ accessible class net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 accessible field net/minecraft/world/entity/ai/navigation/WallClimberNavigation pathToPosition Lnet/minecraft/core/BlockPos;
 extendable method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
 accessible method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
+accessible method net/minecraft/world/entity/EntityType boatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
+accessible method net/minecraft/world/entity/EntityType chestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
 
 # Entity Behaviors
 accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriority Ljava/util/Map;

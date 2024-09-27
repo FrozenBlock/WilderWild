@@ -173,7 +173,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			super.doPush(entity);
 		}
 		if (this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			boolean hurt = entity.hurt(this.damageSources().source(WWDamageTypes.TUMBLEWEED, this), 2F);
+			ServerLevel level = (ServerLevel) this.level();
+			boolean hurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.TUMBLEWEED, this), 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) {
 				this.destroy(false);
@@ -202,7 +203,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.isTouchingStickingBlock = false;
 		}
 		this.isTouchingStoppingBlock = false;
-		if (!this.level().isClientSide && this.getBlockStateOn().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
+		if (!this.level().isClientSide && this.getBlockStateOn().is(BlockTags.CROPS) && ((ServerLevel) this.level()).getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
 			if (WWEntityConfig.get().tumbleweed.tumbleweedDestroysCrops) {
 				this.level().destroyBlock(this.blockPosition(), true, this);
 			}
@@ -210,12 +211,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		super.tick();
 		Vec3 deltaPos = this.getDeltaPos();
 		this.setAngles(deltaPos);
-		if (this.level().isClientSide) {
+		if (!(this.level() instanceof ServerLevel serverLevel)) {
 			this.itemX = this.getItemX();
 			this.itemZ = this.getItemZ();
-		} else if (!this.isRemoved() && this.level() instanceof ServerLevel serverLevel) {
+		} else if (!this.isRemoved()) {
 			this.heal(1F);
-			double brightness = this.level().getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
+			double brightness = serverLevel.getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
 			this.checkActive(brightness);
 			this.moveWithWind(serverLevel, brightness, deltaPos);
 			this.tickAfterWindLeash();
@@ -321,7 +322,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		if (inventoryStack.getCount() > 1) {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
 		}
-		if (!this.level().isClientSide && inventoryStack.isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
+		if (this.level() instanceof ServerLevel level && inventoryStack.isEmpty() && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
 			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
 			for (ItemEntity item : list) {
 				if (this.isMovingTowards(item)) {
@@ -369,8 +370,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public boolean isInvulnerableTo(@NotNull DamageSource source) {
-		return source.is(DamageTypeTags.WITCH_RESISTANT_TO) || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.FREEZE) || source.is(DamageTypes.SWEET_BERRY_BUSH) || source.is(DamageTypes.WITHER) || super.isInvulnerableTo(source);
+	public boolean isInvulnerableTo(ServerLevel level, @NotNull DamageSource source) {
+		return source.is(DamageTypeTags.WITCH_RESISTANT_TO) || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.FREEZE) || source.is(DamageTypes.SWEET_BERRY_BUSH) || source.is(DamageTypes.WITHER) || super.isInvulnerableTo(level, source);
 	}
 
 	@Override
@@ -499,9 +500,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);
-		if (!this.level().isClientSide && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
+		if (this.level() instanceof ServerLevel level && level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
 			if (isSilkTouchOrShears(damageSource)) {
-				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED)));
+				level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED)));
 			}
 		}
 		this.destroy(true);

@@ -388,14 +388,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
-		boolean bl = super.hurt(source, amount);
-		if (this.level().isClientSide) {
-			return false;
-		}
+	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
+		boolean bl = super.hurtServer(level, source, amount);
 		if (bl) {
 			if (source.getEntity() instanceof LivingEntity livingEntity) {
-				CrabAi.wasHurtBy(this, livingEntity);
+				CrabAi.wasHurtBy(level, this, livingEntity);
 			}
 			if (!this.isDiggingOrEmerging()) {
 				CrabAi.setDigCooldown(this);
@@ -405,15 +402,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	protected void customServerAiStep() {
+	protected void customServerAiStep(ServerLevel level) {
 		ProfilerFiller profiler = Profiler.get();
 		profiler.push("crabBrain");
-		this.getBrain().tick((ServerLevel) this.level(), this);
+		this.getBrain().tick(level, this);
 		profiler.pop();
 		profiler.push("crabActivityUpdate");
 		CrabAi.updateActivity(this);
 		profiler.pop();
-		super.customServerAiStep();
+		super.customServerAiStep(level);
 		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
 	}
 
@@ -505,18 +502,18 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean doHurtTarget(@NotNull Entity target) {
-		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
+	public boolean doHurtTarget(ServerLevel level, @NotNull Entity target) {
+		level.broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
 		this.playSound(WWSounds.ENTITY_CRAB_ATTACK, this.getSoundVolume(), this.getVoicePitch());
-		return super.doHurtTarget(target);
+		return super.doHurtTarget(level, target);
 	}
 
 	@Override
-	public boolean isInvulnerableTo(@NotNull DamageSource source) {
+	public boolean isInvulnerableTo(ServerLevel level, @NotNull DamageSource source) {
 		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			return true;
 		}
-		return super.isInvulnerableTo(source);
+		return super.isInvulnerableTo(level, source);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity.ai.jellyfish;
 
 import java.util.EnumSet;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -47,6 +48,7 @@ public class JellyfishTemptGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
+		ServerLevel level = getServerLevel(this.mob);
 		if (this.mob.getTarget() != null) {
 			return false;
 		}
@@ -54,11 +56,11 @@ public class JellyfishTemptGoal extends Goal {
 			--this.calmDown;
 			return false;
 		}
-		this.player = this.mob.level().getNearestPlayer(this.targetingConditions, this.mob);
+		this.player = level.getNearestPlayer(this.targetingConditions, this.mob);
 		return this.player != null;
 	}
 
-	private boolean shouldFollow(LivingEntity entity) {
+	private boolean shouldFollow(LivingEntity entity, ServerLevel level) {
 		TagKey<Item> tag = this.mob.getVariant().reproductionFood();
 		return entity.getMainHandItem().is(tag) || entity.getOffhandItem().is(tag);
 	}

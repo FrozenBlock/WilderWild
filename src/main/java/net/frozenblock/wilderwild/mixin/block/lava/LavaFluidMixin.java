@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.lava;
 
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
@@ -37,11 +38,10 @@ public class LavaFluidMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/util/RandomSource;nextInt(I)I",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
+			ordinal = 0
 		)
 	)
-	public void wilderWild$randomTick(Level level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
+	public void wilderWild$randomTick(ServerLevel level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
 		if (random.nextFloat() <= 0.275F) {
 			BlockPos belowPos = pos.below();
 			ScorchedBlock.scorch(level.getBlockState(belowPos), level, belowPos);

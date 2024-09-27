@@ -377,8 +377,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.NORTH.getNormal()),
-					BlockPredicate.solid(Direction.SOUTH.getNormal())
+					BlockPredicate.replaceable(Direction.NORTH.getUnitVec3i()),
+					BlockPredicate.solid(Direction.SOUTH.getUnitVec3i())
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -394,8 +394,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.EAST.getNormal()),
-					BlockPredicate.solid(Direction.WEST.getNormal())
+					BlockPredicate.replaceable(Direction.EAST.getUnitVec3i()),
+					BlockPredicate.solid(Direction.WEST.getUnitVec3i())
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -411,8 +411,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.SOUTH.getNormal()),
-					BlockPredicate.solid(Direction.NORTH.getNormal())
+					BlockPredicate.replaceable(Direction.SOUTH.getUnitVec3i()),
+					BlockPredicate.solid(Direction.NORTH.getUnitVec3i())
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -428,8 +428,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.WEST.getNormal()),
-					BlockPredicate.solid(Direction.EAST.getNormal())
+					BlockPredicate.replaceable(Direction.WEST.getUnitVec3i()),
+					BlockPredicate.solid(Direction.EAST.getUnitVec3i())
 				),
 				BlockPredicate.alwaysTrue(),
 				12

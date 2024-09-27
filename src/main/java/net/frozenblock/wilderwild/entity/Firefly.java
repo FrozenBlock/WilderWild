@@ -457,15 +457,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	protected void customServerAiStep() {
+	protected void customServerAiStep(ServerLevel level) {
 		ProfilerFiller profiler = Profiler.get();
 		profiler.push("fireflyBrain");
-		this.getBrain().tick((ServerLevel) this.level(), this);
+		this.getBrain().tick(level, this);
 		profiler.pop();
 		profiler.push("fireflyActivityUpdate");
 		FireflyAi.updateActivities(this);
 		profiler.pop();
-		super.customServerAiStep();
+		super.customServerAiStep(level);
 	}
 
 	@Override

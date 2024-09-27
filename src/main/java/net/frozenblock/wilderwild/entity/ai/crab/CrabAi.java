@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WWDamageTypeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -251,7 +252,7 @@ public final class CrabAi {
 				DIG_COOLDOWN_SETTER,
 				HUNTING_COOLDOWN_SETTER,
 				StopAttackingIfTargetInvalid.create(
-					livingEntity -> !crab.canTargetEntity(livingEntity), CrabAi::onTargetInvalid, true
+					(level, livingEntity) -> !crab.canTargetEntity(livingEntity), CrabAi::onTargetInvalid, true
 				),
 				SetEntityLookTarget.create(livingEntity -> isTarget(crab, livingEntity), (float) crab.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(CrabAi::getSpeedModifierChasing),
@@ -278,7 +279,7 @@ public final class CrabAi {
 		return SPEED_MODIFIER;
 	}
 
-	private static void onTargetInvalid(@NotNull Crab crab, @NotNull LivingEntity target) {
+	private static void onTargetInvalid(ServerLevel level, @NotNull Crab crab, @NotNull LivingEntity target) {
 		if (crab.getTarget() == target) {
 			crab.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		}
@@ -286,10 +287,10 @@ public final class CrabAi {
 	}
 
 	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Crab crab) {
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, @NotNull Crab crab) {
 		Brain<Crab> brain = crab.getBrain();
 		Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(crab, MemoryModuleType.ANGRY_AT);
-		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(crab, optional.get())) {
+		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, optional.get())) {
 			return optional;
 		} else {
 			Optional<? extends LivingEntity> optional2;
@@ -303,9 +304,9 @@ public final class CrabAi {
 		}
 	}
 
-	public static void wasHurtBy(@NotNull Crab crab, LivingEntity target) {
+	public static void wasHurtBy(ServerLevel level, @NotNull Crab crab, LivingEntity target) {
 		if (crab.canTargetEntity(target)) {
-			if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+			if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) {
 				return;
 			}
 			if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(crab, target, 4.0)) {
@@ -313,27 +314,27 @@ public final class CrabAi {
 			}
 
 			if (crab.isBaby()) {
-				if (Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
-					broadcastAngerTarget(crab, target);
+				if (Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) {
+					broadcastAngerTarget(level, crab, target);
 				}
 				return;
 			}
 
-			if (target.getType() == EntityType.PLAYER && crab.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
-				setAngerTargetToNearestTargetablePlayerIfFound(crab, target);
-				broadcastUniversalAnger(crab);
+			if (target.getType() == EntityType.PLAYER && level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+				setAngerTargetToNearestTargetablePlayerIfFound(level, crab, target);
+				broadcastUniversalAnger(level, crab);
 			} else {
-				setAngerTarget(crab, target);
-				broadcastAngerTarget(crab, target);
+				setAngerTarget(level, crab, target);
+				broadcastAngerTarget(level, crab, target);
 			}
 		}
 	}
 
-	public static void setAngerTarget(@NotNull Crab crab, LivingEntity target) {
+	public static void setAngerTarget(ServerLevel level, @NotNull Crab crab, LivingEntity target) {
 		if (crab.isBaby()) {
 			return;
 		}
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) {
 			return;
 		}
 		if (crab.getBrain().checkMemory(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
@@ -342,42 +343,42 @@ public final class CrabAi {
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 		crab.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
-		if (target.getType() == EntityType.PLAYER && crab.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityType.PLAYER && level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
 		}
 	}
 
-	private static void broadcastUniversalAnger(Crab crabEntity) {
+	private static void broadcastUniversalAnger(ServerLevel level, Crab crabEntity) {
 		Optional<List<Crab>> nearbyCrabs = getNearbyCrabs(crabEntity);
 		nearbyCrabs.ifPresent(
 			crabs -> crabs.forEach(
 				crab -> getNearestVisibleTargetablePlayer(crab).ifPresent(
-					player -> setAngerTarget(crab, player)
+					player -> setAngerTarget(level, crab, player)
 				)
 			)
 		);
 	}
 
-	public static void broadcastAngerTarget(@NotNull Crab crab, LivingEntity target) {
+	public static void broadcastAngerTarget(ServerLevel level, @NotNull Crab crab, LivingEntity target) {
 		Optional<List<Crab>> nearbyCrabs = getNearbyCrabs(crab);
-		nearbyCrabs.ifPresent(crabs -> crabs.forEach(listedCrab -> setAngerTargetIfCloserThanCurrent(listedCrab, target)));
+		nearbyCrabs.ifPresent(crabs -> crabs.forEach(listedCrab -> setAngerTargetIfCloserThanCurrent(level, listedCrab, target)));
 	}
 
-	private static void setAngerTargetIfCloserThanCurrent(@NotNull Crab crab, LivingEntity currentTarget) {
+	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, @NotNull Crab crab, LivingEntity currentTarget) {
 		Optional<LivingEntity> optional = getAngerTarget(crab);
 		LivingEntity livingEntity = BehaviorUtils.getNearestTarget(crab, optional, currentTarget);
 		if (optional.isPresent() && optional.get() == livingEntity) {
 			return;
 		}
-		setAngerTarget(crab, livingEntity);
+		setAngerTarget(level, crab, livingEntity);
 	}
 
-	private static void setAngerTargetToNearestTargetablePlayerIfFound(Crab crab, LivingEntity currentTarget) {
+	private static void setAngerTargetToNearestTargetablePlayerIfFound(ServerLevel level, Crab crab, LivingEntity currentTarget) {
 		Optional<Player> optional = getNearestVisibleTargetablePlayer(crab);
 		if (optional.isPresent()) {
-			setAngerTarget(crab, optional.get());
+			setAngerTarget(level, crab, optional.get());
 		} else {
-			setAngerTarget(crab, currentTarget);
+			setAngerTarget(level, crab, currentTarget);
 		}
 
 	}

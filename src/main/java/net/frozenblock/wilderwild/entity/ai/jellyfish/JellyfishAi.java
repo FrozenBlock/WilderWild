@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.entity.behavior.api.FrozenBehaviorUtils;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -113,7 +114,7 @@ public class JellyfishAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(
-					livingEntity -> !jellyfish.canTargetEntity(livingEntity), JellyfishAi::onTargetInvalid, false
+					(level, livingEntity) -> !jellyfish.canTargetEntity(livingEntity, level), JellyfishAi::onTargetInvalid, false
 				),
 				SetEntityLookTarget.create(livingEntity -> isTarget(jellyfish, livingEntity), (float) jellyfish.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(JellyfishAi::getSpeedModifierChasing)
@@ -135,14 +136,14 @@ public class JellyfishAi {
 		return 2F;
 	}
 
-	private static void onTargetInvalid(@NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {
+	private static void onTargetInvalid(ServerLevel level, @NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {
 		if (jellyfish.getTarget() == target) {
 			jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		}
 	}
 
 	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Jellyfish jellyfish) {
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, @NotNull Jellyfish jellyfish) {
 		return jellyfish.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
 	}
 }

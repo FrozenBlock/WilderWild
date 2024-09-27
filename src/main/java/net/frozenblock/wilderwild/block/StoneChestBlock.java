@@ -232,7 +232,7 @@ public class StoneChestBlock extends ChestBlock {
 				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && namedScreenHandlerFactory != null) {
 					player.openMenu(namedScreenHandlerFactory);
 					player.awardStat(this.getOpenChestStat());
-					PiglinAi.angerNearbyPiglins(player, true);
+					PiglinAi.angerNearbyPiglins((ServerLevel) level, player, true);
 				} else if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
 					MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
 					boolean first = stoneChest.openProgress == 0F;

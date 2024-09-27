@@ -61,7 +61,7 @@ public class ScorchingMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void onMobHurt(@NotNull LivingEntity livingEntity, int i, DamageSource damageSource, float f) {
+	public void onMobHurt(ServerLevel level, @NotNull LivingEntity livingEntity, int i, DamageSource damageSource, float f) {
 		RandomSource random = livingEntity.getRandom();
 		if (random.nextFloat() <= this.chanceToScorch && damageSource.getDirectEntity() != null) {
 			int fireTicks = this.fireDurationInSeconds.applyAsInt(random);
@@ -70,8 +70,8 @@ public class ScorchingMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void onMobRemoved(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
-		if (reason == Entity.RemovalReason.KILLED && (entity instanceof Player || entity.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))) {
+	public void onMobRemoved(ServerLevel level, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
+		if (reason == Entity.RemovalReason.KILLED && (entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))) {
 			this.spawnFireRandomlyAround(entity.level(), entity.getRandom(), entity.getOnPos());
 		}
 
