@@ -70,6 +70,7 @@ hi
 - Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Jellyfish Caves have been renamed to Mesoglea Caves.
 - Decreased the amount of space Parched Forests take up.
+- Decreased the default mob cap for Crabs from 25 to 15.
 - Changed the volume of Deep Dark ambience.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
