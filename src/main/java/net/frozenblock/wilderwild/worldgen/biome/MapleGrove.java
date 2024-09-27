@@ -61,7 +61,9 @@ public final class MapleGrove extends FrozenBiome {
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
-	public static final int GRASS_COLOR = 11845250;
+	public static final int OLD_GRASS_COLOR = 11845250;
+	//public static final int GRASS_COLOR = 12498813;
+	public static final int GRASS_COLOR = 13023096;
 	public static final int FOLIAGE_COLOR = 11190658;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MapleGrove INSTANCE = new MapleGrove();

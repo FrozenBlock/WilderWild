@@ -54,7 +54,8 @@ public final class WWModelHelper {
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter, Block source) {
 		ResourceLocation modelId = LEAF_LITTER_PROVIDER.get(source).create(litter, generator.modelOutput);
 		ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(litter.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(source)), generator.modelOutput);
-		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(litter, BlockModelGenerators.createRotatedVariants(modelId)));
+		//generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(litter, BlockModelGenerators.createRotatedVariants(modelId)));
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(litter, modelId));
 	}
 
 	public static void createHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideAndEndSource, Block insideSource) {

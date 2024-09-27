@@ -1021,7 +1021,7 @@ public final class WWConfiguredFeatures {
 								WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
 							)
 						),
-						0.65F
+						0.4F
 					),
 
 					new WeightedPlacedFeature(
@@ -1042,7 +1042,7 @@ public final class WWConfiguredFeatures {
 								WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.getHolder()
 							)
 						),
-						0.65F
+						0.55F
 					),
 
 					new WeightedPlacedFeature(
