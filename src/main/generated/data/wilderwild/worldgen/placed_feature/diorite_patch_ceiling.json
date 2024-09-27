@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:ice_column_patch",
+  "feature": "wilderwild:diorite_patch_ceiling",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 12
+      "count": 16
     },
     {
       "type": "minecraft:in_square"
@@ -29,7 +29,7 @@
           "minecraft:water"
         ]
       },
-      "direction_of_search": "down",
+      "direction_of_search": "up",
       "max_steps": 12,
       "target_condition": {
         "type": "minecraft:solid"

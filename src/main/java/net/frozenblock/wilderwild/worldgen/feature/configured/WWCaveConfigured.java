@@ -141,6 +141,8 @@ public final class WWCaveConfigured {
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> ICE_PATCH_CEILING = WWFeatureUtils.register("ice_patch_ceiling");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> ICE_COLUMN_PATCH = WWFeatureUtils.register("ice_column_patch");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> ICE_PATCH = WWFeatureUtils.register("ice_patch");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> DIORITE_PATCH = WWFeatureUtils.register("diorite_patch");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
 
 	private WWCaveConfigured() {
 		throw new UnsupportedOperationException("WilderCaveConfigured contains only static declarations.");
@@ -1175,12 +1177,12 @@ public final class WWCaveConfigured {
 				),
 				PlacementUtils.inlinePlaced(HANGING_ICICLES.getHolder()),
 				CaveSurface.CEILING,
-				ConstantInt.of(3),
-				0.7F,
-				4,
+				UniformInt.of(2, 3),
 				0.4F,
+				4,
+				0.15F,
 				UniformInt.of(3, 6),
-				0.3F
+				0.6F
 			)
 		);
 
@@ -1195,12 +1197,12 @@ public final class WWCaveConfigured {
 				),
 				PlacementUtils.inlinePlaced(SMALL_DOWNWARDS_ICE_COLUMN.getHolder()),
 				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.7F,
+				UniformInt.of(2, 3),
+				0.4F,
 				4,
-				0.1F,
+				0.035F,
 				UniformInt.of(4, 10),
-				0.3F
+				0.6F
 			)
 		);
 
@@ -1215,12 +1217,12 @@ public final class WWCaveConfigured {
 				),
 				PlacementUtils.inlinePlaced(ICE_COLUMNS.getHolder()),
 				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.7F,
+				UniformInt.of(2, 3),
+				0.4F,
 				4,
 				0.1F,
 				UniformInt.of(3, 6),
-				0.3F
+				0.6F
 			)
 		);
 
@@ -1235,12 +1237,42 @@ public final class WWCaveConfigured {
 				),
 				PlacementUtils.inlinePlaced(SMALL_ICE_COLUMN.getHolder()),
 				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.7F,
+				UniformInt.of(2, 3),
+				0.4F,
 				4,
-				0.1F,
+				0.035F,
 				UniformInt.of(4, 10),
-				0.3F
+				0.6F
+			)
+		);
+
+		DIORITE_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				WWBlockTags.DIORITE_ICE_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.DIORITE),
+				PlacementUtils.inlinePlaced(WWMiscConfigured.EMPTY.getHolder()),
+				CaveSurface.FLOOR,
+				UniformInt.of(2, 3),
+				0.4F,
+				4,
+				0.05F,
+				UniformInt.of(2, 6),
+				0.65F
+			)
+		);
+
+		DIORITE_PATCH_CEILING.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				WWBlockTags.DIORITE_ICE_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.DIORITE),
+				PlacementUtils.inlinePlaced(WWMiscConfigured.EMPTY.getHolder()),
+				CaveSurface.CEILING,
+				UniformInt.of(2, 3),
+				0.4F,
+				4,
+				0.05F,
+				UniformInt.of(2, 6),
+				0.65F
 			)
 		);
 	}

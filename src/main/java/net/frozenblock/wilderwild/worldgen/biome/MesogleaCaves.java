@@ -157,6 +157,7 @@ public final class MesogleaCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_CALCITE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.BLUE_MESOGLEA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PURPLE_MESOGLEA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.UPSIDE_DOWN_BLUE_MESOGLEA.getKey());
@@ -169,7 +170,6 @@ public final class MesogleaCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PURPLE_MESOGLEA_PILLAR.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.BLUE_MESOGLEA_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.PURPLE_MESOGLEA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_CALCITE.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.NEMATOCYST_BLUE.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.NEMATOCYST_PURPLE.getKey());
 	}

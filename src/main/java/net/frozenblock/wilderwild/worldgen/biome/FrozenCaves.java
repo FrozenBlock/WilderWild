@@ -54,8 +54,8 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
 	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_1);
-	public static final ImmutableList<Float> DEPTHS = ImmutableList.of(0.05F, 0.1F, 0.15F, 0.2F, 0.25F, 0.3F);
+	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(-1F, -0.6F);
+	public static final ImmutableList<Float> DEPTHS = ImmutableList.of(0.065F, 0.1F, 0.15F);
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 10601471;
@@ -158,6 +158,7 @@ public final class FrozenCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_DIORITE_EXTRA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.PACKED_ICE_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SNOW_DISK_UPPER.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.POWDER_SNOW_DISK_UPPER.getKey());
@@ -170,6 +171,8 @@ public final class FrozenCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PATCH_CEILING.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_COLUMN_PATCH.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.DIORITE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.DIORITE_PATCH_CEILING.getKey());
 	}
 
 	@Override

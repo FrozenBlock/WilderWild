@@ -30,6 +30,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
+import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -112,6 +113,9 @@ public final class WWCavePlaced {
 	public static final FrozenPlacedFeature ICE_PATCH_CEILING = WWPlacementUtils.register("ice_patch_ceiling");
 	public static final FrozenPlacedFeature ICE_COLUMN_PATCH = WWPlacementUtils.register("ice_column_patch");
 	public static final FrozenPlacedFeature ICE_PATCH = WWPlacementUtils.register("ice_patch");
+	public static final FrozenPlacedFeature DIORITE_PATCH = WWPlacementUtils.register("diorite_patch");
+	public static final FrozenPlacedFeature DIORITE_PATCH_CEILING = WWPlacementUtils.register("diorite_patch_ceiling");
+	public static final FrozenPlacedFeature ORE_DIORITE_EXTRA = WWPlacementUtils.register("ore_diorite_extra");
 
 	private WWCavePlaced() {
 		throw new UnsupportedOperationException("WilderCavePlaced contains only static declarations.");
@@ -487,11 +491,11 @@ public final class WWCavePlaced {
 		);
 
 		PACKED_ICE_DISK.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_DISK.getHolder(),
-			modifiersWithCount(42, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		ICE_DISK.makeAndSetHolder(WWCaveConfigured.ICE_DISK.getHolder(),
-			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(24, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		ICE_PILE.makeAndSetHolder(WWCaveConfigured.ICE_PILE.getHolder(),
@@ -535,7 +539,7 @@ public final class WWCavePlaced {
 		);
 
 		ICICLE_PATCH.makeAndSetHolder(WWCaveConfigured.ICICLE_PATCH.getHolder(),
-			CountPlacement.of(24),
+			CountPlacement.of(16),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
@@ -544,7 +548,7 @@ public final class WWCavePlaced {
 		);
 
 		ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.ICE_PATCH_CEILING.getHolder(),
-			CountPlacement.of(38),
+			CountPlacement.of(24),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
@@ -553,7 +557,7 @@ public final class WWCavePlaced {
 		);
 
 		ICE_COLUMN_PATCH.makeAndSetHolder(WWCaveConfigured.ICE_COLUMN_PATCH.getHolder(),
-			CountPlacement.of(16),
+			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
@@ -562,12 +566,34 @@ public final class WWCavePlaced {
 		);
 
 		ICE_PATCH.makeAndSetHolder(WWCaveConfigured.ICE_PATCH.getHolder(),
-			CountPlacement.of(56),
+			CountPlacement.of(48),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
+		);
+
+		DIORITE_PATCH.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH.getHolder(),
+			CountPlacement.of(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		DIORITE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH_CEILING.getHolder(),
+			CountPlacement.of(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		ORE_DIORITE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(OreFeatures.ORE_DIORITE),
+			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)))
 		);
 	}
 

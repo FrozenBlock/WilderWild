@@ -331,6 +331,16 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.SNOW_BLOCK)
 			.add(Blocks.SNOW);
 
+		this.getOrCreateTagBuilder(WWBlockTags.DIORITE_ICE_REPLACEABLE)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.add(Blocks.SNOW_BLOCK)
+			.add(Blocks.SNOW)
+			.add(Blocks.ICE)
+			.add(Blocks.BLUE_ICE)
+			.add(Blocks.PACKED_ICE);
+
 		this.getOrCreateTagBuilder(WWBlockTags.MESOGLEA_PATH_REPLACEABLE)
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)

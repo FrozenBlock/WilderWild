@@ -72,7 +72,8 @@
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "wilderwild:ore_diorite_extra"
     ],
     [
       "wilderwild:snow_disk_upper",
@@ -100,7 +101,9 @@
       "minecraft:patch_pumpkin"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:freeze_top_layer",
+      "wilderwild:diorite_patch",
+      "wilderwild:diorite_patch_ceiling"
     ]
   ],
   "has_precipitation": true,
