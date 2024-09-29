@@ -45,6 +45,7 @@ hi
 - Significantly improved the Frozen Caves biome, as well as its placement.
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
+- Retextured Algae, thanks to Zhen!
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
 - Jellyfish now have 2D tentacles by default, looking much cleaner than before.
   - This can be toggled on-the-fly with the config.
