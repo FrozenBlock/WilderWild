@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild;
 
 import java.nio.file.Path;
+import java.util.Arrays;
+import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,13 +34,9 @@ public final class WWPreLoadConstants {
 	public static final boolean IS_DATAGEN = isDatagen();
 
 	private static boolean isDatagen() {
-		boolean isDatagen = false;
-		try {
-			Class.forName("net.frozenblock.wilderwild.datagen.WWDatagenModule", false, WWPreLoadConstants.class.getClassLoader());
-			isDatagen = true;
-		} catch (ClassNotFoundException ignored) {}
-
-		return isDatagen;
+		return Arrays.stream(
+			FabricLoader.getInstance().getLaunchArguments(true)
+		).toList().stream().anyMatch(string -> string.contains("datagen"));
 	}
 
 	public static Path configPath(String name, boolean json5) {

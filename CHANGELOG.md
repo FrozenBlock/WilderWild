@@ -110,3 +110,4 @@ hi
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
 - Split the contents of WilderWildClient into multiple classes.
 - Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`
+- Fixed data generation to no longer append the `termite_edible` or `snow_layers` properties to other mods' data generation.
