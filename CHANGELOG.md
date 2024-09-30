@@ -103,6 +103,7 @@ hi
 - Updated some previously mis-colored Cypress textures.
 - Optimized custom Dispenser behavior.
 - The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
+- Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
