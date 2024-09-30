@@ -86,8 +86,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		@NotNull BlockPos currentPos,
 		@NotNull BlockPos neighborPos
 	) {
-		boolean isSafe = TermiteManager.isStateSafeForTermites(neighborState);
-		if (!isSafe) {
+		if (!TermiteManager.isStateSafeForTermites(neighborState)) {
 			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
 				.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
 		}
