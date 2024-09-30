@@ -121,10 +121,9 @@ public class EchoGlassBlock extends TransparentBlock {
 		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
-			mutableBlockPos.move(direction);
+			mutableBlockPos.setWithOffset(blockPos, direction);
 			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
 			finalLight = Math.max(finalLight, newLight);
-			mutableBlockPos.move(direction, -1);
 		}
 		return finalLight;
 	}

@@ -74,6 +74,7 @@ hi
 - Decreased the amount of space Parched Forests take up.
 - Decreased the default mob cap for Crabs from 25 to 15.
 - Changed the volume of Deep Dark ambience.
+- Increased the rarity of Abandoned Cabins.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes
@@ -104,6 +105,7 @@ hi
 - Optimized custom Dispenser behavior.
 - The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
 - Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
+- Once again fixed Termite Mounds being active in situations they aren't supposed to.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
