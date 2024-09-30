@@ -54,8 +54,8 @@ hi
 - Birch Saplings can now grow Medium and Super Birches.
 - Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
 - The strength and resistance of Echo Glass have been increased.
-- Echo Glass now heals when the light level at 8 or below instead of 7.
-- Echo Glass now takes 25% longer on average between cracking in light.
+- Echo Glass now heals when the light level is at 8 or below instead of 7.
+- Echo Glass now takes 25% longer for light to damage it.
 - Slightly optimized more config getter calls.
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
