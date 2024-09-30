@@ -377,7 +377,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 			}
 			this.prevClimbAnimX = this.climbAnimX;
-			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isClimbing() ? 1F : -1F);
+			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isCrabClimbing() ? 1F : -1F);
 			this.climbAnimX += ((this.onClimbable() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 			this.prevClimbAnimY = this.climbAnimY;
 			this.climbAnimY += ((this.onClimbable() ? this.getClimbingFace().rotation : 0F) - this.climbDirectionAmount) * 0.2F;
@@ -626,7 +626,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean onClimbable() {
-		return this.isClimbing() || this.isCrabDescending();
+		return this.isCrabClimbing() || this.isCrabDescending();
 	}
 
 	@Override
@@ -638,7 +638,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return MoveState.valueOf(this.entityData.get(MOVE_STATE));
 	}
 
-	public boolean isClimbing() {
+	public boolean isCrabClimbing() {
 		return this.moveState() == MoveState.CLIMBING;
 	}
 

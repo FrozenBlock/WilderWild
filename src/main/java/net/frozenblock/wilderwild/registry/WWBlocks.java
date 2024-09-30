@@ -32,7 +32,6 @@ import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.lib.item.api.axe.AxeBehaviors;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WWConstants;
@@ -1807,35 +1806,35 @@ public final class WWBlocks {
 	}
 
 	private static void registerAxe() {
-		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(PALM_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(MAPLE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_MAPLE_LOG, false));
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.OAK_LOG, HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.BIRCH_LOG, HOLLOWED_BIRCH_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.CHERRY_LOG, HOLLOWED_CHERRY_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.SPRUCE_LOG, HOLLOWED_SPRUCE_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.DARK_OAK_LOG, HOLLOWED_DARK_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.JUNGLE_LOG, HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.ACACIA_LOG, HOLLOWED_ACACIA_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.MANGROVE_LOG, HOLLOWED_MANGROVE_LOG);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.CRIMSON_STEM, HOLLOWED_CRIMSON_STEM);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.WARPED_STEM, HOLLOWED_WARPED_STEM);
+		HollowedLogBlock.registerAxeHollowBehavior(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(PALM_LOG, HOLLOWED_PALM_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(MAPLE_LOG, HOLLOWED_MAPLE_LOG);
 		//STRIPPED
-		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_MAPLE_LOG, false));
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_OAK_LOG, STRIPPED_HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_BIRCH_LOG, STRIPPED_HOLLOWED_BIRCH_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_CHERRY_LOG, STRIPPED_HOLLOWED_CHERRY_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_SPRUCE_LOG, STRIPPED_HOLLOWED_SPRUCE_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_DARK_OAK_LOG, STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_JUNGLE_LOG, STRIPPED_HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_MANGROVE_LOG, STRIPPED_HOLLOWED_MANGROVE_LOG);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
 	}
 
 	private static void registerInventories() {
