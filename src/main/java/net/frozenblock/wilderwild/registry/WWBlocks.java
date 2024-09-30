@@ -374,6 +374,7 @@ public final class WWBlocks {
 	public static final SeedingFlowerBlock SEEDING_DANDELION = new SeedingFlowerBlock(
 		MobEffects.SLOW_FALLING,
 		12,
+		Blocks.DANDELION,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_SEEDING_DANDELION = Blocks.flowerPot(SEEDING_DANDELION);

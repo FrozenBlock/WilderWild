@@ -52,6 +52,7 @@ hi
 - Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
   - Old Growth Birch Forests will still keep their tall trees.
 - Birch Saplings can now grow Medium and Super Birches.
+- Seeding Dandelions can now be sheared into regular Dandelions, even with Dispensers.
 - Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
 - The strength and resistance of Echo Glass have been increased.
 - Echo Glass now heals when the light level is at 8 or below instead of 7.
@@ -100,6 +101,7 @@ hi
 - Pollen can no longer generate in Water during worldgen.
 - Fallen Birch trees no longer generate in Cherry Groves.
 - Updated some previously mis-colored Cypress textures.
+- Optimized custom Dispenser behavior.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

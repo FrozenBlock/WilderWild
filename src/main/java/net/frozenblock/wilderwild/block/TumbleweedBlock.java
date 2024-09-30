@@ -74,7 +74,7 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (stack.is(Items.SHEARS)) {
-			shear(level, pos, player);
+			onShear(level, pos, player);
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
@@ -82,7 +82,7 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 		}
 	}
 
-	public static boolean shear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
+	public static boolean onShear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
 		if (!level.isClientSide) {
 			Tumbleweed.spawnFromShears(level, pos);
 			level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
