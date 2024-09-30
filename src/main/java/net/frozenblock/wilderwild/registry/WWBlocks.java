@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -128,7 +129,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import java.util.function.Supplier;
 
 public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));

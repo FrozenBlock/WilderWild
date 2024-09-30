@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.config.api.instance.ConfigModification;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
@@ -71,7 +72,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
-		if (WWPreLoadConstants.IS_DATAGEN) {
+		if (FrozenBools.IS_DATAGEN) {
 			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
 

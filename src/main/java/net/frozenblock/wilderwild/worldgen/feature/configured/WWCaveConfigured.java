@@ -32,7 +32,6 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils;
 import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.LargeMesogleaConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -71,7 +72,7 @@ public final class WWBlockConfig {
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
 
 	public static boolean canSnowlog() {
-		return SNOWLOGGING && !WWPreLoadConstants.IS_DATAGEN;
+		return SNOWLOGGING && !FrozenBools.IS_DATAGEN;
 	}
 
 	public static boolean canSnowlogWalls() {

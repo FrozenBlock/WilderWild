@@ -23,7 +23,6 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
