@@ -172,8 +172,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		if (entity instanceof Tumbleweed) {
 			super.doPush(entity);
 		}
-		if (this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			ServerLevel level = (ServerLevel) this.level();
+		if (this.level() instanceof ServerLevel level && this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
 			boolean hurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.TUMBLEWEED, this), 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) {
@@ -318,7 +317,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void pickupItem() {
-		ItemStack inventoryStack = this.inventory.get(0);
+		ItemStack inventoryStack = this.inventory.getFirst();
 		if (inventoryStack.getCount() > 1) {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
 		}
@@ -336,12 +335,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				}
 			}
 		}
-		this.setVisibleItem(this.inventory.get(0));
+		this.setVisibleItem(this.inventory.getFirst());
 	}
 
 	public void dropItem(boolean killed) {
 		if (!this.isItemNatural || killed) {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getEyeY(), this.getZ(), this.inventory.get(0).split(1)));
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getEyeY(), this.getZ(), this.inventory.getFirst().split(1)));
 		}
 	}
 
