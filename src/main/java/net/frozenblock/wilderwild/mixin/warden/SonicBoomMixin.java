@@ -91,7 +91,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		method = "method_43265",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"
+			target = "Lnet/minecraft/world/entity/LivingEntity;hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z"
 		),
 		cancellable = true
 	)
