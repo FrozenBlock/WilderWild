@@ -95,7 +95,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.SAND), this.has(Items.SAND))
-					.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWItems.SCORCHED_SAND)));
+					.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWItems.SCORCHED_SAND)));
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 					.group("red_sandstone")
@@ -104,7 +104,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), this.has(Items.RED_SAND))
-					.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
+					.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
 
 				this.shaped(RecipeCategory.MISC, WWBlocks.NULL_BLOCK, 2)
 					.define('#', Ingredient.of(Items.BLACK_CONCRETE))
@@ -146,7 +146,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("###")
 					.group("sponge")
 					.unlockedBy(getHasName(WWBlocks.SPONGE_BUD), has(WWBlocks.SPONGE_BUD))
-					.save(exporter, WWConstants.id(getConversionRecipeName(Items.SPONGE, WWBlocks.SPONGE_BUD)));
+					.save(exporter, WWConstants.string(getConversionRecipeName(Items.SPONGE, WWBlocks.SPONGE_BUD)));
 
 				// MUD BRICKS
 
@@ -208,7 +208,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 	public static void stonecutterResultFromBase(RecipeProvider provider, RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), category, result, resultCount)
 			.unlockedBy(RecipeProvider.getHasName(material), provider.has(material))
-			.save(recipeOutput, WWConstants.id(RecipeProvider.getConversionRecipeName(result, material) + "_stonecutting"));
+			.save(recipeOutput, WWConstants.string(RecipeProvider.getConversionRecipeName(result, material) + "_stonecutting"));
 	}
 
 	@Override

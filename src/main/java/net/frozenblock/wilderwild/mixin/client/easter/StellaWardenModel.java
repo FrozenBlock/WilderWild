@@ -24,6 +24,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWardenModel;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,7 +59,7 @@ public abstract class StellaWardenModel<T extends Warden> implements WilderWarde
 	}
 
 	@Override
-	public List<ModelPart> wilderWild$getHeadAndTendrils() {
+	public List<ModelPart> wilderWild$getHeadAndTendrils(WardenRenderState renderState) {
 		return this.wilderWild$headAndTendrils;
 	}
 }

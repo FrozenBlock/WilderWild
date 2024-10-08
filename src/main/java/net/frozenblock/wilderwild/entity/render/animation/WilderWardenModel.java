@@ -20,8 +20,9 @@ package net.frozenblock.wilderwild.entity.render.animation;
 
 import java.util.List;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.state.WardenRenderState;
 
 public interface WilderWardenModel {
 
-	List<ModelPart> wilderWild$getHeadAndTendrils();
+	List<ModelPart> wilderWild$getHeadAndTendrils(WardenRenderState renderState);
 }

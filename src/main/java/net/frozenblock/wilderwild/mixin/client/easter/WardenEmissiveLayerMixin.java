@@ -25,8 +25,9 @@ import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Final;
@@ -37,12 +38,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(WardenEmissiveLayer.class)
+@Mixin(LivingEntityEmissiveLayer.class)
 public abstract class WardenEmissiveLayerMixin extends RenderLayer<WardenRenderState, WardenModel> {
-
-	@Shadow
-	@Final
-	public ResourceLocation texture;
 
 	public WardenEmissiveLayerMixin(RenderLayerParent<WardenRenderState, WardenModel> context) {
 		super(context);
@@ -50,11 +47,11 @@ public abstract class WardenEmissiveLayerMixin extends RenderLayer<WardenRenderS
 
 	@Inject(
 		at = @At("HEAD"),
-		method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/WardenRenderState;FF)V",
+		method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;FF)V",
 		cancellable = true
 	)
 	public void wilderWild$cancelIfStella(
-		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, WardenRenderState renderState, float f, float g, CallbackInfo ci) {
+		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, LivingEntityRenderState renderState, float f, float g, CallbackInfo ci) {
 		if (renderState instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) {
 			ci.cancel();
 		}

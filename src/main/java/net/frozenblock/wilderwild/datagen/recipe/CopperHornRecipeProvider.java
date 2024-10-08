@@ -60,7 +60,7 @@ public final class CopperHornRecipeProvider {
 			.pattern(" C ")
 			.unlockedBy("has_horn", provider.has(Items.GOAT_HORN))
 		).frozenLib$patch(DataComponentPatch.builder().set(DataComponents.INSTRUMENT, lookup.lookupOrThrow(Registries.INSTRUMENT).getOrThrow(copperHornInstrument)).build())
-			.save(exporter, WWConstants.id(name + "_copper_horn"));
+			.save(exporter, WWConstants.string(name + "_copper_horn"));
 	}
 
 }

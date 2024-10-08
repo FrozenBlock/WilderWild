@@ -95,7 +95,7 @@ public final class HollowedLogRecipeProvider {
 			.group("planks")
 			.requires(input)
 			.unlockedBy("has_log", provider.has(input))
-			.save(exporter, WWConstants.id(name + "_planks_from_hollowed"));
+			.save(exporter, WWConstants.string(name + "_planks_from_hollowed"));
 	}
 
 	public static void woodFromHollowed(RecipeProvider provider, ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
@@ -105,7 +105,7 @@ public final class HollowedLogRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_log", provider.has(hollowedLog))
-		.save(exporter, WWConstants.id(name + "_wood_from_hollowed"));
+		.save(exporter, WWConstants.string(name + "_wood_from_hollowed"));
 	}
 
 	public static void strippedWoodFromHollowed(RecipeProvider provider, ItemLike hollowedLog, ItemLike output, RecipeOutput exporter, String name) {
@@ -117,7 +117,7 @@ public final class HollowedLogRecipeProvider {
 			.group("planks")
 			.requires(input)
 			.unlockedBy("has_stem", provider.has(input))
-			.save(exporter, WWConstants.id(name + "_planks_from_hollowed"));
+			.save(exporter, WWConstants.string(name + "_planks_from_hollowed"));
 	}
 
 	public static void hyphaeFromHollowed(RecipeProvider provider, ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {
@@ -127,7 +127,7 @@ public final class HollowedLogRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_stem", provider.has(hollowedStem))
-			.save(exporter, WWConstants.id(name + "_hyphae_from_hollowed"));
+			.save(exporter, WWConstants.string(name + "_hyphae_from_hollowed"));
 	}
 
 	public static void strippedHyphaeFromHollowed(RecipeProvider provider, ItemLike hollowedStem, ItemLike output, RecipeOutput exporter, String name) {

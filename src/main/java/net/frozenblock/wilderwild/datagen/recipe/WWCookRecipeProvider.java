@@ -60,6 +60,6 @@ public final class WWCookRecipeProvider {
 	) {
 		SimpleCookingRecipeBuilder.generic(Ingredient.of(input), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipe)
 			.unlockedBy(RecipeProvider.getHasName(input), provider.has(input))
-			.save(exporter, WWConstants.id(RecipeProvider.getItemName(output) + "_from_" + cooker));
+			.save(exporter, WWConstants.string(RecipeProvider.getItemName(output) + "_from_" + cooker));
 	}
 }

@@ -40,6 +40,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
@@ -134,7 +135,7 @@ public class OstrichAi {
 		brain.addActivity(
 			Activity.CORE,
 			0,
-			ImmutableList.of(
+			(ImmutableList) ImmutableList.of(
 				new Swim(0.8F),
 				new OstrichLayEgg(WWBlocks.OSTRICH_EGG),
 				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING, pathfinderMob -> pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES),

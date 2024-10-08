@@ -42,14 +42,14 @@ public class ThrownEnderpearlMixin {
 		method = "onHit",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/player/Player;resetFallDistance()V"
+			target = "Lnet/minecraft/server/level/ServerPlayer;resetFallDistance()V"
 		)
 	)
 	public void wilderWild$onHitWithServerPlayer
 		(HitResult result, CallbackInfo info,
-		 @Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Player entity
+		 @Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) ServerPlayer owner
 		) {
-		if (WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds && entity instanceof ServerPlayer owner) {
+		if (WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.isSilent()) {
 				float pitch = 0.9F + (level.random.nextFloat() * 0.2F);

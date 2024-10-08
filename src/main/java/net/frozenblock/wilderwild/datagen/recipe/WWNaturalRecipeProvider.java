@@ -50,7 +50,7 @@ public final class WWNaturalRecipeProvider {
 			.requires(WWItems.SPLIT_COCONUT, 2)
 			.group("bowl")
 			.unlockedBy(RecipeProvider.getHasName(WWItems.SPLIT_COCONUT), provider.has(WWItems.SPLIT_COCONUT))
-			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
+			.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
 
 		provider.shapeless(RecipeCategory.MISC, WWItems.PEELED_PRICKLY_PEAR, 1)
 			.requires(WWItems.PRICKLY_PEAR)
@@ -66,7 +66,7 @@ public final class WWNaturalRecipeProvider {
 			.pattern("###")
 			.pattern("###")
 			.unlockedBy(RecipeProvider.getHasName(WWItems.MILKWEED_POD), provider.has(WWItems.MILKWEED_POD))
-			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWItems.MILKWEED_POD)));
+			.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.STRING, WWItems.MILKWEED_POD)));
 
 		provider.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', Ingredient.of(WWBlocks.CATTAIL))
@@ -74,7 +74,7 @@ public final class WWNaturalRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy(RecipeProvider.getHasName(WWBlocks.CATTAIL), provider.has(WWBlocks.CATTAIL))
-			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
+			.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
 	}
 
 	private static void oneToOneConversionRecipe(RecipeProvider provider, RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {

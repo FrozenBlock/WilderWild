@@ -73,9 +73,10 @@ accessible field net/minecraft/client/model/SpiderModel rightFrontLeg Lnet/minec
 accessible field net/minecraft/client/model/SpiderModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
 
 # Entity Rendering
-accessible field net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer alphaFunction Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;
-accessible field net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer drawSelector Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$DrawSelector;
-accessible field net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer texture Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer alphaFunction Lnet/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer$AlphaFunction;
+accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer drawSelector Lnet/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer$DrawSelector;
+accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer texture Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer bufferProvider Ljava/util/function/Function;
 
 # Mobs
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V

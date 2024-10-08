@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.render.animation.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.layer.StellaWardenLayer;
 import net.minecraft.client.model.WardenModel;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;
@@ -61,7 +62,8 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 			new StellaWardenLayer(
 				this, WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE,
 				(warden, animationProgress) -> 1F,
-				WardenModel::getBioluminescentLayerModelParts
+				WardenModel::getBioluminescentLayerModelParts,
+				RenderType::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
@@ -69,7 +71,8 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				this,
 				WILDERWILD$STELLA_PULSATING_SPOTS_1_TEXTURE,
 				(warden, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F) * 0.25F),
-				WardenModel::getPulsatingSpotsLayerModelParts
+				WardenModel::getPulsatingSpotsLayerModelParts,
+				RenderType::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
@@ -77,19 +80,22 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				this,
 				WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE,
 				(warden, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F + Mth.PI) * 0.25F),
-				WardenModel::getPulsatingSpotsLayerModelParts
+				WardenModel::getPulsatingSpotsLayerModelParts,
+				RenderType::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
 			new StellaWardenLayer(
 				this, WILDERWILD$STELLA_TENDRILS_TEXTURE, (warden, animationProgress) -> warden.tendrilAnimation,
-				model -> model instanceof WilderWardenModel wilderWardenModel ? wilderWardenModel.wilderWild$getHeadAndTendrils() : model.getTendrilsLayerModelParts()
+				(model, renderState) -> model instanceof WilderWardenModel wilderWardenModel ? wilderWardenModel.wilderWild$getHeadAndTendrils(renderState) : model.getTendrilsLayerModelParts(renderState),
+				RenderType::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
 			new StellaWardenLayer(
 				this, WILDERWILD$STELLA_HEART_TEXTURE, (warden, animationProgress) -> warden.heartAnimation,
-				WardenModel::getHeartLayerModelParts
+				WardenModel::getHeartLayerModelParts,
+				RenderType::entityTranslucentEmissive
 			)
 		);
 	}
