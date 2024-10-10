@@ -29,6 +29,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -41,7 +42,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -50,8 +50,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
-	public static final double ENTITY_SLOWDOWN = 0.95D;
-	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN);
+	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	@SuppressWarnings("SpellCheckingInspection")
 	@Nullable
@@ -107,7 +106,9 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 				level.destroyBlock(pos, false);
 			}
 			if (!entity.getType().is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
-				entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
+				if (entity instanceof Player player && player.getAbilities().flying) return;
+				entity.resetFallDistance();
+				entity.setDeltaMovement(entity.getDeltaMovement().scale(ENTITY_SLOWDOWN));
 			}
 		}
 	}
