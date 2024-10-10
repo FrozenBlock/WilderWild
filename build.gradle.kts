@@ -27,7 +27,6 @@ plugins {
     idea
     `java-library`
     java
-    id("io.github.p03w.machete") version("1.+")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
