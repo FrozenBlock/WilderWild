@@ -20,9 +20,6 @@ package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
 import java.util.Map;
-import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
-import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
-import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
@@ -31,6 +28,9 @@ import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStat
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
 	public static final int DATA_VERSION = 21;
@@ -41,8 +41,8 @@ public final class WWDataFixer {
 
 	public static void applyDataFixes(final @NotNull ModContainer mod) {
 		WWConstants.log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
-		var builder = new FabricDataFixerBuilder(DATA_VERSION);
-		builder.addSchema(0, FabricDataFixes.getBaseSchema());
+		var builder = new QuiltDataFixerBuilder(DATA_VERSION);
+		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
 		Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WWConstants.id("white_dandelion"), WWConstants.id("blooming_dandelion"), schemaV1);
@@ -131,7 +131,7 @@ public final class WWDataFixer {
 		Schema schemaV21 = builder.addSchema(21, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename jellyfish_caves to mesoglea_caves", Map.of(WWConstants.id("jellyfish_caves"), WWConstants.id("mesoglea_caves")), schemaV21);
 
-		FabricDataFixes.buildAndRegisterFixer(mod, builder);
+		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
 	}
 

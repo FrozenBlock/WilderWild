@@ -43,9 +43,6 @@
     "frozenlib:mob_categories": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
-    "fabric-data-fixer": [
-      "net.frozenblock.wilderwild.datafix.WWDataFixerEntrypoint"
-    ],
     "modmenu": [
       "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"
     ],
