@@ -10,7 +10,8 @@
             "state": {
               "Name": "minecraft:lilac",
               "Properties": {
-                "half": "lower"
+                "half": "lower",
+                "snow_layers": "0"
               }
             }
           }
