@@ -50,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
-	public static final double ENTITY_SLOWDOWN = 0.8D;
+	public static final double ENTITY_SLOWDOWN = 0.95D;
 	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN);
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	@SuppressWarnings("SpellCheckingInspection")
