@@ -19,29 +19,25 @@
               {
                 "Name": "wilderwild:glory_of_the_snow",
                 "Properties": {
-                  "flower_color": "white",
-                  "snow_layers": "0"
+                  "flower_color": "white"
                 }
               },
               {
                 "Name": "wilderwild:glory_of_the_snow",
                 "Properties": {
-                  "flower_color": "pink",
-                  "snow_layers": "0"
+                  "flower_color": "pink"
                 }
               },
               {
                 "Name": "wilderwild:glory_of_the_snow",
                 "Properties": {
-                  "flower_color": "purple",
-                  "snow_layers": "0"
+                  "flower_color": "purple"
                 }
               },
               {
                 "Name": "wilderwild:glory_of_the_snow",
                 "Properties": {
-                  "flower_color": "blue",
-                  "snow_layers": "0"
+                  "flower_color": "blue"
                 }
               }
             ]

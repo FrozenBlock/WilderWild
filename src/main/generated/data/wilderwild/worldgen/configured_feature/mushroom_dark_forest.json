@@ -17,16 +17,10 @@
             "seed": 5234,
             "states": [
               {
-                "Name": "minecraft:red_mushroom",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:red_mushroom"
               },
               {
-                "Name": "minecraft:brown_mushroom",
-                "Properties": {
-                  "snow_layers": "0"
-                }
+                "Name": "minecraft:brown_mushroom"
               }
             ]
           }

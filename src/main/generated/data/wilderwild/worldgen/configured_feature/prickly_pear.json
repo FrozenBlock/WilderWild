@@ -12,8 +12,7 @@
                 "data": {
                   "Name": "wilderwild:prickly_pear",
                   "Properties": {
-                    "age": "0",
-                    "snow_layers": "0"
+                    "age": "0"
                   }
                 },
                 "weight": 5
@@ -22,8 +21,7 @@
                 "data": {
                   "Name": "wilderwild:prickly_pear",
                   "Properties": {
-                    "age": "1",
-                    "snow_layers": "0"
+                    "age": "1"
                   }
                 },
                 "weight": 3
@@ -32,8 +30,7 @@
                 "data": {
                   "Name": "wilderwild:prickly_pear",
                   "Properties": {
-                    "age": "2",
-                    "snow_layers": "0"
+                    "age": "2"
                   }
                 },
                 "weight": 2
@@ -42,8 +39,7 @@
                 "data": {
                   "Name": "wilderwild:prickly_pear",
                   "Properties": {
-                    "age": "3",
-                    "snow_layers": "0"
+                    "age": "3"
                   }
                 },
                 "weight": 4

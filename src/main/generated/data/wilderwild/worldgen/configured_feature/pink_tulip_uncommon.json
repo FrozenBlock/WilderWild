@@ -8,10 +8,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "minecraft:pink_tulip",
-              "Properties": {
-                "snow_layers": "0"
-              }
+              "Name": "minecraft:pink_tulip"
             }
           }
         }
