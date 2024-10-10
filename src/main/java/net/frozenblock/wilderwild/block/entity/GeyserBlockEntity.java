@@ -210,8 +210,8 @@ public class GeyserBlockEntity extends BlockEntity {
 				double overallIntensity = intensity * pushIntensity;
 				Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
 				entity.setDeltaMovement(deltaMovement);
-				if (direction == Direction.UP) {
-					if (entity instanceof Player player) {
+				if (entity instanceof Player player) {
+					if (direction == Direction.UP && !player.getAbilities().flying) {
 						Vec3 lastImpactPos = player.currentImpulseImpactPos;
 						Vec3 playerPos = player.position();
 						player.currentImpulseImpactPos = new Vec3(

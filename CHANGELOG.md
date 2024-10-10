@@ -108,6 +108,8 @@ hi
 - The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
 - Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
 - Once again fixed Termite Mounds being active in situations they aren't supposed to.
+- Algae no longer slows down players flying in Creative mode.
+- Geysers no longer push players flying in Creative mode.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

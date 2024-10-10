@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +51,7 @@ import org.jetbrains.annotations.Nullable;
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	public static final double ENTITY_SLOWDOWN = 0.8D;
+	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN);
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	@SuppressWarnings("SpellCheckingInspection")
 	@Nullable
@@ -105,7 +107,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 				level.destroyBlock(pos, false);
 			}
 			if (!entity.getType().is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
-				entity.setDeltaMovement(entity.getDeltaMovement().multiply(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN));
+				entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
 			}
 		}
 	}
