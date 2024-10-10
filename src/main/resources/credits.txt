@@ -38,6 +38,8 @@ Zhen:
  - Cracked & Mossy Mud Bricks textures.
  - All Maple textures.
  - Retextured Algae in 3.0.
+ - Retextured the Palm wood set in 3.0.
+ - Retextured Coconut blocks in 3.0.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.

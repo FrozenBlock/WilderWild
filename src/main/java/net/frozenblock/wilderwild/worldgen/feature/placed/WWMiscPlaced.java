@@ -142,9 +142,6 @@ public final class WWMiscPlaced {
 	public static final FrozenPlacedFeature STONE_DISK_AND_PILE_RARE = WWPlacementUtils.register("stone_disk_and_pile_rare");
 	public static final FrozenPlacedFeature COARSE_TRANSITION_DISK = WWPlacementUtils.register("coarse_dirt_transition_disk");
 
-	// MAPLE GROVE
-	public static final FrozenPlacedFeature MAPLE_LEAF_LITTER = WWPlacementUtils.register("maple_leaf_litter");
-
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = WWPlacementUtils.register("snow_and_freeze_transition");
@@ -637,17 +634,6 @@ public final class WWMiscPlaced {
 			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
 			BiomeFilter.biome()
-		);
-
-		// MAPLE GROVE
-
-		MAPLE_LEAF_LITTER.makeAndSetHolder(
-			WWMiscConfigured.MAPLE_LEAF_LITTER.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
-			BiomeFilter.biome(),
-			WWPlacementUtils.TREE_CLEARING_FILTER
 		);
 
 		// SNOW

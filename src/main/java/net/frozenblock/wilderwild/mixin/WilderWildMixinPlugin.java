@@ -85,7 +85,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.reinforced_deepslate.")) return this.mixinsConfig.block_reinforced_deepslate;
 		if (mixinClassName.contains("block.spawner.")) return this.mixinsConfig.block_spawner;
 		if (mixinClassName.contains("block.termite.")) return this.mixinsConfig.block_termite;
-		if (mixinClassName.contains("snowlogging.")) return this.mixinsConfig.snowlogging;
+		if (mixinClassName.contains("snowlogging.")) return this.mixinsConfig.snowlogging && !FrozenBools.IS_DATAGEN;
 		if (mixinClassName.contains("entity.ai.")) return this.mixinsConfig.entity_ai;
 		if (mixinClassName.contains("entity.allay.")) return this.mixinsConfig.entity_allay;
 		if (mixinClassName.contains("entity.boat.")) return this.mixinsConfig.entity_boat;

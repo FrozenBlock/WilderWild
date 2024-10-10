@@ -1172,7 +1172,7 @@ public final class WWBlocks {
 		.pressurePlate(MAPLE_PRESSURE_PLATE)
 		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
 		.door(MAPLE_DOOR)
-		.trapdoor(MAPLE_TRAPDOOR)
+		//.trapdoor(MAPLE_TRAPDOOR)
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();

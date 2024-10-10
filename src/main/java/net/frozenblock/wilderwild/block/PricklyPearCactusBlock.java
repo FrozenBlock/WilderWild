@@ -59,7 +59,7 @@ import org.jetbrains.annotations.Nullable;
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
 	public static final int GROWTH_CHANCE = 16;
-	public static final Vec3 ENTITY_SLOWDOWN = new Vec3(0.8D, 0.75D, 0.8D);
+	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(0.8D, 0.75D, 0.8D);
 	public static final float DAMAGE = 0.5F;
 	public static final float USE_ON_DAMAGE = 1F;
 	public static final int MIN_PEARS_FROM_HARVEST = 1;
@@ -102,7 +102,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN);
+		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
 		if (!(entity instanceof ItemEntity)) {
 			entity.hurt(level.damageSources().cactus(), DAMAGE);
 		}
