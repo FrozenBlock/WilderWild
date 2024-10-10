@@ -86,14 +86,14 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
 		if (!TermiteManager.isStateSafeForTermites(neighborState)) {
 			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
 				.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
 		}
 
-		scheduledTickAccess.scheduleTick(blockPos, this, ((Level) level).getRandom().nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
+		scheduledTickAccess.scheduleTick(blockPos, this, random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 		return state;
 	}
 
