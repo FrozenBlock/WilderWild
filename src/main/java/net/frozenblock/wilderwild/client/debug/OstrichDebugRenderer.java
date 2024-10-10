@@ -61,13 +61,12 @@ public final class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRend
 
 	@Override
 	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ) {
-		VertexConsumer lineConsumer = vertexConsumers.getBuffer(RenderType.lines());
 		for (Entity entity2 : this.surroundEntities) {
 			if (entity2 instanceof Ostrich ostrich) {
 				AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
 				LevelRenderer.renderLineBox(
 					matrices,
-					lineConsumer,
+					vertexConsumers.getBuffer(RenderType.lines()),
 					attackBox,
 					1F, 0F, 0F, 1F
 				);
