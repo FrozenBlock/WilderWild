@@ -19,15 +19,15 @@
 package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.schemas.Schema;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
+import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWMinecraftDataFixer {
 	// 3 is 24w09a (components, display lantern fixes)
@@ -42,8 +42,8 @@ public final class WWMinecraftDataFixer {
 
 	public static void applyDataFixes(final @NotNull ModContainer mod) {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
-		var builder = new QuiltDataFixerBuilder(DATA_VERSION);
-		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
+		var builder = new FabricDataFixerBuilder(DATA_VERSION);
+		builder.addSchema(0, FabricDataFixes.getBaseSchema());
 
 		Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename potted_grass to potted_short_grass", WWConstants.id("potted_grass"), WWConstants.id("potted_short_grass"), schemaV2);
@@ -52,7 +52,7 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new DisplayLanternComponentizationFix(schemaV3));
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
-		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
+		FabricDataFixes.buildAndRegisterFixer(mod, "minecraft", builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
 	}
 
