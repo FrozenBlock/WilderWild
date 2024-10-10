@@ -36,7 +36,7 @@ public class LivingEntityMixin {
 	)
 	public boolean wilderWild$crabTravel(boolean original) {
 		if (LivingEntity.class.cast(this) instanceof Crab crab) {
-			return crab.isClimbing();
+			return crab.isCrabClimbing();
 		}
 		return original;
 	}
@@ -50,7 +50,7 @@ public class LivingEntityMixin {
 	)
 	public boolean wilderWild$crabHandleRelativeFrictionAndCalculateMovement(boolean original) {
 		if (LivingEntity.class.cast(this) instanceof Crab crab) {
-			return crab.isClimbing();
+			return crab.isCrabClimbing();
 		}
 		return original;
 	}

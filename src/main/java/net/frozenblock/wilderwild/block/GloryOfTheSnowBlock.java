@@ -69,7 +69,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		return state.hasProperty(COLOR_STATE) && state.getValue(COLOR_STATE) != FlowerColor.NONE;
 	}
 
-	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+	public static void onShear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		FlowerColor color = state.getValue(COLOR_STATE);
 		Item item = color == FlowerColor.BLUE ? WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW.asItem() :
 			color == FlowerColor.PURPLE ? WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW.asItem() : WWBlocks.ALBA_GLORY_OF_THE_SNOW.asItem();
@@ -103,7 +103,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level instanceof ServerLevel) {
 			if (hasColor(state) && stack.is(Items.SHEARS)) {
-				shear(level, pos, state, player);
+				onShear(level, pos, state, player);
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				return InteractionResult.SUCCESS;
 			}

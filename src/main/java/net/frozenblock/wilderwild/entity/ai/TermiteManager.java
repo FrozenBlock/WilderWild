@@ -53,6 +53,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -80,12 +81,8 @@ public class TermiteManager {
 	}
 
 	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
-		if (!canSpawn) {
-			return 0;
-		}
-		if (!awake) {
-			return natural ? TERMITE_COUNT_ASLEEP_NATURAL : TERMITE_COUNT_ASLEEP;
-		}
+		if (!canSpawn) return 0;
+		if (!awake) return natural ? TERMITE_COUNT_ASLEEP_NATURAL : TERMITE_COUNT_ASLEEP;
 		return natural ? TERMITE_COUNT_NATURAL : TERMITE_COUNT;
 	}
 
@@ -101,15 +98,11 @@ public class TermiteManager {
 	}
 
 	public static boolean isPosSafeForTermites(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		return isStateSafeForTermites(level.getBlockState(pos)) && level.getFluidState(pos).isEmpty();
-	}
-
-	public static boolean isPosSafeForTermites(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return isStateSafeForTermites(state) && level.getFluidState(pos).isEmpty();
+		return isStateSafeForTermites(level.getBlockState(pos));
 	}
 
 	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
-		return !state.is(WWBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
+		return !state.is(WWBlockTags.KILLS_TERMITE) && state.getFluidState().isEmpty();
 	}
 
 	public void addTermite(@NotNull BlockPos pos) {

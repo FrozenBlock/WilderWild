@@ -1,13 +1,9 @@
 {
-  "feature": "wilderwild:downwards_packed_ice_column",
+  "feature": "wilderwild:ice_column_patch",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 80,
-        "min_inclusive": 40
-      }
+      "count": 12
     },
     {
       "type": "minecraft:in_square"
@@ -28,13 +24,21 @@
       "type": "minecraft:environment_scan",
       "allowed_search_condition": {
         "type": "minecraft:matching_blocks",
-        "blocks": "minecraft:air"
+        "blocks": [
+          "minecraft:air",
+          "minecraft:water"
+        ]
       },
-      "direction_of_search": "up",
+      "direction_of_search": "down",
       "max_steps": 12,
       "target_condition": {
         "type": "minecraft:solid"
       }
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": 0,
+      "y_spread": 1
     },
     {
       "type": "minecraft:biome"

@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:ore_ice",
+  "feature": "minecraft:ore_diorite",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 6
+      "count": 1
     },
     {
       "type": "minecraft:in_square"
@@ -16,7 +16,7 @@
           "absolute": 256
         },
         "min_inclusive": {
-          "above_bottom": 0
+          "absolute": 0
         }
       }
     },

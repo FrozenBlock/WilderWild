@@ -131,9 +131,17 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	@NotNull
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hit
+	) {
 		if (isFullyGrown(state)) {
-			pickPlayer(level, pos, state, player, hand, stack);
+			onPlayerPick(level, pos, state, player, hand, stack);
 			return InteractionResult.SUCCESS;
 		} else {
 			return super.useItemOn(stack, state, level, pos, player, hand, hit);
@@ -147,11 +155,10 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		popResource(level, pos, pear);
 	}
 
-	public static void pickPlayer(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
-		basePick(level, pos, state);
+	public static void onPlayerPick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
 		if (!level.isClientSide) {
 			boolean shears = stack.is(Items.SHEARS);
-			pick(level, pos, state, shears, player);
+			onPricklyPearPick(level, pos, state, shears, player);
 			if (shears) {
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			} else {
@@ -160,7 +167,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		}
 	}
 
-	public static void pick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
+	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
 		basePick(level, pos, state);
 		if (!level.isClientSide) {
 			if (shears) {

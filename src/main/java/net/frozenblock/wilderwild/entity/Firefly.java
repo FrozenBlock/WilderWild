@@ -60,6 +60,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
@@ -125,7 +126,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setColor(FireflyColor.ON);
 	}
 
-	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean checkFireflySpawnRules(
+		@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
+	) {
 		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (EntitySpawnReason.ignoresLightRequirements(spawnType)) return true;
 		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
@@ -133,7 +136,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
 			return chance && level.getBrightness(LightLayer.SKY, pos) == 0;
 		}
-		return chance && ((biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
+		return chance &&
+			((biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6)
+				|| ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
 	}
 
 	@NotNull
@@ -147,29 +152,27 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	public static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
-		if (!state.getFluidState().isEmpty()) {
-			return false;
-		}
-		if (state.isRedstoneConductor(level, pos)) {
-			return false;
-		}
+		if (!state.getFluidState().isEmpty()) return false;
+		if (state.isRedstoneConductor(level, pos)) return false;
 		return state.isAir() || (!state.blocksMotion() && !state.isSolid());
 	}
 
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
-		this.natural = reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION || reason == EntitySpawnReason.SPAWNER || reason == EntitySpawnReason.SPAWN_ITEM_USE || reason == EntitySpawnReason.COMMAND;
+		this.natural = isFireflySpawnTypeNatural(reason);
 		this.hasHome = this.hasHome || !this.natural;
 		FireflyAi.rememberHome(this, this.blockPosition());
 
-		if (reason == EntitySpawnReason.COMMAND) {
-			this.setAnimScale(1.5F);
-			this.setPrevAnimScale(1.5F);
-			this.setColor(FireflyColor.ON);
-		}
-
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+	}
+
+	private static boolean isFireflySpawnTypeNatural(EntitySpawnReason reason) {
+		return reason == EntitySpawnReason.NATURAL
+			|| reason == EntitySpawnReason.CHUNK_GENERATION
+			|| reason == EntitySpawnReason.SPAWNER
+			|| reason == EntitySpawnReason.SPAWN_ITEM_USE
+			|| reason == EntitySpawnReason.COMMAND;
 	}
 
 	@Override

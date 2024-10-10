@@ -99,7 +99,7 @@ public final class AbandonedCabinGenerator {
 			ABANDONED_CABINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(ABANDONED_CABIN_KEY),
-				new RandomSpreadStructurePlacement(14, 8, RandomSpreadType.LINEAR, 253988502) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(24, 12, RandomSpreadType.LINEAR, 253988502) // ancient city salt is 20083232
 			)
 		);
 	}

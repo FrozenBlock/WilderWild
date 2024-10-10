@@ -68,7 +68,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
 	}
 
-	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+	public static void onShear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		ItemStack stack = new ItemStack(WWItems.MILKWEED_POD);
 		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
 		popResource(level, pos, stack);
@@ -150,7 +150,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 				if (stack.is(Items.SHEARS)) {
 					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
-					shear(level, pos, state, player);
+					onShear(level, pos, state, player);
 				} else {
 					this.pickAndSpawnSeeds(level, state, pos);
 				}

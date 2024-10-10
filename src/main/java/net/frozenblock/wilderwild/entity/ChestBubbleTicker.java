@@ -56,14 +56,24 @@ public class ChestBubbleTicker extends SilentTicker {
 				BlockState state = level.getBlockState(pos);
 				if (level.getBlockEntity(pos) instanceof ChestBlockEntity && state.getBlock() instanceof ChestBlock) {
 					if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-						double additionalX = 0;
-						double additionalZ = 0;
+						double additionalX = 0.5D;
+						double additionalZ = 0.5D;
 						if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
 							Direction direction = ChestBlock.getConnectedDirection(state);
 							additionalX += (double) direction.getStepX() * 0.125;
 							additionalZ += (double) direction.getStepZ() * 0.125;
 						}
-						server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5 + additionalX, pos.getY() + 0.625, pos.getZ() + 0.5 + additionalZ, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
+						server.sendParticles(
+							ParticleTypes.BUBBLE,
+							pos.getX() + additionalX,
+							pos.getY() + 0.625D,
+							pos.getZ() + additionalZ,
+							level.random.nextInt(4, 10),
+							0.21875D,
+							0D,
+							0.21875D,
+							0.2D
+						);
 						return;
 					}
 				}

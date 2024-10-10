@@ -126,7 +126,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_REPLACEABLE = bind("scorched_sand_feature_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("red_scorched_sand_feature_inner_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_REPLACEABLE = bind("red_scorched_sand_feature_replaceable");
-	public static final TagKey<Block> PACKED_ICE_REPLACEABLE = bind("packed_ice_replaceable");
+	public static final TagKey<Block> DIORITE_ICE_REPLACEABLE = bind("diorite_ice_replaceable");
+	public static final TagKey<Block> ICE_FEATURE_REPLACEABLE = bind("ice_feature_replaceable");
 	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("mesoglea_path_replaceable");
 	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("magma_replaceable");
 	public static final TagKey<Block> NETHER_GEYSER_REPLACEABLE = bind("nether_geyser_replaceable");

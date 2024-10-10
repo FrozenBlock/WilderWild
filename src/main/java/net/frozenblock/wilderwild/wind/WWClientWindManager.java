@@ -90,7 +90,9 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		}
 	}
 
-	public void spawnAmbientWindParticles(@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos) {
+	public void spawnAmbientWindParticles(
+		@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos
+	) {
 		int highestPossibleY = posY + range;
 		int i = posX + random.nextIntBetweenInclusive(-range, range);
 		int j = posY;
@@ -128,7 +130,9 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		}
 	}
 
-	public void spawnDisturbanceWindParticles(@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos) {
+	public void spawnDisturbanceWindParticles(
+		@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos
+	) {
 		int i = posX + random.nextIntBetweenInclusive(-range, range);
 		int j = posY + random.nextIntBetweenInclusive(-range, range);
 		int k = posZ + random.nextIntBetweenInclusive(-range, range);

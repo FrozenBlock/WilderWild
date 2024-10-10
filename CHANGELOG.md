@@ -42,19 +42,22 @@ hi
   - A minimum of one Coconut is now guaranteed to generate on each Palm tree.
 - The foliage and grass colors of the Oasis biome are no longer a saturated green.
 - Sunflower Plains have been revamped again, and are no longer an eyesore.
+- Significantly improved the Frozen Caves biome, as well as its placement.
 - Renamed the Small Sponge to Sponge Bud.
 - Removed the Cherry Grove panorama.
+- Retextured Algae, thanks to Zhen!
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
 - Jellyfish now have 2D tentacles by default, looking much cleaner than before.
   - This can be toggled on-the-fly with the config.
 - Most naturally generating Birch trees are now medium-sized instead of being very tall, including in Birch Forests.
   - Old Growth Birch Forests will still keep their tall trees.
 - Birch Saplings can now grow Medium and Super Birches.
+- Seeding Dandelions can now be sheared into regular Dandelions, even with Dispensers.
 - Both types of Shelf Fungus have now been renamed to end with `Fungi` instead of `Fungus.`
 - Removed the custom item models for Beehives and Bee Nests filled with honey for 1.21.2 versions, as this has been added to Vanilla.
 - The strength and resistance of Echo Glass have been increased.
-- Echo Glass now heals when the light level at 8 or below instead of 7.
-- Echo Glass now takes 25% longer on average between cracking in light.
+- Echo Glass now heals when the light level is at 8 or below instead of 7.
+- Echo Glass now takes 25% longer for light to damage it.
 - Slightly optimized more config getter calls.
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
@@ -70,7 +73,9 @@ hi
 - Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Jellyfish Caves have been renamed to Mesoglea Caves.
 - Decreased the amount of space Parched Forests take up.
+- Decreased the default mob cap for Crabs from 25 to 15.
 - Changed the volume of Deep Dark ambience.
+- Increased the rarity of Abandoned Cabins.
 - Updated Ukranian translation thanks to [unroman](https://github.com/FrozenBlock/WilderWild/pull/413)!
 
 # Bug Fixes
@@ -97,6 +102,11 @@ hi
 - Fixed the main ambient loop in the Deep Dark not properly looping.
 - Pollen can no longer generate in Water during worldgen.
 - Fallen Birch trees no longer generate in Cherry Groves.
+- Updated some previously mis-colored Cypress textures.
+- Optimized custom Dispenser behavior.
+- The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
+- Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
+- Once again fixed Termite Mounds being active in situations they aren't supposed to.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
@@ -107,3 +117,5 @@ hi
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
 - Split the contents of WilderWildClient into multiple classes.
 - Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`
+- Fixed data generation to no longer append the `termite_edible` or `snow_layers` properties to other mods' data generation.
+- Added the `registerAxeHollowBehavior` and `registerAxeHollowBehaviorStem` methods to the `HollowedLogBlock` class to make compat easier without needing to import FrozenLib.

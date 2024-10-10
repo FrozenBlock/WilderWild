@@ -87,8 +87,17 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
+	@NotNull
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hit
+	) {
+		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
 		} else {
@@ -96,7 +105,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		}
 	}
 
-	public static boolean shear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
 		int age = state.getValue(AGE);
 		if (age > 0) {
 			popResource(level, pos, new ItemStack(state.getBlock()));

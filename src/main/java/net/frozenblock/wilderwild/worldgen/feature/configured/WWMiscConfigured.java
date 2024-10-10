@@ -1011,9 +1011,9 @@ public final class WWMiscConfigured {
 		MAPLE_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(YELLOW_MAPLE_LEAF_LITTER.getHolder()), 0.5F),
-					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(ORANGE_MAPLE_LEAF_LITTER.getHolder()), 0.5F),
-					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(RED_MAPLE_LEAF_LITTER.getHolder()), 0.25F)
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(YELLOW_MAPLE_LEAF_LITTER.getHolder()), 0.4F),
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(ORANGE_MAPLE_LEAF_LITTER.getHolder()), 0.55F),
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(RED_MAPLE_LEAF_LITTER.getHolder()), 0.9F)
 				),
 				PlacementUtils.inlinePlaced(YELLOW_MAPLE_LEAF_LITTER.getHolder())
 			)

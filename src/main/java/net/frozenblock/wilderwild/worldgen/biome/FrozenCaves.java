@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.worldgen.biome;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
@@ -53,9 +53,8 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
 	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION_PEAK = Erosion.EROSION_0;
-	public static final Climate.Parameter DEPTH = Climate.Parameter.span(0.3F, 0.3F);
-	public static final float OFFSET = -0.3F;
+	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(-1F, -0.6F);
+	public static final ImmutableList<Float> DEPTHS = ImmutableList.of(0.065F, 0.1F, 0.15F);
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 10601471;
@@ -158,20 +157,21 @@ public final class FrozenCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_DIORITE_EXTRA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.PACKED_ICE_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_ICE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SNOW_DISK_UPPER.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.POWDER_SNOW_DISK_UPPER.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SNOW_DISK_LOWER.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.POWDER_SNOW_DISK_LOWER.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PACKED_ICE_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PACKED_ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PACKED_ICE_BIG_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_PACKED_ICE_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_ICE_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_DISK.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICICLE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PATCH_CEILING.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_COLUMN_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.DIORITE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.DIORITE_PATCH_CEILING.getKey());
 	}
 
 	@Override
@@ -182,35 +182,41 @@ public final class FrozenCaves extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateFrozenCaves) {
-			parameters.accept(
-				Pair.of(
-					Climate.parameters(
-						TEMPERATURE,
-						HUMIDITY,
-						CONTINENTALNESS,
-						EROSION_PEAK,
-						DEPTH,
-						Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING),
-						OFFSET
-					),
-					this.getKey()
-				)
-			);
-			parameters.accept(
-				Pair.of(
-					Climate.parameters(
-						TEMPERATURE,
-						HUMIDITY,
-						CONTINENTALNESS,
-						EROSION_PEAK,
-						DEPTH,
-						Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING),
-						OFFSET
-					),
-					this.getKey()
-				)
-			);
+			for (float depth : DEPTHS) {
+				this.addFrozenCavesAtDepth(parameters, depth);
+			}
 		}
+	}
+
+	public void addFrozenCavesAtDepth(@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, float depth) {
+		parameters.accept(
+			Pair.of(
+				Climate.parameters(
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					EROSION_PEAK,
+					Climate.Parameter.point(depth),
+					Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING),
+					-depth
+				),
+				this.getKey()
+			)
+		);
+		parameters.accept(
+			Pair.of(
+				Climate.parameters(
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					EROSION_PEAK,
+					Climate.Parameter.point(depth),
+					Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING),
+					-depth
+				),
+				this.getKey()
+			)
+		);
 	}
 
 }
