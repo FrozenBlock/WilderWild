@@ -525,6 +525,11 @@ public class TermiteManager {
 			addDegradable(Blocks.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
 			addDegradable(WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
 			addDegradable(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
+
+			addDegradable(Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
+			addDegradable(Blocks.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+			addDegradable(WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+			addDegradable(Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
 		}
 
 		public static void addDegradable(Block degradable, Block result) {
@@ -539,6 +544,7 @@ public class TermiteManager {
 			addNaturalDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
 			addNaturalDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
 			addNaturalDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
+			addNaturalDegradable(Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
 			addNaturalDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
 			addNaturalDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
 			addNaturalDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
@@ -546,6 +552,7 @@ public class TermiteManager {
 			addNaturalDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
 			addNaturalDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
 			addNaturalDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+			addNaturalDegradable(Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
 		}
 
 		public static void addNaturalDegradable(@NotNull Block degradable, @NotNull Block result) {
