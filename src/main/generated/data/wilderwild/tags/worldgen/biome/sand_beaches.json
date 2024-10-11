@@ -1,6 +1,10 @@
 {
   "values": [
     "minecraft:dark_forest",
+    {
+      "id": "minecraft:pale_garden",
+      "required": false
+    },
     "minecraft:flower_forest",
     "minecraft:forest",
     "minecraft:frozen_river",

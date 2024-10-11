@@ -1,6 +1,10 @@
 {
   "values": [
     "minecraft:dark_forest",
+    {
+      "id": "minecraft:pale_garden",
+      "required": false
+    },
     "minecraft:savanna",
     "minecraft:savanna_plateau",
     "minecraft:windswept_savanna",

@@ -3,6 +3,10 @@
     "minecraft:birch_forest",
     "minecraft:dark_forest",
     {
+      "id": "minecraft:pale_garden",
+      "required": false
+    },
+    {
       "id": "wilderwild:birch_jungle",
       "required": false
     },

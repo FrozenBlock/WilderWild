@@ -130,6 +130,9 @@ public final class WWMiscPlaced {
 	public static final FrozenPlacedFeature MOSS_LAKE = WWPlacementUtils.register("moss_lake");
 	public static final FrozenPlacedFeature MOSS_LAKE_RARE = WWPlacementUtils.register("moss_lake_rare");
 
+	// PALE GARDEN
+	public static final FrozenPlacedFeature PALE_MOSS_PILE = WWPlacementUtils.register("pale_moss_pile");
+
 	// MANGROVE SWAMP
 	public static final FrozenPlacedFeature MUD_PILE = WWPlacementUtils.register("mud_pile");
 	public static final FrozenPlacedFeature BASIN_MUD = WWPlacementUtils.register("basin_mud");
@@ -567,6 +570,16 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
+			BiomeFilter.biome()
+		);
+
+		// PALE GARDEN
+
+		PALE_MOSS_PILE.makeAndSetHolder(WWMiscConfigured.PALE_MOSS_PILE.getHolder(),
+			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING),
 			BiomeFilter.biome()
 		);
 

@@ -191,6 +191,9 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK = register("cobweb_fancy_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
+	//PALE OAK
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_PALE_OAK = register("large_fallen_pale_oak_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_PALE_OAK = register("large_snapped_pale_oak_tree");
 
 	//SWAMP TREE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
@@ -268,13 +271,14 @@ public final class WWTreeConfigured {
 	private static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
 	private static final HeightBasedVineTreeDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
 	private static final HeightBasedCobwebTreeDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
-	private static final MossCarpetTreeDecorator MOSS_CYPRESS = new MossCarpetTreeDecorator(0.6F, 0.24F);
-	private static final MossCarpetTreeDecorator MOSS_SPRUCE_PALM = new MossCarpetTreeDecorator(0.5F, 0.2F);
-	private static final MossCarpetTreeDecorator MOSS_BIRCH = new MossCarpetTreeDecorator(0.6F, 0.2F);
-	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F);
-	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F);
-	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F);
-	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F);
+	private static final MossCarpetTreeDecorator MOSS_CYPRESS = new MossCarpetTreeDecorator(0.6F, 0.24F, false);
+	private static final MossCarpetTreeDecorator MOSS_SPRUCE_PALM = new MossCarpetTreeDecorator(0.5F, 0.2F, false);
+	private static final MossCarpetTreeDecorator MOSS_BIRCH = new MossCarpetTreeDecorator(0.6F, 0.2F, false);
+	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F, false);
+	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F, false);
+	private static final MossCarpetTreeDecorator MOSS_PALE_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F, true);
+	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F, false);
+	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F, false);
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
 	private static final BeehiveDecorator BEES = new BeehiveDecorator(1.0F);
@@ -1221,6 +1225,34 @@ public final class WWTreeConfigured {
 					VINES_012_UNDER_260,
 					MOSS_OAK,
 					SHELF_FUNGUS_002
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		// PALE OAK
+
+		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(Feature.TREE,
+			largeFallenBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 4, 2, 1).decorators(
+				List.of(
+					MOSS_PALE_OAK,
+					SHELF_FUNGUS_006_ONLY_BROWN,
+					SHELF_FUNGUS_007
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(Feature.TREE,
+			largeSnappedTrunkBuilder(
+				Blocks.PALE_OAK_LOG,
+				Blocks.PALE_OAK_LEAVES,
+				1,
+				1,
+				1,
+				2
+			).decorators(
+				List.of(
+					MOSS_PALE_OAK,
+					SHELF_FUNGUS_006_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);

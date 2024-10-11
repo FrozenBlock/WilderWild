@@ -146,6 +146,9 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("cobweb_fancy_tall_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WWPlacementUtils.register("large_fallen_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WWPlacementUtils.register("large_snapped_dark_oak_checked");
+	//PALE OAK
+	public static final FrozenPlacedFeature LARGE_FALLEN_PALE_OAK_CHECKED = WWPlacementUtils.register("large_fallen_pale_oak_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_PALE_OAK_CHECKED = WWPlacementUtils.register("large_snapped_pale_oak_checked");
 	//SWAMP TREE
 	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = WWPlacementUtils.register("swamp_tree_checked");
 	//SPRUCE
@@ -466,7 +469,7 @@ public final class WWTreePlaced {
 		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
-		
+
 		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
@@ -607,6 +610,16 @@ public final class WWTreePlaced {
 
 		LARGE_SNAPPED_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+
+		// PALE OAK
+
+		LARGE_FALLEN_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_PALE_OAK.getHolder(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
+		);
+
+		LARGE_SNAPPED_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_PALE_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
 		);
 
 		// SWAMP TREE

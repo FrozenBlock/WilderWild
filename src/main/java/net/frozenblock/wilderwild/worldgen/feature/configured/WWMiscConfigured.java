@@ -140,6 +140,9 @@ public final class WWMiscConfigured {
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
+	// PALE GARDEN
+	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> PALE_MOSS_PILE = register("pale_moss_pile");
+
 	// MANGROVE SWAMP
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MUD = register("basin_mud");
@@ -928,6 +931,12 @@ public final class WWMiscConfigured {
 			new LakeFeature.Configuration(
 				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.MUD.defaultBlockState())
+			)
+		);
+
+		PALE_MOSS_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
+			new BlockPileConfiguration(
+				BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK)
 			)
 		);
 

@@ -83,6 +83,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED = register("fallen_birch_and_oak_dark_forest_placed");
 	public static final FrozenPlacedFeature FALLEN_DARK_OAK_PLACED = register("fallen_dark_oak_placed");
 	public static final FrozenPlacedFeature FALLEN_DARK_OAK_COMMON_PLACED = register("fallen_dark_oak_common_placed");
+	public static final FrozenPlacedFeature FALLEN_PALE_OAK_PLACED = register("fallen_pale_oak_placed");
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_PLACED = register("fallen_mangrove_placed");
 	public static final FrozenPlacedFeature FALLEN_MAPLE_PLACED = register("fallen_maple_placed");
 	//TREES
@@ -172,6 +173,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature SNAPPED_DARK_OAK_CLEARING_PLACED = register("snapped_dark_oak_clearing");
 	public static final FrozenPlacedFeature SNAPPED_MAPLE_PLACED = register("snapped_maple");
 	public static final FrozenPlacedFeature SNAPPED_MAPLE_CLEARING_PLACED = register("snapped_maple_clearing");
+	public static final FrozenPlacedFeature SNAPPED_PALE_OAK_PLACED = register("snapped_pale_oak");
 	//MUSHROOMS
 	public static final FrozenPlacedFeature BROWN_SHELF_FUNGI = register("brown_shelf_fungi");
 	public static final FrozenPlacedFeature RED_SHELF_FUNGI = register("red_shelf_fungi");
@@ -426,6 +428,11 @@ public final class WWPlacedFeatures {
 
 		FALLEN_DARK_OAK_COMMON_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_DARK_OAKS.getHolder(),
 			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_PALE_OAK_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_PALE_OAKS.getHolder(),
+			RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -901,6 +908,10 @@ public final class WWPlacedFeatures {
 				.add(
 					WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
+		);
+
+		SNAPPED_PALE_OAK_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_PALE_OAKS.getHolder(),
+			treePlacement(RarityFilter.onAverageOnceEvery(6))
 		);
 
 		// MUSHROOMS

@@ -58,6 +58,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> HOLLOWED_OAK_LOGS = bind("hollowed_oak_logs");
 	public static final TagKey<Item> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Item> HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");
+	public static final TagKey<Item> HOLLOWED_PALE_OAK_LOGS = bind("hollowed_pale_oak_logs");
 	public static final TagKey<Item> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
 
 	private WWItemTags() {

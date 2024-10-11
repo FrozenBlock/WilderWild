@@ -43,6 +43,7 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -160,7 +161,7 @@ public final class AridSavanna extends FrozenBiome {
 	}
 
 	@Override
-	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateAridSavanna) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SAVANNA)) {
 				this.addSurfaceBiome(

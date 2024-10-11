@@ -470,6 +470,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.HOLLOWED_SPRUCE_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
 
+		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALM_LOGS)
+			.add(WWBlocks.HOLLOWED_PALM_LOG)
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_WARPED_STEMS)
 			.add(WWBlocks.HOLLOWED_WARPED_STEM)
 			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
@@ -500,6 +504,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.HOLLOWED_MANGROVE_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_OAK_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS)
@@ -523,6 +528,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG)
@@ -989,6 +995,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.SPRUCE_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.PALE_OAK_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS);
 
 		this.getOrCreateTagBuilder(BlockTags.WARPED_STEMS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);

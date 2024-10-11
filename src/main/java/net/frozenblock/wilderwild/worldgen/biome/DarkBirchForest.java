@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -163,18 +165,20 @@ public final class DarkBirchForest extends FrozenBiome {
 	}
 
 	@Override
-	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateDarkBirchForest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
+				if (modifier != OverworldBiomeBuilder.Modifier.WINTER_DROP || !FrozenBiomeParameters.isWeird(point)) {
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE,
+						HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset()
+					);
+				}
 			}
 		}
 	}

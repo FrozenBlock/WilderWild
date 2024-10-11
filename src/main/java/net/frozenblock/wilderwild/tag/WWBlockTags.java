@@ -42,6 +42,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> HOLLOWED_MANGROVE_LOGS = bind("hollowed_mangrove_logs");
 	public static final TagKey<Block> HOLLOWED_OAK_LOGS = bind("hollowed_oak_logs");
 	public static final TagKey<Block> HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");
+	public static final TagKey<Block> HOLLOWED_PALE_OAK_LOGS = bind("hollowed_pale_oak_logs");
 	public static final TagKey<Block> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
 
 	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");

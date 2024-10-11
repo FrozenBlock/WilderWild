@@ -123,6 +123,10 @@ public final class WWTreeGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_DARK_OAK_CLEARING_PLACED.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_PALE_OAK)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_PALE_OAK_PLACED.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_MAPLE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_MAPLE_PLACED.getKey());
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_MAPLE_CLEARING_PLACED.getKey());
@@ -223,6 +227,10 @@ public final class WWTreeGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_FALLEN_DARK_OAK)) {
 							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWPlacedFeatures.FALLEN_DARK_OAK_COMMON_PLACED.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALE_OAK)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWPlacedFeatures.FALLEN_PALE_OAK_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST)) {

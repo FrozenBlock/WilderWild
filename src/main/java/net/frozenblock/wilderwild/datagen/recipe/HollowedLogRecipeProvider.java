@@ -81,6 +81,10 @@ public final class HollowedLogRecipeProvider {
 		woodFromHollowed(provider, WWBlocks.HOLLOWED_SPRUCE_LOG, Items.SPRUCE_WOOD, exporter, "spruce");
 		strippedWoodFromHollowed(provider, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, Items.STRIPPED_SPRUCE_WOOD, exporter, "spruce");
 
+		planksFromHollowed(provider, WWItemTags.HOLLOWED_PALE_OAK_LOGS, Items.PALE_OAK_PLANKS, exporter, "pale_oak");
+		woodFromHollowed(provider, WWBlocks.HOLLOWED_PALE_OAK_LOG, Items.PALE_OAK_WOOD, exporter, "pale_oak");
+		strippedWoodFromHollowed(provider, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG, Items.STRIPPED_PALE_OAK_WOOD, exporter, "pale_oak");
+
 		planksFromHollowedStem(provider, WWItemTags.HOLLOWED_CRIMSON_STEMS, Items.CRIMSON_PLANKS, exporter, "crimson");
 		hyphaeFromHollowed(provider, WWBlocks.HOLLOWED_CRIMSON_STEM, Items.CRIMSON_HYPHAE, exporter, "crimson");
 		strippedHyphaeFromHollowed(provider, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, Items.STRIPPED_CRIMSON_HYPHAE, exporter, "crimson");

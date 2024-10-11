@@ -1,0 +1,69 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "wilderwild:moss_carpet_tree_decorator",
+        "pale": true,
+        "placement_chance": 0.35,
+        "probability": 0.6
+      },
+      {
+        "type": "wilderwild:shelf_fungi_tree_decorator",
+        "placement_chance": 0.25,
+        "probability": 0.064,
+        "red_shelf_fungi_chance": 0.0
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:blob_foliage_placer",
+      "height": 3,
+      "offset": 0,
+      "radius": 1
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:pale_oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "wilderwild:large_snapped_trunk_placer",
+      "additional_height": {
+        "max_inclusive": 2,
+        "min_inclusive": 0
+      },
+      "base_height": 1,
+      "height_rand_a": 1,
+      "height_rand_b": 1
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:pale_oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

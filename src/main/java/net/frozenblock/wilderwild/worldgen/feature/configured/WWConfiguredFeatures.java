@@ -94,6 +94,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_MANGROVE = WWFeatureUtils.register("fallen_mangrove");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_DARK_OAKS = WWFeatureUtils.register("fallen_dark_oaks");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_MAPLE = WWFeatureUtils.register("fallen_maple");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_PALE_OAKS = WWFeatureUtils.register("fallen_pale_oaks");
 
 	// TREES
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PLAINS = WWFeatureUtils.register("trees_plains");
@@ -165,6 +166,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_CHERRY = WWFeatureUtils.register("snapped_cherry");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_DARK_OAKS = WWFeatureUtils.register("snapped_dark_oaks");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_MAPLE = WWFeatureUtils.register("snapped_maple");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_PALE_OAKS = WWFeatureUtils.register("snapped_pale_oaks");
 
 	// FLOWERS
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
@@ -446,6 +448,13 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_FALLEN_DARK_OAK_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.LARGE_FALLEN_DARK_OAK_CHECKED.getHolder()
+			)
+		);
+
+		FALLEN_PALE_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_FALLEN_PALE_OAK_CHECKED.getHolder(), 1F)),
+				WWTreePlaced.LARGE_FALLEN_PALE_OAK_CHECKED.getHolder()
 			)
 		);
 
@@ -1244,6 +1253,13 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(WWTreePlaced.SNAPPED_MAPLE_CHECKED.getHolder(), 1F)),
 				WWTreePlaced.SNAPPED_MAPLE_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_PALE_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WWTreePlaced.LARGE_SNAPPED_PALE_OAK_CHECKED.getHolder(), 1F)),
+				WWTreePlaced.LARGE_SNAPPED_PALE_OAK_CHECKED.getHolder()
 			)
 		);
 

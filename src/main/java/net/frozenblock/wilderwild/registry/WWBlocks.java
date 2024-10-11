@@ -25,10 +25,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.frozenblock.lib.item.api.FuelRegistry;
-import net.frozenblock.lib.item.api.axe.AxeBehaviors;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WWConstants;
@@ -89,6 +88,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -305,6 +305,10 @@ public final class WWBlocks {
 		HollowedLogBlock::new,
 		hollowedLogProperties(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, WWSoundTypes.HOLLOWED_CHERRY_LOG)
 	);
+	public static final HollowedLogBlock HOLLOWED_PALE_OAK_LOG = register("hollowed_pale_oak_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(MapColor.QUARTZ, MapColor.STONE).requiredFeatures(FeatureFlags.WINTER_DROP)
+	);
 	public static final HollowedLogBlock HOLLOWED_CRIMSON_STEM = register("hollowed_crimson_stem",
 		HollowedLogBlock::new,
 		hollowedStemProperties(MapColor.CRIMSON_STEM)
@@ -358,6 +362,10 @@ public final class WWBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_MANGROVE_LOG = register("stripped_hollowed_mangrove_log",
 		HollowedLogBlock::new,
 		strippedHollowedLogProperties(Blocks.STRIPPED_MANGROVE_LOG.defaultMapColor())
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_PALE_OAK_LOG = register("stripped_hollowed_pale_oak_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(Blocks.STRIPPED_PALE_OAK_LOG.defaultMapColor()).requiredFeatures(FeatureFlags.WINTER_DROP)
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = register("stripped_hollowed_crimson_stem",
 		HollowedLogBlock::new,
@@ -1641,109 +1649,113 @@ public final class WWBlocks {
 	private static void registerFuels() {
 		WWConstants.logWithModId("Registering Fuels for", WWConstants.UNSTABLE_LOGGING);
 
-		FuelRegistry.add(WWItems.BAOBAB_BOAT, 1200);
-		FuelRegistry.add(WWItems.BAOBAB_CHEST_BOAT, 1200);
-		FuelRegistry.add(BAOBAB_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_BAOBAB_LOG.asItem(), 300);
-		FuelRegistry.add(BAOBAB_WOOD.asItem(), 300);
-		FuelRegistry.add(STRIPPED_BAOBAB_WOOD.asItem(), 300);
-		FuelRegistry.add(BAOBAB_PLANKS.asItem(), 300);
-		FuelRegistry.add(BAOBAB_SLAB.asItem(), 150);
-		FuelRegistry.add(BAOBAB_STAIRS.asItem(), 300);
-		FuelRegistry.add(BAOBAB_PRESSURE_PLATE.asItem(), 300);
-		FuelRegistry.add(BAOBAB_BUTTON.asItem(), 100);
-		FuelRegistry.add(BAOBAB_TRAPDOOR.asItem(), 300);
-		FuelRegistry.add(BAOBAB_FENCE_GATE.asItem(), 300);
-		FuelRegistry.add(BAOBAB_FENCE.asItem(), 300);
-		FuelRegistry.add(WWItems.BAOBAB_SIGN, 300);
-		FuelRegistry.add(WWItems.BAOBAB_HANGING_SIGN, 800);
-		FuelRegistry.add(WWItems.BAOBAB_NUT, 100);
+		FuelRegistryEvents.BUILD.register((builder, context) -> {
+			builder.add(WWItems.BAOBAB_BOAT, 1200);
+			builder.add(WWItems.BAOBAB_CHEST_BOAT, 1200);
+			builder.add(BAOBAB_LOG.asItem(), 300);
+			builder.add(STRIPPED_BAOBAB_LOG.asItem(), 300);
+			builder.add(BAOBAB_WOOD.asItem(), 300);
+			builder.add(STRIPPED_BAOBAB_WOOD.asItem(), 300);
+			builder.add(BAOBAB_PLANKS.asItem(), 300);
+			builder.add(BAOBAB_SLAB.asItem(), 150);
+			builder.add(BAOBAB_STAIRS.asItem(), 300);
+			builder.add(BAOBAB_PRESSURE_PLATE.asItem(), 300);
+			builder.add(BAOBAB_BUTTON.asItem(), 100);
+			builder.add(BAOBAB_TRAPDOOR.asItem(), 300);
+			builder.add(BAOBAB_FENCE_GATE.asItem(), 300);
+			builder.add(BAOBAB_FENCE.asItem(), 300);
+			builder.add(WWItems.BAOBAB_SIGN, 300);
+			builder.add(WWItems.BAOBAB_HANGING_SIGN, 800);
+			builder.add(WWItems.BAOBAB_NUT, 100);
 
-		FuelRegistry.add(WWItems.CYPRESS_BOAT, 1200);
-		FuelRegistry.add(WWItems.CYPRESS_CHEST_BOAT, 1200);
-		FuelRegistry.add(CYPRESS_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_CYPRESS_LOG.asItem(), 300);
-		FuelRegistry.add(CYPRESS_WOOD.asItem(), 300);
-		FuelRegistry.add(STRIPPED_CYPRESS_WOOD.asItem(), 300);
-		FuelRegistry.add(CYPRESS_PLANKS.asItem(), 300);
-		FuelRegistry.add(CYPRESS_SLAB.asItem(), 150);
-		FuelRegistry.add(CYPRESS_STAIRS.asItem(), 300);
-		FuelRegistry.add(CYPRESS_PRESSURE_PLATE.asItem(), 300);
-		FuelRegistry.add(CYPRESS_BUTTON.asItem(), 100);
-		FuelRegistry.add(CYPRESS_TRAPDOOR.asItem(), 300);
-		FuelRegistry.add(CYPRESS_FENCE_GATE.asItem(), 300);
-		FuelRegistry.add(CYPRESS_FENCE.asItem(), 300);
-		FuelRegistry.add(WWItems.CYPRESS_SIGN, 300);
-		FuelRegistry.add(WWItems.CYPRESS_HANGING_SIGN, 800);
-		FuelRegistry.add(CYPRESS_SAPLING.asItem(), 100);
+			builder.add(WWItems.CYPRESS_BOAT, 1200);
+			builder.add(WWItems.CYPRESS_CHEST_BOAT, 1200);
+			builder.add(CYPRESS_LOG.asItem(), 300);
+			builder.add(STRIPPED_CYPRESS_LOG.asItem(), 300);
+			builder.add(CYPRESS_WOOD.asItem(), 300);
+			builder.add(STRIPPED_CYPRESS_WOOD.asItem(), 300);
+			builder.add(CYPRESS_PLANKS.asItem(), 300);
+			builder.add(CYPRESS_SLAB.asItem(), 150);
+			builder.add(CYPRESS_STAIRS.asItem(), 300);
+			builder.add(CYPRESS_PRESSURE_PLATE.asItem(), 300);
+			builder.add(CYPRESS_BUTTON.asItem(), 100);
+			builder.add(CYPRESS_TRAPDOOR.asItem(), 300);
+			builder.add(CYPRESS_FENCE_GATE.asItem(), 300);
+			builder.add(CYPRESS_FENCE.asItem(), 300);
+			builder.add(WWItems.CYPRESS_SIGN, 300);
+			builder.add(WWItems.CYPRESS_HANGING_SIGN, 800);
+			builder.add(CYPRESS_SAPLING.asItem(), 100);
 
-		FuelRegistry.add(WWItems.PALM_BOAT, 1200);
-		FuelRegistry.add(WWItems.PALM_CHEST_BOAT, 1200);
-		FuelRegistry.add(PALM_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_PALM_LOG.asItem(), 300);
-		FuelRegistry.add(PALM_WOOD.asItem(), 300);
-		FuelRegistry.add(STRIPPED_PALM_WOOD.asItem(), 300);
-		FuelRegistry.add(PALM_PLANKS.asItem(), 300);
-		FuelRegistry.add(PALM_SLAB.asItem(), 150);
-		FuelRegistry.add(PALM_STAIRS.asItem(), 300);
-		FuelRegistry.add(PALM_PRESSURE_PLATE.asItem(), 300);
-		FuelRegistry.add(PALM_BUTTON.asItem(), 100);
-		FuelRegistry.add(PALM_TRAPDOOR.asItem(), 300);
-		FuelRegistry.add(PALM_FENCE_GATE.asItem(), 300);
-		FuelRegistry.add(PALM_FENCE.asItem(), 300);
-		FuelRegistry.add(WWItems.PALM_SIGN, 300);
-		FuelRegistry.add(WWItems.PALM_HANGING_SIGN, 800);
-		FuelRegistry.add(WWItems.COCONUT, 150); // COCONUT OIL IS KNOWN TO BE FLAMMABLE :)
-		FuelRegistry.add(WWItems.SPLIT_COCONUT, 75);
+			builder.add(WWItems.PALM_BOAT, 1200);
+			builder.add(WWItems.PALM_CHEST_BOAT, 1200);
+			builder.add(PALM_LOG.asItem(), 300);
+			builder.add(STRIPPED_PALM_LOG.asItem(), 300);
+			builder.add(PALM_WOOD.asItem(), 300);
+			builder.add(STRIPPED_PALM_WOOD.asItem(), 300);
+			builder.add(PALM_PLANKS.asItem(), 300);
+			builder.add(PALM_SLAB.asItem(), 150);
+			builder.add(PALM_STAIRS.asItem(), 300);
+			builder.add(PALM_PRESSURE_PLATE.asItem(), 300);
+			builder.add(PALM_BUTTON.asItem(), 100);
+			builder.add(PALM_TRAPDOOR.asItem(), 300);
+			builder.add(PALM_FENCE_GATE.asItem(), 300);
+			builder.add(PALM_FENCE.asItem(), 300);
+			builder.add(WWItems.PALM_SIGN, 300);
+			builder.add(WWItems.PALM_HANGING_SIGN, 800);
+			builder.add(WWItems.COCONUT, 150); // COCONUT OIL IS KNOWN TO BE FLAMMABLE :)
+			builder.add(WWItems.SPLIT_COCONUT, 75);
 
-		FuelRegistry.add(WWItems.MAPLE_BOAT, 1200);
-		FuelRegistry.add(WWItems.MAPLE_CHEST_BOAT, 1200);
-		FuelRegistry.add(MAPLE_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_MAPLE_LOG.asItem(), 300);
-		FuelRegistry.add(MAPLE_WOOD.asItem(), 300);
-		FuelRegistry.add(STRIPPED_MAPLE_WOOD.asItem(), 300);
-		FuelRegistry.add(MAPLE_PLANKS.asItem(), 300);
-		FuelRegistry.add(MAPLE_SLAB.asItem(), 150);
-		FuelRegistry.add(MAPLE_STAIRS.asItem(), 300);
-		FuelRegistry.add(MAPLE_PRESSURE_PLATE.asItem(), 300);
-		FuelRegistry.add(MAPLE_BUTTON.asItem(), 100);
-		FuelRegistry.add(MAPLE_TRAPDOOR.asItem(), 300);
-		FuelRegistry.add(MAPLE_FENCE_GATE.asItem(), 300);
-		FuelRegistry.add(MAPLE_FENCE.asItem(), 300);
-		FuelRegistry.add(WWItems.MAPLE_SIGN, 300);
-		FuelRegistry.add(WWItems.MAPLE_HANGING_SIGN, 800);
-		FuelRegistry.add(MAPLE_SAPLING.asItem(), 100);
+			builder.add(WWItems.MAPLE_BOAT, 1200);
+			builder.add(WWItems.MAPLE_CHEST_BOAT, 1200);
+			builder.add(MAPLE_LOG.asItem(), 300);
+			builder.add(STRIPPED_MAPLE_LOG.asItem(), 300);
+			builder.add(MAPLE_WOOD.asItem(), 300);
+			builder.add(STRIPPED_MAPLE_WOOD.asItem(), 300);
+			builder.add(MAPLE_PLANKS.asItem(), 300);
+			builder.add(MAPLE_SLAB.asItem(), 150);
+			builder.add(MAPLE_STAIRS.asItem(), 300);
+			builder.add(MAPLE_PRESSURE_PLATE.asItem(), 300);
+			builder.add(MAPLE_BUTTON.asItem(), 100);
+			builder.add(MAPLE_TRAPDOOR.asItem(), 300);
+			builder.add(MAPLE_FENCE_GATE.asItem(), 300);
+			builder.add(MAPLE_FENCE.asItem(), 300);
+			builder.add(WWItems.MAPLE_SIGN, 300);
+			builder.add(WWItems.MAPLE_HANGING_SIGN, 800);
+			builder.add(MAPLE_SAPLING.asItem(), 100);
 
-		FuelRegistry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_MANGROVE_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_ACACIA_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_JUNGLE_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_DARK_OAK_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_SPRUCE_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_CHERRY_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_BIRCH_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_BAOBAB_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_CYPRESS_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_PALM_LOG.asItem(), 300);
-		FuelRegistry.add(HOLLOWED_MAPLE_LOG.asItem(), 300);
+			builder.add(HOLLOWED_WARPED_STEM.asItem(), 300);
+			builder.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);
+			builder.add(HOLLOWED_MANGROVE_LOG.asItem(), 300);
+			builder.add(HOLLOWED_ACACIA_LOG.asItem(), 300);
+			builder.add(HOLLOWED_JUNGLE_LOG.asItem(), 300);
+			builder.add(HOLLOWED_DARK_OAK_LOG.asItem(), 300);
+			builder.add(HOLLOWED_SPRUCE_LOG.asItem(), 300);
+			builder.add(HOLLOWED_CHERRY_LOG.asItem(), 300);
+			builder.add(HOLLOWED_BIRCH_LOG.asItem(), 300);
+			builder.add(HOLLOWED_PALE_OAK_LOG.asItem(), 300);
+			builder.add(HOLLOWED_BAOBAB_LOG.asItem(), 300);
+			builder.add(HOLLOWED_CYPRESS_LOG.asItem(), 300);
+			builder.add(HOLLOWED_PALM_LOG.asItem(), 300);
+			builder.add(HOLLOWED_MAPLE_LOG.asItem(), 300);
 
-		FuelRegistry.add(STRIPPED_HOLLOWED_WARPED_STEM.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_CRIMSON_STEM.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_MANGROVE_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_ACACIA_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_JUNGLE_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_DARK_OAK_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_SPRUCE_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_CHERRY_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_BIRCH_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_BAOBAB_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_PALM_LOG.asItem(), 300);
-		FuelRegistry.add(STRIPPED_HOLLOWED_MAPLE_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_WARPED_STEM.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_CRIMSON_STEM.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_MANGROVE_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_ACACIA_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_JUNGLE_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_DARK_OAK_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_SPRUCE_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_CHERRY_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_BIRCH_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_BAOBAB_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_PALM_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_MAPLE_LOG.asItem(), 300);
 
-		FuelRegistry.add(TUMBLEWEED.asItem(), 150);
-		FuelRegistry.add(TUMBLEWEED_PLANT.asItem(), 150);
+			builder.add(TUMBLEWEED.asItem(), 150);
+			builder.add(TUMBLEWEED_PLANT.asItem(), 150);
+		});
 	}
 
 	private static void registerBonemeal() {

@@ -196,6 +196,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
 		this.dropSelf(WWBlocks.HOLLOWED_DARK_OAK_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		this.dropSelf(WWBlocks.HOLLOWED_PALE_OAK_LOG);
+		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 		this.dropSelf(WWBlocks.HOLLOWED_JUNGLE_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
 		this.dropSelf(WWBlocks.HOLLOWED_MANGROVE_LOG);

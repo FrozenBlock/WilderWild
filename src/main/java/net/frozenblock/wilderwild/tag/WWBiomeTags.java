@@ -66,6 +66,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FALLEN_DARK_OAK = bind("has_fallen_dark_oak");
 	public static final TagKey<Biome> HAS_COMMON_FALLEN_DARK_OAK = bind("has_common_fallen_dark_oak");
 	public static final TagKey<Biome> HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST = bind("has_fallen_birch_and_oak_dark_forest");
+	public static final TagKey<Biome> HAS_FALLEN_PALE_OAK = bind("has_fallen_pale_oak");
 	public static final TagKey<Biome> HAS_FALLEN_SPRUCE_TREES = bind("has_fallen_spruce_trees");
 	public static final TagKey<Biome> HAS_CLEAN_FALLEN_SPRUCE_TREES = bind("has_clean_fallen_spruce_trees");
 	public static final TagKey<Biome> HAS_FALLEN_LARGE_SPRUCE = bind("has_fallen_large_spruce");
@@ -134,6 +135,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_ACACIA_AND_OAK = bind("has_snapped_acacia_and_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_CHERRY = bind("has_snapped_cherry");
 	public static final TagKey<Biome> HAS_SNAPPED_DARK_OAK = bind("has_snapped_dark_oak");
+	public static final TagKey<Biome> HAS_SNAPPED_PALE_OAK = bind("has_snapped_pale_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_MAPLE = bind("has_snapped_maple");
 	public static final TagKey<Biome> HAS_SNAPPED_CRIMSON_FUNGI = bind("has_snapped_crimson_fungi");
 	public static final TagKey<Biome> HAS_SNAPPED_WARPED_FUNGI = bind("has_snapped_warped_fungi");
@@ -181,6 +183,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_TALL_BADLANDS_CACTUS = bind("has_tall_badlands_cactus");
 	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("has_common_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("has_moss_pile");
+	public static final TagKey<Biome> HAS_PALE_MOSS_PILE = bind("has_pale_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE_COMMON = bind("has_stone_pile_common");
 	public static final TagKey<Biome> HAS_STONE_PILE = bind("has_stone_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE_RARE = bind("has_stone_pile_rare");

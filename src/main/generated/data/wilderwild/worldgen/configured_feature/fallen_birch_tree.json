@@ -10,6 +10,7 @@
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
+        "pale": false,
         "placement_chance": 0.2,
         "probability": 0.6
       }

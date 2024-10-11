@@ -175,6 +175,10 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MOSS_PILE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MOSS_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PALE_MOSS_PILE.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_PILE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MUD_PILE.getKey());
 						}

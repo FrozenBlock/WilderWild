@@ -34,16 +34,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class MossCarpetTreeDecorator extends TreeDecorator {
 	public static final MapCodec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
+		instance.group(
+			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),
+			Codec.BOOL.fieldOf("pale").forGetter((treeDecorator) -> treeDecorator.pale)
 		).apply(instance, MossCarpetTreeDecorator::new));
 
 	private final float probability;
 	private final float placementChance;
+	private final boolean pale;
 
-	public MossCarpetTreeDecorator(float probability, float placementChance) {
+	public MossCarpetTreeDecorator(float probability, float placementChance, boolean pale) {
 		this.probability = probability;
 		this.placementChance = placementChance;
+		this.pale = pale;
 	}
 
 	@Override
@@ -60,7 +64,7 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
 			poses.addAll(generator.leaves());
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			BlockState mossState = Blocks.MOSS_CARPET.defaultBlockState();
+			BlockState mossState = !this.pale ? Blocks.MOSS_CARPET.defaultBlockState() : Blocks.PALE_MOSS_CARPET.defaultBlockState();
 			for (BlockPos pos : poses) {
 				mutableBlockPos.set(pos).move(Direction.UP);
 				if (generator.isAir(mutableBlockPos)) {
