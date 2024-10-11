@@ -408,7 +408,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 					FrozenSoundPackets.createMovingRestrictionLoopingSound(
 						server,
 						this,
-						BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_FIREFLY_NECTAR.getLocation()).orElseThrow(),
+						BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_FIREFLY_NECTAR.location()).orElseThrow(),
 						SoundSource.NEUTRAL,
 						1F,
 						1F,

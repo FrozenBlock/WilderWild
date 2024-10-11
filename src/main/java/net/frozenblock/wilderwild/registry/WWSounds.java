@@ -356,7 +356,7 @@ public final class WWSounds {
 	@NotNull
 	public static SoundEvent register(@NotNull String path) {
 		var id = WWConstants.id(path);
-		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, new SoundEvent(id, 16.0F, false));
+		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
 	}
 
 	@NotNull

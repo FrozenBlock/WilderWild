@@ -185,7 +185,6 @@ accessible method net/minecraft/data/registries/VanillaRegistries validateThatAl
 accessible method net/minecraft/data/Main bindRegistries (Ljava/util/function/BiFunction;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/data/DataProvider$Factory;
 
 # Sounds
-accessible method net/minecraft/sounds/SoundEvent <init> (Lnet/minecraft/resources/ResourceLocation;FZ)V
 
 # Features
 accessible method net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration apply (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;

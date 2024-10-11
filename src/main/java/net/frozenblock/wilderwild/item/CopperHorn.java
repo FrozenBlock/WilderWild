@@ -55,7 +55,7 @@ public class CopperHorn extends InstrumentItem {
 			FrozenSoundPackets.createMovingRestrictionLoopingSound(
 				level,
 				user,
-				BuiltInRegistries.SOUND_EVENT.get(soundEvent.getLocation()).orElseThrow(),
+				BuiltInRegistries.SOUND_EVENT.get(soundEvent.location()).orElseThrow(),
 				SoundSource.RECORDS,
 				range,
 				soundPitch,
