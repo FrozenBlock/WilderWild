@@ -13,6 +13,10 @@ hi
   - This is controlled with the `wilderwild:has_stone_pile_common,` `wilderwild:has_stone_pile,` and `wilderwild:has_stone_pile_rare` tags.
 - Added leaf litters.
 - Added falling leaves.
+- Added Hollowed Pale Oak Logs and Stripped Hollowed Pale Oak Logs.
+- Added Snapped and Fallen Pale Oak trees to the Pale Garden biome.
+- Added Pale Moss piles to the Pale Garden biome.
+- Seeding Dandelions, Brown Mushrooms, and Stone Piles now occasionally generate in the Pale Garden biome.
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
 - Sideways Geysers now generate naturally in Magmatic Caves.
@@ -111,6 +115,7 @@ hi
 - Once again fixed Termite Mounds being active in situations they aren't supposed to.
 - Algae no longer slows down players flying in Creative mode.
 - Geysers no longer push players flying in Creative mode.
+- PLayer-placed Termites can now break Cherry Wood.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

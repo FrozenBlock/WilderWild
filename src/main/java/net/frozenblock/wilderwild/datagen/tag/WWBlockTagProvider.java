@@ -823,7 +823,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.STRIPPED_MANGROVE_WOOD)
 			.add(Blocks.STRIPPED_OAK_WOOD)
 			.add(Blocks.STRIPPED_SPRUCE_WOOD)
-			.add(Blocks.STRIPPED_PALE_OAK_WOOD)
+			.add(Blocks.STRIPPED_CHERRY_WOOD)
 			.add(WWBlocks.STRIPPED_BAOBAB_WOOD)
 			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
 			.add(WWBlocks.STRIPPED_PALM_WOOD)
