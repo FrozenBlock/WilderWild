@@ -6,7 +6,7 @@
         "type": "wilderwild:moss_carpet_tree_decorator",
         "pale": true,
         "placement_chance": 0.35,
-        "probability": 0.6
+        "probability": 1.0
       },
       {
         "type": "wilderwild:shelf_fungi_tree_decorator",

@@ -110,6 +110,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SAND_PATH_REPLACEABLE = bind("sand_path_replaceable");
 	public static final TagKey<Block> GRAVEL_PATH_REPLACEABLE = bind("gravel_path_replaceable");
 	public static final TagKey<Block> GRAVEL_CLEARING_REPLACEABLE = bind("gravel_clearing_replaceable");
+	public static final TagKey<Block> GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE = bind("gravel_and_pale_moss_path_replaceable");
 	public static final TagKey<Block> STONE_PATH_REPLACEABLE = bind("stone_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_REPLACEABLE = bind("packed_mud_path_replaceable");
 	public static final TagKey<Block> MOSS_PATH_REPLACEABLE = bind("moss_path_replaceable");

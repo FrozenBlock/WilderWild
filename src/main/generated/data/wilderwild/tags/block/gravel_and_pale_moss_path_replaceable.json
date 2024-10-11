@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:dirt",
+    "minecraft:grass_block",
+    "minecraft:coarse_dirt",
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    }
+  ]
+}

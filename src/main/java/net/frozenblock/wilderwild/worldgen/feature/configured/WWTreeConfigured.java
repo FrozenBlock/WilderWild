@@ -276,7 +276,7 @@ public final class WWTreeConfigured {
 	private static final MossCarpetTreeDecorator MOSS_BIRCH = new MossCarpetTreeDecorator(0.6F, 0.2F, false);
 	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F, false);
 	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F, false);
-	private static final MossCarpetTreeDecorator MOSS_PALE_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F, true);
+	private static final MossCarpetTreeDecorator MOSS_PALE_OAK = new MossCarpetTreeDecorator(1F, 0.35F, true);
 	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F, false);
 	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F, false);
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);

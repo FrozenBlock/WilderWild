@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskCarpetFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
@@ -142,6 +143,7 @@ public final class WWMiscConfigured {
 
 	// PALE GARDEN
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> PALE_MOSS_PILE = register("pale_moss_pile");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
@@ -937,6 +939,47 @@ public final class WWMiscConfigured {
 		PALE_MOSS_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
 			new BlockPileConfiguration(
 				BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK)
+			)
+		);
+
+		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
+							BlockStateProvider.simple(Blocks.GRAVEL),
+							9,
+							4,
+							0.1D,
+							-0.2D,
+							0.3D,
+							false,
+							false,
+							false,
+							false,
+							WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE,
+							0.35F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+						new PathTagFeatureConfig(
+							BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK),
+							9,
+							4,
+							0.1D,
+							-0.21D,
+							0.31D,
+							false,
+							false,
+							false,
+							false,
+							WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE,
+							0.25F
+						)
+					)
+				)
 			)
 		);
 

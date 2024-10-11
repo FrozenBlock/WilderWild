@@ -1,0 +1,57 @@
+{
+  "type": "frozenlib:combo_feature",
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "type": "frozenlib:noise_path_tag_feature",
+          "config": {
+            "is_3d": false,
+            "max_threshold": 0.3,
+            "min_threshold": -0.2,
+            "noise": 4,
+            "noise_scale": 0.1,
+            "only_place_when_exposed": false,
+            "placement_chance": 0.35,
+            "radius": 9,
+            "replaceable_blocks": "wilderwild:gravel_and_pale_moss_path_replaceable",
+            "scale_y": false,
+            "state": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "minecraft:gravel"
+              }
+            },
+            "use_y": false
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "frozenlib:noise_path_tag_feature",
+          "config": {
+            "is_3d": false,
+            "max_threshold": 0.31,
+            "min_threshold": -0.21,
+            "noise": 4,
+            "noise_scale": 0.1,
+            "only_place_when_exposed": false,
+            "placement_chance": 0.25,
+            "radius": 9,
+            "replaceable_blocks": "wilderwild:gravel_and_pale_moss_path_replaceable",
+            "scale_y": false,
+            "state": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "minecraft:pale_moss_block"
+              }
+            },
+            "use_y": false
+          }
+        },
+        "placement": []
+      }
+    ]
+  }
+}
