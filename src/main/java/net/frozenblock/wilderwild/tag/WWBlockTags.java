@@ -84,6 +84,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> GEYSER_CANNOT_PASS_THROUGH = bind("geyser_cannot_pass_through");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
 
+	public static final TagKey<Block> MYCELIUM_GROWTH_REPLACEABLE = bind("mycelium_growth_replaceable");
+
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON_FEATURE_NO_SAND = bind("feature/bush_may_place_on_no_sand");
