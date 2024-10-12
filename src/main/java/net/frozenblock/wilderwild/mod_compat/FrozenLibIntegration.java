@@ -249,10 +249,11 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(
-			level.damageSources().cactus(),
-			WWSounds.PLAYER_HURT_CACTUS,
-			WWConstants.id("cactus")
+		ServerWorldEvents.LOAD.register(
+			(server, level) -> PlayerDamageSourceSounds.addDamageSound(
+				level.damageSources().cactus(),
+				WWSounds.PLAYER_HURT_CACTUS,
+				WWConstants.id("cactus")
 			)
 		);
 
