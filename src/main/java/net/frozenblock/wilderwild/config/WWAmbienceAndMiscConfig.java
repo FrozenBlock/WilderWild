@@ -64,6 +64,7 @@ public final class WWAmbienceAndMiscConfig {
 				Client.JUNGLE_LEAF_FREQUENCY = config.leafParticles.jungleFrequency / 100D;
 				Client.ACACIA_LEAF_FREQUENCY = config.leafParticles.acaciaFrequency / 100D;
 				Client.DARK_OAK_LEAF_FREQUENCY = config.leafParticles.darkOakFrequency / 100D;
+				Client.PALE_OAK_LEAF_FREQUENCY = config.leafParticles.paleOakFrequency / 100D;
 				Client.MANGROVE_LEAF_FREQUENCY = config.leafParticles.mangroveFrequency / 100D;
 				Client.CHERRY_LEAF_FREQUENCY = config.leafParticles.cherryFrequency / 100D;
 				Client.AZALEA_LEAF_FREQUENCY = config.leafParticles.azaleaFrequency / 100D;
@@ -109,6 +110,7 @@ public final class WWAmbienceAndMiscConfig {
 		public static volatile double JUNGLE_LEAF_FREQUENCY = 1D;
 		public static volatile double ACACIA_LEAF_FREQUENCY = 1D;
 		public static volatile double DARK_OAK_LEAF_FREQUENCY = 1D;
+		public static volatile double PALE_OAK_LEAF_FREQUENCY = 1D;
 		public static volatile double MANGROVE_LEAF_FREQUENCY = 1D;
 		public static volatile double CHERRY_LEAF_FREQUENCY = 1D;
 		public static volatile double AZALEA_LEAF_FREQUENCY = 1D;
@@ -263,6 +265,9 @@ public final class WWAmbienceAndMiscConfig {
 
 		@EntrySyncData(value = "darkOakFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int darkOakFrequency = 100;
+
+		@EntrySyncData(value = "paleOakFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int paleOakFrequency = 100;
 
 		@EntrySyncData(value = "mangroveFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int mangroveFrequency = 100;

@@ -834,6 +834,8 @@
   "tooltip.wilderwild.acacia_leaf_particles": "How frequently Acacia Leaf particles should spawn.",
   "option.wilderwild.dark_oak_leaf_particles": "Dark Oak Leaf Frequency",
   "tooltip.wilderwild.dark_oak_leaf_particles": "How frequently Dark Oak Leaf particles should spawn.",
+  "option.wilderwild.pale_oak_leaf_particles": "Pale Oak Leaf Frequency",
+  "tooltip.wilderwild.pale_oak_leaf_particles": "How frequently Pale Oak Leaf particles should spawn.",
   "option.wilderwild.mangrove_leaf_particles": "Mangrove Leaf Frequency",
   "tooltip.wilderwild.mangrove_leaf_particles": "How frequently Mangrove Leaf particles should spawn.",
   "option.wilderwild.cherry_leaf_particles": "Cherry Leaf Frequency",

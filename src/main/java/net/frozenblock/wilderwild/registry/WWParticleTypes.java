@@ -128,6 +128,14 @@ public final class WWParticleTypes {
 		0.125F,
 		2.5F
 	);
+	public static final ParticleType<LeafParticleOptions> PALE_OAK_LEAVES = createLeafParticle(
+		WWConstants.id("pale_oak_leaves"),
+		Blocks.PALE_OAK_LEAVES,
+		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.PALE_OAK_LEAF_FREQUENCY,
+		0.125F,
+		2.5F
+	);
 	public static final ParticleType<LeafParticleOptions> MANGROVE_LEAVES = createLeafParticle(
 		WWConstants.id("mangrove_leaves"),
 		Blocks.MANGROVE_LEAVES,

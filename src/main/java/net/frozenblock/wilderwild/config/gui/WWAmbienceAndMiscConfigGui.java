@@ -167,6 +167,12 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("dark_oak_leaf_particles"))
 			.build();
 
+		var  paleOakLeafParticles = entryBuilder.startIntSlider(text("pale_oak_leaf_particles"), leafParticles.paleOakFrequency, 0, 500)
+			.setDefaultValue(defaultConfig.leafParticles.paleOakFrequency)
+			.setSaveConsumer(newValue -> leafParticles.paleOakFrequency = newValue)
+			.setTooltip(tooltip("pale_oak_leaf_particles"))
+			.build();
+
 		var mangroveLeafParticles = entryBuilder.startIntSlider(text("mangrove_leaf_particles"), leafParticles.mangroveFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.mangroveFrequency)
 			.setSaveConsumer(newValue -> leafParticles.mangroveFrequency = newValue)
@@ -219,7 +225,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			false,
 			tooltip("leaf_particles"),
 			oakLeafParticles, spruceLeafParticles, birchLeafParticles, jungleLeafParticles, acaciaLeafParticles, darkOakLeafParticles,
-			mangroveLeafParticles, cherryLeafParticles, azaleaLeafParticles, floweringAzaleaLeafParticles,
+			paleOakLeafParticles, mangroveLeafParticles, cherryLeafParticles, azaleaLeafParticles, floweringAzaleaLeafParticles,
 			baobabLeafParticles, cypressLeafParticles, palmFrondParticles, mapleLeafParticles
 		);
 

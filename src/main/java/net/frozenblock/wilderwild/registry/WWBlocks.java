@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.function.Function;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;

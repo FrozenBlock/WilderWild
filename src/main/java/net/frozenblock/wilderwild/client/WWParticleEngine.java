@@ -46,6 +46,7 @@ public final class WWParticleEngine {
 		particleRegistry.register(WWParticleTypes.JUNGLE_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.ACACIA_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.DARK_OAK_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.PALE_OAK_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.MANGROVE_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.CHERRY_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.AZALEA_LEAVES, LeafParticle.Factory::new);
