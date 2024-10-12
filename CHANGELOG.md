@@ -115,6 +115,7 @@ hi
 - Algae no longer slows down players flying in Creative mode.
 - Geysers no longer push players flying in Creative mode.
 - PLayer-placed Termites can now break Cherry Wood.
+- The `Windswept Savanna Placement` config option now actually dictates whether Windswept Savannas use modified parameters.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
