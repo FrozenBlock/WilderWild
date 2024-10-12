@@ -116,13 +116,13 @@ hi
 - Fallen Birch trees no longer generate in Cherry Groves.
 - Updated some previously mis-colored Cypress textures.
 - Optimized custom Dispenser behavior.
-- The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
 - Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
 - Once again fixed Termite Mounds being active in situations they aren't supposed to.
 - Algae no longer slows down players flying in Creative mode.
 - Geysers no longer push players flying in Creative mode.
 - PLayer-placed Termites can now break Cherry Wood.
 - The `Windswept Savanna Placement` config option now actually dictates whether Windswept Savannas use modified parameters.
+- Wilder Wild's cactus hurt sounds work once again.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
@@ -133,6 +133,7 @@ hi
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
 - Split the contents of WilderWildClient into multiple classes.
 - Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`
+- The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
 - Fixed data generation to no longer append the `termite_edible` or `snow_layers` properties to other mods' data generation.
 - Added the `registerAxeHollowBehavior` and `registerAxeHollowBehaviorStem` methods to the `HollowedLogBlock` class to make compat easier without needing to import FrozenLib.
 - Added a `feature/` prefix to many of Wilder Wild's tags relating to feature generation.
