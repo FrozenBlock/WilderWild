@@ -286,7 +286,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		addBlocks(new Block[]{DANDELION,
+		addBlocks(new Block[]{
+			DANDELION,
 			POPPY,
 			BLUE_ORCHID,
 			ALLIUM,
