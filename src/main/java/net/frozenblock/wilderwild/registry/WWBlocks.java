@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -75,9 +76,11 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -125,6 +128,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
@@ -394,7 +398,7 @@ public final class WWBlocks {
 	public static final Block POTTED_MARIGOLD = Blocks.flowerPot(MARIGOLD);
 
 	public static final MyceliumGrowthBlock MYCELIUM_GROWTH = new MyceliumGrowthBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE)
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.NETHER_SPROUTS)
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
@@ -1810,6 +1814,52 @@ public final class WWBlocks {
 				@Override
 				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					level.setBlock(pos, SEEDING_DANDELION.defaultBlockState(), Block.UPDATE_CLIENTS);
+				}
+			}
+		);
+
+		BonemealBehaviors.register(
+			Blocks.MYCELIUM,
+			new BonemealBehaviors.BonemealBehavior() {
+				@Override
+				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
+					return level.getBlockState(pos.above()).isAir();
+				}
+
+				@Override
+				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+					BlockPos blockPos = pos.above();
+					Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
+						.registryOrThrow(Registries.PLACED_FEATURE)
+						.getHolder(WWMiscPlaced.MYCELIUM_GROWTH_BONEMEAL.getKey());
+
+					masterLoop:
+					for (int i = 0; i < 128; i++) {
+						BlockPos blockPos2 = blockPos;
+
+						for (int j = 0; j < i / 16; j++) {
+							blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
+							if (!level.getBlockState(blockPos2.below()).is(Blocks.MYCELIUM) || level.getBlockState(blockPos2).isCollisionShapeFullBlock(level, blockPos2)) {
+								continue masterLoop;
+							}
+						}
+
+						BlockState blockState2 = level.getBlockState(blockPos2);
+						if (blockState2.isAir()) {
+							if (optional.isEmpty()) continue;
+							optional.get().value().place(level, level.getChunkSource().getGenerator(), random, blockPos2);
+						}
+					}
+				}
+
+				@Override
+				public BlockPos getParticlePos(BlockState state, BlockPos pos) {
+					return pos.above();
+				}
+
+				@Override
+				public boolean isNeighborSpreader() {
+					return true;
 				}
 			}
 		);

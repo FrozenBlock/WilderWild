@@ -22,6 +22,7 @@ hi
 - Sideways Geysers now generate naturally in Magmatic Caves.
 - Added the Mycelium Growth block.
   - Generates naturally in Mushroom Fields.
+  - Mycelium can now be bonemealed to create Mycelium Growth blocks.
 - Added new sounds for Melon and Pumpkin blocks.
 - Replaced the Dripstone Caves ambient loop.
 - Added two new ambient sounds for Dripstone Caves.

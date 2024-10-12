@@ -53,6 +53,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
+	public static final FrozenPlacedFeature MYCELIUM_GROWTH_BONEMEAL = WWPlacementUtils.register("mycelium_growth_bonemeal");
+
 	public static final FrozenPlacedFeature COARSE_PATH_RARE = WWPlacementUtils.register("coarse_dirt_path_rare");
 	public static final FrozenPlacedFeature GRAVEL_PATH_RARE = WWPlacementUtils.register("gravel_path_rare");
 	public static final FrozenPlacedFeature STONE_PATH_RARE = WWPlacementUtils.register("stone_path_rare");
@@ -156,6 +158,10 @@ public final class WWMiscPlaced {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WWConstants.logWithModId("Registering WilderMiscPlaced for", true);
+
+		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH.getHolder(),
+			PlacementUtils.isEmpty()
+		);
 
 		COARSE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),
