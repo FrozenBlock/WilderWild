@@ -49,6 +49,7 @@ import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
+import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
@@ -391,6 +392,11 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_MARIGOLD = Blocks.flowerPot(MARIGOLD);
+
+	public static final MyceliumGrowthBlock MYCELIUM_GROWTH = new MyceliumGrowthBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE)
+	);
+	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
@@ -1130,6 +1136,8 @@ public final class WWBlocks {
 		registerBlock("potted_carnation", POTTED_CARNATION);
 		registerBlockAfter(CARNATION, "marigold", MARIGOLD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_marigold", POTTED_MARIGOLD);
+		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
 		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.WITHER_ROSE, "blue_giant_glory_of_the_snow", BLUE_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.WITHER_ROSE, "pink_giant_glory_of_the_snow", PINK_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1527,6 +1535,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(PINK_GIANT_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
@@ -1555,6 +1564,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);
+		flammableBlockRegistry.add(MYCELIUM_GROWTH, 100, 60);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);

@@ -208,6 +208,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature TALL_CACTUS_PLACED = register("tall_cactus_placed");
 	public static final FrozenPlacedFeature BADLANDS_TALL_CACTUS_PLACED = register("badlands_tall_cactus_placed");
 	public static final FrozenPlacedFeature ARID_CACTUS_PLACED = register("arid_cactus_placed");
+	public static final FrozenPlacedFeature MYCELIUM_GROWTH_PLACED = register("mycelium_growth_placed");
 	public static final FrozenPlacedFeature GRASS_PLACED = register("grass_placed");
 	public static final FrozenPlacedFeature GRASS_PLAINS_PLACED = register("grass_plains_placed");
 	public static final FrozenPlacedFeature RARE_GRASS_PLACED = register("rare_grass_placed");
@@ -1081,6 +1082,12 @@ public final class WWPlacedFeatures {
 		ARID_CACTUS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_CACTUS),
 			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		MYCELIUM_GROWTH_PLACED.makeAndSetHolder(WWConfiguredFeatures.MYCELIUM_GROWTH.getHolder(),
+			CountPlacement.of(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
 		);
 
 		GRASS_PLACED.makeAndSetHolder(WWConfiguredFeatures.FERN_AND_GRASS.getHolder(),

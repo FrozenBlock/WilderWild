@@ -37,9 +37,13 @@ Zhen:
  - Retextured the Reach Boost icon in 2.4.4.
  - Cracked & Mossy Mud Bricks textures.
  - All Maple textures.
+ - Great feedback on the Maple Forest biome.
  - Retextured Algae in 3.0.
  - Retextured the Palm wood set in 3.0.
+ - Updated the Palm Fronds texture in 3.0.
  - Retextured Coconut blocks in 3.0.
+ - Came up with Mycelium Growths.
+ - Mycelium Growth texture.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.

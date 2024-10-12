@@ -3,7 +3,7 @@
     "minecraft:sunflower_plains",
     "minecraft:flower_forest",
     {
-      "id": "wilderwild:maple_grove",
+      "id": "wilderwild:maple_forest",
       "required": false
     }
   ]

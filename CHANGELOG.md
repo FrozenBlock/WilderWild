@@ -20,6 +20,8 @@ hi
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
 - Sideways Geysers now generate naturally in Magmatic Caves.
+- Added the Mycelium Growth block.
+  - Generates naturally in Mushroom Fields.
 - Added new sounds for Melon and Pumpkin blocks.
 - Replaced the Dripstone Caves ambient loop.
 - Added two new ambient sounds for Dripstone Caves.
@@ -51,6 +53,7 @@ hi
 - Removed the Cherry Grove panorama.
 - Retextured Algae, thanks to Zhen!
 - Retextured the Palm wood set, thanks to Zhen!
+- Updated the Palm Fronds texture, thanks to Zhen!
 - Retextured Coconut blocks, thanks to Zhen!
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
 - Jellyfish now have 2D tentacles by default, looking much cleaner than before.

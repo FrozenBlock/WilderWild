@@ -49,7 +49,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class MapleGrove extends FrozenBiome {
+public final class MapleForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.215F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.3F);
 	public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
@@ -65,7 +65,7 @@ public final class MapleGrove extends FrozenBiome {
 	public static final int GRASS_COLOR = 13023096;
 	public static final int FOLIAGE_COLOR = 11190658;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final MapleGrove INSTANCE = new MapleGrove();
+	public static final MapleForest INSTANCE = new MapleForest();
 
 	@Override
 	public String modID() {
@@ -74,7 +74,7 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "maple_grove";
+		return "maple_forest";
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public final class MapleGrove extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateMapleGrove) {
+		if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
 			this.addSurfaceBiome(
 				parameters,
 				TEMPERATURE,

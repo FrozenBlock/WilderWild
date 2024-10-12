@@ -823,7 +823,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS)
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.TUMBLEWEED)
-			.add(WWBlocks.PRICKLY_PEAR_CACTUS);
+			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
+			.add(WWBlocks.MYCELIUM_GROWTH);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(Blocks.SWEET_BERRY_BUSH)
@@ -878,6 +879,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WARPED_SHELF_FUNGI)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
+			.add(WWBlocks.MYCELIUM_GROWTH)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
 
 		this.getOrCreateTagBuilder(BlockTags.LEAVES)
@@ -928,6 +930,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
+			.add(WWBlocks.MYCELIUM_GROWTH)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
