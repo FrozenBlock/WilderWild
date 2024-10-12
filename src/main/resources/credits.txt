@@ -220,3 +220,5 @@ https://www.pond5.com/sound-effects/item/48146378-crab-injured-1
 https://www.pond5.com/sound-effects/item/48146389-crab-injured-2
 https://www.pond5.com/sound-effects/item/48146400-crab-injured-3
 https://www.pond5.com/sound-effects/item/48146399-crab-breathe-1
+
+All Copper Horn Sounds as of 3.0 are sourced from the Korg Nautilus keyboard.

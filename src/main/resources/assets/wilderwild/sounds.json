@@ -2914,87 +2914,75 @@
     ],
     "subtitle": "subtitles.item.coconut.knock"
   },
-  "item.copper_horn.flute.loop": {
+  "item.copper_horn.recorder": {
     "sounds": [
-      "wilderwild:item/copper_horn/flute/loop"
+      {
+        "name": "wilderwild:item/copper_horn/recorder",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.flute.start": {
+  "item.copper_horn.flute": {
     "sounds": [
-      "wilderwild:item/copper_horn/flute/start"
+      {
+        "name": "wilderwild:item/copper_horn/flute",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.oboe.loop": {
+  "item.copper_horn.oboe": {
     "sounds": [
-      "wilderwild:item/copper_horn/oboe/loop"
+      {
+        "name": "wilderwild:item/copper_horn/oboe",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.oboe.start": {
+  "item.copper_horn.saxophone": {
     "sounds": [
-      "wilderwild:item/copper_horn/oboe/start"
+      {
+        "name": "wilderwild:item/copper_horn/saxophone",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.sax.loop": {
+  "item.copper_horn.clarinet": {
     "sounds": [
-      "wilderwild:item/copper_horn/sax/loop"
+      {
+        "name": "wilderwild:item/copper_horn/clarinet",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.sax.start": {
+  "item.copper_horn.trombone": {
     "sounds": [
-      "wilderwild:item/copper_horn/sax/start"
+      {
+        "name": "wilderwild:item/copper_horn/trombone",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.clarinet.loop": {
+  "item.copper_horn.trumpet": {
     "sounds": [
-      "wilderwild:item/copper_horn/clarinet/loop"
+      {
+        "name": "wilderwild:item/copper_horn/trumpet",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.clarinet.start": {
+  "item.copper_horn.tuba": {
     "sounds": [
-      "wilderwild:item/copper_horn/clarinet/start"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trombone.loop": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trombone/loop"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trombone.start": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trombone/start"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trumpet.loop": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trumpet/loop"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trumpet.start": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trumpet/start"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.tuba.loop": {
-    "sounds": [
-      "wilderwild:item/copper_horn/tuba/loop"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.tuba.start": {
-    "sounds": [
-      "wilderwild:item/copper_horn/tuba/start"
+      {
+        "name": "wilderwild:item/copper_horn/tuba",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },

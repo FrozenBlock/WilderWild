@@ -23,6 +23,8 @@ hi
 - Added the Mycelium Growth block.
   - Generates naturally in Mushroom Fields.
   - Mycelium can now be bonemealed to create Mycelium Growth blocks.
+- Added the Recorder Copper Horn.
+- Replaced all Copper Horn sounds.
 - Added new sounds for Melon and Pumpkin blocks.
 - Replaced the Dripstone Caves ambient loop.
 - Added two new ambient sounds for Dripstone Caves.
