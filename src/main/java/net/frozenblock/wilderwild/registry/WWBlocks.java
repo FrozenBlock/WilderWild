@@ -565,7 +565,7 @@ public final class WWBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
-			.strength(0.85F)
+			.strength(3F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)

@@ -69,6 +69,7 @@ hi
 - The strength and resistance of Echo Glass have been increased.
 - Echo Glass now heals when the light level is at 8 or below instead of 7.
 - Echo Glass now takes 25% longer for light to damage it.
+- Geysers now take longer to mine and are more blast resistant.
 - Slightly optimized more config getter calls.
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
