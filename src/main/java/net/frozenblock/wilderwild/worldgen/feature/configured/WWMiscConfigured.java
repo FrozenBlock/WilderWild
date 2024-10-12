@@ -69,6 +69,8 @@ public final class WWMiscConfigured {
 
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> EMPTY = register("empty");
 
+	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> SINGLE_MYCELIUM_GROWTH = register("single_mycelium_growth");
+
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
@@ -173,6 +175,10 @@ public final class WWMiscConfigured {
 
 		EMPTY.makeAndSetHolder(Feature.NO_OP,
 			NoneFeatureConfiguration.INSTANCE
+		);
+
+		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
 		);
 
 		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,

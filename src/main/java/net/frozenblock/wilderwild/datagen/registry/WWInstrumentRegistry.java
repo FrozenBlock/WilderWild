@@ -27,12 +27,13 @@ import net.minecraft.world.item.Instruments;
 public class WWInstrumentRegistry {
 
 	public static void bootstrap(BootstrapContext<Instrument> registry) {
-		Instruments.register(registry, WWItems.SAX_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64F);
-		Instruments.register(registry, WWItems.TUBA_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64F);
-		Instruments.register(registry, WWItems.FLUTE_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64F);
-		Instruments.register(registry, WWItems.OBOE_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64F);
-		Instruments.register(registry, WWItems.CLARINET_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64F);
-		Instruments.register(registry, WWItems.TRUMPET_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64F);
-		Instruments.register(registry, WWItems.TROMBONE_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64F);
+		Instruments.register(registry, WWItems.RECORDER_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_RECORDER, 32767, 64F);
+		Instruments.register(registry, WWItems.FLUTE_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_FLUTE, 32767, 64F);
+		Instruments.register(registry, WWItems.OBOE_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_OBOE, 32767, 64F);
+		Instruments.register(registry, WWItems.CLARINET_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_CLARINET, 32767, 64F);
+		Instruments.register(registry, WWItems.SAX_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_SAX, 32767, 64F);
+		Instruments.register(registry, WWItems.TRUMPET_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_TRUMPET, 32767, 64F);
+		Instruments.register(registry, WWItems.TROMBONE_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_TROMBONE, 32767, 64F);
+		Instruments.register(registry, WWItems.TUBA_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_TUBA, 32767, 64F);
 	}
 }

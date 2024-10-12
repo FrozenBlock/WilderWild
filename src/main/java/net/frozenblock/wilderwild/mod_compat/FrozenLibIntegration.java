@@ -38,7 +38,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
-import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
+import net.frozenblock.lib.sound.api.damagesource.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
@@ -93,6 +93,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -252,10 +253,11 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(
-			level.damageSources().cactus(),
-			WWSounds.PLAYER_HURT_CACTUS,
-			WWConstants.id("cactus")
+		ServerWorldEvents.LOAD.register(
+			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
+				level.damageSources().damageTypes.getValueOrThrow(DamageTypes.CACTUS),
+				WWSounds.PLAYER_HURT_CACTUS,
+				WWConstants.id("cactus")
 			)
 		);
 
@@ -289,7 +291,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		addBlocks(new Block[]{DANDELION,
+		addBlocks(new Block[]{
+			DANDELION,
 			POPPY,
 			BLUE_ORCHID,
 			ALLIUM,
@@ -368,7 +371,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWWorldgen.DARK_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(WWWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
-		WolfVariantBiomeRegistry.register(WWWorldgen.MAPLE_GROVE, WolfVariants.CHESTNUT);
+		WolfVariantBiomeRegistry.register(WWWorldgen.MAPLE_FOREST, WolfVariants.CHESTNUT);
 
 		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
 

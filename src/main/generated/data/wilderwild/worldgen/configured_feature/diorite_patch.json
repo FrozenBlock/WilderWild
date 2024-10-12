@@ -14,7 +14,7 @@
         "Name": "minecraft:diorite"
       }
     },
-    "replaceable": "#wilderwild:diorite_ice_replaceable",
+    "replaceable": "#wilderwild:feature/diorite_ice_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.05,
     "vegetation_feature": {

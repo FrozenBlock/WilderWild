@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:sunflower_plains",
+    "minecraft:flower_forest",
+    {
+      "id": "minecraft:pale_garden",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_forest",
+      "required": false
+    }
+  ]
+}

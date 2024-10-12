@@ -27,7 +27,7 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
-    "worldgen.tree.HugeFungusFeatureMixin",
+    "block.mycelium.SpreadingSnowyDirtBlockMixin",
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
@@ -105,6 +105,7 @@
     "worldgen.LakeFeatureFixMixin",
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
+    "worldgen.tree.HugeFungusFeatureMixin",
     "worldgen.tree.TreeFeatureMixin",
     "worldgen.tree.TreeGrowerMixin"
   ],

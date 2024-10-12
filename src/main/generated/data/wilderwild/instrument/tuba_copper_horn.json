@@ -3,6 +3,6 @@
     "translate": "instrument.wilderwild.tuba_copper_horn"
   },
   "range": 64.0,
-  "sound_event": "wilderwild:item.copper_horn.tuba.loop",
+  "sound_event": "wilderwild:item.copper_horn.tuba",
   "use_duration": 32767.0
 }

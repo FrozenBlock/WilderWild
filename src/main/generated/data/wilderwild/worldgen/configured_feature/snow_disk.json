@@ -5,14 +5,14 @@
     "heightmap": "OCEAN_FLOOR_WG",
     "inner_chance": 0.7,
     "inner_percent": 0.325,
-    "inner_replaceable_blocks": "wilderwild:ice_feature_replaceable",
+    "inner_replaceable_blocks": "wilderwild:feature/ice_feature_replaceable",
     "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:snow_block"
       }
     },
-    "outer_replaceable_blocks": "wilderwild:ice_feature_replaceable",
+    "outer_replaceable_blocks": "wilderwild:feature/ice_feature_replaceable",
     "outer_state": {
       "type": "minecraft:simple_state_provider",
       "state": {

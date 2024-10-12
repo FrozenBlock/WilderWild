@@ -226,6 +226,14 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+		this.add(WWBlocks.MYCELIUM_GROWTH,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(WWBlocks.MYCELIUM_GROWTH).when(this.hasShearsOrSilkTouch()))
+				)
+		);
 
 		this.dropSelf(WWBlocks.GLORY_OF_THE_SNOW);
 		this.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
@@ -405,6 +413,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_PRICKLY_PEAR);
 		this.dropPottedContents(WWBlocks.POTTED_BIG_DRIPLEAF);
 		this.dropPottedContents(WWBlocks.POTTED_SMALL_DRIPLEAF);
+		this.dropPottedContents(WWBlocks.POTTED_MYCELIUM_GROWTH);
 
 		this.dropSelf(WWBlocks.NULL_BLOCK);
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS);

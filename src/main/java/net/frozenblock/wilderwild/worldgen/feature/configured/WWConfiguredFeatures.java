@@ -320,6 +320,7 @@ public final class WWConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = WWFeatureUtils.register("fern_and_grass");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = WWFeatureUtils.register("grass_and_fern");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MYCELIUM_GROWTH = WWFeatureUtils.register("mycelium_growth");
 	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN = WWFeatureUtils.register("pollen");
 	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> BROWN_SHELF_FUNGI = WWFeatureUtils.register("brown_shelf_fungi");
 	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> RED_SHELF_FUNGI = WWFeatureUtils.register("red_shelf_fungi");
@@ -2031,7 +2032,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 				)
 			)
 		);
@@ -2062,7 +2063,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 
 				)
 			)
@@ -2074,8 +2075,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
-
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 				)
 			)
 		);
@@ -2086,8 +2086,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
-
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 				)
 			)
 		);
@@ -2098,7 +2097,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 				)
 			)
 		);
@@ -2285,6 +2284,16 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		MYCELIUM_GROWTH.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				28,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
+				)
+			)
+		);
+
 		POLLEN.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
 				WWBlocks.POLLEN,
@@ -2361,7 +2370,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
 				true,
-				WWBlockTags.CATTAIL_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
 			)
 		);
 
@@ -2370,7 +2379,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-5, 5),
 				UniformInt.of(6, 12),
 				true,
-				WWBlockTags.CATTAIL_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
 			)
 		);
 
@@ -2379,7 +2388,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
 				false,
-				WWBlockTags.CATTAIL_MUD_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
 			)
 		);
 
@@ -2388,7 +2397,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-5, 5),
 				UniformInt.of(6, 12),
 				false,
-				WWBlockTags.CATTAIL_MUD_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
 			)
 		);
 

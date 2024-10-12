@@ -2,7 +2,7 @@
   "type": "wilderwild:shelf_fungi_feature",
   "config": {
     "block": "wilderwild:warped_shelf_fungi",
-    "can_be_placed_on": "#wilderwild:shelf_fungi_feature_placeable_nether",
+    "can_be_placed_on": "#wilderwild:feature/shelf_fungi_feature_placeable_nether",
     "can_place_on_ceiling": true,
     "can_place_on_floor": true,
     "can_place_on_wall": true,

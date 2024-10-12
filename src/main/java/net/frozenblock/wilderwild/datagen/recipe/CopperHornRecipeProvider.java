@@ -38,6 +38,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 public final class CopperHornRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, HolderLookup.Provider lookup, RecipeOutput exporter) {
+		copperHorn(provider, lookup, exporter, "recorder", Instruments.YEARN_GOAT_HORN, WWItems.RECORDER_COPPER_HORN);
 		copperHorn(provider, lookup, exporter, "clarinet", Instruments.DREAM_GOAT_HORN, WWItems.CLARINET_COPPER_HORN);
 		copperHorn(provider, lookup, exporter, "flute", Instruments.CALL_GOAT_HORN, WWItems.FLUTE_COPPER_HORN);
 		copperHorn(provider, lookup, exporter, "oboe", Instruments.SING_GOAT_HORN, WWItems.OBOE_COPPER_HORN);

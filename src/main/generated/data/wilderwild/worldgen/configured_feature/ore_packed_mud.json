@@ -10,7 +10,7 @@
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
-          "tag": "wilderwild:packed_mud_replaceable"
+          "tag": "wilderwild:feature/packed_mud_replaceable"
         }
       }
     ]

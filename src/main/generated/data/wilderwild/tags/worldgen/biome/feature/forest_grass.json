@@ -1,0 +1,88 @@
+{
+  "values": [
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:dark_forest",
+    {
+      "id": "minecraft:pale_garden",
+      "required": false
+    },
+    "minecraft:taiga",
+    "minecraft:mangrove_swamp",
+    "minecraft:sunflower_plains",
+    {
+      "id": "minecraft:cherry_grove",
+      "required": false
+    },
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
+    },
+    {
+      "id": "wilderwild:mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_dark_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_forest",
+      "required": false
+    }
+  ]
+}

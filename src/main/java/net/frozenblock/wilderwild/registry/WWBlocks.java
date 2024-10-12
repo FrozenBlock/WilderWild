@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Function;
+import java.util.Optional;
 import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -46,6 +47,7 @@ import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
+import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
@@ -70,9 +72,11 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -125,6 +129,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
@@ -556,6 +561,15 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+	public static final MyceliumGrowthBlock MYCELIUM_GROWTH = register("mycelium_growth",
+		MyceliumGrowthBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.NETHER_SPROUTS)
+	);
+	public static final Block POTTED_MYCELIUM_GROWTH = register("potted_mycelium_growth",
+		properties -> new FlowerPotBlock(MYCELIUM_GROWTH, properties),
+		Blocks.flowerPotProperties()
+	);
+
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = register("glory_of_the_snow",
 		GloryOfTheSnowBlock::new,
 		Properties.ofFullCopy(Blocks.DANDELION)
@@ -767,7 +781,7 @@ public final class WWBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
-			.strength(0.85F)
+			.strength(3F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
@@ -1510,6 +1524,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(PINK_GIANT_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
@@ -1538,6 +1553,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);
+		flammableBlockRegistry.add(MYCELIUM_GROWTH, 100, 60);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);
@@ -1788,6 +1804,52 @@ public final class WWBlocks {
 				@Override
 				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					level.setBlock(pos, SEEDING_DANDELION.defaultBlockState(), Block.UPDATE_CLIENTS);
+				}
+			}
+		);
+
+		BonemealBehaviors.register(
+			Blocks.MYCELIUM,
+			new BonemealBehaviors.BonemealBehavior() {
+				@Override
+				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
+					return level.getBlockState(pos.above()).isAir();
+				}
+
+				@Override
+				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+					BlockPos blockPos = pos.above();
+					Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
+						.lookupOrThrow(Registries.PLACED_FEATURE)
+						.get(WWMiscPlaced.MYCELIUM_GROWTH_BONEMEAL.getKey());
+
+					masterLoop:
+					for (int i = 0; i < 128; i++) {
+						BlockPos blockPos2 = blockPos;
+
+						for (int j = 0; j < i / 16; j++) {
+							blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
+							if (!level.getBlockState(blockPos2.below()).is(Blocks.MYCELIUM) || level.getBlockState(blockPos2).isCollisionShapeFullBlock(level, blockPos2)) {
+								continue masterLoop;
+							}
+						}
+
+						BlockState blockState2 = level.getBlockState(blockPos2);
+						if (blockState2.isAir()) {
+							if (optional.isEmpty()) continue;
+							optional.get().value().place(level, level.getChunkSource().getGenerator(), random, blockPos2);
+						}
+					}
+				}
+
+				@Override
+				public BlockPos getParticlePos(BlockState state, BlockPos pos) {
+					return pos.above();
+				}
+
+				@Override
+				public boolean isNeighborSpreader() {
+					return true;
 				}
 			}
 		);

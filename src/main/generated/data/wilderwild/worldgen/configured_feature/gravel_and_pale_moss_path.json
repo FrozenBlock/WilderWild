@@ -14,7 +14,7 @@
             "only_place_when_exposed": false,
             "placement_chance": 0.35,
             "radius": 9,
-            "replaceable_blocks": "wilderwild:gravel_and_pale_moss_path_replaceable",
+            "replaceable_blocks": "wilderwild:feature/gravel_and_pale_moss_path_replaceable",
             "scale_y": false,
             "state": {
               "type": "minecraft:simple_state_provider",
@@ -39,7 +39,7 @@
             "only_place_when_exposed": false,
             "placement_chance": 0.25,
             "radius": 9,
-            "replaceable_blocks": "wilderwild:gravel_and_pale_moss_path_replaceable",
+            "replaceable_blocks": "wilderwild:feature/gravel_and_pale_moss_path_replaceable",
             "scale_y": false,
             "state": {
               "type": "minecraft:simple_state_provider",

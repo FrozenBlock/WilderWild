@@ -5,14 +5,14 @@
     "heightmap": "OCEAN_FLOOR_WG",
     "inner_chance": 0.5,
     "inner_percent": 0.5,
-    "inner_replaceable_blocks": "wilderwild:stone_transition_replaceable",
+    "inner_replaceable_blocks": "wilderwild:feature/stone_transition_replaceable",
     "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:stone"
       }
     },
-    "outer_replaceable_blocks": "wilderwild:stone_transition_replaceable",
+    "outer_replaceable_blocks": "wilderwild:feature/stone_transition_replaceable",
     "outer_state": {
       "type": "minecraft:simple_state_provider",
       "state": {

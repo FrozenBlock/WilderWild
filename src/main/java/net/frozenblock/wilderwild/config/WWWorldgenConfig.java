@@ -243,7 +243,7 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("generateFrozenCaves")
 		public boolean generateFrozenCaves = true;
 
-		@EntrySyncData("generateMapleGrove")
-		public boolean generateMapleGrove = true;
+		@EntrySyncData("generateMapleForest")
+		public boolean generateMapleForest = true;
 	}
 }

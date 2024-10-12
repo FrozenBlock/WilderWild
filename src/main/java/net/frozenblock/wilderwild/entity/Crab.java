@@ -129,7 +129,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 	public static final float DIGGING_PARTICLE_OFFSET = 0.25F;
-	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.065F;
+	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.2F;
+	public static final float RATTLE_SOUND_CHANCE = 0.375F;
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
 	public static final int SPAWN_CHANCE = 30;
 	public static final int SPAWN_CHANCE_COMMON = 90;
@@ -291,7 +292,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean isInvisible() {
-		return super.isInvisible() || this.isInvisibleWhileUnderground();
+		return super.isInvisible() || this.isHidingUnderground();
 	}
 
 	@Override
@@ -490,7 +491,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return WWSounds.ENTITY_CRAB_IDLE;
+		return (this.isHidingUnderground() || this.random.nextFloat() <= RATTLE_SOUND_CHANCE) ? WWSounds.ENTITY_CRAB_IDLE_RATTLE : WWSounds.ENTITY_CRAB_IDLE;
+	}
+
+	@Override
+	public int getAmbientSoundInterval() {
+		return 240;
 	}
 
 	@Override
@@ -523,7 +529,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
-		if (this.isInvisibleWhileUnderground()) {
+		if (this.isHidingUnderground()) {
 			return;
 		}
 		super.doPush(entity);
@@ -543,7 +549,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.hasPose(Pose.DIGGING) || this.hasPose(Pose.EMERGING);
 	}
 
-	public boolean isInvisibleWhileUnderground() {
+	public boolean isHidingUnderground() {
 		return this.hasPose(Pose.DIGGING) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS;
 	}
 
@@ -934,12 +940,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
         @Override
 		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context) {
-			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && (context.sourceEntity() instanceof Player || gameEvent.is(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT));
+			return Crab.this.isAlive() && Crab.this.isHidingUnderground() && (context.sourceEntity() instanceof Player || gameEvent.is(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT));
 		}
 
 		@Override
 		public void onReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity playerEntity, float distance) {
-			if (Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground()) {
+			if (Crab.this.isAlive() && Crab.this.isHidingUnderground()) {
 				CrabAi.clearDigCooldown(Crab.this);
 			}
 

@@ -3,6 +3,6 @@
     "translate": "instrument.wilderwild.flute_copper_horn"
   },
   "range": 64.0,
-  "sound_event": "wilderwild:item.copper_horn.flute.loop",
+  "sound_event": "wilderwild:item.copper_horn.flute",
   "use_duration": 32767.0
 }

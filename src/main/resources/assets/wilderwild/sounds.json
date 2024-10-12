@@ -591,45 +591,45 @@
   },
   "block.algae.break": {
     "sounds": [
-      "wilderwild:block/algae/break1",
-      "wilderwild:block/algae/break2",
-      "wilderwild:block/algae/break3",
-      "wilderwild:block/algae/break4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.algae.fall": {
     "sounds": [
-      "wilderwild:block/algae/step1",
-      "wilderwild:block/algae/step2",
-      "wilderwild:block/algae/step3",
-      "wilderwild:block/algae/step4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ]
   },
   "block.algae.hit": {
     "sounds": [
-      "wilderwild:block/algae/step1",
-      "wilderwild:block/algae/step2",
-      "wilderwild:block/algae/step3",
-      "wilderwild:block/algae/step4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.algae.place": {
     "sounds": [
-      "wilderwild:block/algae/break1",
-      "wilderwild:block/algae/break2",
-      "wilderwild:block/algae/break3",
-      "wilderwild:block/algae/break4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.algae.step": {
     "sounds": [
-      "wilderwild:block/algae/step1",
-      "wilderwild:block/algae/step2",
-      "wilderwild:block/algae/step3",
-      "wilderwild:block/algae/step4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -2518,6 +2518,17 @@
     ],
     "subtitle": "subtitles.entity.crab.idle"
   },
+  "entity.crab.idle_rattle": {
+    "sounds": [
+      "wilderwild:mob/crab/idle_rattle1",
+      "wilderwild:mob/crab/idle_rattle2",
+      "wilderwild:mob/crab/idle_rattle3",
+      "wilderwild:mob/crab/idle_rattle4",
+      "wilderwild:mob/crab/idle_rattle5",
+      "wilderwild:mob/crab/idle_rattle6"
+    ],
+    "subtitle": "subtitles.entity.crab.idle_rattle"
+  },
   "entity.crab.dig": {
     "sounds": [
       "wilderwild:mob/crab/dig"
@@ -2903,87 +2914,75 @@
     ],
     "subtitle": "subtitles.item.coconut.knock"
   },
-  "item.copper_horn.flute.loop": {
+  "item.copper_horn.recorder": {
     "sounds": [
-      "wilderwild:item/copper_horn/flute/loop"
+      {
+        "name": "wilderwild:item/copper_horn/recorder",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.flute.start": {
+  "item.copper_horn.flute": {
     "sounds": [
-      "wilderwild:item/copper_horn/flute/start"
+      {
+        "name": "wilderwild:item/copper_horn/flute",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.oboe.loop": {
+  "item.copper_horn.oboe": {
     "sounds": [
-      "wilderwild:item/copper_horn/oboe/loop"
+      {
+        "name": "wilderwild:item/copper_horn/oboe",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.oboe.start": {
+  "item.copper_horn.saxophone": {
     "sounds": [
-      "wilderwild:item/copper_horn/oboe/start"
+      {
+        "name": "wilderwild:item/copper_horn/saxophone",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.sax.loop": {
+  "item.copper_horn.clarinet": {
     "sounds": [
-      "wilderwild:item/copper_horn/sax/loop"
+      {
+        "name": "wilderwild:item/copper_horn/clarinet",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.sax.start": {
+  "item.copper_horn.trombone": {
     "sounds": [
-      "wilderwild:item/copper_horn/sax/start"
+      {
+        "name": "wilderwild:item/copper_horn/trombone",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.clarinet.loop": {
+  "item.copper_horn.trumpet": {
     "sounds": [
-      "wilderwild:item/copper_horn/clarinet/loop"
+      {
+        "name": "wilderwild:item/copper_horn/trumpet",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },
-  "item.copper_horn.clarinet.start": {
+  "item.copper_horn.tuba": {
     "sounds": [
-      "wilderwild:item/copper_horn/clarinet/start"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trombone.loop": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trombone/loop"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trombone.start": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trombone/start"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trumpet.loop": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trumpet/loop"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.trumpet.start": {
-    "sounds": [
-      "wilderwild:item/copper_horn/trumpet/start"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.tuba.loop": {
-    "sounds": [
-      "wilderwild:item/copper_horn/tuba/loop"
-    ],
-    "subtitle": "subtitles.item.copper_horn.call"
-  },
-  "item.copper_horn.tuba.start": {
-    "sounds": [
-      "wilderwild:item/copper_horn/tuba/start"
+      {
+        "name": "wilderwild:item/copper_horn/tuba",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.copper_horn.call"
   },

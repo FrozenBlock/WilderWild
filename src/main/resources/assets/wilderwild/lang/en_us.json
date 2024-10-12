@@ -22,7 +22,7 @@
   "biome.wilderwild.temperate_rainforest": "Temperate Rainforest",
   "biome.wilderwild.rainforest": "Rainforest",
   "biome.wilderwild.dark_taiga": "Dark Taiga",
-  "biome.wilderwild.maple_grove": "Maple Grove",
+  "biome.wilderwild.maple_forest": "Maple Forest",
   "biome.wilderwild.dying_forest": "Dying Forest",
   "biome.wilderwild.snowy_dying_forest": "Snowy Dying Forest",
   "biome.wilderwild.dying_mixed_forest": "Dying Mixed Forest",
@@ -226,12 +226,12 @@
   "subtitles.particle.floating_sculk_bubble.big_pop": "Big Floating Sculk Bubble pops",
   "subtitles.particle.floating_sculk_bubble.pop": "Floating Sculk Bubble pops",
 
+  "block.wilderwild.marigold": "Marigold",
+  "block.wilderwild.potted_marigold": "Potted Marigold",
+
   "block.wilderwild.milkweed": "Milkweed",
   "item.wilderwild.milkweed_pod": "Milkweed Pod",
   "subtitles.block.milkweed.rustle": "Milkweed rustled",
-
-  "block.wilderwild.marigold": "Marigold",
-  "block.wilderwild.potted_marigold": "Potted Marigold",
 
   "block.wilderwild.chiseled_mud_bricks": "Chiseled Mud Bricks",
   "block.wilderwild.cracked_mud_bricks": "Cracked Mud Bricks",
@@ -239,6 +239,9 @@
   "block.wilderwild.mossy_mud_brick_stairs": "Mossy Mud Brick Stairs",
   "block.wilderwild.mossy_mud_brick_slab": "Mossy Mud Brick Slab",
   "block.wilderwild.mossy_mud_brick_wall": "Mossy Mud Brick Wall",
+
+  "block.wilderwild.mycelium_growth": "Mycelium Growth",
+  "block.wilderwild.potted_mycelium_growth": "Potted Mycelium Growth",
 
   "block.wilderwild.prickly_pear": "Prickly Pear",
   "block.wilderwild.potted_prickly_pear": "Potted Prickly Pear",
@@ -275,6 +278,7 @@
 
   "item.wilderwild.copper_horn": "Copper Horn",
   "instrument.wilderwild.clarinet_copper_horn": "Clarinet",
+  "instrument.wilderwild.recorder_copper_horn": "Recorder",
   "instrument.wilderwild.flute_copper_horn": "Flute",
   "instrument.wilderwild.oboe_copper_horn": "Oboe",
   "instrument.wilderwild.sax_copper_horn": "Saxophone",
@@ -287,7 +291,8 @@
   "item.wilderwild.crab_spawn_egg": "Crab Spawn Egg",
   "item.wilderwild.crab_claw": "Crab Claw",
   "item.wilderwild.cooked_crab_claw": "Cooked Crab Claw",
-  "subtitles.entity.crab.idle": "Crab clatters",
+  "subtitles.entity.crab.idle": "Crab chirps",
+  "subtitles.entity.crab.idle_rattle": "Crab rattles",
   "subtitles.entity.crab.attack": "Crab snaps",
   "subtitles.entity.crab.hurt": "Crab hurts",
   "subtitles.entity.crab.death": "Crab dies",
@@ -693,8 +698,8 @@
   "tooltip.wilderwild.generate_mesoglea_caves": "Whether Mesoglea Caves should generate.",
   "option.wilderwild.generate_magmatic_caves": "Generate Magmatic Caves",
   "tooltip.wilderwild.generate_magmatic_caves": "Whether Magmatic Caves should generate.",
-  "option.wilderwild.generate_maple_grove": "Generate Maple Groves",
-  "tooltip.wilderwild.generate_maple_grove": "Whether Maple Groves should generate.",
+  "option.wilderwild.generate_maple_forest": "Generate Maple Forests",
+  "tooltip.wilderwild.generate_maple_forest": "Whether Maple Forests should generate.",
   "option.wilderwild.generate_mixed_forest": "Generate Mixed Forests",
   "tooltip.wilderwild.generate_mixed_forest": "Whether Mixed Forests should generate.",
   "option.wilderwild.generate_oasis": "Generate Oases",

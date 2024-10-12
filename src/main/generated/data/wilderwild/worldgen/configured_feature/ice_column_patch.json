@@ -31,7 +31,7 @@
         }
       ]
     },
-    "replaceable": "#wilderwild:ice_feature_replaceable",
+    "replaceable": "#wilderwild:feature/ice_feature_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.1,
     "vegetation_feature": {

@@ -10,7 +10,7 @@
         "Name": "minecraft:sand"
       }
     },
-    "replaceable": "#wilderwild:sand_pool_replaceable",
+    "replaceable": "#wilderwild:feature/sand_pool_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.0,
     "vegetation_feature": {

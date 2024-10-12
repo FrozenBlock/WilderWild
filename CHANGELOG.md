@@ -20,11 +20,18 @@ hi
 - Added Crimson and Warped Shelf Fungi, which generate naturally.
 - Added fallen and snapped Crimson and Warped Fungi, which generate naturally.
 - Sideways Geysers now generate naturally in Magmatic Caves.
+- Added the Mycelium Growth block.
+  - Generates naturally in Mushroom Fields.
+  - Mycelium can now be bonemealed to create Mycelium Growth blocks.
+- Added the Recorder Copper Horn.
+- Replaced all Copper Horn sounds.
 - Added new sounds for Melon and Pumpkin blocks.
 - Replaced the Dripstone Caves ambient loop.
 - Added two new ambient sounds for Dripstone Caves.
 - Replaced the Lush Caves ambient loop.
 - Added twenty-three new ambient sounds for Lush Caves.
+- Crabs have new hurt and idle sounds.
+- Algae's sounds have been replaced.
 - Added translations for Vietnamese thanks to [godkyo98](https://github.com/FrozenBlock/WilderWild/pull/411)!
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
@@ -51,6 +58,7 @@ hi
 - Removed the Cherry Grove panorama.
 - Retextured Algae, thanks to Zhen!
 - Retextured the Palm wood set, thanks to Zhen!
+- Updated the Palm Fronds texture, thanks to Zhen!
 - Retextured Coconut blocks, thanks to Zhen!
 - The Jellyfish's animations and rendering have been updated to be more consistent with Vanilla and smoother overall.
 - Jellyfish now have 2D tentacles by default, looking much cleaner than before.
@@ -64,6 +72,7 @@ hi
 - The strength and resistance of Echo Glass have been increased.
 - Echo Glass now heals when the light level is at 8 or below instead of 7.
 - Echo Glass now takes 25% longer for light to damage it.
+- Geysers now take longer to mine and are more blast resistant.
 - Slightly optimized more config getter calls.
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
@@ -110,12 +119,13 @@ hi
 - Fallen Birch trees no longer generate in Cherry Groves.
 - Updated some previously mis-colored Cypress textures.
 - Optimized custom Dispenser behavior.
-- The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
 - Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
 - Once again fixed Termite Mounds being active in situations they aren't supposed to.
 - Algae no longer slows down players flying in Creative mode.
 - Geysers no longer push players flying in Creative mode.
 - PLayer-placed Termites can now break Cherry Wood.
+- The `Windswept Savanna Placement` config option now actually dictates whether Windswept Savannas use modified parameters.
+- Wilder Wild's cactus hurt sounds work once again.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
@@ -126,5 +136,10 @@ hi
 - Completely reorganized `en_us.json,` now being much easier to find and add translation strings.
 - Split the contents of WilderWildClient into multiple classes.
 - Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`
+- The Crab's `isClimbing` method has been refactored to `isCrabClimbing` to prevent conflicts when importing Wilder Wild on runtime.
 - Fixed data generation to no longer append the `termite_edible` or `snow_layers` properties to other mods' data generation.
 - Added the `registerAxeHollowBehavior` and `registerAxeHollowBehaviorStem` methods to the `HollowedLogBlock` class to make compat easier without needing to import FrozenLib.
+- Added a `feature/` prefix to many of Wilder Wild's tags relating to feature generation.
+- Added a `spawn/` prefix to Wilder Wild's biome tags relating to mob spawning.
+- Added a `beta_beach/` prefix to Wilder Wild's biome tags relating to Beta Beaches.
+- Added a `water_color/` prefix to Wilder Wild's biome tags relating to water colors.
