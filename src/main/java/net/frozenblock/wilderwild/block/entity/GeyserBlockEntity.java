@@ -224,7 +224,7 @@ public class GeyserBlockEntity extends BlockEntity {
 				}
 				if (applyMovement) {
 					double intensity = (ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE;
-					double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_EXTRA) ? 1.5D : 1D);
+					double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
 					double overallIntensity = intensity * pushIntensity;
 					Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
 					entity.setDeltaMovement(deltaMovement);

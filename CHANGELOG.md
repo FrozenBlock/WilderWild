@@ -128,3 +128,7 @@ hi
 - Swapped out a mixin on `BeaconBlockEntity` in favor of FrozenLib's new `BeaconEffectRegistry.`
 - Fixed data generation to no longer append the `termite_edible` or `snow_layers` properties to other mods' data generation.
 - Added the `registerAxeHollowBehavior` and `registerAxeHollowBehaviorStem` methods to the `HollowedLogBlock` class to make compat easier without needing to import FrozenLib.
+- Added a `feature/` prefix to many of Wilder Wild's tags relating to feature generation.
+- Added a `spawn/` prefix to Wilder Wild's biome tags relating to mob spawning.
+- Added a `beta_beach/` prefix to Wilder Wild's biome tags relating to Beta Beaches.
+- Added a `water_color/` prefix to Wilder Wild's biome tags relating to water colors.

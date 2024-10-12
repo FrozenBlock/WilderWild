@@ -9,7 +9,7 @@
     "only_place_when_exposed": false,
     "placement_chance": 1.0,
     "radius": 14,
-    "replaceable_blocks": "#wilderwild:mesoglea_path_replaceable",
+    "replaceable_blocks": "#wilderwild:feature/mesoglea_path_replaceable",
     "scale_y": true,
     "state": {
       "type": "minecraft:simple_state_provider",

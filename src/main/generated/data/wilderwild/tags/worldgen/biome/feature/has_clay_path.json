@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#wilderwild:sand_beaches",
+      "id": "#wilderwild:beta_beach/sand",
       "required": false
     },
     {
-      "id": "#wilderwild:multi_layer_sand_beaches",
+      "id": "#wilderwild:beta_beach/multi_layer_sand",
       "required": false
     },
     {

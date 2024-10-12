@@ -1,7 +1,7 @@
 {
   "type": "wilderwild:cattail_feature",
   "config": {
-    "can_be_placed_on": "wilderwild:cattail_mud_placeable",
+    "can_be_placed_on": "wilderwild:feature/cattail_mud_placeable",
     "only_place_in_water": false,
     "placement_attempts": {
       "type": "minecraft:uniform",

@@ -366,9 +366,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRASS_BLOCK)
 			.add(Blocks.PODZOL);
 
-		this.getOrCreateTagBuilder(WWBlockTags.FOLIATED_GRASS_DISK_REPLACEABLE)
-			.add(Blocks.GRASS_BLOCK);
-
 		this.getOrCreateTagBuilder(WWBlockTags.RIVER_POOL_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.DIRT)
@@ -624,12 +621,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
 
-		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_PLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY);
 
-		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_MUD_PLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE)
 			.add(Blocks.MUD);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
@@ -672,20 +669,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.SOUL_LANTERN)
 			.add(Blocks.SOUL_FIRE)
 			.add(Blocks.SOUL_SAND);
-
-		this.getOrCreateTagBuilder(WWBlockTags.ANCIENT_HORN_NON_COLLIDE)
-			.add(Blocks.SCULK)
-			.add(WWBlocks.OSSEOUS_SCULK)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
-			.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
-			.addOptionalTag(BlockTags.LEAVES)
-			.add(Blocks.BELL)
-			.add(Blocks.POINTED_DRIPSTONE)
-			.add(Blocks.BAMBOO)
-			.add(Blocks.ICE)
-			.add(WWBlocks.SCULK_STAIRS)
-			.add(WWBlocks.SCULK_SLAB)
-			.add(WWBlocks.SCULK_WALL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_SLAB_REPLACEABLE)
 			.add(Blocks.STONE_SLAB)
@@ -745,7 +728,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON)
 			.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 
-		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND)
+		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
 			.addOptionalTag(BlockTags.DIRT);
 

@@ -31,7 +31,7 @@
         }
       ]
     },
-    "replaceable": "#wilderwild:ice_feature_replaceable",
+    "replaceable": "#wilderwild:feature/ice_feature_replaceable",
     "surface": "ceiling",
     "vegetation_chance": 0.15,
     "vegetation_feature": {
