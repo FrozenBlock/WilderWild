@@ -591,45 +591,45 @@
   },
   "block.algae.break": {
     "sounds": [
-      "wilderwild:block/algae/break1",
-      "wilderwild:block/algae/break2",
-      "wilderwild:block/algae/break3",
-      "wilderwild:block/algae/break4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.algae.fall": {
     "sounds": [
-      "wilderwild:block/algae/step1",
-      "wilderwild:block/algae/step2",
-      "wilderwild:block/algae/step3",
-      "wilderwild:block/algae/step4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ]
   },
   "block.algae.hit": {
     "sounds": [
-      "wilderwild:block/algae/step1",
-      "wilderwild:block/algae/step2",
-      "wilderwild:block/algae/step3",
-      "wilderwild:block/algae/step4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.algae.place": {
     "sounds": [
-      "wilderwild:block/algae/break1",
-      "wilderwild:block/algae/break2",
-      "wilderwild:block/algae/break3",
-      "wilderwild:block/algae/break4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.algae.step": {
     "sounds": [
-      "wilderwild:block/algae/step1",
-      "wilderwild:block/algae/step2",
-      "wilderwild:block/algae/step3",
-      "wilderwild:block/algae/step4"
+      "wilderwild:block/algae/place1",
+      "wilderwild:block/algae/place2",
+      "wilderwild:block/algae/place3",
+      "wilderwild:block/algae/place4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -2517,6 +2517,17 @@
       "wilderwild:mob/crab/idle6"
     ],
     "subtitle": "subtitles.entity.crab.idle"
+  },
+  "entity.crab.idle_rattle": {
+    "sounds": [
+      "wilderwild:mob/crab/idle_rattle1",
+      "wilderwild:mob/crab/idle_rattle2",
+      "wilderwild:mob/crab/idle_rattle3",
+      "wilderwild:mob/crab/idle_rattle4",
+      "wilderwild:mob/crab/idle_rattle5",
+      "wilderwild:mob/crab/idle_rattle6"
+    ],
+    "subtitle": "subtitles.entity.crab.idle_rattle"
   },
   "entity.crab.dig": {
     "sounds": [

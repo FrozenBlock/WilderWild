@@ -42,9 +42,9 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_LOOP = registerForHolder("ambient.magmatic_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_ADDITIONS = registerForHolder("ambient.frozen_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_LOOP = registerForHolder("ambient.frozen_caves.loop");
-	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
 
 	//BLOCK
+	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
 	public static final SoundEvent BLOCK_ALGAE_HIT = register("block.algae.hit");
 	public static final SoundEvent BLOCK_ALGAE_BREAK = register("block.algae.break");
 	public static final SoundEvent BLOCK_ALGAE_STEP = register("block.algae.step");
@@ -264,6 +264,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
 	public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
 	public static final SoundEvent ENTITY_CRAB_IDLE = register("entity.crab.idle");
+	public static final SoundEvent ENTITY_CRAB_IDLE_RATTLE = register("entity.crab.idle_rattle");
 	public static final SoundEvent ENTITY_CRAB_ATTACK = register("entity.crab.attack");
 	public static final SoundEvent ENTITY_CRAB_HURT = register("entity.crab.hurt");
 	public static final SoundEvent ENTITY_CRAB_DEATH = register("entity.crab.death");

@@ -28,6 +28,8 @@ hi
 - Added two new ambient sounds for Dripstone Caves.
 - Replaced the Lush Caves ambient loop.
 - Added twenty-three new ambient sounds for Lush Caves.
+- Crabs have new hurt and idle sounds.
+- Algae's sounds have been replaced.
 - Added translations for Vietnamese thanks to [godkyo98](https://github.com/FrozenBlock/WilderWild/pull/411)!
 - Added more block sound type compatibility for BetterNether and BetterEnd.
 - Added block sound type compatibility for Nature's Spirit.
