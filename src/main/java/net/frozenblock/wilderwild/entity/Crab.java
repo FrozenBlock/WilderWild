@@ -129,6 +129,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 	public static final float DIGGING_PARTICLE_OFFSET = 0.25F;
 	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.2F;
+	public static final float RATTLE_SOUND_CHANCE = 0.375F;
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
 	public static final int SPAWN_CHANCE = 30;
 	public static final int SPAWN_CHANCE_COMMON = 90;
@@ -491,7 +492,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isHidingUnderground() ? WWSounds.ENTITY_CRAB_IDLE_RATTLE : WWSounds.ENTITY_CRAB_IDLE;
+		return (this.isHidingUnderground() || this.random.nextFloat() <= RATTLE_SOUND_CHANCE) ? WWSounds.ENTITY_CRAB_IDLE_RATTLE : WWSounds.ENTITY_CRAB_IDLE;
 	}
 
 	@Override
