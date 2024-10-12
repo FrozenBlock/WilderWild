@@ -225,6 +225,9 @@ public class WWCreativeInventorySorting {
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
+		// MYCELIUM
+		addAfterInNaturalBlocks(Items.FERN, WWBlocks.MYCELIUM_GROWTH);
+
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);
 		addAfterInNaturalBlocks(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
