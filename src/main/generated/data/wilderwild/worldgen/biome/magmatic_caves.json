@@ -89,7 +89,11 @@
       "wilderwild:basalt_spike",
       "wilderwild:downwards_basalt_column",
       "wilderwild:fire_patch_magma",
-      "wilderwild:geyser_pile"
+      "wilderwild:geyser_pile",
+      "wilderwild:geyser_north",
+      "wilderwild:geyser_east",
+      "wilderwild:geyser_south",
+      "wilderwild:geyser_west"
     ],
     [
       "wilderwild:lava_spring_extra"

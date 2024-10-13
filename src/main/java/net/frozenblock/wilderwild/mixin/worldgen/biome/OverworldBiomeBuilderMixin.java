@@ -137,7 +137,10 @@ public final class OverworldBiomeBuilderMixin {
 
 	@WrapOperation(
 		method = {"addMidSlice", "addLowSlice", "addValleys"},
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V")
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V"
+		)
 	)
 	public void wilderWild$replaceMidSwamp(
 		OverworldBiomeBuilder instance,
@@ -164,12 +167,12 @@ public final class OverworldBiomeBuilderMixin {
 
 	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT",  args = "intValue=1"), require = 0)
 	private int wilderWild$fixWindsweptSavannaTemperature(int original) {
-		return 2;
+		return WWWorldgenConfig.get().biomePlacement.modifySwampPlacement ? 2 : original;
 	}
 
 	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT",  args = "intValue=4"), require = 0)
 	private int wilderWild$fixWindsweptSavannaHumidity(int original) {
-		return 2;
+		return WWWorldgenConfig.get().biomePlacement.modifySwampPlacement ? 2 : original;
 	}
 
 }

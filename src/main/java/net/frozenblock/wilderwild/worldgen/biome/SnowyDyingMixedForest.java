@@ -188,7 +188,7 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 					point.offset()
 				);
 			}
-			if (WWWorldgenConfig.get().biomeGeneration.generateMapleGrove) {
+			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE_MAPLE,

@@ -9,7 +9,7 @@
     "only_place_when_exposed": false,
     "placement_chance": 0.65,
     "radius": 10,
-    "replaceable_blocks": "wilderwild:sandstone_path_replaceable",
+    "replaceable_blocks": "wilderwild:feature/sandstone_path_replaceable",
     "scale_y": true,
     "state": {
       "type": "minecraft:simple_state_provider",

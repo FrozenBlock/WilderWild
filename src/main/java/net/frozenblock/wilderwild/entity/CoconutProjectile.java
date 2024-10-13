@@ -67,7 +67,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		if (id == 3) {
+		if (id == (byte) 3) {
 			ParticleOptions particleOptions = new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.getDefaultItem()));
 			for (int i = 0; i < 8; ++i) {
 				this.level().addParticle(particleOptions, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
@@ -86,33 +86,74 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		if (this.getY() > entity.getEyeY() && !entity.getType().is(WWEntityTags.COCONUT_CANT_BONK)) {
 			hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
 		}
-		if (!entity.getType().is(WWEntityTags.COCONUT_CANT_SPLIT) && entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextFloat() < ENTITY_SPLIT_CHANCE) {
+		if (!entity.getType().is(WWEntityTags.COCONUT_CANT_SPLIT)
+			&& entity.getBoundingBox().getSize() > this.getBoundingBox().getSize()
+			&& this.random.nextFloat() < ENTITY_SPLIT_CHANCE
+		) {
 			this.splitAndDiscard();
 		} else {
-			this.level().playSound(null, this.getX(), this.getY(), this.getZ(), hitSound, this.getSoundSource(), 1F, 0.9F + (this.random.nextFloat() * 0.2F));
+			this.level().playSound(
+				null,
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				hitSound,
+				this.getSoundSource(),
+				1F,
+				0.9F + (this.random.nextFloat() * 0.2F)
+			);
 		}
 	}
 
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		if (this.level().getBlockState(result.getBlockPos()).is(WWBlockTags.SPLITS_COCONUT)) {
+		Level level = this.level();
+		if (level.getBlockState(result.getBlockPos()).is(WWBlockTags.SPLITS_COCONUT)) {
 			this.splitAndDiscard();
 			return;
 		}
-		this.level().playSound(null, this.getX(), this.getY(), this.getZ(), WWSounds.ITEM_COCONUT_LAND, SoundSource.BLOCKS, 0.4F, 0.9F + (this.random.nextFloat() * 0.2F));
-		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
+		level.playSound(
+			null,
+			this.getX(),
+			this.getY(),
+			this.getZ(),
+			WWSounds.ITEM_COCONUT_LAND,
+			this.getSoundSource(),
+			0.4F,
+			0.9F + (this.random.nextFloat() * 0.2F)
+		);
+		level.addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
 		this.discard();
 	}
 
 	public void splitAndDiscard() {
 		if (this.level() instanceof ServerLevel server) {
-			server.playSound(null, this.getX(), this.getY(), this.getZ(), WWSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.random.nextFloat());
+			server.playSound(
+				null,
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				WWSounds.ITEM_COCONUT_LAND_BREAK,
+				SoundSource.BLOCKS,
+				1F,
+				0.9F + 0.2F * this.random.nextFloat()
+			);
 			for (int i = 0; i < 2; ++i) {
 				server.addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(WWItems.SPLIT_COCONUT)));
 			}
 			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
-			server.sendParticles(WWParticleTypes.COCONUT_SPLASH, this.position().x + (dimensions.width * 0.5), this.position().y + (dimensions.height * 0.5), this.position().z + (dimensions.width * 0.5), this.random.nextInt(1, 5), dimensions.width/ 4F, dimensions.height/ 4F, dimensions.width/ 4F, 0.1D);
+			server.sendParticles(
+				WWParticleTypes.COCONUT_SPLASH,
+				this.position().x + (dimensions.width * 0.5D),
+				this.position().y + (dimensions.height * 0.5D),
+				this.position().z + (dimensions.width * 0.5D),
+				this.random.nextInt(1, 5),
+				dimensions.width / 4F,
+				dimensions.height / 4F,
+				dimensions.width / 4F,
+				0.1D
+			);
 			this.discard();
 		}
 	}

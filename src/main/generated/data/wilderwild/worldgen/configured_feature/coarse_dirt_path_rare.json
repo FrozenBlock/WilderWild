@@ -9,7 +9,7 @@
     "only_place_when_exposed": false,
     "placement_chance": 0.25,
     "radius": 6,
-    "replaceable_blocks": "wilderwild:coarse_path_replaceable",
+    "replaceable_blocks": "wilderwild:feature/coarse_path_replaceable",
     "scale_y": false,
     "state": {
       "type": "minecraft:simple_state_provider",

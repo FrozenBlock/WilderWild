@@ -52,6 +52,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -206,11 +207,19 @@ public class GeyserBlockEntity extends BlockEntity {
 		for (Entity entity : entities) {
 			AABB boundingBox = entity.getBoundingBox();
 			if (eruption.intersects(boundingBox)) {
-				double intensity = (ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE;
-				double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_EXTRA) ? 1.5D : 1D);
-				double overallIntensity = intensity * pushIntensity;
-				Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
-				entity.setDeltaMovement(deltaMovement);
+				boolean applyMovement = true;
+				if (entity instanceof Player player) {
+					if (player.getAbilities().flying) {
+						applyMovement = false;
+					}
+				}
+				if (applyMovement) {
+					double intensity = (ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE;
+					double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
+					double overallIntensity = intensity * pushIntensity;
+					Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
+					entity.setDeltaMovement(deltaMovement);
+				}
 				if (damagingEruption.intersects(boundingBox)) {
 					double damageIntensity = Math.max((ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE, ERUPTION_DISTANCE * 0.1D);
 					if (geyserType == GeyserType.LAVA) {

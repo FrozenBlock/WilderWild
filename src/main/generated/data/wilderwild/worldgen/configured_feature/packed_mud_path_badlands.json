@@ -9,7 +9,7 @@
     "only_place_when_exposed": false,
     "placement_chance": 0.9,
     "radius": 4,
-    "replaceable_blocks": "wilderwild:packed_mud_path_badlands_replaceable",
+    "replaceable_blocks": "wilderwild:feature/packed_mud_path_badlands_replaceable",
     "scale_y": true,
     "state": {
       "type": "minecraft:simple_state_provider",

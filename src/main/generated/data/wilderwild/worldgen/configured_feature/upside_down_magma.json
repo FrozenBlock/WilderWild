@@ -10,7 +10,7 @@
         "Name": "minecraft:magma_block"
       }
     },
-    "replaceable": "#wilderwild:magma_replaceable",
+    "replaceable": "#wilderwild:feature/magma_replaceable",
     "surface": "ceiling",
     "vegetation_chance": 0.08,
     "vegetation_feature": {

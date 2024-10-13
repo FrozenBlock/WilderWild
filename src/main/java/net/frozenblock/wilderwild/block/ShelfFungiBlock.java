@@ -103,9 +103,16 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hit
+	) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(Items.SHEARS) && shear(level, pos, state, player)) {
+		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
 			stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
@@ -113,7 +120,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 		}
 	}
 
-	public static boolean shear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
 		int stage = state.getValue(STAGE);
 		if (stage > 1) {
 			popResource(level, pos, new ItemStack(state.getBlock()));

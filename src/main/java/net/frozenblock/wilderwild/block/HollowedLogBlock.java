@@ -130,6 +130,14 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		};
 	}
 
+	public static void registerAxeHollowBehavior(Block logBlock, Block hollowedLogBlock) {
+		AxeBehaviors.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, false));
+	}
+
+	public static void registerAxeHollowBehaviorStem(Block logBlock, Block hollowedLogBlock) {
+		AxeBehaviors.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, true));
+	}
+
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
 		if (level instanceof ServerLevel serverLevel) {
 			double offsetX = Math.abs(face.getStepX()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;

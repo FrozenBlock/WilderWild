@@ -16,7 +16,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:matching_block_tag",
-        "tag": "wilderwild:mud_transition_placeable"
+        "tag": "wilderwild:feature/mud_transition_placeable"
       }
     },
     {
