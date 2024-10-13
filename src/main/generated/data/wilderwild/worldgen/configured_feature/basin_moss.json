@@ -10,7 +10,7 @@
         "Name": "minecraft:moss_block"
       }
     },
-    "replaceable": "#wilderwild:basin_replaceable",
+    "replaceable": "#wilderwild:feature/basin_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.0,
     "vegetation_feature": {

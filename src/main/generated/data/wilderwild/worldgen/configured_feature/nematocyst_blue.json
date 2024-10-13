@@ -2,7 +2,7 @@
   "type": "wilderwild:nematocyst_feature",
   "config": {
     "block": "wilderwild:blue_pearlescent_nematocyst",
-    "can_be_placed_on": "#wilderwild:blue_nematocyst_feature_placeable",
+    "can_be_placed_on": "#wilderwild:feature/blue_nematocyst_feature_placeable",
     "can_place_on_ceiling": true,
     "can_place_on_floor": true,
     "can_place_on_wall": true,

@@ -31,7 +31,7 @@ import net.frozenblock.wilderwild.worldgen.biome.DyingMixedForest;
 import net.frozenblock.wilderwild.worldgen.biome.FlowerField;
 import net.frozenblock.wilderwild.worldgen.biome.FrozenCaves;
 import net.frozenblock.wilderwild.worldgen.biome.MagmaticCaves;
-import net.frozenblock.wilderwild.worldgen.biome.MapleGrove;
+import net.frozenblock.wilderwild.worldgen.biome.MapleForest;
 import net.frozenblock.wilderwild.worldgen.biome.MesogleaCaves;
 import net.frozenblock.wilderwild.worldgen.biome.MixedForest;
 import net.frozenblock.wilderwild.worldgen.biome.Oasis;
@@ -58,7 +58,7 @@ public final class WWWorldgen {
 	public static final ResourceKey<Biome> OASIS = Oasis.INSTANCE.getKey();
 	public static final ResourceKey<Biome> WARM_RIVER = WarmRiver.INSTANCE.getKey();
 	public static final ResourceKey<Biome> WARM_BEACH = WarmBeach.INSTANCE.getKey();
-	public static final ResourceKey<Biome> MAPLE_GROVE = MapleGrove.INSTANCE.getKey();
+	public static final ResourceKey<Biome> MAPLE_FOREST = MapleForest.INSTANCE.getKey();
 	// Cave Biomes
 	public static final ResourceKey<Biome> FROZEN_CAVES = FrozenCaves.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MESOGLEA_CAVES = MesogleaCaves.INSTANCE.getKey();
@@ -111,7 +111,7 @@ public final class WWWorldgen {
 		register(context, OASIS, Oasis.INSTANCE.create(context));
 		register(context, WARM_RIVER, WarmRiver.INSTANCE.create(context));
 		register(context, WARM_BEACH, WarmBeach.INSTANCE.create(context));
-		register(context, MAPLE_GROVE, MapleGrove.INSTANCE.create(context));
+		register(context, MAPLE_FOREST, MapleForest.INSTANCE.create(context));
 		// CAVE BIOMES
 		register(context, FROZEN_CAVES, FrozenCaves.INSTANCE.create(context));
 		register(context, MESOGLEA_CAVES, MesogleaCaves.INSTANCE.create(context));

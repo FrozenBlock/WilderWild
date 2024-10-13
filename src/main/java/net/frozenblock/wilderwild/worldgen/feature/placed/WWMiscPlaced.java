@@ -53,6 +53,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
+	public static final FrozenPlacedFeature MYCELIUM_GROWTH_BONEMEAL = WWPlacementUtils.register("mycelium_growth_bonemeal");
+
 	public static final FrozenPlacedFeature COARSE_PATH_RARE = WWPlacementUtils.register("coarse_dirt_path_rare");
 	public static final FrozenPlacedFeature GRAVEL_PATH_RARE = WWPlacementUtils.register("gravel_path_rare");
 	public static final FrozenPlacedFeature STONE_PATH_RARE = WWPlacementUtils.register("stone_path_rare");
@@ -142,9 +144,6 @@ public final class WWMiscPlaced {
 	public static final FrozenPlacedFeature STONE_DISK_AND_PILE_RARE = WWPlacementUtils.register("stone_disk_and_pile_rare");
 	public static final FrozenPlacedFeature COARSE_TRANSITION_DISK = WWPlacementUtils.register("coarse_dirt_transition_disk");
 
-	// MAPLE GROVE
-	public static final FrozenPlacedFeature MAPLE_LEAF_LITTER = WWPlacementUtils.register("maple_leaf_litter");
-
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = WWPlacementUtils.register("snow_and_freeze_transition");
@@ -159,6 +158,10 @@ public final class WWMiscPlaced {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WWConstants.logWithModId("Registering WilderMiscPlaced for", true);
+
+		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH.getHolder(),
+			PlacementUtils.isEmpty()
+		);
 
 		COARSE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),
@@ -637,17 +640,6 @@ public final class WWMiscPlaced {
 			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
 			BiomeFilter.biome()
-		);
-
-		// MAPLE GROVE
-
-		MAPLE_LEAF_LITTER.makeAndSetHolder(
-			WWMiscConfigured.MAPLE_LEAF_LITTER.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
-			BiomeFilter.biome(),
-			WWPlacementUtils.TREE_CLEARING_FILTER
 		);
 
 		// SNOW

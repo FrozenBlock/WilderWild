@@ -72,11 +72,6 @@ public class V3328Mixin {
 		);
 		schema.register(
 			map,
-			WWConstants.string("falling_leaves"),
-			(string) -> DSL.optionalFields("LeafLitterBlock", References.BLOCK_NAME.in(schema))
-		);
-		schema.register(
-			map,
 			WWConstants.string("coconut"),
 			DSL::remainder
 		);
@@ -94,6 +89,11 @@ public class V3328Mixin {
 			map,
 			WWConstants.string("scorched"),
 			() -> V100.equipment(schema)
+		);
+		schema.register(
+			map,
+			WWConstants.string("falling_leaves"),
+			(string) -> DSL.optionalFields("LeafLitterBlock", References.BLOCK_NAME.in(schema))
 		);
 		return map;
 	}

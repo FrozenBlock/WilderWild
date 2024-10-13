@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wilderwild_copper_horn",
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "G": {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "minecraft:goat_horn"
+      },
+      "components": {
+        "minecraft:instrument": "minecraft:yearn_goat_horn"
+      }
+    }
+  },
+  "pattern": [
+    "CGC",
+    " C "
+  ],
+  "result": {
+    "components": {
+      "minecraft:instrument": "wilderwild:recorder_copper_horn"
+    },
+    "count": 1,
+    "id": "wilderwild:copper_horn"
+  }
+}

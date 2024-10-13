@@ -370,15 +370,15 @@ public final class WWWorldgenConfigGui {
 			"generateFrozenCaves",
 			configInstance
 		);
-		var mapleGrove = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("generate_maple_grove"), modifiedBiomes.generateMapleGrove)
-				.setDefaultValue(defaultConfig.biomeGeneration.generateMapleGrove)
-				.setSaveConsumer(newValue -> biomes.generateMapleGrove = newValue)
-				.setTooltip(tooltip("generate_maple_grove"))
+		var mapleForest = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_maple_forest"), modifiedBiomes.generateMapleForest)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateMapleForest)
+				.setSaveConsumer(newValue -> biomes.generateMapleForest = newValue)
+				.setTooltip(tooltip("generate_maple_forest"))
 				.requireRestart()
 				.build(),
 			biomes.getClass(),
-			"generateMapleGrove",
+			"generateMapleForest",
 			configInstance
 		);
 
@@ -386,7 +386,7 @@ public final class WWWorldgenConfigGui {
 			false,
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
-			magmaticCaves, mapleGrove, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
+			magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
 			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 

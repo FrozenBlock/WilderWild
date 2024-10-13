@@ -22,6 +22,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -142,6 +143,9 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE = WWFeatureUtils.register("palms_jungle");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS = WWFeatureUtils.register("palms_oasis");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRIES = WWFeatureUtils.register("cherries");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> RED_MAPLES = WWFeatureUtils.register("red_maples");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES = WWFeatureUtils.register("maples");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCHES = WWFeatureUtils.register("snapped_birches");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_OAKS = WWFeatureUtils.register("snapped_oaks");
@@ -167,6 +171,8 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WWFeatureUtils.register("carnation");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = WWFeatureUtils.register("marigold");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD_SPARSE = WWFeatureUtils.register("marigold_sparse");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PINK_TULIP_UNCOMMON = WWFeatureUtils.register("pink_tulip_uncommon");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ALLIUM_UNCOMMON = WWFeatureUtils.register("allium_uncommon");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = WWFeatureUtils.register("datura");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ROSE_BUSH = WWFeatureUtils.register("rose_bush");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PEONY = WWFeatureUtils.register("peony");
@@ -312,6 +318,7 @@ public final class WWConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = WWFeatureUtils.register("fern_and_grass");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = WWFeatureUtils.register("grass_and_fern");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MYCELIUM_GROWTH = WWFeatureUtils.register("mycelium_growth");
 	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN = WWFeatureUtils.register("pollen");
 	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> BROWN_SHELF_FUNGI = WWFeatureUtils.register("brown_shelf_fungi");
 	public static final FrozenConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> RED_SHELF_FUNGI = WWFeatureUtils.register("red_shelf_fungi");
@@ -1000,35 +1007,113 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		YELLOW_MAPLES.makeAndSetHolder(
+			FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						Feature.RANDOM_SELECTOR,
+						new RandomFeatureConfiguration(
+							List.of(
+								new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.025F),
+								new WeightedPlacedFeature(WWTreePlaced.ROUND_YELLOW_MAPLE_CHECKED.getHolder(), 0.15F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.getHolder(), 0.25F),
+								new WeightedPlacedFeature(WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WWTreePlaced.SHORT_YELLOW_MAPLE_CHECKED.getHolder(), 0.2F),
+								new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_YELLOW_MAPLE_CHECKED.getHolder(), 0.4F)
+							),
+							WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						WWMiscConfigured.YELLOW_MAPLE_LEAF_LITTER.getHolder()
+					)
+				)
+			)
+		);
+
+		ORANGE_MAPLES.makeAndSetHolder(
+			FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						Feature.RANDOM_SELECTOR,
+						new RandomFeatureConfiguration(
+							List.of(
+								new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.025F),
+								new WeightedPlacedFeature(WWTreePlaced.ROUND_ORANGE_MAPLE_CHECKED.getHolder(), 0.15F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.getHolder(), 0.25F),
+								new WeightedPlacedFeature(WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WWTreePlaced.SHORT_ORANGE_MAPLE_CHECKED.getHolder(), 0.2F),
+								new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_ORANGE_MAPLE_CHECKED.getHolder(), 0.4F)
+							),
+							WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.getHolder()
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						WWMiscConfigured.ORANGE_MAPLE_LEAF_LITTER.getHolder()
+					)
+				)
+			)
+		);
+
+		RED_MAPLES.makeAndSetHolder(
+			FrozenFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(
+						Feature.RANDOM_SELECTOR,
+						new RandomFeatureConfiguration(
+							List.of(
+								new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.025F),
+								new WeightedPlacedFeature(WWTreePlaced.ROUND_RED_MAPLE_CHECKED.getHolder(), 0.15F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_CHECKED.getHolder(), 0.25F),
+								new WeightedPlacedFeature(WWTreePlaced.DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WWTreePlaced.SHORT_RED_MAPLE_CHECKED.getHolder(), 0.2F),
+								new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_RED_MAPLE_CHECKED.getHolder(), 0.4F)
+							),
+							WWTreePlaced.RED_MAPLE_BEES_CHECKED.getHolder()
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						WWMiscConfigured.RED_MAPLE_LEAF_LITTER.getHolder()
+					)
+				)
+			)
+		);
+
 		MAPLES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.025F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.getHolder(), 0.25F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_BEES_CHECKED.getHolder(), 0.67F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder(), 0.67F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_YELLOW_MAPLE_CHECKED.getHolder(), 0.4F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_YELLOW_MAPLE_CHECKED.getHolder(), 0.092F * 0.35F),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							YELLOW_MAPLES.getHolder()
+						),
+						0.4F
+					),
 
-					new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.025F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.getHolder(), 0.25F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_BEES_CHECKED.getHolder(), 0.67F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.getHolder(), 0.67F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_ORANGE_MAPLE_CHECKED.getHolder(), 0.4F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_ORANGE_MAPLE_CHECKED.getHolder(), 0.092F * 0.35F),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							ORANGE_MAPLES.getHolder()
+						),
+						0.55F
+					),
 
-					new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.025F * 0.15F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_CHECKED.getHolder(), 0.25F * 0.15F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F * 0.15F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_BEES_CHECKED.getHolder(), 0.67F * 0.15F),
-					new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F * 0.15F),
-					new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_BEES_CHECKED.getHolder(), 0.67F * 0.15F),
-	                new WeightedPlacedFeature(WWTreePlaced.SHORT_RED_MAPLE_CHECKED.getHolder(), 0.4F * 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_RED_MAPLE_CHECKED.getHolder(), 0.092F * 0.35F)
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							RED_MAPLES.getHolder()
+						),
+						0.9F
+					)
 				),
 				WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
 			)
@@ -1204,6 +1289,27 @@ public final class WWConfiguredFeatures {
 				)
 			)
 		);
+
+		PINK_TULIP_UNCOMMON.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				18,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PINK_TULIP))
+				)
+			)
+		);
+
+		ALLIUM_UNCOMMON.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				18,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ALLIUM))
+				)
+			)
+		);
+
 
 		DATURA.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
@@ -1910,7 +2016,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 				)
 			)
 		);
@@ -1941,7 +2047,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 
 				)
 			)
@@ -1953,7 +2059,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 
 				)
 			)
@@ -1965,7 +2071,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 
 				)
 			)
@@ -1977,7 +2083,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL)),
-					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_NO_SAND))
+					BlockPredicate.allOf(BlockPredicate.replaceable(), BlockPredicate.noFluid(), BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND))
 				)
 			)
 		);
@@ -2164,6 +2270,16 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		MYCELIUM_GROWTH.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				28,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
+				)
+			)
+		);
+
 		POLLEN.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
 				WWBlocks.POLLEN,
@@ -2240,7 +2356,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
 				true,
-				WWBlockTags.CATTAIL_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
 			)
 		);
 
@@ -2249,7 +2365,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-5, 5),
 				UniformInt.of(6, 12),
 				true,
-				WWBlockTags.CATTAIL_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
 			)
 		);
 
@@ -2258,7 +2374,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
 				false,
-				WWBlockTags.CATTAIL_MUD_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
 			)
 		);
 
@@ -2267,7 +2383,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(-5, 5),
 				UniformInt.of(6, 12),
 				false,
-				WWBlockTags.CATTAIL_MUD_PLACEABLE
+				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
 			)
 		);
 

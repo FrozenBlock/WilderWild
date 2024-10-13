@@ -30,6 +30,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
+import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -88,6 +89,10 @@ public final class WWCavePlaced {
 	public static final FrozenPlacedFeature NETHER_LAVA_GEYSER = WWPlacementUtils.register("nether_lava_geyser");
 	public static final FrozenPlacedFeature GEYSER_UP = WWPlacementUtils.register("geyser_up");
 	public static final FrozenPlacedFeature GEYSER_DOWN = WWPlacementUtils.register("geyser_down");
+	public static final FrozenPlacedFeature GEYSER_NORTH = WWPlacementUtils.register("geyser_north");
+	public static final FrozenPlacedFeature GEYSER_EAST = WWPlacementUtils.register("geyser_east");
+	public static final FrozenPlacedFeature GEYSER_SOUTH = WWPlacementUtils.register("geyser_south");
+	public static final FrozenPlacedFeature GEYSER_WEST = WWPlacementUtils.register("geyser_west");
 	public static final FrozenPlacedFeature DOWNWARDS_GEYSER_COLUMN = WWPlacementUtils.register("downwards_geyser_column");
 	public static final FrozenPlacedFeature DOWNWARDS_BASALT_COLUMN = WWPlacementUtils.register("downwards_basalt_column");
 	public static final FrozenPlacedFeature BASALT_SPIKE = WWPlacementUtils.register("basalt_spike");
@@ -98,18 +103,19 @@ public final class WWCavePlaced {
 	// FROZEN CAVES
 	public static final FrozenPlacedFeature PACKED_ICE_PATH = WWPlacementUtils.register("packed_ice_path");
 	public static final FrozenPlacedFeature PACKED_ICE_DISK = WWPlacementUtils.register("packed_ice_disk");
-	public static final FrozenPlacedFeature PACKED_ICE_COLUMN = WWPlacementUtils.register("packed_ice_column");
-	public static final FrozenPlacedFeature DOWNWARDS_PACKED_ICE_COLUMN = WWPlacementUtils.register("downwards_packed_ice_column");
-	public static final FrozenPlacedFeature PACKED_ICE_BIG_COLUMN = WWPlacementUtils.register("packed_ice_big_column");
 	public static final FrozenPlacedFeature ICE_DISK = WWPlacementUtils.register("ice_disk");
-	public static final FrozenPlacedFeature ICE_COLUMN = WWPlacementUtils.register("ice_column");
-	public static final FrozenPlacedFeature DOWNWARDS_ICE_COLUMN = WWPlacementUtils.register("downwards_ice_column");
 	public static final FrozenPlacedFeature ICE_PILE = WWPlacementUtils.register("ice_pile");
-	public static final FrozenPlacedFeature ORE_ICE = WWPlacementUtils.register("ore_ice");
 	public static final FrozenPlacedFeature SNOW_DISK_UPPER = WWPlacementUtils.register("snow_disk_upper");
 	public static final FrozenPlacedFeature POWDER_SNOW_DISK_UPPER = WWPlacementUtils.register("powder_snow_disk_upper");
 	public static final FrozenPlacedFeature SNOW_DISK_LOWER = WWPlacementUtils.register("snow_disk_lower");
 	public static final FrozenPlacedFeature POWDER_SNOW_DISK_LOWER = WWPlacementUtils.register("powder_snow_disk_lower");
+	public static final FrozenPlacedFeature ICICLE_PATCH = WWPlacementUtils.register("icicle_patch");
+	public static final FrozenPlacedFeature ICE_PATCH_CEILING = WWPlacementUtils.register("ice_patch_ceiling");
+	public static final FrozenPlacedFeature ICE_COLUMN_PATCH = WWPlacementUtils.register("ice_column_patch");
+	public static final FrozenPlacedFeature ICE_PATCH = WWPlacementUtils.register("ice_patch");
+	public static final FrozenPlacedFeature DIORITE_PATCH = WWPlacementUtils.register("diorite_patch");
+	public static final FrozenPlacedFeature DIORITE_PATCH_CEILING = WWPlacementUtils.register("diorite_patch_ceiling");
+	public static final FrozenPlacedFeature ORE_DIORITE_EXTRA = WWPlacementUtils.register("ore_diorite_extra");
 
 	private WWCavePlaced() {
 		throw new UnsupportedOperationException("WilderCavePlaced contains only static declarations.");
@@ -363,6 +369,74 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
+		GEYSER_NORTH.makeAndSetHolder(WWCaveConfigured.GEYSER_NORTH.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.NORTH.getNormal()),
+					BlockPredicate.solid(Direction.SOUTH.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_EAST.makeAndSetHolder(WWCaveConfigured.GEYSER_EAST.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.EAST.getNormal()),
+					BlockPredicate.solid(Direction.WEST.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_SOUTH.makeAndSetHolder(WWCaveConfigured.GEYSER_SOUTH.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.SOUTH.getNormal()),
+					BlockPredicate.solid(Direction.NORTH.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
+		GEYSER_WEST.makeAndSetHolder(WWCaveConfigured.GEYSER_WEST.getHolder(),
+			CountPlacement.of(UniformInt.of(72, 96)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.replaceable(Direction.WEST.getNormal()),
+					BlockPredicate.solid(Direction.EAST.getNormal())
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
 		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GEYSER_COLUMN.getHolder(),
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
@@ -395,7 +469,7 @@ public final class WWCavePlaced {
 		);
 
 		FOSSIL_LAVA.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.FOSSIL_DIAMONDS),
-			RarityFilter.onAverageOnceEvery(13),
+			RarityFilter.onAverageOnceEvery(20),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
 			BiomeFilter.biome()
@@ -413,55 +487,15 @@ public final class WWCavePlaced {
 		// FROZEN CAVES
 
 		PACKED_ICE_PATH.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_PATH.getHolder(),
-			modifiersWithCount(68, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(92, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		PACKED_ICE_DISK.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_DISK.getHolder(),
-			modifiersWithCount(42, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
-		);
-
-		PACKED_ICE_COLUMN.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(45, 80)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
-		);
-
-		DOWNWARDS_PACKED_ICE_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_PACKED_ICE_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(40, 80)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
-		);
-
-		PACKED_ICE_BIG_COLUMN.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_BIG_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(24, 44)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
-		);
-
-		ICE_DISK.makeAndSetHolder(WWCaveConfigured.ICE_DISK.getHolder(),
 			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		ICE_COLUMN.makeAndSetHolder(WWCaveConfigured.ICE_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(10, 20)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
-		);
-
-		DOWNWARDS_ICE_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_ICE_COLUMN.getHolder(),
-			CountPlacement.of(UniformInt.of(10, 20)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
+		ICE_DISK.makeAndSetHolder(WWCaveConfigured.ICE_DISK.getHolder(),
+			modifiersWithCount(24, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		ICE_PILE.makeAndSetHolder(WWCaveConfigured.ICE_PILE.getHolder(),
@@ -472,12 +506,8 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		ORE_ICE.makeAndSetHolder(WWCaveConfigured.ORE_ICE.getHolder(),
-			modifiersWithCount(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
-		);
-
 		POWDER_SNOW_DISK_LOWER.makeAndSetHolder(WWCaveConfigured.POWDER_SNOW_DISK.getHolder(),
-			CountPlacement.of(4),
+			CountPlacement.of(1),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
@@ -485,7 +515,7 @@ public final class WWCavePlaced {
 		);
 
 		SNOW_DISK_LOWER.makeAndSetHolder(WWCaveConfigured.SNOW_DISK.getHolder(),
-			CountPlacement.of(4),
+			CountPlacement.of(2),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
@@ -493,7 +523,7 @@ public final class WWCavePlaced {
 		);
 
 		POWDER_SNOW_DISK_UPPER.makeAndSetHolder(WWCaveConfigured.POWDER_SNOW_DISK.getHolder(),
-			CountPlacement.of(13),
+			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(48), VerticalAnchor.absolute(256)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
@@ -501,11 +531,69 @@ public final class WWCavePlaced {
 		);
 
 		SNOW_DISK_UPPER.makeAndSetHolder(WWCaveConfigured.SNOW_DISK.getHolder(),
-			CountPlacement.of(20),
+			CountPlacement.of(10),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(48), VerticalAnchor.absolute(256)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			BiomeFilter.biome()
+		);
+
+		ICICLE_PATCH.makeAndSetHolder(WWCaveConfigured.ICICLE_PATCH.getHolder(),
+			CountPlacement.of(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.ICE_PATCH_CEILING.getHolder(),
+			CountPlacement.of(24),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		ICE_COLUMN_PATCH.makeAndSetHolder(WWCaveConfigured.ICE_COLUMN_PATCH.getHolder(),
+			CountPlacement.of(12),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		ICE_PATCH.makeAndSetHolder(WWCaveConfigured.ICE_PATCH.getHolder(),
+			CountPlacement.of(48),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		DIORITE_PATCH.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH.getHolder(),
+			CountPlacement.of(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		DIORITE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH_CEILING.getHolder(),
+			CountPlacement.of(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		ORE_DIORITE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(OreFeatures.ORE_DIORITE),
+			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)))
 		);
 	}
 

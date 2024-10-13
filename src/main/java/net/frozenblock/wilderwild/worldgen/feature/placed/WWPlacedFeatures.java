@@ -208,6 +208,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature TALL_CACTUS_PLACED = register("tall_cactus_placed");
 	public static final FrozenPlacedFeature BADLANDS_TALL_CACTUS_PLACED = register("badlands_tall_cactus_placed");
 	public static final FrozenPlacedFeature ARID_CACTUS_PLACED = register("arid_cactus_placed");
+	public static final FrozenPlacedFeature MYCELIUM_GROWTH_PLACED = register("mycelium_growth_placed");
 	public static final FrozenPlacedFeature GRASS_PLACED = register("grass_placed");
 	public static final FrozenPlacedFeature GRASS_PLAINS_PLACED = register("grass_plains_placed");
 	public static final FrozenPlacedFeature RARE_GRASS_PLACED = register("rare_grass_placed");
@@ -228,6 +229,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature CARNATION = register("carnation");
 	public static final FrozenPlacedFeature MARIGOLD = register("marigold");
 	public static final FrozenPlacedFeature MARIGOLD_SPARSE = register("marigold_sparse");
+	public static final FrozenPlacedFeature PINK_TULIP_UNCOMMON = register("pink_tulip_uncommon");
+	public static final FrozenPlacedFeature ALLIUM_UNCOMMON = register("allium_uncommon");
 	public static final FrozenPlacedFeature DATURA = register("datura");
 	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
 	public static final FrozenPlacedFeature ROSE_BUSH = register("rose_bush");
@@ -1081,6 +1084,12 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		MYCELIUM_GROWTH_PLACED.makeAndSetHolder(WWConfiguredFeatures.MYCELIUM_GROWTH.getHolder(),
+			CountPlacement.of(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
 		GRASS_PLACED.makeAndSetHolder(WWConfiguredFeatures.FERN_AND_GRASS.getHolder(),
 			CountPlacement.of(20), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -1185,6 +1194,16 @@ public final class WWPlacedFeatures {
 
 		MARIGOLD_SPARSE.makeAndSetHolder(WWConfiguredFeatures.MARIGOLD_SPARSE.getHolder(),
 			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		PINK_TULIP_UNCOMMON.makeAndSetHolder(WWConfiguredFeatures.PINK_TULIP_UNCOMMON.getHolder(),
+			RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		ALLIUM_UNCOMMON.makeAndSetHolder(WWConfiguredFeatures.ALLIUM_UNCOMMON.getHolder(),
+			RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

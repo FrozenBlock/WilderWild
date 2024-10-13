@@ -236,15 +236,15 @@ public final class WWMiscGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_COMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_DISK_AND_PILE_COMMON.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE_COMMON.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_DISK_AND_PILE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)) {

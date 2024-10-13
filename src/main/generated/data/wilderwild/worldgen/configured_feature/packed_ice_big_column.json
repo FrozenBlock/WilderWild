@@ -8,85 +8,7 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 15,
-              "min_inclusive": 8
-            },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "minecraft:packed_ice"
-            }
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:random_offset",
-            "xz_spread": {
-              "type": "minecraft:uniform",
-              "max_inclusive": 1,
-              "min_inclusive": -1
-            },
-            "y_spread": 0
-          },
-          {
-            "type": "minecraft:environment_scan",
-            "allowed_search_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:air"
-            },
-            "direction_of_search": "down",
-            "max_steps": 12,
-            "target_condition": {
-              "type": "minecraft:solid"
-            }
-          }
-        ]
-      },
-      {
-        "feature": {
-          "type": "frozenlib:upwards_column",
-          "config": {
-            "height": {
-              "type": "minecraft:uniform",
-              "max_inclusive": 13,
-              "min_inclusive": 5
-            },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "minecraft:packed_ice"
-            }
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:random_offset",
-            "xz_spread": {
-              "type": "minecraft:uniform",
-              "max_inclusive": 1,
-              "min_inclusive": -1
-            },
-            "y_spread": 0
-          },
-          {
-            "type": "minecraft:environment_scan",
-            "allowed_search_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:air"
-            },
-            "direction_of_search": "down",
-            "max_steps": 12,
-            "target_condition": {
-              "type": "minecraft:solid"
-            }
-          }
-        ]
-      },
-      {
-        "feature": {
-          "type": "frozenlib:upwards_column",
-          "config": {
-            "height": {
-              "type": "minecraft:uniform",
-              "max_inclusive": 14,
+              "max_inclusive": 9,
               "min_inclusive": 2
             },
             "replaceable_blocks": [],
@@ -125,7 +47,7 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 14,
+              "max_inclusive": 4,
               "min_inclusive": 0
             },
             "replaceable_blocks": [],
@@ -164,7 +86,7 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 14,
+              "max_inclusive": 4,
               "min_inclusive": 0
             },
             "replaceable_blocks": [],
@@ -203,7 +125,85 @@
           "config": {
             "height": {
               "type": "minecraft:uniform",
-              "max_inclusive": 12,
+              "max_inclusive": 4,
+              "min_inclusive": 0
+            },
+            "replaceable_blocks": [],
+            "state": {
+              "Name": "minecraft:packed_ice"
+            }
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 1,
+              "min_inclusive": -1
+            },
+            "y_spread": 0
+          },
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:air"
+            },
+            "direction_of_search": "down",
+            "max_steps": 12,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
+          }
+        ]
+      },
+      {
+        "feature": {
+          "type": "frozenlib:upwards_column",
+          "config": {
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 4,
+              "min_inclusive": 0
+            },
+            "replaceable_blocks": [],
+            "state": {
+              "Name": "minecraft:packed_ice"
+            }
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 1,
+              "min_inclusive": -1
+            },
+            "y_spread": 0
+          },
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:air"
+            },
+            "direction_of_search": "down",
+            "max_steps": 12,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
+          }
+        ]
+      },
+      {
+        "feature": {
+          "type": "frozenlib:upwards_column",
+          "config": {
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 4,
               "min_inclusive": 0
             },
             "replaceable_blocks": [],
