@@ -5,14 +5,14 @@ hi
 -----------------
 # Additions
 - Added Maple trees.
-- Added Maple Grove biome
-  - Chestnut Wolves spawn here
-- Added Marigold.
+- Added Leaf Litters for Maple Leaves.
+- Added Maple Grove biome.
+  - Chestnut Wolves spawn here.
+- Added the Marigold flower.
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
   - This is controlled with the `wilderwild:has_stone_pile_common,` `wilderwild:has_stone_pile,` and `wilderwild:has_stone_pile_rare` tags.
-- Added leaf litters.
-- Added falling leaves.
+- Added falling leaf particles for all leaf types.
 - Added Hollowed Pale Oak Logs and Stripped Hollowed Pale Oak Logs.
 - Added Snapped and Fallen Pale Oak trees to the Pale Garden biome.
 - Added Pale Moss piles to the Pale Garden biome.
@@ -77,13 +77,13 @@ hi
 - Removed altered Dripleaf and Redstone interaction, now only acting like vanilla.
 - Crabs no longer have a maximum spawning height past sea level.
 - The thick variant of Big Nether Fungi can now be grown by placing Fungi in a `+` shape.
-- Significantly decreased Glory of the Snow generation outside Jungles.
+- Significantly decreased Glory of the Snow generation outside Jungle biomes.
 - Split most Tall and Short flower generation into separate features for noise-based flower placement.
   - This change makes flower generation noticeably easier on the eyes, especially in biomes like the Cherry Grove.
-- Decreased flower generation overall.
-- Rose Bushes now generate in Birch Forest biomes.
-- Peonies now generate in Birch Forest biomes.
-- Lilacs now generate in Birch Forest biomes.
+- Slightly decreased flower generation overall.
+- Rose Bushes now generate commonly in Birch Forest biomes.
+- Peonies now generate commonly in Birch Forest biomes.
+- Lilacs now generate commonly in Birch Forest biomes.
 - Bushes will no longer generate naturally on Sand in certain biomes.
 - Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Jellyfish Caves have been renamed to Mesoglea Caves.
@@ -125,7 +125,7 @@ hi
 - Geysers no longer push players flying in Creative mode.
 - PLayer-placed Termites can now break Cherry Wood.
 - The `Windswept Savanna Placement` config option now actually dictates whether Windswept Savannas use modified parameters.
-- Wilder Wild's cactus hurt sounds work once again.
+- Wilder Wild's Cactus hurt sounds work once again.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
