@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.datafix;
+package net.frozenblock.wilderwild.mixin.datafix.boat;
 
 import net.minecraft.util.datafix.fixes.BoatSplitFix;
 import org.spongepowered.asm.mixin.Mixin;
