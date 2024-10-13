@@ -31,6 +31,8 @@
   "item.wilderwild.baobab_nut": "Baobab Nut",
   "item.wilderwild.baobab_boat": "Baobab Boat",
   "item.wilderwild.baobab_chest_boat": "Baobab Boat with Chest",
+  "entity.wilderwild.baobab_boat": "Baobab Boat",
+  "entity.wilderwild.baobab_chest_boat": "Baobab Boat with Chest",
   "block.wilderwild.baobab_button": "Baobab Button",
   "block.wilderwild.baobab_door": "Baobab Door",
   "block.wilderwild.baobab_fence": "Baobab Fence",
@@ -54,6 +56,8 @@
 
   "item.wilderwild.cypress_boat": "Cypress Boat",
   "item.wilderwild.cypress_chest_boat": "Cypress Boat with Chest",
+  "entity.wilderwild.cypress_boat": "Cypress Boat",
+  "entity.wilderwild.cypress_chest_boat": "Cypress Boat with Chest",
   "block.wilderwild.cypress_button": "Cypress Button",
   "block.wilderwild.cypress_door": "Cypress Door",
   "block.wilderwild.cypress_fence": "Cypress Fence",
@@ -77,6 +81,8 @@
 
   "item.wilderwild.palm_boat": "Palm Boat",
   "item.wilderwild.palm_chest_boat": "Palm Boat with Chest",
+  "entity.wilderwild.palm_boat": "Palm Boat",
+  "entity.wilderwild.palm_chest_boat": "Palm Boat with Chest",
   "block.wilderwild.palm_button": "Palm Button",
   "block.wilderwild.coconut": "Coconut",
   "block.wilderwild.palm_door": "Palm Door",
@@ -106,6 +112,8 @@
 
   "item.wilderwild.maple_boat": "Maple Boat",
   "item.wilderwild.maple_chest_boat": "Maple Boat with Chest",
+  "entity.wilderwild.maple_boat": "Maple Boat",
+  "entity.wilderwild.maple_chest_boat": "Maple Boat with Chest",
   "block.wilderwild.maple_button": "Maple Button",
   "block.wilderwild.maple_door": "Maple Door",
   "block.wilderwild.maple_fence": "Maple Fence",
