@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_bottom",
+  "textures": {
+    "side": "wilderwild:block/maple_trapdoor_side",
+    "particle": "wilderwild:block/maple_trapdoor",
+    "texture": "wilderwild:block/maple_trapdoor"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 3, 16],
+      "faces": {
+        "north": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#side"},
+        "east": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#side"},
+        "south": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#side"},
+        "west": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#side"},
+        "up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#texture"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "down"}
+      }
+    }
+  ]
+}

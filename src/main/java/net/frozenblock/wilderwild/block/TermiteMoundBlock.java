@@ -57,26 +57,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		);
 	}
 
-	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
-		return !shouldTermitesSleep(level, getLightLevel(level, pos));
-	}
-
-	public static boolean shouldTermitesSleep(@NotNull Level level, int light) {
-		return level.isNight() && light < MIN_AWAKE_LIGHT_LEVEL;
-	}
-
-	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-		int finalLight = 0;
-		for (Direction direction : Direction.values()) {
-			mutableBlockPos.move(direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
-			finalLight = Math.max(finalLight, newLight);
-			mutableBlockPos.move(direction, -1);
-		}
-		return finalLight;
-	}
-
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
@@ -90,14 +70,19 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
-		if (isSafe != state.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
-			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, isSafe);
+	public BlockState updateShape(
+		@NotNull BlockState state,
+		@NotNull Direction direction,
+		@NotNull BlockState neighborState,
+		@NotNull LevelAccessor level,
+		@NotNull BlockPos currentPos,
+		@NotNull BlockPos neighborPos
+	) {
+		if (!TermiteManager.isStateSafeForTermites(neighborState)) {
+			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
+				.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
 		}
-		if (isSafe != state.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
-			state = state.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, isSafe);
-		}
+		level.scheduleTick(currentPos, this, level.getRandom().nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 		return state;
 	}
 
@@ -118,15 +103,42 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
-		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
-		if (canAwaken != state.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
-			level.setBlock(pos, state.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken), UPDATE_ALL);
-		}
-		if (areTermitesSafe != state.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
-			level.setBlock(pos, state.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe), UPDATE_ALL);
+		BlockState evaluatedState = this.evaluateMoundBlockStateAtPosition(state, level, pos);
+		if (evaluatedState != state) {
+			level.setBlockAndUpdate(pos, evaluatedState);
 		}
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
+	}
+
+	public BlockState evaluateMoundBlockStateAtPosition(@NotNull BlockState moundState, Level level, BlockPos pos) {
+		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
+		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
+		if (canAwaken != moundState.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
+			moundState =  moundState.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken);
+		}
+		if (areTermitesSafe != moundState.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
+			moundState = moundState.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe);
+		}
+		return moundState;
+	}
+
+	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
+		return !shouldTermitesSleep(level, getLightLevel(level, pos));
+	}
+
+	public static boolean shouldTermitesSleep(@NotNull Level level, int light) {
+		return level.isNight() && light < MIN_AWAKE_LIGHT_LEVEL;
+	}
+
+	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+		int finalLight = 0;
+		for (Direction direction : Direction.values()) {
+			mutableBlockPos.setWithOffset(blockPos, direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			finalLight = Math.max(finalLight, newLight);
+		}
+		return finalLight;
 	}
 
 	@Override

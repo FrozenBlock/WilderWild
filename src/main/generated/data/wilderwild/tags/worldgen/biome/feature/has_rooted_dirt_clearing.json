@@ -1,0 +1,74 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_dark_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:parched_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:arid_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_forest",
+      "required": false
+    }
+  ]
+}

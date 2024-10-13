@@ -134,6 +134,7 @@ public final class WWItems {
 	public static final CopperHorn COPPER_HORN = new CopperHorn(new Item.Properties().stacksTo(1), WWInstrumentTags.COPPER_HORNS);
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
 	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("tuba_copper_horn"));
+	public static final ResourceKey<Instrument> RECORDER_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("recorder_copper_horn"));
 	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("flute_copper_horn"));
 	public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("oboe_copper_horn"));
 	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("clarinet_copper_horn"));
@@ -208,13 +209,14 @@ public final class WWItems {
 		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);
 
-		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
-		Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_SAX, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TUBA, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, RECORDER_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_RECORDER, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_FLUTE, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_OBOE, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_CLARINET, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TRUMPET, 32767, 64F));
+		Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(WWSounds.ITEM_COPPER_HORN_TROMBONE, 32767, 64F));
 
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WWInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 

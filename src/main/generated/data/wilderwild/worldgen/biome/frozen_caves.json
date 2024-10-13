@@ -72,7 +72,7 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "wilderwild:ore_ice"
+      "wilderwild:ore_diorite_extra"
     ],
     [
       "wilderwild:snow_disk_upper",
@@ -80,13 +80,12 @@
       "wilderwild:snow_disk_lower",
       "wilderwild:powder_snow_disk_lower",
       "wilderwild:packed_ice_disk",
-      "wilderwild:packed_ice_column",
-      "wilderwild:packed_ice_big_column",
-      "wilderwild:downwards_packed_ice_column",
       "wilderwild:ice_pile",
-      "wilderwild:ice_column",
-      "wilderwild:downwards_ice_column",
-      "wilderwild:ice_disk"
+      "wilderwild:ice_disk",
+      "wilderwild:icicle_patch",
+      "wilderwild:ice_patch_ceiling",
+      "wilderwild:ice_column_patch",
+      "wilderwild:ice_patch"
     ],
     [],
     [
@@ -101,7 +100,9 @@
       "minecraft:patch_pumpkin"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:freeze_top_layer",
+      "wilderwild:diorite_patch",
+      "wilderwild:diorite_patch_ceiling"
     ]
   ],
   "has_precipitation": true,

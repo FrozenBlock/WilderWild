@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:single_mycelium_growth",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      }
+    }
+  ]
+}

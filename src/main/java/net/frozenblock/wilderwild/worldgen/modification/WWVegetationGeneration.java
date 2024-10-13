@@ -51,6 +51,16 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MARIGOLD_SPARSE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PINK_TULIP_UNCOMMON)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PINK_TULIP_UNCOMMON.getKey());
+						}
+
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALLIUM_UNCOMMON)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ALLIUM_UNCOMMON.getKey());
+						}
+
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DATURA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DATURA.getKey());
 						}
@@ -318,6 +328,10 @@ public final class WWVegetationGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_GRASS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_GRASS_AND_GRASS_WATER.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MYCELIUM_GROWTH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MYCELIUM_GROWTH_PLACED.getKey());
 						}
 					}
 				});

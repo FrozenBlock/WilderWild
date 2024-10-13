@@ -36,7 +36,14 @@ Zhen:
  - Retextured the entire Cypress set in 2.4.3.
  - Retextured the Reach Boost icon in 2.4.4.
  - Cracked & Mossy Mud Bricks textures.
- - All Maple, Leaf Litter, and Leaf particle textures.
+ - All Maple textures.
+ - Great feedback on the Maple Forest biome.
+ - Retextured Algae in 3.0.
+ - Retextured the Palm wood set in 3.0.
+ - Updated the Palm Fronds texture in 3.0.
+ - Retextured Coconut blocks in 3.0.
+ - Came up with Mycelium Growths.
+ - Mycelium Growth texture.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -185,5 +192,33 @@ https://freesound.org/people/d.n.audio.uk/sounds/461048/
 https://freesound.org/people/lidem_soundfx/sounds/458476/
 https://freesound.org/people/lidem_soundfx/sounds/458477/
 
-Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
-However, they all originate from freesound.org with some Minecraft sounds mixed in.
+New Dripstone Caves Sounds In 3.0:
+https://freesound.org/people/inchadney/sounds/537193/
+https://freesound.org/people/Sacha.Julien/sounds/725343/
+https://freesound.org/people/paul.hayes/sounds/147809/
+https://freesound.org/people/naturenotesuk/sounds/631778/
+https://freesound.org/people/inchadney/sounds/43724/
+https://freesound.org/people/iwanPlays/sounds/567250/
+https://freesound.org/people/newlocknew/sounds/631485/
+https://freesound.org/people/blaukreuz/sounds/162673/
+
+New Lush Caves Sounds in 3.0:
+https://freesound.org/people/klankbeeld/sounds/260604/
+https://freesound.org/people/Moulaythami/sounds/536930/
+https://freesound.org/people/Syphon64/sounds/135162/
+https://freesound.org/people/Emanuele_Correani/sounds/465164/
+https://freesound.org/people/bloodymilk/sounds/330646/
+https://freesound.org/people/miekyj/sounds/326457/
+https://freesound.org/people/werrie.f_/sounds/594510/
+https://freesound.org/people/crcavol/sounds/154657/
+https://freesound.org/people/Robinhood76/sounds/55691/
+https://freesound.org/people/felix.blume/sounds/584759/
+
+New Crab Sounds in 3.0:
+All sounds from Pond5 were purchased, and therefore are usable under their Commercial Usage licenses.
+https://www.pond5.com/sound-effects/item/48146378-crab-injured-1
+https://www.pond5.com/sound-effects/item/48146389-crab-injured-2
+https://www.pond5.com/sound-effects/item/48146400-crab-injured-3
+https://www.pond5.com/sound-effects/item/48146399-crab-breathe-1
+
+All Copper Horn Sounds as of 3.0 are sourced from the Korg Nautilus keyboard.

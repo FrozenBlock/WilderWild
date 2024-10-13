@@ -13,8 +13,8 @@
             "noise_scale": 0.0325,
             "only_place_when_exposed": true,
             "placement_chance": 1.0,
-            "radius": 14,
-            "replaceable_blocks": "wilderwild:packed_ice_replaceable",
+            "radius": 5,
+            "replaceable_blocks": "wilderwild:feature/ice_feature_replaceable",
             "scale_y": true,
             "state": {
               "type": "minecraft:simple_state_provider",
@@ -38,8 +38,8 @@
             "noise_scale": 0.0325,
             "only_place_when_exposed": true,
             "placement_chance": 1.0,
-            "radius": 14,
-            "replaceable_blocks": "wilderwild:packed_ice_replaceable",
+            "radius": 5,
+            "replaceable_blocks": "wilderwild:feature/ice_feature_replaceable",
             "scale_y": true,
             "state": {
               "type": "minecraft:simple_state_provider",
@@ -63,8 +63,8 @@
             "noise_scale": 0.0325,
             "only_place_when_exposed": true,
             "placement_chance": 1.0,
-            "radius": 14,
-            "replaceable_blocks": "wilderwild:packed_ice_replaceable",
+            "radius": 5,
+            "replaceable_blocks": "wilderwild:feature/ice_feature_replaceable",
             "scale_y": true,
             "state": {
               "type": "minecraft:simple_state_provider",

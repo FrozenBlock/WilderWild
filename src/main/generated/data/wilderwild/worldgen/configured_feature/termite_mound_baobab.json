@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:column_with_disk_feature",
   "config": {
-    "disk_blocks": "#wilderwild:termite_disk_blocks",
+    "disk_blocks": "#wilderwild:feature/termite_disk_blocks",
     "height": {
       "type": "minecraft:uniform",
       "value": {
@@ -16,7 +16,7 @@
         "min_inclusive": 4
       }
     },
-    "replaceable_blocks": "#wilderwild:termite_disk_replaceable",
+    "replaceable_blocks": "#wilderwild:feature/termite_disk_replaceable",
     "state": {
       "Name": "wilderwild:termite_mound",
       "Properties": {

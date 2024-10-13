@@ -50,7 +50,6 @@ public final class WWSharedWorldgen {
 		private Swamp() {
 			throw new UnsupportedOperationException("Swamp contains only static declarations.");
 		}
-
 	}
 
 	public static final class MangroveSwamp {
@@ -82,7 +81,6 @@ public final class WWSharedWorldgen {
 		public static final Climate.Parameter CONTINENTALNESS = Continentalness.COAST;
 		public static final Climate.Parameter EROSION = Erosion.EROSION_4;
 		public static final float OFFSET = 0F;
-
 
 		private StonyShoreTaiga() {
 			throw new UnsupportedOperationException("StonyShoreTaiga contains only static declarations.");

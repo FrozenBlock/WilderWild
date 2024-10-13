@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import java.util.Optional;
+import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -32,7 +34,6 @@ import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.lib.item.api.axe.AxeBehaviors;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WWConstants;
@@ -50,6 +51,7 @@ import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
+import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
@@ -72,6 +74,7 @@ import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
@@ -79,16 +82,19 @@ import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.BaobabSaplingGenera
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.CypressSaplingGenerator;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.MapleSaplingGenerator;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.PalmSaplingGenerator;
+import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
@@ -130,6 +136,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
@@ -251,9 +258,24 @@ public final class WWBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
 
 	// LEAF LITTER
-	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(YELLOW_MAPLE_LEAVES, WWParticleTypes.YELLOW_MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(ORANGE_MAPLE_LEAVES, WWParticleTypes.ORANGE_MAPLE_LEAVES, 0.04F);
-	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(RED_MAPLE_LEAVES, WWParticleTypes.RED_MAPLE_LEAVES, 0.04F);
+	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter(
+		YELLOW_MAPLE_LEAVES,
+		WWParticleTypes.YELLOW_MAPLE_LEAVES,
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+	);
+	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(
+		ORANGE_MAPLE_LEAVES,
+		WWParticleTypes.ORANGE_MAPLE_LEAVES,
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+	);
+	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(
+		RED_MAPLE_LEAVES,
+		WWParticleTypes.RED_MAPLE_LEAVES,
+		0.04F,
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+	);
 
 	// SCULK
 	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
@@ -364,7 +386,8 @@ public final class WWBlocks {
 	public static final SeedingFlowerBlock SEEDING_DANDELION = new SeedingFlowerBlock(
 		MobEffects.SLOW_FALLING,
 		12,
-		FabricBlockSettings.copyOf(Blocks.DANDELION)
+		Blocks.DANDELION,
+		BlockBehaviour.Properties.copy(Blocks.DANDELION)
 	);
 
 	public static final FlowerPotBlock POTTED_SEEDING_DANDELION = Blocks.flowerPot(SEEDING_DANDELION);
@@ -383,6 +406,11 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.copy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_MARIGOLD = Blocks.flowerPot(MARIGOLD);
+
+	public static final MyceliumGrowthBlock MYCELIUM_GROWTH = new MyceliumGrowthBlock(
+		BlockBehaviour.Properties.copy(Blocks.GRASS).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.NETHER_SPROUTS)
+	);
+	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		FabricBlockSettings.copyOf(Blocks.DANDELION)
@@ -552,7 +580,7 @@ public final class WWBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
-			.strength(0.85F)
+			.strength(3F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
@@ -925,7 +953,7 @@ public final class WWBlocks {
 		.pressurePlate(MAPLE_PRESSURE_PLATE)
 		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
 		.door(MAPLE_DOOR)
-		.trapdoor(MAPLE_TRAPDOOR)
+		//.trapdoor(MAPLE_TRAPDOOR)
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
@@ -1146,6 +1174,8 @@ public final class WWBlocks {
 		registerBlock("potted_carnation", POTTED_CARNATION);
 		registerBlockAfter(CARNATION, "marigold", MARIGOLD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_marigold", POTTED_MARIGOLD);
+		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
 		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.WITHER_ROSE, "blue_giant_glory_of_the_snow", BLUE_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.WITHER_ROSE, "pink_giant_glory_of_the_snow", PINK_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1314,7 +1344,12 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static LeafLitterBlock leafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, float litterChance) {
+	public static LeafLitterBlock leafLitter(
+		Block sourceBlock,
+		@NotNull ParticleType<LeafParticleOptions> particleType,
+		float litterChance,
+		Supplier<Double> frequencyModifier
+	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
 			sourceBlock,
@@ -1322,6 +1357,7 @@ public final class WWBlocks {
 			litterChance,
 			particleType,
 			0.0225F,
+			frequencyModifier,
 			0.125F,
 			3F
 		);
@@ -1334,6 +1370,7 @@ public final class WWBlocks {
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
 		float particleChance,
+		Supplier<Double> frequencyModifier,
 		float quadSize,
 		float particleGravityScale
 	) {
@@ -1344,6 +1381,7 @@ public final class WWBlocks {
 			litterChance,
 			particleType,
 			particleChance,
+			frequencyModifier,
 			quadSize,
 			particleGravityScale
 		);
@@ -1531,6 +1569,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(PINK_GIANT_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
@@ -1559,6 +1598,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);
+		flammableBlockRegistry.add(MYCELIUM_GROWTH, 100, 60);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);
@@ -1807,38 +1847,74 @@ public final class WWBlocks {
 				}
 			}
 		);
+
+		BonemealBehaviors.register(
+			Blocks.MYCELIUM,
+			new BonemealBehaviors.BonemealBehavior() {
+				@Override
+				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
+					return level.getBlockState(pos.above()).isAir();
+				}
+
+				@Override
+				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+					BlockPos blockPos = pos.above();
+					Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
+						.registryOrThrow(Registries.PLACED_FEATURE)
+						.getHolder(WWMiscPlaced.MYCELIUM_GROWTH_BONEMEAL.getKey());
+
+					masterLoop:
+					for (int i = 0; i < 128; i++) {
+						BlockPos blockPos2 = blockPos;
+
+						for (int j = 0; j < i / 16; j++) {
+							blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
+							if (!level.getBlockState(blockPos2.below()).is(Blocks.MYCELIUM) || level.getBlockState(blockPos2).isCollisionShapeFullBlock(level, blockPos2)) {
+								continue masterLoop;
+							}
+						}
+
+						BlockState blockState2 = level.getBlockState(blockPos2);
+						if (blockState2.isAir()) {
+							if (optional.isEmpty()) continue;
+							optional.get().value().place(level, level.getChunkSource().getGenerator(), random, blockPos2);
+						}
+					}
+				}
+			}
+		);
 	}
 
 	private static void registerAxe() {
-		AxeBehaviors.register(Blocks.OAK_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.BIRCH_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.CHERRY_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.ACACIA_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.WARPED_STEM, HollowedLogBlock.createHollowBehavior(HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(PALM_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(MAPLE_LOG, HollowedLogBlock.createHollowBehavior(HOLLOWED_MAPLE_LOG, false));
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.OAK_LOG, HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.BIRCH_LOG, HOLLOWED_BIRCH_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.CHERRY_LOG, HOLLOWED_CHERRY_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.SPRUCE_LOG, HOLLOWED_SPRUCE_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.DARK_OAK_LOG, HOLLOWED_DARK_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.JUNGLE_LOG, HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.ACACIA_LOG, HOLLOWED_ACACIA_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.MANGROVE_LOG, HOLLOWED_MANGROVE_LOG);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.CRIMSON_STEM, HOLLOWED_CRIMSON_STEM);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.WARPED_STEM, HOLLOWED_WARPED_STEM);
+		HollowedLogBlock.registerAxeHollowBehavior(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(PALM_LOG, HOLLOWED_PALM_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(MAPLE_LOG, HOLLOWED_MAPLE_LOG);
 		//STRIPPED
-		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.register(STRIPPED_BAOBAB_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.register(STRIPPED_CYPRESS_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.register(STRIPPED_PALM_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_PALM_LOG, false));
-		AxeBehaviors.register(STRIPPED_MAPLE_LOG, HollowedLogBlock.createHollowBehavior(STRIPPED_HOLLOWED_MAPLE_LOG, false));
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_OAK_LOG, STRIPPED_HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_BIRCH_LOG, STRIPPED_HOLLOWED_BIRCH_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_CHERRY_LOG, STRIPPED_HOLLOWED_CHERRY_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_SPRUCE_LOG, STRIPPED_HOLLOWED_SPRUCE_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_DARK_OAK_LOG, STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_JUNGLE_LOG, STRIPPED_HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_MANGROVE_LOG, STRIPPED_HOLLOWED_MANGROVE_LOG);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM);
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
 	}
 
 	private static void registerInventories() {

@@ -40,11 +40,12 @@ public final class CopperHornRecipeProvider {
 	static void buildRecipes(Consumer<FinishedRecipe> exporter) {
 		copperHorn(exporter, "clarinet", Instruments.DREAM_GOAT_HORN, WWItems.CLARINET_COPPER_HORN);
 		copperHorn(exporter, "flute", Instruments.CALL_GOAT_HORN, WWItems.FLUTE_COPPER_HORN);
-		copperHorn(exporter, "oboe", Instruments.SING_GOAT_HORN,  WWItems.OBOE_COPPER_HORN);
-		copperHorn(exporter, "sax", Instruments.PONDER_GOAT_HORN,  WWItems.SAX_COPPER_HORN);
-		copperHorn(exporter, "trombone", Instruments.SEEK_GOAT_HORN,  WWItems.TROMBONE_COPPER_HORN);
-		copperHorn(exporter, "trumpet", Instruments.ADMIRE_GOAT_HORN,  WWItems.TRUMPET_COPPER_HORN);
-		copperHorn(exporter, "tuba", Instruments.FEEL_GOAT_HORN,  WWItems.TUBA_COPPER_HORN);
+		copperHorn(exporter, "oboe", Instruments.SING_GOAT_HORN, WWItems.OBOE_COPPER_HORN);
+		copperHorn(exporter, "sax", Instruments.PONDER_GOAT_HORN, WWItems.SAX_COPPER_HORN);
+		copperHorn(exporter, "trombone", Instruments.SEEK_GOAT_HORN, WWItems.TROMBONE_COPPER_HORN);
+		copperHorn(exporter, "trumpet", Instruments.ADMIRE_GOAT_HORN, WWItems.TRUMPET_COPPER_HORN);
+		copperHorn(exporter, "tuba", Instruments.FEEL_GOAT_HORN, WWItems.TUBA_COPPER_HORN);
+		copperHorn(exporter, "recorder", Instruments.YEARN_GOAT_HORN, WWItems.RECORDER_COPPER_HORN);
 	}
 
 	private static void copperHorn(Consumer<FinishedRecipe> exporter, String name, ResourceKey<Instrument> goatHornInstrument, ResourceKey<Instrument> copperHornInstrument) {

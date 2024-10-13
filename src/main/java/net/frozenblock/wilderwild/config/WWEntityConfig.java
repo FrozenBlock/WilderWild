@@ -179,7 +179,7 @@ public final class WWEntityConfig {
 		public boolean spawnCrabs = true;
 
 		@EntrySyncData("crabSpawnCap")
-		public int crabSpawnCap = 25;
+		public int crabSpawnCap = 15;
 
 		@EntrySyncData("reachAffectsAttack")
 		public boolean reachAffectsAttack = false;

@@ -57,6 +57,21 @@ public final class WWAmbienceAndMiscConfig {
 				WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = config.wind.windDisturbanceParticleSpawnAttempts;
 				PARTICLE_WIND_MOVEMENT = config.wind.particleWindMovement;
 				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
+
+				Client.OAK_LEAF_FREQUENCY = config.leafParticles.oakFrequency / 100D;
+				Client.SPRUCE_LEAF_FREQUENCY = config.leafParticles.spruceFrequency / 100D;
+				Client.BIRCH_LEAF_FREQUENCY = config.leafParticles.birchFrequency / 100D;
+				Client.JUNGLE_LEAF_FREQUENCY = config.leafParticles.jungleFrequency / 100D;
+				Client.ACACIA_LEAF_FREQUENCY = config.leafParticles.acaciaFrequency / 100D;
+				Client.DARK_OAK_LEAF_FREQUENCY = config.leafParticles.darkOakFrequency / 100D;
+				Client.MANGROVE_LEAF_FREQUENCY = config.leafParticles.mangroveFrequency / 100D;
+				Client.CHERRY_LEAF_FREQUENCY = config.leafParticles.cherryFrequency / 100D;
+				Client.AZALEA_LEAF_FREQUENCY = config.leafParticles.azaleaFrequency / 100D;
+				Client.FLOWERING_AZALEA_LEAF_FREQUENCY = config.leafParticles.floweringAzaleaFrequency / 100D;
+				Client.BAOBAB_LEAF_FREQUENCY = config.leafParticles.baobabFrequency / 100D;
+				Client.CYPRESS_LEAF_FREQUENCY = config.leafParticles.cypressFrequency / 100D;
+				Client.PALM_FROND_FREQUENCY = config.leafParticles.palmFrequency / 100D;
+				Client.MAPLE_LEAF_FREQUENCY = config.leafParticles.mapleFrequency / 100D;
 			}
 		}
 	);
@@ -87,11 +102,31 @@ public final class WWAmbienceAndMiscConfig {
 	public static volatile int PARTICLE_WIND_MOVEMENT = 100;
 	public static volatile int FIREWORK_WIND_MOVEMENT = 100;
 
+	public static class Client {
+		public static volatile double OAK_LEAF_FREQUENCY = 1D;
+		public static volatile double SPRUCE_LEAF_FREQUENCY = 1D;
+		public static volatile double BIRCH_LEAF_FREQUENCY = 1D;
+		public static volatile double JUNGLE_LEAF_FREQUENCY = 1D;
+		public static volatile double ACACIA_LEAF_FREQUENCY = 1D;
+		public static volatile double DARK_OAK_LEAF_FREQUENCY = 1D;
+		public static volatile double MANGROVE_LEAF_FREQUENCY = 1D;
+		public static volatile double CHERRY_LEAF_FREQUENCY = 1D;
+		public static volatile double AZALEA_LEAF_FREQUENCY = 1D;
+		public static volatile double FLOWERING_AZALEA_LEAF_FREQUENCY = 1D;
+		public static volatile double BAOBAB_LEAF_FREQUENCY = 1D;
+		public static volatile double CYPRESS_LEAF_FREQUENCY = 1D;
+		public static volatile double PALM_FROND_FREQUENCY = 1D;
+		public static volatile double MAPLE_LEAF_FREQUENCY = 1D;
+	}
+
 	@CollapsibleObject
 	public final WaterColorConfig waterColors = new WaterColorConfig();
 
 	@CollapsibleObject
 	public final Wind wind = new Wind();
+
+	@CollapsibleObject
+	public final LeafParticles leafParticles = new LeafParticles();
 
 	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
@@ -208,5 +243,49 @@ public final class WWAmbienceAndMiscConfig {
 
 		@EntrySyncData("fireworkWindMovement")
 		public int fireworkWindMovement = 100;
+	}
+
+	public static class LeafParticles {
+		@EntrySyncData(value = "oakFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int oakFrequency = 100;
+
+		@EntrySyncData(value = "spruceFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int spruceFrequency = 100;
+
+		@EntrySyncData(value = "birchFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int birchFrequency = 100;
+
+		@EntrySyncData(value = "jungleFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int jungleFrequency = 100;
+
+		@EntrySyncData(value = "acaciaFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int acaciaFrequency = 100;
+
+		@EntrySyncData(value = "darkOakFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int darkOakFrequency = 100;
+
+		@EntrySyncData(value = "mangroveFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int mangroveFrequency = 100;
+
+		@EntrySyncData(value = "cherryFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int cherryFrequency = 100;
+
+		@EntrySyncData(value = "azaleaFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int azaleaFrequency = 100;
+
+		@EntrySyncData(value = "floweringAzaleaFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int floweringAzaleaFrequency = 100;
+
+		@EntrySyncData(value = "baobabFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int baobabFrequency = 100;
+
+		@EntrySyncData(value = "cypressFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int cypressFrequency = 100;
+
+		@EntrySyncData(value = "palmFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int palmFrequency = 100;
+
+		@EntrySyncData(value = "mapleFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int mapleFrequency = 100;
 	}
 }
