@@ -58,7 +58,7 @@ import org.jetbrains.annotations.Nullable;
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
 	public static final int GROWTH_CHANCE = 16;
-	public static final Vec3 ENTITY_SLOWDOWN = new Vec3(0.8D, 0.75D, 0.8D);
+	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(0.8D, 0.75D, 0.8D);
 	public static final float DAMAGE = 0.5F;
 	public static final float USE_ON_DAMAGE = 1F;
 	public static final int MIN_PEARS_FROM_HARVEST = 1;
@@ -101,7 +101,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN);
+		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
 		if (!(entity instanceof ItemEntity)) {
 			entity.hurt(level.damageSources().cactus(), DAMAGE);
 		}
@@ -130,10 +130,17 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hit
+	) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isFullyGrown(state)) {
-			pickPlayer(level, pos, state, player, hand, stack);
+			onPlayerPick(level, pos, state, player, hand, stack);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.use(state, level, pos, player, hand, hit);
@@ -147,11 +154,10 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		popResource(level, pos, pear);
 	}
 
-	public static void pickPlayer(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
-		basePick(level, pos, state);
+	public static void onPlayerPick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
 		if (!level.isClientSide) {
 			boolean shears = stack.is(Items.SHEARS);
-			pick(level, pos, state, shears, player);
+			onPricklyPearPick(level, pos, state, shears, player);
 			if (shears) {
 				stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
 			} else {
@@ -160,7 +166,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		}
 	}
 
-	public static void pick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
+	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
 		basePick(level, pos, state);
 		if (!level.isClientSide) {
 			if (shears) {

@@ -107,7 +107,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
 
-		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_EXTRA)
+		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
 			.add(EntityType.ARROW)
 			.add(EntityType.SPECTRAL_ARROW);
 

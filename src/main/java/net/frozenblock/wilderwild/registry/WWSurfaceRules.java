@@ -327,7 +327,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource mapleGroveRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.MAPLE_GROVE),
+			SurfaceRules.isBiome(WWWorldgen.MAPLE_FOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),

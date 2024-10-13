@@ -8,7 +8,6 @@
     {
       "id": "#c:glass_panes",
       "required": false
-    },
-    "wilderwild:echo_glass"
+    }
   ]
 }

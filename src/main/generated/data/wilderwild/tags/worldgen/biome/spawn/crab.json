@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:beach",
+    {
+      "id": "wilderwild:warm_beach",
+      "required": false
+    },
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:spawn/common_crab",
+      "required": false
+    }
+  ]
+}

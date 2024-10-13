@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_orientable_trapdoor_open",
   "textures": {
-    "1": "wilderwild:block/palm_door_sides",
+    "side": "wilderwild:block/palm_door_sides",
     "particle": "wilderwild:block/palm_trapdoor",
     "texture": "wilderwild:block/palm_trapdoor"
   },
@@ -11,11 +11,11 @@
       "to": [16, 16, 16],
       "faces": {
         "north": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#texture"},
-        "east": {"uv": [3, 0, 0, 16], "texture": "#1"},
+        "east": {"uv": [3, 0, 0, 16], "texture": "#side"},
         "south": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#texture", "cullface": "south"},
-        "west": {"uv": [3, 0, 0, 16], "rotation": 180, "texture": "#1"},
-        "up": {"uv": [0, 16, 3, 0], "rotation": 90, "texture": "#1"},
-        "down": {"uv": [0, 16, 3, 0], "rotation": 270, "texture": "#1"}
+        "west": {"uv": [3, 0, 0, 16], "rotation": 180, "texture": "#side"},
+        "up": {"uv": [0, 16, 3, 0], "rotation": 90, "texture": "#side"},
+        "down": {"uv": [0, 16, 3, 0], "rotation": 270, "texture": "#side"}
       }
     }
   ]

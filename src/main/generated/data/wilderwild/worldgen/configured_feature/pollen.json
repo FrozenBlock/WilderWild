@@ -2,7 +2,7 @@
   "type": "minecraft:multiface_growth",
   "config": {
     "block": "wilderwild:pollen",
-    "can_be_placed_on": "#wilderwild:pollen_feature_placeable",
+    "can_be_placed_on": "#wilderwild:feature/pollen_feature_placeable",
     "can_place_on_ceiling": true,
     "can_place_on_floor": true,
     "can_place_on_wall": true,

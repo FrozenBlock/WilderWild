@@ -168,7 +168,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 		NON_PEARLESCENT_JELLYFISH_PER_LEVEL.clear();
 	}
 
-	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean checkJellyfishSpawnRules(
+		@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
+	) {
 		if (MobSpawnType.isSpawner(spawnType)) {
 			return true;
 		} else if (!WWEntityConfig.get().jellyfish.spawnJellyfish) {
@@ -396,7 +398,15 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (this.level().isClientSide) {
 			if (this.forcedAgeTimer > 0) {
 				if (this.forcedAgeTimer % 4 == 0) {
-					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY(), this.getRandomZ(1D), 0D, 0D, 0D);
+					this.level().addParticle(
+						ParticleTypes.HAPPY_VILLAGER,
+						this.getRandomX(1D),
+						this.getRandomY(),
+						this.getRandomZ(1D),
+						0D,
+						0D,
+						0D
+					);
 				}
 				--this.forcedAgeTimer;
 			}
@@ -475,7 +485,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 								playSoundForExcept = player;
 								WWJellyfishStingPacket.sendTo(player, baby);
 							}
-							this.level().playSound(playSoundForExcept, entity.getX(), entity.getY(), entity.getZ(), WWSounds.ENTITY_JELLYFISH_STING, this.getSoundSource(), 1F, baby ? STING_PITCH_BABY : STING_PITCH);
+							this.level().playSound(
+								playSoundForExcept,
+								entity.getX(),
+								entity.getY(),
+								entity.getZ(),
+								WWSounds.ENTITY_JELLYFISH_STING,
+								this.getSoundSource(),
+								1F,
+								baby ? STING_PITCH_BABY : STING_PITCH
+							);
 						}
 					}
 				}

@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#wilderwild:beta_beach/sand",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:beta_beach/multi_layer_sand",
+      "required": false
+    },
+    {
+      "id": "wilderwild:oasis",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_river",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_beach",
+      "required": false
+    }
+  ]
+}

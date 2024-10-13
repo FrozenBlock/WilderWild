@@ -242,10 +242,11 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageTypeSounds.addDamageSound(
-			level.damageSources().damageTypes.getOrThrow(DamageTypes.CACTUS),
-			WWSounds.PLAYER_HURT_CACTUS,
-			WWConstants.id("cactus")
+		ServerWorldEvents.LOAD.register(
+			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
+				level.damageSources().damageTypes.getOrThrow(DamageTypes.CACTUS),
+				WWSounds.PLAYER_HURT_CACTUS,
+				WWConstants.id("cactus")
 			)
 		);
 
@@ -279,7 +280,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		addBlocks(new Block[]{DANDELION,
+		addBlocks(new Block[]{
+			DANDELION,
 			POPPY,
 			BLUE_ORCHID,
 			ALLIUM,
@@ -441,7 +443,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_FOREST);
 						addBiomeRequirement(advancement, WWWorldgen.DYING_MIXED_FOREST);
 						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_MIXED_FOREST);
-						addBiomeRequirement(advancement, WWWorldgen.MAPLE_GROVE);
+						addBiomeRequirement(advancement, WWWorldgen.MAPLE_FOREST);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(

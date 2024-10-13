@@ -29,6 +29,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -105,7 +106,9 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 				level.destroyBlock(pos, false);
 			}
 			if (!entity.getType().is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
-				entity.setDeltaMovement(entity.getDeltaMovement().multiply(ENTITY_SLOWDOWN, ENTITY_SLOWDOWN, ENTITY_SLOWDOWN));
+				if (entity instanceof Player player && player.getAbilities().flying) return;
+				entity.resetFallDistance();
+				entity.setDeltaMovement(entity.getDeltaMovement().scale(ENTITY_SLOWDOWN));
 			}
 		}
 	}

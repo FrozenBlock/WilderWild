@@ -1,0 +1,58 @@
+{
+  "type": "frozenlib:combo_feature",
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "type": "minecraft:random_selector",
+          "config": {
+            "default": "wilderwild:red_maple_bees_checked",
+            "features": [
+              {
+                "chance": 0.025,
+                "feature": "wilderwild:red_maple_checked"
+              },
+              {
+                "chance": 0.15,
+                "feature": "wilderwild:round_red_maple_checked"
+              },
+              {
+                "chance": 0.25,
+                "feature": "wilderwild:tall_red_maple_checked"
+              },
+              {
+                "chance": 0.0785,
+                "feature": "wilderwild:dying_red_maple_checked"
+              },
+              {
+                "chance": 0.37,
+                "feature": "wilderwild:tall_red_maple_bees_checked"
+              },
+              {
+                "chance": 0.0785,
+                "feature": "wilderwild:tall_dying_red_maple_checked"
+              },
+              {
+                "chance": 0.37,
+                "feature": "wilderwild:red_maple_bees_checked"
+              },
+              {
+                "chance": 0.2,
+                "feature": "wilderwild:short_red_maple_checked"
+              },
+              {
+                "chance": 0.4,
+                "feature": "wilderwild:big_shrub_red_maple_checked"
+              }
+            ]
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": "wilderwild:red_maple_leaf_litter",
+        "placement": []
+      }
+    ]
+  }
+}
