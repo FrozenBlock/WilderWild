@@ -37,7 +37,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
-import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
+import net.frozenblock.lib.sound.api.damagesource.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
@@ -84,6 +84,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -236,8 +237,8 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(
-			level.damageSources().cactus(),
+		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageTypeSounds.addDamageSound(
+			level.damageSources().damageTypes.getOrThrow(DamageTypes.CACTUS),
 			WWSounds.PLAYER_HURT_CACTUS,
 			WWConstants.id("cactus")
 			)
