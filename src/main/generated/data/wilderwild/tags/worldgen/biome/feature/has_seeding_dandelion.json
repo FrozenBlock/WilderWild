@@ -7,10 +7,7 @@
     "minecraft:windswept_hills",
     "minecraft:windswept_forest",
     "minecraft:dark_forest",
-    {
-      "id": "minecraft:cherry_grove",
-      "required": false
-    },
+    "minecraft:cherry_grove",
     {
       "id": "wilderwild:semi_birch_forest",
       "required": false
@@ -41,6 +38,10 @@
     },
     {
       "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_forest",
       "required": false
     }
   ]

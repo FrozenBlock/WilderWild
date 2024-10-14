@@ -5,10 +5,7 @@
     "minecraft:forest",
     "minecraft:flower_forest",
     "minecraft:sunflower_plains",
-    {
-      "id": "minecraft:cherry_grove",
-      "required": false
-    },
+    "minecraft:cherry_grove",
     {
       "id": "wilderwild:flower_field",
       "required": false

@@ -4,7 +4,11 @@
     "default": "wilderwild:oak_checked",
     "features": [
       {
-        "chance": 0.39,
+        "chance": 0.33,
+        "feature": "wilderwild:spruce_short_checked"
+      },
+      {
+        "chance": 0.29,
         "feature": "wilderwild:spruce_checked"
       },
       {
@@ -16,11 +20,7 @@
         "feature": "wilderwild:dying_fungus_pine_checked"
       },
       {
-        "chance": 0.13,
-        "feature": "wilderwild:spruce_short_checked"
-      },
-      {
-        "chance": 0.27,
+        "chance": 0.12,
         "feature": "wilderwild:fancy_oak_bees_0004"
       },
       {

@@ -245,5 +245,8 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("generateMapleForest")
 		public boolean generateMapleForest = true;
+
+		@EntrySyncData("generateSparseForest")
+		public boolean generateSparseForest = true;
 	}
 }
