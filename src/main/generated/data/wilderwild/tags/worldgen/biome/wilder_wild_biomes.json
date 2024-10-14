@@ -111,6 +111,10 @@
     {
       "id": "wilderwild:maple_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:sparse_forest",
+      "required": false
     }
   ]
 }

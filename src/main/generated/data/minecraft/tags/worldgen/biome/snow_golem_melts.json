@@ -9,6 +9,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:parched_forest",
+      "required": false
+    },
+    {
       "id": "wilderwild:oasis",
       "required": false
     },

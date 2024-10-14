@@ -8,6 +8,7 @@ hi
 - Added Leaf Litters for Maple Leaves.
 - Added Maple Grove biome.
   - Chestnut Wolves spawn here.
+- Added the Sparse Forest transition biome.
 - Added the Marigold flower.
 - Added better transitions/fizzling edges for Coarse Dirt in biomes where these blocks are prominent.
 - Stone piles now generate in Stony Shores, Flower Forests, Sunflower Plains, and Maple Groves.
@@ -84,6 +85,7 @@ hi
 - Peonies now generate commonly in Birch Forest biomes.
 - Lilacs now generate commonly in Birch Forest biomes.
 - Bushes will no longer generate naturally on Sand in certain biomes.
+- Decreased the amount of "Fancy" Oak Trees and made regular Spruce Trees less common in favor of Short Spruce Trees in the Mixed Forest biome.
 - Termite Mounds no longer have a chance to generate with a disk of Sand beneath them.
 - Jellyfish Caves have been renamed to Mesoglea Caves.
 - Decreased the amount of space Parched Forests take up.
@@ -125,6 +127,7 @@ hi
 - PLayer-placed Termites can now break Cherry Wood.
 - The `Windswept Savanna Placement` config option now actually dictates whether Windswept Savannas use modified parameters.
 - Wilder Wild's Cactus hurt sounds work once again.
+- Fixed the Mixed Forest biome not generating on certain Forest-Taiga borders.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.

@@ -38,6 +38,10 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:sparse_forest",
+      "required": false
     }
   ]
 }

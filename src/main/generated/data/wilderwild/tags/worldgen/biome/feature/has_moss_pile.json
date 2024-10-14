@@ -4,10 +4,7 @@
     "minecraft:bamboo_jungle",
     "minecraft:jungle",
     "minecraft:swamp",
-    {
-      "id": "minecraft:mangrove_swamp",
-      "required": false
-    },
+    "minecraft:mangrove_swamp",
     {
       "id": "wilderwild:cypress_wetlands",
       "required": false
