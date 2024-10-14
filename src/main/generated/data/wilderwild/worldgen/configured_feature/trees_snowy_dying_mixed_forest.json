@@ -4,7 +4,11 @@
     "default": "wilderwild:dead_oak_branches_checked",
     "features": [
       {
-        "chance": 0.39,
+        "chance": 0.13,
+        "feature": "wilderwild:spruce_short_checked"
+      },
+      {
+        "chance": 0.25,
         "feature": "wilderwild:spruce_checked"
       },
       {
@@ -14,10 +18,6 @@
       {
         "chance": 0.02,
         "feature": "wilderwild:dying_fungus_pine_checked"
-      },
-      {
-        "chance": 0.13,
-        "feature": "wilderwild:spruce_short_checked"
       },
       {
         "chance": 0.22,

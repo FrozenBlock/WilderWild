@@ -8,10 +8,7 @@
     "minecraft:plains",
     "minecraft:flower_forest",
     "minecraft:sunflower_plains",
-    {
-      "id": "minecraft:cherry_grove",
-      "required": false
-    },
+    "minecraft:cherry_grove",
     {
       "id": "wilderwild:flower_field",
       "required": false
@@ -58,6 +55,10 @@
     },
     {
       "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_forest",
       "required": false
     }
   ]

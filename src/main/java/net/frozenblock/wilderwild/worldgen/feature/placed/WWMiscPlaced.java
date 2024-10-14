@@ -139,6 +139,7 @@ public final class WWMiscPlaced {
 
 	// DYING FOREST
 	public static final FrozenPlacedFeature COARSE_DIRT_DISK_AND_PILE = WWPlacementUtils.register("coarse_dirt_disk_and_pile");
+	public static final FrozenPlacedFeature COARSE_DIRT_DISK_AND_PILE_RARE = WWPlacementUtils.register("coarse_dirt_disk_and_pile_rare");
 	public static final FrozenPlacedFeature STONE_DISK_AND_PILE_COMMON = WWPlacementUtils.register("stone_disk_and_pile_common");
 	public static final FrozenPlacedFeature STONE_DISK_AND_PILE = WWPlacementUtils.register("stone_disk_and_pile");
 	public static final FrozenPlacedFeature STONE_DISK_AND_PILE_RARE = WWPlacementUtils.register("stone_disk_and_pile_rare");
@@ -608,6 +609,13 @@ public final class WWMiscPlaced {
 
 		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_DISK_AND_PILE.getHolder(),
 			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		COARSE_DIRT_DISK_AND_PILE_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_DISK_AND_PILE.getHolder(),
+			RarityFilter.onAverageOnceEvery(35),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()

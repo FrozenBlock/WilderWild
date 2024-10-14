@@ -98,6 +98,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature TREES_SNOWY_DYING_MIXED_FOREST = register("trees_snowy_dying_mixed_forest");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
+	public static final FrozenPlacedFeature TREES_SPARSE_FOREST = register("trees_sparse_forest");
 	public static final FrozenPlacedFeature TREES_FLOWER_FOREST = register("trees_flower_forest");
 	public static final FrozenPlacedFeature DARK_FOREST_VEGETATION = register("dark_forest_vegetation");
 	public static final FrozenPlacedFeature OLD_GROWTH_DARK_FOREST_VEGETATION = register("old_growth_dark_forest_vegetation");
@@ -513,6 +514,13 @@ public final class WWPlacedFeatures {
 
 		TREES_SEMI_BIRCH_AND_OAK.makeAndSetHolder(WWConfiguredFeatures.TREES_SEMI_BIRCH_AND_OAK.getHolder(),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(11, 0.1F, 1))
+				.add(
+					WWPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_SPARSE_FOREST.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH_AND_OAK_CALM.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 2))
 				.add(
 					WWPlacementUtils.TREE_CLEARING_FILTER
 				).build()
