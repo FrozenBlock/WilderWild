@@ -444,6 +444,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWWorldgen.DYING_MIXED_FOREST);
 						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_MIXED_FOREST);
 						addBiomeRequirement(advancement, WWWorldgen.MAPLE_FOREST);
+						addBiomeRequirement(advancement, WWWorldgen.SPARSE_FOREST);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(

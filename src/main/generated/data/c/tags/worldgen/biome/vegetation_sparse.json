@@ -28,6 +28,10 @@
     {
       "id": "wilderwild:snowy_dying_mixed_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:sparse_forest",
+      "required": false
     }
   ]
 }

@@ -235,6 +235,10 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE_RARE.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_COMMON)) {
 							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE_COMMON.getKey());
 						}

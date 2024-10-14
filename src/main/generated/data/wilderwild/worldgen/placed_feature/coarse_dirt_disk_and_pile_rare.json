@@ -1,0 +1,19 @@
+{
+  "feature": "wilderwild:coarse_dirt_disk_and_pile",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 35
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

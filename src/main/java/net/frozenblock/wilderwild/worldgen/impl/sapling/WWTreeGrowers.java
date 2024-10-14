@@ -88,14 +88,15 @@ public final class WWTreeGrowers {
 
 	public static final TreeGrower MAPLE = new TreeGrower(
 		WWConstants.string("maple"),
-		0.05F,
 		Optional.empty(),
 		Optional.empty(),
-		Optional.of(WWTreeConfigured.YELLOW_MAPLE_TREE.getKey()),
-		Optional.of(WWTreeConfigured.TALL_YELLOW_MAPLE_TREE.getKey()),
-		Optional.of(WWTreeConfigured.YELLOW_MAPLE_BEES_0004.getKey()),
-		Optional.of(WWTreeConfigured.TALL_YELLOW_MAPLE_BEES_0004.getKey())
-	);
+		Optional.empty()
+	) {
+		@Override
+		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
+			return bees ? WWConfiguredFeatures.MAPLES.getKey() : WWConfiguredFeatures.MAPLES_NO_BEES.getKey();
+		}
+	};
 
 	private WWTreeGrowers() {
 	}

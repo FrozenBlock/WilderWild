@@ -44,6 +44,7 @@ import net.frozenblock.wilderwild.worldgen.biome.SnowyDyingForest;
 import net.frozenblock.wilderwild.worldgen.biome.SnowyDyingMixedForest;
 import net.frozenblock.wilderwild.worldgen.biome.SnowyOldGrowthPineTaiga;
 import net.frozenblock.wilderwild.worldgen.biome.SparseBirchJungle;
+import net.frozenblock.wilderwild.worldgen.biome.SparseForest;
 import net.frozenblock.wilderwild.worldgen.biome.TemperateRainforest;
 import net.frozenblock.wilderwild.worldgen.biome.WarmBeach;
 import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
@@ -80,6 +81,7 @@ public final class WWWorldgen {
 	public static final ResourceKey<Biome> RAINFOREST = Rainforest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> DARK_TAIGA = DarkTaiga.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MIXED_FOREST = MixedForest.INSTANCE.getKey();
+	public static final ResourceKey<Biome> SPARSE_FOREST = SparseForest.INSTANCE.getKey();
 	// COLD
 	public static final ResourceKey<Biome> DYING_FOREST = DyingForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SNOWY_DYING_FOREST = SnowyDyingForest.INSTANCE.getKey();
@@ -103,11 +105,6 @@ public final class WWWorldgen {
 
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
-		register(context, MIXED_FOREST, MixedForest.INSTANCE.create(context));
-		register(context, DYING_FOREST, DyingForest.INSTANCE.create(context));
-		register(context, SNOWY_DYING_FOREST, SnowyDyingForest.INSTANCE.create(context));
-		register(context, DYING_MIXED_FOREST, DyingMixedForest.INSTANCE.create(context));
-		register(context, SNOWY_DYING_MIXED_FOREST, SnowyDyingMixedForest.INSTANCE.create(context));
 		register(context, OASIS, Oasis.INSTANCE.create(context));
 		register(context, WARM_RIVER, WarmRiver.INSTANCE.create(context));
 		register(context, WARM_BEACH, WarmBeach.INSTANCE.create(context));
@@ -132,6 +129,13 @@ public final class WWWorldgen {
 		register(context, TEMPERATE_RAINFOREST, TemperateRainforest.INSTANCE.create(context));
 		register(context, RAINFOREST, Rainforest.INSTANCE.create(context));
 		register(context, DARK_TAIGA, DarkTaiga.INSTANCE.create(context));
+		register(context, MIXED_FOREST, MixedForest.INSTANCE.create(context));
+		register(context, SPARSE_FOREST, SparseForest.INSTANCE.create(context));
+		// COLD
+		register(context, DYING_FOREST, DyingForest.INSTANCE.create(context));
+		register(context, SNOWY_DYING_FOREST, SnowyDyingForest.INSTANCE.create(context));
+		register(context, DYING_MIXED_FOREST, DyingMixedForest.INSTANCE.create(context));
+		register(context, SNOWY_DYING_MIXED_FOREST, SnowyDyingMixedForest.INSTANCE.create(context));
 		// OLD GROWTH
 		register(context, OLD_GROWTH_BIRCH_TAIGA, OldGrowthBirchTaiga.INSTANCE.create(context));
 		register(context, OLD_GROWTH_DARK_FOREST, OldGrowthDarkForest.INSTANCE.create(context));
