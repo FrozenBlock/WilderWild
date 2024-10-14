@@ -19,9 +19,10 @@
 package net.frozenblock.wilderwild.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
-import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -36,28 +37,30 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.AmbientAdditionsSettings;
-import net.minecraft.world.level.biome.AmbientMoodSettings;
-import net.minecraft.world.level.biome.AmbientParticleSettings;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class MixedForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.140F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
-	public static final float TEMP = 0.5F;
-	public static final float DOWNFALL = 0.7F;
+import java.util.function.Consumer;
+
+public final class SparseForest extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, 0F);
+	public static final Climate.Parameter TEMPERATURE_WITH_DYING_FORESTS = Climate.Parameter.span(-0.3F, 0F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.1F, 0F);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+	public static final Climate.Parameter WEIRDNESS_C = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
+	public static final float TEMP = 0.75F;
+	public static final float DOWNFALL = 0.6F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final MixedForest INSTANCE = new MixedForest();
+	public static final SparseForest INSTANCE = new SparseForest();
 
 	@Override
 	public String modID() {
@@ -66,7 +69,7 @@ public final class MixedForest extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "mixed_forest";
+		return "sparse_forest";
 	}
 
 	@Override
@@ -142,33 +145,65 @@ public final class MixedForest extends FrozenBiome {
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
+		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MIXED_TREES.getKey());
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addForestGrass(features);
+		BiomeDefaultFeatures.addDefaultMushrooms(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SPARSE_FOREST.getKey());
 	}
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+		BiomeDefaultFeatures.commonSpawns(spawns);
+		BiomeDefaultFeatures.farmAnimals(spawns);
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4, 4));
 	}
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateMixedForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-			}
+		WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
+		if (worldgenConfig.biomeGeneration.generateSparseForest) {
+			Climate.Parameter temperature = worldgenConfig.biomeGeneration.generateDyingForest ? TEMPERATURE_WITH_DYING_FORESTS : TEMPERATURE;
+
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_A,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_B,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_C,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_D,
+				0F
+			);
 		}
 	}
 

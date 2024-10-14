@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.impl.sapling.impl;
 
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
-import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWConfiguredFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -33,22 +33,10 @@ public class MapleSaplingGenerator extends AbstractTreeGrower {
 
 	@Override
 	@Nullable
-	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean largeHive) {
-		if (largeHive) {
-			if (random.nextBoolean()) {
-				return random.nextDouble() <= 0.3F ? WWTreeConfigured.TALL_YELLOW_MAPLE_BEES_0004.getKey() : WWTreeConfigured.YELLOW_MAPLE_BEES_0004.getKey();
-			} else if (random.nextBoolean()) {
-				return random.nextDouble() <= 0.3F ? WWTreeConfigured.TALL_ORANGE_MAPLE_BEES_0004.getKey() : WWTreeConfigured.ORANGE_MAPLE_BEES_0004.getKey();
-			} else {
-				return random.nextDouble() <= 0.3F ? WWTreeConfigured.TALL_RED_MAPLE_BEES_0004.getKey() : WWTreeConfigured.RED_MAPLE_BEES_0004.getKey();
-			}
+	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
+		if (bees) {
+			return WWConfiguredFeatures.MAPLES.getKey();
 		}
-		if (random.nextBoolean()) {
-			return random.nextDouble() <= 0.3F ? WWTreeConfigured.TALL_YELLOW_MAPLE_TREE.getKey() : WWTreeConfigured.YELLOW_MAPLE_TREE.getKey();
-		} else if (random.nextBoolean()) {
-			return random.nextDouble() <= 0.3F ? WWTreeConfigured.TALL_ORANGE_MAPLE_TREE.getKey() : WWTreeConfigured.ORANGE_MAPLE_TREE.getKey();
-		} else {
-			return random.nextDouble() <= 0.3F ? WWTreeConfigured.TALL_RED_MAPLE_TREE.getKey() : WWTreeConfigured.RED_MAPLE_TREE.getKey();
-		}
+		return WWConfiguredFeatures.MAPLES_NO_BEES.getKey();
 	}
 }
