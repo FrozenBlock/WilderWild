@@ -11,10 +11,7 @@
       "id": "minecraft:pale_garden",
       "required": false
     },
-    {
-      "id": "minecraft:cherry_grove",
-      "required": false
-    },
+    "minecraft:cherry_grove",
     {
       "id": "wilderwild:semi_birch_forest",
       "required": false
@@ -45,6 +42,10 @@
     },
     {
       "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_forest",
       "required": false
     }
   ]

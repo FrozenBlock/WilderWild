@@ -271,6 +271,17 @@ public final class WWWorldgenConfigGui {
 			"generateSemiBirchForest",
 			configInstance
 		);
+		var sparseForest = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_sparse_forest"), modifiedBiomes.generateSparseForest)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateSparseForest)
+				.setSaveConsumer(newValue -> biomes.generateSparseForest = newValue)
+				.setTooltip(tooltip("generate_sparse_forest"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateSparseForest",
+			configInstance
+		);
 		var temperateRainforest = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("generate_temperate_rainforest"), modifiedBiomes.generateTemperateRainforest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateTemperateRainforest)
@@ -387,7 +398,7 @@ public final class WWWorldgenConfigGui {
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
 			magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
-			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
+			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(

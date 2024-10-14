@@ -366,6 +366,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWWorldgen.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(WWWorldgen.DYING_FOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(WWWorldgen.MIXED_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWWorldgen.SPARSE_FOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(WWWorldgen.PARCHED_FOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA, WolfVariants.PALE);
 		WolfVariantBiomeRegistry.register(WWWorldgen.BIRCH_TAIGA, WolfVariants.PALE);
@@ -472,6 +473,8 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_FOREST, registries);
 						addBiomeRequirement(advancement, WWWorldgen.DYING_MIXED_FOREST, registries);
 						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_MIXED_FOREST, registries);
+						addBiomeRequirement(advancement, WWWorldgen.MAPLE_FOREST, registries);
+						addBiomeRequirement(advancement, WWWorldgen.SPARSE_FOREST, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
