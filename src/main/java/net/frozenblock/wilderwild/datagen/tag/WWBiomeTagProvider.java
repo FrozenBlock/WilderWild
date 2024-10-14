@@ -421,7 +421,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SPARSE_JUNGLE)
 			.add(Biomes.BAMBOO_JUNGLE)
 			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
 			.addOptional(WWWorldgen.CYPRESS_WETLANDS)
 			.addOptional(WWWorldgen.BIRCH_JUNGLE)
 			.addOptional(WWWorldgen.SPARSE_BIRCH_JUNGLE)

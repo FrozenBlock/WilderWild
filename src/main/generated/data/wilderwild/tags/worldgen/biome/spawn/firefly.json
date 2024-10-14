@@ -5,10 +5,6 @@
     "minecraft:bamboo_jungle",
     "minecraft:dark_forest",
     {
-      "id": "minecraft:pale_garden",
-      "required": false
-    },
-    {
       "id": "wilderwild:cypress_wetlands",
       "required": false
     },
