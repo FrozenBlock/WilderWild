@@ -119,7 +119,7 @@ hi
 - Pollen can no longer generate in Water during worldgen.
 - Fallen Birch trees no longer generate in Cherry Groves.
 - Updated some previously mis-colored Cypress textures.
-- Optimized custom Dispenser behavior.
+- Optimized custom Dispenser behaviors with Wilder Wild's blocks.
 - Fixed thrown Coconuts sometimes using the wrong sound source upon landing.
 - Once again fixed Termite Mounds being active in situations they aren't supposed to.
 - Algae no longer slows down players flying in Creative mode.
@@ -128,6 +128,7 @@ hi
 - The `Windswept Savanna Placement` config option now actually dictates whether Windswept Savannas use modified parameters.
 - Wilder Wild's Cactus hurt sounds work once again.
 - Fixed the Mixed Forest biome not generating on certain Forest-Taiga borders.
+- Fixed Snow Golems not melting in the Parched Forest biome.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
