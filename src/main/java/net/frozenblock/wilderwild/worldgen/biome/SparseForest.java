@@ -47,7 +47,7 @@ import java.util.function.Consumer;
 public final class SparseForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, 0F);
 	public static final Climate.Parameter TEMPERATURE_WITH_DYING_FORESTS = Climate.Parameter.span(-0.3F, 0F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.1F, 0.05F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.1F, 0F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
 	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_ASCENDING);
