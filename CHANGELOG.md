@@ -130,6 +130,7 @@ hi
 - Wilder Wild's Cactus hurt sounds work once again.
 - Fixed the Mixed Forest biome not generating on certain Forest-Taiga borders.
 - Fixed Snow Golems not melting in the Parched Forest biome.
+- Fixed a broken loop in the ambience of Mesoglea Caves.
 
 # Technical Changes
 - Refactored classes with the `Wilder` prefix to start with the `WW` prefix.
