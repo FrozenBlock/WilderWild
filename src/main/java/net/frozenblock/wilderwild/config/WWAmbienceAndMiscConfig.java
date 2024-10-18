@@ -247,43 +247,43 @@ public final class WWAmbienceAndMiscConfig {
 
 	public static class LeafParticles {
 		@EntrySyncData(value = "oakFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int oakFrequency = 100;
+		public int oakFrequency = 50;
 
 		@EntrySyncData(value = "spruceFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int spruceFrequency = 100;
+		public int spruceFrequency = 50;
 
 		@EntrySyncData(value = "birchFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int birchFrequency = 100;
+		public int birchFrequency = 50;
 
 		@EntrySyncData(value = "jungleFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int jungleFrequency = 100;
+		public int jungleFrequency = 50;
 
 		@EntrySyncData(value = "acaciaFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int acaciaFrequency = 100;
+		public int acaciaFrequency = 50;
 
 		@EntrySyncData(value = "darkOakFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int darkOakFrequency = 100;
-
+		public int darkOakFrequency = 50;
+		
 		@EntrySyncData(value = "mangroveFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int mangroveFrequency = 100;
+		public int mangroveFrequency = 50;
 
 		@EntrySyncData(value = "cherryFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int cherryFrequency = 100;
+		public int cherryFrequency = 50;
 
 		@EntrySyncData(value = "azaleaFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int azaleaFrequency = 100;
+		public int azaleaFrequency = 50;
 
 		@EntrySyncData(value = "floweringAzaleaFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int floweringAzaleaFrequency = 100;
+		public int floweringAzaleaFrequency = 50;
 
 		@EntrySyncData(value = "baobabFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int baobabFrequency = 100;
+		public int baobabFrequency = 50;
 
 		@EntrySyncData(value = "cypressFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int cypressFrequency = 100;
+		public int cypressFrequency = 50;
 
 		@EntrySyncData(value = "palmFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int palmFrequency = 100;
+		public int palmFrequency = 50;
 
 		@EntrySyncData(value = "mapleFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int mapleFrequency = 100;
