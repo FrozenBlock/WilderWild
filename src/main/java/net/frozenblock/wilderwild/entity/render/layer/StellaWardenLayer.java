@@ -41,7 +41,7 @@ public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderSta
 	}
 
 	@Override
-	public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, WardenRenderState renderState, float partialTick, float color) {
+	public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumerProvider, int light, WardenRenderState renderState, float partialTick, float color) {
 		// TODO: make WilderWarden actually not error here
 		if (!renderState.isInvisible && ((WilderWarden) renderState).wilderWild$isStella()) {
 			this.onlyDrawSelectedParts(renderState);
@@ -51,7 +51,7 @@ public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderSta
 				.renderToBuffer(
 					poseStack,
 					vertexConsumer,
-					i,
+					light,
 					LivingEntityRenderer.getOverlayCoords(renderState, 0F),
 					ARGB.colorFromFloat(alpha, 1F, 1F, 1F)
 				);
