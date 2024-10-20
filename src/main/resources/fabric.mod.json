@@ -74,10 +74,12 @@
   "custom": {
     "modmenu": {
       "links": {
+        "X": "https://x.com/FB_Oasis",
+        "Bluesky": "https://bsky.app/profile/frozenblock.bsky.social",
         "modmenu.discord": "https://discord.gg/frozenblock-modding-oasis-780746010614956112",
         "modmenu.modrinth": "https://modrinth.com/organization/frozenblock",
-        "modmenu.twitter": "https://twitter.com/FB_Oasis",
-        "modmenu.youtube": "https://www.youtube.com/@frozenblockmoddingoasismod"
+        "modmenu.youtube": "https://www.youtube.com/@frozenblockmoddingoasismod",
+        "modmenu.kofi": "https://ko-fi.com/frozenblock"
       },
       "badges": [
         "frozenblock"
