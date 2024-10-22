@@ -75,6 +75,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
 
+		ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.thickBigFungusGrowth = false));
+
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
