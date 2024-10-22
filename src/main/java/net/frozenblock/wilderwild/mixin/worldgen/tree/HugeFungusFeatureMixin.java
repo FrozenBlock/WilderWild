@@ -142,7 +142,7 @@ public class HugeFungusFeatureMixin {
 		WorldGenLevel instance, BlockPos pos, BlockState blockState, int flag, Operation<Boolean> original,
 		@Local(argsOnly = true) RandomSource random, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
-		if (shouldPlace.get()) {
+		if (shouldPlace.get() || !WWBlockConfig.get().thickBigFungusGrowth) {
 			return original.call(instance, pos, blockState, flag);
 		}
 		return false;
