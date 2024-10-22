@@ -41,7 +41,7 @@ import org.jetbrains.annotations.NotNull;
 public class SimpleCopperPipesIntegration extends ModIntegration {
 
 	public SimpleCopperPipesIntegration() {
-		super("copper_pipe");
+		super("simple_copper_pipes");
 	}
 
 	@Override

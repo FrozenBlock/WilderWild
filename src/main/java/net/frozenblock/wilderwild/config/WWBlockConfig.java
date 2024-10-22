@@ -132,7 +132,7 @@ public final class WWBlockConfig {
 	public boolean frostedIceCracking = true;
 
 	@EntrySyncData("thickBigFungusGrowth")
-	public boolean thickBigFungusGrowth = true;
+	public boolean thickBigFungusGrowth = false;
 
 	public static WWBlockConfig get() {
 		return get(false);

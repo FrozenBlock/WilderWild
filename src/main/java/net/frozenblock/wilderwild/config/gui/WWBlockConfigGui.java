@@ -157,6 +157,7 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		/*
 		var thickBigFungusGrowth = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
@@ -169,6 +170,7 @@ public final class WWBlockConfigGui {
 				configInstance
 			)
 		);
+		 */
 
 		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
