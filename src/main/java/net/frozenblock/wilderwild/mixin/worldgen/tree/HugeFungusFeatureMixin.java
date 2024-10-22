@@ -42,6 +42,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(HugeFungusFeature.class)
 public class HugeFungusFeatureMixin {
+
+	/*
 	@ModifyVariable(method = "place", at = @At(value = "STORE"), ordinal = 0)
 	public boolean wilderWild$placeThickener(
 		boolean original, FeaturePlaceContext<HugeFungusConfiguration> context,
@@ -147,4 +149,5 @@ public class HugeFungusFeatureMixin {
 		}
 		return false;
 	}
+	 */
 }
