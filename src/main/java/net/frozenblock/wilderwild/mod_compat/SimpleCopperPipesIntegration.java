@@ -20,13 +20,11 @@ package net.frozenblock.wilderwild.mod_compat;
 
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWItems;
-import net.lunade.copper.SimpleCopperPipesMain;
+import net.lunade.copper.SimpleCopperPipes;
+import net.lunade.copper.registry.CopperPipeDispenseBehaviors;
 import net.lunade.copper.registry.PipeMovementRestrictions;
-import net.lunade.copper.registry.PoweredPipeDispenses;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,23 +36,15 @@ import org.jetbrains.annotations.NotNull;
 public class SimpleCopperPipesIntegration extends ModIntegration {
 
 	public SimpleCopperPipesIntegration() {
-		super("copper_pipe");
+		super("simple_copper_pipes");
 	}
 
 	@Override
 	public void init() {
-		if (SimpleCopperPipesMain.getCompatID() == 4) {
+		if (SimpleCopperPipes.getCompatID() == 4) {
 			WWConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
 
-			PoweredPipeDispenses.register(WWItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
-				Vec3 outputPos = getOutputPosition(position, direction);
-				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
-				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z(), stack);
-				coconut.shoot(velocity.x(), velocity.y(), velocity.z(), 0.8F, 0.8F);
-				level.addFreshEntity(coconut);
-			});
-
-			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.getValue(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
+			CopperPipeDispenseBehaviors.register(BuiltInRegistries.ITEM.getValue(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
 				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
 				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);

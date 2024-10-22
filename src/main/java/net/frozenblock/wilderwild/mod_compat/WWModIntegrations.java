@@ -39,7 +39,7 @@ public final class WWModIntegrations {
 	public static final ModIntegration REGIONS_UNEXPLORED_INTEGRATION = registerAndGet(RegionsUnexploredIntegration::new, "regions_unexplored");
 	public static final ModIntegration TRAVERSE_INTEGRATION = registerAndGet(TraverseIntegration::new, "traverse");
 	public static final ModIntegration EXCESSIVE_BUILDING_INTEGRATION = registerAndGet(ExcessiveBuildingIntegration::new, "excessive_building");
-	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "copper_pipe");
+	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "simple_copper_pipes");
 
 	private WWModIntegrations() {
 		throw new UnsupportedOperationException("WWModIntegrations contains only static declarations.");
