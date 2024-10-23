@@ -43,7 +43,7 @@ public abstract class BlockRendererMixin {
 	@Shadow
 	public abstract void renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers);
 
-	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
+	@Inject(method = "renderModel", at = @At("HEAD"), remap = false, require = 0)
 	public void wilderWild$renderModel(BlockRenderContext ctx, ChunkBuildBuffers buffers, CallbackInfo info) {
 		try {
 			if (SnowloggingUtils.isSnowlogged(ctx.state())) {
