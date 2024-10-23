@@ -67,10 +67,6 @@
     "cloth-config": "*",
     "terrablender": "*"
   },
-  "breaks": {
-    "sodium": "<0.5.0",
-    "particlerain": "<2.1.0"
-  },
   "custom": {
     "modmenu": {
       "links": {
