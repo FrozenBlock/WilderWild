@@ -59,7 +59,7 @@
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
     "frozenlib": "${frozenlib_version}",
-    "fabric-api": "${fabric_api_version}",
+    "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=21"
   },
@@ -83,6 +83,9 @@
     },
     "frozenlib_registry": {
       "mod_protocol": $protocol_version
+    },
+    "lithium:options": {
+      "mixin.world.raycast": false
     }
   }
 }
