@@ -48,7 +48,7 @@ public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 	@Shadow
 	public abstract void renderModel(BakedModel model, BlockState state, BlockPos pos, BlockPos origin);
 
-	@Inject(method = "renderModel", at = @At("HEAD"), remap = false)
+	@Inject(method = "renderModel", at = @At("HEAD"), remap = false, require = 0)
 	public void wilderWild$renderModel(BakedModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo info) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);

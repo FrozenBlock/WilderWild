@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TerrainRenderContext.class)
 public class TerrainRenderContextMixin {
 
-	@Inject(method = "tessellateBlock", at = @At("HEAD"))
+	@Inject(method = "tessellateBlock", at = @At("HEAD"), require = 0)
 	public void wilderWild$tessellateBlock(BlockState blockState, BlockPos blockPos, BakedModel model, PoseStack matrixStack, CallbackInfo info) {
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
 			BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
