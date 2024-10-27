@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -124,28 +125,31 @@ public class HugeFungusFeatureMixin {
 		return isCorner;
 	}
 
-	@WrapOperation(
+	/**
+	 * @return if the block position should get preserved
+	 */
+	@ModifyExpressionValue(
 		method = "placeStem",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/WorldGenLevel;destroyBlock(Lnet/minecraft/core/BlockPos;Z)Z"
-		)
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z")
 	)
 	public boolean wilderWild$placeStemPlantedA(
-		WorldGenLevel instance, BlockPos pos, boolean drop, Operation<Boolean> original, @Local(argsOnly = true) RandomSource random,
+		boolean original, WorldGenLevel level, RandomSource random,
 		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
+		shouldPlace.set(true);
 		if (WWBlockConfig.get().thickBigFungusGrowth) {
-			if (!isCorner.get() || random.nextFloat() < 0.1F) {
-				shouldPlace.set(true);
-				return original.call(instance, pos, drop);
+			if (isCorner.get()) {
+				if (random.nextFloat() < 0.1F) {
+					// mark for destruction
+					return false;
+				} else {
+					// leave untouched
+					shouldPlace.set(false);
+					return true;
+				}
 			}
-			shouldPlace.set(false);
-			return false;
-		} else {
-			shouldPlace.set(false);
-			return original.call(instance, pos, drop);
 		}
+		return original;
 	}
 
 	@WrapOperation(
