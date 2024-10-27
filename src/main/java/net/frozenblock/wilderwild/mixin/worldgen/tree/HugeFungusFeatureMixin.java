@@ -43,7 +43,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(HugeFungusFeature.class)
 public class HugeFungusFeatureMixin {
 
-	/*
 	@ModifyVariable(method = "place", at = @At(value = "STORE"), ordinal = 0)
 	public boolean wilderWild$placeThickener(
 		boolean original, FeaturePlaceContext<HugeFungusConfiguration> context,
@@ -59,14 +58,15 @@ public class HugeFungusFeatureMixin {
 				newPos.set(pos);
 				wilderWild$clearFungi(level, pos);
 				return true;
-			}
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				BlockPos adjacentPos = pos.relative(direction);
-				if (level.getBlockState(adjacentPos).is(fungus)) {
-					if (wilderWild$canGrowThickFungus(level, adjacentPos, fungus)) {
-						newPos.set(adjacentPos);
-						wilderWild$clearFungi(level, adjacentPos);
-						return true;
+			} else {
+				for (Direction direction : Direction.Plane.HORIZONTAL) {
+					BlockPos adjacentPos = pos.relative(direction);
+					if (level.getBlockState(adjacentPos).is(fungus)) {
+						if (wilderWild$canGrowThickFungus(level, adjacentPos, fungus)) {
+							newPos.set(adjacentPos);
+							wilderWild$clearFungi(level, adjacentPos);
+							return true;
+						}
 					}
 				}
 			}
@@ -83,9 +83,16 @@ public class HugeFungusFeatureMixin {
 		ordinal = 1
 	)
 	public BlockPos wilderWild$placeUpdateOrigin(BlockPos value, @Share("wilderWild$newPos") LocalRef<BlockPos> newPos) {
-		return newPos.get();
+		return WWBlockConfig.get().thickBigFungusGrowth ? newPos.get() : value;
 	}
 
+	/**
+	 * Returns if the blocks on all horizontal sides of this are the same fungus.
+	 *
+	 * @param pos    position of the center fungus
+	 * @param fungus this block's type
+	 * @return if the blocks on all horizontal sides of this match fungus
+	 */
 	@Unique
 	private boolean wilderWild$canGrowThickFungus(Level level, BlockPos pos, Block fungus) {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -94,6 +101,12 @@ public class HugeFungusFeatureMixin {
 		return true;
 	}
 
+	/**
+	 * Sets the given block and each horizontally adjacent block to air.
+	 * Should be used only after using @wilderWild$canGrowThickFungus.
+	 *
+	 * @param pos position of the center fungus.
+	 */
 	@Unique
 	private void wilderWild$clearFungi(Level level, BlockPos pos) {
 		level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_INVISIBLE);
@@ -129,8 +142,10 @@ public class HugeFungusFeatureMixin {
 			}
 			shouldPlace.set(false);
 			return false;
+		} else {
+			shouldPlace.set(false);
+			return original.call(instance, pos, drop);
 		}
-		return original.call(instance, pos, drop);
 	}
 
 	@WrapOperation(
@@ -144,10 +159,9 @@ public class HugeFungusFeatureMixin {
 		WorldGenLevel instance, BlockPos pos, BlockState blockState, int flag, Operation<Boolean> original,
 		@Local(argsOnly = true) RandomSource random, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
-		if (shouldPlace.get() || !WWBlockConfig.get().thickBigFungusGrowth) {
-			return original.call(instance, pos, blockState, flag);
+		if (WWBlockConfig.get().thickBigFungusGrowth && !shouldPlace.get()) {
+			return false;
 		}
-		return false;
+		return original.call(instance, pos, blockState, flag);
 	}
-	 */
 }
