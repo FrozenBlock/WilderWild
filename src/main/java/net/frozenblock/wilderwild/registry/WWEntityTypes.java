@@ -107,7 +107,6 @@ public final class WWEntityTypes {
 		EntityType.Builder.<ChestBubbleTicker>of(ChestBubbleTicker::new, MobCategory.MISC)
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
-			.updateInterval(10)
 			.build(WWConstants.string("chest_bubbler"))
 	);
 
@@ -116,7 +115,6 @@ public final class WWEntityTypes {
 		EntityType.Builder.<SculkSpreadTicker>of(SculkSpreadTicker::new, MobCategory.MISC)
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
-			.updateInterval(10)
 			.build(WWConstants.string("sculk_spreader"))
 	);
 
@@ -125,7 +123,6 @@ public final class WWEntityTypes {
 		EntityType.Builder.<FallingLeafTicker>of(FallingLeafTicker::new, MobCategory.MISC)
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
-			.updateInterval(10)
 			.build(WWConstants.string("falling_leaves"))
 	);
 
