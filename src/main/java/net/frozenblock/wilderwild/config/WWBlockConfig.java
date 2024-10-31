@@ -149,61 +149,61 @@ public final class WWBlockConfig {
 	}
 
 	public static class BlockSoundsConfig {
-		@EntrySyncData(value = "cactusSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("cactusSounds")
 		public boolean cactusSounds = true;
 
-		@EntrySyncData(value = "claySounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("claySounds")
 		public boolean claySounds = true;
 
-		@EntrySyncData(value = "coarseDirtSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("coarseDirtSounds")
 		public boolean coarseDirtSounds = true;
 
-		@EntrySyncData(value = "deadBushSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("deadBushSounds")
 		public boolean deadBushSounds = true;
 
-		@EntrySyncData(value = "flowerSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("flowerSounds")
 		public boolean flowerSounds = true;
 
-		@EntrySyncData(value = "magmaSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("magmaSounds")
 		public boolean magmaSounds = true;
 
-		@EntrySyncData(value = "saplingSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("saplingSounds")
 		public boolean saplingSounds = true;
 
-		@EntrySyncData(value = "iceSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("iceSounds")
 		public boolean iceSounds = true;
 
-		@EntrySyncData(value = "frostedIceSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("frostedIceSounds")
 		public boolean frostedIceSounds = true;
 
-		@EntrySyncData(value = "gravelSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("gravelSounds")
 		public boolean gravelSounds = true;
 
-		@EntrySyncData(value = "leafSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("leafSounds")
 		public boolean leafSounds = true;
 
-		@EntrySyncData(value = "lilyPadSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("lilyPadSounds")
 		public boolean lilyPadSounds = true;
 
-		@EntrySyncData(value = "melonSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("melonSounds")
 		public boolean melonSounds = true;
 
-		@EntrySyncData(value = "mushroomBlockSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("mushroomBlockSounds")
 		public boolean mushroomBlockSounds = true;
 
-		@EntrySyncData(value = "podzolSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("podzolSounds")
 		public boolean podzolSounds = true;
 
-		@EntrySyncData(value = "reinforcedDeepslateSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("reinforcedDeepslateSounds")
 		public boolean reinforcedDeepslateSounds = true;
 
-		@EntrySyncData(value = "sandstoneSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("sandstoneSounds")
 		public boolean sandstoneSounds = true;
 
-		@EntrySyncData(value = "sugarCaneSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("sugarCaneSounds")
 		public boolean sugarCaneSounds = true;
 
-		@EntrySyncData(value = "witherRoseSounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("witherRoseSounds")
 		public boolean witherRoseSounds = true;
 	}
 

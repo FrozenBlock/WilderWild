@@ -328,119 +328,214 @@ public final class WWBlockConfigGui {
 			extraMagmaParticles, soulFireSounds
 		);
 
-		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)
-			.setDefaultValue(defaultConfig.blockSounds.cactusSounds)
-			.setSaveConsumer(newValue -> blockSounds.cactusSounds = newValue)
-			.setTooltip(tooltip("cactus_sounds"))
-			.build();
+		var cactusSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)
+				.setDefaultValue(defaultConfig.blockSounds.cactusSounds)
+				.setSaveConsumer(newValue -> blockSounds.cactusSounds = newValue)
+				.setTooltip(tooltip("cactus_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"cactusSounds",
+			configInstance
+		);
 
-		var claySounds = entryBuilder.startBooleanToggle(text("clay_sounds"), modifiedBlockSounds.claySounds)
-			.setDefaultValue(defaultConfig.blockSounds.claySounds)
-			.setSaveConsumer(newValue -> blockSounds.claySounds = newValue)
-			.setTooltip(tooltip("clay_sounds"))
-			.build();
+		var claySounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("clay_sounds"), modifiedBlockSounds.claySounds)
+				.setDefaultValue(defaultConfig.blockSounds.claySounds)
+				.setSaveConsumer(newValue -> blockSounds.claySounds = newValue)
+				.setTooltip(tooltip("clay_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"claySounds",
+			configInstance
+		);
 
-		var coarseDirtSounds = entryBuilder.startBooleanToggle(text("coarse_dirt_sounds"), modifiedBlockSounds.coarseDirtSounds)
-			.setDefaultValue(defaultConfig.blockSounds.coarseDirtSounds)
-			.setSaveConsumer(newValue -> blockSounds.coarseDirtSounds = newValue)
-			.setTooltip(tooltip("coarse_dirt_sounds"))
-			.build();
+		var coarseDirtSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("coarse_dirt_sounds"), modifiedBlockSounds.coarseDirtSounds)
+				.setDefaultValue(defaultConfig.blockSounds.coarseDirtSounds)
+				.setSaveConsumer(newValue -> blockSounds.coarseDirtSounds = newValue)
+				.setTooltip(tooltip("coarse_dirt_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"coarseDirtSounds",
+			configInstance
+		);
 
-		var deadBushSounds = entryBuilder.startBooleanToggle(text("dead_bush_sounds"), modifiedBlockSounds.deadBushSounds)
-			.setDefaultValue(defaultConfig.blockSounds.deadBushSounds)
-			.setSaveConsumer(newValue -> blockSounds.deadBushSounds = newValue)
-			.setTooltip(tooltip("dead_bush_sounds"))
-			.build();
+		var deadBushSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("dead_bush_sounds"), modifiedBlockSounds.deadBushSounds)
+				.setDefaultValue(defaultConfig.blockSounds.deadBushSounds)
+				.setSaveConsumer(newValue -> blockSounds.deadBushSounds = newValue)
+				.setTooltip(tooltip("dead_bush_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"deadBushSounds",
+			configInstance
+		);
 
-		var flowerSounds = entryBuilder.startBooleanToggle(text("flower_sounds"), modifiedBlockSounds.flowerSounds)
-			.setDefaultValue(defaultConfig.blockSounds.flowerSounds)
-			.setSaveConsumer(newValue -> blockSounds.flowerSounds = newValue)
-			.setTooltip(tooltip("flower_sounds"))
-			.build();
+		var flowerSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("flower_sounds"), modifiedBlockSounds.flowerSounds)
+				.setDefaultValue(defaultConfig.blockSounds.flowerSounds)
+				.setSaveConsumer(newValue -> blockSounds.flowerSounds = newValue)
+				.setTooltip(tooltip("flower_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"flowerSounds",
+			configInstance
+		);
 
-		var magmaSounds = entryBuilder.startBooleanToggle(text("magma_sounds"), modifiedBlockSounds.magmaSounds)
-			.setDefaultValue(defaultConfig.blockSounds.magmaSounds)
-			.setSaveConsumer(newValue -> blockSounds.magmaSounds = newValue)
-			.setTooltip(tooltip("magma_sounds"))
-			.build();
+		var magmaSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("magma_sounds"), modifiedBlockSounds.magmaSounds)
+				.setDefaultValue(defaultConfig.blockSounds.magmaSounds)
+				.setSaveConsumer(newValue -> blockSounds.magmaSounds = newValue)
+				.setTooltip(tooltip("magma_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"magmaSounds",
+			configInstance
+		);
 
-		var saplingSounds = entryBuilder.startBooleanToggle(text("sapling_sounds"), modifiedBlockSounds.saplingSounds)
-			.setDefaultValue(defaultConfig.blockSounds.saplingSounds)
-			.setSaveConsumer(newValue -> blockSounds.saplingSounds = newValue)
-			.setTooltip(tooltip("sapling_sounds"))
-			.build();
+		var saplingSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sapling_sounds"), modifiedBlockSounds.saplingSounds)
+				.setDefaultValue(defaultConfig.blockSounds.saplingSounds)
+				.setSaveConsumer(newValue -> blockSounds.saplingSounds = newValue)
+				.setTooltip(tooltip("sapling_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"saplingSounds",
+			configInstance
+		);
 
-		var gravelSounds = entryBuilder.startBooleanToggle(text("gravel_sounds"), modifiedBlockSounds.gravelSounds)
-			.setDefaultValue(defaultConfig.blockSounds.gravelSounds)
-			.setSaveConsumer(newValue -> blockSounds.gravelSounds = newValue)
-			.setTooltip(tooltip("gravel_sounds"))
-			.build();
+		var gravelSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("gravel_sounds"), modifiedBlockSounds.gravelSounds)
+				.setDefaultValue(defaultConfig.blockSounds.gravelSounds)
+				.setSaveConsumer(newValue -> blockSounds.gravelSounds = newValue)
+				.setTooltip(tooltip("gravel_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"gravelSounds",
+			configInstance
+		);
 
-		var iceSounds = entryBuilder.startBooleanToggle(text("ice_sounds"), modifiedBlockSounds.iceSounds)
-			.setDefaultValue(defaultConfig.blockSounds.iceSounds)
-			.setSaveConsumer(newValue -> blockSounds.iceSounds = newValue)
-			.setTooltip(tooltip("ice_sounds"))
-			.build();
+		var iceSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("ice_sounds"), modifiedBlockSounds.iceSounds)
+				.setDefaultValue(defaultConfig.blockSounds.iceSounds)
+				.setSaveConsumer(newValue -> blockSounds.iceSounds = newValue)
+				.setTooltip(tooltip("ice_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"iceSounds",
+			configInstance
+		);
 
-		var frostedIceSounds = entryBuilder.startBooleanToggle(text("frosted_ice_sounds"), modifiedBlockSounds.frostedIceSounds)
-			.setDefaultValue(defaultConfig.blockSounds.frostedIceSounds)
-			.setSaveConsumer(newValue -> blockSounds.frostedIceSounds = newValue)
-			.setTooltip(tooltip("frosted_ice_sounds"))
-			.build();
+		var frostedIceSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("frosted_ice_sounds"), modifiedBlockSounds.frostedIceSounds)
+				.setDefaultValue(defaultConfig.blockSounds.frostedIceSounds)
+				.setSaveConsumer(newValue -> blockSounds.frostedIceSounds = newValue)
+				.setTooltip(tooltip("frosted_ice_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"frostedIceSounds",
+			configInstance
+		);
 
-		var leafSounds = entryBuilder.startBooleanToggle(text("leaf_sounds"), modifiedBlockSounds.leafSounds)
-			.setDefaultValue(defaultConfig.blockSounds.leafSounds)
-			.setSaveConsumer(newValue -> blockSounds.leafSounds = newValue)
-			.setTooltip(tooltip("leaf_sounds"))
-			.build();
+		var leafSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("leaf_sounds"), modifiedBlockSounds.leafSounds)
+				.setDefaultValue(defaultConfig.blockSounds.leafSounds)
+				.setSaveConsumer(newValue -> blockSounds.leafSounds = newValue)
+				.setTooltip(tooltip("leaf_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"leafSounds",
+			configInstance
+		);
 
-		var lilyPadSounds = entryBuilder.startBooleanToggle(text("lily_pad_sounds"), modifiedBlockSounds.lilyPadSounds)
-			.setDefaultValue(defaultConfig.blockSounds.lilyPadSounds)
-			.setSaveConsumer(newValue -> blockSounds.lilyPadSounds = newValue)
-			.setTooltip(tooltip("lily_pad_sounds"))
-			.build();
+		var lilyPadSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("lily_pad_sounds"), modifiedBlockSounds.lilyPadSounds)
+				.setDefaultValue(defaultConfig.blockSounds.lilyPadSounds)
+				.setSaveConsumer(newValue -> blockSounds.lilyPadSounds = newValue)
+				.setTooltip(tooltip("lily_pad_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"lilyPadSounds",
+			configInstance
+		);
 
-		var melonSounds = entryBuilder.startBooleanToggle(text("melon_sounds"), modifiedBlockSounds.melonSounds)
-			.setDefaultValue(defaultConfig.blockSounds.melonSounds)
-			.setSaveConsumer(newValue -> blockSounds.melonSounds = newValue)
-			.setTooltip(tooltip("melon_sounds"))
-			.build();
+		var melonSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("melon_sounds"), modifiedBlockSounds.melonSounds)
+				.setDefaultValue(defaultConfig.blockSounds.melonSounds)
+				.setSaveConsumer(newValue -> blockSounds.melonSounds = newValue)
+				.setTooltip(tooltip("melon_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"melonSounds",
+			configInstance
+		);
 
-		var mushroomBlockSounds = entryBuilder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
-			.setDefaultValue(defaultConfig.blockSounds.mushroomBlockSounds)
-			.setSaveConsumer(newValue -> blockSounds.mushroomBlockSounds = newValue)
-			.setTooltip(tooltip("mushroom_block_sounds"))
-			.build();
+		var mushroomBlockSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
+				.setDefaultValue(defaultConfig.blockSounds.mushroomBlockSounds)
+				.setSaveConsumer(newValue -> blockSounds.mushroomBlockSounds = newValue)
+					.setTooltip(tooltip("mushroom_block_sounds"))
+			.build(),
+			blockSounds.getClass(),
+			"mushroomBlockSounds",
+			configInstance
+		);
 
-		var podzolSounds = entryBuilder.startBooleanToggle(text("podzol_sounds"), modifiedBlockSounds.podzolSounds)
-			.setDefaultValue(defaultConfig.blockSounds.podzolSounds)
-			.setSaveConsumer(newValue -> blockSounds.podzolSounds = newValue)
-			.setTooltip(tooltip("podzol_sounds"))
-			.build();
+		var podzolSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("podzol_sounds"), modifiedBlockSounds.podzolSounds)
+				.setDefaultValue(defaultConfig.blockSounds.podzolSounds)
+				.setSaveConsumer(newValue -> blockSounds.podzolSounds = newValue)
+				.setTooltip(tooltip("podzol_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"podzolSounds",
+			configInstance
+		);
 
-		var reinforcedDeepslateSounds = entryBuilder.startBooleanToggle(text("reinforced_deepslate_sounds"), modifiedBlockSounds.reinforcedDeepslateSounds)
-			.setDefaultValue(defaultConfig.blockSounds.reinforcedDeepslateSounds)
-			.setSaveConsumer(newValue -> blockSounds.reinforcedDeepslateSounds = newValue)
-			.setTooltip(tooltip("reinforced_deepslate_sounds"))
-			.build();
+		var reinforcedDeepslateSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("reinforced_deepslate_sounds"), modifiedBlockSounds.reinforcedDeepslateSounds)
+				.setDefaultValue(defaultConfig.blockSounds.reinforcedDeepslateSounds)
+				.setSaveConsumer(newValue -> blockSounds.reinforcedDeepslateSounds = newValue)
+				.setTooltip(tooltip("reinforced_deepslate_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"reinforcedDeepslateSounds",
+			configInstance
+		);
 
-		var sandstoneSounds = entryBuilder.startBooleanToggle(text("sandstone_sounds"), modifiedBlockSounds.sandstoneSounds)
-			.setDefaultValue(defaultConfig.blockSounds.sandstoneSounds)
-			.setSaveConsumer(newValue -> blockSounds.sandstoneSounds = newValue)
-			.setTooltip(tooltip("sandstone_sounds"))
-			.build();
+		var sandstoneSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sandstone_sounds"), modifiedBlockSounds.sandstoneSounds)
+				.setDefaultValue(defaultConfig.blockSounds.sandstoneSounds)
+				.setSaveConsumer(newValue -> blockSounds.sandstoneSounds = newValue)
+				.setTooltip(tooltip("sandstone_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"sandstoneSounds",
+			configInstance
+		);
 
-		var sugarCaneSounds = entryBuilder.startBooleanToggle(text("sugar_cane_sounds"), modifiedBlockSounds.sugarCaneSounds)
-			.setDefaultValue(defaultConfig.blockSounds.sugarCaneSounds)
-			.setSaveConsumer(newValue -> blockSounds.sugarCaneSounds = newValue)
-			.setTooltip(tooltip("sugar_cane_sounds"))
-			.build();
+		var sugarCaneSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sugar_cane_sounds"), modifiedBlockSounds.sugarCaneSounds)
+				.setDefaultValue(defaultConfig.blockSounds.sugarCaneSounds)
+				.setSaveConsumer(newValue -> blockSounds.sugarCaneSounds = newValue)
+				.setTooltip(tooltip("sugar_cane_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"sugarCaneSounds",
+			configInstance
+		);
 
-		var witherRoseSounds = entryBuilder.startBooleanToggle(text("wither_rose_sounds"), modifiedBlockSounds.witherRoseSounds)
-			.setDefaultValue(defaultConfig.blockSounds.witherRoseSounds)
-			.setSaveConsumer(newValue -> blockSounds.witherRoseSounds = newValue)
-			.setTooltip(tooltip("wither_rose_sounds"))
-			.build();
+		var witherRoseSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("wither_rose_sounds"), modifiedBlockSounds.witherRoseSounds)
+				.setDefaultValue(defaultConfig.blockSounds.witherRoseSounds)
+				.setSaveConsumer(newValue -> blockSounds.witherRoseSounds = newValue)
+				.setTooltip(tooltip("wither_rose_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"witherRoseSounds",
+			configInstance
+		);
 
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
 			false,
