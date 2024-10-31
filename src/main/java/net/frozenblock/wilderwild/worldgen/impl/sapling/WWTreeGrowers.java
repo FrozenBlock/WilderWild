@@ -94,7 +94,7 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
-			return bees ? WWConfiguredFeatures.MAPLES.getKey() : WWConfiguredFeatures.MAPLES_NO_BEES.getKey();
+			return bees ? WWConfiguredFeatures.MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.MAPLES_NO_BEES.getKey();
 		}
 	};
 
