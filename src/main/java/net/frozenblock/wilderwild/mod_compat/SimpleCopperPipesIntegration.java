@@ -20,10 +20,8 @@ package net.frozenblock.wilderwild.mod_compat;
 
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWItems;
 import net.lunade.copper.SimpleCopperPipesMain;
 import net.lunade.copper.registry.PipeMovementRestrictions;
 import net.lunade.copper.registry.PoweredPipeDispenses;
@@ -45,14 +43,6 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 	public void init() {
 		if (SimpleCopperPipesMain.getCompatID() == 4) {
 			WWConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
-			PoweredPipeDispenses.register(WWItems.COCONUT, (level, stack, i, direction, position, state, pos, pipe) -> {
-				Vec3 outputPos = getOutputPosition(position, direction);
-				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
-				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z());
-				coconut.shoot(velocity.x(), velocity.y(), velocity.z(), 0.8F, 0.8F);
-				level.addFreshEntity(coconut);
-			});
-
 			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
 				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
@@ -67,7 +57,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
 			);
 		} else {
-			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);
+			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 4 (minimum SCP is 2.0.)", true);
 		}
 	}
 
