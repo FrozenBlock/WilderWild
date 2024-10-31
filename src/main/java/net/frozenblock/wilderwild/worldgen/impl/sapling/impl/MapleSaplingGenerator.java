@@ -35,7 +35,7 @@ public class MapleSaplingGenerator extends AbstractTreeGrower {
 	@Nullable
 	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
 		if (bees) {
-			return WWConfiguredFeatures.MAPLES.getKey();
+			return WWConfiguredFeatures.MAPLES_BEES_SAPLING.getKey();
 		}
 		return WWConfiguredFeatures.MAPLES_NO_BEES.getKey();
 	}
