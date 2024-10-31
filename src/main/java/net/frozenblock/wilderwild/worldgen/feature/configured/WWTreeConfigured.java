@@ -2163,7 +2163,7 @@ public final class WWTreeConfigured {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
 			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2), BlockStateProvider.simple(leaves),
 			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(baseHeight - 6, baseHeight - 3)),
-			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
+			new TwoLayersFeatureSize(1, 0, 0))).ignoreVines();
 	}
 
 	@NotNull
@@ -2171,7 +2171,7 @@ public final class WWTreeConfigured {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
 			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2), BlockStateProvider.simple(leaves),
 			new RoundMapleFoliagePlacer(UniformInt.of(2, 4), UniformInt.of(0, 3), UniformInt.of(baseHeight - 6, baseHeight - 3)),
-			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
+			new TwoLayersFeatureSize(1, 0, 1))).ignoreVines();
 	}
 
 	@NotNull

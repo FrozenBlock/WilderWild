@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:yellow_maple_checked",
+    "default": "wilderwild:yellow_maple_bees_checked",
     "features": [
       {
         "chance": 0.025,
@@ -18,6 +18,10 @@
       {
         "chance": 0.0785,
         "feature": "wilderwild:dying_yellow_maple_checked"
+      },
+      {
+        "chance": 0.37,
+        "feature": "wilderwild:tall_yellow_maple_bees_checked"
       },
       {
         "chance": 0.0785,

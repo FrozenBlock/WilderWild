@@ -77,7 +77,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 				spawnSeedParticleFromPipe(false, level, i, direction, position, corroded);
 			});
 		} else {
-			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);
+			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 4 (minimum SCP is 2.0.)", true);
 		}
 	}
 
