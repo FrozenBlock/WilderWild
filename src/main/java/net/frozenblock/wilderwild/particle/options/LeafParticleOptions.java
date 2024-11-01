@@ -132,7 +132,14 @@ public class LeafParticleOptions implements ParticleOptions {
 
 	@Override
 	public void writeToNetwork(FriendlyByteBuf buf) {
-
+		buf.writeResourceLocation(this.particleId);
+		buf.writeDouble(this.velocity.x);
+		buf.writeDouble(this.velocity.y);
+		buf.writeDouble(this.velocity.z);
+		buf.writeFloat(this.quadSize);
+		buf.writeFloat(this.gravityScale);
+		buf.writeBoolean(this.isFastFalling);
+		buf.writeBoolean(this.controlVelUponSpawn);
 	}
 
 	@Override
