@@ -89,7 +89,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 
 	@Override
 	public void writeToNetwork(FriendlyByteBuf buf) {
-
+    	buf.writeResourceLocation(this.particleId);
 	}
 
 	@Override
