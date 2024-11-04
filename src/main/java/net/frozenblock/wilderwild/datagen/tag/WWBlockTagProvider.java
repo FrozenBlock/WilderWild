@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.HolderLookup;
@@ -693,6 +694,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_MAPLE_LOGS)
 			.add(WWBlocks.HOLLOWED_MAPLE_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+
+		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
+			.addOptional(WWConstants.id("hollowed_pale_oak_log"))
+			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"));
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS)
