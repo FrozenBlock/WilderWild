@@ -186,7 +186,7 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SWAMP)) {
 				this.addSurfaceBiome(

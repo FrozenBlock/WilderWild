@@ -36,12 +36,20 @@ import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderState, WardenModel> {
-	public StellaWardenLayer(@NotNull RenderLayerParent<WardenRenderState, WardenModel> context, @NotNull ResourceLocation texture, @NotNull AlphaFunction<WardenRenderState> animationAngleAdjuster, @NotNull DrawSelector<WardenRenderState, WardenModel> modelPartVisibility, Function<ResourceLocation, RenderType> function) {
-		super(context, texture, animationAngleAdjuster, modelPartVisibility, function);
+	public StellaWardenLayer(
+		@NotNull RenderLayerParent<WardenRenderState, WardenModel> context,
+		@NotNull ResourceLocation texture,
+		@NotNull AlphaFunction<WardenRenderState> animationAngleAdjuster,
+		@NotNull DrawSelector<WardenRenderState, WardenModel> modelPartVisibility,
+		Function<ResourceLocation, RenderType> function
+	) {
+		super(context, texture, animationAngleAdjuster, modelPartVisibility, function, false);
 	}
 
 	@Override
-	public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumerProvider, int light, WardenRenderState renderState, float partialTick, float color) {
+	public void render(
+		@NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumerProvider, int light, @NotNull WardenRenderState renderState, float partialTick, float color
+	) {
 		// TODO: make WilderWarden actually not error here
 		if (!renderState.isInvisible && ((WilderWarden) renderState).wilderWild$isStella()) {
 			this.onlyDrawSelectedParts(renderState);

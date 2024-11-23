@@ -42,7 +42,7 @@ public class PollenBlock extends FlowerLichenBlock {
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends PollenBlock> codec() {
+	public MapCodec<? extends PollenBlock> codec() {
 		return CODEC;
 	}
 

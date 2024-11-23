@@ -29,7 +29,7 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.CherryParticle;
+import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,10 +38,10 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Environment(EnvType.CLIENT)
-@Mixin(CherryParticle.class)
-public abstract class CherryParticleMixin extends TextureSheetParticle {
+@Mixin(FallingLeavesParticle.class)
+public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 
-	protected CherryParticleMixin(ClientLevel world, double d, double e, double f) {
+	protected FallingLeavesParticleMixin(ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f);
 	}
 
@@ -87,11 +87,11 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/particle/CherryParticle;move(DDD)V"
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;move(DDD)V"
 		)
 	)
 	public void wilderWild$fixMoveC(
-		CherryParticle instance, double x, double y, double z, Operation<Void> original,
+		FallingLeavesParticle instance, double x, double y, double z, Operation<Void> original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
 		if (WWClientWindManager.shouldUseWind()) {

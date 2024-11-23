@@ -312,7 +312,7 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock HOLLOWED_PALE_OAK_LOG = register("hollowed_pale_oak_log",
 		HollowedLogBlock::new,
-		hollowedLogProperties(MapColor.QUARTZ, MapColor.STONE).requiredFeatures(FeatureFlags.WINTER_DROP)
+		hollowedLogProperties(MapColor.QUARTZ, MapColor.STONE)
 	);
 	public static final HollowedLogBlock HOLLOWED_CRIMSON_STEM = register("hollowed_crimson_stem",
 		HollowedLogBlock::new,
@@ -370,7 +370,7 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_PALE_OAK_LOG = register("stripped_hollowed_pale_oak_log",
 		HollowedLogBlock::new,
-		strippedHollowedLogProperties(Blocks.STRIPPED_PALE_OAK_LOG.defaultMapColor()).requiredFeatures(FeatureFlags.WINTER_DROP)
+		strippedHollowedLogProperties(Blocks.STRIPPED_PALE_OAK_LOG.defaultMapColor())
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = register("stripped_hollowed_crimson_stem",
 		HollowedLogBlock::new,

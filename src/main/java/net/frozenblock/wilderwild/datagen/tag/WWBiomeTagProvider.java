@@ -26,7 +26,6 @@ import net.frozenblock.lib.tag.api.FrozenBiomeTags;
 import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.worldgen.WinterDropBiomes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
@@ -372,7 +371,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.LUKEWARM_WATER)
 			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.SAVANNA)
 			.add(Biomes.SAVANNA_PLATEAU)
 			.add(Biomes.WINDSWEPT_SAVANNA)
@@ -539,7 +538,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.TAIGA)
 			.add(Biomes.SNOWY_TAIGA)
 			.add(Biomes.RIVER)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWWorldgen.MIXED_FOREST)
 			.addOptional(WWWorldgen.BIRCH_TAIGA)
 			.addOptional(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA)
@@ -681,7 +680,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.DARK_BIRCH_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_PALE_OAK)
-			.addOptional(WinterDropBiomes.PALE_GARDEN);
+			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_SPRUCE_TREES)
 			.add(Biomes.TAIGA)
@@ -736,7 +735,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.TAIGA)
 			.add(Biomes.MANGROVE_SWAMP)
 			.add(Biomes.SUNFLOWER_PLAINS)
@@ -777,7 +776,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_BROWN_MUSHROOM)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWWorldgen.BIRCH_JUNGLE)
 			.addOptional(WWWorldgen.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWWorldgen.BIRCH_TAIGA)
@@ -926,7 +925,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.RAINFOREST)
 			.addOptional(WWWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(WWWorldgen.DARK_TAIGA)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWWorldgen.WARM_BEACH);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
@@ -937,7 +936,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_HILLS)
 			.add(Biomes.WINDSWEPT_FOREST)
 			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWWorldgen.SEMI_BIRCH_FOREST)
 			.addOptional(WWWorldgen.DARK_TAIGA)
@@ -1124,7 +1123,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNAPPED_PALE_OAK)
-			.addOptional(WinterDropBiomes.PALE_GARDEN);
+			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNAPPED_MAPLE)
 			.addOptional(WWWorldgen.MAPLE_FOREST);
@@ -1199,7 +1198,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BROWN_SHELF_FUNGI)
 			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.add(Biomes.BIRCH_FOREST)
@@ -1443,10 +1442,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.SPARSE_BIRCH_JUNGLE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PALE_MOSS_PILE)
-			.addOptional(WinterDropBiomes.PALE_GARDEN);
+			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)
-			.addOptional(WinterDropBiomes.PALE_GARDEN);
+			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DECORATIVE_MUD)
 			.add(Biomes.SWAMP);
@@ -1485,7 +1484,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_RARE)
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.add(Biomes.FLOWER_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWWorldgen.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
@@ -1750,7 +1749,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 			.add(Biomes.FLOWER_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWWorldgen.FLOWER_FIELD)
 			.addOptional(WWWorldgen.BIRCH_TAIGA)

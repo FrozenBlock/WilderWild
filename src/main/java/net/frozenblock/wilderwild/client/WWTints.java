@@ -28,9 +28,9 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 public final class WWTints {
 
 	public static void initItems() {
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAVES);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAVES);
-		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FRONDS);
+		//TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAVES);
+		//TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAVES);
+		//TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FRONDS);
 	}
 
 	public static void initBlocks() {

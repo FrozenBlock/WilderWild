@@ -27,11 +27,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class FlowerLichenBlock extends MultifaceBlock {
+public class FlowerLichenBlock extends MultifaceSpreadeableBlock {
 	public static final MapCodec<FlowerLichenBlock> CODEC = simpleCodec(FlowerLichenBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new FlowerLichenSpreaderConfig());
 
@@ -47,7 +48,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends FlowerLichenBlock> codec() {
+	public MapCodec<? extends FlowerLichenBlock> codec() {
 		return CODEC;
 	}
 

@@ -55,11 +55,14 @@ public class NematocystBlock extends FaceClusterBlock {
 		return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
 	}
 
+	// TODO: FIX
+	/*
 	@Override
 	@NotNull
 	public NematocystSpreader getSpreader() {
 		return this.spreader;
 	}
+	 */
 
 	public static class NematocystSpreader extends MultifaceSpreader {
 

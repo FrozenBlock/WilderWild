@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.CherryParticle;
+import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
@@ -38,16 +38,22 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class LeafParticle extends CherryParticle {
+public class LeafParticle extends FallingLeavesParticle {
 	private static final int DEFAULT_UNTINTED_COLOR = ARGB.color(255, 255, 255);
 
 	public LeafParticle(
 		ClientLevel world,
 		double x, double y, double z,
+		float gravityScale,
+		float windBig,
+		boolean swirl,
+		boolean flowAway,
+		float quadSize,
+		float downwardVelocity,
 		SpriteSet spriteProvider,
 		ParticleType<LeafParticleOptions> particleType
 	) {
-		super(world, x, y, z, spriteProvider);
+		super(world, x, y, z, spriteProvider, gravityScale, windBig, swirl, flowAway, quadSize, downwardVelocity);
 		FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(particleType);
 		int color = DEFAULT_UNTINTED_COLOR;
 		if (leafParticleData != null) {
@@ -73,14 +79,24 @@ public class LeafParticle extends CherryParticle {
 		public Particle createParticle(
 			@NotNull LeafParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
 		) {
-			LeafParticle leafParticle = new LeafParticle(level, x, y, z, this.spriteProvider, (ParticleType<LeafParticleOptions>) options.getType());
-			leafParticle.quadSize = options.getQuadSize();
+			LeafParticle leafParticle = new LeafParticle(
+				level,
+				x, y, z,
+				0.25F * options.getGravityScale(),
+				1.5F,
+				true,
+				true,
+				options.getQuadSize(),
+				0F,
+				this.spriteProvider,
+				(ParticleType<LeafParticleOptions>) options.getType()
+			);
+			//leafParticle.quadSize = options.getQuadSize();
 			if (options.isFastFalling()) {
 				leafParticle.gravity = 0.04F;
-			} else {
-				leafParticle.gravity *= options.getGravityScale();
 			}
-			leafParticle.rotSpeed *= options.getGravityScale() * 0.5F;
+
+			//leafParticle.rotSpeed *= options.getGravityScale() * 0.5F;
 			if (options.shouldControlVelUponSpawn()) {
 				Vec3 velocity = options.getVelocity();
 				leafParticle.xd = velocity.x;

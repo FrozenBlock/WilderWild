@@ -306,7 +306,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.restrictTo(entity.blockPosition(), 5);
 			float f = this.distanceTo(entity);
 			if (f > 10F) {
-				this.dropLeash(true, true);
+				this.dropLeash();
 			} else if (f > 6F) {
 				double d = (entity.getX() - this.getX()) / (double) f;
 				double e = (entity.getY() - this.getY()) / (double) f;

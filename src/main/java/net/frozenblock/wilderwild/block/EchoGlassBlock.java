@@ -188,10 +188,9 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	@NotNull
-	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		int damage = state.getValue(WWBlockStateProperties.DAMAGE);
+	protected ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
+		ItemStack superStack = super.getCloneItemStack(levelReader, blockPos, blockState, bl);
+		int damage = blockState.getValue(WWBlockStateProperties.DAMAGE);
 		if (damage != 0) {
 			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
 		}

@@ -131,9 +131,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWItems.PALM_CHEST_BOAT)
 			.add(WWItems.MAPLE_CHEST_BOAT);
 
-		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
-			.add(WWBlocks.POLLEN.asItem());
-
 		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
 

@@ -40,8 +40,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin(BlockRenderer.class)
-public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
-
+public abstract class BlockRendererMixin {
+	//extends AbstractBlockRenderContext {
+	
 	@Unique
 	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
 

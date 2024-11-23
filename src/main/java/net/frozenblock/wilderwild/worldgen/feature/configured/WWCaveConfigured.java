@@ -399,6 +399,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
+		// TODO: Fix Nematocyst to work with this
+		/*
 		NEMATOCYST_BLUE.makeAndSetHolder(WWFeatures.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
 				WWBlocks.BLUE_PEARLESCENT_NEMATOCYST,
@@ -428,6 +430,7 @@ public final class WWCaveConfigured {
 				)
 			)
 		);
+		 */
 
 		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(

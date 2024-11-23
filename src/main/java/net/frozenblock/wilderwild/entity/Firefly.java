@@ -336,7 +336,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
 		birdNavigation.setCanOpenDoors(false);
 		birdNavigation.setCanFloat(true);
-		birdNavigation.setCanPassDoors(true);
+		birdNavigation.getNodeEvaluator().setCanPassDoors(true);
 		return birdNavigation;
 	}
 

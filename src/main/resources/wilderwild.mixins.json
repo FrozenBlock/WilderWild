@@ -134,7 +134,7 @@
     "client.warden.WardenRenderStateMixin",
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",
-    "client.wind.CherryParticleMixin",
+    "client.wind.FallingLeavesParticleMixin",
     "client.wind.DripParticleMixin",
     "client.wind.DustParticleBaseMixin",
     "client.wind.ExplodeParticleMixin",
@@ -152,7 +152,6 @@
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
     "snowlogging.client.MultiPlayerGameModeMixin",
-    "snowlogging.client.TerrainRenderContextMixin"
   ],
   "injectors": {
     "defaultRequire": 1
