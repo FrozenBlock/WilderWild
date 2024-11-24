@@ -8,10 +8,7 @@
     "minecraft:taiga",
     "minecraft:snowy_taiga",
     "minecraft:river",
-    {
-      "id": "minecraft:pale_garden",
-      "required": false
-    },
+    "minecraft:pale_garden",
     {
       "id": "wilderwild:mixed_forest",
       "required": false

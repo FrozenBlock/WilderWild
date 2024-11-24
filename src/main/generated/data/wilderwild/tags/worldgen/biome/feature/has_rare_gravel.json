@@ -8,10 +8,7 @@
     "minecraft:old_growth_spruce_taiga",
     "minecraft:old_growth_pine_taiga",
     "minecraft:flower_forest",
-    {
-      "id": "minecraft:pale_garden",
-      "required": false
-    },
+    "minecraft:pale_garden",
     {
       "id": "wilderwild:old_growth_birch_taiga",
       "required": false

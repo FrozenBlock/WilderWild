@@ -2,10 +2,7 @@
   "values": [
     "minecraft:sunflower_plains",
     "minecraft:flower_forest",
-    {
-      "id": "minecraft:pale_garden",
-      "required": false
-    },
+    "minecraft:pale_garden",
     {
       "id": "wilderwild:maple_forest",
       "required": false

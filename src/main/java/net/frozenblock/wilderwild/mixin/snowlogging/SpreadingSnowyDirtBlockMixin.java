@@ -18,25 +18,22 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SpreadingSnowyDirtBlock.class)
 public class SpreadingSnowyDirtBlockMixin {
 
-	@Inject(method = "canBeGrass",
+	@Inject(
+		method = "canBeGrass",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
@@ -52,23 +49,6 @@ public class SpreadingSnowyDirtBlockMixin {
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
 			info.setReturnValue(true);
 		}
-	}
-
-	@WrapOperation(
-		method = "randomTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
-		),
-		slice = @Slice(
-			from = @At(
-				value = "INVOKE",
-				target = "Lnet/minecraft/world/level/block/SpreadingSnowyDirtBlock;canPropagate(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z"
-			)
-		)
-	)
-	public boolean wilderWild$randomTick(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || SnowloggingUtils.isSnowlogged(instance);
 	}
 
 }

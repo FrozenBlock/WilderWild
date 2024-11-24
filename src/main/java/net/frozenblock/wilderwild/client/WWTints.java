@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.frozenblock.lib.client.TintRegistryHelper;
+import net.frozenblock.lib.block.client.TintRegistryHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 
 @Environment(EnvType.CLIENT)

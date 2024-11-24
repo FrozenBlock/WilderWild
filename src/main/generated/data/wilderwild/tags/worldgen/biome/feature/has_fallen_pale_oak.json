@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "minecraft:pale_garden",
-      "required": false
-    }
+    "minecraft:pale_garden"
   ]
 }
