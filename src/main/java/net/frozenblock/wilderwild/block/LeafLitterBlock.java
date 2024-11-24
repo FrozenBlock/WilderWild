@@ -129,7 +129,10 @@ public class LeafLitterBlock extends CarpetBlock {
 					LeafParticleOptions particleOptions = LeafParticleOptions.create(
 						particleType,
 						particleData.quadSize(),
-						particleData.particleGravityScale()
+						particleData.particleGravityScale(),
+						particleData.windScale(),
+						particleData.flowAway(),
+						particleData.swirl()
 					);
 					serverLevel.sendParticles(
 						particleOptions,

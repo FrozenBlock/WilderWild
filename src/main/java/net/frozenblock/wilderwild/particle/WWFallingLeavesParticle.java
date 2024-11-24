@@ -97,7 +97,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 			}
 
 			//leafParticle.rotSpeed *= options.getGravityScale() * 0.5F;
-			if (options.shouldControlVelUponSpawn()) {
+			if (options.controlVelUponSpawn()) {
 				Vec3 velocity = options.getVelocity();
 				leafParticle.xd = velocity.x;
 				leafParticle.yd = velocity.y;

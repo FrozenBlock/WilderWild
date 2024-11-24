@@ -44,28 +44,52 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FallingLeafUtil {
-	private static final LeafParticleData DEFAULT_LEAF_PARTICLE_DATA = new LeafParticleData(Blocks.OAK_LEAVES, 0.0125F, () -> 1D, 0.125F, 3F);
+	private static final LeafParticleData DEFAULT_LEAF_PARTICLE_DATA = new LeafParticleData(
+		Blocks.OAK_LEAVES,
+		0.0125F,
+		() -> 1D,
+		0.125F,
+		2F,
+		10F,
+		true,
+		true
+	);
 	private static final Map<Block, FallingLeafData> LEAVES_TO_FALLING_LEAF_DATA = new Object2ObjectLinkedOpenHashMap<>();
 	private static final Map<ParticleType<LeafParticleOptions>, LeafParticleData> PARTICLE_TO_LEAF_PARTICLE_DATA = new Object2ObjectLinkedOpenHashMap<>();
 
 	public static void registerFallingLeafWithLitter(
 		Block block,
-		LeafLitterBlock leafLitterBlock, float litterChance,
-		ParticleType<LeafParticleOptions> leafParticle, float particleChance, Supplier<Double> frequencyModifier, float quadSize, float particleGravityScale
+		LeafLitterBlock leafLitterBlock,
+		float litterChance,
+		ParticleType<LeafParticleOptions> leafParticle,
+		float particleChance,
+		Supplier<Double> frequencyModifier,
+		float quadSize,
+		float particleGravityScale,
+		float windScale,
+		boolean flowAway,
+		boolean swirl
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(Optional.of(leafLitterBlock), litterChance, leafParticle),
-			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, quadSize, particleGravityScale)
+			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, quadSize, particleGravityScale, windScale, flowAway, swirl)
 		);
 	}
 
 	public static void registerFallingLeaf(
 		Block block,
-		ParticleType<LeafParticleOptions> leafParticle, float particleChance, Supplier<Double> frequencyModifier, float quadSize, float particleGravityScale
+		ParticleType<LeafParticleOptions> leafParticle,
+		float particleChance,
+		Supplier<Double> frequencyModifier,
+		float quadSize,
+		float particleGravityScale,
+		float windScale,
+		boolean flowAway,
+		boolean swirl
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(Optional.empty(), 0F, leafParticle),
-			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, quadSize, particleGravityScale)
+			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, quadSize, particleGravityScale, windScale, flowAway, swirl)
 		);
 	}
 
@@ -161,10 +185,26 @@ public class FallingLeafUtil {
 	public static @NotNull LeafParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData) {
 		ParticleType<LeafParticleOptions> leafParticle = fallingLeafData.particle();
 		LeafParticleData leafParticleData = getLeafParticleData(leafParticle);
-		return LeafParticleOptions.create(fallingLeafData.particle, leafParticleData.quadSize, leafParticleData.particleGravityScale);
+		return LeafParticleOptions.create(
+			fallingLeafData.particle,
+			leafParticleData.quadSize,
+			leafParticleData.particleGravityScale,
+			leafParticleData.windScale,
+			leafParticleData.flowAway,
+			leafParticleData.swirl
+		);
 	}
 
 	public record FallingLeafData(Optional<LeafLitterBlock> leafLitterBlock, float litterChance, ParticleType<LeafParticleOptions> particle) {}
 
-	public record LeafParticleData(Block leavesBlock, float particleChance, Supplier<Double> frequencyModifier, float quadSize, float particleGravityScale) {}
+	public record LeafParticleData(
+		Block leavesBlock,
+		float particleChance,
+		Supplier<Double> frequencyModifier,
+		float quadSize,
+		float particleGravityScale,
+		float windScale,
+		boolean flowAway,
+		boolean swirl
+	) {}
 }

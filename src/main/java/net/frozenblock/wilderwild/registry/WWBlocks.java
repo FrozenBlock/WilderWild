@@ -1312,7 +1312,7 @@ public final class WWBlocks {
 		float litterChance,
 		Supplier<Double> frequencyModifier
 	) {
-		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, 0.125F, 3F);
+		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, 0.125F, 3F, 10F, true, true);
 	}
 
 	@NotNull
@@ -1324,7 +1324,10 @@ public final class WWBlocks {
 		float particleChance,
 		Supplier<Double> frequencyModifier,
 		float quadSize,
-		float particleGravityScale
+		float particleGravityScale,
+		float windScale,
+		boolean flowAway,
+		boolean swirl
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
@@ -1335,7 +1338,10 @@ public final class WWBlocks {
 			particleChance,
 			frequencyModifier,
 			quadSize,
-			particleGravityScale
+			particleGravityScale,
+			windScale,
+			flowAway,
+			swirl
 		);
 		return leafLitterBlock;
 	}

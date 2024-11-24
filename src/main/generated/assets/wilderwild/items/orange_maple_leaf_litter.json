@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/orange_maple_leaf_litter"
+    "model": "wilderwild:item/orange_maple_leaf_litter"
   }
 }
