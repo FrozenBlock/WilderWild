@@ -35,7 +35,9 @@ import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(FallingLeavesParticle.class)
@@ -43,6 +45,19 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 
 	protected FallingLeavesParticleMixin(ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f);
+	}
+
+	@Inject(method = "tick", at = @At("HEAD"))
+	public void wilderWild$captureWind(
+		CallbackInfo info,
+		@Share("wilderWild$wind") LocalRef<Vec3> wind
+	) {
+		wind.set(Vec3.ZERO);
+		if (WWClientWindManager.shouldUseWind()) {
+			Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
+				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
+			wind.set(currentWind);
+		}
 	}
 
 	@ModifyExpressionValue(
@@ -56,13 +71,7 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		wind.set(Vec3.ZERO);
-		if (WWClientWindManager.shouldUseWind()) {
-			Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
-				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
-			wind.set(currentWind);
-			return currentWind.x;
-		}
+		if (WWClientWindManager.shouldUseWind()) return wind.get().x;
 		return original;
 	}
 
