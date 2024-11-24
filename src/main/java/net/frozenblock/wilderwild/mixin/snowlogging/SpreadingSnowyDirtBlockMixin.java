@@ -50,5 +50,4 @@ public class SpreadingSnowyDirtBlockMixin {
 			info.setReturnValue(true);
 		}
 	}
-
 }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/cypress_sapling"
+    "model": "wilderwild:item/cypress_sapling"
   }
 }
