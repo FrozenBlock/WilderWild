@@ -38,10 +38,10 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class LeafParticle extends FallingLeavesParticle {
+public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	private static final int DEFAULT_UNTINTED_COLOR = ARGB.color(255, 255, 255);
 
-	public LeafParticle(
+	public WWFallingLeavesParticle(
 		ClientLevel world,
 		double x, double y, double z,
 		float gravityScale,
@@ -79,7 +79,7 @@ public class LeafParticle extends FallingLeavesParticle {
 		public Particle createParticle(
 			@NotNull LeafParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
 		) {
-			LeafParticle leafParticle = new LeafParticle(
+			WWFallingLeavesParticle leafParticle = new WWFallingLeavesParticle(
 				level,
 				x, y, z,
 				0.25F * options.getGravityScale(),
