@@ -435,7 +435,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FALLEN_PALE_OAK_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_PALE_OAKS.getHolder(),
-			RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -921,7 +921,7 @@ public final class WWPlacedFeatures {
 		);
 
 		SNAPPED_PALE_OAK_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_PALE_OAKS.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(6))
+			treePlacement(RarityFilter.onAverageOnceEvery(5))
 		);
 
 		// MUSHROOMS
@@ -1218,7 +1218,7 @@ public final class WWPlacedFeatures {
 		);
 
 		EYEBLOSSOM.makeAndSetHolder(WWConfiguredFeatures.EYEBLOSSOM.getHolder(),
-			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
