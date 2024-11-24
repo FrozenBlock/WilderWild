@@ -86,7 +86,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 				1.5F,
 				true,
 				true,
-				options.getQuadSize(),
+				options.getQuadSize() * 16F,
 				0F,
 				this.spriteProvider,
 				(ParticleType<LeafParticleOptions>) options.getType()
