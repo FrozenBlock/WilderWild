@@ -56,6 +56,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -66,7 +67,6 @@ import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;
@@ -360,20 +360,20 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(MAGMA_BLOCK, MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
 		addBlocks(new Block[]{PUMPKIN, CARVED_PUMPKIN, JACK_O_LANTERN, Blocks.MELON}, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
 
-		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
-		WolfVariantBiomeRegistry.register(WWWorldgen.RAINFOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(WWWorldgen.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(WWWorldgen.DYING_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(WWWorldgen.MIXED_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(WWWorldgen.SPARSE_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(WWWorldgen.PARCHED_FOREST, WolfVariants.WOODS);
-		WolfVariantBiomeRegistry.register(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(WWWorldgen.BIRCH_TAIGA, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(WWWorldgen.DYING_MIXED_FOREST, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(WWWorldgen.DARK_TAIGA, WolfVariants.PALE);
-		WolfVariantBiomeRegistry.register(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
-		WolfVariantBiomeRegistry.register(WWWorldgen.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
-		WolfVariantBiomeRegistry.register(WWWorldgen.MAPLE_FOREST, WolfVariants.CHESTNUT);
+		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
+		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWBiomes.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWBiomes.DYING_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWBiomes.MIXED_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWBiomes.SPARSE_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWBiomes.PARCHED_FOREST, WolfVariants.WOODS);
+		WolfVariantBiomeRegistry.register(WWBiomes.OLD_GROWTH_BIRCH_TAIGA, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(WWBiomes.BIRCH_TAIGA, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(WWBiomes.DYING_MIXED_FOREST, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(WWBiomes.DARK_TAIGA, WolfVariants.PALE);
+		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
+		WolfVariantBiomeRegistry.register(WWBiomes.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
+		WolfVariantBiomeRegistry.register(WWBiomes.MAPLE_FOREST, WolfVariants.CHESTNUT);
 
 		// TODO: make
 		// BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
@@ -446,35 +446,35 @@ public class FrozenLibIntegration extends ModIntegration {
 			if (WWAmbienceAndMiscConfig.get().modifyAdvancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/adventuring_time" -> {
-						addBiomeRequirement(advancement, WWWorldgen.CYPRESS_WETLANDS, registries);
-						addBiomeRequirement(advancement, WWWorldgen.MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.OASIS, registries);
-						addBiomeRequirement(advancement, WWWorldgen.WARM_RIVER, registries);
-						addBiomeRequirement(advancement, WWWorldgen.WARM_BEACH, registries);
-						addBiomeRequirement(advancement, WWWorldgen.FROZEN_CAVES, registries);
-						addBiomeRequirement(advancement, WWWorldgen.MESOGLEA_CAVES, registries);
-						addBiomeRequirement(advancement, WWWorldgen.MAGMATIC_CAVES, registries);
-						addBiomeRequirement(advancement, WWWorldgen.ARID_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.ARID_SAVANNA, registries);
-						addBiomeRequirement(advancement, WWWorldgen.PARCHED_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.BIRCH_JUNGLE, registries);
-						addBiomeRequirement(advancement, WWWorldgen.SPARSE_BIRCH_JUNGLE, registries);
-						addBiomeRequirement(advancement, WWWorldgen.BIRCH_TAIGA, registries);
-						addBiomeRequirement(advancement, WWWorldgen.SEMI_BIRCH_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.DARK_BIRCH_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.FLOWER_FIELD, registries);
-						addBiomeRequirement(advancement, WWWorldgen.TEMPERATE_RAINFOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.RAINFOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.DARK_TAIGA, registries);
-						addBiomeRequirement(advancement, WWWorldgen.OLD_GROWTH_BIRCH_TAIGA, registries);
-						addBiomeRequirement(advancement, WWWorldgen.OLD_GROWTH_DARK_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, registries);
-						addBiomeRequirement(advancement, WWWorldgen.DYING_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.DYING_MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.SNOWY_DYING_MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.MAPLE_FOREST, registries);
-						addBiomeRequirement(advancement, WWWorldgen.SPARSE_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.CYPRESS_WETLANDS, registries);
+						addBiomeRequirement(advancement, WWBiomes.MIXED_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.OASIS, registries);
+						addBiomeRequirement(advancement, WWBiomes.WARM_RIVER, registries);
+						addBiomeRequirement(advancement, WWBiomes.WARM_BEACH, registries);
+						addBiomeRequirement(advancement, WWBiomes.FROZEN_CAVES, registries);
+						addBiomeRequirement(advancement, WWBiomes.MESOGLEA_CAVES, registries);
+						addBiomeRequirement(advancement, WWBiomes.MAGMATIC_CAVES, registries);
+						addBiomeRequirement(advancement, WWBiomes.ARID_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.ARID_SAVANNA, registries);
+						addBiomeRequirement(advancement, WWBiomes.PARCHED_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.BIRCH_JUNGLE, registries);
+						addBiomeRequirement(advancement, WWBiomes.SPARSE_BIRCH_JUNGLE, registries);
+						addBiomeRequirement(advancement, WWBiomes.BIRCH_TAIGA, registries);
+						addBiomeRequirement(advancement, WWBiomes.SEMI_BIRCH_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.DARK_BIRCH_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.FLOWER_FIELD, registries);
+						addBiomeRequirement(advancement, WWBiomes.TEMPERATE_RAINFOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.RAINFOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.DARK_TAIGA, registries);
+						addBiomeRequirement(advancement, WWBiomes.OLD_GROWTH_BIRCH_TAIGA, registries);
+						addBiomeRequirement(advancement, WWBiomes.OLD_GROWTH_DARK_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, registries);
+						addBiomeRequirement(advancement, WWBiomes.DYING_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.DYING_MIXED_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(

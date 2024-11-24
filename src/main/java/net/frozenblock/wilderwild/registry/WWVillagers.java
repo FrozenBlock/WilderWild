@@ -32,24 +32,24 @@ public final class WWVillagers {
 
 	public static void register() {
 		Map<ResourceKey<Biome>, VillagerType> villagerTypeMap = VillagerType.BY_BIOME;
-		villagerTypeMap.put(WWWorldgen.CYPRESS_WETLANDS, VillagerType.SWAMP);
-		villagerTypeMap.put(WWWorldgen.OASIS, VillagerType.DESERT);
-		villagerTypeMap.put(WWWorldgen.FROZEN_CAVES, VillagerType.SNOW);
-		villagerTypeMap.put(WWWorldgen.ARID_FOREST, VillagerType.DESERT);
-		villagerTypeMap.put(WWWorldgen.ARID_SAVANNA, VillagerType.SAVANNA);
-		villagerTypeMap.put(WWWorldgen.PARCHED_FOREST, VillagerType.SAVANNA);
-		villagerTypeMap.put(WWWorldgen.BIRCH_JUNGLE, VillagerType.JUNGLE);
-		villagerTypeMap.put(WWWorldgen.SPARSE_BIRCH_JUNGLE, VillagerType.JUNGLE);
-		villagerTypeMap.put(WWWorldgen.BIRCH_TAIGA, VillagerType.TAIGA);
-		villagerTypeMap.put(WWWorldgen.TEMPERATE_RAINFOREST, VillagerType.TAIGA);
-		villagerTypeMap.put(WWWorldgen.DARK_TAIGA, VillagerType.TAIGA);
-		villagerTypeMap.put(WWWorldgen.MIXED_FOREST, VillagerType.TAIGA);
-		villagerTypeMap.put(WWWorldgen.DYING_MIXED_FOREST, VillagerType.TAIGA);
-		villagerTypeMap.put(WWWorldgen.SNOWY_DYING_MIXED_FOREST, VillagerType.SNOW);
-		villagerTypeMap.put(WWWorldgen.SNOWY_DYING_FOREST, VillagerType.SNOW);
-		villagerTypeMap.put(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA, VillagerType.TAIGA);
-		villagerTypeMap.put(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
-		villagerTypeMap.put(WWWorldgen.FLOWER_FIELD, VillagerType.PLAINS);
+		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
+		villagerTypeMap.put(WWBiomes.OASIS, VillagerType.DESERT);
+		villagerTypeMap.put(WWBiomes.FROZEN_CAVES, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.ARID_FOREST, VillagerType.DESERT);
+		villagerTypeMap.put(WWBiomes.ARID_SAVANNA, VillagerType.SAVANNA);
+		villagerTypeMap.put(WWBiomes.PARCHED_FOREST, VillagerType.SAVANNA);
+		villagerTypeMap.put(WWBiomes.BIRCH_JUNGLE, VillagerType.JUNGLE);
+		villagerTypeMap.put(WWBiomes.SPARSE_BIRCH_JUNGLE, VillagerType.JUNGLE);
+		villagerTypeMap.put(WWBiomes.BIRCH_TAIGA, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.TEMPERATE_RAINFOREST, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.DARK_TAIGA, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.MIXED_FOREST, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.DYING_MIXED_FOREST, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.SNOWY_DYING_MIXED_FOREST, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.SNOWY_DYING_FOREST, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.OLD_GROWTH_BIRCH_TAIGA, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
 		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
 			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));

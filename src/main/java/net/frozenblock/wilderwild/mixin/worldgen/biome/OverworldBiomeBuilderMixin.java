@@ -25,7 +25,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
 import net.minecraft.resources.ResourceKey;
@@ -103,7 +103,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3) {
-			info.setReturnValue(WWWorldgen.WARM_BEACH);
+			info.setReturnValue(WWBiomes.WARM_BEACH);
 		}
 	}
 
@@ -128,9 +128,9 @@ public final class OverworldBiomeBuilderMixin {
 	) {
 		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.get().biomeGeneration.generateWarmRiver) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
-			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWWorldgen.WARM_RIVER);
+			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
 			Climate.Parameter jungleHumidity = WWWorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
-			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWWorldgen.WARM_RIVER);
+			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
 		}
 		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}
