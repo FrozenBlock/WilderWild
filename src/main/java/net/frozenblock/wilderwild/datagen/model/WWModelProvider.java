@@ -55,7 +55,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.woodProvider(WWBlocks.PALM_LOG).logWithHorizontal(WWBlocks.PALM_LOG).wood(WWBlocks.PALM_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_PALM_LOG).logWithHorizontal(WWBlocks.STRIPPED_PALM_LOG).wood(WWBlocks.STRIPPED_PALM_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
-		generator.createPlant(WWBlocks.COCONUT, WWBlocks.POTTED_COCONUT, BlockModelGenerators.PlantType.NOT_TINTED);
+		//generator.createPlant(WWBlocks.COCONUT, WWBlocks.POTTED_COCONUT, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createTintedLeaves(WWBlocks.PALM_FRONDS, TexturedModel.LEAVES, FoliageColor.FOLIAGE_DEFAULT);
 
 		generator.family(WWBlocks.MAPLE_PLANKS).generateFor(WWBlocks.MAPLE);
