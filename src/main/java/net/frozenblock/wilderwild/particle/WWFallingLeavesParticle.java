@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
-import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
@@ -51,7 +51,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		float quadSize,
 		float downwardVelocity,
 		SpriteSet spriteProvider,
-		ParticleType<LeafParticleOptions> particleType
+		ParticleType<WWFallingLeavesParticleOptions> particleType
 	) {
 		super(world, x, y, z, spriteProvider, gravityScale, windBig, swirl, flowAway, quadSize, downwardVelocity);
 		FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(particleType);
@@ -73,23 +73,23 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<LeafParticleOptions> {
+	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WWFallingLeavesParticleOptions> {
 		@Override
 		@NotNull
 		public Particle createParticle(
-			@NotNull LeafParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
+			@NotNull WWFallingLeavesParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
 		) {
 			WWFallingLeavesParticle leafParticle = new WWFallingLeavesParticle(
 				level,
 				x, y, z,
 				0.25F * options.getGravityScale(),
-				1.5F,
-				true,
-				true,
+				options.getWindScale(),
+				options.swirl(),
+				!options.swirl(),
 				options.getQuadSize() * 16F,
 				0F,
 				this.spriteProvider,
-				(ParticleType<LeafParticleOptions>) options.getType()
+				(ParticleType<WWFallingLeavesParticleOptions>) options.getType()
 			);
 			//leafParticle.quadSize = options.getQuadSize();
 			if (options.isFastFalling()) {

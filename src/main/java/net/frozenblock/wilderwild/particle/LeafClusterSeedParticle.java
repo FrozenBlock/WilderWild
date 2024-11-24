@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
-import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -35,10 +35,10 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class LeafClusterSeedParticle extends NoRenderParticle {
-	private final ParticleType<LeafParticleOptions> spawnedParticle;
+	private final ParticleType<WWFallingLeavesParticleOptions> spawnedParticle;
 	private final BlockPos pos;
 
-	LeafClusterSeedParticle(ParticleType<LeafParticleOptions> spawnedParticle, ClientLevel world, double d, double e, double f) {
+	LeafClusterSeedParticle(ParticleType<WWFallingLeavesParticleOptions> spawnedParticle, ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f, 0D, 0D, 0D);
 		this.lifetime = 5;
 		this.spawnedParticle = spawnedParticle;
@@ -50,7 +50,7 @@ public class LeafClusterSeedParticle extends NoRenderParticle {
 		int leafCount = this.random.nextInt(4) + 1;
 		for (int i = 0; i < leafCount; i++) {
 			FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(this.spawnedParticle);
-			LeafParticleOptions leafParticleOptions = LeafParticleOptions.createFastFalling(this.spawnedParticle, leafParticleData.quadSize());
+			WWFallingLeavesParticleOptions leafParticleOptions = WWFallingLeavesParticleOptions.createFastFalling(this.spawnedParticle, leafParticleData.quadSize());
 			ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, leafParticleOptions);
 		}
 		this.age++;

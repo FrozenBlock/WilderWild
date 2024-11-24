@@ -41,20 +41,20 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 		LeafClusterParticleOptions::createCodecParticleOptions
 	);
 
-	private final ParticleType<LeafParticleOptions> particleType;
+	private final ParticleType<WWFallingLeavesParticleOptions> particleType;
 	private final ResourceLocation particleId;
 
 	@NotNull
-	public static LeafClusterParticleOptions create(ParticleType<LeafParticleOptions> type) {
+	public static LeafClusterParticleOptions create(ParticleType<WWFallingLeavesParticleOptions> type) {
 		return new LeafClusterParticleOptions(type);
 	}
 
 	private @NotNull static LeafClusterParticleOptions createCodecParticleOptions(
 		ResourceLocation particleId
 	) {
-		ParticleType<LeafParticleOptions> particleType;
+		ParticleType<WWFallingLeavesParticleOptions> particleType;
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
-			particleType = (ParticleType<LeafParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.getValue(particleId);
+			particleType = (ParticleType<WWFallingLeavesParticleOptions>) BuiltInRegistries.PARTICLE_TYPE.getValue(particleId);
 		} else {
 			particleType = WWParticleTypes.OAK_LEAVES;
 		}
@@ -62,7 +62,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 	}
 
 	private LeafClusterParticleOptions(
-		ParticleType<LeafParticleOptions> type
+		ParticleType<WWFallingLeavesParticleOptions> type
 	) {
 		this.particleType = type;
 		this.particleId = BuiltInRegistries.PARTICLE_TYPE.getKey(type);
@@ -74,7 +74,7 @@ public class LeafClusterParticleOptions implements ParticleOptions {
 		return WWParticleTypes.LEAF_CLUSTER_SPAWNER;
 	}
 
-	public ParticleType<LeafParticleOptions> getSpawnedParticleType() {
+	public ParticleType<WWFallingLeavesParticleOptions> getSpawnedParticleType() {
 		return this.particleType;
 	}
 

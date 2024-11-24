@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
-import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,13 +55,13 @@ public class FallingLeafUtil {
 		true
 	);
 	private static final Map<Block, FallingLeafData> LEAVES_TO_FALLING_LEAF_DATA = new Object2ObjectLinkedOpenHashMap<>();
-	private static final Map<ParticleType<LeafParticleOptions>, LeafParticleData> PARTICLE_TO_LEAF_PARTICLE_DATA = new Object2ObjectLinkedOpenHashMap<>();
+	private static final Map<ParticleType<WWFallingLeavesParticleOptions>, LeafParticleData> PARTICLE_TO_LEAF_PARTICLE_DATA = new Object2ObjectLinkedOpenHashMap<>();
 
 	public static void registerFallingLeafWithLitter(
 		Block block,
 		LeafLitterBlock leafLitterBlock,
 		float litterChance,
-		ParticleType<LeafParticleOptions> leafParticle,
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
 		float quadSize,
@@ -78,7 +78,7 @@ public class FallingLeafUtil {
 
 	public static void registerFallingLeaf(
 		Block block,
-		ParticleType<LeafParticleOptions> leafParticle,
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
 		float quadSize,
@@ -94,7 +94,7 @@ public class FallingLeafUtil {
 	}
 
 	private static void registerFallingLeaf(
-		Block block, FallingLeafData fallingLeafData, ParticleType<LeafParticleOptions> leafParticle, @Nullable LeafParticleData leafParticleData
+		Block block, FallingLeafData fallingLeafData, ParticleType<WWFallingLeavesParticleOptions> leafParticle, @Nullable LeafParticleData leafParticleData
 	) {
 		if (block instanceof LeavesBlock leavesBlock) {
 			LEAVES_TO_FALLING_LEAF_DATA.put(leavesBlock, fallingLeafData);
@@ -111,7 +111,7 @@ public class FallingLeafUtil {
 		return Optional.ofNullable(LEAVES_TO_FALLING_LEAF_DATA.get(block));
 	}
 
-	public static LeafParticleData getLeafParticleData(ParticleType<LeafParticleOptions> leafParticle) {
+	public static LeafParticleData getLeafParticleData(ParticleType<WWFallingLeavesParticleOptions> leafParticle) {
 		return PARTICLE_TO_LEAF_PARTICLE_DATA.getOrDefault(leafParticle, DEFAULT_LEAF_PARTICLE_DATA);
 	}
 
@@ -170,7 +170,7 @@ public class FallingLeafUtil {
 		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isPresent()) {
 			FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-			ParticleType<LeafParticleOptions> leafParticle = fallingLeafData.particle();
+			ParticleType<WWFallingLeavesParticleOptions> leafParticle = fallingLeafData.particle();
 			LeafParticleData leafParticleData = getLeafParticleData(leafParticle);
 			if (random.nextFloat() <= leafParticleData.particleChance() * leafParticleData.frequencyModifier().get()) {
 				BlockPos blockPos = pos.below();
@@ -182,20 +182,19 @@ public class FallingLeafUtil {
 		}
 	}
 
-	public static @NotNull LeafParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData) {
-		ParticleType<LeafParticleOptions> leafParticle = fallingLeafData.particle();
+	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData) {
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle = fallingLeafData.particle();
 		LeafParticleData leafParticleData = getLeafParticleData(leafParticle);
-		return LeafParticleOptions.create(
+		return WWFallingLeavesParticleOptions.create(
 			fallingLeafData.particle,
 			leafParticleData.quadSize,
 			leafParticleData.particleGravityScale,
 			leafParticleData.windScale,
-			leafParticleData.flowAway,
 			leafParticleData.swirl
 		);
 	}
 
-	public record FallingLeafData(Optional<LeafLitterBlock> leafLitterBlock, float litterChance, ParticleType<LeafParticleOptions> particle) {}
+	public record FallingLeafData(Optional<LeafLitterBlock> leafLitterBlock, float litterChance, ParticleType<WWFallingLeavesParticleOptions> particle) {}
 
 	public record LeafParticleData(
 		Block leavesBlock,

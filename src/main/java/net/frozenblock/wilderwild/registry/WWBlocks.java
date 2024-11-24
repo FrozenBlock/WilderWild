@@ -71,7 +71,7 @@ import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -92,7 +92,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -1308,7 +1307,7 @@ public final class WWBlocks {
 	public static LeafLitterBlock leafLitter(
 		String id,
 		Block sourceBlock,
-		@NotNull ParticleType<LeafParticleOptions> particleType,
+		@NotNull ParticleType<WWFallingLeavesParticleOptions> particleType,
 		float litterChance,
 		Supplier<Double> frequencyModifier
 	) {
@@ -1319,7 +1318,7 @@ public final class WWBlocks {
 	public static LeafLitterBlock leafLitter(
 		String id,
 		Block sourceBlock,
-		@NotNull ParticleType<LeafParticleOptions> particleType,
+		@NotNull ParticleType<WWFallingLeavesParticleOptions> particleType,
 		float litterChance,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
@@ -1346,7 +1345,7 @@ public final class WWBlocks {
 		return leafLitterBlock;
 	}
 
-	private static @NotNull LeafLitterBlock createLeafLitter(String id, Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
+	private static @NotNull LeafLitterBlock createLeafLitter(String id, Block sourceBlock, @NotNull ParticleType<WWFallingLeavesParticleOptions> particleType) {
 		Properties properties = Properties.ofFullCopy(sourceBlock)
 			.randomTicks()
 			.noCollission()
