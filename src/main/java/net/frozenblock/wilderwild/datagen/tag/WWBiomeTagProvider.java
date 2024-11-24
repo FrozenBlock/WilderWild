@@ -370,16 +370,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.FROZEN_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.LUKEWARM_WATER)
-			.add(Biomes.DARK_FOREST)
-			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.SAVANNA)
 			.add(Biomes.SAVANNA_PLATEAU)
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.add(Biomes.JUNGLE)
 			.add(Biomes.BAMBOO_JUNGLE)
 			.add(Biomes.SPARSE_JUNGLE)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.PARCHED_FOREST)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
@@ -854,6 +850,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_EYEBLOSSOM)
+			.add(Biomes.PALE_GARDEN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PINK_TULIP_UNCOMMON)
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
@@ -936,7 +935,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_HILLS)
 			.add(Biomes.WINDSWEPT_FOREST)
 			.add(Biomes.DARK_FOREST)
-			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)

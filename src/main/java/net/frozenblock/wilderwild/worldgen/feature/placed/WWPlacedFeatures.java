@@ -232,6 +232,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature CARNATION = register("carnation");
 	public static final FrozenPlacedFeature MARIGOLD = register("marigold");
 	public static final FrozenPlacedFeature MARIGOLD_SPARSE = register("marigold_sparse");
+	public static final FrozenPlacedFeature EYEBLOSSOM = register("eyeblossom");
 	public static final FrozenPlacedFeature PINK_TULIP_UNCOMMON = register("pink_tulip_uncommon");
 	public static final FrozenPlacedFeature ALLIUM_UNCOMMON = register("allium_uncommon");
 	public static final FrozenPlacedFeature DATURA = register("datura");
@@ -1212,6 +1213,11 @@ public final class WWPlacedFeatures {
 		);
 
 		MARIGOLD_SPARSE.makeAndSetHolder(WWConfiguredFeatures.MARIGOLD_SPARSE.getHolder(),
+			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		EYEBLOSSOM.makeAndSetHolder(WWConfiguredFeatures.EYEBLOSSOM.getHolder(),
 			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);

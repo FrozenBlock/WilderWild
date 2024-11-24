@@ -3,6 +3,7 @@
     "minecraft:dirt",
     "minecraft:grass_block",
     "minecraft:coarse_dirt",
+    "minecraft:pale_moss_block",
     {
       "id": "#minecraft:base_stone_overworld",
       "required": false

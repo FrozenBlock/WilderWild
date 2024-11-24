@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:gravel_and_pale_moss_path",
+  "feature": "wilderwild:eyeblossom",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 6
+      "chance": 7
     },
     {
       "type": "minecraft:in_square"

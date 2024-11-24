@@ -182,6 +182,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WWFeatureUtils.register("carnation");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = WWFeatureUtils.register("marigold");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD_SPARSE = WWFeatureUtils.register("marigold_sparse");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> EYEBLOSSOM = WWFeatureUtils.register("eyeblossom");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PINK_TULIP_UNCOMMON = WWFeatureUtils.register("pink_tulip_uncommon");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ALLIUM_UNCOMMON = WWFeatureUtils.register("allium_uncommon");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = WWFeatureUtils.register("datura");
@@ -1478,6 +1479,16 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MARIGOLD))
+				)
+			)
+		);
+
+		EYEBLOSSOM.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				24,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.CLOSED_EYEBLOSSOM), true)
 				)
 			)
 		);

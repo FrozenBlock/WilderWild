@@ -1,21 +1,11 @@
 {
   "values": [
-    "minecraft:dark_forest",
-    "minecraft:pale_garden",
     "minecraft:savanna",
     "minecraft:savanna_plateau",
     "minecraft:windswept_savanna",
     "minecraft:jungle",
     "minecraft:bamboo_jungle",
     "minecraft:sparse_jungle",
-    {
-      "id": "wilderwild:dark_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
-      "required": false
-    },
     {
       "id": "wilderwild:parched_forest",
       "required": false

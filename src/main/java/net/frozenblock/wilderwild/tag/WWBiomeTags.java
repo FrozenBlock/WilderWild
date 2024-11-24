@@ -116,6 +116,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CARNATION = bind("feature/has_carnation");
 	public static final TagKey<Biome> HAS_MARIGOLD = bind("feature/has_marigold");
 	public static final TagKey<Biome> HAS_MARIGOLD_SPARSE = bind("feature/has_marigold_sparse");
+	public static final TagKey<Biome> HAS_EYEBLOSSOM = bind("feature/has_eyeblossom");
 	public static final TagKey<Biome> HAS_PINK_TULIP_UNCOMMON = bind("feature/has_pink_tulip_uncommon");
 	public static final TagKey<Biome> HAS_ALLIUM_UNCOMMON = bind("feature/has_allium_uncommon");
 	public static final TagKey<Biome> HAS_CATTAIL = bind("feature/has_cattail");

@@ -254,6 +254,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.DIRT)
 			.add(Blocks.GRASS_BLOCK)
 			.add(Blocks.COARSE_DIRT)
+			.add(Blocks.PALE_MOSS_BLOCK)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.STONE_PATH_REPLACEABLE)
