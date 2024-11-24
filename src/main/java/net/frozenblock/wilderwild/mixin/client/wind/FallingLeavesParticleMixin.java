@@ -63,15 +63,45 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 	@ModifyExpressionValue(
 		method = "tick",
 		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;xaFlowScale:D"
+		)
+	)
+	public double wilderWild$changeFlowA(
+		double original,
+		@Share("wilderWild$wind") LocalRef<Vec3> wind
+	) {
+		if (WWClientWindManager.shouldUseWind()) return original * wind.get().x;
+		return original;
+	}
+
+	@ModifyExpressionValue(
+		method = "tick",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;zaFlowScale:D"
+		)
+	)
+	public double wilderWild$changeFlowB(
+		double original,
+		@Share("wilderWild$wind") LocalRef<Vec3> wind
+	) {
+		if (WWClientWindManager.shouldUseWind()) return original * wind.get().z;
+		return original;
+	}
+
+	@ModifyExpressionValue(
+		method = "tick",
+		at = @At(
 			value = "INVOKE",
 			target = "Ljava/lang/Math;cos(D)D"
 		)
 	)
-	public double wilderWild$fixMoveA(
+	public double wilderWild$changeSwirlA(
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) return wind.get().x;
+		if (WWClientWindManager.shouldUseWind()) return original + (wind.get().x * 0.2D);
 		return original;
 	}
 
@@ -82,13 +112,11 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 			target = "Ljava/lang/Math;sin(D)D"
 		)
 	)
-	public double wilderWild$fixMoveB(
+	public double wilderWild$changeSwirlB(
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return wind.get().z;
-		}
+		if (WWClientWindManager.shouldUseWind()) return original + (wind.get().z * 0.2D);
 		return original;
 	}
 
@@ -99,13 +127,11 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;move(DDD)V"
 		)
 	)
-	public void wilderWild$fixMoveC(
+	public void wilderWild$fixMoveGravity(
 		FallingLeavesParticle instance, double x, double y, double z, Operation<Void> original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
-		}
+		if (WWClientWindManager.shouldUseWind()) y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
 		original.call(instance, x, y, z);
 	}
 
@@ -116,9 +142,7 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 	public int wilderWild$fixMoveD(
 		int constant
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return 10;
-		}
+		if (WWClientWindManager.shouldUseWind()) return 10;
 		return constant;
 	}
 
