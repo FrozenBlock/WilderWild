@@ -58,7 +58,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWModelLayers.init();
 		WWParticleEngine.init();
 		WWTints.initBlocks();
-		WWTints.initItems();
 
 		WWClientNetworking.registerPacketReceivers();
 

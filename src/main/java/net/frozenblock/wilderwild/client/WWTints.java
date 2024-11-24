@@ -26,13 +26,6 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 
 @Environment(EnvType.CLIENT)
 public final class WWTints {
-
-	public static void initItems() {
-		//TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAVES);
-		//TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAVES);
-		//TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FRONDS);
-	}
-
 	public static void initBlocks() {
 		ColorProviderRegistry.BLOCK.register(
 			((state, level, pos, tintIndex) -> level == null || pos == null ? 7455580 : 2129968),
