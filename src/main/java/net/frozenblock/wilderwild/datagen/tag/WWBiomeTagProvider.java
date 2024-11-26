@@ -371,16 +371,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWWorldgen.FROZEN_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.LUKEWARM_WATER)
-			.add(Biomes.DARK_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
 			.add(Biomes.SAVANNA)
 			.add(Biomes.SAVANNA_PLATEAU)
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.add(Biomes.JUNGLE)
 			.add(Biomes.BAMBOO_JUNGLE)
 			.add(Biomes.SPARSE_JUNGLE)
-			.addOptional(WWWorldgen.DARK_TAIGA)
-			.addOptional(WWWorldgen.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWWorldgen.PARCHED_FOREST)
 			.addOptional(WWWorldgen.BIRCH_JUNGLE)
 			.addOptional(WWWorldgen.SPARSE_BIRCH_JUNGLE)
