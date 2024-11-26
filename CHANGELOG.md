@@ -3,5 +3,5 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Updated embedded FrozenLib to significantly improve performance.
-- Upgraded Wilder Wild's structure NBT.
+- Dark Oak Forests no longer use the warm water color.
+- Fixed many recipe unlocks being broken in 1.21.2+.

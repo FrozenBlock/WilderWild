@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:white_dye_from_alba_glory_of_the_snow"
+        "recipe": "wilderwild:white_dye_from_alba_glory_of_the_snow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:white_dye_from_alba_glory_of_the_snow"
+      "wilderwild:white_dye_from_alba_glory_of_the_snow"
     ]
   }
 }
