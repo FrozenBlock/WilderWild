@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:mossy_mud_bricks_from_vine"
+        "recipe": "wilderwild:mossy_mud_bricks_from_vine"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:mossy_mud_bricks_from_vine"
+      "wilderwild:mossy_mud_bricks_from_vine"
     ]
   }
 }

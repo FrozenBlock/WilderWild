@@ -36,6 +36,7 @@
     "datafix.V3438Mixin",
     "datafix.boat.BoatSplitFixMixin",
     "datafix.boat.V4067Mixin",
+    "datagen.RecipeBuilderMixin",
     "entity.ai.MobMixin",
     "entity.allay.AllayMixin",
     "entity.crab.LivingEntityMixin",

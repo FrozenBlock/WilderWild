@@ -38,18 +38,24 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
+	public static boolean GENERATING_WW_RECIPES = false;
+
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
+	@Contract("_, _ -> new")
 	@Override
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput exporter) {
+	protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput exporter) {
 		return new RecipeProvider(registries, exporter) {
 			@Override
 			public void buildRecipes() {
+				GENERATING_WW_RECIPES = true;
+
 				HollowedLogRecipeProvider.buildRecipes(this, exporter);
 				WWWoodRecipeProvider.buildRecipes(this, exporter);
 				MesogleaRecipeProvider.buildRecipes(this, exporter);
@@ -201,6 +207,8 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICKS, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICKS);
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWBlocks.MOSSY_MUD_BRICK_WALL, WWBlocks.MOSSY_MUD_BRICKS);
+
+				GENERATING_WW_RECIPES = false;
 			}
 		};
 	}

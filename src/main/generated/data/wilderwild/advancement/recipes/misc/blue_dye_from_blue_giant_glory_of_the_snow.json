@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:blue_dye_from_blue_giant_glory_of_the_snow"
+        "recipe": "wilderwild:blue_dye_from_blue_giant_glory_of_the_snow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:blue_dye_from_blue_giant_glory_of_the_snow"
+      "wilderwild:blue_dye_from_blue_giant_glory_of_the_snow"
     ]
   }
 }
