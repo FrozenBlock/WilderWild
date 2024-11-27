@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.frozenblock.wilderwild.entity.render.block.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -120,6 +121,8 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Blocks.STRIPPED_WARPED_STEM);
+
+		WWModelHelper.createStoneChest(generator, WWBlocks.STONE_CHEST, Blocks.DEEPSLATE, StoneChestSpecialRenderer.STONE_CHEST_TEXTURE);
 	}
 
 	@Override

@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.blockentity;
+package net.frozenblock.wilderwild.entity.render.block.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
+public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
 	private static final float RAD_25 = 25F * Mth.DEG_TO_RAD;
 	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WWConstants.id("textures/entity/sculk_sensor/inactive.png"));
 	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WWConstants.id("textures/entity/sculk_sensor/active.png"));
@@ -49,7 +49,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	private final ModelPart nw;
 	private final ModelPart sw;
 
-	public SculkSensorBlockEntityRenderer(@NotNull Context ctx) {
+	public SculkSensorRenderer(@NotNull Context ctx) {
 		this.root = ctx.bakeLayer(WWModelLayers.SCULK_SENSOR);
 		this.ne = this.root.getChild("ne");
 		this.se = this.root.getChild("se");

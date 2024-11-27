@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.blockentity;
+package net.frozenblock.wilderwild.entity.render.block.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -38,10 +38,10 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T> {
+public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T> {
 	private final ItemRenderer itemRenderer;
 
-	public DisplayLanternBlockEntityRenderer(@NotNull Context ctx) {
+	public DisplayLanternRenderer(@NotNull Context ctx) {
 		ctx.bakeLayer(WWModelLayers.DISPLAY_LANTERN);
 		this.itemRenderer = ctx.getItemRenderer();
 	}

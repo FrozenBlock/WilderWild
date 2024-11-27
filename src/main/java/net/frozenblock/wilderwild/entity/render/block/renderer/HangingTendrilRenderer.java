@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.render.blockentity;
+package net.frozenblock.wilderwild.entity.render.block.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
@@ -33,9 +33,9 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
+public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
 
-	public HangingTendrilBlockEntityRenderer(@NotNull Context ctx) {
+	public HangingTendrilRenderer(@NotNull Context ctx) {
 		super(ctx);
 	}
 

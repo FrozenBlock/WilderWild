@@ -23,10 +23,11 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.block.model.StoneChestModel;
+import net.frozenblock.wilderwild.entity.render.block.renderer.DisplayLanternRenderer;
+import net.frozenblock.wilderwild.entity.render.block.renderer.HangingTendrilRenderer;
+import net.frozenblock.wilderwild.entity.render.block.renderer.SculkSensorRenderer;
+import net.frozenblock.wilderwild.entity.render.block.renderer.StoneChestRenderer;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
@@ -103,20 +104,20 @@ public final class WWModelLayers {
 		EntityRendererRegistry.register(WWEntityTypes.SCULK_SPREADER, NoopRenderer::new);
 		EntityRendererRegistry.register(WWEntityTypes.FALLING_LEAVES, NoopRenderer::new);
 
-		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
-		BlockEntityRenderers.register(BlockEntityType.CALIBRATED_SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
+		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorRenderer::new);
+		BlockEntityRenderers.register(BlockEntityType.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorRenderer::getTexturedModelData);
 
-		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL, HangingTendrilBlockEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, HangingTendrilBlockEntityRenderer::getTexturedModelData);
+		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL, HangingTendrilRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, HangingTendrilRenderer::getTexturedModelData);
 
-		BlockEntityRenderers.register(WWBlockEntityTypes.DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::getTexturedModelData);
+		BlockEntityRenderers.register(WWBlockEntityTypes.DISPLAY_LANTERN, DisplayLanternRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternRenderer::getTexturedModelData);
 
-		BlockEntityRenderers.register(WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::createSingleBodyLayer);
-		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
-		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
+		BlockEntityRenderers.register(WWBlockEntityTypes.STONE_CHEST, StoneChestRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestModel::createSingleBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
+		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
 
 		// BOATS
 		EntityRendererRegistry.register(WWEntityTypes.BAOBAB_BOAT, context -> new BoatRenderer(context, BAOBAB_BOAT));

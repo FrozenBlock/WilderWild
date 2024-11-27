@@ -179,12 +179,11 @@ accessible method net/minecraft/data/DataGenerator$PackGenerator <init> (Lnet/mi
 accessible method net/minecraft/data/loot/EntityLootSubProvider shouldSmeltLoot ()Lnet/minecraft/world/level/storage/loot/predicates/AnyOfCondition$Builder;
 accessible field net/minecraft/data/loot/EntityLootSubProvider registries Lnet/minecraft/core/HolderLookup$Provider;
 accessible field net/minecraft/data/loot/BlockLootSubProvider NORMAL_LEAVES_STICK_CHANCES [F
+accessible field net/minecraft/client/data/models/BlockModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;
 
 # Registry
 accessible method net/minecraft/data/registries/VanillaRegistries validateThatAllBiomeFeaturesHaveBiomeFilter (Lnet/minecraft/core/HolderLookup$Provider;)V
 accessible method net/minecraft/data/Main bindRegistries (Ljava/util/function/BiFunction;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/data/DataProvider$Factory;
-
-# Sounds
 
 # Features
 accessible method net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration apply (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;
@@ -200,5 +199,4 @@ accessible field net/minecraft/client/particle/Particle xd D
 accessible field net/minecraft/client/particle/Particle yd D
 accessible field net/minecraft/client/particle/Particle zd D
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)V
-# accessible field net/minecraft/client/particle/CherryParticle rotSpeed F
 accessible field net/minecraft/client/particle/Particle gravity F

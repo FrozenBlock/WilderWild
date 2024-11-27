@@ -20,6 +20,10 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.render.block.special.StoneChestSpecialRenderer;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.special.ChestSpecialRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
@@ -34,6 +38,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
@@ -91,5 +96,13 @@ public final class WWModelHelper {
 			);
 		generator.blockStateOutput.accept(multiVariantGenerator);
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(modelId));
+	}
+
+	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, ResourceLocation texture) {
+		generator.createParticleOnlyBlock(stoneChest, particleTexture);
+		Item item = stoneChest.asItem();
+		ResourceLocation resourceLocation2 = ModelTemplates.CHEST_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
+		ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(resourceLocation2, new StoneChestSpecialRenderer.Unbaked(texture));
+		generator.itemModelOutput.accept(item, unbaked);
 	}
 }
