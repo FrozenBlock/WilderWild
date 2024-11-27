@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -31,8 +32,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.CalibratedSculkSensorBlockEntity;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -48,6 +51,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import java.util.Objects;
 
 @Mixin(SculkSensorBlockEntity.class)
 public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
@@ -62,6 +66,8 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	public boolean wilderWild$active;
 	@Unique
 	public boolean wilderWild$prevActive;
+	@Unique
+	public Direction wilderWild$facing = Direction.NORTH;
 
 	private SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -94,6 +100,11 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 			}
 		}
 		this.wilderWild$setPrevActive(this.wilderWild$isActive());
+		if (sensor instanceof CalibratedSculkSensorBlockEntity) {
+			if (state.hasProperty(CalibratedSculkSensorBlock.FACING)) {
+				this.wilderWild$setFacing(state.getValue(CalibratedSculkSensorBlock.FACING));
+			}
+		}
 	}
 
 	@Unique
@@ -167,6 +178,18 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		this.wilderWild$animTicks = i;
 	}
 
+	@Unique
+	@Override
+	public void wilderWild$setFacing(Direction facing) {
+		this.wilderWild$facing = facing;
+	}
+
+	@Unique
+	@Override
+	public Direction wilderWild$getFacing() {
+		return this.wilderWild$facing;
+	}
+
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	private void wilderWild$load(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
 		this.wilderWild$setAge(nbt.getInt("age"));
@@ -174,6 +197,9 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		this.wilderWild$setPrevAnimTicks(nbt.getInt("prevAnimTicks"));
 		this.wilderWild$setActive(nbt.getBoolean("active"));
 		this.wilderWild$setPrevActive(nbt.getBoolean("prevActive"));
+
+		Direction facing = Direction.byName(nbt.getString("facing"));
+		this.wilderWild$setFacing(Objects.requireNonNullElse(facing, Direction.SOUTH));
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
@@ -183,6 +209,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		nbt.putInt("prevAnimTicks", this.wilderWild$getPrevAnimTicks());
 		nbt.putBoolean("active", this.wilderWild$isActive());
 		nbt.putBoolean("prevActive", this.wilderWild$isPrevActive());
+		nbt.putString("facing", this.wilderWild$getFacing().getName());
 	}
 
 	@Mixin(SculkSensorBlockEntity.VibrationUser.class)

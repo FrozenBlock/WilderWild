@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block.entity.impl;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,5 +49,9 @@ public interface SculkSensorTickInterface {
 	boolean wilderWild$isPrevActive();
 
 	void wilderWild$setPrevActive(boolean active);
+
+	Direction wilderWild$getFacing();
+
+	void wilderWild$setFacing(Direction facing);
 
 }
