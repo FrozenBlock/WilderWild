@@ -54,7 +54,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
 	public static final double HOLLOW_PARTICLE_DIRECTION_OFFSET = 0.3375D;
 	public static final int HOLLOW_PARTICLES_MIN = 12;

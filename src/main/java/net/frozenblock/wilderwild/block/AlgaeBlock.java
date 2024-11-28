@@ -47,7 +47,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	public static final double ENTITY_SLOWDOWN = 0.8D;

@@ -55,7 +55,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
 	public static final int GROWTH_CHANCE = 16;

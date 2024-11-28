@@ -60,7 +60,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	public static final int GROWTH_CHANCE = 7;
 	public static final float ALMOST_FULLY_GROWN_GROWTH_CHANCE = 0.75F;

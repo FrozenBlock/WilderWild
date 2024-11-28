@@ -70,7 +70,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
 	public static final float COLLISION_FROM_SIDE = 0.05F;

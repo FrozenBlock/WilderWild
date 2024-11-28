@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -56,7 +57,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
 	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
 	public static final int MAX_AGE = 2;
@@ -199,4 +199,17 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
+
+	@Override
+	protected boolean isRandomlyTicking(BlockState state) {
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
+	}
+
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextInt(20) == 0 && state.getValue(AGE) < MAX_AGE && state.getValue(WATERLOGGED)) {
+			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
+		}
+	}
+
 }
