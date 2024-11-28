@@ -9,6 +9,7 @@ hi
 - Mesoglea, Nematocyst, Shelf Fungi, Glory of the Snow, Pollen, and Firefly Bottle models are now data-generated.
 - Removed unused Nematocyst textures.
 - Removed unused Sculk Shrieker and Stripped Cypress Log models.
+- Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
 - Removed the Firefly's "Nectar" easter egg.
 - Fireflies now once again move inside Display Lanterns that are hanging.
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
