@@ -75,6 +75,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALBA_GLORY_OF_THE_SNOW);
 		generator.createSimpleFlatItemModel(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
 
+		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.CRIMSON_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.WARPED_SHELF_FUNGI);
+
 		WWModelHelper.createLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);

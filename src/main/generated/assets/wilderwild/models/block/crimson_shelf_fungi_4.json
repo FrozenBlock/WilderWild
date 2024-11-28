@@ -1,8 +1,7 @@
 {
   "parent": "wilderwild:block/template_shelf_fungi_4",
   "textures": {
-    "top": "wilderwild:block/crimson_shelf_fungi",
     "bottom": "wilderwild:block/crimson_shelf_fungi_bottom",
-    "particle": "wilderwild:block/crimson_shelf_fungi"
+    "top": "wilderwild:block/crimson_shelf_fungi"
   }
 }

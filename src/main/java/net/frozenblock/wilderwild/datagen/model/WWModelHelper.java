@@ -24,6 +24,7 @@ import java.util.function.Function;
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.NematocystBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -42,6 +43,8 @@ import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
@@ -93,6 +96,26 @@ public final class WWModelHelper {
 		Optional.of(WWConstants.id("block/template_nematocyst")),
 		Optional.empty(),
 		TextureSlot.INSIDE, TextureSlot.FAN
+	);
+	private static final ModelTemplate SHELF_FUNGI_1_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_shelf_fungi_1")),
+		Optional.of("_1"),
+		TextureSlot.TOP, TextureSlot.BOTTOM
+	);
+	private static final ModelTemplate SHELF_FUNGI_2_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_shelf_fungi_2")),
+		Optional.of("_2"),
+		TextureSlot.TOP, TextureSlot.BOTTOM
+	);
+	private static final ModelTemplate SHELF_FUNGI_3_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_shelf_fungi_3")),
+		Optional.of("_3"),
+		TextureSlot.TOP, TextureSlot.BOTTOM
+	);
+	private static final ModelTemplate SHELF_FUNGI_4_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_shelf_fungi_4")),
+		Optional.of("_4"),
+		TextureSlot.TOP, TextureSlot.BOTTOM
 	);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
@@ -185,5 +208,44 @@ public final class WWModelHelper {
 
 		generator.createSimpleFlatItemModel(nematocystBlock);
 		generator.blockStateOutput.accept(multiPartGenerator);
+	}
+
+	public static void createShelfFungi(@NotNull BlockModelGenerators generator, @NotNull Block shelfFungiBlock) {
+		TextureMapping shelfFungiTextureMapping = new TextureMapping();
+		shelfFungiTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(shelfFungiBlock));
+		shelfFungiTextureMapping.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(shelfFungiBlock, "_bottom"));
+
+		ResourceLocation model1 = SHELF_FUNGI_1_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput);
+		ResourceLocation model2 = SHELF_FUNGI_2_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput);
+		ResourceLocation model3 = SHELF_FUNGI_3_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput);
+		ResourceLocation model4 = SHELF_FUNGI_4_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput);
+
+		generator.createSimpleFlatItemModel(shelfFungiBlock.asItem());
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(shelfFungiBlock)
+					.with(
+						PropertyDispatch.property(ShelfFungiBlock.STAGE)
+							.select(1, Variant.variant().with(VariantProperties.MODEL, model1))
+							.select(2, Variant.variant().with(VariantProperties.MODEL, model2))
+							.select(3, Variant.variant().with(VariantProperties.MODEL, model3))
+							.select(4, Variant.variant().with(VariantProperties.MODEL, model4))
+					)
+					.with(
+						PropertyDispatch.properties(ShelfFungiBlock.FACE, ShelfFungiBlock.FACING)
+							.select(AttachFace.CEILING, Direction.NORTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.CEILING, Direction.EAST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+							.select(AttachFace.CEILING, Direction.SOUTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.CEILING, Direction.WEST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.FLOOR, Direction.NORTH, Variant.variant())
+							.select(AttachFace.FLOOR, Direction.EAST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.FLOOR, Direction.SOUTH, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.FLOOR, Direction.WEST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+							.select(AttachFace.WALL, Direction.NORTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.WALL, Direction.EAST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.WALL, Direction.SOUTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.WALL, Direction.WEST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+					)
+			);
 	}
 }
