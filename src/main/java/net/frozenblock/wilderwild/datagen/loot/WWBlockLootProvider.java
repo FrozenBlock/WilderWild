@@ -30,7 +30,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -76,31 +75,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.BAOBAB_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.BAOBAB_SIGN);
 		this.dropSelf(WWBlocks.BAOBAB_HANGING_SIGN);
-		this.add(WWBlocks.BAOBAB_LEAVES,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							LootItem.lootTableItem(WWBlocks.BAOBAB_LEAVES)
-								.when(this.hasShearsOrSilkTouch())
-						)
-				).withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.when(this.doesNotHaveShearsOrSilkTouch())
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.BAOBAB_LEAVES,
-									LootItem.lootTableItem(Items.STICK)
-										.apply(
-											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
-										)
-								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
-						)
-				)
-		);
+		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.BAOBAB_LEAVES, registryLookup);
 
 		this.dropSelf(WWBlocks.CYPRESS_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_CYPRESS_LOG);
@@ -139,30 +114,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.PALM_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.PALM_SIGN);
 		this.dropSelf(WWBlocks.PALM_HANGING_SIGN);
-		this.add(WWBlocks.PALM_FRONDS,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							LootItem.lootTableItem(WWBlocks.PALM_FRONDS).when(this.hasShearsOrSilkTouch())
-						)
-				).withPool(
-					LootPool.lootPool()
-						.when(this.doesNotHaveShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.PALM_FRONDS,
-									LootItem.lootTableItem(Items.STICK)
-										.apply(
-											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
-										)
-								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
-						)
-				)
-		);
+		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.PALM_FRONDS, registryLookup);
 
 		this.dropSelf(WWBlocks.MAPLE_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_MAPLE_LOG);
@@ -209,14 +161,6 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.HOLLOWED_WARPED_STEM);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
-		this.add(WWBlocks.ALGAE,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWBlocks.ALGAE).when(this.hasShearsOrSilkTouch()))
-				)
-		);
 		this.add(WWBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 		this.dropSelf(WWBlocks.SEEDING_DANDELION);
 		this.dropSelf(WWBlocks.CARNATION);
@@ -226,15 +170,6 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
-		this.add(WWBlocks.MYCELIUM_GROWTH,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWBlocks.MYCELIUM_GROWTH).when(this.hasShearsOrSilkTouch()))
-				)
-		);
-
 		this.dropSelf(WWBlocks.GLORY_OF_THE_SNOW);
 		this.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 		this.add(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
@@ -494,338 +429,13 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
-		this.add(WWBlocks.SCORCHED_SAND,
-			LootTable.lootTable()
-				.withPool(
-					this.applyExplosionCondition(
-						WWBlocks.SCORCHED_SAND,
-						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.add(
-								LootItem.lootTableItem(WWBlocks.SCORCHED_SAND)
-									.apply(CopyBlockState.copyState(WWBlocks.SCORCHED_SAND).copy(WWBlockStateProperties.CRACKED)
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SCORCHED_SAND)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.CRACKED, true))
-										)
-									)
-							)
-					)
-				)
-		);
+		WWBlockLootHelper.makeScorchedSandLoot(this, WWBlocks.SCORCHED_SAND);
+		WWBlockLootHelper.makeScorchedSandLoot(this, WWBlocks.SCORCHED_RED_SAND);
 
-
-		this.add(WWBlocks.SCORCHED_RED_SAND,
-			LootTable.lootTable()
-				.withPool(
-					this.applyExplosionCondition(
-						WWBlocks.SCORCHED_RED_SAND,
-						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.add(
-								LootItem.lootTableItem(WWBlocks.SCORCHED_RED_SAND)
-									.apply(CopyBlockState.copyState(WWBlocks.SCORCHED_RED_SAND).copy(WWBlockStateProperties.CRACKED)
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SCORCHED_RED_SAND)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.CRACKED, true))
-										)
-									)
-							)
-					)
-				)
-		);
-
-		this.add(WWBlocks.BROWN_SHELF_FUNGI,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.when(this.hasShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.BROWN_SHELF_FUNGI,
-								LootItem.lootTableItem(WWBlocks.BROWN_SHELF_FUNGI).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				).withPool(
-					LootPool.lootPool()
-						.when(this.doesNotHaveShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.BROWN_SHELF_FUNGI,
-								LootItem.lootTableItem(Blocks.BROWN_MUSHROOM).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(4F, 7F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(6F, 10F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BROWN_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				)
-		);
-
-		this.add(WWBlocks.RED_SHELF_FUNGI,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.when(this.hasShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.RED_SHELF_FUNGI,
-								LootItem.lootTableItem(WWBlocks.RED_SHELF_FUNGI).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				).withPool(
-					LootPool.lootPool()
-						.when(this.doesNotHaveShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.RED_SHELF_FUNGI,
-								LootItem.lootTableItem(Blocks.RED_MUSHROOM).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(4F, 7F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(6F, 10F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.RED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				)
-		);
-
-		this.add(WWBlocks.CRIMSON_SHELF_FUNGI,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.when(this.hasShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.CRIMSON_SHELF_FUNGI,
-								LootItem.lootTableItem(WWBlocks.CRIMSON_SHELF_FUNGI).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				).withPool(
-					LootPool.lootPool()
-						.when(this.doesNotHaveShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.CRIMSON_SHELF_FUNGI,
-								LootItem.lootTableItem(Blocks.CRIMSON_FUNGUS).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(4F, 7F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(6F, 10F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.CRIMSON_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				)
-		);
-
-		this.add(WWBlocks.WARPED_SHELF_FUNGI,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.when(this.hasShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.WARPED_SHELF_FUNGI,
-								LootItem.lootTableItem(WWBlocks.WARPED_SHELF_FUNGI).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				).withPool(
-					LootPool.lootPool()
-						.when(this.doesNotHaveShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							this.applyExplosionDecay(
-								WWBlocks.WARPED_SHELF_FUNGI,
-								LootItem.lootTableItem(Blocks.WARPED_FUNGUS).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(4F, 7F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(6F, 10F))
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.WARPED_SHELF_FUNGI)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				)
-		);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.BROWN_SHELF_FUNGI, Items.BROWN_MUSHROOM);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.RED_SHELF_FUNGI, Items.RED_MUSHROOM);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.CRIMSON_SHELF_FUNGI, Items.CRIMSON_FUNGUS);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.WARPED_SHELF_FUNGI, Items.WARPED_FUNGUS);
 
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS);
 		this.dropSelf(WWBlocks.CRACKED_MUD_BRICKS);
@@ -834,30 +444,11 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MOSSY_MUD_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_MUD_BRICK_WALL);
 
-		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWBlocks.YELLOW_MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
-				)
-		);
-		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWBlocks.ORANGE_MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
-				)
-		);
-		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWBlocks.RED_MAPLE_LEAF_LITTER).when(this.hasShearsOrSilkTouch()))
-				)
-		);
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE);
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.MYCELIUM_GROWTH);
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.RED_MAPLE_LEAF_LITTER);
 	}
 
 }

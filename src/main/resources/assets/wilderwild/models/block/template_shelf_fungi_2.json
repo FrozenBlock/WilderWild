@@ -1,4 +1,7 @@
 {
+  "textures": {
+    "particle": "#top"
+  },
 	"elements": [
 		{
 			"from": [5, 0, 3],

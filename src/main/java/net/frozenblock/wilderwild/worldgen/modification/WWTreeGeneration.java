@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
@@ -253,19 +253,19 @@ public final class WWTreeGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.MIXED_FOREST)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.MIXED_FOREST)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.BIRCH_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.BIRCH_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.OLD_GROWTH_BIRCH_TAIGA)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(WWWorldgen.FLOWER_FIELD)) {
+						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.FLOWER_FIELD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
 						}
 

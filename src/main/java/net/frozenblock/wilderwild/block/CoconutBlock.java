@@ -58,7 +58,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public static final double GROWTH_CHANCE_HANGING = 0.4D;
 	public static final int VALID_FROND_DISTANCE = 2;

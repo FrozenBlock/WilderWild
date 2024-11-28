@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.frozenblock.lib.tag.api.FrozenEntityTags;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.HolderLookup;
@@ -36,11 +37,14 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(FrozenEntityTags.CREEPER_IGNORES)
+			.add(WWEntityTypes.JELLYFISH);
+
 		this.getOrCreateTagBuilder(WWEntityTags.CAN_SWIM_IN_ALGAE)
 			.add(EntityType.SLIME)
 			.add(EntityType.WARDEN)
 			.add(EntityType.WITHER)
-			.add(WWEntityTypes.JELLYFISH);
+			.addOptionalTag(EntityTypeTags.AQUATIC);
 
 		this.getOrCreateTagBuilder(WWEntityTags.STAYS_IN_MESOGLEA)
 			.add(WWEntityTypes.JELLYFISH);

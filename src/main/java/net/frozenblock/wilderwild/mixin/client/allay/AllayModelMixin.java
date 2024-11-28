@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.mixin.client.allay;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.render.animation.CustomAllayAnimations;
-import net.frozenblock.wilderwild.entity.render.animation.WilderAllay;
+import net.frozenblock.wilderwild.client.animation.definitions.WWAllayAnimation;
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.minecraft.client.model.AllayModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -54,7 +54,7 @@ public abstract class AllayModelMixin extends EntityModel<AllayRenderState> impl
 	)
 	private void wilderWild$runKeyframeDance(AllayRenderState renderState, CallbackInfo ci) {
 		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && renderState instanceof WilderAllay wilderAllay) {
-			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), CustomAllayAnimations.DANCING, renderState.ageInTicks);
+			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), WWAllayAnimation.DANCING, renderState.ageInTicks);
 		}
 	}
 }

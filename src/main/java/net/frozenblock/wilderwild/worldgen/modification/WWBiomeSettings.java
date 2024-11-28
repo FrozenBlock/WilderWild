@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
@@ -45,7 +45,7 @@ public final class WWBiomeSettings {
 
 		BiomeModifications.create(WWConstants.id("fog_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.FROZEN_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.frozenCavesFog) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
@@ -55,7 +55,7 @@ public final class WWBiomeSettings {
 
 		BiomeModifications.create(WWConstants.id("fog_mesoglea_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.MESOGLEA_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesFog) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
@@ -65,7 +65,7 @@ public final class WWBiomeSettings {
 
 		BiomeModifications.create(WWConstants.id("fog_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.MAGMATIC_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesFog) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
@@ -75,7 +75,7 @@ public final class WWBiomeSettings {
 
 		BiomeModifications.create(WWConstants.id("particles_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.MAGMATIC_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesParticles) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();

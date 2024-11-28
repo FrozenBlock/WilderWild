@@ -1,0 +1,7 @@
+{
+  "parent": "wilderwild:block/template_shelf_fungi_3",
+  "textures": {
+    "bottom": "wilderwild:block/warped_shelf_fungi_bottom",
+    "top": "wilderwild:block/warped_shelf_fungi"
+  }
+}

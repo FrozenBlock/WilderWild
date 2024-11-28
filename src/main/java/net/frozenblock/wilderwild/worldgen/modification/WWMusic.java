@@ -25,8 +25,8 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -94,7 +94,7 @@ public final class WWMusic {
 
 		BiomeModifications.create(WWConstants.id("modify_ambience_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.FROZEN_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.frozenCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
@@ -105,7 +105,7 @@ public final class WWMusic {
 
 		BiomeModifications.create(WWConstants.id("modify_ambience_mesoglea_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.MESOGLEA_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
@@ -116,7 +116,7 @@ public final class WWMusic {
 
 		BiomeModifications.create(WWConstants.id("modify_ambience_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWWorldgen.MAGMATIC_CAVES),
+			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesAmbience) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();

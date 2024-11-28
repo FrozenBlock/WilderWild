@@ -27,10 +27,10 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.client.animation.definitions.WWWardenAnimation;
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
-import net.frozenblock.wilderwild.entity.render.animation.CustomWardenAnimations;
-import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.WardenModel;
@@ -116,7 +116,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 	)
 	private AnimationDefinition wilderWild$newDigAnim(AnimationDefinition original) {
 		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) {
-			return CustomWardenAnimations.WARDEN_DIG;
+			return WWWardenAnimation.WARDEN_DIG;
 		}
 		return original;
 	}
@@ -132,7 +132,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 	)
 	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition original) {
 		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) {
-			return CustomWardenAnimations.WARDEN_EMERGE;
+			return WWWardenAnimation.WARDEN_EMERGE;
 		}
 		return original;
 	}
@@ -148,7 +148,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 	)
 	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition original) {
 		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) {
-			return CustomWardenAnimations.WARDEN_SNIFF;
+			return WWWardenAnimation.WARDEN_SNIFF;
 		}
 		return original;
 	}
@@ -227,9 +227,9 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 					wilderWild$wadeAmount.get()
 				);
 			}
-			this.animate(wilderWarden.wilderWild$getDyingAnimationState(), CustomWardenAnimations.DYING, warden.ageInTicks);
-			this.animate(wilderWarden.wilderWild$getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, warden.ageInTicks);
-			this.animate(wilderWarden.wilderWild$getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, warden.ageInTicks);
+			this.animate(wilderWarden.wilderWild$getDyingAnimationState(), WWWardenAnimation.DYING, warden.ageInTicks);
+			this.animate(wilderWarden.wilderWild$getSwimmingDyingAnimationState(), WWWardenAnimation.WATER_DYING, warden.ageInTicks);
+			this.animate(wilderWarden.wilderWild$getKirbyDeathAnimationState(), WWWardenAnimation.KIRBY_DEATH, warden.ageInTicks);
 		}
 	}
 

@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
-import net.frozenblock.wilderwild.entity.render.animation.WilderWarden;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.monster.warden.Warden;

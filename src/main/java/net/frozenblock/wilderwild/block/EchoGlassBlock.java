@@ -49,7 +49,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class EchoGlassBlock extends TransparentBlock {
 	public static final int MIN_CRACK_PARTICLES = 18;
 	public static final int MAX_DAMAGE_PARTICLES = 25;

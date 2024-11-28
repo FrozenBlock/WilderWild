@@ -25,7 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
-import net.frozenblock.wilderwild.block.property.BubbleDirection;
+import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
@@ -72,7 +72,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
 	public static final float COLLISION_FROM_SIDE = 0.05F;
