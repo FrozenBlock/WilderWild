@@ -1,7 +1,0 @@
-{
-  "parent": "wilderwild:block/template_nematocyst",
-  "textures": {
-    "large": "wilderwild:block/blue_pearlescent_nematocyst_large",
-    "small": "wilderwild:block/blue_pearlescent_nematocyst_small"
-  }
-}

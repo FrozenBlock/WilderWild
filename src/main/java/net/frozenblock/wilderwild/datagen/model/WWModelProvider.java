@@ -79,6 +79,22 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);
 
+		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.LIME_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.PINK_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.RED_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.YELLOW_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_PEARLESCENT_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.PURPLE_PEARLESCENT_MESOGLEA);
+
+		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.LIME_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.PINK_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.RED_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.YELLOW_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_PEARLESCENT_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST);
+
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG, Blocks.STRIPPED_OAK_LOG, Blocks.OAK_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG, Blocks.SPRUCE_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG, Blocks.BIRCH_LOG);

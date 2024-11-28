@@ -18,10 +18,17 @@
 
 package net.frozenblock.wilderwild.datagen.model;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.NematocystBlock;
+import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.data.models.blockstates.Condition;
+import net.minecraft.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.blockstates.Variant;
@@ -36,15 +43,56 @@ import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWModelHelper {
+	public static final List<Pair<BooleanProperty, Function<ResourceLocation, Variant>>> MULTIFACE_GENERATOR_NO_UV_LOCK = List.of(
+		Pair.of(BlockStateProperties.NORTH, model -> Variant.variant().with(VariantProperties.MODEL, model)),
+		Pair.of(
+			BlockStateProperties.EAST,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+		),
+		Pair.of(
+			BlockStateProperties.SOUTH,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+		),
+		Pair.of(
+			BlockStateProperties.WEST,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+		),
+		Pair.of(
+			BlockStateProperties.UP,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+		),
+		Pair.of(
+			BlockStateProperties.DOWN,
+			resourceLocation -> Variant.variant()
+				.with(VariantProperties.MODEL, resourceLocation)
+				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+		)
+	);
 	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
 	private static final ModelTemplate HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
 		Optional.empty(),
 		TextureSlot.SIDE, TextureSlot.INSIDE, TextureSlot.END
+	);
+	private static final ModelTemplate MESOGLEA_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_mesoglea")),
+		Optional.empty(),
+		TextureSlot.TEXTURE
+	);
+	private static final ModelTemplate WATERLOGGED_MESOGLEA_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_mesoglea")),
+		Optional.of("_waterlogged"),
+		TextureSlot.TEXTURE
+	);
+	private static final ModelTemplate NEMATOCYST_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_nematocyst")),
+		Optional.empty(),
+		TextureSlot.INSIDE, TextureSlot.FAN
 	);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
@@ -91,5 +139,51 @@ public final class WWModelHelper {
 			);
 		generator.blockStateOutput.accept(multiVariantGenerator);
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(modelId));
+	}
+
+	public static void createMesoglea(@NotNull BlockModelGenerators generator, Block mesogleaBlock) {
+		TextureMapping mesogleaTextureMapping = new TextureMapping();
+		mesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock));
+
+		TextureMapping waterloggedMesogleaTextureMapping = new TextureMapping();
+		waterloggedMesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock, "_waterlogged"));
+
+		ResourceLocation modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
+		ResourceLocation waterloggedModelId = WATERLOGGED_MESOGLEA_MODEL.create(mesogleaBlock, waterloggedMesogleaTextureMapping, generator.modelOutput);
+
+		MultiVariantGenerator multiVariantGenerator = MultiVariantGenerator.multiVariant(mesogleaBlock)
+			.with(PropertyDispatch.property(BlockStateProperties.WATERLOGGED)
+				.select(false, Variant.variant().with(VariantProperties.MODEL, modelId))
+				.select(true, Variant.variant().with(VariantProperties.MODEL, waterloggedModelId))
+			);
+		generator.blockStateOutput.accept(multiVariantGenerator);
+		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(mesogleaBlock.asItem()), new DelegatedModel(modelId));
+	}
+
+	public static void createNematocyst(@NotNull BlockModelGenerators generator, Block nematocystBlock) {
+		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(nematocystBlock);
+
+		TextureMapping nematocystTextureMapping = new TextureMapping();
+		nematocystTextureMapping.put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(nematocystBlock));
+		nematocystTextureMapping.put(TextureSlot.FAN, TextureMapping.getBlockTexture(nematocystBlock, "_outer"));
+		ResourceLocation nematocystModel = NEMATOCYST_MODEL.create(nematocystBlock, nematocystTextureMapping, generator.modelOutput);
+
+		Condition.TerminalCondition terminalCondition = Util.make(
+			Condition.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
+				terminalConditionx.term(booleanPropertyx, false);
+			})
+		);
+
+		for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : MULTIFACE_GENERATOR_NO_UV_LOCK) {
+			BooleanProperty booleanProperty = pair.getFirst();
+			Function<ResourceLocation, Variant> function = pair.getSecond();
+			if (nematocystBlock.defaultBlockState().hasProperty(booleanProperty)) {
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true), function.apply(nematocystModel));
+				multiPartGenerator.with(terminalCondition, function.apply(nematocystModel));
+			}
+		}
+
+		generator.createSimpleFlatItemModel(nematocystBlock);
+		generator.blockStateOutput.accept(multiPartGenerator);
 	}
 }
