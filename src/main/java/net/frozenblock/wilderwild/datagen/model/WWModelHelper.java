@@ -117,6 +117,11 @@ public final class WWModelHelper {
 		Optional.of("_4"),
 		TextureSlot.TOP, TextureSlot.BOTTOM
 	);
+	private static final ModelTemplate MULTIFACE_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_multiface_block")),
+		Optional.empty(),
+		TextureSlot.TEXTURE
+	);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
 		createLeafLitter(generator, litter, litter);
@@ -247,5 +252,13 @@ public final class WWModelHelper {
 							.select(AttachFace.WALL, Direction.WEST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
 					)
 			);
+	}
+
+	public static void createMultifaceBlock(@NotNull BlockModelGenerators generator, Block multifaceBlock) {
+		TextureMapping multifaceTextureMapping = new TextureMapping();
+		multifaceTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(multifaceBlock));
+		MULTIFACE_MODEL.create(multifaceBlock, multifaceTextureMapping, generator.modelOutput);
+		
+		generator.createMultiface(multifaceBlock);
 	}
 }

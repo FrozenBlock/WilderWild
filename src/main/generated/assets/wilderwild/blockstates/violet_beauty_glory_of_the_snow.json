@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow"
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow"
       },
       "when": {
         "north": "true"
@@ -10,7 +10,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow"
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow"
       },
       "when": {
         "down": "false",
@@ -23,7 +23,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "y": 90
       },
@@ -33,7 +33,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "y": 90
       },
@@ -48,7 +48,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "y": 180
       },
@@ -58,7 +58,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "y": 180
       },
@@ -73,7 +73,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "y": 270
       },
@@ -83,7 +83,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "y": 270
       },
@@ -98,7 +98,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "x": 270
       },
@@ -108,7 +108,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "x": 270
       },
@@ -123,7 +123,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "x": 90
       },
@@ -133,7 +133,7 @@
     },
     {
       "apply": {
-        "model": "wilderwild:block/blue_giant_glory_of_the_snow",
+        "model": "wilderwild:block/violet_beauty_glory_of_the_snow",
         "uvlock": true,
         "x": 90
       },
