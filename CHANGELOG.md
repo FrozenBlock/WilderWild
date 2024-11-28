@@ -12,3 +12,4 @@ hi
 - Fireflies now once again move inside Display Lanterns that are hanging.
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
 - Fixed many recipe unlocks being broken in 1.21.2+.
+- Added `WWBlockLootHelper` to significantly clean up block loot datagen.
