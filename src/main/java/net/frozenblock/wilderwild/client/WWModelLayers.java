@@ -23,22 +23,22 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.render.block.model.StoneChestModel;
-import net.frozenblock.wilderwild.entity.render.block.renderer.DisplayLanternRenderer;
-import net.frozenblock.wilderwild.entity.render.block.renderer.HangingTendrilRenderer;
-import net.frozenblock.wilderwild.entity.render.block.renderer.SculkSensorRenderer;
-import net.frozenblock.wilderwild.entity.render.block.renderer.StoneChestRenderer;
-import net.frozenblock.wilderwild.entity.render.model.CrabModel;
-import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
-import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
-import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
-import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
-import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
-import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
-import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
-import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderer;
-import net.frozenblock.wilderwild.entity.render.renderer.ScorchedRenderer;
-import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
+import net.frozenblock.wilderwild.client.model.CrabModel;
+import net.frozenblock.wilderwild.client.model.JellyfishModel;
+import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
+import net.frozenblock.wilderwild.client.model.OstrichModel;
+import net.frozenblock.wilderwild.client.model.StoneChestModel;
+import net.frozenblock.wilderwild.client.model.TumbleweedModel;
+import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
+import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
+import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
+import net.frozenblock.wilderwild.client.renderer.blockentity.StoneChestRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.client.model.BoatModel;
@@ -118,6 +118,7 @@ public final class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestModel::createSingleBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
+
 
 		// BOATS
 		EntityRendererRegistry.register(WWEntityTypes.BAOBAB_BOAT, context -> new BoatRenderer(context, BAOBAB_BOAT));

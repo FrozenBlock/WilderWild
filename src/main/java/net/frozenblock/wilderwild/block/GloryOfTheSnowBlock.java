@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
+import net.frozenblock.wilderwild.block.state.properties.FlowerColor;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;

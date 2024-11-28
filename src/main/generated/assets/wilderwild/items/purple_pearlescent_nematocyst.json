@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/purple_pearlescent_nematocyst"
+    "model": "wilderwild:item/purple_pearlescent_nematocyst"
   }
 }

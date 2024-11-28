@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/pink_nematocyst"
+    "model": "wilderwild:item/pink_nematocyst"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "wilderwild:block/purple_pearlescent_mesoglea"
+    },
+    "waterlogged=true": {
+      "model": "wilderwild:block/purple_pearlescent_mesoglea_waterlogged"
+    }
+  }
+}

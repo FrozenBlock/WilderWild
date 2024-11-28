@@ -61,7 +61,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
 	public static final int GROWTH_BRIGHTNESS_OFFSET = 2;
 	public static final int MAX_STAGE = 4;

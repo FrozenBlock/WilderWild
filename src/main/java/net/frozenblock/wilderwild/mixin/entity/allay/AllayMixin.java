@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.allay;
 
-import net.frozenblock.wilderwild.entity.render.animation.WilderAllay;
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.animal.allay.Allay;
 import org.spongepowered.asm.mixin.Mixin;

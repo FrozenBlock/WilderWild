@@ -44,7 +44,6 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val fabric_api_version: String by project
-val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
 val modmenu_version: String by project
@@ -52,6 +51,7 @@ val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
 val fallingleaves_version: String by project
+val naturesspirit_version: String by project
 
 val sodium_version: String by project
 val run_sodium: String by project
@@ -211,6 +211,9 @@ dependencies {
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:2.1.4")
+
+    // Nature's Spirit
+    modCompileOnly("maven.modrinth:natures-spirit:${naturesspirit_version}")
 
     // Sodium
     if (shouldRunSodium)

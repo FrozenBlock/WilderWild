@@ -4,4 +4,17 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Dark Oak Forests no longer use the warm water color.
+- All entities in the `minecraft:aquatic` tag can now swim through Algae without being slowed down.
+- Sponge Buds can now grow on their own.
+- Mesoglea, Nematocyst, Shelf Fungi, Glory of the Snow, Pollen, and Firefly Bottle models are now data-generated.
+- Removed unused Nematocyst textures.
+- Removed unused Sculk Shrieker and Stripped Cypress Log models.
+- Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
+- Removed the Firefly's "Nectar" easter egg.
+- Fireflies now once again move inside Display Lanterns that are hanging.
+- Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
 - Fixed many recipe unlocks being broken in 1.21.2+.
+- Added `WWBlockLootHelper` to significantly clean up block loot datagen.
+- Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
+- Renamed `WWWorldgen` to `WWBiomes.`
+- Updated block sound type compatability for Nature's Spirit.

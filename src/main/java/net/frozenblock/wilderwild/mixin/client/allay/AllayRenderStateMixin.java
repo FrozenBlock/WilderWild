@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.client.allay;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.animation.WilderAllay;
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import net.minecraft.world.entity.AnimationState;
 import org.spongepowered.asm.mixin.Mixin;

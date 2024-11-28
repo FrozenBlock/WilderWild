@@ -24,12 +24,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -49,7 +47,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -108,7 +105,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	public boolean hasHome;
 	public boolean despawning;
 	public int homeCheckCooldown;
-	public boolean wasNamedNectar;
 	public boolean shouldCheckSpawn = true;
 
 	public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
@@ -400,27 +396,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			this.shouldCheckSpawn = false;
 		}
 
-		boolean nectar = this.hasCustomName() && Objects.requireNonNull(this.getCustomName()).getString().toLowerCase().contains("nectar");
-		if (this.level() instanceof ServerLevel server) {
-			if (nectar != wasNamedNectar) {
-				if (nectar) {
-					FrozenSoundPackets.createMovingRestrictionLoopingSound(
-						server,
-						this,
-						BuiltInRegistries.SOUND_EVENT.get(WWSounds.ENTITY_FIREFLY_NECTAR.location()).orElseThrow(),
-						SoundSource.NEUTRAL,
-						1F,
-						1F,
-						FrozenLibIntegration.NECTAR_SOUND_PREDICATE,
-						true
-					);
-					this.wasNamedNectar = true;
-				} else {
-					this.wasNamedNectar = false;
-				}
-			}
-		}
-
 		if (!this.isAlive()) {
 			this.setNoGravity(false);
 		}
@@ -531,7 +506,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		compound.putBoolean("despawning", this.despawning);
 		compound.putString("color", Objects.requireNonNull(WilderWildRegistries.FIREFLY_COLOR.getKey(this.getColor())).toString());
 		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
-		compound.putBoolean("wasNamedNectar", this.wasNamedNectar);
 		compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
 	}
 
@@ -568,9 +542,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		}
 		if (compound.contains("homeCheckCooldown")) {
 			this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
-		}
-		if (compound.contains("wasNamedNectar")) {
-			this.wasNamedNectar = compound.getBoolean("wasNamedNectar");
 		}
 		if (compound.contains("shouldCheckSpawn")) {
 			this.shouldCheckSpawn = compound.getBoolean("shouldCheckSpawn");

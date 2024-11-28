@@ -3,6 +3,9 @@
     "minecraft:slime",
     "minecraft:warden",
     "minecraft:wither",
-    "wilderwild:jellyfish"
+    {
+      "id": "#minecraft:aquatic",
+      "required": false
+    }
   ]
 }

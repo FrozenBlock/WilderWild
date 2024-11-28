@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.frozenblock.wilderwild.entity.render.block.special.StoneChestSpecialRenderer;
+import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -78,15 +78,37 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
 
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
-		generator.registerSimpleFlatItemModel(WWBlocks.POLLEN);
-		generator.registerSimpleFlatItemModel(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
-		generator.registerSimpleFlatItemModel(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
-		generator.registerSimpleFlatItemModel(WWBlocks.ALBA_GLORY_OF_THE_SNOW);
-		generator.registerSimpleFlatItemModel(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
+
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.ALBA_GLORY_OF_THE_SNOW);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
+
+		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.CRIMSON_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.WARPED_SHELF_FUNGI);
 
 		WWModelHelper.createLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		WWModelHelper.createLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);
+
+		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.LIME_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.PINK_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.RED_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.YELLOW_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_PEARLESCENT_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.PURPLE_PEARLESCENT_MESOGLEA);
+
+		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.LIME_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.PINK_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.RED_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.YELLOW_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_PEARLESCENT_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST);
 
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG, Blocks.STRIPPED_OAK_LOG, Blocks.OAK_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG, Blocks.SPRUCE_LOG);
@@ -165,5 +187,23 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateSpawnEgg(WWItems.CRAB_SPAWN_EGG, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16));
 		generator.generateSpawnEgg(WWItems.OSTRICH_SPAWN_EGG, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16));
 		generator.generateSpawnEgg(WWItems.SCORCHED_SPAWN_EGG, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16));
+
+		generator.generateFlatItem(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BLACK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.RED_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.GREEN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BROWN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BLUE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PURPLE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CYAN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.GRAY_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PINK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.LIME_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.YELLOW_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MAGENTA_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.ORANGE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.WHITE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 	}
 }

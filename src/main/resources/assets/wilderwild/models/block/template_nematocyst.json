@@ -1,43 +1,43 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"particle": "#large"
+		"particle": "#inside"
 	},
 	"elements": [
 		{
-			"name": "large",
+			"name": "inside",
 			"from": [8, 2, 0],
 			"to": [8, 14, 12],
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 0]},
 			"faces": {
-				"east": {"uv": [2, 4, 14, 16], "rotation": 270, "texture": "#large"},
-				"west": {"uv": [2, 4, 14, 16], "rotation": 90, "texture": "#large"}
+				"east": {"uv": [2, 4, 14, 16], "rotation": 270, "texture": "#inside"},
+				"west": {"uv": [2, 4, 14, 16], "rotation": 90, "texture": "#inside"}
 			}
 		},
 		{
-			"name": "small_2",
+			"name": "fan",
 			"from": [9, 2, 0],
 			"to": [9, 14, 10],
 			"rotation": {"angle": 22.5, "axis": "y", "origin": [9, 7, 0], "rescale": true},
 			"faces": {
-				"east": {"uv": [14, 6, 2, 16], "rotation": 270, "texture": "#small"},
-				"west": {"uv": [2, 6, 14, 16], "rotation": 90, "texture": "#small"}
+				"east": {"uv": [14, 6, 2, 16], "rotation": 270, "texture": "#fan"},
+				"west": {"uv": [2, 6, 14, 16], "rotation": 90, "texture": "#fan"}
 			}
 		},
 		{
-			"name": "small_1",
+			"name": "fan",
 			"from": [7, 2, 0],
 			"to": [7, 14, 10],
 			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 9, 0], "rescale": true},
 			"faces": {
-				"east": {"uv": [14, 6, 2, 16], "rotation": 270, "texture": "#small"},
-				"west": {"uv": [2, 6, 14, 16], "rotation": 90, "texture": "#small"}
+				"east": {"uv": [14, 6, 2, 16], "rotation": 270, "texture": "#fan"},
+				"west": {"uv": [2, 6, 14, 16], "rotation": 90, "texture": "#fan"}
 			}
 		}
 	],
 	"groups": [
 		{
-			"name": "group",
+			"name": "nematocyst",
 			"origin": [8, 0, 7],
 			"color": 0,
 			"children": [0, 1, 2]

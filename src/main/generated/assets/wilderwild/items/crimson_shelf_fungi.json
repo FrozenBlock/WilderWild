@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/crimson_shelf_fungi"
+    "model": "wilderwild:item/crimson_shelf_fungi"
   }
 }

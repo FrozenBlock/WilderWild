@@ -940,14 +940,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.display_lantern.nectar_inside_loop": {
-    "sounds": [
-      "wilderwild:block/display_lantern/nectar_inside1",
-      "wilderwild:block/display_lantern/nectar_inside2",
-      "wilderwild:block/display_lantern/nectar_inside3"
-    ],
-    "subtitle": "subtitles.entity.firefly.nectar"
-  },
   "block.flower.break": {
     "sounds": [
       "wilderwild:block/flower/break1",
@@ -2375,26 +2367,6 @@
       "wilderwild:mob/firefly/hurt_3"
     ],
     "subtitle": "subtitles.entity.firefly.hurt"
-  },
-  "entity.firefly.nectar": {
-    "sounds": [
-      {
-        "attenuation_distance": 10,
-        "name": "wilderwild:mob/firefly/nectar3",
-        "volume": 0.8
-      },
-      {
-        "attenuation_distance": 10,
-        "name": "wilderwild:mob/firefly/nectar3",
-        "volume": 0.8
-      },
-      {
-        "attenuation_distance": 10,
-        "name": "wilderwild:mob/firefly/nectar3",
-        "volume": 0.8
-      }
-    ],
-    "subtitle": "subtitles.entity.firefly.nectar"
   },
   "entity.enderman.anger_loop": {
     "sounds": [

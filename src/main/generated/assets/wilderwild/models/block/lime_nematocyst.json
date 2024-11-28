@@ -1,0 +1,7 @@
+{
+  "parent": "wilderwild:block/template_nematocyst",
+  "textures": {
+    "fan": "wilderwild:block/lime_nematocyst_outer",
+    "inside": "wilderwild:block/lime_nematocyst"
+  }
+}
