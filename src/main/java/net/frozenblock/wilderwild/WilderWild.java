@@ -58,7 +58,7 @@ import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWVillagers;
-import net.frozenblock.wilderwild.registry.WWWorldgen;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.modification.WWWorldGen;
 import org.jetbrains.annotations.NotNull;
@@ -100,7 +100,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWCriteria.init();
 
 		WWFeatures.init();
-		WWWorldgen.init();
+		WWBiomes.init();
 		WWWorldGen.generateWildWorldGen();
 
 		TermiteManager.Termite.addDegradableBlocks();

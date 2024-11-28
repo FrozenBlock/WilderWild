@@ -15,3 +15,4 @@ hi
 - Fixed many recipe unlocks being broken in 1.21.2+.
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
+- Renamed `WWWorldgen` to `WWBiomes.`

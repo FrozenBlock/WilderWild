@@ -38,7 +38,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource cypressSurfaceRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.CYPRESS_WETLANDS),
+			SurfaceRules.isBiome(WWBiomes.CYPRESS_WETLANDS),
 			SurfaceRules.ifTrue(
 				SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
@@ -99,7 +99,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource warmRiverRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.WARM_RIVER),
+			SurfaceRules.isBiome(WWBiomes.WARM_RIVER),
 			SurfaceRules.ifTrue(
 				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
 				fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
@@ -148,7 +148,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource warmBeachRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.WARM_BEACH),
+			SurfaceRules.isBiome(WWBiomes.WARM_BEACH),
 			desertAndBeachRules()
 		);
 	}
@@ -156,7 +156,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.OASIS),
+			SurfaceRules.isBiome(WWBiomes.OASIS),
 			desertAndBeachRules()
 		);
 	}
@@ -164,7 +164,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource aridGrass() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.ARID_SAVANNA, WWWorldgen.ARID_FOREST),
+			SurfaceRules.isBiome(WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
 			SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
 					SurfaceRules.ON_FLOOR,
@@ -205,7 +205,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource aridRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.ARID_SAVANNA, WWWorldgen.ARID_FOREST),
+			SurfaceRules.isBiome(WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
 			desertAndBeachRules()
 		);
 	}
@@ -213,7 +213,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA),
+			SurfaceRules.isBiome(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -243,7 +243,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthDarkForestRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.OLD_GROWTH_DARK_FOREST),
+			SurfaceRules.isBiome(WWBiomes.OLD_GROWTH_DARK_FOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -261,7 +261,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource temperateRainforestRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.TEMPERATE_RAINFOREST),
+			SurfaceRules.isBiome(WWBiomes.TEMPERATE_RAINFOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -287,7 +287,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource rainforestRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.RAINFOREST),
+			SurfaceRules.isBiome(WWBiomes.RAINFOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -305,7 +305,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource dyingForestRules() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(WWWorldgen.DYING_FOREST, WWWorldgen.DYING_MIXED_FOREST),
+				SurfaceRules.isBiome(WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 						SurfaceRules.ifTrue(
 								SurfaceRules.waterBlockCheck(-1, 0),
@@ -327,7 +327,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource mapleGroveRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWWorldgen.MAPLE_FOREST),
+			SurfaceRules.isBiome(WWBiomes.MAPLE_FOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -449,7 +449,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource frozenCavesSnow() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiome(List.of(WWWorldgen.FROZEN_CAVES)),
+			FrozenSurfaceRules.isBiome(List.of(WWBiomes.FROZEN_CAVES)),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
