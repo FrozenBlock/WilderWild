@@ -76,7 +76,6 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");
 	public static final SoundEvent BLOCK_COCONUT_STEP = register("block.coconut.step");
 	public static final SoundEvent BLOCK_COCONUT_FALL = register("block.coconut.fall");
-	public static final SoundEvent BLOCK_DISPLAY_LANTERN_NECTAR_LOOP = register("block.display_lantern.nectar_inside_loop");
 	public static final SoundEvent BLOCK_ECHO_GLASS_PLACE = register("block.echo_glass.place");
 	public static final SoundEvent BLOCK_ECHO_GLASS_BREAK = register("block.echo_glass.break");
 	public static final SoundEvent BLOCK_ECHO_GLASS_STEP = register("block.echo_glass.step");
@@ -253,7 +252,6 @@ public final class WWSounds {
 	//ENTITY
 	public static final SoundEvent ENTITY_FIREFLY_HIDE = register("entity.firefly.hide");
 	public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
-	public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
 	public static final SoundEvent ENTITY_ENDERMAN_ANGER_LOOP = register("entity.enderman.anger_loop");
 	public static final SoundEvent ENTITY_JELLYFISH_STING = register("entity.jellyfish.sting");
 	public static final SoundEvent ENTITY_JELLYFISH_AMBIENT_WATER = register("entity.jellyfish.ambient_water");

@@ -100,6 +100,7 @@ public final class WWItems {
 	public static final BoatItem PALM_CHEST_BOAT = new BoatItem(true, WWBoatTypes.PALM, new Item.Properties().stacksTo(1));
 	public static final BoatItem MAPLE_BOAT = new BoatItem(false, WWBoatTypes.MAPLE, new Item.Properties().stacksTo(1));
 	public static final BoatItem MAPLE_CHEST_BOAT = new BoatItem(true, WWBoatTypes.MAPLE, new Item.Properties().stacksTo(1));
+
 	public static final FireflyBottle FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ON);
 	public static final FireflyBottle BLACK_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.BLACK);
 	public static final FireflyBottle RED_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.RED);
@@ -117,6 +118,7 @@ public final class WWItems {
 	public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.MAGENTA);
 	public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ORANGE);
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.WHITE);
+
 	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new Item.Properties().food(Foods.APPLE));
 	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(WWEntityTypes.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));

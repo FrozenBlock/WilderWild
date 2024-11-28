@@ -35,7 +35,6 @@ import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -48,7 +47,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
@@ -65,7 +63,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
 	public static final int MAX_FIREFLY_AGE = 20;
-	public static final long NECTAR_SOUND_INTERVAL = 70L;
 	private final ArrayList<Occupant> fireflies = new ArrayList<>();
 
 	public NonNullList<ItemStack> inventory;
@@ -89,17 +86,17 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 		if (hasFireflies) {
 			for (Occupant firefly : this.fireflies) {
-				firefly.tick(level, pos);
+				firefly.tick();
 			}
 		}
 	}
 
-	public void clientTick(@NotNull Level level, @NotNull BlockPos pos) {
+	public void clientTick() {
 		this.age += 1;
 		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
 		if (!this.fireflies.isEmpty()) {
 			for (Occupant firefly : this.fireflies) {
-				firefly.tick(level, pos);
+				firefly.tick();
 			}
 		}
 	}
@@ -275,7 +272,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public boolean flickers;
 		public int age;
 		public double y;
-		public boolean wasNamedNectar;
 
 		public Occupant(@NotNull Vec3 pos, @NotNull FireflyColor color, @NotNull String customName, boolean flickers, int age, double y) {
 			this.pos = pos;
@@ -286,23 +282,9 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			this.y = y;
 		}
 
-		public void tick(Level level, BlockPos pos) {
+		public void tick() {
 			this.age += 1;
 			this.y = Math.sin(this.age * 0.03D) * 0.15D;
-			boolean isNectar = this.getCustomName().toLowerCase().contains("nectar");
-
-			if (isNectar != wasNamedNectar) {
-				if (isNectar) {
-					if (level.getGameTime() % NECTAR_SOUND_INTERVAL == 0L) {
-						level.playSound(null, pos, WWSounds.BLOCK_DISPLAY_LANTERN_NECTAR_LOOP, SoundSource.AMBIENT, 0.5F, 1.0F);
-					}
-					this.wasNamedNectar = true;
-				} else {
-					this.wasNamedNectar = false;
-				}
-			} else {
-				this.wasNamedNectar = false;
-			}
 		}
 
 		@NotNull

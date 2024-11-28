@@ -68,7 +68,6 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 					poseStack,
 					buffer,
 					light,
-					entity.getCustomName().toLowerCase().contains("nectar"),
 					overlay,
 					entity.age,
 					partialTick,
@@ -76,8 +75,9 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 					entity.getColor(),
 					1F,
 					(float) entity.pos.x,
-					lantern.clientHanging ? 0.38F : 0.225F + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
-					(float) entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation()
+					(lantern.clientHanging ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
+					(float) entity.pos.z,
+					Minecraft.getInstance().gameRenderer.getMainCamera().rotation()
 				);
 			}
 		}

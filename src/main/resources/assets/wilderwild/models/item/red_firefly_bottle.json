@@ -1,9 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "wilderwild:item/red_firefly_bottle"
-	},
-	"overrides": [
-		{"predicate": {"nectar": 1}, "model": "wilderwild:item/nectar_bottle"}
-	]
-}

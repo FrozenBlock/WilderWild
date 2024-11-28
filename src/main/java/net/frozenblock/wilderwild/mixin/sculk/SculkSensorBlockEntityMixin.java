@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
+import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
@@ -51,7 +52,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.Objects;
 
 @Mixin(SculkSensorBlockEntity.class)
 public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {

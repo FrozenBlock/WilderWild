@@ -18,12 +18,11 @@
 
 package net.frozenblock.wilderwild.datagen.model;
 
+import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
@@ -43,7 +42,6 @@ import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
