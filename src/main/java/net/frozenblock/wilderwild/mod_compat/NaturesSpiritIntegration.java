@@ -94,7 +94,6 @@ public class NaturesSpiritIntegration extends ModIntegration {
 
 		BooleanSupplier coarseDirtCondition = () -> WWBlockConfig.get().blockSounds.coarseDirtSounds;
 		addBlock(id("sandy_soil"), COARSE_DIRT, coarseDirtCondition);
-		addBlock(id("rocky_sandy_soil"), COARSE_DIRT, coarseDirtCondition);
 
 		BooleanSupplier sandstoneCondition = () -> WWBlockConfig.get().blockSounds.sandstoneSounds;
 		addBlock(id("pink_sandstone"), SANDSTONE, sandstoneCondition);
