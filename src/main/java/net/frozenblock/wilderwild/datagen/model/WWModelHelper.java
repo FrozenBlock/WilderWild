@@ -258,7 +258,7 @@ public final class WWModelHelper {
 		TextureMapping multifaceTextureMapping = new TextureMapping();
 		multifaceTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(multifaceBlock));
 		MULTIFACE_MODEL.create(multifaceBlock, multifaceTextureMapping, generator.modelOutput);
-		
+
 		generator.createMultiface(multifaceBlock);
 	}
 }
