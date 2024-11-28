@@ -14,3 +14,4 @@ hi
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
 - Fixed many recipe unlocks being broken in 1.21.2+.
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
+- Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's naming scheme and structure.

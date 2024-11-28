@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.block.property.BubbleDirection;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
-import net.frozenblock.wilderwild.block.property.GeyserStage;
-import net.frozenblock.wilderwild.block.property.GeyserType;
+import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
+import net.frozenblock.wilderwild.block.state.properties.FlowerColor;
+import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
+import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;

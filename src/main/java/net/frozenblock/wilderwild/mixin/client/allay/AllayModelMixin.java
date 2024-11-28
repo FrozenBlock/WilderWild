@@ -22,8 +22,8 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.render.animation.CustomAllayAnimations;
-import net.frozenblock.wilderwild.entity.render.animation.WilderAllay;
+import net.frozenblock.wilderwild.client.animation.definitions.WWAllayAnimation;
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.minecraft.client.model.AllayModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;
@@ -64,7 +64,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
 	)
 	private void wilderWild$runKeyframeDance(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {
 		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && allay instanceof WilderAllay wilderAllay) {
-			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), CustomAllayAnimations.DANCING, ageInTicks);
+			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), WWAllayAnimation.DANCING, ageInTicks);
 		}
 	}
 }
