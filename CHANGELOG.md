@@ -16,3 +16,4 @@ hi
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
 - Renamed `WWWorldgen` to `WWBiomes.`
+- Updated block sound type compatability for Nature's Spirit.
