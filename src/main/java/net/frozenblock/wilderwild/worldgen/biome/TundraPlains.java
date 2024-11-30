@@ -164,6 +164,7 @@ public final class TundraPlains extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
+		BiomeDefaultFeatures.commonSpawns(spawns);
 		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 6, 4, 4));
 		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COW, 6, 4, 4));
 		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 8, 2, 5));
