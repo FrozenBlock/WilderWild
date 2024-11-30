@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 public class WWNoise {
 	public static final ResourceKey<NormalNoise.NoiseParameters> SAND_BEACH_KEY = createKey("sand_beach");
 	public static final ResourceKey<NormalNoise.NoiseParameters> GRAVEL_BEACH_KEY = createKey("gravel_beach");
+	public static final ResourceKey<NormalNoise.NoiseParameters> TUNDRA_NOISE_KEY = createKey("tundra_noise");
 
 	public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> entries) {
 		register(entries, SAND_BEACH_KEY, -9,
@@ -93,6 +94,11 @@ public class WWNoise {
 			-10.0,
 			-10.0,
 			-10.0
+		);
+		register(entries, TUNDRA_NOISE_KEY, -1,
+			-1.0,
+			1.0,
+			1.0
 		);
 	}
 

@@ -64,6 +64,34 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource tundraSurfaceRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(WWBiomes.TUNDRA_PLAINS),
+			SurfaceRules.ifTrue(
+				SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.yBlockCheck(
+						VerticalAnchor.absolute(60),
+						0
+					),
+					SurfaceRules.ifTrue(
+						SurfaceRules.not(
+							SurfaceRules.yBlockCheck(
+								VerticalAnchor.absolute(63),
+								0
+							)
+						),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(WWNoise.TUNDRA_NOISE_KEY, 0.0),
+							FrozenSurfaceRules.WATER
+						)
+					)
+				)
+			)
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(Block fallingBlock, Block safeBlock) {
 		SurfaceRules.RuleSource fallingBlockSource = FrozenSurfaceRules.makeStateRule(fallingBlock);
 		SurfaceRules.RuleSource safeBlockSource = FrozenSurfaceRules.makeStateRule(safeBlock);
@@ -430,6 +458,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 			SurfaceRules.sequence(
 				betaBeaches(),
 				cypressSurfaceRules(),
+				tundraSurfaceRules(),
 				warmRiverRules(),
 				warmBeachRules(),
 				oasisRules(),

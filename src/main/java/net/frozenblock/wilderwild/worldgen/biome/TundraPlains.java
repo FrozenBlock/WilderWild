@@ -27,6 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
+import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -56,9 +57,9 @@ public final class TundraPlains extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
 	public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
 	public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.3675F, -0.3125F);
-	public static final float TEMP = 0.8F;
-	public static final float DOWNFALL = 0.5F;
-	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
+	public static final float TEMP = 0.25F;
+	public static final float DOWNFALL = 0.8F;
+	public static final int WATER_COLOR = 2508679;
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
@@ -149,7 +150,12 @@ public final class TundraPlains extends FrozenBiome {
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FIELD_GRASS_PLACED.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LARGE_FERN_AND_GRASS.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS_FOREST.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.STONE_PATH_RARE.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.COARSE_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
@@ -158,14 +164,15 @@ public final class TundraPlains extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.plainsSpawns(spawns);
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 6, 4, 4));
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COW, 6, 4, 4));
 		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 8, 2, 5));
 	}
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateFlowerField) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE_A,
