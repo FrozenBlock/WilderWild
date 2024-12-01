@@ -179,7 +179,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 
-		generator.generateGoatHorn(WWItems.COPPER_HORN);
+		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);
+
+		WWModelHelper.generateScorchedSand(generator, WWItems.SCORCHED_SAND);
+		WWModelHelper.generateScorchedRedSand(generator, WWItems.SCORCHED_RED_SAND);
+		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
 		// spawn eggs
 		generator.generateSpawnEgg(WWItems.FIREFLY_SPAWN_EGG, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16));
