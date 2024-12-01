@@ -36,24 +36,6 @@ public final class WWItemProperties {
 		ItemProperties.register(WWItems.SCORCHED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(WWItems.SCORCHED_RED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(WWItems.ECHO_GLASS, WWConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, WWBlockStateProperties.DAMAGE, 0)) / 4F);
-
-		ItemProperties.register(WWItems.FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.CYAN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.GRAY_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.GREEN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.LIME_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.MAGENTA_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.ORANGE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.PINK_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.PURPLE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.YELLOW_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.WHITE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.BLACK_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.BLUE_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.RED_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.BROWN_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
-		ItemProperties.register(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE, WWConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 		 */
 	}
 }
