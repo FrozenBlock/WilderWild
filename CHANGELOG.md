@@ -14,6 +14,9 @@ hi
 - Fireflies now once again move inside Display Lanterns that are hanging.
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
 - Fixed many recipe unlocks being broken in 1.21.2+.
+- Fixed Potted Mycelium Growth not being in the `minecraft:flower_pots` tag.
+- Fixed Flowering Lily Pads not being in the `minecraft:small_flowers` tag.
+- Properly updated from the old `minecraft:replaceable_plants` tag to the `minecraft:replaceable_by_trees` tag.
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
 - Renamed `WWWorldgen` to `WWBiomes.`

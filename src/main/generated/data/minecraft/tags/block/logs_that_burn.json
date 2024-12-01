@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#wilderwild:baobab_logs",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:cypress_logs",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:palm_logs",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:maple_logs",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:hollowed_logs_that_burn",
+      "required": false
+    }
+  ]
+}
