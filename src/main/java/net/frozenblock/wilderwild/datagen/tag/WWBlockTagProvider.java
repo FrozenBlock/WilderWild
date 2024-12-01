@@ -947,7 +947,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlocks.MYCELIUM_GROWTH)
-			.add(WWBlocks.MYCELIUM_GROWTH)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.CATTAIL)
 			.add(WWBlocks.MILKWEED)
