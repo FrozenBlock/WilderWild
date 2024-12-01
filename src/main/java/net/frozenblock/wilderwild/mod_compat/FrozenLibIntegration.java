@@ -123,7 +123,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
 	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
-	public static final ResourceLocation NECTAR_SOUND_PREDICATE = WWConstants.id("nectar");
 	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WWConstants.id("enderman_anger");
 	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
 	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
@@ -186,10 +185,6 @@ public class FrozenLibIntegration extends ModIntegration {
 				return false;
 			}
 		});
-
-		SoundPredicate.register(NECTAR_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<Firefly>) entity ->
-			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
-		);
 
 		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
