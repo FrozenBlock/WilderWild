@@ -503,7 +503,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.ROSE_BUSH)
 			.add(WWBlocks.CATTAIL);
 
-		this.getOrCreateTagBuilder(WWBlockTags.CRAB_CAN_HIDE)
+		this.getOrCreateTagBuilder(WWBlockTags.CRAB_HIDEABLE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY)

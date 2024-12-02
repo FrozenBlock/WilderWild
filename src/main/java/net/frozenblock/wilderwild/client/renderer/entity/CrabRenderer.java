@@ -44,13 +44,6 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	@Override
 	protected void setupRotations(@NotNull T crab, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
 		poseStack.translate(0D, crab.isBaby() ? -0.1D : 0D, 0D);
-		/*
-		float newYaw = Mth.lerp(
-			Mth.lerp(partialTicks, crab.prevClimbDirectionAmount, crab.climbDirectionAmount),
-			rotationYaw,
-			Mth.lerp(partialTicks, crab.prevClimbAnimY, crab.climbAnimY)
-		);
-		 */
 		super.setupRotations(crab, poseStack, ageInTicks, rotationYaw, partialTicks, scale);
 	}
 
