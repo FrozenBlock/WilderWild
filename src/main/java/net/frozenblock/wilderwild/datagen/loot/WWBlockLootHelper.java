@@ -146,28 +146,6 @@ public class WWBlockLootHelper {
 		);
 	}
 
-	public static void makeScorchedSandLoot(@NotNull BlockLootSubProvider lootProvider, Block scorchedSandBlock) {
-		lootProvider.add(scorchedSandBlock,
-			LootTable.lootTable()
-				.withPool(
-					lootProvider.applyExplosionCondition(
-						scorchedSandBlock,
-						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.add(
-								LootItem.lootTableItem(scorchedSandBlock)
-									.apply(CopyBlockState.copyState(scorchedSandBlock).copy(WWBlockStateProperties.CRACKED)
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(scorchedSandBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.CRACKED, true))
-										)
-									)
-							)
-					)
-				)
-		);
-	}
-
 	public static void makeShearsOrSilkTouchRequiredLoot(@NotNull BlockLootSubProvider lootProvider, Block block) {
 		lootProvider.add(block,
 			LootTable.lootTable()

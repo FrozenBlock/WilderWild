@@ -161,8 +161,9 @@ public final class WWBlocks {
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SCORCHED_SAND = new ScorchedBlock(
+	public static final ScorchedBlock SINGED_SAND = new ScorchedBlock(
 		Blocks.SAND.defaultBlockState(),
+		null,
 		true,
 		SoundEvents.BRUSH_SAND,
 		SoundEvents.BRUSH_SAND_COMPLETED,
@@ -173,8 +174,35 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_RED_SAND = new ScorchedBlock(
+	public static final ScorchedBlock SCORCHED_SAND = new ScorchedBlock(
+		SINGED_SAND.defaultBlockState(),
+		null,
+		true,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
+		BlockBehaviour.Properties.of()
+			.strength(1.5F)
+			.sound(WWSoundTypes.SCORCHED_SAND)
+			.mapColor(MapColor.SAND)
+			.randomTicks()
+	);
+
+	public static final ScorchedBlock SINGED_RED_SAND = new ScorchedBlock(
 		Blocks.RED_SAND.defaultBlockState(),
+		null,
+		true,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
+		BlockBehaviour.Properties.of()
+			.strength(1.5F)
+			.sound(WWSoundTypes.SCORCHED_SAND)
+			.mapColor(MapColor.COLOR_ORANGE)
+			.randomTicks()
+	);
+
+	public static final ScorchedBlock SCORCHED_RED_SAND = new ScorchedBlock(
+		SINGED_RED_SAND.defaultBlockState(),
+		null,
 		true,
 		SoundEvents.BRUSH_SAND,
 		SoundEvents.BRUSH_SAND_COMPLETED,
@@ -960,8 +988,10 @@ public final class WWBlocks {
 		registerBlockAfter(MOSSY_MUD_BRICK_STAIRS, "mossy_mud_brick_slab", MOSSY_MUD_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_MUD_BRICK_SLAB, "mossy_mud_brick_wall", MOSSY_MUD_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
-		registerBlock("scorched_sand", SCORCHED_SAND);
-		registerBlock("scorched_red_sand", SCORCHED_RED_SAND);
+		registerBlockAfter(Blocks.SAND, "singed_sand", SINGED_SAND, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(SINGED_SAND, "scorched_sand", SCORCHED_SAND, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.RED_SAND, "singed_red_sand", SINGED_RED_SAND, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(SINGED_RED_SAND, "scorched_red_sand", SCORCHED_RED_SAND, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerWoods() {

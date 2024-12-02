@@ -7,7 +7,7 @@
       "item": "minecraft:red_sand"
     },
     "X": {
-      "item": "wilderwild:scorched_red_sand"
+      "tag": "wilderwild:scorched_red_sand"
     }
   },
   "pattern": [

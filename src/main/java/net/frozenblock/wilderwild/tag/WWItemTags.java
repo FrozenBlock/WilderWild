@@ -37,6 +37,8 @@ public final class WWItemTags {
 	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
 	public static final TagKey<Item> BROWN_MUSHROOM_STEW_INGREDIENTS = bind("brown_mushroom_stew_ingredients");
 	public static final TagKey<Item> RED_MUSHROOM_STEW_INGREDIENTS = bind("red_mushroom_stew_ingredients");
+	public static final TagKey<Item> SCORCHED_SAND = bind("scorched_sand");
+	public static final TagKey<Item> SCORCHED_RED_SAND = bind("scorched_red_sand");
 	public static final TagKey<Item> BAOBAB_LOGS = bind("baobab_logs");
 	public static final TagKey<Item> CYPRESS_LOGS = bind("cypress_logs");
 	public static final TagKey<Item> PALM_LOGS = bind("palm_logs");

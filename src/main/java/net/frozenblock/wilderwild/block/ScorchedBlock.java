@@ -23,20 +23,17 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
+import java.util.Optional;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
-import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -45,7 +42,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -59,28 +55,47 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
-	private static final BooleanProperty CRACKEDNESS = WWBlockStateProperties.CRACKED;
 	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
+		BlockState.CODEC.lenientOptionalFieldOf("scorch_state").forGetter((scorchedBlock) -> scorchedBlock.scorchState),
 		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
-		SoundEvent.DIRECT_CODEC.fieldOf("brush_sound").forGetter((scorchedBlock) -> scorchedBlock.brushSound),
-		SoundEvent.DIRECT_CODEC.fieldOf("brush_completed_sound").forGetter((scorchedBlock) -> scorchedBlock.brushCompletedSound),
+		SoundEvent.DIRECT_CODEC.lenientOptionalFieldOf("brush_sound").forGetter((scorchedBlock) -> scorchedBlock.brushSound),
+		SoundEvent.DIRECT_CODEC.lenientOptionalFieldOf("brush_completed_sound").forGetter((scorchedBlock) -> scorchedBlock.brushCompletedSound),
 		propertiesCodec()
 	).apply(instance, ScorchedBlock::new));
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public final boolean canBrush;
 	public final BlockState wetState;
-	public final SoundEvent brushSound;
-	public final SoundEvent brushCompletedSound;
+	public final Optional<BlockState> scorchState;
+	public final Optional<SoundEvent> brushSound;
+	public final Optional<SoundEvent> brushCompletedSound;
 
-	public ScorchedBlock(@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, @NotNull Properties settings) {
+	public ScorchedBlock(
+		@NotNull BlockState wetState,
+		@NotNull Optional<BlockState> scorchState,
+		boolean canBrush,
+		@NotNull Optional<SoundEvent> brushSound,
+		@NotNull Optional<SoundEvent> brushCompletedSound,
+		@NotNull Properties settings
+	) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
+		this.wetState = wetState;
+		this.scorchState = scorchState;
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
-		this.wetState = wetState;
-		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
+		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.scorchState.orElse(null));
+	}
+
+	public ScorchedBlock(
+		@NotNull BlockState wetState,
+		BlockState scorchState,
+		boolean canBrush,
+		SoundEvent brushSound,
+		SoundEvent brushCompletedSound,
+		@NotNull Properties settings
+	) {
+		this(wetState, Optional.ofNullable(scorchState), canBrush, Optional.ofNullable(brushSound), Optional.ofNullable(brushCompletedSound), settings);
 	}
 
 	public static boolean canScorch(@NotNull BlockState state) {
@@ -118,16 +133,18 @@ public class ScorchedBlock extends BaseEntityBlock {
 		return CODEC;
 	}
 
-	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
+	public void fillScorchMap(BlockState wetState, BlockState defaultState, @Nullable BlockState defaultStateCracked) {
 		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultStateCracked);
 		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultStateCracked, defaultState);
+		if (defaultStateCracked != null) {
+			SCORCH_MAP.put(defaultState, defaultStateCracked);
+			HYDRATE_MAP.put(defaultStateCracked, defaultState);
+		}
 	}
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(CRACKEDNESS, DUSTED);
+		builder.add(DUSTED);
 	}
 
 	@Override
@@ -136,7 +153,14 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	public @NotNull BlockState updateShape(
+		@NotNull BlockState state,
+		@NotNull Direction direction,
+		@NotNull BlockState neighborState,
+		@NotNull LevelAccessor level,
+		@NotNull BlockPos currentPos,
+		@NotNull BlockPos neighborPos
+	) {
 		level.scheduleTick(currentPos, this, TICK_DELAY);
 		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
@@ -176,16 +200,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 		if (blockEntity instanceof ScorchedBlockEntity scorchedBlock) {
 			scorchedBlock.checkReset();
 		}
-	}
-
-	@Override
-	@NotNull
-	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		if (state.getValue(WWBlockStateProperties.CRACKED)) {
-			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.CRACKED, true);
-		}
-		return superStack;
 	}
 
 	@Override

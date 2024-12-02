@@ -9,6 +9,8 @@ hi
 - Mesoglea, Nematocyst, Shelf Fungi, Glory of the Snow, Pollen, and Firefly Bottle models are now data-generated.
 - Removed unused Nematocyst textures.
 - Removed unused Sculk Shrieker and Stripped Cypress Log models.
+- Split Scorched Sand into two separate blocks, Signed Sand and Scorched Sand.
+- Split Red Scorched Sand into two separate blocks, Signed Red Sand and Scorched Red Sand.
 - Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
 - Removed the Firefly's "Nectar" easter egg.
 - Fireflies now once again move inside Display Lanterns that are hanging.
