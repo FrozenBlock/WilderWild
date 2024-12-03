@@ -647,7 +647,7 @@ public final class WWBlocks {
 		CattailBlock::new,
 		Properties.ofFullCopy(Blocks.ROSE_BUSH)
 			.sound(SoundType.WET_GRASS)
-			.strength(0.0F)
+			.strength(0F)
 			.noOcclusion()
 	);
 
