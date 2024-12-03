@@ -3,12 +3,8 @@
   "category": "building",
   "group": "sandstone",
   "key": {
-    "#": {
-      "item": "minecraft:sand"
-    },
-    "X": {
-      "tag": "wilderwild:scorched_sand"
-    }
+    "#": "minecraft:sand",
+    "X": "#wilderwild:scorched_sand"
   },
   "pattern": [
     "#X",

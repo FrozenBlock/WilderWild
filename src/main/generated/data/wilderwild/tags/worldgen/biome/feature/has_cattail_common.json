@@ -30,10 +30,6 @@
       "required": false
     },
     {
-      "id": "minecraft:pale_garden",
-      "required": false
-    },
-    {
       "id": "wilderwild:warm_beach",
       "required": false
     }

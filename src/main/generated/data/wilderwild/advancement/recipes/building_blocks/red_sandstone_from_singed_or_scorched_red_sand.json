@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sand": {
+    "has_red_sand": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:sand"
+            "items": "minecraft:red_sand"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_sand"
+      "has_red_sand"
     ]
   ],
   "rewards": {

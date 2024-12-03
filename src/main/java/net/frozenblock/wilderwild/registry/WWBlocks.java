@@ -177,7 +177,7 @@ public final class WWBlocks {
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SINGED_SAND = registerWithoutItem("singed_sand",
+	public static final ScorchedBlock SINGED_SAND = register("singed_sand",
 		properties -> new ScorchedBlock(
 			Blocks.SAND.defaultBlockState(),
 			null,
@@ -193,7 +193,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_SAND = registerWithoutItem("scorched_sand",
+	public static final ScorchedBlock SCORCHED_SAND = register("scorched_sand",
 		properties -> new ScorchedBlock(
 			SINGED_SAND.defaultBlockState(),
 			null,
@@ -209,7 +209,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SINGED_RED_SAND = registerWithoutItem("singed_red_sand",
+	public static final ScorchedBlock SINGED_RED_SAND = register("singed_red_sand",
 		properties -> new ScorchedBlock(
 			Blocks.RED_SAND.defaultBlockState(),
 			null,
@@ -225,7 +225,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_RED_SAND = registerWithoutItem("scorched_red_sand",
+	public static final ScorchedBlock SCORCHED_RED_SAND = register("scorched_red_sand",
 		properties -> new ScorchedBlock(
 			SINGED_RED_SAND.defaultBlockState(),
 			null,
