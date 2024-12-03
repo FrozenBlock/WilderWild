@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.dispenser;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -61,7 +62,8 @@ public class ShearsDispenseItemBehaviorMixin {
 			wilderWild$tryShearTumbleweed(state, serverLevel, pos) ||
 			wilderWild$tryShearTumbleweedStem(state, serverLevel, pos) ||
 			wilderWild$tryShearBush(state, serverLevel, pos) ||
-			wilderWild$tryShearSeedingFlower(state, serverLevel, pos);
+			wilderWild$tryShearSeedingFlower(state, serverLevel, pos) ||
+			wilderWild$tryShearFloweringLilypad(state, serverLevel, pos);
 	}
 
 	@Unique
@@ -140,4 +142,12 @@ public class ShearsDispenseItemBehaviorMixin {
 		return false;
 	}
 
+	@Unique
+	private static boolean wilderWild$tryShearFloweringLilypad(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
+		if (blockState.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlilyBlock) {
+			floweringWaterlilyBlock.onShear(level, pos, blockState, null);
+			return true;
+		}
+		return false;
+	}
 }

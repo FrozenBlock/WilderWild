@@ -21,6 +21,7 @@ hi
 - Fixed many recipe unlocks being broken in 1.21.2+.
 - Fixed Potted Mycelium Growth not being in the `minecraft:flower_pots` tag.
 - Fixed Flowering Lily Pads not being in the `minecraft:small_flowers` tag.
+- Flowering Lily Pads can now be sheared to revert to Lily Pads.
 - Properly updated from the old `minecraft:replaceable_plants` tag to the `minecraft:replaceable_by_trees` tag.
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.

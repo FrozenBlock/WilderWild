@@ -43,6 +43,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
+import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
@@ -468,7 +469,8 @@ public final class WWBlocks {
 			.noOcclusion()
 	);
 
-	public static final WaterlilyBlock FLOWERING_LILY_PAD = new WaterlilyBlock(
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = new FloweringWaterlilyBlock(
+		Blocks.LILY_PAD,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD)
 	);
 
