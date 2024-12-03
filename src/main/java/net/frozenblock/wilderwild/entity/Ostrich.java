@@ -561,10 +561,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		if (this.isAggressive() && !this.isTamed()) {
-			return InteractionResult.FAIL;
-		}
-		boolean isGrownAndTamedWithShiftHeldDown = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
+		if (this.isAggressive() && !this.isTamed()) return InteractionResult.FAIL;
+
+		boolean isGrownAndTamedWithShiftHeldDown = !this.isBaby() && player.isSecondaryUseActive();
 		if (!this.isVehicle() && !isGrownAndTamedWithShiftHeldDown) {
 			ItemStack itemStack = player.getItemInHand(hand);
 			if (!itemStack.isEmpty()) {
@@ -588,38 +587,53 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		if (!this.isFood(stack)) {
 			return false;
 		} else {
-			boolean bl = this.getHealth() < this.getMaxHealth();
-			if (bl) {
+			boolean canBeHealed = this.getHealth() < this.getMaxHealth();
+			if (canBeHealed) {
 				this.heal(2F);
 			}
 
-			boolean bl2 = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
-			if (bl2) {
+			boolean isTamed = this.isTamed();
+			boolean canFallInLove = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
+			if (canFallInLove) {
 				this.setInLove(player);
 			}
 
-			boolean bl3 = this.isBaby();
-			if (bl3) {
-				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
+			boolean isBaby = this.isBaby();
+			if (isBaby) {
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0D, 0D, 0D);
 				if (!this.level().isClientSide) {
 					this.ageUp(10);
 				}
 			}
 
-			if (!bl && !bl2 && !bl3) {
-				return false;
-			} else {
+			boolean canBeTamed = (!isTamed && !this.isAggressive() && !isBaby) && this.getTemper() < this.getMaxTemper();
+
+			if (canBeHealed || canFallInLove || isBaby || canBeTamed) {
 				if (!this.isSilent()) {
 					SoundEvent soundEvent = this.getEatingSound();
 					if (soundEvent != null) {
-						this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1F, 1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+						this.level().playSound(
+							null,
+							this.getX(),
+							this.getY(),
+							this.getZ(),
+							soundEvent,
+							this.getSoundSource(),
+							1F,
+							1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F
+						);
 					}
+				}
+
+				if (canBeTamed && !this.level().isClientSide) {
+					this.modifyTemper(3);
 				}
 
 				this.gameEvent(GameEvent.EAT);
 				return true;
 			}
 		}
+		return false;
 	}
 
 	@Contract("null->false")
