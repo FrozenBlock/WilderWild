@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#wilderwild:hollowed_crimson_stems",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:hollowed_warped_stems",
+      "required": false
+    }
+  ]
+}

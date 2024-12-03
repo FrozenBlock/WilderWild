@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.datagen.tag.WWBlockTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWDamageTypeTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWEntityTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWGameEventTagProvider;
+import net.frozenblock.wilderwild.datagen.tag.WWInstrumentTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWStructureProcessors;
@@ -61,6 +62,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWBlockTagProvider::new);
 		pack.addProvider(WWDamageTypeTagProvider::new);
 		pack.addProvider(WWItemTagProvider::new);
+		pack.addProvider(WWInstrumentTagProvider::new);
 		pack.addProvider(WWEntityTagProvider::new);
 		pack.addProvider(WWGameEventTagProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);

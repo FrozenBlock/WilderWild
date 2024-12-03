@@ -49,6 +49,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.generateHollowedAndTermites();
 		this.generateTags();
 		this.generateMinecraft();
+		this.generateWoods();
 	}
 
 	@NotNull
@@ -421,48 +422,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateTags() {
-		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTERS)
-			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
-			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
-			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
-
-		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)
-			.add(Blocks.BARRIER)
-			.addOptionalTag(BlockTags.LEAVES);
-
-		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON)
-			.add(Blocks.HONEY_BLOCK)
-			.add(Blocks.SOUL_SAND)
-			.add(Blocks.MUD);
-
-		this.getOrCreateTagBuilder(WWBlockTags.BAOBAB_LOGS)
-			.add(WWBlocks.BAOBAB_LOG)
-			.add(WWBlocks.STRIPPED_BAOBAB_LOG)
-			.add(WWBlocks.BAOBAB_WOOD)
-			.add(WWBlocks.STRIPPED_BAOBAB_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS);
-
-		this.getOrCreateTagBuilder(WWBlockTags.CYPRESS_LOGS)
-			.add(WWBlocks.CYPRESS_LOG)
-			.add(WWBlocks.STRIPPED_CYPRESS_LOG)
-			.add(WWBlocks.CYPRESS_WOOD)
-			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS);
-
-		this.getOrCreateTagBuilder(WWBlockTags.PALM_LOGS)
-			.add(WWBlocks.PALM_LOG)
-			.add(WWBlocks.STRIPPED_PALM_LOG)
-			.add(WWBlocks.PALM_WOOD)
-			.add(WWBlocks.STRIPPED_PALM_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALM_LOGS);
-
-		this.getOrCreateTagBuilder(WWBlockTags.MAPLE_LOGS)
-			.add(WWBlocks.MAPLE_LOG)
-			.add(WWBlocks.STRIPPED_MAPLE_LOG)
-			.add(WWBlocks.MAPLE_WOOD)
-			.add(WWBlocks.STRIPPED_MAPLE_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_MAPLE_LOGS);
-
 		this.getOrCreateTagBuilder(WWBlockTags.MESOGLEA)
 			.add(WWBlocks.BLUE_MESOGLEA)
 			.add(WWBlocks.BLUE_PEARLESCENT_MESOGLEA)
@@ -887,14 +846,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MYCELIUM_GROWTH)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
 
-		this.getOrCreateTagBuilder(BlockTags.LEAVES)
-			.add(WWBlocks.BAOBAB_LEAVES)
-			.add(WWBlocks.CYPRESS_LEAVES)
-			.add(WWBlocks.PALM_FRONDS)
-			.add(WWBlocks.YELLOW_MAPLE_LEAVES)
-			.add(WWBlocks.ORANGE_MAPLE_LEAVES)
-			.add(WWBlocks.RED_MAPLE_LEAVES);
-
 		this.getOrCreateTagBuilder(BlockTags.SAND)
 			.add(WWBlocks.SINGED_SAND)
 			.add(WWBlocks.SCORCHED_SAND)
@@ -903,30 +854,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
 			.add(WWBlocks.GEYSER);
-
-		this.getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
-			.add(WWBlocks.BAOBAB_SIGN)
-			.add(WWBlocks.CYPRESS_SIGN)
-			.add(WWBlocks.PALM_SIGN)
-			.add(WWBlocks.MAPLE_SIGN);
-
-		this.getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
-			.add(WWBlocks.BAOBAB_WALL_SIGN)
-			.add(WWBlocks.CYPRESS_WALL_SIGN)
-			.add(WWBlocks.PALM_WALL_SIGN)
-			.add(WWBlocks.MAPLE_WALL_SIGN);
-
-		this.getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
-			.add(WWBlocks.BAOBAB_HANGING_SIGN)
-			.add(WWBlocks.CYPRESS_HANGING_SIGN)
-			.add(WWBlocks.PALM_HANGING_SIGN)
-			.add(WWBlocks.MAPLE_HANGING_SIGN);
-
-		this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
-			.add(WWBlocks.BAOBAB_WALL_HANGING_SIGN)
-			.add(WWBlocks.CYPRESS_WALL_HANGING_SIGN)
-			.add(WWBlocks.PALM_WALL_HANGING_SIGN)
-			.add(WWBlocks.MAPLE_WALL_HANGING_SIGN);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
 			.add(WWBlocks.SCULK_STAIRS)
@@ -965,80 +892,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
 			.add(WWBlocks.BUSH);
-
-		this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
-			.add(WWBlocks.BAOBAB_LOG)
-			.add(WWBlocks.CYPRESS_LOG)
-			.add(WWBlocks.PALM_LOG)
-			.add(WWBlocks.MAPLE_LOG);
-
-		this.getOrCreateTagBuilder(BlockTags.ACACIA_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.BIRCH_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_BIRCH_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.CHERRY_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CHERRY_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.CRIMSON_STEMS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CRIMSON_STEMS);
-
-		this.getOrCreateTagBuilder(BlockTags.DARK_OAK_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_DARK_OAK_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.JUNGLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_JUNGLE_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.ACACIA_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.MANGROVE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_MANGROVE_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.OAK_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_OAK_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.ACACIA_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.SPRUCE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.WARPED_STEMS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);
-
-		this.getOrCreateTagBuilder(BlockTags.LOGS)
-			.addOptionalTag(WWBlockTags.BAOBAB_LOGS)
-			.addOptionalTag(WWBlockTags.CYPRESS_LOGS)
-			.addOptionalTag(WWBlockTags.PALM_LOGS)
-			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS);
-
-		this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
-			.addOptionalTag(WWBlockTags.BAOBAB_LOGS)
-			.addOptionalTag(WWBlockTags.CYPRESS_LOGS)
-			.addOptionalTag(WWBlockTags.PALM_LOGS)
-			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS_THAT_BURN);
-
-		this.getOrCreateTagBuilder(BlockTags.PLANKS)
-			.add(WWBlocks.BAOBAB_PLANKS)
-			.add(WWBlocks.CYPRESS_PLANKS)
-			.add(WWBlocks.PALM_PLANKS)
-			.add(WWBlocks.MAPLE_PLANKS);
-
-		this.getOrCreateTagBuilder(BlockTags.FENCE_GATES)
-			.add(WWBlocks.BAOBAB_FENCE_GATE)
-			.add(WWBlocks.CYPRESS_FENCE_GATE)
-			.add(WWBlocks.PALM_FENCE_GATE)
-			.add(WWBlocks.MAPLE_FENCE_GATE);
-
-		this.getOrCreateTagBuilder(BlockTags.SAPLINGS)
-			.add(WWBlocks.BAOBAB_NUT)
-			.add(WWBlocks.CYPRESS_SAPLING)
-			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.MAPLE_SAPLING);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
 			.add(WWBlocks.POTTED_BAOBAB_NUT)
@@ -1102,5 +955,197 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
 			.addOptionalTag(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)
 			.addOptionalTag(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN);
+	}
+
+	private void generateWoods() {
+		this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
+			.add(WWBlocks.BAOBAB_LOG)
+			.add(WWBlocks.CYPRESS_LOG)
+			.add(WWBlocks.PALM_LOG)
+			.add(WWBlocks.MAPLE_LOG);
+
+		this.getOrCreateTagBuilder(BlockTags.ACACIA_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.BIRCH_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_BIRCH_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.CHERRY_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_CHERRY_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.CRIMSON_STEMS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_CRIMSON_STEMS);
+
+		this.getOrCreateTagBuilder(BlockTags.DARK_OAK_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_DARK_OAK_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.JUNGLE_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_JUNGLE_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.ACACIA_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.MANGROVE_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_MANGROVE_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.OAK_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_OAK_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.ACACIA_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.SPRUCE_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.WARPED_STEMS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)
+			.add(Blocks.BARRIER)
+			.addOptionalTag(BlockTags.LEAVES);
+
+		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON)
+			.add(Blocks.HONEY_BLOCK)
+			.add(Blocks.SOUL_SAND)
+			.add(Blocks.MUD);
+
+		this.getOrCreateTagBuilder(WWBlockTags.BAOBAB_LOGS)
+			.add(WWBlocks.BAOBAB_LOG)
+			.add(WWBlocks.STRIPPED_BAOBAB_LOG)
+			.add(WWBlocks.BAOBAB_WOOD)
+			.add(WWBlocks.STRIPPED_BAOBAB_WOOD)
+			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.CYPRESS_LOGS)
+			.add(WWBlocks.CYPRESS_LOG)
+			.add(WWBlocks.STRIPPED_CYPRESS_LOG)
+			.add(WWBlocks.CYPRESS_WOOD)
+			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
+			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.PALM_LOGS)
+			.add(WWBlocks.PALM_LOG)
+			.add(WWBlocks.STRIPPED_PALM_LOG)
+			.add(WWBlocks.PALM_WOOD)
+			.add(WWBlocks.STRIPPED_PALM_WOOD)
+			.addOptionalTag(WWBlockTags.HOLLOWED_PALM_LOGS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.MAPLE_LOGS)
+			.add(WWBlocks.MAPLE_LOG)
+			.add(WWBlocks.STRIPPED_MAPLE_LOG)
+			.add(WWBlocks.MAPLE_WOOD)
+			.add(WWBlocks.STRIPPED_MAPLE_WOOD)
+			.addOptionalTag(WWBlockTags.HOLLOWED_MAPLE_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.LOGS)
+			.addOptionalTag(WWBlockTags.BAOBAB_LOGS)
+			.addOptionalTag(WWBlockTags.CYPRESS_LOGS)
+			.addOptionalTag(WWBlockTags.PALM_LOGS)
+			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS);
+
+		this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
+			.addOptionalTag(WWBlockTags.BAOBAB_LOGS)
+			.addOptionalTag(WWBlockTags.CYPRESS_LOGS)
+			.addOptionalTag(WWBlockTags.PALM_LOGS)
+			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS_THAT_BURN);
+
+		this.getOrCreateTagBuilder(BlockTags.LEAVES)
+			.add(WWBlocks.BAOBAB_LEAVES)
+			.add(WWBlocks.CYPRESS_LEAVES)
+			.add(WWBlocks.PALM_FRONDS)
+			.add(WWBlocks.YELLOW_MAPLE_LEAVES)
+			.add(WWBlocks.ORANGE_MAPLE_LEAVES)
+			.add(WWBlocks.RED_MAPLE_LEAVES);
+
+		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTERS)
+			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
+
+		this.getOrCreateTagBuilder(BlockTags.PLANKS)
+			.add(WWBlocks.BAOBAB_PLANKS)
+			.add(WWBlocks.CYPRESS_PLANKS)
+			.add(WWBlocks.PALM_PLANKS)
+			.add(WWBlocks.MAPLE_PLANKS);
+
+		this.getOrCreateTagBuilder(BlockTags.SAPLINGS)
+			.add(WWBlocks.BAOBAB_NUT)
+			.add(WWBlocks.CYPRESS_SAPLING)
+			.add(WWBlocks.COCONUT)
+			.add(WWBlocks.MAPLE_SAPLING);
+
+		this.getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
+			.add(WWBlocks.BAOBAB_SIGN)
+			.add(WWBlocks.CYPRESS_SIGN)
+			.add(WWBlocks.PALM_SIGN)
+			.add(WWBlocks.MAPLE_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
+			.add(WWBlocks.BAOBAB_WALL_SIGN)
+			.add(WWBlocks.CYPRESS_WALL_SIGN)
+			.add(WWBlocks.PALM_WALL_SIGN)
+			.add(WWBlocks.MAPLE_WALL_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
+			.add(WWBlocks.BAOBAB_HANGING_SIGN)
+			.add(WWBlocks.CYPRESS_HANGING_SIGN)
+			.add(WWBlocks.PALM_HANGING_SIGN)
+			.add(WWBlocks.MAPLE_HANGING_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
+			.add(WWBlocks.BAOBAB_WALL_HANGING_SIGN)
+			.add(WWBlocks.CYPRESS_WALL_HANGING_SIGN)
+			.add(WWBlocks.PALM_WALL_HANGING_SIGN)
+			.add(WWBlocks.MAPLE_WALL_HANGING_SIGN);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS)
+			.add(WWBlocks.BAOBAB_BUTTON)
+			.add(WWBlocks.CYPRESS_BUTTON)
+			.add(WWBlocks.PALM_BUTTON)
+			.add(WWBlocks.MAPLE_BUTTON);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_DOORS)
+			.add(WWBlocks.BAOBAB_DOOR)
+			.add(WWBlocks.CYPRESS_DOOR)
+			.add(WWBlocks.PALM_DOOR)
+			.add(WWBlocks.MAPLE_DOOR);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_FENCES)
+			.add(WWBlocks.BAOBAB_FENCE)
+			.add(WWBlocks.CYPRESS_FENCE)
+			.add(WWBlocks.PALM_FENCE)
+			.add(WWBlocks.MAPLE_FENCE);
+
+		this.getOrCreateTagBuilder(BlockTags.FENCE_GATES)
+			.add(WWBlocks.BAOBAB_FENCE_GATE)
+			.add(WWBlocks.CYPRESS_FENCE_GATE)
+			.add(WWBlocks.PALM_FENCE_GATE)
+			.add(WWBlocks.MAPLE_FENCE_GATE);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_PRESSURE_PLATES)
+			.add(WWBlocks.BAOBAB_PRESSURE_PLATE)
+			.add(WWBlocks.CYPRESS_PRESSURE_PLATE)
+			.add(WWBlocks.PALM_PRESSURE_PLATE)
+			.add(WWBlocks.MAPLE_PRESSURE_PLATE);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_SLABS)
+			.add(WWBlocks.BAOBAB_SLAB)
+			.add(WWBlocks.CYPRESS_SLAB)
+			.add(WWBlocks.PALM_SLAB)
+			.add(WWBlocks.MAPLE_SLAB);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS)
+			.add(WWBlocks.BAOBAB_STAIRS)
+			.add(WWBlocks.CYPRESS_STAIRS)
+			.add(WWBlocks.PALM_STAIRS)
+			.add(WWBlocks.MAPLE_STAIRS);
+
+		this.getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS)
+			.add(WWBlocks.BAOBAB_TRAPDOOR)
+			.add(WWBlocks.CYPRESS_TRAPDOOR)
+			.add(WWBlocks.PALM_TRAPDOOR)
+			.add(WWBlocks.MAPLE_TRAPDOOR);
 	}
 }

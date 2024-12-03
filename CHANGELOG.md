@@ -14,6 +14,7 @@ hi
 - Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
 - Removed the Firefly's "Nectar" easter egg.
 - Fireflies now once again move inside Display Lanterns that are hanging.
+- Tumbleweed can no longer naturally spawn with Sand or Red Sand.
 - Crabs should no longer have an incorrect rotation while climbing downwards.
 - Renamed the `wilderwild:crab_can_hide` tag to `wilderwild:crab_hideable.`
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
@@ -24,4 +25,5 @@ hi
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
 - Renamed `WWWorldgen` to `WWBiomes.`
+- Moved all tags to datagen.
 - Updated block sound type compatability for Nature's Spirit.
