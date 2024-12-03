@@ -24,12 +24,11 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CattailBlock extends WaterloggableTallFlowerBlock implements SimpleWaterloggedBlock {
+public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	public CattailBlock(@NotNull Properties settings) {
 		super(settings);
