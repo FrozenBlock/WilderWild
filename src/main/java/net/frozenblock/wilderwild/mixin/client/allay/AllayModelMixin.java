@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.mixin.client.allay;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.client.animation.definitions.WWAllayAnimation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.model.AllayModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;

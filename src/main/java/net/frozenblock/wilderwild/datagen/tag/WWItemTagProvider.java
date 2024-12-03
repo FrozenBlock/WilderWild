@@ -26,10 +26,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWItemTags;
-import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -434,6 +432,10 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.HOLLOWED_PALM_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem());
 
+		this.getOrCreateTagBuilder(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
+			.addOptional(WWConstants.id("hollowed_pale_oak_log"))
+			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"));
+
 		this.getOrCreateTagBuilder(WWItemTags.HOLLOWED_MAPLE_LOGS)
 			.add(WWBlocks.HOLLOWED_MAPLE_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.asItem());
@@ -452,6 +454,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.addOptionalTag(WWItemTags.HOLLOWED_BAOBAB_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_CYPRESS_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_PALM_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_MAPLE_LOGS);
 
 		this.getOrCreateTagBuilder(WWItemTags.HOLLOWED_LOGS_DONT_BURN)
@@ -474,6 +477,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem())
+			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"))
 			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.asItem());
 
 		this.getOrCreateTagBuilder(WWItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)

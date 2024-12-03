@@ -634,7 +634,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALM_LOGS)
 			.add(WWBlocks.HOLLOWED_PALM_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_WARPED_STEMS)
 			.add(WWBlocks.HOLLOWED_WARPED_STEM)
@@ -647,10 +647,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_CYPRESS_LOGS)
 			.add(WWBlocks.HOLLOWED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-
-		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALM_LOGS)
-			.add(WWBlocks.HOLLOWED_PALM_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_MAPLE_LOGS)
 			.add(WWBlocks.HOLLOWED_MAPLE_LOG)
@@ -675,6 +671,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_PALM_LOGS)
+			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_MAPLE_LOGS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_LOGS_DONT_BURN)
@@ -694,7 +691,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG)
+			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"))
 			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG)
@@ -785,6 +782,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
 			.add(WWBlocks.STRIPPED_PALM_WOOD)
 			.add(WWBlocks.STRIPPED_MAPLE_WOOD)
+			.addOptional(WWConstants.vanillaId("stripped_pale_oak_wood"))
 			.addOptional(
 				ResourceKey.create(
 					Registries.BLOCK,

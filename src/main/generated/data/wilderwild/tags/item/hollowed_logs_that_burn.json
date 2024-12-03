@@ -53,6 +53,10 @@
       "required": false
     },
     {
+      "id": "#wilderwild:hollowed_pale_oak_logs",
+      "required": false
+    },
+    {
       "id": "#wilderwild:hollowed_maple_logs",
       "required": false
     }
