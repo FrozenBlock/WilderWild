@@ -102,7 +102,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.SAND), this.has(Items.SAND))
-					.save(exporter, WWConstants.string("red_sandstone_from_singed_or_scorched_red_sand"));
+					.save(exporter, WWConstants.string("sandstone_from_singed_or_scorched_sand"));
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 					.group("red_sandstone")
