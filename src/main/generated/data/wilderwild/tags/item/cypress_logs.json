@@ -1,0 +1,12 @@
+{
+  "values": [
+    "wilderwild:cypress_log",
+    "wilderwild:stripped_cypress_log",
+    "wilderwild:cypress_wood",
+    "wilderwild:stripped_cypress_wood",
+    {
+      "id": "#wilderwild:hollowed_cypress_logs",
+      "required": false
+    }
+  ]
+}
