@@ -38,10 +38,10 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
+public class CattailBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public WaterloggableTallFlowerBlock(@NotNull Properties settings) {
+	public CattailBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}

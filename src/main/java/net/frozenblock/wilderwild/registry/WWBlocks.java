@@ -69,7 +69,7 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
-import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
+import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -461,7 +461,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final Block CATTAIL = new WaterloggableTallFlowerBlock(
+	public static final Block CATTAIL = new CattailBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH)
 			.sound(SoundType.WET_GRASS)
 			.strength(0.0F)
