@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/tumbleweed_plant"
+    "model": "wilderwild:item/tumbleweed_plant"
   }
 }

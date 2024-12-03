@@ -68,23 +68,28 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
+		generator.createDoublePlant(WWBlocks.CATTAIL, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createDoublePlantWithDefaultItem(WWBlocks.DATURA, BlockModelGenerators.PlantType.NOT_TINTED);
+
 		generator.createTrivialBlock(WWBlocks.SINGED_SAND, TexturedModel.CUBE);
 		generator.createTrivialBlock(WWBlocks.SCORCHED_SAND, TexturedModel.CUBE);
 		generator.createTrivialBlock(WWBlocks.SINGED_RED_SAND, TexturedModel.CUBE);
 		generator.createTrivialBlock(WWBlocks.SCORCHED_RED_SAND, TexturedModel.CUBE);
 
-		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.PlantType.NOT_TINTED);
-		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.PlantType.NOT_TINTED);
-		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.PlantType.NOT_TINTED);
-		generator.createPlant(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
 
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
-
+		generator.registerSimpleFlatItemModel(WWBlocks.TUMBLEWEED_PLANT);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
+
+		generator.registerSimpleFlatItemModel(WWBlocks.GLORY_OF_THE_SNOW);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.ALBA_GLORY_OF_THE_SNOW);
@@ -181,20 +186,30 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.MAPLE_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.MAPLE_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
+		generator.generateFlatItem(WWBlocks.PALM_SIGN.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.FLOWERING_LILY_PAD.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.OSTRICH_EGG.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 
-		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);
+		generator.declareCustomModelItem(WWBlocks.MAPLE_TRAPDOOR.asItem());
+		generator.declareCustomModelItem(WWBlocks.PALM_FENCE.asItem());
+		generator.declareCustomModelItem(WWBlocks.PALM_DOOR.asItem());
+		generator.declareCustomModelItem(WWBlocks.PALM_TRAPDOOR.asItem());
+		generator.declareCustomModelItem(WWBlocks.MILKWEED.asItem());
+		generator.declareCustomModelItem(WWBlocks.NULL_BLOCK.asItem());
 
+		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
-		// spawn eggs
+		// Spawn Eggs
 		generator.generateSpawnEgg(WWItems.FIREFLY_SPAWN_EGG, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16));
 		generator.generateSpawnEgg(WWItems.JELLYFISH_SPAWN_EGG, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16));
 		generator.generateSpawnEgg(WWItems.CRAB_SPAWN_EGG, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16));
 		generator.generateSpawnEgg(WWItems.OSTRICH_SPAWN_EGG, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16));
 		generator.generateSpawnEgg(WWItems.SCORCHED_SPAWN_EGG, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16));
 
+		// Firefly Bottles
 		generator.generateFlatItem(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.BLACK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.RED_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);

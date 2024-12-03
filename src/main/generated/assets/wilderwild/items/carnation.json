@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/carnation"
+    "model": "wilderwild:item/carnation"
   }
 }

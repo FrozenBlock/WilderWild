@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/flowering_lily_pad"
+    "model": "wilderwild:item/flowering_lily_pad"
   }
 }

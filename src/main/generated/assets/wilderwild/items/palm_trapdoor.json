@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/palm_trapdoor"
+    "model": "wilderwild:item/palm_trapdoor"
   }
 }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/null_block"
+    "model": "wilderwild:item/null_block"
   }
 }

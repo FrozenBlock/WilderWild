@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.client.sodium;
 
 
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
-import net.caffeinemc.mods.sodium.client.render.frapi.render.AbstractBlockRenderContext;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
@@ -42,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockRenderer.class)
 public abstract class BlockRendererMixin {
 	//extends AbstractBlockRenderContext {
-	
+
 	@Unique
 	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
 

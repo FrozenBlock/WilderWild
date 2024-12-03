@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/mycelium_growth"
+    "model": "wilderwild:item/mycelium_growth"
   }
 }

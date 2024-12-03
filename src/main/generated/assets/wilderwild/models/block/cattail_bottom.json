@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "wilderwild:block/datura_bottom"
+    "cross": "wilderwild:block/cattail_bottom"
   }
 }
