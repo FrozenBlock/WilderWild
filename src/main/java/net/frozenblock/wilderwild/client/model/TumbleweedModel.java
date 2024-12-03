@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.client.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.client.renderer.entity.state.TumbleweedRenderState;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

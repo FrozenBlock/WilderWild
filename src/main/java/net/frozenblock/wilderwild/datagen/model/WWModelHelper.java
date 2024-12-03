@@ -22,11 +22,9 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
-import net.frozenblock.wilderwild.item.property.IsCracked;
 import net.frozenblock.wilderwild.item.property.StackDamage;
 import net.minecraft.Util;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -34,7 +32,6 @@ import net.minecraft.client.data.models.blockstates.Condition;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.renderer.item.ItemModel;
-import net.minecraft.client.renderer.item.properties.numeric.Damage;
 import net.minecraft.core.Direction;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
@@ -283,18 +280,6 @@ public final class WWModelHelper {
 		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
 	}
 
-	public static void generateScorchedSand(ItemModelGenerators generator, Item item) {
-		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/scorched_sand_cracked"));
-		generator.generateBooleanDispatch(item, new IsCracked(), unbaked2, unbaked);
-	}
-
-	public static void generateScorchedRedSand(ItemModelGenerators generator, Item item) {
-		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/scorched_red_sand_cracked"));
-		generator.generateBooleanDispatch(item, new IsCracked(), unbaked2, unbaked);
-	}
-
 	public static void generateEchoGlass(ItemModelGenerators generator, Item item) {
 		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
 		ItemModel.Unbaked unbaked1 = ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_1"));
@@ -302,7 +287,7 @@ public final class WWModelHelper {
 		ItemModel.Unbaked unbaked3 = ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_3"));
 		generator.itemModelOutput.accept(
 			item,
-			ItemModelUtils.rangeSelect(new StackDamage(4), unbaked, ItemModelUtils.override(unbaked1, 0.25f), ItemModelUtils.override(unbaked2, 0.5f), ItemModelUtils.override(unbaked3, 0.75f))
+			ItemModelUtils.rangeSelect(new StackDamage(4), unbaked, ItemModelUtils.override(unbaked1, 0.25F), ItemModelUtils.override(unbaked2, 0.5F), ItemModelUtils.override(unbaked3, 0.75F))
 		);
 	}
 }

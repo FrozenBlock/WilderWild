@@ -3,7 +3,9 @@
     "minecraft:dirt",
     "minecraft:sand",
     "minecraft:red_sand",
+    "wilderwild:singed_sand",
     "wilderwild:scorched_sand",
+    "wilderwild:singed_red_sand",
     "wilderwild:scorched_red_sand"
   ]
 }

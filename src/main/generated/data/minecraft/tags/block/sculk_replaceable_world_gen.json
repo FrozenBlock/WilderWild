@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#wilderwild:sculk_slab_replaceable_worldgen",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:sculk_stair_replaceable_worldgen",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:sculk_wall_replaceable_worldgen",
+      "required": false
+    }
+  ]
+}

@@ -176,9 +176,10 @@ public final class WWBlocks {
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SCORCHED_SAND = registerWithoutItem("scorched_sand",
+	public static final ScorchedBlock SINGED_SAND = register("singed_sand",
 		properties -> new ScorchedBlock(
 			Blocks.SAND.defaultBlockState(),
+			null,
 			true,
 			SoundEvents.BRUSH_SAND,
 			SoundEvents.BRUSH_SAND_COMPLETED,
@@ -191,9 +192,42 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_RED_SAND = registerWithoutItem("scorched_red_sand",
-		properties ->new ScorchedBlock(
+	public static final ScorchedBlock SCORCHED_SAND = register("scorched_sand",
+		properties -> new ScorchedBlock(
+			SINGED_SAND.defaultBlockState(),
+			null,
+			true,
+			SoundEvents.BRUSH_SAND,
+			SoundEvents.BRUSH_SAND_COMPLETED,
+			properties
+		),
+		Properties.of()
+			.strength(1.5F)
+			.sound(WWSoundTypes.SCORCHED_SAND)
+			.mapColor(MapColor.SAND)
+			.randomTicks()
+	);
+
+	public static final ScorchedBlock SINGED_RED_SAND = register("singed_red_sand",
+		properties -> new ScorchedBlock(
 			Blocks.RED_SAND.defaultBlockState(),
+			null,
+			true,
+			SoundEvents.BRUSH_SAND,
+			SoundEvents.BRUSH_SAND_COMPLETED,
+			properties
+		),
+		Properties.of()
+			.strength(1.5F)
+			.sound(WWSoundTypes.SCORCHED_SAND)
+			.mapColor(MapColor.COLOR_ORANGE)
+			.randomTicks()
+	);
+
+	public static final ScorchedBlock SCORCHED_RED_SAND = register("scorched_red_sand",
+		properties -> new ScorchedBlock(
+			SINGED_RED_SAND.defaultBlockState(),
+			null,
 			true,
 			SoundEvents.BRUSH_SAND,
 			SoundEvents.BRUSH_SAND_COMPLETED,

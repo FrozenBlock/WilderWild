@@ -27,6 +27,10 @@
     "wilderwild:stripped_palm_wood",
     "wilderwild:stripped_maple_wood",
     {
+      "id": "minecraft:stripped_pale_oak_wood",
+      "required": false
+    },
+    {
       "id": "immersive_weathering:leaf_piles",
       "required": false
     }

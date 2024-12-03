@@ -1,6 +1,11 @@
 {
   "values": [
     "wilderwild:mycelium_growth",
+    "wilderwild:datura",
+    "wilderwild:cattail",
+    "wilderwild:milkweed",
+    "wilderwild:bush",
+    "wilderwild:pollen",
     {
       "id": "#wilderwild:leaf_litters",
       "required": false

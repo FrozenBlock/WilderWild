@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "sandstone",
+  "key": {
+    "#": "minecraft:sand",
+    "X": "#wilderwild:scorched_sand"
+  },
+  "pattern": [
+    "#X",
+    "X#"
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:sandstone"
+  }
+}

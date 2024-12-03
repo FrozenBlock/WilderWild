@@ -26,8 +26,7 @@ import net.minecraft.Util;
 import net.minecraft.world.level.ItemLike;
 
 public class WWLootData {
-
-	static Map<JellyfishVariant, ItemLike> NEMATOCYST_BY_DYE = Util.make(Maps.newEnumMap(JellyfishVariant.class), map -> {
+	static Map<JellyfishVariant, ItemLike> NEMATOCYST_BY_VARIANT = Util.make(Maps.newEnumMap(JellyfishVariant.class), map -> {
 		map.put(JellyfishVariant.BLUE, WWBlocks.BLUE_NEMATOCYST);
 		map.put(JellyfishVariant.LIME, WWBlocks.LIME_NEMATOCYST);
 		map.put(JellyfishVariant.PINK, WWBlocks.PINK_NEMATOCYST);

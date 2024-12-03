@@ -51,10 +51,6 @@ public class FireflyBottle extends Item {
 		this.color = color;
 	}
 
-	public static boolean isNectar(@NotNull ItemStack stack) {
-		return stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().toLowerCase().contains("nectar");
-	}
-
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {

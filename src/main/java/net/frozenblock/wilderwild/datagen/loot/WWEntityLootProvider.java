@@ -55,7 +55,7 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		HolderLookup.Provider registryLookup = this.registries.join();
 
-		WWLootData.NEMATOCYST_BY_DYE.forEach((variant, item) -> {
+		WWLootData.NEMATOCYST_BY_VARIANT.forEach((variant, item) -> {
 			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(variant.key().getNamespace(), "entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + variant.key().getPath());
 			output.accept(
 				ResourceKey.create(Registries.LOOT_TABLE, id),

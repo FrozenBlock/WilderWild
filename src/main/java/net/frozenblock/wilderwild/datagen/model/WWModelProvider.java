@@ -68,6 +68,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
+		generator.createTrivialBlock(WWBlocks.SINGED_SAND, TexturedModel.CUBE);
+		generator.createTrivialBlock(WWBlocks.SCORCHED_SAND, TexturedModel.CUBE);
+		generator.createTrivialBlock(WWBlocks.SINGED_RED_SAND, TexturedModel.CUBE);
+		generator.createTrivialBlock(WWBlocks.SCORCHED_RED_SAND, TexturedModel.CUBE);
+
 		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.PlantType.NOT_TINTED);
@@ -181,8 +186,6 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);
 
-		WWModelHelper.generateScorchedSand(generator, WWItems.SCORCHED_SAND);
-		WWModelHelper.generateScorchedRedSand(generator, WWItems.SCORCHED_RED_SAND);
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
 		// spawn eggs

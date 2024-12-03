@@ -24,8 +24,8 @@ import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderState;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -61,7 +61,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 		int packedLight,
 		int overlay,
 		float calcColor,
-		FireflyColor color,
+		@NotNull FireflyColor color,
 		float scale,
 		float xOffset,
 		float yOffset,
@@ -187,11 +187,11 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 	@Override
 	public void extractRenderState(Firefly entity, FireflyRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
-
 		renderState.overlay = getOverlay(entity, 0);
 		renderState.flickerAge = entity.getFlickerAge();
 		renderState.flickers = entity.flickers();
 
+		renderState.animScale = Mth.lerp(partialTick, entity.getPrevAnimScale(), entity.getAnimScale());
 		renderState.color = entity.getColor();
 		renderState.calcColor = (float) (renderState.flickers ?
 			(((renderState.flickerAge + partialTick) * Mth.PI) * -4F) / 255F :

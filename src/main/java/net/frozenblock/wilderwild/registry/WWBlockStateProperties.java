@@ -60,9 +60,6 @@ public final class WWBlockStateProperties {
 	// Mesoglea
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = EnumProperty.create("bubble_direction", BubbleDirection.class);
 
-	// Scorched Sand
-	public static final BooleanProperty CRACKED = BooleanProperty.create("cracked");
-
 	// Geyser
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);

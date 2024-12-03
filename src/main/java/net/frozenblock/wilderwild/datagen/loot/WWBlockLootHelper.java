@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.datagen.loot;
 
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -31,7 +30,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
@@ -142,28 +140,6 @@ public class WWBlockLootHelper {
 								)
 							)
 						)
-				)
-		);
-	}
-
-	public static void makeScorchedSandLoot(@NotNull BlockLootSubProvider lootProvider, Block scorchedSandBlock) {
-		lootProvider.add(scorchedSandBlock,
-			LootTable.lootTable()
-				.withPool(
-					lootProvider.applyExplosionCondition(
-						scorchedSandBlock,
-						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.add(
-								LootItem.lootTableItem(scorchedSandBlock)
-									.apply(CopyBlockState.copyState(scorchedSandBlock).copy(WWBlockStateProperties.CRACKED)
-										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(scorchedSandBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.CRACKED, true))
-										)
-									)
-							)
-					)
 				)
 		);
 	}
