@@ -657,7 +657,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/baobab_sign"))
 	);
 
-	public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
+	public static final BlockFamily FAMILY_BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
 		.button(BAOBAB_BUTTON)
 		.slab(BAOBAB_SLAB)
 		.stairs(BAOBAB_STAIRS)
@@ -750,7 +750,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/cypress_sign"))
 	);
 
-	public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
+	public static final BlockFamily FAMILY_CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
 		.button(CYPRESS_BUTTON)
 		.slab(CYPRESS_SLAB)
 		.stairs(CYPRESS_STAIRS)
@@ -844,7 +844,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/palm_sign"))
 	);
 
-	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
+	public static final BlockFamily FAMILY_PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
 		.button(PALM_BUTTON)
 		.slab(PALM_SLAB)
 		.stairs(PALM_STAIRS)
@@ -940,7 +940,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/maple_sign"))
 	);
 
-	public static final BlockFamily MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
+	public static final BlockFamily FAMILY_MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
 		.button(MAPLE_BUTTON)
 		.slab(MAPLE_SLAB)
 		.stairs(MAPLE_STAIRS)
@@ -949,7 +949,7 @@ public final class WWBlocks {
 		.pressurePlate(MAPLE_PRESSURE_PLATE)
 		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
 		.door(MAPLE_DOOR)
-		//.trapdoor(MAPLE_TRAPDOOR)
+		.trapdoor(MAPLE_TRAPDOOR)
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "wilderwild:block/palm_log_top",
+    "side": "wilderwild:block/palm_log"
+  }
+}
