@@ -18,7 +18,6 @@ hi
 - Tumbleweed can no longer naturally spawn with Sand or Red Sand.
 - Crabs should no longer have an incorrect rotation while climbing downwards.
 - Renamed the `wilderwild:crab_can_hide` tag to `wilderwild:crab_hideable.`
-- Ostriches can now be tamed faster by feeding them before riding them.
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
 - Fixed many recipe unlocks being broken in 1.21.2+.
 - Fixed Potted Mycelium Growth not being in the `minecraft:flower_pots` tag.
