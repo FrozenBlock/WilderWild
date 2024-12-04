@@ -37,20 +37,31 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.BAOBAB);
+		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.FAMILY_BAOBAB);
 		generator.woodProvider(WWBlocks.BAOBAB_LOG).logWithHorizontal(WWBlocks.BAOBAB_LOG).wood(WWBlocks.BAOBAB_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(WWBlocks.STRIPPED_BAOBAB_LOG).wood(WWBlocks.STRIPPED_BAOBAB_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
 		generator.createTrivialBlock(WWBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES);
 
-		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.CYPRESS);
+		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.FAMILY_CYPRESS);
 		generator.woodProvider(WWBlocks.CYPRESS_LOG).logWithHorizontal(WWBlocks.CYPRESS_LOG).wood(WWBlocks.CYPRESS_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(WWBlocks.STRIPPED_CYPRESS_LOG).wood(WWBlocks.STRIPPED_CYPRESS_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
 		generator.createPlant(WWBlocks.CYPRESS_SAPLING, WWBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createTrivialBlock(WWBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
 
-		generator.family(WWBlocks.MAPLE_PLANKS).generateFor(WWBlocks.MAPLE);
+		BlockModelGenerators.BlockFamilyProvider palmFamily = generator.family(WWBlocks.PALM_PLANKS);
+		palmFamily.skipGeneratingModelsFor.add(WWBlocks.PALM_DOOR);
+		palmFamily.skipGeneratingModelsFor.add(WWBlocks.PALM_TRAPDOOR);
+		palmFamily.generateFor(WWBlocks.FAMILY_PALM);
+		generator.woodProvider(WWBlocks.PALM_LOG).logWithHorizontal(WWBlocks.PALM_LOG).wood(WWBlocks.PALM_WOOD);
+		generator.woodProvider(WWBlocks.STRIPPED_PALM_LOG).logWithHorizontal(WWBlocks.STRIPPED_PALM_LOG).wood(WWBlocks.STRIPPED_PALM_WOOD);
+		generator.createHangingSign(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
+		generator.createTrivialBlock(WWBlocks.PALM_FRONDS, TexturedModel.LEAVES);
+
+		BlockModelGenerators.BlockFamilyProvider mapleFamily = generator.family(WWBlocks.MAPLE_PLANKS);
+		mapleFamily.skipGeneratingModelsFor.add(WWBlocks.MAPLE_TRAPDOOR);
+		mapleFamily.generateFor(WWBlocks.FAMILY_MAPLE);
 		generator.woodProvider(WWBlocks.MAPLE_LOG).logWithHorizontal(WWBlocks.MAPLE_LOG).wood(WWBlocks.MAPLE_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG).wood(WWBlocks.STRIPPED_MAPLE_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
@@ -59,15 +70,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
-		generator.createTrivialBlock(WWBlocks.SINGED_SAND, TexturedModel.CUBE);
-		generator.createTrivialBlock(WWBlocks.SCORCHED_SAND, TexturedModel.CUBE);
-		generator.createTrivialBlock(WWBlocks.SINGED_RED_SAND, TexturedModel.CUBE);
-		generator.createTrivialBlock(WWBlocks.SCORCHED_RED_SAND, TexturedModel.CUBE);
-
 		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlant(WWBlocks.DATURA, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);

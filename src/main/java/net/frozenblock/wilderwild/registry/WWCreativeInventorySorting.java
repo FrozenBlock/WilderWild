@@ -18,7 +18,9 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -26,6 +28,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -147,52 +150,52 @@ public class WWCreativeInventorySorting {
 
 		// HOLLOWED LOGS
 		addAfterInBuildingAndNaturalBlocks(Items.OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.JUNGLE_LOG, WWBlocks.HOLLOWED_JUNGLE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.ACACIA_LOG, WWBlocks.HOLLOWED_ACACIA_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.DARK_OAK_LOG, WWBlocks.HOLLOWED_DARK_OAK_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.CRIMSON_STEM, WWBlocks.HOLLOWED_CRIMSON_STEM);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
+		addAfterInBuildingBlocks(Items.STRIPPED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
 
 		addAfterInBuildingAndNaturalBlocks(Items.WARPED_STEM, WWBlocks.HOLLOWED_WARPED_STEM);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
+		addAfterInBuildingBlocks(Items.STRIPPED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
 		addAfterInBuildingAndNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
 
 		addAfterInBuildingAndNaturalBlocks(Items.PALE_OAK_LOG, WWBlocks.HOLLOWED_PALE_OAK_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		addAfterInBuildingBlocks(Items.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
 		addBeforeInBuildingBlocks(WWBlocks.BAOBAB_WOOD, WWBlocks.HOLLOWED_BAOBAB_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+		addAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
 		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG);
 
 		addBeforeInBuildingBlocks(WWBlocks.CYPRESS_WOOD, WWBlocks.HOLLOWED_CYPRESS_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+		addAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.HOLLOWED_CYPRESS_LOG);
 
 		addBeforeInBuildingBlocks(WWBlocks.PALM_WOOD, WWBlocks.HOLLOWED_PALM_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+		addAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 		addAfterInNaturalBlocks(WWBlocks.PALM_LOG, WWBlocks.HOLLOWED_PALM_LOG);
 
 		addBeforeInBuildingBlocks(WWBlocks.MAPLE_WOOD, WWBlocks.HOLLOWED_MAPLE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+		addAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 		addAfterInNaturalBlocks(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG);
 
 		// SMALL FLOWERS
@@ -272,10 +275,19 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.SCULK_SENSOR, WWBlocks.HANGING_TENDRIL);
 
 		// SCORCHED SAND
-		addAfterInNaturalBlocks(Items.SAND, WWBlocks.SINGED_SAND);
-		addAfterInNaturalBlocks(WWBlocks.SINGED_SAND, WWBlocks.SCORCHED_SAND);
-		addAfterInNaturalBlocks(Items.RED_SAND, WWBlocks.SINGED_RED_SAND);
-		addAfterInNaturalBlocks(WWBlocks.SINGED_RED_SAND, WWBlocks.SCORCHED_RED_SAND);
+		addAfterInNaturalBlocks(Items.SAND, WWBlocks.SCORCHED_SAND);
+		addAfterInNaturalBlocks(Items.RED_SAND, WWBlocks.SCORCHED_RED_SAND);
+
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+			var second = new ItemStack(WWBlocks.SCORCHED_SAND);
+			ItemBlockStateTagUtils.setProperty(second, WWBlockStateProperties.CRACKED, true);
+			entries.addAfter(WWBlocks.SCORCHED_SAND, second);
+
+			var secondRed = new ItemStack(WWBlocks.SCORCHED_RED_SAND);
+			ItemBlockStateTagUtils.setProperty(secondRed, WWBlockStateProperties.CRACKED, true);
+			entries.addAfter(WWBlocks.SCORCHED_RED_SAND, secondRed);
+		});
+
 		// STORAGE
 		addAfterInFunctionalBlocks(Items.CHEST, WWBlocks.STONE_CHEST);
 		addAfterInFunctionalBlocks(Items.SOUL_LANTERN, WWItems.DISPLAY_LANTERN);

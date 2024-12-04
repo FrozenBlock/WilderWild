@@ -33,7 +33,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 23;
+	public static final int DATA_VERSION = 22;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WWDataFixer contains only static declarations.");
@@ -133,12 +133,6 @@ public final class WWDataFixer {
 
 		Schema schemaV22 = builder.addSchema(22, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename maple_grove to maple_forest", Map.of(WWConstants.id("maple_grove"), WWConstants.id("maple_forest")), schemaV22);
-
-		Schema schemaV23 = builder.addSchema(23, NamespacedSchema::new);
-		SimpleFixes.addBlockRenameFix(builder, "Rename scorched_sand to singed_sand", WWConstants.id("scorched_sand"), WWConstants.id("singed_sand"), schemaV23);
-		SimpleFixes.addItemRenameFix(builder, "Rename scorched_sand to singed_sand", WWConstants.id("scorched_sand"), WWConstants.id("singed_sand"), schemaV23);
-		SimpleFixes.addBlockRenameFix(builder, "Rename scorched_red_sand to singed_red_sand", WWConstants.id("scorched_red_sand"), WWConstants.id("singed_red_sand"), schemaV23);
-		SimpleFixes.addItemRenameFix(builder, "Rename scorched_red_sand to singed_red_sand", WWConstants.id("scorched_red_sand"), WWConstants.id("singed_red_sand"), schemaV23);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

@@ -99,7 +99,6 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		return true;
 	}
 
-	@SuppressWarnings("SpellCheckingInspection")
 	@Override
 	@NotNull
 	public InteractionResult useItemOn(

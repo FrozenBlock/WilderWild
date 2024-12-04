@@ -73,7 +73,7 @@ public final class WWBlockEntityTypes {
 	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register(
 		"scorched_block",
 		ScorchedBlockEntity::new,
-		WWBlocks.SINGED_SAND, WWBlocks.SCORCHED_SAND, WWBlocks.SINGED_RED_SAND, WWBlocks.SCORCHED_RED_SAND
+		WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND
 	);
 	public static final BlockEntityType<GeyserBlockEntity> GEYSER = register(
 		"geyser",

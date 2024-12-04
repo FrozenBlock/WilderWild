@@ -82,8 +82,8 @@ public class BrushItemMixin {
 		Args args,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush && scorchedBlock.brushSound.isPresent()) {
-			args.set(2, scorchedBlock.brushSound.get());
+		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
+			args.set(2, scorchedBlock.brushSound);
 		}
 	}
 

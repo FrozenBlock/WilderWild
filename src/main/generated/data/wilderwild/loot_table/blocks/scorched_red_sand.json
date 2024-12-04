@@ -11,6 +11,24 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "block": "wilderwild:scorched_red_sand",
+              "conditions": [
+                {
+                  "block": "wilderwild:scorched_red_sand",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "cracked": "true"
+                  }
+                }
+              ],
+              "function": "minecraft:copy_state",
+              "properties": [
+                "cracked"
+              ]
+            }
+          ],
           "name": "wilderwild:scorched_red_sand"
         }
       ],
