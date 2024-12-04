@@ -3,6 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
+- Increased Wilder Wild's protocol version to 11.
 - Dark Oak Forests no longer use the warm water color.
 - All entities in the `minecraft:aquatic` tag can now swim through Algae without being slowed down.
 - Sponge Buds can now grow on their own.
