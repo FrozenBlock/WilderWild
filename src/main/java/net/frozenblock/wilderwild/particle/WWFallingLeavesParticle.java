@@ -86,12 +86,13 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 				options.getWindScale(),
 				options.swirl(),
 				!options.swirl(),
-				options.getQuadSize() * 16F,
+				(options.getTextureSize() / 16F) * 0.5F,
 				0F,
 				this.spriteProvider,
 				(ParticleType<WWFallingLeavesParticleOptions>) options.getType()
 			);
-			//leafParticle.quadSize = options.getQuadSize();
+
+			leafParticle.quadSize = (options.getTextureSize() / 16F) * 0.5F;
 			if (options.isFastFalling()) {
 				leafParticle.gravity = 0.04F;
 			}

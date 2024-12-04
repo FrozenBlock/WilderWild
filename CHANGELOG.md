@@ -3,28 +3,39 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
+- Increased Wilder Wild's protocol version to 11.
 - Dark Oak Forests no longer use the warm water color.
 - All entities in the `minecraft:aquatic` tag can now swim through Algae without being slowed down.
 - Sponge Buds can now grow on their own.
 - Stripped Hollowed Logs now come after Stripped Logs in the Creative Inventory.
+- Gave new textures to and renamed multiface Glory of the Snow blocks:
+  - Alba Glory of the Snow -> White Glory of the Snow Petals
+  - Blue Giant Glory of the Snow -> Blue Glory of the Snow Petals
+  - Pink Giant Glory of the Snow -> Pink Glory of the Snow Petals
+  - Violet Beauty Glory of the Snow -> Purple Glory of the Snow Petals
 - Mesoglea, Nematocyst, Shelf Fungi, Glory of the Snow, Pollen, Datura, and Firefly Bottle models are now data-generated.
 - Most Palm block and item models are now data-generated, with the exception of Palm Doors and Palm Trapdoors.
 - Removed unused Nematocyst textures.
 - Removed unused Sculk Shrieker and Stripped Cypress Log models.
+- Removed Wilder Wild's custom panorama.
 - Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
+- Updated all of Wilder Wild's falling leaves textures to be consistent with Vanilla's art style.
+- All falling leaves now randomly rotate upon spawning.
 - Removed the Firefly's "Nectar" easter egg.
 - Fireflies now once again move inside Display Lanterns that are hanging.
 - Tumbleweed can no longer naturally spawn with Sand or Red Sand.
 - Crabs should no longer have an incorrect rotation while climbing downwards.
 - Renamed the `wilderwild:crab_can_hide` tag to `wilderwild:crab_hideable.`
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
-- Fixed many recipe unlocks being broken in 1.21.2+.
+- Fixed many recipe unlocks being broken.
+- Moved the Peeled Prickly Pear's crafting recipe from the `misc` to `food` category.
 - Fixed Potted Mycelium Growth not being in the `minecraft:flower_pots` tag.
 - Fixed Flowering Lily Pads not being in the `minecraft:small_flowers` tag.
 - Flowering Lily Pads can now be sheared to revert to Lily Pads.
+- Cattails are once again placeable on 1.21.2+.
 - Properly updated from the old `minecraft:replaceable_plants` tag to the `minecraft:replaceable_by_trees` tag.
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
 - Renamed `WWWorldgen` to `WWBiomes.`
 - Moved all tags to datagen.
-- Updated block sound type compatability for Nature's Spirit.
+- Updated block sound type compatibility for Nature's Spirit.

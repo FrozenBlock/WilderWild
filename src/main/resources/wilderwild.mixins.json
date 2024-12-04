@@ -135,11 +135,11 @@
     "client.warden.WardenRenderStateMixin",
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",
-    "client.wind.FallingLeavesParticleMixin",
     "client.wind.DripParticleMixin",
     "client.wind.DustParticleBaseMixin",
     "client.wind.ExplodeParticleMixin",
     "client.wind.FallingDustParticleMixin",
+    "client.wind.FallingLeavesParticleMixin",
     "client.wind.LevelRendererMixin",
     "client.wind.ParticleMixin",
     "client.wind.SnowflakeParticleMixin",
@@ -153,6 +153,7 @@
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
     "snowlogging.client.MultiPlayerGameModeMixin",
+    "snowlogging.client.TerrainRenderContextMixin"
   ],
   "injectors": {
     "defaultRequire": 1

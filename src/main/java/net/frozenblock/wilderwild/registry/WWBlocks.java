@@ -386,19 +386,22 @@ public final class WWBlocks {
 		YELLOW_MAPLE_LEAVES,
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter("orange_maple_leaf_litter",
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter("red_maple_leaf_litter",
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 
 	// SCULK
@@ -575,28 +578,28 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.DANDELION)
 			.randomTicks()
 	);
-	public static final FlowerLichenBlock ALBA_GLORY_OF_THE_SNOW = register("alba_glory_of_the_snow",
+	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW_PETALS = register("white_glory_of_the_snow_petals",
 		FlowerLichenBlock::new,
-		Properties.ofFullCopy(Blocks.SHORT_GRASS)
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
 			.sound(SoundType.VINE)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
-	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = register("pink_giant_glory_of_the_snow",
+	public static final FlowerLichenBlock BLUE_GLORY_OF_THE_SNOW_PETALS = register("blue_glory_of_the_snow_petals",
 		FlowerLichenBlock::new,
-		Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
+		Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
+			.mapColor(MapColor.COLOR_BLUE)
+	);
+	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW_PETALS = register("pink_glory_of_the_snow_petals",
+		FlowerLichenBlock::new,
+		Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.mapColor(MapColor.CRIMSON_STEM)
 	);
-	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = register("violet_beauty_glory_of_the_snow",
+	public static final FlowerLichenBlock PURPLE_GLORY_OF_THE_SNOW_PETALS = register("purple_glory_of_the_snow_petals",
 		FlowerLichenBlock::new,
-		Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
+		Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.mapColor(MapColor.COLOR_PURPLE)
-	);
-	public static final FlowerLichenBlock BLUE_GIANT_GLORY_OF_THE_SNOW = register("blue_giant_glory_of_the_snow",
-		FlowerLichenBlock::new,
-		Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
-			.mapColor(MapColor.COLOR_BLUE)
 	);
 
 	public static final TallFlowerBlock DATURA = register("datura",
@@ -1310,9 +1313,12 @@ public final class WWBlocks {
 		Block sourceBlock,
 		@NotNull ParticleType<WWFallingLeavesParticleOptions> particleType,
 		float litterChance,
-		Supplier<Double> frequencyModifier
+		Supplier<Double> frequencyModifier,
+		int textureSize
 	) {
-		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, 0.125F, 3F, 10F, true, true);
+		return leafLitter(
+			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, true, true
+		);
 	}
 
 	@NotNull
@@ -1323,7 +1329,7 @@ public final class WWBlocks {
 		float litterChance,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
-		float quadSize,
+		int textureSize,
 		float particleGravityScale,
 		float windScale,
 		boolean flowAway,
@@ -1337,7 +1343,7 @@ public final class WWBlocks {
 			particleType,
 			particleChance,
 			frequencyModifier,
-			quadSize,
+			textureSize,
 			particleGravityScale,
 			windScale,
 			flowAway,
@@ -1525,10 +1531,10 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(ALBA_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PINK_GIANT_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1552,10 +1558,10 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MILKWEED, 100, 60);
 		flammableBlockRegistry.add(MARIGOLD, 100, 60);
 		flammableBlockRegistry.add(GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PINK_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);

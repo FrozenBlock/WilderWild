@@ -48,7 +48,7 @@ public class FallingLeafUtil {
 		Blocks.OAK_LEAVES,
 		0.0125F,
 		() -> 1D,
-		0.125F,
+		4,
 		2F,
 		10F,
 		true,
@@ -64,7 +64,7 @@ public class FallingLeafUtil {
 		ParticleType<WWFallingLeavesParticleOptions> leafParticle,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
-		float quadSize,
+		int textureSize,
 		float particleGravityScale,
 		float windScale,
 		boolean flowAway,
@@ -72,7 +72,7 @@ public class FallingLeafUtil {
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(Optional.of(leafLitterBlock), litterChance, leafParticle),
-			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, quadSize, particleGravityScale, windScale, flowAway, swirl)
+			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, flowAway, swirl)
 		);
 	}
 
@@ -81,7 +81,7 @@ public class FallingLeafUtil {
 		ParticleType<WWFallingLeavesParticleOptions> leafParticle,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
-		float quadSize,
+		int textureSize,
 		float particleGravityScale,
 		float windScale,
 		boolean flowAway,
@@ -89,7 +89,7 @@ public class FallingLeafUtil {
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(Optional.empty(), 0F, leafParticle),
-			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, quadSize, particleGravityScale, windScale, flowAway, swirl)
+			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, flowAway, swirl)
 		);
 	}
 
@@ -187,7 +187,7 @@ public class FallingLeafUtil {
 		LeafParticleData leafParticleData = getLeafParticleData(leafParticle);
 		return WWFallingLeavesParticleOptions.create(
 			fallingLeafData.particle,
-			leafParticleData.quadSize,
+			leafParticleData.textureSize,
 			leafParticleData.particleGravityScale,
 			leafParticleData.windScale,
 			leafParticleData.swirl
@@ -200,7 +200,7 @@ public class FallingLeafUtil {
 		Block leavesBlock,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
-		float quadSize,
+		int textureSize,
 		float particleGravityScale,
 		float windScale,
 		boolean flowAway,

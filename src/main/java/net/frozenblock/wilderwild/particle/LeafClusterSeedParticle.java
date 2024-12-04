@@ -50,7 +50,7 @@ public class LeafClusterSeedParticle extends NoRenderParticle {
 		int leafCount = this.random.nextInt(4) + 1;
 		for (int i = 0; i < leafCount; i++) {
 			FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(this.spawnedParticle);
-			WWFallingLeavesParticleOptions leafParticleOptions = WWFallingLeavesParticleOptions.createFastFalling(this.spawnedParticle, leafParticleData.quadSize());
+			WWFallingLeavesParticleOptions leafParticleOptions = WWFallingLeavesParticleOptions.createFastFalling(this.spawnedParticle, leafParticleData.textureSize());
 			ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, leafParticleOptions);
 		}
 		this.age++;

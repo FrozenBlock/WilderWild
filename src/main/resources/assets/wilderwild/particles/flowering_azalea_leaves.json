@@ -1,8 +1,12 @@
 {
   "textures": [
-    "wilderwild:flowering_azalea_leaf1",
-    "wilderwild:flowering_azalea_leaf2",
-    "wilderwild:flowering_azalea_leaf3",
-    "wilderwild:flowering_azalea_leaf4"
+    "wilderwild:azalea_leaf0",
+    "wilderwild:azalea_leaf1",
+    "wilderwild:azalea_leaf2",
+    "wilderwild:azalea_leaf3",
+    "wilderwild:azalea_leaf4",
+    "wilderwild:azalea_leaf5",
+    "wilderwild:azalea_leaf6",
+    "wilderwild:azalea_leaf7"
   ]
 }

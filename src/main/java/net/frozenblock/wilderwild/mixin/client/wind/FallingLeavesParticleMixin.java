@@ -30,7 +30,9 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -45,6 +47,14 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 
 	protected FallingLeavesParticleMixin(ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f);
+	}
+
+	@Inject(method = "<init>", at = @At("TAIL"))
+	public void wilderWild$rotateLeafOnCreation(
+		ClientLevel clientLevel, double d, double e, double f, SpriteSet spriteSet, float g, float h, boolean bl, boolean bl2, float i, float j, CallbackInfo info
+	) {
+		this.roll = this.random.nextFloat() * Mth.TWO_PI;
+		this.oRoll = this.roll;
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

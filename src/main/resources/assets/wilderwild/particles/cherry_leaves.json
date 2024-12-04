@@ -1,8 +1,12 @@
 {
   "textures": [
+    "wilderwild:cherry_leaf0",
     "wilderwild:cherry_leaf1",
     "wilderwild:cherry_leaf2",
     "wilderwild:cherry_leaf3",
-    "wilderwild:cherry_leaf4"
+    "wilderwild:cherry_leaf4",
+    "wilderwild:cherry_leaf5",
+    "wilderwild:cherry_leaf6",
+    "wilderwild:cherry_leaf7"
   ]
 }

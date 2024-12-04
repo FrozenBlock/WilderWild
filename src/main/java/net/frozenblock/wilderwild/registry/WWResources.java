@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
 
 public final class WWResources {
@@ -31,13 +30,6 @@ public final class WWResources {
 	}
 
 	public static void register(ModContainer container) {
-		ResourceManagerHelper.registerBuiltinResourcePack(
-			WWConstants.id("wilder_main_menu"),
-			container, Component.literal("Wilder Main Menu"),
-			WWAmbienceAndMiscConfig.get().titleResourcePackEnabled ?
-			ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
-		);
-
 		ResourceManagerHelper.registerBuiltinResourcePack(
 			WWConstants.id("mc_live_tendrils"),
 			container, Component.literal("Minecraft Live Tendrils"),

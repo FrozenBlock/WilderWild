@@ -1,8 +1,16 @@
 {
   "textures": [
+    "wilderwild:yellow_maple_leaf0",
     "wilderwild:yellow_maple_leaf1",
     "wilderwild:yellow_maple_leaf2",
     "wilderwild:yellow_maple_leaf3",
-    "wilderwild:yellow_maple_leaf4"
+    "wilderwild:yellow_maple_leaf4",
+    "wilderwild:yellow_maple_leaf5",
+    "wilderwild:yellow_maple_leaf6",
+    "wilderwild:yellow_maple_leaf7",
+    "wilderwild:yellow_maple_leaf8",
+    "wilderwild:yellow_maple_leaf9",
+    "wilderwild:yellow_maple_leaf10",
+    "wilderwild:yellow_maple_leaf11"
   ]
 }

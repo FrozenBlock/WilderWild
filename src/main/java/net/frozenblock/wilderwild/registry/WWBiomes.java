@@ -97,7 +97,6 @@ public final class WWBiomes {
 	}
 
 	public static void init() {
-
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Biome> context) {

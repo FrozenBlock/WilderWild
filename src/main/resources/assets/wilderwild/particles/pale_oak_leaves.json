@@ -1,8 +1,12 @@
 {
   "textures": [
+    "wilderwild:pale_oak_leaf0",
     "wilderwild:pale_oak_leaf1",
     "wilderwild:pale_oak_leaf2",
     "wilderwild:pale_oak_leaf3",
-    "wilderwild:pale_oak_leaf4"
+    "wilderwild:pale_oak_leaf4",
+    "wilderwild:pale_oak_leaf5",
+    "wilderwild:pale_oak_leaf6",
+    "wilderwild:pale_oak_leaf7"
   ]
 }

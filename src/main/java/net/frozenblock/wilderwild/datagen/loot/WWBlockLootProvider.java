@@ -171,10 +171,10 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.dropSelf(WWBlocks.GLORY_OF_THE_SNOW);
-		this.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.ALBA_GLORY_OF_THE_SNOW, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()

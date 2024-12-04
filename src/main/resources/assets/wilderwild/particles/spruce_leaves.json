@@ -1,8 +1,12 @@
 {
   "textures": [
+    "wilderwild:spruce_leaf0",
     "wilderwild:spruce_leaf1",
     "wilderwild:spruce_leaf2",
     "wilderwild:spruce_leaf3",
-    "wilderwild:spruce_leaf4"
+    "wilderwild:spruce_leaf4",
+    "wilderwild:spruce_leaf5",
+    "wilderwild:spruce_leaf6",
+    "wilderwild:spruce_leaf7"
   ]
 }

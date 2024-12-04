@@ -128,7 +128,7 @@ public class LeafLitterBlock extends CarpetBlock {
 					FallingLeafUtil.LeafParticleData particleData = FallingLeafUtil.getLeafParticleData(particleType);
 					WWFallingLeavesParticleOptions particleOptions = WWFallingLeavesParticleOptions.create(
 						particleType,
-						particleData.quadSize(),
+						particleData.textureSize(),
 						particleData.particleGravityScale(),
 						particleData.windScale(),
 						particleData.swirl()

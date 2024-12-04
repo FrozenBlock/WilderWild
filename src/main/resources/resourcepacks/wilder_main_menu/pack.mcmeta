@@ -1,7 +1,0 @@
-{
-   "pack": {
-     "pack_format": 34,
-     "supported_formats": {"min_inclusive": 34, "max_inclusive": 60},
-     "description": "New panorama and additional splash texts"
-   }
-}

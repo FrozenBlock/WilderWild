@@ -18,15 +18,26 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.impl.client.indigo.renderer.render.TerrainRenderContext;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-// @Mixin(TerrainRenderContext.class)
+@Mixin(TerrainRenderContext.class)
 public class TerrainRenderContextMixin {
-	// TODO: Where is Indigo?
 
-	/*
+
 	@Inject(method = "tessellateBlock", at = @At("HEAD"), require = 0)
 	public void wilderWild$tessellateBlock(BlockState blockState, BlockPos blockPos, BakedModel model, PoseStack matrixStack, CallbackInfo info) {
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
@@ -34,9 +45,9 @@ public class TerrainRenderContextMixin {
 			this.tessellateBlock(snowState, blockPos, Minecraft.getInstance().getBlockRenderer().getBlockModel(snowState), matrixStack);
 		}
 	}
+
 	@Shadow
 	public void tessellateBlock(BlockState blockState, BlockPos blockPos, BakedModel model, PoseStack matrixStack) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild TerrainRenderContextMixin.");
 	}
-	 */
 }

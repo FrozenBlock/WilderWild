@@ -133,9 +133,6 @@ public final class WWAmbienceAndMiscConfig {
 	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
 
-	@EntrySyncData(value = "titleResourcePackEnabled", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean titleResourcePackEnabled = true;
-
 	@CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
 

@@ -27,7 +27,6 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
-import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
@@ -49,7 +48,6 @@ public final class WilderWildClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
-		addPanorama("birch_valley");
 		WilderEasterEggs.hatchEasterEggs();
 
 		WWBlockRenderLayers.init();
@@ -86,11 +84,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
 			DebugRenderManager.registerRenderer(WWConstants.id("ostrich"), ostrichDebugRenderer::render);
 		});
-	}
-
-	private static void addPanorama(String panoramaName) {
-		ResourceLocation panoramaLocation = WWConstants.id("textures/gui/title/" + panoramaName + "/panorama");
-		Panoramas.addPanorama(panoramaLocation);
 	}
 
 }
