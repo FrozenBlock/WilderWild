@@ -11,8 +11,10 @@ hi
 - Most Palm block and item models are now data-generated, with the exception of Palm Doors and Palm Trapdoors.
 - Removed unused Nematocyst textures.
 - Removed unused Sculk Shrieker and Stripped Cypress Log models.
+- Removed Wilder Wild's custom panorama.
 - Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
 - Updated all of Wilder Wild's falling leaves textures to be consistent with Vanilla's art style.
+- All falling leaves now randomly rotate upon spawning.
 - Removed the Firefly's "Nectar" easter egg.
 - Fireflies now once again move inside Display Lanterns that are hanging.
 - Tumbleweed can no longer naturally spawn with Sand or Red Sand.

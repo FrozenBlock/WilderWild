@@ -131,9 +131,6 @@ public final class WWAmbienceAndMiscConfig {
 	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
 
-	@EntrySyncData(value = "titleResourcePackEnabled", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean titleResourcePackEnabled = true;
-
 	@CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
 
@@ -263,7 +260,7 @@ public final class WWAmbienceAndMiscConfig {
 
 		@EntrySyncData(value = "darkOakFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int darkOakFrequency = 50;
-		
+
 		@EntrySyncData(value = "mangroveFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int mangroveFrequency = 50;
 
