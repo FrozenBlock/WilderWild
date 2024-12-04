@@ -65,13 +65,30 @@ public final class Tundra extends FrozenBiome {
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final int GRASS_COLOR = 13023096;
+	public static final int GRASS_COLOR_MAPLE = 13023096;
+	public static final int GRASS_COLOR_LIGHTER_YELLOW = 14664041;
+	public static final int GRASS_COLOR_LIGHTER_YELLOW_OLD = 14336381;
+	public static final int GRASS_COLOR_BLUE_GREENISH = 10332287;
+	public static final int GRASS_COLOR_RED = 15030874;
 	public static final int FOLIAGE_COLOR = 15964967;
 	public static final Tundra INSTANCE = new Tundra();
 
 	public Tundra() {
 		super();
-		FrozenGrassColorModifiers.addGrassColorModifier(this.getKey().location(), (x, y, grassColor) -> (int) (grassColor + ((x % y) * 2)));
+		FrozenGrassColorModifiers.addGrassColorModifier(
+			this.getKey().location(),
+			(x, y, grassColor) -> {
+				double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, y * 0.0225D, false);
+				if (noise < -0.6D) {
+					return GRASS_COLOR_RED;
+				}else if (noise > 0.6D) {
+					return GRASS_COLOR_BLUE_GREENISH;
+				} else if (noise > 0.3D) {
+					return GRASS_COLOR_LIGHTER_YELLOW;
+				}
+				return grassColor;
+			}
+		);
 	}
 
 	@Override
@@ -126,7 +143,7 @@ public final class Tundra extends FrozenBiome {
 
 	@Override
 	public @NotNull Integer grassColorOverride() {
-		return GRASS_COLOR;
+		return GRASS_COLOR_MAPLE;
 	}
 
 	@Override
