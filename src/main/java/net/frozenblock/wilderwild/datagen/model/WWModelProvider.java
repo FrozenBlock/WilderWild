@@ -85,7 +85,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
 
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
-		generator.registerSimpleFlatItemModel(WWBlocks.TUMBLEWEED_PLANT);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
 		generator.registerSimpleFlatItemModel(WWBlocks.GLORY_OF_THE_SNOW);
@@ -189,6 +188,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWBlocks.OSTRICH_EGG.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.TUMBLEWEED_PLANT.asItem(), ModelTemplates.FLAT_ITEM);
 
 		generator.declareCustomModelItem(WWBlocks.MAPLE_TRAPDOOR.asItem());
 		generator.declareCustomModelItem(WWBlocks.PALM_DOOR.asItem());
