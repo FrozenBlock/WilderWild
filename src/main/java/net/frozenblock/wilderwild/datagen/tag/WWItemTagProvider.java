@@ -26,10 +26,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWItemTags;
-import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -151,10 +149,10 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MARIGOLD.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.GLORY_OF_THE_SNOW.asItem())
-			.add(WWBlocks.ALBA_GLORY_OF_THE_SNOW.asItem())
-			.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW.asItem())
-			.add(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW.asItem())
-			.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW.asItem())
+			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS.asItem())
+			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS.asItem())
+			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS.asItem())
+			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS.asItem())
 			.add(WWBlocks.FLOWERING_LILY_PAD.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)

@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "white_dye",
+  "group": "blue_dye",
   "ingredients": [
     {
-      "item": "wilderwild:alba_glory_of_the_snow"
+      "item": "wilderwild:blue_glory_of_the_snow_petals"
     }
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:white_dye"
+    "id": "minecraft:blue_dye"
   }
 }

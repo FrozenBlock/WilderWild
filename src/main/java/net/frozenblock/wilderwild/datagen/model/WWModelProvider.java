@@ -83,10 +83,10 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
 
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.ALBA_GLORY_OF_THE_SNOW);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);

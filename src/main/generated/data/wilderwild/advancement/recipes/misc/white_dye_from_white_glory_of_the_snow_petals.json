@@ -3,15 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:purple_dye_from_violet_beauty_glory_of_the_snow"
+        "recipe": "minecraft:white_dye_from_white_glory_of_the_snow_petals"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_violet_beauty_glory_of_the_snow": {
+    "has_white_glory_of_the_snow_petals": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:violet_beauty_glory_of_the_snow"
+            "items": "wilderwild:white_glory_of_the_snow_petals"
           }
         ]
       },
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_violet_beauty_glory_of_the_snow"
+      "has_white_glory_of_the_snow_petals"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:purple_dye_from_violet_beauty_glory_of_the_snow"
+      "minecraft:white_dye_from_white_glory_of_the_snow_petals"
     ]
   }
 }

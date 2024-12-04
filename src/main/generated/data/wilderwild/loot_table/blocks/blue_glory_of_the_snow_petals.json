@@ -39,7 +39,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:violet_beauty_glory_of_the_snow",
+                  "block": "wilderwild:blue_glory_of_the_snow_petals",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "down": "true"
@@ -53,7 +53,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:violet_beauty_glory_of_the_snow",
+                  "block": "wilderwild:blue_glory_of_the_snow_petals",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "up": "true"
@@ -67,7 +67,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:violet_beauty_glory_of_the_snow",
+                  "block": "wilderwild:blue_glory_of_the_snow_petals",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "north": "true"
@@ -81,7 +81,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:violet_beauty_glory_of_the_snow",
+                  "block": "wilderwild:blue_glory_of_the_snow_petals",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "south": "true"
@@ -95,7 +95,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:violet_beauty_glory_of_the_snow",
+                  "block": "wilderwild:blue_glory_of_the_snow_petals",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "west": "true"
@@ -109,7 +109,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:violet_beauty_glory_of_the_snow",
+                  "block": "wilderwild:blue_glory_of_the_snow_petals",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "east": "true"
@@ -128,7 +128,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "wilderwild:violet_beauty_glory_of_the_snow"
+          "name": "wilderwild:blue_glory_of_the_snow_petals"
         }
       ],
       "rolls": 1.0

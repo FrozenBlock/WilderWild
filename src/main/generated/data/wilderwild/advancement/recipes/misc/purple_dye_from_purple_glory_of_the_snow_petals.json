@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_pink_giant_glory_of_the_snow": {
+    "has_purple_glory_of_the_snow_petals": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:pink_giant_glory_of_the_snow"
+            "items": "wilderwild:purple_glory_of_the_snow_petals"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pink_dye_from_pink_giant_glory_of_the_snow"
+        "recipe": "minecraft:purple_dye_from_purple_glory_of_the_snow_petals"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_pink_giant_glory_of_the_snow"
+      "has_purple_glory_of_the_snow_petals"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pink_dye_from_pink_giant_glory_of_the_snow"
+      "minecraft:purple_dye_from_purple_glory_of_the_snow_petals"
     ]
   }
 }

@@ -910,10 +910,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
-			.add(WWBlocks.ALBA_GLORY_OF_THE_SNOW)
-			.add(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW)
-			.add(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW)
-			.add(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW)
+			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS)
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)

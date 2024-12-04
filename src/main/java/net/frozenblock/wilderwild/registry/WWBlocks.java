@@ -410,24 +410,24 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 			.randomTicks()
 	);
-	public static final FlowerLichenBlock ALBA_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
 			.sound(SoundType.VINE)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
-	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
+	public static final FlowerLichenBlock BLUE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
+		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
+			.mapColor(MapColor.COLOR_BLUE)
+	);
+	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
+		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.mapColor(MapColor.CRIMSON_STEM)
 	);
-	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
+	public static final FlowerLichenBlock PURPLE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
+		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.mapColor(MapColor.COLOR_PURPLE)
-	);
-	public static final FlowerLichenBlock BLUE_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
-			.mapColor(MapColor.COLOR_BLUE)
 	);
 
 	public static final TallFlowerBlock DATURA = new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SUNFLOWER));
@@ -1148,10 +1148,10 @@ public final class WWBlocks {
 		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
 		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "blue_giant_glory_of_the_snow", BLUE_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "pink_giant_glory_of_the_snow", PINK_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "violet_beauty_glory_of_the_snow", VIOLET_BEAUTY_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "alba_glory_of_the_snow", ALBA_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "blue_glory_of_the_snow_petals", BLUE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "pink_glory_of_the_snow_petals", PINK_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "purple_glory_of_the_snow_petals", PURPLE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "white_glory_of_the_snow_petals", WHITE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1540,10 +1540,10 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(ALBA_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PINK_GIANT_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1567,10 +1567,10 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MILKWEED, 100, 60);
 		flammableBlockRegistry.add(MARIGOLD, 100, 60);
 		flammableBlockRegistry.add(GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PINK_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);
