@@ -143,14 +143,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWItems.PALM_CHEST_BOAT)
 			.add(WWItems.MAPLE_CHEST_BOAT);
 
-		this.getOrCreateTagBuilder(WWItemTags.SCORCHED_SAND)
-			.add(WWBlocks.SINGED_SAND.asItem())
-			.add(WWBlocks.SCORCHED_SAND.asItem());
-
-		this.getOrCreateTagBuilder(WWItemTags.SCORCHED_RED_SAND)
-			.add(WWBlocks.SINGED_RED_SAND.asItem())
-			.add(WWBlocks.SCORCHED_RED_SAND.asItem());
-
 		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
 			.add(WWBlocks.POLLEN.asItem());
 

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "wilderwild:block/singed_red_sand"
+    "all": "wilderwild:block/scorched_red_sand"
   }
 }

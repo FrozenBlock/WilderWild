@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sand": {
+    "has_red_sand": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:sand"
+            "items": "minecraft:red_sand"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:sandstone_from_singed_or_scorched_sand"
+        "recipe": "wilderwild:red_sandstone_from_scorched_red_sand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_sand"
+      "has_red_sand"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:sandstone_from_singed_or_scorched_sand"
+      "wilderwild:red_sandstone_from_scorched_red_sand"
     ]
   }
 }

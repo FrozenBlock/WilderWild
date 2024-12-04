@@ -427,10 +427,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
-		this.dropSelf(WWBlocks.SINGED_SAND);
-		this.dropSelf(WWBlocks.SCORCHED_SAND);
-		this.dropSelf(WWBlocks.SINGED_RED_SAND);
-		this.dropSelf(WWBlocks.SCORCHED_RED_SAND);
+		WWBlockLootHelper.makeScorchedSandLoot(this, WWBlocks.SCORCHED_SAND);
+		WWBlockLootHelper.makeScorchedSandLoot(this, WWBlocks.SCORCHED_RED_SAND);
 
 		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.BROWN_SHELF_FUNGI, Items.BROWN_MUSHROOM);
 		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.RED_SHELF_FUNGI, Items.RED_MUSHROOM);

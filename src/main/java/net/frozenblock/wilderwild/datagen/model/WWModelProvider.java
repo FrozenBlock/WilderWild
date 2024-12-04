@@ -70,11 +70,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
-		generator.createTrivialBlock(WWBlocks.SINGED_SAND, TexturedModel.CUBE);
-		generator.createTrivialBlock(WWBlocks.SCORCHED_SAND, TexturedModel.CUBE);
-		generator.createTrivialBlock(WWBlocks.SINGED_RED_SAND, TexturedModel.CUBE);
-		generator.createTrivialBlock(WWBlocks.SCORCHED_RED_SAND, TexturedModel.CUBE);
-
 		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
