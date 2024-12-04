@@ -104,7 +104,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.SPARSE_FOREST);
+			.addOptional(WWBiomes.SPARSE_FOREST)
+			.addOptional(WWBiomes.TUNDRA_PLAINS);
 
 		this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
 			.addOptionalTag(WWBiomeTags.WILDER_WILD_BIOMES);
@@ -220,7 +221,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.FROZEN_CAVES)
-			.addOptional(WWBiomes.MAPLE_FOREST);
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA_PLAINS);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_WET_OVERWORLD)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
@@ -543,7 +545,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST);
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA_PLAINS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.SAND_BEACHES)
 			.add(Biomes.DARK_FOREST)

@@ -397,6 +397,13 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MARIGOLD = Blocks.flowerPot(MARIGOLD);
 
+	public static final FlowerBlock PASQUEFLOWER = new FlowerBlock(
+		MobEffects.NIGHT_VISION,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_PASQUEFLOWER = Blocks.flowerPot(PASQUEFLOWER);
+
 	public static final MyceliumGrowthBlock MYCELIUM_GROWTH = new MyceliumGrowthBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.NETHER_SPROUTS)
 	);
@@ -1140,6 +1147,8 @@ public final class WWBlocks {
 		registerBlock("potted_carnation", POTTED_CARNATION);
 		registerBlockAfter(CARNATION, "marigold", MARIGOLD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_marigold", POTTED_MARIGOLD);
+		registerBlockAfter(MARIGOLD, "pasqueflower", PASQUEFLOWER, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_pasqueflower", POTTED_PASQUEFLOWER);
 		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
 		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);

@@ -159,7 +159,6 @@ public final class TundraPlains extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 	}
 
 	@Override

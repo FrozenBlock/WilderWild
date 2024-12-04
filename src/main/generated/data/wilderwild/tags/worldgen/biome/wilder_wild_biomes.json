@@ -115,6 +115,10 @@
     {
       "id": "wilderwild:sparse_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:tundra_plains",
+      "required": false
     }
   ]
 }
