@@ -6,6 +6,7 @@ hi
 - Dark Oak Forests no longer use the warm water color.
 - All entities in the `minecraft:aquatic` tag can now swim through Algae without being slowed down.
 - Sponge Buds can now grow on their own.
+- Stripped Hollowed Logs now come after Stripped Logs in the Creative Inventory.
 - Mesoglea, Nematocyst, Shelf Fungi, Glory of the Snow, Pollen, Datura, and Firefly Bottle models are now data-generated.
 - Most Palm block and item models are now data-generated, with the exception of Palm Doors and Palm Trapdoors.
 - Removed unused Nematocyst textures.
