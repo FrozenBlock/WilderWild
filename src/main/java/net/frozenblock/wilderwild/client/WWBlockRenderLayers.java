@@ -75,10 +75,10 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.ALBA_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BUSH, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TERMITE_MOUND, RenderType.solid());

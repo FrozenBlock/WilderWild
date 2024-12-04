@@ -213,10 +213,10 @@
   "subtitles.block.geyser.erupt": "Geyser erupts",
 
   "block.wilderwild.glory_of_the_snow": "Glory of the Snow",
-  "block.wilderwild.alba_glory_of_the_snow": "Alba Glory of the Snow",
-  "block.wilderwild.blue_giant_glory_of_the_snow": "Blue Giant Glory of the Snow",
-  "block.wilderwild.pink_giant_glory_of_the_snow": "Pink Giant Glory of the Snow",
-  "block.wilderwild.violet_beauty_glory_of_the_snow": "Violet Beauty Glory of the Snow",
+  "block.wilderwild.white_glory_of_the_snow_petals": "White Glory of the Snow Petals",
+  "block.wilderwild.blue_glory_of_the_snow_petals": "Blue Glory of the Snow Petals",
+  "block.wilderwild.pink_glory_of_the_snow_petals": "Pink Glory of the Snow Petals",
+  "block.wilderwild.purple_glory_of_the_snow_petals": "Purple Glory of the Snow Petals",
 
   "block.wilderwild.hanging_tendril": "Hanging Tendril",
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
@@ -853,8 +853,6 @@
   "tooltip.wilderwild.palm_frond_particles": "How frequently Palm Frond particles should spawn.",
   "option.wilderwild.maple_leaf_particles": "Maple Leaf Frequency",
   "tooltip.wilderwild.maple_leaf_particles": "How frequently Maple Leaf particles should spawn.",
-  "option.wilderwild.title_resource_pack_enabled_by_default": "Resource Pack Enabled By Default",
-  "tooltip.wilderwild.title_resource_pack_enabled_by_default": "Whether Wild Wild's main menu resource pack should be enabled by default.\nCan be useful when making modpacks with a custom main menu.\nOtherwise, you can manually disable it in the Resource Packs menu.",
 
   "option.wilderwild.simple_bool.false": "§cOFF",
   "option.wilderwild.simple_bool.true": "§aON",

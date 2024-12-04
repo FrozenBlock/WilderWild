@@ -71,8 +71,8 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
 	public static void onShear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		FlowerColor color = state.getValue(COLOR_STATE);
-		Item item = color == FlowerColor.BLUE ? WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW.asItem() :
-			color == FlowerColor.PURPLE ? WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW.asItem() : WWBlocks.ALBA_GLORY_OF_THE_SNOW.asItem();
+		Item item = color == FlowerColor.BLUE ? WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS.asItem() : color == FlowerColor.PINK ? WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS.asItem() :
+			color == FlowerColor.PURPLE ? WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS.asItem() : WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS.asItem();
 		popResource(level, pos, new ItemStack(item, 1));
 		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);

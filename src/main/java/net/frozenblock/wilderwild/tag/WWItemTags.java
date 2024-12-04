@@ -44,6 +44,9 @@ public final class WWItemTags {
 	public static final TagKey<Item> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Item> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");
 	public static final TagKey<Item> HOLLOWED_LOGS_THAT_BURN = bind("hollowed_logs_that_burn");
+	public static final TagKey<Item> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
+	public static final TagKey<Item> STRIPPED_HOLLOWED_LOGS_DONT_BURN = bind("stripped_hollowed_logs_dont_burn");
+	public static final TagKey<Item> STRIPPED_HOLLOWED_LOGS_THAT_BURN = bind("stripped_hollowed_logs_that_burn");
 	public static final TagKey<Item> HOLLOWED_ACACIA_LOGS = bind("hollowed_acacia_logs");
 	public static final TagKey<Item> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
 	public static final TagKey<Item> HOLLOWED_BIRCH_LOGS = bind("hollowed_birch_logs");

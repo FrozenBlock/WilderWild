@@ -1,8 +1,12 @@
 {
   "textures": [
+    "wilderwild:baobab_leaf0",
     "wilderwild:baobab_leaf1",
     "wilderwild:baobab_leaf2",
     "wilderwild:baobab_leaf3",
-    "wilderwild:baobab_leaf4"
+    "wilderwild:baobab_leaf4",
+    "wilderwild:baobab_leaf5",
+    "wilderwild:baobab_leaf6",
+    "wilderwild:baobab_leaf7"
   ]
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:white_dye_from_split_coconut"
+        "recipe": "wilderwild:white_dye_from_split_coconut"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:white_dye_from_split_coconut"
+      "wilderwild:white_dye_from_split_coconut"
     ]
   }
 }

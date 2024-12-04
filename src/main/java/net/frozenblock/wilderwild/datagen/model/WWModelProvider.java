@@ -37,20 +37,31 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.BAOBAB);
+		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.FAMILY_BAOBAB);
 		generator.woodProvider(WWBlocks.BAOBAB_LOG).logWithHorizontal(WWBlocks.BAOBAB_LOG).wood(WWBlocks.BAOBAB_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(WWBlocks.STRIPPED_BAOBAB_LOG).wood(WWBlocks.STRIPPED_BAOBAB_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
 		generator.createTrivialBlock(WWBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES);
 
-		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.CYPRESS);
+		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.FAMILY_CYPRESS);
 		generator.woodProvider(WWBlocks.CYPRESS_LOG).logWithHorizontal(WWBlocks.CYPRESS_LOG).wood(WWBlocks.CYPRESS_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(WWBlocks.STRIPPED_CYPRESS_LOG).wood(WWBlocks.STRIPPED_CYPRESS_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
 		generator.createPlant(WWBlocks.CYPRESS_SAPLING, WWBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createTrivialBlock(WWBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES);
 
-		generator.family(WWBlocks.MAPLE_PLANKS).generateFor(WWBlocks.MAPLE);
+		BlockModelGenerators.BlockFamilyProvider palmFamily = generator.family(WWBlocks.PALM_PLANKS);
+		palmFamily.skipGeneratingModelsFor.add(WWBlocks.PALM_DOOR);
+		palmFamily.skipGeneratingModelsFor.add(WWBlocks.PALM_TRAPDOOR);
+		palmFamily.generateFor(WWBlocks.FAMILY_PALM);
+		generator.woodProvider(WWBlocks.PALM_LOG).logWithHorizontal(WWBlocks.PALM_LOG).wood(WWBlocks.PALM_WOOD);
+		generator.woodProvider(WWBlocks.STRIPPED_PALM_LOG).logWithHorizontal(WWBlocks.STRIPPED_PALM_LOG).wood(WWBlocks.STRIPPED_PALM_WOOD);
+		generator.createHangingSign(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
+		generator.createTrivialBlock(WWBlocks.PALM_FRONDS, TexturedModel.LEAVES);
+
+		BlockModelGenerators.BlockFamilyProvider mapleFamily = generator.family(WWBlocks.MAPLE_PLANKS);
+		mapleFamily.skipGeneratingModelsFor.add(WWBlocks.MAPLE_TRAPDOOR);
+		mapleFamily.generateFor(WWBlocks.FAMILY_MAPLE);
 		generator.woodProvider(WWBlocks.MAPLE_LOG).logWithHorizontal(WWBlocks.MAPLE_LOG).wood(WWBlocks.MAPLE_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG).wood(WWBlocks.STRIPPED_MAPLE_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
@@ -64,6 +75,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.PASQUEFLOWER, WWBlocks.POTTED_PASQUEFLOWER, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlant(WWBlocks.DATURA, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
@@ -72,10 +84,10 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
 
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.ALBA_GLORY_OF_THE_SNOW);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);

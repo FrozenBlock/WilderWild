@@ -54,10 +54,6 @@ voxelotl:
 LudoCrypt:
  - New music.
 
-Merp:
- - Lead texture artist prior to 2.3.
- - Sound designer prior to 2.2.
-
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
@@ -119,6 +115,9 @@ Osmiooo:
 
 nekkok:
  - Spanish translation.
+
+Kokoroto:
+ - Updated Spanish translation as of 3.0.9.
 
 unroman:
  - Ukranian translation.

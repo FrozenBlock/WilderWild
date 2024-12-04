@@ -43,6 +43,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
+import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
@@ -69,7 +70,7 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
-import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
+import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -254,19 +255,22 @@ public final class WWBlocks {
 		YELLOW_MAPLE_LEAVES,
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 
 	// SCULK
@@ -413,24 +417,24 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 			.randomTicks()
 	);
-	public static final FlowerLichenBlock ALBA_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
+	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
 			.sound(SoundType.VINE)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
-	public static final FlowerLichenBlock PINK_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
+	public static final FlowerLichenBlock BLUE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
+		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
+			.mapColor(MapColor.COLOR_BLUE)
+	);
+	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
+		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.mapColor(MapColor.CRIMSON_STEM)
 	);
-	public static final FlowerLichenBlock VIOLET_BEAUTY_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
+	public static final FlowerLichenBlock PURPLE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
+		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.mapColor(MapColor.COLOR_PURPLE)
-	);
-	public static final FlowerLichenBlock BLUE_GIANT_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(ALBA_GLORY_OF_THE_SNOW)
-			.mapColor(MapColor.COLOR_BLUE)
 	);
 
 	public static final TallFlowerBlock DATURA = new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SUNFLOWER));
@@ -440,14 +444,15 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final Block CATTAIL = new WaterloggableTallFlowerBlock(
+	public static final Block CATTAIL = new CattailBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH)
 			.sound(SoundType.WET_GRASS)
 			.strength(0.0F)
 			.noOcclusion()
 	);
 
-	public static final WaterlilyBlock FLOWERING_LILY_PAD = new WaterlilyBlock(
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = new FloweringWaterlilyBlock(
+		Blocks.LILY_PAD,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD)
 	);
 
@@ -634,7 +639,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/baobab_sign"))
 	);
 
-	public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
+	public static final BlockFamily FAMILY_BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
 		.button(BAOBAB_BUTTON)
 		.slab(BAOBAB_SLAB)
 		.stairs(BAOBAB_STAIRS)
@@ -727,7 +732,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/cypress_sign"))
 	);
 
-	public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
+	public static final BlockFamily FAMILY_CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
 		.button(CYPRESS_BUTTON)
 		.slab(CYPRESS_SLAB)
 		.stairs(CYPRESS_STAIRS)
@@ -821,7 +826,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/palm_sign"))
 	);
 
-	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
+	public static final BlockFamily FAMILY_PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
 		.button(PALM_BUTTON)
 		.slab(PALM_SLAB)
 		.stairs(PALM_STAIRS)
@@ -917,7 +922,7 @@ public final class WWBlocks {
 		ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id("blocks/maple_sign"))
 	);
 
-	public static final BlockFamily MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
+	public static final BlockFamily FAMILY_MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
 		.button(MAPLE_BUTTON)
 		.slab(MAPLE_SLAB)
 		.stairs(MAPLE_STAIRS)
@@ -926,7 +931,7 @@ public final class WWBlocks {
 		.pressurePlate(MAPLE_PRESSURE_PLATE)
 		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
 		.door(MAPLE_DOOR)
-		//.trapdoor(MAPLE_TRAPDOOR)
+		.trapdoor(MAPLE_TRAPDOOR)
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
@@ -1081,49 +1086,49 @@ public final class WWBlocks {
 
 	public static void registerHollowedLogs() {
 		registerBlockAfter(Items.OAK_LOG, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_OAK_LOG, "stripped_hollowed_oak_log", STRIPPED_HOLLOWED_OAK_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_OAK_LOG, "stripped_hollowed_oak_log", STRIPPED_HOLLOWED_OAK_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.SPRUCE_LOG, "hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_SPRUCE_LOG, "stripped_hollowed_spruce_log", STRIPPED_HOLLOWED_SPRUCE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_SPRUCE_LOG, "stripped_hollowed_spruce_log", STRIPPED_HOLLOWED_SPRUCE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.BIRCH_LOG, "hollowed_birch_log", HOLLOWED_BIRCH_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_BIRCH_LOG, "stripped_hollowed_birch_log", STRIPPED_HOLLOWED_BIRCH_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_BIRCH_LOG, "stripped_hollowed_birch_log", STRIPPED_HOLLOWED_BIRCH_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_JUNGLE_LOG, "stripped_hollowed_jungle_log", STRIPPED_HOLLOWED_JUNGLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_JUNGLE_LOG, "stripped_hollowed_jungle_log", STRIPPED_HOLLOWED_JUNGLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_ACACIA_LOG, "stripped_hollowed_acacia_log", STRIPPED_HOLLOWED_ACACIA_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_ACACIA_LOG, "stripped_hollowed_acacia_log", STRIPPED_HOLLOWED_ACACIA_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_DARK_OAK_LOG, "stripped_hollowed_dark_oak_log", STRIPPED_HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_DARK_OAK_LOG, "stripped_hollowed_dark_oak_log", STRIPPED_HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.CRIMSON_STEM, "hollowed_crimson_stem", HOLLOWED_CRIMSON_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_CRIMSON_STEM, "stripped_hollowed_crimson_stem", STRIPPED_HOLLOWED_CRIMSON_STEM, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_CRIMSON_STEM, "stripped_hollowed_crimson_stem", STRIPPED_HOLLOWED_CRIMSON_STEM, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.WARPED_STEM, "hollowed_warped_stem", HOLLOWED_WARPED_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_WARPED_STEM, "stripped_hollowed_warped_stem", STRIPPED_HOLLOWED_WARPED_STEM, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_WARPED_STEM, "stripped_hollowed_warped_stem", STRIPPED_HOLLOWED_WARPED_STEM, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_MANGROVE_LOG, "stripped_hollowed_mangrove_log", STRIPPED_HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_MANGROVE_LOG, "stripped_hollowed_mangrove_log", STRIPPED_HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Items.CHERRY_LOG, "hollowed_cherry_log", HOLLOWED_CHERRY_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_CHERRY_LOG, "stripped_hollowed_cherry_log", STRIPPED_HOLLOWED_CHERRY_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.STRIPPED_CHERRY_LOG, "stripped_hollowed_cherry_log", STRIPPED_HOLLOWED_CHERRY_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockBefore(BAOBAB_WOOD, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_BAOBAB_LOG, "stripped_hollowed_baobab_log", STRIPPED_HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_BAOBAB_LOG, "stripped_hollowed_baobab_log", STRIPPED_HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(BAOBAB_LOG, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockBefore(CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_CYPRESS_LOG, "stripped_hollowed_cypress_log", STRIPPED_HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_CYPRESS_LOG, "stripped_hollowed_cypress_log", STRIPPED_HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CYPRESS_LOG, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockBefore(PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_PALM_LOG, "stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockBefore(MAPLE_WOOD, "hollowed_maple_log", HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(HOLLOWED_MAPLE_LOG, "stripped_hollowed_maple_log", STRIPPED_HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_MAPLE_LOG, "stripped_hollowed_maple_log", STRIPPED_HOLLOWED_MAPLE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MAPLE_LOG, "hollowed_maple_log", HOLLOWED_MAPLE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
@@ -1152,10 +1157,10 @@ public final class WWBlocks {
 		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
 		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "blue_giant_glory_of_the_snow", BLUE_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "pink_giant_glory_of_the_snow", PINK_GIANT_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "violet_beauty_glory_of_the_snow", VIOLET_BEAUTY_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "alba_glory_of_the_snow", ALBA_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "blue_glory_of_the_snow_petals", BLUE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "pink_glory_of_the_snow_petals", PINK_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "purple_glory_of_the_snow_petals", PURPLE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "white_glory_of_the_snow_petals", WHITE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1323,7 +1328,8 @@ public final class WWBlocks {
 		Block sourceBlock,
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
-		Supplier<Double> frequencyModifier
+		Supplier<Double> frequencyModifier,
+		int textureSize
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
@@ -1333,7 +1339,7 @@ public final class WWBlocks {
 			particleType,
 			0.0225F,
 			frequencyModifier,
-			0.125F,
+			textureSize,
 			3F
 		);
 		return leafLitterBlock;
@@ -1346,7 +1352,7 @@ public final class WWBlocks {
 		float litterChance,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
-		float quadSize,
+		int textureSize,
 		float particleGravityScale
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
@@ -1357,7 +1363,7 @@ public final class WWBlocks {
 			particleType,
 			particleChance,
 			frequencyModifier,
-			quadSize,
+			textureSize,
 			particleGravityScale
 		);
 		return leafLitterBlock;
@@ -1543,10 +1549,10 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(ALBA_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PINK_GIANT_GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1570,10 +1576,10 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MILKWEED, 100, 60);
 		flammableBlockRegistry.add(MARIGOLD, 100, 60);
 		flammableBlockRegistry.add(GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(BLUE_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(PINK_GIANT_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(VIOLET_BEAUTY_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PINK_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wilderwild:block/palm_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wilderwild:block/palm_wood"
+    },
+    "axis=z": {
+      "model": "wilderwild:block/palm_wood",
+      "x": 90
+    }
+  }
+}
