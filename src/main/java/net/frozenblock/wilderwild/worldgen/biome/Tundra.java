@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
@@ -51,7 +52,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class TundraPlains extends FrozenBiome {
+public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
 	public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
 	public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
@@ -65,7 +66,7 @@ public final class TundraPlains extends FrozenBiome {
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final int FOLIAGE_COLOR = 15964967;
 	public static final int GRASS_COLOR = 15964967;
-	public static final TundraPlains INSTANCE = new TundraPlains();
+	public static final Tundra INSTANCE = new Tundra();
 
 	@Override
 	public String modID() {
@@ -74,7 +75,7 @@ public final class TundraPlains extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "tundra_plains";
+		return "tundra";
 	}
 
 	@Override
@@ -113,12 +114,12 @@ public final class TundraPlains extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable Integer foliageColorOverride() {
+	public @NotNull Integer foliageColorOverride() {
 		return FOLIAGE_COLOR;
 	}
 
 	@Override
-	public @Nullable Integer grassColorOverride() {
+	public @NotNull Integer grassColorOverride() {
 		return GRASS_COLOR;
 	}
 
@@ -133,7 +134,7 @@ public final class TundraPlains extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable AmbientMoodSettings ambientMoodSettings() {
+	public @NotNull AmbientMoodSettings ambientMoodSettings() {
 		return AmbientMoodSettings.LEGACY_CAVE_SETTINGS;
 	}
 
@@ -143,22 +144,21 @@ public final class TundraPlains extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable Music backgroundMusic() {
+	public @NotNull Music backgroundMusic() {
 		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FLOWER_FOREST);
 	}
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LARGE_FERN_AND_GRASS.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS_FOREST.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.STONE_PATH_RARE.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.COARSE_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		BiomeDefaultFeatures.addForestFlowers(features);
+		BiomeDefaultFeatures.addForestGrass(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		//features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_DYING_FOREST.getKey());
 	}
 
 	@Override

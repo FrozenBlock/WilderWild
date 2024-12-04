@@ -80,14 +80,13 @@
     ],
     [
       "minecraft:glow_lichen",
-      "wilderwild:grass_plains_placed",
-      "wilderwild:large_fern_and_grass",
-      "wilderwild:shrubs_forest",
-      "wilderwild:stone_path_rare",
-      "wilderwild:coarse_dirt_path",
-      "wilderwild:stone_disk_and_pile_rare",
+      "minecraft:forest_flowers",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_dead_bush",
       "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal"
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"

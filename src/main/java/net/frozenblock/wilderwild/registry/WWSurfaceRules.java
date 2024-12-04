@@ -66,7 +66,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource tundraSurfaceRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.TUNDRA_PLAINS),
+			SurfaceRules.isBiome(WWBiomes.TUNDRA),
 			SurfaceRules.ifTrue(
 				SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
