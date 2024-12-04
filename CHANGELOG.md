@@ -38,4 +38,4 @@ hi
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.
 - Renamed `WWWorldgen` to `WWBiomes.`
 - Moved all tags to datagen.
-- Updated block sound type compatability for Nature's Spirit.
+- Updated block sound type compatibility for Nature's Spirit.
