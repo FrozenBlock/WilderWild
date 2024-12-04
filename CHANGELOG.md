@@ -26,7 +26,8 @@ hi
 - Crabs should no longer have an incorrect rotation while climbing downwards.
 - Renamed the `wilderwild:crab_can_hide` tag to `wilderwild:crab_hideable.`
 - Significantly optimized Sculk Sensor rendering with the `Minecraft Live Tendrils` resource pack.
-- Fixed many recipe unlocks being broken in 1.21.2+.
+- Fixed many recipe unlocks being broken.
+- Moved the Peeled Prickly Pear's crafting recipe from the `misc` to `food` category.
 - Fixed Potted Mycelium Growth not being in the `minecraft:flower_pots` tag.
 - Fixed Flowering Lily Pads not being in the `minecraft:small_flowers` tag.
 - Flowering Lily Pads can now be sheared to revert to Lily Pads.

@@ -54,7 +54,7 @@ public final class WWNaturalRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(WWItems.SPLIT_COCONUT), RecipeProvider.has(WWItems.SPLIT_COCONUT))
 			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
 
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.PEELED_PRICKLY_PEAR, 1)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, WWItems.PEELED_PRICKLY_PEAR, 1)
 			.requires(WWItems.PRICKLY_PEAR)
 			.unlockedBy(RecipeProvider.getHasName(WWItems.PRICKLY_PEAR), RecipeProvider.has(WWItems.PRICKLY_PEAR))
 			.save(exporter);
@@ -88,7 +88,7 @@ public final class WWNaturalRecipeProvider {
 			.requires(ingredient)
 			.group(group)
 			.unlockedBy(RecipeProvider.getHasName(ingredient), RecipeProvider.has(ingredient))
-			.save(recipeOutput, (RecipeProvider.getConversionRecipeName(result, ingredient)));
+			.save(recipeOutput, WWConstants.id(RecipeProvider.getConversionRecipeName(result, ingredient)));
 	}
 
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pink_dye_from_pink_glory_of_the_snow_petals"
+        "recipe": "wilderwild:pink_dye_from_pink_glory_of_the_snow_petals"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pink_dye_from_pink_glory_of_the_snow_petals"
+      "wilderwild:pink_dye_from_pink_glory_of_the_snow_petals"
     ]
   }
 }

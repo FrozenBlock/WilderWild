@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:white_dye_from_white_glory_of_the_snow_petals"
+        "recipe": "wilderwild:white_dye_from_white_glory_of_the_snow_petals"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:white_dye_from_white_glory_of_the_snow_petals"
+      "wilderwild:white_dye_from_white_glory_of_the_snow_petals"
     ]
   }
 }
