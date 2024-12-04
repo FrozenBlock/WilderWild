@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:item/palm_fence"
+    "model": "wilderwild:block/palm_fence_inventory"
   }
 }

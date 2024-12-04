@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/palm_button"
+    "model": "wilderwild:block/palm_button_inventory"
   }
 }

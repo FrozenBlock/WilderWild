@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -98,20 +97,20 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.SANDSTONE, 2)
 					.group("sandstone")
 					.define('#', Ingredient.of(Items.SAND))
-					.define('X', WWItemTags.SCORCHED_SAND)
+					.define('X', Ingredient.of(WWBlocks.SCORCHED_SAND))
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.SAND), this.has(Items.SAND))
-					.save(exporter, WWConstants.string("sandstone_from_singed_or_scorched_sand"));
+					.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWItems.SCORCHED_SAND)));
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 					.group("red_sandstone")
 					.define('#', Ingredient.of(Items.RED_SAND))
-					.define('X', WWItemTags.SCORCHED_RED_SAND)
+					.define('X', Ingredient.of(WWBlocks.SCORCHED_RED_SAND))
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), this.has(Items.RED_SAND))
-					.save(exporter, WWConstants.string("red_sandstone_from_singed_or_scorched_red_sand"));
+					.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
 
 				this.shaped(RecipeCategory.MISC, WWBlocks.NULL_BLOCK, 2)
 					.define('#', Ingredient.of(Items.BLACK_CONCRETE))

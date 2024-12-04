@@ -29,6 +29,7 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfi
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -616,8 +617,8 @@ public final class WWMiscConfigured {
 		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND),
-				BlockStateProvider.simple(WWBlocks.SINGED_SAND),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
 				UniformInt.of(2, 8),
 				0.95F,
 				0.925F,
@@ -632,8 +633,8 @@ public final class WWMiscConfigured {
 		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND),
-				BlockStateProvider.simple(WWBlocks.SINGED_SAND),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
 				UniformInt.of(11, 15),
 				0.95F,
 				0.875F,
@@ -648,8 +649,8 @@ public final class WWMiscConfigured {
 		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND),
-				BlockStateProvider.simple(WWBlocks.SINGED_SAND),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
 				UniformInt.of(1, 3),
 				0.85F,
 				0.925F,
@@ -715,8 +716,8 @@ public final class WWMiscConfigured {
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND),
-				BlockStateProvider.simple(WWBlocks.SINGED_RED_SAND),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 				UniformInt.of(2, 8),
 				0.95F,
 				0.925F,
@@ -731,8 +732,8 @@ public final class WWMiscConfigured {
 		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND),
-				BlockStateProvider.simple(WWBlocks.SINGED_RED_SAND),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 				UniformInt.of(11, 15),
 				0.95F,
 				0.875F,
@@ -747,8 +748,8 @@ public final class WWMiscConfigured {
 		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND),
-				BlockStateProvider.simple(WWBlocks.SINGED_RED_SAND),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
+				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 				UniformInt.of(1, 3),
 				0.85F,
 				0.925F,

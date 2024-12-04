@@ -25,6 +25,7 @@ import java.util.function.Function;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
+import net.frozenblock.wilderwild.item.property.IsCracked;
 import net.frozenblock.wilderwild.item.property.StackDamage;
 import net.minecraft.Util;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -278,6 +279,12 @@ public final class WWModelHelper {
 		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
 		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/tooting_copper_horn"));
 		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
+	}
+
+	public static void generateScorchedSandItem(ItemModelGenerators generator, Item item) {
+		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
+		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item, "_cracked"));
+		generator.generateBooleanDispatch(item, new IsCracked(), unbaked2, unbaked);
 	}
 
 	public static void generateEchoGlass(ItemModelGenerators generator, Item item) {

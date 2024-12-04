@@ -21,13 +21,17 @@ package net.frozenblock.wilderwild.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.item.property.IsCracked;
 import net.frozenblock.wilderwild.item.property.StackDamage;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties;
 
 @Environment(EnvType.CLIENT)
 public final class WWItemProperties {
 
 	public static void init() {
+		ConditionalItemModelProperties.ID_MAPPER.put(WWConstants.id("cracked"), IsCracked.MAP_CODEC);
+
 		RangeSelectItemModelProperties.ID_MAPPER.put(WWConstants.id("stack_damage"), StackDamage.MAP_CODEC);
 	}
 }

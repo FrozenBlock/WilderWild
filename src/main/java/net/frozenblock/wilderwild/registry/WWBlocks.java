@@ -40,6 +40,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
+import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
@@ -176,10 +177,9 @@ public final class WWBlocks {
 		.wall(MOSSY_MUD_BRICK_WALL)
 		.getFamily();
 
-	public static final ScorchedBlock SINGED_SAND = register("singed_sand",
+	public static final ScorchedBlock SCORCHED_SAND = registerWithoutItem("scorched_sand",
 		properties -> new ScorchedBlock(
 			Blocks.SAND.defaultBlockState(),
-			null,
 			true,
 			SoundEvents.BRUSH_SAND,
 			SoundEvents.BRUSH_SAND_COMPLETED,
@@ -192,42 +192,9 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 
-	public static final ScorchedBlock SCORCHED_SAND = register("scorched_sand",
-		properties -> new ScorchedBlock(
-			SINGED_SAND.defaultBlockState(),
-			null,
-			true,
-			SoundEvents.BRUSH_SAND,
-			SoundEvents.BRUSH_SAND_COMPLETED,
-			properties
-		),
-		Properties.of()
-			.strength(1.5F)
-			.sound(WWSoundTypes.SCORCHED_SAND)
-			.mapColor(MapColor.SAND)
-			.randomTicks()
-	);
-
-	public static final ScorchedBlock SINGED_RED_SAND = register("singed_red_sand",
+	public static final ScorchedBlock SCORCHED_RED_SAND = registerWithoutItem("scorched_red_sand",
 		properties -> new ScorchedBlock(
 			Blocks.RED_SAND.defaultBlockState(),
-			null,
-			true,
-			SoundEvents.BRUSH_SAND,
-			SoundEvents.BRUSH_SAND_COMPLETED,
-			properties
-		),
-		Properties.of()
-			.strength(1.5F)
-			.sound(WWSoundTypes.SCORCHED_SAND)
-			.mapColor(MapColor.COLOR_ORANGE)
-			.randomTicks()
-	);
-
-	public static final ScorchedBlock SCORCHED_RED_SAND = register("scorched_red_sand",
-		properties -> new ScorchedBlock(
-			SINGED_RED_SAND.defaultBlockState(),
-			null,
 			true,
 			SoundEvents.BRUSH_SAND,
 			SoundEvents.BRUSH_SAND_COMPLETED,
@@ -651,8 +618,8 @@ public final class WWBlocks {
 			.noOcclusion()
 	);
 
-	public static final WaterlilyBlock FLOWERING_LILY_PAD = registerWithoutItem("flowering_lily_pad",
-		WaterlilyBlock::new,
+	public static final FloweringWaterlilyBlock FLOWERING_LILY_PAD = registerWithoutItem("flowering_lily_pad",
+		(properties -> new FloweringWaterlilyBlock(Blocks.LILY_PAD, properties)),
 		Properties.ofFullCopy(Blocks.LILY_PAD)
 	);
 
@@ -887,7 +854,7 @@ public final class WWBlocks {
 			.overrideLootTable(BAOBAB_SIGN.getLootTable())
 	);
 
-	public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
+	public static final BlockFamily FAMILY_BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
 		.button(BAOBAB_BUTTON)
 		.slab(BAOBAB_SLAB)
 		.stairs(BAOBAB_STAIRS)
@@ -995,7 +962,7 @@ public final class WWBlocks {
 			.overrideLootTable(CYPRESS_SIGN.getLootTable())
 	);
 
-	public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
+	public static final BlockFamily FAMILY_CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
 		.button(CYPRESS_BUTTON)
 		.slab(CYPRESS_SLAB)
 		.stairs(CYPRESS_STAIRS)
@@ -1104,7 +1071,7 @@ public final class WWBlocks {
 			.overrideLootTable(PALM_SIGN.getLootTable())
 	);
 
-	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
+	public static final BlockFamily FAMILY_PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
 		.button(PALM_BUTTON)
 		.slab(PALM_SLAB)
 		.stairs(PALM_STAIRS)
@@ -1218,7 +1185,7 @@ public final class WWBlocks {
 			.overrideLootTable(MAPLE_SIGN.getLootTable())
 	);
 
-	public static final BlockFamily MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
+	public static final BlockFamily FAMILY_MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
 		.button(MAPLE_BUTTON)
 		.slab(MAPLE_SLAB)
 		.stairs(MAPLE_STAIRS)
@@ -1227,7 +1194,7 @@ public final class WWBlocks {
 		.pressurePlate(MAPLE_PRESSURE_PLATE)
 		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
 		.door(MAPLE_DOOR)
-		//.trapdoor(MAPLE_TRAPDOOR)
+		.trapdoor(MAPLE_TRAPDOOR)
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
