@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.FrozenGrassColorModifiers;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
@@ -64,9 +65,14 @@ public final class Tundra extends FrozenBiome {
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
+	public static final int GRASS_COLOR = 13023096;
 	public static final int FOLIAGE_COLOR = 15964967;
-	public static final int GRASS_COLOR = 15964967;
 	public static final Tundra INSTANCE = new Tundra();
+
+	public Tundra() {
+		super();
+		FrozenGrassColorModifiers.addGrassColorModifier(this.getKey().location(), (x, y, grassColor) -> (int) (grassColor + ((x % y) * 2)));
+	}
 
 	@Override
 	public String modID() {
