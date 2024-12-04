@@ -1,8 +1,12 @@
 {
   "textures": [
+    "wilderwild:cypress_leaf0",
     "wilderwild:cypress_leaf1",
     "wilderwild:cypress_leaf2",
     "wilderwild:cypress_leaf3",
-    "wilderwild:cypress_leaf4"
+    "wilderwild:cypress_leaf4",
+    "wilderwild:cypress_leaf5",
+    "wilderwild:cypress_leaf6",
+    "wilderwild:cypress_leaf7"
   ]
 }

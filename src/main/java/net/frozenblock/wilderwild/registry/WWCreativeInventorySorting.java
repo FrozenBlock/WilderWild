@@ -203,10 +203,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
 		addAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
 		addBeforeInNaturalBlocks(Items.WITHER_ROSE, WWBlocks.GLORY_OF_THE_SNOW);
-		addAfterInNaturalBlocks(WWBlocks.GLORY_OF_THE_SNOW, WWBlocks.ALBA_GLORY_OF_THE_SNOW);
-		addAfterInNaturalBlocks(WWBlocks.ALBA_GLORY_OF_THE_SNOW, WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW);
-		addAfterInNaturalBlocks(WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW);
-		addAfterInNaturalBlocks(WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW);
+		addAfterInNaturalBlocks(WWBlocks.GLORY_OF_THE_SNOW, WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS);
+		addAfterInNaturalBlocks(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
+		addAfterInNaturalBlocks(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS, WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS);
+		addAfterInNaturalBlocks(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS, WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS);
 
 		// TALL FLOWERS
 		addAfterInNaturalBlocks(Items.PEONY, WWBlocks.DATURA);

@@ -33,7 +33,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 22;
+	public static final int DATA_VERSION = 23;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WWDataFixer contains only static declarations.");
@@ -133,6 +133,16 @@ public final class WWDataFixer {
 
 		Schema schemaV22 = builder.addSchema(22, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename maple_grove to maple_forest", Map.of(WWConstants.id("maple_grove"), WWConstants.id("maple_forest")), schemaV22);
+
+		Schema schemaV23 = builder.addSchema(23, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename alba_glory_of_the_snow to white_glory_of_the_snow_petals", WWConstants.id("alba_glory_of_the_snow"), WWConstants.id("white_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addItemRenameFix(builder, "Rename alba_glory_of_the_snow to white_glory_of_the_snow_petals", WWConstants.id("alba_glory_of_the_snow"), WWConstants.id("white_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addBlockRenameFix(builder, "Rename blue_giant_glory_of_the_snow to blue_glory_of_the_snow_petals", WWConstants.id("blue_giant_glory_of_the_snow"), WWConstants.id("blue_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addItemRenameFix(builder, "Rename blue_giant_glory_of_the_snow to blue_glory_of_the_snow_petals", WWConstants.id("blue_giant_glory_of_the_snow"), WWConstants.id("blue_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addBlockRenameFix(builder, "Rename pink_giant_glory_of_the_snow to pink_glory_of_the_snow_petals", WWConstants.id("pink_giant_glory_of_the_snow"), WWConstants.id("pink_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addItemRenameFix(builder, "Rename pink_giant_glory_of_the_snow to pink_glory_of_the_snow_petals", WWConstants.id("pink_giant_glory_of_the_snow"), WWConstants.id("pink_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addBlockRenameFix(builder, "Rename violet_beauty_glory_of_the_snow to purple_glory_of_the_snow_petals", WWConstants.id("violet_beauty_glory_of_the_snow"), WWConstants.id("purple_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addItemRenameFix(builder, "Rename violet_beauty_glory_of_the_snow to purple_glory_of_the_snow_petals", WWConstants.id("violet_beauty_glory_of_the_snow"), WWConstants.id("purple_glory_of_the_snow_petals"), schemaV23);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

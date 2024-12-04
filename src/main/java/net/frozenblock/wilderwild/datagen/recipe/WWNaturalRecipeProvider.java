@@ -32,10 +32,10 @@ import org.jetbrains.annotations.Nullable;
 public final class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
-		oneToOneConversionRecipe(provider, exporter, Items.BLUE_DYE, WWBlocks.BLUE_GIANT_GLORY_OF_THE_SNOW, "blue_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.PINK_DYE, WWBlocks.PINK_GIANT_GLORY_OF_THE_SNOW, "pink_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.VIOLET_BEAUTY_GLORY_OF_THE_SNOW, "purple_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWBlocks.ALBA_GLORY_OF_THE_SNOW, "white_dye");
+		oneToOneConversionRecipe(provider, exporter, Items.BLUE_DYE, WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS, "blue_dye");
+		oneToOneConversionRecipe(provider, exporter, Items.PINK_DYE, WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS, "pink_dye");
+		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS, "purple_dye");
+		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, "white_dye");
 
 		oneToOneConversionRecipe(provider, exporter, Items.LIGHT_GRAY_DYE, WWBlocks.DATURA, "light_gray_dye", 2);
 
@@ -52,7 +52,7 @@ public final class WWNaturalRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(WWItems.SPLIT_COCONUT), provider.has(WWItems.SPLIT_COCONUT))
 			.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.BOWL, WWItems.SPLIT_COCONUT)));
 
-		provider.shapeless(RecipeCategory.MISC, WWItems.PEELED_PRICKLY_PEAR, 1)
+		provider.shapeless(RecipeCategory.FOOD, WWItems.PEELED_PRICKLY_PEAR, 1)
 			.requires(WWItems.PRICKLY_PEAR)
 			.unlockedBy(RecipeProvider.getHasName(WWItems.PRICKLY_PEAR), provider.has(WWItems.PRICKLY_PEAR))
 			.save(exporter);
@@ -86,7 +86,7 @@ public final class WWNaturalRecipeProvider {
 			.requires(ingredient)
 			.group(group)
 			.unlockedBy(RecipeProvider.getHasName(ingredient), provider.has(ingredient))
-			.save(recipeOutput, (RecipeProvider.getConversionRecipeName(result, ingredient)));
+			.save(recipeOutput, WWConstants.string(RecipeProvider.getConversionRecipeName(result, ingredient)));
 	}
 
 }

@@ -74,7 +74,7 @@ public class LeafParticle extends CherryParticle {
 			@NotNull LeafParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
 		) {
 			LeafParticle leafParticle = new LeafParticle(level, x, y, z, this.spriteProvider, (ParticleType<LeafParticleOptions>) options.getType());
-			leafParticle.quadSize = options.getQuadSize();
+			leafParticle.quadSize = (options.getTextureSize() / 16F) * 0.5F;
 			if (options.isFastFalling()) {
 				leafParticle.gravity = 0.04F;
 			} else {

@@ -39,7 +39,7 @@ public class LeafParticleOptions implements ParticleOptions {
 		instance.group(
 				ResourceLocation.CODEC.fieldOf("particleType").forGetter(LeafParticleOptions::getParticleId),
 				Vec3.CODEC.fieldOf("velocity").forGetter(LeafParticleOptions::getVelocity),
-				Codec.FLOAT.fieldOf("quadSize").forGetter(LeafParticleOptions::getQuadSize),
+				Codec.INT.fieldOf("textureSize").forGetter(LeafParticleOptions::getTextureSize),
 				Codec.FLOAT.fieldOf("gravity").forGetter(LeafParticleOptions::getGravityScale),
 				Codec.BOOL.fieldOf("isFastFalling").forGetter(LeafParticleOptions::isFastFalling),
 				Codec.BOOL.fieldOf("isFastFalling").forGetter(LeafParticleOptions::shouldControlVelUponSpawn)
@@ -49,7 +49,7 @@ public class LeafParticleOptions implements ParticleOptions {
 	public static final StreamCodec<RegistryFriendlyByteBuf, LeafParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ResourceLocation.STREAM_CODEC, LeafParticleOptions::getParticleId,
 		FrozenByteBufCodecs.VEC3, LeafParticleOptions::getVelocity,
-		ByteBufCodecs.FLOAT, LeafParticleOptions::getQuadSize,
+		ByteBufCodecs.INT, LeafParticleOptions::getTextureSize,
 		ByteBufCodecs.FLOAT, LeafParticleOptions::getGravityScale,
 		ByteBufCodecs.BOOL, LeafParticleOptions::isFastFalling,
 		ByteBufCodecs.BOOL, LeafParticleOptions::shouldControlVelUponSpawn,
@@ -59,30 +59,30 @@ public class LeafParticleOptions implements ParticleOptions {
 	private final ParticleType<LeafParticleOptions> type;
 	private final ResourceLocation particleId;
 	private final Vec3 velocity;
-	private final float quadSize;
+	private final int textureSize;
 	private final float gravityScale;
 	private final boolean isFastFalling;
 	private final boolean controlVelUponSpawn;
 
 	@NotNull
-	public static LeafParticleOptions create(ParticleType<LeafParticleOptions> type, float quadSize, float gravityScale) {
-		return new LeafParticleOptions(type, 0D, 0D, 0D, quadSize, gravityScale, false);
+	public static LeafParticleOptions create(ParticleType<LeafParticleOptions> type, int textureSize, float gravityScale) {
+		return new LeafParticleOptions(type, 0D, 0D, 0D, textureSize, gravityScale, false);
 	}
 
 	@NotNull
-	public static LeafParticleOptions createFastFalling(ParticleType<LeafParticleOptions> type, float quadSize) {
-		return new LeafParticleOptions(type, 0D, -0.05D, 0D, quadSize, 25F, true);
+	public static LeafParticleOptions createFastFalling(ParticleType<LeafParticleOptions> type, int textureSize) {
+		return new LeafParticleOptions(type, 0D, -0.05D, 0D, textureSize, 25F, true);
 	}
 
 	private LeafParticleOptions(
-		ParticleType<LeafParticleOptions> type, double xSpeed, double ySpeed, double zSpeed, float quadSize, float gravityScale, boolean isFastFalling
+		ParticleType<LeafParticleOptions> type, double xSpeed, double ySpeed, double zSpeed, int textureSize, float gravityScale, boolean isFastFalling
 	) {
-		this(type, new Vec3(xSpeed, ySpeed, zSpeed), quadSize, gravityScale, isFastFalling, isFastFalling);
+		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, isFastFalling);
 	}
 
 	@Contract("_, _, _, _, _, _ -> new")
 	private @NotNull static LeafParticleOptions createCodecParticleOptions(
-		ResourceLocation particleId, Vec3 velocity, float quadSize, float gravityScale, boolean isFastFalling, boolean controlVelUponSpawn
+		ResourceLocation particleId, Vec3 velocity, int textureSize, float gravityScale, boolean isFastFalling, boolean controlVelUponSpawn
 	) {
 		ParticleType<LeafParticleOptions> particleType;
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
@@ -90,16 +90,16 @@ public class LeafParticleOptions implements ParticleOptions {
 		} else {
 			particleType = WWParticleTypes.OAK_LEAVES;
 		}
-		return new LeafParticleOptions(particleType, velocity, quadSize, gravityScale, isFastFalling, controlVelUponSpawn);
+		return new LeafParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, controlVelUponSpawn);
 	}
 
 	private LeafParticleOptions(
-		ParticleType<LeafParticleOptions> type, Vec3 velocity, float quadSize, float gravityScale, boolean isFastFalling, boolean controlVelUponSpawn
+		ParticleType<LeafParticleOptions> type, Vec3 velocity, int textureSize, float gravityScale, boolean isFastFalling, boolean controlVelUponSpawn
 	) {
 		this.type = type;
 		this.particleId = BuiltInRegistries.PARTICLE_TYPE.getKey(type);
 		this.velocity = velocity;
-		this.quadSize = quadSize;
+		this.textureSize = textureSize;
 		this.gravityScale = gravityScale;
 		this.isFastFalling = isFastFalling;
 		this.controlVelUponSpawn = controlVelUponSpawn;
@@ -119,8 +119,8 @@ public class LeafParticleOptions implements ParticleOptions {
 		return this.velocity;
 	}
 
-	public float getQuadSize() {
-		return this.quadSize;
+	public int getTextureSize() {
+		return this.textureSize;
 	}
 
 	public float getGravityScale() {
