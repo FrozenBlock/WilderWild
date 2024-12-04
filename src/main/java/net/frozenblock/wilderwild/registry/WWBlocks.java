@@ -255,19 +255,22 @@ public final class WWBlocks {
 		YELLOW_MAPLE_LEAVES,
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY
+		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		5
 	);
 
 	// SCULK
@@ -1316,7 +1319,8 @@ public final class WWBlocks {
 		Block sourceBlock,
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
-		Supplier<Double> frequencyModifier
+		Supplier<Double> frequencyModifier,
+		int textureSize
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
@@ -1326,7 +1330,7 @@ public final class WWBlocks {
 			particleType,
 			0.0225F,
 			frequencyModifier,
-			0.125F,
+			textureSize,
 			3F
 		);
 		return leafLitterBlock;
@@ -1339,7 +1343,7 @@ public final class WWBlocks {
 		float litterChance,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
-		float quadSize,
+		int textureSize,
 		float particleGravityScale
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
@@ -1350,7 +1354,7 @@ public final class WWBlocks {
 			particleType,
 			particleChance,
 			frequencyModifier,
-			quadSize,
+			textureSize,
 			particleGravityScale
 		);
 		return leafLitterBlock;

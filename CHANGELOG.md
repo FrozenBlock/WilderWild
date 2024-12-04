@@ -12,6 +12,7 @@ hi
 - Removed unused Nematocyst textures.
 - Removed unused Sculk Shrieker and Stripped Cypress Log models.
 - Flipped the Hanging Tendril's item texture vertically to be more consistent with Vanilla.
+- Updated all of Wilder Wild's falling leaves textures to be consistent with Vanilla's art style.
 - Removed the Firefly's "Nectar" easter egg.
 - Fireflies now once again move inside Display Lanterns that are hanging.
 - Tumbleweed can no longer naturally spawn with Sand or Red Sand.
@@ -22,6 +23,7 @@ hi
 - Fixed Potted Mycelium Growth not being in the `minecraft:flower_pots` tag.
 - Fixed Flowering Lily Pads not being in the `minecraft:small_flowers` tag.
 - Flowering Lily Pads can now be sheared to revert to Lily Pads.
+- Cattails are once again placeable on 1.21.2+.
 - Properly updated from the old `minecraft:replaceable_plants` tag to the `minecraft:replaceable_by_trees` tag.
 - Added `WWBlockLootHelper` to significantly clean up block loot datagen.
 - Refactored Wilder Wild's rendering-related classes to be consistent with Vanilla's name scheme and structure.

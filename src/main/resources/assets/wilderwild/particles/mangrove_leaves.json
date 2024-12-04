@@ -1,8 +1,12 @@
 {
   "textures": [
+    "wilderwild:mangrove_leaf0",
     "wilderwild:mangrove_leaf1",
     "wilderwild:mangrove_leaf2",
     "wilderwild:mangrove_leaf3",
-    "wilderwild:mangrove_leaf4"
+    "wilderwild:mangrove_leaf4",
+    "wilderwild:mangrove_leaf5",
+    "wilderwild:mangrove_leaf6",
+    "wilderwild:mangrove_leaf7"
   ]
 }
