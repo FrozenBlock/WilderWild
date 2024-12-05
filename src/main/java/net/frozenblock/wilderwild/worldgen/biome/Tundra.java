@@ -81,7 +81,7 @@ public final class Tundra extends FrozenBiome {
 				double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, y * 0.0225D, false);
 				if (noise < -0.6D) {
 					return GRASS_COLOR_RED;
-				}else if (noise > 0.6D) {
+				} else if (noise > 0.6D) {
 					return GRASS_COLOR_BLUE_GREENISH;
 				} else if (noise > 0.3D) {
 					return GRASS_COLOR_LIGHTER_YELLOW;
