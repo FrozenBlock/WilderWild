@@ -124,15 +124,91 @@ public final class WWSharedWorldgen {
 		long border = firstParameter.max();
 		long secondMin = secondParameter.min();
 		if (border != secondMin)
-			throw new IllegalArgumentException("Wilder Wild: Cannot run makeParameterBorder when firstParameter's max is not equal to secondParameter's min!");
+			throw new IllegalArgumentException("FrozenLib: Cannot run makeParameterBorder when firstParameter's max is not equal to secondParameter's min!");
 
 		long firstWidth = firstParameter.max() - firstParameter.min();
 		long secondWidth = secondParameter.max() - secondParameter.min();
 		return new Climate.Parameter((long) (border - (firstWidth * percentagePerSlot)), (long) (border + (secondWidth * percentagePerSlot)));
 	}
 
-	// TODO: Move to FLIB once ML
-	public static @NotNull List<Climate.Parameter> makeOptionalParameterBorders(
+	/**
+	 * Finds borders between two {@link net.minecraft.world.level.biome.Climate.ParameterPoint}s, ignoring {@link Depth} and {@link Weirdness}.
+	 * @param point1 The first {@link net.minecraft.world.level.biome.Climate.ParameterPoint} to find borders between.
+	 * @param point2 The second {@link net.minecraft.world.level.biome.Climate.ParameterPoint} to find borders between.
+	 * @param percentagePerSlot The percentage per "slot" of worldgen noise the border should take up.
+	 * @return A {@link List} of found borders, ignoring {@link Depth} and {@link Weirdness}.
+	 */
+	public static @NotNull List<Climate.ParameterPoint> findBorderParameters(
+		Climate.@NotNull ParameterPoint point1,
+		Climate.@NotNull ParameterPoint point2,
+		float percentagePerSlot
+	) {
+		List<Climate.ParameterPoint> borders = new ArrayList<>();
+
+		List<Climate.Parameter> temperatures = findBorderParameters(point1.temperature(), point2.temperature(), percentagePerSlot);
+		if (!temperatures.isEmpty()) {
+			List<Climate.Parameter> humidities = findBorderParameters(point1.humidity(), point2.humidity(), percentagePerSlot);
+			if (!humidities.isEmpty()) {
+				List<Climate.Parameter> continentalnesses = findBorderParameters(point1.continentalness(), point2.continentalness(), percentagePerSlot);
+				if (!continentalnesses.isEmpty()) {
+					List<Climate.Parameter> erosions = findBorderParameters(point1.erosion(), point2.erosion(), percentagePerSlot);
+					if (!erosions.isEmpty()) {
+						long offset = (long) ((point1.offset() + point2.offset()) * 0.5D);
+						temperatures.forEach(temperature ->
+							humidities.forEach(humidity ->
+								continentalnesses.forEach(continentalness ->
+									erosions.forEach(erosion ->
+										borders.add(
+											new Climate.ParameterPoint(
+												temperature,
+												humidity,
+												continentalness,
+												erosion,
+												OverworldBiomeBuilderParameters.FULL_RANGE,
+												OverworldBiomeBuilderParameters.FULL_RANGE,
+												offset
+											)
+										)
+									)
+								)
+							)
+						);
+					}
+				}
+			}
+		}
+		return borders;
+	}
+
+	/**
+	 * Finds borders between two {@link List}s of {@link net.minecraft.world.level.biome.Climate.ParameterPoint}s, ignoring {@link Depth} and {@link Weirdness}.
+	 * <p>
+	 * This is best used alongside {@link OverworldBiomeBuilderParameters#getParameters(net.minecraft.resources.ResourceKey)}
+	 * @param pointList1 The first {@link List} of {@link net.minecraft.world.level.biome.Climate.ParameterPoint}s to find borders between.
+	 * @param pointList2 The second {@link List} of {@link net.minecraft.world.level.biome.Climate.ParameterPoint}s to find borders between.
+	 * @param percentagePerSlot The percentage per "slot" of worldgen noise the border should take up.
+	 * @return A {@link List} of found borders, ignoring {@link Depth} and {@link Weirdness}.
+	 */
+	public static @NotNull List<Climate.ParameterPoint> findBorderParameters(
+		@NotNull List<Climate.ParameterPoint> pointList1,
+		@NotNull List<Climate.ParameterPoint> pointList2,
+		float percentagePerSlot
+	) {
+		List<Climate.ParameterPoint> borders = new ArrayList<>();
+		pointList1.forEach(point1 -> pointList2.forEach(point2 -> borders.addAll(findBorderParameters(point1, point2, percentagePerSlot))));
+		return borders;
+	}
+
+	/**
+	 * Finds borders between two {@link net.minecraft.world.level.biome.Climate.Parameter}s.
+	 * <p>
+	 * Do note that this keeps intersections between {@link net.minecraft.world.level.biome.Climate.Parameter}s intact.
+	 * @param firstParameter The first {@link net.minecraft.world.level.biome.Climate.Parameter} to find a border between.
+	 * @param secondParameter The second {@link net.minecraft.world.level.biome.Climate.Parameter} to find a border between.
+	 * @param percentagePerSlot The percentage per "slot" of worldgen noise the border should take up.
+	 * @return A {@link List} of found borders and intersections.
+	 */
+	public static @NotNull List<Climate.Parameter> findBorderParameters(
 		Climate.@NotNull Parameter firstParameter, Climate.@NotNull Parameter secondParameter, float percentagePerSlot
 	) {
 		List<Climate.Parameter> borders = new ArrayList<>();
@@ -141,7 +217,7 @@ public final class WWSharedWorldgen {
 		List<Climate.Parameter> splitFirstParam = splitParameter(firstParameter, secondParameter);
 		List<Climate.Parameter> splitSecondParam = splitParameter(secondParameter, firstParameter);
 
-		splitFirstParam.forEach(parameter1 -> {
+		splitFirstParam.forEach(parameter1 ->
 			splitSecondParam.forEach(parameter2 -> {
 				if (parameter1.equals(parameter2) && !borders.contains(parameter1)) {
 					borders.add(parameter1);
@@ -149,38 +225,25 @@ public final class WWSharedWorldgen {
 					try {
 						Climate.Parameter borderParameter = makeParameterBorder(parameter1, parameter2, percentagePerSlot);
 						if (!borders.contains(borderParameter)) borders.add(borderParameter);
-					} catch (IllegalArgumentException ignored) {
-					}
+					} catch (IllegalArgumentException ignored) {}
 					try {
 						Climate.Parameter borderParameter = makeParameterBorder(parameter2, parameter1, percentagePerSlot);
 						if (!borders.contains(borderParameter)) borders.add(borderParameter);
-					} catch (IllegalArgumentException ignored) {
-					}
+					} catch (IllegalArgumentException ignored) {}
 				}
-			});
-		});
+			})
+		);
 
 		return borders;
 	}
-
-	// TODO: Move to FLIB once ML
-	public static @NotNull List<Climate.ParameterPoint> makeAllPossibleBorderParameters(
-		@NotNull List<Climate.ParameterPoint> params1,
-		@NotNull List<Climate.ParameterPoint> params2,
-		float percentagePerSlot
-	) {
-		List<Climate.ParameterPoint> borders = new ArrayList<>();
-
-		params1.forEach(points1 -> {
-			params2.forEach(points2 -> {
-				borders.addAll(makePossibleBorderParameters(points1, points2, percentagePerSlot));
-			});
-		});
-
-		return borders;
-	}
-
-	// TODO: Move to FLIB once ML
+	/**
+	 * Splits a {@link net.minecraft.world.level.biome.Climate.Parameter} into multiple {@link net.minecraft.world.level.biome.Climate.Parameter}s, according to a reference.
+	 * <p>
+	 * Do note that this keeps intersections between {@link net.minecraft.world.level.biome.Climate.Parameter}s intact.
+	 * @param parameter The first {@link net.minecraft.world.level.biome.Climate.Parameter}.
+	 * @param referenceParameter The {@link net.minecraft.world.level.biome.Climate.Parameter} to reference and create borders with.
+	 * @return A {@link List} of split-up {@link net.minecraft.world.level.biome.Climate.Parameter}s based on the given reference {@link net.minecraft.world.level.biome.Climate.Parameter}.
+	 */
 	@Contract(pure = true)
 	public static @NotNull List<Climate.Parameter> splitParameter(Climate.@NotNull Parameter parameter, Climate.@NotNull Parameter referenceParameter) {
 		List<Climate.Parameter> splitParameters = new ArrayList<>();
@@ -210,51 +273,5 @@ public final class WWSharedWorldgen {
 		}
 
 		return splitParameters;
-	}
-
-	// TODO: Move to FLIB once ML
-	public static @NotNull List<Climate.ParameterPoint> makePossibleBorderParameters(
-		Climate.@NotNull ParameterPoint params1,
-		Climate.@NotNull ParameterPoint params2,
-		float percentagePerSlot
-	) {
-		List<Climate.ParameterPoint> borders = new ArrayList<>();
-
-		List<Climate.Parameter> temperature = makeOptionalParameterBorders(params1.temperature(), params2.temperature(), percentagePerSlot);
-		if (!temperature.isEmpty()) {
-
-			List<Climate.Parameter> humidity = makeOptionalParameterBorders(params1.humidity(), params2.humidity(), percentagePerSlot);
-			if (!humidity.isEmpty()) {
-
-				List<Climate.Parameter> continentalness = makeOptionalParameterBorders(params1.continentalness(), params2.continentalness(), percentagePerSlot);
-				if (!continentalness.isEmpty()) {
-
-					List<Climate.Parameter> erosion = makeOptionalParameterBorders(params1.erosion(), params2.erosion(), percentagePerSlot);
-					if (!erosion.isEmpty()) {
-						long offset = (long) ((params1.offset() + params2.offset()) * 0.5D);
-						temperature.forEach(temperature1 -> {
-							humidity.forEach(humidity1 -> {
-								continentalness.forEach(continentalness1 -> {
-									erosion.forEach(erosion1 -> {
-										borders.add(
-											new Climate.ParameterPoint(
-												temperature1,
-												humidity1,
-												continentalness1,
-												erosion1,
-												OverworldBiomeBuilderParameters.FULL_RANGE,
-												OverworldBiomeBuilderParameters.FULL_RANGE,
-												offset
-											)
-										);
-									});
-								});
-							});
-						});
-					}
-				}
-			}
-		}
-		return borders;
 	}
 }

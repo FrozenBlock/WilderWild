@@ -223,7 +223,7 @@ public final class CypressWetlands extends FrozenBiome {
 				OFFSET
 			);
 
-			List<Climate.ParameterPoint> swampJungleBorders = WWSharedWorldgen.makeAllPossibleBorderParameters(
+			List<Climate.ParameterPoint> swampJungleBorders = WWSharedWorldgen.findBorderParameters(
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP),
 				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE),
 				0.35F
