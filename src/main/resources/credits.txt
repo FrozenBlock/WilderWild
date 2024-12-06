@@ -113,11 +113,10 @@ wet.noodle/Ashlyn
 Osmiooo:
  - French translation.
 
-nekkok:
- - Spanish translation.
-
 Kokoroto:
+ - Spanish translation.
  - Updated Spanish translation as of 3.0.9.
+ - Updated Spanish translation as of 3.0.10.
 
 unroman:
  - Ukranian translation.
