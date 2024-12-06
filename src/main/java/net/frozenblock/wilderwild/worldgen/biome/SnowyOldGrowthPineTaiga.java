@@ -52,7 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class SnowyOldGrowthPineTaiga extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
+	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
 	public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
 	public static final float TEMP = -0.5F;
 	public static final float DOWNFALL = 0.4F;

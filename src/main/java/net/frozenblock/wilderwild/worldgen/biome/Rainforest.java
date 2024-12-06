@@ -186,7 +186,7 @@ public final class Rainforest extends FrozenBiome {
 					WEIRDNESS_A,
 					point.offset()
 				);
-				if (point.temperature().equals(Temperature.FOUR)) {
+				if (point.temperature().equals(Temperature.WARM)) {
 					this.addSurfaceBiome(
 						parameters,
 						TEMPERATURE_B,
@@ -197,7 +197,7 @@ public final class Rainforest extends FrozenBiome {
 						point.offset()
 					);
 				}
-				if (point.temperature().equals(Temperature.THREE)) {
+				if (point.temperature().equals(Temperature.NEUTRAL)) {
 					this.addSurfaceBiome(
 						parameters,
 						TEMPERATURE_C,

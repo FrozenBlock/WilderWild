@@ -22,6 +22,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
@@ -224,7 +225,7 @@ public final class CypressWetlands extends FrozenBiome {
 				OFFSET
 			);
 
-			List<Climate.ParameterPoint> swampJungleBorders = WWSharedWorldgen.findBorderParameters(
+			List<Climate.ParameterPoint> swampJungleBorders = FrozenBiomeParameters.findBorderParameters(
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP),
 				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE),
 				0.35F
