@@ -118,6 +118,9 @@ Kokoroto:
  - Updated Spanish translation as of 3.0.9.
  - Updated Spanish translation as of 3.0.10.
 
+demorogabrtz:
+ - Brazilian Portuguese translation.
+
 unroman:
  - Ukranian translation.
  - And the new Ukranian translation!
