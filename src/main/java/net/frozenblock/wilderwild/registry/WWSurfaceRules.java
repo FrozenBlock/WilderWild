@@ -325,7 +325,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource mapleGroveRules() {
+	public static SurfaceRules.RuleSource mapleForestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.MAPLE_FOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
@@ -440,7 +440,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				temperateRainforestRules(),
 				rainforestRules(),
 				dyingForestRules(),
-				mapleGroveRules()
+				mapleForestRules()
 			)
 		);
 		WWConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
