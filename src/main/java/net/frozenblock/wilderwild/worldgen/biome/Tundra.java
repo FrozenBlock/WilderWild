@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.worldgen.biome;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
@@ -28,8 +29,6 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -50,13 +49,16 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.LegacyRandomSource;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
-	public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
-	public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
+	public static final Climate.Parameter HUMIDITY_A = Humidity.ARID;
+	public static final Climate.Parameter TEMPERATURE_B = Temperature.NEUTRAL;
 	public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
 	public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.3675F, -0.3125F);
 	public static final float TEMP = 0.25F;
@@ -65,12 +67,12 @@ public final class Tundra extends FrozenBiome {
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final int GRASS_COLOR_MAPLE = 13023096;
-	public static final int GRASS_COLOR_LIGHTER_YELLOW = 14664041;
-	public static final int GRASS_COLOR_LIGHTER_YELLOW_OLD = 14336381;
+	public static final int GRASS_COLOR_MAPLE = 14141977;
+	public static final int GRASS_COLOR_LIGHTER_YELLOW = 14141977;
+	public static final int GRASS_COLOR_LIGHTER_GREEN = 8036890;
 	public static final int GRASS_COLOR_BLUE_GREENISH = 10332287;
 	public static final int GRASS_COLOR_RED = 15030874;
-	public static final int FOLIAGE_COLOR = 15964967;
+	public static final int FOLIAGE_COLOR = 14141977;
 	public static final Tundra INSTANCE = new Tundra();
 
 	public Tundra() {
@@ -78,15 +80,16 @@ public final class Tundra extends FrozenBiome {
 		FrozenGrassColorModifiers.addGrassColorModifier(
 			this.getKey().location(),
 			(x, y, grassColor) -> {
-				double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, y * 0.0225D, false);
+				int color = GRASS_COLOR_LIGHTER_YELLOW;
+				double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0)).getValue(x * 0.0225D, y * 0.0225D, false);
 				if (noise < -0.6D) {
 					return GRASS_COLOR_RED;
-				} else if (noise > 0.6D) {
+				} else if (noise > 0.45D) {
 					return GRASS_COLOR_BLUE_GREENISH;
 				} else if (noise > 0.3D) {
-					return GRASS_COLOR_LIGHTER_YELLOW;
+					return GRASS_COLOR_LIGHTER_GREEN;
 				}
-				return grassColor;
+				return color;
 			}
 		);
 	}

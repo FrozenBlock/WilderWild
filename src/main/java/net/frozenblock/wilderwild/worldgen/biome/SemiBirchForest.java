@@ -50,7 +50,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class SemiBirchForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE_A = Temperature.THREE;
+	public static final Climate.Parameter TEMPERATURE_A = Temperature.NEUTRAL;
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
 	public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
 	public static final float TEMP = 0.65F;

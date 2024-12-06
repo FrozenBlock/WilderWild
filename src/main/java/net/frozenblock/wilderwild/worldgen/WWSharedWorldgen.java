@@ -63,7 +63,7 @@ public final class WWSharedWorldgen {
 
 	public static final class CherryGrove {
 		public static final Climate.Parameter TEMPERATURE = Temperature.NEUTRAL;
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.TWO, Humidity.FOUR);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.WET);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.MID_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5);
 		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
@@ -77,7 +77,7 @@ public final class WWSharedWorldgen {
 
 	public static final class StonyShoreTaiga {
 		public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
 		public static final Climate.Parameter CONTINENTALNESS = Continentalness.COAST;
 		public static final Climate.Parameter EROSION = Erosion.EROSION_4;
 		public static final float OFFSET = 0F;
