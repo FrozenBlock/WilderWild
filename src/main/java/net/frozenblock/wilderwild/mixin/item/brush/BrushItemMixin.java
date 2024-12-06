@@ -19,11 +19,15 @@
 package net.frozenblock.wilderwild.mixin.item.brush;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -38,10 +42,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(BrushItem.class)
 public class BrushItemMixin {
@@ -71,7 +73,7 @@ public class BrushItemMixin {
 		return blockState;
 	}
 
-	@ModifyArgs(
+	@WrapOperation(
 		method = "onUseTick",
 		at = @At(
 			value = "INVOKE",
@@ -79,12 +81,13 @@ public class BrushItemMixin {
 		)
 	)
 	public void wilderWild$playBrushSound(
-		Args args,
+		Level instance, Player player, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
 		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
-			args.set(2, scorchedBlock.brushSound);
+			soundEvent = scorchedBlock.brushSound;
 		}
+		original.call(instance, player, blockPos, soundEvent, soundSource);
 	}
 
 	@Inject(

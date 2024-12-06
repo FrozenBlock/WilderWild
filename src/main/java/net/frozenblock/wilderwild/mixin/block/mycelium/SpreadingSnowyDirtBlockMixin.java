@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.block.mycelium;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -36,22 +37,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SpreadingSnowyDirtBlock.class)
 public class SpreadingSnowyDirtBlockMixin {
-
-	@ModifyExpressionValue(
-		method = "randomTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/SpreadingSnowyDirtBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;",
-			ordinal = 0
-		)
-	)
-	public BlockState wilderWild$captureIsMycelium(
-		BlockState original,
-		@Share("wilderWild$isMycelium") LocalRef<Boolean> isMycelium
-	) {
-		isMycelium.set(original.is(Blocks.MYCELIUM));
-		return original;
-	}
 
 	@ModifyExpressionValue(
 		method = "randomTick",
@@ -77,7 +62,7 @@ public class SpreadingSnowyDirtBlockMixin {
 			ordinal = 1
 		)
 	)
-	public BlockPos wilderWild$captureAboveState(
+	public BlockPos wilderWild$captureAbovePos(
 		BlockPos original,
 		@Share("wilderWild$abovePos") LocalRef<BlockPos> abovePosRef
 	) {
@@ -94,13 +79,13 @@ public class SpreadingSnowyDirtBlockMixin {
 			shift = At.Shift.AFTER
 		)
 	)
-	public void wilderWild$captureAboveState(
+	public void wilderWild$setMyceliumGrowths(
 		BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo info,
+		@Local(ordinal = 1) BlockState defaultState,
 		@Share("wilderWild$aboveState") LocalRef<BlockState> aboveStateRef,
-		@Share("wilderWild$abovePos") LocalRef<BlockPos> abovePosRef,
-		@Share("wilderWild$isMycelium") LocalRef<Boolean> isMycelium
+		@Share("wilderWild$abovePos") LocalRef<BlockPos> abovePosRef
 	) {
-		if (isMycelium.get()) {
+		if (defaultState.is(Blocks.MYCELIUM)) {
 			BlockState aboveState = aboveStateRef.get();
 			BlockPos abovePos = abovePosRef.get();
 			if (aboveState != null && abovePos != null && aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) {

@@ -8,3 +8,4 @@ hi
 - Mangrove Swamps are no longer small and rare.
 - Fixed the wrong config being used for Windswept Savanna placement modification... again.
 - Fixed Ostrich rendering being somewhat broken on 1.21.2+.
+- Cleaned up a few mixins.

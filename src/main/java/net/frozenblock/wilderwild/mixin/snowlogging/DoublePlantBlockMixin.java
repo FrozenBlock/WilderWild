@@ -21,8 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
@@ -89,21 +88,6 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		return original || snowlogged;
 	}
 
-	@ModifyExpressionValue(
-		method = "preventDropFromBottomPart",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	private static BlockState wilderWild$preventDropFromBottomPartA(
-		BlockState original,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
-	) {
-		blockState.set(original);
-		return original;
-	}
-
 	@WrapOperation(
 		method = "preventDropFromBottomPart",
 		at = @At(
@@ -111,13 +95,13 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 			target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
 		)
 	)
-	private static boolean wilderWild$preventDropFromBottomPartB(
+	private static boolean wilderWild$preventDropFromBottomPart(
 		Level instance, BlockPos setPos, BlockState setState, int flags, Operation<Boolean> original,
 		Level level, BlockPos paramPos, BlockState state, Player player,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockState
+		@Local(ordinal = 1) BlockState bottomState
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState.get()) && setState.isAir() && setState.getFluidState().isEmpty()) {
-			setState = SnowloggingUtils.getSnowEquivalent(blockState.get());
+		if (SnowloggingUtils.isSnowlogged(bottomState) && setState.isAir() && setState.getFluidState().isEmpty()) {
+			setState = SnowloggingUtils.getSnowEquivalent(bottomState);
 		}
 		return original.call(instance, setPos, setState, flags);
 	}

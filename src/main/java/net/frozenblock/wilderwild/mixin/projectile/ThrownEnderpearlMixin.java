@@ -45,10 +45,10 @@ public class ThrownEnderpearlMixin {
 			ordinal = 0
 		)
 	)
-	public void wilderWild$onHitWithServerPlayer
-		(HitResult result, CallbackInfo info,
-		 @Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Entity entity
-		) {
+	public void wilderWild$onHitWithServerPlayer(
+		HitResult result, CallbackInfo info,
+		@Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Entity entity
+	) {
 		if (WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds && entity instanceof ServerPlayer owner) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.isSilent()) {

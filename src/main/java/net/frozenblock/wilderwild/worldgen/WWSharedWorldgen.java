@@ -18,7 +18,8 @@
 
 package net.frozenblock.wilderwild.worldgen;
 
-import net.frozenblock.lib.worldgen.biome.api.parameters.BiomeParameters;
+import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
@@ -33,11 +34,6 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public final class WWSharedWorldgen {
 	private WWSharedWorldgen() {
