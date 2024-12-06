@@ -54,7 +54,7 @@ public final class WWSharedWorldgen {
 
 	public static final class MangroveSwamp {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.HOT);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(0.050F, 0.100F), Humidity.HUMID);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.point(0.050F), Humidity.HUMID);
 
 		private MangroveSwamp() {
 			throw new UnsupportedOperationException("MangroveSwamp contains only static declarations.");
@@ -69,7 +69,6 @@ public final class WWSharedWorldgen {
 		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
 		public static final float OFFSET = 0F;
 
-
 		private CherryGrove() {
 			throw new UnsupportedOperationException("CherryGrove contains only static declarations.");
 		}
@@ -80,7 +79,6 @@ public final class WWSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
 		public static final Climate.Parameter CONTINENTALNESS = Continentalness.COAST;
 		public static final Climate.Parameter EROSION = Erosion.EROSION_4;
-		public static final float OFFSET = 0F;
 
 		private StonyShoreTaiga() {
 			throw new UnsupportedOperationException("StonyShoreTaiga contains only static declarations.");
