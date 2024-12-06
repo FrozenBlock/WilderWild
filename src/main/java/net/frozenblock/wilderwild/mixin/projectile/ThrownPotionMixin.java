@@ -40,15 +40,16 @@ public abstract class ThrownPotionMixin {
 			target = "Lnet/minecraft/server/level/ServerLevel;levelEvent(ILnet/minecraft/core/BlockPos;I)V",
 			ordinal = 0
 
-		))
+		)
+	)
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownPotion potion = ThrownPotion.class.cast(this);
-			potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
+			potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
 			if (potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getAllEffects().iterator().hasNext()) {
-				potion.playSound(WWSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.getRandom().nextFloat() * 0.2F));
+				potion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
 				if (this.isLingering()) {
-					potion.playSound(WWSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (potion.getRandom().nextFloat() * 0.2F));
+					potion.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
 				}
 			}
 		}

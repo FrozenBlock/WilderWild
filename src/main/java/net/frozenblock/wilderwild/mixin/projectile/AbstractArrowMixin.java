@@ -59,9 +59,9 @@ public class AbstractArrowMixin {
 						blockHitResult.getLocation().y(),
 						blockHitResult.getLocation().z(),
 						particleCalc == 1 ? 1 : server.random.nextIntBetweenInclusive(1, particleCalc),
-						0,
-						0,
-						0,
+						0D,
+						0D,
+						0D,
 						0.05D
 					);
 				}
