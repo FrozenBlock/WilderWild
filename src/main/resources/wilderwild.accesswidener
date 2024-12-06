@@ -77,6 +77,10 @@ accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiv
 accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer drawSelector Lnet/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer$DrawSelector;
 accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer texture Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer bufferProvider Ljava/util/function/Function;
+accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;
+mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;
+accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
+mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
 
 # Mobs
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V

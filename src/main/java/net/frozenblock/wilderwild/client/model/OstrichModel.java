@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.client.model;
 
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
+import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -26,12 +27,15 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
+import java.util.Set;
 
 public class OstrichModel extends EntityModel<OstrichRenderState> {
+	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 10F, 4F, Set.of("neck"));
 	private static final float NECK_DELAY = 0F;
 	private static final float OLD_NECK_DELAY = 0.0416375F;
 	private static final float NECK_BASE_SWING = 0.175F * 0.5F;
@@ -105,6 +109,11 @@ public class OstrichModel extends EntityModel<OstrichRenderState> {
 			.texOffs(62, 40).addBox(-3F, 10F, -6F, 6F, 0F, 6F), PartPose.offset(0F, -7F, -7F));
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
+	}
+
+	@NotNull
+	public static LayerDefinition createBabyBodyLayer() {
+		return createBodyLayer().apply(BABY_TRANSFORMER);
 	}
 
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {

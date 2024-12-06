@@ -296,6 +296,11 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
+	@NotNull
+	public static LayerDefinition createBabyBodyLayer() {
+		return createBodyLayer().apply(OstrichModel.BABY_TRANSFORMER);
+	}
+
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
 		float angleSin = Math.sin(-fastAngle);
