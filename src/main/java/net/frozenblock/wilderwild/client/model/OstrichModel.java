@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.client.model;
 
+import java.util.Set;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
@@ -32,7 +33,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
-import java.util.Set;
 
 public class OstrichModel extends EntityModel<OstrichRenderState> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 10F, 4F, Set.of("neck"));
