@@ -19,11 +19,12 @@
 package net.frozenblock.wilderwild.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -53,10 +54,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CypressWetlands extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.15F, 0.5F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
+	public static final Climate.Parameter WEIRDNESS_A = Weirdness.LOW_SLICE_NORMAL_DESCENDING;
+	public static final Climate.Parameter WEIRDNESS_B = Weirdness.LOW_SLICE_VARIANT_ASCENDING;
+	public static final Climate.Parameter WEIRDNESS_C = Weirdness.VALLEY;
+	public static final Climate.Parameter WEIRDNESS_D = Weirdness.MID_SLICE_NORMAL_ASCENDING;
+	public static final Climate.Parameter WEIRDNESS_E = Weirdness.MID_SLICE_NORMAL_DESCENDING;
+	public static final Climate.Parameter WEIRDNESS_F = Weirdness.MID_SLICE_VARIANT_ASCENDING;
+	public static final Climate.Parameter WEIRDNESS_G = Weirdness.MID_SLICE_VARIANT_DESCENDING;
 	public static final float OFFSET = 0F;
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.7F;
@@ -114,12 +122,12 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable Integer foliageColorOverride() {
+	public @NotNull Integer foliageColorOverride() {
 		return FOLIAGE_COLOR;
 	}
 
 	@Override
-	public @Nullable Integer grassColorOverride() {
+	public @NotNull Integer grassColorOverride() {
 		return GRASS_COLOR;
 	}
 
@@ -134,7 +142,7 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable AmbientMoodSettings ambientMoodSettings() {
+	public @NotNull AmbientMoodSettings ambientMoodSettings() {
 		return AmbientMoodSettings.LEGACY_CAVE_SETTINGS;
 	}
 
@@ -144,7 +152,7 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable Music backgroundMusic() {
+	public @NotNull Music backgroundMusic() {
 		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 	}
 
@@ -187,17 +195,105 @@ public final class CypressWetlands extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SWAMP)) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_A,
+				OFFSET
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_B,
+				OFFSET
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_C,
+				OFFSET
+			);
+
+			List<Climate.ParameterPoint> swampJungleBorders = WWSharedWorldgen.findBorderParameters(
+				OverworldBiomeBuilderParameters.points(Biomes.SWAMP),
+				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE),
+				0.35F
+			);
+
+			swampJungleBorders.forEach(parameterPoint -> {
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					CONTINENTALNESS,
-					EROSION,
-					point.weirdness(),
-					OFFSET
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_A,
+					parameterPoint.offset()
 				);
-			}
+				this.addSurfaceBiome(
+					parameters,
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_B,
+					parameterPoint.offset()
+				);
+				this.addSurfaceBiome(
+					parameters,
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_C,
+					parameterPoint.offset()
+				);
+				this.addSurfaceBiome(
+					parameters,
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_D,
+					parameterPoint.offset()
+				);
+				this.addSurfaceBiome(
+					parameters,
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_E,
+					parameterPoint.offset()
+				);
+				this.addSurfaceBiome(
+					parameters,
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_F,
+					parameterPoint.offset()
+				);
+				this.addSurfaceBiome(
+					parameters,
+					parameterPoint.temperature(),
+					parameterPoint.humidity(),
+					parameterPoint.continentalness(),
+					parameterPoint.erosion(),
+					WEIRDNESS_G,
+					parameterPoint.offset()
+				);
+			});
 		}
 	}
 
