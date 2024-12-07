@@ -476,6 +476,9 @@ modrinth {
 
 val github by tasks.register("github") {
     dependsOn(remapJar)
+    dependsOn(sourcesJar)
+    dependsOn(javadocJar)
+
     val env = System.getenv()
     val token = env["GITHUB_TOKEN"]
     val repoVar = env["GITHUB_REPOSITORY"]

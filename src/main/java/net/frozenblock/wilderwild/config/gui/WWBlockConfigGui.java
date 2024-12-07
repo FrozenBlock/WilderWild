@@ -157,6 +157,19 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		var chestBubbling = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("chest_bubbling"), modifiedConfig.chestBubbling)
+					.setDefaultValue(defaultConfig.chestBubbling)
+					.setSaveConsumer(newValue -> config.chestBubbling = newValue)
+					.setTooltip(tooltip("chest_bubbling"))
+					.build(),
+				clazz,
+				"chestBubbling",
+				configInstance
+			)
+		);
+
 		var thickBigFungusGrowth = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)

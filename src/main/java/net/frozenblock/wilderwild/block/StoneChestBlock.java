@@ -25,6 +25,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
+import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -193,23 +194,6 @@ public class StoneChestBlock extends ChestBlock {
 		}
 	}
 
-	@Nullable
-	public static StoneChestBlockEntity getOtherChest(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		if (chestType == ChestType.RIGHT) {
-			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
-		} else if (chestType == ChestType.LEFT) {
-			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
-		} else {
-			return null;
-		}
-		if (level.getBlockEntity(mutableBlockPos) instanceof StoneChestBlockEntity chest) {
-			return chest;
-		}
-		return null;
-	}
-
 	@NotNull
 	@Override
 	public MapCodec<? extends StoneChestBlock> codec() {
@@ -256,11 +240,14 @@ public class StoneChestBlock extends ChestBlock {
 					level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
 				}
 			}
-			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
-			if (otherChest != null) {
-				((ChestBlockEntityInterface) stoneChest).wilderWild$syncBubble(stoneChest, otherChest);
-			}
-			stoneChest.syncLidValuesAndUpdate(otherChest);
+
+			Optional<StoneChestBlockEntity> possibleCoupledStoneChest = ChestUtil.getCoupledStoneChestBlockEntity(level, pos, state);
+			possibleCoupledStoneChest.ifPresent(otherStoneChest -> {
+				if (otherStoneChest instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
+					chestBlockEntityInterface.wilderWild$syncBubble(stoneChest, otherStoneChest);
+				}
+			});
+			stoneChest.syncLidValuesAndUpdate(possibleCoupledStoneChest.orElse(null));
 		}
 		return InteractionResult.CONSUME;
 	}
@@ -306,12 +293,12 @@ public class StoneChestBlock extends ChestBlock {
 		BlockState neighborState,
 		RandomSource randomSource
 	) {
-		if (!blockState.hasProperty(WATERLOGGED)) return blockState;
 		if (blockState.getValue(WATERLOGGED)) {
 			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 		}
+
+		BlockState retState = blockState;
 		if (neighborState.is(this) && direction.getAxis().isHorizontal()) {
-			//if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
 			ChestType chestType = neighborState.getValue(TYPE);
 			if (blockState.getValue(TYPE) == ChestType.SINGLE
 				&& chestType != ChestType.SINGLE
@@ -319,46 +306,16 @@ public class StoneChestBlock extends ChestBlock {
 				&& blockState.getValue(ANCIENT) == neighborState.getValue(ANCIENT)
 				&& ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()
 			) {
-				BlockState retState = blockState.setValue(TYPE, chestType.getOpposite());
-				updateBubbles(blockState, retState, levelReader, blockPos);
-				return retState;
+				retState = blockState.setValue(TYPE, chestType.getOpposite());
 			}
-			//}
 		} else if (ChestBlock.getConnectedDirection(blockState) == direction) {
-			BlockState retState = blockState.setValue(TYPE, ChestType.SINGLE);
-			updateBubbles(blockState, retState, levelReader, blockPos);
-			return retState;
+			retState = blockState.setValue(TYPE, ChestType.SINGLE);
+		} else {
+			retState = super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 		}
-		BlockState retState = super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
-		updateBubbles(blockState, retState, levelReader, blockPos);
-		return retState;
-	}
 
-	public void updateBubbles(@NotNull BlockState oldState, @NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos currentPos) {
-		if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
-			StoneChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
-			if (otherChest != null) {
-				BlockState otherState = level.getBlockState(otherChest.getBlockPos());
-				boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
-				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
-						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(true);
-					} else if (!((ChestBlockEntityInterface) otherChest).wilderWild$getCanBubble()) {
-						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(false);
-						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
-					}
-				}
-			} else {
-				boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
-				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
-				}
-			}
-			if (otherChest != null) {
-				((ChestBlockEntityInterface) chest).wilderWild$syncBubble(chest, otherChest);
-			}
-		}
+		ChestUtil.updateBubbles(blockState, retState, levelReader, blockPos);
+		return retState;
 	}
 
 	@Override
@@ -382,14 +339,19 @@ public class StoneChestBlock extends ChestBlock {
 				chestType = ChestType.RIGHT;
 			}
 		}
+
 		BlockState retState = this.defaultBlockState().setValue(FACING, direction).setValue(TYPE, chestType).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-		StoneChestBlockEntity otherChest = getOtherChest(level, pos, retState);
-		if (otherChest != null) {
-			if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest) {
-				((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(((ChestBlockEntityInterface) otherChest).wilderWild$getCanBubble());
-				((ChestBlockEntityInterface) chest).wilderWild$syncBubble(chest, otherChest);
+
+		ChestUtil.getCoupledStoneChestBlockEntity(level, pos, retState).ifPresent(coupledStoneChest -> {
+			if (
+				coupledStoneChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
+				&& level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest
+				&& chest instanceof ChestBlockEntityInterface chestInterface
+			) {
+				chestInterface.wilderWild$setCanBubble(coupledStoneChestInterface.wilderWild$getCanBubble());
+				chestInterface.wilderWild$syncBubble(chest, coupledStoneChest);
 			}
-		}
+		});
 		return retState;
 	}
 
@@ -401,16 +363,17 @@ public class StoneChestBlock extends ChestBlock {
 
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean moved) {
-		if (state.is(newState.getBlock())) {
-			return;
-		}
+		if (state.is(newState.getBlock())) return;
+
 		if (!level.isClientSide) {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
-				((ChestBlockEntityInterface) stoneChestBlock).wilderWild$bubbleBurst(state);
+			if (blockEntity instanceof StoneChestBlockEntity stoneChest) {
+				if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) {
+					stoneChestInterface.wilderWild$bubbleBurst(state);
+				}
 
-				stoneChestBlock.unpackLootTable(null);
-				ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
+				stoneChest.unpackLootTable(null);
+				ArrayList<ItemStack> ancientItems = stoneChest.ancientItems();
 				if (!ancientItems.isEmpty()) {
 					level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
 					for (ItemStack taunt : ancientItems) {
@@ -420,7 +383,7 @@ public class StoneChestBlock extends ChestBlock {
 					}
 				}
 				RandomSource random = level.getRandom();
-				for (ItemStack item : stoneChestBlock.nonAncientItems()) {
+				for (ItemStack item : stoneChest.nonAncientItems()) {
 					double d = EntityType.ITEM.getWidth();
 					double e = 1D - d;
 					double f = d / 2D;
@@ -452,8 +415,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	@Override
 	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof StoneChestBlockEntity stoneChestBlockEntity) {
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
 			return stoneChestBlockEntity.getComparatorOutput();
 		}
 		return 0;
