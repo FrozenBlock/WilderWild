@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import net.frozenblock.wilderwild.block.StoneChestBlock;
+import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -101,35 +101,36 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
-		ServerLevel serverLevel = (ServerLevel) level;
-		StoneChestBlockEntity otherChest = StoneChestBlock.getOtherChest(serverLevel, pos, state);
-		long gameTime = level.getGameTime();
-		if (gameTime != stoneChest.updateTime) {
-			if (stoneChest.cooldownTicks > 0) {
-				--stoneChest.cooldownTicks;
-			}
-			stoneChest.prevOpenProgress = stoneChest.openProgress;
-			if (stoneChest.stillLidTicks > 0) {
-				stoneChest.stillLidTicks -= 1;
-			} else if (stoneChest.openProgress > 0F) {
-				level.updateNeighbourForOutputSignal(pos, stoneChest.getBlockState().getBlock());
-				serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
-				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
-				if (!stoneChest.closing) {
-					stoneChest.closing = true;
-					playSound(serverLevel, pos, state, WWSounds.BLOCK_STONE_CHEST_CLOSE_START, WWSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
+		if (level instanceof ServerLevel serverLevel) {
+			StoneChestBlockEntity coupledStoneChest = ChestUtil.getCoupledStoneChestBlockEntity(serverLevel, pos, state).orElse(null);
+			long gameTime = level.getGameTime();
+			if (gameTime != stoneChest.updateTime) {
+				if (stoneChest.cooldownTicks > 0) {
+					--stoneChest.cooldownTicks;
 				}
-				if (stoneChest.openProgress <= 0F) {
-					stoneChest.onLidSlam(serverLevel, pos, state, otherChest);
+				stoneChest.prevOpenProgress = stoneChest.openProgress;
+				if (stoneChest.stillLidTicks > 0) {
+					stoneChest.stillLidTicks -= 1;
+				} else if (stoneChest.openProgress > 0F) {
+					level.updateNeighbourForOutputSignal(pos, stoneChest.getBlockState().getBlock());
+					serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
+					stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
+					if (!stoneChest.closing) {
+						stoneChest.closing = true;
+						playSound(serverLevel, pos, state, WWSounds.BLOCK_STONE_CHEST_CLOSE_START, WWSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
+					}
+					if (stoneChest.openProgress <= 0F) {
+						stoneChest.onLidSlam(serverLevel, pos, state, coupledStoneChest);
+					}
 				}
+				stoneChest.updateTime = gameTime;
+				stoneChest.syncLidValuesAndUpdate(coupledStoneChest);
 			}
-			stoneChest.updateTime = gameTime;
-			stoneChest.syncLidValuesAndUpdate(otherChest);
 		}
 	}
 
 	public static void clientStoneTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
-		StoneChestBlockEntity otherChest = StoneChestBlock.getOtherChest(level, pos, state);
+		StoneChestBlockEntity coupledStoneChest = ChestUtil.getCoupledStoneChestBlockEntity(level, pos, state).orElse(null);
 		long gameTime = level.getGameTime();
 		if (gameTime != stoneChest.updateTime) {
 			stoneChest.prevOpenProgress = stoneChest.openProgress;
@@ -142,11 +143,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 				stoneChest.closing = true;
 				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
 				if (stoneChest.openProgress <= 0F) {
-					stoneChest.onLidSlam(level, pos, state, otherChest);
+					stoneChest.onLidSlam(level, pos, state, coupledStoneChest);
 				}
 			}
 			stoneChest.updateTime = gameTime;
-			stoneChest.syncLidValuesAndUpdate(otherChest);
+			stoneChest.syncLidValuesAndUpdate(coupledStoneChest);
 		}
 	}
 
