@@ -27,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.ChestBlock;
@@ -82,6 +83,26 @@ public class ChestBlockMixin {
 		return original;
 	}
 
+	@ModifyReturnValue(method = "getStateForPlacement", at = @At(value = "RETURN"))
+	public BlockState wilderWild$getStateForPlacement(
+		BlockState original,
+		BlockPlaceContext blockPlaceContext
+	) {
+		Level level = blockPlaceContext.getLevel();
+		BlockPos pos = blockPlaceContext.getClickedPos();
+		ChestUtil.getCoupledChestBlockEntity(level, pos, original).ifPresent(coupledChest -> {
+			if (
+				coupledChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
+					&& level.getBlockEntity(pos) instanceof ChestBlockEntity chest
+					&& chest instanceof ChestBlockEntityInterface chestInterface
+			) {
+				chestInterface.wilderWild$setCanBubble(coupledStoneChestInterface.wilderWild$getCanBubble());
+				chestInterface.wilderWild$syncBubble(chest, coupledChest);
+			}
+		});
+		return original;
+	}
+
 	@Inject(
 		method = "onRemove",
 		at = @At(
@@ -90,7 +111,7 @@ public class ChestBlockMixin {
 		)
 	)
 	public void wilderWild$onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
-		if (level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
+		if (!level.isClientSide && !state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
 			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
 		}
 	}

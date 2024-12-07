@@ -85,8 +85,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Override
 	public void wilderWild$bubbleBurst(BlockState state) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		Level level = chest.getLevel();
-		if (level instanceof ServerLevel server) {
+		if (chest.getLevel() instanceof ServerLevel server) {
 			BlockPos pos = chest.getBlockPos();
 			if (state.getFluidState().is(Fluids.WATER) && this.wilderWild$getCanBubble()) {
 				server.sendParticles(

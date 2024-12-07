@@ -3,5 +3,5 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Optimized and cleaned up code related to chest bubbling.
+- Fixed non-stone Chests bubbling upon being placed into a Double-Chest underwater.
 - Cleaned up and optimized more mixins.
