@@ -151,7 +151,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		}
 	}
 
-	public static void playSound(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SoundEvent soundEvent, @NotNull SoundEvent waterloggedSoundEvent, float volume) {
+	public static void playSound(
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull SoundEvent soundEvent,
+		@NotNull SoundEvent waterloggedSoundEvent,
+		float volume
+	) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX() + 0.5D;
 		double y = pos.getY() + 0.5D;
@@ -165,7 +172,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			x -= direction.getStepX() * 0.5D;
 			z -= direction.getStepZ() * 0.5D;
 		}
-		level.playSound(null, x, y, z, state.getValue(BlockStateProperties.WATERLOGGED) ? waterloggedSoundEvent : soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
+		level.playSound(
+			null,
+			x,
+			y,
+			z,
+			state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.get().chestBubbling ? waterloggedSoundEvent : soundEvent,
+			SoundSource.BLOCKS,
+			volume,
+			level.random.nextFloat() * 0.18F + 0.9F
+		);
 	}
 
 	@Override
