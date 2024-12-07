@@ -5,3 +5,4 @@ hi
 -----------------
 - Fixed non-stone Chests bubbling upon being placed into a Double-Chest underwater.
 - Cleaned up and optimized more mixins.
+- Fixed a crash with VMP.
