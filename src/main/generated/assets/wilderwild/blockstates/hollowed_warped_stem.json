@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "wilderwild:block/hollowed_warped_stem",
+      "model": "wilderwild:block/hollowed_warped_stem_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "wilderwild:block/hollowed_warped_stem"
     },
     "axis=z": {
-      "model": "wilderwild:block/hollowed_warped_stem",
+      "model": "wilderwild:block/hollowed_warped_stem_horizontal",
       "x": 90
     }
   }

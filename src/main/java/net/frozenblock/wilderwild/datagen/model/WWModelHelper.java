@@ -75,9 +75,14 @@ public final class WWModelHelper {
 	);
 	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
-	private static final ModelTemplate HOLLOWED_LOG_MODEL = new ModelTemplate(
+	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
 		Optional.empty(),
+		TextureSlot.SIDE, TextureSlot.INSIDE, TextureSlot.END
+	);
+	private static final ModelTemplate HORIZONTAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_hollowed_log_horizontal")),
+		Optional.of("_horizontal"),
 		TextureSlot.SIDE, TextureSlot.INSIDE, TextureSlot.END
 	);
 	private static final ModelTemplate MESOGLEA_MODEL = new ModelTemplate(
@@ -150,21 +155,22 @@ public final class WWModelHelper {
 		hollowedTextureMapping.put(TextureSlot.INSIDE, insideTextureMapping.get(TextureSlot.SIDE));
 		hollowedTextureMapping.put(TextureSlot.END, endTextureMapping.get(TextureSlot.END));
 
-		ResourceLocation modelId = HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
+		ResourceLocation verticalModelId = VERTICAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
+		ResourceLocation horizontalModelId = HORIZONTAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
 		MultiVariantGenerator multiVariantGenerator = MultiVariantGenerator.multiVariant(hollowedLog)
 			.with(PropertyDispatch.property(BlockStateProperties.AXIS)
-				.select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelId))
+				.select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, verticalModelId))
 				.select(
-					Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelId)
+					Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, horizontalModelId)
 						.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 				).select(
-					Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelId)
+					Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, horizontalModelId)
 						.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 						.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
 				)
 			);
 		generator.blockStateOutput.accept(multiVariantGenerator);
-		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(modelId));
+		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(verticalModelId));
 	}
 
 	public static void createMesoglea(@NotNull BlockModelGenerators generator, Block mesogleaBlock) {

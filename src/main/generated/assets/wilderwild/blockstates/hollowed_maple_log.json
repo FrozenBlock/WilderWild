@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "wilderwild:block/hollowed_maple_log",
+      "model": "wilderwild:block/hollowed_maple_log_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "wilderwild:block/hollowed_maple_log"
     },
     "axis=z": {
-      "model": "wilderwild:block/hollowed_maple_log",
+      "model": "wilderwild:block/hollowed_maple_log_horizontal",
       "x": 90
     }
   }

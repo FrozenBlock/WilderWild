@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "wilderwild:block/stripped_hollowed_mangrove_log",
+      "model": "wilderwild:block/stripped_hollowed_mangrove_log_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "wilderwild:block/stripped_hollowed_mangrove_log"
     },
     "axis=z": {
-      "model": "wilderwild:block/stripped_hollowed_mangrove_log",
+      "model": "wilderwild:block/stripped_hollowed_mangrove_log_horizontal",
       "x": 90
     }
   }
