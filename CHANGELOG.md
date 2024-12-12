@@ -1,5 +1,5 @@
 Please clear changelog after each release.
-Thank you!
+Thank you :3
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
@@ -7,3 +7,4 @@ hi
 - Added a config to control whether Chests can bubble.
 - Cleaned up and optimized more mixins.
 - Fixed a crash with VMP.
+- Fixed incorrect Hollowed Log UV mapping.
