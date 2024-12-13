@@ -67,11 +67,12 @@ public final class Tundra extends FrozenBiome {
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final int GRASS_COLOR_MAPLE = 14141977;
-	public static final int GRASS_COLOR_LIGHTER_YELLOW = 14141977;
-	public static final int GRASS_COLOR_LIGHTER_GREEN = 8036890;
+	public static final int GRASS_COLOR_MAPLE = 13023096;
+	public static final int GRASS_COLOR_ORANGE = 15449437;
+	public static final int GRASS_COLOR_LIGHTER_GREEN = 10658422;
 	public static final int GRASS_COLOR_BLUE_GREENISH = 10332287;
-	public static final int GRASS_COLOR_RED = 15030874;
+	public static final int GRASS_COLOR_BROWN = 12420445;
+	public static final int GRASS_COLOR_RED = 15694635;
 	public static final int FOLIAGE_COLOR = 14141977;
 	public static final Tundra INSTANCE = new Tundra();
 
@@ -80,16 +81,19 @@ public final class Tundra extends FrozenBiome {
 		FrozenGrassColorModifiers.addGrassColorModifier(
 			this.getKey().location(),
 			(x, y, grassColor) -> {
-				int color = GRASS_COLOR_LIGHTER_YELLOW;
 				double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0)).getValue(x * 0.0225D, y * 0.0225D, false);
-				if (noise < -0.6D) {
-					return GRASS_COLOR_RED;
-				} else if (noise > 0.45D) {
+				if (noise < -0.5D) {
+					return GRASS_COLOR_BROWN;
+				} else if (noise < -0.35D) {
+					return GRASS_COLOR_ORANGE;
+				} else if (noise > 0.8D) {
 					return GRASS_COLOR_BLUE_GREENISH;
-				} else if (noise > 0.3D) {
+				} else if (noise > 0.5D) {
 					return GRASS_COLOR_LIGHTER_GREEN;
+				} else if (noise > 0.3D) {
+					return GRASS_COLOR_RED;
 				}
-				return color;
+				return grassColor;
 			}
 		);
 	}
