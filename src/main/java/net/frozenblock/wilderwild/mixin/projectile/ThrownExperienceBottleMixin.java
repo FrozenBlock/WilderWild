@@ -41,7 +41,7 @@ public class ThrownExperienceBottleMixin {
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownExperienceBottle expBottle = ThrownExperienceBottle.class.cast(this);
-			expBottle.playSound(WWSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH, 1.0F, 0.85F + (expBottle.getRandom().nextFloat() * 0.2F));
+			expBottle.playSound(WWSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH, 1F, 0.85F + (expBottle.getRandom().nextFloat() * 0.2F));
 		}
 	}
 

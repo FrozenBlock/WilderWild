@@ -70,7 +70,6 @@ public final class WWMiscGeneration {
 				(biomeSelectionContext, context) -> {
 					if (WWWorldgenConfig.get().surfaceDecoration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_COARSE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_RARE.getKey());
 						}

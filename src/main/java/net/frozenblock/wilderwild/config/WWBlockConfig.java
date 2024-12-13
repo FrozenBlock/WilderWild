@@ -131,6 +131,9 @@ public final class WWBlockConfig {
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 
+	@EntrySyncData(value = "chestBubbling")
+	public boolean chestBubbling = true;
+
 	@EntrySyncData("thickBigFungusGrowth")
 	public boolean thickBigFungusGrowth = true;
 

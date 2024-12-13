@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class BirchJungle extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.HUMID, Climate.Parameter.point(0.35F));
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.WET, Climate.Parameter.point(0.35F));
 	public static final float TEMP = 0.825F;
 	public static final float DOWNFALL = 0.85F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;

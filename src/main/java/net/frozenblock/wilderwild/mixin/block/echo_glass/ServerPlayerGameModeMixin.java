@@ -18,11 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.block.echo_glass;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -48,21 +46,6 @@ public abstract class ServerPlayerGameModeMixin {
 	@Final
 	protected ServerPlayer player;
 
-	@ModifyExpressionValue(
-		method = "destroyBlock",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$destroyBlockEchoA(
-		BlockState original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
-	) {
-		destroyedState.set(original);
-		return original;
-	}
-
 	@WrapOperation(
 		method = "destroyBlock",
 		at = @At(
@@ -70,15 +53,14 @@ public abstract class ServerPlayerGameModeMixin {
 			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
 		)
 	)
-	public boolean wilderWild$destroyBlockEchoB(
+	public boolean wilderWild$destroyBlockEcho(
 		ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+		@Local(ordinal = 1) BlockState destroyedState
 	) {
-		BlockState blockState = destroyedState.get();
-		if (blockState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(blockState) && !this.getGameModeForPlayer().isCreative()) {
+		if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getGameModeForPlayer().isCreative()) {
 			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.player.getMainHandItem()) < 1) {
-				EchoGlassBlock.setDamagedState(instance, pos, blockState);
+				EchoGlassBlock.setDamagedState(instance, pos, destroyedState);
 				return true;
 			}
 		}

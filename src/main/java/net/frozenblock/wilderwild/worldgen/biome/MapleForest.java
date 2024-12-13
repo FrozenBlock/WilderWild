@@ -50,7 +50,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MapleForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.215F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.3F);
 	public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);

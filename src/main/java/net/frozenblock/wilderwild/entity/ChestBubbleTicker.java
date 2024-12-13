@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.lib.entity.api.SilentTicker;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,7 +57,7 @@ public class ChestBubbleTicker extends SilentTicker {
 			if (level instanceof ServerLevel server) {
 				BlockState state = level.getBlockState(pos);
 				if (level.getBlockEntity(pos) instanceof ChestBlockEntity && state.getBlock() instanceof ChestBlock) {
-					if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
+					if (state.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
 						double additionalX = 0.5D;
 						double additionalZ = 0.5D;
 						if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {

@@ -55,8 +55,16 @@ public final class OverworldBiomeBuilderMixin {
 	private Climate.Parameter[] temperatures;
 
 	@Shadow
-	private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
-	}
+	private void addSurfaceBiome(
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+		Climate.Parameter temperature,
+		Climate.Parameter humidity,
+		Climate.Parameter continentalness,
+		Climate.Parameter erosion,
+		Climate.Parameter weirdness,
+		final float offset,
+		ResourceKey<Biome> biome
+	) {}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$injectBiomes(CallbackInfo info) {
@@ -167,12 +175,12 @@ public final class OverworldBiomeBuilderMixin {
 
 	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT",  args = "intValue=1"), require = 0)
 	private int wilderWild$fixWindsweptSavannaTemperature(int original) {
-		return WWWorldgenConfig.get().biomePlacement.modifySwampPlacement ? 2 : original;
+		return WWWorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
 	}
 
 	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT",  args = "intValue=4"), require = 0)
 	private int wilderWild$fixWindsweptSavannaHumidity(int original) {
-		return WWWorldgenConfig.get().biomePlacement.modifySwampPlacement ? 2 : original;
+		return WWWorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
 	}
 
 }

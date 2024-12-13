@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.tag;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -26,8 +27,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Instrument;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 
 public final class WWInstrumentTagProvider extends FabricTagProvider<Instrument> {
 
