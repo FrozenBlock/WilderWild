@@ -545,8 +545,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.SAND_BEACHES)
 			.add(Biomes.DARK_FOREST)
@@ -847,7 +846,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MARIGOLD_SPARSE)
 			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+			.addOptional(WWBiomes.DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PINK_TULIP_UNCOMMON)
 			.addOptional(WWBiomes.MAPLE_FOREST);
@@ -950,7 +950,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RARE_SEEDING_DANDELION)
-			.add(Biomes.PLAINS);
+			.add(Biomes.PLAINS)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MILKWEED)
 			.add(Biomes.BIRCH_FOREST)
@@ -1321,15 +1322,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LARGE_FERN_AND_GRASS)
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-			.add(Biomes.OLD_GROWTH_PINE_TAIGA)
-			.addOptional(WWBiomes.TUNDRA);
+			.add(Biomes.OLD_GROWTH_PINE_TAIGA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LARGE_FERN_AND_GRASS_RARE)
 			.add(Biomes.TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
-			.addOptional(WWBiomes.DARK_TAIGA);
+			.addOptional(WWBiomes.DARK_TAIGA)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_NEW_RARE_GRASS)
 			.add(Biomes.WINDSWEPT_FOREST)

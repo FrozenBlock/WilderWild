@@ -1,5 +1,9 @@
 {
   "values": [
-    "minecraft:plains"
+    "minecraft:plains",
+    {
+      "id": "wilderwild:tundra",
+      "required": false
+    }
   ]
 }

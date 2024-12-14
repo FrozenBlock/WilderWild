@@ -23,9 +23,9 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.FrozenGrassColorModifiers;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -45,7 +45,6 @@ import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -56,11 +55,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
-	public static final Climate.Parameter HUMIDITY_A = Humidity.ARID;
-	public static final Climate.Parameter TEMPERATURE_B = Temperature.NEUTRAL;
-	public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
-	public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.3675F, -0.3125F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.225F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.15F);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+	public static final Climate.Parameter WEIRDNESS_C = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
+	public static final Climate.Parameter WEIRDNESS_E = Weirdness.PEAK_VARIANT;
+	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
+	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(-0.250F, 1F);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.25F;
 	public static final float DOWNFALL = 0.8F;
 	public static final int WATER_COLOR = 2508679;
@@ -202,35 +206,33 @@ public final class Tundra extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateFlowerField) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_A,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_B,
-					HUMIDITY_B,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_AB,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-			}
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_A,
+				WEIRDNESS_A,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_A,
+				WEIRDNESS_B,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_B,
+				WEIRDNESS_E,
+				0F
+			);
 		}
 	}
 
