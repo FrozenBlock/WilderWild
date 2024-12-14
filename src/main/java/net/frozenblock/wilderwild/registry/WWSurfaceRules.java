@@ -458,7 +458,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 			SurfaceRules.sequence(
 				betaBeaches(),
 				cypressSurfaceRules(),
-				tundraSurfaceRules(),
+				//tundraSurfaceRules(),
 				warmRiverRules(),
 				warmBeachRules(),
 				oasisRules(),
