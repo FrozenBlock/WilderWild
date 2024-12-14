@@ -64,34 +64,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource tundraSurfaceRules() {
-		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.TUNDRA),
-			SurfaceRules.ifTrue(
-				SurfaceRules.ON_FLOOR,
-				SurfaceRules.ifTrue(
-					SurfaceRules.yBlockCheck(
-						VerticalAnchor.absolute(60),
-						0
-					),
-					SurfaceRules.ifTrue(
-						SurfaceRules.not(
-							SurfaceRules.yBlockCheck(
-								VerticalAnchor.absolute(63),
-								0
-							)
-						),
-						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WWNoise.TUNDRA_NOISE_KEY, 0.0),
-							FrozenSurfaceRules.WATER
-						)
-					)
-				)
-			)
-		);
-	}
-
-	@NotNull
 	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(Block fallingBlock, Block safeBlock) {
 		SurfaceRules.RuleSource fallingBlockSource = FrozenSurfaceRules.makeStateRule(fallingBlock);
 		SurfaceRules.RuleSource safeBlockSource = FrozenSurfaceRules.makeStateRule(safeBlock);
@@ -381,6 +353,34 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource tundraRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(WWBiomes.TUNDRA),
+			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.waterBlockCheck(-1, 0),
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SURFACE, 0.023, 0.095),
+							FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
+						),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.3667, 0.4),
+							FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
+							//Deviation 0.0333
+							//Middle 0.18335
+						),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.34005, 0.42665),
+							FrozenSurfaceRules.COARSE_DIRT
+						)
+					)
+				)
+			)
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.GRAVEL_BEACH),
@@ -458,7 +458,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 			SurfaceRules.sequence(
 				betaBeaches(),
 				cypressSurfaceRules(),
-				//tundraSurfaceRules(),
 				warmRiverRules(),
 				warmBeachRules(),
 				oasisRules(),
@@ -469,7 +468,8 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				temperateRainforestRules(),
 				rainforestRules(),
 				dyingForestRules(),
-				mapleForestRules()
+				mapleForestRules(),
+				tundraRules()
 			)
 		);
 		WWConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
