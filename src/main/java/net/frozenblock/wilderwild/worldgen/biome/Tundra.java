@@ -55,10 +55,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.225F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.215F);
+	public static final Climate.Parameter TEMPERATURE_TRANSITION = Climate.Parameter.span(-0.215F, -0.200F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.15F);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_ASCENDING);
-	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+	public static final Climate.Parameter HUMIDITY_TRANSITION = Climate.Parameter.span(-0.15F, -0.075F);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.LOW_SLICE_NORMAL_DESCENDING);
 	public static final Climate.Parameter WEIRDNESS_C = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
 	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
 	public static final Climate.Parameter WEIRDNESS_E = Weirdness.PEAK_VARIANT;
@@ -72,11 +73,11 @@ public final class Tundra extends FrozenBiome {
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final int GRASS_COLOR_MAPLE = 13023096;
-	public static final int GRASS_COLOR_ORANGE = 15449437;
-	public static final int GRASS_COLOR_LIGHTER_GREEN = 10658422;
+	public static final int GRASS_COLOR_ORANGE = 14138727;
+	public static final int GRASS_COLOR_LIGHTER_GREEN = 11974282;
 	public static final int GRASS_COLOR_BLUE_GREENISH = 10332287;
-	public static final int GRASS_COLOR_BROWN = 12420445;
-	public static final int GRASS_COLOR_RED = 15694635;
+	public static final int GRASS_COLOR_BROWN = 13078375;
+	public static final int GRASS_COLOR_RED = 13738845;
 	public static final int FOLIAGE_COLOR = 14141977;
 	public static final Tundra INSTANCE = new Tundra();
 
@@ -217,17 +218,44 @@ public final class Tundra extends FrozenBiome {
 			);
 			this.addSurfaceBiome(
 				parameters,
-				TEMPERATURE,
-				HUMIDITY,
+				TEMPERATURE_TRANSITION,
+				HUMIDITY_TRANSITION,
 				CONTINENTALNESS,
 				EROSION_A,
-				WEIRDNESS_B,
+				WEIRDNESS_A,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_TRANSITION,
+				HUMIDITY_TRANSITION,
+				CONTINENTALNESS,
+				EROSION_A,
+				WEIRDNESS_C,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_TRANSITION,
+				HUMIDITY_TRANSITION,
+				CONTINENTALNESS,
+				EROSION_A,
+				WEIRDNESS_D,
 				0F
 			);
 			this.addSurfaceBiome(
 				parameters,
 				TEMPERATURE,
 				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_B,
+				WEIRDNESS_E,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_TRANSITION,
+				HUMIDITY_TRANSITION,
 				CONTINENTALNESS,
 				EROSION_B,
 				WEIRDNESS_E,

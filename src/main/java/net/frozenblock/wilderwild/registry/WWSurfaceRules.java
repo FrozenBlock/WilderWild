@@ -361,7 +361,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.023, 0.095),
+							SurfaceRules.noiseCondition(Noises.SURFACE, 0.0473, 0.125),
 							FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
 						),
 						SurfaceRules.ifTrue(
