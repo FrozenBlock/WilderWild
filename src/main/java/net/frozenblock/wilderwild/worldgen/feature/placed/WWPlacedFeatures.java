@@ -1241,7 +1241,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FLOWER_PLAINS.makeAndSetHolder(WWConfiguredFeatures.FLOWER_PLAINS.getHolder(),
-			CountPlacement.of(1), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

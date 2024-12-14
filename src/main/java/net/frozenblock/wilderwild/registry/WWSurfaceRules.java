@@ -361,17 +361,21 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.0473, 0.125),
+							SurfaceRules.noiseCondition(Noises.SURFACE, 0.525D, 0.725D),
 							FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.3667, 0.4),
+							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.3667D, 0.4D),
 							FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
 							//Deviation 0.0333
 							//Middle 0.18335
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.34005, 0.42665),
+							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.34005D, 0.42665D),
+							FrozenSurfaceRules.COARSE_DIRT
+						),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, -0.7250D, -0.525D),
 							FrozenSurfaceRules.COARSE_DIRT
 						)
 					)

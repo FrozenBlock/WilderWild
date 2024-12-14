@@ -17,16 +17,19 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:white_tulip"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
+                "Name": "minecraft:oxeye_daisy"
               },
               {
                 "Name": "minecraft:oxeye_daisy"
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:oxeye_daisy"
+              },
+              {
+                "Name": "minecraft:oxeye_daisy"
+              },
+              {
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "minecraft:dandelion"
@@ -35,7 +38,10 @@
                 "Name": "minecraft:dandelion"
               },
               {
-                "Name": "minecraft:orange_tulip"
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
               },
               {
                 "Name": "minecraft:poppy"
@@ -44,10 +50,13 @@
                 "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:red_tulip"
+                "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:pink_tulip"
+                "Name": "minecraft:allium"
+              },
+              {
+                "Name": "minecraft:allium"
               },
               {
                 "Name": "minecraft:allium"
@@ -63,6 +72,15 @@
               },
               {
                 "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:cornflower"
               },
               {
                 "Name": "minecraft:cornflower"
@@ -87,7 +105,7 @@
         }
       ]
     },
-    "tries": 16,
+    "tries": 20,
     "xz_spread": 8,
     "y_spread": 3
   }

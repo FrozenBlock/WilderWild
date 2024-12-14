@@ -1287,8 +1287,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.SPARSE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.SPARSE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SHRUB)
 			.add(Biomes.WINDSWEPT_SAVANNA)
@@ -1299,7 +1298,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+			.addOptional(WWBiomes.DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PLAINS_FLOWERS)
 			.add(Biomes.PLAINS)
@@ -1314,7 +1314,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RARE_MILKWEED)
-			.add(Biomes.PLAINS)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MYCELIUM_GROWTH)
@@ -1449,8 +1448,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 			.add(Biomes.WINDSWEPT_FOREST)
 			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.DARK_TAIGA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
