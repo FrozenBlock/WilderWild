@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:seeding_dandelion",
+  "feature": "wilderwild:flower_generic",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 17
+      "chance": 8
     },
     {
       "type": "minecraft:in_square"

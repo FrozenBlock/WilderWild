@@ -20,47 +20,19 @@
                 "Name": "minecraft:white_tulip"
               },
               {
-                "Name": "wilderwild:datura",
-                "Properties": {
-                  "half": "lower"
-                }
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
                 "Name": "minecraft:pink_tulip"
-              },
-              {
-                "Name": "wilderwild:milkweed",
-                "Properties": {
-                  "age": "0",
-                  "half": "lower"
-                }
               },
               {
                 "Name": "minecraft:allium"
               },
               {
-                "Name": "minecraft:lilac",
-                "Properties": {
-                  "half": "lower"
-                }
-              },
-              {
                 "Name": "wilderwild:carnation"
               },
               {
-                "Name": "minecraft:peony",
-                "Properties": {
-                  "half": "lower"
-                }
+                "Name": "minecraft:red_tulip"
               },
               {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:blue_orchid"
+                "Name": "minecraft:orange_tulip"
               }
             ]
           }
@@ -76,7 +48,7 @@
         }
       ]
     },
-    "tries": 18,
+    "tries": 12,
     "xz_spread": 8,
     "y_spread": 3
   }

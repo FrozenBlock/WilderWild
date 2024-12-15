@@ -17,28 +17,25 @@
             "seed": 5050,
             "states": [
               {
-                "Name": "wilderwild:glory_of_the_snow",
-                "Properties": {
-                  "flower_color": "white"
-                }
+                "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "wilderwild:glory_of_the_snow",
-                "Properties": {
-                  "flower_color": "pink"
-                }
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "Name": "wilderwild:glory_of_the_snow",
-                "Properties": {
-                  "flower_color": "purple"
-                }
+                "Name": "minecraft:dandelion"
               },
               {
-                "Name": "wilderwild:glory_of_the_snow",
-                "Properties": {
-                  "flower_color": "blue"
-                }
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "minecraft:allium"
+              },
+              {
+                "Name": "minecraft:oxeye_daisy"
               }
             ]
           }
@@ -54,7 +51,7 @@
         }
       ]
     },
-    "tries": 8,
+    "tries": 48,
     "xz_spread": 7,
     "y_spread": 3
   }

@@ -122,6 +122,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("feature/has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_COMMON_SEEDING_DANDELION = bind("feature/has_common_seeding_dandelion");
 	public static final TagKey<Biome> HAS_RARE_SEEDING_DANDELION = bind("feature/has_rare_seeding_dandelion");
+	public static final TagKey<Biome> HAS_VERY_RARE_SEEDING_DANDELION = bind("feature/has_very_rare_seeding_dandelion");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("feature/has_milkweed");
 	public static final TagKey<Biome> CHERRY_FLOWERS = bind("feature/cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("feature/has_sunflower_plains_flowers");
@@ -168,7 +169,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_BUSH = bind("feature/has_bush");
 	public static final TagKey<Biome> HAS_FOREST_SHRUB = bind("feature/has_forest_shrub");
 	public static final TagKey<Biome> HAS_SHRUB = bind("feature/has_shrub");
+	public static final TagKey<Biome> HAS_GENERIC_FLOWERS = bind("feature/has_generic_flowers");
 	public static final TagKey<Biome> HAS_PLAINS_FLOWERS = bind("feature/has_plains_flowers");
+	public static final TagKey<Biome> HAS_BIRCH_FLOWERS = bind("feature/has_birch_flowers");
 	public static final TagKey<Biome> HAS_CYPRESS_FLOWERS = bind("feature/has_cypress_flowers");
 	public static final TagKey<Biome> HAS_RARE_MILKWEED = bind("feature/has_rare_milkweed");
 	public static final TagKey<Biome> HAS_MYCELIUM_GROWTH = bind("feature/has_mycelium_growth");

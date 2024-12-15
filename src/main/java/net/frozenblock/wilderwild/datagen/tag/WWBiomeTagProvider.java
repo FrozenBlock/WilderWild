@@ -923,23 +923,20 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.WARM_BEACH);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
+			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.add(Biomes.FLOWER_FOREST)
-			.add(Biomes.FOREST)
 			.add(Biomes.MEADOW)
 			.add(Biomes.WINDSWEPT_HILLS)
 			.add(Biomes.WINDSWEPT_FOREST)
-			.add(Biomes.DARK_FOREST)
 			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
-			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptional(WWBiomes.SPARSE_FOREST);
+			.addOptional(WWBiomes.DARK_TAIGA)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_SEEDING_DANDELION)
 			.addOptional(Biomes.CHERRY_GROVE)
@@ -950,8 +947,14 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RARE_SEEDING_DANDELION)
-			.add(Biomes.PLAINS)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.FOREST)
+			.add(Biomes.DARK_FOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)
+			.add(Biomes.PLAINS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MILKWEED)
 			.add(Biomes.BIRCH_FOREST)
@@ -1301,14 +1304,18 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GENERIC_FLOWERS)
+			.add(Biomes.FOREST)
+			.addOptional(WWBiomes.DYING_FOREST);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PLAINS_FLOWERS)
 			.add(Biomes.PLAINS)
-			.add(Biomes.FOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIRCH_FLOWERS)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.SPARSE_FOREST);
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CYPRESS_FLOWERS)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);

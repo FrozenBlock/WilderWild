@@ -13,63 +13,59 @@
               ],
               "firstOctave": 0
             },
-            "scale": 0.054833334,
+            "scale": 0.048833333,
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:white_tulip"
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "Name": "wilderwild:seeding_dandelion"
+                "Name": "minecraft:oxeye_daisy"
               },
               {
-                "Name": "minecraft:sunflower",
-                "Properties": {
-                  "half": "lower"
-                }
+                "Name": "minecraft:azure_bluet"
+              },
+              {
+                "Name": "minecraft:azure_bluet"
               },
               {
                 "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:pink_tulip"
+              },
+              {
+                "Name": "minecraft:white_tulip"
               },
               {
                 "Name": "minecraft:orange_tulip"
               },
               {
                 "Name": "minecraft:red_tulip"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "minecraft:pink_tulip"
-              },
-              {
-                "Name": "wilderwild:milkweed",
-                "Properties": {
-                  "age": "0",
-                  "half": "lower"
-                }
-              },
-              {
-                "Name": "minecraft:allium"
-              },
-              {
-                "Name": "minecraft:lilac",
-                "Properties": {
-                  "half": "lower"
-                }
-              },
-              {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "minecraft:peony",
-                "Properties": {
-                  "half": "lower"
-                }
-              },
-              {
-                "Name": "minecraft:cornflower"
               }
             ]
           }
@@ -85,8 +81,8 @@
         }
       ]
     },
-    "tries": 12,
-    "xz_spread": 8,
+    "tries": 48,
+    "xz_spread": 7,
     "y_spread": 3
   }
 }

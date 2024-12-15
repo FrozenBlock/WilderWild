@@ -186,7 +186,9 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ROSE_BUSH = WWFeatureUtils.register("rose_bush");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PEONY = WWFeatureUtils.register("peony");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LILAC = WWFeatureUtils.register("lilac");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WWFeatureUtils.register("flower_plain");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC = WWFeatureUtils.register("flower_generic");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WWFeatureUtils.register("flower_plains");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = WWFeatureUtils.register("milkweed");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW = WWFeatureUtils.register("glory_of_the_snow");
@@ -1523,10 +1525,10 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		FLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
+		FLOWER_GENERIC.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				20,
-				8,
+				48,
+				7,
 				3,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
@@ -1534,33 +1536,90 @@ public final class WWConfiguredFeatures {
 						new NoiseProvider(
 							5050L,
 							new NormalNoise.NoiseParameters(0, 1D),
-							0.010833334F,
+							0.048833334F,
+							List.of(
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								Blocks.ALLIUM.defaultBlockState(),
+								Blocks.OXEYE_DAISY.defaultBlockState()
+							)
+						)
+					)
+				)
+			)
+		);
+
+		FLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				48,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new NoiseProvider(
+							5050L,
+							new NormalNoise.NoiseParameters(0, 1D),
+							0.048833334F,
 							List.of(
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
-								Blocks.OXEYE_DAISY.defaultBlockState(),
-								Blocks.OXEYE_DAISY.defaultBlockState(),
-								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-								Blocks.DANDELION.defaultBlockState(),
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								Blocks.ALLIUM.defaultBlockState(),
-								Blocks.ALLIUM.defaultBlockState(),
-								Blocks.ALLIUM.defaultBlockState(),
-								Blocks.ALLIUM.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
+								Blocks.PINK_TULIP.defaultBlockState(),
+								Blocks.WHITE_TULIP.defaultBlockState(),
+								Blocks.ORANGE_TULIP.defaultBlockState(),
+								Blocks.RED_TULIP.defaultBlockState()
+							)
+						)
+					)
+				)
+			)
+		);
+
+		FLOWER_BIRCH.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				48,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new NoiseProvider(
+							5050L,
+							new NormalNoise.NoiseParameters(0, 1D),
+							0.048833334F,
+							List.of(
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
+								Blocks.ALLIUM.defaultBlockState(),
+								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState()
+								Blocks.PINK_TULIP.defaultBlockState(),
+								Blocks.WHITE_TULIP.defaultBlockState(),
+								Blocks.ORANGE_TULIP.defaultBlockState(),
+								Blocks.RED_TULIP.defaultBlockState()
 							)
 						)
 					)
@@ -1615,7 +1674,7 @@ public final class WWConfiguredFeatures {
 				new NoiseProvider(
 					5050L,
 					new NormalNoise.NoiseParameters(0, 1D),
-					0.010833334F,
+					0.048833334F,
 					List.of(
 						WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.WHITE),
 						WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PINK),
@@ -1628,7 +1687,7 @@ public final class WWConfiguredFeatures {
 
 		GLORY_OF_THE_SNOW.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				20,
+				28,
 				gloryOfTheSnowNoise
 			)
 		);
@@ -2066,7 +2125,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWERS_BIRCH_CLEARING.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				18,
+				12,
 				8,
 				3,
 				PlacementUtils.onlyWhenEmpty(
@@ -2078,16 +2137,11 @@ public final class WWConfiguredFeatures {
 							0.054833334F,
 							List.of(
 								Blocks.WHITE_TULIP.defaultBlockState(),
-								WWBlocks.DATURA.defaultBlockState(),
-								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
-								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								Blocks.LILAC.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
-								Blocks.PEONY.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.BLUE_ORCHID.defaultBlockState()
+								Blocks.RED_TULIP.defaultBlockState(),
+								Blocks.ORANGE_TULIP.defaultBlockState()
 							)
 						)
 					)
@@ -2097,7 +2151,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWERS_FOREST_CLEARING.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				18,
+				12,
 				8,
 				3,
 				PlacementUtils.onlyWhenEmpty(

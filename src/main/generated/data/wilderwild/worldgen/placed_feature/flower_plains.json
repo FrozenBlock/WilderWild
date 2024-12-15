@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:flower_plain",
+  "feature": "wilderwild:flower_plains",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 6
+      "chance": 8
     },
     {
       "type": "minecraft:in_square"

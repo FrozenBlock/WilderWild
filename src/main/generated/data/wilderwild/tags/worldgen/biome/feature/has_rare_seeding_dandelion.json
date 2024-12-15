@@ -1,6 +1,12 @@
 {
   "values": [
-    "minecraft:plains",
+    "minecraft:flower_forest",
+    "minecraft:forest",
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:sparse_forest",
+      "required": false
+    },
     {
       "id": "wilderwild:tundra",
       "required": false
