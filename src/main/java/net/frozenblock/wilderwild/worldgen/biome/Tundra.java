@@ -55,11 +55,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.225F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.LOW_SLICE_NORMAL_DESCENDING);
-	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-0.4F, 0.4F);
+	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-0.223F, 0.450F);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.030F, 0.550F);
 	public static final float TEMP = 0.25F;
 	public static final float DOWNFALL = 0.8F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -71,7 +71,7 @@ public final class Tundra extends FrozenBiome {
 	public static final int GRASS_COLOR_LIGHTER_GREEN = 12632212;
 	public static final int GRASS_COLOR_BLUE_GREENISH = 10990217;
 	public static final int GRASS_COLOR_BROWN = 15712649;
-	public static final int GRASS_COLOR_RED = 15712649;
+	public static final int GRASS_COLOR_RED = 14909535;
 	public static final int FOLIAGE_COLOR = 14995819;
 		//15648619;
 	public static final Tundra INSTANCE = new Tundra();
@@ -90,7 +90,7 @@ public final class Tundra extends FrozenBiome {
 					return GRASS_COLOR_BLUE_GREENISH;
 				} else if (noise > 0.5D) {
 					return GRASS_COLOR_LIGHTER_GREEN;
-				} else if (noise > 0.3D) {
+				} else if (noise > 0.34222D) {
 					return GRASS_COLOR_RED;
 				}
 				return grassColor;
