@@ -22,6 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -58,6 +59,8 @@ public class PollenTreeDecorator extends TreeDecorator {
 
 	@Override
 	public void place(@NotNull Context generator) {
+		if (!WWWorldgenConfig.GENERATE_POLLEN) return;
+
 		RandomSource random = generator.random();
 		if (random.nextFloat() <= this.probability) {
 			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());

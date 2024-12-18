@@ -5,3 +5,4 @@ hi
 -----------------
 - Added the Tundra biome.
 - Revamped flower distribution and generation.
+- Added a new config option to disable Pollen generation.

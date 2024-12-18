@@ -51,11 +51,13 @@ public final class WWWorldgenConfig {
 				var config = this.config();
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;
+				GENERATE_POLLEN = config.pollen;
 				NEW_WITCH_HUTS = config.newWitchHuts;
 			}
 		}
 	);
 
+	public static volatile boolean GENERATE_POLLEN = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
@@ -93,6 +95,9 @@ public final class WWWorldgenConfig {
 
 	@EntrySyncData("mushroomGeneration")
 	public boolean mushroomGeneration = true;
+
+	@EntrySyncData("pollen")
+	public boolean pollen = true;
 
 	@EntrySyncData("tumbleweed")
 	public boolean tumbleweed = true;
