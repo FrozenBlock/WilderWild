@@ -1312,6 +1312,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.PLAINS)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUNDRA_FLOWERS)
+			.addOptional(WWBiomes.TUNDRA);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIRCH_FLOWERS)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

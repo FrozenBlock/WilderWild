@@ -240,6 +240,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature LILAC = register("lilac");
 	public static final FrozenPlacedFeature FLOWER_GENERIC = register("flower_generic");
 	public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
+	public static final FrozenPlacedFeature FLOWER_TUNDRA = register("flower_tundra");
 	public static final FrozenPlacedFeature FLOWER_BIRCH = register("flower_birch");
 	public static final FrozenPlacedFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
@@ -1255,6 +1256,11 @@ public final class WWPlacedFeatures {
 
 		FLOWER_PLAINS.makeAndSetHolder(WWConfiguredFeatures.FLOWER_PLAINS.getHolder(),
 			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_TUNDRA.makeAndSetHolder(WWConfiguredFeatures.FLOWER_TUNDRA.getHolder(),
+			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
