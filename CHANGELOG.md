@@ -6,3 +6,4 @@ hi
 - Added the Tundra biome.
 - Revamped flower distribution and generation.
 - Added a new config option to disable Pollen generation.
+- Fixed the models of Hollowed Log blocks, now having proper UV and rotation like normal logs thanks to Luffurius! ([#443](https://github.com/FrozenBlock/WilderWild/pull/443))
