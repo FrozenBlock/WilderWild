@@ -52,6 +52,10 @@
     {
       "id": "wilderwild:sparse_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:tundra",
+      "required": false
     }
   ]
 }

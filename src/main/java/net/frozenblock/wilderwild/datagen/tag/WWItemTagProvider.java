@@ -148,6 +148,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.CARNATION.asItem())
 			.add(WWBlocks.MARIGOLD.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.PASQUEFLOWER.asItem())
 			.add(WWBlocks.GLORY_OF_THE_SNOW.asItem())
 			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS.asItem())
 			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS.asItem())
@@ -191,7 +192,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
 			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
-			.add(WWBlocks.MARIGOLD.asItem());
+			.add(WWBlocks.MARIGOLD.asItem())
+			.add(WWBlocks.PASQUEFLOWER.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.GLORY_OF_THE_SNOW.asItem())

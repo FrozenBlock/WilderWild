@@ -13,29 +13,26 @@
               ],
               "firstOctave": 0
             },
-            "scale": 0.010833334,
+            "scale": 0.048833333,
             "seed": 5050,
             "states": [
               {
-                "Name": "minecraft:white_tulip"
+                "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "wilderwild:seeding_dandelion"
+                "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "minecraft:oxeye_daisy"
+                "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "Name": "minecraft:dandelion"
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "Name": "minecraft:dandelion"
-              },
-              {
-                "Name": "minecraft:orange_tulip"
+                "Name": "minecraft:lily_of_the_valley"
               },
               {
                 "Name": "minecraft:poppy"
@@ -44,34 +41,34 @@
                 "Name": "minecraft:poppy"
               },
               {
-                "Name": "minecraft:red_tulip"
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "minecraft:allium"
+              },
+              {
+                "Name": "minecraft:allium"
+              },
+              {
+                "Name": "minecraft:cornflower"
               },
               {
                 "Name": "minecraft:pink_tulip"
               },
               {
-                "Name": "minecraft:allium"
+                "Name": "minecraft:white_tulip"
               },
               {
-                "Name": "minecraft:allium"
+                "Name": "minecraft:orange_tulip"
               },
               {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:cornflower"
+                "Name": "minecraft:red_tulip"
               }
             ]
           }
@@ -87,8 +84,8 @@
         }
       ]
     },
-    "tries": 16,
-    "xz_spread": 8,
+    "tries": 48,
+    "xz_spread": 7,
     "y_spread": 3
   }
 }

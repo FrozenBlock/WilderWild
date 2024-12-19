@@ -584,7 +584,19 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-
+		var pollen = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("pollen_generation"), modifiedConfig.pollen)
+					.setDefaultValue(defaultConfig.pollen)
+					.setSaveConsumer(newValue -> config.pollen = newValue)
+					.setTooltip(tooltip("pollen_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"pollen",
+				configInstance
+			)
+		);
 		var algae = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("algae_generation"), modifiedConfig.algae)

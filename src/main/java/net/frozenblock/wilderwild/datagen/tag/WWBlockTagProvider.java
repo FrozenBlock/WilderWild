@@ -98,7 +98,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
 			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.MARIGOLD);
+			.add(WWBlocks.MARIGOLD)
+			.add(WWBlocks.PASQUEFLOWER);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
@@ -900,7 +901,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_PRICKLY_PEAR)
 			.add(WWBlocks.POTTED_CARNATION)
 			.add(WWBlocks.POTTED_MARIGOLD)
-			.add(WWBlocks.POTTED_SEEDING_DANDELION);
+			.add(WWBlocks.POTTED_SEEDING_DANDELION)
+			.add(WWBlocks.POTTED_PASQUEFLOWER);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(WWBlocks.POLLEN);
@@ -909,6 +911,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CARNATION)
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.SEEDING_DANDELION)
+			.add(WWBlocks.PASQUEFLOWER)
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
