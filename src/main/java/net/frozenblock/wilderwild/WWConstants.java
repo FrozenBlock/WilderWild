@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -82,21 +83,24 @@ public final class WWConstants {
 		return id(path).toString();
 	}
 
-	public static String safeString(String path) {
+	@Contract(pure = true)
+	public static @NotNull String safeString(String path) {
 		return MOD_ID + "_" + path;
 	}
 
 	/**
 	 * @return A text component for use in a Config GUI
 	 */
-	public static Component text(String key) {
+	@Contract(value = "_ -> new", pure = true)
+	public static @NotNull Component text(String key) {
 		return Component.translatable("option." + MOD_ID + "." + key);
 	}
 
 	/**
 	 * @return A tooltip component for use in a Config GUI
 	 */
-	public static Component tooltip(String key) {
+	@Contract(value = "_ -> new", pure = true)
+	public static @NotNull Component tooltip(String key) {
 		return Component.translatable("tooltip." + MOD_ID + "." + key);
 	}
 }
