@@ -57,7 +57,8 @@ import org.jetbrains.annotations.Nullable;
 public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-0.4F, 0.4F);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-0.4F, -0.05F);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(0.05F, 0.4F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-0.223F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.030F, 0.550F);
 	public static final float TEMP = 0.25F;
@@ -201,7 +202,7 @@ public final class Tundra extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateFlowerField) {
+		if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
 			this.addSurfaceBiome(
 				parameters,
 				TEMPERATURE,
@@ -209,6 +210,15 @@ public final class Tundra extends FrozenBiome {
 				CONTINENTALNESS,
 				EROSION_A,
 				WEIRDNESS_A,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_A,
+				WEIRDNESS_B,
 				0F
 			);
 		}
