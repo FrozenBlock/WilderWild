@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -35,6 +34,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
@@ -91,13 +91,13 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 		poseStack.translate(0D, 1.3D, 0D);
 		if (!WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.XP.rotation(Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * Mth.DEG_TO_RAD));
-			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * Mth.DEG_TO_RAD));
-			poseStack.pushPose();
+			Quaternionf quaternionf = new Quaternionf().rotationXYZ(
+				Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * Mth.DEG_TO_RAD,
+				0F,
+				Mth.lerp(this.partialTick, this.prevRoll, this.roll) * Mth.DEG_TO_RAD
+			);
+			poseStack.mulPose(quaternionf);
 			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, color);
-			poseStack.popPose();
-			poseStack.popPose();
 			poseStack.popPose();
 		} else {
 			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, color);

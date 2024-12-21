@@ -38,6 +38,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<Tumbleweed>> {
@@ -61,11 +62,13 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(entity.itemX, 0.4375D, entity.itemZ);
-			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD));
-			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD));
+			Quaternionf quaternionf = new Quaternionf().rotationXYZ(
+				Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD,
+				0F,
+				Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD
+			);
+			poseStack.mulPose(quaternionf);
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), 1);
-			poseStack.popPose();
 			poseStack.popPose();
 		}
 	}
