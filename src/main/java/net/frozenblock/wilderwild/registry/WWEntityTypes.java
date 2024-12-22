@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -91,6 +92,14 @@ public final class WWEntityTypes {
 			.fireImmune()
 			.clientTrackingRange(8)
 			.build(WWConstants.string("scorched"))
+	);
+
+	public static final EntityType<Penguin> PENGUIN = register(
+		"penguin",
+		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
+			.sized(1F, 1F)
+			.eyeHeight(0.8F)
+			.build(WWConstants.string("penguin"))
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
@@ -178,6 +187,14 @@ public final class WWEntityTypes {
 			FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createMobAttributes());
+		SpawnPlacements.register(
+			PENGUIN,
+			SpawnPlacementTypes.NO_RESTRICTIONS,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Penguin::checkPenguinSpawnRules
 		);
 	}
 

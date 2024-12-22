@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.model.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.OstrichModel;
+import net.frozenblock.wilderwild.client.model.PenguinModel;
 import net.frozenblock.wilderwild.client.model.ScorchedModel;
 import net.frozenblock.wilderwild.client.model.TumbleweedModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
@@ -37,6 +38,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.PenguinRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -61,6 +63,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WWConstants.id("ostrich"), "main");
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WWConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
+	public static final ModelLayerLocation PENGUIN = new ModelLayerLocation(WWConstants.id("penguin"), "main");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
 
 
@@ -83,6 +86,9 @@ public final class WWModelLayers {
 
 		EntityRendererRegistry.register(WWEntityTypes.SCORCHED, ScorchedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SCORCHED, ScorchedModel::createSpiderBodyLayer);
+
+		EntityRendererRegistry.register(WWEntityTypes.PENGUIN, PenguinRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
 

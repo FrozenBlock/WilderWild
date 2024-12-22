@@ -35,6 +35,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CRAB = bind("spawn/crab");
 	public static final TagKey<Biome> HAS_COMMON_CRAB = bind("spawn/common_crab");
 	public static final TagKey<Biome> HAS_OSTRICH = bind("spawn/ostrich");
+	public static final TagKey<Biome> HAS_PENGUIN = bind("spawn/penguin");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("spawn/tumbleweed");
 
 	public static final TagKey<Biome> ABANDONED_CABIN_HAS_STRUCTURE = bind("has_structure/abandoned_cabin");

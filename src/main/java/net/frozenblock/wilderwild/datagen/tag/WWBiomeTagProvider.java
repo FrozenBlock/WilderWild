@@ -464,6 +464,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SAVANNA_PLATEAU)
 			.add(Biomes.WINDSWEPT_SAVANNA);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PENGUIN)
+			.add(Biomes.ICE_SPIKES)
+			.add(Biomes.SNOWY_BEACH)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUMBLEWEED_ENTITY)
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)
