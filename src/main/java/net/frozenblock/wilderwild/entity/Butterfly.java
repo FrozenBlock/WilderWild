@@ -113,7 +113,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 	public static boolean checkButterflySpawnRules(
             @NotNull EntityType<Butterfly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
-		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().bug.spawnButterflies) return false;
+		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
 
 		Holder<Biome> biome = level.getBiome(pos);

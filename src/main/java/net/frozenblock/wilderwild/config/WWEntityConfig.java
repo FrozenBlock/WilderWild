@@ -101,7 +101,10 @@ public final class WWEntityConfig {
 	public final EnderManConfig enderMan = new EnderManConfig();
 
 	@CollapsibleObject
-	public final BugConfig bug = new BugConfig();
+	public final FireflyConfig firefly = new FireflyConfig();
+
+	@CollapsibleObject
+	public final ButterflyConfig butterfly = new ButterflyConfig();
 
 	@CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
@@ -162,15 +165,20 @@ public final class WWEntityConfig {
 		public boolean movingStareSound = true;
 	}
 
-	public static class BugConfig {
-		@EntrySyncData("spawnButterflies")
-		public boolean spawnButterflies = true;
-
+	public static class FireflyConfig {
 		@EntrySyncData("spawnFireflies")
 		public boolean spawnFireflies = true;
 
-		@EntrySyncData("bugSpawnCap")
-		public int bugSpawnCap = 56;
+		@EntrySyncData("fireflySpawnCap")
+		public int fireflySpawnCap = 56;
+	}
+
+	public static class ButterflyConfig {
+		@EntrySyncData("spawnButterflies")
+		public boolean spawnButterflies = true;
+
+		@EntrySyncData("butterflySpawnCap")
+		public int butterflySpawnCap = 10;
 	}
 
 	public static class JellyfishConfig {

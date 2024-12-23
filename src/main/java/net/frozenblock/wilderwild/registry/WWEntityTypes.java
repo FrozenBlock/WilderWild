@@ -46,7 +46,7 @@ import org.jetbrains.annotations.NotNull;
 public final class WWEntityTypes {
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
-		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "bug"))
+		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.build(WWConstants.string("firefly"))
@@ -54,7 +54,7 @@ public final class WWEntityTypes {
 
 	public static final EntityType<Butterfly> BUTTERFLY = register(
 		"butterfly",
-		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "bug"))
+		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.build(WWConstants.string("butterfly"))

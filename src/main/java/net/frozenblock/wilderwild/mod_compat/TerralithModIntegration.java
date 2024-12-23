@@ -41,6 +41,6 @@ public class TerralithModIntegration extends ModIntegration {
 		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
 
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(getBiomeKey("cave/underground_jungle")),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"), WWEntityTypes.FIREFLY, 12, 2, 4);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 12, 2, 4);
 	}
 }
