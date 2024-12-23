@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.ai.warden;
+package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,20 +25,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.PathNavigationRegion;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.level.pathfinder.PathfindingContext;
-import net.minecraft.world.level.pathfinder.Target;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WardenNodeEvaluator extends WalkNodeEvaluator {
+public class PenguinNodeEvaluator extends WalkNodeEvaluator {
 	private final boolean prefersShallowSwimming;
 	private float oldWalkableCost;
 	private float oldWaterBorderPenalty;
 
-	public WardenNodeEvaluator(boolean prefersShallowSwimming) {
+	public PenguinNodeEvaluator(boolean prefersShallowSwimming) {
 		this.prefersShallowSwimming = prefersShallowSwimming;
 	}
 
@@ -62,12 +58,12 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	@Override
 	@NotNull
 	public Node getStart() {
-		return !this.isEntityTouchingWaterOrLava(this.mob)
+		return !this.isEntityTouchingWater(this.mob)
 			? super.getStart()
 			: this.getStartNode(
 			new BlockPos(
 				Mth.floor(this.mob.getBoundingBox().minX),
-				Mth.floor(this.mob.getBoundingBox().minY + 0.5),
+				Mth.floor(this.mob.getBoundingBox().minY + 0.5D),
 				Mth.floor(this.mob.getBoundingBox().minZ)
 			)
 		);
@@ -76,14 +72,14 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	@Override
 	@NotNull
 	public Target getTarget(double x, double y, double z) {
-		return !this.isEntitySubmergedInWaterOrLava(this.mob)
+		return !this.isEntitySubmergedInWater(this.mob)
 			? super.getTarget(x, y, z)
 			: this.getTargetNodeAt(x, y + 0.5, z);
 	}
 
 	@Override
 	public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
-		if (!isEntitySubmergedInWaterOrLava(this.mob)) {
+		if (!isEntitySubmergedInWater(this.mob)) {
 			return super.getNeighbors(successors, node);
 		} else {
 			int i = super.getNeighbors(successors, node);
@@ -129,10 +125,10 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 
 	@NotNull
 	@Override
-	public PathType getPathType(PathfindingContext context, int x, int y, int z) {
+	public PathType getPathType(@NotNull PathfindingContext context, int x, int y, int z) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		PathType pathNodeType = getPathTypeFromState(context.level(), mutable.set(x, y, z));
-		if (pathNodeType == PathType.WATER || pathNodeType == PathType.LAVA) {
+		if (pathNodeType == PathType.WATER) {
 			for (Direction direction : Direction.values()) {
 				PathType pathNodeType2 = getPathTypeFromState(context.level(), mutable.set(x, y, z).move(direction));
 				if (pathNodeType2 == PathType.BLOCKED) {
@@ -140,22 +136,18 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 				}
 			}
 
-			if (pathNodeType == PathType.WATER) {
-				return PathType.WATER;
-			} else {
-				return PathType.LAVA;
-			}
+			return PathType.WATER;
 		} else {
 			return getPathTypeStatic(context, mutable);
 		}
 	}
 
-	private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+	private boolean isEntityTouchingWater(@NotNull Entity entity) {
+		return entity.isInWaterOrBubble() || entity.isVisuallySwimming();
 	}
 
-	private boolean isEntitySubmergedInWaterOrLava(@NotNull Entity entity) {
-		return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
+	private boolean isEntitySubmergedInWater(@NotNull Entity entity) {
+		return entity.isEyeInFluid(FluidTags.WATER) || entity.isVisuallySwimming();
 	}
 }
 

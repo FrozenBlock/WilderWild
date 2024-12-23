@@ -189,7 +189,7 @@ public final class WWEntityTypes {
 			Scorched::checkScorchedSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createAttributes());
 		SpawnPlacements.register(
 			PENGUIN,
 			SpawnPlacementTypes.NO_RESTRICTIONS,

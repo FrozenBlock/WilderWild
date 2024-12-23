@@ -146,7 +146,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		limbSwing *= 1.65F;
+		limbSwing *= 2.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 
 		// FEET

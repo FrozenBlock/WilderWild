@@ -16,10 +16,10 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.ai.ostrich;
+package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import com.google.common.collect.ImmutableMap;
-import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -34,15 +34,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class OstrichLayEgg extends Behavior<Ostrich> {
+public class PenguinLayEgg extends Behavior<Penguin> {
 	private final Block eggBlock;
 
-	public OstrichLayEgg(Block eggBlock) {
+	public PenguinLayEgg(Block eggBlock) {
 		super(ImmutableMap.of(MemoryModuleType.IS_PREGNANT, MemoryStatus.VALUE_PRESENT));
 		this.eggBlock = eggBlock;
 	}
 
-	private static boolean attemptPlace(Ostrich entity, @NotNull Level level, Block block, BlockPos placePos) {
+	private static boolean attemptPlace(Penguin entity, @NotNull Level level, Block block, BlockPos placePos) {
 		BlockState blockState = level.getBlockState(placePos);
 		BlockPos belowPos = placePos.below();
 		BlockState belowState = level.getBlockState(belowPos);
@@ -50,7 +50,7 @@ public class OstrichLayEgg extends Behavior<Ostrich> {
 			BlockState placementState = block.defaultBlockState();
 			level.setBlock(placePos, placementState, Block.UPDATE_ALL);
 			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
-			//TODO: Ostrich lay sounds
+			//TODO: Penguin lay sounds
 			level.playSound(null, entity, SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
@@ -58,25 +58,25 @@ public class OstrichLayEgg extends Behavior<Ostrich> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Ostrich owner) {
+	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Penguin owner) {
 		return true;
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Penguin entity, long gameTime) {
 		return entity.isPregnant();
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public void start(@NotNull ServerLevel level, @NotNull Penguin entity, long gameTime) {
 	}
 
 	@Override
-	public void stop(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public void stop(@NotNull ServerLevel level, @NotNull Penguin entity, long gameTime) {
 	}
 
 	@Override
-	public void tick(@NotNull ServerLevel level, @NotNull Ostrich owner, long gameTime) {
+	public void tick(@NotNull ServerLevel level, @NotNull Penguin owner, long gameTime) {
 		if (!owner.isInWater() && owner.onGround()) {
 			BlockPos blockPos = owner.getOnPos().above();
 			if (attemptPlace(owner, level, this.eggBlock, blockPos)) {
