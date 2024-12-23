@@ -146,6 +146,9 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD;
+		this.head.xRot += headPitch * Mth.DEG_TO_RAD;
+
 		limbSwing *= 2.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 
@@ -169,6 +172,8 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
 		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * 0.175F;
 		this.head.zRot -= angleSinSwingAmountNeckBase;
+
+
 	}
 
 	@Override

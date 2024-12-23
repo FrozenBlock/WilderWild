@@ -58,6 +58,7 @@ accessible method net/minecraft/world/entity/LivingEntity canBreatheUnderwater (
 
 # Entity Behaviors
 accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriority Ljava/util/Map;
+accessible field net/minecraft/world/entity/ai/behavior/LongJumpToRandomPos timeBetweenLongJumps Lnet/minecraft/util/valueproviders/UniformInt;
 
 # Entity Spawns
 accessible class net/minecraft/world/entity/SpawnPlacements$Data
