@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.client.model;
 
+import net.frozenblock.wilderwild.entity.Butterfly;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,7 +31,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
+public class ButterflyModel<T extends Butterfly> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart wings;
@@ -115,22 +116,24 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 	private static final float IDLE_WING_X_ROT = 15F * Mth.DEG_TO_RAD;
 
 	@Override
-	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull Butterfly butterfly, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		float partialTick = ageInTicks - butterfly.tickCount;
 
 		float animation = (ageInTicks * 0.75F) + (limbSwing * 0.85F);
-		float movementDelta = Math.min(limbSwingAmount * 2F, 1F);
+		float movementDelta = 1F - butterfly.getGroundProgress(partialTick);
 		float lengthMultiplier = Math.max(movementDelta * 0.75F, 0.4F);
+		float flapLengthMultiplier = lengthMultiplier * (1F - (butterfly.getDownProgress(partialTick) * 0.5F));
 
-		float verticalFlap = Mth.lerp(movementDelta, -Mth.HALF_PI * 1.025F, (Mth.cos(animation * FLAP_SPEED) * FLAP_HEIGHT * lengthMultiplier) + (-20F * Mth.DEG_TO_RAD));
+		float verticalFlap = Mth.lerp(movementDelta, -Mth.HALF_PI * 1.025F, (Mth.cos(animation * FLAP_SPEED) * FLAP_HEIGHT * flapLengthMultiplier) + (-20F * Mth.DEG_TO_RAD));
 		this.left_wing.zRot += verticalFlap;
 		this.right_wing.zRot -= verticalFlap;
 
-		float xRot = Mth.lerp(movementDelta, IDLE_WING_X_ROT, Mth.cos((animation + FLAP_ROW_OFFSET) * FLAP_SPEED) * FLAP_ROW_WIDTH * lengthMultiplier);
+		float xRot = Mth.lerp(movementDelta, IDLE_WING_X_ROT, Mth.cos((animation + FLAP_ROW_OFFSET) * FLAP_SPEED) * FLAP_ROW_WIDTH * flapLengthMultiplier);
 		this.left_wing.xRot -= xRot;
 		this.right_wing.xRot += xRot;
 
-		float yRot = Mth.lerp(movementDelta, 0F, Mth.cos((animation + FLAP_TILT_OFFSET) * FLAP_SPEED) * FLAP_TILT_WIDTH * lengthMultiplier);
+		float yRot = Mth.lerp(movementDelta, 0F, Mth.cos((animation + FLAP_TILT_OFFSET) * FLAP_SPEED) * FLAP_TILT_WIDTH * flapLengthMultiplier);
 		this.left_wing.yRot -= yRot;
 		this.right_wing.yRot -= yRot;
 
@@ -140,6 +143,8 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 
 		float bodyYRot = Mth.lerp(movementDelta, Mth.cos(walkAnimation * BODY_Y_ROT_SPEED) * BODY_Y_ROT_HEIGHT, 0F);
 		this.body.yRot += bodyYRot;
+
+		this.body.xRot -= butterfly.getFlyingXRot(partialTick) * Mth.HALF_PI * 0.5F;
 
 		float bodyY = Mth.lerp(movementDelta, 0F, Mth.cos((animation + BODY_HEIGHT_OFFSET) * BODY_HEIGHT_SPEED) * BODY_HEIGHT * lengthMultiplier);
 		this.body.y -= bodyY;

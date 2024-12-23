@@ -38,6 +38,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -88,6 +89,15 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 	public boolean natural;
 	public boolean hasHome;
 	public int homeCheckCooldown;
+
+	private float prevFlyingXRot;
+	private float flyingXRot;
+
+	private float prevDownProgress;
+	private float downProgress;
+
+	private float prevGroundProgress;
+	private float groundProgress;
 
 	public Butterfly(@NotNull EntityType<? extends Butterfly> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -336,6 +346,30 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
 			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}
+
+		Vec3 deltaMovement = this.getDeltaMovement();
+
+		float targetFlyingXRot = (float) Math.clamp(deltaMovement.y * 10F, -1F, 1F);
+		this.prevFlyingXRot = this.flyingXRot;
+		this.flyingXRot += (targetFlyingXRot - this.flyingXRot) * 0.1F;
+
+		this.prevDownProgress = this.downProgress;
+		this.downProgress += ((deltaMovement.y < 0D ? 1F : 0F) - this.downProgress) * 0.05F;
+
+		this.prevGroundProgress = this.groundProgress;
+		this.groundProgress += ((this.onGround() ? 1F : 0F) - this.groundProgress) * 0.2F;
+	}
+
+	public float getFlyingXRot(float partialTick) {
+		return Mth.lerp(partialTick, this.prevFlyingXRot, this.flyingXRot);
+	}
+
+	public float getDownProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevDownProgress, this.downProgress);
+	}
+
+	public float getGroundProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevGroundProgress, this.groundProgress);
 	}
 
 	@Override
