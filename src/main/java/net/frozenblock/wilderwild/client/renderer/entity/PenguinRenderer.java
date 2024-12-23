@@ -18,33 +18,27 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
-import net.frozenblock.wilderwild.client.model.OstrichModel;
 import net.frozenblock.wilderwild.client.model.PenguinModel;
-import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class PenguinRenderer<T extends Penguin> extends MobRenderer<T, EntityModel<T>> {
-	private static final ResourceLocation LOCATION = WWConstants.id("textures/entity/penguin/penguin.png");
+	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
 
 	public PenguinRenderer(EntityRendererProvider.Context context) {
-		super(context, new PenguinModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), 0.75F);
+		super(context, new PenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN)), 0.5F);
 	}
 
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return LOCATION;
+		return TEXTURE;
 	}
 
 }
