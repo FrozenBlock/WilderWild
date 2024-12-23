@@ -93,43 +93,54 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 	}
 
 	private static final float FLAP_SPEED = 1.375F;
-	private static final float FLAP_HEIGHT = Mth.PI * 0.25F;
+	private static final float FLAP_HEIGHT = Mth.PI * 0.35F;
 	private static final float FLAP_ROW_OFFSET = -3F;
 	private static final float FLAP_ROW_WIDTH = Mth.PI * 0.025F;
 	private static final float FLAP_TILT_OFFSET = -6F;
 	private static final float FLAP_TILT_WIDTH = Mth.PI * 0.055F;
 
-	private static final float BODY_ROT_SPEED = 0.375F;
-	private static final float BODY_ROT_HEIGHT = Mth.PI * 0.055F;
+	private static final float BODY_ROT_SPEED = 0.675F;
+	private static final float BODY_ROT_HEIGHT = Mth.PI * 0.025F;
+
+	private static final float BODY_X_ROT_SPEED = 1.5F;
+	private static final float BODY_X_ROT_HEIGHT = Mth.PI * 0.015F;
+
+	private static final float BODY_Y_ROT_SPEED = 2F;
+	private static final float BODY_Y_ROT_HEIGHT = Mth.PI * 0.015F;
+
 	private static final float BODY_HEIGHT_SPEED = 0.375F;
 	private static final float BODY_HEIGHT = Mth.PI * 0.075F;
 	private static final float BODY_HEIGHT_OFFSET = -4.5F;
 
-	private static final float IDLE_WING_XROT = 15F * Mth.DEG_TO_RAD;
+	private static final float IDLE_WING_X_ROT = 15F * Mth.DEG_TO_RAD;
 
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		float animation = (ageInTicks) + (limbSwing * 0.5F);
-		float movementDelta = Math.min(limbSwingAmount * 2.25F, 1F);
+		float animation = (ageInTicks * 0.75F) + (limbSwing * 0.85F);
+		float movementDelta = Math.min(limbSwingAmount * 2F, 1F);
+		float lengthMultiplier = Math.max(movementDelta * 0.75F, 0.4F);
 
-		float verticalFlap = Mth.lerp(movementDelta, -Mth.HALF_PI * 1.025F, Mth.cos(animation * FLAP_SPEED) * FLAP_HEIGHT);
+		float verticalFlap = Mth.lerp(movementDelta, -Mth.HALF_PI * 1.025F, (Mth.cos(animation * FLAP_SPEED) * FLAP_HEIGHT * lengthMultiplier) + (-20F * Mth.DEG_TO_RAD));
 		this.left_wing.zRot += verticalFlap;
 		this.right_wing.zRot -= verticalFlap;
 
-		float xRot = Mth.lerp(movementDelta, IDLE_WING_XROT, Mth.cos((animation + FLAP_ROW_OFFSET) * FLAP_SPEED) * FLAP_ROW_WIDTH);
+		float xRot = Mth.lerp(movementDelta, IDLE_WING_X_ROT, Mth.cos((animation + FLAP_ROW_OFFSET) * FLAP_SPEED) * FLAP_ROW_WIDTH * lengthMultiplier);
 		this.left_wing.xRot -= xRot;
 		this.right_wing.xRot += xRot;
 
-		float yRot = Mth.lerp(movementDelta, 0F, Mth.cos((animation + FLAP_TILT_OFFSET) * FLAP_SPEED) * FLAP_TILT_WIDTH);
+		float yRot = Mth.lerp(movementDelta, 0F, Mth.cos((animation + FLAP_TILT_OFFSET) * FLAP_SPEED) * FLAP_TILT_WIDTH * lengthMultiplier);
 		this.left_wing.yRot -= yRot;
 		this.right_wing.yRot -= yRot;
 
-		float bodyXRot = Mth.lerp(movementDelta, 0F, Mth.cos(animation * BODY_ROT_SPEED) * BODY_ROT_HEIGHT);
+		float bodyXRot = Mth.lerp(movementDelta, Mth.cos(animation * BODY_X_ROT_SPEED) * BODY_X_ROT_HEIGHT, 0F);
 		this.body.xRot += bodyXRot;
 
-		float bodyY = Mth.lerp(movementDelta, 0F, Mth.cos((animation + BODY_HEIGHT_OFFSET) * BODY_HEIGHT_SPEED) * BODY_HEIGHT);
+		float bodyYRot = Mth.lerp(movementDelta, Mth.cos(animation * BODY_Y_ROT_SPEED) * BODY_Y_ROT_HEIGHT, 0F);
+		this.body.yRot += bodyYRot;
+
+		float bodyY = Mth.lerp(movementDelta, 0F, Mth.cos((animation + BODY_HEIGHT_OFFSET) * BODY_HEIGHT_SPEED) * BODY_HEIGHT * lengthMultiplier);
 		this.body.y -= bodyY;
 	}
 
