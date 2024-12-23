@@ -43,6 +43,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -57,6 +58,7 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -67,13 +69,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal {
-	public static final int SPAWN_CHANCE = 60;
-	public static final int SPAWN_CHANCE_RARE = 100;
+	public static final int SPAWN_CHANCE = 50;
 	protected static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
 	protected static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.PATH,
@@ -83,6 +85,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.HOME
 	);
+	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
+	private static final TargetingConditions SPAWN_RADIUS_CHECK = TargetingConditions.forNonCombat()
+		.ignoreLineOfSight()
+		.ignoreInvisibilityTesting()
+		.range(SPAWN_RADIUS_CHECK_DISTANCE)
+		.selector(entity -> entity.isAlive() && !entity.isSpectator());
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.STRING);
 
@@ -117,10 +125,23 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
 
 		Holder<Biome> biome = level.getBiome(pos);
-		int spawnChance = biome.is(WWBiomeTags.HAS_COMMON_BUTTERFLY) ? SPAWN_CHANCE : SPAWN_CHANCE_RARE;
+		if (!biome.is(WWBiomeTags.HAS_COMMON_BUTTERFLY)) {
+			Vec3 spawnPos = Vec3.atCenterOf(pos);
+			Butterfly nearestButterfly = level.getNearestEntity(
+				Butterfly.class,
+				SPAWN_RADIUS_CHECK,
+				null,
+				spawnPos.x,
+				spawnPos.y,
+				spawnPos.z,
+				AABB.ofSize(spawnPos, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE)
+			);
+			if (nearestButterfly == null) {
+				return true;
+			}
+		}
 
-		boolean chance = random.nextInt(0, spawnChance) == 0;
-		return chance && (level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos));
+		return random.nextInt(0, SPAWN_CHANCE) == 0 && (level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos));
 	}
 
 	@NotNull
@@ -144,7 +165,13 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
 		this.natural = isButterflySpawnTypeNatural(spawnType);
 		this.hasHome = this.hasHome || !this.natural;
-		ButterflyAi.rememberHome(this, this.blockPosition());
+
+		BlockPos pos = this.blockPosition();
+		ButterflyAi.rememberHome(this, pos);
+		Holder<Biome> biome = level.getBiome(pos);
+		ButterflyVariant variant = ButterflyVariant.getRandomVariantForBiome(biome, this.random);
+
+		this.setVariant(variant);
 
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
 	}

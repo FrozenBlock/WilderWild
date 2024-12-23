@@ -1,27 +1,8 @@
 {
   "values": [
-    "minecraft:jungle",
-    "minecraft:sparse_jungle",
-    "minecraft:bamboo_jungle",
-    "minecraft:dark_forest",
+    "minecraft:meadow",
     {
-      "id": "wilderwild:cypress_wetlands",
-      "required": false
-    },
-    {
-      "id": "wilderwild:birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:sparse_birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:rainforest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
+      "id": "wilderwild:maple_forest",
       "required": false
     }
   ]

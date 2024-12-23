@@ -431,21 +431,28 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.MANGROVE_SWAMP);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
-			.add(Biomes.JUNGLE)
-			.add(Biomes.SPARSE_JUNGLE)
-			.add(Biomes.BAMBOO_JUNGLE)
-			.add(Biomes.DARK_FOREST)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
+			.add(Biomes.MEADOW)
+			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_BUTTERFLY)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MONARCH)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_RED_LACEWING)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MARBLED)
+			.add(Biomes.MEADOW)
+			.add(Biomes.FLOWER_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_JELLYFISH)
 			.add(Biomes.WARM_OCEAN)
