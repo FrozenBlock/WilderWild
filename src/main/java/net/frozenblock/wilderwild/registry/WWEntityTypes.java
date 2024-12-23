@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -45,10 +46,18 @@ import org.jetbrains.annotations.NotNull;
 public final class WWEntityTypes {
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
-		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"))
+		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "bug"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.build(WWConstants.string("firefly"))
+	);
+
+	public static final EntityType<Butterfly> BUTTERFLY = register(
+		"butterfly",
+		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "bug"))
+			.sized(0.3F, 0.3F)
+			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+			.build(WWConstants.string("butterfly"))
 	);
 
 	public static final EntityType<Jellyfish> JELLYFISH = register(
@@ -139,6 +148,14 @@ public final class WWEntityTypes {
 			SpawnPlacementTypes.NO_RESTRICTIONS,
 			Heightmap.Types.MOTION_BLOCKING,
 			Firefly::checkFireflySpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(BUTTERFLY, Butterfly.createAttributes());
+		SpawnPlacements.register(
+			BUTTERFLY,
+			SpawnPlacementTypes.NO_RESTRICTIONS,
+			Heightmap.Types.MOTION_BLOCKING,
+			Butterfly::checkButterflySpawnRules
 		);
 
 		FabricDefaultAttributeRegistry.register(JELLYFISH, Jellyfish.createAttributes());

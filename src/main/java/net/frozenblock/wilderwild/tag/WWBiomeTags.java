@@ -28,8 +28,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("spawn/underground_stray");
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = bind("spawn/firefly_day");
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("spawn/firefly_cave");
+	public static final TagKey<Biome> HAS_BUTTERFLY = bind("spawn/butterfly");
+	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("spawn/common_butterfly");
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("spawn/firefly");
-	public static final TagKey<Biome> HAS_JELLYFISH = bind("spawn/has_jellyfish");
+	public static final TagKey<Biome> HAS_JELLYFISH = bind("spawn/jellyfish");
 	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("spawn/pearlescent_jellyfish");
 	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("spawn/jellyfish_special_spawn");
 	public static final TagKey<Biome> HAS_CRAB = bind("spawn/crab");

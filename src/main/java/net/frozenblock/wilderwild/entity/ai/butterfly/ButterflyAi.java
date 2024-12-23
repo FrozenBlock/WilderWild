@@ -1,0 +1,133 @@
+/*
+ * Copyright 2023-2024 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
+package net.frozenblock.wilderwild.entity.ai.butterfly;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
+import java.util.List;
+import java.util.Optional;
+import net.frozenblock.wilderwild.entity.Butterfly;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.PositionTracker;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
+import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
+import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
+import net.minecraft.world.entity.ai.behavior.Swim;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class ButterflyAi {
+
+	private ButterflyAi() {
+	}
+
+	@NotNull
+	public static Brain<?> makeBrain(@NotNull Butterfly butterfly, @NotNull Brain<Butterfly> brain) {
+		addCoreActivities(brain);
+		addIdleActivities(butterfly, brain);
+		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+		brain.setDefaultActivity(Activity.IDLE);
+		brain.useDefaultActivity();
+		return brain;
+	}
+
+	private static void addCoreActivities(@NotNull Brain<Butterfly> brain) {
+		brain.addActivity(
+			Activity.CORE,
+			0,
+			ImmutableList.of(
+				new Swim(0.8F),
+				new LookAtTargetSink(45, 90),
+				new MoveToTargetSink()
+			)
+		);
+	}
+
+	private static void addIdleActivities(@NotNull Butterfly butterfly, @NotNull Brain<Butterfly> brain) {
+		brain.addActivity(
+			Activity.IDLE,
+			ImmutableList.of(
+				Pair.of(2, StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 7, 16, 1F)),
+				Pair.of(4, new RunOne<>(
+					ImmutableList.of(
+						Pair.of(RandomStroll.fly(1F), 2),
+						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 2)
+					)
+				))
+			)
+		);
+	}
+
+	public static void updateActivities(@NotNull Butterfly butterfly) {
+		butterfly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
+	}
+
+	@Nullable
+	public static BlockPos getHome(@NotNull Butterfly butterfly) {
+		Optional<GlobalPos> optional = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.map(GlobalPos::pos).orElse(null);
+	}
+
+	public static boolean isInHomeDimension(@NotNull Butterfly butterfly) {
+		Optional<GlobalPos> optional = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.filter(globalPos -> globalPos.dimension() == butterfly.level().dimension()).isPresent();
+	}
+
+	public static void rememberHome(@NotNull LivingEntity butterfly, @NotNull BlockPos pos) {
+		Brain<?> brain = butterfly.getBrain();
+		GlobalPos globalPos = GlobalPos.of(butterfly.level().dimension(), pos);
+		brain.setMemory(MemoryModuleType.HOME, globalPos);
+	}
+
+	private static boolean shouldGoTowardsHome(@NotNull LivingEntity butterfly, @NotNull GlobalPos pos) {
+		Level level = butterfly.level();
+		return ((Butterfly) butterfly).hasHome && level.dimension() == pos.dimension();
+	}
+
+	@NotNull
+	private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity butterfly) {
+		Brain<?> brain = butterfly.getBrain();
+		Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
+		if (home.isPresent()) {
+			GlobalPos globalPos = home.get();
+			if (shouldGoTowardsHome(butterfly, globalPos)) {
+				return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), butterfly.level())));
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	@NotNull
+	private static BlockPos randomPosAround(@NotNull BlockPos pos, @NotNull Level level) {
+		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
+	}
+}

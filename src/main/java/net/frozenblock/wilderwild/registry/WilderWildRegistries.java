@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.minecraft.core.MappedRegistry;
@@ -29,8 +30,12 @@ import net.minecraft.resources.ResourceKey;
 
 public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR_REGISTRY = ResourceKey.createRegistryKey(WWConstants.id("firefly_color"));
-	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WWConstants.id("jellyfish_color"));
+	public static final ResourceKey<Registry<ButterflyVariant>> BUTTERFLY_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WWConstants.id("butterfly_variant"));
+	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WWConstants.id("jellyfish_variant"));
 	public static final MappedRegistry<FireflyColor> FIREFLY_COLOR = FabricRegistryBuilder.createSimple(FIREFLY_COLOR_REGISTRY)
+		.attribute(RegistryAttribute.SYNCED)
+		.buildAndRegister();
+	public static final MappedRegistry<ButterflyVariant> BUTTERFLY_VARIANT = FabricRegistryBuilder.createSimple(BUTTERFLY_VARIANT_REGISTRY)
 		.attribute(RegistryAttribute.SYNCED)
 		.buildAndRegister();
 	public static final MappedRegistry<JellyfishVariant> JELLYFISH_VARIANT = FabricRegistryBuilder.createSimple(JELLYFISH_VARIANT_REGISTRY)
@@ -43,6 +48,7 @@ public final class WilderWildRegistries {
 
 	public static void initRegistry() {
 		FireflyColor.init();
+		ButterflyVariant.init();
 		JellyfishVariant.init();
 	}
 }

@@ -30,7 +30,6 @@ import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 public record FireflyColor(ResourceLocation key, ResourceLocation texture) implements StringRepresentable {
-
 	public static final Codec<FireflyColor> CODEC = WilderWildRegistries.FIREFLY_COLOR.byNameCodec();
 	public static final StreamCodec<RegistryFriendlyByteBuf, FireflyColor> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
