@@ -207,7 +207,7 @@ dependencies {
     }
 
     // TerraBlender
-    //modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
+    modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:2.1.4")
