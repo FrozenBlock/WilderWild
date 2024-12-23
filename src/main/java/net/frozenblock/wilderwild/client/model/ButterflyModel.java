@@ -86,26 +86,32 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 	private static final float BODY_HEIGHT_SPEED = 0.375F;
 	private static final float BODY_HEIGHT = Mth.PI * 0.075F;
 	private static final float BODY_HEIGHT_OFFSET = -4.5F;
+
+	private static final float IDLE_WING_XROT = 15F * Mth.DEG_TO_RAD;
+
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		float verticalFlap = Mth.cos(ageInTicks * FLAP_SPEED) * FLAP_HEIGHT;
 
+		float animation = (ageInTicks) + (limbSwing * 0.5F);
+		float movementDelta = Math.min(limbSwingAmount * 2.25F, 1F);
+
+		float verticalFlap = Mth.lerp(movementDelta, -Mth.HALF_PI * 1.025F, Mth.cos(animation * FLAP_SPEED) * FLAP_HEIGHT);
 		this.left_wing.zRot += verticalFlap;
 		this.right_wing.zRot -= verticalFlap;
 
-		float xRot = Mth.cos((ageInTicks + FLAP_ROW_OFFSET) * FLAP_SPEED) * FLAP_ROW_WIDTH;
+		float xRot = Mth.lerp(movementDelta, IDLE_WING_XROT, Mth.cos((animation + FLAP_ROW_OFFSET) * FLAP_SPEED) * FLAP_ROW_WIDTH);
 		this.left_wing.xRot -= xRot;
 		this.right_wing.xRot += xRot;
 
-		float yRot = Mth.cos((ageInTicks + FLAP_TILT_OFFSET) * FLAP_SPEED) * FLAP_TILT_WIDTH;
+		float yRot = Mth.lerp(movementDelta, 0F, Mth.cos((animation + FLAP_TILT_OFFSET) * FLAP_SPEED) * FLAP_TILT_WIDTH);
 		this.left_wing.yRot -= yRot;
 		this.right_wing.yRot -= yRot;
 
-		float bodyXRot = Mth.cos(ageInTicks * BODY_ROT_SPEED) * BODY_ROT_HEIGHT;
+		float bodyXRot = Mth.lerp(movementDelta, 0F, Mth.cos(animation * BODY_ROT_SPEED) * BODY_ROT_HEIGHT);
 		this.body.xRot += bodyXRot;
 
-		float bodyY = Mth.cos((ageInTicks + BODY_HEIGHT_OFFSET) * BODY_HEIGHT_SPEED) * BODY_HEIGHT;
+		float bodyY = Mth.lerp(movementDelta, 0F, Mth.cos((animation + BODY_HEIGHT_OFFSET) * BODY_HEIGHT_SPEED) * BODY_HEIGHT);
 		this.body.y -= bodyY;
 	}
 
