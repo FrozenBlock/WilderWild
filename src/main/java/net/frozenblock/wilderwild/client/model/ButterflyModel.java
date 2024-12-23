@@ -100,9 +100,6 @@ public class ButterflyModel<T extends Butterfly> extends HierarchicalModel<T> {
 	private static final float FLAP_TILT_OFFSET = -6F;
 	private static final float FLAP_TILT_WIDTH = Mth.PI * 0.055F;
 
-	private static final float BODY_ROT_SPEED = 0.675F;
-	private static final float BODY_ROT_HEIGHT = Mth.PI * 0.025F;
-
 	private static final float BODY_X_ROT_SPEED = 1.5F;
 	private static final float BODY_X_ROT_HEIGHT = Mth.PI * 0.015F;
 
