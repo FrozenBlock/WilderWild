@@ -134,10 +134,11 @@ public class ButterflyModel<T extends Entity> extends HierarchicalModel<T> {
 		this.left_wing.yRot -= yRot;
 		this.right_wing.yRot -= yRot;
 
-		float bodyXRot = Mth.lerp(movementDelta, Mth.cos(animation * BODY_X_ROT_SPEED) * BODY_X_ROT_HEIGHT, 0F);
+		float walkAnimation = limbSwing * 9F;
+		float bodyXRot = Mth.lerp(movementDelta, Mth.cos(walkAnimation * BODY_X_ROT_SPEED) * BODY_X_ROT_HEIGHT, 0F);
 		this.body.xRot += bodyXRot;
 
-		float bodyYRot = Mth.lerp(movementDelta, Mth.cos(animation * BODY_Y_ROT_SPEED) * BODY_Y_ROT_HEIGHT, 0F);
+		float bodyYRot = Mth.lerp(movementDelta, Mth.cos(walkAnimation * BODY_Y_ROT_SPEED) * BODY_Y_ROT_HEIGHT, 0F);
 		this.body.yRot += bodyYRot;
 
 		float bodyY = Mth.lerp(movementDelta, 0F, Mth.cos((animation + BODY_HEIGHT_OFFSET) * BODY_HEIGHT_SPEED) * BODY_HEIGHT * lengthMultiplier);
