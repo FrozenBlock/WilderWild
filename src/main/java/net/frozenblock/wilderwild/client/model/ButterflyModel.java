@@ -121,7 +121,7 @@ public class ButterflyModel<T extends Butterfly> extends HierarchicalModel<T> {
 		float partialTick = ageInTicks - butterfly.tickCount;
 
 		float animation = (ageInTicks * 0.75F) + (limbSwing * 0.85F);
-		float movementDelta = 1F - butterfly.getGroundProgress(partialTick);
+		float movementDelta = Math.max(1F - butterfly.getGroundProgress(partialTick), 0.1F);
 		float lengthMultiplier = Math.max(movementDelta * 0.75F, 0.4F);
 		float flapLengthMultiplier = lengthMultiplier * (1F - (butterfly.getDownProgress(partialTick) * 0.5F));
 
