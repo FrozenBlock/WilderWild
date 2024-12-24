@@ -227,10 +227,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
 		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
-		CustomData.update(
+
+		CompoundTag tag = new CompoundTag();
+		tag.putString("FireflyBottleVariantTag", this.getColor().getSerializedName());
+
+		CustomData.set(
 			WWDataComponents.FIREFLY_COLOR,
 			itemStack,
-			compoundTag -> compoundTag.putString("FireflyBottleVariantTag", this.getColor().getSerializedName())
+			tag
 		);
 	}
 

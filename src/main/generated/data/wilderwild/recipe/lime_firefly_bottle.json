@@ -13,7 +13,7 @@
       },
       "components": {
         "wilderwild:firefly_color": {
-          "FireflyBottleVariantTag": "on"
+          "FireflyBottleVariantTag": "wilderwild:on"
         }
       }
     }

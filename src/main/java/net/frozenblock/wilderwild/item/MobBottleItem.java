@@ -115,8 +115,10 @@ public class MobBottleItem extends Item {
 
 			Optional<FireflyColor> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
 			if (optional.isPresent()) {
-				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 				ResourceLocation colorKey = optional.get().key();
+				if (colorKey == FireflyColor.ON.key()) return;
+
+				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 				list.add(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
 			}
 		}

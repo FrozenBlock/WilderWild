@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datagen.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
-import net.frozenblock.lib.recipe.api.ShapedRecipeBuilderExtension;
 import net.frozenblock.lib.recipe.api.ShapelessRecipeBuilderExtension;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
@@ -32,7 +31,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -81,10 +79,7 @@ public final class FireflyBottleRecipeProvider {
 				FireflyColor.RED,
 				FireflyColor.WHITE,
 				FireflyColor.YELLOW
-			),
-			"firefly_bottle",
-			RecipeCategory.MISC,
-			WWConstants.MOD_ID
+			)
 		);
 
 		fireflyBottle(FireflyColor.BLACK, Items.BLACK_DYE, exporter);
@@ -106,7 +101,7 @@ public final class FireflyBottleRecipeProvider {
 	}
 
 	private static void colorFireflyBottlesWithDyes(
-		RecipeOutput recipeOutput, @NotNull List<Item> dyes, List<FireflyColor> fireflyColors, String group, RecipeCategory recipeCategory, String modID
+		RecipeOutput recipeOutput, @NotNull List<Item> dyes, List<FireflyColor> fireflyColors
 	) {
 		for(int i = 0; i < dyes.size(); ++i) {
 			Item dye = dyes.get(i);
@@ -114,7 +109,7 @@ public final class FireflyBottleRecipeProvider {
 			CompoundTag variantTag = new CompoundTag();
 			variantTag.putString("FireflyBottleVariantTag", outputColor.getSerializedName());
 
-			((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(recipeCategory, WWItems.FIREFLY_BOTTLE)
+			((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
 				.requires(dye)
 				.requires(
 					Ingredient.of(
@@ -132,7 +127,7 @@ public final class FireflyBottleRecipeProvider {
 							})
 					)
 				)
-				.group(group)
+				.group("firefly_bottle")
 				.unlockedBy("has_needed_dye", RecipeProvider.has(dye))
 			).frozenLib$patch(
 				DataComponentPatch.builder()
@@ -140,14 +135,14 @@ public final class FireflyBottleRecipeProvider {
 					.build()
 			).save(
 				recipeOutput,
-				ResourceLocation.fromNamespaceAndPath(modID, "dye_" + outputColor.key().getPath() + "_firefly_bottle")
+				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle")
 			);
 		}
 	}
 
 	private static void fireflyBottle(@NotNull FireflyColor fireflyColor, Item dye, RecipeOutput exporter) {
 		CompoundTag defaultColorTag = new CompoundTag();
-		defaultColorTag.putString("FireflyBottleVariantTag", "on");
+		defaultColorTag.putString("FireflyBottleVariantTag", FireflyColor.ON.getSerializedName());
 
 		CompoundTag variantTag = new CompoundTag();
 		variantTag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName());
