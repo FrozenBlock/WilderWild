@@ -22,6 +22,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -52,7 +53,7 @@ public class Penguin extends Animal {
 	public Penguin(EntityType<? extends Animal> entityType, Level level) {
 		super(entityType, level);
 		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.55F, 0.2F, true);
-		this.lookControl = new SmoothSwimmingLookControl(this, 10);
+		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
 
 	@Override
@@ -116,10 +117,6 @@ public class Penguin extends Animal {
 		return this.isInWaterOrBubble() || this.isVisuallySwimming();
 	}
 
-	public boolean isSubmergedOrSwimming() {
-		return this.isUnderWater() || this.isVisuallySwimming();
-	}
-
 	@Override
 	public boolean isFood(@NotNull ItemStack itemStack) {
 		// TODO: use a tag
@@ -175,6 +172,13 @@ public class Penguin extends Animal {
 		PenguinAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
+	}
+
+
+	@Override
+	protected void sendDebugPackets() {
+		super.sendDebugPackets();
+		DebugPackets.sendEntityBrain(this);
 	}
 
 }

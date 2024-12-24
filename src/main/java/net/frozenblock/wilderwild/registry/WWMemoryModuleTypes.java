@@ -25,6 +25,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Penguin;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
@@ -48,6 +50,11 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Unit> FIRST_BRAIN_TICK = register("first_brain_tick");
 	public static final MemoryModuleType<List<Ostrich>> NEARBY_OSTRICHES = register("nearby_ostriches");
 	public static final MemoryModuleType<List<Penguin>> NEARBY_PENGUINS = register("nearby_penguins");
+
+	public static final MemoryModuleType<Integer> IDLE_TIME = register("idle_time", Codec.INT);
+	public static final MemoryModuleType<Integer> DIVE_TICKS = register("dive_ticks", Codec.INT);
+	public static final MemoryModuleType<Unit> SEARCHING_FOR_WATER = register("searching_for_water");
+	public static final MemoryModuleType<Unit> WANTS_TO_LAUNCH = register("wants_to_launch");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

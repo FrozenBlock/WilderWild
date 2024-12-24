@@ -25,7 +25,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Penguin;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
@@ -37,26 +37,24 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
-import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.GateBehavior;
 import net.minecraft.world.entity.ai.behavior.LongJumpMidJump;
-import net.minecraft.world.entity.ai.behavior.LongJumpToRandomPos;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTargetSometimes;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
-import net.minecraft.world.entity.ai.behavior.StopBeingAngryIfTargetDead;
 import net.minecraft.world.entity.ai.behavior.TryFindLand;
+import net.minecraft.world.entity.ai.behavior.TryFindLandNearWater;
+import net.minecraft.world.entity.ai.behavior.TryFindWater;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -107,7 +105,11 @@ public class PenguinAi {
 		MemoryModuleType.HOME,
 		MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
 		MemoryModuleType.LONG_JUMP_MID_JUMP,
-		MemoryModuleType.IS_IN_WATER
+		MemoryModuleType.IS_IN_WATER,
+		WWMemoryModuleTypes.IDLE_TIME,
+		WWMemoryModuleTypes.DIVE_TICKS,
+		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
+		WWMemoryModuleTypes.WANTS_TO_LAUNCH
 	);
 
 	@NotNull
@@ -119,7 +121,9 @@ public class PenguinAi {
 	public static Brain<?> makeBrain(@NotNull Penguin penguin, @NotNull Brain<Penguin> brain) {
 		initCoreActivity(brain);
 		initIdleActivity(brain);
+		initSearchActivity(brain);
 		initSwimActivity(brain);
+		initEscapeActivity(brain);
 		initJumpActivity(brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
@@ -136,7 +140,9 @@ public class PenguinAi {
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
-				new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS)
+				new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
+				new CountDownCooldownTicks(WWMemoryModuleTypes.IDLE_TIME),
+				new CountDownCooldownTicks(WWMemoryModuleTypes.DIVE_TICKS)
 			)
 		);
 	}
@@ -164,7 +170,32 @@ public class PenguinAi {
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT)
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_PRESENT)
+			)
+		);
+	}
+
+	private static void initSearchActivity(@NotNull Brain<Penguin> brain) {
+		brain.addActivityAndRemoveMemoriesWhenStopped(
+			WWActivities.SEARCH,
+			ImmutableList.of(
+				Pair.of(0, new PenguinSlide(400)),
+				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
+				Pair.of(0, new AnimalMakeLove(WWEntityTypes.PENGUIN)),
+				Pair.of(0, TryFindWater.create(8, 0.8F)),
+				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F))
+			),
+			ImmutableSet.of(
+				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
+				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
+				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT)
+			),
+			ImmutableSet.of(
+				WWMemoryModuleTypes.SEARCHING_FOR_WATER
 			)
 		);
 	}
@@ -176,7 +207,7 @@ public class PenguinAi {
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
 				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
 				//Pair.of(2, StartAttacking.create(PenguinAi::canAttack, frog -> frog.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
-				Pair.of(3, TryFindLand.create(8, 1.5F)),
+				//Pair.of(3, TryFindLand.create(8, 1.5F)),
 				Pair.of(
 					5,
 					new GateBehavior<>(
@@ -200,67 +231,40 @@ public class PenguinAi {
 		);
 	}
 
+	private static void initEscapeActivity(@NotNull Brain<Penguin> brain) {
+		brain.addActivityWithConditions(
+			WWActivities.ESCAPE,
+			ImmutableList.of(
+				Pair.of(0, PenguinFindEscapePos.create(10, 2F))
+			),
+			ImmutableSet.of(
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
+			)
+		);
+	}
+
 	private static void initJumpActivity(@NotNull Brain<Penguin> brain) {
 		brain.addActivityWithConditions(
 			Activity.LONG_JUMP,
 			ImmutableList.of(
 				Pair.of(0, new LongJumpMidJump(TIME_BETWEEN_LONG_JUMPS, SoundEvents.FROG_STEP)),
-				Pair.of(1, new PenguinLongJump<>(TIME_BETWEEN_LONG_JUMPS, 5, 10, 3.5714288F, penguin -> SoundEvents.GOAT_LONG_JUMP))
+				Pair.of(1, new PenguinLongJump<>(TIME_BETWEEN_LONG_JUMPS, 7, 10, 3.5714288F, penguin -> SoundEvents.GOAT_LONG_JUMP))
 			),
 			ImmutableSet.of(
-				Pair.of(MemoryModuleType.TEMPTING_PLAYER, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT)
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
 
 	public static void updateActivity(@NotNull Penguin penguin) {
-		penguin.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.LONG_JUMP, Activity.SWIM, Activity.IDLE));
-	}
-
-	private static boolean isTarget(@NotNull Penguin penguin, @NotNull LivingEntity livingEntity) {
-		return penguin.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
-	}
-
-	private static void onTargetInvalid(@NotNull Penguin penguin, @NotNull LivingEntity target) {
-		if (penguin.getTarget() == target) {
-			removeAttackAndAngerTarget(penguin);
-		}
-		penguin.getNavigation().stop();
-	}
-
-	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Penguin penguin) {
-		Brain<Penguin> brain = penguin.getBrain();
-		Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(penguin, MemoryModuleType.ANGRY_AT);
-		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(penguin, optional.get())) {
-			return optional;
-		} else {
-			Optional<? extends LivingEntity> optional2;
-			if (brain.hasMemoryValue(MemoryModuleType.UNIVERSAL_ANGER)) {
-				optional2 = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
-				if (optional2.isPresent()) {
-					return optional2;
-				}
-			}
-			return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
-		}
+		penguin.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.LONG_JUMP, WWActivities.ESCAPE, Activity.SWIM, WWActivities.SEARCH, Activity.IDLE));
 	}
 
 	@NotNull
 	private static Optional<List<Penguin>> getNearbyPenguins(@NotNull Penguin penguin) {
 		return penguin.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS);
-	}
-
-	public static Optional<Player> getNearestVisibleTargetablePlayer(@NotNull Penguin penguin) {
-		return penguin.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) ? penguin.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) : Optional.empty();
-	}
-
-	@NotNull
-	private static Optional<LivingEntity> getAngerTarget(@NotNull Penguin penguin) {
-		return penguin.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
 	public static void removeAttackAndAngerTarget(@NotNull Penguin penguin) {
