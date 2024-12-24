@@ -196,5 +196,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.MAGENTA_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.ORANGE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.WHITE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 	}
 }

@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -51,6 +52,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
@@ -118,6 +120,11 @@ public final class WWItems {
 	public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.MAGENTA);
 	public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.ORANGE);
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.WHITE);
+	public static final MobBottleItem BUTTERFLY_BOTTLE = new MobBottleItem(
+		WWEntityTypes.BUTTERFLY,
+		WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY,
+		new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
+	);
 
 	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new Item.Properties().food(Foods.APPLE));
@@ -240,6 +247,7 @@ public final class WWItems {
 		registerItem(PURPLE_FIREFLY_BOTTLE, "purple_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItem(BUTTERFLY_BOTTLE, "butterfly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);

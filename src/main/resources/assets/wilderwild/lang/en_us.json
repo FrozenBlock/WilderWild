@@ -402,6 +402,10 @@
   "death.attack.tumbleweed.item": "%1$s was tumbled by %2$s using %3$s",
 
   "entity.wilderwild.butterfly": "Butterfly",
+  "item.wilderwild.butterfly_bottle": "Butterfly in a Bottle",
+  "wilderwild.butterfly.variant.monarch": "Monarch",
+  "wilderwild.butterfly.variant.red_lacewing": "Red Lacewing",
+  "wilderwild.butterfly.variant.marbled": "Marbled",
   "subtitles.entity.butterfly.fly": "Butterfly flies",
   "subtitles.entity.butterfly.hurt": "Butterfly hurts",
   "subtitles.entity.butterfly.death": "Butterfly dies",
@@ -879,6 +883,8 @@
   "wilderwild.advancements.adventure.obtain_null_block.description": "Obtain a Null Block",
   "wilderwild.advancements.husbandry.firefly_in_a_bottle.title": "Lightning in a Bottle",
   "wilderwild.advancements.husbandry.firefly_in_a_bottle.description": "Catch a Firefly in a Bottle",
+  "wilderwild.advancements.husbandry.butterfly_in_a_bottle.title": "Clipped Wings",
+  "wilderwild.advancements.husbandry.butterfly_in_a_bottle.description": "Catch a Butterfly in a Bottle",
 
   "commands.sculkspread.success": "Spread Sculk at %s, %s, %s with a charge of %s.",
   "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s."

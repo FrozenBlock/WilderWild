@@ -24,12 +24,16 @@ import java.util.Objects;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.butterfly.ButterflyAi;
+import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -41,9 +45,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -60,7 +65,9 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -74,7 +81,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Butterfly extends PathfinderMob implements FlyingAnimal {
+public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public static final int SPAWN_CHANCE = 50;
 	protected static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
 	protected static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(
@@ -119,7 +126,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public static boolean checkButterflySpawnRules(
-            @NotNull EntityType<Butterfly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
+		@NotNull EntityType<Butterfly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
@@ -197,43 +204,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 		builder.define(VARIANT, ButterflyVariant.MONARCH.key().toString());
 	}
 
-	/*
+
 	@Override
 	@NotNull
 	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		return tryCapture(player, hand).orElse(super.mobInteract(player, hand));
+		return Bottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
-
-	@NotNull
-	public Optional<InteractionResult> tryCapture(@NotNull Player player, @NotNull InteractionHand hand) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
-			FireflyColor color = this.getColor();
-			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
-			Item item = WWItems.FIREFLY_BOTTLE;
-			if (optionalItem.isPresent()) {
-				item = optionalItem.get();
-			}
-			this.playSound(WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
-			if (!player.getAbilities().instabuild) {
-				player.getItemInHand(hand).shrink(1);
-			}
-			ItemStack bottleStack = new ItemStack(item);
-			if (this.hasCustomName()) {
-				bottleStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
-			}
-			player.getInventory().placeItemBackInInventory(bottleStack);
-			Level level = this.level();
-			this.discard();
-			if (!level.isClientSide) {
-				WWCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer) player, bottleStack);
-			}
-			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
-		} else {
-			return Optional.empty();
-		}
-	}
-	 */
 
 	@Override
 	public boolean shouldRender(double x, double y, double z) {
@@ -252,12 +228,50 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 		return ButterflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
-	public boolean isFromBottle() {
+	@Override
+	public boolean fromBottle() {
 		return this.entityData.get(FROM_BOTTLE);
 	}
 
 	public void setFromBottle(boolean value) {
 		this.entityData.set(FROM_BOTTLE, value);
+	}
+
+	@Override
+	public void saveToBottleTag(ItemStack itemStack) {
+		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
+		CustomData.update(
+			WWDataComponents.BOTTLE_ENTITY_DATA,
+			itemStack,
+			compoundTag -> compoundTag.putString("ButterflyBottleVariantTag", this.getVariant().getSerializedName())
+		);
+	}
+
+	@Override
+	public void loadFromBottleTag(CompoundTag compoundTag) {
+		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
+		if (compoundTag.contains("ButterflyBottleVariantTag")) {
+			ButterflyVariant variant = WilderWildRegistries.BUTTERFLY_VARIANT.get(ResourceLocation.tryParse(compoundTag.getString("ButterflyBottleVariantTag")));
+			if (variant != null) {
+				this.setVariant(variant);
+			}
+		}
+	}
+
+	@Override
+	public void onBottleRelease() {
+		ButterflyAi.rememberHome(this, this.blockPosition());
+		this.hasHome = true;
+	}
+
+	@Override
+	public ItemStack getBottleItemStack() {
+		return new ItemStack(WWItems.BUTTERFLY_BOTTLE);
+	}
+
+	@Override
+	public SoundEvent getPickupSound() {
+		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
 	}
 
 	public ButterflyVariant getVariant() {
@@ -270,7 +284,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.isFromBottle();
+		return super.requiresCustomPersistence() || this.fromBottle();
 	}
 
 	@Override
@@ -422,13 +436,13 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return !this.isFromBottle() && !this.hasCustomName();
+		return !this.fromBottle() && !this.hasCustomName();
 	}
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putBoolean("fromBottle", this.isFromBottle());
+		compound.putBoolean("fromBottle", this.fromBottle());
 		compound.putBoolean("natural", this.natural);
 		compound.putBoolean("hasHome", this.hasHome);
 		compound.putString("variant", Objects.requireNonNull(WilderWildRegistries.BUTTERFLY_VARIANT.getKey(this.getVariant())).toString());

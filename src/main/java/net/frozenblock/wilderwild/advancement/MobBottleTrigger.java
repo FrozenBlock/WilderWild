@@ -32,7 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
+public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.TriggerInstance> {
 
 	@Override
 	@NotNull
@@ -54,18 +54,18 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		);
 
 		@NotNull
-		public static Criterion<TriggerInstance> fireflyBottle() {
-			return fireflyBottle((ItemPredicate) null);
+		public static Criterion<TriggerInstance> mobBottle() {
+			return mobBottle((ItemPredicate) null);
 		}
 
 		@NotNull
-		public static Criterion<TriggerInstance> fireflyBottle(@NotNull ItemPredicate.Builder builder) {
-			return fireflyBottle(builder.build());
+		public static Criterion<TriggerInstance> mobBottle(@NotNull ItemPredicate.Builder builder) {
+			return mobBottle(builder.build());
 		}
 
 		@NotNull
-		public static Criterion<TriggerInstance> fireflyBottle(@Nullable ItemPredicate item) {
-			return WWCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
+		public static Criterion<TriggerInstance> mobBottle(@Nullable ItemPredicate item) {
+			return WWCriteria.MOB_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
 		}
 
 		public boolean matches(ItemStack item) {
