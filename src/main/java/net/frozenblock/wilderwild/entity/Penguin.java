@@ -49,7 +49,7 @@ public class Penguin extends Animal {
 
 	public Penguin(EntityType<? extends Animal> entityType, Level level) {
 		super(entityType, level);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.35F, 0.2F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.55F, 0.2F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 	}
 
@@ -78,7 +78,8 @@ public class Penguin extends Animal {
 			.add(Attributes.MOVEMENT_SPEED, 1D)
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.ATTACK_DAMAGE, 2D)
-			.add(Attributes.SAFE_FALL_DISTANCE, 5D);
+			.add(Attributes.SAFE_FALL_DISTANCE, 5D)
+			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.1D);
 	}
 
 	public static boolean checkPenguinSpawnRules(EntityType<? extends Penguin> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
