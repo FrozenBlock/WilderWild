@@ -118,6 +118,9 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.ARROW)
 			.add(EntityType.SPECTRAL_ARROW);
 
+		this.getOrCreateTagBuilder(EntityTypeTags.FROG_FOOD)
+			.add(WWEntityTypes.BUTTERFLY);
+
 		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
 			.add(WWEntityTypes.OSTRICH)
 			.add(WWEntityTypes.SCORCHED);
