@@ -149,18 +149,14 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 
 		float timeSin25 = timeSin * 50F;
 		float baseFootRot = Mth.HALF_PI * 0.4F * wadeAmount;
-		this.left_foot.xRot += baseFootRot + (timeSin25 + 50F) * Mth.DEG_TO_RAD;
-		this.right_foot.xRot += baseFootRot + (-timeSin25 + 50F) * Mth.DEG_TO_RAD;
+		this.left_foot.xRot += baseFootRot + (timeSin25 + 50F * wadeAmount) * Mth.DEG_TO_RAD;
+		this.right_foot.xRot += baseFootRot + (-timeSin25 + 50F * wadeAmount) * Mth.DEG_TO_RAD;
 	}
 
 	private void animateSwim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float swimAmount) {
 		headPitch += 90F * swimAmount;
 
-		float flipperYRot = Mth.HALF_PI * 0.5F * limbSwingAmount * swimAmount;
-		this.left_flipper.zRot -= flipperYRot;
-		this.right_flipper.zRot += flipperYRot;
-
-		float flipperZRot = Mth.cos(limbSwing * 0.3F) * limbSwingAmount * swimAmount;
+		float flipperZRot = Mth.cos(limbSwing * 0.2F) * limbSwingAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount);
 		this.left_flipper.zRot -= flipperZRot;
 		this.right_flipper.zRot += flipperZRot;
 
@@ -175,6 +171,13 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.head.xRot += headRot;
 		this.head.y += headY;
 		this.head.z += headZ;
+
+		float swimRotScale = limbSwingAmount * swimAmount * 10F * Mth.DEG_TO_RAD;
+		float swimXRot = Mth.cos(limbSwing * 0.175F) * swimRotScale;
+		this.body.xRot += swimXRot;
+		this.head.xRot -= swimXRot;
+		float swimXRotDelayed = Mth.cos((limbSwing - 5F) * 0.175F) * swimRotScale;
+		this.feet.xRot += swimXRotDelayed;
 	}
 
 	private void animateWalk(float limbSwing, float limbSwingAmount) {
