@@ -214,12 +214,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			if (this.hasCustomName()) {
 				bottleStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
 			}
-			player.getInventory().placeItemBackInInventory(bottleStack);
 			Level level = this.level();
-			this.discard();
 			if (!level.isClientSide) {
 				WWCriteria.MOB_BOTTLE.trigger((ServerPlayer) player, bottleStack);
 			}
+			player.getInventory().placeItemBackInInventory(bottleStack);
+			this.discard();
 			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
 		} else {
 			return Optional.empty();
