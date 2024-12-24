@@ -23,12 +23,11 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,8 +43,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Unique;
 
 public class Penguin extends Animal {
+	private float prevWadeProgress;
+	private float wadeProgress;
 
 	public Penguin(EntityType<? extends Animal> entityType, Level level) {
 		super(entityType, level);
@@ -92,7 +94,29 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public boolean isFood(ItemStack itemStack) {
+	public void updateSwimming() {
+		if (this.isSwimming()) {
+			this.setSwimming(this.isInWater() && !this.isPassenger());
+		} else {
+			this.setSwimming(this.isUnderWater() && !this.isPassenger() && this.level().getFluidState(this.blockPosition()).is(FluidTags.WATER));
+		}
+	}
+
+	@Override
+	public boolean isVisuallySwimming() {
+		return this.isSwimming();
+	}
+
+	public boolean isTouchingWaterOrSwimming() {
+		return this.isInWaterOrBubble() || this.isVisuallySwimming();
+	}
+
+	public boolean isSubmergedOrSwimming() {
+		return this.isUnderWater() || this.isVisuallySwimming();
+	}
+
+	@Override
+	public boolean isFood(@NotNull ItemStack itemStack) {
 		// TODO: use a tag
 		return itemStack.getItem() == Items.COD || itemStack.getItem() == Items.SALMON;
 	}
@@ -124,6 +148,17 @@ public class Penguin extends Animal {
 	@Override
 	public Penguin getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
 		return WWEntityTypes.PENGUIN.create(level);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		this.prevWadeProgress = this.wadeProgress;
+		this.wadeProgress += ((this.isTouchingWaterOrSwimming() ? 1F : 0F) - this.wadeProgress) * 0.175F;
+	}
+
+	public float getWadeProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevWadeProgress, this.wadeProgress);
 	}
 
 	@Override

@@ -114,7 +114,93 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	private static void animateFoot(@NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
+	@Override
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
+		// HEAD
+		float partialTick = ageInTicks - entity.tickCount;
+		float swimAmount = entity.getSwimAmount(partialTick);
+		float wadeProgress = entity.getWadeProgress(partialTick);
+		float notSwimmingAmount = 1F - swimAmount;
+
+		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD * notSwimmingAmount;
+		this.head.xRot += headPitch * Mth.DEG_TO_RAD * notSwimmingAmount;
+
+		limbSwing *= 2.65F;
+		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
+		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount);
+		this.animateWade(limbSwing, limbSwingAmount, ageInTicks, wadeProgress);
+		this.animateSwim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, swimAmount);
+	}
+
+	private void animateWade(float limbSwing, float limbSwingAmount, float ageInTicks, float wadeAmount) {
+		float time = (ageInTicks * 0.2F) + (limbSwing * 0.1F);
+
+		float timeCos = Mth.cos(time) * wadeAmount;
+		float timeSin = Mth.sin(time) * wadeAmount;
+
+		float timeSin2 = timeSin * 2F;
+		this.head.xRot -= (-timeSin2 * 0.3F) * Mth.DEG_TO_RAD;
+
+		this.body.xRot += ((timeCos * 0.3F * -5F) * Mth.DEG_TO_RAD);
+
+		this.left_flipper.zRot += ((timeSin2 - 5F) * Mth.DEG_TO_RAD * 1.5F);
+		this.right_flipper.zRot += (-timeSin2 + 5F) * Mth.DEG_TO_RAD * 1.5F;
+
+		float timeSin25 = timeSin * 50F;
+		float baseFootRot = Mth.HALF_PI * 0.4F * wadeAmount;
+		this.left_foot.xRot += baseFootRot + (timeSin25 + 50F) * Mth.DEG_TO_RAD;
+		this.right_foot.xRot += baseFootRot + (-timeSin25 + 50F) * Mth.DEG_TO_RAD;
+	}
+
+	private void animateSwim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float swimAmount) {
+		headPitch += 90F * swimAmount;
+
+		float flipperYRot = Mth.HALF_PI * 0.5F * limbSwingAmount * swimAmount;
+		this.left_flipper.zRot -= flipperYRot;
+		this.right_flipper.zRot += flipperYRot;
+
+		float flipperZRot = Mth.cos(limbSwing * 0.3F) * limbSwingAmount * swimAmount;
+		this.left_flipper.zRot -= flipperZRot;
+		this.right_flipper.zRot += flipperZRot;
+
+		this.root.xRot = Mth.rotLerp(swimAmount, this.root.xRot, (headPitch * Mth.DEG_TO_RAD));
+		this.root.yRot = Mth.rotLerp(swimAmount, this.root.yRot, (netHeadYaw * Mth.DEG_TO_RAD));
+		this.root.y = Mth.lerp(swimAmount, this.root.y, 16F);
+		this.root.z = Mth.lerp(swimAmount, this.root.z, -11F);
+
+		float headRot = -Mth.HALF_PI * swimAmount;
+		float headY = -3F * swimAmount;
+		float headZ = -2F * swimAmount;
+		this.head.xRot += headRot;
+		this.head.y += headY;
+		this.head.z += headZ;
+	}
+
+	private void animateWalk(float limbSwing, float limbSwingAmount) {
+		// FEET
+		animateFootWalk(this.left_foot, limbSwing, limbSwingAmount, Mth.PI);
+		animateFootWalk(this.right_foot, limbSwing, limbSwingAmount, 0F);
+
+		// BODY
+		float fastAngleBody = limbSwing * 0.3331F;
+		float angleSinBody = Math.sin(-fastAngleBody);
+		float angleSinSwingAmountBody = (angleSinBody * limbSwingAmount) * 0.175F;
+		this.body.zRot += angleSinSwingAmountBody;
+
+		float leftFlipperZRot = (55F * Mth.DEG_TO_RAD * limbSwingAmount) + (angleSinSwingAmountBody);
+		this.left_flipper.zRot -= leftFlipperZRot;
+		float rightFlipperZRot = (55F * Mth.DEG_TO_RAD * limbSwingAmount) + (angleSinSwingAmountBody);
+		this.right_flipper.zRot += rightFlipperZRot;
+
+		// HEAD
+		float fastAngleNeckBase = limbSwing * 0.3331F;
+		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
+		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * 0.175F;
+		this.head.zRot -= angleSinSwingAmountNeckBase;
+	}
+
+	private static void animateFootWalk(@NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
 		float angleSin = Math.sin(-fastAngle);
 
@@ -142,38 +228,6 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		float laterLegY = onlyPositiveLaterAngleSinSwingAmount * 5F;
 		float additionalLateFoot = Math.min(laterLegY, 1F) * laterAngleSinSwingAmount;
 		foot.y -= additionalLateFoot;
-	}
-
-	@Override
-	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD;
-		this.head.xRot += headPitch * Mth.DEG_TO_RAD;
-
-		limbSwing *= 2.65F;
-		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
-
-		// FEET
-		animateFoot(this.left_foot, limbSwing, limbSwingAmount, Mth.PI);
-		animateFoot(this.right_foot, limbSwing, limbSwingAmount, 0F);
-
-		// BODY
-		float fastAngleBody = limbSwing * 0.3331F;
-		float angleSinBody = Math.sin(-fastAngleBody);
-		float angleSinSwingAmountBody = (angleSinBody * limbSwingAmount) * 0.175F;
-		this.body.zRot += angleSinSwingAmountBody;
-
-		float leftFlipperZRot = (55F * Mth.DEG_TO_RAD * limbSwingAmount) + (angleSinSwingAmountBody);
-		this.left_flipper.zRot -= leftFlipperZRot;
-		float rightFlipperZRot = (55F * Mth.DEG_TO_RAD * limbSwingAmount) + (angleSinSwingAmountBody);
-		this.right_flipper.zRot += rightFlipperZRot;
-
-		// HEAD
-		float fastAngleNeckBase = limbSwing * 0.3331F;
-		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
-		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * 0.175F;
-		this.head.zRot -= angleSinSwingAmountNeckBase;
-
-
 	}
 
 	@Override
