@@ -226,8 +226,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
-		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
-
 		CompoundTag tag = new CompoundTag();
 		tag.putString("FireflyBottleVariantTag", this.getColor().getSerializedName());
 
@@ -240,7 +238,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public void loadFromBottleTag(CompoundTag compoundTag) {
-		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
 		if (compoundTag.contains("FireflyBottleVariantTag")) {
 			FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compoundTag.getString("FireflyBottleVariantTag")));
 			if (color != null) {
