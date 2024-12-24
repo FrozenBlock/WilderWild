@@ -271,7 +271,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	@Override
 	public SoundEvent getPickupSound() {
-		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
+		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY;
 	}
 
 	public ButterflyVariant getVariant() {

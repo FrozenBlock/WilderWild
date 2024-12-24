@@ -95,12 +95,12 @@ public interface Bottleable {
 			ItemStack bottleStack = livingEntity.getBottleItemStack();
 			livingEntity.saveToBottleTag(bottleStack);
 
-			if (!player.getAbilities().instabuild) player.getItemInHand(interactionHand).shrink(1);
-			player.getInventory().placeItemBackInInventory(bottleStack);
 			Level level = livingEntity.level();
-			if (!level.isClientSide) {
-				WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);
-			}
+			if (!level.isClientSide) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);
+
+			if (!player.getAbilities().instabuild) player.getItemInHand(interactionHand).shrink(1);
+
+			player.getInventory().placeItemBackInInventory(bottleStack);
 
 			livingEntity.discard();
 			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));

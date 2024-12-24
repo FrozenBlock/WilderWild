@@ -122,7 +122,7 @@ public final class WWItems {
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new Item.Properties().stacksTo(32), FireflyColor.WHITE);
 	public static final MobBottleItem BUTTERFLY_BOTTLE = new MobBottleItem(
 		WWEntityTypes.BUTTERFLY,
-		WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY,
+		WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY,
 		new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
 	);
 

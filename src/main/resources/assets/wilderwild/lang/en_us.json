@@ -409,6 +409,8 @@
   "subtitles.entity.butterfly.fly": "Butterfly flies",
   "subtitles.entity.butterfly.hurt": "Butterfly hurts",
   "subtitles.entity.butterfly.death": "Butterfly dies",
+  "subtitles.item.bottle.catch_butterfly": "Bottle fills with Butterfly",
+  "subtitles.item.bottle.release_butterfly": "Butterfly released from bottle",
 
   "subtitles.entity.warden.brap": "Warden stinks up the place",
   "subtitles.entity.warden.dying_underwater": "Warden gurgles",
