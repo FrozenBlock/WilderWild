@@ -45,12 +45,12 @@ public class PenguinLongJump<E extends Penguin> extends LongJumpToRandomPos<E> {
 		Level level = mob.level();
 		BlockPos blockPos2 = blockPos.below();
 		BlockState belowState = level.getBlockState(blockPos2);
-		return (belowState.isSolidRender(level, blockPos2) || belowState.getFluidState().is(FluidTags.WATER))
-			&& mob.getPathfindingMalus(WalkNodeEvaluator.getPathTypeStatic(mob, blockPos)) == 0F;
+		return Math.sqrt(mob.distanceToSqr(Vec3.atCenterOf(blockPos))) > 6D && (belowState.isSolidRender(level, blockPos2) || belowState.getFluidState().is(FluidTags.WATER)
+			&& mob.getPathfindingMalus(WalkNodeEvaluator.getPathTypeStatic(mob, blockPos)) == 0F);
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel serverLevel, @NotNull Mob mob) {
+	protected boolean checkExtraStartConditions(ServerLevel serverLevel, @NotNull E mob) {
 		boolean bl = mob.isInWater() && !mob.isInLava() && !serverLevel.getBlockState(mob.blockPosition()).is(Blocks.HONEY_BLOCK);
 		if (!bl) {
 			mob.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, this.timeBetweenLongJumps.sample(serverLevel.random) / 2);
@@ -60,7 +60,7 @@ public class PenguinLongJump<E extends Penguin> extends LongJumpToRandomPos<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel serverLevel, Mob mob, long l) {
+	protected boolean canStillUse(ServerLevel serverLevel, E mob, long l) {
 		boolean bl = this.initialPosition.isPresent()
 			&& this.initialPosition.get().equals(mob.position())
 			&& this.findJumpTries > 0

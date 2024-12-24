@@ -67,7 +67,7 @@ public class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_FOLLOWING_ADULT = 1.25F;
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 0.8F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
-	private static final UniformInt TIME_BETWEEN_LONG_JUMPS = UniformInt.of(100, 300);
+	private static final UniformInt TIME_BETWEEN_LONG_JUMPS = UniformInt.of(20, 40);
 	private static final ImmutableList<SensorType<? extends Sensor<? super Penguin>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
@@ -249,11 +249,11 @@ public class PenguinAi {
 			Activity.LONG_JUMP,
 			ImmutableList.of(
 				Pair.of(0, new LongJumpMidJump(TIME_BETWEEN_LONG_JUMPS, SoundEvents.FROG_STEP)),
-				Pair.of(1, new PenguinLongJump<>(TIME_BETWEEN_LONG_JUMPS, 7, 10, 3.5714288F, penguin -> SoundEvents.GOAT_LONG_JUMP))
+				Pair.of(1, new PenguinLongJump<>(TIME_BETWEEN_LONG_JUMPS, 5, 16, 5F, penguin -> SoundEvents.GOAT_LONG_JUMP))
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT)
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT)
 			)
 		);
 	}
