@@ -8,54 +8,134 @@
     },
     [
       {
-        "item": "wilderwild:black_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:black"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:blue_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:blue"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:brown_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:brown"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:cyan_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:cyan"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:gray_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:gray"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:green_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:green"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:light_blue_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:light_blue"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:light_gray_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:light_gray"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:lime_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:lime"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:magenta_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:magenta"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:orange_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:orange"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:pink_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:pink"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:purple_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:purple"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:white_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:white"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       },
       {
-        "item": "wilderwild:yellow_firefly_bottle"
+        "components": {
+          "wilderwild:firefly_color": {
+            "FireflyBottleVariantTag": "wilderwild:yellow"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
       }
     ]
   ],
   "result": {
+    "components": {
+      "wilderwild:firefly_color": {
+        "FireflyBottleVariantTag": "wilderwild:red"
+      }
+    },
     "count": 1,
-    "id": "wilderwild:red_firefly_bottle"
+    "id": "wilderwild:firefly_bottle"
   }
 }

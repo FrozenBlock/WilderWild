@@ -26,6 +26,7 @@ import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
@@ -180,23 +181,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.BLACK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.RED_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.GREEN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.BROWN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.BLUE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.PURPLE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.CYAN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.GRAY_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.PINK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.LIME_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.YELLOW_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.MAGENTA_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.ORANGE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.WHITE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-
 		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+	}
+
+	private void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
+		Item fireflyBottle = WWItems.FIREFLY_BOTTLE;
+
 	}
 }

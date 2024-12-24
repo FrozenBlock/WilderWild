@@ -49,7 +49,7 @@ public interface Bottleable {
 
 	ItemStack getBottleItemStack();
 
-	SoundEvent getPickupSound();
+	SoundEvent getBottleCatchSound();
 
 	@Deprecated
 	static void saveDefaultDataToBottleTag(@NotNull Mob mob, @NotNull ItemStack itemStack) {
@@ -109,7 +109,7 @@ public interface Bottleable {
 	static <T extends LivingEntity & Bottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && livingEntity.isAlive()) {
-			livingEntity.playSound(livingEntity.getPickupSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
+			livingEntity.playSound(livingEntity.getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
 			ItemStack bottleStack = livingEntity.getBottleItemStack();
 			livingEntity.saveToBottleTag(bottleStack);
 

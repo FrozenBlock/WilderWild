@@ -35,6 +35,11 @@ public final class WWDataComponents {
 		builder -> builder.persistent(DisplayLanternBlockEntity.Occupant.LIST_CODEC)
 			.networkSynchronized(DisplayLanternBlockEntity.Occupant.STREAM_CODEC.apply(ByteBufCodecs.list()))
 	);
+	public static final DataComponentType<CustomData> FIREFLY_COLOR = register(
+		"firefly_color",
+		builder -> builder.persistent(CustomData.CODEC)
+			.networkSynchronized(CustomData.STREAM_CODEC)
+	);
 	public static final DataComponentType<CustomData> BOTTLE_ENTITY_DATA = register(
 		"bottle_entity_data",
 		builder -> builder.persistent(CustomData.CODEC)

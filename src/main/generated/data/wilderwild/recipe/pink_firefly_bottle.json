@@ -7,11 +7,24 @@
       "item": "minecraft:pink_dye"
     },
     {
-      "item": "wilderwild:firefly_bottle"
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "wilderwild:firefly_bottle"
+      },
+      "components": {
+        "wilderwild:firefly_color": {
+          "FireflyBottleVariantTag": "on"
+        }
+      }
     }
   ],
   "result": {
+    "components": {
+      "wilderwild:firefly_color": {
+        "FireflyBottleVariantTag": "wilderwild:pink"
+      }
+    },
     "count": 1,
-    "id": "wilderwild:pink_firefly_bottle"
+    "id": "wilderwild:firefly_bottle"
   }
 }

@@ -7,11 +7,24 @@
       "item": "minecraft:yellow_dye"
     },
     {
-      "item": "wilderwild:firefly_bottle"
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "wilderwild:firefly_bottle"
+      },
+      "components": {
+        "wilderwild:firefly_color": {
+          "FireflyBottleVariantTag": "on"
+        }
+      }
     }
   ],
   "result": {
+    "components": {
+      "wilderwild:firefly_color": {
+        "FireflyBottleVariantTag": "wilderwild:yellow"
+      }
+    },
     "count": 1,
-    "id": "wilderwild:yellow_firefly_bottle"
+    "id": "wilderwild:firefly_bottle"
   }
 }

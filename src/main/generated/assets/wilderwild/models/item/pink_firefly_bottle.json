@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "wilderwild:item/pink_firefly_bottle"
-  }
-}

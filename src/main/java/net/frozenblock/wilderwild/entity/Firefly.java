@@ -22,21 +22,19 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
+import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.registry.WWCriteria;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -45,7 +43,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -71,9 +68,8 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -86,7 +82,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Firefly extends PathfinderMob implements FlyingAnimal {
+public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public static final int FLICKERS_CHANCE = 4;
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
 	public static final int SPAWN_CHANCE = 75;
@@ -193,37 +189,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	@Override
 	@NotNull
 	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		return !this.despawning ? tryCapture(player, hand).orElse(super.mobInteract(player, hand)) : InteractionResult.PASS;
-	}
-
-	@NotNull
-	public Optional<InteractionResult> tryCapture(@NotNull Player player, @NotNull InteractionHand hand) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
-			FireflyColor color = this.getColor();
-			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
-			Item item = WWItems.FIREFLY_BOTTLE;
-			if (optionalItem.isPresent()) {
-				item = optionalItem.get();
-			}
-			this.playSound(WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
-			if (!player.getAbilities().instabuild) {
-				player.getItemInHand(hand).shrink(1);
-			}
-			ItemStack bottleStack = new ItemStack(item);
-			if (this.hasCustomName()) {
-				bottleStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
-			}
-			Level level = this.level();
-			if (!level.isClientSide) {
-				WWCriteria.MOB_BOTTLE.trigger((ServerPlayer) player, bottleStack);
-			}
-			player.getInventory().placeItemBackInInventory(bottleStack);
-			this.discard();
-			return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
-		} else {
-			return Optional.empty();
-		}
+		return !this.despawning ? Bottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand)) : InteractionResult.PASS;
 	}
 
 	@Override
@@ -248,12 +214,51 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
-	public boolean isFromBottle() {
+	@Override
+	public boolean fromBottle() {
 		return this.entityData.get(FROM_BOTTLE);
 	}
 
+	@Override
 	public void setFromBottle(boolean value) {
 		this.entityData.set(FROM_BOTTLE, value);
+	}
+
+	@Override
+	public void saveToBottleTag(ItemStack itemStack) {
+		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
+		CustomData.update(
+			WWDataComponents.FIREFLY_COLOR,
+			itemStack,
+			compoundTag -> compoundTag.putString("FireflyBottleVariantTag", this.getColor().getSerializedName())
+		);
+	}
+
+	@Override
+	public void loadFromBottleTag(CompoundTag compoundTag) {
+		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
+		if (compoundTag.contains("FireflyBottleVariantTag")) {
+			FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compoundTag.getString("FireflyBottleVariantTag")));
+			if (color != null) {
+				this.setColor(color);
+			}
+		}
+	}
+
+	@Override
+	public void onBottleRelease() {
+		FireflyAi.rememberHome(this, this.blockPosition());
+		this.hasHome = true;
+	}
+
+	@Override
+	public ItemStack getBottleItemStack() {
+		return new ItemStack(WWItems.FIREFLY_BOTTLE);
+	}
+
+	@Override
+	public SoundEvent getBottleCatchSound() {
+		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
 	}
 
 	public boolean flickers() {
@@ -298,7 +303,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.isFromBottle();
+		return super.requiresCustomPersistence() || this.fromBottle();
 	}
 
 	@Override
@@ -385,7 +390,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		super.tick();
 
 		if (this.shouldCheckSpawn) {
-			if (!this.isFromBottle()) {
+			if (!this.fromBottle()) {
 				FireflyColor biomeColor = FireflyBiomeColorRegistry.getBiomeColor(this.level().getBiome(this.blockPosition()));
 				if (biomeColor != null) {
 					this.setColor(biomeColor);
@@ -454,7 +459,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return !this.isFromBottle() && !this.hasCustomName();
+		return !this.fromBottle() && !this.hasCustomName();
 	}
 
 	@Override
@@ -498,7 +503,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putBoolean("fromBottle", this.isFromBottle());
+		compound.putBoolean("fromBottle", this.fromBottle());
 		compound.putBoolean("natural", this.natural);
 		compound.putBoolean("flickers", this.flickers());
 		compound.putInt("flickerAge", this.getFlickerAge());

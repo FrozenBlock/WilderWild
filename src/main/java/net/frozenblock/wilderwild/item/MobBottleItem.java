@@ -110,7 +110,7 @@ public class MobBottleItem extends Item {
 				list.add(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
 			}
 		} else if (this.type == WWEntityTypes.FIREFLY) {
-			CustomData customData = itemStack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
+			CustomData customData = itemStack.getOrDefault(WWDataComponents.FIREFLY_COLOR, CustomData.EMPTY);
 			if (customData.isEmpty()) return;
 
 			Optional<FireflyColor> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();

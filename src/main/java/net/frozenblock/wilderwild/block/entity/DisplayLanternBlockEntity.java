@@ -30,7 +30,6 @@ import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -179,10 +178,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		return this.fireflies;
 	}
 
-	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
+	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyColor color, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
-		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7D, random.nextInt(MAX_FIREFLY_AGE), 0D);
+		var firefly = new Occupant(newVec, color, name, random.nextDouble() > 0.7D, random.nextInt(MAX_FIREFLY_AGE), 0D);
 		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
