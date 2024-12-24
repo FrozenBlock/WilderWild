@@ -233,6 +233,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		return this.entityData.get(FROM_BOTTLE);
 	}
 
+	@Override
 	public void setFromBottle(boolean value) {
 		this.entityData.set(FROM_BOTTLE, value);
 	}
@@ -312,31 +313,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		birdNavigation.setCanPassDoors(true);
 		return birdNavigation;
 	}
-
-	/*
-	@Override
-	public void travel(@NotNull Vec3 travelVector) {
-		if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
-			if (this.isAlive()) {
-				if (this.isInWater()) {
-					this.moveRelative(0.01F, travelVector);
-					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929D));
-				} else if (this.isInLava()) {
-					this.moveRelative(0.01F, travelVector);
-					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
-				} else {
-					this.moveRelative(this.getSpeed(), travelVector);
-					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437D));
-				}
-			} else {
-				super.travel(travelVector);
-			}
-		}
-	}
-	 */
 
 	@Override
 	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {

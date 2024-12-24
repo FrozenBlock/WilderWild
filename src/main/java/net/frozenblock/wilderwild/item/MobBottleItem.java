@@ -78,6 +78,7 @@ public class MobBottleItem extends Item {
 					if (entity instanceof Bottleable bottleable) {
 						CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
 						bottleable.loadFromBottleTag(customData.copyTag());
+						bottleable.setFromBottle(true);
 						bottleable.onBottleRelease();
 					}
 
