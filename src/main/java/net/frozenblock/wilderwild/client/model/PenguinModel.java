@@ -34,6 +34,7 @@ import org.joml.Math;
 public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart body;
+	private final ModelPart torso;
 	private final ModelPart head;
 	private final ModelPart right_flipper;
 	private final ModelPart left_flipper;
@@ -44,10 +45,11 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 	public PenguinModel(@NotNull ModelPart root) {
 		this.root = root;
 		this.body = root.getChild("body");
-		this.head = this.body.getChild("head");
-		this.right_flipper = this.body.getChild("right_flipper");
-		this.left_flipper = this.body.getChild("left_flipper");
-		this.feet = root.getChild("feet");
+		this.torso = this.body.getChild("torso");
+		this.head = this.torso.getChild("head");
+		this.right_flipper = this.torso.getChild("right_flipper");
+		this.left_flipper = this.torso.getChild("left_flipper");
+		this.feet = this.body.getChild("feet");
 		this.left_foot = this.feet.getChild("left_foot");
 		this.right_foot = this.feet.getChild("right_foot");
 	}
@@ -58,43 +60,43 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 
 		PartDefinition body = partdefinition.addOrReplaceChild(
 			"body",
-			CubeListBuilder.create()
+			CubeListBuilder.create(),
+			PartPose.offset(0F, 17F, -0.5F)
+		);
+
+		PartDefinition torso = body.addOrReplaceChild(
+			"torso", CubeListBuilder.create()
 				.texOffs(0, 0)
-				.addBox(-4.5F, -11F, -5F, 9F, 11F, 7F, new CubeDeformation(0F))
+				.addBox(-4.5F, -5F, -3.5F, 9F, 11F, 7F, new CubeDeformation(0F))
 			.texOffs(28, 18)
-				.addBox(-4.5F, 0F, -5F, 9F, 1F, 7F, new CubeDeformation(0F)),
-			PartPose.offset(0F, 23F, 1F)
+				.addBox(-4.5F, 6F, -3.5F, 9F, 1F, 7F, new CubeDeformation(0F)),
+			PartPose.offset(0F, 0F, 0F)
 		);
-
-		PartDefinition head = body.addOrReplaceChild(
-			"head",
-			CubeListBuilder.create()
+		PartDefinition head = torso.addOrReplaceChild(
+			"head", CubeListBuilder.create()
 				.texOffs(0, 18)
-				.addBox(-3.5F, -5F, -4F, 7F, 5F, 7F, new CubeDeformation(0F))
+				.addBox(-3.5F, -5F, -3.5F, 7F, 5F, 7F, new CubeDeformation(0F))
 			.texOffs(0, 42)
-				.addBox(-4.5F, -6F, -4F, 9F, 3F, 7F, new CubeDeformation(0.005F))
+				.addBox(-4.5F, -6F, -3.5F, 9F, 3F, 7F, new CubeDeformation(0.005F))
 			.texOffs(32, 0)
-				.addBox(-0.5F, -3F, -6F, 1F, 2F, 2F, new CubeDeformation(0F)),
-			PartPose.offset(0F, -11F, -1F)
+				.addBox(-0.5F, -3F, -5.5F, 1F, 2F, 2F, new CubeDeformation(0F)),
+			PartPose.offset(0F, -5F, 0F)
+		);
+		PartDefinition right_flipper = torso.addOrReplaceChild(
+			"right_flipper", CubeListBuilder.create()
+				.texOffs(16, 30).addBox(-1F, 0F, -1.5F, 1F, 9F, 3F, new CubeDeformation(0F)),
+			PartPose.offset(-4.5F, -5F, 0F)
+		);
+		PartDefinition left_flipper = torso.addOrReplaceChild(
+			"left_flipper", CubeListBuilder.create()
+				.texOffs(24, 30).addBox(0F, 0F, -1.5F, 1F, 9F, 3F, new CubeDeformation(0F)),
+			PartPose.offset(4.5F, -5F, 0F)
 		);
 
-		PartDefinition right_flipper = body.addOrReplaceChild(
-			"right_flipper",
-			CubeListBuilder.create()
-				.texOffs(16, 30)
-				.addBox(-1F, 0F, -1.5F, 1F, 9F, 3F, new CubeDeformation(0F)),
-			PartPose.offset(-4.5F, -11F, -1.5F)
-		);
-		PartDefinition left_flipper = body.addOrReplaceChild(
-			"left_flipper",
-			CubeListBuilder.create()
-				.texOffs(24, 30)
-				.addBox(0F, 0F, -1.5F, 1F, 9F, 3F, new CubeDeformation(0F)),
-			PartPose.offset(4.5F, -11F, -1.5F)
-		);
-
-		PartDefinition feet = partdefinition.addOrReplaceChild(
-			"feet", CubeListBuilder.create(), PartPose.offset(0F, 24F, 0F)
+		PartDefinition feet = body.addOrReplaceChild(
+			"feet",
+			CubeListBuilder.create(),
+			PartPose.offset(0F, 7F, 0.5F)
 		);
 		PartDefinition left_foot = feet.addOrReplaceChild(
 			"left_foot",
@@ -131,6 +133,46 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount);
 		this.animateWade(limbSwing, limbSwingAmount, ageInTicks, wadeProgress);
 		this.animateSwim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, swimAmount);
+	}
+
+	// Original Molang animation made by DaDolphin!
+	private void animateWalk(float limbSwing, float limbSwingAmount) {
+		limbSwing *= 0.001F;
+		limbSwing *= 1.35F;
+		float walkDelta = Math.min(limbSwingAmount * 2F, 1F);
+		this.body.y -= 0.25F * limbSwingAmount;
+		limbSwingAmount *= Mth.DEG_TO_RAD * 2F;
+
+		float walkSpeed = limbSwing * 90F;
+		float walk35 = walkSpeed * 3.5F;
+		float walk7 = walk35 * 2F;
+
+		// TORSO & HEAD
+		this.torso.y -= Mth.sin(walk7 - 80F) * limbSwingAmount * 0.1F;
+		this.torso.xRot -= Mth.sin(walk7 - 80F) * limbSwingAmount * 0.3F;
+		this.torso.yRot -= Mth.sin(walk35) * limbSwingAmount * 11F;
+		this.torso.zRot -= Mth.sin(walk35 - 80F) * limbSwingAmount * 7F;
+
+		this.head.yRot += Mth.sin(walk35) * limbSwingAmount * 9F;
+		this.head.zRot += Mth.sin(walk35 - 80F) * limbSwingAmount * 4F;
+
+		// FLIPPERS
+		this.left_flipper.xRot += Mth.sin(walk35 - 150F) * limbSwingAmount * 2F;
+		this.left_flipper.yRot += Mth.sin(walk35 - 80F) * limbSwingAmount * 3F;
+		this.left_flipper.zRot += (-20F + Mth.sin(walk35 - 80F) * 5F) * limbSwingAmount;
+
+		this.right_flipper.xRot += Mth.sin(walk35 - 10F) * limbSwingAmount * 2F;
+		this.right_flipper.yRot += Mth.sin(walk35 - 260F) * limbSwingAmount * 3F;
+		this.right_flipper.zRot += (20F - Mth.sin(walk35 - 140F) * 3F) * limbSwingAmount;
+
+		// FEET
+		this.left_foot.y += Mth.clamp(Mth.sin(walk35 - 80F), -1F, 0F) * walkDelta * 0.75F;
+		this.left_foot.z -= Mth.sin(walk35 - 160F) * walkDelta;
+		this.left_foot.xRot -= Math.clamp(Mth.sin(walk35 - 110F) * 5F, 0F, 5F) * Mth.DEG_TO_RAD * walkDelta;
+
+		this.right_foot.y += Mth.clamp(-Mth.sin(walk35 - 80F), -1F, 0F) * walkDelta * 0.75F;
+		this.right_foot.z += Mth.sin(walk35 - 160F) * walkDelta;
+		this.right_foot.xRot -= Math.clamp(-Mth.sin(walk35 - 110F) * 5F, 0F, 5F) * Mth.DEG_TO_RAD * walkDelta;
 	}
 
 	private void animateWade(float limbSwing, float limbSwingAmount, float ageInTicks, float wadeAmount) {
@@ -178,59 +220,6 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.head.xRot -= swimXRot;
 		float swimXRotDelayed = Mth.cos((limbSwing - 5F) * 0.175F) * swimRotScale;
 		this.feet.xRot += swimXRotDelayed;
-	}
-
-	private void animateWalk(float limbSwing, float limbSwingAmount) {
-		// FEET
-		animateFootWalk(this.left_foot, limbSwing, limbSwingAmount, Mth.PI);
-		animateFootWalk(this.right_foot, limbSwing, limbSwingAmount, 0F);
-
-		// BODY
-		float fastAngleBody = limbSwing * 0.3331F;
-		float angleSinBody = Math.sin(-fastAngleBody);
-		float angleSinSwingAmountBody = (angleSinBody * limbSwingAmount) * 0.175F;
-		this.body.zRot += angleSinSwingAmountBody;
-
-		float leftFlipperZRot = (55F * Mth.DEG_TO_RAD * limbSwingAmount) + (angleSinSwingAmountBody);
-		this.left_flipper.zRot -= leftFlipperZRot;
-		float rightFlipperZRot = (55F * Mth.DEG_TO_RAD * limbSwingAmount) + (angleSinSwingAmountBody);
-		this.right_flipper.zRot += rightFlipperZRot;
-
-		// HEAD
-		float fastAngleNeckBase = limbSwing * 0.3331F;
-		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
-		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * 0.175F;
-		this.head.zRot -= angleSinSwingAmountNeckBase;
-	}
-
-	private static void animateFootWalk(@NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
-		float fastAngle = limbSwing * 0.3331F + animOffset;
-		float angleSin = Math.sin(-fastAngle);
-
-		float angleSinSwingAmount = angleSin * limbSwingAmount;
-		float legZ = angleSinSwingAmount * 2F;
-
-		float earlyAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.3331F));
-		float earlyAngleSinSwingAmount = earlyAngleSin * limbSwingAmount;
-		float onlyPositiveEarlyAngleSinSwingAmount = Math.max(earlyAngleSinSwingAmount, 0F);
-		float legY = onlyPositiveEarlyAngleSinSwingAmount * 1F;
-
-		foot.y -= legY;
-		foot.z += legZ;
-
-		float earlierAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.6662F));
-		float earlierAngleSinSwingAmount = earlierAngleSin * limbSwingAmount;
-		float earlierLegY = onlyPositiveEarlyAngleSinSwingAmount * 5F;
-		float additionalFoot = Math.min(earlierLegY, 1F) * earlierAngleSinSwingAmount;
-		//foot.xRot -= Math.sin(fastAngle) * limbSwingAmount * 0.5F;
-		foot.xRot += additionalFoot * 0.5F;
-
-		float laterAngleSin = Math.sin(-fastAngle + (Mth.PI * 0.3331F));
-		float laterAngleSinSwingAmount = laterAngleSin * limbSwingAmount;
-		float onlyPositiveLaterAngleSinSwingAmount = Math.max(laterAngleSinSwingAmount, 0F);
-		float laterLegY = onlyPositiveLaterAngleSinSwingAmount * 5F;
-		float additionalLateFoot = Math.min(laterLegY, 1F) * laterAngleSinSwingAmount;
-		foot.y -= additionalLateFoot;
 	}
 
 	@Override
