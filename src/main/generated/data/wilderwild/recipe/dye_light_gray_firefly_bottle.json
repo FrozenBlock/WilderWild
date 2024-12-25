@@ -1,0 +1,141 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "firefly_bottle",
+  "ingredients": [
+    {
+      "item": "minecraft:light_gray_dye"
+    },
+    [
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:black"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:blue"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:brown"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:cyan"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:gray"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:green"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:light_blue"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:lime"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:magenta"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:orange"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:pink"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:purple"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:red"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:white"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      },
+      {
+        "components": {
+          "wilderwild:bottle_entity_data": {
+            "FireflyBottleVariantTag": "wilderwild:yellow"
+          }
+        },
+        "item": "wilderwild:firefly_bottle"
+      }
+    ]
+  ],
+  "result": {
+    "components": {
+      "wilderwild:bottle_entity_data": {
+        "FireflyBottleVariantTag": "wilderwild:light_gray"
+      }
+    },
+    "count": 1,
+    "id": "wilderwild:firefly_bottle"
+  }
+}
