@@ -19,9 +19,11 @@
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
@@ -33,6 +35,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.apache.commons.lang3.mutable.MutableLong;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PenguinFindEscapePos {
 	public static @NotNull BehaviorControl<PathfinderMob> create(int searchRange, float speedModifier) {
@@ -60,8 +67,10 @@ public class PenguinFindEscapePos {
 							BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 							CollisionContext collisionContext = CollisionContext.of(pathfinderMob);
 
+							List<BlockPos> possiblePoses = shuffleAndOrderByFarthest(blockPos, searchRange, serverLevel.random);
+
 							boolean foundLand = false;
-							for (BlockPos blockPos2 : BlockPos.withinManhattan(blockPos, searchRange, searchRange, searchRange)) {
+							for (BlockPos blockPos2 : possiblePoses) {
 								if (blockPos2.getX() != blockPos.getX() || blockPos2.getZ() != blockPos.getZ()) {
 									BlockState blockState = serverLevel.getBlockState(blockPos2);
 									BlockState blockState2 = serverLevel.getBlockState(mutableBlockPos.setWithOffset(blockPos2, Direction.DOWN));
@@ -81,7 +90,7 @@ public class PenguinFindEscapePos {
 
 							boolean foundWater = false;
 							if (!foundLand) {
-								for (BlockPos blockPos2 : BlockPos.withinManhattan(blockPos, searchRange, searchRange, searchRange)) {
+								for (BlockPos blockPos2 : possiblePoses) {
 									if (blockPos2.getX() != blockPos.getX() || blockPos2.getZ() != blockPos.getZ()) {
 										BlockState blockState = serverLevel.getBlockState(blockPos2);
 										BlockState aboveState = serverLevel.getBlockState(mutableBlockPos.setWithOffset(blockPos2, Direction.UP));
@@ -113,5 +122,15 @@ public class PenguinFindEscapePos {
 					}
 				)
 		);
+	}
+
+	public static List<BlockPos> shuffleAndOrderByFarthest(BlockPos pos, int range, RandomSource random) {
+		List<BlockPos> poses = new ArrayList<>();
+		BlockPos.withinManhattan(pos, range, range, range).forEach(poses::add);
+		poses = Util.toShuffledList(poses.stream(), random);
+
+		return poses.stream()
+			.sorted(Comparator.comparingInt(blockPos2 -> range - blockPos2.distManhattan(pos)))
+			.collect(Collectors.toList());
 	}
 }

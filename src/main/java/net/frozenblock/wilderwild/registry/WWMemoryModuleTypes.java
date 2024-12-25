@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Penguin;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -55,6 +54,8 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> DIVE_TICKS = register("dive_ticks", Codec.INT);
 	public static final MemoryModuleType<Unit> SEARCHING_FOR_WATER = register("searching_for_water");
 	public static final MemoryModuleType<Unit> WANTS_TO_LAUNCH = register("wants_to_launch");
+	public static final MemoryModuleType<GlobalPos> LAND_POS = register("land_pos", GlobalPos.CODEC);
+	public static final MemoryModuleType<GlobalPos> WATER_POS = register("water_pos", GlobalPos.CODEC);
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

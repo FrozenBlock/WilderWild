@@ -48,7 +48,6 @@ import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTargetSometimes;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.TryFindLand;
-import net.minecraft.world.entity.ai.behavior.TryFindLandNearWater;
 import net.minecraft.world.entity.ai.behavior.TryFindWater;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -75,7 +74,8 @@ public class PenguinAi {
 		SensorType.NEAREST_ADULT,
 		SensorType.NEAREST_PLAYERS,
 		WWSensorTypes.PENGUIN_SPECIFIC_SENSOR,
-		SensorType.IS_IN_WATER
+		SensorType.IS_IN_WATER,
+		WWSensorTypes.LAND_POS_SENSOR
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 		MemoryModuleType.IS_PANICKING,
@@ -109,7 +109,9 @@ public class PenguinAi {
 		WWMemoryModuleTypes.IDLE_TIME,
 		WWMemoryModuleTypes.DIVE_TICKS,
 		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
-		WWMemoryModuleTypes.WANTS_TO_LAUNCH
+		WWMemoryModuleTypes.WANTS_TO_LAUNCH,
+		WWMemoryModuleTypes.LAND_POS,
+		WWMemoryModuleTypes.WATER_POS
 	);
 
 	@NotNull
@@ -185,7 +187,8 @@ public class PenguinAi {
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
 				Pair.of(0, new AnimalMakeLove(WWEntityTypes.PENGUIN)),
 				Pair.of(0, TryFindWater.create(8, 0.8F)),
-				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F))
+				Pair.of(1, PenguinReturnToWater.create(0.8F)),
+				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F))
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
@@ -235,6 +238,7 @@ public class PenguinAi {
 		brain.addActivityWithConditions(
 			WWActivities.ESCAPE,
 			ImmutableList.of(
+				Pair.of(0, PenguinFollowReturnPos.create(2F)),
 				Pair.of(0, PenguinFindEscapePos.create(10, 2F))
 			),
 			ImmutableSet.of(
@@ -253,7 +257,8 @@ public class PenguinAi {
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT)
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}

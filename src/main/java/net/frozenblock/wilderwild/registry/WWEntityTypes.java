@@ -97,7 +97,7 @@ public final class WWEntityTypes {
 	public static final EntityType<Penguin> PENGUIN = register(
 		"penguin",
 		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
-			.sized(1F, 1F)
+			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
 			.build(WWConstants.string("penguin"))
 	);

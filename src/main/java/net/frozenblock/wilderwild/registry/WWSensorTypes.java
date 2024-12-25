@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabNearbyPlayerSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichSpecificSensor;
+import net.frozenblock.wilderwild.entity.ai.penguin.PenguinLandPosSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinSpecificSensor;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -52,6 +53,8 @@ public final class WWSensorTypes {
 	public static final SensorType<OstrichSpecificSensor> OSTRICH_SPECIFIC_SENSOR = register("ostrich_specific_sensor", OstrichSpecificSensor::new);
 	public static final SensorType<TemptingSensor> OSTRICH_TEMPTATIONS = register("ostrich_temptations", () -> new TemptingSensor(OstrichAi.getTemptations()));
 	public static final SensorType<PenguinSpecificSensor> PENGUIN_SPECIFIC_SENSOR = register("penguin_specific_sensor", PenguinSpecificSensor::new);
+	public static final SensorType<PenguinLandPosSensor> LAND_POS_SENSOR = register("land_pos_sensor", PenguinLandPosSensor::new);
+	public static final SensorType<PenguinWater> WATER_POS_SENSOR = register("land_pos_sensor", PenguinLandPosSensor::new);
 
 	@NotNull
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {
