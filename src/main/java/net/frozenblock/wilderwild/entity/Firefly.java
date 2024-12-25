@@ -112,7 +112,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		this.setFlickers(this.random.nextInt(FLICKERS_CHANCE) == 0);
 		this.setFlickerAge(this.random.nextIntBetweenInclusive(0, RANDOM_FLICKER_AGE_MAX));
 		this.setAnimScale(1.5F);
-		this.setColor(FireflyColor.ON);
 	}
 
 	public static boolean checkFireflySpawnRules(
@@ -178,7 +177,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		builder.define(AGE, 0);
 		builder.define(ANIM_SCALE, 1.5F);
 		builder.define(PREV_ANIM_SCALE, 1.5F);
-		builder.define(COLOR, FireflyColor.ON.key().toString());
+		builder.define(COLOR, FireflyColor.ON.getSerializedName());
 	}
 
 	@Override
@@ -230,14 +229,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		tag.putString("FireflyBottleVariantTag", this.getColor().getSerializedName());
 
 		CustomData.set(
-			WWDataComponents.FIREFLY_COLOR,
+			WWDataComponents.BOTTLE_ENTITY_DATA,
 			itemStack,
 			tag
 		);
 	}
 
 	@Override
-	public void loadFromBottleTag(CompoundTag compoundTag) {
+	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
 		if (compoundTag.contains("FireflyBottleVariantTag")) {
 			FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compoundTag.getString("FireflyBottleVariantTag")));
 			if (color != null) {
@@ -512,7 +511,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		compound.putFloat("scale", this.getAnimScale());
 		compound.putFloat("prevScale", this.getPrevAnimScale());
 		compound.putBoolean("despawning", this.despawning);
-		compound.putString("color", Objects.requireNonNull(WilderWildRegistries.FIREFLY_COLOR.getKey(this.getColor())).toString());
+		compound.putString("color", this.getColor().getSerializedName());
 		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
 		compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
 	}

@@ -421,7 +421,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		compound.putBoolean("fromBottle", this.fromBottle());
 		compound.putBoolean("natural", this.natural);
 		compound.putBoolean("hasHome", this.hasHome);
-		compound.putString("variant", Objects.requireNonNull(WilderWildRegistries.BUTTERFLY_VARIANT.getKey(this.getVariant())).toString());
+		compound.putString("variant", this.getVariant().getSerializedName());
 		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
 	}
 

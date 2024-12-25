@@ -113,8 +113,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity instanceof DisplayLanternBlockEntity lantern) {
 			if (lantern.invEmpty()) {
-				if (stack.has(WWDataComponents.FIREFLY_COLOR)) {
-					CustomData colorData = stack.get(WWDataComponents.FIREFLY_COLOR);
+				if (stack.has(WWDataComponents.BOTTLE_ENTITY_DATA)) {
+					CustomData colorData = stack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
 					if (colorData != null && !colorData.isEmpty()) {
 						CompoundTag tag = colorData.copyTag();
 						FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.tryParse(tag.getString("FireflyBottleVariantTag"))).orElse(FireflyColor.ON);
@@ -135,8 +135,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 							return ItemInteractionResult.SUCCESS;
 						}
 					}
-				}
-				if (stack.is(Items.GLASS_BOTTLE)) {
+				} else if (stack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
 						DisplayLanternBlockEntity.Occupant fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
 						level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
@@ -145,7 +144,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						}
 						ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 						CustomData.update(
-							WWDataComponents.FIREFLY_COLOR,
+							WWDataComponents.BOTTLE_ENTITY_DATA,
 							bottleStack,
 							compoundTag -> compoundTag.putString("FireflyBottleVariantTag", fireflyInLantern.color.getSerializedName())
 						);

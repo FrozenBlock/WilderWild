@@ -119,7 +119,7 @@ public final class FireflyBottleRecipeProvider {
 								ItemStack itemStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 
 								CustomData.update(
-									WWDataComponents.FIREFLY_COLOR,
+									WWDataComponents.BOTTLE_ENTITY_DATA,
 									itemStack,
 									tag -> tag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName())
 								);
@@ -131,11 +131,11 @@ public final class FireflyBottleRecipeProvider {
 				.unlockedBy("has_needed_dye", RecipeProvider.has(dye))
 			).frozenLib$patch(
 				DataComponentPatch.builder()
-					.set(WWDataComponents.FIREFLY_COLOR, CustomData.of(variantTag))
+					.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(variantTag))
 					.build()
 			).save(
 				recipeOutput,
-				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle")
+				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle" + "from_")
 			);
 		}
 	}
@@ -153,13 +153,13 @@ public final class FireflyBottleRecipeProvider {
 			.requires(DefaultCustomIngredients.components(
 				Ingredient.of(WWItems.FIREFLY_BOTTLE),
 				DataComponentPatch.builder()
-					.set(WWDataComponents.FIREFLY_COLOR, CustomData.of(defaultColorTag))
+					.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(defaultColorTag))
 					.build()
 			))
 			.unlockedBy("has_firefly_bottle", RecipeProvider.has(WWItems.FIREFLY_BOTTLE))
 		).frozenLib$patch(
 			DataComponentPatch.builder()
-				.set(WWDataComponents.FIREFLY_COLOR, CustomData.of(variantTag))
+				.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(variantTag))
 				.build()
 			).save(exporter, WWConstants.id(fireflyColor.key().getPath() + "_firefly_bottle"));
 	}

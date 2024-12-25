@@ -26,6 +26,7 @@ import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
+import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.MilkweedPod;
@@ -104,7 +105,12 @@ public final class WWItems {
 	public static final MobBottleItem FIREFLY_BOTTLE = new MobBottleItem(
 		WWEntityTypes.FIREFLY,
 		WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY,
-		new Item.Properties().stacksTo(16).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY).component(WWDataComponents.FIREFLY_COLOR, CustomData.EMPTY)
+		new Item.Properties()
+			.stacksTo(16)
+			.component(
+				WWDataComponents.BOTTLE_ENTITY_DATA,
+				CustomData.EMPTY.update(compoundTag -> compoundTag.putString("FireflyBottleVariantTag", FireflyColor.ON.getSerializedName()))
+			)
 	);
 	public static final MobBottleItem BUTTERFLY_BOTTLE = new MobBottleItem(
 		WWEntityTypes.BUTTERFLY,

@@ -12,7 +12,7 @@
         "item": "wilderwild:firefly_bottle"
       },
       "components": {
-        "wilderwild:firefly_color": {
+        "wilderwild:bottle_entity_data": {
           "FireflyBottleVariantTag": "wilderwild:on"
         }
       }
@@ -20,7 +20,7 @@
   ],
   "result": {
     "components": {
-      "wilderwild:firefly_color": {
+      "wilderwild:bottle_entity_data": {
         "FireflyBottleVariantTag": "wilderwild:red"
       }
     },
