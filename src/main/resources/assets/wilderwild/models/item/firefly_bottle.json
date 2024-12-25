@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "wilderwild:item/firefly_bottle"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cracked": 1
+      },
+      "model": "wilderwild:item/scorched_red_sand_cracked"
+    }
+  ]
+}

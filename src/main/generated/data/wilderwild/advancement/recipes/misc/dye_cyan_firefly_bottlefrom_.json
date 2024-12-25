@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:yellow_dye"
+            "items": "minecraft:cyan_dye"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:dye_yellow_firefly_bottle"
+        "recipe": "wilderwild:dye_cyan_firefly_bottlefrom_"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:dye_yellow_firefly_bottle"
+      "wilderwild:dye_cyan_firefly_bottlefrom_"
     ]
   }
 }

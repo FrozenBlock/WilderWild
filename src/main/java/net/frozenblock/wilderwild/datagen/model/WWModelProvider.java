@@ -20,12 +20,18 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
@@ -180,12 +186,18 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE, ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		this.generateFireflyBottles(generator);
 		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
 	}
 
 	private void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
-		Item fireflyBottle = WWItems.FIREFLY_BOTTLE;
+		WilderWildRegistries.FIREFLY_COLOR.forEach(fireflyColor -> {
+			if (fireflyColor == FireflyColor.ON) return;
+			ResourceLocation colorKey = fireflyColor.key();
+			ResourceLocation location = ResourceLocation.fromNamespaceAndPath(colorKey.getNamespace(), "item/" + colorKey.getPath() + "_firefly_bottle");
+
+			ModelTemplates.FLAT_ITEM.create(location, TextureMapping.layer0(location), generator.output);
+		});
 
 	}
 }
