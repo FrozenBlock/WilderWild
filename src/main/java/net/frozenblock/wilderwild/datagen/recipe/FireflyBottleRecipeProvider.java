@@ -32,7 +32,6 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -109,34 +108,31 @@ public final class FireflyBottleRecipeProvider {
 			CompoundTag variantTag = new CompoundTag();
 			variantTag.putString("FireflyBottleVariantTag", outputColor.getSerializedName());
 
-			((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
-				.requires(dye)
-				.requires(
-					Ingredient.of(
-						fireflyColors.stream()
-							.filter(ingredientColor -> !ingredientColor.equals(outputColor))
-							.map(fireflyColor -> {
-								ItemStack itemStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
+			for (FireflyColor fireflyColor : fireflyColors) {
+				if (fireflyColor.equals(outputColor)) continue;
 
-								CustomData.update(
-									WWDataComponents.BOTTLE_ENTITY_DATA,
-									itemStack,
-									tag -> tag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName())
-								);
-								return itemStack;
-							})
-					)
-				)
-				.group("firefly_bottle")
-				.unlockedBy("has_needed_dye", RecipeProvider.has(dye))
-			).frozenLib$patch(
-				DataComponentPatch.builder()
-					.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(variantTag))
-					.build()
-			).save(
-				recipeOutput,
-				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle")
-			);
+				CompoundTag ingredientColorTag = new CompoundTag();
+				ingredientColorTag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName());
+
+				((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
+					.requires(dye)
+					.requires(DefaultCustomIngredients.components(
+						Ingredient.of(WWItems.FIREFLY_BOTTLE),
+						DataComponentPatch.builder()
+							.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(ingredientColorTag))
+							.build()
+					))
+					.group("firefly_bottle")
+					.unlockedBy("has_needed_dye", RecipeProvider.has(dye))
+				).frozenLib$patch(
+					DataComponentPatch.builder()
+						.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(variantTag))
+						.build()
+				).save(
+					recipeOutput,
+					WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle_from_" + fireflyColor.key().getPath())
+				);
+			}
 		}
 	}
 

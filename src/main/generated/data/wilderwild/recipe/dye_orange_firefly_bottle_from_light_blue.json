@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "firefly_bottle",
+  "ingredients": [
+    {
+      "item": "minecraft:orange_dye"
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "wilderwild:firefly_bottle"
+      },
+      "components": {
+        "wilderwild:bottle_entity_data": {
+          "FireflyBottleVariantTag": "wilderwild:light_blue"
+        }
+      }
+    }
+  ],
+  "result": {
+    "components": {
+      "wilderwild:bottle_entity_data": {
+        "FireflyBottleVariantTag": "wilderwild:orange"
+      }
+    },
+    "count": 1,
+    "id": "wilderwild:firefly_bottle"
+  }
+}
