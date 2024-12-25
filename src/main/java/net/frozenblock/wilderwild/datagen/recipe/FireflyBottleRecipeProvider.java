@@ -135,7 +135,7 @@ public final class FireflyBottleRecipeProvider {
 					.build()
 			).save(
 				recipeOutput,
-				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle" + "from_")
+				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle")
 			);
 		}
 	}
