@@ -37,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class FireflyBottleRecipeProvider {
@@ -109,24 +110,27 @@ public final class FireflyBottleRecipeProvider {
 			CompoundTag variantTag = new CompoundTag();
 			variantTag.putString("FireflyBottleVariantTag", outputColor.getSerializedName());
 
+			List<Ingredient> possibleIngredients = new ArrayList<>();
+
+			for (FireflyColor fireflyColor : fireflyColors) {
+				if (fireflyColor.equals(outputColor)) continue;
+
+				CompoundTag ingredientColorTag = new CompoundTag();
+				ingredientColorTag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName());
+
+				possibleIngredients.add(DefaultCustomIngredients.components(
+					Ingredient.of(WWItems.FIREFLY_BOTTLE),
+					DataComponentPatch.builder()
+						.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(ingredientColorTag))
+						.build()
+				));
+			}
+
+			Ingredient input = DefaultCustomIngredients.any(possibleIngredients.toArray(new Ingredient[0]));
+
 			((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
 				.requires(dye)
-				.requires(
-					Ingredient.of(
-						fireflyColors.stream()
-							.filter(ingredientColor -> !ingredientColor.equals(outputColor))
-							.map(fireflyColor -> {
-								ItemStack itemStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
-
-								CustomData.update(
-									WWDataComponents.BOTTLE_ENTITY_DATA,
-									itemStack,
-									tag -> tag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName())
-								);
-								return itemStack;
-							})
-					)
-				)
+				.requires(input)
 				.group("firefly_bottle")
 				.unlockedBy("has_needed_dye", RecipeProvider.has(dye))
 			).frozenLib$patch(
