@@ -52,7 +52,6 @@ public final class WWMemoryModuleTypes {
 
 	public static final MemoryModuleType<Integer> IDLE_TIME = register("idle_time", Codec.INT);
 	public static final MemoryModuleType<Integer> DIVE_TICKS = register("dive_ticks", Codec.INT);
-	public static final MemoryModuleType<Unit> LOWERING_TO_LAY_DOWN = register("lowering_to_lay_down");
 	public static final MemoryModuleType<Unit> LAYING_DOWN = register("laying_down");
 	public static final MemoryModuleType<Unit> RISING_TO_STAND_UP = register("rising_to_stand_up");
 	public static final MemoryModuleType<Unit> SEARCHING_FOR_WATER = register("searching_for_water");

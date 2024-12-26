@@ -105,7 +105,6 @@ public class PenguinAi {
 		MemoryModuleType.IS_IN_WATER,
 		WWMemoryModuleTypes.IDLE_TIME,
 		WWMemoryModuleTypes.DIVE_TICKS,
-		WWMemoryModuleTypes.LOWERING_TO_LAY_DOWN,
 		WWMemoryModuleTypes.LAYING_DOWN,
 		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
 		WWMemoryModuleTypes.WANTS_TO_LAUNCH,
@@ -122,7 +121,6 @@ public class PenguinAi {
 	public static Brain<?> makeBrain(@NotNull Penguin penguin, @NotNull Brain<Penguin> brain) {
 		initCoreActivity(brain);
 		initIdleActivity(brain);
-		initLayDownActivity(brain);
 		initSearchActivity(brain);
 		initSwimActivity(brain);
 		initEscapeActivity(brain);
@@ -138,7 +136,6 @@ public class PenguinAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				PenguinTryToLayDown.create(),
 				new AnimalPanic<>(2F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
@@ -176,20 +173,8 @@ public class PenguinAi {
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_PRESENT),
-				Pair.of(WWMemoryModuleTypes.LOWERING_TO_LAY_DOWN, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_ABSENT)
 			)
-		);
-	}
-
-	private static void initLayDownActivity(@NotNull Brain<Penguin> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
-			WWActivities.LAY_DOWN,
-			5,
-			ImmutableList.of(
-				new PenguinLayDown<>(LAY_DOWN_DURATION)
-			),
-			WWMemoryModuleTypes.LOWERING_TO_LAY_DOWN
 		);
 	}
 
@@ -199,22 +184,30 @@ public class PenguinAi {
 			ImmutableList.of(
 				Pair.of(0, new PenguinSearchingForWater()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
-				Pair.of(0, new AnimalMakeLove(WWEntityTypes.PENGUIN)),
-				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(2, TryFindWater.create(8, 0.8F)),
-				Pair.of(2, PenguinReturnToWater.create(0.8F))
+				Pair.of(1, TryFindWater.create(8, 0.8F)),
+				Pair.of(2, PenguinReturnToWater.create(0.8F)),
+				Pair.of(
+					3,
+					new RunOne<>(
+						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
+						ImmutableList.of(
+							Pair.of(RandomStroll.stroll(1F), 1),
+							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
+							Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 2)
+						)
+					)
+				)
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.LOWERING_TO_LAY_DOWN, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_PRESENT)
+				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT)
 			),
 			ImmutableSet.of(
-				WWMemoryModuleTypes.SEARCHING_FOR_WATER
+				WWMemoryModuleTypes.SEARCHING_FOR_WATER,
+				WWMemoryModuleTypes.LAYING_DOWN
 			)
 		);
 	}
@@ -286,7 +279,6 @@ public class PenguinAi {
 				Activity.LONG_JUMP,
 				WWActivities.ESCAPE,
 				Activity.SWIM,
-				WWActivities.LAY_DOWN,
 				WWActivities.SEARCH,
 				Activity.IDLE
 			)
@@ -314,9 +306,5 @@ public class PenguinAi {
 		return Penguin.TEMPTATION_ITEM;
 	}
 	 */
-
-	public static int getRandomLayingDownLength(@NotNull LivingEntity entity) {
-		return entity.getRandom().nextInt(400, 600);
-	}
 
 }

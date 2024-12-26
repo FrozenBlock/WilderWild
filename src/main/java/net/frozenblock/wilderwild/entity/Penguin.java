@@ -170,6 +170,8 @@ public class Penguin extends Animal {
 		if (DATA_POSE.equals(entityDataAccessor)) {
 			if (this.getPose() == Pose.SLIDING) {
 				this.layDownAnimationState.start(this.tickCount);
+			} else {
+				this.layDownAnimationState.stop();
 			}
 		}
 

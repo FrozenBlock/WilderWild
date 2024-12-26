@@ -38,7 +38,8 @@ public class PenguinSearchingForWater<E extends Penguin> extends Behavior<E> {
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.REGISTERED,
 				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT
-			)
+			),
+			400
 		);
 	}
 
@@ -49,20 +50,25 @@ public class PenguinSearchingForWater<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		penguin.getBrain().setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
+		Brain<Penguin> brain = penguin.getBrain();
+		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
+		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN, Unit.INSTANCE);
+		penguin.setPose(Pose.SLIDING);
 	}
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
 		Brain<Penguin> brain = penguin.getBrain();
+		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
+		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN);
 
 		if (penguin.hasPose(Pose.SLIDING)) penguin.setPose(Pose.STANDING);
 
 		if (!penguin.isSwimming()) {
-			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, 1200);
+			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, 400);
 			brain.setMemory(WWMemoryModuleTypes.RISING_TO_STAND_UP, Unit.INSTANCE);
+		} else {
+			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS, 400);
 		}
-
 	}
 }
