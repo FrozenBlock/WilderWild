@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.client.model;
 
+import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -118,8 +119,6 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
-		// HEAD
 		float partialTick = ageInTicks - entity.tickCount;
 		float swimAmount = entity.getSwimAmount(partialTick);
 		float wadeProgress = entity.getWadeProgress(partialTick);
@@ -130,6 +129,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 
 		limbSwing *= 2.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
+		this.animate(entity.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount);
 		this.animateWade(limbSwing, limbSwingAmount, ageInTicks, wadeProgress);
 		this.animateSwim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, swimAmount);

@@ -25,6 +25,9 @@ import net.minecraft.world.entity.schedule.Activity;
 import org.jetbrains.annotations.NotNull;
 
 public class WWActivities {
+	public static final Activity LAY_DOWN = register("lay_down");
+	public static final Activity STAND_UP = register("stand_up");
+	public static final Activity IDLE_LAYING_DOWN = register("idle_laying_down");
 	public static final Activity SEARCH = register("search");
 	public static final Activity ESCAPE = register("escape");
 

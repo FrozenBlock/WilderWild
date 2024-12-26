@@ -18,41 +18,51 @@
 
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
-public class PenguinSlide<E extends Penguin> extends Behavior<E> {
+public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 
-	public PenguinSlide() {
+	public PenguinLayDown(int duration) {
 		super(
-			Map.of(
-				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.REGISTERED,
-				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_PRESENT
-			)
+			ImmutableMap.of(
+				WWMemoryModuleTypes.LOWERING_TO_LAY_DOWN, MemoryStatus.VALUE_PRESENT,
+				WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT
+			),
+			duration
 		);
 	}
 
 	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return !penguin.isSwimming();
+		return true;
 	}
 
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		penguin.getBrain().setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
+		penguin.setPose(Pose.SLIDING);
+		penguin.playSound(WWSounds.ENTITY_CRAB_EMERGE, 0.5F, 1F);
+		penguin.stopInPlace();
 	}
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
+		if (penguin.hasPose(Pose.SLIDING)) {
+			if (penguin.isSwimming()) {
+				penguin.setPose(Pose.SWIMMING);
+			} else {
+				penguin.getBrain().setMemoryWithExpiry(WWMemoryModuleTypes.LAYING_DOWN, Unit.INSTANCE, PenguinAi.getRandomLayingDownLength(penguin));
+			}
+		}
 	}
 }

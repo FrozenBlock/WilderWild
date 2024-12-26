@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.DebugPackets;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -47,6 +48,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;
 
 public class Penguin extends Animal {
+	public AnimationState layDownAnimationState = new AnimationState();
 	private float prevWadeProgress;
 	private float wadeProgress;
 
@@ -164,6 +166,17 @@ public class Penguin extends Animal {
 	}
 
 	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
+		if (DATA_POSE.equals(entityDataAccessor)) {
+			if (this.getPose() == Pose.SLIDING) {
+				this.layDownAnimationState.start(this.tickCount);
+			}
+		}
+
+		super.onSyncedDataUpdated(entityDataAccessor);
+	}
+
+	@Override
 	protected void customServerAiStep() {
 		this.level().getProfiler().push("penguinBrain");
 		this.getBrain().tick((ServerLevel)this.level(), this);
@@ -173,7 +186,6 @@ public class Penguin extends Animal {
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
 	}
-
 
 	@Override
 	protected void sendDebugPackets() {

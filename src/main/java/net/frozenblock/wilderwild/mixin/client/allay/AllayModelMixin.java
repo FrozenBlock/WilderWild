@@ -64,7 +64,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
 	)
 	private void wilderWild$runKeyframeDance(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {
 		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && allay instanceof WilderAllay wilderAllay) {
-			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), WWAllayAnimation.DANCING, ageInTicks);
+			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), WWAllayAnimation.ALLAY_DANCING, ageInTicks);
 		}
 	}
 }

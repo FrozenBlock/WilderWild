@@ -18,41 +18,42 @@
 
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Unit;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
-public class PenguinSlide<E extends Penguin> extends Behavior<E> {
+public class PenguinStandUp<E extends Penguin> extends Behavior<E> {
 
-	public PenguinSlide() {
+	public PenguinStandUp(int duration) {
 		super(
-			Map.of(
-				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.REGISTERED,
-				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_PRESENT
-			)
+			ImmutableMap.of(
+				WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_ABSENT,
+				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.VALUE_ABSENT
+			),
+			duration
 		);
 	}
 
 	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return !penguin.isSwimming();
+		return true;
 	}
 
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		penguin.getBrain().setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
+		boolean swimming = penguin.isSwimming();
+		penguin.setPose(swimming ? Pose.SWIMMING : Pose.STANDING);
+		if (!swimming && penguin.onGround()) {
+			penguin.stopInPlace();
+		}
 	}
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
 	}
 }
