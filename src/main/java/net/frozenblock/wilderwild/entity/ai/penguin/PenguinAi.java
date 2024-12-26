@@ -197,7 +197,7 @@ public class PenguinAi {
 		brain.addActivityAndRemoveMemoriesWhenStopped(
 			WWActivities.SEARCH,
 			ImmutableList.of(
-				Pair.of(0, new PenguinSlide()),
+				Pair.of(0, new PenguinSearchingForWater()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
 				Pair.of(0, new AnimalMakeLove(WWEntityTypes.PENGUIN)),
 				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),

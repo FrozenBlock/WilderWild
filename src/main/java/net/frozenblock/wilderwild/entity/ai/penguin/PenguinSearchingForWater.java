@@ -23,20 +23,21 @@ import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
-public class PenguinSlide<E extends Penguin> extends Behavior<E> {
+public class PenguinSearchingForWater<E extends Penguin> extends Behavior<E> {
 
-	public PenguinSlide() {
+	public PenguinSearchingForWater() {
 		super(
 			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.REGISTERED,
-				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_PRESENT
+				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT
 			)
 		);
 	}
@@ -54,5 +55,14 @@ public class PenguinSlide<E extends Penguin> extends Behavior<E> {
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
+		Brain<Penguin> brain = penguin.getBrain();
+
+		if (penguin.hasPose(Pose.SLIDING)) penguin.setPose(Pose.STANDING);
+
+		if (!penguin.isSwimming()) {
+			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, 1200);
+			brain.setMemory(WWMemoryModuleTypes.RISING_TO_STAND_UP, Unit.INSTANCE);
+		}
+
 	}
 }
