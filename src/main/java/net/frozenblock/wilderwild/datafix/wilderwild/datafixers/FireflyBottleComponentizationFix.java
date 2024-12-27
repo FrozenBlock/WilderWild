@@ -60,8 +60,8 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 		.put(WWConstants.string("yellow_firefly_bottle"), FireflyColor.YELLOW.getSerializedName())
 		.build();
 
-	private static void fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {
-		dynamic.set(
+	private static Dynamic<?> fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {
+		return dynamic.set(
 			WWConstants.string("bottle_entity_data"),
 			dynamic.emptyMap()
 				.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(fireflyColor))
@@ -72,9 +72,9 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 	public TypeRewriteRule makeRule() {
 		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
-				"Firefly Bottle ItemStack componentization fix",
-				type,
-				createFixer(type)
+			"Firefly Bottle ItemStack componentization fix",
+			type,
+			createFixer(type)
 		);
 	}
 
@@ -88,10 +88,7 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 				String componentName = FIREFLY_BOTTLE_TO_COMPONENT.get(id);
 				if (componentName != null) {
 					return typed.updateTyped(components, typedx -> typedx.update(
-							DSL.remainderFinder(), dynamic -> {
-								fixItemStack(dynamic, componentName);
-								return dynamic;
-							}
+						DSL.remainderFinder(), dynamic -> fixItemStack(dynamic, componentName)
 					));
 				}
 			}
