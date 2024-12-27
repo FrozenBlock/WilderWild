@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.butterfly.ButterflyAi;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
+import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -244,15 +245,15 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		CustomData.update(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
 			itemStack,
-			compoundTag -> compoundTag.putString("ButterflyBottleVariantTag", this.getVariant().getSerializedName())
+			compoundTag -> compoundTag.putString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD, this.getVariant().getSerializedName())
 		);
 	}
 
 	@Override
 	public void loadFromBottleTag(CompoundTag compoundTag) {
 		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
-		if (compoundTag.contains("ButterflyBottleVariantTag")) {
-			ButterflyVariant variant = WilderWildRegistries.BUTTERFLY_VARIANT.get(ResourceLocation.tryParse(compoundTag.getString("ButterflyBottleVariantTag")));
+		if (compoundTag.contains(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)) {
+			ButterflyVariant variant = WilderWildRegistries.BUTTERFLY_VARIANT.get(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)));
 			if (variant != null) {
 				this.setVariant(variant);
 			}

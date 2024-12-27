@@ -23,6 +23,7 @@ import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.FireflyBottleComponentizationFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
@@ -33,7 +34,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 23;
+	public static final int DATA_VERSION = 24;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WWDataFixer contains only static declarations.");
@@ -143,6 +144,9 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename pink_giant_glory_of_the_snow to pink_glory_of_the_snow_petals", WWConstants.id("pink_giant_glory_of_the_snow"), WWConstants.id("pink_glory_of_the_snow_petals"), schemaV23);
 		SimpleFixes.addBlockRenameFix(builder, "Rename violet_beauty_glory_of_the_snow to purple_glory_of_the_snow_petals", WWConstants.id("violet_beauty_glory_of_the_snow"), WWConstants.id("purple_glory_of_the_snow_petals"), schemaV23);
 		SimpleFixes.addItemRenameFix(builder, "Rename violet_beauty_glory_of_the_snow to purple_glory_of_the_snow_petals", WWConstants.id("violet_beauty_glory_of_the_snow"), WWConstants.id("purple_glory_of_the_snow_petals"), schemaV23);
+
+		Schema schemaV24 = builder.addSchema(24, NamespacedSchema::new);
+		builder.addFixer(new FireflyBottleComponentizationFix(schemaV24));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

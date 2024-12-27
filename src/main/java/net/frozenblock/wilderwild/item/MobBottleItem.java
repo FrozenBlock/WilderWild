@@ -48,8 +48,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class MobBottleItem extends Item {
-	private static final MapCodec<ButterflyVariant> BUTTERFLY_VARIANT_FIELD_CODEC = ButterflyVariant.CODEC.fieldOf("ButterflyBottleVariantTag");
-	private static final MapCodec<FireflyColor> FIREFLY_VARIANT_FIELD_CODEC = FireflyColor.CODEC.fieldOf("FireflyBottleVariantTag");
+	public static final String FIREFLY_BOTTLE_VARIANT_FIELD = "FireflyBottleVariantTag";
+	public static final String BUTTERFLY_BOTTLE_VARIANT_FIELD = "ButterflyBottleVariantTag";
+	private static final MapCodec<FireflyColor> FIREFLY_VARIANT_FIELD_CODEC = FireflyColor.CODEC.fieldOf(FIREFLY_BOTTLE_VARIANT_FIELD);
+	private static final MapCodec<ButterflyVariant> BUTTERFLY_VARIANT_FIELD_CODEC = ButterflyVariant.CODEC.fieldOf(BUTTERFLY_BOTTLE_VARIANT_FIELD);
 	private final EntityType<?> type;
 	private final SoundEvent releaseSound;
 

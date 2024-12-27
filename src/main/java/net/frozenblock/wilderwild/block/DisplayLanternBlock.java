@@ -24,6 +24,7 @@ import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
+import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -117,7 +118,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					CustomData colorData = stack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
 					if (colorData != null && !colorData.isEmpty()) {
 						CompoundTag tag = colorData.copyTag();
-						FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.tryParse(tag.getString("FireflyBottleVariantTag"))).orElse(FireflyColor.ON);
+						FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD))).orElse(FireflyColor.ON);
 						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
 							String name = "";
 							if (stack.has(DataComponents.CUSTOM_NAME)) {
@@ -146,7 +147,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						CustomData.update(
 							WWDataComponents.BOTTLE_ENTITY_DATA,
 							bottleStack,
-							compoundTag -> compoundTag.putString("FireflyBottleVariantTag", fireflyInLantern.color.getSerializedName())
+							compoundTag -> compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, fireflyInLantern.color.getSerializedName())
 						);
 						if (!Objects.equals(fireflyInLantern.customName, "")) {
 							bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));

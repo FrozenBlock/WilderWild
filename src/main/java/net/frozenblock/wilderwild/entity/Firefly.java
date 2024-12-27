@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
+import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -226,7 +227,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
 		CompoundTag tag = new CompoundTag();
-		tag.putString("FireflyBottleVariantTag", this.getColor().getSerializedName());
+		tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, this.getColor().getSerializedName());
 
 		CustomData.set(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
@@ -237,8 +238,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
-		if (compoundTag.contains("FireflyBottleVariantTag")) {
-			FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compoundTag.getString("FireflyBottleVariantTag")));
+		if (compoundTag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
+			FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)));
 			if (color != null) {
 				this.setColor(color);
 			}
