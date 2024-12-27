@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
 
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.TypeRewriteRule;
@@ -28,6 +27,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.MobBottleItem;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
@@ -62,14 +62,13 @@ public class FireflyBottleComponentizationFix extends DataFix {
 
 	private static void fixItemStack(ItemStackComponentizationFix.@NotNull ItemStackData itemStackData, Dynamic<?> dynamic) {
 		if (FIREFLY_BOTTLE_TO_COMPONENT.containsKey(itemStackData.item)) {
+			CompoundTag compoundTag = new CompoundTag();
+			compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, FIREFLY_BOTTLE_TO_COMPONENT.get(itemStackData.item));
+
 			itemStackData.setComponent(
 				WWConstants.string("bottle_entity_data"),
-				dynamic.createMap(
-					ImmutableMap.of(
-						dynamic.createString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD),
-						dynamic.createString(FIREFLY_BOTTLE_TO_COMPONENT.get(itemStackData.item))
-					)
-				)
+				dynamic.emptyMap()
+					.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(FIREFLY_BOTTLE_TO_COMPONENT.get(itemStackData.item)))
 			);
 		}
 	}

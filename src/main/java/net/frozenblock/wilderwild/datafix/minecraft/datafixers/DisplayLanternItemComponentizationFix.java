@@ -62,7 +62,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 		return dynamic.createList(Stream.empty());
 	}
 
-	public final TypeRewriteRule makeRule() {
+	public TypeRewriteRule makeRule() {
 		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
 			"Display Lantern ItemStack componentization fix",
@@ -71,7 +71,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 		);
 	}
 
-	private static UnaryOperator<Typed<?>> createFixer(Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
+	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
 		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		OpticFinder<?> components = type.findField("components");
 		return typed -> {
