@@ -45,7 +45,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Unique;
 
 public class Penguin extends Animal {
 	public AnimationState layDownAnimationState = new AnimationState();
@@ -123,11 +122,6 @@ public class Penguin extends Animal {
 	public boolean isFood(@NotNull ItemStack itemStack) {
 		// TODO: use a tag
 		return itemStack.getItem() == Items.COD || itemStack.getItem() == Items.SALMON;
-	}
-
-	@Override
-	public int getMaxAirSupply() {
-		return 2400;
 	}
 
 	public boolean hasAttackTarget() {

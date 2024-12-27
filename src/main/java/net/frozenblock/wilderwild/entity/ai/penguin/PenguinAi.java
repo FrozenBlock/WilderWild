@@ -29,7 +29,6 @@ import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,7 +39,6 @@ import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.GateBehavior;
-import net.minecraft.world.entity.ai.behavior.LongJumpMidJump;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
@@ -258,6 +256,8 @@ public class PenguinAi {
 	}
 
 	private static void initJumpActivity(@NotNull Brain<Penguin> brain) {
+		// TODO: [Treetrain1] Remake the DolphinJump thing as a behavior.
+		/*
 		brain.addActivityWithConditions(
 			Activity.LONG_JUMP,
 			ImmutableList.of(
@@ -270,6 +270,7 @@ public class PenguinAi {
 				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
 			)
 		);
+		 */
 	}
 
 	public static void updateActivity(@NotNull Penguin penguin) {

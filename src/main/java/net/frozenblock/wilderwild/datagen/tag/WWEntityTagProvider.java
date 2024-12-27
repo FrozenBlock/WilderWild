@@ -101,7 +101,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
 			.add(WWEntityTypes.CRAB)
-			.add(WWEntityTypes.JELLYFISH);
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.PENGUIN);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
 			.add(WWEntityTypes.JELLYFISH);
