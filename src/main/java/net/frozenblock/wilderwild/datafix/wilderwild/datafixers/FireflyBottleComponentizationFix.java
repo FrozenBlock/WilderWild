@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.Optional;
 
-public class FireflyBottleComponentizationFix extends DataFix {
+public final class FireflyBottleComponentizationFix extends DataFix {
 
 	public FireflyBottleComponentizationFix(Schema outputSchema) {
 		super(outputSchema, true);

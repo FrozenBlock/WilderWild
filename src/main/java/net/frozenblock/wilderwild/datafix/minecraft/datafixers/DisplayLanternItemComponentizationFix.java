@@ -62,6 +62,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 		return dynamic.createList(Stream.empty());
 	}
 
+	@Override
 	public TypeRewriteRule makeRule() {
 		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
