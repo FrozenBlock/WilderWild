@@ -63,8 +63,10 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 	private static Dynamic<?> fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {
 		return dynamic.set(
 			WWConstants.string("bottle_entity_data"),
-			dynamic.emptyMap()
-				.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(fireflyColor))
+			dynamic.set(
+				MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD,
+				dynamic.createString(fireflyColor)
+			)
 		);
 	}
 
