@@ -62,9 +62,6 @@ public class FireflyBottleComponentizationFix extends DataFix {
 
 	private static void fixItemStack(ItemStackComponentizationFix.@NotNull ItemStackData itemStackData, Dynamic<?> dynamic) {
 		if (FIREFLY_BOTTLE_TO_COMPONENT.containsKey(itemStackData.item)) {
-			CompoundTag compoundTag = new CompoundTag();
-			compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, FIREFLY_BOTTLE_TO_COMPONENT.get(itemStackData.item));
-
 			itemStackData.setComponent(
 				WWConstants.string("bottle_entity_data"),
 				dynamic.emptyMap()
