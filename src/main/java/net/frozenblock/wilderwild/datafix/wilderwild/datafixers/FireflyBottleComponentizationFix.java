@@ -67,7 +67,6 @@ public class FireflyBottleComponentizationFix extends DataFix {
 				dynamic.emptyMap()
 					.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(FIREFLY_BOTTLE_TO_COMPONENT.get(itemStackData.item)))
 			);
-			throw new AssertionError();
 		}
 	}
 
