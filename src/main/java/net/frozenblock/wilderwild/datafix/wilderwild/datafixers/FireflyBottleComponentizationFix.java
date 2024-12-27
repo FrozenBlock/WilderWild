@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
+//TODO : Make this work tree
 public final class FireflyBottleComponentizationFix extends DataFix {
 
 	public FireflyBottleComponentizationFix(Schema outputSchema) {
