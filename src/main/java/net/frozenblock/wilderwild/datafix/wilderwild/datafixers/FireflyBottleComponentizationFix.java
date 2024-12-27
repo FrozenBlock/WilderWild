@@ -19,20 +19,20 @@
 package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
 
 import com.google.common.collect.ImmutableBiMap;
-import com.mojang.datafixers.DataFix;
-import com.mojang.datafixers.DataFixUtils;
-import com.mojang.datafixers.TypeRewriteRule;
+import com.mojang.datafixers.*;
 import com.mojang.datafixers.schemas.Schema;
+import com.mojang.datafixers.types.Type;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.MobBottleItem;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
 import net.minecraft.util.datafix.fixes.References;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 
 public final class FireflyBottleComponentizationFix extends DataFix {
 
@@ -60,29 +60,43 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 		.put(WWConstants.string("yellow_firefly_bottle"), FireflyColor.YELLOW.getSerializedName())
 		.build();
 
-	private static void fixItemStack(ItemStackComponentizationFix.@NotNull ItemStackData itemStackData, Dynamic<?> dynamic) {
-		if (FIREFLY_BOTTLE_TO_COMPONENT.containsKey(itemStackData.item)) {
-			itemStackData.setComponent(
-				WWConstants.string("bottle_entity_data"),
-				dynamic.emptyMap()
-					.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(FIREFLY_BOTTLE_TO_COMPONENT.get(itemStackData.item)))
-			);
-		}
+	private static void fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {
+		dynamic.set(
+			WWConstants.string("bottle_entity_data"),
+			dynamic.emptyMap()
+				.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(fireflyColor))
+		);
 	}
 
 	@Override
-	protected TypeRewriteRule makeRule() {
-		return this.writeFixAndRead(
-			"Firefly Bottle items -> componentization",
-			this.getInputSchema().getType(References.ITEM_STACK),
-			this.getOutputSchema().getType(References.ITEM_STACK), dynamic -> {
-				Optional<? extends Dynamic<?>> optional = ItemStackComponentizationFix.ItemStackData.read(dynamic).map(itemStackData -> {
-					fixItemStack(itemStackData, itemStackData.tag);
-					return itemStackData.write();
-				});
-				return DataFixUtils.orElse(optional, dynamic);
-			}
+	public TypeRewriteRule makeRule() {
+		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
+		return this.fixTypeEverywhereTyped(
+				"Firefly Bottle ItemStack componentization fix",
+				type,
+				createFixer(type)
 		);
+	}
+
+	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type) {
+		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
+		OpticFinder<?> components = type.findField("components");
+		return typed -> {
+			Optional<Pair<String, String>> possibleId = typed.getOptional(idFinder);
+			if (possibleId.isPresent()) {
+				String id = possibleId.get().getSecond();
+				String componentName = FIREFLY_BOTTLE_TO_COMPONENT.get(id);
+				if (componentName != null) {
+					return typed.updateTyped(components, typedx -> typedx.update(
+							DSL.remainderFinder(), dynamic -> {
+								fixItemStack(dynamic, componentName);
+								return dynamic;
+							}
+					));
+				}
+			}
+			return typed;
+		};
 	}
 
 }

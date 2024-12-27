@@ -49,7 +49,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 
 	@NotNull
 	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
-		OptionalDynamic<?>  optionalFireflies = dynamic.get("Fireflies");
+		OptionalDynamic<?> optionalFireflies = dynamic.get("Fireflies");
 		if (optionalFireflies.result().isPresent()) {
 			List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 				List<Dynamic<?>> newDynamics = Lists.newArrayList();
