@@ -44,8 +44,6 @@ public class FireflyBottleComponentizationFix extends DataFix {
 
 	private static void fixItemStack(ItemStackComponentizationFix.@NotNull ItemStackData itemStackData, Dynamic<?> dynamic) {
 		if (FIREFLY_BOTTLE_TO_COMPONENT.containsKey(itemStackData.item)) {
-			itemStackData.item = WWConstants.string("firefly_bottle");
-
 			itemStackData.setComponent(
 				WWConstants.string("bottle_entity_data"),
 				dynamic.createMap(

@@ -30,7 +30,6 @@ accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
 accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
 accessible field net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData item Ljava/lang/String;
-mutable field net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData item Ljava/lang/String;
 accessible field net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData tag Lcom/mojang/serialization/Dynamic;
 
 # Structures

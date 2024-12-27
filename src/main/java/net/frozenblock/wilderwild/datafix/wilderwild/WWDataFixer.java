@@ -147,6 +147,22 @@ public final class WWDataFixer {
 
 		Schema schemaV24 = builder.addSchema(24, NamespacedSchema::new);
 		builder.addFixer(new FireflyBottleComponentizationFix(schemaV24));
+		SimpleFixes.addItemRenameFix(builder, "Rename black_firefly_bottle to firefly_bottle", WWConstants.id("black_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename blue_firefly_bottle to firefly_bottle", WWConstants.id("blue_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename brown_firefly_bottle to firefly_bottle", WWConstants.id("brown_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename cyan_firefly_bottle to firefly_bottle", WWConstants.id("cyan_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename gray_firefly_bottle to firefly_bottle", WWConstants.id("gray_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename green_firefly_bottle to firefly_bottle", WWConstants.id("green_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename light_blue_firefly_bottle to firefly_bottle", WWConstants.id("light_blue_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename light_gray_firefly_bottle to firefly_bottle", WWConstants.id("light_gray_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename lime_firefly_bottle to firefly_bottle", WWConstants.id("lime_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename magenta_firefly_bottle to firefly_bottle", WWConstants.id("magenta_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename orange_firefly_bottle to firefly_bottle", WWConstants.id("orange_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename pink_firefly_bottle to firefly_bottle", WWConstants.id("pink_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename purple_firefly_bottle to firefly_bottle", WWConstants.id("purple_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename red_firefly_bottle to firefly_bottle", WWConstants.id("red_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename white_firefly_bottle to firefly_bottle", WWConstants.id("white_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
+		SimpleFixes.addItemRenameFix(builder, "Rename yellow_firefly_bottle to firefly_bottle", WWConstants.id("yellow_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV24);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
