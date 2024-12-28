@@ -247,6 +247,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (IS_BABY.equals(key)) {
 			this.refreshDimensions();
 		}
+		if (VARIANT.equals(key)) {
+			this.jellyfishVariant = Optional.of(this.getVariantByLocation());
+		}
 		super.onSyncedDataUpdated(key);
 	}
 
