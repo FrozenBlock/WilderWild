@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "eat_sound": "wilderwild:block.log_hollowed",
+  "edible_blocks": "minecraft:stripped_spruce_log",
+  "natural_termites_only": false,
+  "output_block": "wilderwild:stripped_hollowed_spruce_log"
+}

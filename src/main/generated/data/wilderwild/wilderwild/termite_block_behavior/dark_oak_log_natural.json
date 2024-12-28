@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "minecraft:dark_oak_log",
+  "natural_termites_only": true,
+  "output_block": "minecraft:stripped_dark_oak_log"
+}

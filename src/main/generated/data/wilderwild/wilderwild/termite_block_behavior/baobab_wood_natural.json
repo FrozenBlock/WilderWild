@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:baobab_wood",
+  "natural_termites_only": true,
+  "output_block": "wilderwild:stripped_baobab_wood"
+}

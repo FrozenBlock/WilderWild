@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:cypress_wood",
+  "natural_termites_only": true,
+  "output_block": "wilderwild:stripped_cypress_wood"
+}

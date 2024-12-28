@@ -748,31 +748,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
 			.addOptionalTag(BlockTags.WARPED_STEMS)
 			.addOptionalTag(BlockTags.CRIMSON_STEMS);
-
-		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_BREAKABLE)
-			.addOptionalTag(BlockTags.LEAVES)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
-			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS)
-			.add(Blocks.BAMBOO)
-			.add(Blocks.DEAD_BUSH)
-			.add(Blocks.STRIPPED_ACACIA_WOOD)
-			.add(Blocks.STRIPPED_BIRCH_WOOD)
-			.add(Blocks.STRIPPED_DARK_OAK_WOOD)
-			.add(Blocks.STRIPPED_JUNGLE_WOOD)
-			.add(Blocks.STRIPPED_MANGROVE_WOOD)
-			.add(Blocks.STRIPPED_OAK_WOOD)
-			.add(Blocks.STRIPPED_SPRUCE_WOOD)
-			.add(Blocks.STRIPPED_CHERRY_WOOD)
-			.add(WWBlocks.STRIPPED_BAOBAB_WOOD)
-			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
-			.add(WWBlocks.STRIPPED_PALM_WOOD)
-			.add(WWBlocks.STRIPPED_MAPLE_WOOD)
-			.addOptional(
-				ResourceKey.create(
-					Registries.BLOCK,
-					ResourceLocation.parse("immersive_weathering:leaf_piles")
-				)
-			);
 	}
 
 	private void generateMinecraft() {

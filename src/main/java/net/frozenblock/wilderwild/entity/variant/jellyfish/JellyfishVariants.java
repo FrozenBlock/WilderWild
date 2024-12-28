@@ -37,7 +37,7 @@ import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
-public class JellyfishVariants {
+public final class JellyfishVariants {
 	public static final ResourceKey<JellyfishVariant> BLUE = createKey("blue");
 	public static final ResourceKey<JellyfishVariant> LIME = createKey("lime");
 	public static final ResourceKey<JellyfishVariant> PINK = createKey("pink");

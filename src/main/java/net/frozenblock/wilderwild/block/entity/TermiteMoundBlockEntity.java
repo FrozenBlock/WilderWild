@@ -23,7 +23,7 @@ import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.wilderwild.entity.ai.TermiteManager;
+import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Minecraft;

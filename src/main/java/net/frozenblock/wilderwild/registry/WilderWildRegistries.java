@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.termite.TermiteBlockBehavior;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
@@ -30,7 +31,7 @@ public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR = ResourceKey.createRegistryKey(WWConstants.id("firefly_color"));
 	public static final ResourceKey<Registry<ButterflyVariant>> BUTTERFLY_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("butterfly_variant"));
 	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("jellyfish_variant"));
-
+	public static final ResourceKey<Registry<TermiteBlockBehavior>> TERMITE_BLOCK_BEHAVIOR = ResourceKey.createRegistryKey(WWConstants.id("termite_block_behavior"));
 	private WilderWildRegistries() {
 		throw new UnsupportedOperationException("WilderWildRegistries contains only static declarations.");
 	}
@@ -39,5 +40,6 @@ public final class WilderWildRegistries {
 		DynamicRegistries.registerSynced(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC);
+		DynamicRegistries.registerSynced(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC);
 	}
 }

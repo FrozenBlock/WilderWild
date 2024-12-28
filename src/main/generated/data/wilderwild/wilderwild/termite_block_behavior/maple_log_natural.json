@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:maple_log",
+  "natural_termites_only": true,
+  "output_block": "wilderwild:stripped_maple_log"
+}

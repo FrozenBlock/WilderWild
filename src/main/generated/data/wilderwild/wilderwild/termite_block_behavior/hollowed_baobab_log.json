@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:hollowed_baobab_log",
+  "natural_termites_only": false,
+  "output_block": "wilderwild:stripped_hollowed_baobab_log"
+}

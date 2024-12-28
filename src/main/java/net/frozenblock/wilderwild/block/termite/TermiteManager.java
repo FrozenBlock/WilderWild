@@ -16,26 +16,24 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.block.termite;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -43,9 +41,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -208,9 +204,6 @@ public class TermiteManager {
 		).apply(instance, Termite::new));
 		public static final Codec<List<Termite>> LIST_CODEC = CODEC.listOf();
 
-		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
-		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
-
 		public BlockPos mound;
 		public BlockPos pos;
 		public int blockDestroyPower;
@@ -249,32 +242,38 @@ public class TermiteManager {
 			if (canMove(level, this.pos)) {
 				BlockState blockState = level.getBlockState(this.pos);
 				Block block = blockState.getBlock();
-				boolean degradable = !natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
-				boolean breakable = blockState.is(WWBlockTags.TERMITE_BREAKABLE);
-				boolean leaves = blockState.is(BlockTags.LEAVES);
-				if ((degradable || breakable) && isEdibleProperty(blockState)) {
-					this.eating = true;
-					exit = true;
-					int additionalPower = breakable ? leaves ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
-					this.blockDestroyPower += additionalPower;
-					spawnGnawParticles(level, blockState, this.pos, random);
-					if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
-						this.blockDestroyPower = 0;
-						this.idleTicks = natural ? Math.max(0, this.idleTicks - (DESTROY_POWER_BEFORE_BLOCK_BREAKS / additionalPower)) : 0;
-						if (breakable) {
-							level.destroyBlock(this.pos, true);
-						} else {
-							level.addDestroyBlockEffect(this.pos, blockState);
-							Block setBlock = !natural ? DEGRADABLE_BLOCKS.get(block) : NATURAL_DEGRADABLE_BLOCKS.get(block);
-							BlockState setState = setBlock.withPropertiesOf(blockState);
-							level.setBlockAndUpdate(this.pos, setState);
-							if (setBlock instanceof HollowedLogBlock) {
-								boolean nether = new ItemStack(setBlock.asItem()).is(ItemTags.NON_FLAMMABLE_WOOD);
-								level.playSound(null, pos, nether ? WWSounds.STEM_HOLLOWED : WWSounds.LOG_HOLLOWED, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.95F + (random.nextFloat() * 0.2F));
+				Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
+					level.registryAccess(),
+					block,
+					natural
+				);
+
+				if (optionalBlockBehavior.isPresent()) {
+					TermiteBlockBehavior termiteBlockBehavior = optionalBlockBehavior.get().value();
+					boolean destroysBlock = termiteBlockBehavior.destroysBlock();
+					boolean leaves = blockState.is(BlockTags.LEAVES);
+					if (isEdibleProperty(blockState)) {
+						this.eating = true;
+						exit = true;
+						int additionalPower = destroysBlock ? leaves ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
+						this.blockDestroyPower += additionalPower;
+						spawnGnawParticles(level, blockState, this.pos, random);
+						if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
+							this.blockDestroyPower = 0;
+							this.idleTicks = natural ? Math.max(0, this.idleTicks - (DESTROY_POWER_BEFORE_BLOCK_BREAKS / additionalPower)) : 0;
+							if (destroysBlock) {
+								level.destroyBlock(this.pos, true);
+							} else {
+								level.addDestroyBlockEffect(this.pos, blockState);
+								Block setBlock = termiteBlockBehavior.getOutputBlock().get();
+								BlockState setState = termiteBlockBehavior.copyProperties() ? setBlock.withPropertiesOf(blockState) : setBlock.defaultBlockState();
+								level.setBlockAndUpdate(this.pos, setState);
 							}
+							spawnEatParticles(level, blockState, this.pos, random);
+							termiteBlockBehavior.getEatSound()
+								.ifPresent(sound -> level.playSound(null, this.pos, sound, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F)));
+							level.playSound(null, this.pos, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
 						}
-						spawnEatParticles(level, blockState, this.pos, random);
-						level.playSound(null, pos, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
 					}
 				} else {
 					this.eating = false;
@@ -329,9 +328,15 @@ public class TermiteManager {
 		public static BlockPos ledgePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			BlockState state = level.getBlockState(mutableBlockPos);
-			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WWBlockTags.TERMITE_BREAKABLE)) {
-				return mutableBlockPos;
-			}
+
+			Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
+				level.registryAccess(),
+				state.getBlock(),
+				natural
+			);
+
+			if (optionalBlockBehavior.isPresent()) return mutableBlockPos;
+
 			mutableBlockPos.move(Direction.DOWN);
 			state = level.getBlockState(mutableBlockPos);
 			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
@@ -350,18 +355,24 @@ public class TermiteManager {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			List<Direction> directions = Util.shuffledCopy(Direction.values(), random);
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
-			if (canEatBlock(natural, mutableBlockPos, upState)) return mutableBlockPos;
+			if (canEatBlock(level, natural, mutableBlockPos, upState)) return mutableBlockPos;
 			mutableBlockPos.move(Direction.DOWN);
 			for (Direction direction : directions) {
 				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (canEatBlock(natural, mutableBlockPos, state)) return mutableBlockPos;
+				if (canEatBlock(level, natural, mutableBlockPos, state)) return mutableBlockPos;
 				mutableBlockPos.move(direction, -1);
 			}
 			return null;
 		}
 
-		private static boolean canEatBlock(boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
-			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WWBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+		private static boolean canEatBlock(@NotNull Level level, boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
+			Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
+				level.registryAccess(),
+				state.getBlock(),
+				natural
+			);
+
+			if (optionalBlockBehavior.isPresent() && isEdibleProperty(state)) {
 				if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
 					mutableBlockPos.move(Direction.DOWN);
 				}
@@ -378,7 +389,16 @@ public class TermiteManager {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			for (Direction direction : Direction.values()) {
 				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (state.isAir() || (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WWBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WWBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+				Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
+					level.registryAccess(),
+					state.getBlock(),
+					natural
+				);
+
+				if (
+					state.isAir()
+					|| (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WWBlockTags.BLOCKS_TERMITE))
+					|| (optionalBlockBehavior.isPresent() && isEdibleProperty(state))) {
 					return true;
 				}
 				mutableBlockPos.move(direction, -1);
@@ -394,9 +414,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isBlockMovable(@NotNull BlockState state, @NotNull Direction direction) {
-			if (state.is(WWBlockTags.BLOCKS_TERMITE)) {
-				return false;
-			}
+			if (state.is(WWBlockTags.BLOCKS_TERMITE)) return false;
 			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
 			boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA) || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED))));
 			return moveableUp && moveableDown;
@@ -469,73 +487,6 @@ public class TermiteManager {
 
 		public int getID() {
 			return this.id;
-		}
-
-		public static void addDegradableBlocks() {
-			addDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-			addDegradable(Blocks.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-			addDegradable(WWBlocks.HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-			addDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-
-			addDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-			addDegradable(Blocks.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-			addDegradable(WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-			addDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-
-			addDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-			addDegradable(Blocks.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-			addDegradable(WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-			addDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-
-			addDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-			addDegradable(Blocks.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-			addDegradable(WWBlocks.HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-			addDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-
-			addDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-			addDegradable(Blocks.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-			addDegradable(WWBlocks.HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-			addDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-
-			addDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-			addDegradable(Blocks.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-			addDegradable(WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-			addDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-
-			addDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-			addDegradable(Blocks.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-			addDegradable(WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-			addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-
-			addDegradable(Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
-			addDegradable(Blocks.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-			addDegradable(WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-			addDegradable(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
-		}
-
-		public static void addDegradable(Block degradable, Block result) {
-			DEGRADABLE_BLOCKS.put(degradable, result);
-		}
-
-		public static void addNaturalDegradableBlocks() {
-			addNaturalDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-			addNaturalDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-			addNaturalDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-			addNaturalDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-			addNaturalDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-			addNaturalDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-			addNaturalDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-			addNaturalDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-			addNaturalDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-			addNaturalDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-			addNaturalDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-			addNaturalDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-			addNaturalDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-			addNaturalDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-		}
-
-		public static void addNaturalDegradable(@NotNull Block degradable, @NotNull Block result) {
-			NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
 		}
 	}
 }

@@ -36,7 +36,6 @@ import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -79,7 +78,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWDataFixer.applyDataFixes(container);
 
 		WilderWildRegistries.initRegistry();
-		
+
 		WWDataComponents.init();
 		WWBlocks.registerBlocks();
 		WWItems.registerItems();
@@ -103,9 +102,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWFeatures.init();
 		WWBiomes.init();
 		WWWorldGen.generateWildWorldGen();
-
-		TermiteManager.Termite.addDegradableBlocks();
-		TermiteManager.Termite.addNaturalDegradableBlocks();
 		WWBlocks.registerBlockProperties();
 		WWVillagers.register();
 

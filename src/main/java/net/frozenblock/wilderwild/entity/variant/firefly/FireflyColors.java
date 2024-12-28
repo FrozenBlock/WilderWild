@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class FireflyColors {
+public final class FireflyColors {
 	public static final ResourceKey<FireflyColor> ON = createKey("on");
 	public static final ResourceKey<FireflyColor> BLACK = createKey("black");
 	public static final ResourceKey<FireflyColor> BLUE = createKey("blue");

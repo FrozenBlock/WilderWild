@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.datagen.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWEntityLootProvider;
@@ -88,6 +89,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
 		registryBuilder.add(WilderWildRegistries.BUTTERFLY_VARIANT, ButterflyVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.JELLYFISH_VARIANT, JellyfishVariants::bootstrap);
+		registryBuilder.add(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehaviors::bootstrap);
 	}
 
 	@Override

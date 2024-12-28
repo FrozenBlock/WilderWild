@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ButterflyVariants {
+public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> MONARCH = createKey("monarch");
 	public static final ResourceKey<ButterflyVariant> RED_LACEWING = createKey("red_lacewing");
 	public static final ResourceKey<ButterflyVariant> MARBLED = createKey("marbled");
