@@ -44,7 +44,6 @@ import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
