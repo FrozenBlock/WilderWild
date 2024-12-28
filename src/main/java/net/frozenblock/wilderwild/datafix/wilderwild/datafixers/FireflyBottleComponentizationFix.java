@@ -62,9 +62,13 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 
 	private static Dynamic<?> fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {
 		return dynamic.set(
-			WWConstants.string("bottle_entity_data"),
+			"components",
 			dynamic.emptyMap()
-				.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(fireflyColor))
+				.set(
+					WWConstants.string("bottle_entity_data"),
+					dynamic.emptyMap()
+						.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(fireflyColor))
+				)
 		);
 	}
 
@@ -80,16 +84,15 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 
 	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type) {
 		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
-		OpticFinder<?> components = type.findField("components");
 		return typed -> {
 			Optional<Pair<String, String>> possibleId = typed.getOptional(idFinder);
 			if (possibleId.isPresent()) {
 				String id = possibleId.get().getSecond();
 				String componentName = FIREFLY_BOTTLE_TO_COMPONENT.get(id);
 				if (componentName != null) {
-					return typed.updateTyped(components, typedx -> typedx.update(
+					return typed.update(
 						DSL.remainderFinder(), dynamic -> fixItemStack(dynamic, componentName)
-					));
+					);
 				}
 			}
 			return typed;
