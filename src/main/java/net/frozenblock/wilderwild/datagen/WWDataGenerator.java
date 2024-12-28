@@ -88,7 +88,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE_SET, WWStructures::bootstrapStructureSet);
 
-		// WW Registries
+		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
 	}
 

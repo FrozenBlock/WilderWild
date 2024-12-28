@@ -179,7 +179,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
 		if (COLOR.equals(entityDataAccessor)) {
-			this.fireflyColor = Optional.of(this.getColorById());
+			this.fireflyColor = Optional.of(this.getColorByLocation());
 		}
 	}
 
@@ -249,7 +249,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 		this.getColorAsHolder()
 			.unwrapKey()
-			.ifPresent(resourceKey -> tag.putString("color", resourceKey.location().toString()));
+			.ifPresent(resourceKey -> tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, resourceKey.location().toString()));
 
 		CustomData.set(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
@@ -261,7 +261,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
 		if (compoundTag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
-			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("color")))
+			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)))
 				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
 				.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).getHolder(resourceKey))
 				.ifPresent(reference -> this.setColor(reference.value()));
@@ -320,7 +320,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		return ResourceLocation.parse(this.entityData.get(COLOR));
 	}
 
-	public FireflyColor getColorById() {
+	public FireflyColor getColorByLocation() {
 		return this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(this.getColorLocation());
 	}
 

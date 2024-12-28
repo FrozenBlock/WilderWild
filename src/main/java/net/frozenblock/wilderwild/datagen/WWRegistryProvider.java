@@ -36,39 +36,28 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	protected void configure(@NotNull HolderLookup.Provider registries, @NotNull Entries entries) {
-		final var damageTypes = asLookup(entries.getLookup(Registries.DAMAGE_TYPE));
-		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
-		final var placedFeatures = asLookup(entries.placedFeatures());
-		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
-		final var noises = asLookup(entries.getLookup(Registries.NOISE));
-		final var processorLists = asLookup(entries.getLookup(Registries.PROCESSOR_LIST));
-		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
-		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
-		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
-
 		WWConstants.log("Adding finalized damage types to datagen", true);
-		entries.addAll(damageTypes);
+		entries.addAll(asLookup(entries.getLookup(Registries.DAMAGE_TYPE)));
 		WWConstants.log("Adding finalized configured features to datagen", true);
-		entries.addAll(configuredFeatures);
+		entries.addAll(asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE)));
 		WWConstants.log("Adding finalized placed features to datagen", true);
-		entries.addAll(placedFeatures);
+		entries.addAll(asLookup(entries.placedFeatures()));
 		WWConstants.log("Adding finalized biomes to datagen", true);
-		entries.addAll(biomes);
+		entries.addAll(asLookup(entries.getLookup(Registries.BIOME)));
 		WWConstants.log("Adding finalized noises to datagen", true);
-		entries.addAll(noises);
+		entries.addAll(asLookup(entries.getLookup(Registries.NOISE)));
 		WWConstants.log("Adding finalized processor lists to datagen", true);
-		entries.addAll(processorLists);
+		entries.addAll(asLookup(entries.getLookup(Registries.PROCESSOR_LIST)));
 		WWConstants.log("Adding finalized template pools to datagen", true);
-		entries.addAll(templatePools);
+		entries.addAll(asLookup(entries.getLookup(Registries.TEMPLATE_POOL)));
 		WWConstants.log("Adding finalized structures to datagen", true);
-		entries.addAll(structures);
+		entries.addAll(asLookup(entries.getLookup(Registries.STRUCTURE)));
 		WWConstants.log("Adding finalized structure sets to datagen", true);
-		entries.addAll(structureSets);
+		entries.addAll(asLookup(entries.getLookup(Registries.STRUCTURE_SET)));
 
 		// Wilder Wild Dynamic Registries
-		final var fireflyColors = asLookup(entries.getLookup(WilderWildRegistries.FIREFLY_COLOR));
 		WWConstants.log("Adding finalized firefly colors to datagen", true);
-		entries.addAll(fireflyColors);
+		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.FIREFLY_COLOR)));
 	}
 
 
