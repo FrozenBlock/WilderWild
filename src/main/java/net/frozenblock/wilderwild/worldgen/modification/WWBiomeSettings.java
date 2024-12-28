@@ -101,5 +101,6 @@ public final class WWBiomeSettings {
 		WWSpawns.addOstriches();
 		WWSpawns.addTumbleweed();
 		WWSpawns.addRabbits();
+		WWSpawns.addMooblooms();
 	}
 }

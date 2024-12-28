@@ -524,6 +524,23 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.PEARLESCENT_JELLYFISH)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MOOBLOOM)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_DANDELION)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_CORNFLOWER)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_POPPY)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRAB)
 			.add(Biomes.BEACH)
 			.addOptional(WWBiomes.WARM_BEACH)

@@ -71,4 +71,9 @@ public final class WWSpawns {
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST),
 			MobCategory.CREATURE, EntityType.RABBIT, 10, 2, 4);
 	}
+
+	public static void addMooblooms() {
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
+			MobCategory.CREATURE, WWEntityTypes.MOOBLOOM, 10, 4, 4);
+	}
 }

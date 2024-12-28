@@ -33,6 +33,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("entity/spawn/firefly");
 	public static final TagKey<Biome> HAS_JELLYFISH = bind("entity/spawn/jellyfish");
 	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("entity/spawn/jellyfish_special_spawn");
+	public static final TagKey<Biome> HAS_MOOBLOOM = bind("entity/spawn/moobloom");
 	public static final TagKey<Biome> HAS_CRAB = bind("entity/spawn/crab");
 	public static final TagKey<Biome> HAS_COMMON_CRAB = bind("entity/spawn/common_crab");
 	public static final TagKey<Biome> HAS_OSTRICH = bind("entity/spawn/ostrich");
@@ -47,6 +48,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> RED_JELLYFISH = bind("entity/variant/red_jellyfish");
 	public static final TagKey<Biome> YELLOW_JELLYFISH = bind("entity/variant/yellow_jellyfish");
 	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("entity/variant/pearlescent_jellyfish");
+	public static final TagKey<Biome> MOOBLOOM_DANDELION = bind("entity/variant/moobloom_dandelion");
+	public static final TagKey<Biome> MOOBLOOM_POPPY = bind("entity/variant/moobloom_poppy");
+	public static final TagKey<Biome> MOOBLOOM_CORNFLOWER = bind("entity/variant/moobloom_cornflower");
 
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");

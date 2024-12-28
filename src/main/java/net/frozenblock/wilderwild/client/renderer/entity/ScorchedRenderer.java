@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.ScorchedModel;
@@ -31,6 +33,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class ScorchedRenderer<T extends Scorched> extends MobRenderer<T, SpiderModel<T>> {
 	private static final ResourceLocation SCORCHED_LOCATION = WWConstants.id("textures/entity/scorched/scorched.png");
 	private static final float SCALE = 0.9F;
