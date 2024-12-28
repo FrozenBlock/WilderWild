@@ -19,15 +19,12 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -43,7 +40,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -61,7 +57,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 public class TermiteManager {
 	public static final int TERMITE_COUNT_ASLEEP = 1;
@@ -169,28 +164,24 @@ public class TermiteManager {
 	}
 
 	public void saveAdditional(@NotNull CompoundTag tag) {
+		Termite.LIST_CODEC
+			.encodeStart(NbtOps.INSTANCE, this.termites)
+			.resultOrPartial(WWConstants.LOGGER::error)
+			.ifPresent((nbt) -> tag.put("termites", nbt));
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		tag.putInt("highestID", this.highestID);
-		Logger logger = WWConstants.LOGGER;
-		DataResult<Tag> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
-		Objects.requireNonNull(logger);
-		var10000.resultOrPartial(logger::error).ifPresent((nbt) -> tag.put("termites", nbt));
 	}
 
 	public void load(@NotNull CompoundTag tag) {
-		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
-		this.highestID = tag.getInt("highestID");
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
-			DataResult<List<Termite>> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)));
-			Logger logger = WWConstants.LOGGER;
-			Objects.requireNonNull(logger);
-			Optional<List<Termite>> list = var10000.resultOrPartial(logger::error);
-			if (list.isPresent()) {
-				List<Termite> termiteList = list.get();
-				this.termites.addAll(termiteList);
-			}
+			Termite.LIST_CODEC
+				.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
+				.resultOrPartial(WWConstants.LOGGER::error)
+				.ifPresent(this.termites::addAll);
 		}
+		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
+		this.highestID = tag.getInt("highestID");
 	}
 
 	public static class Termite {
@@ -215,6 +206,7 @@ public class TermiteManager {
 			Codec.BOOL.fieldOf("eating").orElse(true).forGetter(Termite::getEating),
 			Codec.INT.fieldOf("id").orElse(0).forGetter(Termite::getID)
 		).apply(instance, Termite::new));
+		public static final Codec<List<Termite>> LIST_CODEC = CODEC.listOf();
 
 		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
 		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
