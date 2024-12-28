@@ -18,6 +18,7 @@ hi
   - As such, `FireflyBiomeColorRegistry` has been removed and is replaced with a `biomes` field in each .json file.
 - Optimized Firefly rendering.
 - Fireflies now only have one flicker pattern.
+- Merged all 17 Firefly Bottle items into 1 item, now relying on components to save the Firefly's color.
 - Jellyfish textures are now prefixed with `jellyfish_`.
 - Optimized Jellyfish rendering.
 - Biome tags relating to entities are now placed in the `entity/spawn` path, being only `spawn` prior.
