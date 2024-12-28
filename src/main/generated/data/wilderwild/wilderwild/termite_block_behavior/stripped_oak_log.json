@@ -2,6 +2,6 @@
   "copy_blockstate_properties": true,
   "eat_sound": "wilderwild:block.log_hollowed",
   "edible_blocks": "minecraft:stripped_oak_log",
-  "natural_termites_only": false,
+  "natural_termite_usable": false,
   "output_block": "wilderwild:stripped_hollowed_oak_log"
 }

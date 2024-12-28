@@ -1,6 +1,6 @@
 {
   "copy_blockstate_properties": true,
   "edible_blocks": "wilderwild:hollowed_dark_oak_log",
-  "natural_termites_only": false,
+  "natural_termite_usable": false,
   "output_block": "wilderwild:stripped_hollowed_dark_oak_log"
 }

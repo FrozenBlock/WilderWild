@@ -1,4 +1,4 @@
 {
   "edible_blocks": "#minecraft:leaves",
-  "natural_termites_only": false
+  "natural_termite_usable": false
 }

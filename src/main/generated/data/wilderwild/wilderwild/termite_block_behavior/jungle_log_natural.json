@@ -1,6 +1,6 @@
 {
   "copy_blockstate_properties": true,
   "edible_blocks": "minecraft:jungle_log",
-  "natural_termites_only": true,
+  "natural_termite_usable": true,
   "output_block": "minecraft:stripped_jungle_log"
 }

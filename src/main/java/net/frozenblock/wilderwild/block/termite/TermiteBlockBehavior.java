@@ -17,7 +17,7 @@ public final class TermiteBlockBehavior {
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("edible_blocks").forGetter(TermiteBlockBehavior::getEdibleBlocks),
 			BuiltInRegistries.BLOCK.byNameCodec().lenientOptionalFieldOf("output_block").forGetter(TermiteBlockBehavior::getOutputBlock),
 			Codec.BOOL.optionalFieldOf("copy_blockstate_properties", false).forGetter(TermiteBlockBehavior::copyProperties),
-			Codec.BOOL.fieldOf("natural_termites_only").forGetter(TermiteBlockBehavior::naturalTermite),
+			Codec.BOOL.fieldOf("natural_termite_usable").forGetter(TermiteBlockBehavior::naturalTermite),
 			BuiltInRegistries.SOUND_EVENT.byNameCodec().lenientOptionalFieldOf("eat_sound").forGetter(TermiteBlockBehavior::getEatSound)
 		).apply(instance, TermiteBlockBehavior::new)
 	);
