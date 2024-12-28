@@ -23,14 +23,12 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -118,7 +116,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					CustomData colorData = stack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
 					if (colorData != null && !colorData.isEmpty()) {
 						CompoundTag tag = colorData.copyTag();
-						FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD))).orElse(FireflyColor.ON);
+						ResourceLocation color = ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD));
+
 						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
 							String name = "";
 							if (stack.has(DataComponents.CUSTOM_NAME)) {
@@ -147,7 +146,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						CustomData.update(
 							WWDataComponents.BOTTLE_ENTITY_DATA,
 							bottleStack,
-							compoundTag -> compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, fireflyInLantern.color.getSerializedName())
+							compoundTag -> compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, fireflyInLantern.getColor().toString())
 						);
 						if (!Objects.equals(fireflyInLantern.customName, "")) {
 							bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
@@ -278,8 +277,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ?
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) :
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick());
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
 	}
 
 	@Override

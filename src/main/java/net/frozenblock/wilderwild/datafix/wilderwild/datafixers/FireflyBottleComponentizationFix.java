@@ -25,7 +25,6 @@ import com.mojang.datafixers.types.Type;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
@@ -42,23 +41,23 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 	}
 
 	private static final Map<String, String> FIREFLY_BOTTLE_TO_COMPONENT = ImmutableBiMap.<String, String>builder()
-		.put(WWConstants.string("firefly_bottle"), FireflyColor.ON.getSerializedName())
-		.put(WWConstants.string("black_firefly_bottle"), FireflyColor.BLACK.getSerializedName())
-		.put(WWConstants.string("blue_firefly_bottle"), FireflyColor.BLUE.getSerializedName())
-		.put(WWConstants.string("brown_firefly_bottle"), FireflyColor.BROWN.getSerializedName())
-		.put(WWConstants.string("cyan_firefly_bottle"), FireflyColor.CYAN.getSerializedName())
-		.put(WWConstants.string("gray_firefly_bottle"), FireflyColor.GRAY.getSerializedName())
-		.put(WWConstants.string("green_firefly_bottle"), FireflyColor.GREEN.getSerializedName())
-		.put(WWConstants.string("light_blue_firefly_bottle"), FireflyColor.LIGHT_BLUE.getSerializedName())
-		.put(WWConstants.string("light_gray_firefly_bottle"), FireflyColor.LIGHT_GRAY.getSerializedName())
-		.put(WWConstants.string("lime_firefly_bottle"), FireflyColor.LIME.getSerializedName())
-		.put(WWConstants.string("magenta_firefly_bottle"), FireflyColor.MAGENTA.getSerializedName())
-		.put(WWConstants.string("orange_firefly_bottle"), FireflyColor.ORANGE.getSerializedName())
-		.put(WWConstants.string("pink_firefly_bottle"), FireflyColor.PINK.getSerializedName())
-		.put(WWConstants.string("purple_firefly_bottle"), FireflyColor.PURPLE.getSerializedName())
-		.put(WWConstants.string("red_firefly_bottle"), FireflyColor.RED.getSerializedName())
-		.put(WWConstants.string("white_firefly_bottle"), FireflyColor.WHITE.getSerializedName())
-		.put(WWConstants.string("yellow_firefly_bottle"), FireflyColor.YELLOW.getSerializedName())
+		.put(WWConstants.string("firefly_bottle"), WWConstants.string("on"))
+		.put(WWConstants.string("black_firefly_bottle"), WWConstants.string("black"))
+		.put(WWConstants.string("blue_firefly_bottle"), WWConstants.string("blue"))
+		.put(WWConstants.string("brown_firefly_bottle"), WWConstants.string("brown"))
+		.put(WWConstants.string("cyan_firefly_bottle"), WWConstants.string("cyan"))
+		.put(WWConstants.string("gray_firefly_bottle"), WWConstants.string("gray"))
+		.put(WWConstants.string("green_firefly_bottle"), WWConstants.string("green"))
+		.put(WWConstants.string("light_blue_firefly_bottle"), WWConstants.string("light_blue"))
+		.put(WWConstants.string("light_gray_firefly_bottle"), WWConstants.string("light_gray"))
+		.put(WWConstants.string("lime_firefly_bottle"), WWConstants.string("lime"))
+		.put(WWConstants.string("magenta_firefly_bottle"), WWConstants.string("magenta"))
+		.put(WWConstants.string("orange_firefly_bottle"), WWConstants.string("orange"))
+		.put(WWConstants.string("pink_firefly_bottle"), WWConstants.string("pink"))
+		.put(WWConstants.string("purple_firefly_bottle"), WWConstants.string("purple"))
+		.put(WWConstants.string("red_firefly_bottle"), WWConstants.string("red"))
+		.put(WWConstants.string("white_firefly_bottle"), WWConstants.string("white"))
+		.put(WWConstants.string("yellow_firefly_bottle"), WWConstants.string("yellow"))
 		.build();
 
 	private static Dynamic<?> fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {

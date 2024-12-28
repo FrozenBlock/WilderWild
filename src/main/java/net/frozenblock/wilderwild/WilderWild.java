@@ -78,8 +78,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WWDataComponents.init();
 		WilderWildRegistries.initRegistry();
+		
+		WWDataComponents.init();
 		WWBlocks.registerBlocks();
 		WWItems.registerItems();
 		WWItems.registerBlockItems();

@@ -22,7 +22,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.ChatFormatting;
@@ -50,7 +50,7 @@ import java.util.Optional;
 public class MobBottleItem extends Item {
 	public static final String FIREFLY_BOTTLE_VARIANT_FIELD = "FireflyBottleVariantTag";
 	public static final String BUTTERFLY_BOTTLE_VARIANT_FIELD = "ButterflyBottleVariantTag";
-	private static final MapCodec<FireflyColor> FIREFLY_VARIANT_FIELD_CODEC = FireflyColor.CODEC.fieldOf(FIREFLY_BOTTLE_VARIANT_FIELD);
+	private static final MapCodec<ResourceLocation> FIREFLY_VARIANT_FIELD_CODEC = ResourceLocation.CODEC.fieldOf(FIREFLY_BOTTLE_VARIANT_FIELD);
 	private static final MapCodec<ButterflyVariant> BUTTERFLY_VARIANT_FIELD_CODEC = ButterflyVariant.CODEC.fieldOf(BUTTERFLY_BOTTLE_VARIANT_FIELD);
 	private final EntityType<?> type;
 	private final SoundEvent releaseSound;
@@ -111,10 +111,10 @@ public class MobBottleItem extends Item {
 				list.add(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
 			}
 		} else if (this.type == WWEntityTypes.FIREFLY) {
-			Optional<FireflyColor> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
+			Optional<ResourceLocation> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
 			if (optional.isPresent()) {
-				ResourceLocation colorKey = optional.get().key();
-				if (colorKey == FireflyColor.ON.key()) return;
+				ResourceLocation colorKey = optional.get();
+				if (colorKey == WWConstants.id("on")) return;
 
 				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 				list.add(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));

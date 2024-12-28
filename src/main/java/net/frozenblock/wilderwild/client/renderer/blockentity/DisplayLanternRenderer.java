@@ -62,23 +62,25 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
 			poseStack.popPose();
 		} else {
-			for (DisplayLanternBlockEntity.Occupant entity : lantern.getFireflies()) {
-				double ageDelta = entity.age + partialTick;
-				FireflyRenderer.renderFirefly(
-					poseStack,
-					buffer,
-					light,
-					overlay,
-					entity.age,
-					partialTick,
-					entity.flickers,
-					entity.getColor(),
-					1F,
-					(float) entity.pos.x,
-					(lantern.clientHanging ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
-					(float) entity.pos.z,
-					Minecraft.getInstance().gameRenderer.getMainCamera().rotation()
-				);
+			for (DisplayLanternBlockEntity.Occupant occupant : lantern.getFireflies()) {
+				if (occupant.canRender()) {
+					double ageDelta = occupant.age + partialTick;
+					FireflyRenderer.renderFirefly(
+						poseStack,
+						buffer,
+						light,
+						overlay,
+						occupant.age,
+						partialTick,
+						occupant.flickers,
+						occupant.getColorForRendering(),
+						1F,
+						(float) occupant.pos.x,
+						(lantern.clientHanging ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
+						(float) occupant.pos.z,
+						Minecraft.getInstance().gameRenderer.getMainCamera().rotation()
+					);
+				}
 			}
 		}
 	}

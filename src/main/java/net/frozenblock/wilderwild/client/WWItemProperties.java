@@ -22,7 +22,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -50,10 +49,11 @@ public final class WWItemProperties {
 			WWConstants.vanillaId("color"),
 			(itemStack, clientLevel, livingEntity, seed) -> {
 				CustomData bottleData = itemStack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
-				if (bottleData != null && !bottleData.isEmpty()) {
+				if (clientLevel != null && bottleData != null && !bottleData.isEmpty()) {
 					CompoundTag tag = bottleData.copyTag();
-					FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.parse(tag.getString("FireflyBottleVariantTag"))).orElse(FireflyColor.ON);
-					return color.modelPredicate();
+					return clientLevel.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+						.getOptional(ResourceLocation.parse(tag.getString("FireflyBottleVariantTag")))
+						.map(fireflyColor -> fireflyColor.modelPredicate()).orElse(0F);
 				}
 				return 0F;
 			}

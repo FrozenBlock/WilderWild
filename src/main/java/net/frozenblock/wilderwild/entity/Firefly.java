@@ -19,15 +19,15 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import net.frozenblock.lib.math.api.AdvancedMath;
+import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -51,6 +51,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -101,6 +102,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public boolean despawning;
 	public int homeCheckCooldown;
 	public boolean shouldCheckSpawn = true;
+	private Optional<FireflyColor> fireflyColor = Optional.empty();
 
 	public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -153,6 +155,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		this.hasHome = this.hasHome || !this.natural;
 		FireflyAi.rememberHome(this, this.blockPosition());
 
+		Holder<Biome> holder = level.getBiome(this.blockPosition());
+		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
+			this.setColor(fireflySpawnGroupData.type.value());
+		} else {
+			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder);
+			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
+			this.setColor(fireflyColorHolder.value());
+		}
+
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
 	}
 
@@ -162,6 +173,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			|| spawnType == MobSpawnType.SPAWNER
 			|| spawnType == MobSpawnType.SPAWN_EGG
 			|| spawnType == MobSpawnType.COMMAND;
+	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
+		super.onSyncedDataUpdated(entityDataAccessor);
+		if (COLOR.equals(entityDataAccessor)) {
+			this.fireflyColor = Optional.of(this.getColorById());
+		}
 	}
 
 	@Override
@@ -178,7 +197,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		builder.define(AGE, 0);
 		builder.define(ANIM_SCALE, 1.5F);
 		builder.define(PREV_ANIM_SCALE, 1.5F);
-		builder.define(COLOR, FireflyColor.ON.getSerializedName());
+		builder.define(COLOR, FireflyColors.DEFAULT.location().toString());
 	}
 
 	@Override
@@ -227,7 +246,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
 		CompoundTag tag = new CompoundTag();
-		tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, this.getColor().getSerializedName());
+
+		this.getColorAsHolder()
+			.unwrapKey()
+			.ifPresent(resourceKey -> tag.putString("color", resourceKey.location().toString()));
 
 		CustomData.set(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
@@ -239,10 +261,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
 		if (compoundTag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
-			FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)));
-			if (color != null) {
-				this.setColor(color);
-			}
+			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("color")))
+				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
+				.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).getHolder(resourceKey))
+				.ifPresent(reference -> this.setColor(reference.value()));
 		}
 	}
 
@@ -294,12 +316,28 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		this.entityData.set(PREV_ANIM_SCALE, value);
 	}
 
-	public FireflyColor getColor() {
-		return WilderWildRegistries.FIREFLY_COLOR.getOptional(ResourceLocation.parse(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
+	public ResourceLocation getColorLocation() {
+		return ResourceLocation.parse(this.entityData.get(COLOR));
+	}
+
+	public FireflyColor getColorById() {
+		return this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(this.getColorLocation());
+	}
+
+	public Holder<FireflyColor> getColorAsHolder() {
+		return this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).getHolder(this.getColorLocation()).orElseThrow();
+	}
+
+	public FireflyColor getColorForRendering() {
+		return this.fireflyColor.orElse(this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT));
 	}
 
 	public void setColor(@NotNull FireflyColor color) {
-		this.entityData.set(COLOR, color.key().toString());
+		this.entityData.set(COLOR, Objects.requireNonNull(this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).getKey(color)).toString());
+	}
+
+	public void setColor(@NotNull ResourceLocation color) {
+		this.entityData.set(COLOR, color.toString());
 	}
 
 	@Override
@@ -389,16 +427,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void tick() {
 		super.tick();
-
-		if (this.shouldCheckSpawn) {
-			if (!this.fromBottle()) {
-				FireflyColor biomeColor = FireflyBiomeColorRegistry.getBiomeColor(this.level().getBiome(this.blockPosition()));
-				if (biomeColor != null) {
-					this.setColor(biomeColor);
-				}
-			}
-			this.shouldCheckSpawn = false;
-		}
 
 		if (!this.isAlive()) {
 			this.setNoGravity(false);
@@ -502,58 +530,44 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putBoolean("fromBottle", this.fromBottle());
-		compound.putBoolean("natural", this.natural);
-		compound.putBoolean("flickers", this.flickers());
-		compound.putInt("flickerAge", this.getFlickerAge());
-		compound.putBoolean("hasHome", this.hasHome);
-		compound.putFloat("scale", this.getAnimScale());
-		compound.putFloat("prevScale", this.getPrevAnimScale());
-		compound.putBoolean("despawning", this.despawning);
-		compound.putString("color", this.getColor().getSerializedName());
-		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
-		compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
+	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+		super.addAdditionalSaveData(compoundTag);
+
+		this.getColorAsHolder()
+			.unwrapKey()
+			.ifPresent(resourceKey -> compoundTag.putString("color", resourceKey.location().toString()));
+
+		compoundTag.putBoolean("fromBottle", this.fromBottle());
+		compoundTag.putBoolean("natural", this.natural);
+		compoundTag.putBoolean("flickers", this.flickers());
+		compoundTag.putInt("flickerAge", this.getFlickerAge());
+		compoundTag.putBoolean("hasHome", this.hasHome);
+		compoundTag.putFloat("scale", this.getAnimScale());
+		compoundTag.putFloat("prevScale", this.getPrevAnimScale());
+		compoundTag.putBoolean("despawning", this.despawning);
+		compoundTag.putInt("homeCheckCooldown", this.homeCheckCooldown);
+		compoundTag.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		if (compound.contains("fromBottle")) {
-			this.setFromBottle(compound.getBoolean("fromBottle"));
-		}
-		if (compound.contains("natural")) {
-			this.natural = compound.getBoolean("natural");
-		}
-		if (compound.contains("flickers")) {
-			this.setFlickers(compound.getBoolean("flickers"));
-		}
-		if (compound.contains("flickerAge")) {
-			this.setFlickerAge(compound.getInt("flickerAge"));
-		}
-		if (compound.contains("hasHome")) {
-			this.hasHome = compound.getBoolean("hasHome");
-		}
-		if (compound.contains("scale")) {
-			this.setAnimScale(compound.getFloat("scale"));
-		}
-		if (compound.contains("prevScale")) {
-			this.setPrevAnimScale(compound.getFloat("prevScale"));
-		}
-		if (compound.contains("despawning")) {
-			this.despawning = compound.getBoolean("despawning");
-		}
-		FireflyColor color = WilderWildRegistries.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
-		if (color != null) {
-			this.setColor(color);
-		}
-		if (compound.contains("homeCheckCooldown")) {
-			this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
-		}
-		if (compound.contains("shouldCheckSpawn")) {
-			this.shouldCheckSpawn = compound.getBoolean("shouldCheckSpawn");
-		}
+	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+		super.readAdditionalSaveData(compoundTag);
+
+		Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("color")))
+			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
+			.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).getHolder(resourceKey))
+			.ifPresent(reference -> this.setColor(reference.value()));
+
+		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
+		if (compoundTag.contains("natural")) this.natural = compoundTag.getBoolean("natural");
+		if (compoundTag.contains("flickers")) this.setFlickers(compoundTag.getBoolean("flickers"));
+		if (compoundTag.contains("flickerAge")) this.setFlickerAge(compoundTag.getInt("flickerAge"));
+		if (compoundTag.contains("hasHome")) this.hasHome = compoundTag.getBoolean("hasHome");
+		if (compoundTag.contains("scale")) this.setAnimScale(compoundTag.getFloat("scale"));
+		if (compoundTag.contains("prevScale")) this.setPrevAnimScale(compoundTag.getFloat("prevScale"));
+		if (compoundTag.contains("despawning")) this.despawning = compoundTag.getBoolean("despawning");
+		if (compoundTag.contains("homeCheckCooldown")) this.homeCheckCooldown = compoundTag.getInt("homeCheckCooldown");
+		if (compoundTag.contains("shouldCheckSpawn")) this.shouldCheckSpawn = compoundTag.getBoolean("shouldCheckSpawn");
 	}
 
 	@Override
@@ -585,32 +599,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	protected void pushEntities() {
 	}
 
-	public static class FireflyBiomeColorRegistry {
-		public static final ArrayList<ResourceLocation> BIOMES = new ArrayList<>();
-		public static final ArrayList<FireflyColor> COLORS = new ArrayList<>();
+	public static class FireflySpawnGroupData extends AgeableMob.AgeableMobGroupData {
+		public final Holder<FireflyColor> type;
 
-		public static void addBiomeColor(@NotNull ResourceLocation biome, @NotNull FireflyColor color) {
-			BIOMES.add(biome);
-			COLORS.add(color);
-		}
-
-		public static void addBiomeColor(@NotNull ResourceKey<Biome> biome, @NotNull FireflyColor color) {
-			addBiomeColor(biome.location(), color);
-		}
-
-		@Nullable
-		public static FireflyColor getBiomeColor(@NotNull Holder<Biome> biomeEntry) {
-			ArrayList<FireflyColor> colors = new ArrayList<>();
-			for (int i = 0; i < BIOMES.size(); ++i) {
-				ResourceLocation biomeID = BIOMES.get(i);
-				if (biomeEntry.is(biomeID)) {
-					colors.add(COLORS.get(i));
-				}
-			}
-			if (colors.isEmpty()) {
-				return null;
-			}
-			return colors.get(AdvancedMath.random().nextInt(colors.size()));
+		public FireflySpawnGroupData(Holder<FireflyColor> holder) {
+			super(false);
+			this.type = holder;
 		}
 	}
+
 }

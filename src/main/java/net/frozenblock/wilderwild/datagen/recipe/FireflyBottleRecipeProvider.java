@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.frozenblock.lib.recipe.api.ShapelessRecipeBuilderExtension;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.component.DataComponentPatch;
@@ -31,8 +31,8 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -64,59 +64,59 @@ public final class FireflyBottleRecipeProvider {
 				Items.YELLOW_DYE
 			),
 			ImmutableList.of(
-				FireflyColor.BLACK,
-				FireflyColor.BLUE,
-				FireflyColor.BROWN,
-				FireflyColor.CYAN,
-				FireflyColor.GRAY,
-				FireflyColor.GREEN,
-				FireflyColor.LIGHT_BLUE,
-				FireflyColor.LIGHT_GRAY,
-				FireflyColor.LIME,
-				FireflyColor.MAGENTA,
-				FireflyColor.ORANGE,
-				FireflyColor.PINK,
-				FireflyColor.PURPLE,
-				FireflyColor.RED,
-				FireflyColor.WHITE,
-				FireflyColor.YELLOW
+				 WWConstants.string("black"),
+				 WWConstants.string("blue"),
+				 WWConstants.string("brown"),
+				 WWConstants.string("cyan"),
+				 WWConstants.string("gray"),
+				 WWConstants.string("green"),
+				 WWConstants.string("light_blue"),
+				 WWConstants.string("light_gray"),
+				 WWConstants.string("lime"),
+				 WWConstants.string("magenta"),
+				 WWConstants.string("orange"),
+				 WWConstants.string("pink"),
+				 WWConstants.string("purple"),
+				 WWConstants.string("red"),
+				 WWConstants.string("white"),
+				 WWConstants.string("yellow")
 			)
 		);
 
-		fireflyBottle(FireflyColor.BLACK, Items.BLACK_DYE, exporter);
-		fireflyBottle(FireflyColor.BLUE, Items.BLUE_DYE, exporter);
-		fireflyBottle(FireflyColor.BROWN, Items.BROWN_DYE, exporter);
-		fireflyBottle(FireflyColor.CYAN, Items.CYAN_DYE, exporter);
-		fireflyBottle(FireflyColor.GRAY, Items.GRAY_DYE, exporter);
-		fireflyBottle(FireflyColor.GREEN, Items.GREEN_DYE, exporter);
-		fireflyBottle(FireflyColor.LIGHT_BLUE, Items.LIGHT_BLUE_DYE, exporter);
-		fireflyBottle(FireflyColor.LIGHT_GRAY, Items.LIGHT_GRAY_DYE, exporter);
-		fireflyBottle(FireflyColor.LIME, Items.LIME_DYE, exporter);
-		fireflyBottle(FireflyColor.MAGENTA, Items.MAGENTA_DYE, exporter);
-		fireflyBottle(FireflyColor.ORANGE, Items.ORANGE_DYE, exporter);
-		fireflyBottle(FireflyColor.PINK, Items.PINK_DYE, exporter);
-		fireflyBottle(FireflyColor.PURPLE, Items.PURPLE_DYE, exporter);
-		fireflyBottle(FireflyColor.RED, Items.RED_DYE, exporter);
-		fireflyBottle(FireflyColor.WHITE, Items.WHITE_DYE, exporter);
-		fireflyBottle(FireflyColor.YELLOW, Items.YELLOW_DYE, exporter);
+		fireflyBottle(WWConstants.string("black"), Items.BLACK_DYE, exporter);
+		fireflyBottle(WWConstants.string("blue"), Items.BLUE_DYE, exporter);
+		fireflyBottle(WWConstants.string("brown"), Items.BROWN_DYE, exporter);
+		fireflyBottle(WWConstants.string("cyan"), Items.CYAN_DYE, exporter);
+		fireflyBottle(WWConstants.string("gray"), Items.GRAY_DYE, exporter);
+		fireflyBottle(WWConstants.string("green"), Items.GREEN_DYE, exporter);
+		fireflyBottle(WWConstants.string("light_blue"), Items.LIGHT_BLUE_DYE, exporter);
+		fireflyBottle(WWConstants.string("light_gray"), Items.LIGHT_GRAY_DYE, exporter);
+		fireflyBottle(WWConstants.string("lime"), Items.LIME_DYE, exporter);
+		fireflyBottle(WWConstants.string("magenta"), Items.MAGENTA_DYE, exporter);
+		fireflyBottle(WWConstants.string("orange"), Items.ORANGE_DYE, exporter);
+		fireflyBottle(WWConstants.string("pink"), Items.PINK_DYE, exporter);
+		fireflyBottle(WWConstants.string("purple"), Items.PURPLE_DYE, exporter);
+		fireflyBottle(WWConstants.string("red"), Items.RED_DYE, exporter);
+		fireflyBottle(WWConstants.string("white"), Items.WHITE_DYE, exporter);
+		fireflyBottle(WWConstants.string("yellow"), Items.YELLOW_DYE, exporter);
 	}
 
 	private static void colorFireflyBottlesWithDyes(
-		RecipeOutput recipeOutput, @NotNull List<Item> dyes, List<FireflyColor> fireflyColors
+		RecipeOutput recipeOutput, @NotNull List<Item> dyes, List<String> fireflyColors
 	) {
 		for(int i = 0; i < dyes.size(); ++i) {
 			Item dye = dyes.get(i);
-			FireflyColor outputColor = fireflyColors.get(i);
+			String outputColor = fireflyColors.get(i);
 			CompoundTag variantTag = new CompoundTag();
-			variantTag.putString("FireflyBottleVariantTag", outputColor.getSerializedName());
+			variantTag.putString("FireflyBottleVariantTag", outputColor);
 
 			List<Ingredient> possibleIngredients = new ArrayList<>();
 
-			for (FireflyColor fireflyColor : fireflyColors) {
+			for (String fireflyColor : fireflyColors) {
 				if (fireflyColor.equals(outputColor)) continue;
 
 				CompoundTag ingredientColorTag = new CompoundTag();
-				ingredientColorTag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName());
+				ingredientColorTag.putString("FireflyBottleVariantTag", fireflyColor);
 
 				possibleIngredients.add(DefaultCustomIngredients.components(
 					Ingredient.of(WWItems.FIREFLY_BOTTLE),
@@ -127,6 +127,7 @@ public final class FireflyBottleRecipeProvider {
 			}
 
 			Ingredient input = DefaultCustomIngredients.any(possibleIngredients.toArray(new Ingredient[0]));
+			ResourceLocation colorLocation = ResourceLocation.parse(outputColor);
 
 			((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
 				.requires(dye)
@@ -139,17 +140,18 @@ public final class FireflyBottleRecipeProvider {
 					.build()
 			).save(
 				recipeOutput,
-				WWConstants.id("dye_" + outputColor.key().getPath() + "_firefly_bottle")
+				WWConstants.id("dye_" + colorLocation.getPath() + "_firefly_bottle")
 			);
 		}
 	}
 
-	private static void fireflyBottle(@NotNull FireflyColor fireflyColor, Item dye, RecipeOutput exporter) {
+	private static void fireflyBottle(@NotNull String fireflyColor, Item dye, RecipeOutput exporter) {
 		CompoundTag defaultColorTag = new CompoundTag();
-		defaultColorTag.putString("FireflyBottleVariantTag", FireflyColor.ON.getSerializedName());
+		defaultColorTag.putString("FireflyBottleVariantTag", WWConstants.string("on"));
 
 		CompoundTag variantTag = new CompoundTag();
-		variantTag.putString("FireflyBottleVariantTag", fireflyColor.getSerializedName());
+		variantTag.putString("FireflyBottleVariantTag", fireflyColor);
+		ResourceLocation colorLocation = ResourceLocation.parse(fireflyColor);
 
 		((ShapelessRecipeBuilderExtension) ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
 			.group("firefly_bottle")
@@ -165,7 +167,7 @@ public final class FireflyBottleRecipeProvider {
 			DataComponentPatch.builder()
 				.set(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.of(variantTag))
 				.build()
-			).save(exporter, WWConstants.id(fireflyColor.key().getPath() + "_firefly_bottle"));
+			).save(exporter, WWConstants.id(colorLocation.getPath() + "_firefly_bottle"));
 	}
 
 }

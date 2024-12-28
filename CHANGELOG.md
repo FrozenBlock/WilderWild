@@ -13,3 +13,5 @@ hi
 - Added Butterflies
 - Added Butterfly Bottles
 - Removed an unused sound event for caves
+- Converted all of Wilder Wild's mob variants into Dynamic Registries, now being data-driven!
+  - As such, `FireflyBiomeColorRegistry` has been removed.
