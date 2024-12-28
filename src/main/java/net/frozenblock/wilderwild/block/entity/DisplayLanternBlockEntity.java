@@ -184,7 +184,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull ResourceLocation color, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
-		var firefly = new Occupant(newVec, color, name, random.nextDouble() > 0.7D, random.nextInt(MAX_FIREFLY_AGE), 0D);
+		var firefly = new Occupant(newVec, color, name, random.nextInt(MAX_FIREFLY_AGE), 0D);
 		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
@@ -246,7 +246,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
 			ResourceLocation.CODEC.fieldOf("color").forGetter(Occupant::getColor),
 			Codec.STRING.fieldOf("custom_name").orElse("").forGetter(Occupant::getCustomName),
-			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
@@ -259,8 +258,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Occupant::getColor,
 			ByteBufCodecs.STRING_UTF8,
 			Occupant::getCustomName,
-			ByteBufCodecs.BOOL,
-			Occupant::getFlickers,
 			ByteBufCodecs.INT,
 			Occupant::getAge,
 			ByteBufCodecs.DOUBLE,
@@ -271,17 +268,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public Vec3 pos;
 		public ResourceLocation color;
 		public String customName;
-		public boolean flickers;
 		public int age;
 		public double y;
 
 		private Optional<FireflyColor> colorForRendering = Optional.empty();
 
-		public Occupant(@NotNull Vec3 pos, @NotNull ResourceLocation color, @NotNull String customName, boolean flickers, int age, double y) {
+		public Occupant(@NotNull Vec3 pos, @NotNull ResourceLocation color, @NotNull String customName, int age, double y) {
 			this.pos = pos;
 			this.color = color;
 			this.customName = customName;
-			this.flickers = flickers;
 			this.age = age;
 			this.y = y;
 		}
@@ -317,10 +312,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		@NotNull
 		public String getCustomName() {
 			return this.customName;
-		}
-
-		public boolean getFlickers() {
-			return this.flickers;
 		}
 
 		public int getAge() {

@@ -72,7 +72,6 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 						overlay,
 						occupant.age,
 						partialTick,
-						occupant.flickers,
 						occupant.getColorForRendering(),
 						1F,
 						(float) occupant.pos.x,

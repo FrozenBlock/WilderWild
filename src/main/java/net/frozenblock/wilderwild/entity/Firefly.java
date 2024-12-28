@@ -85,13 +85,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
-	public static final int FLICKERS_CHANCE = 4;
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
 	public static final int SPAWN_CHANCE = 75;
 	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
 	protected static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> PREV_ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
@@ -112,7 +110,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		this.setPathfindingMalus(PathType.WATER_BORDER, 16F);
 		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
-		this.setFlickers(this.random.nextInt(FLICKERS_CHANCE) == 0);
 		this.setFlickerAge(this.random.nextIntBetweenInclusive(0, RANDOM_FLICKER_AGE_MAX));
 		this.setAnimScale(1.5F);
 	}
@@ -195,7 +192,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(FROM_BOTTLE, false);
-		builder.define(FLICKERS, false);
 		builder.define(AGE, 0);
 		builder.define(ANIM_SCALE, 1.5F);
 		builder.define(PREV_ANIM_SCALE, 1.5F);
@@ -280,14 +276,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public SoundEvent getBottleCatchSound() {
 		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
-	}
-
-	public boolean flickers() {
-		return this.entityData.get(FLICKERS);
-	}
-
-	public void setFlickers(boolean value) {
-		this.entityData.set(FLICKERS, value);
 	}
 
 	public int getFlickerAge() {
@@ -537,7 +525,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 		compoundTag.putBoolean("fromBottle", this.fromBottle());
 		compoundTag.putBoolean("natural", this.natural);
-		compoundTag.putBoolean("flickers", this.flickers());
 		compoundTag.putInt("flickerAge", this.getFlickerAge());
 		compoundTag.putBoolean("hasHome", this.hasHome);
 		compoundTag.putFloat("scale", this.getAnimScale());
@@ -558,7 +545,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
 		if (compoundTag.contains("natural")) this.natural = compoundTag.getBoolean("natural");
-		if (compoundTag.contains("flickers")) this.setFlickers(compoundTag.getBoolean("flickers"));
 		if (compoundTag.contains("flickerAge")) this.setFlickerAge(compoundTag.getInt("flickerAge"));
 		if (compoundTag.contains("hasHome")) this.hasHome = compoundTag.getBoolean("hasHome");
 		if (compoundTag.contains("scale")) this.setAnimScale(compoundTag.getFloat("scale"));

@@ -53,7 +53,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		int overlay,
 		int age,
 		float tickDelta,
-		boolean flickers,
 		@NotNull FireflyColor color,
 		float scale,
 		float xOffset,
@@ -102,10 +101,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		RenderType colorRenderType = RenderType.entityTranslucentEmissive(color.texture());
 		vertexConsumer = buffer.getBuffer(colorRenderType);
 
-		float calcColor = (float) (flickers ?
-			(((age + tickDelta) * Mth.PI) * -4F) / 255F :
-			Math.max(((Math.cos(((age + tickDelta) * Mth.PI) * 0.05F))), 0F)
-		);
+		float calcColor = (((age + tickDelta) * Mth.PI) * -4F) / 255F;
 
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
@@ -151,12 +147,11 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		int overlay = getOverlay(entity, 0);
 
 		int age = entity.getFlickerAge();
-		boolean flickers = entity.flickers();
 
 		poseStack.pushPose();
 		float f = entity.getScale();
 		poseStack.scale(f, f, f);
-		renderFirefly(poseStack, buffer, light, overlay, age, tickDelta, flickers, entity.getColorForRendering(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
+		renderFirefly(poseStack, buffer, light, overlay, age, tickDelta, entity.getColorForRendering(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
 		if (this.shouldShowName(entity)) {
 			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light, tickDelta);
