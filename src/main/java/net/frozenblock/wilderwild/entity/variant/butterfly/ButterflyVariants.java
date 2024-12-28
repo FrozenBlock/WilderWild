@@ -71,7 +71,7 @@ public class ButterflyVariants {
 		if (!variants.isEmpty()) {
 			return Util.getRandom(variants, random);
 		} else {
-			return registry.getAny().orElseThrow();
+			return registry.getRandom(random).orElseThrow();
 		}
 	}
 

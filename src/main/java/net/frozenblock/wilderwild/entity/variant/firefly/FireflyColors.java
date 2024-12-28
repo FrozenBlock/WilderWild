@@ -96,7 +96,7 @@ public class FireflyColors {
 		if (!colors.isEmpty()) {
 			return Util.getRandom(colors, random);
 		} else {
-			return registry.getHolder(DEFAULT).orElse(registry.getAny().orElseThrow());
+			return registry.getHolder(DEFAULT).orElse(registry.getRandom(random).orElseThrow());
 		}
 	}
 

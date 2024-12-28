@@ -80,7 +80,7 @@ public class JellyfishVariants {
 		if (!variants.isEmpty()) {
 			return Util.getRandom(variants, random);
 		} else {
-			return registry.getHolder(DEFAULT).orElse(registry.getAny().orElseThrow());
+			return registry.getHolder(DEFAULT).orElse(registry.getRandom(random).orElseThrow());
 		}
 	}
 
