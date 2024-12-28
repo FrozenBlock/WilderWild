@@ -58,8 +58,10 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 		// DATA
 
-		pack.addProvider(WWBlockLootProvider::new);
+		// When adding a registry to generate, don't forget this!
 		pack.addProvider(WWRegistryProvider::new);
+
+		pack.addProvider(WWBlockLootProvider::new);
 		pack.addProvider(WWBiomeTagProvider::new);
 		pack.addProvider(WWBlockTagProvider::new);
 		pack.addProvider(WWDamageTypeTagProvider::new);
