@@ -95,7 +95,7 @@ public final class WWBiomeSettings {
 
 		WWMusic.playMusic();
 		WWWaterColors.stirWater();
-		WWSpawns.addFireflies();
+		WWSpawns.addBugs();
 		WWSpawns.addJellyfish();
 		WWSpawns.addCrabs();
 		WWSpawns.addOstriches();

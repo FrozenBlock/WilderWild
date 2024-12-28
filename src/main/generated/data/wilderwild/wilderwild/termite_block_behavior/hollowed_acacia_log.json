@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:hollowed_acacia_log",
+  "natural_termite_usable": false,
+  "output_block": "wilderwild:stripped_hollowed_acacia_log"
+}

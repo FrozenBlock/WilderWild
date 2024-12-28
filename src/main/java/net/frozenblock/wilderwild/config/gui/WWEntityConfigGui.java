@@ -49,6 +49,8 @@ public final class WWEntityConfigGui {
 		var modifiedEnderMan = modifiedConfig.enderMan;
 		var firefly = config.firefly;
 		var modifiedFirefly = modifiedConfig.firefly;
+		var butterfly = config.butterfly;
+		var modifiedButterfly = modifiedConfig.butterfly;
 		var jellyfish = config.jellyfish;
 		var modifiedJellyfish = modifiedConfig.jellyfish;
 		var crab = config.crab;
@@ -187,6 +189,35 @@ public final class WWEntityConfigGui {
 			false,
 			tooltip("firefly"),
 			spawnFireflies, fireflySpawnCap
+		);
+
+		var spawnButterflies = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_butterflies"), modifiedButterfly.spawnButterflies)
+				.setDefaultValue(defaultConfig.butterfly.spawnButterflies)
+				.setSaveConsumer(newValue -> butterfly.spawnButterflies = newValue)
+				.setTooltip(tooltip("spawn_butterflies"))
+				.build(),
+			butterfly.getClass(),
+			"spawnButterflies",
+			configInstance
+		);
+
+		var butterflySpawnCap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("butterfly_spawn_cap"), modifiedButterfly.butterflySpawnCap, 1, 100)
+				.setDefaultValue(defaultConfig.butterfly.butterflySpawnCap)
+				.setSaveConsumer(newValue -> butterfly.butterflySpawnCap = newValue)
+				.setTooltip(tooltip("butterfly_spawn_cap"))
+				.requireRestart()
+				.build(),
+			butterfly.getClass(),
+			"butterflySpawnCap",
+			configInstance
+		);
+
+		var butterflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("butterfly"),
+			false,
+			tooltip("butterfly"),
+			spawnButterflies, butterflySpawnCap
 		);
 
 		var spawnJellyfish = FrozenClothConfig.syncedEntry(

@@ -33,7 +33,6 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_LOOP = registerForHolder("ambient.deep_dark.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_ADDITIONS = registerForHolder("ambient.dripstone_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_LOOP = registerForHolder("ambient.dripstone_caves.loop");
-	public static final Holder.Reference<SoundEvent> AMBIENT_GENERIC_CAVES_LOOP = registerForHolder("ambient.generic_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_ADDITIONS = registerForHolder("ambient.mesoglea_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_LOOP = registerForHolder("ambient.mesoglea_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
@@ -305,6 +304,8 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
 	public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
 	public static final SoundEvent ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY = register("item.bottle.put_in_lantern_firefly");
+	public static final SoundEvent ITEM_BOTTLE_CATCH_BUTTERFLY = register("item.bottle.catch_butterfly");
+	public static final SoundEvent ITEM_BOTTLE_RELEASE_BUTTERFLY = register("item.bottle.release_butterfly");
 	public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
 	public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 	public static final SoundEvent ITEM_BUCKET_FILL_CRAB = register("item.bucket.fill_crab");

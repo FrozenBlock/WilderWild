@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "minecraft:spruce_log",
+  "natural_termite_usable": false,
+  "output_block": "minecraft:stripped_spruce_log"
+}

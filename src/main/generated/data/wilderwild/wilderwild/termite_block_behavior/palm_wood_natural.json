@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:palm_wood",
+  "natural_termite_usable": true,
+  "output_block": "wilderwild:stripped_palm_wood"
+}

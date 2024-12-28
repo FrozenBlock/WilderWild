@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
-	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/white.png");
+	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
 
 	public JellyfishRenderer(@NotNull Context context) {
 		super(context, new JellyfishModel<>(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
@@ -72,6 +72,6 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
 		if (jellyfish.isRGB()) return WHITE_TEXTURE;
-		return jellyfish.getVariant().texture();
+		return jellyfish.getVariantForRendering().texture();
 	}
 }

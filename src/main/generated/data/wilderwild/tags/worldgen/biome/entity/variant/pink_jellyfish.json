@@ -1,0 +1,15 @@
+{
+  "values": [
+    "minecraft:warm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:river",
+    "minecraft:lush_caves",
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    {
+      "id": "wilderwild:warm_river",
+      "required": false
+    }
+  ]
+}

@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.datagen.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWEntityLootProvider;
@@ -34,10 +35,12 @@ import net.frozenblock.wilderwild.datagen.tag.WWEntityTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWGameEventTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWInstrumentTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
+import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
+import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.registry.WWStructureProcessors;
-import net.frozenblock.wilderwild.registry.WWStructures;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -56,8 +59,10 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 		// DATA
 
-		pack.addProvider(WWBlockLootProvider::new);
+		// When adding a registry to generate, don't forget this!
 		pack.addProvider(WWRegistryProvider::new);
+
+		pack.addProvider(WWBlockLootProvider::new);
 		pack.addProvider(WWBiomeTagProvider::new);
 		pack.addProvider(WWBlockTagProvider::new);
 		pack.addProvider(WWDamageTypeTagProvider::new);
@@ -72,16 +77,23 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
-		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
+		WWConstants.logWithModId("Generating dynamic registries for", WWConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.DAMAGE_TYPE, WWDamageTypes::bootstrap);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, WWFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, WWFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoise::bootstrap);
-		registryBuilder.add(Registries.PROCESSOR_LIST, WWStructureProcessors::bootstrapProcessor);
-		registryBuilder.add(Registries.TEMPLATE_POOL, WWStructures::bootstrapTemplatePool);
-		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
-		registryBuilder.add(Registries.STRUCTURE_SET, WWStructures::bootstrapStructureSet);
+
+		// Wilder Wild Registries
+		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
+		registryBuilder.add(WilderWildRegistries.BUTTERFLY_VARIANT, ButterflyVariants::bootstrap);
+		registryBuilder.add(WilderWildRegistries.JELLYFISH_VARIANT, JellyfishVariants::bootstrap);
+		registryBuilder.add(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehaviors::bootstrap);
+	}
+
+	@Override
+	public @NotNull String getEffectiveModId() {
+		return WWConstants.MOD_ID;
 	}
 }

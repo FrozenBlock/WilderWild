@@ -1,0 +1,104 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "wilderwild:item/firefly_bottle"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "color": 0.01
+      },
+      "model": "wilderwild:item/black_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.02
+      },
+      "model": "wilderwild:item/blue_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.03
+      },
+      "model": "wilderwild:item/brown_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.04
+      },
+      "model": "wilderwild:item/cyan_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.05
+      },
+      "model": "wilderwild:item/gray_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.06
+      },
+      "model": "wilderwild:item/green_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.07
+      },
+      "model": "wilderwild:item/light_blue_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.08
+      },
+      "model": "wilderwild:item/light_gray_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.09
+      },
+      "model": "wilderwild:item/lime_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.1
+      },
+      "model": "wilderwild:item/magenta_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.11
+      },
+      "model": "wilderwild:item/orange_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.12
+      },
+      "model": "wilderwild:item/pink_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.13
+      },
+      "model": "wilderwild:item/purple_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.14
+      },
+      "model": "wilderwild:item/red_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.15
+      },
+      "model": "wilderwild:item/white_firefly_bottle"
+    },
+    {
+      "predicate": {
+        "color": 0.16
+      },
+      "model": "wilderwild:item/yellow_firefly_bottle"
+    }
+  ]
+}

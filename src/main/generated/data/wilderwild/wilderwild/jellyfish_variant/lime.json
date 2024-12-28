@@ -1,0 +1,6 @@
+{
+  "biomes": "#wilderwild:entity/variant/lime_jellyfish",
+  "pearlescent": false,
+  "reproduction_food": "#wilderwild:jellyfish_food",
+  "texture": "wilderwild:entity/jellyfish/jellyfish_lime"
+}

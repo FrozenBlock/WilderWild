@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "eat_sound": "wilderwild:block.log_hollowed",
+  "edible_blocks": "wilderwild:stripped_cypress_log",
+  "natural_termite_usable": false,
+  "output_block": "wilderwild:stripped_hollowed_cypress_log"
+}

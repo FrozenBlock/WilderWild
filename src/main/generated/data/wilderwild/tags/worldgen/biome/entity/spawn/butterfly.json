@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:meadow",
+    {
+      "id": "wilderwild:maple_forest",
+      "required": false
+    }
+  ]
+}

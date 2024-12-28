@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:flower_forest",
+    "minecraft:sunflower_plains",
+    {
+      "id": "wilderwild:tundra",
+      "required": false
+    }
+  ]
+}

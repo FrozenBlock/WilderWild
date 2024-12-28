@@ -23,24 +23,17 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 
 public class TerralithModIntegration extends ModIntegration {
+
 	public TerralithModIntegration() {
 		super("terralith");
 	}
 
 	@Override
 	public void init() {
-		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/frostfire_caves"), FireflyColor.BLUE);
-		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/frostfire_caves"), FireflyColor.LIGHT_BLUE);
-
-		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.RED);
-		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
-
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(getBiomeKey("cave/underground_jungle")),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"), WWEntityTypes.FIREFLY, 12, 2, 4);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 12, 2, 4);
 	}
 }

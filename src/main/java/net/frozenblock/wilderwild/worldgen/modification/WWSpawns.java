@@ -30,15 +30,21 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class WWSpawns {
 
-	public static void addFireflies() {
+	public static void addBugs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"), WWEntityTypes.FIREFLY, 2, 1, 2);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"), WWEntityTypes.FIREFLY, 2, 1, 2);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"), WWEntityTypes.FIREFLY, 2, 1, 2);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
+
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);
+
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_COMMON_BUTTERFLY),
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 2, 1, 3);
 	}
 
 	public static void addJellyfish() {

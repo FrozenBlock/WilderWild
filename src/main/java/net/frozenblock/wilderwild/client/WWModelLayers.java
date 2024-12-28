@@ -23,6 +23,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.model.ButterflyModel;
 import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.model.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
@@ -34,6 +35,7 @@ import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRend
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.StoneChestRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.ButterflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
@@ -65,10 +67,13 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation PENGUIN = new ModelLayerLocation(WWConstants.id("penguin"), "main");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
-
+	public static final ModelLayerLocation BUTTERFLY = new ModelLayerLocation(WWConstants.id("butterfly"), "main");
 
 	public static void init() {
 		EntityRendererRegistry.register(WWEntityTypes.FIREFLY, FireflyRenderer::new);
+
+		EntityRendererRegistry.register(WWEntityTypes.BUTTERFLY, ButterflyRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.JELLYFISH, JellyfishRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);

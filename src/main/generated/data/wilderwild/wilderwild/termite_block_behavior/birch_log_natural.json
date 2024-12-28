@@ -1,0 +1,6 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "minecraft:birch_log",
+  "natural_termite_usable": true,
+  "output_block": "minecraft:stripped_birch_log"
+}

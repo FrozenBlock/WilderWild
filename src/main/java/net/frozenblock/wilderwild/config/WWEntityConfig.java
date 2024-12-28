@@ -104,6 +104,9 @@ public final class WWEntityConfig {
 	public final FireflyConfig firefly = new FireflyConfig();
 
 	@CollapsibleObject
+	public final ButterflyConfig butterfly = new ButterflyConfig();
+
+	@CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
 	@CollapsibleObject
@@ -168,6 +171,14 @@ public final class WWEntityConfig {
 
 		@EntrySyncData("fireflySpawnCap")
 		public int fireflySpawnCap = 56;
+	}
+
+	public static class ButterflyConfig {
+		@EntrySyncData("spawnButterflies")
+		public boolean spawnButterflies = true;
+
+		@EntrySyncData("butterflySpawnCap")
+		public int butterflySpawnCap = 10;
 	}
 
 	public static class JellyfishConfig {
