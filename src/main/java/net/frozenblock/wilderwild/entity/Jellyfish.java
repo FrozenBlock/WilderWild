@@ -759,11 +759,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-
-			this.getVariantAsHolder()
-				.unwrapKey()
-				.ifPresent(resourceKey -> compoundTag.putString("variant", resourceKey.location().toString()));
-
+			compoundTag.putString("variant", this.getVariantLocation().toString());
 			compoundTag.putBoolean("canReproduce", this.canReproduce());
 			compoundTag.putInt("fullness", this.fullness);
 			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
@@ -795,11 +791,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
-
-		this.getVariantAsHolder()
-			.unwrapKey()
-			.ifPresent(resourceKey -> compoundTag.putString("variant", resourceKey.location().toString()));
-
+		compoundTag.putString("variant", this.getVariantLocation().toString());
 		compoundTag.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
 		compoundTag.putBoolean("canReproduce", this.canReproduce());
 		compoundTag.putInt("fullness", this.fullness);

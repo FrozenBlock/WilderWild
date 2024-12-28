@@ -248,11 +248,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
 		CompoundTag tag = new CompoundTag();
-
-		this.getColorAsHolder()
-			.unwrapKey()
-			.ifPresent(resourceKey -> tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, resourceKey.location().toString()));
-
+		tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, this.getColorLocation().toString());
 		CustomData.set(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
 			itemStack,
@@ -609,5 +605,4 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			this.type = holder;
 		}
 	}
-
 }

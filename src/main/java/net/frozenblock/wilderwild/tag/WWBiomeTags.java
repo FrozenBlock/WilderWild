@@ -30,7 +30,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("entity/spawn/firefly_cave");
 	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
 	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("entity/spawn/common_butterfly");
-	public static final TagKey<Biome> BUTTERFLY_MARBLED = bind("entity/spawn/butterfly_marbled");
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("entity/spawn/firefly");
 	public static final TagKey<Biome> HAS_JELLYFISH = bind("entity/spawn/jellyfish");
 	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("entity/spawn/jellyfish_special_spawn");
@@ -41,6 +40,7 @@ public final class WWBiomeTags {
 
 	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
 	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("entity/variant/butterfly_red_lacewing");
+	public static final TagKey<Biome> BUTTERFLY_MARBLED = bind("entity/variant/butterfly_marbled");
 	public static final TagKey<Biome> BLUE_JELLYFISH = bind("entity/variant/blue_jellyfish");
 	public static final TagKey<Biome> LIME_JELLYFISH = bind("entity/variant/lime_jellyfish");
 	public static final TagKey<Biome> PINK_JELLYFISH = bind("entity/variant/pink_jellyfish");

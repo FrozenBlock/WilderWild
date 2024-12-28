@@ -21,8 +21,6 @@ package net.frozenblock.wilderwild.item;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
-import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -52,7 +50,7 @@ public class MobBottleItem extends Item {
 	public static final String FIREFLY_BOTTLE_VARIANT_FIELD = "FireflyBottleVariantTag";
 	public static final String BUTTERFLY_BOTTLE_VARIANT_FIELD = "ButterflyBottleVariantTag";
 	private static final MapCodec<ResourceLocation> FIREFLY_VARIANT_FIELD_CODEC = ResourceLocation.CODEC.fieldOf(FIREFLY_BOTTLE_VARIANT_FIELD);
-	private static final MapCodec<ButterflyVariant> BUTTERFLY_VARIANT_FIELD_CODEC = ButterflyVariant.CODEC.fieldOf(BUTTERFLY_BOTTLE_VARIANT_FIELD);
+	private static final MapCodec<ResourceLocation> BUTTERFLY_VARIANT_FIELD_CODEC = ResourceLocation.CODEC.fieldOf(BUTTERFLY_BOTTLE_VARIANT_FIELD);
 	private final EntityType<?> type;
 	private final SoundEvent releaseSound;
 
@@ -105,10 +103,10 @@ public class MobBottleItem extends Item {
 		CustomData customData = itemStack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
 		if (customData.isEmpty()) return;
 		if (this.type == WWEntityTypes.BUTTERFLY) {
-			Optional<ButterflyVariant> optional = customData.read(BUTTERFLY_VARIANT_FIELD_CODEC).result();
+			Optional<ResourceLocation> optional = customData.read(BUTTERFLY_VARIANT_FIELD_CODEC).result();
 			if (optional.isPresent()) {
 				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-				ResourceLocation variantKey = optional.get().key();
+				ResourceLocation variantKey = optional.get();
 				list.add(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
 			}
 		} else if (this.type == WWEntityTypes.FIREFLY) {

@@ -21,11 +21,13 @@ package net.frozenblock.wilderwild.entity;
 import com.mojang.serialization.Dynamic;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.butterfly.ButterflyAi;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
-import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -34,12 +36,12 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -49,6 +51,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -108,12 +111,11 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	private float prevFlyingXRot;
 	private float flyingXRot;
-
 	private float prevDownProgress;
 	private float downProgress;
-
 	private float prevGroundProgress;
 	private float groundProgress;
+	private Optional<ButterflyVariant> butterflyVariant = Optional.empty();
 
 	public Butterfly(@NotNull EntityType<? extends Butterfly> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -123,7 +125,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		this.setPathfindingMalus(PathType.WATER_BORDER, 16F);
 		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
-		this.setVariant(ButterflyVariant.MONARCH);
 	}
 
 	public static boolean checkButterflySpawnRules(
@@ -149,7 +150,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 			}
 		}
 
-		return random.nextInt(0, SPAWN_CHANCE) == 0 && (level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos));
+		return random.nextInt(0, SPAWN_CHANCE) == 0
+			&& (level.getBrightness(LightLayer.SKY, pos) >= 6) || ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos));
 	}
 
 	@NotNull
@@ -176,10 +178,15 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 		BlockPos pos = this.blockPosition();
 		ButterflyAi.rememberHome(this, pos);
-		Holder<Biome> biome = level.getBiome(pos);
-		ButterflyVariant variant = ButterflyVariant.getRandomVariantForBiome(biome, this.random);
 
-		this.setVariant(variant);
+		Holder<Biome> holder = level.getBiome(this.blockPosition());
+		if (spawnData instanceof ButterflySpawnGroupData butterflySpawnGroupData) {
+			this.setVariant(butterflySpawnGroupData.type.value());
+		} else {
+			Holder<ButterflyVariant> butterflyVariantHolder = ButterflyVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
+			spawnData = new ButterflySpawnGroupData(butterflyVariantHolder);
+			this.setVariant(butterflyVariantHolder.value());
+		}
 
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
 	}
@@ -202,9 +209,16 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(FROM_BOTTLE, false);
-		builder.define(VARIANT, ButterflyVariant.MONARCH.key().toString());
+		builder.define(VARIANT, ButterflyVariants.DEFAULT.location().toString());
 	}
 
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
+		super.onSyncedDataUpdated(entityDataAccessor);
+		if (entityDataAccessor.equals(VARIANT)) {
+			this.butterflyVariant = Optional.of(this.getVariantByLocation());
+		}
+	}
 
 	@Override
 	@NotNull
@@ -242,10 +256,11 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
 		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
+
 		CustomData.update(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
 			itemStack,
-			compoundTag -> compoundTag.putString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD, this.getVariant().getSerializedName())
+			compoundTag -> compoundTag.putString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD, this.getVariantLocation().toString())
 		);
 	}
 
@@ -253,10 +268,10 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	public void loadFromBottleTag(CompoundTag compoundTag) {
 		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
 		if (compoundTag.contains(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)) {
-			ButterflyVariant variant = WilderWildRegistries.BUTTERFLY_VARIANT.get(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)));
-			if (variant != null) {
-				this.setVariant(variant);
-			}
+			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)))
+				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.BUTTERFLY_VARIANT, resourceLocation))
+				.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getHolder(resourceKey))
+				.ifPresent(reference -> this.setVariant(reference.value()));
 		}
 	}
 
@@ -276,12 +291,28 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY;
 	}
 
-	public ButterflyVariant getVariant() {
-		return WilderWildRegistries.BUTTERFLY_VARIANT.getOptional(ResourceLocation.parse(this.entityData.get(VARIANT))).orElse(ButterflyVariant.MONARCH);
+	public ResourceLocation getVariantLocation() {
+		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	}
+
+	public ButterflyVariant getVariantByLocation() {
+		return this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).get(this.getVariantLocation());
+	}
+
+	public Holder<ButterflyVariant> getVariantAsHolder() {
+		return this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getHolder(this.getVariantLocation()).orElseThrow();
+	}
+
+	public ButterflyVariant getVariantForRendering() {
+		return this.butterflyVariant.orElse(this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).get(ButterflyVariants.DEFAULT));
 	}
 
 	public void setVariant(@NotNull ButterflyVariant variant) {
-		this.entityData.set(VARIANT, variant.key().toString());
+		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getKey(variant)).toString());
+	}
+
+	public void setVariant(@NotNull ResourceLocation variant) {
+		this.entityData.set(VARIANT, variant.toString());
 	}
 
 	@Override
@@ -417,34 +448,26 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putBoolean("fromBottle", this.fromBottle());
-		compound.putBoolean("natural", this.natural);
-		compound.putBoolean("hasHome", this.hasHome);
-		compound.putString("variant", this.getVariant().getSerializedName());
-		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
+	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+		super.addAdditionalSaveData(compoundTag);
+		compoundTag.putString("variant", this.getVariantLocation().toString());
+		compoundTag.putBoolean("fromBottle", this.fromBottle());
+		compoundTag.putBoolean("natural", this.natural);
+		compoundTag.putBoolean("hasHome", this.hasHome);
+		compoundTag.putInt("homeCheckCooldown", this.homeCheckCooldown);
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		if (compound.contains("fromBottle")) {
-			this.setFromBottle(compound.getBoolean("fromBottle"));
-		}
-		if (compound.contains("natural")) {
-			this.natural = compound.getBoolean("natural");
-		}
-		if (compound.contains("hasHome")) {
-			this.hasHome = compound.getBoolean("hasHome");
-		}
-		ButterflyVariant variant = WilderWildRegistries.BUTTERFLY_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
-		if (variant != null) {
-			this.setVariant(variant);
-		}
-		if (compound.contains("homeCheckCooldown")) {
-			this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
-		}
+	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+		super.readAdditionalSaveData(compoundTag);
+		Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("variant")))
+			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.BUTTERFLY_VARIANT, resourceLocation))
+			.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getHolder(resourceKey))
+			.ifPresent(reference -> this.setVariant(reference.value()));
+		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
+		if (compoundTag.contains("natural")) this.natural = compoundTag.getBoolean("natural");
+		if (compoundTag.contains("hasHome")) this.hasHome = compoundTag.getBoolean("hasHome");
+		if (compoundTag.contains("homeCheckCooldown")) this.homeCheckCooldown = compoundTag.getInt("homeCheckCooldown");
 	}
 
 	@Override
@@ -464,5 +487,14 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	@Override
 	protected void pushEntities() {
+	}
+
+	public static class ButterflySpawnGroupData extends AgeableMob.AgeableMobGroupData {
+		public final Holder<ButterflyVariant> type;
+
+		public ButterflySpawnGroupData(Holder<ButterflyVariant> holder) {
+			super(false);
+			this.type = holder;
+		}
 	}
 }

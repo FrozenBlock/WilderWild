@@ -36,7 +36,7 @@ public class ButterflyRenderer<T extends Butterfly> extends MobRenderer<T, Entit
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T butterfly) {
-		return butterfly.getVariant().texture();
+		return butterfly.getVariantForRendering().texture();
 	}
 
 }
