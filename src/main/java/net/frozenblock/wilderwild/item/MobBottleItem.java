@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.ChatFormatting;
@@ -114,7 +115,7 @@ public class MobBottleItem extends Item {
 			Optional<ResourceLocation> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
 			if (optional.isPresent()) {
 				ResourceLocation colorKey = optional.get();
-				if (colorKey.equals(WWConstants.id("on"))) return;
+				if (colorKey.equals(FireflyColors.DEFAULT.location())) return;
 
 				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 				list.add(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
