@@ -22,3 +22,4 @@ hi
 - Optimized Jellyfish rendering.
 - Biome tags relating to entities are now placed in the `entity/spawn` path, being only `spawn` prior.
 - Biome tags relating to entity variants are now placed in the `entity/variant` path, being in the `spawn` path prior.
+- Cleaned up code related to Termite handling.

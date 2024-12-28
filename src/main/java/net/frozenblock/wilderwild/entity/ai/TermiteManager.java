@@ -110,9 +110,9 @@ public class TermiteManager {
 
 	public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		int maxTermites = maxTermites(natural, awake, canSpawn);
-		ArrayList<Termite> termitesToRemove = new ArrayList<>();
 		RandomSource random = level.getRandom();
-		for (Termite termite : this.termites) {
+
+		this.termites.removeIf(termite -> {
 			if (termite.tick(level, natural, random)) {
 				if (level instanceof ServerLevel serverLevel) {
 					BlockPos termitePos = termite.getPos();
@@ -130,14 +130,12 @@ public class TermiteManager {
 				}
 			} else {
 				level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
-				termitesToRemove.add(termite);
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
+				return true;
 			}
-		}
-		for (Termite termite : termitesToRemove) {
-			level.gameEvent(null, GameEvent.ENTITY_DIE, Vec3.atCenterOf(termite.pos));
-			this.termites.remove(termite);
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-		}
+			return false;
+		});
+
 		if (this.termites.size() < maxTermites) {
 			if (this.ticksToNextTermite > 0) {
 				--this.ticksToNextTermite;
@@ -151,11 +149,9 @@ public class TermiteManager {
 		while (this.termites.size() > maxTermites) {
 			Termite termite = this.termites.get(random.nextInt(this.termites.size()));
 			level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
-			level.gameEvent(null, GameEvent.TELEPORT, Vec3.atCenterOf(termite.pos));
 			this.termites.remove(termite);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
 		}
-		termitesToRemove.clear();
 	}
 	public static final int TERMITE_RELEASE_COUNTDOWN = 200;
 	public static final int TERMITE_RELEASE_COUNTDOWN_NATURAL = 320;
