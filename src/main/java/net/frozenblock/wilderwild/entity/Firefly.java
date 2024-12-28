@@ -150,7 +150,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(
+		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData
+	) {
 		this.natural = isFireflySpawnTypeNatural(spawnType);
 		this.hasHome = this.hasHome || !this.natural;
 		FireflyAi.rememberHome(this, this.blockPosition());
@@ -159,7 +161,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
 			this.setColor(fireflySpawnGroupData.type.value());
 		} else {
-			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder);
+			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
 			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
 			this.setColor(fireflyColorHolder.value());
 		}

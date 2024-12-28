@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.entity.variant.firefly;
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -28,6 +29,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -85,14 +87,17 @@ public class FireflyColors {
 		bootstrapContext.register(resourceKey, new FireflyColor(textureLocation, HolderSet.empty(), modelPredicate));
 	}
 
-	public static Holder<FireflyColor> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder) {
+	public static Holder<FireflyColor> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder, RandomSource random) {
 		Registry<FireflyColor> registry = registryAccess.registryOrThrow(WilderWildRegistries.FIREFLY_COLOR);
-		return registry.holders()
+		List<Holder.Reference<FireflyColor>> colors = registry.holders()
 			.filter(reference -> (reference.value()).biomes().contains(holder))
-			.findAny()
-			.or(() -> registry.getHolder(DEFAULT))
-			.or(registry::getAny)
-			.orElseThrow();
+			.toList();
+
+		if (!colors.isEmpty()) {
+			return Util.getRandom(colors, random);
+		} else {
+			return registry.getHolder(DEFAULT).orElse(registry.getAny().orElseThrow());
+		}
 	}
 
 	@Contract(pure = true)

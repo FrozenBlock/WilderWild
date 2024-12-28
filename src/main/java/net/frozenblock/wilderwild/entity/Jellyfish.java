@@ -231,7 +231,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			jellyfishGroupData = jellyGroupData;
 		} else {
 			Holder<Biome> holder = level.getBiome(this.blockPosition());
-			Holder<JellyfishVariant> jellyfishVariantHolder = JellyfishVariants.getSpawnVariant(this.registryAccess(), holder);
+			Holder<JellyfishVariant> jellyfishVariantHolder = JellyfishVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
 			spawnData = jellyfishGroupData = new JellyfishGroupData(true, jellyfishVariantHolder);
 			this.setVariant(jellyfishVariantHolder.value());
 		}

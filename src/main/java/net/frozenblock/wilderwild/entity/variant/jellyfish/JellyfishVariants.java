@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -30,9 +31,11 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 
 public class JellyfishVariants {
 	public static final ResourceKey<JellyfishVariant> BLUE = createKey("blue");
@@ -68,14 +71,17 @@ public class JellyfishVariants {
 		);
 	}
 
-	public static Holder<JellyfishVariant> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder) {
+	public static Holder<JellyfishVariant> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder, RandomSource random) {
 		Registry<JellyfishVariant> registry = registryAccess.registryOrThrow(WilderWildRegistries.JELLYFISH_VARIANT);
-		return registry.holders()
+		List<Holder.Reference<JellyfishVariant>> variants = registry.holders()
 			.filter(reference -> (reference.value()).biomes().contains(holder))
-			.findAny()
-			.or(() -> registry.getHolder(DEFAULT))
-			.or(registry::getAny)
-			.orElseThrow();
+			.toList();
+
+		if (!variants.isEmpty()) {
+			return Util.getRandom(variants, random);
+		} else {
+			return registry.getHolder(DEFAULT).orElse(registry.getAny().orElseThrow());
+		}
 	}
 
 	public static void bootstrap(BootstrapContext<JellyfishVariant> bootstrapContext) {
