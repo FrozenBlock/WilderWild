@@ -12,7 +12,7 @@
       "required": false
     },
     {
-      "id": "#wilderwild:spawn/common_crab",
+      "id": "#wilderwild:entity/spawn/common_crab",
       "required": false
     }
   ]

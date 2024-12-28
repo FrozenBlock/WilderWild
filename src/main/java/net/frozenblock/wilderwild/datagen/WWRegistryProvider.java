@@ -50,6 +50,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.FIREFLY_COLOR)));
+		WWConstants.log("Adding finalized jellyfish variants to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.JELLYFISH_VARIANT)));
 	}
 
 

@@ -17,3 +17,6 @@ hi
 - Converted all of Wilder Wild's mob variants to now be data-driven!
   - As such, `FireflyBiomeColorRegistry` has been removed and is replaced with a `biomes` field in each .json file.
 - Optimized Firefly rendering.
+- Jellyfish textures are now prefixed with `jellyfish_`.
+- Biome tags relating to entities are now in the `entity` path.
+- Biome tags relating to entity variants are now placed in the `entity/variant` path.

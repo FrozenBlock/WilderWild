@@ -463,10 +463,65 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.NO_POOLS)
 			.addOptional(Biomes.DEEP_DARK);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.PEARLESCENT_JELLYFISH)
+		this.getOrCreateTagBuilder(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)
+		this.getOrCreateTagBuilder(WWBiomeTags.BLUE_JELLYFISH)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.FROZEN_RIVER)
+			.addOptional(WWBiomes.FROZEN_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.LIME_JELLYFISH)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.RIVER)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.FROZEN_RIVER)
+			.add(Biomes.LUSH_CAVES)
+			.addOptional(WWBiomes.FROZEN_CAVES)
+			.addOptional(WWBiomes.WARM_RIVER);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PINK_JELLYFISH)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.RIVER)
+			.add(Biomes.LUSH_CAVES)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.addOptional(WWBiomes.WARM_RIVER);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.RED_JELLYFISH)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.RIVER)
+			.add(Biomes.LUSH_CAVES)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.addOptional(WWBiomes.WARM_RIVER);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.YELLOW_JELLYFISH)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.RIVER)
+			.add(Biomes.LUSH_CAVES)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.addOptional(WWBiomes.WARM_RIVER);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PEARLESCENT_JELLYFISH)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRAB)
@@ -1805,31 +1860,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 	}
 
 	private void generateStructureTags() {
-		this.getOrCreateTagBuilder(WWBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE)
-			.addOptionalTag(BiomeTags.IS_OCEAN)
-			.addOptionalTag(BiomeTags.IS_RIVER)
-			.addOptionalTag(BiomeTags.IS_MOUNTAIN)
-			.addOptionalTag(BiomeTags.IS_HILL)
-			.addOptionalTag(BiomeTags.IS_TAIGA)
-			.addOptionalTag(BiomeTags.IS_JUNGLE)
-			.addOptionalTag(BiomeTags.IS_FOREST)
-			.addOptional(Biomes.CHERRY_GROVE)
-			.add(Biomes.STONY_SHORE)
-			.add(Biomes.MUSHROOM_FIELDS)
-			.add(Biomes.ICE_SPIKES)
-			.add(Biomes.WINDSWEPT_SAVANNA)
-			.add(Biomes.DESERT)
-			.add(Biomes.SAVANNA)
-			.add(Biomes.SNOWY_PLAINS)
-			.add(Biomes.PLAINS)
-			.add(Biomes.SUNFLOWER_PLAINS)
-			.add(Biomes.SWAMP)
-			.add(Biomes.MANGROVE_SWAMP)
-			.add(Biomes.SAVANNA_PLATEAU)
-			.add(Biomes.DRIPSTONE_CAVES)
-			.add(Biomes.DEEP_DARK)
-			.addOptionalTag(WWBiomeTags.WILDER_WILD_BIOMES);
-
 		this.getOrCreateTagBuilder(BiomeTags.HAS_DESERT_PYRAMID)
 			.addOptional(WWBiomes.OASIS);
 

@@ -20,12 +20,13 @@ package net.frozenblock.wilderwild.entity.ai.jellyfish;
 
 import java.util.EnumSet;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.minecraft.tags.TagKey;
+import net.minecraft.core.HolderSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class JellyfishTemptGoal extends Goal {
@@ -58,8 +59,8 @@ public class JellyfishTemptGoal extends Goal {
 		return this.player != null;
 	}
 
-	private boolean shouldFollow(LivingEntity entity) {
-		TagKey<Item> tag = this.mob.getVariant().reproductionFood();
+	private boolean shouldFollow(@NotNull LivingEntity entity) {
+		HolderSet<Item> tag = this.mob.getVariantByLocation().getReproductionFood();
 		return entity.getMainHandItem().is(tag) || entity.getOffhandItem().is(tag);
 	}
 

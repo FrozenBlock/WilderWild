@@ -25,24 +25,28 @@ import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomeTags {
-	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("spawn/underground_stray");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = bind("spawn/firefly_day");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("spawn/firefly_cave");
-	public static final TagKey<Biome> HAS_BUTTERFLY = bind("spawn/butterfly");
-	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("spawn/common_butterfly");
-	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("spawn/butterfly_monarch");
-	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("spawn/butterfly_red_lacewing");
-	public static final TagKey<Biome> BUTTERFLY_MARBLED = bind("spawn/butterfly_marbled");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("spawn/firefly");
-	public static final TagKey<Biome> HAS_JELLYFISH = bind("spawn/jellyfish");
-	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("spawn/pearlescent_jellyfish");
-	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("spawn/jellyfish_special_spawn");
-	public static final TagKey<Biome> HAS_CRAB = bind("spawn/crab");
-	public static final TagKey<Biome> HAS_COMMON_CRAB = bind("spawn/common_crab");
-	public static final TagKey<Biome> HAS_OSTRICH = bind("spawn/ostrich");
-	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("spawn/tumbleweed");
+	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
+	public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = bind("entity/spawn/firefly_day");
+	public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("entity/spawn/firefly_cave");
+	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
+	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("entity/spawn/common_butterfly");
+	public static final TagKey<Biome> BUTTERFLY_MARBLED = bind("entity/spawn/butterfly_marbled");
+	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("entity/spawn/firefly");
+	public static final TagKey<Biome> HAS_JELLYFISH = bind("entity/spawn/jellyfish");
+	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("entity/spawn/jellyfish_special_spawn");
+	public static final TagKey<Biome> HAS_CRAB = bind("entity/spawn/crab");
+	public static final TagKey<Biome> HAS_COMMON_CRAB = bind("entity/spawn/common_crab");
+	public static final TagKey<Biome> HAS_OSTRICH = bind("entity/spawn/ostrich");
+	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("entity/spawn/tumbleweed");
 
-	public static final TagKey<Biome> ABANDONED_CABIN_HAS_STRUCTURE = bind("has_structure/abandoned_cabin");
+	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
+	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("entity/variant/butterfly_red_lacewing");
+	public static final TagKey<Biome> BLUE_JELLYFISH = bind("entity/variant/blue_jellyfish");
+	public static final TagKey<Biome> LIME_JELLYFISH = bind("entity/variant/lime_jellyfish");
+	public static final TagKey<Biome> PINK_JELLYFISH = bind("entity/variant/pink_jellyfish");
+	public static final TagKey<Biome> RED_JELLYFISH = bind("entity/variant/red_jellyfish");
+	public static final TagKey<Biome> YELLOW_JELLYFISH = bind("entity/variant/yellow_jellyfish");
+	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("entity/variant/pearlescent_jellyfish");
 
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");
