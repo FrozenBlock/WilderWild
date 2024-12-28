@@ -7,6 +7,10 @@
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false
+    },
+    {
+      "id": "wilderwild:palm_forest",
+      "required": false
     }
   ]
 }

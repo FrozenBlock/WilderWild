@@ -46,6 +46,7 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
@@ -143,6 +144,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS = WWFeatureUtils.register("palms");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE = WWFeatureUtils.register("palms_jungle");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS = WWFeatureUtils.register("palms_oasis");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_FOREST = WWFeatureUtils.register("palms_forest");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRIES = WWFeatureUtils.register("cherries");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
@@ -1014,6 +1016,18 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.TALL_PALM_CHECKED.getHolder(), 0.5F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_WINDMILL_PALM_CHECKED.getHolder(), 0.1F),
 					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.37F)
+				),
+				WWTreePlaced.PALM_CHECKED.getHolder()
+			)
+		);
+		PALMS_FOREST.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.TALL_PALM_CHECKED.getHolder(), 0.6F),
+					new WeightedPlacedFeature(WWTreePlaced.TALL_WINDMILL_PALM_CHECKED.getHolder(), 0.2F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.42F),
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED), 0.2F),
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.38F)
 				),
 				WWTreePlaced.PALM_CHECKED.getHolder()
 			)

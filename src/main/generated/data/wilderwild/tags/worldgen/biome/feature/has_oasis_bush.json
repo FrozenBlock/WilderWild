@@ -3,6 +3,10 @@
     {
       "id": "wilderwild:oasis",
       "required": false
+    },
+    {
+      "id": "wilderwild:palm_forest",
+      "required": false
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:palm_checked",
+    "features": [
+      {
+        "chance": 0.6,
+        "feature": "wilderwild:tall_palm_checked"
+      },
+      {
+        "chance": 0.2,
+        "feature": "wilderwild:tall_windmill_palm_checked"
+      },
+      {
+        "chance": 0.42,
+        "feature": "wilderwild:small_windmill_palm_checked"
+      },
+      {
+        "chance": 0.2,
+        "feature": "minecraft:jungle_tree"
+      },
+      {
+        "chance": 0.38,
+        "feature": "minecraft:jungle_bush"
+      }
+    ]
+  }
+}

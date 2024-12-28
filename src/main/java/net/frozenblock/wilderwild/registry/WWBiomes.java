@@ -37,6 +37,7 @@ import net.frozenblock.wilderwild.worldgen.biome.MixedForest;
 import net.frozenblock.wilderwild.worldgen.biome.Oasis;
 import net.frozenblock.wilderwild.worldgen.biome.OldGrowthBirchTaiga;
 import net.frozenblock.wilderwild.worldgen.biome.OldGrowthDarkForest;
+import net.frozenblock.wilderwild.worldgen.biome.PalmForest;
 import net.frozenblock.wilderwild.worldgen.biome.ParchedForest;
 import net.frozenblock.wilderwild.worldgen.biome.Rainforest;
 import net.frozenblock.wilderwild.worldgen.biome.SemiBirchForest;
@@ -73,6 +74,7 @@ public final class WWBiomes {
 	// TROPICAL
 	public static final ResourceKey<Biome> BIRCH_JUNGLE = BirchJungle.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SPARSE_BIRCH_JUNGLE = SparseBirchJungle.INSTANCE.getKey();
+	public static final ResourceKey<Biome> PALM_FOREST = PalmForest.INSTANCE.getKey();
 	// TEMPERATE
 	public static final ResourceKey<Biome> BIRCH_TAIGA = BirchTaiga.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SEMI_BIRCH_FOREST = SemiBirchForest.INSTANCE.getKey();
@@ -122,6 +124,7 @@ public final class WWBiomes {
 		// TROPICAL
 		register(context, BIRCH_JUNGLE, BirchJungle.INSTANCE.create(context));
 		register(context, SPARSE_BIRCH_JUNGLE, SparseBirchJungle.INSTANCE.create(context));
+		register(context, PALM_FOREST, PalmForest.INSTANCE.create(context));
 		// TEMPERATE
 		register(context, BIRCH_TAIGA, BirchTaiga.INSTANCE.create(context));
 		register(context, SEMI_BIRCH_FOREST, SemiBirchForest.INSTANCE.create(context));

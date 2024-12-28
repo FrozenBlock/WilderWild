@@ -35,6 +35,10 @@
     {
       "id": "wilderwild:dying_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:palm_forest",
+      "required": false
     }
   ]
 }

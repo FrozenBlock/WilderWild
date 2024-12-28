@@ -88,6 +88,7 @@ public final class WWPlacedFeatures {
 	//TREES
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
 	public static final FrozenPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
+	public static final FrozenPlacedFeature SHRUBS_PALM_FOREST = register("shrubs_palm_forest");
 	public static final FrozenPlacedFeature SHRUBS = register("shrubs");
 	public static final FrozenPlacedFeature SHRUBS_WATER = register("shrubs_water");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
@@ -141,6 +142,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature PALMS_OASIS = register("palms_oasis");
 	public static final FrozenPlacedFeature PALM_RARE = register("palm_rare");
 	public static final FrozenPlacedFeature PALMS_WARM_BEACH = register("palms_warm_beach");
+	public static final FrozenPlacedFeature PALMS_FOREST = register("palms_forest");
 	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
 	public static final FrozenPlacedFeature MAPLE_TREES = register("maple_trees");
 	public static final FrozenPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
@@ -458,6 +460,12 @@ public final class WWPlacedFeatures {
 			WWPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
+		SHRUBS_PALM_FOREST.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
+				CountPlacement.of(10), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
+				BiomeFilter.biome()
+			);
+
 		SHRUBS.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING), BiomeFilter.biome(),
@@ -749,6 +757,10 @@ public final class WWPlacedFeatures {
 
 		PALMS_WARM_BEACH.makeAndSetHolder(WWConfiguredFeatures.PALMS_OASIS.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(6))
+		);
+
+		PALMS_FOREST.makeAndSetHolder(WWConfiguredFeatures.PALMS_FOREST.getHolder(),
+			treePlacement(PlacementUtils.countExtra(10, 0.1F, 3))
 		);
 
 		CHERRY_TREES.makeAndSetHolder(WWConfiguredFeatures.CHERRIES.getHolder(),
