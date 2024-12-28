@@ -37,8 +37,6 @@ import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.registry.WWStructureProcessors;
-import net.frozenblock.wilderwild.registry.WWStructures;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
 import net.minecraft.core.RegistrySetBuilder;
@@ -83,10 +81,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.PLACED_FEATURE, WWFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoise::bootstrap);
-		registryBuilder.add(Registries.PROCESSOR_LIST, WWStructureProcessors::bootstrapProcessor);
-		registryBuilder.add(Registries.TEMPLATE_POOL, WWStructures::bootstrapTemplatePool);
-		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
-		registryBuilder.add(Registries.STRUCTURE_SET, WWStructures::bootstrapStructureSet);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);

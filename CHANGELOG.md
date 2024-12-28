@@ -13,5 +13,7 @@ hi
 - Added Butterflies
 - Added Butterfly Bottles
 - Removed an unused sound event for caves
-- Converted all of Wilder Wild's mob variants into Dynamic Registries, now being data-driven!
-  - As such, `FireflyBiomeColorRegistry` has been removed.
+- Removed Abandoned Cabins as they conflicted with Vanilla's modern structure design.
+- Converted all of Wilder Wild's mob variants to now be data-driven!
+  - As such, `FireflyBiomeColorRegistry` has been removed and is replaced with a `biomes` field in each .json file.
+- Optimized Firefly rendering.
