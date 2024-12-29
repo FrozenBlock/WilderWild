@@ -156,7 +156,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
 			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
 			this.setColor(fireflyColorHolder.value());
-			FireflyAi.initAsSwarmLeader(this);
+			
+			if (this.natural) FireflyAi.initAsSwarmLeader(this);
 		}
 
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
@@ -351,7 +352,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	public boolean isSwarmLeader() {
-		return this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false);
+		return this.natural && this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false);
 	}
 
 	@Override
