@@ -114,6 +114,8 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_BREAK = register("block.hollowed_stem.break");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_STEP = register("block.hollowed_stem.step");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_FALL = register("block.hollowed_stem.fall");
+	public static final SoundEvent LOG_HOLLOWED_AXE = register("block.log_hollowed.axe");
+	public static final SoundEvent STEM_HOLLOWED_AXE = register("block.stem_hollowed.axe");
 	public static final SoundEvent LOG_HOLLOWED = register("block.log_hollowed");
 	public static final SoundEvent STEM_HOLLOWED = register("block.stem_hollowed");
 	public static final SoundEvent BLOCK_ICE_PLACE = register("block.ice.place");
@@ -289,6 +291,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");
 	public static final SoundEvent ENTITY_SCORCHED_STEP = register("entity.scorched.step");
 	public static final SoundEvent ENTITY_SCORCHED_STEP_LAVA = register("entity.scorched.step_lava");
+	public static final SoundEvent ENTITY_MOOBLOOM_SHEAR = register("entity.moobloom.shear");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");

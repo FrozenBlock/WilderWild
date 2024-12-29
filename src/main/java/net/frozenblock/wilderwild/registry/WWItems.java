@@ -133,6 +133,8 @@ public final class WWItems {
 	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new Item.Properties());
 	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new Item.Properties());
 	public static final SpawnEggItem SCORCHED_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), new Item.Properties());
+	public static final SpawnEggItem BUTTERFLY_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.BUTTERFLY, Integer.parseInt("542003", 16), Integer.parseInt("FFCF60", 16), new Item.Properties());
+	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.MOOBLOOM, Integer.parseInt("FED639", 16), Integer.parseInt("F7EDC1", 16), new Item.Properties());
 	// INSTRUMENT
 	public static final CopperHorn COPPER_HORN = new CopperHorn(new Item.Properties().stacksTo(1), WWInstrumentTags.COPPER_HORNS);
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
@@ -199,6 +201,8 @@ public final class WWItems {
 		registerItemBefore(Items.CREEPER_SPAWN_EGG, CRAB_SPAWN_EGG, "crab_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.OCELOT_SPAWN_EGG, OSTRICH_SPAWN_EGG, "ostrich_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.SALMON_SPAWN_EGG, SCORCHED_SPAWN_EGG, "scorched_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
+		registerItemAfter(Items.BREEZE_SPAWN_EGG, BUTTERFLY_SPAWN_EGG, "butterfly_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
+		registerItemBefore(Items.MOOSHROOM_SPAWN_EGG, MOOBLOOM_SPAWN_EGG, "moobloom_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(JELLYFISH_BUCKET, CRAB_BUCKET, "crab_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);

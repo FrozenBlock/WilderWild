@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.entity;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -34,7 +35,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
@@ -134,7 +134,7 @@ public class FlowerCow extends Cow implements Shearable {
 
 	@Override
 	public void shear(SoundSource soundSource) {
-		this.level().playSound(null, this, SoundEvents.MOOSHROOM_SHEAR, soundSource, 1F, 1F);
+		this.level().playSound(null, this, WWSounds.ENTITY_MOOBLOOM_SHEAR, soundSource, 1F, 1F);
 		if (this.level() instanceof ServerLevel serverLevel) {
 			BlockState flowerState = this.getVariantByLocation().getFlowerBlockState();
 			spawnShearParticles(serverLevel, this, flowerState);
