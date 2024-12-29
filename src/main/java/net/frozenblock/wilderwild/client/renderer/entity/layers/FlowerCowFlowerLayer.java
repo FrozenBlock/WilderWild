@@ -38,6 +38,8 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowFlowerLayer<T extends FlowerCow> extends RenderLayer<T, CowModel<T>> {
+	private static final float FLOWER_SCALE = 0.75F;
+
 	private final BlockRenderDispatcher blockRenderer;
 
 	public FlowerCowFlowerLayer(RenderLayerParent<T, CowModel<T>> renderLayerParent, BlockRenderDispatcher blockRenderDispatcher) {
@@ -45,6 +47,7 @@ public class FlowerCowFlowerLayer<T extends FlowerCow> extends RenderLayer<T, Co
 		this.blockRenderer = blockRenderDispatcher;
 	}
 
+	@Override
 	public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, @NotNull T flowerCow, float f, float g, float h, float j, float k, float l) {
 		if (!flowerCow.isBaby()) {
 			Minecraft minecraft = Minecraft.getInstance();
@@ -53,30 +56,51 @@ public class FlowerCowFlowerLayer<T extends FlowerCow> extends RenderLayer<T, Co
 				BlockState blockState = flowerCow.getVariantForRendering().getFlowerBlockState();
 				int m = LivingEntityRenderer.getOverlayCoords(flowerCow, 0F);
 				BakedModel bakedModel = this.blockRenderer.getBlockModel(blockState);
-				poseStack.pushPose();
-				poseStack.translate(0.2F, -0.35F, 0.5F);
-				poseStack.mulPose(Axis.YP.rotationDegrees(-48F));
-				poseStack.scale(-1F, -1F, 1F);
-				poseStack.translate(-0.5F, -0.5F, -0.5F);
-				this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-				poseStack.popPose();
-				poseStack.pushPose();
-				poseStack.translate(0.2F, -0.35F, 0.5F);
-				poseStack.mulPose(Axis.YP.rotationDegrees(42F));
-				poseStack.translate(0.1F, 0F, -0.6F);
-				poseStack.mulPose(Axis.YP.rotationDegrees(-48F));
-				poseStack.scale(-1F, -1F, 1F);
-				poseStack.translate(-0.5F, -0.5F, -0.5F);
-				this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-				poseStack.popPose();
-				poseStack.pushPose();
-				this.getParentModel().getHead().translateAndRotate(poseStack);
-				poseStack.translate(0F, -0.7F, -0.2F);
-				poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
-				poseStack.scale(-1F, -1F, 1F);
-				poseStack.translate(-0.5F, -0.5F, -0.5F);
-				this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-				poseStack.popPose();
+				int flowersLeft = flowerCow.getFlowersLeft();
+
+				// BACK MIDDLE
+				if (flowersLeft >= 1) {
+					poseStack.pushPose();
+					poseStack.translate(0F, -0.35F, 0.5F);
+					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
+					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					poseStack.popPose();
+				}
+
+				if (flowersLeft >= 2) {
+					// MIDDLE LEFT
+					poseStack.pushPose();
+					poseStack.translate(0.2F, -0.35F, 0F);
+					poseStack.mulPose(Axis.YP.rotationDegrees(-32));
+					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
+					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					poseStack.popPose();
+				}
+
+				if (flowersLeft >= 3) {
+					// MIDDLE RIGHT
+					poseStack.pushPose();
+					poseStack.translate(-0.2F, -0.35F, -0.15F);
+					poseStack.mulPose(Axis.YP.rotationDegrees(112));
+					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
+					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					poseStack.popPose();
+				}
+
+				if (flowersLeft >= 4) {
+					// HEAD
+					poseStack.pushPose();
+					this.getParentModel().getHead().translateAndRotate(poseStack);
+					poseStack.translate(0.1F, -0.7F, -0.2F);
+					poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
+					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
+					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					poseStack.popPose();
+				}
 			}
 		}
 	}
@@ -85,10 +109,17 @@ public class FlowerCowFlowerLayer<T extends FlowerCow> extends RenderLayer<T, Co
 		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, boolean bl, BlockState blockState, int j, BakedModel bakedModel
 	) {
 		if (bl) {
-			this.blockRenderer
-				.getModelRenderer()
+			this.blockRenderer.getModelRenderer()
 				.renderModel(
-					poseStack.last(), multiBufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)), blockState, bakedModel, 0F, 0F, 0F, i, j
+					poseStack.last(),
+					multiBufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
+					blockState,
+					bakedModel,
+					0F,
+					0F,
+					0F,
+					i,
+					j
 				);
 		} else {
 			this.blockRenderer.renderSingleBlock(blockState, poseStack, multiBufferSource, i, j);

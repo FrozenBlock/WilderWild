@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -68,7 +69,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class FlowerCow extends Cow implements Shearable {
+	public static final int MAX_FLOWERS = 4;
+	private static final byte GROW_FLOWER_EVENT_ID = 61;
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(FlowerCow.class, EntityDataSerializers.STRING);
+	private static final EntityDataAccessor<Integer> FLOWERS_LEFT = SynchedEntityData.defineId(FlowerCow.class, EntityDataSerializers.INT);
 
 	private Optional<MoobloomVariant> moobloomVariant = Optional.empty();
 
@@ -101,18 +105,27 @@ public class FlowerCow extends Cow implements Shearable {
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(VARIANT, MoobloomVariants.DEFAULT.location().toString());
+		builder.define(FLOWERS_LEFT, MAX_FLOWERS);
 	}
 
 	@Override
 	public @NotNull InteractionResult mobInteract(@NotNull Player player, InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
-		if (itemStack.is(Items.SHEARS) && this.readyForShearing()) {
+		if (!this.isBaby() && this.isFood(itemStack) && !this.hasMaxFlowersLeft()) {
+			if (!this.level().isClientSide) {
+				this.usePlayerItem(player, interactionHand, itemStack);
+				this.incrementFlowersLeft();
+				this.level().broadcastEntityEvent(this, GROW_FLOWER_EVENT_ID);
+				return InteractionResult.SUCCESS;
+			} else {
+				return InteractionResult.CONSUME;
+			}
+		} else if (itemStack.is(Items.SHEARS) && this.readyForShearing()) {
 			this.shear(SoundSource.PLAYERS);
 			this.gameEvent(GameEvent.SHEAR, player);
 			if (!this.level().isClientSide) {
 				itemStack.hurtAndBreak(1, player, getSlotForHand(interactionHand));
 			}
-
 			return InteractionResult.sidedSuccess(this.level().isClientSide);
 		} else {
 			return super.mobInteract(player, interactionHand);
@@ -123,44 +136,38 @@ public class FlowerCow extends Cow implements Shearable {
 	public void shear(SoundSource soundSource) {
 		this.level().playSound(null, this, SoundEvents.MOOSHROOM_SHEAR, soundSource, 1F, 1F);
 		if (this.level() instanceof ServerLevel serverLevel) {
-			Cow cow = EntityType.COW.create(this.level());
-			if (cow != null) {
-				serverLevel.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(0.5D), this.getZ(), 1, 0D, 0D, 0D, 0D);
-				this.discard();
-				cow.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-				cow.setHealth(this.getHealth());
-				cow.yBodyRot = this.yBodyRot;
-				if (this.hasCustomName()) {
-					cow.setCustomName(this.getCustomName());
-					cow.setCustomNameVisible(this.isCustomNameVisible());
-				}
+			BlockState flowerState = this.getVariantByLocation().getFlowerBlockState();
+			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, flowerState), this.getX(), this.getY(0.5D), this.getZ(), 1, 0D, 0D, 0D, 0D);
+			this.level().addFreshEntity(
+				new ItemEntity(
+					this.level(),
+					this.getX(),
+					this.getY(1D),
+					this.getZ(),
+					new ItemStack(flowerState.getBlock())
+				)
+			);
+			this.decrementFlowersLeft();
+		}
+	}
 
-				if (this.isPersistenceRequired()) {
-					cow.setPersistenceRequired();
-				}
-
-				cow.setInvulnerable(this.isInvulnerable());
-				this.level().addFreshEntity(cow);
-
-				for (int i = 0; i < 5; i++) {
-					this.level()
-						.addFreshEntity(
-							new ItemEntity(
-								this.level(),
-								this.getX(),
-								this.getY(1D),
-								this.getZ(),
-								new ItemStack(this.getVariantByLocation().getFlowerBlockState().getBlock())
-							)
-						);
-				}
+	@Override
+	public void handleEntityEvent(byte b) {
+		if (b == GROW_FLOWER_EVENT_ID) {
+			for (int i = 0; i < 7; i++) {
+				double d = this.random.nextGaussian() * 0.02D;
+				double e = this.random.nextGaussian() * 0.02D;
+				double f = this.random.nextGaussian() * 0.02D;
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
 			}
+		} else {
+			super.handleEntityEvent(b);
 		}
 	}
 
 	@Override
 	public boolean readyForShearing() {
-		return this.isAlive() && !this.isBaby();
+		return this.isAlive() && !this.isBaby() && this.hasFlowersLeft();
 	}
 
 	@Override
@@ -175,6 +182,7 @@ public class FlowerCow extends Cow implements Shearable {
 	public void addAdditionalSaveData(CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 		compoundTag.putString("variant", this.getVariantLocation().toString());
+		compoundTag.putInt("FlowersLeft", this.getFlowersLeft());
 	}
 
 	@Override
@@ -184,6 +192,7 @@ public class FlowerCow extends Cow implements Shearable {
 			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.MOOBLOOM_VARIANT, resourceLocation))
 			.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getHolder(resourceKey))
 			.ifPresent(reference -> this.setVariant(reference.value()));
+		this.setFlowersLeft(compoundTag.getInt("FlowersLeft"));
 	}
 
 	public ResourceLocation getVariantLocation() {
@@ -208,6 +217,30 @@ public class FlowerCow extends Cow implements Shearable {
 
 	public void setVariant(@NotNull ResourceLocation variant) {
 		this.entityData.set(VARIANT, variant.toString());
+	}
+
+	public int getFlowersLeft() {
+		return this.entityData.get(FLOWERS_LEFT);
+	}
+
+	public void setFlowersLeft(int flowersLeft) {
+		this.entityData.set(FLOWERS_LEFT, flowersLeft);
+	}
+
+	public boolean hasMaxFlowersLeft() {
+		return this.getFlowersLeft() >= MAX_FLOWERS;
+	}
+
+	public boolean hasFlowersLeft() {
+		return this.getFlowersLeft() > 0;
+	}
+
+	public void incrementFlowersLeft() {
+		this.setFlowersLeft(this.getFlowersLeft() + 1);
+	}
+
+	public void decrementFlowersLeft() {
+		this.setFlowersLeft(this.getFlowersLeft() - 1);
 	}
 
 	@Nullable

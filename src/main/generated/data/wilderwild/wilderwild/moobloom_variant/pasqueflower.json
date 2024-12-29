@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_pasqueflower",
+  "flower_block_state": {
+    "Name": "wilderwild:pasqueflower"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_pasqueflower"
+}

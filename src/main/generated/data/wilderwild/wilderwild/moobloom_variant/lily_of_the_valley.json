@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_poppy",
+  "flower_block_state": {
+    "Name": "minecraft:lily_of_the_valley"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_lily_of_the_valley"
+}

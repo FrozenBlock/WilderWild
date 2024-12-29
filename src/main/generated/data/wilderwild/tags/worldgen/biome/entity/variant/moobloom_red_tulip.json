@@ -3,10 +3,6 @@
     "minecraft:flower_forest",
     "minecraft:plains",
     {
-      "id": "#minecraft:is_forest",
-      "required": false
-    },
-    {
       "id": "wilderwild:flower_field",
       "required": false
     }

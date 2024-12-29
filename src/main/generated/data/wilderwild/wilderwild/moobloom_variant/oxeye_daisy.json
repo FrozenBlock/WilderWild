@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_oxeye_daisy",
+  "flower_block_state": {
+    "Name": "minecraft:oxeye_daisy"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_oxeye_daisy"
+}
