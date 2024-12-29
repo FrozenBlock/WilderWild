@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Set;
 
 public class FireflyLeaderSensor extends Sensor<Firefly> {
-	private static final double FIREFLY_SWARM_LEADER_RANGE = 6D;
+	private static final double FIREFLY_SWARM_LEADER_RANGE = 16D;
 
 	@Override
 	@NotNull

@@ -38,7 +38,7 @@ public final class WWSpawns {
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 12, 18);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 12, 24);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);
