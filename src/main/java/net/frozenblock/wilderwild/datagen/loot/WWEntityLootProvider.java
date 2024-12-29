@@ -117,5 +117,32 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						)
 				)
 		);
+
+		output.accept(
+			WWEntityTypes.MOOBLOOM.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.LEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.BEEF)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
+
+		output.accept(WWEntityTypes.FIREFLY.getDefaultLootTable(), LootTable.lootTable());
+		output.accept(WWEntityTypes.BUTTERFLY.getDefaultLootTable(), LootTable.lootTable());
 	}
 }
