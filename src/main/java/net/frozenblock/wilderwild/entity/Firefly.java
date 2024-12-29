@@ -156,7 +156,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
 			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
 			this.setColor(fireflyColorHolder.value());
-			
+
 			if (this.natural) FireflyAi.initAsSwarmLeader(this);
 		}
 

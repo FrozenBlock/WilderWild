@@ -156,8 +156,8 @@ public class FireflyAi {
 	}
 
 	@NotNull
-	private static Optional<PositionTracker> getSwarmLeaderTarget(@NotNull LivingEntity butterfly) {
-		return butterfly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER);
+	private static Optional<PositionTracker> getSwarmLeaderTarget(@NotNull LivingEntity firefly) {
+		return !((Firefly)firefly).hasHome ? firefly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER) : Optional.empty();
 	}
 
 	@NotNull
