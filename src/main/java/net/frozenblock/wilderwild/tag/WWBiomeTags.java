@@ -59,6 +59,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> MOOBLOOM_CORNFLOWER = bind("entity/variant/moobloom_cornflower");
 	public static final TagKey<Biome> MOOBLOOM_LILY_OF_THE_VALLEY = bind("entity/variant/moobloom_lily_of_the_valley");
 	public static final TagKey<Biome> MOOBLOOM_ALLIUM = bind("entity/variant/moobloom_allium");
+	public static final TagKey<Biome> MOOBLOOM_BLUE_ORCHID = bind("entity/variant/moobloom_blue_orchid");
 	public static final TagKey<Biome> MOOBLOOM_CARNATION = bind("entity/variant/moobloom_carnation");
 	public static final TagKey<Biome> MOOBLOOM_MARIGOLD = bind("entity/variant/moobloom_marigold");
 	public static final TagKey<Biome> MOOBLOOM_PASQUEFLOWER = bind("entity/variant/moobloom_pasqueflower");

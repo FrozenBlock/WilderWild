@@ -598,6 +598,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_BLUE_ORCHID)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SWAMP)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_CARNATION)
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD)

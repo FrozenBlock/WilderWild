@@ -74,6 +74,6 @@ public final class WWSpawns {
 
 	public static void addMooblooms() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
-			MobCategory.CREATURE, WWEntityTypes.MOOBLOOM, 10, 4, 4);
+			MobCategory.CREATURE, WWEntityTypes.MOOBLOOM, 34, 2, 2);
 	}
 }
