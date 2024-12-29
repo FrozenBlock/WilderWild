@@ -127,6 +127,11 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 	}
 
+	@Override
+	public float getWalkTargetValue(BlockPos blockPos, @NotNull LevelReader levelReader) {
+		return levelReader.getPathfindingCostFromLightLevels(blockPos);
+	}
+
 	public static boolean checkButterflySpawnRules(
 		@NotNull EntityType<Butterfly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
@@ -318,11 +323,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@Override
 	public boolean requiresCustomPersistence() {
 		return super.requiresCustomPersistence() || this.fromBottle();
-	}
-
-	@Override
-	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-		return 0F;
 	}
 
 	@Override
