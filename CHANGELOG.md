@@ -34,3 +34,7 @@ hi
     - These can each be regrown by feeding it Wheat.
     - Cannot breed unless all flowers are present.
   - Spawn in the Flower Forest and Flower Fields biomes by default.
+
+# Firefly Branch
+- Fireflies now move faster.
+- Fireflies now spawn and move in swarms.
