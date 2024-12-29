@@ -192,7 +192,8 @@ public class FlowerCow extends Cow implements Shearable {
 			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.MOOBLOOM_VARIANT, resourceLocation))
 			.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getHolder(resourceKey))
 			.ifPresent(reference -> this.setVariant(reference.value()));
-		this.setFlowersLeft(compoundTag.getInt("FlowersLeft"));
+
+		if (compoundTag.contains("FlowersLeft")) this.setFlowersLeft(compoundTag.getInt("FlowersLeft"));
 	}
 
 	public ResourceLocation getVariantLocation() {
