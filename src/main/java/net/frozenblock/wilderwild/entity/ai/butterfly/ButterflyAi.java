@@ -24,6 +24,8 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Butterfly;
+import net.frozenblock.wilderwild.entity.FlowerCow;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,6 +37,7 @@ import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.Swim;
@@ -75,7 +78,15 @@ public class ButterflyAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(2, StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 7, 16, 1F)),
+				Pair.of(2, StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 5, 16, 1F)),
+				Pair.of(3, SetEntityLookTarget.create(
+					livingEntity -> livingEntity.isAlive()
+						&& !livingEntity.isSpectator()
+						&& livingEntity instanceof FlowerCow flowerCow
+						&& flowerCow.hasFlowersLeft()
+						&& !flowerCow.isBaby(),
+					8F
+				)),
 				Pair.of(4, new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1F), 2),
@@ -123,7 +134,7 @@ public class ButterflyAi {
 			}
 		}
 
-		return Optional.empty();
+		return brain.getMemory(MemoryModuleType.LOOK_TARGET);
 	}
 
 	@NotNull
