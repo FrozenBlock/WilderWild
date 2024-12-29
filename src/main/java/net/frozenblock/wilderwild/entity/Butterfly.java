@@ -157,7 +157,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
-			.add(Attributes.MAX_HEALTH, 4D)
+			.add(Attributes.MAX_HEALTH, 2D)
 			.add(Attributes.MOVEMENT_SPEED, 0.1D)
 			.add(Attributes.FLYING_SPEED, 0.8D)
 			.add(Attributes.FOLLOW_RANGE, 32D);

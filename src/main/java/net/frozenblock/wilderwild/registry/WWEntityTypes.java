@@ -213,7 +213,7 @@ public final class WWEntityTypes {
 			MOOBLOOM,
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-			FlowerCow::checkAnimalSpawnRules
+			FlowerCow::checkFlowerCowSpawnRules
 		);
 	}
 
