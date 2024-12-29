@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +40,8 @@ public final class WWMemoryModuleTypes {
 		WWConstants.logWithModId("Registering MemoryModuleTypes for", WWConstants.UNSTABLE_LOGGING);
 	}
 
+	public static final MemoryModuleType<Boolean> IS_SWARM_LEADER = register("is_swarm_leader", Codec.BOOL);
+	public static final MemoryModuleType<PositionTracker> SWARM_LEADER_TRACKER = register("swarm_leader_tracker");
 	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground", Codec.BOOL);
 	public static final MemoryModuleType<List<Crab>> NEARBY_CRABS = register("nearby_crabs");
 	public static final MemoryModuleType<Integer> HEAL_COOLDOWN_TICKS = register("heal_cooldown_ticks", Codec.INT);

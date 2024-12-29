@@ -24,6 +24,9 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.FlowerCow;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,18 +38,44 @@ import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FireflyAi {
+	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSOR_TYPES = List.of(
+		SensorType.NEAREST_LIVING_ENTITIES,
+		WWSensorTypes.FIREFLY_LEADER_SENSOR
+	);
+	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
+		MemoryModuleType.PATH,
+		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+		MemoryModuleType.LOOK_TARGET,
+		MemoryModuleType.HOME,
+		WWMemoryModuleTypes.IS_SWARM_LEADER,
+		WWMemoryModuleTypes.SWARM_LEADER_TRACKER
+	);
 
 	private FireflyAi() {
+	}
+
+	public static void initAsSwarmLeader(@NotNull Firefly firefly) {
+		firefly.getBrain().setMemory(WWMemoryModuleTypes.IS_SWARM_LEADER, true);
+	}
+
+	@NotNull
+	public static Brain.Provider<Firefly> brainProvider() {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 	}
 
 	@NotNull
@@ -75,12 +104,24 @@ public class FireflyAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(1, new FireflyHide(firefly, 2.0D, 10, 8)),
-				Pair.of(2, StayCloseToTarget.create(FireflyAi::getLookTarget, entity -> true, 7, 16, 1F)),
-				Pair.of(4, new RunOne<>(
+				Pair.of(1, new FireflyHide(firefly, 2D, 10, 8)),
+				Pair.of(2, StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1F)),
+
+				// These two are responsible for keeping naturally-spawned Fireflies in swarms
+				Pair.of(3, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 5, 8, 1F)),
+				Pair.of(4, SetEntityLookTarget.create(
+					livingEntity -> livingEntity.isAlive()
+						&& !livingEntity.isSpectator()
+						&& livingEntity instanceof FlowerCow flowerCow
+						&& flowerCow.hasFlowersLeft()
+						&& !flowerCow.isBaby(),
+					8F
+				)),
+
+				Pair.of(5, new RunOne<>(
 					ImmutableList.of(
-						Pair.of(RandomStroll.fly(1.0F), 2),
-						Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 2),
+						Pair.of(RandomStroll.fly(1F), 2),
+						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 2),
 						Pair.of(new DoNothing(30, 60), 1)
 					)
 				))
@@ -115,7 +156,12 @@ public class FireflyAi {
 	}
 
 	@NotNull
-	private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity firefly) {
+	private static Optional<PositionTracker> getSwarmLeaderTarget(@NotNull LivingEntity butterfly) {
+		return butterfly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER);
+	}
+
+	@NotNull
+	private static Optional<PositionTracker> getHomeTarget(@NotNull LivingEntity firefly) {
 		Brain<?> brain = firefly.getBrain();
 		Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {

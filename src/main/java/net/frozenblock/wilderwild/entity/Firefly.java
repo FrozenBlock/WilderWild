@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -31,6 +30,7 @@ import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -63,11 +63,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -87,8 +84,6 @@ import org.jetbrains.annotations.Nullable;
 public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
 	public static final int SPAWN_CHANCE = 75;
-	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
-	protected static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
@@ -161,6 +156,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
 			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
 			this.setColor(fireflyColorHolder.value());
+			FireflyAi.initAsSwarmLeader(this);
 		}
 
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
@@ -222,7 +218,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	@NotNull
 	protected Brain.Provider<Firefly> brainProvider() {
-		return Brain.provider(MEMORY_MODULES, SENSORS);
+		return FireflyAi.brainProvider();
 	}
 
 	@Override
@@ -352,6 +348,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			&& !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 			&& this.level().isDay()
 			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+	}
+
+	public boolean isSwarmLeader() {
+		return this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false);
 	}
 
 	@Override
