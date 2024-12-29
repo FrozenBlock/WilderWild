@@ -589,6 +589,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_ALLIUM)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.PLAINS)
+			.addOptionalTag(BiomeTags.IS_FOREST)
+			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_CARNATION)
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD)

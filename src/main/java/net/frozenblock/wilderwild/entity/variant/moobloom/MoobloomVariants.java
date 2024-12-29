@@ -50,6 +50,7 @@ public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> OXEYE_DAISY = createKey("oxeye_daisy");
 	public static final ResourceKey<MoobloomVariant> CORNFLOWER = createKey("cornflower");
 	public static final ResourceKey<MoobloomVariant> LILY_OF_THE_VALLEY = createKey("lily_of_the_valley");
+	public static final ResourceKey<MoobloomVariant> ALLIUM = createKey("allium");
 	public static final ResourceKey<MoobloomVariant> CARNATION = createKey("carnation");
 	public static final ResourceKey<MoobloomVariant> MARIGOLD = createKey("marigold");
 	public static final ResourceKey<MoobloomVariant> PASQUEFLOWER = createKey("pasqueflower");
@@ -101,6 +102,7 @@ public final class MoobloomVariants {
 		register(bootstrapContext, OXEYE_DAISY, Blocks.OXEYE_DAISY, "moobloom_oxeye_daisy", WWBiomeTags.MOOBLOOM_OXEYE_DAISY);
 		register(bootstrapContext, CORNFLOWER, Blocks.CORNFLOWER, "moobloom_cornflower", WWBiomeTags.MOOBLOOM_CORNFLOWER);
 		register(bootstrapContext, LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, "moobloom_lily_of_the_valley", WWBiomeTags.MOOBLOOM_LILY_OF_THE_VALLEY);
+		register(bootstrapContext, ALLIUM, Blocks.ALLIUM, "moobloom_allium", WWBiomeTags.MOOBLOOM_ALLIUM);
 		register(bootstrapContext, CARNATION, WWBlocks.CARNATION, "moobloom_carnation", WWBiomeTags.MOOBLOOM_CARNATION);
 		register(bootstrapContext, MARIGOLD, WWBlocks.MARIGOLD, "moobloom_marigold", WWBiomeTags.MOOBLOOM_MARIGOLD);
 		register(bootstrapContext, PASQUEFLOWER, WWBlocks.PASQUEFLOWER, "moobloom_pasqueflower", WWBiomeTags.MOOBLOOM_PASQUEFLOWER);

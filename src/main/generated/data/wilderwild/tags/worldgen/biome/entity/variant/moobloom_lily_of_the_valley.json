@@ -3,15 +3,11 @@
     "minecraft:flower_forest",
     "minecraft:plains",
     {
-      "id": "#minecraft:is_savanna",
-      "required": false
-    },
-    {
-      "id": "#minecraft:is_jungle",
-      "required": false
-    },
-    {
       "id": "#minecraft:is_forest",
+      "required": false
+    },
+    {
+      "id": "#c:is_birch_forest",
       "required": false
     },
     {
