@@ -83,7 +83,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
-	public static final int SPAWN_CHANCE = 75;
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
@@ -114,14 +113,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	) {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
-		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		if (biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
-			return chance && level.getBrightness(LightLayer.SKY, pos) == 0;
+			return level.getBrightness(LightLayer.SKY, pos) == 0;
 		}
-		return chance &&
-			((biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6)
-				|| ((!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos)));
+		return biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6
+			|| !level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4 && level.canSeeSky(pos);
 	}
 
 	@NotNull
