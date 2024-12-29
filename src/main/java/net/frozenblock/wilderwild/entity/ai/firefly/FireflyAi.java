@@ -76,7 +76,7 @@ public class FireflyAi {
 			Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(1, new FireflyHide(firefly, 2.0D, 10, 8)),
-				Pair.of(2, StayCloseToTarget.create(FireflyAi::getLookTarget, entity -> true, 7, 16, 1.0F)),
+				Pair.of(2, StayCloseToTarget.create(FireflyAi::getLookTarget, entity -> true, 7, 16, 1F)),
 				Pair.of(4, new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1.0F), 2),

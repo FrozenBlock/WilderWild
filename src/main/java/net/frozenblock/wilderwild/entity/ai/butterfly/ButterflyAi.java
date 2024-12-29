@@ -25,13 +25,11 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.FlowerCow;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
-import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
@@ -78,7 +76,8 @@ public class ButterflyAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(2, StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 5, 16, 1F)),
+				Pair.of(1, StayCloseToTarget.create(ButterflyAi::getHomeTarget, entity -> true, 7, 16, 1F)),
+				Pair.of(2, StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 5, 5, 1F)),
 				Pair.of(3, SetEntityLookTarget.create(
 					livingEntity -> livingEntity.isAlive()
 						&& !livingEntity.isSpectator()
@@ -113,18 +112,16 @@ public class ButterflyAi {
 	}
 
 	public static void rememberHome(@NotNull LivingEntity butterfly, @NotNull BlockPos pos) {
-		Brain<?> brain = butterfly.getBrain();
 		GlobalPos globalPos = GlobalPos.of(butterfly.level().dimension(), pos);
-		brain.setMemory(MemoryModuleType.HOME, globalPos);
+		butterfly.getBrain().setMemory(MemoryModuleType.HOME, globalPos);
 	}
 
 	private static boolean shouldGoTowardsHome(@NotNull LivingEntity butterfly, @NotNull GlobalPos pos) {
-		Level level = butterfly.level();
-		return ((Butterfly) butterfly).hasHome && level.dimension() == pos.dimension();
+		return ((Butterfly) butterfly).hasHome && butterfly.level().dimension() == pos.dimension();
 	}
 
 	@NotNull
-	private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity butterfly) {
+	private static Optional<PositionTracker> getHomeTarget(@NotNull LivingEntity butterfly) {
 		Brain<?> brain = butterfly.getBrain();
 		Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
@@ -134,7 +131,12 @@ public class ButterflyAi {
 			}
 		}
 
-		return brain.getMemory(MemoryModuleType.LOOK_TARGET);
+		return Optional.empty();
+	}
+
+	@NotNull
+	private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity butterfly) {
+		return butterfly.getBrain().getMemory(MemoryModuleType.LOOK_TARGET);
 	}
 
 	@NotNull
