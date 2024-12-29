@@ -32,10 +32,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
-public class FireflyLeaderSensor extends Sensor<LivingEntity> {
+public class FireflyLeaderSensor extends Sensor<Firefly> {
 	private static final double FIREFLY_SWARM_LEADER_RANGE = 6D;
 
 	@Override
@@ -45,19 +44,18 @@ public class FireflyLeaderSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
-		Brain<?> brain = entity.getBrain();
-		if (!brain.hasMemoryValue(WWMemoryModuleTypes.IS_SWARM_LEADER) || !brain.getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false)) {
+	protected void doTick(@NotNull ServerLevel level, @NotNull Firefly firefly) {
+		Brain<Firefly> brain = firefly.getBrain();
+		if (!firefly.isSwarmLeader()) {
 			List<LivingEntity> entities = new ArrayList<>(brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of()))
 				.stream()
-				.filter(livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator() && entity.distanceTo(livingEntity) <= FIREFLY_SWARM_LEADER_RANGE)
-				.filter(livingEntity -> livingEntity instanceof Firefly firefly && firefly.isSwarmLeader())
-				.sorted(Comparator.comparingDouble(entity::distanceToSqr))
+				.filter(livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator() && firefly.distanceTo(livingEntity) <= FIREFLY_SWARM_LEADER_RANGE)
+				.filter(livingEntity -> livingEntity instanceof Firefly otherFirefly && otherFirefly.isSwarmLeader())
+				.sorted(Comparator.comparingDouble(firefly::distanceToSqr))
 				.toList();
 
-			Optional<LivingEntity> swarmLeader = Optional.ofNullable(entities.getFirst());
-			if (swarmLeader.isPresent()) {
-				brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER, new EntityTracker(swarmLeader.get(), true));
+			if (!entities.isEmpty()) {
+				brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER, new EntityTracker(entities.getFirst(), true));
 				return;
 			}
 		}
