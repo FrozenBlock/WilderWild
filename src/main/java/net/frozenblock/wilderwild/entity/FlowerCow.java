@@ -137,7 +137,7 @@ public class FlowerCow extends Cow implements Shearable {
 		this.level().playSound(null, this, SoundEvents.MOOSHROOM_SHEAR, soundSource, 1F, 1F);
 		if (this.level() instanceof ServerLevel serverLevel) {
 			BlockState flowerState = this.getVariantByLocation().getFlowerBlockState();
-			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, flowerState), this.getX(), this.getY(0.5D), this.getZ(), 1, 0D, 0D, 0D, 0D);
+			spawnShearParticles(serverLevel, this, flowerState);
 			this.level().addFreshEntity(
 				new ItemEntity(
 					this.level(),
@@ -149,6 +149,20 @@ public class FlowerCow extends Cow implements Shearable {
 			);
 			this.decrementFlowersLeft();
 		}
+	}
+
+	private static void spawnShearParticles(@NotNull ServerLevel serverLevel, @NotNull FlowerCow flowerCow, BlockState flowerBlockState) {
+		serverLevel.sendParticles(
+			new BlockParticleOption(ParticleTypes.BLOCK, flowerBlockState),
+			flowerCow.getX(),
+			flowerCow.getY(0.6666666666666666),
+			flowerCow.getZ(),
+			10,
+			flowerCow.getBbWidth() / 4D,
+			flowerCow.getBbHeight() / 4D,
+			flowerCow.getBbWidth() / 4D,
+			0.05D
+		);
 	}
 
 	@Override
