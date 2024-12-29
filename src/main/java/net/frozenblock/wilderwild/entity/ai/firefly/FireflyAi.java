@@ -24,7 +24,6 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.minecraft.core.BlockPos;
@@ -38,7 +37,6 @@ import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
-import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.Swim;
@@ -106,18 +104,7 @@ public class FireflyAi {
 			ImmutableList.of(
 				Pair.of(1, new FireflyHide(firefly, 2D, 10, 8)),
 				Pair.of(2, StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1F)),
-
-				// These two are responsible for keeping naturally-spawned Fireflies in swarms
-				Pair.of(3, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 5, 8, 1F)),
-				Pair.of(4, SetEntityLookTarget.create(
-					livingEntity -> livingEntity.isAlive()
-						&& !livingEntity.isSpectator()
-						&& livingEntity instanceof FlowerCow flowerCow
-						&& flowerCow.hasFlowersLeft()
-						&& !flowerCow.isBaby(),
-					8F
-				)),
-
+				Pair.of(3, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 1, 3, 1F)),
 				Pair.of(5, new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1F), 2),
