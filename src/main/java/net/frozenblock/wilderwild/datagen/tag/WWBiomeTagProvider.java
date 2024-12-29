@@ -432,27 +432,51 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)
-			.addOptional(WWBiomes.MAPLE_FOREST);
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_BUTTERFLY)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.FLOWER_FIELD);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MONARCH)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_RED_LACEWING)
 			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MARBLED)
 			.add(Biomes.MEADOW)
-			.add(Biomes.FLOWER_FOREST);
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MORPHO_BLUE)
+			.add(Biomes.MEADOW)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_GREEN_HAIRSTREAK)
+			.add(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_CLOUDED_YELLOW)
+			.add(Biomes.MEADOW)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.FLOWER_FIELD)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_DUSKWING)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_JELLYFISH)
 			.add(Biomes.WARM_OCEAN)

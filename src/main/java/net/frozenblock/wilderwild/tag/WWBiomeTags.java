@@ -42,6 +42,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
 	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("entity/variant/butterfly_red_lacewing");
 	public static final TagKey<Biome> BUTTERFLY_MARBLED = bind("entity/variant/butterfly_marbled");
+	public static final TagKey<Biome> BUTTERFLY_MORPHO_BLUE = bind("entity/variant/butterfly_morpho_blue");
+	public static final TagKey<Biome> BUTTERFLY_GREEN_HAIRSTREAK = bind("entity/variant/butterfly_green_hairstreak");
+	public static final TagKey<Biome> BUTTERFLY_CLOUDED_YELLOW = bind("entity/variant/butterfly_clouded_yellow");
+	public static final TagKey<Biome> BUTTERFLY_DUSKWING = bind("entity/variant/butterfly_duskwing");
 	public static final TagKey<Biome> BLUE_JELLYFISH = bind("entity/variant/blue_jellyfish");
 	public static final TagKey<Biome> LIME_JELLYFISH = bind("entity/variant/lime_jellyfish");
 	public static final TagKey<Biome> PINK_JELLYFISH = bind("entity/variant/pink_jellyfish");

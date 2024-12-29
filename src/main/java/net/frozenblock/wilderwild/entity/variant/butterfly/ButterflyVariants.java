@@ -40,6 +40,10 @@ public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> MONARCH = createKey("monarch");
 	public static final ResourceKey<ButterflyVariant> RED_LACEWING = createKey("red_lacewing");
 	public static final ResourceKey<ButterflyVariant> MARBLED = createKey("marbled");
+	public static final ResourceKey<ButterflyVariant> MORPHO_BLUE = createKey("morpho_blue");
+	public static final ResourceKey<ButterflyVariant> GREEN_HAIRSTREAK = createKey("green_hairstreak");
+	public static final ResourceKey<ButterflyVariant> CLOUDED_YELLOW = createKey("clouded_yellow");
+	public static final ResourceKey<ButterflyVariant> DUSKWING = createKey("duskwing");
 	public static final ResourceKey<ButterflyVariant> DEFAULT = MONARCH;
 
 	private static @NotNull ResourceKey<ButterflyVariant> createKey(String string) {
@@ -79,5 +83,9 @@ public final class ButterflyVariants {
 		register(bootstrapContext, MONARCH, "butterfly_monarch", WWBiomeTags.BUTTERFLY_MONARCH);
 		register(bootstrapContext, RED_LACEWING, "butterfly_red_lacewing", WWBiomeTags.BUTTERFLY_RED_LACEWING);
 		register(bootstrapContext, MARBLED, "butterfly_marbled", WWBiomeTags.BUTTERFLY_MARBLED);
+		register(bootstrapContext, MORPHO_BLUE, "butterfly_morpho_blue", WWBiomeTags.BUTTERFLY_MORPHO_BLUE);
+		register(bootstrapContext, GREEN_HAIRSTREAK, "butterfly_green_hairstreak", WWBiomeTags.BUTTERFLY_GREEN_HAIRSTREAK);
+		register(bootstrapContext, CLOUDED_YELLOW, "butterfly_clouded_yellow", WWBiomeTags.BUTTERFLY_CLOUDED_YELLOW);
+		register(bootstrapContext, DUSKWING, "butterfly_duskwing", WWBiomeTags.BUTTERFLY_DUSKWING);
 	}
 }
