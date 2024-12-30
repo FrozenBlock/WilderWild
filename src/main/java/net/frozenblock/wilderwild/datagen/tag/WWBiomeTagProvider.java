@@ -424,8 +424,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE);
-
 		this.getOrCreateTagBuilder(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 			.add(Biomes.SWAMP)
 			.add(Biomes.MANGROVE_SWAMP);

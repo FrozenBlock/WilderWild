@@ -46,7 +46,7 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull Firefly firefly) {
 		Brain<Firefly> brain = firefly.getBrain();
-		if (!firefly.isSwarmLeader()) {
+		if (!firefly.isSwarmLeader() && !firefly.hasHome()) {
 			List<LivingEntity> entities = new ArrayList<>(brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of()))
 				.stream()
 				.filter(livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator() && firefly.distanceTo(livingEntity) <= FIREFLY_SWARM_LEADER_RANGE)

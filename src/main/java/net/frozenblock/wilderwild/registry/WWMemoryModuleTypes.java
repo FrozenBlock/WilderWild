@@ -40,6 +40,8 @@ public final class WWMemoryModuleTypes {
 		WWConstants.logWithModId("Registering MemoryModuleTypes for", WWConstants.UNSTABLE_LOGGING);
 	}
 
+	public static final MemoryModuleType<Boolean> NATURAL = register("natural", Codec.BOOL);
+	public static final MemoryModuleType<Integer> HOME_VALIDATE_COOLDOWN = register("home_validate_cooldown", Codec.INT);
 	public static final MemoryModuleType<Boolean> IS_SWARM_LEADER = register("is_swarm_leader", Codec.BOOL);
 	public static final MemoryModuleType<PositionTracker> SWARM_LEADER_TRACKER = register("swarm_leader_tracker");
 	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground", Codec.BOOL);

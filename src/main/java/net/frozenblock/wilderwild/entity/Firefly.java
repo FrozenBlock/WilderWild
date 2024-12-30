@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -46,12 +45,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -63,6 +60,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
@@ -89,11 +87,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	private static final EntityDataAccessor<Float> PREV_ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<String> COLOR = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.STRING);
 
-	public boolean natural;
-	public boolean hasHome;
-	public boolean despawning;
-	public int homeCheckCooldown;
-	public boolean shouldCheckSpawn = true;
 	private Optional<FireflyColor> fireflyColor = Optional.empty();
 
 	public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
@@ -108,17 +101,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		this.setAnimScale(1.5F);
 	}
 
+	@Override
+	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+		return -level.getPathfindingCostFromLightLevels(pos);
+	}
+
 	public static boolean checkFireflySpawnRules(
 		@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
-		Holder<Biome> biomeHolder = level.getBiome(pos);
-		if (biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
-			return level.getBrightness(LightLayer.SKY, pos) == 0;
-		}
-		return biomeHolder.is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && level.getBrightness(LightLayer.SKY, pos) >= 6
-			|| !level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4 && level.canSeeSky(pos);
+
+		return !level.dimensionType().hasFixedTime() || level.getSkyDarken() >= 4 && level.canSeeSky(pos);
 	}
 
 	@NotNull
@@ -130,42 +124,35 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			.add(Attributes.FOLLOW_RANGE, 32D);
 	}
 
-	public static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
-		if (!state.getFluidState().isEmpty()) return false;
-		if (state.isRedstoneConductor(level, pos)) return false;
-		return state.isAir() || (!state.blocksMotion() && !state.isSolid());
-	}
-
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(
 		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData
 	) {
-		this.natural = isFireflySpawnTypeNatural(spawnType);
-		this.hasHome = this.hasHome || !this.natural;
-		FireflyAi.rememberHome(this, this.blockPosition());
+		boolean shouldSetHome = shouldSetHome(spawnType);
+		if (shouldSetHome) {
+			FireflyAi.rememberHome(this, this.blockPosition());
+		} else {
+			FireflyAi.setNatural(this);
+		}
 
 		Holder<Biome> holder = level.getBiome(this.blockPosition());
 		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
-			this.setColor(fireflySpawnGroupData.type.value());
+			this.setColor(fireflySpawnGroupData.color.value());
 		} else {
 			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
 			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
 			this.setColor(fireflyColorHolder.value());
 
-			if (this.natural) FireflyAi.initAsSwarmLeader(this);
+			if (!shouldSetHome) FireflyAi.setSwarmLeader(this);
 		}
 
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
 	}
 
-	private static boolean isFireflySpawnTypeNatural(MobSpawnType spawnType) {
-		return spawnType == MobSpawnType.NATURAL
-			|| spawnType == MobSpawnType.CHUNK_GENERATION
-			|| spawnType == MobSpawnType.SPAWNER
-			|| spawnType == MobSpawnType.SPAWN_EGG
-			|| spawnType == MobSpawnType.COMMAND;
+	private static boolean shouldSetHome(MobSpawnType spawnType) {
+		return spawnType == MobSpawnType.DISPENSER
+			|| spawnType == MobSpawnType.BUCKET;
 	}
 
 	@Override
@@ -200,7 +187,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	@NotNull
 	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		return !this.despawning ? Bottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand)) : InteractionResult.PASS;
+		return Bottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
 	@Override
@@ -259,7 +246,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void onBottleRelease() {
 		FireflyAi.rememberHome(this, this.blockPosition());
-		this.hasHome = true;
 	}
 
 	@Override
@@ -270,6 +256,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public SoundEvent getBottleCatchSound() {
 		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
+	}
+
+	public boolean hasHome() {
+		return this.getBrain().hasMemoryValue(MemoryModuleType.HOME);
 	}
 
 	public int getFlickerAge() {
@@ -326,11 +316,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-		return 0F;
-	}
-
-	@Override
 	@NotNull
 	public Brain<Firefly> getBrain() {
 		return (Brain<Firefly>) super.getBrain();
@@ -342,14 +327,17 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	public boolean shouldHide() {
-		return this.natural
-			&& !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+		return this.isNatural()
 			&& this.level().isDay()
-			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 7;
 	}
 
 	public boolean isSwarmLeader() {
-		return this.natural && this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false);
+		return this.isNatural() && this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false);
+	}
+
+	public boolean isNatural() {
+		return this.getBrain().getMemory(WWMemoryModuleTypes.NATURAL).orElse(false);
 	}
 
 	@Override
@@ -417,29 +405,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		}
 		this.setFlickerAge(this.getFlickerAge() + 1);
 
-		if (this.hasHome) {
-			if (this.homeCheckCooldown > 0) {
-				--this.homeCheckCooldown;
-			} else {
-				this.homeCheckCooldown = 200;
-				BlockPos home = FireflyAi.getHome(this);
-				if (home != null && FireflyAi.isInHomeDimension(this)) {
-					if (!isValidHomePos(this.level(), home)) {
-						FireflyAi.rememberHome(this, this.blockPosition());
-					}
-				}
-			}
-		}
-
-		this.setPrevAnimScale(this.getAnimScale());
-
-		if (this.despawning) {
-			this.setAnimScale(this.getAnimScale() - 0.5F);
-			if (this.getAnimScale() < 0F) {
-				this.discard();
-			}
-		} else if (this.getAnimScale() < 1.5F) {
-			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
+		float animScale = this.getAnimScale();
+		this.setPrevAnimScale(animScale);
+		if (animScale < 1.5F) {
+			this.setAnimScale(Math.min(fallDistance + 0.025F, 1.5F));
 		}
 
 		if (this.level() instanceof ServerLevel serverLevel) {
@@ -476,44 +445,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public void checkDespawn() {
-		if (!this.despawning) {
-			if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-				this.despawning = true;
-				return;
-			}
-			if (this.isPersistenceRequired() || this.requiresCustomPersistence()) {
-				this.noActionTime = 0;
-				return;
-			}
-			Player entity = this.level().getNearestPlayer(this, -1D);
-			if (entity != null) {
-				int i;
-				double d = entity.distanceToSqr(this);
-				boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE);
-				boolean caveKey = this.level().getBiome(this.blockPosition()).is(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
-				if (this.removeWhenFarAway(d) && Math.sqrt(d) > 18D) {
-					if (dayKey) {
-						this.despawning = true;
-					} else if (caveKey) {
-						this.despawning = true;
-					}
-				}
-				if (d > (double) ((i = this.getType().getCategory().getDespawnDistance()) * i) && this.removeWhenFarAway(d)) {
-					this.despawning = true;
-				}
-				int k = this.getType().getCategory().getNoDespawnDistance();
-				int l = k * k;
-				if (this.noActionTime > 600 && this.random.nextInt(800) == 0 && d > (double) l && this.removeWhenFarAway(d)) {
-					this.despawning = true;
-				} else if (d < (double) l) {
-					this.noActionTime = 0;
-				}
-			}
-		}
-	}
-
-	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 
@@ -522,14 +453,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			.ifPresent(resourceKey -> compoundTag.putString("color", resourceKey.location().toString()));
 
 		compoundTag.putBoolean("fromBottle", this.fromBottle());
-		compoundTag.putBoolean("natural", this.natural);
 		compoundTag.putInt("flickerAge", this.getFlickerAge());
-		compoundTag.putBoolean("hasHome", this.hasHome);
 		compoundTag.putFloat("scale", this.getAnimScale());
 		compoundTag.putFloat("prevScale", this.getPrevAnimScale());
-		compoundTag.putBoolean("despawning", this.despawning);
-		compoundTag.putInt("homeCheckCooldown", this.homeCheckCooldown);
-		compoundTag.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
 	}
 
 	@Override
@@ -542,14 +468,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			.ifPresent(reference -> this.setColor(reference.value()));
 
 		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
-		if (compoundTag.contains("natural")) this.natural = compoundTag.getBoolean("natural");
 		if (compoundTag.contains("flickerAge")) this.setFlickerAge(compoundTag.getInt("flickerAge"));
-		if (compoundTag.contains("hasHome")) this.hasHome = compoundTag.getBoolean("hasHome");
 		if (compoundTag.contains("scale")) this.setAnimScale(compoundTag.getFloat("scale"));
 		if (compoundTag.contains("prevScale")) this.setPrevAnimScale(compoundTag.getFloat("prevScale"));
-		if (compoundTag.contains("despawning")) this.despawning = compoundTag.getBoolean("despawning");
-		if (compoundTag.contains("homeCheckCooldown")) this.homeCheckCooldown = compoundTag.getInt("homeCheckCooldown");
-		if (compoundTag.contains("shouldCheckSpawn")) this.shouldCheckSpawn = compoundTag.getBoolean("shouldCheckSpawn");
 	}
 
 	@Override
@@ -581,12 +502,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	protected void pushEntities() {
 	}
 
-	public static class FireflySpawnGroupData extends AgeableMob.AgeableMobGroupData {
-		public final Holder<FireflyColor> type;
+	public static class FireflySpawnGroupData implements SpawnGroupData {
+		public final Holder<FireflyColor> color;
 
 		public FireflySpawnGroupData(Holder<FireflyColor> holder) {
-			super(false);
-			this.type = holder;
+			this.color = holder;
 		}
 	}
 }

@@ -31,6 +31,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
+import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
@@ -60,6 +61,8 @@ public class FireflyAi {
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.HOME,
+		WWMemoryModuleTypes.NATURAL,
+		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN,
 		WWMemoryModuleTypes.IS_SWARM_LEADER,
 		WWMemoryModuleTypes.SWARM_LEADER_TRACKER
 	);
@@ -67,7 +70,15 @@ public class FireflyAi {
 	private FireflyAi() {
 	}
 
-	public static void initAsSwarmLeader(@NotNull Firefly firefly) {
+	public static void setNatural(@NotNull Firefly firefly) {
+		firefly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, true);
+	}
+
+	public static void setHomeAtCurrentPos(@NotNull Firefly firefly) {
+		firefly.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(firefly.level().dimension(), firefly.blockPosition()));
+	}
+
+	public static void setSwarmLeader(@NotNull Firefly firefly) {
 		firefly.getBrain().setMemory(WWMemoryModuleTypes.IS_SWARM_LEADER, true);
 	}
 
@@ -93,7 +104,9 @@ public class FireflyAi {
 			ImmutableList.of(
 				new Swim(0.8F),
 				new LookAtTargetSink(45, 90),
-				new MoveToTargetSink()
+				new MoveToTargetSink(),
+				FireflyValidateOrSetHome.create(),
+				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
 			)
 		);
 	}
@@ -139,12 +152,12 @@ public class FireflyAi {
 
 	private static boolean shouldGoTowardsHome(@NotNull LivingEntity firefly, @NotNull GlobalPos pos) {
 		Level level = firefly.level();
-		return ((Firefly) firefly).hasHome && level.dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
+		return ((Firefly) firefly).hasHome() && level.dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
 	}
 
 	@NotNull
 	private static Optional<PositionTracker> getSwarmLeaderTarget(@NotNull LivingEntity firefly) {
-		return !((Firefly)firefly).hasHome ? firefly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER) : Optional.empty();
+		return !((Firefly)firefly).hasHome() ? firefly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER) : Optional.empty();
 	}
 
 	@NotNull

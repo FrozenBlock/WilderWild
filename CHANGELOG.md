@@ -38,3 +38,6 @@ hi
 # Firefly Branch
 - Fireflies now move faster.
 - Fireflies now spawn and move in swarms.
+- Removed unecessary spawning mechanics that were unique only to the Firefly.
+- Moved multiple aspects of the Firefly to be managed by its brain.
+- Fireflies now only spawn at night.

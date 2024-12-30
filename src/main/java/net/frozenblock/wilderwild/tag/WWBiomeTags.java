@@ -27,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 public final class WWBiomeTags {
 	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = bind("entity/spawn/firefly_day");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("entity/spawn/firefly_cave");
 	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
 	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("entity/spawn/common_butterfly");
 	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("entity/spawn/firefly");
