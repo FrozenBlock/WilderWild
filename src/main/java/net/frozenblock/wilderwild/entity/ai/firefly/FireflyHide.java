@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.entity.ai.firefly;
 
-import jdk.jfr.Experimental;
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -28,36 +27,34 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
 
-@Experimental
 public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 
-	public FireflyHide(@NotNull Firefly mob, double speedModifier, int searchRange, int verticalSearchRange) {
-		super(mob, speedModifier, searchRange, verticalSearchRange);
+	public FireflyHide(@NotNull Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange) {
+		super(firefly, speedModifier, searchRange, verticalSearchRange);
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Firefly entity, long gameTime) {
-		super.start(level, entity, gameTime);
+	public void start(@NotNull ServerLevel level, @NotNull Firefly firefly, long gameTime) {
+		super.start(level, firefly, gameTime);
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Firefly owner) {
-		return owner.shouldHide() && super.checkExtraStartConditions(level, owner);
+	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Firefly firefly) {
+		return firefly.shouldHide() && super.checkExtraStartConditions(level, firefly);
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Firefly entity, long gameTime) {
-		return entity.shouldHide() && super.canStillUse(level, entity, gameTime);
+	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Firefly firefly, long gameTime) {
+		return firefly.shouldHide() && super.canStillUse(level, firefly, gameTime);
 	}
 
 	@Override
-	protected void tick(@NotNull ServerLevel level, @NotNull Firefly owner, long gameTime) {
+	protected void tick(@NotNull ServerLevel level, @NotNull Firefly firefly, long gameTime) {
+		super.tick(level, firefly, gameTime);
 		if (this.isReachedTarget()) {
-			owner.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 1.2F);
-			owner.discard();
+			firefly.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 0.9F + level.random.nextFloat() * 0.2F);
+			firefly.discard();
 		}
-
-		super.tick(level, owner, gameTime);
 	}
 
 	@Override
@@ -74,7 +71,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	protected void moveMobToBlock() {
 		this.mob
 			.getNavigation()
-			.moveTo(this.blockPos.getX() + 0.5, this.blockPos.getY() + 0.5, this.blockPos.getZ() + 0.5, this.speedModifier);
+			.moveTo(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D, this.speedModifier);
 	}
 
 	@Override
