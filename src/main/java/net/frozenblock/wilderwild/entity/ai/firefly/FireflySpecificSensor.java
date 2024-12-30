@@ -49,7 +49,7 @@ public class FireflySpecificSensor extends Sensor<Firefly> {
 		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
 		for (LivingEntity livingEntity : entities) {
 			if (livingEntity instanceof Firefly otherFirefly) {
-				entities.add(otherFirefly);
+				fireflies.add(otherFirefly);
 			}
 		}
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES, fireflies);
