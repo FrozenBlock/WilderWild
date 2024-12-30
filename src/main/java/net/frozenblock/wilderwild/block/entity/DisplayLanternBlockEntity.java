@@ -217,7 +217,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
 				entity.setFromBottle(true);
 				if (level.addFreshEntity(entity)) {
-					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
 					entity.setAnimScale(1F);

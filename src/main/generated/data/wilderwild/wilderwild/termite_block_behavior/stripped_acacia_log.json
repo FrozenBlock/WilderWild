@@ -3,5 +3,6 @@
   "eat_sound": "wilderwild:block.log_hollowed",
   "edible_blocks": "minecraft:stripped_acacia_log",
   "natural_termite_usable": false,
-  "output_block": "wilderwild:stripped_hollowed_acacia_log"
+  "output_block": "wilderwild:stripped_hollowed_acacia_log",
+  "player_placed_termite_usable": true
 }

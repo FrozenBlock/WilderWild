@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_cornflower",
+  "flower_block_state": {
+    "Name": "minecraft:cornflower"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_cornflower"
+}

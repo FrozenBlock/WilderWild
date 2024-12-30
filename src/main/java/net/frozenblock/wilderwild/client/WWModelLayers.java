@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.client.renderer.blockentity.StoneChestRenderer
 import net.frozenblock.wilderwild.client.renderer.entity.ButterflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.FlowerCowRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.PenguinRenderer;
@@ -45,6 +46,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.NoopRenderer;
@@ -68,6 +70,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation PENGUIN = new ModelLayerLocation(WWConstants.id("penguin"), "main");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
 	public static final ModelLayerLocation BUTTERFLY = new ModelLayerLocation(WWConstants.id("butterfly"), "main");
+	public static final ModelLayerLocation MOOBLOOM = new ModelLayerLocation(WWConstants.id("moobloom"), "main");
 
 	public static void init() {
 		EntityRendererRegistry.register(WWEntityTypes.FIREFLY, FireflyRenderer::new);
@@ -91,6 +94,9 @@ public final class WWModelLayers {
 
 		EntityRendererRegistry.register(WWEntityTypes.SCORCHED, ScorchedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SCORCHED, ScorchedModel::createSpiderBodyLayer);
+
+		EntityRendererRegistry.register(WWEntityTypes.MOOBLOOM, FlowerCowRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(MOOBLOOM, CowModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.PENGUIN, PenguinRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createBodyLayer);

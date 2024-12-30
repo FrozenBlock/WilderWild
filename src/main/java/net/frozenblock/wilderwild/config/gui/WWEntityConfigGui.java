@@ -59,6 +59,8 @@ public final class WWEntityConfigGui {
 		var modifiedOstrich = modifiedConfig.ostrich;
 		var scorched = config.scorched;
 		var modifiedScorched = modifiedConfig.scorched;
+		var moobloom = config.moobloom;
+		var modifiedMoobloom = modifiedConfig.moobloom;
 		var tumbleweed = config.tumbleweed;
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
@@ -379,6 +381,23 @@ public final class WWEntityConfigGui {
 			false,
 			tooltip("scorched"),
 			spawnScorched, scorchedInTrialChambers
+		);
+
+		var spawnMooblooms = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_mooblooms"), modifiedMoobloom.spawnMooblooms)
+				.setDefaultValue(defaultConfig.moobloom.spawnMooblooms)
+				.setSaveConsumer(newValue -> moobloom.spawnMooblooms = newValue)
+				.setTooltip(tooltip("spawn_mooblooms"))
+				.build(),
+			moobloom.getClass(),
+			"spawnMooblooms",
+			configInstance
+		);
+
+		var moobloomCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("moobloom"),
+			false,
+			tooltip("moobloom"),
+			spawnMooblooms
 		);
 
 		var spawnTumbleweed = FrozenClothConfig.syncedEntry(

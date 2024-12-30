@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Penguin;
@@ -101,6 +102,16 @@ public final class WWEntityTypes {
 			.fireImmune()
 			.clientTrackingRange(8)
 			.build(WWConstants.string("scorched"))
+	);
+
+	public static final EntityType<FlowerCow> MOOBLOOM = register(
+		"moobloom",
+		EntityType.Builder.of(FlowerCow::new, MobCategory.CREATURE)
+			.sized(0.9F, 1.4F)
+			.eyeHeight(1.3F)
+			.passengerAttachments(1.36875F)
+			.clientTrackingRange(10)
+			.build(WWConstants.string("moobloom"))
 	);
 
 	public static final EntityType<Penguin> PENGUIN = register(
@@ -204,6 +215,14 @@ public final class WWEntityTypes {
 			FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(MOOBLOOM, FlowerCow.createAttributes());
+		SpawnPlacements.register(
+			MOOBLOOM,
+			SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			FlowerCow::checkFlowerCowSpawnRules
 		);
 
 		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createAttributes());

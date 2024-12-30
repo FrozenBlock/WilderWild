@@ -35,7 +35,8 @@ public final class TermiteBlockBehavior {
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("edible_blocks").forGetter(TermiteBlockBehavior::getEdibleBlocks),
 			BuiltInRegistries.BLOCK.byNameCodec().lenientOptionalFieldOf("output_block").forGetter(TermiteBlockBehavior::getOutputBlock),
 			Codec.BOOL.optionalFieldOf("copy_blockstate_properties", false).forGetter(TermiteBlockBehavior::copyProperties),
-			Codec.BOOL.fieldOf("natural_termite_usable").forGetter(TermiteBlockBehavior::naturalTermite),
+			Codec.BOOL.fieldOf("natural_termite_usable").forGetter(TermiteBlockBehavior::naturalTermiteUsable),
+			Codec.BOOL.fieldOf("player_placed_termite_usable").forGetter(TermiteBlockBehavior::playerPlacedTermiteUsable),
 			BuiltInRegistries.SOUND_EVENT.byNameCodec().lenientOptionalFieldOf("eat_sound").forGetter(TermiteBlockBehavior::getEatSound)
 		).apply(instance, TermiteBlockBehavior::new)
 	);
@@ -43,14 +44,23 @@ public final class TermiteBlockBehavior {
 	private final HolderSet<Block> edibleBlocks;
 	private final Optional<Block> outputBlock;
 	private final boolean copyProperties;
-	private final boolean naturalTermite;
+	private final boolean naturalTermiteUsable;
+	private final boolean playerPlacedTermiteUsable;
 	private final Optional<SoundEvent> eatSound;
 
-	public TermiteBlockBehavior(HolderSet<Block> edibleBlocks, Optional<Block> outputBlock, boolean copyProperties, boolean naturalTermite, Optional<SoundEvent> eatSound) {
+	public TermiteBlockBehavior(
+		HolderSet<Block> edibleBlocks,
+		Optional<Block> outputBlock,
+		boolean copyProperties,
+		boolean naturalTermiteUsable,
+		boolean playerPlacedTermiteUsable,
+		Optional<SoundEvent> eatSound
+	) {
 		this.edibleBlocks = edibleBlocks;
 		this.outputBlock = outputBlock;
 		this.copyProperties = copyProperties;
-		this.naturalTermite = naturalTermite;
+		this.naturalTermiteUsable = naturalTermiteUsable;
+		this.playerPlacedTermiteUsable = playerPlacedTermiteUsable;
 		this.eatSound = eatSound;
 	}
 
@@ -70,8 +80,12 @@ public final class TermiteBlockBehavior {
 		return this.outputBlock.isEmpty();
 	}
 
-	public boolean naturalTermite() {
-		return this.naturalTermite;
+	public boolean naturalTermiteUsable() {
+		return this.naturalTermiteUsable;
+	}
+
+	public boolean playerPlacedTermiteUsable() {
+		return this.playerPlacedTermiteUsable;
 	}
 
 	public Optional<SoundEvent> getEatSound() {
@@ -87,7 +101,8 @@ public final class TermiteBlockBehavior {
 				&& Objects.equals(this.outputBlock, termiteBlockBehavior.getOutputBlock())
 				&& Objects.equals(this.copyProperties, termiteBlockBehavior.copyProperties())
 				&& Objects.equals(this.destroysBlock(), termiteBlockBehavior.destroysBlock())
-				&& Objects.equals(this.naturalTermite, termiteBlockBehavior.naturalTermite)
+				&& Objects.equals(this.naturalTermiteUsable, termiteBlockBehavior.naturalTermiteUsable)
+				&& Objects.equals(this.playerPlacedTermiteUsable, termiteBlockBehavior.playerPlacedTermiteUsable)
 				&& Objects.equals(this.eatSound, termiteBlockBehavior.getEatSound());
 		}
 	}
@@ -99,7 +114,8 @@ public final class TermiteBlockBehavior {
 		i = 31 * i + this.outputBlock.hashCode();
 		i = 31 * i + Boolean.hashCode(this.copyProperties);
 		i = 31 * i + Boolean.hashCode(this.destroysBlock());
-		i = 31 * i + Boolean.hashCode(this.naturalTermite);
+		i = 31 * i + Boolean.hashCode(this.naturalTermiteUsable);
+		i = 31 * i + Boolean.hashCode(this.playerPlacedTermiteUsable);
 		return 31 * i + this.eatSound.hashCode();
 	}
 }

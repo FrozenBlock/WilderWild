@@ -3,5 +3,6 @@
   "eat_sound": "wilderwild:block.log_hollowed",
   "edible_blocks": "minecraft:stripped_jungle_log",
   "natural_termite_usable": false,
-  "output_block": "wilderwild:stripped_hollowed_jungle_log"
+  "output_block": "wilderwild:stripped_hollowed_jungle_log",
+  "player_placed_termite_usable": true
 }

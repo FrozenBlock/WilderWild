@@ -31,14 +31,8 @@ import net.minecraft.world.level.biome.Biomes;
 public final class WWSpawns {
 
 	public static void addBugs() {
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
-
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE_CAVE),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
-
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.FIREFLY_SPAWNABLE),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 2, 1, 2);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_FIREFLY),
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 4, 12, 24);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);
@@ -75,5 +69,10 @@ public final class WWSpawns {
 	public static void addRabbits() {
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST),
 			MobCategory.CREATURE, EntityType.RABBIT, 10, 2, 4);
+	}
+
+	public static void addMooblooms() {
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
+			MobCategory.CREATURE, WWEntityTypes.MOOBLOOM, 34, 2, 2);
 	}
 }

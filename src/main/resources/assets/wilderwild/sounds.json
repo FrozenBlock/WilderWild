@@ -2701,6 +2701,12 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "entity.moobloom.shear": {
+    "sounds": [
+      "mob/sheep/shear"
+    ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",
@@ -3011,6 +3017,22 @@
       "wilderwild:item/potion/lingering1"
     ],
     "subtitle": "subtitles.entity.potion.linger"
+  },
+  "block.log_hollowed.axe": {
+    "sounds": [
+      "wilderwild:block/hollowed_log/hollow1",
+      "wilderwild:block/hollowed_log/hollow2",
+      "wilderwild:block/hollowed_log/hollow3"
+    ],
+    "subtitle": "subtitles.block.log_hollowed.axe"
+  },
+  "block.stem_hollowed.axe": {
+    "sounds": [
+      "wilderwild:block/hollowed_log/hollow1",
+      "wilderwild:block/hollowed_log/hollow2",
+      "wilderwild:block/hollowed_log/hollow3"
+    ],
+    "subtitle": "subtitles.block.stem_hollowed.axe"
   },
   "block.log_hollowed": {
     "sounds": [

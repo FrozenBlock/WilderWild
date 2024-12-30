@@ -3,7 +3,7 @@
     "minecraft:flower_forest",
     "minecraft:sunflower_plains",
     {
-      "id": "wilderwild:tundra",
+      "id": "wilderwild:flower_field",
       "required": false
     }
   ]

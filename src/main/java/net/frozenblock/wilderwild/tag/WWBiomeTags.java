@@ -26,13 +26,12 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomeTags {
 	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = bind("entity/spawn/firefly_day");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("entity/spawn/firefly_cave");
 	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
 	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("entity/spawn/common_butterfly");
-	public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("entity/spawn/firefly");
+	public static final TagKey<Biome> HAS_FIREFLY = bind("entity/spawn/firefly");
 	public static final TagKey<Biome> HAS_JELLYFISH = bind("entity/spawn/jellyfish");
 	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("entity/spawn/jellyfish_special_spawn");
+	public static final TagKey<Biome> HAS_MOOBLOOM = bind("entity/spawn/moobloom");
 	public static final TagKey<Biome> HAS_CRAB = bind("entity/spawn/crab");
 	public static final TagKey<Biome> HAS_COMMON_CRAB = bind("entity/spawn/common_crab");
 	public static final TagKey<Biome> HAS_OSTRICH = bind("entity/spawn/ostrich");
@@ -42,12 +41,31 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
 	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("entity/variant/butterfly_red_lacewing");
 	public static final TagKey<Biome> BUTTERFLY_MARBLED = bind("entity/variant/butterfly_marbled");
+	public static final TagKey<Biome> BUTTERFLY_MORPHO_BLUE = bind("entity/variant/butterfly_morpho_blue");
+	public static final TagKey<Biome> BUTTERFLY_GREEN_HAIRSTREAK = bind("entity/variant/butterfly_green_hairstreak");
+	public static final TagKey<Biome> BUTTERFLY_CLOUDED_YELLOW = bind("entity/variant/butterfly_clouded_yellow");
+	public static final TagKey<Biome> BUTTERFLY_DUSKWING = bind("entity/variant/butterfly_duskwing");
 	public static final TagKey<Biome> BLUE_JELLYFISH = bind("entity/variant/blue_jellyfish");
 	public static final TagKey<Biome> LIME_JELLYFISH = bind("entity/variant/lime_jellyfish");
 	public static final TagKey<Biome> PINK_JELLYFISH = bind("entity/variant/pink_jellyfish");
 	public static final TagKey<Biome> RED_JELLYFISH = bind("entity/variant/red_jellyfish");
 	public static final TagKey<Biome> YELLOW_JELLYFISH = bind("entity/variant/yellow_jellyfish");
 	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("entity/variant/pearlescent_jellyfish");
+	public static final TagKey<Biome> MOOBLOOM_DANDELION = bind("entity/variant/moobloom_dandelion");
+	public static final TagKey<Biome> MOOBLOOM_POPPY = bind("entity/variant/moobloom_poppy");
+	public static final TagKey<Biome> MOOBLOOM_AZURE_BLUET = bind("entity/variant/moobloom_azure_bluet");
+	public static final TagKey<Biome> MOOBLOOM_RED_TULIP = bind("entity/variant/moobloom_red_tulip");
+	public static final TagKey<Biome> MOOBLOOM_ORANGE_TULIP = bind("entity/variant/moobloom_orange_tulip");
+	public static final TagKey<Biome> MOOBLOOM_WHITE_TULIP = bind("entity/variant/moobloom_white_tulip");
+	public static final TagKey<Biome> MOOBLOOM_PINK_TULIP = bind("entity/variant/moobloom_pink_tulip");
+	public static final TagKey<Biome> MOOBLOOM_OXEYE_DAISY = bind("entity/variant/moobloom_oxeye_daisy");
+	public static final TagKey<Biome> MOOBLOOM_CORNFLOWER = bind("entity/variant/moobloom_cornflower");
+	public static final TagKey<Biome> MOOBLOOM_LILY_OF_THE_VALLEY = bind("entity/variant/moobloom_lily_of_the_valley");
+	public static final TagKey<Biome> MOOBLOOM_ALLIUM = bind("entity/variant/moobloom_allium");
+	public static final TagKey<Biome> MOOBLOOM_BLUE_ORCHID = bind("entity/variant/moobloom_blue_orchid");
+	public static final TagKey<Biome> MOOBLOOM_CARNATION = bind("entity/variant/moobloom_carnation");
+	public static final TagKey<Biome> MOOBLOOM_MARIGOLD = bind("entity/variant/moobloom_marigold");
+	public static final TagKey<Biome> MOOBLOOM_PASQUEFLOWER = bind("entity/variant/moobloom_pasqueflower");
 
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");

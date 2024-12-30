@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.entity.variant.firefly;
 
 import com.google.common.collect.ImmutableList;
+import java.util.List;
+import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.Util;
@@ -33,8 +35,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
-import java.util.stream.Stream;
 
 public final class FireflyColors {
 	public static final ResourceKey<FireflyColor> ON = createKey("on");

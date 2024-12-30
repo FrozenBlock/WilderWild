@@ -461,7 +461,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.LARGE_FERN)
 			.add(Blocks.PEONY)
 			.add(Blocks.ROSE_BUSH)
-			.add(WWBlocks.CATTAIL);
+			.add(Blocks.DEAD_BUSH)
+			.add(WWBlocks.CATTAIL)
+			.add(WWBlocks.MILKWEED)
+			.add(WWBlocks.BUSH)
+			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.CRAB_HIDEABLE)
 			.addOptionalTag(BlockTags.DIRT)

@@ -1,6 +1,7 @@
 {
   "copy_blockstate_properties": true,
   "edible_blocks": "minecraft:oak_log",
-  "natural_termite_usable": false,
-  "output_block": "minecraft:stripped_oak_log"
+  "natural_termite_usable": true,
+  "output_block": "minecraft:stripped_oak_log",
+  "player_placed_termite_usable": true
 }
