@@ -59,6 +59,7 @@ public class FireflyAi {
 	);
 	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
 		MemoryModuleType.PATH,
+		MemoryModuleType.NEAREST_LIVING_ENTITIES,
 		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
