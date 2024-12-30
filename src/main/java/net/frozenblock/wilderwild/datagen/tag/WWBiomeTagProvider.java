@@ -413,20 +413,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 	}
 
 	private void generateUtilityTags() {
-		this.getOrCreateTagBuilder(WWBiomeTags.FIREFLY_SPAWNABLE)
-			.add(Biomes.JUNGLE)
-			.add(Biomes.SPARSE_JUNGLE)
-			.add(Biomes.BAMBOO_JUNGLE)
-			.add(Biomes.DARK_FOREST)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
-
-		this.getOrCreateTagBuilder(WWBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FIREFLY)
 			.add(Biomes.SWAMP)
-			.add(Biomes.MANGROVE_SWAMP);
+			.add(Biomes.MANGROVE_SWAMP)
+			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)

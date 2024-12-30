@@ -41,3 +41,4 @@ hi
 - Removed unecessary spawning mechanics that were unique only to the Firefly.
 - Moved multiple aspects of the Firefly to be managed by its brain.
 - Fireflies now only spawn at night.
+- Fireflies now only spawn in Swamp-like biomes by default.
