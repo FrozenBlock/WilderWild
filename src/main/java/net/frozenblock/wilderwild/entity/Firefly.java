@@ -112,7 +112,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
 
-		return !level.dimensionType().hasFixedTime() || level.getSkyDarken() >= 4 && level.canSeeSky(pos);
+		return level.getSkyDarken() >= 4 && level.canSeeSky(pos);
 	}
 
 	@NotNull
