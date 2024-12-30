@@ -85,7 +85,7 @@ public class MobBottleItem extends Item {
 
 					if (!player.getAbilities().instabuild) player.setItemInHand(interactionHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-					entity.playSound(this.releaseSound, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+					player.playSound(this.releaseSound, 0.75F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 					if (stack.has(DataComponents.CUSTOM_NAME)) {
 						entity.setCustomName(stack.getHoverName());
 					}
