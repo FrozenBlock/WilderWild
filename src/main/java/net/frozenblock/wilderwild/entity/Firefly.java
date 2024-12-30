@@ -156,6 +156,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
+	public int getMaxSpawnClusterSize() {
+		return 24;
+	}
+
+	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
 		if (COLOR.equals(entityDataAccessor)) {
