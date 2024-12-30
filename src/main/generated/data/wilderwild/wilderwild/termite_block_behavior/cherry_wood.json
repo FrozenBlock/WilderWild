@@ -1,6 +1,7 @@
 {
   "copy_blockstate_properties": true,
   "edible_blocks": "minecraft:cherry_wood",
-  "natural_termite_usable": false,
-  "output_block": "minecraft:stripped_cherry_wood"
+  "natural_termite_usable": true,
+  "output_block": "minecraft:stripped_cherry_wood",
+  "player_placed_termite_usable": true
 }

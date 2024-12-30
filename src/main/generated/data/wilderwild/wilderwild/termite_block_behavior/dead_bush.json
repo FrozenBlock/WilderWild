@@ -1,4 +1,5 @@
 {
   "edible_blocks": "minecraft:dead_bush",
-  "natural_termite_usable": false
+  "natural_termite_usable": false,
+  "player_placed_termite_usable": true
 }
