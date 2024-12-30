@@ -116,7 +116,7 @@ public class FireflyAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(1, new FireflyHide(firefly, 2D, 10, 8)),
+				Pair.of(1, new FireflyHide(firefly, 1.75F, 10, 8)),
 				Pair.of(2, StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1.25F)),
 				Pair.of(3, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 2, 3, 1.75F)),
 				Pair.of(5, new RunOne<>(

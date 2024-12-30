@@ -34,11 +34,6 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Firefly firefly, long gameTime) {
-		super.start(level, firefly, gameTime);
-	}
-
-	@Override
 	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Firefly firefly) {
 		return firefly.shouldHide() && super.checkExtraStartConditions(level, firefly);
 	}
