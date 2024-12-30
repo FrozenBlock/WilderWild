@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.variant.butterfly;
 
+import java.util.List;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -33,8 +34,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> MONARCH = createKey("monarch");

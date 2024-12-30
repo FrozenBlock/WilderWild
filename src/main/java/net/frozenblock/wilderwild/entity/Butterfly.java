@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -65,8 +64,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -87,15 +84,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	public static final int SPAWN_CHANCE = 50;
-	protected static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
-	protected static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(
-		MemoryModuleType.PATH,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.LOOK_TARGET,
-		MemoryModuleType.HOME
-	);
 	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
 	private static final TargetingConditions SPAWN_RADIUS_CHECK = TargetingConditions.forNonCombat()
 		.ignoreLineOfSight()
@@ -104,10 +92,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		.selector(entity -> entity.isAlive() && !entity.isSpectator());
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.STRING);
-
-	public boolean natural;
-	public boolean hasHome;
-	public int homeCheckCooldown;
 
 	private float prevFlyingXRot;
 	private float flyingXRot;
@@ -168,21 +152,15 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 			.add(Attributes.FOLLOW_RANGE, 32D);
 	}
 
-	public static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
-		if (!state.getFluidState().isEmpty()) return false;
-		if (state.isRedstoneConductor(level, pos)) return false;
-		return state.isAir() || (!state.blocksMotion() && !state.isSolid());
-	}
-
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-		this.natural = isButterflySpawnTypeNatural(spawnType);
-		this.hasHome = this.hasHome || !this.natural;
-
-		BlockPos pos = this.blockPosition();
-		ButterflyAi.rememberHome(this, pos);
+		boolean shouldSetHome = shouldSetHome(spawnType);
+		if (shouldSetHome) {
+			ButterflyAi.rememberHome(this, this.blockPosition());
+		} else {
+			ButterflyAi.setNatural(this);
+		}
 
 		Holder<Biome> holder = level.getBiome(this.blockPosition());
 		if (spawnData instanceof ButterflySpawnGroupData butterflySpawnGroupData) {
@@ -196,12 +174,9 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
 	}
 
-	private static boolean isButterflySpawnTypeNatural(MobSpawnType spawnType) {
-		return spawnType == MobSpawnType.NATURAL
-			|| spawnType == MobSpawnType.CHUNK_GENERATION
-			|| spawnType == MobSpawnType.SPAWNER
-			|| spawnType == MobSpawnType.SPAWN_EGG
-			|| spawnType == MobSpawnType.COMMAND;
+	private static boolean shouldSetHome(MobSpawnType spawnType) {
+		return spawnType == MobSpawnType.DISPENSER
+			|| spawnType == MobSpawnType.BUCKET;
 	}
 
 	@Override
@@ -239,7 +214,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@Override
 	@NotNull
 	protected Brain.Provider<Butterfly> brainProvider() {
-		return Brain.provider(MEMORY_MODULES, SENSORS);
+		return ButterflyAi.brainProvider();
 	}
 
 	@Override
@@ -283,7 +258,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@Override
 	public void onBottleRelease() {
 		ButterflyAi.rememberHome(this, this.blockPosition());
-		this.hasHome = true;
 	}
 
 	@Override
@@ -294,6 +268,10 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@Override
 	public SoundEvent getBottleCatchSound() {
 		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY;
+	}
+
+	public boolean hasHome() {
+		return this.getBrain().hasMemoryValue(MemoryModuleType.HOME);
 	}
 
 	public ResourceLocation getVariantLocation() {
@@ -376,20 +354,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 			this.setNoGravity(false);
 		}
 
-		if (this.hasHome) {
-			if (this.homeCheckCooldown > 0) {
-				--this.homeCheckCooldown;
-			} else {
-				this.homeCheckCooldown = 200;
-				BlockPos home = ButterflyAi.getHome(this);
-				if (home != null && ButterflyAi.isInHomeDimension(this)) {
-					if (!isValidHomePos(this.level(), home)) {
-						ButterflyAi.rememberHome(this, this.blockPosition());
-					}
-				}
-			}
-		}
-
 		if (this.level() instanceof ServerLevel serverLevel) {
 			Vec3 wind = WindManager.getWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
 			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
@@ -397,7 +361,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		}
 
 		Vec3 deltaMovement = this.getDeltaMovement();
-
 		float targetFlyingXRot = (float) Math.clamp(deltaMovement.y * 10F, -1F, 1F);
 		this.prevFlyingXRot = this.flyingXRot;
 		this.flyingXRot += (targetFlyingXRot - this.flyingXRot) * 0.1F;
@@ -452,9 +415,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		super.addAdditionalSaveData(compoundTag);
 		compoundTag.putString("variant", this.getVariantLocation().toString());
 		compoundTag.putBoolean("fromBottle", this.fromBottle());
-		compoundTag.putBoolean("natural", this.natural);
-		compoundTag.putBoolean("hasHome", this.hasHome);
-		compoundTag.putInt("homeCheckCooldown", this.homeCheckCooldown);
 	}
 
 	@Override
@@ -465,9 +425,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 			.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getHolder(resourceKey))
 			.ifPresent(reference -> this.setVariant(reference.value()));
 		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
-		if (compoundTag.contains("natural")) this.natural = compoundTag.getBoolean("natural");
-		if (compoundTag.contains("hasHome")) this.hasHome = compoundTag.getBoolean("hasHome");
-		if (compoundTag.contains("homeCheckCooldown")) this.homeCheckCooldown = compoundTag.getInt("homeCheckCooldown");
 	}
 
 	@Override

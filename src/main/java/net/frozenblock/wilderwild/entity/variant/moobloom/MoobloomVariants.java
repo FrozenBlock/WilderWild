@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.variant.moobloom;
 
+import java.util.List;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -36,8 +37,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> DANDELION = createKey("dandelion");

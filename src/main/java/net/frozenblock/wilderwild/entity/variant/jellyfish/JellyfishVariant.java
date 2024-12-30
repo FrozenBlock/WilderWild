@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity.variant.jellyfish;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Objects;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
@@ -27,7 +28,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
-import java.util.Objects;
 
 public final class JellyfishVariant {
 	public static final Codec<JellyfishVariant> DIRECT_CODEC = RecordCodecBuilder.create(

@@ -16,11 +16,13 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.ai.firefly;
+package net.frozenblock.wilderwild.entity.ai;
 
-import net.frozenblock.wilderwild.entity.Firefly;
+import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -28,25 +30,41 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class FireflyValidateOrSetHome {
+public class ValidateOrSetHome {
 
 	@Contract(" -> new")
-	public static @NotNull BehaviorControl<Firefly> create() {
+	public static @NotNull BehaviorControl<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(MemoryModuleType.HOME),
 			instance.absent(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
-		).apply(instance, (homeMemory, homeValidateCooldown) -> (level, firefly, l) -> {
+		).apply(instance, (homeMemory, homeValidateCooldown) -> (level, entity, l) -> {
 			homeValidateCooldown.set(200);
-			BlockPos homePos = FireflyAi.getHome(firefly);
-			if (homePos != null && FireflyAi.isInHomeDimension(firefly)) {
+			BlockPos homePos = getHome(entity);
+			if (homePos != null && isInHomeDimension(entity)) {
 				if (!isValidHomePos(level, homePos)) {
-					FireflyAi.rememberHome(firefly, firefly.blockPosition());
+					setHomeAtCurrentPos(entity);
 					return true;
 				}
 			}
 			return false;
 		}));
+	}
+
+	@Nullable
+	private static BlockPos getHome(@NotNull LivingEntity entity) {
+		Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.map(GlobalPos::pos).orElse(null);
+	}
+
+	private static void setHomeAtCurrentPos(@NotNull LivingEntity entity) {
+		entity.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(entity.level().dimension(), entity.blockPosition()));
+	}
+
+	private static boolean isInHomeDimension(@NotNull LivingEntity entity) {
+		Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.filter(globalPos -> globalPos.dimension() == entity.level().dimension()).isPresent();
 	}
 
 	private static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {

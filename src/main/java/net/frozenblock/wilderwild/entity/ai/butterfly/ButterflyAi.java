@@ -25,11 +25,14 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.FlowerCow;
+import net.frozenblock.wilderwild.entity.ai.ValidateOrSetHome;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
+import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
@@ -40,14 +43,37 @@ import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class ButterflyAi {
+	protected static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSOR_TYPES = List.of(
+		SensorType.NEAREST_LIVING_ENTITIES
+	);
+	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
+		MemoryModuleType.PATH,
+		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+		MemoryModuleType.LOOK_TARGET,
+		MemoryModuleType.HOME,
+		WWMemoryModuleTypes.NATURAL,
+		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN
+	);
 
 	private ButterflyAi() {
+	}
+
+	@NotNull
+	public static Brain.Provider<Butterfly> brainProvider() {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+	}
+
+	public static void setNatural(@NotNull Butterfly butterfly) {
+		butterfly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, true);
 	}
 
 	@NotNull
@@ -67,7 +93,9 @@ public class ButterflyAi {
 			ImmutableList.of(
 				new Swim(0.8F),
 				new LookAtTargetSink(45, 90),
-				new MoveToTargetSink()
+				new MoveToTargetSink(),
+				ValidateOrSetHome.create(),
+				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
 			)
 		);
 	}
@@ -100,24 +128,13 @@ public class ButterflyAi {
 		butterfly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
 	}
 
-	@Nullable
-	public static BlockPos getHome(@NotNull Butterfly butterfly) {
-		Optional<GlobalPos> optional = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.map(GlobalPos::pos).orElse(null);
-	}
-
-	public static boolean isInHomeDimension(@NotNull Butterfly butterfly) {
-		Optional<GlobalPos> optional = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.filter(globalPos -> globalPos.dimension() == butterfly.level().dimension()).isPresent();
-	}
-
 	public static void rememberHome(@NotNull LivingEntity butterfly, @NotNull BlockPos pos) {
 		GlobalPos globalPos = GlobalPos.of(butterfly.level().dimension(), pos);
 		butterfly.getBrain().setMemory(MemoryModuleType.HOME, globalPos);
 	}
 
 	private static boolean shouldGoTowardsHome(@NotNull LivingEntity butterfly, @NotNull GlobalPos pos) {
-		return ((Butterfly) butterfly).hasHome && butterfly.level().dimension() == pos.dimension();
+		return ((Butterfly) butterfly).hasHome() && butterfly.level().dimension() == pos.dimension();
 	}
 
 	@NotNull

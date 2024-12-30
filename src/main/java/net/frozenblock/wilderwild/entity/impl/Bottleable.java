@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.impl;
 
+import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.minecraft.core.component.DataComponents;
@@ -34,7 +35,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public interface Bottleable {
 	boolean fromBottle();

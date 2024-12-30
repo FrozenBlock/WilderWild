@@ -24,6 +24,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.ai.ValidateOrSetHome;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.minecraft.core.BlockPos;
@@ -47,7 +48,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class FireflyAi {
 	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSOR_TYPES = List.of(
@@ -72,10 +72,6 @@ public class FireflyAi {
 
 	public static void setNatural(@NotNull Firefly firefly) {
 		firefly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, true);
-	}
-
-	public static void setHomeAtCurrentPos(@NotNull Firefly firefly) {
-		firefly.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(firefly.level().dimension(), firefly.blockPosition()));
 	}
 
 	public static void setSwarmLeader(@NotNull Firefly firefly) {
@@ -105,7 +101,7 @@ public class FireflyAi {
 				new Swim(0.8F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
-				FireflyValidateOrSetHome.create(),
+				ValidateOrSetHome.create(),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
 			)
 		);
@@ -131,17 +127,6 @@ public class FireflyAi {
 
 	public static void updateActivities(@NotNull Firefly firefly) {
 		firefly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
-	}
-
-	@Nullable
-	public static BlockPos getHome(@NotNull Firefly firefly) {
-		Optional<GlobalPos> optional = firefly.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.map(GlobalPos::pos).orElse(null);
-	}
-
-	public static boolean isInHomeDimension(@NotNull Firefly firefly) {
-		Optional<GlobalPos> optional = firefly.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.filter(globalPos -> globalPos.dimension() == firefly.level().dimension()).isPresent();
 	}
 
 	public static void rememberHome(@NotNull LivingEntity firefly, @NotNull BlockPos pos) {

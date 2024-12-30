@@ -18,6 +18,10 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
@@ -66,10 +70,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 public class FlowerCow extends Cow implements Shearable {
 	public static final int MAX_FLOWERS = 4;
