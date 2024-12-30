@@ -35,6 +35,7 @@ hi
     - These can each be regrown by feeding it Wheat.
     - Cannot breed unless all flowers are present.
   - Spawn in the Flower Forest and Flower Fields biomes by default.
+  - Butterflies will follow Mooblooms.
 
 # Firefly Branch
 - Fireflies now move faster.
