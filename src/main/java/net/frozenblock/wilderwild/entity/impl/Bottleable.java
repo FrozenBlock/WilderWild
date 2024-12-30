@@ -45,6 +45,8 @@ public interface Bottleable {
 
 	void loadFromBottleTag(CompoundTag compoundTag);
 
+	void onCapture();
+
 	void onBottleRelease();
 
 	ItemStack getBottleItemStack();
@@ -55,60 +57,29 @@ public interface Bottleable {
 	static void saveDefaultDataToBottleTag(@NotNull Mob mob, @NotNull ItemStack itemStack) {
 		itemStack.set(DataComponents.CUSTOM_NAME, mob.getCustomName());
 		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA, itemStack, compoundTag -> {
-			if (mob.isNoAi()) {
-				compoundTag.putBoolean("NoAI", mob.isNoAi());
-			}
-
-			if (mob.isSilent()) {
-				compoundTag.putBoolean("Silent", mob.isSilent());
-			}
-
-			if (mob.isNoGravity()) {
-				compoundTag.putBoolean("NoGravity", mob.isNoGravity());
-			}
-
-			if (mob.hasGlowingTag()) {
-				compoundTag.putBoolean("Glowing", mob.hasGlowingTag());
-			}
-
-			if (mob.isInvulnerable()) {
-				compoundTag.putBoolean("Invulnerable", mob.isInvulnerable());
-			}
-
+			if (mob.isNoAi()) compoundTag.putBoolean("NoAI", mob.isNoAi());
+			if (mob.isSilent()) compoundTag.putBoolean("Silent", mob.isSilent());
+			if (mob.isNoGravity()) compoundTag.putBoolean("NoGravity", mob.isNoGravity());
+			if (mob.hasGlowingTag()) compoundTag.putBoolean("Glowing", mob.hasGlowingTag());
+			if (mob.isInvulnerable()) compoundTag.putBoolean("Invulnerable", mob.isInvulnerable());
 			compoundTag.putFloat("Health", mob.getHealth());
 		});
 	}
 
 	@Deprecated
 	static void loadDefaultDataFromBottleTag(Mob mob, @NotNull CompoundTag compoundTag) {
-		if (compoundTag.contains("NoAI")) {
-			mob.setNoAi(compoundTag.getBoolean("NoAI"));
-		}
-
-		if (compoundTag.contains("Silent")) {
-			mob.setSilent(compoundTag.getBoolean("Silent"));
-		}
-
-		if (compoundTag.contains("NoGravity")) {
-			mob.setNoGravity(compoundTag.getBoolean("NoGravity"));
-		}
-
-		if (compoundTag.contains("Glowing")) {
-			mob.setGlowingTag(compoundTag.getBoolean("Glowing"));
-		}
-
-		if (compoundTag.contains("Invulnerable")) {
-			mob.setInvulnerable(compoundTag.getBoolean("Invulnerable"));
-		}
-
-		if (compoundTag.contains("Health", 99)) {
-			mob.setHealth(compoundTag.getFloat("Health"));
-		}
+		if (compoundTag.contains("NoAI")) mob.setNoAi(compoundTag.getBoolean("NoAI"));
+		if (compoundTag.contains("Silent")) mob.setSilent(compoundTag.getBoolean("Silent"));
+		if (compoundTag.contains("NoGravity")) mob.setNoGravity(compoundTag.getBoolean("NoGravity"));
+		if (compoundTag.contains("Glowing")) mob.setGlowingTag(compoundTag.getBoolean("Glowing"));
+		if (compoundTag.contains("Invulnerable")) mob.setInvulnerable(compoundTag.getBoolean("Invulnerable"));
+		if (compoundTag.contains("Health", 99)) mob.setHealth(compoundTag.getFloat("Health"));
 	}
 
 	static <T extends LivingEntity & Bottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && livingEntity.isAlive()) {
+			livingEntity.onCapture();
 			livingEntity.playSound(livingEntity.getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
 			ItemStack bottleStack = livingEntity.getBottleItemStack();
 			livingEntity.saveToBottleTag(bottleStack);

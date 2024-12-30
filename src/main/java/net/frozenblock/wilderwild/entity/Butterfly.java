@@ -256,6 +256,10 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	}
 
 	@Override
+	public void onCapture() {
+	}
+
+	@Override
 	public void onBottleRelease() {
 		ButterflyAi.rememberHome(this, this.blockPosition());
 	}

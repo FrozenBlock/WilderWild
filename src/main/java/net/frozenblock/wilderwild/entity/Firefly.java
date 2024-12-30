@@ -249,6 +249,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
+	public void onCapture() {
+		if (this.isSwarmLeader()) {
+			FireflyAi.transferLeadershipToRandomFirefly(this);
+		}
+	}
+
+	@Override
 	public void onBottleRelease() {
 		FireflyAi.rememberHome(this, this.blockPosition());
 	}
