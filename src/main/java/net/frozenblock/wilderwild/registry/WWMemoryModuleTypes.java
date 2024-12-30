@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -40,6 +41,7 @@ public final class WWMemoryModuleTypes {
 		WWConstants.logWithModId("Registering MemoryModuleTypes for", WWConstants.UNSTABLE_LOGGING);
 	}
 
+	public static final MemoryModuleType<List<Firefly>> NEARBY_FIREFLIES = register("nearby_fireflies");
 	public static final MemoryModuleType<Boolean> NATURAL = register("natural", Codec.BOOL);
 	public static final MemoryModuleType<Integer> HOME_VALIDATE_COOLDOWN = register("home_validate_cooldown", Codec.INT);
 	public static final MemoryModuleType<Boolean> IS_SWARM_LEADER = register("is_swarm_leader", Codec.BOOL);

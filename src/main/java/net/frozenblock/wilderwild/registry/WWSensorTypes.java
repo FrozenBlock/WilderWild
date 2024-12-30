@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabCanDigSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabNearbyPlayerSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyLeaderSensor;
+import net.frozenblock.wilderwild.entity.ai.firefly.FireflySpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichSpecificSensor;
 import net.minecraft.core.Registry;
@@ -44,6 +45,7 @@ public final class WWSensorTypes {
 		WWConstants.logWithModId("Registering SensorTypes for", WWConstants.UNSTABLE_LOGGING);
 	}
 
+	public static final SensorType<FireflySpecificSensor> FIREFLY_SPECIFIC_SENSOR = register("firefly_specific_sensor", FireflySpecificSensor::new);
 	public static final SensorType<FireflyLeaderSensor> FIREFLY_LEADER_SENSOR = register("firefly_leader_sensor", FireflyLeaderSensor::new);
 	public static final SensorType<CrabSpecificSensor> CRAB_SPECIFIC_SENSOR = register("crab_specific_sensor", CrabSpecificSensor::new);
 	public static final SensorType<TemptingSensor> CRAB_TEMPTATIONS = register("crab_temptations", () -> new TemptingSensor(CrabAi.getTemptations()));

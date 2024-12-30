@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.entity.ai.firefly;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Firefly;
@@ -52,6 +54,7 @@ import org.jetbrains.annotations.NotNull;
 public class FireflyAi {
 	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
+		WWSensorTypes.FIREFLY_SPECIFIC_SENSOR,
 		WWSensorTypes.FIREFLY_LEADER_SENSOR
 	);
 	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
@@ -61,6 +64,7 @@ public class FireflyAi {
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.HOME,
+		WWMemoryModuleTypes.NEARBY_FIREFLIES,
 		WWMemoryModuleTypes.NATURAL,
 		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN,
 		WWMemoryModuleTypes.IS_SWARM_LEADER,
@@ -162,5 +166,30 @@ public class FireflyAi {
 	@NotNull
 	private static BlockPos randomPosAround(@NotNull BlockPos pos, @NotNull Level level) {
 		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
+	}
+
+	public static List<Firefly> getNearbyFirefliesInRank(@NotNull Firefly firefly, boolean searchingForLeader) {
+		return new ArrayList<>(firefly.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES).orElse(ImmutableList.of()))
+			.stream()
+			.filter(otherFirefly -> otherFirefly.isSwarmLeader() == searchingForLeader)
+			.sorted(Comparator.comparingDouble(firefly::distanceToSqr))
+			.toList();
+	}
+
+	public static void transferLeadershipToRandomFirefly(@NotNull Firefly firefly) {
+		Brain<Firefly> brain = firefly.getBrain();
+		List<Firefly> nonLeaderFireflies = getNearbyFirefliesInRank(firefly, false);
+
+		if (!nonLeaderFireflies.isEmpty()) {
+			transferLeadershipTo(firefly, nonLeaderFireflies.getFirst());
+			return;
+		}
+
+		brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
+	}
+
+	private static void transferLeadershipTo(@NotNull Firefly firefly, Firefly newLeader) {
+		FireflyAi.setSwarmLeader(newLeader);
+		firefly.getBrain().eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
 	}
 }

@@ -450,6 +450,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
+	public void die(DamageSource damageSource) {
+		if (this.isSwarmLeader()) {
+			FireflyAi.transferLeadershipToRandomFirefly(this);
+		}
+		super.die(damageSource);
+	}
+
+	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 
