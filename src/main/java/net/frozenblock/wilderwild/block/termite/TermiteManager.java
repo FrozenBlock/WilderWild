@@ -23,6 +23,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -45,7 +46,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -239,23 +239,21 @@ public class TermiteManager {
 			if (!areTermitesSafe(level, this.pos)) {
 				return false;
 			}
-			if (canMove(level, this.pos)) {
+			if (isPosTickable(level, this.pos)) {
 				BlockState blockState = level.getBlockState(this.pos);
-				Block block = blockState.getBlock();
 				Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
 					level.registryAccess(),
-					block,
+					blockState.getBlock(),
 					natural
 				);
 
 				if (optionalBlockBehavior.isPresent()) {
 					TermiteBlockBehavior termiteBlockBehavior = optionalBlockBehavior.get().value();
 					boolean destroysBlock = termiteBlockBehavior.destroysBlock();
-					boolean leaves = blockState.is(BlockTags.LEAVES);
 					if (isEdibleProperty(blockState)) {
 						this.eating = true;
 						exit = true;
-						int additionalPower = destroysBlock ? leaves ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
+						int additionalPower = destroysBlock ? blockState.is(BlockTags.LEAVES) ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
 						this.blockDestroyPower += additionalPower;
 						spawnGnawParticles(level, blockState, this.pos, random);
 						if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
@@ -305,10 +303,7 @@ public class TermiteManager {
 								&& isBlockMovable(state, direction)
 								&& !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5D)) && ledge == null)
 							) {
-								this.pos = offset;
-								if (ledge != null) {
-									this.pos = ledge;
-								}
+								this.pos = Objects.requireNonNullElse(ledge, offset);
 								exit = true;
 							} else if (ledge != null && exposedToAir(level, ledge, natural)) {
 								this.pos = ledge;
@@ -340,12 +335,12 @@ public class TermiteManager {
 			mutableBlockPos.move(Direction.DOWN);
 			state = level.getBlockState(mutableBlockPos);
 			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos;
+				return mutableBlockPos.immutable();
 			}
 			mutableBlockPos.move(Direction.UP, 2);
 			state = level.getBlockState(mutableBlockPos);
 			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos;
+				return mutableBlockPos.immutable();
 			}
 			return null;
 		}
@@ -355,17 +350,22 @@ public class TermiteManager {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			List<Direction> directions = Util.shuffledCopy(Direction.values(), random);
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
-			if (canEatBlock(level, natural, mutableBlockPos, upState)) return mutableBlockPos;
+			if (checkIfBlockIsEdibleAndFixPos(level, natural, mutableBlockPos, upState)) return mutableBlockPos.immutable();
+
 			mutableBlockPos.move(Direction.DOWN);
 			for (Direction direction : directions) {
 				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (canEatBlock(level, natural, mutableBlockPos, state)) return mutableBlockPos;
+				if (checkIfBlockIsEdibleAndFixPos(level, natural, mutableBlockPos, state)) return mutableBlockPos.immutable();
+
 				mutableBlockPos.move(direction, -1);
 			}
+
 			return null;
 		}
 
-		private static boolean canEatBlock(@NotNull Level level, boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
+		private static boolean checkIfBlockIsEdibleAndFixPos(
+			@NotNull Level level, boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state
+		) {
 			Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
 				level.registryAccess(),
 				state.getBlock(),
@@ -382,7 +382,11 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(@NotNull BlockState state) {
-			return !WWBlockConfig.get().termite.onlyEatNaturalBlocks || (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE) ? state.getValue(WWBlockStateProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
+			return !WWBlockConfig.get().termite.onlyEatNaturalBlocks
+				|| (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)
+				? state.getValue(WWBlockStateProperties.TERMITE_EDIBLE)
+				: (!state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT))
+			);
 		}
 
 		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
@@ -406,17 +410,15 @@ public class TermiteManager {
 			return false;
 		}
 
-		public static boolean canMove(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-			if (level instanceof ServerLevel serverLevel) {
-				return serverLevel.shouldTickBlocksAt(pos);
-			}
+		private static boolean isPosTickable(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+			if (level instanceof ServerLevel serverLevel) return serverLevel.shouldTickBlocksAt(pos);
 			return false;
 		}
 
 		public static boolean isBlockMovable(@NotNull BlockState state, @NotNull Direction direction) {
 			if (state.is(WWBlockTags.BLOCKS_TERMITE)) return false;
 			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
-			boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA) || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED))));
+			boolean moveableDown = !(direction == Direction.DOWN && !state.getFluidState().isEmpty());
 			return moveableUp && moveableDown;
 		}
 

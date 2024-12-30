@@ -187,8 +187,10 @@ public final class TermiteBlockBehaviors {
 		List<Holder.Reference<TermiteBlockBehavior>> behaviors = registry.holders()
 			.filter(reference -> {
 				TermiteBlockBehavior termiteBlockBehavior = reference.value();
-				return termiteBlockBehavior.getEdibleBlocks().contains(BuiltInRegistries.BLOCK.wrapAsHolder(edibleBlock))
-					&& isNatural ? termiteBlockBehavior.naturalTermiteUsable() : termiteBlockBehavior.playerPlacedTermiteUsable();
+				if (termiteBlockBehavior.getEdibleBlocks().contains(edibleBlock.builtInRegistryHolder())) {
+					return isNatural ? termiteBlockBehavior.naturalTermiteUsable() : termiteBlockBehavior.playerPlacedTermiteUsable();
+				}
+				return false;
 			})
 			.toList();
 

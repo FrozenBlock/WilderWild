@@ -20,14 +20,14 @@ package net.frozenblock.wilderwild.block.termite;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Objects;
+import java.util.Optional;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.Block;
-import java.util.Objects;
-import java.util.Optional;
 
 public final class TermiteBlockBehavior {
 	public static final Codec<TermiteBlockBehavior> DIRECT_CODEC = RecordCodecBuilder.create(
@@ -101,8 +101,8 @@ public final class TermiteBlockBehavior {
 				&& Objects.equals(this.outputBlock, termiteBlockBehavior.getOutputBlock())
 				&& Objects.equals(this.copyProperties, termiteBlockBehavior.copyProperties())
 				&& Objects.equals(this.destroysBlock(), termiteBlockBehavior.destroysBlock())
-				&& Objects.equals(this.naturalTermiteUsable, termiteBlockBehavior.naturalTermiteUsable)
-				&& Objects.equals(this.playerPlacedTermiteUsable, termiteBlockBehavior.playerPlacedTermiteUsable)
+				&& Objects.equals(this.naturalTermiteUsable, termiteBlockBehavior.naturalTermiteUsable())
+				&& Objects.equals(this.playerPlacedTermiteUsable, termiteBlockBehavior.playerPlacedTermiteUsable())
 				&& Objects.equals(this.eatSound, termiteBlockBehavior.getEatSound());
 		}
 	}
