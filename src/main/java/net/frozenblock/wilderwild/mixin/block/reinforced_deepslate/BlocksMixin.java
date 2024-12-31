@@ -18,19 +18,21 @@
 
 package net.frozenblock.wilderwild.mixin.block.reinforced_deepslate;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(Blocks.class)
 public final class BlocksMixin {
 
-	@Redirect(
+	@WrapOperation(
 		method = "<clinit>",
 		at = @At(
 			value = "NEW",
@@ -44,8 +46,12 @@ public final class BlocksMixin {
 			)
 		)
 	)
-	private static Block wilderWild$newReinforced(BlockBehaviour.Properties properties) {
-		return new RotatedPillarBlock(properties);
+	private static Block wilderWild$newReinforcedDeepslate(BlockBehaviour.Properties properties, Operation<Block> original) {
+		if (WWBlockConfig.get().newReinforcedDeepslate) {
+			return new RotatedPillarBlock(properties);
+		} else {
+			return original.call(properties);
+		}
 	}
 
 }

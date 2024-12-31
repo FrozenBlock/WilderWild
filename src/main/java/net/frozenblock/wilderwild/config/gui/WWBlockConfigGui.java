@@ -144,6 +144,19 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		var newReinforcedDeepslate = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("new_reinforced_deepslate"), modifiedConfig.newReinforcedDeepslate)
+					.setDefaultValue(defaultConfig.newReinforcedDeepslate)
+					.setSaveConsumer(newValue -> config.newReinforcedDeepslate = newValue)
+					.setTooltip(tooltip("new_reinforced_deepslate"))
+					.build(),
+				clazz,
+				"newReinforcedDeepslate",
+				configInstance
+			)
+		);
+
 		var frostedIceCracking = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)
