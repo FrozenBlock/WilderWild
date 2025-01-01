@@ -1,0 +1,31 @@
+{
+  "parent": "minecraft:husbandry/root",
+  "criteria": {
+    "butterfly_bottled": {
+      "conditions": {
+        "item": {
+          "items": "wilderwild:butterfly_bottle"
+        }
+      },
+      "trigger": "wilderwild:mob_bottle"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.husbandry.butterfly_in_a_bottle.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "wilderwild:butterfly_bottle"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.husbandry.butterfly_in_a_bottle.title"
+    }
+  },
+  "requirements": [
+    [
+      "butterfly_bottled"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

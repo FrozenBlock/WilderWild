@@ -20,11 +20,9 @@ package net.frozenblock.wilderwild.datagen;
 
 import java.util.Arrays;
 import java.util.List;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWMiscConfigured;
@@ -34,8 +32,6 @@ import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -71,34 +67,6 @@ public final class WWFeatureBootstrap {
 		WWPlacedFeatures.registerPlacedFeatures(entries);
 	}
 
-	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
-		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
-		final var placedFeatures = asLookup(entries.placedFeatures());
-		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
-		final var noises = asLookup(entries.getLookup(Registries.NOISE));
-		final var processorLists = asLookup(entries.getLookup(Registries.PROCESSOR_LIST));
-		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
-		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
-		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
-
-		WWConstants.log("Adding finalized configured features to datagen", true);
-		entries.addAll(configuredFeatures);
-		WWConstants.log("Adding finalized placed features to datagen", true);
-		entries.addAll(placedFeatures);
-		WWConstants.log("Adding finalized biomes to datagen", true);
-		entries.addAll(biomes);
-		WWConstants.log("Adding finalized noises to datagen", true);
-		entries.addAll(noises);
-		WWConstants.log("Adding finalized processor lists to datagen", true);
-		entries.addAll(processorLists);
-		WWConstants.log("Adding finalized template pools to datagen", true);
-		entries.addAll(templatePools);
-		WWConstants.log("Adding finalized structures to datagen", true);
-		entries.addAll(structures);
-		WWConstants.log("Adding finalized structure sets to datagen", true);
-		entries.addAll(structureSets);
-	}
-
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
@@ -124,9 +92,5 @@ public final class WWFeatureBootstrap {
 
 	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstrapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
 		return FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
-	}
-
-	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
-		return (HolderLookup.RegistryLookup<T>) getter;
 	}
 }

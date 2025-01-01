@@ -20,16 +20,25 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.world.level.FoliageColor;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class WWModelProvider extends FabricModelProvider {
 
@@ -78,6 +87,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlantWithDefaultItem(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.PASQUEFLOWER, WWBlocks.POTTED_PASQUEFLOWER, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
@@ -207,24 +217,40 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateSpawnEgg(WWItems.CRAB_SPAWN_EGG, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16));
 		generator.generateSpawnEgg(WWItems.OSTRICH_SPAWN_EGG, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16));
 		generator.generateSpawnEgg(WWItems.SCORCHED_SPAWN_EGG, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16));
+		generator.generateSpawnEgg(WWItems.BUTTERFLY_SPAWN_EGG, Integer.parseInt("542003", 16), Integer.parseInt("FFCF60", 16));
+		generator.generateSpawnEgg(WWItems.MOOBLOOM_SPAWN_EGG, Integer.parseInt("FED639", 16), Integer.parseInt("F7EDC1", 16));
 
 		// Firefly Bottles
-		generator.generateFlatItem(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.BLACK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.RED_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.GREEN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.BROWN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.BLUE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.PURPLE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.CYAN_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.GRAY_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.PINK_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.LIME_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.YELLOW_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.MAGENTA_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.ORANGE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.WHITE_FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+		this.generateFireflyBottles(generator);
+		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
+	}
+
+
+	public void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
+		List<SelectItemModel.SwitchCase<ResourceLocation>> switchCases = new ArrayList<>();
+
+		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
+			if (fireflyColor.equals(WWConstants.string("on"))) return;
+			ResourceLocation colorKey = ResourceLocation.parse(fireflyColor);
+			ResourceLocation location = ResourceLocation.fromNamespaceAndPath(colorKey.getNamespace(), "item/" + colorKey.getPath() + "_firefly_bottle");
+
+			switchCases.add(
+				ItemModelUtils.when(
+					colorKey,
+					ItemModelUtils.plainModel(
+						ModelTemplates.FLAT_ITEM.create(location, TextureMapping.layer0(location), generator.modelOutput)
+					)
+				)
+			);
+		});
+
+		generator.itemModelOutput.accept(
+			WWItems.FIREFLY_BOTTLE,
+			ItemModelUtils.select(
+				new FireflyBottleColorProperty(),
+				ItemModelUtils.plainModel(generator.createFlatItemModel(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM)),
+				switchCases
+			)
+		);
 	}
 }

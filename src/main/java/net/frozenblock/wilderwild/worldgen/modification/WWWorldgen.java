@@ -378,7 +378,7 @@ public final class WWWorldgen {
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_POLLEN)) {
+					if (WWWorldgenConfig.GENERATE_POLLEN && biomeSelectionContext.hasTag(WWBiomeTags.HAS_POLLEN)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POLLEN_PLACED.getKey());
 					}
 				});

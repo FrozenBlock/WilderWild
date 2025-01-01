@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_pink_tulip",
+  "flower_block_state": {
+    "Name": "minecraft:pink_tulip"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_pink_tulip"
+}

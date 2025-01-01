@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_azure_bluet",
+  "flower_block_state": {
+    "Name": "minecraft:azure_bluet"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_azure_bluet"
+}

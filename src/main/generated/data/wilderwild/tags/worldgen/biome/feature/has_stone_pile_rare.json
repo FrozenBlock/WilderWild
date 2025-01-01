@@ -6,6 +6,10 @@
     {
       "id": "wilderwild:maple_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:tundra",
+      "required": false
     }
   ]
 }

@@ -51,6 +51,8 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.MILKWEED, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MARIGOLD, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_MARIGOLD, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PASQUEFLOWER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_PASQUEFLOWER, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POLLEN, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MYCELIUM_GROWTH, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.ECHO_GLASS, RenderType.translucent());

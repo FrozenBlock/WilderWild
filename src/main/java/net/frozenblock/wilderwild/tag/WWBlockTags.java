@@ -63,7 +63,6 @@ public final class WWBlockTags {
 	public static final TagKey<Block> MAPLE_LOGS = bind("maple_logs");
 
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
-	public static final TagKey<Block> TERMITE_BREAKABLE = bind("termite_breakable");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
 
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");

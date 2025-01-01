@@ -65,10 +65,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 		} else {
 			for (DisplayLanternBlockEntity.Occupant entity : lantern.getFireflies()) {
 				double ageDelta = entity.age + partialTick;
-				float calcColor = (float) (entity.flickers ?
-					(((ageDelta) * Mth.PI) * -4F) / 255F :
-					Math.max(((Math.cos(((ageDelta) * Mth.PI) * 0.05F))), 0F)
-				);
+				float calcColor = (float) (((ageDelta) * Mth.PI) * -4F) / 255F;
 
 				FireflyRenderer.renderFirefly(
 					poseStack,
@@ -76,7 +73,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 					light,
 					overlay,
 					calcColor,
-					entity.getColor(),
+					entity.getColorForRendering(),
 					1F,
 					(float) entity.pos.x,
 					(lantern.clientHanging ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,

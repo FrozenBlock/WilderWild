@@ -1,14 +1,20 @@
 {
   "model": {
-    "type": "minecraft:condition",
-    "on_false": {
+    "type": "minecraft:select",
+    "block_state_property": "cracked",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "wilderwild:item/scorched_sand_cracked"
+        },
+        "when": "true"
+      }
+    ],
+    "fallback": {
       "type": "minecraft:model",
       "model": "wilderwild:item/scorched_sand"
     },
-    "on_true": {
-      "type": "minecraft:model",
-      "model": "wilderwild:item/scorched_sand_cracked"
-    },
-    "property": "wilderwild:cracked"
+    "property": "minecraft:block_state"
   }
 }

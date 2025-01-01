@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:maple_wood",
+  "natural_termite_usable": true,
+  "output_block": "wilderwild:stripped_maple_wood",
+  "player_placed_termite_usable": true
+}

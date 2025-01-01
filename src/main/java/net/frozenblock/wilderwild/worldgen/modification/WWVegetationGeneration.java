@@ -59,11 +59,9 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PINK_TULIP_UNCOMMON.getKey());
 						}
 
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALLIUM_UNCOMMON)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ALLIUM_UNCOMMON.getKey());
 						}
-
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DATURA)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DATURA.getKey());
@@ -134,6 +132,10 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.RARE_SEEDING_DANDELION.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.VERY_RARE_SEEDING_DANDELION.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MILKWEED)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED.getKey());
 						}
@@ -141,6 +143,21 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PLAINS_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_PLAINS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUNDRA_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FOREST_FLOWERS);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TUNDRA.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GENERIC_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_DEFAULT);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_GENERIC.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIRCH_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_DEFAULT);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_BIRCH.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BERRY_PATCH)) {

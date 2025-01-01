@@ -202,6 +202,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.DANDELION, WWBlocks.SEEDING_DANDELION);
 		addAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
 		addAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
+		addAfterInNaturalBlocks(WWBlocks.MARIGOLD, WWBlocks.PASQUEFLOWER);
 		addBeforeInNaturalBlocks(Items.WITHER_ROSE, WWBlocks.GLORY_OF_THE_SNOW);
 		addAfterInNaturalBlocks(WWBlocks.GLORY_OF_THE_SNOW, WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS);
 		addAfterInNaturalBlocks(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
@@ -304,22 +305,10 @@ public class WWCreativeInventorySorting {
 		// FIREFLY
 		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
 		addInToolsAndUtilities(WWItems.FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.WHITE_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.LIGHT_GRAY_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.GRAY_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.BLACK_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.BROWN_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.RED_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.ORANGE_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.YELLOW_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.LIME_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.GREEN_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.CYAN_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.LIGHT_BLUE_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.BLUE_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.PURPLE_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.MAGENTA_FIREFLY_BOTTLE);
-		addInToolsAndUtilities(WWItems.PINK_FIREFLY_BOTTLE);
+
+		// BUTTERFLY
+		addAfterInSpawnEggs(Items.BREEZE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
+		addInToolsAndUtilities(WWItems.BUTTERFLY_BOTTLE);
 
 		// JELLYFISH
 		addAfterInSpawnEggs(Items.HUSK_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
@@ -338,6 +327,9 @@ public class WWCreativeInventorySorting {
 		addAfterInSpawnEggs(Items.SALMON_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
 		addAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
 		addAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
+
+		// MOOBLOOM
+		addBeforeInSpawnEggs(Items.MOOSHROOM_SPAWN_EGG, WWItems.MOOBLOOM_SPAWN_EGG);
 
 		// HORNS
 		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.COPPER_HORN, WWInstrumentTags.COPPER_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);

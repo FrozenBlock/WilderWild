@@ -1,34 +1,34 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "block_state_property": "damage",
+    "cases": [
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/echo_glass_1"
         },
-        "threshold": 0.25
+        "when": "1"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/echo_glass_2"
         },
-        "threshold": 0.5
+        "when": "2"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/echo_glass_3"
         },
-        "threshold": 0.75
+        "when": "3"
       }
     ],
     "fallback": {
       "type": "minecraft:model",
       "model": "wilderwild:item/echo_glass"
     },
-    "maximum": 4.0,
-    "property": "wilderwild:stack_damage"
+    "property": "minecraft:block_state"
   }
 }

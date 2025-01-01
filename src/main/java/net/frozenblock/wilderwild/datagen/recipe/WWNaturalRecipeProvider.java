@@ -45,6 +45,8 @@ public final class WWNaturalRecipeProvider {
 
 		oneToOneConversionRecipe(provider, exporter, Items.ORANGE_DYE, WWBlocks.MARIGOLD, "orange_dye");
 
+		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.PASQUEFLOWER, "purple_dye");
+
 		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWItems.SPLIT_COCONUT, "white_dye");
 		provider.shapeless(RecipeCategory.MISC, Items.BOWL, 2)
 			.requires(WWItems.SPLIT_COCONUT, 2)

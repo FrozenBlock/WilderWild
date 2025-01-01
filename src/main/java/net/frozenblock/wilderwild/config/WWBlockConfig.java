@@ -128,6 +128,9 @@ public final class WWBlockConfig {
 	@EntrySyncData("cactusPlacement")
 	public boolean cactusPlacement = false;
 
+	@EntrySyncData("newReinforcedDeepslate")
+	public boolean newReinforcedDeepslate = true;
+
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 

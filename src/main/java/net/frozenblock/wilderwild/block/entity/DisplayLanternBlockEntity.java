@@ -23,18 +23,19 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -46,6 +47,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -87,17 +89,17 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 		if (hasFireflies) {
 			for (Occupant firefly : this.fireflies) {
-				firefly.tick();
+				firefly.tick(level);
 			}
 		}
 	}
 
-	public void clientTick() {
+	public void clientTick(Level level) {
 		this.age += 1;
 		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
 		if (!this.fireflies.isEmpty()) {
 			for (Occupant firefly : this.fireflies) {
-				firefly.tick();
+				firefly.tick(level);
 			}
 		}
 	}
@@ -180,10 +182,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		return this.fireflies;
 	}
 
-	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
+	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull ResourceLocation color, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
-		var firefly = new Occupant(newVec, bottle.color, name, random.nextDouble() > 0.7D, random.nextInt(MAX_FIREFLY_AGE), 0D);
+		var firefly = new Occupant(newVec, color, name, random.nextInt(MAX_FIREFLY_AGE), 0D);
 		this.fireflies.add(firefly);
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
@@ -197,7 +199,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void spawnFireflies() {
 		if (this.level != null) {
 			if (!this.level.isClientSide) {
-				this.doFireflySpawns(level);
+				this.doFireflySpawns(this.level);
 			}
 		}
 	}
@@ -216,7 +218,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
 				entity.setFromBottle(true);
 				if (level.addFreshEntity(entity)) {
-					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
 					entity.setAnimScale(1F);
@@ -243,9 +244,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public static class Occupant {
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
-			FireflyColor.CODEC.fieldOf("color").forGetter(Occupant::getColor),
+			ResourceLocation.CODEC.fieldOf("color").forGetter(Occupant::getColor),
 			Codec.STRING.fieldOf("custom_name").orElse("").forGetter(Occupant::getCustomName),
-			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(Occupant::getFlickers),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
@@ -254,12 +254,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
 			FrozenByteBufCodecs.VEC3,
 			Occupant::getPos,
-			FireflyColor.STREAM_CODEC,
+			ResourceLocation.STREAM_CODEC,
 			Occupant::getColor,
 			ByteBufCodecs.STRING_UTF8,
 			Occupant::getCustomName,
-			ByteBufCodecs.BOOL,
-			Occupant::getFlickers,
 			ByteBufCodecs.INT,
 			Occupant::getAge,
 			ByteBufCodecs.DOUBLE,
@@ -268,24 +266,29 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		);
 
 		public Vec3 pos;
-		public FireflyColor color;
+		public ResourceLocation color;
 		public String customName;
-		public boolean flickers;
 		public int age;
 		public double y;
 
-		public Occupant(@NotNull Vec3 pos, @NotNull FireflyColor color, @NotNull String customName, boolean flickers, int age, double y) {
+		private Optional<FireflyColor> colorForRendering = Optional.empty();
+
+		public Occupant(@NotNull Vec3 pos, @NotNull ResourceLocation color, @NotNull String customName, int age, double y) {
 			this.pos = pos;
 			this.color = color;
 			this.customName = customName;
-			this.flickers = flickers;
 			this.age = age;
 			this.y = y;
 		}
 
-		public void tick() {
+		public void tick(Level level) {
 			this.age += 1;
 			this.y = Math.sin(this.age * 0.03D) * 0.15D;
+			if (this.colorForRendering.isEmpty()) {
+				this.colorForRendering = level.registryAccess()
+					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+					.getOptional(this.color);
+			}
 		}
 
 		@NotNull
@@ -294,17 +297,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 
 		@NotNull
-		public FireflyColor getColor() {
+		public ResourceLocation getColor() {
 			return this.color;
+		}
+
+		public boolean canRender() {
+			return this.colorForRendering.isPresent();
+		}
+
+		public FireflyColor getColorForRendering() {
+			return this.colorForRendering.get();
 		}
 
 		@NotNull
 		public String getCustomName() {
 			return this.customName;
-		}
-
-		public boolean getFlickers() {
-			return this.flickers;
 		}
 
 		public int getAge() {

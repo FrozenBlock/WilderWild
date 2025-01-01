@@ -1,0 +1,88 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.048833333,
+            "seed": 5050,
+            "states": [
+              {
+                "Name": "minecraft:oxeye_daisy"
+              },
+              {
+                "Name": "minecraft:oxeye_daisy"
+              },
+              {
+                "Name": "minecraft:azure_bluet"
+              },
+              {
+                "Name": "minecraft:azure_bluet"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "wilderwild:carnation"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:pink_tulip"
+              },
+              {
+                "Name": "minecraft:white_tulip"
+              },
+              {
+                "Name": "minecraft:orange_tulip"
+              },
+              {
+                "Name": "minecraft:red_tulip"
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 48,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

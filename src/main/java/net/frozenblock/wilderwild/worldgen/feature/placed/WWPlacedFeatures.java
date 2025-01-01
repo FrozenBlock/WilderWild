@@ -229,6 +229,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
 	public static final FrozenPlacedFeature COMMON_SEEDING_DANDELION = register("common_seeding_dandelion");
 	public static final FrozenPlacedFeature RARE_SEEDING_DANDELION = register("rare_seeding_dandelion");
+	public static final FrozenPlacedFeature VERY_RARE_SEEDING_DANDELION = register("very_rare_seeding_dandelion");
 	public static final FrozenPlacedFeature CARNATION = register("carnation");
 	public static final FrozenPlacedFeature MARIGOLD = register("marigold");
 	public static final FrozenPlacedFeature MARIGOLD_SPARSE = register("marigold_sparse");
@@ -240,7 +241,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature ROSE_BUSH = register("rose_bush");
 	public static final FrozenPlacedFeature PEONY = register("peony");
 	public static final FrozenPlacedFeature LILAC = register("lilac");
+	public static final FrozenPlacedFeature FLOWER_GENERIC = register("flower_generic");
 	public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
+	public static final FrozenPlacedFeature FLOWER_TUNDRA = register("flower_tundra");
+	public static final FrozenPlacedFeature FLOWER_BIRCH = register("flower_birch");
 	public static final FrozenPlacedFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
 	public static final FrozenPlacedFeature FLOWER_FOREST_FLOWERS = register("flower_forest_flowers");
@@ -1193,12 +1197,17 @@ public final class WWPlacedFeatures {
 		);
 
 		COMMON_SEEDING_DANDELION.makeAndSetHolder(WWConfiguredFeatures.SEEDING_DANDELION.getHolder(),
-			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		RARE_SEEDING_DANDELION.makeAndSetHolder(WWConfiguredFeatures.SEEDING_DANDELION.getHolder(),
-			RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(17), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		VERY_RARE_SEEDING_DANDELION.makeAndSetHolder(WWConfiguredFeatures.SEEDING_DANDELION.getHolder(),
+			RarityFilter.onAverageOnceEvery(28), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1233,7 +1242,7 @@ public final class WWPlacedFeatures {
 		);
 
 		DATURA.makeAndSetHolder(WWConfiguredFeatures.DATURA.getHolder(),
-			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1243,22 +1252,37 @@ public final class WWPlacedFeatures {
 		);
 
 		ROSE_BUSH.makeAndSetHolder(WWConfiguredFeatures.ROSE_BUSH.getHolder(),
-			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
-		PEONY.makeAndSetHolder(WWConfiguredFeatures.PEONY.getHolder(),
 			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		PEONY.makeAndSetHolder(WWConfiguredFeatures.PEONY.getHolder(),
+			RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
 		LILAC.makeAndSetHolder(WWConfiguredFeatures.LILAC.getHolder(),
-			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_GENERIC.makeAndSetHolder(WWConfiguredFeatures.FLOWER_GENERIC.getHolder(),
+			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_PLAINS.makeAndSetHolder(WWConfiguredFeatures.FLOWER_PLAINS.getHolder(),
-			CountPlacement.of(1), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_TUNDRA.makeAndSetHolder(WWConfiguredFeatures.FLOWER_TUNDRA.getHolder(),
+			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_BIRCH.makeAndSetHolder(WWConfiguredFeatures.FLOWER_BIRCH.getHolder(),
+			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1302,7 +1326,7 @@ public final class WWPlacedFeatures {
 		);
 
 		GLORY_OF_THE_SNOW.makeAndSetHolder(WWConfiguredFeatures.GLORY_OF_THE_SNOW.getHolder(),
-			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

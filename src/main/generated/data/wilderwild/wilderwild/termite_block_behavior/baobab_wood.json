@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:baobab_wood",
+  "natural_termite_usable": true,
+  "output_block": "wilderwild:stripped_baobab_wood",
+  "player_placed_termite_usable": true
+}

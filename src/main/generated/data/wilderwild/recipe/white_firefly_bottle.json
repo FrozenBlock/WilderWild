@@ -4,10 +4,23 @@
   "group": "firefly_bottle",
   "ingredients": [
     "minecraft:white_dye",
-    "wilderwild:firefly_bottle"
+    {
+      "fabric:type": "fabric:components",
+      "base": "wilderwild:firefly_bottle",
+      "components": {
+        "wilderwild:bottle_entity_data": {
+          "FireflyBottleVariantTag": "wilderwild:on"
+        }
+      }
+    }
   ],
   "result": {
+    "components": {
+      "wilderwild:bottle_entity_data": {
+        "FireflyBottleVariantTag": "wilderwild:white"
+      }
+    },
     "count": 1,
-    "id": "wilderwild:white_firefly_bottle"
+    "id": "wilderwild:firefly_bottle"
   }
 }

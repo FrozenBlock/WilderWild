@@ -23,17 +23,17 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.entity.variant.FireflyColor;
-import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -43,9 +43,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -106,44 +106,51 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit
+	) {
 		if (level.isClientSide) {
 			return InteractionResult.SUCCESS;
 		}
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity instanceof DisplayLanternBlockEntity lantern) {
 			if (lantern.invEmpty()) {
-				if (stack.getItem() instanceof FireflyBottle bottle) {
-					if (lantern.getFireflies().size() < MAX_FIREFLIES) {
-						String name = "";
-						if (stack.has(DataComponents.CUSTOM_NAME)) {
-							name = stack.getHoverName().getString();
+				if (stack.has(WWDataComponents.BOTTLE_ENTITY_DATA)) {
+					CustomData colorData = stack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
+					if (colorData != null && !colorData.isEmpty()) {
+						CompoundTag tag = colorData.copyTag();
+						ResourceLocation color = ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD));
+
+						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
+							String name = "";
+							if (stack.has(DataComponents.CUSTOM_NAME)) {
+								name = stack.getHoverName().getString();
+							}
+							lantern.addFirefly(level, color, name);
+							if (!player.getAbilities().instabuild) {
+								player.getItemInHand(hand).shrink(1);
+							}
+							player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
+							level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+							level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+							lantern.updateSync();
+							level.updateNeighbourForOutputSignal(pos, this);
+							return InteractionResult.SUCCESS;
 						}
-						lantern.addFirefly(level, bottle, name);
-						if (!player.isCreative()) {
-							player.getItemInHand(hand).shrink(1);
-						}
-						player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
-						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-						level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-						lantern.updateSync();
-						level.updateNeighbourForOutputSignal(pos, this);
-						return InteractionResult.SUCCESS;
 					}
-				}
-				if (stack.is(Items.GLASS_BOTTLE)) {
+				} else if (stack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
 						DisplayLanternBlockEntity.Occupant fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
-						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath(fireflyInLantern.color.key().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.key().getPath() + "_firefly_bottle"));
-						Item item = WWItems.FIREFLY_BOTTLE;
-						if (optionalItem.isPresent()) {
-							item = optionalItem.get();
-						}
 						level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-						if (!player.isCreative()) {
+						if (!player.getAbilities().instabuild) {
 							player.getItemInHand(hand).shrink(1);
 						}
-						ItemStack bottleStack = new ItemStack(item);
+						ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
+						CustomData.update(
+							WWDataComponents.BOTTLE_ENTITY_DATA,
+							bottleStack,
+							compoundTag -> compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, fireflyInLantern.getColor().toString())
+						);
 						if (!Objects.equals(fireflyInLantern.customName, "")) {
 							bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
 						}
@@ -281,8 +288,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ?
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) :
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick());
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.component.CustomData;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWDataComponents {
@@ -33,6 +34,11 @@ public final class WWDataComponents {
 		"fireflies",
 		builder -> builder.persistent(DisplayLanternBlockEntity.Occupant.LIST_CODEC)
 			.networkSynchronized(DisplayLanternBlockEntity.Occupant.STREAM_CODEC.apply(ByteBufCodecs.list()))
+	);
+	public static final DataComponentType<CustomData> BOTTLE_ENTITY_DATA = register(
+		"bottle_entity_data",
+		builder -> builder.persistent(CustomData.CODEC)
+			.networkSynchronized(CustomData.STREAM_CODEC)
 	);
 
 	public static void init() {}

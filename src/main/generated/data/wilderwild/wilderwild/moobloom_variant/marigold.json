@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_marigold",
+  "flower_block_state": {
+    "Name": "wilderwild:marigold"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_marigold"
+}

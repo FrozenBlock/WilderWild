@@ -67,6 +67,11 @@ public class V3328Mixin {
 		);
 		schema.register(
 			map,
+			WWConstants.string("butterfly"),
+			() -> V100.equipment(schema)
+		);
+		schema.register(
+			map,
 			WWConstants.string("tumbleweed"),
 			(string) -> DSL.optionalFields("Items", References.ITEM_STACK.in(schema), V100.equipment(schema))
 		);

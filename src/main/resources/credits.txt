@@ -24,6 +24,8 @@ Soro:
  - Water Pools generating near Rivers.
  - Scorched Sand concept.
  - Baobab Nuts.
+ - Help with Maple tree variants in worldgen.
+ - Huge help implementing and tweaking the Tundra biome.
 
 Contributors:
 
@@ -44,12 +46,17 @@ Zhen:
  - Retextured Coconut blocks in 3.0.
  - Came up with Mycelium Growths.
  - Mycelium Growth texture.
+ - New falling leaf textures in 3.0.9.
+ - Pasqueflower idea and texture.
+ - Butterfly textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
  - Scorching effect icon.
  - Retextured Null Blocks in 2.4.3.
  - Crimson and Warped Shelf Fungi textures.
+ - New falling leaf textures in 3.0.9.
+ - Moobloom textures.
 
 LudoCrypt:
  - New music.
@@ -61,10 +68,6 @@ Enri:
 
 LiukRast:
  - Baobab Tree generation.
-
-Xfrtrex:
- - Prickly Pear and Tumbleweed ideas.
- - Came up with Firework Rockets being impacted by the wind.
 
 wet.noodle/Kluski42:
  - Thick Big Fungus growing from Fungi.
@@ -109,6 +112,13 @@ Rebel459
 wet.noodle/Ashlyn
  - Suggested adding Reach Boost to Beacons.
  - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
+
+Xfrtrex:
+ - Prickly Pear and Tumbleweed ideas.
+ - Came up with Firework Rockets being impacted by the wind.
+
+Lufurrius
+ - Fixed Hollowed Log UV/rotations in 3.1.
 
 Osmiooo:
  - French translation.

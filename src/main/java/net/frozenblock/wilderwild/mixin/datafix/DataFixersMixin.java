@@ -81,6 +81,7 @@ public class DataFixersMixin {
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ostrich"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("crab"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("firefly"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, WWConstants.string("butterfly"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("tumbleweed"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("coconut"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("chest_bubbler"), References.ENTITY));

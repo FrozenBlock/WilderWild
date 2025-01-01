@@ -19,11 +19,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
+import net.frozenblock.wilderwild.advancement.MobBottleTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
 public final class WWCriteria {
-	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(WWConstants.string("firefly_bottle"), new FireflyBottleTrigger());
+	public static final MobBottleTrigger MOB_BOTTLE = CriteriaTriggers.register(WWConstants.string("mob_bottle"), new MobBottleTrigger());
 
 	private WWCriteria() {
 		throw new UnsupportedOperationException("WWCriteria contains only static declarations.");

@@ -2,7 +2,12 @@
   "parent": "minecraft:husbandry/root",
   "criteria": {
     "firefly_bottled": {
-      "trigger": "wilderwild:firefly_bottle"
+      "conditions": {
+        "item": {
+          "items": "wilderwild:firefly_bottle"
+        }
+      },
+      "trigger": "wilderwild:mob_bottle"
     }
   },
   "display": {

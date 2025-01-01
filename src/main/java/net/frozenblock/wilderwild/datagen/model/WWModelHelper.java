@@ -20,13 +20,13 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
-import net.frozenblock.wilderwild.item.property.IsCracked;
-import net.frozenblock.wilderwild.item.property.StackDamage;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.Util;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -82,9 +82,14 @@ public final class WWModelHelper {
 	);
 	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
 	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
-	private static final ModelTemplate HOLLOWED_LOG_MODEL = new ModelTemplate(
+	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
 		Optional.empty(),
+		TextureSlot.SIDE, TextureSlot.INSIDE, TextureSlot.END
+	);
+	private static final ModelTemplate HORIZONTAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_hollowed_log_horizontal")),
+		Optional.of("_horizontal"),
 		TextureSlot.SIDE, TextureSlot.INSIDE, TextureSlot.END
 	);
 	private static final ModelTemplate MESOGLEA_MODEL = new ModelTemplate(
@@ -157,21 +162,22 @@ public final class WWModelHelper {
 		hollowedTextureMapping.put(TextureSlot.INSIDE, insideTextureMapping.get(TextureSlot.SIDE));
 		hollowedTextureMapping.put(TextureSlot.END, endTextureMapping.get(TextureSlot.END));
 
-		ResourceLocation modelId = HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
+		ResourceLocation verticalModelId = VERTICAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
+		ResourceLocation horizontalModelId = HORIZONTAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
 		MultiVariantGenerator multiVariantGenerator = MultiVariantGenerator.multiVariant(hollowedLog)
 			.with(PropertyDispatch.property(BlockStateProperties.AXIS)
-				.select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelId))
+				.select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, verticalModelId))
 				.select(
-					Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelId)
+					Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, horizontalModelId)
 						.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 				).select(
-					Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelId)
+					Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, horizontalModelId)
 						.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 						.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
 				)
 			);
 		generator.blockStateOutput.accept(multiVariantGenerator);
-		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(modelId));
+		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(verticalModelId));
 	}
 
 	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, ResourceLocation texture) {
@@ -282,19 +288,31 @@ public final class WWModelHelper {
 	}
 
 	public static void generateScorchedSandItem(ItemModelGenerators generator, Item item) {
-		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item, "_cracked"));
-		generator.generateBooleanDispatch(item, new IsCracked(), unbaked2, unbaked);
+		generator.itemModelOutput.accept(
+			item,
+			ItemModelUtils.selectBlockItemProperty(
+				WWBlockStateProperties.CRACKED,
+				ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item)),
+				Map.of(
+					true, ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item, "_cracked"))
+				)
+			)
+		);
+
 	}
 
 	public static void generateEchoGlass(ItemModelGenerators generator, Item item) {
-		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked1 = ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_1"));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_2"));
-		ItemModel.Unbaked unbaked3 = ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_3"));
 		generator.itemModelOutput.accept(
 			item,
-			ItemModelUtils.rangeSelect(new StackDamage(4), unbaked, ItemModelUtils.override(unbaked1, 0.25F), ItemModelUtils.override(unbaked2, 0.5F), ItemModelUtils.override(unbaked3, 0.75F))
+			ItemModelUtils.selectBlockItemProperty(
+				WWBlockStateProperties.DAMAGE,
+				ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item)),
+				Map.of(
+					1, ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_1")),
+					2, ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_2")),
+					3, ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_3"))
+				)
+			)
 		);
 	}
 }
