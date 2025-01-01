@@ -16,15 +16,13 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.datagen.registry;
+package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Instruments;
 
-public class WWInstrumentRegistry {
+public class WWInstruments {
 
 	public static void bootstrap(BootstrapContext<Instrument> registry) {
 		Instruments.register(registry, WWItems.RECORDER_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_RECORDER, 32767, 64F);

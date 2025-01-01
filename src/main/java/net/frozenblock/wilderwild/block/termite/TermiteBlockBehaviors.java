@@ -269,10 +269,5 @@ public final class TermiteBlockBehaviors {
 		registerBreakable(bootstrapContext, "stripped_hollowed_logs", WWBlockTags.STRIPPED_HOLLOWED_LOGS);
 		registerBreakable(bootstrapContext, Blocks.BAMBOO);
 		registerBreakable(bootstrapContext, Blocks.DEAD_BUSH);
-		registerBreakable(
-			bootstrapContext,
-			"immersive_weathering_leaf_piles",
-			TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("immersive_weathering", "leaf_piles"))
-		);
 	}
 }
