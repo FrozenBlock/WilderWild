@@ -83,7 +83,7 @@ public class FallingLeafUtil {
 		}
 	}
 
-	public static Optional<FallingLeafData> getFallingLeafData(Block block) {
+	public static @NotNull Optional<FallingLeafData> getFallingLeafData(Block block) {
 		return Optional.ofNullable(LEAVES_TO_FALLING_LEAF_DATA.get(block));
 	}
 
