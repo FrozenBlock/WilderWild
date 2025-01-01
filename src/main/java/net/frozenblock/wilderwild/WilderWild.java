@@ -36,7 +36,6 @@ import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -79,8 +78,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WWDataComponents.init();
 		WilderWildRegistries.initRegistry();
+
+		WWDataComponents.init();
 		WWBlocks.registerBlocks();
 		WWCreativeInventorySorting.init();
 		WWItems.registerItems();
@@ -103,9 +103,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWFeatures.init();
 		WWBiomes.init();
 		WWWorldGen.generateWildWorldGen();
-
-		TermiteManager.Termite.addDegradableBlocks();
-		TermiteManager.Termite.addNaturalDegradableBlocks();
 		WWBlocks.registerBlockProperties();
 		WWVillagers.register();
 
@@ -128,7 +125,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override
 	public void newCategories(@NotNull ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), WWEntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), WWEntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), WWEntityConfig.get().butterfly.butterflySpawnCap, true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WWEntityConfig.get().jellyfish.jellyfishSpawnCap, true, false, 64));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), WWEntityConfig.get().crab.crabSpawnCap, true, false, 84));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WWEntityConfig.get().tumbleweed.tumbleweedSpawnCap, true, false, 64));

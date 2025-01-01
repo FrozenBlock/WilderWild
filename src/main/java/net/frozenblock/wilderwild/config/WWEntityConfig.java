@@ -71,23 +71,14 @@ public final class WWEntityConfig {
 	public static volatile boolean WARDEN_SWIMS = true;
 
 	public static final class Client {
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean ALLAY_KEYFRAME_DANCE = false;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_SWIM_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_CUSTOM_TENDRIL_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_IMPROVED_DIM_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_IMPROVED_EMERGE_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
-		@Environment(EnvType.CLIENT)
 		public static volatile boolean JELLYFISH_PLANE_TENTACLES = true;
 	}
 
@@ -104,6 +95,9 @@ public final class WWEntityConfig {
 	public final FireflyConfig firefly = new FireflyConfig();
 
 	@CollapsibleObject
+	public final ButterflyConfig butterfly = new ButterflyConfig();
+
+	@CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
 	@CollapsibleObject
@@ -114,6 +108,9 @@ public final class WWEntityConfig {
 
 	@CollapsibleObject
 	public final ScorchedConfig scorched = new ScorchedConfig();
+
+	@CollapsibleObject
+	public final MoobloomConfig moobloom = new MoobloomConfig();
 
 	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
@@ -170,6 +167,14 @@ public final class WWEntityConfig {
 		public int fireflySpawnCap = 56;
 	}
 
+	public static class ButterflyConfig {
+		@EntrySyncData("spawnButterflies")
+		public boolean spawnButterflies = true;
+
+		@EntrySyncData("butterflySpawnCap")
+		public int butterflySpawnCap = 10;
+	}
+
 	public static class JellyfishConfig {
 		@EntrySyncData("spawnJellyfish")
 		public boolean spawnJellyfish = true;
@@ -209,6 +214,11 @@ public final class WWEntityConfig {
 
 		@EntrySyncData("scorchedInTrialChambers")
 		public boolean scorchedInTrialChambers = true;
+	}
+
+	public static class MoobloomConfig {
+		@EntrySyncData("spawnMooblooms")
+		public boolean spawnMooblooms = true;
 	}
 
 	public static class TumbleweedConfig {

@@ -52,8 +52,9 @@ import org.jetbrains.annotations.Nullable;
 
 public final class MapleForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.3F);
-	public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 	public static final float TEMP = 0.6F;
@@ -176,7 +177,16 @@ public final class MapleForest extends FrozenBiome {
 				HUMIDITY,
 				CONTINENTALNESS,
 				EROSION,
-				WEIRDNESS,
+				WEIRDNESS_A,
+				0F
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS_B,
 				0F
 			);
 		}

@@ -22,11 +22,13 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Scorched;
@@ -49,7 +51,14 @@ import org.jetbrains.annotations.NotNull;
 public final class WWEntityTypes {
 	public static final EntityType<Firefly> FIREFLY = register(
 		"firefly",
-		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "fireflies"))
+		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))
+			.sized(0.3F, 0.3F)
+			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+	);
+
+	public static final EntityType<Butterfly> BUTTERFLY = register(
+		"butterfly",
+		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 	);
@@ -89,6 +98,15 @@ public final class WWEntityTypes {
 			.eyeHeight(0.585F)
 			.fireImmune()
 			.clientTrackingRange(8)
+	);
+
+	public static final EntityType<FlowerCow> MOOBLOOM = register(
+		"moobloom",
+		EntityType.Builder.of(FlowerCow::new, MobCategory.CREATURE)
+			.sized(0.9F, 1.4F)
+			.eyeHeight(1.3F)
+			.passengerAttachments(1.36875F)
+			.clientTrackingRange(10)
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
@@ -207,6 +225,14 @@ public final class WWEntityTypes {
 			Firefly::checkFireflySpawnRules
 		);
 
+		FabricDefaultAttributeRegistry.register(BUTTERFLY, Butterfly.createAttributes());
+		SpawnPlacements.register(
+			BUTTERFLY,
+			SpawnPlacementTypes.NO_RESTRICTIONS,
+			Heightmap.Types.MOTION_BLOCKING,
+			Butterfly::checkButterflySpawnRules
+		);
+
 		FabricDefaultAttributeRegistry.register(JELLYFISH, Jellyfish.createAttributes());
 		SpawnPlacements.register(
 			JELLYFISH,
@@ -244,6 +270,14 @@ public final class WWEntityTypes {
 			FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(MOOBLOOM, FlowerCow.createAttributes());
+		SpawnPlacements.register(
+			MOOBLOOM,
+			SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			FlowerCow::checkFlowerCowSpawnRules
 		);
 	}
 

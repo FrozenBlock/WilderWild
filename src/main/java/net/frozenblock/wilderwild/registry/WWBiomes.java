@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.worldgen.biome.SnowyOldGrowthPineTaiga;
 import net.frozenblock.wilderwild.worldgen.biome.SparseBirchJungle;
 import net.frozenblock.wilderwild.worldgen.biome.SparseForest;
 import net.frozenblock.wilderwild.worldgen.biome.TemperateRainforest;
+import net.frozenblock.wilderwild.worldgen.biome.Tundra;
 import net.frozenblock.wilderwild.worldgen.biome.WarmBeach;
 import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -82,6 +83,7 @@ public final class WWBiomes {
 	public static final ResourceKey<Biome> DARK_TAIGA = DarkTaiga.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MIXED_FOREST = MixedForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SPARSE_FOREST = SparseForest.INSTANCE.getKey();
+	public static final ResourceKey<Biome> TUNDRA = Tundra.INSTANCE.getKey();
 	// COLD
 	public static final ResourceKey<Biome> DYING_FOREST = DyingForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SNOWY_DYING_FOREST = SnowyDyingForest.INSTANCE.getKey();
@@ -130,6 +132,7 @@ public final class WWBiomes {
 		register(context, DARK_TAIGA, DarkTaiga.INSTANCE.create(context));
 		register(context, MIXED_FOREST, MixedForest.INSTANCE.create(context));
 		register(context, SPARSE_FOREST, SparseForest.INSTANCE.create(context));
+		register(context, TUNDRA, Tundra.INSTANCE.create(context));
 		// COLD
 		register(context, DYING_FOREST, DyingForest.INSTANCE.create(context));
 		register(context, SNOWY_DYING_FOREST, SnowyDyingForest.INSTANCE.create(context));

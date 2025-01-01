@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:flower_forest",
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:feature/has_marigold",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:feature/has_marigold_sparse",
+      "required": false
+    }
+  ]
+}

@@ -99,7 +99,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
 			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.MARIGOLD);
+			.add(WWBlocks.MARIGOLD)
+			.add(WWBlocks.PASQUEFLOWER);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
@@ -467,7 +468,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.LARGE_FERN)
 			.add(Blocks.PEONY)
 			.add(Blocks.ROSE_BUSH)
-			.add(WWBlocks.CATTAIL);
+			.add(Blocks.DEAD_BUSH)
+			.add(WWBlocks.CATTAIL)
+			.add(WWBlocks.MILKWEED)
+			.add(WWBlocks.BUSH)
+			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.CRAB_HIDEABLE)
 			.addOptionalTag(BlockTags.DIRT)
@@ -761,32 +766,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
 			.addOptionalTag(BlockTags.WARPED_STEMS)
 			.addOptionalTag(BlockTags.CRIMSON_STEMS);
-
-		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_BREAKABLE)
-			.addOptionalTag(BlockTags.LEAVES)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
-			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS)
-			.add(Blocks.BAMBOO)
-			.add(Blocks.DEAD_BUSH)
-			.add(Blocks.STRIPPED_ACACIA_WOOD)
-			.add(Blocks.STRIPPED_BIRCH_WOOD)
-			.add(Blocks.STRIPPED_DARK_OAK_WOOD)
-			.add(Blocks.STRIPPED_JUNGLE_WOOD)
-			.add(Blocks.STRIPPED_MANGROVE_WOOD)
-			.add(Blocks.STRIPPED_OAK_WOOD)
-			.add(Blocks.STRIPPED_SPRUCE_WOOD)
-			.add(Blocks.STRIPPED_CHERRY_WOOD)
-			.add(WWBlocks.STRIPPED_BAOBAB_WOOD)
-			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
-			.add(WWBlocks.STRIPPED_PALM_WOOD)
-			.add(WWBlocks.STRIPPED_MAPLE_WOOD)
-			.addOptional(WWConstants.vanillaId("stripped_pale_oak_wood"))
-			.addOptional(
-				ResourceKey.create(
-					Registries.BLOCK,
-					ResourceLocation.parse("immersive_weathering:leaf_piles")
-				)
-			);
 	}
 
 	private void generateMinecraft() {
@@ -915,7 +894,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_PRICKLY_PEAR)
 			.add(WWBlocks.POTTED_CARNATION)
 			.add(WWBlocks.POTTED_MARIGOLD)
-			.add(WWBlocks.POTTED_SEEDING_DANDELION);
+			.add(WWBlocks.POTTED_SEEDING_DANDELION)
+			.add(WWBlocks.POTTED_PASQUEFLOWER);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(WWBlocks.POLLEN);
@@ -924,6 +904,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CARNATION)
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.SEEDING_DANDELION)
+			.add(WWBlocks.PASQUEFLOWER)
 			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
 			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)

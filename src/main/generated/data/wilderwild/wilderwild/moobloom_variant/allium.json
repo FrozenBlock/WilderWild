@@ -1,0 +1,7 @@
+{
+  "biomes": "#wilderwild:entity/variant/moobloom_allium",
+  "flower_block_state": {
+    "Name": "minecraft:allium"
+  },
+  "texture": "wilderwild:entity/moobloom/moobloom_allium"
+}

@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
-	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/white.png");
+	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
 
 	public JellyfishRenderer(@NotNull Context context) {
 		super(context, new JellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
@@ -90,7 +90,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 		renderState.tickCount = entity.tickCount;
 		renderState.isRGB = entity.isRGB();
-		renderState.variant = entity.getVariant();
+		renderState.variant = entity.getVariantForRendering();
 		renderState.windTime = (ClientWindManager.time + partialTick) * 0.05F;
 
 		renderState.jellyXRot = -(entity.xRot1 + partialTick * (entity.xBodyRot - entity.xRot1)) * Mth.DEG_TO_RAD;

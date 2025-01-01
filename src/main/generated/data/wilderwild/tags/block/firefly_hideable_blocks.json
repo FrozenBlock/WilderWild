@@ -6,6 +6,13 @@
     "minecraft:large_fern",
     "minecraft:peony",
     "minecraft:rose_bush",
-    "wilderwild:cattail"
+    "minecraft:dead_bush",
+    "wilderwild:cattail",
+    "wilderwild:milkweed",
+    "wilderwild:bush",
+    {
+      "id": "#minecraft:small_flowers",
+      "required": false
+    }
   ]
 }

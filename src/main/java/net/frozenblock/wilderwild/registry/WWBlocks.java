@@ -71,7 +71,6 @@ import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
@@ -212,7 +211,7 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.BAMBOO)
 			.sound(WWSoundTypes.BAOBAB_NUT)
 	);
-	public static final Block POTTED_BAOBAB_NUT = register("potted_baobab_nut",
+	public static final Block POTTED_BAOBAB_NUT = registerWithoutItem("potted_baobab_nut",
 		properties -> new FlowerPotBlock(BAOBAB_NUT, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -228,7 +227,7 @@ public final class WWBlocks {
 		properties -> new WaterloggableSaplingBlock(WWTreeGrowers.CYPRESS, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
-	public static final Block POTTED_CYPRESS_SAPLING = register("potted_cypress_sapling",
+	public static final Block POTTED_CYPRESS_SAPLING = registerWithoutItem("potted_cypress_sapling",
 		properties -> new FlowerPotBlock(CYPRESS_SAPLING, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -237,7 +236,7 @@ public final class WWBlocks {
 		properties -> new CoconutBlock(WWTreeGrowers.PALM, properties),
 		Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
 	);
-	public static final Block POTTED_COCONUT = register("potted_coconut",
+	public static final Block POTTED_COCONUT = registerWithoutItem("potted_coconut",
 		properties -> new FlowerPotBlock(COCONUT, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -246,7 +245,7 @@ public final class WWBlocks {
 		properties -> new SaplingBlock(WWTreeGrowers.MAPLE, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
-	public static final Block POTTED_MAPLE_SAPLING = register("potted_maple_sapling",
+	public static final Block POTTED_MAPLE_SAPLING = registerWithoutItem("potted_maple_sapling",
 		properties -> new FlowerPotBlock(MAPLE_SAPLING, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -541,7 +540,7 @@ public final class WWBlocks {
 		properties -> new SeedingFlowerBlock(MobEffects.SLOW_FALLING, 12, Blocks.DANDELION, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final Block POTTED_SEEDING_DANDELION = register("potted_seeding_dandelion",
+	public static final Block POTTED_SEEDING_DANDELION = registerWithoutItem("potted_seeding_dandelion",
 		properties -> new FlowerPotBlock(SEEDING_DANDELION, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -550,7 +549,7 @@ public final class WWBlocks {
 		properties -> new FlowerBlock(MobEffects.REGENERATION, 12, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final Block POTTED_CARNATION = register("potted_carnation",
+	public static final Block POTTED_CARNATION = registerWithoutItem("potted_carnation",
 		properties -> new FlowerPotBlock(CARNATION, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -559,8 +558,21 @@ public final class WWBlocks {
 		properties -> new FlowerBlock(MobEffects.DAMAGE_RESISTANCE, 8, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final Block POTTED_MARIGOLD = register("potted_marigold",
+	public static final Block POTTED_MARIGOLD = registerWithoutItem("potted_marigold",
 		properties -> new FlowerPotBlock(MARIGOLD, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final FlowerBlock PASQUEFLOWER = register("pasqueflower",
+		properties -> new FlowerBlock(
+			MobEffects.NIGHT_VISION,
+			8,
+			properties
+		),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_PASQUEFLOWER = registerWithoutItem("potted_pasqueflower",
+		properties -> new FlowerPotBlock(PASQUEFLOWER, properties),
 		Blocks.flowerPotProperties()
 	);
 
@@ -568,7 +580,7 @@ public final class WWBlocks {
 		MyceliumGrowthBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.NETHER_SPROUTS)
 	);
-	public static final Block POTTED_MYCELIUM_GROWTH = register("potted_mycelium_growth",
+	public static final Block POTTED_MYCELIUM_GROWTH = registerWithoutItem("potted_mycelium_growth",
 		properties -> new FlowerPotBlock(MYCELIUM_GROWTH, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -641,7 +653,7 @@ public final class WWBlocks {
 			.randomTicks()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
-	public static final Block POTTED_BUSH = register("potted_bush",
+	public static final Block POTTED_BUSH = registerWithoutItem("potted_bush",
 		properties -> new FlowerPotBlock(BUSH, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -653,7 +665,7 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
-	public static final Block POTTED_TUMBLEWEED_PLANT = register("potted_tumbleweed_plant",
+	public static final Block POTTED_TUMBLEWEED_PLANT = registerWithoutItem("potted_tumbleweed_plant",
 		properties -> new FlowerPotBlock(TUMBLEWEED_PLANT, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -665,26 +677,26 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
-	public static final Block POTTED_TUMBLEWEED = register("potted_tumbleweed",
+	public static final Block POTTED_TUMBLEWEED = registerWithoutItem("potted_tumbleweed",
 		properties -> new FlowerPotBlock(TUMBLEWEED, properties),
 		Blocks.flowerPotProperties()
 	);
 
-	public static final Block POTTED_BIG_DRIPLEAF = register("potted_big_dripleaf",
+	public static final Block POTTED_BIG_DRIPLEAF = registerWithoutItem("potted_big_dripleaf",
 		properties -> new FlowerPotBlock(Blocks.BIG_DRIPLEAF, properties),
 		Blocks.flowerPotProperties()
 	);
-	public static final Block POTTED_SMALL_DRIPLEAF = register("potted_small_dripleaf",
+	public static final Block POTTED_SMALL_DRIPLEAF = registerWithoutItem("potted_small_dripleaf",
 		properties -> new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, properties),
 		Blocks.flowerPotProperties()
 	);
 
-	public static final Block POTTED_SHORT_GRASS = register("potted_short_grass",
+	public static final Block POTTED_SHORT_GRASS = registerWithoutItem("potted_short_grass",
 		properties -> new FlowerPotBlock(Blocks.SHORT_GRASS, properties),
 		Blocks.flowerPotProperties()
 	);
 
-	public static final Block POTTED_PRICKLY_PEAR = register("potted_prickly_pear",
+	public static final Block POTTED_PRICKLY_PEAR = registerWithoutItem("potted_prickly_pear",
 		properties -> new FlowerPotBlock(PRICKLY_PEAR_CACTUS, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -1391,39 +1403,6 @@ public final class WWBlocks {
 
 	public static void registerBlockProperties() {
 		registerDispenses();
-		TermiteManager.Termite.addDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
-		TermiteManager.Termite.addDegradable(HOLLOWED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
-		TermiteManager.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
-
-		TermiteManager.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-		TermiteManager.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
-
-		TermiteManager.Termite.addDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
-		TermiteManager.Termite.addDegradable(HOLLOWED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
-		TermiteManager.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-
-		TermiteManager.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-		TermiteManager.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-
-		TermiteManager.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
-		TermiteManager.Termite.addDegradable(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
-		TermiteManager.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
-
-		TermiteManager.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
-		TermiteManager.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
-
-		TermiteManager.Termite.addDegradable(MAPLE_LOG, STRIPPED_MAPLE_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
-		TermiteManager.Termite.addDegradable(HOLLOWED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);
-		TermiteManager.Termite.addDegradable(MAPLE_WOOD, STRIPPED_MAPLE_WOOD);
-
-		TermiteManager.Termite.addNaturalDegradable(MAPLE_LOG, STRIPPED_MAPLE_LOG);
-		TermiteManager.Termite.addNaturalDegradable(MAPLE_WOOD, STRIPPED_MAPLE_WOOD);
-
-		TermiteManager.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
 
 		var sign = (FabricBlockEntityType) BlockEntityType.SIGN;
 		var hangingSign = (FabricBlockEntityType) BlockEntityType.HANGING_SIGN;

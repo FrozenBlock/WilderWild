@@ -23,6 +23,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.model.ButterflyModel;
 import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.model.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
@@ -32,8 +33,10 @@ import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRend
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.StoneChestRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.ButterflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.FlowerCowRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
@@ -42,6 +45,7 @@ import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.SpiderModel;
+import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -68,6 +72,9 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation OSTRICH_BABY_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "saddle");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
+	public static final ModelLayerLocation BUTTERFLY = new ModelLayerLocation(WWConstants.id("butterfly"), "main");
+	public static final ModelLayerLocation MOOBLOOM = new ModelLayerLocation(WWConstants.id("moobloom"), "main");
+	public static final ModelLayerLocation MOOBLOOM_BABY = new ModelLayerLocation(WWConstants.id("moobloom_baby"), "main");
 
 	// BOATS
 	public static final ModelLayerLocation BAOBAB_BOAT = new ModelLayerLocation(WWConstants.id("boat/baobab"), "main");
@@ -79,9 +86,11 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation MAPLE_BOAT = new ModelLayerLocation(WWConstants.id("boat/maple"), "main");
 	public static final ModelLayerLocation MAPLE_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/maple"), "main");
 
-
 	public static void init() {
 		EntityRendererRegistry.register(WWEntityTypes.FIREFLY, FireflyRenderer::new);
+
+		EntityRendererRegistry.register(WWEntityTypes.BUTTERFLY, ButterflyRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.JELLYFISH, JellyfishRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
@@ -103,6 +112,10 @@ public final class WWModelLayers {
 
 		EntityRendererRegistry.register(WWEntityTypes.SCORCHED, ScorchedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SCORCHED, SpiderModel::createSpiderBodyLayer);
+
+		EntityRendererRegistry.register(WWEntityTypes.MOOBLOOM, FlowerCowRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(MOOBLOOM, CowModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(MOOBLOOM_BABY, () -> CowModel.createBodyLayer().apply(CowModel.BABY_TRANSFORMER));
 
 		EntityRendererRegistry.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
 

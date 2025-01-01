@@ -25,11 +25,13 @@ import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider
 import net.frozenblock.lib.datagen.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -55,24 +57,36 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		HolderLookup.Provider registryLookup = this.registries.join();
 
-		WWLootData.NEMATOCYST_BY_VARIANT.forEach((variant, item) -> {
-			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(variant.key().getNamespace(), "entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + variant.key().getPath());
-			output.accept(
-				ResourceKey.create(Registries.LOOT_TABLE, id),
-				LootTable.lootTable()
-					.withPool(
-						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.setBonusRolls(ConstantValue.exactly(0F))
-							.add(
-								LootItem.lootTableItem(item)
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
-									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
-							)
-					)
-					.setRandomSequence(id)
-			);
-		});
+		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
+			.listElements()
+			.forEach(reference -> {
+				ResourceLocation id = reference.key().location();
+				ResourceLocation lootTableId = ResourceLocation.fromNamespaceAndPath(
+					id.getNamespace(),
+					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + id.getPath()
+				);
+				String pearlescentFixedId = id.getPath();
+				if (pearlescentFixedId.contains("pearlescent_")) {
+					pearlescentFixedId = pearlescentFixedId.replace("pearlescent_", "");
+					pearlescentFixedId = pearlescentFixedId + "_pearlescent";
+				}
+				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(pearlescentFixedId + "_nematocyst"))).value();
+				output.accept(
+					ResourceKey.create(Registries.LOOT_TABLE, lootTableId),
+					LootTable.lootTable()
+						.withPool(
+							LootPool.lootPool()
+								.setRolls(ConstantValue.exactly(1F))
+								.setBonusRolls(ConstantValue.exactly(0F))
+								.add(
+									LootItem.lootTableItem(item)
+										.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
+										.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								)
+						)
+						.setRandomSequence(lootTableId)
+				);
+			});
 
 		output.accept(
 			WWEntityTypes.CRAB.getDefaultLootTable().orElseThrow(),
@@ -140,5 +154,32 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						)
 				)
 		);
+
+		output.accept(
+			WWEntityTypes.MOOBLOOM.getDefaultLootTable().orElseThrow(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.LEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.BEEF)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
+
+		output.accept(WWEntityTypes.FIREFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
+		output.accept(WWEntityTypes.BUTTERFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
 	}
 }

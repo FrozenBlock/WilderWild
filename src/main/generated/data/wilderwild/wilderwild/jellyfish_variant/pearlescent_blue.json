@@ -1,0 +1,6 @@
+{
+  "biomes": "#wilderwild:entity/variant/pearlescent_jellyfish",
+  "pearlescent": true,
+  "reproduction_food": "#wilderwild:pearlescent_jellyfish_food",
+  "texture": "wilderwild:entity/jellyfish/jellyfish_pearlescent_blue"
+}

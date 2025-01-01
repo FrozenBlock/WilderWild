@@ -33,7 +33,6 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_LOOP = registerForHolder("ambient.deep_dark.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_ADDITIONS = registerForHolder("ambient.dripstone_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_LOOP = registerForHolder("ambient.dripstone_caves.loop");
-	public static final Holder.Reference<SoundEvent> AMBIENT_GENERIC_CAVES_LOOP = registerForHolder("ambient.generic_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_ADDITIONS = registerForHolder("ambient.mesoglea_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_LOOP = registerForHolder("ambient.mesoglea_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
@@ -115,6 +114,8 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_BREAK = register("block.hollowed_stem.break");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_STEP = register("block.hollowed_stem.step");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_FALL = register("block.hollowed_stem.fall");
+	public static final SoundEvent LOG_HOLLOWED_AXE = register("block.log_hollowed.axe");
+	public static final SoundEvent STEM_HOLLOWED_AXE = register("block.stem_hollowed.axe");
 	public static final SoundEvent LOG_HOLLOWED = register("block.log_hollowed");
 	public static final SoundEvent STEM_HOLLOWED = register("block.stem_hollowed");
 	public static final SoundEvent BLOCK_ICE_PLACE = register("block.ice.place");
@@ -290,6 +291,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");
 	public static final SoundEvent ENTITY_SCORCHED_STEP = register("entity.scorched.step");
 	public static final SoundEvent ENTITY_SCORCHED_STEP_LAVA = register("entity.scorched.step_lava");
+	public static final SoundEvent ENTITY_MOOBLOOM_SHEAR = register("entity.moobloom.shear");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
@@ -305,6 +307,8 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
 	public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
 	public static final SoundEvent ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY = register("item.bottle.put_in_lantern_firefly");
+	public static final SoundEvent ITEM_BOTTLE_CATCH_BUTTERFLY = register("item.bottle.catch_butterfly");
+	public static final SoundEvent ITEM_BOTTLE_RELEASE_BUTTERFLY = register("item.bottle.release_butterfly");
 	public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
 	public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 	public static final SoundEvent ITEM_BUCKET_FILL_CRAB = register("item.bucket.fill_crab");

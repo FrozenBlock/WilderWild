@@ -580,15 +580,6 @@
       }
     ]
   },
-  "ambient.generic_caves.loop": {
-    "sounds": [
-      {
-        "name": "wilderwild:ambient/cave/generic/ambience",
-        "stream": true,
-        "volume": 1.0
-      }
-    ]
-  },
   "block.algae.break": {
     "sounds": [
       "wilderwild:block/algae/place1",
@@ -2710,6 +2701,12 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "entity.moobloom.shear": {
+    "sounds": [
+      "mob/sheep/shear"
+    ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",
@@ -2804,22 +2801,35 @@
   },
   "item.bottle.catch_firefly": {
     "sounds": [
-      "wilderwild:item/bottle/catch_firefly1",
-      "wilderwild:item/bottle/catch_firefly2"
+      "wilderwild:item/bottle/catch1",
+      "wilderwild:item/bottle/catch2"
     ],
     "subtitle": "subtitles.item.bottle.catch_firefly"
   },
   "item.bottle.release_firefly": {
     "sounds": [
-      "wilderwild:item/bottle/release_firefly1"
+      "wilderwild:item/bottle/release1"
     ],
     "subtitle": "subtitles.item.bottle.release_firefly"
   },
   "item.bottle.put_in_lantern_firefly": {
     "sounds": [
-      "wilderwild:item/bottle/release_firefly1"
+      "wilderwild:item/bottle/release1"
     ],
     "subtitle": "subtitles.item.bottle.put_in_lantern_firefly"
+  },
+  "item.bottle.catch_butterfly": {
+    "sounds": [
+      "wilderwild:item/bottle/catch1",
+      "wilderwild:item/bottle/catch2"
+    ],
+    "subtitle": "subtitles.item.bottle.catch_butterfly"
+  },
+  "item.bottle.release_butterfly": {
+    "sounds": [
+      "wilderwild:item/bottle/release1"
+    ],
+    "subtitle": "subtitles.item.bottle.release_butterfly"
   },
   "item.bucket.fill_jellyfish": {
     "sounds": [
@@ -3007,6 +3017,22 @@
       "wilderwild:item/potion/lingering1"
     ],
     "subtitle": "subtitles.entity.potion.linger"
+  },
+  "block.log_hollowed.axe": {
+    "sounds": [
+      "wilderwild:block/hollowed_log/hollow1",
+      "wilderwild:block/hollowed_log/hollow2",
+      "wilderwild:block/hollowed_log/hollow3"
+    ],
+    "subtitle": "subtitles.block.log_hollowed.axe"
+  },
+  "block.stem_hollowed.axe": {
+    "sounds": [
+      "wilderwild:block/hollowed_log/hollow1",
+      "wilderwild:block/hollowed_log/hollow2",
+      "wilderwild:block/hollowed_log/hollow3"
+    ],
+    "subtitle": "subtitles.block.stem_hollowed.axe"
   },
   "block.log_hollowed": {
     "sounds": [

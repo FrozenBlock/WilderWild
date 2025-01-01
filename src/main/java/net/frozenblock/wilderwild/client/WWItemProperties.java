@@ -22,10 +22,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 @Environment(EnvType.CLIENT)
@@ -40,5 +46,20 @@ public final class WWItemProperties {
 
 		ItemProperties.register(Items.BEE_NEST, WWConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 		ItemProperties.register(Items.BEEHIVE, WWConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(
+			WWItems.FIREFLY_BOTTLE,
+			WWConstants.vanillaId("color"),
+			(itemStack, clientLevel, livingEntity, seed) -> {
+				CustomData bottleData = itemStack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
+				if (clientLevel != null && bottleData != null && !bottleData.isEmpty()) {
+					CompoundTag tag = bottleData.copyTag();
+					return clientLevel.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+						.getOptional(ResourceLocation.parse(tag.getString("FireflyBottleVariantTag")))
+						.map(FireflyColor::modelPredicate).orElse(0F);
+				}
+				return 0F;
+			}
+		);
+
 	}
 }

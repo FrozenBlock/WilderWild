@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.util.datafix.fixes.References;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class DisplayLanternComponentizationFix extends DataFix {
@@ -65,7 +66,7 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 		List<Dynamic<?>> list = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		String colorID = WWConstants.string("on");
 		if (!list.isEmpty()) {
-			colorID = ((StringTag) list.get(0).getValue()).getAsString();
+			colorID = ((StringTag) list.getFirst().getValue()).getAsString();
 		}
 		return dynamic.set("color", dynamic.createString(colorID));
 	}
@@ -83,7 +84,8 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 		);
 	}
 
-	protected Typed<?> fix(@NotNull Typed<?> typed) {
+	@Contract("_ -> new")
+	private @NotNull Typed<?> fix(@NotNull Typed<?> typed) {
 		return typed.update(
 			DSL.remainderFinder(),
 			DisplayLanternComponentizationFix::fixOccupants

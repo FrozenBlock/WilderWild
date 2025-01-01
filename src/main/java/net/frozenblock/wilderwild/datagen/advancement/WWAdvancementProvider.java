@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
+import net.frozenblock.wilderwild.advancement.MobBottleTrigger;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
@@ -76,8 +76,23 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("firefly_bottled", FireflyBottleTrigger.TriggerInstance.fireflyBottle())
+			.addCriterion("firefly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWItems.FIREFLY_BOTTLE)))
 			.save(writer, WWConstants.string("husbandry/firefly_in_a_bottle"));
+
+		Advancement.Builder.advancement()
+			.parent(husbandry)
+			.display(
+				WWItems.BUTTERFLY_BOTTLE,
+				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.title"),
+				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.description"),
+				null,
+				AdvancementType.TASK,
+				true,
+				true,
+				false
+			)
+			.addCriterion("butterfly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWItems.BUTTERFLY_BOTTLE)))
+			.save(writer, WWConstants.string("husbandry/butterfly_in_a_bottle"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)

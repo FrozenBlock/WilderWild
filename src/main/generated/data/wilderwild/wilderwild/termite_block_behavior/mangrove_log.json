@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "minecraft:mangrove_log",
+  "natural_termite_usable": true,
+  "output_block": "minecraft:stripped_mangrove_log",
+  "player_placed_termite_usable": true
+}

@@ -1,0 +1,5 @@
+{
+  "edible_blocks": "#wilderwild:stripped_hollowed_logs",
+  "natural_termite_usable": false,
+  "player_placed_termite_usable": true
+}

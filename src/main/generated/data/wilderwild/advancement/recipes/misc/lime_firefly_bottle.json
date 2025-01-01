@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lime_dye": {
+    "has_firefly_bottle": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:lime_dye"
+            "items": "wilderwild:firefly_bottle"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_lime_dye"
+      "has_firefly_bottle"
     ]
   ],
   "rewards": {

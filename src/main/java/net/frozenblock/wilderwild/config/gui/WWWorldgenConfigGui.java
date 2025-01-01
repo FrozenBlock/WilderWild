@@ -392,13 +392,24 @@ public final class WWWorldgenConfigGui {
 			"generateMapleForest",
 			configInstance
 		);
+		var tundra = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_tundra"), modifiedBiomes.generateTundra)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateTundra)
+				.setSaveConsumer(newValue -> biomes.generateTundra = newValue)
+				.setTooltip(tooltip("generate_tundra"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateTundra",
+			configInstance
+		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
 			magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
-			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, warmBeach, warmRiver
+			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, tundra, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(
@@ -584,7 +595,19 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-
+		var pollen = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("pollen_generation"), modifiedConfig.pollen)
+					.setDefaultValue(defaultConfig.pollen)
+					.setSaveConsumer(newValue -> config.pollen = newValue)
+					.setTooltip(tooltip("pollen_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"pollen",
+				configInstance
+			)
+		);
 		var algae = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("algae_generation"), modifiedConfig.algae)
