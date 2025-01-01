@@ -42,7 +42,7 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 	public void extractRenderState(Butterfly butterfly, ButterflyRenderState renderState, float partialTick) {
 		super.extractRenderState(butterfly, renderState, partialTick);
 		renderState.downProgress = butterfly.getDownProgress(partialTick);
-		renderState.groundProgress = butterfly.getDownProgress(partialTick);
+		renderState.groundProgress = butterfly.getGroundProgress(partialTick);
 		renderState.flyingXRot = butterfly.getFlyingXRot(partialTick);
 	}
 
