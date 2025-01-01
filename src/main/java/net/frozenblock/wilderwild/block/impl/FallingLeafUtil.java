@@ -91,9 +91,8 @@ public class FallingLeafUtil {
 		return PARTICLE_TO_LEAF_PARTICLE_DATA.getOrDefault(leafParticle, DEFAULT_LEAF_PARTICLE_DATA);
 	}
 
-	public static void onRandomTick(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+	public static void onRandomTick(Block block, @NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		if (state.getValue(LeavesBlock.DISTANCE) < 7 && !state.getValue(LeavesBlock.PERSISTENT)) {
-			Block block = state.getBlock();
 
 			Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(block);
 			if (optionalFallingLeafData.isPresent()) {

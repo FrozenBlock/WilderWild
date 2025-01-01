@@ -43,7 +43,7 @@ public class BlockStateBaseMixin {
 	)
 	public void wilderWild$randomTick(Block instance, BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, Operation<Void> original) {
 		if (instance instanceof LeavesBlock) {
-			FallingLeafUtil.onRandomTick(blockState, serverLevel, blockPos, randomSource);
+			FallingLeafUtil.onRandomTick(instance, blockState, serverLevel, blockPos, randomSource);
 		}
 		original.call(instance, blockState, serverLevel, blockPos, randomSource);
 	}
