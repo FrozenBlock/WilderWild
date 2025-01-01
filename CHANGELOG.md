@@ -11,6 +11,7 @@ hi
 - Fixed the models of Hollowed Log blocks, now having proper UV and rotation like normal logs thanks to Luffurius! ([#443](https://github.com/FrozenBlock/WilderWild/pull/443))
 - Slightly optimized Tumbleweed rendering.
 - Added a config option to toggle rotatable Reinforced Deepslate.
+- Fixed Maple Leaves not dropping Leaf Litters.
 
 # Butterfly Branch
 - Added Butterflies

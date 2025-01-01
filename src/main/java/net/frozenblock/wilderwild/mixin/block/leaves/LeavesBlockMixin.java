@@ -18,38 +18,26 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
 
-	@WrapOperation(
-		method = "isRandomlyTicking",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
-			ordinal = 0
-		)
-	)
-	public Comparable<?> wilderWild$isRandomlyTicking(BlockState instance, Property property, Operation<Comparable> original) {
-		if (property == LeavesBlock.DISTANCE) {
-			if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).map(fallingLeafData -> fallingLeafData.leafLitterBlock().isPresent()).orElse(false)) {
-				return 7;
-			}
+	@Inject(method = "isRandomlyTicking", at = @At(value = "HEAD"), cancellable = true)
+	public void wilderWild$isRandomlyTicking(BlockState blockState, CallbackInfoReturnable<Boolean> info) {
+		if (FallingLeafUtil.getFallingLeafData(LeavesBlock.class.cast(this)).map(fallingLeafData -> fallingLeafData.leafLitterBlock().isPresent()).orElse(false)) {
+			info.setReturnValue(!blockState.getValue(LeavesBlock.PERSISTENT));
 		}
-		return original.call(instance, property);
 	}
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
