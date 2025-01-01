@@ -5,10 +5,6 @@
     "minecraft:meadow",
     "minecraft:windswept_hills",
     "minecraft:windswept_forest",
-<<<<<<< HEAD
-    "minecraft:dark_forest",
-=======
->>>>>>> 1.21.2
     "minecraft:cherry_grove",
     {
       "id": "wilderwild:semi_birch_forest",
