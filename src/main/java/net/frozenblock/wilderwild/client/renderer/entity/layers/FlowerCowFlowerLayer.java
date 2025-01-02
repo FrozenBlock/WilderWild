@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 FrozenBlock
+ * Copyright 2024-2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
