@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
@@ -36,10 +37,13 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabNavigation;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWGameEventTags;
@@ -57,6 +61,8 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -142,6 +148,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_AMOUNT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
 	public final AnimationState hidingAnimationState = new AnimationState();
@@ -154,6 +161,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	// CLIENT VARIABLES
 	public float climbAnimX;
 	public float prevClimbAnimX;
+	private Optional<CrabVariant> crabVariant = Optional.empty();
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -268,12 +276,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			default -> {
 			}
 		}
-		if (spawnData instanceof CrabGroupData crabGroupData) {
-			if (crabGroupData.getGroupSize() >= 2) {
-				this.setAge(-24000);
-			}
+
+		Holder<Biome> holder = level.getBiome(this.blockPosition());
+		if (spawnData instanceof CrabSpawnGroupData crabGroupData) {
+			if (crabGroupData.getGroupSize() >= 2) this.setAge(-24000);
+			this.setVariant(crabGroupData.type.value());
 		} else {
-			spawnData = new CrabGroupData();
+			Holder<CrabVariant> crabVariantHolder = CrabVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
+			spawnData = new CrabSpawnGroupData(crabVariantHolder);
+			this.setVariant(crabVariantHolder.value());
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
@@ -304,6 +315,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		builder.define(DIGGING_TICKS, 0);
 		builder.define(FROM_BUCKET, false);
 		builder.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
+		builder.define(VARIANT, CrabVariants.DEFAULT.location().toString());
 	}
 
 	@Override
@@ -635,6 +647,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			this.diggingAnimationState.stop();
 			this.emergingAnimationState.stop();
 			this.hidingAnimationState.start(this.tickCount);
+		} else if (VARIANT.equals(key)) {
+			this.crabVariant = Optional.of(this.getVariantByLocation());
 		}
 		super.onSyncedDataUpdated(key);
 	}
@@ -736,6 +750,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
+			if (otherParent instanceof Crab otherCrab) {
+				crab.setVariant(level.random.nextBoolean() ? this.getVariantByLocation() : otherCrab.getVariantByLocation());
+			}
 		}
 		return crab;
 	}
@@ -750,6 +767,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
+			compoundTag.putString("Variant", this.getVariantLocation().toString());
 			compoundTag.putInt("Age", this.getAge());
 			Brain<Crab> brain = this.getBrain();
 			if (brain.hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN)) {
@@ -761,12 +779,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void loadFromBucketTag(@NotNull CompoundTag tag) {
 		Bucketable.loadDefaultDataFromBucketTag(this, tag);
-		if (tag.contains("Age")) {
-			this.setAge(tag.getInt("Age"));
-		}
-		if (tag.contains("HuntingCooldown")) {
-			this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, tag.getLong("HuntingCooldown"));
-		}
+		if (tag.contains("Age")) this.setAge(tag.getInt("Age"));
+		if (tag.contains("HuntingCooldown")) this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, tag.getLong("HuntingCooldown"));
+		Optional.ofNullable(ResourceLocation.tryParse(tag.getString("Variant")))
+			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, resourceLocation))
+			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(resourceKey))
+			.ifPresent(reference -> this.setVariant(reference.value()));
 	}
 
 	@Override
@@ -811,9 +829,34 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("ditto");
 	}
 
+	public ResourceLocation getVariantLocation() {
+		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	}
+
+	public CrabVariant getVariantByLocation() {
+		return this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getValue(this.getVariantLocation());
+	}
+
+	public Holder<CrabVariant> getVariantAsHolder() {
+		return this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(this.getVariantLocation()).orElseThrow();
+	}
+
+	public CrabVariant getVariantForRendering() {
+		return this.crabVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getValue(CrabVariants.DEFAULT));
+	}
+
+	public void setVariant(@NotNull CrabVariant variant) {
+		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getKey(variant)).toString());
+	}
+
+	public void setVariant(@NotNull ResourceLocation variant) {
+		this.entityData.set(VARIANT, variant.toString());
+	}
+
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
+		compound.putString("variant", this.getVariantLocation().toString());
 		compound.putBoolean("FromBucket", this.fromBucket());
 		compound.putInt("DigTicks", this.getDiggingTicks());
 		VibrationSystem.Data.CODEC
@@ -833,6 +876,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
+		Optional.ofNullable(ResourceLocation.tryParse(compound.getString("variant")))
+			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, resourceLocation))
+			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(resourceKey))
+			.ifPresent(reference -> this.setVariant(reference.value()));
 		this.setFromBucket(compound.getBoolean("FromBucket"));
 		this.setDiggingTicks(compound.getInt("DigTicks"));
 		if (compound.contains("listener", 10)) {
@@ -911,11 +958,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 	}
 
-	public static class CrabGroupData
-		extends AgeableMob.AgeableMobGroupData {
+	public static class CrabSpawnGroupData extends AgeableMob.AgeableMobGroupData {
+		public final Holder<CrabVariant> type;
 
-		public CrabGroupData() {
+		public CrabSpawnGroupData(Holder<CrabVariant> holder) {
 			super(false);
+			this.type = holder;
 		}
 	}
 

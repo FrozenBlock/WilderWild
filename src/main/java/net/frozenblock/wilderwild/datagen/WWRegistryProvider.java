@@ -56,6 +56,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.BUTTERFLY_VARIANT)));
 		WWConstants.log("Adding finalized jellyfish variants to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.JELLYFISH_VARIANT)));
+		WWConstants.log("Adding finalized crab variants to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.CRAB_VARIANT)));
 		WWConstants.log("Adding finalized moobloom variants to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.MOOBLOOM_VARIANT)));
 		WWConstants.log("Adding finalized termite block behaviors to datagen", true);

@@ -59,7 +59,10 @@ voxelotl:
  - Moobloom textures.
 
 LudoCrypt:
- - New music.
+ - New Forest and Mesoglea Caves music.
+
+Willow/pictochats_:
+ - New cave music.
 
 Enri:
  - Italian translation.
