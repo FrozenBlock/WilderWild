@@ -12,6 +12,7 @@ hi
 - Slightly optimized Tumbleweed rendering.
 - Added a config option to toggle rotatable Reinforced Deepslate.
 - Fixed Maple Leaves not dropping Leaf Litters.
+- Added a new song that plays in Lush and Frozen caves, by Willow/pictochats_!
 
 # Butterfly Branch
 - Added Butterflies
