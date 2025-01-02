@@ -17,7 +17,6 @@
     "block.fire.FireBlockMixin",
     "block.ice.FrostedIceBlockMixin",
     "block.lava.LavaFluidMixin",
-    "block.leaves.BlockStateBaseMixin",
     "block.leaves.LeavesBlockMixin",
     "block.mesoglea.BlockBehaviourMixin",
     "block.mesoglea.BlockGetterMixin",
