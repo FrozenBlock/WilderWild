@@ -11,8 +11,10 @@ hi
 - Fixed the models of Hollowed Log blocks, now having proper UV and rotation like normal logs thanks to Luffurius! ([#443](https://github.com/FrozenBlock/WilderWild/pull/443))
 - Slightly optimized Tumbleweed rendering.
 - Added a config option to toggle rotatable Reinforced Deepslate.
-- Fixed Maple Leaves not dropping Leaf Litters.
+- Fixed Maple Leaves not dropping Leaf Litters on 1.21.2+.
+- Added more variety to Pale Oak trees on 1.21.4.
 - Added a new song that plays in Lush and Frozen caves, by Willow/pictochats_!
+- Crab variants can now be added via datapacks, though by default there is only one Crab variant.
 
 # Butterfly Branch
 - Added Butterflies
@@ -50,3 +52,5 @@ hi
 - Fireflies now only spawn at night.
 - Fireflies now only spawn in Swamp-like biomes by default.
 - Expanded the list of blocks Fireflies can "hide" in during the day.
+- Renamed the `wilderwildfireflies` mob category to `wilderwildfirefly`.
+- Removed the `wilderwild:spawn/firefly_spawnable_cave` and `wilderwild:spawn/firefly_spawnable_during_day` tags as these spawning behaviors have been removed.
