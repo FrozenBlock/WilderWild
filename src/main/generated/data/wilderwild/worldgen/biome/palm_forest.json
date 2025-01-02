@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.25,
+  "downfall": 0.9,
   "effects": {
     "fog_color": 12638463,
     "mood_sound": {
@@ -21,7 +21,7 @@
       "replace_current_music": false,
       "sound": "minecraft:music.overworld.desert"
     },
-    "sky_color": 7254527,
+    "sky_color": 7842047,
     "water_color": 3981763,
     "water_fog_color": 270131
   },
@@ -69,8 +69,7 @@
       "minecraft:ore_lapis",
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
-      "minecraft:underwater_magma",
-      "wilderwild:coarse_dirt_path"
+      "minecraft:underwater_magma"
     ],
     [],
     [
@@ -85,7 +84,6 @@
       "minecraft:seagrass_river",
       "wilderwild:grass_plains_placed",
       "wilderwild:dense_tall_grass_placed",
-      "wilderwild:dense_fern_placed",
       "wilderwild:palms_forest",
       "wilderwild:shrubs_palm_forest"
     ],
@@ -185,5 +183,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 2.0
+  "temperature": 0.95
 }

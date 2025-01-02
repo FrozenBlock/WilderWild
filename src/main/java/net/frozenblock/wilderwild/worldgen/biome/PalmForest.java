@@ -26,6 +26,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -55,13 +56,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class PalmForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.WARM, Temperature.HOT);
+	public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
+	public static final Climate.Parameter WEIRDNESS = Weirdness.HIGH_SLICE_NORMAL_ASCENDING;
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.030F, 0.300F);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.050F, 0.450F);
 	public static final float OFFSET = 0F;
-	public static final float TEMP = 2F;
-	public static final float DOWNFALL = 0.25F;
+	public static final float TEMP = 0.95F;
+	public static final float DOWNFALL = 0.9F;
 	public static final int WATER_COLOR = 3981763;
 	public static final int WATER_FOG_COLOR = 270131;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
@@ -159,13 +161,13 @@ public final class PalmForest extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDesertExtraDecoration(features);
+		//features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_DESERT);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
 		features.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MESSY_SAND_POOL.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
+		//features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_FERN_PLACED.getKey());
+		// features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_FERN_PLACED.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALMS_FOREST.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS_PALM_FOREST.getKey());
 
@@ -179,7 +181,7 @@ public final class PalmForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateOasis) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE,
