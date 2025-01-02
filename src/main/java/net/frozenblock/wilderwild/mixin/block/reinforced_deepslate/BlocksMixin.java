@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.block.reinforced_deepslate;
 
-import java.util.function.Function;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import java.util.function.Function;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
