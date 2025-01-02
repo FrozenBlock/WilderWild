@@ -28,7 +28,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
 public class ButterflyModel<T extends Butterfly> extends HierarchicalModel<T> {
