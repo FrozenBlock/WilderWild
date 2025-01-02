@@ -86,6 +86,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable {
+	public static final int TICKS_PER_FLAP = 3;
 	public static final int SPAWN_CHANCE = 50;
 	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
@@ -398,7 +399,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	@Override
 	public boolean isFlapping() {
-		return true;
+		return this.isFlying() && this.tickCount % TICKS_PER_FLAP == 0;
 	}
 
 	@Override

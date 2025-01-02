@@ -194,6 +194,9 @@ public final class WWAmbienceAndMiscConfig {
 	public static class BiomeMusicConfig {
 		@EntrySyncData(value = "wilderForestMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderForestMusic = true;
+
+		@EntrySyncData(value = "wilderLushCavesMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean wilderLushCavesMusic = true;
 	}
 
 	public static class VegetationColorConfig {

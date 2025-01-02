@@ -164,7 +164,7 @@ public class FlowerCow extends Cow implements Shearable {
 		serverLevel.sendParticles(
 			new BlockParticleOption(ParticleTypes.BLOCK, flowerBlockState),
 			flowerCow.getX(),
-			flowerCow.getY(0.6666666666666666),
+			flowerCow.getY(0.6666666666666666D),
 			flowerCow.getZ(),
 			10,
 			flowerCow.getBbWidth() / 4D,

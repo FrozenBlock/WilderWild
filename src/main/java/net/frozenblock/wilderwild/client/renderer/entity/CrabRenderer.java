@@ -33,7 +33,6 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {
-	private static final ResourceLocation CRAB_LOCATION = WWConstants.id("textures/entity/crab/crab.png");
 	private static final ResourceLocation CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
 
 	public CrabRenderer(EntityRendererProvider.Context context) {
@@ -64,8 +63,8 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull CrabRenderState entity) {
-		return !entity.isDitto ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
+	public ResourceLocation getTextureLocation(@NotNull CrabRenderState renderState) {
+		return !renderState.isDitto ? renderState.texture : CRAB_DITTO_LOCATION;
 	}
 
 	@Override
@@ -83,6 +82,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.hidingAnimationState.copyFrom(entity.hidingAnimationState);
 		renderState.diggingAnimationState.copyFrom(entity.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(entity.emergingAnimationState);
+		renderState.texture = entity.getVariantForRendering().texture();
 	}
 }
 

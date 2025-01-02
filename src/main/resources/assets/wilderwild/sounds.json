@@ -3050,7 +3050,7 @@
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },
-  "music.overworld.wild_forests": {
+  "music.overworld.wilder_forests": {
     "sounds": [
       {
         "name": "music.overworld.forest",
@@ -3067,6 +3067,21 @@
         "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
         "stream": true,
         "volume": 0.8,
+        "weight": 5
+      }
+    ]
+  },
+  "music.overworld.wilder_lush_caves": {
+    "sounds": [
+      {
+        "name": "music.overworld.lush_caves",
+        "type": "event",
+        "weight": 25
+      },
+      {
+        "name": "wilderwild:music/willow/cave1",
+        "stream": true,
+        "volume": 0.4,
         "weight": 5
       }
     ]
@@ -3126,6 +3141,18 @@
         "name": "music/game/bromeliad",
         "stream": true,
         "volume": 0.4
+      },
+      {
+        "name": "music/game/subwoofer_lullaby",
+        "stream": true
+      },
+      {
+        "name": "music/game/living_mice",
+        "stream": true
+      },
+      {
+        "name": "wilderwild:music/willow/cave1",
+        "stream": true
       }
     ]
   },
@@ -3154,6 +3181,22 @@
         "name": "music/game/watcher",
         "stream": true,
         "volume": 0.4
+      },
+      {
+        "name": "music/game/mice_on_venus",
+        "stream": true
+      },
+      {
+        "name": "music/game/wet_hands",
+        "stream": true
+      },
+      {
+        "name": "music/game/sweden",
+        "stream": true
+      },
+      {
+        "name": "wilderwild:music/willow/cave1",
+        "stream": true
       }
     ]
   },
