@@ -92,33 +92,29 @@ public class FallingLeafUtil {
 	}
 
 	public static void onRandomTick(@NotNull BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		if (state.getValue(LeavesBlock.DISTANCE) < 7 && !state.getValue(LeavesBlock.PERSISTENT)) {
-			Block block = state.getBlock();
-
-			Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(block);
-			if (optionalFallingLeafData.isPresent()) {
-				FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-				BlockPos belowPos = pos.below();
-				BlockState belowState = world.getBlockState(belowPos);
-				if (!Block.isFaceFull(belowState.getCollisionShape(world, belowPos), Direction.UP)) {
-					if (random.nextFloat() <= fallingLeafData.litterChance()) {
-						world.sendParticles(
-							new BlockParticleOption(ParticleTypes.BLOCK, state),
-							pos.getX() + 0.5D,
-							pos.getY() - 0.1D,
-							pos.getZ() + 0.5D,
-							random.nextInt(12, 24),
-							0.3D, 0D, 0.3D,
-							0.05D
-						);
-						sendLeafClusterParticle(world, pos, fallingLeafData);
-						fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> FallingLeafTicker.createAndSpawn(
-							WWEntityTypes.FALLING_LEAVES,
-							world,
-							pos,
-							leafLitterBlock
-						));
-					}
+		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+		if (optionalFallingLeafData.isPresent()) {
+			FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
+			BlockPos belowPos = pos.below();
+			BlockState belowState = world.getBlockState(belowPos);
+			if (!Block.isFaceFull(belowState.getCollisionShape(world, belowPos), Direction.UP)) {
+				if (random.nextFloat() <= fallingLeafData.litterChance()) {
+					world.sendParticles(
+						new BlockParticleOption(ParticleTypes.BLOCK, state),
+						pos.getX() + 0.5D,
+						pos.getY() - 0.1D,
+						pos.getZ() + 0.5D,
+						random.nextInt(12, 24),
+						0.3D, 0D, 0.3D,
+						0.05D
+					);
+					sendLeafClusterParticle(world, pos, fallingLeafData);
+					fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> FallingLeafTicker.createAndSpawn(
+						WWEntityTypes.FALLING_LEAVES,
+						world,
+						pos,
+						leafLitterBlock
+					));
 				}
 			}
 		}
