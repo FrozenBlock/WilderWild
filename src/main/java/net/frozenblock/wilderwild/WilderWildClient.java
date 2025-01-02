@@ -47,17 +47,19 @@ public final class WilderWildClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		WilderWild.init();
+
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
-		WilderEasterEggs.hatchEasterEggs();
 
 		WWBlockRenderLayers.init();
 		WWFluidRendering.init();
 		WWItemProperties.init();
 		WWModelLayers.init();
 		WWParticleEngine.init();
-		WWTints.initBlocks();
+		WWTints.applyTints();
 
 		WWClientNetworking.registerPacketReceivers();
+		WilderEasterEggs.hatchEasterEggs();
 
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

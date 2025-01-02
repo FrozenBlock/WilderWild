@@ -64,19 +64,19 @@ import net.frozenblock.wilderwild.worldgen.modification.WWWorldgen;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
+	private static boolean INITIALIZED = false;
 
 	public WilderWild() {
 		super(WWConstants.MOD_ID);
 	}
 
-	@Override //Alan Wilder Wild
-	public void onInitialize(String modId, ModContainer container) {
+	public static void init() {
+		if (INITIALIZED) return;
+		INITIALIZED = true;
+
 		if (FrozenBools.IS_DATAGEN) {
 			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
-
-		WWMinecraftDataFixer.applyDataFixes(container);
-		WWDataFixer.applyDataFixes(container);
 
 		WilderWildRegistries.initRegistry();
 
@@ -85,7 +85,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWCreativeInventorySorting.init();
 		WWItems.registerItems();
 		WWGameEvents.registerEvents();
-
 		WWSounds.init();
 		WWSoundTypes.init();
 		WWBlockEntityTypes.register();
@@ -95,7 +94,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWSensorTypes.register();
 		WWLootTables.init();
 		WWParticleTypes.registerParticles();
-		WWResources.register(container);
 		WWMobEffects.init();
 		WWPotions.init();
 		WWCriteria.init();
@@ -106,6 +104,21 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWBlocks.registerBlockProperties();
 		WWVillagers.register();
 
+		WWModIntegrations.init();
+		WWBlocks.registerBlockProperties();
+		WWNetworking.init();
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
+	}
+
+	@Override //Alan Wilder Wild
+	public void onInitialize(String modId, ModContainer container) {
+		WWMinecraftDataFixer.applyDataFixes(container);
+		WWDataFixer.applyDataFixes(container);
+		WWResources.register(container);
+
+		init();
+
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();
 			Crab.clearLevelToCrabCount();
@@ -114,13 +127,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 			Jellyfish.clearLevelToNonPearlescentCount();
 			Crab.clearLevelToCrabCount();
 		});
-
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
-
-		WWModIntegrations.init();
-
-		WWBlocks.registerBlockProperties();
-		WWNetworking.init();
 	}
 
 	@Override

@@ -26,7 +26,8 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 
 @Environment(EnvType.CLIENT)
 public final class WWTints {
-	public static void initBlocks() {
+
+	public static void applyTints() {
 		ColorProviderRegistry.BLOCK.register(
 			((state, level, pos, tintIndex) -> level == null || pos == null ? 7455580 : 2129968),
 			WWBlocks.FLOWERING_LILY_PAD
