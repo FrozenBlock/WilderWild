@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
+import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
@@ -265,15 +266,15 @@ public final class WWBlocks {
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
 	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
-		LeavesBlock::new,
+		LeavesWithLitterBlock::new,
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
-		LeavesBlock::new,
+		LeavesWithLitterBlock::new,
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
-		LeavesBlock::new,
+		LeavesWithLitterBlock::new,
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
