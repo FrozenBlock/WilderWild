@@ -32,9 +32,8 @@ import org.jetbrains.annotations.NotNull;
 public class LeafClusterParticleOptions implements ParticleOptions {
 	public static final MapCodec<LeafClusterParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
-				ResourceLocation.CODEC.fieldOf("spawned_particle").forGetter(LeafClusterParticleOptions::getParticleId)
-			)
-			.apply(instance, LeafClusterParticleOptions::createCodecParticleOptions)
+			ResourceLocation.CODEC.fieldOf("spawned_particle").forGetter(LeafClusterParticleOptions::getParticleId)
+		).apply(instance, LeafClusterParticleOptions::createCodecParticleOptions)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, LeafClusterParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ResourceLocation.STREAM_CODEC, LeafClusterParticleOptions::getParticleId,

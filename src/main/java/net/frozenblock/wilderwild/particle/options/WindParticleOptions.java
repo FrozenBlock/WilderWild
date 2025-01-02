@@ -36,8 +36,7 @@ public class WindParticleOptions implements ParticleOptions {
 		instance.group(
 				Codec.INT.fieldOf("lifespan").forGetter(WindParticleOptions::getLifespan),
 				Vec3.CODEC.fieldOf("velocity").forGetter(WindParticleOptions::getVelocity)
-			)
-			.apply(instance, WindParticleOptions::new)
+		).apply(instance, WindParticleOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, WindParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.VAR_INT, WindParticleOptions::getLifespan,
@@ -52,6 +51,7 @@ public class WindParticleOptions implements ParticleOptions {
 		this.lifespan = lifespan;
 		this.velocity = velocity;
 	}
+
 	public WindParticleOptions(int lifespan, double xVel, double yVel, double zVel) {
 		this.lifespan = lifespan;
 		this.velocity = new Vec3(xVel, yVel, zVel);
