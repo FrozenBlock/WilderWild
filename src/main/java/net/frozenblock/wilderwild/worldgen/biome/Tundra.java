@@ -71,7 +71,7 @@ public final class Tundra extends FrozenBiome {
 
 	public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(-0.450F, -0.200F);
 	public static final Climate.Parameter HUMIDITY_D = Climate.Parameter.span(-1.0F, -0.100F);
-	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(-0.750F, 0.05F);
+	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(-0.750F, -0.05F);
 	public static final Climate.Parameter EROSION_C = Climate.Parameter.span(-0.223F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS_C = Climate.Parameter.span(0.030F, 0.800F);
 	public static final float TEMP = 0.25F;
