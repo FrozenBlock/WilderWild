@@ -157,6 +157,9 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MAPLES_BEES_SAPLING = WWFeatureUtils.register("red_maples_bees_sapling");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES_BEES_SAPLING = WWFeatureUtils.register("maples_bees_sapling");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES_NO_BEES = WWFeatureUtils.register("maples_no_bees");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALE_OAKS = WWFeatureUtils.register("pale_oaks");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALE_OAKS_CREAKING = WWFeatureUtils.register("pale_oaks_creaking");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PALE_GARDEN = WWFeatureUtils.register("trees_pale_garden");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCHES = WWFeatureUtils.register("snapped_birches");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_OAKS = WWFeatureUtils.register("snapped_oaks");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_OAK = WWFeatureUtils.register("snapped_birch_and_oak");
@@ -1305,6 +1308,48 @@ public final class WWConfiguredFeatures {
 					)
 				),
 				WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder()
+			)
+		);
+
+		PALE_OAKS.makeAndSetHolder(
+			Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.TALL_PALE_OAK_CHECKED.getHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_PALE_OAK_CHECKED.getHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.COBWEB_TALL_PALE_OAK_CHECKED.getHolder(), 0.018F),
+					new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_PALE_OAK_CHECKED.getHolder(), 0.018F)
+				),
+				placedFeatures.getOrThrow(TreePlacements.PALE_OAK_CHECKED)
+			)
+		);
+
+		PALE_OAKS_CREAKING.makeAndSetHolder(
+			Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.TALL_PALE_OAK_CREAKING_CHECKED.getHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_PALE_OAK_CREAKING_CHECKED.getHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.COBWEB_TALL_PALE_OAK_CREAKING_CHECKED.getHolder(), 0.018F),
+					new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_PALE_OAK_CREAKING_CHECKED.getHolder(), 0.018F)
+				),
+				placedFeatures.getOrThrow(TreePlacements.PALE_OAK_CREAKING_CHECKED)
+			)
+		);
+
+		TREES_PALE_GARDEN.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(PALE_OAKS_CREAKING.getHolder()),
+						0.1F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(PALE_OAKS.getHolder()),
+						0.9F
+					)
+				),
+				placedFeatures.getOrThrow(TreePlacements.PALE_OAK_CHECKED)
 			)
 		);
 

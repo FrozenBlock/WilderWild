@@ -108,7 +108,6 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature BIG_SHRUB_RED_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_red_maple_checked");
 
 	public static final FrozenPlacedFeature FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("fallen_maple_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("mossy_fallen_maple_checked");
 	public static final FrozenPlacedFeature SNAPPED_MAPLE_CHECKED = WWPlacementUtils.register("snapped_maple_checked");
 	//OAK
 	public static final FrozenPlacedFeature OAK_CHECKED = WWPlacementUtils.register("oak_checked");
@@ -147,6 +146,14 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WWPlacementUtils.register("large_fallen_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WWPlacementUtils.register("large_snapped_dark_oak_checked");
 	//PALE OAK
+	public static final FrozenPlacedFeature TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("tall_pale_oak_checked");
+	public static final FrozenPlacedFeature TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("tall_pale_oak_creaking_checked");
+	public static final FrozenPlacedFeature FANCY_TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("fancy_tall_pale_oak_checked");
+	public static final FrozenPlacedFeature FANCY_TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("fancy_tall_pale_oak_creaking_checked");
+	public static final FrozenPlacedFeature COBWEB_TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("cobweb_tall_pale_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("cobweb_tall_pale_oak_creaking_checked");
+	public static final FrozenPlacedFeature COBWEB_FANCY_PALE_OAK_CHECKED = WWPlacementUtils.register("cobweb_fancy_tall_pale_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_FANCY_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("cobweb_fancy_tall_pale_oak_creaking_checked");
 	public static final FrozenPlacedFeature LARGE_FALLEN_PALE_OAK_CHECKED = WWPlacementUtils.register("large_fallen_pale_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_PALE_OAK_CHECKED = WWPlacementUtils.register("large_snapped_pale_oak_checked");
 	//SWAMP TREE
@@ -613,6 +620,38 @@ public final class WWTreePlaced {
 		);
 
 		// PALE OAK
+
+		TALL_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_PALE_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		TALL_PALE_OAK_CREAKING_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_PALE_OAK_CREAKING.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		FANCY_TALL_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.FANCY_TALL_PALE_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		FANCY_TALL_PALE_OAK_CREAKING_CHECKED.makeAndSetHolder(WWTreeConfigured.FANCY_TALL_PALE_OAK_CREAKING.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		COBWEB_TALL_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.COBWEB_TALL_PALE_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		COBWEB_TALL_PALE_OAK_CREAKING_CHECKED.makeAndSetHolder(WWTreeConfigured.COBWEB_TALL_PALE_OAK_CREAKING.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		COBWEB_FANCY_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.COBWEB_FANCY_PALE_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		COBWEB_FANCY_PALE_OAK_CREAKING_CHECKED.makeAndSetHolder(WWTreeConfigured.COBWEB_FANCY_PALE_OAK_CREAKING.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
 
 		LARGE_FALLEN_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_PALE_OAK.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))

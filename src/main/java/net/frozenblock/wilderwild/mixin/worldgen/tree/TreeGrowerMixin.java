@@ -106,6 +106,10 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			} else {
 				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
 			}
+		}  else if (treeGrower == TreeGrower.PALE_OAK) {
+			if (random.nextFloat() < 0.175F) {
+				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
+			}
 		}
 	}
 

@@ -75,6 +75,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> RAINFOREST = bind("rainforest");
 
 	public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
+	public static final TagKey<Biome> PALE_GARDEN = bind("pale_garden");
 	public static final TagKey<Biome> MEADOW = bind("meadow");
 
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("beta_beach/gravel");

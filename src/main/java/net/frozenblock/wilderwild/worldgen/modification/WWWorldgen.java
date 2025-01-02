@@ -348,6 +348,17 @@ public final class WWWorldgen {
 				}
 			});
 
+		BiomeModifications.create(WWConstants.id("replace_pale_garden_vegetation")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.PALE_GARDEN),
+			context -> {
+				if (WWWorldgenConfig.get().treeGeneration) {
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					generationSettings.removeFeature(VegetationPlacements.PALE_GARDEN_VEGETATION);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_PALE_GARDEN.getKey());
+				}
+			});
+
 		BiomeModifications.create(WWConstants.id("replace_meadow_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.MEADOW),

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.feature.configured;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -82,7 +83,9 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntSt
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.CreakingHeartDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.PaleMossDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -192,9 +195,18 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
 	//PALE OAK
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK = register("tall_pale_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK_BONEMEAL = register("tall_pale_oak_bonemeal");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK_CREAKING = register("tall_pale_oak_creaking");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_PALE_OAK = register("fancy_tall_pale_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_PALE_OAK_BONEMEAL = register("fancy_tall_pale_oak_bonemeal");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_PALE_OAK_CREAKING = register("fancy_tall_pale_oak_creaking");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_PALE_OAK = register("cobweb_tall_pale_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_PALE_OAK_CREAKING = register("cobweb_tall_pale_oak_creaking");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_PALE_OAK = register("cobweb_fancy_pale_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_PALE_OAK_CREAKING = register("cobweb_fancy_pale_oak_creaking");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_PALE_OAK = register("large_fallen_pale_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_PALE_OAK = register("large_snapped_pale_oak_tree");
-
 	//SWAMP TREE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
 	//SPRUCE
@@ -1231,6 +1243,62 @@ public final class WWTreeConfigured {
 
 		// PALE OAK
 
+		TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
+			tallPaleOak(true, false).build()
+		);
+
+		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
+			tallPaleOak(false, false).build()
+		);
+
+		TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
+			tallPaleOak(true, true).build()
+		);
+
+		FANCY_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
+			fancyPaleOak(true, false).build()
+		);
+
+		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
+			fancyPaleOak(false, false).build()
+		);
+
+		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
+			fancyPaleOak(true, true).build()
+		);
+
+		COBWEB_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
+			tallPaleOak(true, false).decorators(
+				List.of(
+					COBWEB_1_UNDER_260_025
+				)
+			).build()
+		);
+
+		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
+			tallPaleOak(true, true).decorators(
+				List.of(
+					COBWEB_1_UNDER_260_025
+				)
+			).build()
+		);
+
+		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(Feature.TREE,
+			fancyPaleOak(true, false).decorators(
+				List.of(
+					COBWEB_1_UNDER_260_025
+				)
+			).build()
+		);
+
+		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
+			fancyPaleOak(true, true).decorators(
+				List.of(
+					COBWEB_1_UNDER_260_025
+				)
+			).build()
+		);
+
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			largeFallenBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 4, 2, 1).decorators(
 				List.of(
@@ -2133,6 +2201,60 @@ public final class WWTreeConfigured {
 			new CherryTrunkPlacer(baseHeight, randomHeight1, randomHeight2, UniformInt.of(1, 3), branchLength, branchStartOffsetFromTop, branchEndOffsetFromTop), BlockStateProvider.simple(leaves),
 			new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
 			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
+	}
+
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking) {
+		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 6, 2, 1);
+		appendPaleMossAndCreaking(builder, paleMoss, creaking);
+		return builder;
+	}
+
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking) {
+		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4);
+		appendPaleMossAndCreaking(builder, paleMoss, creaking);
+		return builder;
+	}
+
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking) {
+		TreeConfiguration.TreeConfigurationBuilder builder = fancyPaleOakBuilder(
+			Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4, 1F, UniformInt.of(1, 2), UniformInt.of(1, 4)
+		);
+		appendPaleMossAndCreaking(builder, paleMoss, creaking);
+		return builder;
+	}
+
+	private static void appendPaleMossAndCreaking(TreeConfiguration.TreeConfigurationBuilder builder, boolean paleMoss, boolean creaking) {
+		if (paleMoss && creaking) {
+			builder.decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F), new CreakingHeartDecorator(1F)));
+		} else if (creaking) {
+			builder.decorators(ImmutableList.of(new CreakingHeartDecorator(1F)));
+		} else if (paleMoss) {
+			builder.decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F)));
+		}
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder paleOakBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
+		return new TreeConfiguration.TreeConfigurationBuilder(
+			BlockStateProvider.simple(log),
+			new DarkOakTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
+			BlockStateProvider.simple(leaves),
+			new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+		).decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F))).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fancyPaleOakBuilder(
+		Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, float logChance, IntProvider maxLogs, IntProvider extraBranchLength
+	) {
+		return new TreeConfiguration.TreeConfigurationBuilder(
+			BlockStateProvider.simple(log),
+			new FancyDarkOakTrunkPlacer(baseHeight, randomHeight1, randomHeight2, logChance, maxLogs, extraBranchLength),
+			BlockStateProvider.simple(leaves),
+			new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+		).decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F))).ignoreVines();
 	}
 
 	@NotNull

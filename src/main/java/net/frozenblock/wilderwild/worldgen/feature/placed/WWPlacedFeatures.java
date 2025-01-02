@@ -144,6 +144,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature PALMS_WARM_BEACH = register("palms_warm_beach");
 	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
 	public static final FrozenPlacedFeature MAPLE_TREES = register("maple_trees");
+	public static final FrozenPlacedFeature TREES_PALE_GARDEN = register("trees_pale_garden");
 	public static final FrozenPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
 	public static final FrozenPlacedFeature SNAPPED_OAK_CLEARING_PLACED = register("snapped_oak_clearing");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_PLACED = register("snapped_birch");
@@ -769,6 +770,13 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING),
 			TREE_THRESHOLD,
 			WWPlacementUtils.TREE_CLEARING_FILTER
+		);
+
+		TREES_PALE_GARDEN.makeAndSetHolder(WWConfiguredFeatures.TREES_PALE_GARDEN.getHolder(),
+			PlacementUtils.countExtra(18, 0.1F, 2), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING),
+			TREE_THRESHOLD
 		);
 
 		SNAPPED_BIRCH_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_BIRCHES.getHolder(),

@@ -122,6 +122,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.DARK_FOREST)
 			.add(Biomes.DARK_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.PALE_GARDEN)
+			.add(Biomes.PALE_GARDEN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.GROVE)
 			.add(Biomes.GROVE);
 
