@@ -18,7 +18,9 @@
 
 package net.frozenblock.wilderwild.worldgen.biome;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
@@ -54,15 +56,19 @@ public final class MapleForest extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
 	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
+	private static final List<Climate.Parameter> EROSIONS = ImmutableList.of(
+		Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4),
+		Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5),
+		Climate.Parameter.span(Erosion.EROSION_5, Erosion.EROSION_6)
+	);
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.5F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
 	public static final int WATER_FOG_COLOR = WWSharedWorldgen.STOCK_WATER_FOG_COLOR;
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
-	public static final int OLD_GRASS_COLOR = 11845250;
-	//public static final int GRASS_COLOR = 12498813;
+	//public static final int OLD_GRASS_COLOR_A = 11845250;
+	//public static final int OLD_GRASS_COLOR_B = 12498813;
 	public static final int GRASS_COLOR = 13023096;
 	public static final int FOLIAGE_COLOR = 11190658;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
@@ -170,24 +176,26 @@ public final class MapleForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS_A,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS_B,
-				0F
-			);
+			EROSIONS.forEach(erosion -> {
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					erosion,
+					WEIRDNESS_A,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					erosion,
+					WEIRDNESS_B,
+					0F
+				);
+			});
 		}
 	}
 

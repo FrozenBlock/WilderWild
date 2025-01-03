@@ -20,9 +20,13 @@ package net.frozenblock.wilderwild.worldgen.biome;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.FrozenGrassColorModifiers;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
@@ -53,23 +57,21 @@ import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-0.4F, -0.05F);
-	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(0.05F, 0.4F);
-	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-0.223F, 0.450F);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.030F, 0.550F);
-
-	public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-1.000F, -0.450F);
-	public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(0.300F, 0.700F);
-	public static final Climate.Parameter WEIRDNESS_C = Climate.Parameter.span(-0.6F, -0.05F);
-	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(0.050F, 0.450F);
-	public static final Climate.Parameter CONTINENTALNESS_B = Climate.Parameter.span(-0.110F, 0.030F);
-
-	public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(-0.450F, -0.200F);
-	public static final Climate.Parameter HUMIDITY_D = Climate.Parameter.span(-1.0F, -0.100F);
-	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(-0.750F, -0.05F);
-	public static final Climate.Parameter EROSION_C = Climate.Parameter.span(-0.223F, 0.450F);
-	public static final Climate.Parameter CONTINENTALNESS_C = Climate.Parameter.span(0.030F, 0.800F);
+	public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.265F, -0.245F);
+	public static final Climate.Parameter HUMIDITY_A = Climate.Parameter.span(-1F, -0.2F);
+	public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(-0.2F, -0.1F);
+	public static final Climate.Parameter HUMIDITY_C_DYING_FOREST = Climate.Parameter.span(-0.2F, -0.105F);
+	public static final Climate.Parameter WEIRDNESS_MAPLE = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.VALLEY);
+	public static final Climate.Parameter WEIRDNESS_MAPLE_B = Climate.Parameter.span(-0.05F, 0.375F);
+	public static final Climate.Parameter WEIRDNESS_MAPLE_PEAK = Weirdness.PEAK_VARIANT;
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter EROSION_WITH_WEIRDNESS_MAPLE = Erosion.EROSION_2;
+	private static final List<Climate.Parameter> EROSIONS = ImmutableList.of(
+		Climate.Parameter.span(Erosion.EROSION_2, Erosion.EROSION_3),
+		Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4),
+		Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5),
+		Climate.Parameter.span(Erosion.EROSION_5, Erosion.EROSION_6)
+	);
 	public static final float TEMP = 0.25F;
 	public static final float DOWNFALL = 0.8F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -211,43 +213,127 @@ public final class Tundra extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION_A,
-				WEIRDNESS_A,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION_A,
-				WEIRDNESS_B,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE_B,
-				HUMIDITY_C,
-				CONTINENTALNESS_B,
-				EROSION_B,
-				WEIRDNESS_C,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE_C,
-				HUMIDITY_D,
-				CONTINENTALNESS_C,
-				EROSION_C,
-				WEIRDNESS_D,
-				0F
-			);
+			WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
+			boolean maple = biomeGeneration.generateMapleForest;
+			boolean dyingForest = biomeGeneration.generateDyingForest;
+			Climate.Parameter humidityC = dyingForest ? HUMIDITY_C_DYING_FOREST : HUMIDITY_C;
 
+			if (maple) {
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					HUMIDITY_A,
+					CONTINENTALNESS,
+					EROSION_WITH_WEIRDNESS_MAPLE,
+					Weirdness.FULL_RANGE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_B,
+					HUMIDITY_A,
+					CONTINENTALNESS,
+					EROSION_WITH_WEIRDNESS_MAPLE,
+					Weirdness.FULL_RANGE,
+					0F
+				);
+			}
+
+			EROSIONS.forEach(erosion -> {
+				if (maple) {
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						WEIRDNESS_MAPLE,
+						0F
+					);
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						WEIRDNESS_MAPLE_B,
+						0F
+					);
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						WEIRDNESS_MAPLE_PEAK,
+						0F
+					);
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE_B,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						WEIRDNESS_MAPLE,
+						0F
+					);
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE_B,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						WEIRDNESS_MAPLE_B,
+						0F
+					);
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE_B,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						WEIRDNESS_MAPLE_PEAK,
+						0F
+					);
+				} else {
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						Weirdness.FULL_RANGE,
+						0F
+					);
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE_B,
+						HUMIDITY_A,
+						CONTINENTALNESS,
+						erosion,
+						Weirdness.FULL_RANGE,
+						0F
+					);
+				}
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					humidityC,
+					CONTINENTALNESS,
+					erosion,
+					Weirdness.FULL_RANGE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_B,
+					humidityC,
+					CONTINENTALNESS,
+					erosion,
+					Weirdness.FULL_RANGE,
+					0F
+				);
+			});
 		}
 	}
 
