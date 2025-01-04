@@ -344,12 +344,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-		return WWSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_BUTTERFLY_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_BUTTERFLY_DEATH;
 	}
 
 	@Override
