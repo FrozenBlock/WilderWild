@@ -309,8 +309,9 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.right_foot.xRot = Mth.lerp(slideAmount, this.right_foot.xRot, (-(Mth.sin(animProgress * 2F) - 240F) * 2F) * limbSwingAmount * Mth.DEG_TO_RAD);
 	}
 
-	// Original Molang animation made by DaDolphin!
 	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
+		// DaDolphin
+		/*
 		limbSwing *= 0.001F;
 		headPitch *= swimAmount;
 		float animProgress = limbSwing * 90F;
@@ -348,6 +349,34 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.left_foot.xRot += (22.5F - Mth.sin((animProgress * 3F) - 80F) * 20F) * swimLimbToRad;
 
 		this.right_foot.xRot += (27.5F + Mth.sin((animProgress * 3F) - 80F) * 20F) * swimLimbToRad;
+		 */
+
+		// AViewFromTheTop/Lunade
+		float swimLimbAmount = limbSwingAmount * swimAmount;
+		float swimLimbToRad = swimLimbAmount * Mth.DEG_TO_RAD;
+
+		float flipperZRot = Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount);
+		this.left_flipper.zRot -= flipperZRot;
+		this.right_flipper.zRot += flipperZRot;
+
+		this.body.xRot = Mth.rotLerp(swimLimbAmount, this.body.xRot, ((headPitch + 90F) * Mth.DEG_TO_RAD));
+		//this.body.yRot = Mth.rotLerp(swimLimbAmount, this.body.yRot, (netHeadYaw * Mth.DEG_TO_RAD));
+		//this.body.y = Mth.lerp(swimLimbAmount, this.body.y, 16F);
+		//this.body.z = Mth.lerp(swimLimbAmount, this.body.z, -11F);
+
+		float headRot = -Mth.HALF_PI * swimLimbAmount;
+		float headY = -3F * swimLimbAmount;
+		float headZ = -2F * swimLimbAmount;
+		this.head.xRot += headRot;
+		this.head.y += headY;
+		this.head.z += headZ;
+
+		float swimRotScale = swimLimbAmount * 10F * Mth.DEG_TO_RAD;
+		float swimXRot = Mth.cos(limbSwing * 0.175F) * swimRotScale;
+		this.torso.xRot += swimXRot;
+		this.head.xRot -= swimXRot;
+		float swimXRotDelayed = Mth.cos((limbSwing - 5F) * 0.175F) * swimRotScale;
+		this.feet.xRot += swimXRotDelayed;
 	}
 
 	@Override
