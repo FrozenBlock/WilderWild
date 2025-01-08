@@ -981,7 +981,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PALE_MUSHROOM)
 			.add(Biomes.PALE_GARDEN);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIG_PALE_MUSHROOM)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HUGE_PALE_MUSHROOM)
 			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIG_MUSHROOMS)

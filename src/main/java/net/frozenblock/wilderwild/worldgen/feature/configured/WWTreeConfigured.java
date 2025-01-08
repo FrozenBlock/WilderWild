@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
@@ -53,6 +54,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -60,9 +62,12 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -211,6 +216,7 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_PALE_OAK_CREAKING = register("cobweb_fancy_pale_oak_creaking");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_PALE_OAK = register("large_fallen_pale_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_PALE_OAK = register("large_snapped_pale_oak_tree");
+	public static final FrozenConfiguredFeature<HugeMushroomFeatureConfiguration, ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_PALE_MUSHROOM = WWFeatureUtils.register("huge_pale_mushroom");
 	//SWAMP TREE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
 	//SPRUCE
@@ -1379,6 +1385,21 @@ public final class WWTreeConfigured {
 					PALE_SHELF_FUNGI_00875
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWFeatures.HUGE_PALE_MUSHROOM_FEATURE,
+			new HugeMushroomFeatureConfiguration(
+				BlockStateProvider.simple(
+					WWBlocks.PALE_MUSHROOM_BLOCK
+						.defaultBlockState()
+						.setValue(HugeMushroomBlock.UP, true)
+						.setValue(HugeMushroomBlock.DOWN, false)
+				),
+				BlockStateProvider.simple(
+					Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)
+				),
+				3
+			)
 		);
 
 		// SWAMP TREE
