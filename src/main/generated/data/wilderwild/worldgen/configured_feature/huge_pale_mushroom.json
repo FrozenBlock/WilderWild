@@ -6,11 +6,11 @@
       "state": {
         "Name": "wilderwild:pale_mushroom_block",
         "Properties": {
-          "down": "false",
+          "down": "true",
           "east": "true",
           "north": "true",
           "south": "true",
-          "up": "false",
+          "up": "true",
           "west": "true"
         }
       }

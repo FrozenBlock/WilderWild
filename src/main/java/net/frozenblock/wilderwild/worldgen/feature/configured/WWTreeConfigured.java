@@ -1389,12 +1389,7 @@ public final class WWTreeConfigured {
 
 		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWFeatures.HUGE_PALE_MUSHROOM_FEATURE,
 			new HugeMushroomFeatureConfiguration(
-				BlockStateProvider.simple(
-					WWBlocks.PALE_MUSHROOM_BLOCK
-						.defaultBlockState()
-						.setValue(HugeMushroomBlock.UP, false)
-						.setValue(HugeMushroomBlock.DOWN, false)
-				),
+				BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM_BLOCK),
 				BlockStateProvider.simple(
 					Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)
 				),

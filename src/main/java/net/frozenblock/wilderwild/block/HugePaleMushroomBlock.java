@@ -28,10 +28,10 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class HugePaleMushroomBlock extends HugeMushroomBlock {
-	public static final int MIN_PARTICLE_SPAWN_WIDTH = -4;
-	public static final int MAX_PARTICLE_SPAWN_WIDTH = 4;
+	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
+	public static final int MAX_PARTICLE_SPAWN_WIDTH = 3;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -2;
-	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 2;
+	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 1;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 7;
 
 	public HugePaleMushroomBlock(Properties properties) {
