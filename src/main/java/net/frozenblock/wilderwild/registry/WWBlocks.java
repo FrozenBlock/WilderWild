@@ -58,6 +58,7 @@ import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
+import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
@@ -552,6 +553,15 @@ public final class WWBlocks {
 	);
 
 	public static final OstrichEggBlock OSTRICH_EGG = new OstrichEggBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.TERRACOTTA_WHITE)
+			.strength(0.5F)
+			.sound(SoundType.METAL)
+			.noOcclusion()
+			.randomTicks()
+	);
+
+	public static final PenguinEggBlock PENGUIN_EGG = new PenguinEggBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
@@ -1183,6 +1193,7 @@ public final class WWBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {
