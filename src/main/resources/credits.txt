@@ -23,7 +23,7 @@ Soro:
  - Beta Beaches.
  - Water Pools generating near Rivers.
  - Scorched Sand concept.
- - Baobab Nuts.
+ - Baobab Nut concept.
  - Help with Maple tree variants in worldgen.
  - Huge help implementing and tweaking the Tundra biome.
 

@@ -2359,6 +2359,22 @@
     ],
     "subtitle": "subtitles.entity.firefly.hurt"
   },
+  "entity.butterfly.hurt": {
+    "sounds": [
+      "wilderwild:mob/firefly/hurt_1",
+      "wilderwild:mob/firefly/hurt_2",
+      "wilderwild:mob/firefly/hurt_3"
+    ],
+    "subtitle": "subtitles.entity.butterfly.hurt"
+  },
+  "entity.butterfly.death": {
+    "sounds": [
+      "wilderwild:mob/firefly/hurt_1",
+      "wilderwild:mob/firefly/hurt_2",
+      "wilderwild:mob/firefly/hurt_3"
+    ],
+    "subtitle": "subtitles.entity.butterfly.death"
+  },
   "entity.enderman.anger_loop": {
     "sounds": [
       "wilderwild:mob/enderman/stare_loop"
