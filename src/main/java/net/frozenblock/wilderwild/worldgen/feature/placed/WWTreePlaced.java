@@ -146,6 +146,8 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WWPlacementUtils.register("large_fallen_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WWPlacementUtils.register("large_snapped_dark_oak_checked");
 	//PALE OAK
+	public static final FrozenPlacedFeature PALE_OAK_CHECKED = WWPlacementUtils.register("pale_oak_checked");
+	public static final FrozenPlacedFeature PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("pale_oak_creaking_checked");
 	public static final FrozenPlacedFeature TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("tall_pale_oak_checked");
 	public static final FrozenPlacedFeature TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("tall_pale_oak_creaking_checked");
 	public static final FrozenPlacedFeature FANCY_TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("fancy_tall_pale_oak_checked");
@@ -620,6 +622,14 @@ public final class WWTreePlaced {
 		);
 
 		// PALE OAK
+
+		PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.PALE_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
+
+		PALE_OAK_CREAKING_CHECKED.makeAndSetHolder(WWTreeConfigured.PALE_OAK_CREAKING.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)
+		);
 
 		TALL_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_PALE_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING)

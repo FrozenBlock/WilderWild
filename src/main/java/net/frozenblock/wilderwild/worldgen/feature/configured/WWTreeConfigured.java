@@ -196,6 +196,9 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
 	//PALE OAK
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALE_OAK = register("pale_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALE_OAK_BONEMEAL = register("pale_oak_bonemeal");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALE_OAK_CREAKING = register("pale_oak_creaking");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK = register("tall_pale_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK_BONEMEAL = register("tall_pale_oak_bonemeal");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK_CREAKING = register("tall_pale_oak_creaking");
@@ -1244,6 +1247,30 @@ public final class WWTreeConfigured {
 		);
 
 		// PALE OAK
+
+		PALE_OAK.makeAndSetHolder(Feature.TREE,
+			paleOak(true, false).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
+		);
+
+		PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
+			paleOak(false, false).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
+		);
+
+		PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
+			paleOak(true, true).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
+		);
 
 		TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			tallPaleOak(true, false).decorators(

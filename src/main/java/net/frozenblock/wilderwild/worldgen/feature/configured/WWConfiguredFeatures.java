@@ -1321,7 +1321,7 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.COBWEB_TALL_PALE_OAK_CHECKED.getHolder(), 0.018F),
 					new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_PALE_OAK_CHECKED.getHolder(), 0.018F)
 				),
-				placedFeatures.getOrThrow(TreePlacements.PALE_OAK_CHECKED)
+				WWTreePlaced.PALE_OAK_CHECKED.getHolder()
 			)
 		);
 
@@ -1334,7 +1334,7 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.COBWEB_TALL_PALE_OAK_CREAKING_CHECKED.getHolder(), 0.018F),
 					new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_PALE_OAK_CREAKING_CHECKED.getHolder(), 0.018F)
 				),
-				placedFeatures.getOrThrow(TreePlacements.PALE_OAK_CREAKING_CHECKED)
+				WWTreePlaced.PALE_OAK_CREAKING_CHECKED.getHolder()
 			)
 		);
 
@@ -1350,7 +1350,7 @@ public final class WWConfiguredFeatures {
 						0.9F
 					)
 				),
-				placedFeatures.getOrThrow(TreePlacements.PALE_OAK_CHECKED)
+				WWTreePlaced.PALE_OAK_CHECKED.getHolder()
 			)
 		);
 
