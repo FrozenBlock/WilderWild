@@ -137,7 +137,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 		this.animate(entity.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
-		this.animateSlide(limbSwing * 2F, limbSwingAmount * 2F, slideProgress * notSwimmingAmount * notWadingProgress);
+		this.animateSlide(limbSwing * 2F, Math.min(limbSwingAmount * 2F, 1F), slideProgress * notSwimmingAmount * notWadingProgress);
 		this.animateWade(ageInTicks, wadeProgress * notMovingDelta);
 		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta);
 		//this.animateSwimIdle(ageInTicks, wadeProgress * notMovingDelta);
@@ -355,7 +355,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		float swimLimbAmount = limbSwingAmount * swimAmount;
 		float swimLimbToRad = swimLimbAmount * Mth.DEG_TO_RAD;
 
-		float flipperZRot = Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount);
+		float flipperZRot = Mth.clamp(Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount), 0F, Mth.PI);
 		this.left_flipper.zRot -= flipperZRot;
 		this.right_flipper.zRot += flipperZRot;
 
