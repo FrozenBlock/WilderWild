@@ -97,6 +97,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
+		generator.createMushroomBlock(WWBlocks.PALE_MUSHROOM_BLOCK);
+		generator.createPlantWithDefaultItem(WWBlocks.PALE_MUSHROOM, WWBlocks.POTTED_PALE_MUSHROOM, BlockModelGenerators.PlantType.NOT_TINTED);
+
 		generator.registerSimpleFlatItemModel(WWBlocks.GLORY_OF_THE_SNOW);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS);

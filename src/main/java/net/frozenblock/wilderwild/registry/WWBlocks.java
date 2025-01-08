@@ -45,6 +45,7 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -53,6 +54,7 @@ import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
+import net.frozenblock.wilderwild.block.PaleMushroomBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -87,6 +89,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -107,7 +110,9 @@ import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -748,6 +753,31 @@ public final class WWBlocks {
 			.sound(SoundType.FUNGUS)
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final HugePaleMushroomBlock PALE_MUSHROOM_BLOCK = register("pale_mushroom_block",
+		HugePaleMushroomBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.instrument(NoteBlockInstrument.BASS)
+			.strength(0.2F)
+			.sound(SoundType.WOOD)
+			.ignitedByLava()
+	);
+	public static final PaleMushroomBlock PALE_MUSHROOM = register("pale_mushroom",
+		properties -> new PaleMushroomBlock(TreeFeatures.HUGE_RED_MUSHROOM, properties),
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.noCollission()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final Block POTTED_PALE_MUSHROOM = register("potted_pale_mushroom",
+		properties -> new FlowerPotBlock(PALE_MUSHROOM, properties),
+		Blocks.flowerPotProperties()
 	);
 
 	public static final PollenBlock POLLEN = registerWithoutItem("pollen",
