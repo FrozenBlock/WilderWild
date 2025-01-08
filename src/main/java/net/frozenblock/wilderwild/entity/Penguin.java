@@ -105,6 +105,12 @@ public class Penguin extends Animal {
 	}
 
 	@Override
+	public void setSwimming(boolean bl) {
+		super.setSwimming(bl);
+		if (bl) this.setPose(Pose.STANDING);
+	}
+
+	@Override
 	public void calculateEntityAnimation(boolean includeHeight) {
 		super.calculateEntityAnimation(this.isSwimming() || includeHeight);
 	}

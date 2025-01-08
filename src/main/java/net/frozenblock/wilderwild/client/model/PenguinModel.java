@@ -29,6 +29,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Pose;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
@@ -120,19 +121,27 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float partialTick = ageInTicks - entity.tickCount;
+		float movementDelta = Math.min(limbSwingAmount * 5F, 1F);
+		float notMovingDelta = 1F - movementDelta;
 		float swimAmount = entity.getSwimAmount(partialTick);
-		float wadeProgress = entity.getWadeProgress(partialTick);
 		float notSwimmingAmount = 1F - swimAmount;
+		float wadeProgress = entity.getWadeProgress(partialTick);
+		float notWadingProgress = 1F - wadeProgress;
+		float slideProgress = entity.getPose() == Pose.SLIDING ? 1F : 0F;
+		float notSlidingProgress = 1F - slideProgress;
 
 		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD * notSwimmingAmount;
-		this.head.xRot += headPitch * Mth.DEG_TO_RAD * notSwimmingAmount;
+		this.head.xRot += headPitch * Mth.DEG_TO_RAD * notSwimmingAmount * notSlidingProgress;
 
 		limbSwing *= 2.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 		this.animate(entity.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, ageInTicks);
-		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount);
-		this.animateWade(limbSwing, limbSwingAmount, ageInTicks, wadeProgress);
-		this.animateSwim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, swimAmount);
+		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
+		this.animateSlide(limbSwing * 2F, limbSwingAmount * 2F, slideProgress * notSwimmingAmount * notWadingProgress);
+		this.animateWade(ageInTicks, wadeProgress * notMovingDelta);
+		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta);
+		//this.animateSwimIdle(ageInTicks, wadeProgress * notMovingDelta);
+		this.animateSwim(limbSwing, limbSwingAmount, headPitch, swimAmount);
 	}
 
 	// Original Molang animation made by DaDolphin!
@@ -175,51 +184,170 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.right_foot.xRot -= Math.clamp(-Mth.sin(walk35 - 110F) * 5F, 0F, 5F) * Mth.DEG_TO_RAD * walkDelta;
 	}
 
-	private void animateWade(float limbSwing, float limbSwingAmount, float ageInTicks, float wadeAmount) {
-		float time = (ageInTicks * 0.2F) + (limbSwing * 0.1F);
+	// Original Molang animation made by DaDolphin!
+	private void animateWade(float ageInTicks, float wadeAmount) {
+		ageInTicks *= 0.001F;
+		float wadeDegToRad = wadeAmount * Mth.DEG_TO_RAD;
+		float animProgress = ageInTicks * 90F * 0.75F;
 
-		float timeCos = Mth.cos(time) * wadeAmount;
-		float timeSin = Mth.sin(time) * wadeAmount;
+		this.body.xRot += (-90F + Mth.sin(animProgress - 40F)) * wadeDegToRad;
+		this.body.zRot -= (Mth.sin(animProgress - 120F) * 0.5F) * wadeDegToRad;
+		this.body.x -= (Mth.sin(animProgress - 80F) * 0.2F) * wadeAmount;
+		this.body.y += (Mth.sin(animProgress) * 0.4F) * wadeAmount;
+		this.body.z += (3F - Mth.sin(animProgress - 180F) * 0.2F) * wadeAmount;
 
-		float timeSin2 = timeSin * 2F;
-		this.head.xRot -= (-timeSin2 * 0.3F) * Mth.DEG_TO_RAD;
+		this.torso.xRot += 90F * wadeDegToRad;
+		this.torso.y += 3.5F * wadeAmount;
 
-		this.body.xRot += ((timeCos * 0.3F * -5F) * Mth.DEG_TO_RAD);
+		this.head.xRot += (2.5F - Mth.sin(animProgress - 40F)) * wadeDegToRad;
+		this.head.zRot -= Mth.sin(animProgress - 120F) * wadeDegToRad;
+		this.head.y += 0.2F * wadeAmount;
+		this.head.z -= 0.1F * wadeAmount;
 
-		this.left_flipper.zRot += ((timeSin2 - 5F) * Mth.DEG_TO_RAD * 1.5F);
-		this.right_flipper.zRot += (-timeSin2 + 5F) * Mth.DEG_TO_RAD * 1.5F;
+		this.left_flipper.xRot += 2.4687F * wadeDegToRad;
+		this.left_flipper.yRot += (-0.4911F - Mth.sin(animProgress - 40F) * 10F) * wadeDegToRad;
+		this.left_flipper.zRot += (-17.372F - Mth.sin(animProgress + 40F) * 5F) * wadeDegToRad;
 
-		float timeSin25 = timeSin * 50F;
-		float baseFootRot = Mth.HALF_PI * 0.4F * wadeAmount;
-		this.left_foot.xRot += baseFootRot + (timeSin25 + 50F * wadeAmount) * Mth.DEG_TO_RAD;
-		this.right_foot.xRot += baseFootRot + (-timeSin25 + 50F * wadeAmount) * Mth.DEG_TO_RAD;
+		this.right_flipper.xRot -= 4.2618F * wadeDegToRad;
+		this.right_flipper.yRot += (-0.9452F - Mth.sin(animProgress - 90F) * 10) * wadeDegToRad;
+		this.right_flipper.zRot += (14.6625F + Mth.sin(animProgress + 30F) * 5F) * wadeDegToRad;
+
+		this.feet.xRot += 92.1786F * wadeDegToRad;
+		this.feet.y -= 4.25F * wadeAmount;
+		this.feet.z += 5.75F * wadeAmount;
+
+		float footAnimProgress = ageInTicks * 90F * 6F;
+		this.left_foot.xRot += (36.0192F - Mth.sin(footAnimProgress) * 15F) * wadeDegToRad;
+		this.left_foot.yRot -= 11.5188F * wadeDegToRad;
+		this.left_foot.zRot -= 12.8719F * wadeDegToRad;
+		this.left_foot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+
+		this.right_foot.xRot += (42.7455F + Mth.sin(footAnimProgress - 40F) * 15F) * wadeDegToRad;
+		this.right_foot.yRot += 5.7415F * wadeDegToRad;
+		this.right_foot.zRot += 15.1165F * wadeDegToRad;
+		this.right_foot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
 	}
 
-	private void animateSwim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float swimAmount) {
-		headPitch += 90F * swimAmount;
+	// Original Molang animation made by DaDolphin!
+	private void animateWadeMove(float limbSwing, float wadeAmount) {
+		limbSwing *= 0.001F;
+		float wadeDegToRad = wadeAmount * Mth.DEG_TO_RAD;
+		float animProgress = limbSwing * 90F;
 
-		float flipperZRot = Mth.cos(limbSwing * 0.2F) * limbSwingAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount);
-		this.left_flipper.zRot -= flipperZRot;
-		this.right_flipper.zRot += flipperZRot;
+		this.body.xRot += (-72.5F + Mth.sin(animProgress - 40F)) * wadeDegToRad;
+		this.body.zRot -= (Mth.sin(animProgress - 120F) * 0.5F) * wadeDegToRad;
+		this.body.x -= (Mth.sin(animProgress - 80F) * 0.2F) * wadeAmount;
+		this.body.y += (Mth.sin(animProgress) * 0.4F) * wadeAmount;
+		this.body.z += (3F - Mth.sin(animProgress - 180F) * 0.2F) * wadeAmount;
 
-		this.root.xRot = Mth.rotLerp(swimAmount, this.root.xRot, (headPitch * Mth.DEG_TO_RAD));
-		this.root.yRot = Mth.rotLerp(swimAmount, this.root.yRot, (netHeadYaw * Mth.DEG_TO_RAD));
-		this.root.y = Mth.lerp(swimAmount, this.root.y, 16F);
-		this.root.z = Mth.lerp(swimAmount, this.root.z, -11F);
+		this.torso.xRot += 90F * wadeDegToRad;
+		this.torso.y += 3.5F * wadeAmount;
 
-		float headRot = -Mth.HALF_PI * swimAmount;
-		float headY = -3F * swimAmount;
-		float headZ = -2F * swimAmount;
-		this.head.xRot += headRot;
-		this.head.y += headY;
-		this.head.z += headZ;
+		this.head.xRot += (-10F - Mth.sin(animProgress - 40F) * 2F) * wadeDegToRad;
+		this.head.zRot -= (Mth.sin((animProgress * 2F) - 120F) * 1.5F) * wadeDegToRad;
+		this.head.y += 0.2F * wadeAmount;
+		this.head.z -= 0.1F * wadeAmount;
 
-		float swimRotScale = limbSwingAmount * swimAmount * 10F * Mth.DEG_TO_RAD;
-		float swimXRot = Mth.cos(limbSwing * 0.175F) * swimRotScale;
-		this.body.xRot += swimXRot;
-		this.head.xRot -= swimXRot;
-		float swimXRotDelayed = Mth.cos((limbSwing - 5F) * 0.175F) * swimRotScale;
-		this.feet.xRot += swimXRotDelayed;
+		this.left_flipper.xRot += (-30.8475F + Mth.sin((animProgress * 2F) + 40F) * 15F) * wadeDegToRad;
+		this.left_flipper.yRot += (-5.7559F - Mth.sin((animProgress * 2F) - 40F) * 20F) * wadeDegToRad;
+		this.left_flipper.zRot += (-31.4462F - Mth.sin(animProgress + 40F) * 5F) * wadeDegToRad;
+
+		this.right_flipper.xRot += (-30.8475F - Mth.sin((animProgress * 2F) + 30F) * 15F) * wadeDegToRad;
+		this.right_flipper.yRot += (5.7559F - Mth.sin((animProgress * 2F) - 70F) * 20F) * wadeDegToRad;
+		this.right_flipper.zRot += (31.4462F + Mth.sin(animProgress + 30F) * 5F) * wadeDegToRad;
+
+		this.feet.xRot += 92.1786F * wadeDegToRad;
+		this.feet.y -= 4.25F * wadeAmount;
+		this.feet.z += 5.75F * wadeAmount;
+
+		float footAnimProgress = limbSwing * 90F * 6F;
+		this.left_foot.xRot += (35.7474F - Mth.sin(footAnimProgress) * 15F) * wadeDegToRad;
+		this.left_foot.yRot -= 9.4931F * wadeDegToRad;
+		this.left_foot.zRot -= 11.3817F * wadeDegToRad;
+		this.left_foot.x -= 0.25F * wadeAmount;
+		this.left_foot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+
+		this.right_foot.xRot += (42.7455F + Mth.sin(footAnimProgress - 40F) * 15F) * wadeDegToRad;
+		this.right_foot.yRot += 5.7415F * wadeDegToRad;
+		this.right_foot.zRot += 15.1165F * wadeDegToRad;
+		this.right_foot.x += 0.25F * wadeAmount;
+		this.right_foot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+	}
+
+	// Original Molang animation made by DaDolphin!
+	private void animateSlide(float limbSwing, float limbSwingAmount, float slideAmount) {
+		limbSwing *= 0.001F;
+		float animProgress = limbSwing * 90F;
+
+		this.body.xRot = Mth.lerp(slideAmount, this.body.xRot, (Mth.sin((animProgress * 2F) - 210F)) * Mth.DEG_TO_RAD);
+		this.body.zRot = Mth.lerp(slideAmount, this.body.zRot, (Mth.sin(animProgress - 210F)) * Mth.DEG_TO_RAD);
+		this.body.z = Mth.lerp(slideAmount, this.body.z, -(Mth.sin((animProgress * 2F) - 180F)));
+
+		this.torso.xRot = Mth.lerp(slideAmount, this.torso.xRot, 90F * Mth.DEG_TO_RAD);
+		this.torso.y = Mth.lerp(slideAmount, this.torso.y, 3.5F);
+
+		this.head.xRot = Mth.lerp(slideAmount, this.head.xRot, ((-90F - Mth.sin(animProgress * 2F) - 120F) * 1.5F) * Mth.DEG_TO_RAD);
+		this.head.yRot = Mth.lerp(slideAmount, this.head.yRot, (-Mth.sin((animProgress * 2F) - 40F)) * Mth.DEG_TO_RAD);
+		this.head.zRot = Mth.lerp(slideAmount, this.head.zRot, (-Mth.sin(animProgress - 180F)) * Mth.DEG_TO_RAD);
+		this.head.y = Mth.lerp(slideAmount, this.head.y, -3F);
+		this.head.z = Mth.lerp(slideAmount, this.head.z, -1.62F);
+
+		this.left_flipper.xRot = Mth.lerp(slideAmount, this.left_flipper.xRot, (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * limbSwingAmount * Mth.DEG_TO_RAD);
+		this.left_flipper.yRot = Mth.lerp(slideAmount, this.left_flipper.yRot, ((Mth.sin(animProgress * 2F) - 40F) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
+		this.left_flipper.zRot = Mth.lerp(slideAmount, this.left_flipper.zRot, (-42.5F - (Mth.sin(animProgress * 2F)) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
+
+		this.right_flipper.xRot = Mth.lerp(slideAmount, this.right_flipper.xRot, (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * limbSwingAmount * Mth.DEG_TO_RAD);
+		this.right_flipper.yRot = Mth.lerp(slideAmount, this.right_flipper.yRot, ((Mth.sin(animProgress * 2F) - 40F) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
+		this.right_flipper.zRot = Mth.lerp(slideAmount, this.right_flipper.zRot, (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
+
+		this.feet.xRot = Mth.lerp(slideAmount, this.feet.xRot, 92.1786F * Mth.DEG_TO_RAD);
+		this.feet.y = Mth.lerp(slideAmount, this.feet.y, -4.25F);
+		this.feet.z = Mth.lerp(slideAmount, this.feet.z, 5.75F);
+
+		this.left_foot.xRot = Mth.lerp(slideAmount, this.left_foot.xRot, (-(Mth.sin(animProgress * 2F) - 270F) * 2F) * limbSwingAmount * Mth.DEG_TO_RAD);
+
+		this.right_foot.xRot = Mth.lerp(slideAmount, this.right_foot.xRot, (-(Mth.sin(animProgress * 2F) - 240F) * 2F) * limbSwingAmount * Mth.DEG_TO_RAD);
+	}
+
+	// Original Molang animation made by DaDolphin!
+	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
+		limbSwing *= 0.001F;
+		headPitch *= swimAmount;
+		float animProgress = limbSwing * 90F;
+		float swimLimbAmount = limbSwingAmount * swimAmount;
+		float swimLimbToRad = swimLimbAmount * Mth.DEG_TO_RAD;
+
+		this.body.xRot += headPitch * swimLimbToRad;
+		this.body.xRot -= (Mth.sin((animProgress * 2F) - 80F) * 3F) * swimLimbToRad;
+		this.body.yRot -= (Mth.sin((animProgress * 2F) - 180F)) * swimLimbToRad;
+		this.body.zRot += (Mth.sin((animProgress * 3F) - 50F) * 2F) * swimLimbToRad;
+		this.body.x -= (Mth.sin(animProgress) * 0.3F) * swimLimbAmount;
+		this.body.y += (Mth.sin(animProgress * 2F)) * swimLimbAmount;
+		this.body.z += (Mth.sin((animProgress * 3F) - 50F)) * swimLimbAmount;
+
+		this.torso.xRot += 90F * swimLimbToRad;
+		this.torso.y += 3.5F * swimLimbAmount;
+
+		this.head.xRot += (-90F + Mth.sin((animProgress * 2F) - 240F)) * swimLimbToRad;
+		this.head.yRot -= (Mth.sin((animProgress * 3F) - 50F) * 1.5F) * swimLimbToRad;
+		this.head.y -= 3F * swimLimbAmount;
+		this.head.z -= 1.63F * swimLimbAmount;
+
+		this.left_flipper.xRot -= 0.4104F * swimLimbToRad;
+		this.left_flipper.yRot += (-0.0179F - Mth.sin((animProgress * 3F) - 70F) * 5F) * swimLimbToRad;
+		this.left_flipper.zRot += (-22.5168F - Mth.sin((animProgress * 3F) - 20F) * 15F) * swimLimbToRad;
+
+		this.right_flipper.xRot -= 0.3343F * swimLimbToRad;
+		this.right_flipper.yRot += (0.0146F + Mth.sin((animProgress * 3F) - 50F) * 5F) * swimLimbToRad;
+		this.right_flipper.zRot += (22.5111F + Mth.sin(animProgress * 3F) * 15F) * swimLimbToRad;
+
+		this.feet.xRot += 92.1786F * swimLimbToRad;
+		this.feet.y -= 4.25F * swimLimbAmount;
+		this.feet.z += 5.75F * swimLimbAmount;
+
+		this.left_foot.xRot += (22.5F - Mth.sin((animProgress * 3F) - 80F) * 20F) * swimLimbToRad;
+
+		this.right_foot.xRot += (27.5F + Mth.sin((animProgress * 3F) - 80F) * 20F) * swimLimbToRad;
 	}
 
 	@Override
