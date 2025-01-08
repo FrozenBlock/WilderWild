@@ -776,6 +776,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
 			.add(WWBlocks.MYCELIUM_GROWTH)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
+			.add(WWBlocks.PALE_SHELF_FUNGI)
+			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
+			.add(WWBlocks.WARPED_SHELF_FUNGI)
 			.add(WWBlocks.PALE_MUSHROOM_BLOCK)
 			.add(WWBlocks.PALE_MUSHROOM);
 
@@ -828,6 +833,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ALGAE)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
 			.add(WWBlocks.RED_SHELF_FUNGI)
+			.add(WWBlocks.PALE_SHELF_FUNGI)
 			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
 			.add(WWBlocks.WARPED_SHELF_FUNGI)
 			.add(WWBlocks.SPONGE_BUD)

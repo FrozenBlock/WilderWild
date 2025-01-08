@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobweb
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.NetherShelfFungiTreeDecorator;
+import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PaleShelfFungiTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.ShelfFungiTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
@@ -273,6 +274,7 @@ public final class WWTreeConfigured {
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_002 = new ShelfFungiTreeDecorator(0.02F, 0.25F, 0.4F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungiTreeDecorator(0.064F, 0.25F, 0F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_00875_ONLY_RED = new ShelfFungiTreeDecorator(0.0875F, 0.25F, 1F);
+	private static final PaleShelfFungiTreeDecorator PALE_SHELF_FUNGI_00875 = new PaleShelfFungiTreeDecorator(0.0875F, 0.25F);
 	private static final NetherShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new NetherShelfFungiTreeDecorator(0.0875F, 0.25F, 0.1F);
 	private static final NetherShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new NetherShelfFungiTreeDecorator(0.0875F, 0.25F, 0.9F);
 	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
@@ -1244,33 +1246,58 @@ public final class WWTreeConfigured {
 		// PALE OAK
 
 		TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, false).build()
+			tallPaleOak(true, false).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
 		);
 
 		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(false, false).build()
+			tallPaleOak(false, false).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
 		);
 
 		TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, true).build()
+			tallPaleOak(true, true).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
 		);
 
 		FANCY_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, false).build()
+			fancyPaleOak(true, false).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
 		);
 
 		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(false, false).build()
+			fancyPaleOak(false, false).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
 		);
 
 		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, true).build()
+			fancyPaleOak(true, true).decorators(
+				List.of(
+					PALE_SHELF_FUNGI_00875
+				)
+			).build()
 		);
 
 		COBWEB_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			tallPaleOak(true, false).decorators(
 				List.of(
-					COBWEB_1_UNDER_260_025
+					COBWEB_1_UNDER_260_025,
+					PALE_SHELF_FUNGI_00875
 				)
 			).build()
 		);
@@ -1278,7 +1305,8 @@ public final class WWTreeConfigured {
 		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
 			tallPaleOak(true, true).decorators(
 				List.of(
-					COBWEB_1_UNDER_260_025
+					COBWEB_1_UNDER_260_025,
+					PALE_SHELF_FUNGI_00875
 				)
 			).build()
 		);
@@ -1286,7 +1314,8 @@ public final class WWTreeConfigured {
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			fancyPaleOak(true, false).decorators(
 				List.of(
-					COBWEB_1_UNDER_260_025
+					COBWEB_1_UNDER_260_025,
+					PALE_SHELF_FUNGI_00875
 				)
 			).build()
 		);
@@ -1294,7 +1323,8 @@ public final class WWTreeConfigured {
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
 			fancyPaleOak(true, true).decorators(
 				List.of(
-					COBWEB_1_UNDER_260_025
+					COBWEB_1_UNDER_260_025,
+					PALE_SHELF_FUNGI_00875
 				)
 			).build()
 		);
@@ -1303,8 +1333,7 @@ public final class WWTreeConfigured {
 			largeFallenBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 4, 2, 1).decorators(
 				List.of(
 					MOSS_PALE_OAK,
-					SHELF_FUNGUS_006_ONLY_BROWN,
-					SHELF_FUNGUS_007
+					PALE_SHELF_FUNGI_00875
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1320,7 +1349,7 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					MOSS_PALE_OAK,
-					SHELF_FUNGUS_006_ONLY_BROWN
+					PALE_SHELF_FUNGI_00875
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);

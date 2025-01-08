@@ -54,12 +54,15 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.PASQUEFLOWER, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_PASQUEFLOWER, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POLLEN, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PALE_MUSHROOM, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_PALE_MUSHROOM, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MYCELIUM_GROWTH, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.ECHO_GLASS, RenderType.translucent());
 		renderLayerRegistry.putBlock(WWBlocks.HANGING_TENDRIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BROWN_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.RED_SHELF_FUNGI, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PALE_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CRIMSON_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.WARPED_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_DOOR, RenderType.cutout());

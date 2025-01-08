@@ -214,6 +214,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_TEMPERATE_RAINFOREST = WWFeatureUtils.register("tall_flowers_temperate_rainforest");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST_VANILLA = WWFeatureUtils.register("flowers_temperate_rainforest_vanilla");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_TEMPERATE_RAINFOREST_VANILLA = WWFeatureUtils.register("tall_flowers_temperate_rainforest_vanilla");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_PALE_MUSHROOM = WWFeatureUtils.register("patch_pale_mushroom");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MUSHROOMS_DARK_FOREST = WWFeatureUtils.register("mushroom_dark_forest");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST = WWFeatureUtils.register("flowers_rainforest");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_RAINFOREST = WWFeatureUtils.register("tall_flowers_rainforest");
@@ -2028,6 +2029,13 @@ public final class WWConfiguredFeatures {
 						)
 					)
 				)
+			)
+		);
+
+		PATCH_PALE_MUSHROOM.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK,
+				new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM))
 			)
 		);
 

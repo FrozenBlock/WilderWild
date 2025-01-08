@@ -135,6 +135,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_BIG_MUSHROOMS = bind("feature/has_big_mushrooms");
 	public static final TagKey<Biome> HAS_COMMON_BROWN_MUSHROOM = bind("feature/has_common_brown_mushroom");
 	public static final TagKey<Biome> HAS_COMMON_RED_MUSHROOM = bind("feature/has_common_red_mushroom");
+	public static final TagKey<Biome> HAS_PALE_MUSHROOM = bind("feature/has_pale_mushroom");
+	public static final TagKey<Biome> HAS_BIG_PALE_MUSHROOM = bind("feature/has_big_pale_mushroom");
 	public static final TagKey<Biome> HAS_SWAMP_MUSHROOM = bind("feature/has_swamp_mushroom");
 	public static final TagKey<Biome> HAS_BIG_MUSHROOM_PATCH = bind("feature/has_big_mushroom_patch");
 	public static final TagKey<Biome> HAS_DATURA = bind("feature/has_datura");

@@ -54,3 +54,8 @@ hi
 - Expanded the list of blocks Fireflies can "hide" in during the day.
 - Renamed the `wilderwildfireflies` mob category to `wilderwildfirefly`.
 - Removed the `wilderwild:spawn/firefly_spawnable_cave` and `wilderwild:spawn/firefly_spawnable_during_day` tags as these spawning behaviors have been removed.
+
+# Pale Mushroom Branch
+- All Shelf Fungi can now be mined faster with an Axe.
+- Added the Pale Mushroom, Pale Shelf Fungi, and Pale Mushroom Block.
+- Huge Pale Mushrooms generate naturally in the Pale Garden Biome.

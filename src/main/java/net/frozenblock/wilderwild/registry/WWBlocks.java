@@ -55,6 +55,7 @@ import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PaleMushroomBlock;
+import net.frozenblock.wilderwild.block.PaleShelfFungiBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -778,6 +779,16 @@ public final class WWBlocks {
 	public static final Block POTTED_PALE_MUSHROOM = register("potted_pale_mushroom",
 		properties -> new FlowerPotBlock(PALE_MUSHROOM, properties),
 		Blocks.flowerPotProperties()
+	);
+	public static final PaleShelfFungiBlock PALE_SHELF_FUNGI = register("pale_shelf_fungi",
+		PaleShelfFungiBlock::new,
+		Properties.ofFullCopy(PALE_MUSHROOM_BLOCK)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(WWSoundTypes.MUSHROOM)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
 	);
 
 	public static final PollenBlock POLLEN = registerWithoutItem("pollen",

@@ -108,6 +108,7 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);
+		WWModelHelper.createShelfFungi(generator, WWBlocks.PALE_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.CRIMSON_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.WARPED_SHELF_FUNGI);
 

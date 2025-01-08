@@ -386,6 +386,10 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RED_MUSHROOM_PLACED.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MUSHROOM)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.PALE_MUSHROOM_PLACED.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_MUSHROOMS_SWAMP.getKey());
 						}

@@ -965,7 +965,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_BROWN_MUSHROOM)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.DARK_FOREST)
-			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
@@ -978,6 +977,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_RED_MUSHROOM)
 			.add(Biomes.DARK_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PALE_MUSHROOM)
+			.add(Biomes.PALE_GARDEN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIG_PALE_MUSHROOM)
+			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIG_MUSHROOMS)
 			.add(Biomes.BIRCH_FOREST)
@@ -1118,7 +1123,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
-			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWBiomes.WARM_BEACH);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
@@ -1394,7 +1398,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BROWN_SHELF_FUNGI)
 			.add(Biomes.DARK_FOREST)
-			.add(Biomes.PALE_GARDEN)
 			.add(Biomes.FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.add(Biomes.BIRCH_FOREST)
