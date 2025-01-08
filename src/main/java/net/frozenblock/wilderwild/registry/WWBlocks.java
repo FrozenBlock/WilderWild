@@ -76,6 +76,7 @@ import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -90,7 +91,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -111,9 +111,7 @@ import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -766,7 +764,7 @@ public final class WWBlocks {
 			.ignitedByLava()
 	);
 	public static final PaleMushroomBlock PALE_MUSHROOM = register("pale_mushroom",
-		properties -> new PaleMushroomBlock(TreeFeatures.HUGE_RED_MUSHROOM, properties),
+		properties -> new PaleMushroomBlock(WWTreeConfigured.HUGE_PALE_MUSHROOM.getKey(), properties),
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_GRAY)
 			.noCollission()

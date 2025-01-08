@@ -10,12 +10,12 @@
           "east": "true",
           "north": "true",
           "south": "true",
-          "up": "true",
+          "up": "false",
           "west": "true"
         }
       }
     },
-    "foliage_radius": 3,
+    "foliage_radius": 2,
     "stem_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {

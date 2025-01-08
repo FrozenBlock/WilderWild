@@ -17,43 +17,54 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 	}
 
 	@Override
+	protected int getTreeHeight(@NotNull RandomSource randomSource) {
+		return randomSource.nextInt(3) + 4;
+	}
+
+	@Override
 	protected void makeCap(
 		LevelAccessor levelAccessor,
 		RandomSource randomSource,
 		BlockPos blockPos,
-		int i,
+		int height,
 		BlockPos.MutableBlockPos mutableBlockPos,
-		@NotNull HugeMushroomFeatureConfiguration hugeMushroomFeatureConfiguration
+		HugeMushroomFeatureConfiguration hugeMushroomFeatureConfiguration
 	) {
-		int radius = hugeMushroomFeatureConfiguration.foliageRadius;
+		for (int j = height - 1; j <= height + 1; j++) {
+			int radius = j < height + 1 ? hugeMushroomFeatureConfiguration.foliageRadius : hugeMushroomFeatureConfiguration.foliageRadius - 1;
+			int withinRadius = hugeMushroomFeatureConfiguration.foliageRadius - 2;
 
-		for (int x = -radius; x <= radius; x++) {
-			for (int l = -radius; l <= radius; l++) {
-				boolean negX = x == -radius;
-				boolean posX = x == radius;
-				boolean bl3 = l == -radius;
-				boolean bl4 = l == radius;
-				boolean bl5 = negX || posX;
-				boolean bl6 = bl3 || bl4;
-				if (!bl5 || !bl6) {
-					mutableBlockPos.setWithOffset(blockPos, x, i, l);
-					if (!levelAccessor.getBlockState(mutableBlockPos).isSolidRender()) {
-						boolean west = negX || bl6 && x == 1 - radius;
-						boolean east = posX || bl6 && x == radius - 1;
-						boolean north = bl3 || bl5 && l == 1 - radius;
-						boolean south = bl4 || bl5 && l == radius - 1;
-						BlockState blockState = hugeMushroomFeatureConfiguration.capProvider.getState(randomSource, blockPos);
-						if (blockState.hasProperty(HugeMushroomBlock.WEST)
-							&& blockState.hasProperty(HugeMushroomBlock.EAST)
-							&& blockState.hasProperty(HugeMushroomBlock.NORTH)
-							&& blockState.hasProperty(HugeMushroomBlock.SOUTH)) {
-							blockState = blockState.setValue(HugeMushroomBlock.WEST, west)
-								.setValue(HugeMushroomBlock.EAST, east)
-								.setValue(HugeMushroomBlock.NORTH, north)
-								.setValue(HugeMushroomBlock.SOUTH, south);
+			for (int m = -radius; m <= radius; m++) {
+				for (int n = -radius; n <= radius; n++) {
+					boolean onNegX = m == -radius;
+					boolean onPosX = m == radius;
+					boolean onNegZ = n == -radius;
+					boolean onPosZ = n == radius;
+					boolean onX = onNegX || onPosX;
+					boolean onZ = onNegZ || onPosZ;
+					boolean onCorner = onX && onZ;
+					boolean onEdge = onX || onZ;
+					if (j >= height + 1 || ((onX != onZ) || (j == height && !onCorner))) {
+						mutableBlockPos.setWithOffset(blockPos, m, j, n);
+						if (!levelAccessor.getBlockState(mutableBlockPos).isSolidRender()) {
+							BlockState blockState = hugeMushroomFeatureConfiguration.capProvider.getState(randomSource, blockPos);
+							if (blockState.hasProperty(HugeMushroomBlock.WEST)
+								&& blockState.hasProperty(HugeMushroomBlock.EAST)
+								&& blockState.hasProperty(HugeMushroomBlock.NORTH)
+								&& blockState.hasProperty(HugeMushroomBlock.SOUTH)
+								&& blockState.hasProperty(HugeMushroomBlock.UP)
+							) {
+								boolean hasUpState = j >= height + 1 || (onEdge && j == height);
+								blockState = blockState
+									.setValue(HugeMushroomBlock.UP, hasUpState)
+									.setValue(HugeMushroomBlock.WEST, m < -withinRadius)
+									.setValue(HugeMushroomBlock.EAST, m > withinRadius)
+									.setValue(HugeMushroomBlock.NORTH, n < -withinRadius)
+									.setValue(HugeMushroomBlock.SOUTH, n > withinRadius);
+							}
+
+							this.setBlock(levelAccessor, mutableBlockPos, blockState);
 						}
-
-						this.setBlock(levelAccessor, mutableBlockPos, blockState);
 					}
 				}
 			}
@@ -61,14 +72,14 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 	}
 
 	@Override
-	protected int getTreeRadiusForHeight(int i, int j, int radius, int height) {
-		int finalRadius = 0;
-		if (height < j && height >= j - 3) {
-			finalRadius = radius;
-		} else if (height == j) {
-			finalRadius = radius;
+	protected int getTreeRadiusForHeight(int i, int j, int k, int l) {
+		int m = 0;
+		if (l < j + 1 && l >= j - 1) {
+			m = k;
+		} else if (l == j) {
+			m = k;
 		}
 
-		return finalRadius;
+		return m;
 	}
 }

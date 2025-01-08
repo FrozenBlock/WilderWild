@@ -1392,13 +1392,13 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(
 					WWBlocks.PALE_MUSHROOM_BLOCK
 						.defaultBlockState()
-						.setValue(HugeMushroomBlock.UP, true)
+						.setValue(HugeMushroomBlock.UP, false)
 						.setValue(HugeMushroomBlock.DOWN, false)
 				),
 				BlockStateProvider.simple(
 					Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)
 				),
-				3
+				2
 			)
 		);
 
