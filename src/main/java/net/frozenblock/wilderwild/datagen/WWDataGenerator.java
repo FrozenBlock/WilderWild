@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.datagen.tag.WWGameEventTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWInstrumentTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
@@ -90,6 +91,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
 		registryBuilder.add(WilderWildRegistries.BUTTERFLY_VARIANT, ButterflyVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.JELLYFISH_VARIANT, JellyfishVariants::bootstrap);
+		registryBuilder.add(WilderWildRegistries.CRAB_VARIANT, CrabVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.MOOBLOOM_VARIANT, MoobloomVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehaviors::bootstrap);
 	}

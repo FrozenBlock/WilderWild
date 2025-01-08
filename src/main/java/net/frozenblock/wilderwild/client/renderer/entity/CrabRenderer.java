@@ -30,7 +30,6 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
-	private static final ResourceLocation CRAB_LOCATION = WWConstants.id("textures/entity/crab/crab.png");
 	private static final ResourceLocation CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
 
 	public CrabRenderer(EntityRendererProvider.Context context) {
@@ -55,7 +54,7 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return !entity.isDitto() ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
+		return !entity.isDitto() ? entity.getVariantForRendering().texture() : CRAB_DITTO_LOCATION;
 	}
 
 }

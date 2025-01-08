@@ -27,10 +27,10 @@ import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWSounds {
-	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_ADDITIONS = registerForHolder("ambient.deep_dark.additions");
 
 	//AMBIENT
 	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_LOOP = registerForHolder("ambient.deep_dark.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_ADDITIONS = registerForHolder("ambient.deep_dark.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_ADDITIONS = registerForHolder("ambient.dripstone_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_LOOP = registerForHolder("ambient.dripstone_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_ADDITIONS = registerForHolder("ambient.mesoglea_caves.additions");
@@ -253,6 +253,8 @@ public final class WWSounds {
 	//ENTITY
 	public static final SoundEvent ENTITY_FIREFLY_HIDE = register("entity.firefly.hide");
 	public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
+	public static final SoundEvent ENTITY_BUTTERFLY_HURT = register("entity.butterfly.hurt");
+	public static final SoundEvent ENTITY_BUTTERFLY_DEATH = register("entity.butterfly.death");
 	public static final SoundEvent ENTITY_ENDERMAN_ANGER_LOOP = register("entity.enderman.anger_loop");
 	public static final SoundEvent ENTITY_JELLYFISH_STING = register("entity.jellyfish.sting");
 	public static final SoundEvent ENTITY_JELLYFISH_AMBIENT_WATER = register("entity.jellyfish.ambient_water");
@@ -338,7 +340,8 @@ public final class WWSounds {
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
-	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wilder_forests");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_LUSH_CAVES = registerForHolder("music.overworld.wilder_lush_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");

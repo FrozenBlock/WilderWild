@@ -16,25 +16,37 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.block.leaves;
+package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.jetbrains.annotations.NotNull;
 
-@Mixin(LeavesBlock.class)
-public class LeavesBlockMixin {
+public class LeavesWithLitterBlock extends LeavesBlock {
+	public static final MapCodec<LeavesWithLitterBlock> CODEC = simpleCodec(LeavesWithLitterBlock::new);
 
-	@Inject(method = "animateTick", at = @At("HEAD"))
-	public void wilderWild$fallingLeafParticles(BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info) {
-		FallingLeafUtil.addFallingLeafParticles(state, world, pos, random);
+	public LeavesWithLitterBlock(Properties properties) {
+		super(properties);
 	}
 
+	@Override
+	public @NotNull MapCodec<? extends LeavesWithLitterBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
+	protected boolean isRandomlyTicking(@NotNull BlockState blockState) {
+		return !blockState.getValue(PERSISTENT);
+	}
+
+	@Override
+	protected void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+		FallingLeafUtil.onRandomTick(blockState, serverLevel, blockPos, randomSource);
+		super.randomTick(blockState, serverLevel, blockPos, randomSource);
+	}
 }

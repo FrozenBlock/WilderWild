@@ -116,23 +116,25 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					CustomData colorData = stack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
 					if (colorData != null && !colorData.isEmpty()) {
 						CompoundTag tag = colorData.copyTag();
-						ResourceLocation color = ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD));
+						if (tag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
+							ResourceLocation color = ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD));
 
-						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
-							String name = "";
-							if (stack.has(DataComponents.CUSTOM_NAME)) {
-								name = stack.getHoverName().getString();
+							if (lantern.getFireflies().size() < MAX_FIREFLIES) {
+								String name = "";
+								if (stack.has(DataComponents.CUSTOM_NAME)) {
+									name = stack.getHoverName().getString();
+								}
+								lantern.addFirefly(level, color, name);
+								if (!player.isCreative()) {
+									player.getItemInHand(hand).shrink(1);
+								}
+								player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
+								level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+								level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+								lantern.updateSync();
+								level.updateNeighbourForOutputSignal(pos, this);
+								return ItemInteractionResult.SUCCESS;
 							}
-							lantern.addFirefly(level, color, name);
-							if (!player.isCreative()) {
-								player.getItemInHand(hand).shrink(1);
-							}
-							player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
-							level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-							level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-							lantern.updateSync();
-							level.updateNeighbourForOutputSignal(pos, this);
-							return ItemInteractionResult.SUCCESS;
 						}
 					}
 				} else if (stack.is(Items.GLASS_BOTTLE)) {

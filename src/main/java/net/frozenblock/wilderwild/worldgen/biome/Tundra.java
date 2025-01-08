@@ -25,11 +25,11 @@ import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.FrozenGrassColorModifiers;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -46,6 +46,7 @@ import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -58,10 +59,8 @@ import org.jetbrains.annotations.Nullable;
 public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
-	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-0.4F, -0.05F);
-	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(0.05F, 0.4F);
-	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-0.223F, 0.450F);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.030F, 0.550F);
+	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-2.233F, 0.450F);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.110F, 0.030F);
 
 	public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-1.000F, -0.450F);
 	public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(0.300F, 0.700F);
@@ -215,45 +214,46 @@ public final class Tundra extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION_A,
-				WEIRDNESS_A,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION_A,
-				WEIRDNESS_B,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE_B,
-				HUMIDITY_C,
-				CONTINENTALNESS_B,
-				EROSION_B,
-				WEIRDNESS_C,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				TEMPERATURE_C,
-				HUMIDITY_D,
-				CONTINENTALNESS_C,
-				EROSION_C,
-				WEIRDNESS_D,
-				0F
-			);
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					EROSION_A,
+					point.weirdness(),
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					EROSION_A,
+					point.weirdness(),
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_B,
+					HUMIDITY_C,
+					CONTINENTALNESS_B,
+					EROSION_B,
+					WEIRDNESS_C,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_C,
+					HUMIDITY_D,
+					CONTINENTALNESS_C,
+					EROSION_C,
+					WEIRDNESS_D,
+					0F
+				);
 
+			}
 		}
 	}
-
 }
 

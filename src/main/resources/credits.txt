@@ -23,7 +23,7 @@ Soro:
  - Beta Beaches.
  - Water Pools generating near Rivers.
  - Scorched Sand concept.
- - Baobab Nuts.
+ - Baobab Nut concept.
  - Help with Maple tree variants in worldgen.
  - Huge help implementing and tweaking the Tundra biome.
 
@@ -59,7 +59,10 @@ voxelotl:
  - Moobloom textures.
 
 LudoCrypt:
- - New music.
+ - New Forest and Mesoglea Caves music.
+
+Willow/pictochats_:
+ - New cave music.
 
 Enri:
  - Italian translation.

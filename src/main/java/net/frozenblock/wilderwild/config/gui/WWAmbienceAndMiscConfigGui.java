@@ -370,10 +370,17 @@ public final class WWAmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var wilderLushCavesMusic = entryBuilder.startBooleanToggle(text("wilder_lush_caves_music"), biomeMusic.wilderLushCavesMusic)
+			.setDefaultValue(defaultConfig.biomeMusic.wilderLushCavesMusic)
+			.setSaveConsumer(newValue -> biomeMusic.wilderLushCavesMusic = newValue)
+			.setTooltip(tooltip("wilder_lush_caves_music"))
+			.requireRestart()
+			.build();
+
 		var biomeMusicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_music"),
 			false,
 			tooltip("biome_music"),
-			wilderForestMusic
+			wilderForestMusic, wilderLushCavesMusic
 		);
 	}
 }

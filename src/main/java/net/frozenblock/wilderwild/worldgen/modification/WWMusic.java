@@ -58,6 +58,15 @@ public final class WWMusic {
 				}
 			});
 
+		BiomeModifications.create(WWConstants.id("modify_music_lush_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(Biomes.LUSH_CAVES),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderLushCavesMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES));
+				}
+			});
+
 		// Ambience
 		BiomeModifications.create(WWConstants.id("modify_ambience_deep_dark")).add(
 			ModificationPhase.REPLACEMENTS,

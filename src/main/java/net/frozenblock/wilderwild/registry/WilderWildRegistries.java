@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehavior;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
@@ -32,6 +33,7 @@ public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR = ResourceKey.createRegistryKey(WWConstants.id("firefly_color"));
 	public static final ResourceKey<Registry<ButterflyVariant>> BUTTERFLY_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("butterfly_variant"));
 	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("jellyfish_variant"));
+	public static final ResourceKey<Registry<CrabVariant>> CRAB_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("crab_variant"));
 	public static final ResourceKey<Registry<MoobloomVariant>> MOOBLOOM_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("moobloom_variant"));
 	public static final ResourceKey<Registry<TermiteBlockBehavior>> TERMITE_BLOCK_BEHAVIOR = ResourceKey.createRegistryKey(WWConstants.id("termite_block_behavior"));
 	private WilderWildRegistries() {
@@ -42,6 +44,7 @@ public final class WilderWildRegistries {
 		DynamicRegistries.registerSynced(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC);
+		DynamicRegistries.registerSynced(CRAB_VARIANT, CrabVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC);
 	}
