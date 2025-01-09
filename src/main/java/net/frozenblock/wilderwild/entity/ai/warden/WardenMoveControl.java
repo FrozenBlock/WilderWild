@@ -89,6 +89,6 @@ public class WardenMoveControl extends MoveControl {
 	}
 
 	private boolean touchingWaterOrLava(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 }

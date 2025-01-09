@@ -204,7 +204,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		if (this.wilderWild$hasDeathAnimation() && warden.getPose() == Pose.DYING) {
 			this.clientDiggingParticles(this.wilderWild$getDyingAnimationState());
 		}
-		if ((warden.isInWaterOrBubble() || warden.isInLava())
+		if ((warden.isInWater() || warden.isInLava())
 			&& (!warden.isEyeInFluid(FluidTags.WATER) || !warden.isEyeInFluid(FluidTags.LAVA))
 			&& this.horizontalCollision
 			&& !diggingOrEmerging

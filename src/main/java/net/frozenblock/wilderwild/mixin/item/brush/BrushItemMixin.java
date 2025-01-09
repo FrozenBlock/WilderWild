@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -77,11 +78,11 @@ public class BrushItemMixin {
 		method = "onUseTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V"
+			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V"
 		)
 	)
 	public void wilderWild$playBrushSound(
-		Level instance, Player player, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
+		Level instance, Entity player, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
 		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {

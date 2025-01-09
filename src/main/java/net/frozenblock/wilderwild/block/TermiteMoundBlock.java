@@ -103,13 +103,10 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		if (!state.is(newState.getBlock())) {
-			if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) {
-				termiteMoundBlockEntity.termiteManager.clearTermites(level);
-			}
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) {
+			termiteMoundBlockEntity.termiteManager.clearTermites(level);
 		}
-		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override
@@ -138,7 +135,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	public static boolean shouldTermitesSleep(@NotNull Level level, int light) {
-		return level.isNight() && light < MIN_AWAKE_LIGHT_LEVEL;
+		return level.isDarkOutside() && light < MIN_AWAKE_LIGHT_LEVEL;
 	}
 
 	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {

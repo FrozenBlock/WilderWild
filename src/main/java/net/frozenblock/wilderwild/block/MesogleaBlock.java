@@ -104,8 +104,12 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		return blockState.hasProperty(BUBBLE_DIRECTION) && blockState.getBlock() instanceof MesogleaBlock;
 	}
 
+	public static boolean isWaterloggedMesoglea(BlockState blockState) {
+		return isMesoglea(blockState) && blockState.getValue(WATERLOGGED);
+	}
+
 	public static boolean isColumnSupportingMesoglea(BlockState blockState) {
-		return isMesoglea(blockState) && blockState.getValue(WATERLOGGED) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
+		return isWaterloggedMesoglea(blockState) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
 	}
 
 	public static boolean hasBubbleColumn(BlockState blockState) {
@@ -199,7 +203,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		if (dragDirection.isPresent() && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			BlockState blockState = level.getBlockState(pos.above());
 			if (blockState.isAir()) {
-				entity.onAboveBubbleCol(dragDirection.get() == Direction.DOWN);
+				entity.onAboveBubbleCol(dragDirection.get() == Direction.DOWN, pos);
 				if (level instanceof ServerLevel serverLevel) {
 					for (int i = 0; i < 2; ++i) {
 						serverLevel.sendParticles(

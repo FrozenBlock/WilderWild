@@ -315,7 +315,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 
 	@Unique
 	private boolean wilderWild$touchingFluid(@NotNull Warden warden) {
-		return warden.isInWaterOrBubble() || warden.isInLava();
+		return warden.isInWater() || warden.isInLava();
 	}
 
 }

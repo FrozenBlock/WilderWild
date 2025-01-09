@@ -19,19 +19,31 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+// TODO 1.21.5 remove?
 public class LeavesWithLitterBlock extends LeavesBlock {
-	public static final MapCodec<LeavesWithLitterBlock> CODEC = simpleCodec(LeavesWithLitterBlock::new);
+	public static final MapCodec<LeavesWithLitterBlock> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+				ExtraCodecs.POSITIVE_INT.fieldOf("leaf_particle_chance").forGetter(leavesBlock -> leavesBlock.leafParticleChance),
+				ParticleTypes.CODEC.fieldOf("leaf_particle").forGetter(leavesBlock -> leavesBlock.leafParticle),
+				propertiesCodec()
+			)
+			.apply(instance, LeavesWithLitterBlock::new)
+	);
 
-	public LeavesWithLitterBlock(Properties properties) {
-		super(properties);
+	public LeavesWithLitterBlock(int leafParticleChance, ParticleOptions leafParticle, Properties properties) {
+		super(leafParticleChance, leafParticle, properties);
 	}
 
 	@Override

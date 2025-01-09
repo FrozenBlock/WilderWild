@@ -186,13 +186,9 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		if (!state.is(newState.getBlock())) {
-			if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
-				updateNeighbours(level, pos, state);
-			}
-
-			super.onRemove(state, level, pos, newState, movedByPiston);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
+			updateNeighbours(level, pos, state);
 		}
 	}
 

@@ -265,7 +265,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isInWaterOrBubble() ? WWSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
+		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
 	}
 
 	@Override
@@ -284,12 +284,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-		return this.isInWaterOrBubble() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER : WWSounds.ENTITY_JELLYFISH_HURT;
+		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER : WWSounds.ENTITY_JELLYFISH_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isInWaterOrBubble() ? WWSounds.ENTITY_JELLYFISH_DEATH_WATER : WWSounds.ENTITY_JELLYFISH_DEATH;
+		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_DEATH_WATER : WWSounds.ENTITY_JELLYFISH_DEATH;
 	}
 
 	@Override
@@ -349,7 +349,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		++this.ticksSinceSpawn;
 
-		if (this.isInWaterOrBubble()) {
+		if (this.isInWater()) {
 			this.heal(0.02F);
 			Vec3 vec3 = this.getDeltaMovement();
 			if (vec3.horizontalDistance() > 0.005) {
@@ -413,7 +413,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.reproductionCooldown = Math.max(0, this.reproductionCooldown - 1);
 		this.setCanReproduce(
 			this.reproductionCooldown == 0
-				&& this.isInWaterOrBubble()
+				&& this.isInWater()
 				&& this.isUnderWater()
 				&& !this.vanishing
 				&& !this.growing

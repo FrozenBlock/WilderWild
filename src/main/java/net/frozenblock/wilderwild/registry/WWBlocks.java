@@ -83,6 +83,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
@@ -251,29 +252,29 @@ public final class WWBlocks {
 	);
 
 	public static final Block CYPRESS_LEAVES = register("cypress_leaves",
-		LeavesBlock::new,
+		properties -> new LeavesBlock(100, ParticleTypes.TINTED_LEAVES, properties),
 		Blocks.leavesProperties(SoundType.GRASS)
 	); // in front so the other leaves can have a copy of its settings
 
 	public static final Block BAOBAB_LEAVES = register("baobab_leaves",
-		BaobabLeavesBlock::new,
+		properties -> new LeavesBlock(100, ParticleTypes.TINTED_LEAVES, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
 
 	public static final PalmFrondsBlock PALM_FRONDS = register("palm_fronds",
-		PalmFrondsBlock::new,
+		properties -> new PalmFrondsBlock(100, ParticleTypes.TINTED_LEAVES, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
 	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(100, ParticleTypes.TINTED_LEAVES, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(100, ParticleTypes.TINTED_LEAVES, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(100, ParticleTypes.TINTED_LEAVES, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
@@ -555,7 +556,7 @@ public final class WWBlocks {
 	);
 
 	public static final FlowerBlock MARIGOLD = register("marigold",
-		properties -> new FlowerBlock(MobEffects.DAMAGE_RESISTANCE, 8, properties),
+		properties -> new FlowerBlock(MobEffects.RESISTANCE, 8, properties),
 		Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_MARIGOLD = registerWithoutItem("potted_marigold",

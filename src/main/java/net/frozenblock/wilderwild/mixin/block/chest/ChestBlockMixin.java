@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -108,14 +109,14 @@ public class ChestBlockMixin {
 	}
 
 	@Inject(
-		method = "onRemove",
+		method = "affectNeighborsAfterRemoval",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/Containers;dropContentsOnDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
+			target = "Lnet/minecraft/world/Containers;updateNeighboursAfterDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
 		)
 	)
-	public void wilderWild$onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
-		if (!level.isClientSide && !state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
+	public void wilderWild$onRemove(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, boolean isMoving, CallbackInfo info) {
+		if (!level.isClientSide && level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
 			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
 		}
 	}

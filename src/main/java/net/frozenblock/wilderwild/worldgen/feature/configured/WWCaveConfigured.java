@@ -42,7 +42,7 @@ import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -1168,7 +1168,7 @@ public final class WWCaveConfigured {
 		ICICLE_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(Blocks.ICE.defaultBlockState(), 5)
 					.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
 					.add(Blocks.BLUE_ICE.defaultBlockState(), 3)
@@ -1188,7 +1188,7 @@ public final class WWCaveConfigured {
 		ICE_PATCH_CEILING.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(Blocks.ICE.defaultBlockState(), 5)
 					.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
 					.add(Blocks.BLUE_ICE.defaultBlockState(), 3)
@@ -1208,7 +1208,7 @@ public final class WWCaveConfigured {
 		ICE_COLUMN_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(Blocks.ICE.defaultBlockState(), 5)
 					.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
 					.add(Blocks.BLUE_ICE.defaultBlockState(), 3)
@@ -1228,7 +1228,7 @@ public final class WWCaveConfigured {
 		ICE_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(Blocks.ICE.defaultBlockState(), 5)
 					.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
 					.add(Blocks.BLUE_ICE.defaultBlockState(), 3)

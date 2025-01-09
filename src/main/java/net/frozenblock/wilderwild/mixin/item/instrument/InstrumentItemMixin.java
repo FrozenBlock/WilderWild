@@ -43,11 +43,11 @@ public final class InstrumentItemMixin {
 		method = "play",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"
+			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"
 		)
 	)
 	private static void wilderWild$playRestrictionSound(
-		Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original
+		Level level, Entity player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original
 	) {
 		if (WWItemConfig.get().restrictInstrumentSound) {
 			if (!level.isClientSide) {

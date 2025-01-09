@@ -362,49 +362,42 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean moved) {
-		if (state.is(newState.getBlock())) return;
-
-		if (!level.isClientSide) {
-			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof StoneChestBlockEntity stoneChest) {
-				if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) {
-					stoneChestInterface.wilderWild$bubbleBurst(state);
-				}
-
-				stoneChest.unpackLootTable(null);
-				ArrayList<ItemStack> ancientItems = stoneChest.ancientItems();
-				if (!ancientItems.isEmpty()) {
-					level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
-					for (ItemStack taunt : ancientItems) {
-						for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
-							spawnBreakParticles(level, taunt, pos);
-						}
-					}
-				}
-				RandomSource random = level.getRandom();
-				for (ItemStack item : stoneChest.nonAncientItems()) {
-					double d = EntityType.ITEM.getWidth();
-					double e = 1D - d;
-					double f = d / 2D;
-					double g = pos.getX() + random.nextDouble() * e + f;
-					double h = pos.getY() + random.nextDouble() * e;
-					double i = pos.getZ() + random.nextDouble() * e + f;
-					while (!item.isEmpty()) {
-						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(random.nextInt(21) + 10));
-						itemEntity.setDeltaMovement(
-							random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B),
-							random.triangle(ITEM_DELTA_TRIANGLE_A_Y, ITEM_DELTA_TRIANGLE_B),
-							random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B)
-						);
-						level.addFreshEntity(itemEntity);
-					}
-				}
-				level.updateNeighbourForOutputSignal(pos, this);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof StoneChestBlockEntity stoneChest) {
+			if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) {
+				stoneChestInterface.wilderWild$bubbleBurst(state);
 			}
-		}
-		if (state.hasBlockEntity() && !state.is(newState.getBlock())) {
-			level.removeBlockEntity(pos);
+
+			stoneChest.unpackLootTable(null);
+			ArrayList<ItemStack> ancientItems = stoneChest.ancientItems();
+			if (!ancientItems.isEmpty()) {
+				level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
+				for (ItemStack taunt : ancientItems) {
+					for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
+						spawnBreakParticles(level, taunt, pos);
+					}
+				}
+			}
+			RandomSource random = level.getRandom();
+			for (ItemStack item : stoneChest.nonAncientItems()) {
+				double d = EntityType.ITEM.getWidth();
+				double e = 1D - d;
+				double f = d / 2D;
+				double g = pos.getX() + random.nextDouble() * e + f;
+				double h = pos.getY() + random.nextDouble() * e;
+				double i = pos.getZ() + random.nextDouble() * e + f;
+				while (!item.isEmpty()) {
+					ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(random.nextInt(21) + 10));
+					itemEntity.setDeltaMovement(
+						random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B),
+						random.triangle(ITEM_DELTA_TRIANGLE_A_Y, ITEM_DELTA_TRIANGLE_B),
+						random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B)
+					);
+					level.addFreshEntity(itemEntity);
+				}
+			}
+			level.updateNeighbourForOutputSignal(pos, this);
 		}
 	}
 

@@ -154,7 +154,7 @@ public final class WarmBeach extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.@NotNull Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 5, 2, 5));
+		spawns.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 2, 5));
 	}
 
 	@Override

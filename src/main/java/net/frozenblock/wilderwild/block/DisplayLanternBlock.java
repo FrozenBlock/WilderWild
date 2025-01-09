@@ -36,6 +36,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -256,17 +257,14 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		if (!state.is(newState.getBlock())) {
-			if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
-				for (ItemStack item : lantern.inventory) {
-					popResource(level, pos, item);
-				}
-				lantern.inventory.clear();
-				level.updateNeighbourForOutputSignal(pos, this);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
+			for (ItemStack item : lantern.inventory) {
+				popResource(level, pos, item);
 			}
+			lantern.inventory.clear();
+			level.updateNeighbourForOutputSignal(pos, this);
 		}
-		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override

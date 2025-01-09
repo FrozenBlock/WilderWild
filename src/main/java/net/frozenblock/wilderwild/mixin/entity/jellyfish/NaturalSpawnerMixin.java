@@ -54,9 +54,9 @@ public class NaturalSpawnerMixin {
 		double distance,
 		CallbackInfoReturnable<Boolean> info
 	) {
-		if (data.type == WWEntityTypes.JELLYFISH) {
+		if (data.type() == WWEntityTypes.JELLYFISH) {
 			info.setReturnValue(
-				IgnoringMesogleaBlockCollisions.noJellyCollision(level, null, data.type.getSpawnAABB(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D))
+				IgnoringMesogleaBlockCollisions.noJellyCollision(level, null, data.type().getSpawnAABB(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D))
 			);
 		}
 	}

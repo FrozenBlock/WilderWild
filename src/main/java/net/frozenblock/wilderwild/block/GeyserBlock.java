@@ -167,11 +167,6 @@ public class GeyserBlock extends BaseEntityBlock {
 		return blockState;
 	}
 
-	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		super.onRemove(state, level, pos, newState, movedByPiston);
-	}
-
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull BlockState state, @NotNull BlockPos pos) {
 		return getGeyserTypeForPos(level, state.getValue(FACING), pos);
 	}

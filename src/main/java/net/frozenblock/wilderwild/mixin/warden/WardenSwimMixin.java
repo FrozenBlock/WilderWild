@@ -70,7 +70,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Unique
 	private static boolean wilderWild$touchingLiquidOrSwimming(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 
 	@Unique
@@ -204,7 +204,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Override
 	public boolean wilderWild$isTouchingWaterOrLava() {
 		Warden warden = Warden.class.cast(this);
-		return warden.isInWaterOrBubble() || warden.isInLava();
+		return warden.isInWater() || warden.isInLava();
 	}
 
 	@Unique

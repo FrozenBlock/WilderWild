@@ -35,7 +35,7 @@ public class WardenLookControl extends LookControl {
 	}
 
 	private static boolean entityTouchingWaterOrLava(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 
 	@Override

@@ -342,7 +342,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	public boolean shouldHide() {
 		return this.isNatural()
-			&& this.level().isDay()
+			&& this.level().isBrightOutside()
 			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 7;
 	}
 
@@ -366,7 +366,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public void travel(@NotNull Vec3 travelVector) {
-		if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
+		if (this.isEffectiveAi() || this.isLocalInstanceAuthoritative()) {
 			if (this.isAlive()) {
 				if (this.isInWater()) {
 					this.moveRelative(0.01F, travelVector);
@@ -497,7 +497,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public boolean canDisableShield() {
+	public boolean canDisableBlocking() {
 		return false;
 	}
 

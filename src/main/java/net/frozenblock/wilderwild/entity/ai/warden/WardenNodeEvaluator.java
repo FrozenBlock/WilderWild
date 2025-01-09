@@ -151,7 +151,7 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	}
 
 	private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 
 	private boolean isEntitySubmergedInWaterOrLava(@NotNull Entity entity) {

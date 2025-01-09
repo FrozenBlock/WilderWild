@@ -85,10 +85,11 @@ public class LeafLitterBlock extends CarpetBlock {
 		return !state.getValue(PERSISTENT);
 	}
 
+
 	@Override
-	protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-		super.onRemove(state, world, pos, newState, moved);
-		this.spawnLeafParticles(world, pos, null, true);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		super.affectNeighborsAfterRemoval(state, level, pos, bl);
+		this.spawnLeafParticles(level, pos, null, true);
 	}
 
 	@Override

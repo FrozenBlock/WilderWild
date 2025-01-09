@@ -19,9 +19,13 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -32,10 +36,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock {
-	public static final MapCodec<BaobabLeavesBlock> CODEC = simpleCodec(BaobabLeavesBlock::new);
+	public static final MapCodec<BaobabLeavesBlock> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+				ExtraCodecs.POSITIVE_INT.fieldOf("leaf_particle_chance").forGetter(leavesBlock -> leavesBlock.leafParticleChance),
+				ParticleTypes.CODEC.fieldOf("leaf_particle").forGetter(leavesBlock -> leavesBlock.leafParticle),
+				propertiesCodec()
+			)
+			.apply(instance, BaobabLeavesBlock::new)
+	);
 
-	public BaobabLeavesBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(settings);
+	public BaobabLeavesBlock(int leafParticleChance, ParticleOptions leafParticle, @NotNull BlockBehaviour.Properties settings) {
+		super(leafParticleChance, leafParticle, settings);
 	}
 
 	@NotNull

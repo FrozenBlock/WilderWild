@@ -450,7 +450,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		Vec2 vec2 = this.getRiddenRotation(player);
 		this.setRot(vec2.y, vec2.x);
 		this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
-		if (this.isControlledByLocalInstance()) {
+		if (this.isLocalInstanceAuthoritative()) {
 			if (WWEntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0F) {
 				this.executeRidersJump(this.playerJumpPendingScale, travelVector);
 			}

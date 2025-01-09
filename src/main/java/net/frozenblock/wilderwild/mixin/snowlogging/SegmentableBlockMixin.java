@@ -20,35 +20,23 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.SegmentableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PinkPetalsBlock.class)
-public abstract class PinkPetalsBlockMixin {
+@Mixin(SegmentableBlock.class)
+public interface SegmentableBlockMixin {
 
 	@ModifyExpressionValue(
 		method = "getStateForPlacement",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/PinkPetalsBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
+			target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
+	default BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
 		return SnowloggingUtils.getSnowPlacementState(original, context);
 	}
-
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
-	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!WWBlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
-	}
-
 }

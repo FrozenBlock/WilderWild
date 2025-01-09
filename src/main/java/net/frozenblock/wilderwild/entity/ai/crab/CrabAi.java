@@ -235,7 +235,7 @@ public final class CrabAi {
 							Pair.of(RandomStroll.swim(1F), 2),
 							Pair.of(RandomStroll.stroll(1F), 2),
 							Pair.of(new DoNothing(30, 100), 1),
-							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5),
+							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 5)
 						)
 					)

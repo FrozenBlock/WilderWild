@@ -22,6 +22,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.Map;
+import java.util.function.Function;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -61,10 +63,10 @@ public abstract class WallBlockMixin extends Block {
 		method = "getShape",
 		at = @At(
 			value = "INVOKE",
-			target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"
+			target = "Ljava/util/function/Function;apply(Ljava/lang/Object;)Ljava/lang/Object;"
 		)
 	)
-	public Object wilderWild$getShape(Map instance, Object o, Operation<Object> original) {
+	public Object wilderWild$getShape(Function<BlockState, VoxelShape> instance, Object o, Operation<Object> original) {
 		if (o instanceof BlockState blockState) {
 			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 				o = blockState.setValue(WWBlockStateProperties.SNOW_LAYERS, 0);
@@ -77,10 +79,10 @@ public abstract class WallBlockMixin extends Block {
 		method = "getCollisionShape",
 		at = @At(
 			value = "INVOKE",
-			target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"
+			target = "Ljava/util/function/Function;apply(Ljava/lang/Object;)Ljava/lang/Object;"
 		)
 	)
-	public Object wilderWild$getCollisionShape(Map instance, Object o, Operation<Object> original) {
+	public Object wilderWild$getCollisionShape(Function<BlockState, VoxelShape> instance, Object o, Operation<Object> original) {
 		if (o instanceof BlockState blockState && SnowloggingUtils.supportsSnowlogging(blockState)) {
 			o = blockState.setValue(WWBlockStateProperties.SNOW_LAYERS, 0);
 		}

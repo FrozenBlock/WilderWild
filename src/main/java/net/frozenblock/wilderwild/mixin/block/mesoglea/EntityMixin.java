@@ -47,7 +47,7 @@ public class EntityMixin implements InMesogleaInterface {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}
 
-	@WrapOperation(
+	/*@WrapOperation(
 		method = "isInBubbleColumn",
 		at = @At(
 			value = "INVOKE",
@@ -56,6 +56,18 @@ public class EntityMixin implements InMesogleaInterface {
 	)
 	public boolean wilderWild$isInBubbleColumnOrMesogleaColumn(BlockState state, Block block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
+	}*/
+
+	@WrapOperation(
+		method = "applyEffectsFromBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;)V",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			ordinal = 3
+		)
+	)
+	private boolean isInMesoglea(BlockState instance, Block block, Operation<Boolean> original) {
+		return original.call(instance, block) || MesogleaBlock.isWaterloggedMesoglea(instance);
 	}
 
 	@Unique

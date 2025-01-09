@@ -118,7 +118,7 @@ public class Scorched extends Spider {
 		if (this.isInLava()) {
 			CollisionContext collisionContext = CollisionContext.of(this);
 			if (
-				collisionContext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true)
+				collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true)
 					&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
 			) {
 				this.setOnGround(true);
