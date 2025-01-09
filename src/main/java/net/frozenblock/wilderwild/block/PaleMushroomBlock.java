@@ -52,7 +52,7 @@ public class PaleMushroomBlock extends MushroomBlock {
 			int k = pos.getZ();
 			BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 			for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
-				if (random.nextBoolean()) continue;
+				if (random.nextFloat() >= 0.25F) continue;
 				mutable.set(
 					i + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
 					j + Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
