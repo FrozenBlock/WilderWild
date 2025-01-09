@@ -27,10 +27,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PaleShelfFungiBlock extends ShelfFungiBlock {
-	public static final int MIN_PARTICLE_SPAWN_WIDTH = -4;
-	public static final int MAX_PARTICLE_SPAWN_WIDTH = 4;
-	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -4;
-	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 4;
+	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
+	public static final int MAX_PARTICLE_SPAWN_WIDTH = 3;
+	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -3;
+	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
 	public PaleShelfFungiBlock(@NotNull Properties settings) {

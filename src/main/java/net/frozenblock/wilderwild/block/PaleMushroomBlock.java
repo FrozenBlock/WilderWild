@@ -30,10 +30,10 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 
 public class PaleMushroomBlock extends MushroomBlock {
-	public static final int MIN_PARTICLE_SPAWN_WIDTH = -4;
-	public static final int MAX_PARTICLE_SPAWN_WIDTH = 4;
+	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
+	public static final int MAX_PARTICLE_SPAWN_WIDTH = 3;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -1;
-	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 4;
+	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
 	public PaleMushroomBlock(ResourceKey<ConfiguredFeature<?, ?>> resourceKey, Properties properties) {
