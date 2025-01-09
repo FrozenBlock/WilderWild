@@ -109,6 +109,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 			PaleFogParticle seedParticle = new PaleFogParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D, true);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			seedParticle.gravity = 0.005F;
+			seedParticle.alpha = 0.3F;
 			return seedParticle;
 		}
 	}
