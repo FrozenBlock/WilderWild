@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity.ai.crab;
+package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,9 +25,9 @@ import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import org.jetbrains.annotations.NotNull;
 
-public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
+public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
-	public CrabAttackablesSensor() {
+	public PenguinAttackablesSensor() {
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	private boolean isHuntTarget(@NotNull LivingEntity attacker, LivingEntity target) {
-		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.getType().is(WWEntityTags.CRAB_HUNT_TARGETS);
+		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.getType().is(WWEntityTags.PENGUIN_HUNT_TARGETS);
 	}
 
 	private boolean isClose(LivingEntity attacker, @NotNull LivingEntity target) {

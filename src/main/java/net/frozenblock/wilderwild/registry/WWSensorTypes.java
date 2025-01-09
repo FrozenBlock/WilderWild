@@ -29,6 +29,8 @@ import net.frozenblock.wilderwild.entity.ai.firefly.FireflyLeaderSensor;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflySpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichSpecificSensor;
+import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
+import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinLandPosSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinWaterPosSensor;
@@ -58,6 +60,8 @@ public final class WWSensorTypes {
 	public static final SensorType<OstrichSpecificSensor> OSTRICH_SPECIFIC_SENSOR = register("ostrich_specific_sensor", OstrichSpecificSensor::new);
 	public static final SensorType<TemptingSensor> OSTRICH_TEMPTATIONS = register("ostrich_temptations", () -> new TemptingSensor(OstrichAi.getTemptations()));
 	public static final SensorType<PenguinSpecificSensor> PENGUIN_SPECIFIC_SENSOR = register("penguin_specific_sensor", PenguinSpecificSensor::new);
+	public static final SensorType<TemptingSensor> PENGUIN_TEMPTATIONS = register("penguin_temptations", () -> new TemptingSensor(PenguinAi.getTemptations()));
+	public static final SensorType<PenguinAttackablesSensor> PENGUIN_ATTACKABLES = register("penguin_attackables", PenguinAttackablesSensor::new);
 	public static final SensorType<PenguinLandPosSensor> LAND_POS_SENSOR = register("land_pos_sensor", PenguinLandPosSensor::new);
 	public static final SensorType<PenguinWaterPosSensor> WATER_POS_SENSOR = register("water_pos_sensor", PenguinWaterPosSensor::new);
 

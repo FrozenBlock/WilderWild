@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -53,6 +54,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,6 +71,8 @@ public class PenguinAi {
 		SensorType.NEAREST_ADULT,
 		SensorType.NEAREST_PLAYERS,
 		WWSensorTypes.PENGUIN_SPECIFIC_SENSOR,
+		WWSensorTypes.PENGUIN_TEMPTATIONS,
+		WWSensorTypes.PENGUIN_ATTACKABLES,
 		SensorType.IS_IN_WATER,
 		WWSensorTypes.LAND_POS_SENSOR
 	);
@@ -103,6 +107,7 @@ public class PenguinAi {
 		MemoryModuleType.IS_IN_WATER,
 		WWMemoryModuleTypes.IDLE_TIME,
 		WWMemoryModuleTypes.DIVE_TICKS,
+		MemoryModuleType.HAS_HUNTING_COOLDOWN,
 		WWMemoryModuleTypes.LAYING_DOWN,
 		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
 		WWMemoryModuleTypes.WANTS_TO_LAUNCH,
@@ -302,10 +307,9 @@ public class PenguinAi {
 		return SPEED_MULTIPLIER_WHEN_ATTACKING;
 	}
 
-	/*
+	@NotNull
 	public static Ingredient getTemptations() {
-		return Penguin.TEMPTATION_ITEM;
+		return Ingredient.of(WWItemTags.PENGUIN_FOOD);
 	}
-	 */
 
 }

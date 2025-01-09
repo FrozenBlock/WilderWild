@@ -29,6 +29,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> PEARLESCENT_JELLYFISH_FOOD = bind("pearlescent_jellyfish_food");
 	public static final TagKey<Item> CRAB_FOOD = bind("crab_food");
 	public static final TagKey<Item> OSTRICH_FOOD = bind("ostrich_food");
+	public static final TagKey<Item> PENGUIN_FOOD = bind("penguin_food");
 	public static final TagKey<Item> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Item> NEMATOCYSTS = bind("nematocysts");
 	public static final TagKey<Item> PEARLESCENT_NEMATOCYSTS = bind("pearlescent_nematocysts");

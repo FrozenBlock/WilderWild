@@ -129,6 +129,10 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(WWItemTags.OSTRICH_FOOD)
 			.add(WWBlocks.BUSH.asItem());
 
+		this.getOrCreateTagBuilder(WWItemTags.PENGUIN_FOOD)
+			.add(Items.INK_SAC)
+			.add(Items.GLOW_INK_SAC);
+
 		this.getOrCreateTagBuilder(ItemTags.BOATS)
 			.add(WWItems.BAOBAB_BOAT)
 			.add(WWItems.CYPRESS_BOAT)

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.entity;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -126,8 +127,7 @@ public class Penguin extends Animal {
 
 	@Override
 	public boolean isFood(@NotNull ItemStack itemStack) {
-		// TODO: use a tag
-		return itemStack.getItem() == Items.COD || itemStack.getItem() == Items.SALMON;
+		return itemStack.is(WWItemTags.PENGUIN_FOOD);
 	}
 
 	public boolean hasAttackTarget() {
