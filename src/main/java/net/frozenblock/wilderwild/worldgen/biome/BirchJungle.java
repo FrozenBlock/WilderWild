@@ -144,6 +144,7 @@ public final class BirchJungle extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addLightBambooVegetation(features);
+		BiomeDefaultFeatures.addBirchForestFlowers(features);
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addJungleGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);

@@ -150,6 +150,7 @@ public final class DarkBirchForest extends FrozenBiome {
 		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		BiomeDefaultFeatures.addBirchForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);

@@ -143,6 +143,7 @@ public final class SparseBirchJungle extends FrozenBiome {
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		BiomeDefaultFeatures.addBirchForestFlowers(features);
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addJungleGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);

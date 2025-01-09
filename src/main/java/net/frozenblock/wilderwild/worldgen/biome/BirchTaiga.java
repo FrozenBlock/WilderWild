@@ -147,6 +147,7 @@ public final class BirchTaiga extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addTaigaTrees(features);
+		BiomeDefaultFeatures.addBirchForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addTaigaGrass(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
