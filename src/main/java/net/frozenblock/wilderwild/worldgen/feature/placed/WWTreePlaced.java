@@ -155,12 +155,19 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature DEAD_OAK_BRANCHES_CHECKED_LEAF_LITTER = WWPlacementUtils.register("dead_oak_branches_checked_leaf_litter");
 	//DARK OAK
 	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("tall_dark_oak_checked");
+	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("tall_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("fancy_tall_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("dying_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("dying_tall_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature DYING_FANCY_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("dying_fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("dying_fancy_tall_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = WWPlacementUtils.register("dying_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("dying_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("cobweb_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("cobweb_tall_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("cobweb_fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER = WWPlacementUtils.register("cobweb_fancy_tall_dark_oak_checked_leaf_litter");
 	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WWPlacementUtils.register("large_fallen_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WWPlacementUtils.register("large_snapped_dark_oak_checked");
 	//PALE OAK
@@ -678,26 +685,49 @@ public final class WWTreePlaced {
 		TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
+		TALL_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.TALL_DARK_OAK_LEAF_LITTER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
 
 		FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.FANCY_TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
+		FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.FANCY_TALL_DARK_OAK_LEAF_LITTER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+
 		DYING_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
+		DYING_TALL_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.DYING_TALL_DARK_OAK_LEAF_LITTER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+
 		DYING_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_FANCY_TALL_DARK_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+		DYING_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.DYING_FANCY_TALL_DARK_OAK_LEAF_LITTER.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 
 		DYING_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
+		DYING_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.DYING_DARK_OAK_LEAF_LITTER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
 
 		COBWEB_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.COBWEB_TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
+		COBWEB_TALL_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.COBWEB_TALL_DARK_OAK_LEAF_LITTER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
 
 		COBWEB_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.COBWEB_FANCY_TALL_DARK_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+		COBWEB_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.COBWEB_FANCY_TALL_DARK_OAK_LEAF_LITTER.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 

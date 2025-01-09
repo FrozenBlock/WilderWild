@@ -20,12 +20,20 @@
         "feature": "wilderwild:spruce_short_checked"
       },
       {
-        "chance": 0.235,
+        "chance": 0.1175,
         "feature": "minecraft:dark_oak_checked"
       },
       {
-        "chance": 0.075,
+        "chance": 0.1175,
+        "feature": "minecraft:dark_oak_leaf_litter"
+      },
+      {
+        "chance": 0.0375,
         "feature": "wilderwild:dying_dark_oak_checked"
+      },
+      {
+        "chance": 0.0375,
+        "feature": "wilderwild:dying_dark_oak_checked_leaf_litter"
       },
       {
         "chance": 0.12,
@@ -44,27 +52,51 @@
         "feature": "wilderwild:dying_birch"
       },
       {
-        "chance": 0.2,
+        "chance": 0.1,
         "feature": "wilderwild:tall_dark_oak_checked"
       },
       {
-        "chance": 0.08,
+        "chance": 0.1,
+        "feature": "wilderwild:tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.04,
         "feature": "wilderwild:fancy_tall_dark_oak_checked"
       },
       {
-        "chance": 0.024,
+        "chance": 0.04,
+        "feature": "wilderwild:fancy_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.012,
         "feature": "wilderwild:dying_tall_dark_oak_checked"
       },
       {
-        "chance": 0.01,
+        "chance": 0.012,
+        "feature": "wilderwild:dying_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.005,
         "feature": "wilderwild:dying_fancy_tall_dark_oak_checked"
       },
       {
-        "chance": 0.031,
+        "chance": 0.005,
+        "feature": "wilderwild:dying_fancy_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.0155,
+        "feature": "wilderwild:dying_oak_checked"
+      },
+      {
+        "chance": 0.0155,
         "feature": "wilderwild:dying_oak_checked_leaf_litter"
       },
       {
-        "chance": 0.015,
+        "chance": 0.0075,
+        "feature": "wilderwild:fancy_oak_checked"
+      },
+      {
+        "chance": 0.0075,
         "feature": "wilderwild:fancy_oak_checked_leaf_litter"
       }
     ]

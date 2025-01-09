@@ -18,12 +18,20 @@
         }
       },
       {
-        "chance": 0.55,
+        "chance": 0.275,
         "feature": "minecraft:dark_oak_checked"
       },
       {
-        "chance": 0.255,
+        "chance": 0.275,
+        "feature": "minecraft:dark_oak_leaf_litter"
+      },
+      {
+        "chance": 0.1275,
         "feature": "wilderwild:dying_dark_oak_checked"
+      },
+      {
+        "chance": 0.1275,
+        "feature": "wilderwild:dying_dark_oak_checked_leaf_litter"
       },
       {
         "chance": 0.1,
@@ -34,40 +42,76 @@
         "feature": "wilderwild:dying_birch"
       },
       {
-        "chance": 0.6,
+        "chance": 0.3,
         "feature": "wilderwild:tall_dark_oak_checked"
       },
       {
-        "chance": 0.522,
+        "chance": 0.3,
+        "feature": "wilderwild:tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.261,
         "feature": "wilderwild:fancy_tall_dark_oak_checked"
       },
       {
-        "chance": 0.018,
+        "chance": 0.261,
+        "feature": "wilderwild:fancy_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.009,
         "feature": "wilderwild:cobweb_tall_dark_oak_checked"
       },
       {
-        "chance": 0.0766,
+        "chance": 0.009,
+        "feature": "wilderwild:cobweb_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.0383,
         "feature": "wilderwild:dying_fancy_tall_dark_oak_checked"
       },
       {
-        "chance": 0.035,
+        "chance": 0.0383,
+        "feature": "wilderwild:dying_fancy_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.0175,
         "feature": "wilderwild:cobweb_fancy_tall_dark_oak_checked"
       },
       {
-        "chance": 0.222,
+        "chance": 0.0175,
+        "feature": "wilderwild:cobweb_fancy_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.111,
         "feature": "wilderwild:dying_tall_dark_oak_checked"
       },
       {
-        "chance": 0.095,
+        "chance": 0.111,
+        "feature": "wilderwild:dying_tall_dark_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.0475,
         "feature": "wilderwild:dying_fancy_oak_checked"
       },
       {
-        "chance": 0.045,
+        "chance": 0.0475,
+        "feature": "wilderwild:dying_fancy_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.0225,
         "feature": "wilderwild:dying_oak_checked"
       },
       {
-        "chance": 0.24,
+        "chance": 0.0225,
+        "feature": "wilderwild:dying_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.12,
         "feature": "wilderwild:fancy_oak_checked"
+      },
+      {
+        "chance": 0.12,
+        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
       }
     ]
   }

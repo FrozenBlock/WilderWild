@@ -207,12 +207,19 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK_BRANCHES_LEAF_LITTER = register("dead_oak_branches_leaf_litter");
 	//DARK OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = register("dying_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK_LEAF_LITTER = register("dying_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK_LEAF_LITTER = register("tall_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_DARK_OAK = register("fancy_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_DARK_OAK_LEAF_LITTER = register("fancy_tall_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_TALL_DARK_OAK = register("dying_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_TALL_DARK_OAK_LEAF_LITTER = register("dying_tall_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_FANCY_TALL_DARK_OAK = register("dying_fancy_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_FANCY_TALL_DARK_OAK_LEAF_LITTER = register("dying_fancy_tall_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = register("cobweb_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK_LEAF_LITTER = register("cobweb_tall_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK = register("cobweb_fancy_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK_LEAF_LITTER = register("cobweb_fancy_tall_dark_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
 	//PALE OAK
@@ -1430,6 +1437,23 @@ public final class WWTreeConfigured {
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		DYING_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
+				new DarkOakTrunkPlacer(6, 2, 1),
+				BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
+				new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+			).decorators(
+				List.of(
+					VINES_1_UNDER_260_05,
+					SHELF_FUNGUS_006,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			tallDarkOak().decorators(
 				List.of(
@@ -1438,10 +1462,30 @@ public final class WWTreeConfigured {
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		TALL_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			tallDarkOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			fancyTallDarkOak().decorators(
 				List.of(
 					SHELF_FUNGUS_002
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_TALL_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyTallDarkOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1455,11 +1499,33 @@ public final class WWTreeConfigured {
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		DYING_TALL_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			tallDarkOak().decorators(
+				List.of(
+					VINES_1_UNDER_260_05,
+					SHELF_FUNGUS_007,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		DYING_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			fancyTallDarkOak().decorators(
 				List.of(
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_007
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DYING_FANCY_TALL_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyTallDarkOak().decorators(
+				List.of(
+					VINES_1_UNDER_260_05,
+					SHELF_FUNGUS_007,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1473,11 +1539,33 @@ public final class WWTreeConfigured {
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		COBWEB_TALL_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			tallDarkOak().decorators(
+				List.of(
+					COBWEB_1_UNDER_260_025,
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			fancyTallDarkOak().decorators(
 				List.of(
 					COBWEB_1_UNDER_260_025,
 					SHELF_FUNGUS_002
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		COBWEB_FANCY_TALL_DARK_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyTallDarkOak().decorators(
+				List.of(
+					COBWEB_1_UNDER_260_025,
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
