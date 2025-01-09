@@ -53,7 +53,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 	) {
 		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
 		this.xd = 0D;
-		this.yd = -0.005D;
+		this.yd = -0.0025D;
 		this.zd = 0D;
 		float width = large ? 0.1F : 0.01F;
 		float height = large ? 0.2F : 0.02F;
