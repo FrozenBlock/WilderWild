@@ -48,8 +48,10 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 		BlockPos.MutableBlockPos mutableBlockPos,
 		HugeMushroomFeatureConfiguration hugeMushroomFeatureConfiguration
 	) {
-		for (int j = height - 1; j <= height + 1; j++) {
-			int radius = j < height + 1 ? hugeMushroomFeatureConfiguration.foliageRadius : hugeMushroomFeatureConfiguration.foliageRadius - 1;
+		int top = height + 1;
+		int bottom = height - 2;
+		for (int j = bottom; j <= top; j++) {
+			int radius = j < top ? hugeMushroomFeatureConfiguration.foliageRadius : hugeMushroomFeatureConfiguration.foliageRadius - 1;
 			int withinRadius = hugeMushroomFeatureConfiguration.foliageRadius - 2;
 
 			for (int m = -radius; m <= radius; m++) {
@@ -62,26 +64,28 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 					boolean onZ = onNegZ || onPosZ;
 					boolean onCorner = onX && onZ;
 					boolean onEdge = onX || onZ;
-					if (j >= height + 1 || ((onX != onZ) || (j == height && !onCorner))) {
-						mutableBlockPos.setWithOffset(blockPos, m, j, n);
-						if (!levelAccessor.getBlockState(mutableBlockPos).isSolidRender()) {
-							BlockState blockState = hugeMushroomFeatureConfiguration.capProvider.getState(randomSource, blockPos);
-							if (blockState.hasProperty(HugeMushroomBlock.WEST)
-								&& blockState.hasProperty(HugeMushroomBlock.EAST)
-								&& blockState.hasProperty(HugeMushroomBlock.NORTH)
-								&& blockState.hasProperty(HugeMushroomBlock.SOUTH)
-								&& blockState.hasProperty(HugeMushroomBlock.UP)
-							) {
-								boolean hasUpState = j >= height + 1 || (onEdge && j == height);
-								blockState = blockState
-									.setValue(HugeMushroomBlock.UP, hasUpState)
-									.setValue(HugeMushroomBlock.WEST, m < -withinRadius)
-									.setValue(HugeMushroomBlock.EAST, m > withinRadius)
-									.setValue(HugeMushroomBlock.NORTH, n < -withinRadius)
-									.setValue(HugeMushroomBlock.SOUTH, n > withinRadius);
-							}
+					if (j >= top || ((onX != onZ) || (j == height && !onCorner))) {
+						if ((j != bottom || randomSource.nextFloat() <= 0.25F)) {
+							mutableBlockPos.setWithOffset(blockPos, m, j, n);
+							if (!levelAccessor.getBlockState(mutableBlockPos).isSolidRender()) {
+								BlockState blockState = hugeMushroomFeatureConfiguration.capProvider.getState(randomSource, blockPos);
+								if (blockState.hasProperty(HugeMushroomBlock.WEST)
+									&& blockState.hasProperty(HugeMushroomBlock.EAST)
+									&& blockState.hasProperty(HugeMushroomBlock.NORTH)
+									&& blockState.hasProperty(HugeMushroomBlock.SOUTH)
+									&& blockState.hasProperty(HugeMushroomBlock.UP)
+								) {
+									boolean hasUpState = j >= top || (onEdge && j == height);
+									blockState = blockState
+										.setValue(HugeMushroomBlock.UP, hasUpState)
+										.setValue(HugeMushroomBlock.WEST, m < -withinRadius)
+										.setValue(HugeMushroomBlock.EAST, m > withinRadius)
+										.setValue(HugeMushroomBlock.NORTH, n < -withinRadius)
+										.setValue(HugeMushroomBlock.SOUTH, n > withinRadius);
+								}
 
-							this.setBlock(levelAccessor, mutableBlockPos, blockState);
+								this.setBlock(levelAccessor, mutableBlockPos, blockState);
+							}
 						}
 					}
 				}
