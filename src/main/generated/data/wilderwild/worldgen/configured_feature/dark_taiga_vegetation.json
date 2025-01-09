@@ -61,11 +61,11 @@
       },
       {
         "chance": 0.031,
-        "feature": "wilderwild:dying_oak_checked"
+        "feature": "wilderwild:dying_oak_checked_leaf_litter"
       },
       {
         "chance": 0.015,
-        "feature": "wilderwild:fancy_oak_checked"
+        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
       }
     ]
   }

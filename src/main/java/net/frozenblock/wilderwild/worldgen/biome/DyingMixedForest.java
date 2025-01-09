@@ -153,6 +153,7 @@ public final class DyingMixedForest extends FrozenBiome {
 		BiomeDefaultFeatures.addForestGrass(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
+		BiomeDefaultFeatures.addLeafLitterPatch(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_DYING_MIXED_FOREST.getKey());
 	}

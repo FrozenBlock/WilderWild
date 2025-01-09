@@ -12,20 +12,36 @@
         "feature": "wilderwild:dying_short_birch"
       },
       {
-        "chance": 0.06,
+        "chance": 0.03,
         "feature": "wilderwild:fancy_oak_bees_0004"
       },
       {
-        "chance": 0.025,
+        "chance": 0.03,
+        "feature": "wilderwild:fancy_oak_bees_0004_leaf_litter"
+      },
+      {
+        "chance": 0.0125,
         "feature": "wilderwild:dying_fancy_oak_bees_0004"
       },
       {
-        "chance": 0.04,
+        "chance": 0.0125,
+        "feature": "wilderwild:dying_fancy_oak_bees_0004_leaf_litter"
+      },
+      {
+        "chance": 0.02,
         "feature": "wilderwild:dying_oak_checked"
       },
       {
-        "chance": 0.13,
+        "chance": 0.02,
+        "feature": "wilderwild:dying_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.065,
         "feature": "wilderwild:short_oak_checked"
+      },
+      {
+        "chance": 0.065,
+        "feature": "wilderwild:short_oak_checked_leaf_litter"
       },
       {
         "chance": 0.14,

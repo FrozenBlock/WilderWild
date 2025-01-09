@@ -518,6 +518,7 @@ public final class WWPlacedFeatures {
 					WWPlacementUtils.TREE_CLEARING_FILTER
 				).build()
 		);
+
 		// TODO 1.21.5
 		TREES_BIRCH_AND_OAK_ORIGINAL.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.TREES_BIRCH_AND_OAK_LEAF_LITTER),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))

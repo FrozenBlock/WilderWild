@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:oak_checked",
+    "default": "wilderwild:oak_checked_leaf_litter",
     "features": [
       {
         "chance": 0.025,
@@ -59,15 +59,15 @@
       },
       {
         "chance": 0.02,
-        "feature": "wilderwild:dying_fancy_oak_checked"
+        "feature": "wilderwild:dying_fancy_oak_checked_leaf_litter"
       },
       {
         "chance": 0.012,
-        "feature": "wilderwild:dying_oak_checked"
+        "feature": "wilderwild:dying_oak_checked_leaf_litter"
       },
       {
         "chance": 0.15,
-        "feature": "wilderwild:fancy_oak_checked"
+        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
       }
     ]
   }

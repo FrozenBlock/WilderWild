@@ -52,6 +52,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -80,12 +81,14 @@ import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacem
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.CreakingHeartDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.PaleMossDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.PlaceOnGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -162,28 +165,46 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
 	//OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK = register("oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK_LEAF_LITTER = register("oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_OAK = register("short_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_OAK_LEAF_LITTER = register("short_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK_BEES_0004 = register("oak_bees_0004");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK_BEES_0004_LEAF_LITTER = register("oak_bees_0004_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_OAK = register("dying_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_OAK_LEAF_LITTER = register("dying_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK = register("fancy_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_LEAF_LITTER = register("fancy_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK = register("fancy_dying_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_LEAF_LITTER = register("fancy_dying_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_0004 = register("fancy_dying_oak_bees_0004");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_0004_LEAF_LITTER = register("fancy_dying_oak_bees_0004_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES_0004 = register("fancy_oak_bees_0004");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES_0004_LEAF_LITTER = register("fancy_oak_bees_0004_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_025 = register("fancy_dying_oak_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_025_LEAF_LITTER = register("fancy_dying_oak_bees_025_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES_025 = register("fancy_oak_bees_025");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES_025_LEAF_LITTER = register("fancy_oak_bees_025_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_OAK_TREE = register("fallen_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_OAK_TREE_NO_MOSS = register("fallen_oak_tree_no_moss");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_OAK_TREE = register("mossy_fallen_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_STRAIGHT_OAK_TREE = register("mossy_fallen_straight_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES = register("fancy_oak_bees");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES_LEAF_LITTER = register("fancy_oak_bees_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004 = register("old_fancy_dying_oak_bees_0004");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004_LEAF_LITTER = register("old_fancy_dying_oak_bees_0004_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DEAD_OAK = register("fancy_dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DEAD_OAK_LEAF_LITTER = register("fancy_dead_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_SEMI_DEAD_OAK = register("fancy_semi_dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_SEMI_DEAD_OAK_LEAF_LITTER = register("fancy_semi_dead_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_FANCY_DEAD_OAK = register("small_fancy_dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_FANCY_DEAD_OAK_LEAF_LITTER = register("small_fancy_dead_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_FANCY_SEMI_DEAD_OAK = register("small_fancy_semi_dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_FANCY_SEMI_DEAD_OAK_LEAF_LITTER = register("small_fancy_semi_dead_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK = register("dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK_LEAF_LITTER = register("dead_oak_leaf_litter");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK_BRANCHES = register("dead_oak_branches");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK_BRANCHES_LEAF_LITTER = register("dead_oak_branches_leaf_litter");
 	//DARK OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = register("dying_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
@@ -297,6 +318,12 @@ public final class WWTreeConfigured {
 	private static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
 	private static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
 	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1.0F, 0.035F, 5);
+	private static final PlaceOnGroundDecorator LEAF_LITTERS_A = new PlaceOnGroundDecorator(
+		96, 4, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 3))
+	);
+	private static final PlaceOnGroundDecorator LEAF_LITTERS_B = new PlaceOnGroundDecorator(
+		150, 2, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 4))
+	);
 
 	private WWTreeConfigured() {
 		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
@@ -877,10 +904,30 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			oak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		SHORT_OAK.makeAndSetHolder(Feature.TREE,
 			shortOak().decorators(
 				List.of(
 					SHELF_FUNGUS_002
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SHORT_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			shortOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -895,11 +942,34 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
 		);
 
+		OAK_BEES_0004_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			oak().decorators(
+				List.of(
+					BEES_0004,
+					SHELF_FUNGUS_006,
+					POLLEN_01,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
+		);
+
 		DYING_OAK.makeAndSetHolder(Feature.TREE,
 			oak().decorators(
 				List.of(
 					VINES_1_UNDER_260_03,
 					SHELF_FUNGUS_006
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
+		);
+
+		DYING_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			oak().decorators(
+				List.of(
+					VINES_1_UNDER_260_03,
+					SHELF_FUNGUS_006,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
 		);
@@ -912,11 +982,32 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FANCY_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		FANCY_DYING_OAK.makeAndSetHolder(Feature.TREE,
 			fancyOak().decorators(
 				List.of(
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_007
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_DYING_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					VINES_1_UNDER_260_05,
+					SHELF_FUNGUS_007,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -932,12 +1023,37 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FANCY_DYING_OAK_BEES_0004_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					BEES_0004,
+					VINES_1_UNDER_260_05,
+					POLLEN_01,
+					SHELF_FUNGUS_007,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		FANCY_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
 			fancyOak().decorators(
 				List.of(
 					BEES_0004,
 					POLLEN_01,
 					SHELF_FUNGUS_002
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_OAK_BEES_0004_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					BEES_0004,
+					POLLEN_01,
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -953,12 +1069,37 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FANCY_DYING_OAK_BEES_025_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					BEES_025,
+					VINES_1_UNDER_260_05,
+					POLLEN_01,
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		FANCY_OAK_BEES_025.makeAndSetHolder(Feature.TREE,
 			fancyOak().decorators(
 				List.of(
 					BEES_025,
 					POLLEN_01,
 					SHELF_FUNGUS_002
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_OAK_BEES_025_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					BEES_025,
+					POLLEN_01,
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1028,6 +1169,18 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FANCY_OAK_BEES_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyOak().decorators(
+				List.of(
+					BEES,
+					POLLEN_025,
+					SHELF_FUNGUS_002,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		OLD_FANCY_DYING_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -1041,6 +1194,25 @@ public final class WWTreeConfigured {
 					BEES_0004,
 					VINES_1_UNDER_260_05,
 					POLLEN_01
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		OLD_FANCY_DYING_OAK_BEES_0004_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new FancyTrunkPlacer(5, 12, 0),
+				BlockStateProvider.simple(Blocks.OAK_LEAVES),
+				new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4
+				),
+				new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
+			).ignoreVines().decorators(
+				List.of(
+					BEES_0004,
+					VINES_1_UNDER_260_05,
+					POLLEN_01,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1070,11 +1242,33 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FANCY_DEAD_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancyDeadOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
 			fancySemiDeadOak(blocks).decorators(
 				List.of(
 					SHELF_FUNGUS_002,
 					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_SEMI_DEAD_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			fancySemiDeadOak(blocks).decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1088,11 +1282,33 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		SMALL_FANCY_SEMI_DEAD_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			smallFancySemiDeadOak(blocks).decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		SMALL_FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
 			smallFancySemiDeadOak(blocks).decorators(
 				List.of(
 					SHELF_FUNGUS_002,
 					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SMALL_FANCY_DEAD_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			smallFancySemiDeadOak(blocks).decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1121,6 +1337,32 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		DEAD_OAK_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new StraightWithBranchesTrunkPlacer(
+					6,
+					2,
+					1,
+					0.225F,
+					UniformInt.of(1, 2),
+					UniformInt.of(0, 2),
+					ConstantInt.of(1)
+				),
+				BlockStateProvider.simple(Blocks.AIR),
+				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+				new TwoLayersFeatureSize(1, 0, 1)
+			).decorators(
+				List.of(
+					new LeaveVineDecorator(0.1F),
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		DEAD_OAK_BRANCHES.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -1141,6 +1383,32 @@ public final class WWTreeConfigured {
 					new LeaveVineDecorator(0.1F),
 					SHELF_FUNGUS_006,
 					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DEAD_OAK_BRANCHES_LEAF_LITTER.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new StraightWithBranchesTrunkPlacer(
+					7,
+					2,
+					1,
+					0.235F,
+					UniformInt.of(2, 3),
+					UniformInt.of(0, 2),
+					UniformInt.of(1, 2)
+				),
+				BlockStateProvider.simple(Blocks.AIR),
+				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+				new TwoLayersFeatureSize(1, 0, 1)
+			).decorators(
+				List.of(
+					new LeaveVineDecorator(0.1F),
+					SHELF_FUNGUS_006,
+					VINES_012_UNDER_260,
+					LEAF_LITTERS_A,
+					LEAF_LITTERS_B
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
