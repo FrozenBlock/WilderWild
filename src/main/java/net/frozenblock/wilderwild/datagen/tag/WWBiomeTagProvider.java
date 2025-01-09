@@ -658,6 +658,26 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
 
+		this.getOrCreateTagBuilder(BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
+			.addOptional(WWBiomes.FROZEN_CAVES)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(BiomeTags.SPAWNS_WARM_VARIANT_FARM_ANIMALS)
+			.addOptional(WWBiomes.OASIS)
+			.addOptional(WWBiomes.WARM_RIVER)
+			.addOptional(WWBiomes.WARM_BEACH)
+			.addOptional(WWBiomes.MAGMATIC_CAVES)
+			.addOptional(WWBiomes.ARID_FOREST)
+			.addOptional(WWBiomes.ARID_SAVANNA)
+			.addOptional(WWBiomes.PARCHED_FOREST)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CLAY_PATH)
 			.addOptionalTag(WWBiomeTags.SAND_BEACHES)
 			.addOptionalTag(WWBiomeTags.MULTI_LAYER_SAND_BEACHES)
