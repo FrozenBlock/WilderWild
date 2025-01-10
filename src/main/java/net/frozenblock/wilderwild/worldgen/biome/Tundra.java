@@ -84,7 +84,7 @@ public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 
 	public static final Climate.Parameter WEIRDNESS_MAPLE_PEAK = Weirdness.PEAK_VARIANT;
-	public static final Climate.Parameter EROSION_MAPLE_PEAK = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
+	public static final Climate.Parameter EROSION_MAPLE_PEAK = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_3);
 	public static final Climate.Parameter CONTINENTALNESS_MAPLE_PEAK = Climate.Parameter.span(Continentalness.COAST, Continentalness.MID_INLAND);
 
 	public static final float TEMP = 0.25F;
