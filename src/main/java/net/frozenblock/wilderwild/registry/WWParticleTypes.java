@@ -123,7 +123,7 @@ public final class WWParticleTypes {
 	public static final ParticleType<WWFallingLeavesParticleOptions> ACACIA_LEAVES = createLeafParticle(
 		WWConstants.id("acacia_leaves"),
 		Blocks.ACACIA_LEAVES,
-		0.0095F,
+		0.0125F,
 		() -> WWAmbienceAndMiscConfig.Client.ACACIA_LEAF_FREQUENCY,
 		3,
 		1.4F,
