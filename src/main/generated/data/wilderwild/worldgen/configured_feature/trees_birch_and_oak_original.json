@@ -2,14 +2,14 @@
   "type": "minecraft:random_selector",
   "config": {
     "default": {
-      "feature": "wilderwild:temperate_rainforest_trees_no_litter",
+      "feature": "wilderwild:trees_birch_and_oak_original_no_litter",
       "placement": []
     },
     "features": [
       {
-        "chance": 0.2,
+        "chance": 0.1,
         "feature": {
-          "feature": "wilderwild:temperate_rainforest_trees_leaf_litter",
+          "feature": "wilderwild:trees_birch_and_oak_original_leaf_litter",
           "placement": []
         }
       }
