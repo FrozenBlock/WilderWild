@@ -1,63 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:oak_checked",
+    "default": {
+      "feature": "wilderwild:mixed_trees_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.33,
-        "feature": "wilderwild:spruce_short_checked"
-      },
-      {
-        "chance": 0.29,
-        "feature": "wilderwild:spruce_checked"
-      },
-      {
-        "chance": 0.086,
-        "feature": "wilderwild:fungus_pine_checked"
-      },
-      {
-        "chance": 0.02,
-        "feature": "wilderwild:dying_fungus_pine_checked"
-      },
-      {
-        "chance": 0.06,
-        "feature": "wilderwild:fancy_oak_bees_0004"
-      },
-      {
-        "chance": 0.06,
-        "feature": "wilderwild:fancy_oak_bees_0004_leaf_litter"
-      },
-      {
-        "chance": 0.0125,
-        "feature": "wilderwild:dying_fancy_oak_bees_0004"
-      },
-      {
-        "chance": 0.0125,
-        "feature": "wilderwild:dying_fancy_oak_bees_0004_leaf_litter"
-      },
-      {
-        "chance": 0.005,
-        "feature": "wilderwild:dying_oak_checked"
-      },
-      {
-        "chance": 0.005,
-        "feature": "wilderwild:dying_oak_checked_leaf_litter"
-      },
-      {
-        "chance": 0.01,
-        "feature": "wilderwild:dying_short_birch"
-      },
-      {
-        "chance": 0.115,
-        "feature": "wilderwild:short_oak_checked"
-      },
-      {
-        "chance": 0.115,
-        "feature": "wilderwild:short_oak_checked_leaf_litter"
-      },
-      {
-        "chance": 0.325,
-        "feature": "wilderwild:short_birch"
+        "chance": 0.1,
+        "feature": {
+          "feature": "wilderwild:mixed_trees_leaf_litter",
+          "placement": []
+        }
       }
     ]
   }

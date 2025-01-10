@@ -1,23 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:dying_oak_checked_leaf_litter",
+    "default": {
+      "feature": "wilderwild:arid_forest_trees_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.7085,
-        "feature": "wilderwild:dying_oak_checked_leaf_litter"
-      },
-      {
-        "chance": 0.175,
-        "feature": "wilderwild:dying_fancy_oak_checked_leaf_litter"
-      },
-      {
-        "chance": 0.38,
-        "feature": "wilderwild:dying_short_birch"
-      },
-      {
-        "chance": 0.2325,
-        "feature": "wilderwild:dying_birch"
+        "chance": 0.3,
+        "feature": {
+          "feature": "wilderwild:arid_forest_trees_leaf_litter",
+          "placement": []
+        }
       }
     ]
   }

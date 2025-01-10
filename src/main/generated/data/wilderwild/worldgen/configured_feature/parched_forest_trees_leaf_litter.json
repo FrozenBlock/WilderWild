@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:oak_checked_leaf_litter",
+    "features": [
+      {
+        "chance": 0.59,
+        "feature": "wilderwild:short_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.186,
+        "feature": "wilderwild:dying_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.02,
+        "feature": "wilderwild:dying_fancy_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.155,
+        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.37,
+        "feature": "minecraft:acacia_checked"
+      },
+      {
+        "chance": 0.01,
+        "feature": "wilderwild:dying_birch"
+      },
+      {
+        "chance": 0.01,
+        "feature": "wilderwild:dying_short_birch"
+      },
+      {
+        "chance": 0.155,
+        "feature": "wilderwild:short_birch"
+      }
+    ]
+  }
+}
