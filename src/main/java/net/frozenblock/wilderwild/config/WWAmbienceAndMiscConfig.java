@@ -58,6 +58,7 @@ public final class WWAmbienceAndMiscConfig {
 				PARTICLE_WIND_MOVEMENT = config.wind.particleWindMovement;
 				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
 
+				Client.USE_WILDER_WILD_FALLING_LEAVES = config.leafParticles.useWilderWildFallingLeaves;
 				Client.OAK_LEAF_FREQUENCY = config.leafParticles.oakFrequency / 100D;
 				Client.SPRUCE_LEAF_FREQUENCY = config.leafParticles.spruceFrequency / 100D;
 				Client.BIRCH_LEAF_FREQUENCY = config.leafParticles.birchFrequency / 100D;
@@ -104,6 +105,7 @@ public final class WWAmbienceAndMiscConfig {
 	public static volatile int FIREWORK_WIND_MOVEMENT = 100;
 
 	public static class Client {
+		public static volatile boolean USE_WILDER_WILD_FALLING_LEAVES = true;
 		public static volatile double OAK_LEAF_FREQUENCY = 1D;
 		public static volatile double SPRUCE_LEAF_FREQUENCY = 1D;
 		public static volatile double BIRCH_LEAF_FREQUENCY = 1D;
@@ -248,6 +250,9 @@ public final class WWAmbienceAndMiscConfig {
 	}
 
 	public static class LeafParticles {
+		@EntrySyncData(value = "useWilderWildFallingLeaves", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean useWilderWildFallingLeaves = true;
+
 		@EntrySyncData(value = "oakFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int oakFrequency = 50;
 

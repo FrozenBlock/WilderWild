@@ -50,6 +50,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Block> HOLLOWED_MAPLE_LOGS = bind("hollowed_maple_logs");
 
+	public static final TagKey<Block> NON_OVERRIDEN_FALLING_LEAVES = bind("non_overriden_falling_leaves");
+
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Block> NEMATOCYSTS = bind("nematocysts");
 

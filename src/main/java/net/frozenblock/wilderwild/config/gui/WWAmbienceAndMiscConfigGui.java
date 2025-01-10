@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.api.Requirement;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
@@ -131,99 +132,121 @@ public final class WWAmbienceAndMiscConfigGui {
 			particleWindMovement, fireworkWindMovement
 		);
 
+		var useWilderWildFallingLeaves = entryBuilder.startBooleanToggle(text("wilder_wild_falling_leaves"), leafParticles.useWilderWildFallingLeaves)
+			.setDefaultValue(defaultConfig.leafParticles.useWilderWildFallingLeaves)
+			.setSaveConsumer(newValue -> leafParticles.useWilderWildFallingLeaves = newValue)
+			.setTooltip(tooltip("wilder_wild_falling_leaves"))
+			.build();
+
 		var oakLeafParticles = entryBuilder.startIntSlider(text("oak_leaf_particles"), leafParticles.oakFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.oakFrequency)
 			.setSaveConsumer(newValue -> leafParticles.oakFrequency = newValue)
 			.setTooltip(tooltip("oak_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var spruceLeafParticles = entryBuilder.startIntSlider(text("spruce_leaf_particles"), leafParticles.spruceFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.spruceFrequency)
 			.setSaveConsumer(newValue -> leafParticles.spruceFrequency = newValue)
 			.setTooltip(tooltip("spruce_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var birchLeafParticles = entryBuilder.startIntSlider(text("birch_leaf_particles"), leafParticles.birchFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.birchFrequency)
 			.setSaveConsumer(newValue -> leafParticles.birchFrequency = newValue)
 			.setTooltip(tooltip("birch_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var jungleLeafParticles = entryBuilder.startIntSlider(text("jungle_leaf_particles"), leafParticles.jungleFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.jungleFrequency)
 			.setSaveConsumer(newValue -> leafParticles.jungleFrequency = newValue)
 			.setTooltip(tooltip("jungle_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var acaciaLeafParticles = entryBuilder.startIntSlider(text("acacia_leaf_particles"), leafParticles.acaciaFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.acaciaFrequency)
 			.setSaveConsumer(newValue -> leafParticles.acaciaFrequency = newValue)
 			.setTooltip(tooltip("acacia_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var darkOakLeafParticles = entryBuilder.startIntSlider(text("dark_oak_leaf_particles"), leafParticles.darkOakFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.darkOakFrequency)
 			.setSaveConsumer(newValue -> leafParticles.darkOakFrequency = newValue)
 			.setTooltip(tooltip("dark_oak_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var  paleOakLeafParticles = entryBuilder.startIntSlider(text("pale_oak_leaf_particles"), leafParticles.paleOakFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.paleOakFrequency)
 			.setSaveConsumer(newValue -> leafParticles.paleOakFrequency = newValue)
 			.setTooltip(tooltip("pale_oak_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var mangroveLeafParticles = entryBuilder.startIntSlider(text("mangrove_leaf_particles"), leafParticles.mangroveFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.mangroveFrequency)
 			.setSaveConsumer(newValue -> leafParticles.mangroveFrequency = newValue)
 			.setTooltip(tooltip("mangrove_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var cherryLeafParticles = entryBuilder.startIntSlider(text("cherry_leaf_particles"), leafParticles.cherryFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.cherryFrequency)
 			.setSaveConsumer(newValue -> leafParticles.cherryFrequency = newValue)
 			.setTooltip(tooltip("cherry_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var azaleaLeafParticles = entryBuilder.startIntSlider(text("azalea_leaf_particles"), leafParticles.azaleaFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.azaleaFrequency)
 			.setSaveConsumer(newValue -> leafParticles.azaleaFrequency = newValue)
 			.setTooltip(tooltip("azalea_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var floweringAzaleaLeafParticles = entryBuilder.startIntSlider(text("flowering_azalea_leaf_particles"), leafParticles.floweringAzaleaFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.floweringAzaleaFrequency)
 			.setSaveConsumer(newValue -> leafParticles.floweringAzaleaFrequency = newValue)
 			.setTooltip(tooltip("flowering_azalea_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var baobabLeafParticles = entryBuilder.startIntSlider(text("baobab_leaf_particles"), leafParticles.baobabFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.baobabFrequency)
 			.setSaveConsumer(newValue -> leafParticles.baobabFrequency = newValue)
 			.setTooltip(tooltip("baobab_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var cypressLeafParticles = entryBuilder.startIntSlider(text("cypress_leaf_particles"), leafParticles.cypressFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.cypressFrequency)
 			.setSaveConsumer(newValue -> leafParticles.cypressFrequency = newValue)
 			.setTooltip(tooltip("cypress_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var palmFrondParticles = entryBuilder.startIntSlider(text("palm_frond_particles"), leafParticles.palmFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.palmFrequency)
 			.setSaveConsumer(newValue -> leafParticles.palmFrequency = newValue)
 			.setTooltip(tooltip("palm_frond_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var mapleLeafParticles = entryBuilder.startIntSlider(text("maple_leaf_particles"), leafParticles.mapleFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.mapleFrequency)
 			.setSaveConsumer(newValue -> leafParticles.mapleFrequency = newValue)
 			.setTooltip(tooltip("maple_leaf_particles"))
+			.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.useWilderWildFallingLeaves))
 			.build();
 
 		var leafParticleCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("leaf_particles"),
 			false,
 			tooltip("leaf_particles"),
+			useWilderWildFallingLeaves,
 			oakLeafParticles, spruceLeafParticles, birchLeafParticles, jungleLeafParticles, acaciaLeafParticles, darkOakLeafParticles,
 			paleOakLeafParticles, mangroveLeafParticles, cherryLeafParticles, azaleaLeafParticles, floweringAzaleaLeafParticles,
 			baobabLeafParticles, cypressLeafParticles, palmFrondParticles, mapleLeafParticles

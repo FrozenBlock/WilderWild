@@ -262,19 +262,32 @@ public final class WWBlocks {
 	);
 
 	public static final PalmFrondsBlock PALM_FRONDS = register("palm_fronds",
-		properties -> new PalmFrondsBlock(100, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new PalmFrondsBlock(200, ParticleTypes.TINTED_LEAVES, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
+
 	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
-		properties -> new LeavesWithLitterBlock(100, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new LeavesWithLitterBlock(
+			50,
+			WWFallingLeavesParticleOptions.create(WWParticleTypes.YELLOW_MAPLE_LEAVES, 5, 3F, 10F, true),
+			properties
+		),
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
-		properties -> new LeavesWithLitterBlock(100, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new LeavesWithLitterBlock(
+			50,
+			WWFallingLeavesParticleOptions.create(WWParticleTypes.ORANGE_MAPLE_LEAVES, 5, 3F, 10F, true),
+			properties
+		),
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
-		properties -> new LeavesWithLitterBlock(100, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new LeavesWithLitterBlock(
+			50,
+			WWFallingLeavesParticleOptions.create(WWParticleTypes.RED_MAPLE_LEAVES, 5, 3F, 10F, true),
+			properties
+		),
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
@@ -1330,7 +1343,7 @@ public final class WWBlocks {
 		int textureSize
 	) {
 		return leafLitter(
-			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, true, true
+			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, true
 		);
 	}
 
@@ -1345,7 +1358,6 @@ public final class WWBlocks {
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
-		boolean flowAway,
 		boolean swirl
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType);
@@ -1359,7 +1371,6 @@ public final class WWBlocks {
 			textureSize,
 			particleGravityScale,
 			windScale,
-			flowAway,
 			swirl
 		);
 		return leafLitterBlock;

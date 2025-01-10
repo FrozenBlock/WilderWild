@@ -54,3 +54,7 @@ hi
 - Expanded the list of blocks Fireflies can "hide" in during the day.
 - Renamed the `wilderwildfireflies` mob category to `wilderwildfirefly`.
 - Removed the `wilderwild:spawn/firefly_spawnable_cave` and `wilderwild:spawn/firefly_spawnable_during_day` tags as these spawning behaviors have been removed.
+
+# 1.21.5
+- Added the `wilderwild:non_overriden_falling_leaves` block tag, controlling which leaves blocks won't have their particles entirely replaced by Wilder Wild.
+- Increased the frequency of Wilder Wild's falling leaves.

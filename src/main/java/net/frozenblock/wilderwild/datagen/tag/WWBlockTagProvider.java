@@ -707,6 +707,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN);
 
+		this.getOrCreateTagBuilder(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES)
+			.add(Blocks.CHERRY_LEAVES)
+			.add(Blocks.PALE_OAK_LEAVES);
+
 		this.getOrCreateTagBuilder(WWBlockTags.BLOCKS_TERMITE)
 			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
 			.addOptionalTag(ConventionalBlockTags.GLASS_PANES);

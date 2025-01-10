@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
@@ -51,7 +52,6 @@ public class FallingLeafUtil {
 		4,
 		2F,
 		10F,
-		true,
 		true
 	);
 	private static final Map<Block, FallingLeafData> LEAVES_TO_FALLING_LEAF_DATA = new Object2ObjectLinkedOpenHashMap<>();
@@ -67,12 +67,11 @@ public class FallingLeafUtil {
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
-		boolean flowAway,
 		boolean swirl
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(Optional.of(leafLitterBlock), litterChance, leafParticle),
-			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, flowAway, swirl)
+			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, swirl)
 		);
 	}
 
@@ -84,12 +83,11 @@ public class FallingLeafUtil {
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
-		boolean flowAway,
 		boolean swirl
 	) {
 		registerFallingLeaf(
 			block, new FallingLeafData(Optional.empty(), 0F, leafParticle),
-			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, flowAway, swirl)
+			leafParticle, new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, swirl)
 		);
 	}
 
@@ -162,20 +160,24 @@ public class FallingLeafUtil {
 		return false;
 	}
 
-	public static void addFallingLeafParticles(@NotNull BlockState state, Level world, BlockPos pos, RandomSource random) {
-		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
-		if (optionalFallingLeafData.isPresent()) {
-			FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-			ParticleType<WWFallingLeavesParticleOptions> leafParticle = fallingLeafData.particle();
-			LeafParticleData leafParticleData = getLeafParticleData(leafParticle);
-			if (random.nextFloat() <= leafParticleData.particleChance() * leafParticleData.frequencyModifier().get()) {
-				BlockPos blockPos = pos.below();
-				BlockState blockState = world.getBlockState(blockPos);
-				if (!Block.isFaceFull(blockState.getCollisionShape(world, blockPos), Direction.UP)) {
-					ParticleUtils.spawnParticleBelow(world, pos, random, createLeafParticleOptions(fallingLeafData));
+	public static boolean addFallingLeafParticles(@NotNull BlockState state, Level world, BlockPos pos, RandomSource random) {
+		if (WWAmbienceAndMiscConfig.Client.USE_WILDER_WILD_FALLING_LEAVES) {
+			Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+			if (optionalFallingLeafData.isPresent()) {
+				FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
+				ParticleType<WWFallingLeavesParticleOptions> leafParticle = fallingLeafData.particle();
+				LeafParticleData leafParticleData = getLeafParticleData(leafParticle);
+				if (random.nextFloat() <= leafParticleData.particleChance() * leafParticleData.frequencyModifier().get()) {
+					BlockPos blockPos = pos.below();
+					BlockState blockState = world.getBlockState(blockPos);
+					if (!Block.isFaceFull(blockState.getCollisionShape(world, blockPos), Direction.UP)) {
+						ParticleUtils.spawnParticleBelow(world, pos, random, createLeafParticleOptions(fallingLeafData));
+					}
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData) {
@@ -199,7 +201,6 @@ public class FallingLeafUtil {
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
-		boolean flowAway,
 		boolean swirl
 	) {}
 }
