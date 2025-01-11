@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
@@ -45,6 +46,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Arrays;
 
 public class Penguin extends Animal {
 	public AnimationState layDownAnimationState = new AnimationState();
@@ -210,4 +212,17 @@ public class Penguin extends Animal {
 		DebugPackets.sendEntityBrain(this);
 	}
 
+	@Override
+	public void addAdditionalSaveData(CompoundTag compoundTag) {
+		super.addAdditionalSaveData(compoundTag);
+		compoundTag.putString("EntityPose", this.getPose().name());
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag compoundTag) {
+		super.readAdditionalSaveData(compoundTag);
+		if (compoundTag.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compoundTag.getString("EntityPose"))))) {
+			this.setPose(Pose.valueOf(compoundTag.getString("EntityPose")));
+		}
+	}
 }
