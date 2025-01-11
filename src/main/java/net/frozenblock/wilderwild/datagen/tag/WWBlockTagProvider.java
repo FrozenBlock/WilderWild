@@ -476,6 +476,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.MINEABLE_WITH_HOE)
 			.addOptionalTag(BlockTags.WOOL);
 
+		this.getOrCreateTagBuilder(WWBlockTags.PENGUIN_IGNORE_FRICTION)
+			.addOptionalTag(BlockTags.ICE);
+
 		this.getOrCreateTagBuilder(WWBlockTags.GEYSER_CAN_PASS_THROUGH)
 			.addOptionalTag(BlockTags.TRAPDOORS)
 			.add(Blocks.COPPER_GRATE)
