@@ -63,6 +63,7 @@ public class PenguinAi {
 	private static final UniformInt TIME_BETWEEN_LONG_JUMPS = UniformInt.of(20, 40);
 
 	public static final int LAY_DOWN_DURATION = 13;
+	public static final int STAND_UP_DURATION = 48;
 
 	private static final ImmutableList<SensorType<? extends Sensor<? super Penguin>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
@@ -112,7 +113,8 @@ public class PenguinAi {
 		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
 		WWMemoryModuleTypes.WANTS_TO_LAUNCH,
 		WWMemoryModuleTypes.LAND_POS,
-		WWMemoryModuleTypes.WATER_POS
+		WWMemoryModuleTypes.WATER_POS,
+		WWMemoryModuleTypes.STANDING_UP
 	);
 
 	@NotNull
@@ -123,6 +125,7 @@ public class PenguinAi {
 	@NotNull
 	public static Brain<?> makeBrain(@NotNull Penguin penguin, @NotNull Brain<Penguin> brain) {
 		initCoreActivity(brain);
+		initStandUpActivity(brain);
 		initIdleActivity(brain);
 		initSearchActivity(brain);
 		initSwimActivity(brain);
@@ -147,6 +150,17 @@ public class PenguinAi {
 				new CountDownCooldownTicks(WWMemoryModuleTypes.IDLE_TIME),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.DIVE_TICKS)
 			)
+		);
+	}
+
+	private static void initStandUpActivity(@NotNull Brain<Penguin> brain) {
+		brain.addActivityAndRemoveMemoryWhenStopped(
+			WWActivities.STAND_UP,
+			5,
+			ImmutableList.of(
+				new PenguinStandUp<>(STAND_UP_DURATION)
+			),
+			WWMemoryModuleTypes.STANDING_UP
 		);
 	}
 
@@ -281,6 +295,7 @@ public class PenguinAi {
 	public static void updateActivity(@NotNull Penguin penguin) {
 		penguin.getBrain().setActiveActivityToFirstValid(
 			ImmutableList.of(
+				WWActivities.STAND_UP,
 				Activity.FIGHT,
 				Activity.LONG_JUMP,
 				WWActivities.ESCAPE,

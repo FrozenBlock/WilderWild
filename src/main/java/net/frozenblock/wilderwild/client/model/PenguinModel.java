@@ -136,6 +136,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		limbSwing *= 2.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 		this.animate(entity.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, ageInTicks);
+		this.animate(entity.standUpAnimationState, PenguinAnimation.PENGUIN_STAND_UP, ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
 		this.animateSlide(limbSwing * 2F, Math.min(limbSwingAmount * 2F, 1F), slideProgress * notSwimmingAmount * notWadingProgress);
 		this.animateWade(ageInTicks, wadeProgress * notMovingDelta);

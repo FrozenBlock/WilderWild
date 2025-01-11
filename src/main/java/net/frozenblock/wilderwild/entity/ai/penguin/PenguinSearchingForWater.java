@@ -66,7 +66,7 @@ public class PenguinSearchingForWater<E extends Penguin> extends Behavior<E> {
 
 		if (!penguin.isSwimming()) {
 			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, 400);
-			brain.setMemory(WWMemoryModuleTypes.RISING_TO_STAND_UP, Unit.INSTANCE);
+			brain.setMemory(WWMemoryModuleTypes.STANDING_UP, Unit.INSTANCE);
 		} else {
 			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS, 400);
 		}

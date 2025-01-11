@@ -47,7 +47,7 @@ public class PenguinStandUp<E extends Penguin> extends Behavior<E> {
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		boolean swimming = penguin.isSwimming();
-		penguin.setPose(swimming ? Pose.SWIMMING : Pose.STANDING);
+		penguin.setPose(swimming ? Pose.SWIMMING : Pose.EMERGING);
 		if (!swimming && penguin.onGround()) {
 			penguin.stopInPlace();
 		}
@@ -55,5 +55,9 @@ public class PenguinStandUp<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+		if (penguin.hasPose(Pose.EMERGING)) {
+			boolean swimming = penguin.isSwimming();
+			penguin.setPose(swimming ? Pose.SWIMMING : Pose.STANDING);
+		}
 	}
 }

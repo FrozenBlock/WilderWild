@@ -49,6 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Penguin extends Animal {
 	public AnimationState layDownAnimationState = new AnimationState();
+	public AnimationState standUpAnimationState = new AnimationState();
 	private float prevWadeProgress;
 	private float wadeProgress;
 
@@ -165,17 +166,32 @@ public class Penguin extends Animal {
 		return Mth.lerp(partialTick, this.prevWadeProgress, this.wadeProgress);
 	}
 
+	public boolean isSlidingOrSwimming() {
+		return this.getPose() == Pose.SLIDING || this.isSwimming();
+	}
+
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		if (DATA_POSE.equals(entityDataAccessor)) {
 			if (this.getPose() == Pose.SLIDING) {
 				this.layDownAnimationState.start(this.tickCount);
+				this.standUpAnimationState.stop();
+			} else if (this.getPose() == Pose.EMERGING) {
+				this.standUpAnimationState.start(this.tickCount);
+				this.layDownAnimationState.stop();
 			} else {
 				this.layDownAnimationState.stop();
 			}
+			this.refreshDimensions();
 		}
 
 		super.onSyncedDataUpdated(entityDataAccessor);
+	}
+
+	@Override
+	public @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
+		EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
+		return this.isSlidingOrSwimming() ? EntityDimensions.fixed(entityDimensions.width(), 0.5F) : entityDimensions;
 	}
 
 	@Override
