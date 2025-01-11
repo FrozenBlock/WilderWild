@@ -58,6 +58,8 @@
     {
       "id": "#minecraft:crimson_stems",
       "required": false
-    }
+    },
+    "minecraft:resin_clump",
+    "minecraft:creaking_heart"
   ]
 }

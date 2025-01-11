@@ -655,8 +655,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
-			.addOptional(WWConstants.id("hollowed_pale_oak_log"))
-			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"));
+			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG)
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS)
@@ -693,7 +693,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
-			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"))
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG)
@@ -764,7 +764,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
 			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
 			.addOptionalTag(BlockTags.WARPED_STEMS)
-			.addOptionalTag(BlockTags.CRIMSON_STEMS);
+			.addOptionalTag(BlockTags.CRIMSON_STEMS)
+			.add(Blocks.RESIN_CLUMP)
+			.add(Blocks.CREAKING_HEART);
 	}
 
 	private void generateMinecraft() {

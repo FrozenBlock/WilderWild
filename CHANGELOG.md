@@ -63,3 +63,5 @@ hi
   - When placed above a Mushroom Stem at night, will emit fog-like particles.
 - Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
 - Properly updated the sound type for Eyeblossoms to match other flowers.
+- Termites can now eat Pale Oak blocks.
+- Resin Clumps and Creaking Hearts now kill Termites on contact.
