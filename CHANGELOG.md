@@ -64,4 +64,4 @@ hi
 - Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
-- Resin Clumps and Creaking Hearts now kill Termites on contact.
+- Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.

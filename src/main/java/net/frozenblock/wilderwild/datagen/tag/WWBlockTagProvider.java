@@ -766,7 +766,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.WARPED_STEMS)
 			.addOptionalTag(BlockTags.CRIMSON_STEMS)
 			.add(Blocks.RESIN_CLUMP)
-			.add(Blocks.CREAKING_HEART);
+			.add(Blocks.CREAKING_HEART)
+			.add(Blocks.CLOSED_EYEBLOSSOM)
+			.add(Blocks.OPEN_EYEBLOSSOM)
+			.add(WWBlocks.PALE_MUSHROOM)
+			.add(WWBlocks.PALE_SHELF_FUNGI)
+			.add(WWBlocks.PALE_MUSHROOM_BLOCK);
 	}
 
 	private void generateMinecraft() {

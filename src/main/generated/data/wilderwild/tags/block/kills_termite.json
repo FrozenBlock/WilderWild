@@ -60,6 +60,11 @@
       "required": false
     },
     "minecraft:resin_clump",
-    "minecraft:creaking_heart"
+    "minecraft:creaking_heart",
+    "minecraft:closed_eyeblossom",
+    "minecraft:open_eyeblossom",
+    "wilderwild:pale_mushroom",
+    "wilderwild:pale_shelf_fungi",
+    "wilderwild:pale_mushroom_block"
   ]
 }
