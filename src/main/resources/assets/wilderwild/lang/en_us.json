@@ -473,6 +473,8 @@
   "tooltip.wilderwild.hanging_tendril_generation": "Whether Hanging Tendrils can generate from Sculk Charges.",
   "option.wilderwild.osseous_sculk_generation": "Osseous Sculk Generation",
   "tooltip.wilderwild.osseous_sculk_generation": "Whether Osseous Sculk can generate from Sculk Charges.",
+  "option.wilderwild.sculk_building_blocks_generation": "Sculk Building Block Generation",
+  "tooltip.wilderwild.sculk_building_blocks_generation": "Whether buiding block variants of Sculk can generate from Sculk Charges.\nIncludes Walls, Stairs, and Slabs.",
   "option.wilderwild.mesoglea": "Mesoglea",
   "tooltip.wilderwild.mesoglea": "Contains options for Mesoglea.",
   "option.wilderwild.mesoglea_liquid": "Mesoglea Renders Like Liquid",

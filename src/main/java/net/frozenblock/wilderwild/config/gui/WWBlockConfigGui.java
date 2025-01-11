@@ -216,10 +216,21 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
+		var sculkBuildingBlocksGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sculk_building_blocks_generation"), modifiedSculk.sculkBuildingBlocksGeneration)
+				.setDefaultValue(defaultConfig.sculk.sculkBuildingBlocksGeneration)
+				.setSaveConsumer(newValue -> sculk.sculkBuildingBlocksGeneration = newValue)
+				.setTooltip(tooltip("sculk_building_blocks_generation"))
+				.build(),
+			sculk.getClass(),
+			"sculkBuildingBlocksGeneration",
+			configInstance
+		);
+
 		var sculkCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("sculk"),
 			false,
 			tooltip("sculk"),
-			shriekerGargling, tendrilsCarryEvents, billboardTendrils, tendrilGeneration, osseousSculkGeneration
+			shriekerGargling, tendrilsCarryEvents, billboardTendrils, tendrilGeneration, osseousSculkGeneration, sculkBuildingBlocksGeneration
 		);
 
 		var mesogleaLiquid = FrozenClothConfig.syncedEntry(

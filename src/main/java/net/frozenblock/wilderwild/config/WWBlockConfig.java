@@ -58,6 +58,7 @@ public final class WWBlockConfig {
 				NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
 				HANGING_TENDRIL_GENERATION = config.sculk.tendrilGeneration;
 				OSSEOUS_SCULK_GENERATION = config.sculk.osseousSculkGeneration;
+				SCULK_BUILDING_BLOCKS_GENERATION = config.sculk.sculkBuildingBlocksGeneration;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
 					Client.POLLEN_ENABLED = config.pollenParticles;
@@ -75,6 +76,7 @@ public final class WWBlockConfig {
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
 	public static volatile boolean HANGING_TENDRIL_GENERATION = true;
 	public static volatile boolean OSSEOUS_SCULK_GENERATION = true;
+	public static volatile boolean SCULK_BUILDING_BLOCKS_GENERATION = true;
 
 	public static boolean canSnowlog() {
 		return SNOWLOGGING && !FrozenBools.IS_DATAGEN;
@@ -275,5 +277,8 @@ public final class WWBlockConfig {
 
 		@EntrySyncData("osseousSculkGeneration")
 		public boolean osseousSculkGeneration = true;
+
+		@EntrySyncData("sculkBuildingBlocksGeneration")
+		public boolean sculkBuildingBlocksGeneration = true;
 	}
 }

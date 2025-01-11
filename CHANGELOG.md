@@ -19,7 +19,9 @@ hi
 - Reworked Osseous Sculk generation once again.
   - Osseous Sculk generation is now taller on average, much like it once was in earlier versions of Wilder Wild.
   - Many optimizations were made to Osseous Sculk generation.
-- Added two config options to toggle Hanging Tendril and Osseous Sculk generation.
+- Added a config option to toggle Hanging Tendril generation.
+- Added a config option to toggle Osseous Sculk generation.
+- Added a config option to toggle Sculk Slab, Sculk Stairs, and Sculk Wall generation.
 - Grouped all Sculk-related config options into a new dropdown in the Block config menu.
 - Optimized Hanging Tendril rendering.
 

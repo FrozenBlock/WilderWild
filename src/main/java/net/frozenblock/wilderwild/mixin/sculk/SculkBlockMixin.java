@@ -172,13 +172,15 @@ public class SculkBlockMixin {
 			}
 		}
 
-		BlockState chargePosState = level.getBlockState(chargePos);
-		if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
-		} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
-		} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
-			placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
+		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) {
+			BlockState chargePosState = level.getBlockState(chargePos);
+			if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
+				placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
+			} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
+				placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
+			} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
+				placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
+			}
 		}
 
 		canPlace.set(placementState.get() != null && placementPos.get() != null);
@@ -199,9 +201,7 @@ public class SculkBlockMixin {
 		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
 		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
-		if (placementPos.get() == null || placementState.get() == null) {
-			return;
-		}
+		if (placementPos.get() == null || placementState.get() == null) return;
 		if (canPlace.get()) {
 			args.set(0, placementPos.get());
 			args.set(1, placementState.get());
@@ -308,9 +308,15 @@ public class SculkBlockMixin {
 		if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.DOWN)) {
 			BlockState blockState = level.getBlockState(pos.below());
 			Block block = blockState.getBlock();
-			if ((blockState.isAir() || block == Blocks.WATER || (this.wilderWild$canPlaceOsseousSculk && block == Blocks.LAVA) || block == Blocks.SCULK_VEIN)
-				&& level.getRandom().nextFloat() >= WILDERWILD$BELOW_GROWTH_CHANCE
-			) {
+
+			boolean isBlockStateReplaceable = blockState.canBeReplaced()
+				|| (this.wilderWild$canPlaceOsseousSculk && block == Blocks.LAVA)
+				|| blockState.is(Blocks.SCULK_VEIN);
+
+			boolean canPlaceBelow = this.wilderWild$canPlaceOsseousSculk ? isBlockStateReplaceable
+				: WWBlockConfig.HANGING_TENDRIL_GENERATION && isBlockStateReplaceable;
+
+			if (canPlaceBelow && level.getRandom().nextFloat() >= WILDERWILD$BELOW_GROWTH_CHANCE) {
 				placingBelow.set(true);
 				return true;
 			}
