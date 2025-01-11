@@ -12,6 +12,10 @@
         "ground_probability": 0.8,
         "leaves_probability": 0.15,
         "trunk_probability": 0.4
+      },
+      {
+        "type": "minecraft:creaking_heart",
+        "probability": 1.0
       }
     ],
     "dirt_provider": {
