@@ -330,9 +330,8 @@ public final class WWModelHelper {
 			MultiPartGenerator.multiPart(block)
 				.with(Condition.condition().term(BlockStateProperties.NORTH, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation))
 				.with(Condition.condition().term(BlockStateProperties.EAST, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-					.with(
-						VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-						.with(VariantProperties.UV_LOCK, true)
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					.with(VariantProperties.UV_LOCK, true)
 				).with(Condition.condition().term(BlockStateProperties.SOUTH, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
 					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
 					.with(VariantProperties.UV_LOCK, true)
