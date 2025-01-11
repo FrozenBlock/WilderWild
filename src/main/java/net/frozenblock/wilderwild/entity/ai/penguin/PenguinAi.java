@@ -35,17 +35,26 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
+import net.minecraft.world.entity.ai.behavior.EraseMemoryIf;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.GateBehavior;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MeleeAttack;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTargetSometimes;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
+import net.minecraft.world.entity.ai.behavior.StartAttacking;
+import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.behavior.TryFindLand;
 import net.minecraft.world.entity.ai.behavior.TryFindWater;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -117,6 +126,14 @@ public class PenguinAi {
 		WWMemoryModuleTypes.STANDING_UP
 	);
 
+	private static final BehaviorControl<Penguin> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(
+		instance -> instance.group(instance.registered(MemoryModuleType.HAS_HUNTING_COOLDOWN))
+			.apply(instance, memoryAccessor -> (world, penguin, l) -> {
+				memoryAccessor.setWithExpiry(true, 600);
+				return true;
+			})
+	);
+
 	@NotNull
 	public static Brain.Provider<Penguin> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
@@ -126,6 +143,7 @@ public class PenguinAi {
 	public static Brain<?> makeBrain(@NotNull Penguin penguin, @NotNull Brain<Penguin> brain) {
 		initCoreActivity(brain);
 		initStandUpActivity(brain);
+		initFightActivity(brain, penguin);
 		initIdleActivity(brain);
 		initSearchActivity(brain);
 		initSwimActivity(brain);
@@ -164,6 +182,24 @@ public class PenguinAi {
 		);
 	}
 
+	private static void initFightActivity(@NotNull Brain<Penguin> brain, @NotNull Penguin penguin) {
+		brain.addActivityAndRemoveMemoryWhenStopped(
+			Activity.FIGHT,
+			10,
+			ImmutableList.of(
+				HUNTING_COOLDOWN_SETTER,
+				StopAttackingIfTargetInvalid.create(
+					livingEntity -> !penguin.canTargetEntity(livingEntity), PenguinAi::onTargetInvalid, true
+				),
+				SetEntityLookTarget.create(livingEntity -> isTarget(penguin, livingEntity), (float) penguin.getAttributeValue(Attributes.FOLLOW_RANGE)),
+				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(PenguinAi::getSpeedModifierChasing),
+				MeleeAttack.create(30),
+				EraseMemoryIf.create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)
+			),
+			MemoryModuleType.ATTACK_TARGET
+		);
+	}
+
 	private static void initIdleActivity(@NotNull Brain<Penguin> brain) {
 		brain.addActivityWithConditions(
 			Activity.IDLE,
@@ -172,7 +208,7 @@ public class PenguinAi {
 				Pair.of(0, new AnimalMakeLove(WWEntityTypes.PENGUIN)),
 				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
 				//Pair.of(2, StartAttacking.create(PenguinAi::canAttack, frog -> frog.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
-				Pair.of(3, TryFindLand.create(6, 1.0F)),
+				Pair.of(3, TryFindLand.create(6, 1F)),
 				Pair.of(
 					4,
 					new RunOne<>(
@@ -199,7 +235,7 @@ public class PenguinAi {
 		brain.addActivityAndRemoveMemoriesWhenStopped(
 			WWActivities.SEARCH,
 			ImmutableList.of(
-				Pair.of(0, new PenguinSearchingForWater()),
+				Pair.of(0, new PenguinLayDown<>()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
 				Pair.of(1, TryFindWater.create(8, 0.8F)),
 				Pair.of(2, PenguinReturnToWater.create(0.8F)),
@@ -235,10 +271,9 @@ public class PenguinAi {
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
 				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
-				//Pair.of(2, StartAttacking.create(PenguinAi::canAttack, frog -> frog.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
-				//Pair.of(3, TryFindLand.create(8, 1.5F)),
+				Pair.of(2, StartAttacking.create(PenguinAi::canAttack, penguin -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
 				Pair.of(
-					5,
+					3,
 					new GateBehavior<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableSet.of(),
@@ -246,7 +281,6 @@ public class PenguinAi {
 						GateBehavior.RunningPolicy.TRY_ALL,
 						ImmutableList.of(
 							Pair.of(RandomStroll.swim(1.5F), 1),
-							Pair.of(RandomStroll.stroll(1F, true), 1),
 							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5)
 						)
@@ -265,7 +299,22 @@ public class PenguinAi {
 			WWActivities.ESCAPE,
 			ImmutableList.of(
 				Pair.of(0, PenguinFollowReturnPos.create(2F)),
-				Pair.of(0, PenguinFindEscapePos.create(10, 2F))
+				Pair.of(0, PenguinFindEscapePos.create(10, 2F)),
+				Pair.of(
+					5,
+					new GateBehavior<>(
+						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
+						ImmutableSet.of(),
+						GateBehavior.OrderPolicy.ORDERED,
+						GateBehavior.RunningPolicy.TRY_ALL,
+						ImmutableList.of(
+							Pair.of(RandomStroll.swim(1.5F), 1),
+							Pair.of(RandomStroll.stroll(1F, true), 1),
+							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
+							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5)
+						)
+					)
+				)
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT),
@@ -318,8 +367,23 @@ public class PenguinAi {
 		brain.eraseMemory(MemoryModuleType.UNIVERSAL_ANGER);
 	}
 
+	private static boolean isTarget(@NotNull Penguin penguin, @NotNull LivingEntity livingEntity) {
+		return penguin.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
+	}
+
 	private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
 		return SPEED_MULTIPLIER_WHEN_ATTACKING;
+	}
+
+	private static void onTargetInvalid(@NotNull Penguin penguin, @NotNull LivingEntity target) {
+		if (penguin.getTarget() == target) {
+			penguin.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+		}
+		penguin.getNavigation().stop();
+	}
+
+	private static boolean canAttack(@NotNull Penguin penguin) {
+		return !penguin.isBaby() && !BehaviorUtils.isBreeding(penguin) && penguin.getBrain().checkMemory(MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryStatus.VALUE_ABSENT);
 	}
 
 	@NotNull

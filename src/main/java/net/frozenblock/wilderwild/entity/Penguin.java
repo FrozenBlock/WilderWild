@@ -31,6 +31,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -44,6 +45,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
@@ -161,6 +163,21 @@ public class Penguin extends Animal {
 		super.tick();
 		this.prevWadeProgress = this.wadeProgress;
 		this.wadeProgress += ((this.isTouchingWaterOrSwimming() ? 1F : 0F) - this.wadeProgress) * 0.175F;
+	}
+
+	@Contract("null->false")
+	public boolean canTargetEntity(@Nullable Entity entity) {
+		return entity instanceof LivingEntity livingEntity
+			&& this.level() == livingEntity.level()
+			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
+			&& !this.isAlliedTo(livingEntity)
+			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != WWEntityTypes.PENGUIN
+			&& !livingEntity.isInvulnerable()
+			&& !livingEntity.isDeadOrDying()
+			&& !livingEntity.isRemoved()
+			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 
 	public float getWadeProgress(float partialTick) {

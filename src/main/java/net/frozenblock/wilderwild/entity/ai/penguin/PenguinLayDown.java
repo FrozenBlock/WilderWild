@@ -30,9 +30,9 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
-public class PenguinSearchingForWater<E extends Penguin> extends Behavior<E> {
+public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 
-	public PenguinSearchingForWater() {
+	public PenguinLayDown() {
 		super(
 			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
