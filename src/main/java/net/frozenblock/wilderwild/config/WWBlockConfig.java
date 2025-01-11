@@ -56,10 +56,13 @@ public final class WWBlockConfig {
 				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
 				SNOWLOG_WALLS = SNOWLOGGING && config.snowlogging.snowlogWalls;
 				NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
+				HANGING_TENDRIL_GENERATION = config.sculk.tendrilGeneration;
+				OSSEOUS_SCULK_GENERATION = config.sculk.osseousSculkGeneration;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
 					Client.POLLEN_ENABLED = config.pollenParticles;
 					Client.SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
+					Client.BILLBOARD_TENDRILS = config.sculk.billboardTendrils;
 				}
 			}
 		}
@@ -70,6 +73,8 @@ public final class WWBlockConfig {
 	public static volatile boolean SNOWLOGGING = true;
 	public static volatile boolean SNOWLOG_WALLS = false;
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
+	public static volatile boolean HANGING_TENDRIL_GENERATION = true;
+	public static volatile boolean OSSEOUS_SCULK_GENERATION = true;
 
 	public static boolean canSnowlog() {
 		return SNOWLOGGING && !FrozenBools.IS_DATAGEN;
@@ -87,6 +92,7 @@ public final class WWBlockConfig {
 		public static volatile boolean MESOGLEA_LIQUID = false;
 		public static volatile boolean POLLEN_ENABLED = true;
 		public static volatile boolean SOUL_FIRE_SOUNDS = true;
+		public static volatile boolean BILLBOARD_TENDRILS = true;
 	}
 
 	@CollapsibleObject
@@ -107,14 +113,8 @@ public final class WWBlockConfig {
 	@CollapsibleObject
 	public final FireConfig fire = new FireConfig();
 
-	@EntrySyncData("shriekerGargling")
-	public boolean shriekerGargling = true;
-
-	@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean billboardTendrils = true;
-
-	@EntrySyncData("tendrilsCarryEvents")
-	public boolean tendrilsCarryEvents = false;
+	@CollapsibleObject
+	public final SculkConfig sculk = new SculkConfig();
 
 	@EntrySyncData("reachBoostBeacon")
 	public boolean reachBoostBeacon = true;
@@ -258,5 +258,22 @@ public final class WWBlockConfig {
 
 		@EntrySyncData("naturalSnowlogging")
 		public boolean naturalSnowlogging = true;
+	}
+
+	public static class SculkConfig {
+		@EntrySyncData("shriekerGargling")
+		public boolean shriekerGargling = true;
+
+		@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean billboardTendrils = true;
+
+		@EntrySyncData("tendrilsCarryEvents")
+		public boolean tendrilsCarryEvents = false;
+
+		@EntrySyncData("tendrilGeneration")
+		public boolean tendrilGeneration = true;
+
+		@EntrySyncData("osseousSculkGeneration")
+		public boolean osseousSculkGeneration = true;
 	}
 }

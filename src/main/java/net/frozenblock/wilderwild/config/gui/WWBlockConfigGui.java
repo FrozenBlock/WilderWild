@@ -51,45 +51,10 @@ public final class WWBlockConfigGui {
 		var modifiedSnowlogging = modifiedConfig.snowlogging;
 		var fire = config.fire;
 		var modifiedFire = modifiedConfig.fire;
-
-		var shriekerGargling = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)
-					.setDefaultValue(defaultConfig.shriekerGargling)
-					.setSaveConsumer(newValue -> config.shriekerGargling = newValue)
-					.setTooltip(tooltip("shrieker_gargling"))
-					.build(),
-				clazz,
-				"shriekerGargling",
-				configInstance
-			)
-		);
-
-		var billboardTendrils = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("billboard_tendrils"), modifiedConfig.billboardTendrils)
-					.setDefaultValue(defaultConfig.billboardTendrils)
-					.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
-					.setTooltip(tooltip("billboard_tendrils"))
-					.build(),
-				clazz,
-				"billboardTendrils",
-				configInstance
-			)
-		);
-
-		var tendrilsCarryEvents = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("tendrils_carry_events"), modifiedConfig.tendrilsCarryEvents)
-					.setDefaultValue(defaultConfig.tendrilsCarryEvents)
-					.setSaveConsumer(newValue -> config.tendrilsCarryEvents = newValue)
-					.setTooltip(tooltip("tendrils_carry_events"))
-					.build(),
-				clazz,
-				"tendrilsCarryEvents",
-				configInstance
-			)
-		);
+		var mesoglea = config.mesoglea;
+		var modifiedMesoglea = modifiedConfig.mesoglea;
+		var sculk = config.sculk;
+		var modifiedSculk = modifiedConfig.sculk;
 
 		var reachBoostBeacon = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -196,24 +161,85 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		var shriekerGargling = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedSculk.shriekerGargling)
+				.setDefaultValue(defaultConfig.sculk.shriekerGargling)
+				.setSaveConsumer(newValue -> sculk.shriekerGargling = newValue)
+				.setTooltip(tooltip("shrieker_gargling"))
+				.build(),
+			sculk.getClass(),
+			"shriekerGargling",
+			configInstance
+		);
+
+		var billboardTendrils = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("billboard_tendrils"), modifiedSculk.billboardTendrils)
+				.setDefaultValue(defaultConfig.sculk.billboardTendrils)
+				.setSaveConsumer(newValue -> sculk.billboardTendrils = newValue)
+				.setTooltip(tooltip("billboard_tendrils"))
+				.build(),
+			sculk.getClass(),
+			"billboardTendrils",
+			configInstance
+		);
+
+		var tendrilsCarryEvents = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tendrils_carry_events"), modifiedSculk.tendrilsCarryEvents)
+				.setDefaultValue(defaultConfig.sculk.tendrilsCarryEvents)
+				.setSaveConsumer(newValue -> sculk.tendrilsCarryEvents = newValue)
+				.setTooltip(tooltip("tendrils_carry_events"))
+				.build(),
+			sculk.getClass(),
+			"tendrilsCarryEvents",
+			configInstance
+		);
+
+		var tendrilGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("hanging_tendril_generation"), modifiedSculk.tendrilGeneration)
+				.setDefaultValue(defaultConfig.sculk.tendrilGeneration)
+				.setSaveConsumer(newValue -> sculk.tendrilGeneration = newValue)
+				.setTooltip(tooltip("hanging_tendril_generation"))
+				.build(),
+			sculk.getClass(),
+			"tendrilGeneration",
+			configInstance
+		);
+
+		var osseousSculkGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("osseous_sculk_generation"), modifiedSculk.osseousSculkGeneration)
+				.setDefaultValue(defaultConfig.sculk.osseousSculkGeneration)
+				.setSaveConsumer(newValue -> sculk.osseousSculkGeneration = newValue)
+				.setTooltip(tooltip("osseous_sculk_generation"))
+				.build(),
+			sculk.getClass(),
+			"osseousSculkGeneration",
+			configInstance
+		);
+
+		var sculkCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("sculk"),
+			false,
+			tooltip("sculk"),
+			shriekerGargling, tendrilsCarryEvents, billboardTendrils, tendrilGeneration, osseousSculkGeneration
+		);
+
 		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
+			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedMesoglea.mesogleaLiquid)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
-				.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
+				.setSaveConsumer(newValue -> mesoglea.mesogleaLiquid = newValue)
 				.setTooltip(tooltip("mesoglea_liquid"))
 				.build(),
-			config.mesoglea.getClass(),
+			mesoglea.getClass(),
 			"mesogleaLiquid",
 			configInstance
 		);
 
 		var mesogleaBubbleColumns = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedConfig.mesoglea.mesogleaBubbleColumns)
+			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedMesoglea.mesogleaBubbleColumns)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
-				.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
+				.setSaveConsumer(newValue -> mesoglea.mesogleaBubbleColumns = newValue)
 				.setTooltip(tooltip("mesoglea_bubble_columns"))
 				.build(),
-			config.mesoglea.getClass(),
+			mesoglea.getClass(),
 			"mesogleaBubbleColumns",
 			configInstance
 		);

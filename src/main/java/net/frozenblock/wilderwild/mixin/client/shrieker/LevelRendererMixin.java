@@ -52,7 +52,7 @@ public class LevelRendererMixin {
 		require = 0
 	)
 	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
-		if (this.level != null && WWBlockConfig.get().shriekerGargling) {
+		if (this.level != null && WWBlockConfig.get().sculk.shriekerGargling) {
 			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
 				this.level.playLocalSound(
 					(double) pos.getX() + 0.5D,

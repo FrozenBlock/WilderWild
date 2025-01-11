@@ -28,9 +28,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.lighting.LightEngine;
 
 public final class WWBlockStateProperties {
-	// Osseous Sculk
-	public static final IntegerProperty PILLAR_HEIGHT_LEFT = IntegerProperty.create("pillar_height_left", 0, 15);
-	public static final IntegerProperty TOTAL_HEIGHT = IntegerProperty.create("total_pillar_height", 0, 16);
 
 	// Hanging Tendril
 	public static final BooleanProperty TWITCHING = BooleanProperty.create("twitching");

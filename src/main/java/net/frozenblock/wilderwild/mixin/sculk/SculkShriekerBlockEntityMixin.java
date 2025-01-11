@@ -55,7 +55,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 	@Inject(at = @At("HEAD"), method = "tryShriek")
 	public void wilderWild$shriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo info) {
 		SculkShriekerBlockEntity shrieker = SculkShriekerBlockEntity.class.cast(this);
-		if (WWBlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+		if (WWBlockConfig.get().sculk.shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
 			this.wilderWild$bubbles = 50;
 		}
 	}

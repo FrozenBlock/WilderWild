@@ -15,6 +15,13 @@ hi
 - Added more variety to Pale Oak trees on 1.21.4.
 - Added a new song that plays in Lush and Frozen caves, by Willow/pictochats_!
 - Crab variants can now be added via datapacks, though by default there is only one Crab variant.
+- Removed two unnecessary blockstate properties from Osseous Sculk relating to their generation height.
+- Reworked Osseous Sculk generation once again.
+  - Osseous Sculk generation is now taller on average, much like it once was in earlier versions of Wilder Wild.
+  - Many optimizations were made to Osseous Sculk generation.
+- Added two config options to toggle Hanging Tendril and Osseous Sculk generation.
+- Grouped all Sculk-related config options into a new dropdown in the Block config menu.
+- Optimized Hanging Tendril rendering.
 
 # Butterfly Branch
 - Added Butterflies
