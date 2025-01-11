@@ -19,14 +19,19 @@
 package net.frozenblock.wilderwild.datagen.model;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.Util;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -45,6 +50,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -312,6 +318,78 @@ public final class WWModelHelper {
 					2, ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_2")),
 					3, ItemModelUtils.plainModel(WWConstants.id("item/echo_glass_3"))
 				)
+			)
+		);
+	}
+
+	public static void generatePaleMushroomBlock(@NotNull BlockModelGenerators generator) {
+		Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
+		ResourceLocation resourceLocation = ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput);
+		ResourceLocation insideTexture = TextureMapping.getBlockTexture(block, "_inside");
+		generator.blockStateOutput.accept(
+			MultiPartGenerator.multiPart(block)
+				.with(Condition.condition().term(BlockStateProperties.NORTH, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+				.with(Condition.condition().term(BlockStateProperties.EAST, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
+					.with(
+						VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+						.with(VariantProperties.UV_LOCK, true)
+				).with(Condition.condition().term(BlockStateProperties.SOUTH, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					.with(VariantProperties.UV_LOCK, true)
+				).with(Condition.condition().term(BlockStateProperties.WEST, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					.with(VariantProperties.UV_LOCK, true)
+				).with(Condition.condition().term(BlockStateProperties.UP, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
+					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+					.with(VariantProperties.UV_LOCK, true)
+				).with(Condition.condition().term(BlockStateProperties.DOWN, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
+					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+					.with(VariantProperties.UV_LOCK, true)
+				).with(Condition.condition().term(BlockStateProperties.NORTH, false), Variant.variant().with(VariantProperties.MODEL, insideTexture))
+				.with(Condition.condition().term(BlockStateProperties.EAST, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					.with(VariantProperties.UV_LOCK, false)
+				).with(Condition.condition().term(BlockStateProperties.SOUTH, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					.with(VariantProperties.UV_LOCK, false)
+				).with(Condition.condition().term(BlockStateProperties.WEST, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					.with(VariantProperties.UV_LOCK, false)
+				).with(Condition.condition().term(BlockStateProperties.UP, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
+					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+					.with(VariantProperties.UV_LOCK, false)
+				).with(Condition.condition().term(BlockStateProperties.DOWN, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
+					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+					.with(VariantProperties.UV_LOCK, false)
+				)
+		);
+		generator.registerSimpleItemModel(block, TexturedModel.CUBE.createWithSuffix(block, "_inventory", generator.modelOutput));
+	}
+
+	public static void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
+		List<SelectItemModel.SwitchCase<ResourceLocation>> switchCases = new ArrayList<>();
+
+		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
+			if (fireflyColor.equals(WWConstants.string("on"))) return;
+			ResourceLocation colorKey = ResourceLocation.parse(fireflyColor);
+			ResourceLocation location = ResourceLocation.fromNamespaceAndPath(colorKey.getNamespace(), "item/" + colorKey.getPath() + "_firefly_bottle");
+
+			switchCases.add(
+				ItemModelUtils.when(
+					colorKey,
+					ItemModelUtils.plainModel(
+						ModelTemplates.FLAT_ITEM.create(location, TextureMapping.layer0(location), generator.modelOutput)
+					)
+				)
+			);
+		});
+
+		generator.itemModelOutput.accept(
+			WWItems.FIREFLY_BOTTLE,
+			ItemModelUtils.select(
+				new FireflyBottleColorProperty(),
+				ItemModelUtils.plainModel(generator.createFlatItemModel(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM)),
+				switchCases
 			)
 		);
 	}

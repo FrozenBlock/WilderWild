@@ -20,25 +20,16 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
-import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.world.level.FoliageColor;
-import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class WWModelProvider extends FabricModelProvider {
 
@@ -97,7 +88,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
-		generator.createMushroomBlock(WWBlocks.PALE_MUSHROOM_BLOCK);
+		WWModelHelper.generatePaleMushroomBlock(generator);
 		generator.createPlantWithDefaultItem(WWBlocks.PALE_MUSHROOM, WWBlocks.POTTED_PALE_MUSHROOM, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		generator.registerSimpleFlatItemModel(WWBlocks.GLORY_OF_THE_SNOW);
@@ -225,36 +216,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateSpawnEgg(WWItems.MOOBLOOM_SPAWN_EGG, Integer.parseInt("FED639", 16), Integer.parseInt("F7EDC1", 16));
 
 		// Firefly Bottles
-		this.generateFireflyBottles(generator);
+		WWModelHelper.generateFireflyBottles(generator);
 		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE, ModelTemplates.FLAT_ITEM);
-	}
-
-
-	public void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
-		List<SelectItemModel.SwitchCase<ResourceLocation>> switchCases = new ArrayList<>();
-
-		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
-			if (fireflyColor.equals(WWConstants.string("on"))) return;
-			ResourceLocation colorKey = ResourceLocation.parse(fireflyColor);
-			ResourceLocation location = ResourceLocation.fromNamespaceAndPath(colorKey.getNamespace(), "item/" + colorKey.getPath() + "_firefly_bottle");
-
-			switchCases.add(
-				ItemModelUtils.when(
-					colorKey,
-					ItemModelUtils.plainModel(
-						ModelTemplates.FLAT_ITEM.create(location, TextureMapping.layer0(location), generator.modelOutput)
-					)
-				)
-			);
-		});
-
-		generator.itemModelOutput.accept(
-			WWItems.FIREFLY_BOTTLE,
-			ItemModelUtils.select(
-				new FireflyBottleColorProperty(),
-				ItemModelUtils.plainModel(generator.createFlatItemModel(WWItems.FIREFLY_BOTTLE, ModelTemplates.FLAT_ITEM)),
-				switchCases
-			)
-		);
 	}
 }
