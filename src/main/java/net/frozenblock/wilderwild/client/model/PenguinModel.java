@@ -138,11 +138,12 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.animate(entity.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, ageInTicks);
 		this.animate(entity.standUpAnimationState, PenguinAnimation.PENGUIN_STAND_UP, ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
-		this.animateSlide(limbSwing * 2F, Math.min(limbSwingAmount * 2F, 1F), slideProgress * notSwimmingAmount * notWadingProgress);
-		this.animateWade(ageInTicks, wadeProgress * notMovingDelta);
-		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta);
+		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), slideProgress * notSwimmingAmount * notWadingProgress);
+		//this.animateSlide(limbSwing * 2F, limbSwingAmount, slideProgress * notSwimmingAmount * notWadingProgress);
+		this.animateWade(ageInTicks, wadeProgress * notMovingDelta * notSlidingProgress);
+		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress);
 		//this.animateSwimIdle(ageInTicks, wadeProgress * notMovingDelta);
-		this.animateSwim(limbSwing, limbSwingAmount, headPitch, swimAmount);
+		this.animateSwim(limbSwing, limbSwingAmount, headPitch, swimAmount * notSlidingProgress);
 	}
 
 	// Original Molang animation made by DaDolphin!
@@ -279,35 +280,28 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 	private void animateSlide(float limbSwing, float limbSwingAmount, float slideAmount) {
 		limbSwing *= 0.001F;
 		float animProgress = limbSwing * 90F;
+		float slideToRad = Mth.DEG_TO_RAD * slideAmount;
+		float slideRadSwing = limbSwingAmount * slideToRad;
 
-		this.body.xRot = Mth.lerp(slideAmount, this.body.xRot, (Mth.sin((animProgress * 2F) - 210F)) * Mth.DEG_TO_RAD);
-		this.body.zRot = Mth.lerp(slideAmount, this.body.zRot, (Mth.sin(animProgress - 210F)) * Mth.DEG_TO_RAD);
-		this.body.z = Mth.lerp(slideAmount, this.body.z, -(Mth.sin((animProgress * 2F) - 180F)));
+		this.body.xRot += Mth.sin((animProgress * 2F) - 210F) * slideToRad;
+		this.body.zRot += Mth.sin(animProgress - 210F) * slideToRad;
+		this.body.z -= Mth.sin((animProgress * 2F) - 180F) * slideAmount;
 
-		this.torso.xRot = Mth.lerp(slideAmount, this.torso.xRot, 90F * Mth.DEG_TO_RAD);
-		this.torso.y = Mth.lerp(slideAmount, this.torso.y, 3.5F);
+		//this.head.xRot -= 90F * slideToRad;
+		this.head.xRot -= (Mth.sin((animProgress * 2F) - 120F) * 1.5F) * slideRadSwing;
+		this.head.yRot -= Mth.sin((animProgress * 2F) - 40F) * slideRadSwing;
+		this.head.zRot -= Mth.sin(animProgress - 180F) * slideRadSwing;
 
-		this.head.xRot = Mth.lerp(slideAmount, this.head.xRot, ((-90F - Mth.sin(animProgress * 2F) - 120F) * 1.5F) * Mth.DEG_TO_RAD);
-		this.head.yRot = Mth.lerp(slideAmount, this.head.yRot, (-Mth.sin((animProgress * 2F) - 40F)) * Mth.DEG_TO_RAD);
-		this.head.zRot = Mth.lerp(slideAmount, this.head.zRot, (-Mth.sin(animProgress - 180F)) * Mth.DEG_TO_RAD);
-		this.head.y = Mth.lerp(slideAmount, this.head.y, -3F);
-		this.head.z = Mth.lerp(slideAmount, this.head.z, -1.62F);
+		this.left_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * slideRadSwing;
+		this.left_flipper.yRot -= (Mth.sin((animProgress * 2F) - 40F) * 20F) * slideRadSwing;
+		this.left_flipper.zRot += (-42.5F - (Mth.sin(animProgress * 2F)) * 20F) * slideRadSwing;
 
-		this.left_flipper.xRot = Mth.lerp(slideAmount, this.left_flipper.xRot, (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * limbSwingAmount * Mth.DEG_TO_RAD);
-		this.left_flipper.yRot = Mth.lerp(slideAmount, this.left_flipper.yRot, ((Mth.sin(animProgress * 2F) - 40F) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
-		this.left_flipper.zRot = Mth.lerp(slideAmount, this.left_flipper.zRot, (-42.5F - (Mth.sin(animProgress * 2F)) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
+		this.right_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * slideRadSwing;
+		this.right_flipper.yRot += (Mth.sin((animProgress * 2F) - 40F) * 20F) * slideRadSwing;
+		this.right_flipper.zRot += (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * slideRadSwing;
 
-		this.right_flipper.xRot = Mth.lerp(slideAmount, this.right_flipper.xRot, (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * limbSwingAmount * Mth.DEG_TO_RAD);
-		this.right_flipper.yRot = Mth.lerp(slideAmount, this.right_flipper.yRot, ((Mth.sin(animProgress * 2F) - 40F) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
-		this.right_flipper.zRot = Mth.lerp(slideAmount, this.right_flipper.zRot, (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * limbSwingAmount * Mth.DEG_TO_RAD);
-
-		this.feet.xRot = Mth.lerp(slideAmount, this.feet.xRot, 92.1786F * Mth.DEG_TO_RAD);
-		this.feet.y = Mth.lerp(slideAmount, this.feet.y, -4.25F);
-		this.feet.z = Mth.lerp(slideAmount, this.feet.z, 5.75F);
-
-		this.left_foot.xRot = Mth.lerp(slideAmount, this.left_foot.xRot, (-(Mth.sin(animProgress * 2F) - 270F) * 2F) * limbSwingAmount * Mth.DEG_TO_RAD);
-
-		this.right_foot.xRot = Mth.lerp(slideAmount, this.right_foot.xRot, (-(Mth.sin(animProgress * 2F) - 240F) * 2F) * limbSwingAmount * Mth.DEG_TO_RAD);
+		this.left_foot.xRot -= (Mth.sin((animProgress * 2F) - 270F) * 2F) * slideRadSwing;
+		this.right_foot.xRot -= (Mth.sin((animProgress * 2F) - 240F) * 2F) * slideRadSwing;
 	}
 
 	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
@@ -361,9 +355,6 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.right_flipper.zRot += flipperZRot;
 
 		this.body.xRot = Mth.rotLerp(swimLimbAmount, this.body.xRot, ((headPitch + 90F) * Mth.DEG_TO_RAD));
-		//this.body.yRot = Mth.rotLerp(swimLimbAmount, this.body.yRot, (netHeadYaw * Mth.DEG_TO_RAD));
-		//this.body.y = Mth.lerp(swimLimbAmount, this.body.y, 16F);
-		//this.body.z = Mth.lerp(swimLimbAmount, this.body.z, -11F);
 
 		float headRot = -Mth.HALF_PI * swimLimbAmount;
 		float headY = -3F * swimLimbAmount;
