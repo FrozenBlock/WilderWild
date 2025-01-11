@@ -62,8 +62,6 @@ public class PenguinSearchingForWater<E extends Penguin> extends Behavior<E> {
 		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
 		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN);
 
-		if (penguin.hasPose(Pose.SLIDING)) penguin.setPose(Pose.STANDING);
-
 		if (!penguin.isTouchingWaterOrSwimming()) {
 			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, 400);
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.STANDING_UP, Unit.INSTANCE, PenguinAi.STAND_UP_DURATION);
