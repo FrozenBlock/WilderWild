@@ -76,6 +76,7 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
@@ -1785,7 +1786,7 @@ public final class WWBlocks {
 			new BonemealBehaviors.BonemealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
-					return true;
+					return WWBlockConfig.get().flower.bonemealLilypads;
 				}
 
 				@Override
@@ -1800,7 +1801,7 @@ public final class WWBlocks {
 			new BonemealBehaviors.BonemealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
-					return true;
+					return WWBlockConfig.get().flower.bonemealDandelions;
 				}
 
 				@Override

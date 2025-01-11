@@ -136,8 +136,10 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearSeedingFlower(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
 		if (blockState.getBlock() instanceof SeedingFlowerBlock seedingFlowerBlock) {
-			seedingFlowerBlock.onShear(level, pos, blockState, null);
-			return true;
+			if (seedingFlowerBlock.canShearIntoOriginalFlower(level, pos, blockState)) {
+				seedingFlowerBlock.onShear(level, pos, blockState, null);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -145,8 +147,10 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearFloweringLilypad(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
 		if (blockState.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlilyBlock) {
-			floweringWaterlilyBlock.onShear(level, pos, blockState, null);
-			return true;
+			if (floweringWaterlilyBlock.canShearIntoOriginalBlock(level, pos, blockState)) {
+				floweringWaterlilyBlock.onShear(level, pos, blockState, null);
+				return true;
+			}
 		}
 		return false;
 	}

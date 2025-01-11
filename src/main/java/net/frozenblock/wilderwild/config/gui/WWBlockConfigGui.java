@@ -55,6 +55,8 @@ public final class WWBlockConfigGui {
 		var modifiedMesoglea = modifiedConfig.mesoglea;
 		var sculk = config.sculk;
 		var modifiedSculk = modifiedConfig.sculk;
+		var flower = config.flower;
+		var modifiedFlower = modifiedConfig.flower;
 
 		var reachBoostBeacon = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -299,6 +301,56 @@ public final class WWBlockConfigGui {
 			false,
 			tooltip("termite"),
 			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
+		);
+
+		var bonemealDandelions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("bone_meal_dandelions"), modifiedFlower.bonemealDandelions)
+				.setDefaultValue(defaultConfig.flower.bonemealDandelions)
+				.setSaveConsumer(newValue -> flower.bonemealDandelions = newValue)
+				.setTooltip(tooltip("bone_meal_dandelions"))
+				.build(),
+			flower.getClass(),
+			"bonemealDandelions",
+			configInstance
+		);
+
+		var shearSeedingDandelions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("shear_seeding_dandelions"), modifiedFlower.shearSeedingDandelions)
+				.setDefaultValue(defaultConfig.flower.shearSeedingDandelions)
+				.setSaveConsumer(newValue -> flower.shearSeedingDandelions = newValue)
+				.setTooltip(tooltip("shear_seeding_dandelions"))
+				.build(),
+			flower.getClass(),
+			"shearSeedingDandelions",
+			configInstance
+		);
+
+		var bonemealLilypads = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("bone_meal_lilypads"), modifiedFlower.bonemealLilypads)
+				.setDefaultValue(defaultConfig.flower.bonemealLilypads)
+				.setSaveConsumer(newValue -> flower.bonemealLilypads = newValue)
+				.setTooltip(tooltip("bone_meal_lilypads"))
+				.build(),
+			flower.getClass(),
+			"bonemealLilypads",
+			configInstance
+		);
+
+		var shearFloweringLilypads = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("shear_flowering_lilypads"), modifiedFlower.shearFloweringLilypads)
+				.setDefaultValue(defaultConfig.flower.shearFloweringLilypads)
+				.setSaveConsumer(newValue -> flower.shearFloweringLilypads = newValue)
+				.setTooltip(tooltip("shear_flowering_lilypads"))
+				.build(),
+			flower.getClass(),
+			"shearFloweringLilypads",
+			configInstance
+		);
+
+		var flowerCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("flower"),
+			false,
+			tooltip("flower"),
+			bonemealDandelions, shearSeedingDandelions, bonemealLilypads, shearFloweringLilypads
 		);
 
 		var stoneChestTimer = FrozenClothConfig.syncedEntry(

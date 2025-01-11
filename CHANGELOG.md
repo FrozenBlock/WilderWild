@@ -24,7 +24,11 @@ hi
 - Added a config option to toggle Sculk Slab, Sculk Stairs, and Sculk Wall generation.
 - Grouped all Sculk-related config options into a new dropdown in the Block config menu.
 - Optimized Hanging Tendril rendering.
-
+- Added a config option to toggle Dandelion bone mealing into Seeding Dandelions.
+- Added a config option to toggle Seeding Dandelion shearing into Dandelions.
+- Added a config option to toggle Lily Pad bone mealing into Flowering Lily Pads.
+- Added a config option to toggle Flowering Lily Pad shearing into Lily Pads.
+-
 # Butterfly Branch
 - Added Butterflies
 - Added Butterfly Bottles

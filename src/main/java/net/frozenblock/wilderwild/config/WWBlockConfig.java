@@ -118,6 +118,9 @@ public final class WWBlockConfig {
 	@CollapsibleObject
 	public final SculkConfig sculk = new SculkConfig();
 
+	@CollapsibleObject
+	public final FlowerConfig flower = new FlowerConfig();
+
 	@EntrySyncData("reachBoostBeacon")
 	public boolean reachBoostBeacon = true;
 
@@ -280,5 +283,19 @@ public final class WWBlockConfig {
 
 		@EntrySyncData("sculkBuildingBlocksGeneration")
 		public boolean sculkBuildingBlocksGeneration = true;
+	}
+
+	public static class FlowerConfig {
+		@EntrySyncData("bonemealDandelions")
+		public boolean bonemealDandelions = true;
+
+		@EntrySyncData("shearSeedingDandelions")
+		public boolean shearSeedingDandelions = true;
+
+		@EntrySyncData("bonemealLilypads")
+		public boolean bonemealLilypads = true;
+
+		@EntrySyncData("shearFloweringLilypads")
+		public boolean shearFloweringLilypads = true;
 	}
 }
