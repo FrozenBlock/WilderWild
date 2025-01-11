@@ -6,6 +6,12 @@
         "type": "wilderwild:pale_shelf_fungi_tree_decorator",
         "placement_chance": 0.25,
         "probability": 0.0875
+      },
+      {
+        "type": "minecraft:pale_moss",
+        "ground_probability": 0.8,
+        "leaves_probability": 0.15,
+        "trunk_probability": 0.4
       }
     ],
     "dirt_provider": {
