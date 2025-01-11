@@ -307,7 +307,9 @@ public class FrozenLibIntegration extends ModIntegration {
 			PEONY,
 			LILAC,
 			TORCHFLOWER,
-			PINK_PETALS
+			PINK_PETALS,
+			CLOSED_EYEBLOSSOM,
+			OPEN_EYEBLOSSOM
 		}, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
 		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
 		addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);

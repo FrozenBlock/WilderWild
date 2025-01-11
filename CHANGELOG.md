@@ -57,5 +57,9 @@ hi
 
 # Pale Mushroom Branch
 - All Shelf Fungi can now be mined faster with an Axe.
-- Added the Pale Mushroom, Pale Shelf Fungi, and Pale Mushroom Block.
+- Added the Pale Mushroom and Pale Shelf Fungi blocks.
+  - At night, these will emit gray spore-like particles.
+- Added the Pale Mushroom Block.
+  - When placed above a Mushroom Stem at night, will emit fog-like particles.
 - Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
+- Properly updated the sound type for Eyeblossoms to match other flowers.
