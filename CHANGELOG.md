@@ -33,6 +33,7 @@ hi
 - Fixed Palm, Maple, and Cypress blocks using the incorrect map colors.
 - Added Pollen and all Glory of the Snow Petals to the `minecraft:inside_step_sound_blocks` and `minecraft:combination_step_sound_blocks` block tags.
 - Removed the Bush from the `minecraft:inside_step_sound_blocks` block tag.
+- Slightly decreased the pitch of Magma block sounds.
 
 # Butterfly Branch
 - Added Butterflies
@@ -50,7 +51,6 @@ hi
 - Biome tags relating to entity variants are now placed in the `entity/variant` path, being in the `spawn` path prior.
 - Cleaned up code related to Termite handling.
 - Termite eating behaviors are now entirely data-generated, offering a simple way to achieve mod compatibility.
-- Slightly decreased the pitch of Magma block sounds.
 
 # Moobloom Branch
 - Added Mooblooms
