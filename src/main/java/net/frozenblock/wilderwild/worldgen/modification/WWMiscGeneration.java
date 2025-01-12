@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -257,16 +256,6 @@ public final class WWMiscGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}
-					}
-				});
-
-		BiomeModifications.create(WWConstants.id("stone_pool_caves"))
-			.add(ModificationPhase.ADDITIONS,
-				FrozenBiomeSelectors.foundInOverworldExcept(WWBiomeTags.NO_POOLS),
-				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().surfaceDecoration) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-						generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.STONE_POOL.getKey());
 					}
 				});
 

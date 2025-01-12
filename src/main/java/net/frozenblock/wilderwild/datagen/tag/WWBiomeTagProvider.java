@@ -472,9 +472,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.LUKEWARM_OCEAN)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.NO_POOLS)
-			.addOptional(Biomes.DEEP_DARK);
-
 		this.getOrCreateTagBuilder(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
