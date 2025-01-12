@@ -134,6 +134,10 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			} else if (random.nextFloat() < 0.2F) {
 				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 			}
+		} else if (treeGrower == TreeGrower.JUNGLE) {
+			if (random.nextFloat() < 0.60F) {
+				info.setReturnValue(WWTreeConfigured.MEGA_JUNGLE_TREE.getKey());
+			}
 		}
 	}
 }

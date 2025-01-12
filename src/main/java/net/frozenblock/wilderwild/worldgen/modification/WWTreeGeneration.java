@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -271,28 +272,36 @@ public final class WWTreeGeneration {
 					}
 				});
 
+		BiomeModifications.create(WWConstants.id("palms")).add(
+			ModificationPhase.POST_PROCESSING,
+			BiomeSelectors.all(),
+			(biomeSelectionContext, context) -> {
+				if (WWWorldgenConfig.get().treeGeneration) {
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					if (biomeSelectionContext.getBiomeKey().equals(Biomes.SPARSE_JUNGLE)) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM.getKey());
+					}
+
+					if (biomeSelectionContext.getBiomeKey().equals(Biomes.JUNGLE)) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM_JUNGLE.getKey());
+					}
+
+					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALMS)) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM_RARE.getKey());
+					}
+
+					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WARM_BEACH_PALMS)) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALMS_WARM_BEACH.getKey());
+					}
+				}
+			});
+
 		BiomeModifications.create(WWConstants.id("tree_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
 					if (WWWorldgenConfig.get().treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-
-						if (biomeSelectionContext.getBiomeKey().equals(Biomes.SPARSE_JUNGLE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM.getKey());
-						}
-
-						if (biomeSelectionContext.getBiomeKey().equals(Biomes.JUNGLE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM_JUNGLE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALMS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM_RARE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WARM_BEACH_PALMS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALMS_WARM_BEACH.getKey());
-						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_SPRUCE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());

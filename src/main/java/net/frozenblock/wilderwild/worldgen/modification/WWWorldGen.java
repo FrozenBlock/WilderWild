@@ -306,7 +306,7 @@ public final class WWWorldGen {
 				});
 
 		BiomeModifications.create(WWConstants.id("replace_bamboo_jungle_trees")).add(
-			ModificationPhase.REPLACEMENTS,
+			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.BAMBOO_JUNGLE_TREES),
 			context -> {
 				if (WWWorldgenConfig.get().treeGeneration) {
@@ -317,7 +317,7 @@ public final class WWWorldGen {
 			});
 
 		BiomeModifications.create(WWConstants.id("replace_sparse_jungle_trees")).add(
-			ModificationPhase.REPLACEMENTS,
+			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.SPARSE_JUNGLE_TREES),
 			context -> {
 				if (WWWorldgenConfig.get().treeGeneration) {
@@ -328,7 +328,7 @@ public final class WWWorldGen {
 			});
 
 		BiomeModifications.create(WWConstants.id("replace_jungle_trees")).add(
-			ModificationPhase.REPLACEMENTS,
+			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.JUNGLE_TREES),
 			context -> {
 				if (WWWorldgenConfig.get().treeGeneration) {
