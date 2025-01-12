@@ -50,6 +50,7 @@ hi
 - Biome tags relating to entity variants are now placed in the `entity/variant` path, being in the `spawn` path prior.
 - Cleaned up code related to Termite handling.
 - Termite eating behaviors are now entirely data-generated, offering a simple way to achieve mod compatibility.
+- Slightly decreased the pitch of Magma block sounds.
 
 # Moobloom Branch
 - Added Mooblooms

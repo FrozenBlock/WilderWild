@@ -107,7 +107,7 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_GEYSER_HIT,
 		WWSounds.BLOCK_GEYSER_FALL
 	);
-	public static final SoundType MAGMA = new SoundType(1F, 1F,
+	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
 		WWSounds.BLOCK_MAGMA_BREAK,
 		WWSounds.BLOCK_MAGMA_STEP,
 		WWSounds.BLOCK_MAGMA_PLACE,
