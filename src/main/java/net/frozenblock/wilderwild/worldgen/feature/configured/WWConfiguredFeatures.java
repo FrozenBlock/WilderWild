@@ -284,6 +284,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_SAND = WWFeatureUtils.register("badlands_bush_sand");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA = WWFeatureUtils.register("badlands_bush_terracotta");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA = WWFeatureUtils.register("wooded_badlands_bush_terracotta");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_DIRT = WWFeatureUtils.register("wooded_badlands_bush_dirt");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = WWFeatureUtils.register("patch_cactus_oasis");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = WWFeatureUtils.register("patch_cactus_tall");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = WWFeatureUtils.register("patch_cactus_tall_badlands");
@@ -1012,14 +1013,14 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getHolder(), 0.062F),
 					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getHolder(), 0.035F)
 				),
-				WWTreePlaced.OAK_CHECKED.getHolder()
+				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder()
 			)
 		);
 
 		WINDSWEPT_SAVANNA_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F)),
-				WWTreePlaced.OAK_CHECKED.getHolder()
+				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder()
 			)
 		);
 
@@ -1027,7 +1028,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
-					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getHolder(), 0.08F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder(), 0.08F),
 					new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getHolder(), 0.065F),
 					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.052F),
 					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getHolder(), 0.02F)
@@ -2464,7 +2465,8 @@ public final class WWConfiguredFeatures {
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
 							BlockPredicate.ONLY_IN_AIR_PREDICATE,
-							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))
+							BlockPredicate.matchesTag(Direction.DOWN.getNormal(), BlockTags.BADLANDS_TERRACOTTA)
+						)
 					)
 				)
 			)
@@ -2479,7 +2481,23 @@ public final class WWConfiguredFeatures {
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
 							BlockPredicate.ONLY_IN_AIR_PREDICATE,
-							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND))
+							BlockPredicate.matchesTag(Direction.DOWN.getNormal(), BlockTags.BADLANDS_TERRACOTTA)
+						)
+					)
+				)
+			)
+		);
+
+		WOODED_BADLANDS_BUSH_DIRT.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				15,
+				PlacementUtils.inlinePlaced(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)),
+					BlockPredicateFilter.forPredicate(
+						BlockPredicate.allOf(
+							BlockPredicate.ONLY_IN_AIR_PREDICATE,
+							BlockPredicate.matchesTag(Direction.DOWN.getNormal(), BlockTags.DIRT)
 						)
 					)
 				)
@@ -2620,7 +2638,7 @@ public final class WWConfiguredFeatures {
 		POLLEN.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
 				WWBlocks.POLLEN,
-				20,
+				10,
 				true,
 				true,
 				true,

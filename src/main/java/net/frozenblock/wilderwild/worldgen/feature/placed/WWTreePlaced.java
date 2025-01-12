@@ -111,6 +111,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature SNAPPED_MAPLE_CHECKED = WWPlacementUtils.register("snapped_maple_checked");
 	//OAK
 	public static final FrozenPlacedFeature OAK_CHECKED = WWPlacementUtils.register("oak_checked");
+	public static final FrozenPlacedFeature OAK_NO_FUNGI_CHECKED = WWPlacementUtils.register("oak_no_fungi_checked");
 	public static final FrozenPlacedFeature DYING_OAK_CHECKED = WWPlacementUtils.register("dying_oak_checked");
 	public static final FrozenPlacedFeature OAK_BEES_0004 = WWPlacementUtils.register("oak_bees_00004");
 	public static final FrozenPlacedFeature SHORT_OAK_CHECKED = WWPlacementUtils.register("short_oak_checked");
@@ -474,6 +475,10 @@ public final class WWTreePlaced {
 		// OAK
 
 		OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		OAK_NO_FUNGI_CHECKED.makeAndSetHolder(WWTreeConfigured.OAK_NO_FUNGI.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 

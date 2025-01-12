@@ -49,14 +49,14 @@
                   -1,
                   0
                 ],
-                "tag": "minecraft:badlands_terracotta"
+                "tag": "minecraft:dirt"
               }
             ]
           }
         }
       ]
     },
-    "tries": 10,
+    "tries": 15,
     "xz_spread": 7,
     "y_spread": 3
   }

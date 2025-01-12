@@ -222,8 +222,9 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WOODED_BADLANDS_TERRACOTTA_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WOODED_BADLANDS_BUSH)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_BUSH_DIRT_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH)) {

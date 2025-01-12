@@ -217,7 +217,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_RAINFOREST_BUSH = bind("feature/has_rainforest_bush");
 	public static final TagKey<Biome> HAS_BADLANDS_SAND_BUSH = bind("feature/has_badlands_sand_bush");
 	public static final TagKey<Biome> HAS_BADLANDS_TERRACOTTA_BUSH = bind("feature/has_badlands_terracotta_bush");
-	public static final TagKey<Biome> HAS_WOODED_BADLANDS_TERRACOTTA_BUSH = bind("feature/has_wooded_badlands_terracotta_bush");
+	public static final TagKey<Biome> HAS_WOODED_BADLANDS_BUSH = bind("feature/has_wooded_badlands_bush");
 	public static final TagKey<Biome> HAS_BADLANDS_RARE_SAND_BUSH = bind("feature/has_badlands_rare_sand_bush");
 	public static final TagKey<Biome> HAS_DESERT_BUSH = bind("feature/has_desert_bush");
 	public static final TagKey<Biome> HAS_OASIS_BUSH = bind("feature/has_oasis_bush");

@@ -202,6 +202,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature BADLANDS_BUSH_RARE_SAND_PLACED = register("badlands_bush_rare_sand_placed");
 	public static final FrozenPlacedFeature BADLANDS_BUSH_TERRACOTTA_PLACED = register("badlands_bush_terracotta_placed");
 	public static final FrozenPlacedFeature WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED = register("wooded_badlands_bush_terracotta_placed");
+	public static final FrozenPlacedFeature WOODED_BADLANDS_BUSH_DIRT_PLACED = register("wooded_badlands_bush_dirt_placed");
 	public static final FrozenPlacedFeature ARID_BUSH_PLACED = register("arid_bush_placed");
 	public static final FrozenPlacedFeature OASIS_CACTUS_PLACED = register("oasis_cactus_placed");
 	public static final FrozenPlacedFeature TALL_CACTUS_PLACED = register("tall_cactus_placed");
@@ -708,7 +709,7 @@ public final class WWPlacedFeatures {
 		);
 
 		WOODED_BADLANDS_TREES.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(7, 0.1F, 1))
+			treePlacement(PlacementUtils.countExtra(6, 0.1F, 1))
 		);
 
 		TREES_SWAMP.makeAndSetHolder(WWTreeConfigured.SWAMP_TREE.getHolder(),
@@ -1142,6 +1143,14 @@ public final class WWPlacedFeatures {
 
 		WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA.getHolder(),
 			RarityFilter.onAverageOnceEvery(7),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			BiomeFilter.biome()
+		);
+
+		WOODED_BADLANDS_BUSH_DIRT_PLACED.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_BUSH_DIRT.getHolder(),
+			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),

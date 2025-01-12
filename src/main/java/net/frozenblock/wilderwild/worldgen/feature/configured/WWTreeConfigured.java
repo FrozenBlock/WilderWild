@@ -158,6 +158,7 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
 	//OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK = register("oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK_NO_FUNGI = register("oak_no_fungi");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_OAK = register("short_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK_BEES_0004 = register("oak_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_OAK = register("dying_oak");
@@ -819,6 +820,10 @@ public final class WWTreeConfigured {
 			oak().decorators(
 				List.of(SHELF_FUNGUS_003)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		OAK_NO_FUNGI.makeAndSetHolder(Feature.TREE,
+			oak().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_OAK.makeAndSetHolder(Feature.TREE,

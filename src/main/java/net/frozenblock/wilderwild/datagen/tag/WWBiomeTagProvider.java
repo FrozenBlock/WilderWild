@@ -1543,7 +1543,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BADLANDS_TERRACOTTA_BUSH)
 			.add(Biomes.BADLANDS);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WOODED_BADLANDS_TERRACOTTA_BUSH)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WOODED_BADLANDS_BUSH)
 			.add(Biomes.WOODED_BADLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH)
