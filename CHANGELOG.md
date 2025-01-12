@@ -77,7 +77,7 @@ hi
 - All trees that don't place foliage now use `wilderwild:no_op_foliage_placer.`
 - Removed random circular, shallow pools from caves.
   - The `wilderwild:feature/no_pools` biome tag has been removed as a result of this change.
-- Oak trees generated in Savanna biomes can no longer have Shelf Fungi.
+- Oak trees generated in Savanna or Badlads biomes no longer have Shelf Fungi.
 - Bushes now generate on Grass and Coarse Dirt in Wooded Badlands.
   - Renamed the `wilderwild:feature/has_wooded_badlands_terracotta_bush` biome tag to `wilderwild:feature/has_wooded_badlands_bush` as a result of this change.
 - Decreased the amount of trees per-chunk in Wooded Badlands by 1.

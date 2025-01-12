@@ -1098,7 +1098,7 @@ public final class WWConfiguredFeatures {
 		WOODED_BADLANDS_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getHolder(), 0.095F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder(), 0.095F),
 					new WeightedPlacedFeature(WWTreePlaced.BIG_SHRUB_COARSE_GRASS_CHECKED.getHolder(), 0.4F),
 					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.67F),
 					new WeightedPlacedFeature(WWTreePlaced.JUNIPER.getHolder(), 0.2F)
