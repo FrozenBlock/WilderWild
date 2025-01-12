@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.feature.configured;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -50,6 +51,7 @@ import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkP
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -57,6 +59,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -69,6 +72,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlac
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaJungleFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaPineFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.PineFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
@@ -81,11 +85,14 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntSt
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.CocoaDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TrunkVineDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 import org.jetbrains.annotations.Contract;
@@ -238,6 +245,9 @@ public final class WWTreeConfigured {
 	//JUNIPER
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> JUNIPER = register("juniper");
 	//JUNGLE
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> JUNGLE_TREE = register("jungle_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> JUNGLE_TREE_NO_VINE = register("jungle_tree_no_vine");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MEGA_JUNGLE_TREE = register("mega_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_JUNGLE_TREE = register("fallen_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_JUNGLE = register("snapped_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_JUNGLE_TREE = register("large_fallen_jungle_tree");
@@ -246,6 +256,8 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_ACACIA_TREE = register("fallen_acacia_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia_tree");
 	//MANGROVE
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MANGROVE = register("mangrove");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_MANGROVE = register("tall_mangrove");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MANGROVE_TREE = register("fallen_mangrove_tree");
 	//CRIMSON
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_CRIMSON_FUNGI = register("fallen_crimson_fungi");
@@ -278,6 +290,7 @@ public final class WWTreeConfigured {
 	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F);
 	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F);
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
+	private static final BeehiveDecorator BEES_001 = new BeehiveDecorator(0.01F);
 	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
 	private static final BeehiveDecorator BEES = new BeehiveDecorator(1.0F);
 	private static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
@@ -370,8 +383,10 @@ public final class WWTreeConfigured {
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_MOSSY
-				)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+					MOSS_MOSSY,
+					SHELF_FUNGUS_009
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -539,7 +554,8 @@ public final class WWTreeConfigured {
 			fallenCherry().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_CHERRY
+					MOSS_CHERRY,
+					SHELF_FUNGUS_00975_ONLY_RED
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -557,7 +573,8 @@ public final class WWTreeConfigured {
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_MOSSY
+					MOSS_MOSSY,
+					SHELF_FUNGUS_00975_ONLY_RED
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -796,7 +813,10 @@ public final class WWTreeConfigured {
 
 		FALLEN_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenMaple().decorators(
-				List.of(VINES_08_UNDER_260_075)
+				List.of(
+					VINES_08_UNDER_260_075,
+					SHELF_FUNGUS_0074
+				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -936,7 +956,8 @@ public final class WWTreeConfigured {
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_MOSSY
+					MOSS_MOSSY,
+					SHELF_FUNGUS_0074
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -954,7 +975,8 @@ public final class WWTreeConfigured {
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_MOSSY
+					MOSS_MOSSY,
+					SHELF_FUNGUS_0074
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1348,7 +1370,8 @@ public final class WWTreeConfigured {
 			fallenSpruce().decorators(
 				List.of(
 					VINES_1_UNDER_260_075,
-					MOSS_SPRUCE_PALM
+					MOSS_SPRUCE_PALM,
+					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1366,7 +1389,8 @@ public final class WWTreeConfigured {
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_MOSSY
+					MOSS_MOSSY,
+					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1383,9 +1407,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
-				List.of(
-					SHELF_FUNGUS_0074_ONLY_BROWN
-				)
+				List.of(SHELF_FUNGUS_0074_ONLY_BROWN)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1564,7 +1586,8 @@ public final class WWTreeConfigured {
 			fallenCypress().decorators(
 				List.of(
 					VINES_008_UNDER_82,
-					MOSS_CYPRESS
+					MOSS_CYPRESS,
+					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1750,11 +1773,56 @@ public final class WWTreeConfigured {
 		);
 
 		//JUNGLE
+
+		JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
+				new StraightTrunkPlacer(4, 8, 0),
+				BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+				new TwoLayersFeatureSize(1, 0, 1)
+			).decorators(
+				List.of(
+					new CocoaDecorator(0.2F),
+					TrunkVineDecorator.INSTANCE,
+					new LeaveVineDecorator(0.25F),
+					SHELF_FUNGUS_0054
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
+		);
+
+		JUNGLE_TREE_NO_VINE.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
+				new StraightTrunkPlacer(4, 8, 0),
+				BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+				new TwoLayersFeatureSize(1, 0, 1)
+			).decorators(List.of(SHELF_FUNGUS_0054)).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
+		);
+
+		MEGA_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
+				new MegaJungleTrunkPlacer(10, 2, 19),
+				BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+				new MegaJungleFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
+				new TwoLayersFeatureSize(1, 1, 2)
+			).decorators(
+				List.of(
+					TrunkVineDecorator.INSTANCE,
+					new LeaveVineDecorator(0.25F),
+					SHELF_FUNGUS_0054
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
+		);
+
 		FALLEN_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenJungle().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_JUNGLE_DARK_OAK
+					MOSS_JUNGLE_DARK_OAK,
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1822,11 +1890,112 @@ public final class WWTreeConfigured {
 		);
 
 		//MANGROVE
+		MANGROVE.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.MANGROVE_LOG),
+				new UpwardsBranchingTrunkPlacer(
+					2,
+					1,
+					4,
+					UniformInt.of(1, 4),
+					0.5F,
+					UniformInt.of(0, 1),
+					BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+				),
+				BlockStateProvider.simple(Blocks.MANGROVE_LEAVES),
+				new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 70),
+				Optional.of(
+					new MangroveRootPlacer(
+						UniformInt.of(1, 3),
+						BlockStateProvider.simple(Blocks.MANGROVE_ROOTS),
+						Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.5F)),
+						new MangroveRootPlacement(
+							BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
+							HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS),
+							BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS),
+							8,
+							15,
+							0.2F
+						)
+					)
+				),
+				new TwoLayersFeatureSize(2, 0, 2)
+			).decorators(
+				List.of(
+					new LeaveVineDecorator(0.125F),
+					new AttachedToLeavesDecorator(
+						0.14F,
+						1,
+						0,
+						new RandomizedIntStateProvider(
+							BlockStateProvider.simple(Blocks.MANGROVE_PROPAGULE.defaultBlockState().setValue(MangrovePropaguleBlock.HANGING, true)),
+							MangrovePropaguleBlock.AGE,
+							UniformInt.of(0, 4)
+						),
+						2,
+						List.of(Direction.DOWN)
+					),
+					BEES_001,
+					SHELF_FUNGUS_0074_ONLY_BROWN
+				)).ignoreVines().build()
+		);
+
+		TALL_MANGROVE.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.MANGROVE_LOG),
+				new UpwardsBranchingTrunkPlacer(
+					4,
+					1,
+					9,
+					UniformInt.of(1, 6),
+					0.5F,
+					UniformInt.of(0, 1),
+					BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+				),
+				BlockStateProvider.simple(Blocks.MANGROVE_LEAVES),
+				new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 70),
+				Optional.of(
+					new MangroveRootPlacer(
+						UniformInt.of(3, 7),
+						BlockStateProvider.simple(Blocks.MANGROVE_ROOTS),
+						Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.5F)),
+						new MangroveRootPlacement(
+							BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
+							HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS),
+							BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS),
+							8,
+							15,
+							0.2F
+						)
+					)
+				),
+				new TwoLayersFeatureSize(3, 0, 2)
+			).decorators(
+				List.of(
+					new LeaveVineDecorator(0.125F),
+					new AttachedToLeavesDecorator(
+						0.14F,
+						1,
+						0,
+						new RandomizedIntStateProvider(
+							BlockStateProvider.simple(Blocks.MANGROVE_PROPAGULE.defaultBlockState().setValue(MangrovePropaguleBlock.HANGING, true)),
+							MangrovePropaguleBlock.AGE,
+							UniformInt.of(0, 4)
+						),
+						2,
+						List.of(Direction.DOWN)
+					),
+					BEES_001,
+					SHELF_FUNGUS_0074_ONLY_BROWN
+				)).ignoreVines().build()
+		);
+
 		FALLEN_MANGROVE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenMangrove().decorators(
 				List.of(
 					VINES_012_UNDER_260,
-					MOSS_MOSSY
+					MOSS_MOSSY,
+					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);

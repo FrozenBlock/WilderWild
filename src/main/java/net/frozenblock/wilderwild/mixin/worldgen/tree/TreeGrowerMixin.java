@@ -106,22 +106,34 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			} else {
 				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
 			}
+		} else if (treeGrower == TreeGrower.JUNGLE) {
+			if (random.nextFloat() < 0.75F) {
+				info.setReturnValue(WWTreeConfigured.JUNGLE_TREE_NO_VINE.getKey());
+			}
+		} else if (treeGrower == TreeGrower.MANGROVE) {
+			if (random.nextFloat() < 0.85F) {
+				info.setReturnValue(WWTreeConfigured.TALL_MANGROVE.getKey());
+			} else {
+				info.setReturnValue(WWTreeConfigured.MANGROVE.getKey());
+			}
 		}
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
+	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (!WWWorldgenConfig.get().treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.SPRUCE) {
-			if (random.nextFloat() < 0.25F)
-				cir.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+			if (random.nextFloat() < 0.25F) {
+				info.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+			}
 		} else if (treeGrower == TreeGrower.DARK_OAK) {
-			if (random.nextFloat() < 0.2F)
-				cir.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
-			else if (random.nextFloat() < 0.2F)
-				cir.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+			if (random.nextFloat() < 0.2F) {
+				info.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
+			} else if (random.nextFloat() < 0.2F) {
+				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+			}
 		}
 	}
 }

@@ -44,6 +44,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.tags.BlockTags;
@@ -143,6 +144,10 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS = WWFeatureUtils.register("palms");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE = WWFeatureUtils.register("palms_jungle");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS = WWFeatureUtils.register("palms_oasis");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BAMBOO_JUNGLE_TREES = WWFeatureUtils.register("bamboo_jungle_trees");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> JUNGLE_TREES = WWFeatureUtils.register("jungle_trees");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_JUNGLE_TREES = WWFeatureUtils.register("sparse_jungle_trees");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MANGROVE_VEGETATION = WWFeatureUtils.register("mangrove_vegetation");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRIES = WWFeatureUtils.register("cherries");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
 	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
@@ -795,9 +800,9 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getHolder(), 0.079F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.119F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.25F),
-					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.MEGA_JUNGLE_TREE_CHECKED), 0.165F)
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED.getHolder(), 0.165F)
 				),
-				placedFeatures.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getHolder()
 			)
 		);
 
@@ -812,7 +817,7 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.069F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F)
 				),
-				placedFeatures.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getHolder()
 			)
 		);
 
@@ -1151,6 +1156,47 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.37F)
 				),
 				WWTreePlaced.PALM_CHECKED.getHolder()
+			)
+		);
+
+		BAMBOO_JUNGLE_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.05F),
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED.getHolder(), 0.7F)
+				),
+				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_GRASS_JUNGLE))
+			)
+		);
+
+		SPARSE_JUNGLE_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.1F),
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F)
+				),
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getHolder()
+			)
+		);
+
+		JUNGLE_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.1F),
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F),
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED.getHolder(), 0.33333334F)
+				),
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getHolder()
+			)
+		);
+
+		MANGROVE_VEGETATION.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.TALL_MANGROVE_CHECKED.getHolder(), 0.85F)
+				),
+				WWTreePlaced.MANGROVE_CHECKED.getHolder()
 			)
 		);
 

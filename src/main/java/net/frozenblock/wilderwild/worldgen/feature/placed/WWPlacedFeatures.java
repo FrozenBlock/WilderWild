@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -141,6 +142,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature PALMS_OASIS = register("palms_oasis");
 	public static final FrozenPlacedFeature PALM_RARE = register("palm_rare");
 	public static final FrozenPlacedFeature PALMS_WARM_BEACH = register("palms_warm_beach");
+	public static final FrozenPlacedFeature BAMBOO_VEGETATION = register("bamboo_vegetation");
+	public static final FrozenPlacedFeature TREES_SPARSE_JUNGLE = register("trees_sparse_jungle");
+	public static final FrozenPlacedFeature TREES_JUNGLE = register("trees_jungle");
+	public static final FrozenPlacedFeature TREES_MANGROVE = register("trees_mangrove");
 	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
 	public static final FrozenPlacedFeature MAPLE_TREES = register("maple_trees");
 	public static final FrozenPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
@@ -801,6 +806,27 @@ public final class WWPlacedFeatures {
 
 		PALMS_WARM_BEACH.makeAndSetHolder(WWConfiguredFeatures.PALMS_OASIS.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(6))
+		);
+
+		BAMBOO_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.BAMBOO_JUNGLE_TREES.getHolder(),
+			treePlacement(PlacementUtils.countExtra(30, 0.1F, 1))
+		);
+
+		TREES_SPARSE_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.SPARSE_JUNGLE_TREES.getHolder(),
+			treePlacement(PlacementUtils.countExtra(2, 0.1F, 1))
+		);
+
+		TREES_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.JUNGLE_TREES.getHolder(),
+			treePlacement(PlacementUtils.countExtra(50, 0.1F, 1))
+		);
+
+		TREES_MANGROVE.makeAndSetHolder(WWConfiguredFeatures.MANGROVE_VEGETATION.getHolder(),
+			CountPlacement.of(25),
+			InSquarePlacement.spread(),
+			SurfaceWaterDepthFilter.forMaxDepth(5),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome(),
+			BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO))
 		);
 
 		CHERRY_TREES.makeAndSetHolder(WWConfiguredFeatures.CHERRIES.getHolder(),

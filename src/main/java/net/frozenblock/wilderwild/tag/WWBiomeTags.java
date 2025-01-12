@@ -121,6 +121,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FALLEN_MAPLE_TREES = bind("feature/has_fallen_maple_trees");
 	public static final TagKey<Biome> HAS_FALLEN_CRIMSON_FUNGI = bind("feature/has_fallen_crimson_fungi");
 	public static final TagKey<Biome> HAS_FALLEN_WARPED_FUNGI = bind("feature/has_fallen_warped_fungi");
+	public static final TagKey<Biome> BAMBOO_JUNGLE_TREES = bind("feature/bamboo_jungle_trees");
+	public static final TagKey<Biome> SPARSE_JUNGLE_TREES = bind("feature/sparse_jungle_trees");
+	public static final TagKey<Biome> JUNGLE_TREES = bind("feature/jungle_trees");
+	public static final TagKey<Biome> MANGROVE_TREES = bind("feature/mangrove_trees");
 	public static final TagKey<Biome> CHERRY_TREES = bind("feature/cherry_trees");
 	public static final TagKey<Biome> OAK_SAPLINGS_GROW_SWAMP_VARIANT = bind("oak_saplings_grow_swamp_variant");
 	public static final TagKey<Biome> FOREST_GRASS = bind("feature/forest_grass");

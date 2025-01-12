@@ -81,3 +81,5 @@ hi
 - Bushes now generate on Grass and Coarse Dirt in Wooded Badlands.
   - Renamed the `wilderwild:feature/has_wooded_badlands_terracotta_bush` biome tag to `wilderwild:feature/has_wooded_badlands_bush` as a result of this change.
 - Decreased the amount of trees per-chunk in Wooded Badlands by 1.
+- Jungle trees can now generate with Shelf Fungi.
+- Mangrove trees can now generate with Shelf Fungi.

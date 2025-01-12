@@ -305,6 +305,50 @@ public final class WWWorldGen {
 					}
 				});
 
+		BiomeModifications.create(WWConstants.id("replace_bamboo_jungle_trees")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.BAMBOO_JUNGLE_TREES),
+			context -> {
+				if (WWWorldgenConfig.get().treeGeneration) {
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					generationSettings.removeFeature(VegetationPlacements.BAMBOO_VEGETATION);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BAMBOO_VEGETATION.getKey());
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("replace_sparse_jungle_trees")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.SPARSE_JUNGLE_TREES),
+			context -> {
+				if (WWWorldgenConfig.get().treeGeneration) {
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					generationSettings.removeFeature(VegetationPlacements.TREES_SPARSE_JUNGLE);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SPARSE_JUNGLE.getKey());
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("replace_jungle_trees")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.JUNGLE_TREES),
+			context -> {
+				if (WWWorldgenConfig.get().treeGeneration) {
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					generationSettings.removeFeature(VegetationPlacements.TREES_JUNGLE);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_JUNGLE.getKey());
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("replace_mangrove_trees")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.MANGROVE_TREES),
+			context -> {
+				if (WWWorldgenConfig.get().treeGeneration) {
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					generationSettings.removeFeature(VegetationPlacements.TREES_MANGROVE);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_MANGROVE.getKey());
+				}
+			});
+
 		BiomeModifications.create(WWConstants.id("replace_snowy_plains_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.SNOWY_PLAINS),

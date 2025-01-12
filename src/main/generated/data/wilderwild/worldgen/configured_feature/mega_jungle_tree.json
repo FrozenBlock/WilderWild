@@ -3,15 +3,16 @@
   "config": {
     "decorators": [
       {
-        "type": "wilderwild:height_based_vine_tree_decorator",
-        "max_height": 260,
-        "placement_chance": 0.75,
-        "probability": 0.8
+        "type": "minecraft:trunk_vine"
+      },
+      {
+        "type": "minecraft:leave_vine",
+        "probability": 0.25
       },
       {
         "type": "wilderwild:shelf_fungi_tree_decorator",
         "placement_chance": 0.25,
-        "probability": 0.074,
+        "probability": 0.054,
         "red_shelf_fungi_chance": 0.15
       }
     ],
@@ -22,12 +23,20 @@
       }
     },
     "foliage_placer": {
-      "type": "wilderwild:no_op_foliage_placer"
+      "type": "minecraft:jungle_foliage_placer",
+      "height": 2,
+      "offset": 0,
+      "radius": 2
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:air"
+        "Name": "minecraft:jungle_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
       }
     },
     "force_dirt": false,
@@ -35,33 +44,19 @@
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 1,
-      "lower_size": 0,
-      "upper_size": 1
+      "lower_size": 1,
+      "upper_size": 2
     },
     "trunk_placer": {
-      "type": "wilderwild:fallen_with_logs_trunk_placer",
-      "base_height": 3,
-      "branch_chance": 0.0,
+      "type": "minecraft:mega_jungle_trunk_placer",
+      "base_height": 10,
       "height_rand_a": 2,
-      "height_rand_b": 2,
-      "hollowed_log_chance": 0.075,
-      "hollowed_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "wilderwild:hollowed_maple_log",
-          "Properties": {
-            "axis": "y",
-            "waterlogged": "false"
-          }
-        }
-      },
-      "max_branch_count": 0,
-      "success_in_water_chance": 0.8
+      "height_rand_b": 19
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:maple_log",
+        "Name": "minecraft:jungle_log",
         "Properties": {
           "axis": "y"
         }
