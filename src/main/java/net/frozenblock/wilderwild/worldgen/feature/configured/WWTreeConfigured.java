@@ -281,7 +281,7 @@ public final class WWTreeConfigured {
 	private static final BeehiveDecorator BEES = new BeehiveDecorator(1.0F);
 	private static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
 	private static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
-	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1.0F, 0.035F, 5);
+	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
 
 	private WWTreeConfigured() {
 		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
