@@ -818,7 +818,7 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
 		);
 
-		MEGA_JUNGLE_TREE_CHECKED.makeAndSetHolder(WWTreeConfigured.JUNGLE_TREE.getHolder(),
+		MEGA_JUNGLE_TREE_CHECKED.makeAndSetHolder(WWTreeConfigured.MEGA_JUNGLE_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
 		);
 
