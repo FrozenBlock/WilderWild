@@ -1883,7 +1883,7 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	@Contract("_, _, _, _, _, _, _, _, _ -> new")
+	@Contract("_, _, _, _, _, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBuilder(
 		Block log,
 		int baseHeight,
@@ -1892,8 +1892,7 @@ public final class WWTreeConfigured {
 		float logChance,
 		IntProvider maxLogs,
 		IntProvider logHeightFromTop,
-		IntProvider extraBranchLength,
-		int radius
+		IntProvider extraBranchLength
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
@@ -2100,8 +2099,7 @@ public final class WWTreeConfigured {
 			0.355F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
-			ConstantInt.of(1),
-			2
+			ConstantInt.of(1)
 		).ignoreVines();
 	}
 
@@ -2114,8 +2112,7 @@ public final class WWTreeConfigured {
 			0.355F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
-			ConstantInt.of(1),
-			2
+			ConstantInt.of(1)
 		).ignoreVines();
 	}
 
