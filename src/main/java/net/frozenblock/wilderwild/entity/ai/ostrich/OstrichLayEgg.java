@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -50,8 +50,7 @@ public class OstrichLayEgg extends Behavior<Ostrich> {
 			BlockState placementState = block.defaultBlockState();
 			level.setBlock(placePos, placementState, Block.UPDATE_ALL);
 			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
-			//TODO: Ostrich lay sounds
-			level.playSound(null, entity, SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, entity, WWSounds.ENTITY_OSTRICH_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 		return false;

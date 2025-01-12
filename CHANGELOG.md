@@ -28,7 +28,8 @@ hi
 - Added a config option to toggle Seeding Dandelion shearing into Dandelions.
 - Added a config option to toggle Lily Pad bone mealing into Flowering Lily Pads.
 - Added a config option to toggle Flowering Lily Pad shearing into Lily Pads.
--
+- The sound of an Ostrich laying an egg no longer uses Frog Spawn sounds.
+
 # Butterfly Branch
 - Added Butterflies
 - Added Butterfly Bottles

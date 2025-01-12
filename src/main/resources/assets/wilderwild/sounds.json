@@ -2342,6 +2342,13 @@
     ],
     "subtitle": "subtitles.block.ostrich_egg.hatch"
   },
+  "entity.ostrich.lay_egg": {
+    "sounds": [
+      "mob/turtle/egg/drop_egg1",
+      "mob/turtle/egg/drop_egg2"
+    ],
+    "subtitle": "subtitles.entity.ostrich.lay_egg"
+  },
   "entity.firefly.hide": {
     "sounds": [
       {
