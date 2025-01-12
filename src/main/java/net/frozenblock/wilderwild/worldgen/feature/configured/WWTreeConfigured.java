@@ -180,6 +180,7 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK = register("dead_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK_BRANCHES = register("dead_oak_branches");
 	//DARK OAK
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DARK_OAK = register("dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = register("dying_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_DARK_OAK = register("fancy_tall_dark_oak");
@@ -886,9 +887,7 @@ public final class WWTreeConfigured {
 
 		FANCY_OAK.makeAndSetHolder(Feature.TREE,
 			fancyOak().decorators(
-				List.of(
-					SHELF_FUNGUS_002
-				)
+				List.of(SHELF_FUNGUS_002)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -954,9 +953,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_OAK_TREE_NO_MOSS.makeAndSetHolder(Feature.TREE,
 			fallenOak().decorators(
-				List.of(
-					VINES_012_UNDER_260
-				)
+				List.of(VINES_012_UNDER_260)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1127,6 +1124,18 @@ public final class WWTreeConfigured {
 
 		// DARK OAK
 
+		DARK_OAK.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
+				new DarkOakTrunkPlacer(6, 2, 1),
+				BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
+				new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+			).decorators(
+				List.of(SHELF_FUNGUS_006)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		DYING_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
@@ -1144,17 +1153,13 @@ public final class WWTreeConfigured {
 
 		TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			tallDarkOak().decorators(
-				List.of(
-					SHELF_FUNGUS_002
-				)
+				List.of(SHELF_FUNGUS_002)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			fancyTallDarkOak().decorators(
-				List.of(
-					SHELF_FUNGUS_002
-				)
+				List.of(SHELF_FUNGUS_002)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1304,9 +1309,7 @@ public final class WWTreeConfigured {
 				),
 				new TwoLayersFeatureSize(2, 0, 2))
 				.decorators(
-					List.of(
-						SHELF_FUNGUS_006_ONLY_BROWN
-					)
+					List.of(SHELF_FUNGUS_006_ONLY_BROWN)
 				).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1341,9 +1344,7 @@ public final class WWTreeConfigured {
 				),
 				new TwoLayersFeatureSize(1, 1, 2))
 				.decorators(
-					List.of(
-						new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN
-					)
+					List.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1358,8 +1359,9 @@ public final class WWTreeConfigured {
 					UniformInt.of(3, 7)
 				),
 				new TwoLayersFeatureSize(1, 1, 2))
-				.decorators(List.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN))
-				.dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+				.decorators(
+					List.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_MEGA_FUNGUS_PINE.makeAndSetHolder(Feature.TREE,
@@ -1430,13 +1432,13 @@ public final class WWTreeConfigured {
 				new GiantTrunkPlacer(12, 2, 2),
 				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
-				new TwoLayersFeatureSize(1, 1, 2))
-				.decorators(
-					List.of(
-						SHELF_FUNGUS_006_ONLY_BROWN,
-						SHELF_FUNGUS_006_ONLY_BROWN
-					)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+				new TwoLayersFeatureSize(1, 1, 2)
+			).decorators(
+				List.of(
+					SHELF_FUNGUS_006_ONLY_BROWN,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_MEGA_DYING_FUNGUS_SPRUCE.makeAndSetHolder(Feature.TREE,
@@ -1595,9 +1597,7 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2)
 			).decorators(
-				List.of(
-					VINES_012_UNDER_76
-				)
+				List.of(VINES_012_UNDER_76)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1633,9 +1633,7 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2)
 			).decorators(
-				List.of(
-					VINES_012_UNDER_76
-				)
+				List.of(VINES_012_UNDER_76)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -1883,9 +1881,7 @@ public final class WWTreeConfigured {
 		//CRIMSON
 		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenCrimson().decorators(
-				List.of(
-					NETHER_FUNGI_LEANING_CRIMSON
-				)
+				List.of(NETHER_FUNGI_LEANING_CRIMSON)
 			).dirt(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
@@ -1897,9 +1893,7 @@ public final class WWTreeConfigured {
 				1,
 				1
 			).decorators(
-				List.of(
-					NETHER_FUNGI_LEANING_CRIMSON
-				)
+				List.of(NETHER_FUNGI_LEANING_CRIMSON)
 			).dirt(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
@@ -1920,9 +1914,7 @@ public final class WWTreeConfigured {
 				1,
 				1
 			).decorators(
-				List.of(
-					NETHER_FUNGI_LEANING_WARPED
-				)
+				List.of(NETHER_FUNGI_LEANING_WARPED)
 			).dirt(BlockStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
 		);
 

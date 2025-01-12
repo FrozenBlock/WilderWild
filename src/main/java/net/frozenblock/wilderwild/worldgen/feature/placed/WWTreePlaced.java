@@ -137,6 +137,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature DEAD_OAK_CHECKED = WWPlacementUtils.register("dead_oak_checked");
 	public static final FrozenPlacedFeature DEAD_OAK_BRANCHES_CHECKED = WWPlacementUtils.register("dead_oak_branches_checked");
 	//DARK OAK
+	public static final FrozenPlacedFeature DARK_OAK_CHECKED = WWPlacementUtils.register("dark_oak_checked");
 	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("tall_dark_oak_checked");
 	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("fancy_tall_dark_oak_checked");
 	public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("dying_tall_dark_oak_checked");
@@ -574,6 +575,10 @@ public final class WWTreePlaced {
 		);
 
 		// DARK OAK
+
+		DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.DARK_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
 
 		TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)

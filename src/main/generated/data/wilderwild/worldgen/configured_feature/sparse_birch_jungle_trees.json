@@ -5,7 +5,7 @@
     "features": [
       {
         "chance": 0.07,
-        "feature": "minecraft:fancy_oak_checked"
+        "feature": "wilderwild:fancy_oak_checked"
       },
       {
         "chance": 0.055,

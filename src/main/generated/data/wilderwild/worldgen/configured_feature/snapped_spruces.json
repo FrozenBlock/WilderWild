@@ -1,12 +1,6 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "default": "wilderwild:snapped_spruce_checked",
-    "features": [
-      {
-        "chance": 1.0,
-        "feature": "wilderwild:snapped_spruce_checked"
-      }
-    ]
+    "features": "wilderwild:snapped_spruce_checked"
   }
 }

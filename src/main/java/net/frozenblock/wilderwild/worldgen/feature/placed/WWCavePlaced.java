@@ -55,7 +55,6 @@ import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
 	// MESOGLEA CAVES
-	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = WWPlacementUtils.register("extra_glow_lichen");
 	public static final FrozenPlacedFeature STONE_POOL = WWPlacementUtils.register("stone_pool");
 	public static final FrozenPlacedFeature ORE_CALCITE = WWPlacementUtils.register("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
@@ -128,14 +127,6 @@ public final class WWCavePlaced {
 		WWConstants.log("Registering WWCavePlaced.", true);
 
 		// MESOGLEA CAVES
-
-		EXTRA_GLOW_LICHEN.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.GLOW_LICHEN),
-			CountPlacement.of(UniformInt.of(104, 157)),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			InSquarePlacement.spread(),
-			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13),
-			BiomeFilter.biome()
-		);
 
 		STONE_POOL.makeAndSetHolder(WWCaveConfigured.STONE_POOL.getHolder(),
 			RarityFilter.onAverageOnceEvery(6),
@@ -507,7 +498,6 @@ public final class WWCavePlaced {
 		);
 
 		POWDER_SNOW_DISK_LOWER.makeAndSetHolder(WWCaveConfigured.POWDER_SNOW_DISK.getHolder(),
-			CountPlacement.of(1),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),

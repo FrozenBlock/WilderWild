@@ -184,8 +184,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_WARPED_FUNGI = bind("feature/has_snapped_warped_fungi");
 	public static final TagKey<Biome> HAS_POLLEN = bind("feature/has_pollen");
 	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("feature/has_field_flowers");
-	public static final TagKey<Biome> HAS_RED_SHELF_FUNGI = bind("feature/has_red_shelf_fungi");
-	public static final TagKey<Biome> HAS_BROWN_SHELF_FUNGI = bind("feature/has_brown_shelf_fungi");
 	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI = bind("feature/has_crimson_shelf_fungi");
 	public static final TagKey<Biome> HAS_WARPED_SHELF_FUNGI = bind("feature/has_warped_shelf_fungi");
 	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI_RARE = bind("feature/has_crimson_shelf_fungi_rare");

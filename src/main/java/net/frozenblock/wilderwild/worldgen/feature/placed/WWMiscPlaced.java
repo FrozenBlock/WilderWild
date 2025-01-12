@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.worldgen.feature.placed;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
-import net.frozenblock.lib.worldgen.feature.api.placementmodifier.LowerHeightmapPlacement;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils;
@@ -123,7 +122,7 @@ public final class WWMiscPlaced {
 	public static final FrozenPlacedFeature ARID_COARSE_PATH = WWPlacementUtils.register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
-	public static final FrozenPlacedFeature PILE_SNOW = WWPlacementUtils.register("pile_snow");
+	public static final FrozenPlacedFeature SNOW_PILE = WWPlacementUtils.register("snow_pile");
 
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final FrozenPlacedFeature MOSS_PILE = WWPlacementUtils.register("moss_pile");
@@ -148,7 +147,6 @@ public final class WWMiscPlaced {
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = WWPlacementUtils.register("snow_and_freeze_transition");
-	public static final FrozenPlacedFeature SNOW_CARPET_RANDOM = WWPlacementUtils.register("snow_carpet_random");
 
 	private WWMiscPlaced() {
 		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
@@ -167,28 +165,24 @@ public final class WWMiscPlaced {
 		COARSE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		GRAVEL_PATH_RARE.makeAndSetHolder(WWMiscConfigured.GRAVEL_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		STONE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.STONE_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(72),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		COARSE_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_CLEARING.getHolder(),
 			CountPlacement.of(11),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			BiomeFilter.biome()
 		);
@@ -196,7 +190,6 @@ public final class WWMiscPlaced {
 		GRAVEL_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.GRAVEL_PATH_CLEARING.getHolder(),
 			CountPlacement.of(11),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			BiomeFilter.biome()
 		);
@@ -204,7 +197,6 @@ public final class WWMiscPlaced {
 		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.ROOTED_DIRT_PATH_CLEARING.getHolder(),
 			CountPlacement.of(11),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			BiomeFilter.biome()
 		);
@@ -212,7 +204,6 @@ public final class WWMiscPlaced {
 		// SWAMP
 
 		DISK_MUD.makeAndSetHolder(WWMiscConfigured.DISK_MUD.getHolder(),
-			CountPlacement.of(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
@@ -223,14 +214,12 @@ public final class WWMiscPlaced {
 		MUD_PATH.makeAndSetHolder(WWMiscConfigured.MUD_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
 		MUD_TRANSITION.makeAndSetHolder(WWMiscConfigured.MUD_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -240,14 +229,12 @@ public final class WWMiscPlaced {
 		COARSE_PATH.makeAndSetHolder(WWMiscConfigured.COARSE_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		COARSE_PATH_5.makeAndSetHolder(WWMiscConfigured.COARSE_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -262,21 +249,18 @@ public final class WWMiscPlaced {
 
 		UNDER_WATER_SAND_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_SAND_PATH.getHolder(),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
 		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_GRAVEL_PATH.getHolder(),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
 		UNDER_WATER_CLAY_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_CLAY_PATH.getHolder(),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
@@ -286,7 +270,6 @@ public final class WWMiscPlaced {
 		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH.getHolder(),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
@@ -294,7 +277,6 @@ public final class WWMiscPlaced {
 		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
@@ -302,7 +284,6 @@ public final class WWMiscPlaced {
 		STONE_TRANSITION.makeAndSetHolder(WWMiscConfigured.STONE_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(6),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -310,33 +291,29 @@ public final class WWMiscPlaced {
 		SMALL_SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.SMALL_SAND_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(6),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
 		BETA_BEACH_SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.BETA_BEACH_SAND_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(8),
+			CountPlacement.of(6),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
 			BiomeFilter.biome()
 		);
 
 		BETA_BEACH_GRAVEL_TRANSITION.makeAndSetHolder(WWMiscConfigured.SMALL_GRAVEL_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(8),
+			CountPlacement.of(6),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
 			BiomeFilter.biome()
 		);
 
 		SMALL_GRAVEL_TRANSITION.makeAndSetHolder(WWMiscConfigured.SMALL_GRAVEL_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(8),
+			CountPlacement.of(6),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -366,7 +343,6 @@ public final class WWMiscPlaced {
 		PACKED_MUD_PATH.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
@@ -375,7 +351,6 @@ public final class WWMiscPlaced {
 		MOSS_PATH.makeAndSetHolder(WWMiscConfigured.MOSS_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -388,14 +363,12 @@ public final class WWMiscPlaced {
 		SANDSTONE_PATH.makeAndSetHolder(WWMiscConfigured.SANDSTONE_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
 		SCORCHED_SAND.makeAndSetHolder(WWMiscConfigured.SCORCHED_SAND_DISK.getHolder(),
 			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -403,14 +376,12 @@ public final class WWMiscPlaced {
 			CountPlacement.of(UniformInt.of(0, 1)),
 			RarityFilter.onAverageOnceEvery(226),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.SAND_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -420,35 +391,30 @@ public final class WWMiscPlaced {
 		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_SMALL.getHolder(),
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH_BADLANDS.getHolder(),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
 		SCORCHED_RED_SAND.makeAndSetHolder(WWMiscConfigured.SCORCHED_RED_SAND_DISK.getHolder(),
 			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		SCORCHED_RED_SAND_HUGE.makeAndSetHolder(WWMiscConfigured.SCORCHED_RED_SAND_DISK_HUGE.getHolder(),
 			RarityFilter.onAverageOnceEvery(226),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		RED_SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.RED_SAND_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -456,7 +422,6 @@ public final class WWMiscPlaced {
 		// OASIS
 
 		SAND_POOL.makeAndSetHolder(WWMiscConfigured.SAND_POOL.getHolder(),
-			CountPlacement.of(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
@@ -478,14 +443,12 @@ public final class WWMiscPlaced {
 		GRASS_PATH.makeAndSetHolder(WWMiscConfigured.GRASS_PATH.getHolder(),
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		MOSS_PATH_OASIS.makeAndSetHolder(WWMiscConfigured.MOSS_PATH_OASIS.getHolder(),
 			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -501,29 +464,25 @@ public final class WWMiscPlaced {
 		COARSE_PATH_10.makeAndSetHolder(WWMiscConfigured.COARSE_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		// ARID SAVANNA
 
 		GRASS_PATH_RARE.makeAndSetHolder(WWMiscConfigured.GRASS_PATH.getHolder(),
-			CountPlacement.of(1),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		ARID_COARSE_PATH.makeAndSetHolder(WWMiscConfigured.ARID_COARSE_PATH.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		// OLD GROWTH SNOWY TAIGA
 
-		PILE_SNOW.makeAndSetHolder(WWMiscConfigured.SNOW.getHolder(),
+		SNOW_PILE.makeAndSetHolder(WWMiscConfigured.SNOW.getHolder(),
 			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
@@ -560,7 +519,6 @@ public final class WWMiscPlaced {
 		);
 
 		MOSS_LAKE.makeAndSetHolder(WWMiscConfigured.MOSS_LAKE.getHolder(),
-			CountPlacement.of(1),
 			RarityFilter.onAverageOnceEvery(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -569,7 +527,6 @@ public final class WWMiscPlaced {
 		);
 
 		MOSS_LAKE_RARE.makeAndSetHolder(WWMiscConfigured.MOSS_LAKE.getHolder(),
-			CountPlacement.of(1),
 			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -597,7 +554,6 @@ public final class WWMiscPlaced {
 		);
 
 		MUD_LAKE.makeAndSetHolder(WWMiscConfigured.MUD_LAKE.getHolder(),
-			CountPlacement.of(1),
 			RarityFilter.onAverageOnceEvery(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -638,14 +594,12 @@ public final class WWMiscPlaced {
 		STONE_DISK_AND_PILE_RARE.makeAndSetHolder(WWMiscConfigured.STONE_DISK_AND_PILE.getHolder(),
 			RarityFilter.onAverageOnceEvery(18),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
 		);
 
 		COARSE_TRANSITION_DISK.makeAndSetHolder(WWMiscConfigured.COARSE_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(10),
 			InSquarePlacement.spread(),
-			LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
 			BiomeFilter.biome()
 		);
@@ -653,22 +607,12 @@ public final class WWMiscPlaced {
 		// SNOW
 
 		SNOW_BLANKET.makeAndSetHolder(WWMiscConfigured.SNOW_BLANKET.getHolder(),
-			CountPlacement.of(1),
-			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
 		);
 
 		SNOW_AND_ICE_TRANSITION.makeAndSetHolder(WWMiscConfigured.SNOW_AND_ICE_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(6),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
-			BiomeFilter.biome()
-		);
-
-		SNOW_CARPET_RANDOM.makeAndSetHolder(WWMiscConfigured.SNOW_CARPET_RANDOM.getHolder(),
 			CountPlacement.of(2),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 	}

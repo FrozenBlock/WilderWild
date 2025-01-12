@@ -1,12 +1,6 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "default": "wilderwild:mossy_fallen_straight_oak_checked",
-    "features": [
-      {
-        "chance": 1.0,
-        "feature": "wilderwild:mossy_fallen_straight_oak_checked"
-      }
-    ]
+    "features": "wilderwild:mossy_fallen_straight_oak_checked"
   }
 }

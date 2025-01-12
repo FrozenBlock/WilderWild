@@ -9,10 +9,6 @@
       "type": "minecraft:in_square"
     },
     {
-      "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
-    },
-    {
       "type": "frozenlib:noise_filter",
       "fade_distance": 0.175,
       "maxThresh": 1.0,

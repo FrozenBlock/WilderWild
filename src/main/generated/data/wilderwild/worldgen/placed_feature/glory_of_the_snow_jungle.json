@@ -2,10 +2,6 @@
   "feature": "wilderwild:glory_of_the_snow_jungle",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
       "type": "minecraft:in_square"
     },
     {

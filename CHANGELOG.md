@@ -71,3 +71,6 @@ hi
 # Feature Optimization Branch
 - Removed Mud-specific Cattail features from biomes that do not generate Mud.
   - The `wilderwild:feature/has_cattail_mud` biome tag has been added as a result of this change.
+- Removed Shelf Fungi-only features, now relying solely on trunk decorators to place Shelf Fungi.
+  - The `wilderwild:feature/has_brown_shelf_fungi` and `wilderwild:feature/has_red_shelf_fungi` have been removed as a result of this change.
+- Optimized and cleaned up the implementation of many worldgen feature.

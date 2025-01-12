@@ -207,7 +207,7 @@ public final class WWMiscGeneration {
 						}
 
 						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PILE_SNOW.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.SNOW_PILE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)) {
