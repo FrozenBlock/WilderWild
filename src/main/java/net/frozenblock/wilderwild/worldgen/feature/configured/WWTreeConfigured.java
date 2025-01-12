@@ -332,7 +332,8 @@ public final class WWTreeConfigured {
 				List.of(
 					BEES_0004,
 					SHELF_FUNGUS_0084,
-					POLLEN_01)
+					POLLEN_01
+				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -349,7 +350,8 @@ public final class WWTreeConfigured {
 			fallenBirch().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
-					MOSS_BIRCH
+					MOSS_BIRCH,
+					SHELF_FUNGUS_0084
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -418,9 +420,7 @@ public final class WWTreeConfigured {
 
 		MEDIUM_BIRCH.makeAndSetHolder(Feature.TREE,
 			mediumBirch().decorators(
-				List.of(
-					SHELF_FUNGUS_0074
-				)
+				List.of(SHELF_FUNGUS_0074)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -437,13 +437,16 @@ public final class WWTreeConfigured {
 			superBirch().decorators(
 				List.of(
 					BEES,
-					POLLEN_025
+					POLLEN_025,
+					SHELF_FUNGUS_0084
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SUPER_BIRCH.makeAndSetHolder(Feature.TREE,
-			superBirch().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			superBirch().decorators(
+				List.of(SHELF_FUNGUS_0084)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_BIRCH.makeAndSetHolder(Feature.TREE,
