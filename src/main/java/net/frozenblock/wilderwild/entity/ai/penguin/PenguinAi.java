@@ -69,6 +69,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.75F;
+	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.25F;
 	private static final UniformInt TIME_BETWEEN_LONG_JUMPS = UniformInt.of(20, 40);
 
 	public static final int LAY_DOWN_DURATION = 13;
@@ -205,9 +206,8 @@ public class PenguinAi {
 			Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
-				Pair.of(0, new AnimalMakeLove(WWEntityTypes.PENGUIN)),
-				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
-				//Pair.of(2, StartAttacking.create(PenguinAi::canAttack, frog -> frog.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
+				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
 				Pair.of(3, TryFindLand.create(6, 1F)),
 				Pair.of(
 					4,
@@ -270,10 +270,11 @@ public class PenguinAi {
 			Activity.SWIM,
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(2, StartAttacking.create(PenguinAi::canAttack, penguin -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
+				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(3, StartAttacking.create(PenguinAi::canAttack, penguin -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
 				Pair.of(
-					3,
+					4,
 					new GateBehavior<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableSet.of(),
@@ -300,6 +301,8 @@ public class PenguinAi {
 			ImmutableList.of(
 				Pair.of(0, PenguinFollowReturnPos.create(2F)),
 				Pair.of(0, PenguinFindEscapePos.create(10, 2F)),
+				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
 				Pair.of(
 					5,
 					new GateBehavior<>(
