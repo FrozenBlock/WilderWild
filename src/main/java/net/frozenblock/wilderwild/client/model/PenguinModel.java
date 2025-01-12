@@ -127,7 +127,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		float notSwimmingAmount = 1F - swimAmount;
 		float wadeProgress = entity.getWadeProgress(partialTick);
 		float notWadingProgress = 1F - wadeProgress;
-		float slideProgress = entity.getPose() == Pose.SLIDING ? 1F : 0F;
+		float slideProgress = entity.getSlideProgress(partialTick);
 		float notSlidingProgress = 1F - slideProgress;
 
 		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD * notSwimmingAmount;
@@ -138,7 +138,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.animate(entity.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, ageInTicks);
 		this.animate(entity.standUpAnimationState, PenguinAnimation.PENGUIN_STAND_UP, ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
-		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), slideProgress * notSwimmingAmount * notWadingProgress);
+		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), movementDelta, slideProgress * notSwimmingAmount * notWadingProgress);
 		//this.animateSlide(limbSwing * 2F, limbSwingAmount, slideProgress * notSwimmingAmount * notWadingProgress);
 		this.animateWade(ageInTicks, wadeProgress * notMovingDelta * notSlidingProgress);
 		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress);
@@ -277,11 +277,12 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 	}
 
 	// Original Molang animation made by DaDolphin!
-	private void animateSlide(float limbSwing, float limbSwingAmount, float slideAmount) {
+	private void animateSlide(float limbSwing, float limbSwingAmount, float movementDelta, float slideAmount) {
 		limbSwing *= 0.001F;
 		float animProgress = limbSwing * 90F;
 		float slideToRad = Mth.DEG_TO_RAD * slideAmount;
 		float slideRadSwing = limbSwingAmount * slideToRad;
+		float movementDeltaSlideToRad = Mth.DEG_TO_RAD * movementDelta;
 
 		this.body.xRot += Mth.sin((animProgress * 2F) - 210F) * slideToRad;
 		this.body.zRot += Mth.sin(animProgress - 210F) * slideToRad;
@@ -292,13 +293,13 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 		this.head.yRot -= Mth.sin((animProgress * 2F) - 40F) * slideRadSwing;
 		this.head.zRot -= Mth.sin(animProgress - 180F) * slideRadSwing;
 
-		this.left_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * slideRadSwing;
-		this.left_flipper.yRot -= (Mth.sin((animProgress * 2F) - 40F) * 20F) * slideRadSwing;
-		this.left_flipper.zRot += (-42.5F - (Mth.sin(animProgress * 2F)) * 20F) * slideRadSwing;
+		this.left_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
+		this.left_flipper.yRot -= (Mth.sin((animProgress * 2F) - 40F) * 20F) * movementDeltaSlideToRad;
+		this.left_flipper.zRot += (-42.5F - (Mth.sin(animProgress * 2F)) * 20F) * movementDeltaSlideToRad;
 
-		this.right_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * slideRadSwing;
-		this.right_flipper.yRot += (Mth.sin((animProgress * 2F) - 40F) * 20F) * slideRadSwing;
-		this.right_flipper.zRot += (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * slideRadSwing;
+		this.right_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
+		this.right_flipper.yRot += (Mth.sin((animProgress * 2F) - 40F) * 20F) * movementDeltaSlideToRad;
+		this.right_flipper.zRot += (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * movementDeltaSlideToRad;
 
 		this.left_foot.xRot -= (Mth.sin((animProgress * 2F) - 270F) * 2F) * slideRadSwing;
 		this.right_foot.xRot -= (Mth.sin((animProgress * 2F) - 240F) * 2F) * slideRadSwing;

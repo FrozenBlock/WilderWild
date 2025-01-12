@@ -55,6 +55,8 @@ public class Penguin extends Animal {
 	public AnimationState standUpAnimationState = new AnimationState();
 	private float prevWadeProgress;
 	private float wadeProgress;
+	private float prevSlideProgress;
+	private float slideProgress;
 
 	public Penguin(EntityType<? extends Animal> entityType, Level level) {
 		super(entityType, level);
@@ -112,7 +114,13 @@ public class Penguin extends Animal {
 	@Override
 	public void setSwimming(boolean bl) {
 		super.setSwimming(bl);
-		if (bl) this.setPose(Pose.STANDING);
+		if (bl) {
+			if (this.hasPose(Pose.SLIDING)) {
+				this.swimAmount = 1F;
+				this.swimAmountO = 1F;
+			}
+			this.setPose(Pose.STANDING);
+		}
 	}
 
 	@Override
@@ -163,6 +171,8 @@ public class Penguin extends Animal {
 		super.tick();
 		this.prevWadeProgress = this.wadeProgress;
 		this.wadeProgress += ((this.isTouchingWaterOrSwimming() ? 1F : 0F) - this.wadeProgress) * 0.175F;
+		this.prevSlideProgress = this.slideProgress;
+		this.slideProgress += ((this.hasPose(Pose.SLIDING) ? 1F : 0F) - this.slideProgress) * 0.175F;
 	}
 
 	@Contract("null->false")
@@ -183,6 +193,11 @@ public class Penguin extends Animal {
 	public float getWadeProgress(float partialTick) {
 		return Mth.lerp(partialTick, this.prevWadeProgress, this.wadeProgress);
 	}
+
+	public float getSlideProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevSlideProgress, this.slideProgress);
+	}
+
 
 	public boolean isSlidingOrSwimming() {
 		return this.getPose() == Pose.SLIDING || this.isSwimming();
