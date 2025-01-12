@@ -145,6 +145,14 @@ public final class WWBlocks {
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
 	public static final WoodType MAPLE_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("maple"), MAPLE_SET);
+	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
+	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
+	private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.SAND;
+	private static final MapColor CYPRESS_BARK_COLOR = MapColor.CLAY;
+	private static final MapColor PALM_BARK_COLOR = MapColor.TERRACOTTA_ORANGE;
+	private static final MapColor PALM_PLANKS_COLOR = MapColor.COLOR_YELLOW;
+	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_BROWN;
+	private static final MapColor MAPLE_BARK_COLOR = MapColor.COLOR_BROWN;
 
 	// OTHER (BUILDING BLOCKS)
 
@@ -421,7 +429,7 @@ public final class WWBlocks {
 	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
-			.sound(SoundType.VINE)
+			.sound(WWSoundTypes.FLOWER)
 			.noCollission()
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
@@ -431,7 +439,7 @@ public final class WWBlocks {
 	);
 	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.CRIMSON_STEM)
+			.mapColor(MapColor.COLOR_PINK)
 	);
 	public static final FlowerLichenBlock PURPLE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
 		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
@@ -593,8 +601,6 @@ public final class WWBlocks {
 			.emissiveRendering(Blocks::always)
 	);
 
-	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
-
 	// WOOD
 
 	public static final Block BAOBAB_PLANKS = new Block(
@@ -633,7 +639,6 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_BAOBAB_LOG = createStrippedHollowedLogBlock(BAOBAB_PLANKS_COLOR);
 
-	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
 	public static final Block BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR);
 	public static final FrozenSignBlock BAOBAB_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
@@ -686,7 +691,6 @@ public final class WWBlocks {
 			.mapColor(BAOBAB_BARK_COLOR)
 	);
 
-	private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
 	public static final Block CYPRESS_PLANKS = new Block(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(CYPRESS_PLANKS_COLOR)
@@ -726,7 +730,6 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CYPRESS_LOG = createStrippedHollowedLogBlock(CYPRESS_PLANKS_COLOR);
 
-	private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE;
 	public static final Block CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
 	public static final FrozenSignBlock CYPRESS_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
@@ -780,7 +783,6 @@ public final class WWBlocks {
 			.mapColor(CYPRESS_BARK_COLOR)
 	);
 
-	private static final MapColor PALM_PLANKS_COLOR = MapColor.TERRACOTTA_WHITE;
 	public static final Block PALM_PLANKS = new Block(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(PALM_PLANKS_COLOR)
@@ -820,7 +822,6 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_PALM_LOG = createStrippedHollowedLogBlock(PALM_PLANKS_COLOR);
 
-	private static final MapColor PALM_BARK_COLOR = MapColor.COLOR_LIGHT_GRAY;
 	public static final Block PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 	public static final FrozenSignBlock PALM_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)
@@ -876,7 +877,6 @@ public final class WWBlocks {
 
 	// MAPLE
 
-	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
 	public static final Block MAPLE_PLANKS = new Block(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
 			.mapColor(MAPLE_PLANKS_COLOR)
@@ -916,7 +916,6 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_MAPLE_LOG = createStrippedHollowedLogBlock(MAPLE_PLANKS_COLOR);
 
-	private static final MapColor MAPLE_BARK_COLOR = MapColor.STONE;
 	public static final Block MAPLE_LOG = Blocks.log(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR);
 	public static final FrozenSignBlock MAPLE_SIGN = new FrozenSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)

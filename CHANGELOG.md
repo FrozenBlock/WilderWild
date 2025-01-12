@@ -29,6 +29,10 @@ hi
 - Added a config option to toggle Lily Pad bone mealing into Flowering Lily Pads.
 - Added a config option to toggle Flowering Lily Pad shearing into Lily Pads.
 - The sound of an Ostrich laying an egg no longer uses Frog Spawn sounds.
+- Updated Glory of the Snow petals to use softer sounds.
+- Fixed Palm, Maple, and Cypress blocks using the incorrect map colors.
+- Added Pollen and all Glory of the Snow Petals to the `minecraft:inside_step_sound_blocks` and `minecraft:combination_step_sound_blocks` block tags.
+- Removed the Bush from the `minecraft:inside_step_sound_blocks` block tag.
 
 # Butterfly Branch
 - Added Butterflies

@@ -847,7 +847,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ALGAE)
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.SPONGE_BUD)
-			.add(WWBlocks.PRICKLY_PEAR_CACTUS);
+			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
+			.add(WWBlocks.POLLEN)
+			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
 			.add(WWBlocks.MYCELIUM_GROWTH)
@@ -864,7 +869,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
-			.add(WWBlocks.BUSH);
+			.add(WWBlocks.POLLEN)
+			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
 			.add(WWBlocks.POTTED_BAOBAB_NUT)
