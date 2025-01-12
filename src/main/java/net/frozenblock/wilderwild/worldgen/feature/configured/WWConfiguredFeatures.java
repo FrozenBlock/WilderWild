@@ -339,7 +339,6 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
-	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD_SMALL = WWFeatureUtils.register("cattail_mud_small");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
 	public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
 	public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
@@ -2657,15 +2656,6 @@ public final class WWConfiguredFeatures {
 			new CattailFeatureConfig(
 				UniformInt.of(-7, 7),
 				UniformInt.of(12, 18),
-				false,
-				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
-			)
-		);
-
-		CATTAIL_MUD_SMALL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(
-				UniformInt.of(-5, 5),
-				UniformInt.of(6, 12),
 				false,
 				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
 			)

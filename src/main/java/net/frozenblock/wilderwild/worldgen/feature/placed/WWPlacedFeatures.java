@@ -276,8 +276,6 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature PATCH_CATTAIL_UNCOMMON = register("cattail_uncommon");
 	public static final FrozenPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
 	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
-	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD_UNCOMMON = register("cattail_mud_uncommon");
-	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD_COMMON = register("cattail_mud_common");
 	public static final FrozenPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
 	public static final FrozenPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
@@ -1440,16 +1438,6 @@ public final class WWPlacedFeatures {
 		);
 
 		PATCH_CATTAIL_MUD.makeAndSetHolder(WWConfiguredFeatures.CATTAIL_MUD.getHolder(),
-			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
-		PATCH_CATTAIL_MUD_UNCOMMON.makeAndSetHolder(WWConfiguredFeatures.CATTAIL_MUD_SMALL.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
-		PATCH_CATTAIL_MUD_COMMON.makeAndSetHolder(WWConfiguredFeatures.CATTAIL_MUD_SMALL.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 2)), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);

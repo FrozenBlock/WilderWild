@@ -67,3 +67,7 @@ hi
 - Expanded the list of blocks Fireflies can "hide" in during the day.
 - Renamed the `wilderwildfireflies` mob category to `wilderwildfirefly`.
 - Removed the `wilderwild:spawn/firefly_spawnable_cave` and `wilderwild:spawn/firefly_spawnable_during_day` tags as these spawning behaviors have been removed.
+
+# Feature Optimization Branch
+- Removed Mud-specific Cattail features from biomes that do not generate Mud.
+  - The `wilderwild:feature/has_cattail_mud` biome tag has been added as a result of this change.
