@@ -254,7 +254,7 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_WARPED_FUNGI = register("fallen_warped_fungi");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_WARPED_FUNGI = register("snapped_warped_fungi");
 	//DECORATOR
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0084 = new ShelfFungiTreeDecorator(0.084F, 0.25F, 0.3F);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_009 = new ShelfFungiTreeDecorator(0.09F, 0.25F, 0.3F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074 = new ShelfFungiTreeDecorator(0.074F, 0.25F, 0.15F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0054 = new ShelfFungiTreeDecorator(0.054F, 0.25F, 0.15F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_003 = new ShelfFungiTreeDecorator(0.03F, 0.25F, 0.4F);
@@ -295,7 +295,7 @@ public final class WWTreeConfigured {
 
 		BIRCH_TREE.makeAndSetHolder(Feature.TREE,
 			birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(
-				List.of(SHELF_FUNGUS_0084)
+				List.of(SHELF_FUNGUS_009)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -303,7 +303,7 @@ public final class WWTreeConfigured {
 			birch().decorators(
 				List.of(
 					BEES_0004,
-					SHELF_FUNGUS_0084,
+					SHELF_FUNGUS_009,
 					POLLEN_01
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -313,7 +313,7 @@ public final class WWTreeConfigured {
 			birch().decorators(
 				List.of(
 					BEES_025,
-					SHELF_FUNGUS_0084,
+					SHELF_FUNGUS_009,
 					POLLEN_025
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -323,7 +323,7 @@ public final class WWTreeConfigured {
 			birch().decorators(
 				List.of(
 					BEES_0004,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -332,7 +332,7 @@ public final class WWTreeConfigured {
 			superBirch().decorators(
 				List.of(
 					BEES_0004,
-					SHELF_FUNGUS_0084,
+					SHELF_FUNGUS_009,
 					POLLEN_01
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -342,7 +342,7 @@ public final class WWTreeConfigured {
 			superBirch().decorators(
 				List.of(
 					VINES_1_UNDER_260_05,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -352,7 +352,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_08_UNDER_260_075,
 					MOSS_BIRCH,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -439,14 +439,14 @@ public final class WWTreeConfigured {
 				List.of(
 					BEES,
 					POLLEN_025,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SUPER_BIRCH.makeAndSetHolder(Feature.TREE,
 			superBirch().decorators(
-				List.of(SHELF_FUNGUS_0084)
+				List.of(SHELF_FUNGUS_009)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -460,7 +460,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_012_UNDER_260,
 					MOSS_BIRCH,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -995,7 +995,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_012_UNDER_260,
 					MOSS_OAK,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1129,7 +1129,7 @@ public final class WWTreeConfigured {
 			tallDarkOak().decorators(
 				List.of(
 					VINES_1_UNDER_260_05,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1138,7 +1138,7 @@ public final class WWTreeConfigured {
 			fancyTallDarkOak().decorators(
 				List.of(
 					VINES_1_UNDER_260_05,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1166,7 +1166,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_1_UNDER_260_05,
 					MOSS_JUNGLE_DARK_OAK,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1222,7 +1222,7 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.AIR)).build()
 		);
@@ -1769,7 +1769,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_012_UNDER_260,
 					MOSS_JUNGLE_DARK_OAK,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1779,7 +1779,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_08_UNDER_260_075,
 					MOSS_JUNGLE_DARK_OAK,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1795,7 +1795,7 @@ public final class WWTreeConfigured {
 				List.of(
 					VINES_012_UNDER_260,
 					MOSS_JUNGLE_DARK_OAK,
-					SHELF_FUNGUS_0084
+					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
