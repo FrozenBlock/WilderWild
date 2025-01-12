@@ -108,7 +108,6 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature BIG_SHRUB_RED_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_red_maple_checked");
 
 	public static final FrozenPlacedFeature FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("fallen_maple_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("mossy_fallen_maple_checked");
 	public static final FrozenPlacedFeature SNAPPED_MAPLE_CHECKED = WWPlacementUtils.register("snapped_maple_checked");
 	//OAK
 	public static final FrozenPlacedFeature OAK_CHECKED = WWPlacementUtils.register("oak_checked");

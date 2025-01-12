@@ -74,3 +74,4 @@ hi
 - Removed Shelf Fungi-only features, now relying solely on trunk decorators to place Shelf Fungi.
   - The `wilderwild:feature/has_brown_shelf_fungi` and `wilderwild:feature/has_red_shelf_fungi` have been removed as a result of this change.
 - Optimized and cleaned up the implementation of many worldgen feature.
+- All trees that don't place foliage now use `wilderwild:no_op_foliage_placer.`
