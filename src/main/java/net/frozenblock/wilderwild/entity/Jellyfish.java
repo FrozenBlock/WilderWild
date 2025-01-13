@@ -95,6 +95,7 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
@@ -119,7 +120,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
-	private static final Map<ServerLevelAccessor, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
+	private static final Map<ResourceKey<Level>, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
 	public float xRot1;
@@ -147,15 +148,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public static int getJellyfishPerLevel(@NotNull ServerLevel level, boolean pearlescent) {
 		AtomicInteger count = new AtomicInteger();
-		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(level)) {
+		ResourceKey<Level> dimension = level.dimension();
+		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(dimension)) {
 			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
 				if (entity instanceof Jellyfish jellyfish && (pearlescent == jellyfish.getVariantByLocation().isPearlescent())) {
 					count.addAndGet(1);
 				}
 			});
-			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(level, count.get());
+			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(dimension, count.get());
 		} else {
-			count.set(NON_PEARLESCENT_JELLYFISH_PER_LEVEL.get(level));
+			count.set(NON_PEARLESCENT_JELLYFISH_PER_LEVEL.get(dimension));
 		}
 		return count.get();
 	}

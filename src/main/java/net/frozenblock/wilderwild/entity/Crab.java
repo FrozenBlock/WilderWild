@@ -139,7 +139,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
 	public static final int SPAWN_CHANCE = 30;
 	public static final int SPAWN_CHANCE_COMMON = 90;
-	private static final Map<ServerLevelAccessor, Integer> CRABS_PER_LEVEL = new Object2IntOpenHashMap<>();
+	private static final Map<ResourceKey<Level>, Integer> CRABS_PER_LEVEL = new Object2IntOpenHashMap<>();
 	private static final EntityDataAccessor<String> MOVE_STATE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
@@ -212,15 +212,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	public static int getCrabsPerLevel(@NotNull ServerLevel level) {
 		AtomicInteger count = new AtomicInteger();
-		if (!CRABS_PER_LEVEL.containsKey(level)) {
+		ResourceKey<Level> dimension = level.dimension();
+		if (!CRABS_PER_LEVEL.containsKey(dimension)) {
 			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
 				if (entity instanceof Crab) {
 					count.addAndGet(1);
 				}
 			});
-			CRABS_PER_LEVEL.put(level, count.get());
+			CRABS_PER_LEVEL.put(dimension, count.get());
 		} else {
-			count.set(CRABS_PER_LEVEL.get(level));
+			count.set(CRABS_PER_LEVEL.get(dimension));
 		}
 		return count.get();
 	}
