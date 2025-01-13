@@ -41,7 +41,12 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		super(codec);
 	}
 
-	private static boolean placeSnowAtPos(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos motionBlockingPos, @NotNull BlockPos.MutableBlockPos belowLeavesPos, @NotNull Holder<Biome> biomeHolder) {
+	private static boolean placeSnowAtPos(
+			@NotNull WorldGenLevel level,
+			@NotNull BlockPos.MutableBlockPos motionBlockingPos,
+			@NotNull BlockPos.MutableBlockPos belowLeavesPos,
+			@NotNull Holder<Biome> biomeHolder
+	) {
 		boolean returnValue = false;
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
@@ -53,7 +58,11 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		return returnValue;
 	}
 
-	private static boolean placeSnowAtPos(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos motionBlockingPos, @NotNull BlockPos.MutableBlockPos belowLeavesPos) {
+	private static boolean placeSnowAtPos(
+			@NotNull WorldGenLevel level,
+			@NotNull BlockPos.MutableBlockPos motionBlockingPos,
+			@NotNull BlockPos.MutableBlockPos belowLeavesPos
+	) {
 		boolean returnValue = false;
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
@@ -96,18 +105,19 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		boolean returnValue = false;
 		int posX = pos.getX();
 		int posZ = pos.getZ();
-		BlockState iceState = Blocks.ICE.defaultBlockState();
 		for (int i = 0; i < 16; i++) {
 			int x = posX + i;
 			for (int j = 0; j < 16; j++) {
 				int z = posZ + j;
-				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 1, z);
-				mutablePlacementPos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-				if (!mutablePos.equals(mutablePlacementPos) && mutablePos.getY() > mutablePlacementPos.getY()) {
+				int height = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+				int belowLeavesHeight = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+				if (height > belowLeavesHeight) {
+					mutablePos.set(x, height, z);
+					mutablePlacementPos.set(x, belowLeavesHeight, z);
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
 					Holder<Biome> lowerBiomeHolder = level.getBiome(mutablePlacementPos);
 					if (lowerBiomeHolder.value().shouldFreeze(level, mutablePlacementPos.move(Direction.DOWN), false)) {
-						level.setBlock(mutablePlacementPos, iceState, 2);
+						level.setBlock(mutablePlacementPos, Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
 					}
 					mutablePlacementPos.move(Direction.UP);
 					if (biomeHolder.equals(lowerBiomeHolder)) {
