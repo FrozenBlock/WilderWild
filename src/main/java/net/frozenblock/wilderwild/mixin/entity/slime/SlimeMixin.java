@@ -46,9 +46,8 @@ public class SlimeMixin {
 	private static void wilderWild$spawnInAlgae(
 		EntityType<Slime> type, @NotNull LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
 	) {
-		if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
-			boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
-			if (test && WWBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
+		if (level.getBrightness(LightLayer.BLOCK, pos) <= random.nextInt(7)) {
+			if ((MobSpawnType.ignoresLightRequirements(spawnReason) || random.nextInt(5) == 0) && WWBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
 				info.setReturnValue(true);
 			}
 		}

@@ -34,6 +34,7 @@ hi
 - Added Pollen and all Glory of the Snow Petals to the `minecraft:inside_step_sound_blocks` and `minecraft:combination_step_sound_blocks` block tags.
 - Removed the Bush from the `minecraft:inside_step_sound_blocks` block tag.
 - Slightly decreased the pitch of Magma block sounds.
+- Fixed any potential issues with Slime spawning.
 
 # Butterfly Branch
 - Added Butterflies
