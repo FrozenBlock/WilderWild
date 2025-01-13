@@ -38,11 +38,25 @@ public interface VibrationSystemTickerMixin {
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
 		)
 	)
-	private static int wilderWild$removeParticleIfCrab(ServerLevel usedLevel, ParticleOptions vibrationParticleOption, double x, double y, double z, int count, double xOffset, double yOffset, double zOffset, double speed, Operation<Integer> operation, VibrationSystem.Data data, VibrationSystem.User user, ServerLevel level, VibrationInfo vibrationInfo) {
-		if (!(user instanceof Crab.VibrationUser)) {
-			return operation.call(usedLevel, vibrationParticleOption, x, y, z, count, xOffset, yOffset, zOffset, speed);
-		}
-		return 0;
+	private static int wilderWild$removeParticleIfCrab(
+		ServerLevel usedLevel,
+		ParticleOptions vibrationParticleOption,
+		double x,
+		double y,
+		double z,
+		int count,
+		double xOffset,
+		double yOffset,
+		double zOffset,
+		double speed,
+		Operation<Integer> operation,
+		VibrationSystem.Data data,
+		VibrationSystem.User user,
+		ServerLevel level,
+		VibrationInfo vibrationInfo
+	) {
+		if (user instanceof Crab.VibrationUser) return 0;
+		return operation.call(usedLevel, vibrationParticleOption, x, y, z, count, xOffset, yOffset, zOffset, speed);
 	}
 
 	@WrapOperation(
@@ -52,11 +66,24 @@ public interface VibrationSystemTickerMixin {
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
 		)
 	)
-	private static int wilderWild$removeParticleFromReloadIfCrab(ServerLevel usedLevel, ParticleOptions vibrationParticleOption, double x, double y, double z, int count, double xOffset, double yOffset, double zOffset, double speed, Operation<Integer> operation, ServerLevel level, VibrationSystem.Data data, VibrationSystem.User user) {
-		if (!(user instanceof Crab.VibrationUser)) {
-			return operation.call(usedLevel, vibrationParticleOption, x, y, z, count, xOffset, yOffset, zOffset, speed);
-		}
-		return 1;
+	private static int wilderWild$removeParticleFromReloadIfCrab(
+		ServerLevel usedLevel,
+		ParticleOptions vibrationParticleOption,
+		double x,
+		double y,
+		double z,
+		int count,
+		double xOffset,
+		double yOffset,
+		double zOffset,
+		double speed,
+		Operation<Integer> operation,
+		ServerLevel level,
+		VibrationSystem.Data data,
+		VibrationSystem.User user
+	) {
+		if (user instanceof Crab.VibrationUser) return 1;
+		return operation.call(usedLevel, vibrationParticleOption, x, y, z, count, xOffset, yOffset, zOffset, speed);
 	}
 
 }
