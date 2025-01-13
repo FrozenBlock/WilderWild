@@ -22,6 +22,7 @@ import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -138,14 +139,12 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		this.bonemealPos = null;
 	}
 
-	public boolean hasAmountNearby(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int x, int threshold) {
-		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
+		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
 		int count = 0;
 		do {
-			if (!posesToCheck.hasNext()) {
-				return false;
-			}
-			if (level.getBlockState(posesToCheck.next()).is(this)) {
+			if (!posesToCheck.hasNext()) return false;
+			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE)) {
 				count = count + 1;
 			}
 		} while (count < threshold);

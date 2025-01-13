@@ -50,6 +50,7 @@
     "entity.jellyfish.NaturalSpawnerMixin",
     "entity.lightning.LightningBoltMixin",
     "entity.penguin.LivingEntityMixin",
+    "entity.slime.MobMixin",
     "entity.slime.SlimeMixin",
     "entity.slime.SpawnPlacementsMixin",
     "entity.stray.StrayMixin",
