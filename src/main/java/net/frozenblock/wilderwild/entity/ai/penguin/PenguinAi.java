@@ -239,10 +239,11 @@ public class PenguinAi {
 			ImmutableList.of(
 				Pair.of(0, new PenguinLayDown<>()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
-				Pair.of(1, TryFindWater.create(8, 0.8F)),
-				Pair.of(2, PenguinReturnToWater.create(0.8F)),
+				Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(2, TryFindWater.create(8, 0.8F)),
+				Pair.of(3, PenguinReturnToWater.create(0.8F)),
 				Pair.of(
-					3,
+					4,
 					new RunOne<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableList.of(
