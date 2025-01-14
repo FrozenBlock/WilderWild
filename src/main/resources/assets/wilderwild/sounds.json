@@ -3105,7 +3105,13 @@
         "name": "wilderwild:music/willow/cave1",
         "stream": true,
         "volume": 0.4,
-        "weight": 5
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 3
       }
     ]
   },
@@ -3176,6 +3182,11 @@
       {
         "name": "wilderwild:music/willow/cave1",
         "stream": true
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "stream": true,
+        "volume": 0.8
       }
     ]
   },

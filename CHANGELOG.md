@@ -35,6 +35,7 @@ hi
 - Removed the Bush from the `minecraft:inside_step_sound_blocks` block tag.
 - Slightly decreased the pitch of Magma block sounds.
 - Fixed Slimes and Magma Cubes not spawning.
+- Added LudoCrypt's `Dove` to the Magmatic Caves and Lush Caves.
 
 # Butterfly Branch
 - Added Butterflies
