@@ -30,6 +30,7 @@ import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.registe
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
@@ -1226,12 +1227,13 @@ public final class WWTreeConfigured {
 		SWAMP_TREE.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
-				new StraightTrunkPlacer(5, 2, 1),
+				new StraightTrunkPlacer(7, 2, 1),
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
-				new BlobFoliagePlacer(
-					ConstantInt.of(3),
-					ConstantInt.of(0), 3
-				),
+				new WillowFoliagePlacer(
+					ConstantInt.of(4),
+					ConstantInt.of(0),
+					ConstantInt.of(5),
+					0.25F, 0.5F, 0.25F, 0.5F),
 				Optional.of(
 					new MangroveRootPlacer(
 						UniformInt.of(1, 1),
