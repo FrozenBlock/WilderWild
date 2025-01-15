@@ -172,8 +172,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 			k += direction.getStepZ();
 			if (TreeFeature.validTreePos(level, pos.set(j, y, k))) {
 				if (config.trunkProvider.getState(random, pos.set(j, y, k)).hasProperty(BlockStateProperties.AXIS)) {
-					Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : Direction.Axis.Z;
-					replacer.accept(pos.set(j, y, k), config.trunkProvider.getState(random, pos.set(j, y, k)).setValue(BlockStateProperties.AXIS, axis));
+					replacer.accept(pos.set(j, y, k), config.trunkProvider.getState(random, pos.set(j, y, k)).setValue(BlockStateProperties.AXIS, direction.getAxis()));
 					if (lastOne) {
 						foliageAttachments.add(new FoliagePlacer.FoliageAttachment(pos.move(Direction.UP), 0, false));
 					}

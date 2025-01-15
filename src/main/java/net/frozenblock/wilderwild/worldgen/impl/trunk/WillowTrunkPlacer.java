@@ -152,8 +152,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 					return;
 				} else {
 					if (config.trunkProvider.getState(random, mutable).hasProperty(BlockStateProperties.AXIS)) {
-						Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : Direction.Axis.Z;
-						replacer.accept(mutable, config.trunkProvider.getState(random, mutable).setValue(BlockStateProperties.AXIS, axis));
+						replacer.accept(mutable, config.trunkProvider.getState(random, mutable).setValue(BlockStateProperties.AXIS, direction.getAxis()));
 					} else {
 						this.placeLog(level, replacer, random, mutable, config);
 					}
