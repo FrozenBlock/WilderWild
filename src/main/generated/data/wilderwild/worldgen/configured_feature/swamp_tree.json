@@ -21,13 +21,11 @@
     },
     "foliage_placer": {
       "type": "wilderwild:willow_foliage_placer",
-      "corner_hole_chance": 0.25,
-      "hanging_leaves_chance": 0.25,
+      "hanging_leaves_chance": 0.5,
       "hanging_leaves_extension_chance": 0.5,
-      "height": 5,
-      "offset": 0,
-      "radius": 4,
-      "wide_bottom_layer_hole_chance": 0.25
+      "height": 2,
+      "offset": 1,
+      "radius": 3
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",

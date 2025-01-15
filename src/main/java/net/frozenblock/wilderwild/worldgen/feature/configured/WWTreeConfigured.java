@@ -1230,10 +1230,20 @@ public final class WWTreeConfigured {
 				new StraightTrunkPlacer(7, 2, 1),
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
 				new WillowFoliagePlacer(
+					ConstantInt.of(3),
+					ConstantInt.of(1),
+					2,
+					0.5F,
+					0.5F
+				),
+				/*
+				new BlobFoliagePlacer(
 					ConstantInt.of(4),
 					ConstantInt.of(0),
 					ConstantInt.of(5),
-					0.25F, 0.5F, 0.25F, 0.5F),
+					0.25F, 0.5F, 0.25F, 0.5F
+				),
+				 */
 				Optional.of(
 					new MangroveRootPlacer(
 						UniformInt.of(1, 1),
