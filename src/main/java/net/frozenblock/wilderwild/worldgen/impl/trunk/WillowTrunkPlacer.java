@@ -25,7 +25,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.registry.WWFeatures;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -102,7 +101,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 				zOffset += splitDirection.getStepZ();
 				mutable.setWithOffset(startPos, xOffset, i, zOffset);
 
-				for (Direction branchDirection : Util.shuffledCopy(Direction.values(), random)) {
+				for (Direction branchDirection : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 					if (random.nextFloat() <= this.branchChance) {
 						branchMutable.set(mutable);
 						this.generateExtraBranch(
@@ -111,9 +110,8 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 							replacer,
 							random,
 							config,
-							startPos,
+							mutable,
 							branchMutable,
-							i,
 							branchDirection,
 							this.branchLength.sample(random)
 						);
@@ -137,14 +135,13 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 		@NotNull BiConsumer<BlockPos, BlockState> replacer,
 		@NotNull RandomSource random,
 		@NotNull TreeConfiguration config,
-		@NotNull BlockPos startPos,
+		@NotNull BlockPos branchStartPos,
 		@NotNull BlockPos.MutableBlockPos mutable,
-		int yOffset,
 		@NotNull Direction direction,
 		int length
 	) {
 		for (int l = 1; l <= length; ++l) {
-			mutable.setWithOffset(startPos, direction.getStepX() * l, yOffset, direction.getStepZ() * l);
+			mutable.setWithOffset(branchStartPos, direction.getStepX() * l, 0, direction.getStepZ() * l);
 			if (TreeFeature.validTreePos(level, mutable)) {
 				if (l == length) {
 					this.placeLog(level, replacer, random, mutable.move(Direction.UP), config);
