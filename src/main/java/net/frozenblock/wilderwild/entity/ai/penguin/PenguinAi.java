@@ -288,8 +288,8 @@ public class PenguinAi {
 						GateBehavior.OrderPolicy.ORDERED,
 						GateBehavior.RunningPolicy.TRY_ALL,
 						ImmutableList.of(
-							Pair.of(RandomStroll.swim(1.5F), 1),
-							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
+							Pair.of(RandomStroll.swim(1.5F), 2),
+							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 3),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5)
 						)
 					)
