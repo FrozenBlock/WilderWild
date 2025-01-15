@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:swamp_tree",
+  "feature": "wilderwild:swamp_trees_surface",
   "placement": [
     {
       "type": "minecraft:count",
@@ -22,7 +22,7 @@
     },
     {
       "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 3
+      "max_water_depth": 1
     },
     {
       "type": "minecraft:heightmap",

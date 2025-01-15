@@ -238,7 +238,8 @@ public final class WWWorldGen {
 				if (WWWorldgenConfig.get().treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_SWAMP);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP_SURFACE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP_WATER.getKey());
 				}
 			});
 

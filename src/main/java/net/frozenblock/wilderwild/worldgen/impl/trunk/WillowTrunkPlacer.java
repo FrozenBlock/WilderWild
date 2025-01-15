@@ -46,12 +46,14 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 				instance.group(
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter((trunkPlacer) -> trunkPlacer.trunkSplitHeight),
 					Codec.floatRange(0F, 1F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),
+					Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter((trunkPlacer) -> trunkPlacer.branchSplitGapChance),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
 				)
 			).apply(instance, WillowTrunkPlacer::new));
 
 	private final IntProvider trunkSplitHeight;
 	private final float branchChance;
+	private final float branchSplitGapChance;
 	private final IntProvider branchLength;
 
 
@@ -61,11 +63,13 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 		int secondRandomHeight,
 		@NotNull IntProvider trunkSplitHeight,
 		float branchChance,
+		float branchSplitGapChance,
 		@NotNull IntProvider branchLength
 	) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.trunkSplitHeight = trunkSplitHeight;
 		this.branchChance = branchChance;
+		this.branchSplitGapChance = branchSplitGapChance;
 		this.branchLength = branchLength;
 	}
 
@@ -97,13 +101,14 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 			mutable.setWithOffset(startPos, xOffset, i, zOffset);
 			if (i == splitHeight) {
 				Direction splitDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+				BlockPos splitPos = mutable.immutable();
 				xOffset += splitDirection.getStepX();
 				zOffset += splitDirection.getStepZ();
 				mutable.setWithOffset(startPos, xOffset, i, zOffset);
 
 				for (Direction branchDirection : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 					if (random.nextFloat() <= this.branchChance) {
-						branchMutable.set(mutable);
+						branchMutable.set(random.nextFloat() <= this.branchSplitGapChance ? splitPos : mutable);
 						this.generateExtraBranch(
 							list,
 							level,

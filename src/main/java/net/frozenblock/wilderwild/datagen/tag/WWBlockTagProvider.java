@@ -1023,6 +1023,16 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS_THAT_BURN);
 
+		this.getOrCreateTagBuilder(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH)
+			.add(Blocks.MUDDY_MANGROVE_ROOTS)
+			.add(Blocks.MANGROVE_ROOTS)
+			.add(Blocks.MOSS_CARPET)
+			.add(Blocks.VINE)
+			.add(Blocks.SNOW)
+			.add(Blocks.RED_MUSHROOM)
+			.add(Blocks.BROWN_MUSHROOM)
+			.addOptionalTag(BlockTags.SMALL_FLOWERS);
+
 		this.getOrCreateTagBuilder(BlockTags.LEAVES)
 			.add(WWBlocks.BAOBAB_LEAVES)
 			.add(WWBlocks.CYPRESS_LEAVES)

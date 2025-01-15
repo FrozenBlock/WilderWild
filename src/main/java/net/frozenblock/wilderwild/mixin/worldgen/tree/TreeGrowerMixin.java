@@ -19,15 +19,12 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -72,13 +69,6 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.OAK) {
-			if (this.wilderWild$getLevel() != null && this.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
-				Holder<Biome> biome = this.wilderWild$getLevel().getBiome(this.wilderWild$getPos());
-				if (biome.is(WWBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
-					info.setReturnValue(WWTreeConfigured.SWAMP_TREE.getKey());
-					return;
-				}
-			}
 			if (random.nextInt(10) == 0) {
 				info.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
