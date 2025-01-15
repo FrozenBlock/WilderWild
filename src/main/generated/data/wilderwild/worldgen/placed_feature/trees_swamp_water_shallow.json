@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:swamp_trees_water",
+  "feature": "wilderwild:swamp_trees_water_shallow",
   "placement": [
     {
       "type": "minecraft:count",
@@ -22,7 +22,7 @@
     },
     {
       "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 4
+      "max_water_depth": 2
     },
     {
       "type": "minecraft:heightmap",
@@ -34,22 +34,8 @@
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
-        "type": "minecraft:all_of",
-        "predicates": [
-          {
-            "type": "minecraft:matching_fluids",
-            "fluids": "minecraft:water",
-            "offset": [
-              0,
-              1,
-              0
-            ]
-          },
-          {
-            "type": "minecraft:matching_fluids",
-            "fluids": "minecraft:water"
-          }
-        ]
+        "type": "minecraft:matching_fluids",
+        "fluids": "minecraft:water"
       }
     },
     {

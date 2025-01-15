@@ -125,6 +125,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature ARID_SAVANNA_TREES = register("arid_savanna_trees");
 	public static final FrozenPlacedFeature WOODED_BADLANDS_TREES = register("wooded_badlands_trees");
 	public static final FrozenPlacedFeature TREES_SWAMP_SURFACE = register("trees_swamp_surface");
+	public static final FrozenPlacedFeature TREES_SWAMP_WATER_SHALLOW = register("trees_swamp_water_shallow");
 	public static final FrozenPlacedFeature TREES_SWAMP_WATER = register("trees_swamp_water");
 	public static final FrozenPlacedFeature MIXED_TREES = register("mixed_trees");
 	public static final FrozenPlacedFeature TEMPERATE_RAINFOREST_TREES = register("temperate_rainforest_trees");
@@ -662,11 +663,23 @@ public final class WWPlacedFeatures {
 			SurfaceWaterDepthFilter.forMaxDepth(1), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 
-		TREES_SWAMP_WATER.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER.getHolder(),
+		TREES_SWAMP_WATER_SHALLOW.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER_SHALLOW.getHolder(),
 			PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(),
-			SurfaceWaterDepthFilter.forMaxDepth(3), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
+			SurfaceWaterDepthFilter.forMaxDepth(2), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.matchesFluids(Fluids.WATER)
+			),
+			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		);
+
+		TREES_SWAMP_WATER.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER.getHolder(),
+			PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(),
+			SurfaceWaterDepthFilter.forMaxDepth(4), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.WATER),
+					BlockPredicate.matchesFluids(Fluids.WATER)
+				)
 			),
 			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);

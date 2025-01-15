@@ -1,12 +1,6 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "default": "wilderwild:willow_checked",
-    "features": [
-      {
-        "chance": 0.75,
-        "feature": "wilderwild:willow_tall_checked"
-      }
-    ]
+    "features": "wilderwild:willow_taller_checked"
   }
 }

@@ -90,7 +90,7 @@
     },
     "trunk_placer": {
       "type": "wilderwild:willow_trunk_placer",
-      "base_height": 7,
+      "base_height": 9,
       "branch_chance": 0.5,
       "branch_split_gap_chance": 0.35,
       "extra_branch_length": {
@@ -102,8 +102,8 @@
       "height_rand_b": 2,
       "trunk_split_height": {
         "type": "minecraft:uniform",
-        "max_inclusive": 6,
-        "min_inclusive": 4
+        "max_inclusive": 8,
+        "min_inclusive": 6
       }
     },
     "trunk_provider": {
