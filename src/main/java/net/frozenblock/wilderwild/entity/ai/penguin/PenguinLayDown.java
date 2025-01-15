@@ -58,6 +58,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
 		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN, Unit.INSTANCE);
 		penguin.setPose(Pose.SLIDING);
+		penguin.stopInPlace();
 	}
 
 	@Override
