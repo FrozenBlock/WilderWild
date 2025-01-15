@@ -28,8 +28,8 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class HugePaleMushroomBlock extends HugeMushroomBlock {
-	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
-	public static final int MAX_PARTICLE_SPAWN_WIDTH = 3;
+	public static final int MIN_PARTICLE_SPAWN_WIDTH = -2;
+	public static final int MAX_PARTICLE_SPAWN_WIDTH = 2;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -2;
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = -1;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 7;
@@ -54,9 +54,9 @@ public class HugePaleMushroomBlock extends HugeMushroomBlock {
 						k + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
 					);
 					BlockState blockState = level.getBlockState(mutable);
-					if (!blockState.isCollisionShapeFullBlock(level, mutable) && random.nextFloat() <= 0.1F) {
+					if (!blockState.isCollisionShapeFullBlock(level, mutable) && random.nextFloat() <= 0.25F) {
 						level.addParticle(
-							WWParticleTypes.PALE_FOG,
+							random.nextFloat() <= 0.65F ? WWParticleTypes.PALE_FOG_SMALL : WWParticleTypes.PALE_FOG,
 							mutable.getX() + random.nextDouble(),
 							mutable.getY() + random.nextDouble(),
 							mutable.getZ() + random.nextDouble(),

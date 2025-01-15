@@ -63,7 +63,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 		this.hasPhysics = true;
 		this.friction = 1F;
 		this.gravity = 0F;
-		this.quadSize *= 8F;
+		this.quadSize *= large ? 8F : 4F;
 	}
 
 	private double windIntensity = 0.025D;
@@ -110,6 +110,22 @@ public class PaleFogParticle extends TextureSheetParticle {
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			seedParticle.gravity = 0.005F;
 			seedParticle.alpha = 0.3F;
+			return seedParticle;
+		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	public record SmallFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+		@Override
+		@NotNull
+		public Particle createParticle(
+			@NotNull SimpleParticleType options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
+		) {
+			RandomSource random = level.getRandom();
+			PaleFogParticle seedParticle = new PaleFogParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D, false);
+			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 250, 500);
+			seedParticle.gravity = 0.005F;
+			seedParticle.alpha = 0.4F;
 			return seedParticle;
 		}
 	}
