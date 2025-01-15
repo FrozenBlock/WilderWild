@@ -47,6 +47,7 @@ import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.WillowTrunkPlacer;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -1227,7 +1228,14 @@ public final class WWTreeConfigured {
 		SWAMP_TREE.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
-				new StraightTrunkPlacer(7, 2, 1),
+				new WillowTrunkPlacer(
+					7,
+					2,
+					2,
+					UniformInt.of(3, 6),
+					0.5F,
+					UniformInt.of(2, 3)
+				),
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
 				new WillowFoliagePlacer(
 					ConstantInt.of(3),
@@ -1236,14 +1244,6 @@ public final class WWTreeConfigured {
 					0.5F,
 					0.5F
 				),
-				/*
-				new BlobFoliagePlacer(
-					ConstantInt.of(4),
-					ConstantInt.of(0),
-					ConstantInt.of(5),
-					0.25F, 0.5F, 0.25F, 0.5F
-				),
-				 */
 				Optional.of(
 					new MangroveRootPlacer(
 						UniformInt.of(1, 1),
