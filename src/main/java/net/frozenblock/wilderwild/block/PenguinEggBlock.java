@@ -84,7 +84,7 @@ public class PenguinEggBlock extends Block {
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (shouldUpdateHatchLevel(level, pos)) {
 			if (!this.isReadyToHatch(state)) {
-				level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+				level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 				level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
 			} else {
 				this.hatchPenguinEgg(level, pos, random);
@@ -108,7 +108,7 @@ public class PenguinEggBlock extends Block {
 	}
 
 	private void hatchPenguinEgg(@NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+		level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 		this.destroyBlock(level, pos);
 		this.spawnPenguin(level, pos, random);
 	}

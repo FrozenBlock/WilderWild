@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.client.model;
 
 import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
 import net.frozenblock.wilderwild.entity.Penguin;
+import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -33,7 +34,7 @@ import net.minecraft.world.entity.Pose;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
-public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
+public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart torso;
@@ -45,6 +46,7 @@ public class PenguinModel<T extends Penguin> extends HierarchicalModel<T> {
 	private final ModelPart right_foot;
 
 	public PenguinModel(@NotNull ModelPart root) {
+		super(0.4F, 36F);
 		this.root = root;
 		this.body = root.getChild("body");
 		this.torso = this.body.getChild("torso");

@@ -2349,6 +2349,51 @@
     ],
     "subtitle": "subtitles.entity.ostrich.lay_egg"
   },
+  "block.penguin_egg.crack": {
+    "sounds": [
+      {
+        "name": "mob/turtle/egg/egg_crack1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack4",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack5",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.penguin_egg.crack"
+  },
+  "block.penguin_egg.hatch": {
+    "sounds": [
+      {
+        "name": "mob/turtle/egg/egg_break1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_break2",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.penguin_egg.hatch"
+  },
+  "entity.penguin.lay_egg": {
+    "sounds": [
+      "mob/turtle/egg/drop_egg1",
+      "mob/turtle/egg/drop_egg2"
+    ],
+    "subtitle": "subtitles.entity.penguin.lay_egg"
+  },
   "entity.firefly.hide": {
     "sounds": [
       {
@@ -2669,6 +2714,46 @@
       "wilderwild:mob/ostrich/inbred/inbred_swing4"
     ],
     "subtitle": "subtitles.entity.ostrich.inbred.beak.swing"
+  },
+  "entity.penguin.hurt": {
+    "sounds": [
+      "wilderwild:mob/penguin/hurt1",
+      "wilderwild:mob/penguin/hurt2",
+      "wilderwild:mob/penguin/hurt3",
+      "wilderwild:mob/penguin/hurt4"
+    ],
+    "subtitle": "subtitles.entity.penguin.hurt"
+  },
+  "entity.penguin.death": {
+    "sounds": [
+      "wilderwild:mob/penguin/hurt1",
+      "wilderwild:mob/penguin/hurt2",
+      "wilderwild:mob/penguin/hurt3",
+      "wilderwild:mob/penguin/hurt4"
+    ],
+    "subtitle": "subtitles.entity.penguin.death"
+  },
+  "entity.penguin.idle": {
+    "sounds": [
+      "wilderwild:mob/penguin/idle1",
+      "wilderwild:mob/penguin/idle2",
+      "wilderwild:mob/penguin/idle3",
+      "wilderwild:mob/penguin/idle4",
+      "wilderwild:mob/penguin/idle5"
+    ],
+    "subtitle": "subtitles.entity.penguin.idle"
+  },
+  "entity.penguin.idle_call": {
+    "sounds": [
+      "wilderwild:mob/penguin/call1",
+      "wilderwild:mob/penguin/call2",
+      "wilderwild:mob/penguin/call3",
+      "wilderwild:mob/penguin/call4",
+      "wilderwild:mob/penguin/call5",
+      "wilderwild:mob/penguin/call6",
+      "wilderwild:mob/penguin/call7"
+    ],
+    "subtitle": "subtitles.entity.penguin.idle"
   },
   "entity.scorched.ambient": {
     "sounds": [

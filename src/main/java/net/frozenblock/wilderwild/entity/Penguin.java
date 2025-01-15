@@ -21,17 +21,20 @@ package net.frozenblock.wilderwild.entity;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -51,6 +54,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 
 public class Penguin extends Animal {
+	public static final float CALL_SOUND_CHANCE = 0.4F;
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
 	private float prevWadeProgress;
@@ -198,7 +202,6 @@ public class Penguin extends Animal {
 		return Mth.lerp(partialTick, this.prevSlideProgress, this.slideProgress);
 	}
 
-
 	public boolean isSlidingOrSwimming() {
 		return this.getPose() == Pose.SLIDING || this.isSwimming();
 	}
@@ -225,6 +228,31 @@ public class Penguin extends Animal {
 	public @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
 		EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
 		return this.isSlidingOrSwimming() ? EntityDimensions.fixed(entityDimensions.width(), 0.5F) : entityDimensions;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound() {
+		return this.getRandom().nextFloat() < CALL_SOUND_CHANCE ? WWSounds.ENTITY_PENGUIN_IDLE_CALL : WWSounds.ENTITY_PENGUIN_IDLE;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getHurtSound(DamageSource damageSource) {
+		return WWSounds.ENTITY_PENGUIN_HURT;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getDeathSound() {
+		return WWSounds.ENTITY_PENGUIN_DEATH;
+	}
+
+	@Override
+	public int getAmbientSoundInterval() {
+		return 200;
+	}
+
+	@Override
+	protected float nextStep() {
+		return this.isSlidingOrSwimming() ? super.nextStep() : this.moveDist + 0.4F;
 	}
 
 	@Override
