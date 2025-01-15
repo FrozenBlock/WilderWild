@@ -33,12 +33,12 @@ import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
@@ -72,6 +72,7 @@ public class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.75F;
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.25F;
 	private static final UniformInt TIME_BETWEEN_LONG_JUMPS = UniformInt.of(20, 40);
+	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(3, 16);
 
 	public static final int LAY_DOWN_DURATION = 13;
 	public static final int STAND_UP_DURATION = 48;
@@ -150,7 +151,6 @@ public class PenguinAi {
 		initSearchActivity(brain);
 		initSwimActivity(brain);
 		initEscapeActivity(brain);
-		initJumpActivity(brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
 		brain.useDefaultActivity();
@@ -207,12 +207,13 @@ public class PenguinAi {
 		brain.addActivityWithConditions(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(3, TryFindLand.create(6, 1F)),
+				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
+				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
+				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(4, TryFindLand.create(6, 1F)),
 				Pair.of(
-					4,
+					5,
 					new RunOne<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableList.of(
@@ -238,13 +239,14 @@ public class PenguinAi {
 			WWActivities.SEARCH,
 			ImmutableList.of(
 				Pair.of(0, new PenguinLayDown<>()),
-				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(3, TryFindWater.create(8, 0.8F)),
-				Pair.of(4, PenguinReturnToWater.create(0.8F)),
+				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
+				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
+				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(4, TryFindWater.create(8, 0.8F)),
+				Pair.of(5, PenguinReturnToWater.create(0.8F)),
 				Pair.of(
-					5,
+					6,
 					new RunOne<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableList.of(
@@ -273,12 +275,13 @@ public class PenguinAi {
 		brain.addActivityWithConditions(
 			Activity.SWIM,
 			ImmutableList.of(
-				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(3, StartAttacking.create(PenguinAi::canAttack, penguin -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
+				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
+				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
+				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(4, StartAttacking.create(PenguinAi::canAttack, penguin -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
 				Pair.of(
-					4,
+					5,
 					new GateBehavior<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableSet.of(),
@@ -303,12 +306,13 @@ public class PenguinAi {
 		brain.addActivityWithConditions(
 			WWActivities.ESCAPE,
 			ImmutableList.of(
-				Pair.of(0, PenguinFollowReturnPos.create(2F)),
-				Pair.of(0, PenguinFindEscapePos.create(10, 2F)),
-				Pair.of(1, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(2, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
+				Pair.of(1, PenguinFollowReturnPos.create(2F)),
+				Pair.of(1, PenguinFindEscapePos.create(10, 2F)),
+				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
 				Pair.of(
-					5,
+					4,
 					new GateBehavior<>(
 						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 						ImmutableSet.of(),
@@ -330,36 +334,29 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initJumpActivity(@NotNull Brain<Penguin> brain) {
-		// TODO: [Treetrain1] Remake the DolphinJump thing as a behavior.
-		/*
-		brain.addActivityWithConditions(
-			Activity.LONG_JUMP,
-			ImmutableList.of(
-				Pair.of(0, new LongJumpMidJump(TIME_BETWEEN_LONG_JUMPS, SoundEvents.FROG_STEP)),
-				Pair.of(1, new PenguinLongJump<>(TIME_BETWEEN_LONG_JUMPS, 5, 16, 5F, penguin -> SoundEvents.GOAT_LONG_JUMP))
-			),
-			ImmutableSet.of(
-				Pair.of(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT),
-				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
-			)
-		);
-		 */
-	}
-
 	public static void updateActivity(@NotNull Penguin penguin) {
-		penguin.getBrain().setActiveActivityToFirstValid(
-			ImmutableList.of(
-				WWActivities.STAND_UP,
-				Activity.FIGHT,
-				Activity.LONG_JUMP,
-				WWActivities.ESCAPE,
-				Activity.SWIM,
-				WWActivities.SEARCH,
-				Activity.IDLE
-			)
-		);
+		if (!penguin.isBaby()) {
+			penguin.getBrain().setActiveActivityToFirstValid(
+				ImmutableList.of(
+					WWActivities.STAND_UP,
+					Activity.FIGHT,
+					WWActivities.ESCAPE,
+					Activity.SWIM,
+					WWActivities.SEARCH,
+					Activity.IDLE
+				)
+			);
+		} else {
+			penguin.getBrain().setActiveActivityToFirstValid(
+				ImmutableList.of(
+					WWActivities.STAND_UP,
+					WWActivities.ESCAPE,
+					Activity.SWIM,
+					WWActivities.SEARCH,
+					Activity.IDLE
+				)
+			);
+		}
 	}
 
 	@NotNull

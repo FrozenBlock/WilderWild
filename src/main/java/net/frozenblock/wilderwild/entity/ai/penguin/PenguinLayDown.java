@@ -45,7 +45,11 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return !penguin.isSwimming() && !penguin.getBrain().checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_PRESENT);
+		Brain<Penguin> brain = penguin.getBrain();
+		return !penguin.isSwimming()
+			&& !brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_PRESENT)
+			&& !brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_PRESENT)
+			&& !brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_PRESENT);
 	}
 
 	@Override
