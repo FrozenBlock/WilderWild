@@ -119,10 +119,6 @@ public class Penguin extends Animal {
 	public void setSwimming(boolean bl) {
 		super.setSwimming(bl);
 		if (bl) {
-			if (this.hasPose(Pose.SLIDING)) {
-				this.swimAmount = 1F;
-				this.swimAmountO = 1F;
-			}
 			this.setPose(Pose.STANDING);
 		}
 	}
@@ -209,14 +205,18 @@ public class Penguin extends Animal {
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		if (DATA_POSE.equals(entityDataAccessor)) {
-			if (this.getPose() == Pose.SLIDING) {
-				this.layDownAnimationState.start(this.tickCount);
-				this.standUpAnimationState.stop();
-			} else if (this.getPose() == Pose.EMERGING) {
-				this.standUpAnimationState.start(this.tickCount);
-				this.layDownAnimationState.stop();
-			} else {
-				this.layDownAnimationState.stop();
+			switch (this.getPose()) {
+				case SLIDING:
+					this.layDownAnimationState.start(this.tickCount);
+					this.standUpAnimationState.stop();
+					break;
+				case EMERGING:
+					this.standUpAnimationState.start(this.tickCount);
+					this.layDownAnimationState.stop();
+					break;
+				default:
+					this.standUpAnimationState.stop();
+					this.layDownAnimationState.stop();
 			}
 			this.refreshDimensions();
 		}

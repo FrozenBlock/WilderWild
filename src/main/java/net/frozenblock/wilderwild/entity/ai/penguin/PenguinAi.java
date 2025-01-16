@@ -71,7 +71,6 @@ import org.jetbrains.annotations.Nullable;
 public class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.75F;
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.25F;
-	private static final UniformInt TIME_BETWEEN_LONG_JUMPS = UniformInt.of(20, 40);
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(3, 16);
 
 	public static final int LAY_DOWN_DURATION = 13;
@@ -79,8 +78,6 @@ public class PenguinAi {
 
 	private static final ImmutableList<SensorType<? extends Sensor<? super Penguin>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
-		SensorType.HURT_BY,
-		WWSensorTypes.OSTRICH_TEMPTATIONS,
 		SensorType.NEAREST_ADULT,
 		SensorType.NEAREST_PLAYERS,
 		WWSensorTypes.PENGUIN_SPECIFIC_SENSOR,
@@ -91,8 +88,6 @@ public class PenguinAi {
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 		MemoryModuleType.IS_PANICKING,
-		MemoryModuleType.HURT_BY,
-		MemoryModuleType.HURT_BY_ENTITY,
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
@@ -104,8 +99,6 @@ public class PenguinAi {
 		MemoryModuleType.BREED_TARGET,
 		MemoryModuleType.NEAREST_VISIBLE_ADULT,
 		MemoryModuleType.IS_PREGNANT,
-		MemoryModuleType.ANGRY_AT,
-		MemoryModuleType.UNIVERSAL_ANGER,
 		MemoryModuleType.ATTACK_TARGET,
 		MemoryModuleType.NEAREST_ATTACKABLE,
 		MemoryModuleType.NEAREST_LIVING_ENTITIES,
@@ -115,8 +108,6 @@ public class PenguinAi {
 		WWMemoryModuleTypes.NEARBY_PENGUINS,
 		MemoryModuleType.ATTACK_COOLING_DOWN,
 		MemoryModuleType.HOME,
-		MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
-		MemoryModuleType.LONG_JUMP_MID_JUMP,
 		MemoryModuleType.IS_IN_WATER,
 		WWMemoryModuleTypes.IDLE_TIME,
 		WWMemoryModuleTypes.DIVE_TICKS,
@@ -167,7 +158,6 @@ public class PenguinAi {
 				new MoveToTargetSink(),
 				new PenguinLayEgg(WWBlocks.PENGUIN_EGG),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
-				new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.IDLE_TIME),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.DIVE_TICKS)
 			)
@@ -225,7 +215,6 @@ public class PenguinAi {
 				)
 			),
 			ImmutableSet.of(
-				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_PRESENT),
@@ -258,7 +247,6 @@ public class PenguinAi {
 				)
 			),
 			ImmutableSet.of(
-				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
@@ -275,7 +263,6 @@ public class PenguinAi {
 		brain.addActivityWithConditions(
 			Activity.SWIM,
 			ImmutableList.of(
-				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
 				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
 				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
@@ -296,8 +283,8 @@ public class PenguinAi {
 				)
 			),
 			ImmutableSet.of(
-				Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT)
+				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_PRESENT)
 			)
 		);
 	}
@@ -362,13 +349,6 @@ public class PenguinAi {
 	@NotNull
 	private static Optional<List<Penguin>> getNearbyPenguins(@NotNull Penguin penguin) {
 		return penguin.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS);
-	}
-
-	public static void removeAttackAndAngerTarget(@NotNull Penguin penguin) {
-		Brain<Penguin> brain = penguin.getBrain();
-		brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);
-		brain.eraseMemory(MemoryModuleType.ANGRY_AT);
-		brain.eraseMemory(MemoryModuleType.UNIVERSAL_ANGER);
 	}
 
 	private static boolean isTarget(@NotNull Penguin penguin, @NotNull LivingEntity livingEntity) {

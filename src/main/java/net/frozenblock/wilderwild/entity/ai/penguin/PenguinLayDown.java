@@ -37,19 +37,25 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.REGISTERED,
-				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT
+				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT
 			),
 			400
 		);
 	}
 
 	@Override
+	protected boolean checkExtraStartConditions(ServerLevel serverLevel, @NotNull E penguin) {
+		return !penguin.isTouchingWaterOrSwimming();
+	}
+
+	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		Brain<Penguin> brain = penguin.getBrain();
-		return !penguin.isSwimming()
-			&& !brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_PRESENT)
-			&& !brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_PRESENT)
-			&& !brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_PRESENT);
+		return brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT)
+			&& brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
+			&& !penguin.isTouchingWaterOrSwimming();
 	}
 
 	@Override
