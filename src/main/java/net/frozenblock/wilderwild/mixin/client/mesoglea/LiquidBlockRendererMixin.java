@@ -45,7 +45,7 @@ public class LiquidBlockRendererMixin {
 		method = "tesselate",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;shouldRenderFace(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z",
+			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;shouldRenderFace(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z",
 			ordinal = 0,
 			shift = At.Shift.BEFORE
 		),
@@ -62,16 +62,16 @@ public class LiquidBlockRendererMixin {
 		method = "tesselate",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;shouldRenderFace(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z"
+			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;shouldRenderFace(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z"
 		),
 		require = 0
 	)
 	private boolean wilderWild$dontRenderFaceIfMesoglea(
-		BlockAndTintGetter world, BlockPos pos, FluidState state, BlockState blockState, Direction direction, FluidState adjacentFluidState, Operation<Boolean> original,
+		FluidState fluidState, BlockState blockState, Direction direction, FluidState fluidState2, Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
 		if (isMesoglea.get() && direction != Direction.UP) return false;
-		return original.call(world, pos, state, blockState, direction, adjacentFluidState);
+		return original.call(fluidState, blockState, direction, fluidState2);
 	}
 
 }
