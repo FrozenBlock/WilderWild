@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:mud_brick_stairs_from_mud_bricks_stonecutting"
+        "recipe": "wilderwild:mud_brick_stairs_from_mud_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:mud_brick_stairs_from_mud_bricks_stonecutting"
+      "wilderwild:mud_brick_stairs_from_mud_bricks_stonecutting"
     ]
   }
 }

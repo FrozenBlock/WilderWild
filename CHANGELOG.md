@@ -36,6 +36,7 @@ hi
 - Slightly decreased the pitch of Magma block sounds.
 - Fixed Slimes and Magma Cubes not spawning.
 - Added LudoCrypt's `Dove` to the Magmatic Caves and Lush Caves.
+- Fixed a few broken recipe unlocks.
 
 # Butterfly Branch
 - Added Butterflies

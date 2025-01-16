@@ -33,6 +33,7 @@
     "datafix.DataFixersMixin",
     "datafix.V3328Mixin",
     "datafix.V3438Mixin",
+    "datagen.RecipeBuilderMixin",
     "entity.ai.MobMixin",
     "entity.allay.AllayMixin",
     "entity.boat.BoatDropsMixin",

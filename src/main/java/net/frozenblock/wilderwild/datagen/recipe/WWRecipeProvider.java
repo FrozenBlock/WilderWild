@@ -42,12 +42,15 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
+	public static boolean GENERATING_WW_RECIPES = false;
+
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
 	public void buildRecipes(RecipeOutput exporter) {
+		GENERATING_WW_RECIPES = true;
 		HollowedLogRecipeProvider.buildRecipes(exporter);
 		WWWoodRecipeProvider.buildRecipes(exporter);
 		MesogleaRecipeProvider.buildRecipes(exporter);
@@ -199,6 +202,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICKS, 2);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICKS);
 		stonecutterResultFromBase(exporter, RecipeCategory.DECORATIONS, WWBlocks.MOSSY_MUD_BRICK_WALL, WWBlocks.MOSSY_MUD_BRICKS);
+		GENERATING_WW_RECIPES = false;
 	}
 
 	public static void stonecutterResultFromBase(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {

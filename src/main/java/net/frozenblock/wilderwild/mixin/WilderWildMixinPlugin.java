@@ -49,6 +49,8 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
+		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
+
 		if (mixinClassName.contains("client.sodium.")) {
 			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddium;
 		}
