@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = RotatedPillarBlock.class, priority = 50)
+@Mixin(value = RotatedPillarBlock.class, priority = 990)
 public class RotatedPillarBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))

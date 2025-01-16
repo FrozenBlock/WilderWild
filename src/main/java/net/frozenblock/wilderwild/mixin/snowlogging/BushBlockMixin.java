@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = BushBlock.class, priority = 50)
+@Mixin(BushBlock.class)
 public class BushBlockMixin extends Block {
 
 	public BushBlockMixin(Properties properties) {

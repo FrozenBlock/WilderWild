@@ -44,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = WallBlock.class, priority = 50)
+@Mixin(WallBlock.class)
 public abstract class WallBlockMixin extends Block {
 
 	public WallBlockMixin(Properties properties) {
