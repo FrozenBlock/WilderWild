@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SweetBerryBushBlock.class)
+@Mixin(value = SweetBerryBushBlock.class, priority = 50)
 public abstract class SweetBerryBushBlockMixin {
 
 	@Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)

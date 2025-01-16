@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SugarCaneBlock.class)
+@Mixin(value = SugarCaneBlock.class, priority = 50)
 public class SugarCaneBlockMixin extends Block {
 
 	public SugarCaneBlockMixin(Properties properties) {
