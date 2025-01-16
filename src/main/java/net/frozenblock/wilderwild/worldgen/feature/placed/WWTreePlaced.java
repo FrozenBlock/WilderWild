@@ -148,7 +148,10 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WWPlacementUtils.register("large_fallen_dark_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WWPlacementUtils.register("large_snapped_dark_oak_checked");
 	//SWAMP TREE
-	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = WWPlacementUtils.register("swamp_tree_checked");
+	public static final FrozenPlacedFeature WILLOW_CHECKED = WWPlacementUtils.register("willow_checked");
+	public static final FrozenPlacedFeature WILLOW_TALL_CHECKED = WWPlacementUtils.register("willow_tall_checked");
+	public static final FrozenPlacedFeature WILLOW_TALLER_CHECKED = WWPlacementUtils.register("willow_taller_checked");
+	public static final FrozenPlacedFeature SWAMP_OAK_CHECKED = WWPlacementUtils.register("swamp_oak_checked");
 	//SPRUCE
 	public static final FrozenPlacedFeature SPRUCE_CHECKED = WWPlacementUtils.register("spruce_checked");
 	public static final FrozenPlacedFeature SPRUCE_ON_SNOW = WWPlacementUtils.register("spruce_on_snow");
@@ -624,7 +627,19 @@ public final class WWTreePlaced {
 
 		// SWAMP TREE
 
-		SWAMP_TREE_CHECKED.makeAndSetHolder(WWTreeConfigured.SWAMP_TREE.getHolder(),
+		WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		);
+
+		WILLOW_TALL_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW_TALL.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		);
+
+		WILLOW_TALLER_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW_TALLER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		);
+
+		SWAMP_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.SWAMP_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 

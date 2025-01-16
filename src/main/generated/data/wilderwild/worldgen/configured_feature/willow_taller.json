@@ -16,13 +16,18 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:air"
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
       }
     },
     "foliage_placer": {
-      "type": "minecraft:blob_foliage_placer",
-      "height": 3,
-      "offset": 0,
+      "type": "wilderwild:willow_foliage_placer",
+      "hanging_leaves_chance": 0.5,
+      "hanging_leaves_extension_chance": 0.5,
+      "height": 2,
+      "offset": 1,
       "radius": 3
     },
     "foliage_provider": {
@@ -56,10 +61,10 @@
         }
       },
       "mangrove_root_placement": {
-        "can_grow_through": "#minecraft:mangrove_roots_can_grow_through",
+        "can_grow_through": "#wilderwild:willow_roots_can_grow_through",
         "max_root_length": 5,
         "max_root_width": 3,
-        "muddy_roots_in": "minecraft:mud",
+        "muddy_roots_in": [],
         "muddy_roots_provider": {
           "type": "minecraft:simple_state_provider",
           "state": {
@@ -84,10 +89,22 @@
       }
     },
     "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 5,
+      "type": "wilderwild:willow_trunk_placer",
+      "base_height": 9,
+      "branch_chance": 0.5,
+      "branch_split_gap_chance": 0.35,
+      "extra_branch_length": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 3,
+        "min_inclusive": 2
+      },
       "height_rand_a": 2,
-      "height_rand_b": 1
+      "height_rand_b": 2,
+      "trunk_split_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 8,
+        "min_inclusive": 6
+      }
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

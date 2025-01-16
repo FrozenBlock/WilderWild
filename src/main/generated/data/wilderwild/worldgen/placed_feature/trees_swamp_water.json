@@ -1,0 +1,71 @@
+{
+  "feature": "wilderwild:swamp_trees_water",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": 2,
+            "weight": 9
+          },
+          {
+            "data": 3,
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 4
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_fluids",
+            "fluids": "minecraft:water",
+            "offset": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "type": "minecraft:matching_fluids",
+            "fluids": "minecraft:water"
+          }
+        ]
+      }
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "minecraft:mangrove_propagule",
+          "Properties": {
+            "age": "0",
+            "hanging": "false",
+            "stage": "0",
+            "waterlogged": "false"
+          }
+        }
+      }
+    }
+  ]
+}

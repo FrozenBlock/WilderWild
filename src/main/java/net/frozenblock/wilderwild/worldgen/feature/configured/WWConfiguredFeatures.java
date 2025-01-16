@@ -139,6 +139,9 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES_SAPLING = WWFeatureUtils.register("cypress_wetlands_trees_sapling");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES_WATER = WWFeatureUtils.register("cypress_wetlands_trees_water");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WOODED_BADLANDS_TREES = WWFeatureUtils.register("wooded_badlands_trees");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_SURFACE = WWFeatureUtils.register("swamp_trees_surface");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_WATER_SHALLOW = WWFeatureUtils.register("swamp_trees_water_shallow");
+	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_TREES_WATER = WWFeatureUtils.register("swamp_trees_water");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BIG_COARSE_SHRUBS = WWFeatureUtils.register("big_coarse_shrubs");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SHRUBS = WWFeatureUtils.register("shrubs");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS = WWFeatureUtils.register("palms");
@@ -1109,6 +1112,31 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.JUNIPER.getHolder(), 0.2F)
 				),
 				WWTreePlaced.JUNIPER.getHolder()
+			)
+		);
+
+		SWAMP_TREES_SURFACE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.WILLOW_CHECKED.getHolder(), 0.75F),
+					new WeightedPlacedFeature(WWTreePlaced.WILLOW_TALL_CHECKED.getHolder(), 0.2F)
+				),
+				WWTreePlaced.SWAMP_OAK_CHECKED.getHolder()
+			)
+		);
+
+		SWAMP_TREES_WATER_SHALLOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WWTreePlaced.WILLOW_TALL_CHECKED.getHolder(), 0.75F)
+				),
+				WWTreePlaced.WILLOW_CHECKED.getHolder()
+			)
+		);
+
+		SWAMP_TREES_WATER.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
+			new SimpleRandomFeatureConfiguration(
+				HolderSet.direct(WWTreePlaced.WILLOW_TALLER_CHECKED.getHolder())
 			)
 		);
 
