@@ -47,8 +47,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		WilderWild.init();
-
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 
 		WWBlockRenderLayers.init();

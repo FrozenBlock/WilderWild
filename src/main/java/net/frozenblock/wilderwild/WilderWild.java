@@ -64,15 +64,16 @@ import net.frozenblock.wilderwild.worldgen.modification.WWWorldgen;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
-	private static boolean INITIALIZED = false;
 
 	public WilderWild() {
 		super(WWConstants.MOD_ID);
 	}
 
-	public static void init() {
-		if (INITIALIZED) return;
-		INITIALIZED = true;
+	@Override //Alan Wilder Wild
+	public void onInitialize(String modId, ModContainer container) {
+		WWMinecraftDataFixer.applyDataFixes(container);
+		WWDataFixer.applyDataFixes(container);
+		WWResources.register(container);
 
 		if (FrozenBools.IS_DATAGEN) {
 			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
@@ -109,15 +110,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWNetworking.init();
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
-	}
-
-	@Override //Alan Wilder Wild
-	public void onInitialize(String modId, ModContainer container) {
-		WWMinecraftDataFixer.applyDataFixes(container);
-		WWDataFixer.applyDataFixes(container);
-		WWResources.register(container);
-
-		init();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
 			Jellyfish.clearLevelToNonPearlescentCount();
