@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
+import java.util.function.Function;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -33,7 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import java.util.function.Function;
 
 public class PenguinLongJump<E extends Penguin> extends LongJumpToRandomPos<E> {
 

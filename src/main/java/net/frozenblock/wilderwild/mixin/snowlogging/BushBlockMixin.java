@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,8 +52,7 @@ public class BushBlockMixin extends Block {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		if (!WWBlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 
 	@Unique

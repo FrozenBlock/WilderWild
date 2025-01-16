@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.client.model;
 import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.client.model.AgeableHierarchicalModel;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -30,7 +29,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Pose;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 

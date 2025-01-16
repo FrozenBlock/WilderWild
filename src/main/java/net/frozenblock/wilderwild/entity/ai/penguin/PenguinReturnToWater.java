@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.entity.ai.penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
