@@ -42,14 +42,16 @@ import org.jetbrains.annotations.Nullable;
 public class SnowloggingUtils {
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
+	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogging;
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogWalls;
 
 	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
-		if (!WWBlockConfig.get().snowlogging.snowlogging) return;
+		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
 		builder.add(SNOW_LAYERS);
 	}
 
 	public static void appendSnowlogPropertiesToBlockade(StateDefinition.Builder<Block, BlockState> builder) {
-		if (!WWBlockConfig.get().snowlogging.snowlogging || !WWBlockConfig.get().snowlogging.snowlogWalls) return;
+		if (!CONFIG_SNOWLOGGING_ON_BOOT || !CONFIG_SNOWLOG_BLOCKADES_ON_BOOT) return;
 		builder.add(SNOW_LAYERS);
 	}
 
