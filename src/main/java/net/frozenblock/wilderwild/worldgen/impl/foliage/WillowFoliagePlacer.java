@@ -73,9 +73,9 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 		int k,
 		int l
 	) {
-		for (int m = l; m >= l - j; m--) {
-			int n = k + foliageAttachment.radiusOffset() - 1 - m;
-			if (m <= l - j) {
+		for (int yOffset = l; yOffset >= l - j; yOffset--) {
+			int n = k + foliageAttachment.radiusOffset() - 1 - yOffset;
+			if (yOffset <= l - j) {
 				this.placeLeavesRowWithHangingLeavesBelow(
 					levelSimulatedReader,
 					foliageSetter,
@@ -83,14 +83,21 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 					treeConfiguration,
 					foliageAttachment.pos(),
 					n,
-					m,
+					yOffset,
 					foliageAttachment.doubleTrunk(),
 					this.hangingLeavesChance,
 					this.hangingLeavesExtensionChance
 				);
 			} else {
 				this.placeLeavesRow(
-					levelSimulatedReader, foliageSetter, randomSource, treeConfiguration, foliageAttachment.pos(), n, m, foliageAttachment.doubleTrunk()
+					levelSimulatedReader,
+					foliageSetter,
+					randomSource,
+					treeConfiguration,
+					foliageAttachment.pos(),
+					n,
+					yOffset,
+					foliageAttachment.doubleTrunk()
 				);
 			}
 		}
@@ -98,7 +105,9 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 
 	@Override
 	protected boolean shouldSkipLocation(RandomSource randomSource, int x, int y, int z, int radius, boolean doubleTrunk) {
-		return x == radius && z == radius;
+		boolean isCorner = x == radius && z == radius;
+		if (y > 0) return isCorner && randomSource.nextBoolean();
+		return isCorner;
 	}
 }
 
