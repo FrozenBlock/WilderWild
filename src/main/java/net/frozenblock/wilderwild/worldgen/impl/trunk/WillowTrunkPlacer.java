@@ -108,14 +108,18 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 
 				for (Direction branchDirection : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 					if (random.nextFloat() <= this.branchChance) {
-						branchMutable.set(random.nextFloat() <= this.branchSplitGapChance ? splitPos : mutable);
+						if (random.nextFloat() <= this.branchSplitGapChance && splitDirection != branchDirection) {
+							branchMutable.set(splitPos);
+						} else {
+							branchMutable.set(mutable);
+						}
 						this.generateExtraBranch(
 							list,
 							level,
 							replacer,
 							random,
 							config,
-							mutable,
+							branchMutable.immutable(),
 							branchMutable,
 							branchDirection,
 							this.branchLength.sample(random)
