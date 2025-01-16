@@ -132,7 +132,7 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		float slideProgress = entity.getSlideProgress(partialTick);
 		float notSlidingProgress = 1F - slideProgress;
 
-		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD * notSwimmingAmount;
+		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD * notSwimmingAmount * notSlidingProgress;
 		this.head.xRot += headPitch * Mth.DEG_TO_RAD * notSwimmingAmount * notSlidingProgress;
 
 		limbSwing *= 2.65F;
