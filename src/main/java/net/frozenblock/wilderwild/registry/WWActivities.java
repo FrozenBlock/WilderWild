@@ -26,9 +26,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class WWActivities {
 	public static final Activity STAND_UP = register("stand_up");
+	public static final Activity PRE_SEARCH = register("pre_search");
 	public static final Activity SEARCH = register("search");
 	public static final Activity ESCAPE = register("escape");
+	public static final Activity POST_ESCAPE = register("post_escape");
 	public static final Activity CHASE = register("chase");
+	public static final Activity CALL = register("call");
 
 	private WWActivities() {
 		throw new UnsupportedOperationException("WWActivities contains only static declarations.");
