@@ -479,6 +479,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.PENGUIN_IGNORE_FRICTION)
 			.addOptionalTag(BlockTags.ICE);
 
+		this.getOrCreateTagBuilder(WWBlockTags.PENGUINS_SPAWNABLE_ON)
+			.add(Blocks.SNOW_BLOCK)
+			.addOptionalTag(BlockTags.ICE)
+			.add(Blocks.SAND)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.ANIMALS_SPAWNABLE_ON);
+
 		this.getOrCreateTagBuilder(WWBlockTags.GEYSER_CAN_PASS_THROUGH)
 			.addOptionalTag(BlockTags.TRAPDOORS)
 			.add(Blocks.COPPER_GRATE)

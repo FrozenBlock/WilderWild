@@ -228,7 +228,7 @@ public final class WWEntityTypes {
 		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createAttributes());
 		SpawnPlacements.register(
 			PENGUIN,
-			SpawnPlacementTypes.NO_RESTRICTIONS,
+			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Penguin::checkPenguinSpawnRules
 		);

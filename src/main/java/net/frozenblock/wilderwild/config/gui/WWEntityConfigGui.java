@@ -61,6 +61,8 @@ public final class WWEntityConfigGui {
 		var modifiedScorched = modifiedConfig.scorched;
 		var moobloom = config.moobloom;
 		var modifiedMoobloom = modifiedConfig.moobloom;
+		var penguin = config.penguin;
+		var modifiedPenguin = modifiedConfig.penguin;
 		var tumbleweed = config.tumbleweed;
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
@@ -398,6 +400,23 @@ public final class WWEntityConfigGui {
 			false,
 			tooltip("moobloom"),
 			spawnMooblooms
+		);
+
+		var spawnPenguins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_penguins"), modifiedPenguin.spawnPenguins)
+				.setDefaultValue(defaultConfig.penguin.spawnPenguins)
+				.setSaveConsumer(newValue -> penguin.spawnPenguins = newValue)
+				.setTooltip(tooltip("spawn_penguins"))
+				.build(),
+			moobloom.getClass(),
+			"spawnPenguins",
+			configInstance
+		);
+
+		var penguinCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("penguin"),
+			false,
+			tooltip("penguin"),
+			spawnPenguins
 		);
 
 		var spawnTumbleweed = FrozenClothConfig.syncedEntry(

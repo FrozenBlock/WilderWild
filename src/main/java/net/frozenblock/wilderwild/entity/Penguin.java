@@ -20,9 +20,11 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -55,6 +57,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -106,8 +109,15 @@ public class Penguin extends Animal {
 			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.1D);
 	}
 
-	public static boolean checkPenguinSpawnRules(EntityType<? extends Penguin> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-		return true;
+	public static boolean checkPenguinSpawnRules(
+		EntityType<? extends Penguin> entityType,
+		LevelAccessor level,
+		MobSpawnType spawnType,
+		BlockPos pos,
+		RandomSource random
+	) {
+		if (!WWEntityConfig.get().penguin.spawnPenguins) return false;
+		return level.getBlockState(pos.below()).is(WWBlockTags.PENGUINS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
 	}
 
 	@Override
@@ -197,6 +207,16 @@ public class Penguin extends Animal {
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+	}
+
+	@Override
+	public boolean killedEntity(ServerLevel serverLevel, LivingEntity livingEntity) {
+		boolean killed = super.killedEntity(serverLevel, livingEntity);
+		if (this.getBrain().isActive(Activity.FIGHT)) {
+			PenguinAi.addCallMemoryIfPenguinsClose(this);
+		}
+
+		return killed;
 	}
 
 	public float getWadeProgress(float partialTick) {
