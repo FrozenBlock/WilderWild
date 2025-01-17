@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
-import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
@@ -30,28 +29,35 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class LeafClusterSeedParticle extends NoRenderParticle {
-	private final ParticleType<LeafParticleOptions> spawnedParticle;
 	private final BlockPos pos;
 
-	LeafClusterSeedParticle(ParticleType<LeafParticleOptions> spawnedParticle, ClientLevel world, double d, double e, double f) {
+	LeafClusterSeedParticle(ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f, 0D, 0D, 0D);
 		this.lifetime = 5;
-		this.spawnedParticle = spawnedParticle;
 		this.pos = BlockPos.containing(d, e, f);
 	}
 
 	@Override
 	public void tick() {
 		int leafCount = this.random.nextInt(4) + 1;
-		for (int i = 0; i < leafCount; i++) {
-			FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(this.spawnedParticle);
-			LeafParticleOptions leafParticleOptions = LeafParticleOptions.createFastFalling(this.spawnedParticle, leafParticleData.textureSize());
-			ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, leafParticleOptions);
+		Optional<FallingLeafUtil.FallingLeafData> fallingLeafData = FallingLeafUtil.getFallingLeafData(this.level.getBlockState(this.pos).getBlock());
+		if (fallingLeafData.isPresent()) {
+			ParticleType<LeafParticleOptions> particle = fallingLeafData.get().particle();
+			for (int i = 0; i < leafCount; i++) {
+				FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(particle);
+				LeafParticleOptions leafParticleOptions = LeafParticleOptions.createFastFalling(particle, leafParticleData.textureSize());
+				ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, leafParticleOptions);
+			}
+		} else {
+			this.remove();
+			return;
 		}
 		this.age++;
 		if (this.age == this.lifetime) {
@@ -60,13 +66,11 @@ public class LeafClusterSeedParticle extends NoRenderParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<LeafClusterParticleOptions> {
+	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-		public Particle createParticle(
-			@NotNull LeafClusterParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
-		) {
-			return new LeafClusterSeedParticle(options.getSpawnedParticleType(), level, x, y, z);
+		public Particle createParticle(@NotNull SimpleParticleType options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+			return new LeafClusterSeedParticle(level, x, y, z);
 		}
 	}
 }
