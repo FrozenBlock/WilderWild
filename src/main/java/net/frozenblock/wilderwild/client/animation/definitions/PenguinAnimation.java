@@ -110,9 +110,9 @@ public class PenguinAnimation {
 		new Keyframe(0.2834F, KeyframeAnimations.posVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(0.4819F, KeyframeAnimations.posVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(0.822F, KeyframeAnimations.posVec(0F, 3F, 0.91F), AnimationChannel.Interpolations.CATMULLROM),
-		new Keyframe(1.1338F, KeyframeAnimations.posVec(0F, -0.25F, 3F), AnimationChannel.Interpolations.CATMULLROM),
-		new Keyframe(1.2472F, KeyframeAnimations.posVec(0F, -0.6F, 3F), AnimationChannel.Interpolations.CATMULLROM),
-		new Keyframe(1.4172F, KeyframeAnimations.posVec(0F, -0.75F, 2.5F), AnimationChannel.Interpolations.CATMULLROM)
+		new Keyframe(1.1338F, KeyframeAnimations.posVec(0F, -0.25F, 4F), AnimationChannel.Interpolations.CATMULLROM),
+		new Keyframe(1.2472F, KeyframeAnimations.posVec(0F, -0.6F, 4F), AnimationChannel.Interpolations.CATMULLROM),
+		new Keyframe(1.4172F, KeyframeAnimations.posVec(0F, -0.75F, 3.5F), AnimationChannel.Interpolations.CATMULLROM)
 		))
 		.addAnimation("torso", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 			new Keyframe(0F, KeyframeAnimations.degreeVec(90F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
