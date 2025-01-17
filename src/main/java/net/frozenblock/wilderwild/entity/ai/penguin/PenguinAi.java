@@ -185,7 +185,7 @@ public class PenguinAi {
 				Pair.of(0, SetTrackedBoatLookTarget.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> entity.isInWater() ? 3F : 2F,
+					entity -> entity.isInWater() ? 4F : 2F,
 					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.TRACKED_BOAT))
