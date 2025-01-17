@@ -208,7 +208,11 @@ public class Penguin extends Animal {
 	}
 
 	public boolean isSlidingOrSwimming() {
-		return this.getPose() == Pose.SLIDING || this.isSwimming();
+		return this.isSliding() || this.isSwimming();
+	}
+
+	public boolean isSliding() {
+		return this.hasPose(Pose.SLIDING);
 	}
 
 	@Override
@@ -236,7 +240,7 @@ public class Penguin extends Animal {
 	@Override
 	public @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
 		EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
-		return this.isSlidingOrSwimming() ? EntityDimensions.fixed(entityDimensions.width(), 0.5F) : entityDimensions;
+		return this.isSliding() ? EntityDimensions.fixed(entityDimensions.width(), 0.5F) : entityDimensions;
 	}
 
 	@Override
