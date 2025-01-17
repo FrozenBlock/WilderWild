@@ -35,11 +35,10 @@ import org.jetbrains.annotations.NotNull;
 public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	public static final MapCodec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
-				Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
-				Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
-				Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
-			)
-			.apply(instance, FloatingSculkBubbleParticleOptions::new)
+			Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
+			Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
+			Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
+		).apply(instance, FloatingSculkBubbleParticleOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, FloatingSculkBubbleParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.DOUBLE, FloatingSculkBubbleParticleOptions::getSize,
