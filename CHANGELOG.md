@@ -37,6 +37,7 @@ hi
 - Fixed Slimes and Magma Cubes not spawning.
 - Added LudoCrypt's `Dove` to the Magmatic Caves and Lush Caves.
 - Fixed a few broken recipe unlocks.
+- Fixed the Stone Chest having wood-like properties.
 
 # Butterfly Branch
 - Added Butterflies

@@ -380,9 +380,13 @@ public final class WWBlocks {
 	);
 
 	public static final StoneChestBlock STONE_CHEST = new StoneChestBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.CHEST)
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.DEEPSLATE)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.strength(2.5F)
+			.requiresCorrectToolForDrops()
 			.sound(SoundType.DEEPSLATE)
-			.strength(35.0F, 12.0F),
+			.strength(35F, 12F),
 		() -> WWBlockEntityTypes.STONE_CHEST
 	);
 
