@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinLandPosSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinSpecificSensor;
+import net.frozenblock.wilderwild.entity.ai.penguin.PenguinTrackedBoatSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinWaterPosSensor;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -64,6 +65,7 @@ public final class WWSensorTypes {
 	public static final SensorType<PenguinAttackablesSensor> PENGUIN_ATTACKABLES = register("penguin_attackables", PenguinAttackablesSensor::new);
 	public static final SensorType<PenguinLandPosSensor> LAND_POS_SENSOR = register("land_pos_sensor", PenguinLandPosSensor::new);
 	public static final SensorType<PenguinWaterPosSensor> WATER_POS_SENSOR = register("water_pos_sensor", PenguinWaterPosSensor::new);
+	public static final SensorType<PenguinTrackedBoatSensor> TRACKED_BOAT_SENSOR = register("tracked_boat_sensor", PenguinTrackedBoatSensor::new);
 
 	@NotNull
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {

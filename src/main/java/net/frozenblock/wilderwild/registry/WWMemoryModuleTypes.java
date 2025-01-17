@@ -32,6 +32,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.vehicle.Boat;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWMemoryModuleTypes {
@@ -56,6 +57,7 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Unit> FIRST_BRAIN_TICK = register("first_brain_tick");
 	public static final MemoryModuleType<List<Ostrich>> NEARBY_OSTRICHES = register("nearby_ostriches");
 	public static final MemoryModuleType<List<Penguin>> NEARBY_PENGUINS = register("nearby_penguins");
+	public static final MemoryModuleType<Boat> TRACKED_BOAT = register("tracked_boat");
 
 	public static final MemoryModuleType<Integer> IDLE_TIME = register("idle_time", Codec.INT);
 	public static final MemoryModuleType<Integer> DIVE_TICKS = register("dive_ticks", Codec.INT);

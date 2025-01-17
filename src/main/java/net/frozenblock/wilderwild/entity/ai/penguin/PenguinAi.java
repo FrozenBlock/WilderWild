@@ -84,7 +84,8 @@ public class PenguinAi {
 		WWSensorTypes.PENGUIN_TEMPTATIONS,
 		WWSensorTypes.PENGUIN_ATTACKABLES,
 		SensorType.IS_IN_WATER,
-		WWSensorTypes.LAND_POS_SENSOR
+		WWSensorTypes.LAND_POS_SENSOR,
+		WWSensorTypes.TRACKED_BOAT_SENSOR
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 		MemoryModuleType.IS_PANICKING,
@@ -117,7 +118,8 @@ public class PenguinAi {
 		WWMemoryModuleTypes.WANTS_TO_LAUNCH,
 		WWMemoryModuleTypes.LAND_POS,
 		WWMemoryModuleTypes.WATER_POS,
-		WWMemoryModuleTypes.STANDING_UP
+		WWMemoryModuleTypes.STANDING_UP,
+		WWMemoryModuleTypes.TRACKED_BOAT
 	);
 
 	private static final BehaviorControl<Penguin> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(
@@ -137,6 +139,7 @@ public class PenguinAi {
 	public static Brain<?> makeBrain(@NotNull Penguin penguin, @NotNull Brain<Penguin> brain) {
 		initCoreActivity(brain);
 		initStandUpActivity(brain);
+		initChaseActivity(brain);
 		initFightActivity(brain, penguin);
 		initIdleActivity(brain);
 		initSearchActivity(brain);
@@ -172,6 +175,24 @@ public class PenguinAi {
 				new PenguinStandUp<>(STAND_UP_DURATION)
 			),
 			WWMemoryModuleTypes.STANDING_UP
+		);
+	}
+
+	private static void initChaseActivity(@NotNull Brain<Penguin> brain) {
+		brain.addActivityWithConditions(
+			WWActivities.CHASE,
+			ImmutableList.of(
+				Pair.of(0, SetTrackedBoatLookTarget.create()),
+				Pair.of(0, SetWalkTargetFromLookTarget.create(
+					entity -> true,
+					entity -> entity.isInWater() ? 3F : 2F,
+					2
+				)),
+				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.TRACKED_BOAT))
+			),
+			ImmutableSet.of(
+				Pair.of(WWMemoryModuleTypes.TRACKED_BOAT, MemoryStatus.VALUE_PRESENT)
+			)
 		);
 	}
 
@@ -326,6 +347,7 @@ public class PenguinAi {
 			penguin.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
 					WWActivities.STAND_UP,
+					WWActivities.CHASE,
 					Activity.FIGHT,
 					WWActivities.ESCAPE,
 					Activity.SWIM,
@@ -337,6 +359,7 @@ public class PenguinAi {
 			penguin.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
 					WWActivities.STAND_UP,
+					WWActivities.CHASE,
 					WWActivities.ESCAPE,
 					Activity.SWIM,
 					WWActivities.SEARCH,

@@ -22,7 +22,6 @@ import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -45,7 +44,7 @@ public class PenguinReturnToWater {
 				.apply(
 					instance,
 					(
-						returnPos,
+						waterPos,
 						memoryAccessor,
 						walkTarget,
 						lookTarget
@@ -56,11 +55,10 @@ public class PenguinReturnToWater {
 							returnTimer.setValue(l + 60L);
 							return true;
 						} else {
-							Brain<?> brain = pathfinderMob.getBrain();
-							GlobalPos globalPos = brain.getMemory(WWMemoryModuleTypes.WATER_POS).get();
+							GlobalPos globalPos = instance.get(waterPos);
 
 							if (!globalPos.dimension().equals(serverLevel.dimension())) {
-								returnPos.erase();
+								waterPos.erase();
 								return false;
 							}
 
@@ -71,7 +69,7 @@ public class PenguinReturnToWater {
 							walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
 
 							if (pathNavigation.isStuck()) {
-								returnPos.erase();
+								waterPos.erase();
 								return false;
 							}
 

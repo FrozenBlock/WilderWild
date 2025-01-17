@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = RotatedPillarBlock.class, priority = 990)
 public class RotatedPillarBlockMixin {
-	
+
 	@Unique
 	private static final boolean WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT = WWBlockConfig.get().termite.onlyEatNaturalBlocks;
 

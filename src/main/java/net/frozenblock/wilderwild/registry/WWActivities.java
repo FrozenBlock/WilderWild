@@ -28,6 +28,7 @@ public class WWActivities {
 	public static final Activity STAND_UP = register("stand_up");
 	public static final Activity SEARCH = register("search");
 	public static final Activity ESCAPE = register("escape");
+	public static final Activity CHASE = register("chase");
 
 	private WWActivities() {
 		throw new UnsupportedOperationException("WWActivities contains only static declarations.");
