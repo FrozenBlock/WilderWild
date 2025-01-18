@@ -599,7 +599,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WWWorldgenConfig.get().addStoneChests) {
+		if (WWBlockConfig.get().stoneChest.addStoneChests) {
 			StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
 				new RuleProcessor(
 					List.of(

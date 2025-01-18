@@ -364,10 +364,22 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
+		var addStoneChests = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("add_stone_chests"), modifiedStoneChest.addStoneChests)
+				.setDefaultValue(defaultConfig.stoneChest.addStoneChests)
+				.setSaveConsumer(newValue -> stoneChest.addStoneChests = newValue)
+				.requireRestart()
+				.setTooltip(tooltip("add_stone_chests"))
+				.build(),
+			clazz,
+			"addStoneChests",
+			configInstance
+		);
+
 		var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
 			false,
 			tooltip("stone_chest"),
-			stoneChestTimer
+			stoneChestTimer, addStoneChests
 		);
 
 		var allowSnowlogging = FrozenClothConfig.syncedEntry(

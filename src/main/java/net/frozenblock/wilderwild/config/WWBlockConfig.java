@@ -222,6 +222,9 @@ public final class WWBlockConfig {
 		@EntrySyncData("stoneChestTimer")
 		public int stoneChestTimer = 100;
 
+		@EntrySyncData("addStoneChests")
+		public boolean addStoneChests = true;
+
 		public double getStoneChestTimer() {
 			return ((double) this.stoneChestTimer) * 0.01D;
 		}

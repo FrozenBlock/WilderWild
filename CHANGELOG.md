@@ -40,6 +40,7 @@ hi
 - Fixed the Stone Chest having wood-like properties.
 - Removed the `wilderwild:chest_bubbler` entity as it was unnecessary.
   - This has been replaced with the `wilderwild:chest_bubbles` particle, which will now handle the same behavior but on the client.
+- Moved the `Ancient City Stone Chests` config option from the `Worldgen` tab to the `Block` tab.
 
 # Butterfly Branch
 - Added Butterflies
