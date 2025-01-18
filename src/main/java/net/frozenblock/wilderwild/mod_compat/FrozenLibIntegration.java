@@ -297,6 +297,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			SEEDING_DANDELION,
 			CARNATION,
 			MARIGOLD,
+			PASQUEFLOWER,
 			GLORY_OF_THE_SNOW,
 			DATURA,
 			MILKWEED,
@@ -332,6 +333,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			OAK_LEAVES,
 			SPRUCE_LEAVES,
 			BAOBAB_LEAVES,
+			WILLOW_LEAVES,
 			CYPRESS_LEAVES,
 			PALM_FRONDS,
 			YELLOW_MAPLE_LEAVES,
@@ -462,6 +464,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(

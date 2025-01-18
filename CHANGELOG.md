@@ -42,6 +42,7 @@ hi
   - This has been replaced with the `wilderwild:chest_bubbles` particle, which will now handle the same behavior but on the client.
 - Moved the `Ancient City Stone Chests` config option from the `Worldgen` tab to the `Block` tab.
 - Removed the `wilderwild:hanging_tendril_extract_xp` game event in favor of `minecraft:block_change.`
+- Fixed the Potted Marigold block not dropping items upon breaking.
 
 # Butterfly Branch
 - Added Butterflies
