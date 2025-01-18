@@ -14,64 +14,49 @@
               "firstOctave": 0
             },
             "scale": 0.020833334,
-            "seed": 5050,
+            "seed": 2345,
             "states": [
               {
-                "Name": "minecraft:lily_of_the_valley"
-              },
-              {
-                "Name": "minecraft:white_tulip"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "minecraft:oxeye_daisy"
-              },
-              {
                 "Name": "minecraft:dandelion"
-              },
-              {
-                "Name": "minecraft:orange_tulip"
-              },
-              {
-                "Name": "wilderwild:marigold"
               },
               {
                 "Name": "minecraft:poppy"
               },
               {
+                "Name": "minecraft:allium"
+              },
+              {
+                "Name": "minecraft:azure_bluet"
+              },
+              {
                 "Name": "minecraft:red_tulip"
+              },
+              {
+                "Name": "minecraft:orange_tulip"
+              },
+              {
+                "Name": "minecraft:white_tulip"
               },
               {
                 "Name": "minecraft:pink_tulip"
               },
               {
-                "Name": "minecraft:allium"
+                "Name": "minecraft:oxeye_daisy"
+              },
+              {
+                "Name": "minecraft:cornflower"
+              },
+              {
+                "Name": "minecraft:lily_of_the_valley"
+              },
+              {
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
                 "Name": "wilderwild:carnation"
               },
               {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:blue_orchid"
-              },
-              {
-                "Name": "minecraft:blue_orchid"
+                "Name": "wilderwild:marigold"
               }
             ]
           }
@@ -87,8 +72,8 @@
         }
       ]
     },
-    "tries": 100,
-    "xz_spread": 8,
+    "tries": 86,
+    "xz_spread": 6,
     "y_spread": 2
   }
 }

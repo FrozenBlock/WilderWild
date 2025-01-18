@@ -1857,42 +1857,31 @@ public final class WWConfiguredFeatures {
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				100,
-				8,
+				86,
+				6,
 				2,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
-						new NoiseProvider(
-							5050L,
-							new NormalNoise.NoiseParameters(0, 1D),
-							0.020833334F,
+						new NoiseProvider(2345L,
+							new NormalNoise.NoiseParameters(0, 1.0F), 0.020833334F,
 							List.of(
-								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-								Blocks.WHITE_TULIP.defaultBlockState(),
-								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
-								Blocks.ORANGE_TULIP.defaultBlockState(),
-								WWBlocks.MARIGOLD.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								Blocks.RED_TULIP.defaultBlockState(),
-								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.RED_TULIP.defaultBlockState(),
+								Blocks.ORANGE_TULIP.defaultBlockState(),
+								Blocks.WHITE_TULIP.defaultBlockState(),
+								Blocks.PINK_TULIP.defaultBlockState(),
+								Blocks.OXEYE_DAISY.defaultBlockState(),
+								Blocks.CORNFLOWER.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.BLUE_ORCHID.defaultBlockState(),
-								Blocks.BLUE_ORCHID.defaultBlockState()
-							)
-						)
-					)
-				)
-			)
-		);
+								WWBlocks.MARIGOLD.defaultBlockState()
+							))))));
+
 
 
 		MOSS_CARPET.makeAndSetHolder(Feature.RANDOM_PATCH,

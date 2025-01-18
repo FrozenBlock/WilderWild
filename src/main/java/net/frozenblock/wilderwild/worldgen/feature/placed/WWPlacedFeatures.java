@@ -1539,7 +1539,8 @@ public final class WWPlacedFeatures {
 		);
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(WWConfiguredFeatures.FLOWER_FLOWER_FIELD.getHolder(),
-			CountPlacement.of(UniformInt.of(2, 4)),
+			CountPlacement.of(3),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

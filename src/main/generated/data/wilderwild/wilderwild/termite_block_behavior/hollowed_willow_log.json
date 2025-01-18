@@ -1,7 +1,0 @@
-{
-  "copy_blockstate_properties": true,
-  "edible_blocks": "wilderwild:hollowed_willow_log",
-  "natural_termite_usable": false,
-  "output_block": "wilderwild:stripped_hollowed_willow_log",
-  "player_placed_termite_usable": true
-}
