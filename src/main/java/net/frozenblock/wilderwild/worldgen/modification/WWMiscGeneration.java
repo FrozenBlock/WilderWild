@@ -83,9 +83,6 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.DISK_MUD.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MUD_PATH.getKey());
 						}
 
