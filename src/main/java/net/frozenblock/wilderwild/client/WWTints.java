@@ -29,6 +29,7 @@ public final class WWTints {
 
 	public static void initItems() {
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.BAOBAB_LEAVES);
+		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.WILLOW_LEAVES);
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAVES);
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FRONDS);
 	}
@@ -40,6 +41,7 @@ public final class WWTints {
 		);
 
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BAOBAB_LEAVES);
+		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.WILLOW_LEAVES);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.CYPRESS_LEAVES);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.PALM_FRONDS);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHORT_GRASS);
