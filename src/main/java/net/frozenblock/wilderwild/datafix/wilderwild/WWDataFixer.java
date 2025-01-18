@@ -18,15 +18,22 @@
 
 package net.frozenblock.wilderwild.datafix.wilderwild;
 
+import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.FireflyBottleComponentizationFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
+import net.minecraft.Util;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.datafix.fixes.BlockRenameFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -168,6 +175,28 @@ public final class WWDataFixer {
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
+	}
+
+	private static void addRandomBlockRenameFix(
+		@NotNull DataFixerBuilder builder,
+		@NotNull String name,
+		@NotNull ResourceLocation oldId,
+		List<ResourceLocation> newIds,
+		@NotNull Schema schema
+	) {
+		Objects.requireNonNull(builder, "DataFixerBuilder cannot be null");
+		Objects.requireNonNull(name, "Fix name cannot be null");
+		Objects.requireNonNull(oldId, "Old identifier cannot be null");
+		Objects.requireNonNull(newIds, "New identifiers cannot be null");
+		Objects.requireNonNull(schema, "Schema cannot be null");
+		String oldIdStr = oldId.toString();
+		builder.addFixer(
+			BlockRenameFix.create(
+				schema,
+				name,
+				(inputName) -> Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? Util.getRandom(newIds, AdvancedMath.random()).toString() : inputName
+			)
+		);
 	}
 
 }
