@@ -141,8 +141,8 @@ public class PenguinAnimation {
 			new Keyframe(0.2268F, KeyframeAnimations.posVec(0F, 3F, -1.6F), AnimationChannel.Interpolations.LINEAR),
 			new Keyframe(0.6803F, KeyframeAnimations.posVec(0F, 0F, -0.1F), AnimationChannel.Interpolations.CATMULLROM),
 			new Keyframe(1.0204F, KeyframeAnimations.posVec(0F, -0.25F, -0.1F), AnimationChannel.Interpolations.CATMULLROM),
-			new Keyframe(1.2755F, KeyframeAnimations.posVec(0F, 0F, -0.1F), AnimationChannel.Interpolations.CATMULLROM),
-			new Keyframe(2.381F, KeyframeAnimations.posVec(0F, 0F, -0.1F), AnimationChannel.Interpolations.CATMULLROM)
+			new Keyframe(1.2755F, KeyframeAnimations.posVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
+			new Keyframe(2.381F, KeyframeAnimations.posVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM)
 		))
 		.addAnimation("right_flipper", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 			new Keyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
