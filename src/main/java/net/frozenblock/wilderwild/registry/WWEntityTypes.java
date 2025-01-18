@@ -23,7 +23,6 @@ import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
-import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
@@ -129,14 +128,6 @@ public final class WWEntityTypes {
 			.clientTrackingRange(64)
 			.updateInterval(10)
 			.build(WWConstants.string("coconut"))
-	);
-
-	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
-		"chest_bubbler",
-		EntityType.Builder.<ChestBubbleTicker>of(ChestBubbleTicker::new, MobCategory.MISC)
-			.sized(0F, 0F)
-			.clientTrackingRange(0)
-			.build(WWConstants.string("chest_bubbler"))
 	);
 
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(

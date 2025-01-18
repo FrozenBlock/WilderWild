@@ -120,7 +120,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		WWModIntegrations.init();
 
-		WWBlocks.registerBlockProperties();
 		WWNetworking.init();
 	}
 

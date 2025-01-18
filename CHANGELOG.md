@@ -38,6 +38,8 @@ hi
 - Added LudoCrypt's `Dove` to the Magmatic Caves and Lush Caves.
 - Fixed a few broken recipe unlocks.
 - Fixed the Stone Chest having wood-like properties.
+- Removed the `wilderwild:chest_bubbler` entity as it was unnecessary.
+  - This has been replaced with the `wilderwild:chest_bubbles` particle, which will now handle the same behavior but on the client.
 
 # Butterfly Branch
 - Added Butterflies
