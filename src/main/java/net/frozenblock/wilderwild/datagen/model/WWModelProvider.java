@@ -47,6 +47,13 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createHangingSign(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
 		generator.createTrivialBlock(WWBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES);
 
+		generator.family(WWBlocks.WILLOW_PLANKS).generateFor(WWBlocks.FAMILY_WILLOW);
+		generator.woodProvider(WWBlocks.WILLOW_LOG).logWithHorizontal(WWBlocks.WILLOW_LOG).wood(WWBlocks.WILLOW_WOOD);
+		generator.woodProvider(WWBlocks.STRIPPED_WILLOW_LOG).logWithHorizontal(WWBlocks.STRIPPED_WILLOW_LOG).wood(WWBlocks.STRIPPED_WILLOW_WOOD);
+		generator.createHangingSign(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN);
+		generator.createPlant(WWBlocks.WILLOW_SAPLING, WWBlocks.POTTED_WILLOW_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createTrivialBlock(WWBlocks.WILLOW_LEAVES, TexturedModel.LEAVES);
+
 		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.FAMILY_CYPRESS);
 		generator.woodProvider(WWBlocks.CYPRESS_LOG).logWithHorizontal(WWBlocks.CYPRESS_LOG).wood(WWBlocks.CYPRESS_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(WWBlocks.STRIPPED_CYPRESS_LOG).wood(WWBlocks.STRIPPED_CYPRESS_WOOD);

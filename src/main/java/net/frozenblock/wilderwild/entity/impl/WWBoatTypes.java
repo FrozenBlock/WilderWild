@@ -22,6 +22,7 @@ import net.minecraft.world.entity.vehicle.Boat;
 
 public final class WWBoatTypes {
 	public static Boat.Type BAOBAB;
+	public static Boat.Type WILLOW;
 	public static Boat.Type CYPRESS;
 	public static Boat.Type PALM;
 	public static Boat.Type MAPLE;

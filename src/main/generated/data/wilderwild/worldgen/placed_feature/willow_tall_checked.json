@@ -6,10 +6,8 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "minecraft:mangrove_propagule",
+          "Name": "wilderwild:willow_sapling",
           "Properties": {
-            "age": "0",
-            "hanging": "false",
             "stage": "0",
             "waterlogged": "false"
           }

@@ -182,6 +182,14 @@ public final class WWParticleTypes {
 		6,
 		4.5F
 	);
+	public static final ParticleType<LeafParticleOptions> WILLOW_LEAVES = createLeafParticle(
+		WWConstants.id("willow_leaves"),
+		WWBlocks.WILLOW_LEAVES,
+		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.WILLOW_LEAF_FREQUENCY,
+		5,
+		2.5F
+	);
 	public static final ParticleType<LeafParticleOptions> YELLOW_MAPLE_LEAVES = createLeafParticle(WWConstants.id("yellow_maple_leaves"));
 	public static final ParticleType<LeafParticleOptions> ORANGE_MAPLE_LEAVES = createLeafParticle(WWConstants.id("orange_maple_leaves"));
 	public static final ParticleType<LeafParticleOptions> RED_MAPLE_LEAVES = createLeafParticle(WWConstants.id("red_maple_leaves"));

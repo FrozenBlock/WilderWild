@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wilderwild:block/willow_slab"
+    },
+    "type=double": {
+      "model": "wilderwild:block/willow_planks"
+    },
+    "type=top": {
+      "model": "wilderwild:block/willow_slab_top"
+    }
+  }
+}

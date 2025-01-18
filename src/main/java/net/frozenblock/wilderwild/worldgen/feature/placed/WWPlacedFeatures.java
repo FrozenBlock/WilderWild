@@ -726,7 +726,7 @@ public final class WWPlacedFeatures {
 			SurfaceWaterDepthFilter.forMaxDepth(1),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		TREES_SWAMP_WATER_SHALLOW.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER_SHALLOW.getHolder(),
@@ -735,7 +735,7 @@ public final class WWPlacedFeatures {
 			SurfaceWaterDepthFilter.forMaxDepth(2),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		TREES_SWAMP_WATER.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER.getHolder(),
@@ -749,7 +749,7 @@ public final class WWPlacedFeatures {
 					BlockPredicate.matchesFluids(Fluids.WATER)
 				)
 			),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		MIXED_TREES.makeAndSetHolder(WWConfiguredFeatures.MIXED_TREES.getHolder(),

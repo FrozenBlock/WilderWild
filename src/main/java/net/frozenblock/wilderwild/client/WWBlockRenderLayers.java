@@ -35,6 +35,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_CARNATION, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_SEEDING_DANDELION, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_BAOBAB_NUT, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_WILLOW_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_MAPLE_SAPLING, RenderType.cutout());
@@ -63,14 +64,17 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.CRIMSON_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.WARPED_SHELF_FUNGI, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_DOOR, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WILLOW_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PALM_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_DOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_TRAPDOOR, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WILLOW_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PALM_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_TRAPDOOR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_NUT, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WILLOW_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_SAPLING, RenderType.cutout());
@@ -87,6 +91,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_BAOBAB_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_BIRCH_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_CHERRY_LOG, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_WILLOW_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_CYPRESS_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_MAPLE_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.HOLLOWED_DARK_OAK_LOG, RenderType.cutout());
@@ -101,6 +106,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, RenderType.cutout());

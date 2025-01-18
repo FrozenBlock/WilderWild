@@ -63,15 +63,19 @@ public class BoatTypeMixin {
 		WWBoatTypes.BAOBAB = baobab;
 		types.add(baobab);
 
-		var cypress = wilderWild$newType("WILDERWILDCYPRESS", last.ordinal() + 2, WWBlocks.CYPRESS_PLANKS, "wilderwildcypress");
+		var willow = wilderWild$newType("WILDERWILDWILLOW", last.ordinal() + 2, WWBlocks.WILLOW_PLANKS, "wilderwildwillow");
+		WWBoatTypes.WILLOW = willow;
+		types.add(willow);
+
+		var cypress = wilderWild$newType("WILDERWILDCYPRESS", last.ordinal() + 3, WWBlocks.CYPRESS_PLANKS, "wilderwildcypress");
 		WWBoatTypes.CYPRESS = cypress;
 		types.add(cypress);
 
-		var palm = wilderWild$newType("WILDERWILDPALM", last.ordinal() + 3, WWBlocks.PALM_PLANKS, "wilderwildpalm");
+		var palm = wilderWild$newType("WILDERWILDPALM", last.ordinal() + 4, WWBlocks.PALM_PLANKS, "wilderwildpalm");
 		WWBoatTypes.PALM = palm;
 		types.add(palm);
 
-		var maple = wilderWild$newType("WILDERWILDMAPLE", last.ordinal() + 4, WWBlocks.MAPLE_PLANKS, "wilderwildmaple");
+		var maple = wilderWild$newType("WILDERWILDMAPLE", last.ordinal() + 5, WWBlocks.MAPLE_PLANKS, "wilderwildmaple");
 		WWBoatTypes.MAPLE = maple;
 		types.add(maple);
 

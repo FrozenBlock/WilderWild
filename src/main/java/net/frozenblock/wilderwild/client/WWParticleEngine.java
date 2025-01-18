@@ -57,6 +57,7 @@ public final class WWParticleEngine {
 		particleRegistry.register(WWParticleTypes.YELLOW_MAPLE_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.ORANGE_MAPLE_LEAVES, LeafParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.RED_MAPLE_LEAVES, LeafParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.WILLOW_LEAVES, LeafParticle.Factory::new);
 
 		particleRegistry.register(WWParticleTypes.CHEST_BUBBLE_SPAWNER, ChestBubbleSeedParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.POLLEN, PollenParticle.PollenFactory::new);

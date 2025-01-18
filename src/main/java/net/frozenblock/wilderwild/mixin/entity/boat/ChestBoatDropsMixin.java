@@ -37,6 +37,8 @@ public final class ChestBoatDropsMixin {
 		var boat = ChestBoat.class.cast(this);
 		if (boat.getVariant() == WWBoatTypes.BAOBAB) {
 			info.setReturnValue(WWItems.BAOBAB_CHEST_BOAT);
+		} else if (boat.getVariant() == WWBoatTypes.WILLOW) {
+			info.setReturnValue(WWItems.WILLOW_CHEST_BOAT);
 		} else if (boat.getVariant() == WWBoatTypes.CYPRESS) {
 			info.setReturnValue(WWItems.CYPRESS_CHEST_BOAT);
 		} else if (boat.getVariant() == WWBoatTypes.PALM) {

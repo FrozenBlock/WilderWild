@@ -318,6 +318,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			MANGROVE_PROPAGULE,
 			OAK_SAPLING,
 			SPRUCE_SAPLING,
+			WILLOW_SAPLING,
 			CYPRESS_SAPLING,
 			MAPLE_SAPLING,
 			BUSH

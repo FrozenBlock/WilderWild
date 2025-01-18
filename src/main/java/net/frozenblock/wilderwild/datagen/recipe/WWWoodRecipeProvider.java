@@ -44,6 +44,22 @@ public final class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenSign(exporter, WWItems.BAOBAB_SIGN, WWBlocks.BAOBAB_PLANKS);
 		RecipeProvider.hangingSign(exporter, WWItems.BAOBAB_HANGING_SIGN, WWBlocks.STRIPPED_BAOBAB_LOG);
 
+		RecipeProvider.planksFromLogs(exporter, WWBlocks.WILLOW_PLANKS, WWItemTags.WILLOW_LOGS, 4);
+		RecipeProvider.woodFromLogs(exporter, WWBlocks.WILLOW_WOOD, WWBlocks.WILLOW_LOG);
+		RecipeProvider.woodFromLogs(exporter, WWBlocks.STRIPPED_WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_LOG);
+		RecipeProvider.woodenBoat(exporter, WWItems.WILLOW_BOAT, WWBlocks.WILLOW_PLANKS);
+		RecipeProvider.chestBoat(exporter, WWItems.WILLOW_CHEST_BOAT, WWItems.WILLOW_BOAT);
+		FrozenRecipeProvider.woodenButton(exporter, WWBlocks.WILLOW_BUTTON, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenDoor(exporter, WWBlocks.WILLOW_DOOR, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenFence(exporter, WWBlocks.WILLOW_FENCE, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenFenceGate(exporter, WWBlocks.WILLOW_FENCE_GATE, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenPressurePlace(exporter, WWBlocks.WILLOW_PRESSURE_PLATE, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenSlab(exporter, WWBlocks.WILLOW_SLAB, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenStairs(exporter, WWBlocks.WILLOW_STAIRS, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenTrapdoor(exporter, WWBlocks.WILLOW_TRAPDOOR, WWBlocks.WILLOW_PLANKS);
+		FrozenRecipeProvider.woodenSign(exporter, WWItems.WILLOW_SIGN, WWBlocks.WILLOW_PLANKS);
+		RecipeProvider.hangingSign(exporter, WWItems.WILLOW_HANGING_SIGN, WWBlocks.STRIPPED_WILLOW_LOG);
+
 		RecipeProvider.planksFromLogs(exporter, WWBlocks.CYPRESS_PLANKS, WWItemTags.CYPRESS_LOGS, 4);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.CYPRESS_WOOD, WWBlocks.CYPRESS_LOG);
 		RecipeProvider.woodFromLogs(exporter, WWBlocks.STRIPPED_CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_LOG);

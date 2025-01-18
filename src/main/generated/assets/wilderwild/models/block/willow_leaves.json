@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "wilderwild:block/willow_leaves"
+  }
+}

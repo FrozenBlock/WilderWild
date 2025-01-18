@@ -215,12 +215,18 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("maple_leaf_particles"))
 			.build();
 
+		var willowLeafParticles = entryBuilder.startIntSlider(text("willow_leaf_particles"), leafParticles.willowFrequency, 0, 500)
+			.setDefaultValue(defaultConfig.leafParticles.willowFrequency)
+			.setSaveConsumer(newValue -> leafParticles.willowFrequency = newValue)
+			.setTooltip(tooltip("willow_leaf_particles"))
+			.build();
+
 		var leafParticleCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("leaf_particles"),
 			false,
 			tooltip("leaf_particles"),
 			oakLeafParticles, spruceLeafParticles, birchLeafParticles, jungleLeafParticles, acaciaLeafParticles, darkOakLeafParticles,
 			mangroveLeafParticles, cherryLeafParticles, azaleaLeafParticles, floweringAzaleaLeafParticles,
-			baobabLeafParticles, cypressLeafParticles, palmFrondParticles, mapleLeafParticles
+			baobabLeafParticles, cypressLeafParticles, palmFrondParticles, mapleLeafParticles, willowLeafParticles
 		);
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)

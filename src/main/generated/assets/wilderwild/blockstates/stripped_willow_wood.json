@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wilderwild:block/stripped_willow_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wilderwild:block/stripped_willow_wood"
+    },
+    "axis=z": {
+      "model": "wilderwild:block/stripped_willow_wood",
+      "x": 90
+    }
+  }
+}

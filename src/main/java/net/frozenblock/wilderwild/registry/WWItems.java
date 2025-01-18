@@ -66,6 +66,12 @@ public final class WWItems {
 	public static final HangingSignItem BAOBAB_HANGING_SIGN = new HangingSignItem(WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN,
 		new Item.Properties().stacksTo(16)
 	);
+	public static final SignItem WILLOW_SIGN = new SignItem(new Item.Properties().stacksTo(16),
+		WWBlocks.WILLOW_SIGN, WWBlocks.WILLOW_WALL_SIGN
+	);
+	public static final HangingSignItem WILLOW_HANGING_SIGN = new HangingSignItem(WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN,
+		new Item.Properties().stacksTo(16)
+	);
 	public static final SignItem CYPRESS_SIGN = new SignItem(new Item.Properties().stacksTo(16),
 		WWBlocks.CYPRESS_SIGN, WWBlocks.CYPRESS_WALL_SIGN
 	);
@@ -95,6 +101,8 @@ public final class WWItems {
 	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(WWFood.SPLIT_COCONUT));
 	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WWBoatTypes.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WWBoatTypes.BAOBAB, new Item.Properties().stacksTo(1));
+	public static final BoatItem WILLOW_BOAT = new BoatItem(false, WWBoatTypes.WILLOW, new Item.Properties().stacksTo(1));
+	public static final BoatItem WILLOW_CHEST_BOAT = new BoatItem(true, WWBoatTypes.WILLOW, new Item.Properties().stacksTo(1));
 	public static final BoatItem CYPRESS_BOAT = new BoatItem(false, WWBoatTypes.CYPRESS, new Item.Properties().stacksTo(1));
 	public static final BoatItem CYPRESS_CHEST_BOAT = new BoatItem(true, WWBoatTypes.CYPRESS, new Item.Properties().stacksTo(1));
 	public static final BoatItem PALM_BOAT = new BoatItem(false, WWBoatTypes.PALM, new Item.Properties().stacksTo(1));
@@ -156,7 +164,9 @@ public final class WWItems {
 
 		registerItemAfter(Items.MANGROVE_HANGING_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(BAOBAB_HANGING_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(BAOBAB_HANGING_SIGN, WILLOW_SIGN, "willow_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(WILLOW_SIGN, WILLOW_HANGING_SIGN, "willow_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(WILLOW_HANGING_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(CYPRESS_SIGN, CYPRESS_HANGING_SIGN, "cypress_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(CYPRESS_HANGING_SIGN, PALM_SIGN, "palm_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(PALM_SIGN, PALM_HANGING_SIGN, "palm_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -187,7 +197,9 @@ public final class WWItems {
 		//BOATS
 		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_BOAT, BAOBAB_CHEST_BOAT, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(BAOBAB_CHEST_BOAT, CYPRESS_BOAT, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(BAOBAB_CHEST_BOAT, WILLOW_BOAT, "willow_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(WILLOW_BOAT, WILLOW_CHEST_BOAT, "willow_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(WILLOW_CHEST_BOAT, CYPRESS_BOAT, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(CYPRESS_BOAT, CYPRESS_CHEST_BOAT, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(CYPRESS_CHEST_BOAT, PALM_BOAT, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(PALM_BOAT, PALM_CHEST_BOAT, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);

@@ -37,6 +37,8 @@ public class BoatDropsMixin {
 		var boat = Boat.class.cast(this);
 		if (boat.getVariant() == WWBoatTypes.BAOBAB) {
 			info.setReturnValue(WWItems.BAOBAB_BOAT);
+		} else if (boat.getVariant() == WWBoatTypes.WILLOW) {
+			info.setReturnValue(WWItems.WILLOW_BOAT);
 		} else if (boat.getVariant() == WWBoatTypes.CYPRESS) {
 			info.setReturnValue(WWItems.CYPRESS_BOAT);
 		} else if (boat.getVariant() == WWBoatTypes.PALM) {

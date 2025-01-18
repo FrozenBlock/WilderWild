@@ -628,19 +628,19 @@ public final class WWTreePlaced {
 		// SWAMP TREE
 
 		WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		WILLOW_TALL_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW_TALL.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		WILLOW_TALLER_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW_TALLER.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		SWAMP_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.SWAMP_OAK.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		// SPRUCE
