@@ -514,12 +514,18 @@ public class PenguinAi {
 	public static void addCallerMemoryToNearbyPenguins(@NotNull Penguin caller) {
 		UUID uuid = caller.getUUID();
 		List<Penguin> penguins = PenguinAi.getNearbyPenguins(caller).orElse(List.of());
+		Brain<Penguin> callerBrain = caller.getBrain();
+		Optional<Integer> idleTime = callerBrain.getMemory(WWMemoryModuleTypes.IDLE_TIME);
 
 		penguins.forEach(penguin -> {
 			Brain<Penguin> brain = penguin.getBrain();
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER, uuid, 400L);
 			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 400);
 			brain.eraseMemory(WWMemoryModuleTypes.WANTS_TO_CALL);
+			idleTime.ifPresentOrElse(
+				time -> brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, Math.max(time + penguin.getRandom().nextInt(0, 100), 0)),
+				() -> brain.eraseMemory(WWMemoryModuleTypes.IDLE_TIME)
+			);
 		});
 	}
 
