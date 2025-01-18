@@ -134,6 +134,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG, Blocks.MANGROVE_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG, Blocks.CHERRY_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.BAOBAB_LOG);
+		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.WILLOW_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.CYPRESS_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_PALM_LOG, WWBlocks.PALM_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_LOG);
@@ -147,6 +148,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG);
+		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_PALM_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG);
@@ -180,6 +182,8 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		generator.generateFlatItem(WWItems.BAOBAB_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.BAOBAB_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.WILLOW_BOAT, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.WILLOW_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.CYPRESS_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.CYPRESS_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.PALM_BOAT, ModelTemplates.FLAT_ITEM);
