@@ -23,7 +23,6 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -98,7 +97,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
 				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
-				level.gameEvent(null, WWGameEvents.TENDRIL_EXTRACT_XP, pos);
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		}
 
