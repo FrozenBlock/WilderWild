@@ -235,8 +235,8 @@ public class PenguinAi {
 				Pair.of(0, PenguinMeetCaller.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> entity.isInWater() ? 3F : 1.75F,
-					4
+					entity -> entity.isInWater() ? 2F : 1.35F,
+					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.CALLER))
 			),
@@ -517,8 +517,8 @@ public class PenguinAi {
 
 		penguins.forEach(penguin -> {
 			Brain<Penguin> brain = penguin.getBrain();
-			brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER, uuid, 200L);
-			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 1200);
+			brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER, uuid, 400L);
+			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 400);
 			brain.eraseMemory(WWMemoryModuleTypes.WANTS_TO_CALL);
 		});
 	}
