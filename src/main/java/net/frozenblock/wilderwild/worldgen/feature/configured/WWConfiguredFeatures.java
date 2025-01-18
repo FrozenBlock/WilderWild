@@ -1879,8 +1879,14 @@ public final class WWConfiguredFeatures {
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
-								WWBlocks.MARIGOLD.defaultBlockState()
-							))))));
+								WWBlocks.MARIGOLD.defaultBlockState(),
+								WWBlocks.PASQUEFLOWER.defaultBlockState()
+							)
+						)
+					)
+				)
+			)
+		);
 
 
 

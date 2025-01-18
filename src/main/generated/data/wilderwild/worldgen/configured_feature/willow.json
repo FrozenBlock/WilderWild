@@ -16,7 +16,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:oak_log",
+        "Name": "wilderwild:willow_log",
         "Properties": {
           "axis": "y"
         }
@@ -33,7 +33,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:oak_leaves",
+        "Name": "wilderwild:willow_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -76,7 +76,7 @@
       "root_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "minecraft:oak_log",
+          "Name": "wilderwild:willow_log",
           "Properties": {
             "axis": "y"
           }
@@ -109,7 +109,7 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:oak_log",
+        "Name": "wilderwild:willow_log",
         "Properties": {
           "axis": "y"
         }

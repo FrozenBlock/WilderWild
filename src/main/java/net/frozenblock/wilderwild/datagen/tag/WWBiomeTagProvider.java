@@ -1506,6 +1506,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DENSE_TALL_GRASS)
+			.add(Biomes.SWAMP)
 			.add(Biomes.MANGROVE_SWAMP)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
