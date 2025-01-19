@@ -316,7 +316,8 @@ public class PenguinAi {
 				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.VALUE_ABSENT)
+				Pair.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
