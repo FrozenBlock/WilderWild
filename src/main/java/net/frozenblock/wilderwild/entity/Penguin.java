@@ -76,7 +76,7 @@ public class Penguin extends Animal {
 
 	public Penguin(EntityType<? extends Animal> entityType, Level level) {
 		super(entityType, level);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.55F, 0.2F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 30, 0.55F, 0.2F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
 
