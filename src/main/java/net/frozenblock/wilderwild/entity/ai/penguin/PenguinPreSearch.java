@@ -22,6 +22,7 @@ import java.util.Map;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -33,13 +34,7 @@ public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 	public PenguinPreSearch() {
 		super(
 			Map.of(
-				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.IS_TEMPTED, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.CALLING, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT
+				WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.REGISTERED
 			),
 			1
 		);
@@ -62,6 +57,7 @@ public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		PenguinAi.addCallMemoryIfPenguinsClose(penguin);
 		penguin.stopInPlace();
+		penguin.getBrain().setMemory(WWMemoryModuleTypes.STARTING_SEARCH, Unit.INSTANCE);
 	}
 
 	@Override

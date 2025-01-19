@@ -119,6 +119,7 @@ public class PenguinAi {
 		WWMemoryModuleTypes.DIVE_TICKS,
 		MemoryModuleType.HAS_HUNTING_COOLDOWN,
 		WWMemoryModuleTypes.LAYING_DOWN,
+		WWMemoryModuleTypes.STARTING_SEARCH,
 		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
 		WWMemoryModuleTypes.ESCAPING,
 		WWMemoryModuleTypes.LAND_POS,
@@ -314,7 +315,8 @@ public class PenguinAi {
 				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_ABSENT)
+				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
@@ -414,7 +416,8 @@ public class PenguinAi {
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_PRESENT),
-				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
+				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
@@ -434,7 +437,8 @@ public class PenguinAi {
 				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_PRESENT)
+				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
@@ -449,9 +453,9 @@ public class PenguinAi {
 					Activity.MEET,
 					Activity.FIGHT,
 					WWActivities.PRE_SEARCH,
-					WWActivities.SEARCH,
 					WWActivities.ESCAPE,
 					WWActivities.POST_ESCAPE,
+					WWActivities.SEARCH,
 					Activity.SWIM,
 					Activity.IDLE
 				)
@@ -462,9 +466,9 @@ public class PenguinAi {
 					WWActivities.STAND_UP,
 					WWActivities.CHASE,
 					Activity.MEET,
-					WWActivities.SEARCH,
 					WWActivities.ESCAPE,
 					WWActivities.POST_ESCAPE,
+					WWActivities.SEARCH,
 					Activity.SWIM,
 					Activity.IDLE
 				)

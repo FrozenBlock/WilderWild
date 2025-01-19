@@ -61,6 +61,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		Brain<Penguin> brain = penguin.getBrain();
+		brain.eraseMemory(WWMemoryModuleTypes.STARTING_SEARCH);
 		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
 		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN, Unit.INSTANCE);
 		penguin.setPose(Pose.SLIDING);

@@ -65,6 +65,7 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> DIVE_TICKS = register("dive_ticks", Codec.INT);
 	public static final MemoryModuleType<Unit> LAYING_DOWN = register("laying_down", Unit.CODEC);
 	public static final MemoryModuleType<Unit> STANDING_UP = register("standing_up", Unit.CODEC);
+	public static final MemoryModuleType<Unit> STARTING_SEARCH = register("starting_search", Unit.CODEC);
 	public static final MemoryModuleType<Unit> SEARCHING_FOR_WATER = register("searching_for_water");
 	public static final MemoryModuleType<GlobalPos> LAND_POS = register("land_pos", GlobalPos.CODEC);
 	public static final MemoryModuleType<GlobalPos> WATER_POS = register("water_pos", GlobalPos.CODEC);
