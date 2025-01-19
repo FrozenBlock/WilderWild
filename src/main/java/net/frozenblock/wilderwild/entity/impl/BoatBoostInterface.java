@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity.impl;
 
 public interface BoatBoostInterface {
+	void wilderWild$boostBoatForTicks(int ticks);
 	void wilderWild$setBoatBoostTicks(int ticks);
 	int wilderWild$getBoatBoostTicks();
 }

@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PenguinBoostBoat {
-	private static final double MAX_DISTANCE = 3d;
+	private static final double MAX_DISTANCE = 3D;
 	private static final int BOOST_TICKS = 200;
 
 	@Contract(" -> new")
@@ -41,12 +41,11 @@ public class PenguinBoostBoat {
 						Boat boat = instance.get(trackedBoat);
 						if (boat instanceof BoatBoostInterface boatBoostInterface) {
 							if (livingEntity.distanceTo(boat) < MAX_DISTANCE) {
-								int boostTicks = Math.max(BOOST_TICKS, boatBoostInterface.wilderWild$getBoatBoostTicks());
-								boatBoostInterface.wilderWild$setBoatBoostTicks(boostTicks);
+								boatBoostInterface.wilderWild$boostBoatForTicks(BOOST_TICKS);
 								return true;
 							}
 						}
-						return false;
+						return true;
 					}
 				)
 		);
