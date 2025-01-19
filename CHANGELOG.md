@@ -50,6 +50,7 @@ hi
 - Added the Willow tree.
   - Willows generate very frequently in Swamps, finally bringing the biome completely up to speed with what was shown in concept art.
   - Saplings can be placed and grown underwater.
+  - Witch Huts now generate with the Willow block set.
 
 # Penguins
 - Added the Penguin.

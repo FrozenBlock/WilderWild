@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-
 @Mixin(value = SwampHutPiece.class, priority = 999)
 public class SwampHutPieceMixin {
 
@@ -85,4 +84,5 @@ public class SwampHutPieceMixin {
 		}
 		return original;
 	}
+
 }
