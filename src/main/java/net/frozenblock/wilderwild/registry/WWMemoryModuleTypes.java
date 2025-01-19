@@ -72,6 +72,7 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> CALL_COOLDOWN_TICKS = register("call_cooldown_ticks", Codec.INT);
 	public static final MemoryModuleType<Unit> CALLING = register("calling", Unit.CODEC);
 	public static final MemoryModuleType<UUID> CALLER = register("caller", UUIDUtil.CODEC);
+	public static final MemoryModuleType<Unit> ESCAPING = register("escaping", Unit.CODEC);
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

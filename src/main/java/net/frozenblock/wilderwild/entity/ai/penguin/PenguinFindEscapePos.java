@@ -78,7 +78,7 @@ public class PenguinFindEscapePos {
 										&& blockState.getCollisionShape(serverLevel, blockPos2, collisionContext).isEmpty()
 										&& blockState2.isFaceSturdy(serverLevel, mutableBlockPos, Direction.UP)
 									) {
-										BlockPos blockPos3 = blockPos2.immutable().above();
+										BlockPos blockPos3 = blockPos2.immutable().relative(Direction.UP, 2);
 										lookTarget.set(new BlockPosTracker(blockPos3));
 										walkTarget.set(new WalkTarget(new BlockPosTracker(blockPos3), speedModifier, 1));
 										foundLand = true;
@@ -96,7 +96,7 @@ public class PenguinFindEscapePos {
 
 										if (blockState.is(Blocks.WATER)) {
 											if (aboveState.isAir()) {
-												BlockPos shallowPos = blockPos2.immutable().above();
+												BlockPos shallowPos = blockPos2.immutable().relative(Direction.UP, 2);
 												lookTarget.set(new BlockPosTracker(shallowPos));
 												walkTarget.set(new WalkTarget(new BlockPosTracker(shallowPos), speedModifier, 1));
 												foundWater = true;

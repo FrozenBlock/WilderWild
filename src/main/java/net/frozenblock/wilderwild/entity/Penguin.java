@@ -106,7 +106,7 @@ public class Penguin extends Animal {
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.ATTACK_DAMAGE, 2D)
 			.add(Attributes.SAFE_FALL_DISTANCE, 5D)
-			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.1D);
+			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.5D);
 	}
 
 	public static boolean checkPenguinSpawnRules(
@@ -137,9 +137,7 @@ public class Penguin extends Animal {
 	@Override
 	public void setSwimming(boolean bl) {
 		super.setSwimming(bl);
-		if (bl) {
-			this.setPose(Pose.STANDING);
-		}
+		if (bl) this.setPose(Pose.STANDING);
 	}
 
 	@Override

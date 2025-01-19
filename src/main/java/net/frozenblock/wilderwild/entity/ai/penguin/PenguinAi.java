@@ -71,9 +71,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PenguinAi {
-	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.75F;
-	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.25F;
+	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.15F;
+	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.15F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(3, 16);
+	public static final UniformInt IDLE_TIME = UniformInt.of(600, 2400);
+	public static final UniformInt DIVE_TIME = UniformInt.of(400, 1200);
 
 	public static final int STAND_UP_DURATION = 48;
 	public static final int CALL_DURATION = 48;
@@ -118,6 +120,7 @@ public class PenguinAi {
 		MemoryModuleType.HAS_HUNTING_COOLDOWN,
 		WWMemoryModuleTypes.LAYING_DOWN,
 		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
+		WWMemoryModuleTypes.ESCAPING,
 		WWMemoryModuleTypes.LAND_POS,
 		WWMemoryModuleTypes.WATER_POS,
 		WWMemoryModuleTypes.STANDING_UP,
@@ -195,7 +198,7 @@ public class PenguinAi {
 				Pair.of(0, PenguinBoostBoat.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> entity.isInWater() ? 4F : 2F,
+					entity -> 2F,
 					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.TRACKED_BOAT))
@@ -235,7 +238,7 @@ public class PenguinAi {
 				Pair.of(0, PenguinMeetCaller.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> entity.isInWater() ? 2F : 1.35F,
+					entity -> 1.35F,
 					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.CALLER))
@@ -310,7 +313,8 @@ public class PenguinAi {
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT)
+				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
@@ -342,7 +346,8 @@ public class PenguinAi {
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT)
+				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_ABSENT)
 			),
 			ImmutableSet.of(
 				WWMemoryModuleTypes.SEARCHING_FOR_WATER,
@@ -367,7 +372,7 @@ public class PenguinAi {
 						GateBehavior.OrderPolicy.ORDERED,
 						GateBehavior.RunningPolicy.TRY_ALL,
 						ImmutableList.of(
-							Pair.of(RandomStroll.swim(1.5F), 2),
+							Pair.of(RandomStroll.swim(1F), 2),
 							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 3),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5)
 						)
@@ -385,6 +390,7 @@ public class PenguinAi {
 		brain.addActivityWithConditions(
 			WWActivities.ESCAPE,
 			ImmutableList.of(
+				Pair.of(0, new PenguinMarkAsEscaping<>()),
 				Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
 				Pair.of(1, PenguinFollowReturnPos.create(2F)),
 				Pair.of(1, PenguinFindEscapePos.create(10, 2F)),
@@ -398,7 +404,7 @@ public class PenguinAi {
 						GateBehavior.OrderPolicy.ORDERED,
 						GateBehavior.RunningPolicy.TRY_ALL,
 						ImmutableList.of(
-							Pair.of(RandomStroll.swim(1.5F), 1),
+							Pair.of(RandomStroll.swim(1F), 1),
 							Pair.of(RandomStroll.stroll(1F, true), 1),
 							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5)
@@ -427,7 +433,8 @@ public class PenguinAi {
 				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
+				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_PRESENT)
 			)
 		);
 	}
@@ -441,11 +448,11 @@ public class PenguinAi {
 					WWActivities.CALL,
 					Activity.MEET,
 					Activity.FIGHT,
+					WWActivities.PRE_SEARCH,
+					WWActivities.SEARCH,
 					WWActivities.ESCAPE,
 					WWActivities.POST_ESCAPE,
 					Activity.SWIM,
-					WWActivities.PRE_SEARCH,
-					WWActivities.SEARCH,
 					Activity.IDLE
 				)
 			);
@@ -455,10 +462,10 @@ public class PenguinAi {
 					WWActivities.STAND_UP,
 					WWActivities.CHASE,
 					Activity.MEET,
+					WWActivities.SEARCH,
 					WWActivities.ESCAPE,
 					WWActivities.POST_ESCAPE,
 					Activity.SWIM,
-					WWActivities.SEARCH,
 					Activity.IDLE
 				)
 			);
@@ -518,14 +525,16 @@ public class PenguinAi {
 		Optional<Integer> idleTime = callerBrain.getMemory(WWMemoryModuleTypes.IDLE_TIME);
 
 		penguins.forEach(penguin -> {
-			Brain<Penguin> brain = penguin.getBrain();
-			brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER, uuid, 400L);
-			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 400);
-			brain.eraseMemory(WWMemoryModuleTypes.WANTS_TO_CALL);
-			idleTime.ifPresentOrElse(
-				time -> brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, Math.max(time + penguin.getRandom().nextInt(0, 100), 0)),
-				() -> brain.eraseMemory(WWMemoryModuleTypes.IDLE_TIME)
-			);
+			if (penguin != caller) {
+				Brain<Penguin> brain = penguin.getBrain();
+				brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER, uuid, 400L);
+				brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 400);
+				brain.eraseMemory(WWMemoryModuleTypes.WANTS_TO_CALL);
+				idleTime.ifPresentOrElse(
+					time -> brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, Math.max(time + penguin.getRandom().nextInt(0, 100), 0)),
+					() -> brain.eraseMemory(WWMemoryModuleTypes.IDLE_TIME)
+				);
+			}
 		});
 	}
 

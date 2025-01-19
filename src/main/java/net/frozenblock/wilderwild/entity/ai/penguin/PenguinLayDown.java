@@ -74,10 +74,10 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN);
 
 		if (!penguin.isTouchingWaterOrSwimming()) {
-			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, 400);
+			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.STANDING_UP, Unit.INSTANCE, PenguinAi.STAND_UP_DURATION);
 		} else {
-			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS, 400);
+			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS, PenguinAi.DIVE_TIME.sample(penguin.getRandom()));
 		}
 	}
 }
