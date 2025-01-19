@@ -44,6 +44,13 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
+		Brain<?> brain = entity.getBrain();
+
+		if (entity.isPassenger()) {
+			brain.eraseMemory(WWMemoryModuleTypes.TRACKED_BOAT);
+			return;
+		}
+
 		AABB aABB = entity.getBoundingBox().inflate(16D, 16D, 16D);
 		List<Boat> boats = level.getEntitiesOfClass(
 			Boat.class,
@@ -55,7 +62,6 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 		);
 		boats.sort(Comparator.comparingDouble(entity::distanceToSqr));
 
-		Brain<?> brain = entity.getBrain();
 		List<Boat> temptingBoats = new ArrayList<>();
 		boats.forEach(boat -> {
 			if (boat.getControllingPassenger() instanceof Player player) {
