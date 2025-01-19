@@ -45,6 +45,7 @@ hi
 - Fixed the Potted Marigold block not dropping items upon breaking.
 - Slightly decreased the amount of large Oak trees in Forests.
 - Revamped the generation of flowers in the Flower Forest and Flower Fields biomes, being much more visually pleasing.
+- Small Bushes no longer generate without their exposed sides covered by leaves.
 
 # Willows
 - Added the Willow tree.

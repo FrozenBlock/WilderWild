@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.NoOpFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.SmallBushFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
@@ -1813,7 +1814,7 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(Blocks.OAK_LOG),
 				new StraightTrunkPlacer(1, 0, 0),
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
-				new BushFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 2),
+				new SmallBushFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 2),
 				new TwoLayersFeatureSize(0, 0, 0)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
