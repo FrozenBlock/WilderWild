@@ -41,7 +41,7 @@ public class BoatMixin implements BoatBoostInterface {
 		)
 	)
 	public Vec3 wilderWild$bannerSpeedBoost(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
-		double multiplier = this.wilderWild$boostTicks > 0 ? 1.5D : 1D;
+		double multiplier = this.wilderWild$boostTicks > 0 ? 2D : 1D;
 		return original.call(instance, x * multiplier, y * multiplier, z * multiplier);
 	}
 

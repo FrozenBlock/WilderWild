@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PenguinBoostBoat {
-	private static final double MAX_DISTANCE = 2D;
+	private static final double MAX_DISTANCE = 3d;
 	private static final int BOOST_TICKS = 200;
 
 	@Contract(" -> new")
