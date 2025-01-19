@@ -32,16 +32,7 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 
 	public PenguinPostEscape() {
 		super(
-			Map.of(
-				WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.IS_TEMPTED, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.CALLING, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT
-			),
+			Map.of(),
 			1
 		);
 	}
@@ -53,10 +44,7 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		Brain<Penguin> brain = penguin.getBrain();
-		return brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT)
-			&& brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
-			&& !penguin.isTouchingWaterOrSwimming();
+		return true;
 	}
 
 	@Override

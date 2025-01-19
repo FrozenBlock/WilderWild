@@ -395,8 +395,8 @@ public class PenguinAi {
 			ImmutableList.of(
 				Pair.of(0, new PenguinMarkAsEscaping<>()),
 				Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
-				Pair.of(1, PenguinFollowReturnPos.create(2F)),
-				Pair.of(1, PenguinFindEscapePos.create(10, 2F)),
+				Pair.of(1, PenguinFollowReturnPos.create(1.5F)),
+				Pair.of(1, PenguinFindEscapePos.create(10, 1.5F)),
 				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
 				Pair.of(
@@ -430,13 +430,8 @@ public class PenguinAi {
 				Pair.of(0, new PenguinPostEscape<>())
 			),
 			ImmutableSet.of(
-				Pair.of(WWMemoryModuleTypes.NEARBY_PENGUINS, MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
-				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.IDLE_TIME, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT),
 				Pair.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_PRESENT),
 				Pair.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.VALUE_ABSENT)
