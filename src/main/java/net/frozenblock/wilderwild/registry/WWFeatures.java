@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.SmallBushFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.root.WillowRootPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;
@@ -61,6 +62,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
+import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
@@ -84,6 +87,8 @@ public class WWFeatures {
 	public static final FoliagePlacerType<NoOpFoliagePlacer> NO_OP_FOLIAGE_PLACER = registerFoliage("no_op_foliage_placer", NoOpFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE_PLACER = registerFoliage("willow_foliage_placer", WillowFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<SmallBushFoliagePlacer> SMALL_BUSH_FOLIAGE_PLACER = registerFoliage("small_bush_foliage_placer", SmallBushFoliagePlacer.CODEC);
+
+	public static final RootPlacerType<WillowRootPlacer> WILLOW_ROOT_PLACER = register("willow_root_placer", WillowRootPlacer.CODEC);
 
 	public static final Feature<ShelfFungiFeatureConfig> SHELF_FUNGI_FEATURE = register("shelf_fungi_feature", new ShelfFungiFeature(ShelfFungiFeatureConfig.CODEC));
 	public static final Feature<SpongeBudFeatureConfig> SPONGE_BUD_FEATURE = register("sponge_bud_feature", new SpongeBudFeature(SpongeBudFeatureConfig.CODEC));
@@ -111,5 +116,10 @@ public class WWFeatures {
 	@NotNull
 	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(@NotNull String id, @NotNull T feature) {
 		return Registry.register(BuiltInRegistries.FEATURE, WWConstants.id(id), feature);
+	}
+
+	@NotNull
+	private static <P extends RootPlacer> RootPlacerType<P> register(@NotNull String id, @NotNull MapCodec<P> mapCodec) {
+		return Registry.register(BuiltInRegistries.ROOT_PLACER_TYPE, WWConstants.id(id), new RootPlacerType<>(mapCodec));
 	}
 }

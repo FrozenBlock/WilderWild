@@ -35,6 +35,8 @@ import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.SmallBushFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
+import net.frozenblock.wilderwild.worldgen.impl.root.WillowRootPlacement;
+import net.frozenblock.wilderwild.worldgen.impl.root.WillowRootPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
@@ -1217,141 +1219,30 @@ public final class WWTreeConfigured {
 		// SWAMP TREE
 
 		WILLOW.makeAndSetHolder(Feature.TREE,
-			new TreeConfiguration.TreeConfigurationBuilder(
-				BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
-				new WillowTrunkPlacer(
-					5,
-					2,
-					1,
-					UniformInt.of(2, 5),
-					0.5F,
-					0.35F,
-					UniformInt.of(2, 3)
-				),
-				BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES),
-				new WillowFoliagePlacer(
-					ConstantInt.of(3),
-					ConstantInt.of(1),
-					2,
-					0.5F,
-					0.5F
-				),
-				Optional.of(
-					new MangroveRootPlacer(
-						UniformInt.of(1, 1),
-						BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
-						Optional.of(
-							new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)
-						),
-						new MangroveRootPlacement(
-							BuiltInRegistries.BLOCK.getOrCreateTag(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH),
-							HolderSet.empty(),
-							BlockStateProvider.simple(Blocks.MUD),
-							3,
-							5,
-							0.2F
-						)
-					)
-				),
-				new TwoLayersFeatureSize(2, 0, 2)
-			).decorators(
+			willow(5, 2, 1).decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_009
 				)
-			).ignoreVines().dirt(BlockStateProvider.simple(WWBlocks.WILLOW_LOG)).build()
+			).ignoreVines().build()
 		);
 
 		WILLOW_TALL.makeAndSetHolder(Feature.TREE,
-			new TreeConfiguration.TreeConfigurationBuilder(
-				BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
-				new WillowTrunkPlacer(
-					7,
-					2,
-					2,
-					UniformInt.of(4, 6),
-					0.5F,
-					0.35F,
-					UniformInt.of(2, 3)
-				),
-				BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES),
-				new WillowFoliagePlacer(
-					ConstantInt.of(3),
-					ConstantInt.of(1),
-					2,
-					0.5F,
-					0.5F
-				),
-				Optional.of(
-					new MangroveRootPlacer(
-						UniformInt.of(1, 1),
-						BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
-						Optional.of(
-							new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)
-						),
-						new MangroveRootPlacement(
-							BuiltInRegistries.BLOCK.getOrCreateTag(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH),
-							HolderSet.empty(),
-							BlockStateProvider.simple(Blocks.MUD),
-							3,
-							5,
-							0.2F
-						)
-					)
-				),
-				new TwoLayersFeatureSize(2, 0, 2)
-			).decorators(
+			willow(7, 2, 2).decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_009
 				)
-			).ignoreVines().dirt(BlockStateProvider.simple(WWBlocks.WILLOW_LOG)).build()
+			).ignoreVines().build()
 		);
 
 		WILLOW_TALLER.makeAndSetHolder(Feature.TREE,
-			new TreeConfiguration.TreeConfigurationBuilder(
-				BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
-				new WillowTrunkPlacer(
-					9,
-					2,
-					2,
-					UniformInt.of(6, 8),
-					0.5F,
-					0.35F,
-					UniformInt.of(2, 3)
-				),
-				BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES),
-				new WillowFoliagePlacer(
-					ConstantInt.of(3),
-					ConstantInt.of(1),
-					2,
-					0.5F,
-					0.5F
-				),
-				Optional.of(
-					new MangroveRootPlacer(
-						UniformInt.of(1, 1),
-						BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
-						Optional.of(
-							new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)
-						),
-						new MangroveRootPlacement(
-							BuiltInRegistries.BLOCK.getOrCreateTag(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH),
-							HolderSet.empty(),
-							BlockStateProvider.simple(Blocks.MUD),
-							3,
-							5,
-							0.2F
-						)
-					)
-				),
-				new TwoLayersFeatureSize(2, 0, 2)
-			).decorators(
+			willow(9, 2, 2).decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_009
 				)
-			).ignoreVines().dirt(BlockStateProvider.simple(WWBlocks.WILLOW_LOG)).build()
+			).ignoreVines().build()
 		);
 
 		SWAMP_OAK.makeAndSetHolder(Feature.TREE,
@@ -2826,6 +2717,46 @@ public final class WWTreeConfigured {
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1)
+		);
+	}
+
+	@Contract("_, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder willow(int height, int randomHeight1, int randomHeight2) {
+		return new TreeConfiguration.TreeConfigurationBuilder(
+			BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
+			new WillowTrunkPlacer(
+				height,
+				randomHeight1,
+				randomHeight2,
+				UniformInt.of(2, 5),
+				0.5F,
+				0.35F,
+				UniformInt.of(2, 3)
+			),
+			BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES),
+			new WillowFoliagePlacer(
+				ConstantInt.of(3),
+				ConstantInt.of(1),
+				2,
+				0.5F,
+				0.5F
+			),
+			Optional.of(
+				new WillowRootPlacer(
+					UniformInt.of(1, 1),
+					BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
+					Optional.of(
+						new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)
+					),
+					new WillowRootPlacement(
+						BuiltInRegistries.BLOCK.getOrCreateTag(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH),
+						5,
+						5,
+						0.2F
+					)
+				)
+			),
+			new TwoLayersFeatureSize(2, 0, 2)
 		);
 	}
 }

@@ -16,10 +16,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:willow_log",
-        "Properties": {
-          "axis": "y"
-        }
+        "Name": "minecraft:dirt"
       }
     },
     "foliage_placer": {
@@ -50,7 +47,7 @@
       "upper_size": 2
     },
     "root_placer": {
-      "type": "minecraft:mangrove_root_placer",
+      "type": "wilderwild:willow_root_placer",
       "above_root_placement": {
         "above_root_placement_chance": 0.45,
         "above_root_provider": {
@@ -59,19 +56,6 @@
             "Name": "minecraft:moss_carpet"
           }
         }
-      },
-      "mangrove_root_placement": {
-        "can_grow_through": "#wilderwild:willow_roots_can_grow_through",
-        "max_root_length": 5,
-        "max_root_width": 3,
-        "muddy_roots_in": [],
-        "muddy_roots_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:mud"
-          }
-        },
-        "random_skew_chance": 0.2
       },
       "root_provider": {
         "type": "minecraft:simple_state_provider",
@@ -86,6 +70,12 @@
         "type": "minecraft:uniform",
         "max_inclusive": 1,
         "min_inclusive": 1
+      },
+      "willow_root_placement": {
+        "can_grow_through": "#wilderwild:willow_roots_can_grow_through",
+        "max_root_length": 5,
+        "max_root_width": 5,
+        "random_skew_chance": 0.2
       }
     },
     "trunk_placer": {
