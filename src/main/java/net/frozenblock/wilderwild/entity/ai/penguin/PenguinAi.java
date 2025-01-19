@@ -75,7 +75,6 @@ public class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.25F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(3, 16);
 
-	public static final int LAY_DOWN_DURATION = 13;
 	public static final int STAND_UP_DURATION = 48;
 	public static final int CALL_DURATION = 48;
 
@@ -193,6 +192,7 @@ public class PenguinAi {
 			WWActivities.CHASE,
 			ImmutableList.of(
 				Pair.of(0, SetTrackedBoatLookTarget.create()),
+				Pair.of(0, PenguinBoostBoat.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
 					entity -> entity.isInWater() ? 4F : 2F,

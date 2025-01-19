@@ -50,6 +50,7 @@
     "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.jellyfish.NaturalSpawnerMixin",
     "entity.lightning.LightningBoltMixin",
+    "entity.penguin.BoatMixin",
     "entity.penguin.LivingEntityMixin",
     "entity.slime.MobMixin",
     "entity.slime.SlimeMixin",

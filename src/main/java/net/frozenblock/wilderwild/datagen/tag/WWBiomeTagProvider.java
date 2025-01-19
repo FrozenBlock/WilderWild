@@ -649,8 +649,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PENGUIN)
 			.add(Biomes.SNOWY_BEACH)
-			.add(Biomes.COLD_OCEAN)
-			.add(Biomes.DEEP_COLD_OCEAN)
 			.add(Biomes.FROZEN_OCEAN)
 			.add(Biomes.DEEP_FROZEN_OCEAN);
 

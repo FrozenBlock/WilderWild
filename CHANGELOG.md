@@ -43,6 +43,24 @@ hi
 - Moved the `Ancient City Stone Chests` config option from the `Worldgen` tab to the `Block` tab.
 - Removed the `wilderwild:hanging_tendril_extract_xp` game event in favor of `minecraft:block_change.`
 - Fixed the Potted Marigold block not dropping items upon breaking.
+- Slightly decreased the amount of large Oak trees in Forests.
+- Revamped the generation of flowers in the Flower Forest and Flower Fields biomes, being much more visually pleasing.
+
+# Willows
+- Added the Willow tree.
+  - Willows generate very frequently in Swamps, finally bringing the biome completely up to speed with what was shown in concept art.
+  - Saplings can be placed and grown underwater.
+
+# Penguins
+- Added the Penguin.
+  - Penguins spawn in Snowy Beaches and Frozen Oceans.
+  - Will dive underwater to hunt for Squid.
+  - Can be bred with an Ink Sac or Glow Ink Sac, laying an egg after afterward.
+  - Chases Boats controlled by players, granting them a temporary speed boost.
+  - The Penguin will spawn in any biomes within the `wilderwild:entity/spawn/penguin` biome tag.
+  - The Penguin can spawn on top of any blocks within the `wilderwild:penguins_spawnable_on` block tag.
+  - Penguins will ignore unique friction from any blocks within the `wilderwild:penguin_ignore_friction` block tag.
+- Added the Penguin Egg block.
 
 # Butterfly Branch
 - Added Butterflies
