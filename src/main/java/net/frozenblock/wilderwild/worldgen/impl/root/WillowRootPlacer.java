@@ -71,8 +71,6 @@ public class WillowRootPlacer extends RootPlacer {
 			mutableBlockPos.move(Direction.UP);
 		}
 
-		list.add(blockPos2.below());
-
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			BlockPos blockPos3 = blockPos2.relative(direction);
 			List<BlockPos> list2 = Lists.newArrayList();

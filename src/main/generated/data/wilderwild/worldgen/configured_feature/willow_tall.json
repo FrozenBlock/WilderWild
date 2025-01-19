@@ -74,7 +74,7 @@
       "willow_root_placement": {
         "can_grow_through": "#wilderwild:willow_roots_can_grow_through",
         "max_root_length": 5,
-        "max_root_width": 5,
+        "max_root_width": 3,
         "random_skew_chance": 0.2
       }
     },

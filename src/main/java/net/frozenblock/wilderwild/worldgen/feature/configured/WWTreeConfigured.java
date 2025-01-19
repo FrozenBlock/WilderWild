@@ -2750,7 +2750,7 @@ public final class WWTreeConfigured {
 					),
 					new WillowRootPlacement(
 						BuiltInRegistries.BLOCK.getOrCreateTag(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH),
-						5,
+						3,
 						5,
 						0.2F
 					)
