@@ -57,6 +57,7 @@ hi
   - Will dive underwater to hunt for Squid.
   - Can be bred with an Ink Sac or Glow Ink Sac, laying an egg after afterward.
   - Chases Boats controlled by players, granting them a temporary speed boost.
+  - Will occasionally "call" out for other Penguins, grouping together for a short time.
   - The Penguin will spawn in any biomes within the `wilderwild:entity/spawn/penguin` biome tag.
   - The Penguin can spawn on top of any blocks within the `wilderwild:penguins_spawnable_on` block tag.
   - Penguins will ignore unique friction from any blocks within the `wilderwild:penguin_ignore_friction` block tag.
