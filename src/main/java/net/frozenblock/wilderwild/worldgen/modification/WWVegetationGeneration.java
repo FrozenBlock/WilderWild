@@ -337,12 +337,20 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_TALL_GRASS_FLOWER_FIELD.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_FERN)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SWAMP_FERN.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DENSE_FERN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_FERN_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DENSE_TALL_GRASS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_TALL_GRASS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SWAMP_TALL_GRASS_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_GRASS)) {

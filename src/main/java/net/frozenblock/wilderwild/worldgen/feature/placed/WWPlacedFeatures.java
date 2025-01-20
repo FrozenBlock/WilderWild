@@ -218,10 +218,12 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature ARID_CACTUS_PLACED = register("arid_cactus_placed");
 	public static final FrozenPlacedFeature MYCELIUM_GROWTH_PLACED = register("mycelium_growth_placed");
 	public static final FrozenPlacedFeature GRASS_PLACED = register("grass_placed");
+	public static final FrozenPlacedFeature SWAMP_FERN = register("swamp_fern");
 	public static final FrozenPlacedFeature GRASS_PLAINS_PLACED = register("grass_plains_placed");
 	public static final FrozenPlacedFeature RARE_GRASS_PLACED = register("rare_grass_placed");
 	public static final FrozenPlacedFeature TALL_GRASS = register("tall_grass");
 	public static final FrozenPlacedFeature TALL_GRASS_PLAINS = register("tall_grass_plains");
+	public static final FrozenPlacedFeature SWAMP_TALL_GRASS_PLACED = register("tall_swamp_grass_placed");
 	public static final FrozenPlacedFeature DENSE_TALL_GRASS_PLACED = register("dense_tall_grass_placed");
 	public static final FrozenPlacedFeature DENSE_FERN_PLACED = register("dense_fern_placed");
 	public static final FrozenPlacedFeature SEAGRASS_CYPRESS = register("seagrass_cypress");
@@ -1260,6 +1262,13 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
+		SWAMP_FERN.makeAndSetHolder(WWConfiguredFeatures.SWAMP_FERN.getHolder(),
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
 		GRASS_PLAINS_PLACED.makeAndSetHolder(WWConfiguredFeatures.GRASS_AND_FERN.getHolder(),
 			CountPlacement.of(15),
 			InSquarePlacement.spread(),
@@ -1283,6 +1292,13 @@ public final class WWPlacedFeatures {
 
 		TALL_GRASS_PLAINS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_TALL_GRASS),
 			RarityFilter.onAverageOnceEvery(7),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		SWAMP_TALL_GRASS_PLACED.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TALL_GRASS.getHolder(),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

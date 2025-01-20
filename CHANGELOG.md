@@ -47,11 +47,16 @@ hi
 - Revamped the generation of flowers in the Flower Forest and Flower Fields biomes, being much more visually pleasing.
 - Small Bushes now generate with all exposed sides covered by leaves.
 
-# Willows
+# Swamp Overhaul
 - Added the Willow tree.
   - Willows generate very frequently in Swamps, finally bringing the biome completely up to speed with what was shown in concept art.
   - Saplings can be placed and grown underwater.
   - Witch Huts now generate with the Willow block set.
+- Removed the `wilderwild:oak_saplings_grow_swamp_variant` biome tag as Willows replaced Wilder Wild's updated Swamp Oaks.
+- Added Tall Grass and Ferns to the Swamp biome.
+  - Added the `wilderwild:feature/has_swamp_fern` and `wilderwild:feature/has_swamp_tall_grass` biome tags to control the placement of these features.
+    - Both of these features contain only the `minecraft:swamp` biome by default.
+- Cypress Wetlands now generate Lily Pads and Seagrass.
 
 # Penguins
 - Added the Penguin.

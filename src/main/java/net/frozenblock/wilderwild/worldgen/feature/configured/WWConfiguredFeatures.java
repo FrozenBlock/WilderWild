@@ -334,9 +334,16 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 4)
 		.build();
+	public static final SimpleWeightedRandomList<BlockState> SWAMP_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(Blocks.FERN.defaultBlockState(), 4)
+		.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
+		.build();
+
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_GRASS_AND_GRASS_WATER = WWFeatureUtils.register("tall_grass_and_grass_water");
 
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SWAMP_TALL_GRASS = WWFeatureUtils.register("swamp_tall_grass");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SWAMP_FERN = WWFeatureUtils.register("swamp_fern");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = WWFeatureUtils.register("fern_and_grass");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = WWFeatureUtils.register("grass_and_fern");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MYCELIUM_GROWTH = WWFeatureUtils.register("mycelium_growth");
@@ -2666,6 +2673,30 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(TALL_GRASS_AND_GRASS_POOL))
+				)
+			)
+		);
+
+		SWAMP_TALL_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				18,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TALL_GRASS))
+				)
+			)
+		);
+
+		SWAMP_FERN.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				24,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(SWAMP_FERN_POOL))
 				)
 			)
 		);

@@ -128,12 +128,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.MEADOW)
 			.add(Biomes.MEADOW);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)
-			.add(Biomes.SWAMP)
-			.add(Biomes.MANGROVE_SWAMP)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptionalTag(BiomeTags.IS_OCEAN);
-
 		this.getOrCreateTagBuilder(WWBiomeTags.NON_FROZEN_PLAINS)
 			.add(Biomes.PLAINS)
 			.add(Biomes.SUNFLOWER_PLAINS)
@@ -1414,7 +1408,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWERING_WATER_LILY)
 			.add(Biomes.SWAMP)
-			.add(Biomes.MANGROVE_SWAMP);
+			.add(Biomes.MANGROVE_SWAMP)
+			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BERRY_PATCH)
 			.add(Biomes.FLOWER_FOREST)
@@ -1499,9 +1494,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SWAMP_FERN)
+			.add(Biomes.SWAMP);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DENSE_FERN)
 			.add(Biomes.MANGROVE_SWAMP)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SWAMP_TALL_GRASS)
+			.add(Biomes.SWAMP);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DENSE_TALL_GRASS)
 			.add(Biomes.SWAMP)
@@ -2028,7 +2029,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_TRAIL_RUINS)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
