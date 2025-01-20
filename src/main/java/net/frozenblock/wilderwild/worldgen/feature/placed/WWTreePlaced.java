@@ -125,7 +125,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_OAK_CHECKED = WWPlacementUtils.register("fallen_oak_checked");
 	public static final FrozenPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = WWPlacementUtils.register("fallen_oak_no_moss_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_OAK_CHECKED = WWPlacementUtils.register("mossy_fallen_oak_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_STRAIGHT_OAK_CHECKED = WWPlacementUtils.register("mossy_fallen_straight_oak_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_WILLOW_CHECKED = WWPlacementUtils.register("mossy_fallen_willow_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("mossy_fallen_spruce_checked");
 	public static final FrozenPlacedFeature CLEAN_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("clean_fallen_spruce_checked");
 	public static final FrozenPlacedFeature OLD_DYING_FANCY_OAK_BEES_0004 = WWPlacementUtils.register("old_dying_fancy_oak_bees_0004");
@@ -541,7 +541,7 @@ public final class WWTreePlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
-		MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_STRAIGHT_OAK_TREE.getHolder(),
+		MOSSY_FALLEN_WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_WILLOW_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getNormal(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 

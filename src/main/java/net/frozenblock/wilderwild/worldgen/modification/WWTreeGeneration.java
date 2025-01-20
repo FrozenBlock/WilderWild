@@ -229,8 +229,8 @@ public final class WWTreeGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_SWAMP_OAK_TREES)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_OAK_PLACED_SWAMP.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_SWAMP_TREES)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_SWAMP_TREES.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_MANGROVE_TREES)) {

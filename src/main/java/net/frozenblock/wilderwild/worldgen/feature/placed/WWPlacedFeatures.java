@@ -63,7 +63,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature MOSSY_FALLEN_TREES_MIXED_PLACED = register("mossy_fallen_trees_mixed_placed");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED = register("mossy_fallen_trees_oak_and_birch_placed");
 	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_SPRUCE_PLACED = register("fallen_birch_and_spruce_placed");
-	public static final FrozenPlacedFeature FALLEN_OAK_PLACED_SWAMP = register("fallen_oak_placed_swamp");
+	public static final FrozenPlacedFeature FALLEN_SWAMP_TREES = register("fallen_swamp_trees");
 	public static final FrozenPlacedFeature FALLEN_OAK_AND_SPRUCE_PLACED = register("fallen_oak_and_spruce_placed");
 	public static final FrozenPlacedFeature FALLEN_OAK_AND_BIRCH_PLACED = register("fallen_oak_and_birch_placed");
 	public static final FrozenPlacedFeature FALLEN_OAK_AND_CYPRESS_PLACED = register("fallen_oak_and_cypress_placed");
@@ -338,7 +338,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		FALLEN_OAK_PLACED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.FALLEN_OAK_SWAMP.getHolder(),
+		FALLEN_SWAMP_TREES.makeAndSetHolder(WWConfiguredFeatures.FALLEN_SWAMP_TREES.getHolder(),
 			RarityFilter.onAverageOnceEvery(13),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

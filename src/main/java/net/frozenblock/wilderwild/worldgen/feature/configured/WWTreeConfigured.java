@@ -182,7 +182,6 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_OAK_TREE = register("fallen_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_OAK_TREE_NO_MOSS = register("fallen_oak_tree_no_moss");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_OAK_TREE = register("mossy_fallen_oak_tree");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_STRAIGHT_OAK_TREE = register("mossy_fallen_straight_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES = register("fancy_oak_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004 = register("old_fancy_dying_oak_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak_tree");
@@ -209,6 +208,7 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> WILLOW_TALL = register("willow_tall");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> WILLOW_TALLER = register("willow_taller");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_OAK = register("swamp_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_WILLOW_TREE = register("mossy_fallen_willow_tree");
 	//SPRUCE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SPRUCE = register("spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SPRUCE_SHORT = register("spruce_short");
@@ -969,25 +969,6 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		MOSSY_FALLEN_STRAIGHT_OAK_TREE.makeAndSetHolder(Feature.TREE,
-			fallenTrunkBuilder(
-				Blocks.OAK_LOG,
-				WWBlocks.HOLLOWED_OAK_LOG,
-				3,
-				1,
-				1,
-				0F,
-				UniformInt.of(1, 2),
-				0.075F
-			).ignoreVines().decorators(
-				List.of(
-					VINES_08_UNDER_260_075,
-					MOSS_MOSSY,
-					SHELF_FUNGUS_0074
-				)
-			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
 		FANCY_OAK_BEES.makeAndSetHolder(Feature.TREE,
 			fancyOak().decorators(
 				List.of(
@@ -1250,6 +1231,25 @@ public final class WWTreeConfigured {
 				List.of(
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_009
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MOSSY_FALLEN_WILLOW_TREE.makeAndSetHolder(Feature.TREE,
+			fallenTrunkBuilder(
+				WWBlocks.WILLOW_LOG,
+				WWBlocks.HOLLOWED_WILLOW_LOG,
+				3,
+				1,
+				2,
+				0.125F,
+				UniformInt.of(1, 2),
+				0.075F
+			).ignoreVines().decorators(
+				List.of(
+					VINES_08_UNDER_260_075,
+					MOSS_MOSSY,
+					SHELF_FUNGUS_0074
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);

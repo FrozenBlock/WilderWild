@@ -57,6 +57,7 @@ hi
   - Added the `wilderwild:feature/has_swamp_fern` and `wilderwild:feature/has_swamp_tall_grass` biome tags to control the placement of these features.
     - Both of these features contain only the `minecraft:swamp` biome by default.
 - Cypress Wetlands now generate Lily Pads and Seagrass.
+- Renamed the `wilderwild:feature/has_fallen_swamp_oak_trees` biome tag with the `wilderwild:feature/has_fallen_swamp_trees` biome tag.
 
 # Penguins
 - Added the Penguin.

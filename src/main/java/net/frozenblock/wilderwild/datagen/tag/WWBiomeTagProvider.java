@@ -885,7 +885,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.GROVE)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_SWAMP_OAK_TREES)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_SWAMP_TREES)
 			.add(Biomes.SWAMP);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_MANGROVE_TREES)

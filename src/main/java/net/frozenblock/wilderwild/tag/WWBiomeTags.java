@@ -116,7 +116,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_COMMON_FALLEN_LARGE_SPRUCE = bind("feature/has_common_fallen_large_spruce");
 	public static final TagKey<Biome> HAS_CLEAN_FALLEN_LARGE_SPRUCE = bind("feature/has_clean_fallen_large_spruce");
 	public static final TagKey<Biome> HAS_COMMON_CLEAN_FALLEN_LARGE_SPRUCE = bind("feature/has_common_clean_fallen_large_spruce");
-	public static final TagKey<Biome> HAS_FALLEN_SWAMP_OAK_TREES = bind("feature/has_fallen_swamp_oak_trees");
+	public static final TagKey<Biome> HAS_FALLEN_SWAMP_TREES = bind("feature/has_fallen_swamp_trees");
 	public static final TagKey<Biome> HAS_FALLEN_MANGROVE_TREES = bind("feature/has_fallen_mangrove_trees");
 	public static final TagKey<Biome> HAS_FALLEN_MAPLE_TREES = bind("feature/has_fallen_maple_trees");
 	public static final TagKey<Biome> HAS_FALLEN_CRIMSON_FUNGI = bind("feature/has_fallen_crimson_fungi");
