@@ -46,6 +46,7 @@ hi
 - Slightly decreased the amount of large Oak trees in Forests.
 - Revamped the generation of flowers in the Flower Forest and Flower Fields biomes, being much more visually pleasing.
 - Small Bushes now generate with all exposed sides covered by leaves.
+- Coconuts no longer immediately fall once logs connected to Palm Fronds are broken.
 
 # Swamp Overhaul
 - Added the Willow tree.
