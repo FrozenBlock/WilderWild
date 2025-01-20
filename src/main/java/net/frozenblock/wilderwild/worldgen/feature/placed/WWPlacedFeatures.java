@@ -339,7 +339,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FALLEN_SWAMP_TREES.makeAndSetHolder(WWConfiguredFeatures.FALLEN_SWAMP_TREES.getHolder(),
-			RarityFilter.onAverageOnceEvery(13),
+			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
