@@ -434,8 +434,13 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
 		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.BROWN_SHELF_FUNGI, Items.BROWN_MUSHROOM);
 		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.RED_SHELF_FUNGI, Items.RED_MUSHROOM);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.PALE_SHELF_FUNGI, WWBlocks.PALE_MUSHROOM);
 		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.CRIMSON_SHELF_FUNGI, Items.CRIMSON_FUNGUS);
 		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.WARPED_SHELF_FUNGI, Items.WARPED_FUNGUS);
+
+		this.dropSelf(WWBlocks.PALE_MUSHROOM);
+		this.dropPottedContents(WWBlocks.POTTED_PALE_MUSHROOM);
+		this.add(WWBlocks.PALE_MUSHROOM_BLOCK, block -> this.createMushroomBlockDrop(block, WWBlocks.PALE_MUSHROOM));
 
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS);
 		this.dropSelf(WWBlocks.CRACKED_MUD_BRICKS);

@@ -57,6 +57,8 @@ voxelotl:
  - Crimson and Warped Shelf Fungi textures.
  - New falling leaf textures in 3.0.9.
  - Moobloom textures.
+ - Pale Mushroom and Huge Pale Mushroom concept.
+ - Pale Mushroom, Huge Pale Mushroom, and Pale Shelf Fungi textures.
 
 LudoCrypt:
  - New Forest and Mesoglea Caves music.

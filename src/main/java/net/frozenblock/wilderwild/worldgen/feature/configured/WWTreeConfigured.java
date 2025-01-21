@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.worldgen.feature.configured;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -28,6 +29,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import static net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
@@ -36,6 +38,7 @@ import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobweb
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.NetherShelfFungiTreeDecorator;
+import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PaleShelfFungiTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.ShelfFungiTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
@@ -59,9 +62,11 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -86,6 +91,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorato
 import net.minecraft.world.level.levelgen.feature.treedecorators.CreakingHeartDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.PaleMossDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -195,6 +201,9 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
 	//PALE OAK
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALE_OAK = register("pale_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALE_OAK_BONEMEAL = register("pale_oak_bonemeal");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALE_OAK_CREAKING = register("pale_oak_creaking");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK = register("tall_pale_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK_BONEMEAL = register("tall_pale_oak_bonemeal");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALE_OAK_CREAKING = register("tall_pale_oak_creaking");
@@ -207,6 +216,7 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_PALE_OAK_CREAKING = register("cobweb_fancy_pale_oak_creaking");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_PALE_OAK = register("large_fallen_pale_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_PALE_OAK = register("large_snapped_pale_oak_tree");
+	public static final FrozenConfiguredFeature<HugeMushroomFeatureConfiguration, ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_PALE_MUSHROOM = WWFeatureUtils.register("huge_pale_mushroom");
 	//SWAMP TREE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
 	//SPRUCE
@@ -273,6 +283,7 @@ public final class WWTreeConfigured {
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_002 = new ShelfFungiTreeDecorator(0.02F, 0.25F, 0.4F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungiTreeDecorator(0.064F, 0.25F, 0F);
 	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_00875_ONLY_RED = new ShelfFungiTreeDecorator(0.0875F, 0.25F, 1F);
+	private static final PaleShelfFungiTreeDecorator PALE_SHELF_FUNGI_00875 = new PaleShelfFungiTreeDecorator(0.0875F, 0.25F);
 	private static final NetherShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new NetherShelfFungiTreeDecorator(0.0875F, 0.25F, 0.1F);
 	private static final NetherShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new NetherShelfFungiTreeDecorator(0.0875F, 0.25F, 0.9F);
 	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
@@ -282,6 +293,8 @@ public final class WWTreeConfigured {
 	private static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTreeDecorator(1F, 260, 0.5F);
 	private static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
 	private static final HeightBasedVineTreeDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
+	public static final PaleMossDecorator PALE_MOSS_DECORATOR = new PaleMossDecorator(0.15F, 0.4F, 0.8F);
+	public static final CreakingHeartDecorator CREAKING_HEARTS = new CreakingHeartDecorator(1F);
 	private static final HeightBasedCobwebTreeDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
 	private static final MossCarpetTreeDecorator MOSS_CYPRESS = new MossCarpetTreeDecorator(0.6F, 0.24F, false);
 	private static final MossCarpetTreeDecorator MOSS_SPRUCE_PALM = new MossCarpetTreeDecorator(0.5F, 0.2F, false);
@@ -1243,68 +1256,63 @@ public final class WWTreeConfigured {
 
 		// PALE OAK
 
+		PALE_OAK.makeAndSetHolder(Feature.TREE,
+			paleOak(true, false, false).build()
+		);
+
+		PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
+			paleOak(false, false, false).build()
+		);
+
+		PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
+			paleOak(true, true, false).build()
+		);
+
 		TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, false).build()
+			tallPaleOak(true, false, false).build()
 		);
 
 		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(false, false).build()
+			tallPaleOak(false, false, false).build()
 		);
 
 		TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, true).build()
+			tallPaleOak(true, true, false).build()
 		);
 
 		FANCY_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, false).build()
+			fancyPaleOak(true, false, false).build()
 		);
 
 		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(false, false).build()
+			fancyPaleOak(false, false, false).build()
 		);
 
 		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, true).build()
+			fancyPaleOak(true, true, false).build()
 		);
 
 		COBWEB_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, false).decorators(
-				List.of(
-					COBWEB_1_UNDER_260_025
-				)
-			).build()
+			tallPaleOak(true, false, true).build()
 		);
 
 		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, true).decorators(
-				List.of(
-					COBWEB_1_UNDER_260_025
-				)
-			).build()
+			tallPaleOak(true, true, true).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, false).decorators(
-				List.of(
-					COBWEB_1_UNDER_260_025
-				)
-			).build()
+			fancyPaleOak(true, false, true).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, true).decorators(
-				List.of(
-					COBWEB_1_UNDER_260_025
-				)
-			).build()
+			fancyPaleOak(true, true, true).build()
 		);
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			largeFallenBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 4, 2, 1).decorators(
 				List.of(
 					MOSS_PALE_OAK,
-					SHELF_FUNGUS_006_ONLY_BROWN,
-					SHELF_FUNGUS_007
+					PALE_SHELF_FUNGI_00875
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1320,9 +1328,22 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					MOSS_PALE_OAK,
-					SHELF_FUNGUS_006_ONLY_BROWN
+					PALE_SHELF_FUNGI_00875
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWFeatures.HUGE_PALE_MUSHROOM_FEATURE,
+			new HugeMushroomFeatureConfiguration(
+				BlockStateProvider.simple(
+					WWBlocks.PALE_MUSHROOM_BLOCK.defaultBlockState()
+						.setValue(HugeMushroomBlock.DOWN, false)
+				),
+				BlockStateProvider.simple(
+					Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)
+				),
+				2
+			)
 		);
 
 		// SWAMP TREE
@@ -2203,34 +2224,33 @@ public final class WWTreeConfigured {
 			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking, boolean cobweb) {
 		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 6, 2, 1);
-		appendPaleMossAndCreaking(builder, paleMoss, creaking);
+		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb);
 		return builder;
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking, boolean cobweb) {
 		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4);
-		appendPaleMossAndCreaking(builder, paleMoss, creaking);
+		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb);
 		return builder;
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking, boolean cobweb) {
 		TreeConfiguration.TreeConfigurationBuilder builder = fancyPaleOakBuilder(
 			Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4, 1F, UniformInt.of(1, 2), UniformInt.of(1, 4)
 		);
-		appendPaleMossAndCreaking(builder, paleMoss, creaking);
+		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb);
 		return builder;
 	}
 
-	private static void appendPaleMossAndCreaking(TreeConfiguration.TreeConfigurationBuilder builder, boolean paleMoss, boolean creaking) {
-		if (paleMoss && creaking) {
-			builder.decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F), new CreakingHeartDecorator(1F)));
-		} else if (creaking) {
-			builder.decorators(ImmutableList.of(new CreakingHeartDecorator(1F)));
-		} else if (paleMoss) {
-			builder.decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F)));
-		}
+	private static void appendPaleOakDecorators(TreeConfiguration.TreeConfigurationBuilder builder, boolean paleMoss, boolean creaking, boolean cobweb) {
+		List<TreeDecorator> treeDecorators = new ArrayList<>();
+		treeDecorators.add(PALE_SHELF_FUNGI_00875);
+		if (paleMoss) treeDecorators.add(PALE_MOSS_DECORATOR);
+		if (creaking) treeDecorators.add(CREAKING_HEARTS);
+		if (cobweb) treeDecorators.add(COBWEB_1_UNDER_260_025);
+		builder.decorators(ImmutableList.copyOf(treeDecorators));
 	}
 
 	@NotNull

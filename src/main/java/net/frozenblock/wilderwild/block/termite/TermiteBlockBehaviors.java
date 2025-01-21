@@ -262,6 +262,11 @@ public final class TermiteBlockBehaviors {
 		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 		registerNaturalAndPlayer(bootstrapContext, WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
 
+		registerNaturalAndPlayer(bootstrapContext, Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
+		registerHollowed(bootstrapContext, Blocks.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		registerNaturalAndPlayer(bootstrapContext, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
+
 		registerPlayerOnly(bootstrapContext, WWBlocks.BUSH, Blocks.DEAD_BUSH);
 
 		registerBreakable(bootstrapContext, "leaves", BlockTags.LEAVES);

@@ -185,6 +185,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature WARPED_SHELF_FUNGI_RARE = register("warped_shelf_fungi_rare");
 	public static final FrozenPlacedFeature BROWN_MUSHROOM_PLACED = register("brown_mushroom_placed");
 	public static final FrozenPlacedFeature RED_MUSHROOM_PLACED = register("red_mushroom_placed");
+	public static final FrozenPlacedFeature PALE_MUSHROOM_PLACED = register("pale_mushroom_placed");
+	public static final FrozenPlacedFeature HUGE_PALE_MUSHROOM_PLACED = register("huge_pale_mushroom_placed");
 	public static final FrozenPlacedFeature DARK_FOREST_MUSHROOM_PLACED = register("dark_forest_mushroom_placed");
 	public static final FrozenPlacedFeature HUGE_RED_MUSHROOM_PLACED = register("huge_red_mushroom_placed");
 	public static final FrozenPlacedFeature HUGE_BROWN_MUSHROOM_PLACED = register("huge_brown_mushroom_placed");
@@ -981,6 +983,16 @@ public final class WWPlacedFeatures {
 
 		RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_RED_MUSHROOM),
 			CountPlacement.of(1), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		PALE_MUSHROOM_PLACED.makeAndSetHolder(WWConfiguredFeatures.PATCH_PALE_MUSHROOM.getHolder(),
+			CountPlacement.of(1), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		HUGE_PALE_MUSHROOM_PLACED.makeAndSetHolder(WWConfiguredFeatures.HUGE_PALE_MUSHROOMS.getHolder(),
+			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

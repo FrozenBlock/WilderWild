@@ -36,6 +36,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
@@ -43,6 +45,7 @@ public class PollenParticle extends TextureSheetParticle {
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
+	private Optional<Supplier<Boolean>> canExist = Optional.empty();
 
 	PollenParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
@@ -57,7 +60,7 @@ public class PollenParticle extends TextureSheetParticle {
 
 	@Override
 	public void tick() {
-		if (WWBlockConfig.Client.POLLEN_ENABLED) {
+		if (this.canExist.isEmpty() || this.canExist.get().get()) {
 			BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 			boolean rain = this.level.isRainingAt(blockPos);
 			if (rain) {
@@ -130,12 +133,30 @@ public class PollenParticle extends TextureSheetParticle {
 	public record PollenFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+		public Particle createParticle(
+			@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i
+		) {
 			PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0D, -0.800000011920929D, 0D);
 			pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
 			pollenParticle.gravity = 0.01F;
 			pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
+			pollenParticle.canExist = Optional.of(() -> WWBlockConfig.Client.POLLEN_ENABLED);
 			return pollenParticle;
+		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	public record PaleSporeFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+		@Override
+		@NotNull
+		public Particle createParticle(
+			@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i
+		) {
+			PollenParticle sporeParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0D, -0.800000011920929D, 0D);
+			sporeParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 200, 500);
+			sporeParticle.gravity = 0.01F;
+			sporeParticle.setColor(112F / 255F, 114F / 255F, 112F / 255F);
+			return sporeParticle;
 		}
 	}
 }

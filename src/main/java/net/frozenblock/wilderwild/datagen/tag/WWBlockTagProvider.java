@@ -655,8 +655,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
-			.addOptional(WWConstants.id("hollowed_pale_oak_log"))
-			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"));
+			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG)
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS)
@@ -693,7 +693,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
-			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"))
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG)
@@ -764,7 +764,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
 			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
 			.addOptionalTag(BlockTags.WARPED_STEMS)
-			.addOptionalTag(BlockTags.CRIMSON_STEMS);
+			.addOptionalTag(BlockTags.CRIMSON_STEMS)
+			.add(Blocks.RESIN_CLUMP)
+			.add(Blocks.CREAKING_HEART)
+			.add(Blocks.CLOSED_EYEBLOSSOM)
+			.add(Blocks.OPEN_EYEBLOSSOM)
+			.add(WWBlocks.PALE_MUSHROOM)
+			.add(WWBlocks.PALE_SHELF_FUNGI)
+			.add(WWBlocks.PALE_MUSHROOM_BLOCK);
 	}
 
 	private void generateMinecraft() {
@@ -775,7 +782,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.TUMBLEWEED)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
-			.add(WWBlocks.MYCELIUM_GROWTH);
+			.add(WWBlocks.MYCELIUM_GROWTH)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
+			.add(WWBlocks.PALE_SHELF_FUNGI)
+			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
+			.add(WWBlocks.WARPED_SHELF_FUNGI)
+			.add(WWBlocks.PALE_MUSHROOM_BLOCK)
+			.add(WWBlocks.PALE_MUSHROOM);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(Blocks.SWEET_BERRY_BUSH)
@@ -826,12 +840,17 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ALGAE)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
 			.add(WWBlocks.RED_SHELF_FUNGI)
+			.add(WWBlocks.PALE_SHELF_FUNGI)
 			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
 			.add(WWBlocks.WARPED_SHELF_FUNGI)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
 			.add(WWBlocks.MYCELIUM_GROWTH)
+			.add(WWBlocks.PALE_MUSHROOM)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
+
+		this.getOrCreateTagBuilder(BlockTags.ENDERMAN_HOLDABLE)
+			.add(WWBlocks.PALE_MUSHROOM);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
 			.add(WWBlocks.SCORCHED_SAND)
@@ -894,7 +913,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_CARNATION)
 			.add(WWBlocks.POTTED_MARIGOLD)
 			.add(WWBlocks.POTTED_SEEDING_DANDELION)
-			.add(WWBlocks.POTTED_PASQUEFLOWER);
+			.add(WWBlocks.POTTED_PASQUEFLOWER)
+			.add(WWBlocks.POTTED_PALE_MUSHROOM);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(WWBlocks.DATURA)

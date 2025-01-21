@@ -45,6 +45,7 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -53,6 +54,8 @@ import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
+import net.frozenblock.wilderwild.block.PaleMushroomBlock;
+import net.frozenblock.wilderwild.block.PaleShelfFungiBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -73,6 +76,7 @@ import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -746,6 +750,41 @@ public final class WWBlocks {
 			.noCollission()
 			.noOcclusion()
 			.sound(SoundType.FUNGUS)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final HugePaleMushroomBlock PALE_MUSHROOM_BLOCK = register("pale_mushroom_block",
+		HugePaleMushroomBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.instrument(NoteBlockInstrument.BASS)
+			.strength(0.2F)
+			.sound(SoundType.WOOD)
+			.ignitedByLava()
+	);
+	public static final PaleMushroomBlock PALE_MUSHROOM = register("pale_mushroom",
+		properties -> new PaleMushroomBlock(WWTreeConfigured.HUGE_PALE_MUSHROOM.getKey(), properties),
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.noCollission()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final Block POTTED_PALE_MUSHROOM = register("potted_pale_mushroom",
+		properties -> new FlowerPotBlock(PALE_MUSHROOM, properties),
+		Blocks.flowerPotProperties()
+	);
+	public static final PaleShelfFungiBlock PALE_SHELF_FUNGI = register("pale_shelf_fungi",
+		PaleShelfFungiBlock::new,
+		Properties.ofFullCopy(PALE_MUSHROOM_BLOCK)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(WWSoundTypes.MUSHROOM)
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);

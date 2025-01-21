@@ -22,6 +22,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.worldgen.impl.features.AlgaeFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.CattailFeature;
+import net.frozenblock.wilderwild.worldgen.impl.features.HugePaleMushroomFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.NematocystFeature;
 import net.frozenblock.wilderwild.worldgen.impl.features.PalmTreeFeature;
@@ -52,6 +53,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -86,6 +88,7 @@ public class WWFeatures {
 	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = register("snow_blanket_feature", new SnowBlanketFeature(NoneFeatureConfiguration.CODEC));
 	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = register("snow_and_freeze_disk_feature", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC));
 	public static final PalmTreeFeature PALM_TREE_FEATURE = register("palm_tree", new PalmTreeFeature(TreeConfiguration.CODEC));
+	public static final Feature<HugeMushroomFeatureConfiguration> HUGE_PALE_MUSHROOM_FEATURE = register("huge_pale_mushroom", new HugePaleMushroomFeature(HugeMushroomFeatureConfiguration.CODEC));
 
 	public static void init() {
 	}

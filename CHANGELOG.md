@@ -54,3 +54,14 @@ hi
 - Expanded the list of blocks Fireflies can "hide" in during the day.
 - Renamed the `wilderwildfireflies` mob category to `wilderwildfirefly`.
 - Removed the `wilderwild:spawn/firefly_spawnable_cave` and `wilderwild:spawn/firefly_spawnable_during_day` tags as these spawning behaviors have been removed.
+
+# Pale Mushroom Branch
+- All Shelf Fungi can now be mined faster with an Axe.
+- Added the Pale Mushroom and Pale Shelf Fungi blocks.
+  - At night, these will emit gray spore-like particles.
+- Added the Pale Mushroom Block.
+  - When placed above a Mushroom Stem at night, will emit fog-like particles.
+- Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
+- Properly updated the sound type for Eyeblossoms to match other flowers.
+- Termites can now eat Pale Oak blocks.
+- Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.

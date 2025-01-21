@@ -45,8 +45,11 @@ import org.jetbrains.annotations.NotNull;
 public final class WWParticleTypes {
 	public static final SimpleParticleType POLLEN = register("pollen");
 	public static final ParticleType<SeedParticleOptions> SEED = register(
-		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC)
-		;
+		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC
+	);
+	public static final SimpleParticleType PALE_FOG = register("pale_fog");
+	public static final SimpleParticleType PALE_FOG_SMALL = register("pale_fog_small");
+	public static final SimpleParticleType PALE_SPORE = register("pale_spore");
 	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register(
 		"floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC
 	);

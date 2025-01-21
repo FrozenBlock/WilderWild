@@ -235,6 +235,11 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.CRIMSON_SHELF_FUNGI);
 		addAfterInNaturalBlocks(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
 
+		// PALE MUSHROOMS
+		addAfterInNaturalBlocks(Items.RED_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK);
+		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.PALE_MUSHROOM);
+		addAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.PALE_SHELF_FUNGI);
+
 		// SPONGE
 		addAfterInNaturalBlocks(Items.WET_SPONGE, WWBlocks.SPONGE_BUD);
 
