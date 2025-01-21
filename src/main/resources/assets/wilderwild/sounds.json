@@ -3263,16 +3263,18 @@
       {
         "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
         "stream": true,
-        "volume": 0.8
+        "volume": 0.4
       },
       {
         "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
+        "volume": 0.5,
         "weight": 2
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
         "stream": true,
+        "volume": 0.6,
         "weight": 6
       }
     ]
