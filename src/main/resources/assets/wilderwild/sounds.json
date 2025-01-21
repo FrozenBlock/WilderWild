@@ -3168,12 +3168,13 @@
       },
       {
         "name": "wilderwild:music/pictochats/cave1",
-        "stream": true
+        "stream": true,
+        "weight": 2
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
         "stream": true,
-        "weight": 5
+        "weight": 6
       }
     ]
   },
