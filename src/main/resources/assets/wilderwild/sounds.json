@@ -3235,7 +3235,8 @@
       },
       {
         "name": "music/game/key",
-        "stream": true
+        "stream": true,
+        "weight": 2
       },
       {
         "name": "music/game/echo_in_the_wind",
@@ -3259,10 +3260,6 @@
       },
       {
         "name": "music/game/haggstrom",
-        "stream": true
-      },
-      {
-        "name": "music/game/key",
         "stream": true
       },
       {
