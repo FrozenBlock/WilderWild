@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
-import java.util.Objects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.animal.goat.Goat;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +33,7 @@ public class GoatMixin {
 	private boolean wilderWild$isTreetrain1() {
 		Goat goat = Goat.class.cast(this);
 		String string = ChatFormatting.stripFormatting(goat.getName().getString());
-		return Objects.equals(string, "Treetrain1");
+		return string.equalsIgnoreCase("Treetrain1") || string.equalsIgnoreCase("Treetrain");
 	}
 
 	@Inject(method = "isScreamingGoat", at = @At("RETURN"), cancellable = true)
