@@ -33,16 +33,19 @@ public class WilderEasterEggs {
 			(entity -> entity instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella())
 		);
 		EntityTextureOverride.register(WWConstants.id("treetrain1_goat"), EntityType.GOAT, WWConstants.id("textures/entity/goat/treetrain1_goat.png"),
-			true, "Treetrain1", "Treetrain"
+			"Treetrain1", "Treetrain"
 		);
 		EntityTextureOverride.register(WWConstants.id("xfrtrex_frog"), EntityType.FROG, WWConstants.id("textures/entity/frog/sus_frog.png"),
 			"Xfrtrex", "BluePhoenixLOL"
 		);
 		EntityTextureOverride.register(WWConstants.id("saisho_axolotl"), EntityType.AXOLOTL, WWConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
-			true, "Saisho"
+			"Saisho", "SaishoVibes"
 		);
 		EntityTextureOverride.register(WWConstants.id("alex_dolphin"), EntityType.DOLPHIN, WWConstants.id("textures/entity/dolphin/alex_dolphin.png"),
 			"AlexTheDolphin0"
+		);
+		EntityTextureOverride.register(WWConstants.id("avftt_pig"), EntityType.PIG, WWConstants.id("textures/entity/pig/uppy_balloo.png"),
+			"AViewFromTheTop", "A View From The Top", "AViewFromTheEnd", "Lunade", "Lunade_"
 		);
 	}
 }

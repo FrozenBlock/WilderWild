@@ -353,6 +353,7 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAPLE_FOREST = registerForHolder("music.overworld.maple_forest");
 
 	private WWSounds() {
 		throw new UnsupportedOperationException("WWSounds contains only static declarations.");
