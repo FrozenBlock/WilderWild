@@ -3095,7 +3095,7 @@
         "weight": 25
       },
       {
-        "name": "wilderwild:music/willow/cave1",
+        "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
         "volume": 0.4,
         "weight": 5
@@ -3167,8 +3167,13 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/willow/cave1",
+        "name": "wilderwild:music/pictochats/cave1",
         "stream": true
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "weight": 5
       }
     ]
   },
@@ -3211,8 +3216,83 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/willow/cave1",
+        "name": "wilderwild:music/pictochats/cave1",
         "stream": true
+      }
+    ]
+  },
+  "music.overworld.maple_forest": {
+    "sounds": [
+      {
+        "name": "music/game/comforting_memories",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/bromeliad",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/key",
+        "stream": true
+      },
+      {
+        "name": "music/game/echo_in_the_wind",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/featherfall",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/watcher",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/komorebi",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/haggstrom",
+        "stream": true
+      },
+      {
+        "name": "music/game/key",
+        "stream": true
+      },
+      {
+        "name": "music/game/left_to_bloom",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/living_mice",
+        "stream": true
+      },
+      {
+        "name": "music/game/subwoofer_lullaby",
+        "stream": true
+      },
+      {
+        "name": "music/game/floating_dream",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/left_to_bloom",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "wilderwild:music/willow/maple_forest1",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 5
       }
     ]
   },

@@ -59,10 +59,17 @@ voxelotl:
  - Moobloom textures.
 
 LudoCrypt:
- - New Forest and Mesoglea Caves music.
+ - New Forest music.
+    - Horizon Afoot.
+    - Serene Sonder.
+ - Mesoglea Caves music.
+    - Dove.
 
 Willow/pictochats_:
  - New cave music.
+ - Magmatic Caves music.
+    - Dahlia.
+ - Maple Forest/Tundra music.
 
 Enri:
  - Italian translation.
