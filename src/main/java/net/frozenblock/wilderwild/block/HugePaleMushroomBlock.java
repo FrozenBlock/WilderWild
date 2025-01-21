@@ -54,7 +54,7 @@ public class HugePaleMushroomBlock extends HugeMushroomBlock {
 						k + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
 					);
 					BlockState blockState = level.getBlockState(mutable);
-					if (!blockState.isCollisionShapeFullBlock(level, mutable) && random.nextFloat() <= 0.25F) {
+					if (!blockState.isCollisionShapeFullBlock(level, mutable) && random.nextFloat() <= 0.285F) {
 						level.addParticle(
 							random.nextFloat() <= 0.65F ? WWParticleTypes.PALE_FOG_SMALL : WWParticleTypes.PALE_FOG,
 							mutable.getX() + random.nextDouble(),

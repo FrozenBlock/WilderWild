@@ -55,8 +55,8 @@ public class PaleFogParticle extends TextureSheetParticle {
 		this.xd = 0D;
 		this.yd = -0.0025D;
 		this.zd = 0D;
-		float width = large ? 0.1F : 0.01F;
-		float height = large ? 0.2F : 0.02F;
+		float width = large ? 0.2F : 0.1F;
+		float height = large ? 0.4F : 0.1F;
 		this.setSize(width, height);
 		this.pickSprite(spriteProvider);
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
@@ -71,9 +71,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
-			this.age += 5;
-		}
+
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
 		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
@@ -85,11 +83,18 @@ public class PaleFogParticle extends TextureSheetParticle {
 			this.age += 2;
 			return;
 		}
+
 		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
 		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.zd += wind.z() * multXZ;
+
+		float ageProgress = (float) this.age / this.lifetime;
+		float alphaScale = ageProgress * 0.0075F;
+		this.alpha += -this.alpha * alphaScale;
+
+		if (this.alpha <= 0.06F) this.remove();
 	}
 
 	@Override
