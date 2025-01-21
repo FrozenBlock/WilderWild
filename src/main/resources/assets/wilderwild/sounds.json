@@ -3248,6 +3248,11 @@
         "volume": 0.4
       },
       {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "weight": 6
+      },
+      {
         "name": "music/game/bromeliad",
         "stream": true,
         "volume": 0.4
@@ -3269,11 +3274,6 @@
         "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
         "weight": 2
-      },
-      {
-        "name": "wilderwild:music/pictochats/dahlia",
-        "stream": true,
-        "weight": 6
       }
     ]
   },
@@ -3355,6 +3355,12 @@
         "volume": 0.4
       },
       {
+        "name": "wilderwild:music/pictochats/maple_forest1",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 6
+      },
+      {
         "name": "music/game/komorebi",
         "stream": true,
         "volume": 0.4
@@ -3385,12 +3391,6 @@
         "name": "music/game/left_to_bloom",
         "stream": true,
         "volume": 0.4
-      },
-      {
-        "name": "wilderwild:music/pictochats/maple_forest1",
-        "stream": true,
-        "volume": 0.7,
-        "weight": 6
       }
     ]
   },
