@@ -52,6 +52,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -292,6 +293,8 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
+	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
+
 	public void advanceStage(Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, boolean natural, RandomSource random) {
 		if (geyserStage == GeyserStage.ERUPTING || !natural) {
 			this.eruptionProgress = 0F;
@@ -299,6 +302,20 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (geyserStage == GeyserStage.DORMANT) {
 			this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
 		} else if (geyserStage == GeyserStage.ACTIVE) {
+			if (natural) {
+				Vec3 gesyerCenter = Vec3.atCenterOf(pos);
+				Player player = level.getNearestPlayer(TARGETING_CONDITIONS, gesyerCenter.x(), gesyerCenter.y(), gesyerCenter.z());
+				if (player != null) {
+					double distance = player.distanceToSqr(gesyerCenter);
+					if (Math.sqrt(distance) <= 48) {
+						if (random.nextInt(((int) (distance * 1.5D)) + 5) != 0) return;
+					} else {
+						return;
+					}
+				} else {
+					return;
+				}
+			}
 			this.setStageAndCooldown(level, pos, state, GeyserStage.ERUPTING, random);
 		}
 	}

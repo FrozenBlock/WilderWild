@@ -13,7 +13,6 @@ hi
 - Added a config option to toggle rotatable Reinforced Deepslate.
 - Fixed Maple Leaves not dropping Leaf Litters on 1.21.2+.
 - Added more variety to Pale Oak trees on 1.21.4.
-- Added a new song that plays in Lush and Frozen caves, by Willow/pictochats_!
 - Crab variants can now be added via datapacks, though by default there is only one Crab variant.
 - Removed two unnecessary blockstate properties from Osseous Sculk relating to their generation height.
 - Reworked Osseous Sculk generation once again.
@@ -35,7 +34,6 @@ hi
 - Removed the Bush from the `minecraft:inside_step_sound_blocks` block tag.
 - Slightly decreased the pitch of Magma block sounds.
 - Fixed Slimes and Magma Cubes not spawning.
-- Added LudoCrypt's `Dove` to the Magmatic Caves and Lush Caves.
 - Fixed a few broken recipe unlocks.
 - Fixed the Stone Chest having wood-like properties.
 - Removed the `wilderwild:chest_bubbler` entity as it was unnecessary.
@@ -47,6 +45,19 @@ hi
 - Revamped the generation of flowers in the Flower Forest and Flower Fields biomes, being much more visually pleasing.
 - Small Bushes now generate with all exposed sides covered by leaves.
 - Coconuts no longer immediately fall once logs connected to Palm Fronds are broken.
+- Slightly reworking the erupting of naturally generated Geysers.
+  - Naturally generated Geysers now only erupt when a player is within 48 blocks of them.
+  - The closer a player is, the higher the chance for it to erupt.
+
+# Music
+- Added three new tracks by Willow/pictochats_.
+  - Dahlia.
+    - Plays in Magmatic Caves biomes.
+  - Caves Temp
+    - Plays in Frozen Caves, Magmatic Caves, Mesoglea Caves, and Lush Caves biomes.
+  - Maple Temp
+    - Plays in Maple Forest and Tundra biomes.
+- Ludocrypt's `Dove` now also plays in Lush Caves.
 
 # Swamp Overhaul
 - Added the Willow tree.

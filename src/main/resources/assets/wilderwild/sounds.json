@@ -3227,6 +3227,11 @@
         "stream": true,
         "volume": 0.8,
         "weight": 5
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave1",
+        "stream": true,
+        "weight": 2
       }
     ]
   },
@@ -3261,11 +3266,6 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
         "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
         "volume": 0.5,
@@ -3274,8 +3274,8 @@
       {
         "name": "wilderwild:music/pictochats/dahlia",
         "stream": true,
-        "volume": 0.6,
-        "weight": 6
+        "volume": 0.8,
+        "weight": 5
       }
     ]
   },
