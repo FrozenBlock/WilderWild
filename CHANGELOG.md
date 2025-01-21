@@ -137,3 +137,14 @@ hi
 - Decreased the amount of trees per-chunk in Wooded Badlands by 1.
 - Jungle trees can now generate with Shelf Fungi.
 - Mangrove trees can now generate with Shelf Fungi.
+
+# Pale Mushroom Branch
+- All Shelf Fungi can now be mined faster with an Axe.
+- Added the Pale Mushroom and Pale Shelf Fungi blocks.
+    - At night, these will emit gray spore-like particles.
+- Added the Pale Mushroom Block.
+    - Emits fog-like particles at night while above a Mushroom Stem block.
+- Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
+- Properly updated the sound type for Eyeblossoms to match other flowers.
+- Termites can now eat Pale Oak blocks.
+- Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.

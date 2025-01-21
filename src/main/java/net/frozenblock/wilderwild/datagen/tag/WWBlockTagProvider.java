@@ -782,7 +782,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.TUMBLEWEED)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
-			.add(WWBlocks.MYCELIUM_GROWTH);
+			.add(WWBlocks.MYCELIUM_GROWTH)
+			.add(WWBlocks.BROWN_SHELF_FUNGI)
+			.add(WWBlocks.RED_SHELF_FUNGI)
+			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
+			.add(WWBlocks.WARPED_SHELF_FUNGI);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(Blocks.SWEET_BERRY_BUSH)
