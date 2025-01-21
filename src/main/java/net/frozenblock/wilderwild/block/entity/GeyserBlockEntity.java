@@ -70,6 +70,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GeyserBlockEntity extends BlockEntity {
 	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
+	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	public static final double ERUPTION_DISTANCE = 6D;
 	public static final int MIN_ACTIVE_TICKS = 100;
 	public static final int MAX_ACTIVE_TICKS = 200;
@@ -293,8 +294,6 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
-
 	public void advanceStage(Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, boolean natural, RandomSource random) {
 		if (geyserStage == GeyserStage.ERUPTING || !natural) {
 			this.eruptionProgress = 0F;
@@ -302,22 +301,24 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (geyserStage == GeyserStage.DORMANT) {
 			this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
 		} else if (geyserStage == GeyserStage.ACTIVE) {
-			if (natural) {
-				Vec3 gesyerCenter = Vec3.atCenterOf(pos);
-				Player player = level.getNearestPlayer(TARGETING_CONDITIONS, gesyerCenter.x(), gesyerCenter.y(), gesyerCenter.z());
-				if (player != null) {
-					double distance = player.distanceToSqr(gesyerCenter);
-					if (Math.sqrt(distance) <= 48) {
-						if (random.nextInt(((int) (distance * 1.5D)) + 5) != 0) return;
-					} else {
-						return;
-					}
-				} else {
-					return;
-				}
-			}
+			if (!canErupt(level, pos, natural, random)) return;
 			this.setStageAndCooldown(level, pos, state, GeyserStage.ERUPTING, random);
 		}
+	}
+
+	private boolean canErupt(Level level, BlockPos pos, boolean natural, RandomSource random) {
+		if (natural) {
+			Vec3 gesyerCenter = Vec3.atCenterOf(pos);
+			Player player = level.getNearestPlayer(TARGETING_CONDITIONS, gesyerCenter.x(), gesyerCenter.y(), gesyerCenter.z());
+			if (player != null) {
+				double distance = player.distanceToSqr(gesyerCenter);
+				if (Math.sqrt(distance) <= 48) {
+					return random.nextInt(((int) (distance * 1.5D)) + 5) != 0;
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 
 	public void setDormant(Level level, BlockPos pos, BlockState state, RandomSource random) {
