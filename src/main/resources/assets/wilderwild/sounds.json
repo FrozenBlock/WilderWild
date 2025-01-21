@@ -3248,11 +3248,6 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/pictochats/dahlia",
-        "stream": true,
-        "weight": 6
-      },
-      {
         "name": "music/game/bromeliad",
         "stream": true,
         "volume": 0.4
@@ -3274,6 +3269,11 @@
         "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
         "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "weight": 6
       }
     ]
   },
@@ -3318,7 +3318,7 @@
       {
         "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
-        "weight": 2
+        "weight": 3
       }
     ]
   },
@@ -3355,12 +3355,6 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/pictochats/maple_forest1",
-        "stream": true,
-        "volume": 0.7,
-        "weight": 6
-      },
-      {
         "name": "music/game/komorebi",
         "stream": true,
         "volume": 0.4
@@ -3391,6 +3385,24 @@
         "name": "music/game/left_to_bloom",
         "stream": true,
         "volume": 0.4
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/pictochats/maple_forest1",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 7
       }
     ]
   },

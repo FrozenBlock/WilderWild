@@ -51,7 +51,7 @@ public final class WWMusic {
 
 		BiomeModifications.create(WWConstants.id("modify_music_forests")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
+			BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST).and(BiomeSelectors.excludeByKey(WWBiomes.MAPLE_FOREST)),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
