@@ -1,0 +1,9 @@
+{
+  "parent": "wilderwild:block/template_penguin_egg",
+	"textures": {
+		"top": "wilderwild:block/penguin_egg_not_cracked_top",
+		"side": "wilderwild:block/penguin_egg_not_cracked_side",
+		"bottom": "wilderwild:block/penguin_egg_not_cracked_bottom",
+		"particle": "wilderwild:block/penguin_egg_not_cracked_side"
+	}
+}
