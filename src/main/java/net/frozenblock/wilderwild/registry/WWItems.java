@@ -217,14 +217,14 @@ public final class WWItems {
 		registerItemBefore(Items.MOOSHROOM_SPAWN_EGG, MOOBLOOM_SPAWN_EGG, "moobloom_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemBefore(Items.PHANTOM_SPAWN_EGG, PENGUIN_SPAWN_EGG, "penguin_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(JELLYFISH_BUCKET, CRAB_BUCKET, "crab_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemAfter(Items.ENCHANTED_GOLDEN_APPLE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
 		registerItemAfter(WWBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.SWEET_BERRIES, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
-		registerItemBefore(Items.COOKED_COD, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemBefore(Items.COD, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(CRAB_CLAW, COOKED_CRAB_CLAW, "cooked_crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.SPIDER_EYE, SCORCHED_EYE, "scorched_eye", CreativeModeTabs.FOOD_AND_DRINKS, CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.FERMENTED_SPIDER_EYE, FERMENTED_SCORCHED_EYE, "fermented_scorched_eye", CreativeModeTabs.INGREDIENTS);

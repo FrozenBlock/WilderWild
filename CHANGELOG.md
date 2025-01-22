@@ -48,6 +48,9 @@ hi
 - Slightly reworking the erupting of naturally generated Geysers.
   - Naturally generated Geysers now only erupt when a player is within 48 blocks of them.
   - The closer a player is, the higher the chance for it to erupt.
+- Fixed the placement of the Crab Claw in the Creative Inventory.
+- Fixed the placement of the Baobab Nut and Split Coconut in the Creative Inventory.
+- Fixed the placement of the Ostrich Egg in the Creative Inventory.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

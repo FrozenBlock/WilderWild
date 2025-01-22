@@ -61,6 +61,7 @@ voxelotl:
  - Pale Mushroom texture.
  - Pale Mushroom Block textures.
  - Pale Shelf Fungi texture.
+ - Came up with Pale Mushrooms & the Pale Fog mechanic.
 
 LudoCrypt:
  - Composer.
