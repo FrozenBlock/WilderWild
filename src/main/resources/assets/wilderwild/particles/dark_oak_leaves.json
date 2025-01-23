@@ -1,24 +1,12 @@
 {
   "textures": [
     "wilderwild:dark_oak_leaf0",
-    "wilderwild:dark_oak_leaf0",
-    "wilderwild:dark_oak_leaf1",
     "wilderwild:dark_oak_leaf1",
     "wilderwild:dark_oak_leaf2",
     "wilderwild:dark_oak_leaf3",
     "wilderwild:dark_oak_leaf4",
-    "wilderwild:dark_oak_leaf4",
-    "wilderwild:dark_oak_leaf5",
     "wilderwild:dark_oak_leaf5",
     "wilderwild:dark_oak_leaf6",
-    "wilderwild:dark_oak_leaf7",
-    "wilderwild:dark_oak_leaf8",
-    "wilderwild:dark_oak_leaf8",
-    "wilderwild:dark_oak_leaf9",
-    "wilderwild:dark_oak_leaf9",
-    "wilderwild:dark_oak_leaf10",
-    "wilderwild:dark_oak_leaf11",
-    "wilderwild:dark_oak_leaf12",
-    "wilderwild:dark_oak_leaf13"
+    "wilderwild:dark_oak_leaf7"
   ]
 }
