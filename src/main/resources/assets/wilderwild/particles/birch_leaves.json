@@ -1,10 +1,14 @@
 {
   "textures": [
     "wilderwild:birch_leaf0",
+    "wilderwild:birch_leaf0",
+    "wilderwild:birch_leaf1",
     "wilderwild:birch_leaf1",
     "wilderwild:birch_leaf2",
     "wilderwild:birch_leaf3",
     "wilderwild:birch_leaf4",
+    "wilderwild:birch_leaf4",
+    "wilderwild:birch_leaf5",
     "wilderwild:birch_leaf5",
     "wilderwild:birch_leaf6",
     "wilderwild:birch_leaf7"

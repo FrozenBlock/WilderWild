@@ -51,6 +51,8 @@ hi
 - Fixed the placement of the Crab Claw in the Creative Inventory.
 - Fixed the placement of the Baobab Nut and Split Coconut in the Creative Inventory.
 - Fixed the placement of the Ostrich Egg in the Creative Inventory.
+- Added more texture variants to Oak and Dark Oak falling leaves.
+- Adjusted the frequency of certain falling leaves textures.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
