@@ -39,7 +39,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Boat.class)
 public abstract class BoatMixin extends VehicleEntity implements BoatBoostInterface {
 	@Unique
-	private static final EntityDataAccessor<Integer> WILDER_WILD$BOOST_TICKS = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.INT);
+	private int wilderWild$boatBoostTicks;
+	@Unique
+	private static final EntityDataAccessor<Boolean> WILDER_WILD$BOOSTED = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.BOOLEAN);
 
 	public BoatMixin(EntityType<?> entityType, Level level) {
 		super(entityType, level);
@@ -47,24 +49,25 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBoostInterf
 
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))
 	public void wilderWild$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo info) {
-		builder.define(WILDER_WILD$BOOST_TICKS, 0);
+		builder.define(WILDER_WILD$BOOSTED, false);
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		int boostTicks = this.wilderWild$getBoatBoostTicks();
-		if (boostTicks > 0) nbt.putInt("WilderWildBoatBoostTicks", boostTicks);
+		if (this.wilderWild$boatBoostTicks > 0) nbt.putInt("WilderWildBoatBoostTicks", this.wilderWild$boatBoostTicks);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		if (nbt.contains("WilderWildBoatBoostTicks")) this.wilderWild$setBoatBoostTicks(nbt.getInt("WilderWildBoatBoostTicks"));
+		if (nbt.contains("WilderWildBoatBoostTicks")) this.wilderWild$boatBoostTicks = nbt.getInt("WilderWildBoatBoostTicks");
+		this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		int boostTicks = this.wilderWild$getBoatBoostTicks();
 		this.wilderWild$setBoatBoostTicks(Math.max(boostTicks - 1, 0));
+		this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);
 	}
 
 	@WrapOperation(
@@ -75,7 +78,7 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBoostInterf
 		)
 	)
 	public Vec3 wilderWild$speedBoost(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
-		double multiplier = (this.wilderWild$getBoatBoostTicks() > 0) ? 2D : 1D;
+		double multiplier = this.wilderWild$isBoatBoosted() ? 2D : 1D;
 		return original.call(instance, x * multiplier, y * multiplier, z * multiplier);
 	}
 
@@ -87,12 +90,25 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBoostInterf
 
 	@Override
 	public void wilderWild$setBoatBoostTicks(int ticks) {
-		this.entityData.set(WILDER_WILD$BOOST_TICKS, ticks);
+		this.wilderWild$boatBoostTicks = ticks;
+		this.entityData.set(WILDER_WILD$BOOSTED, ticks > 0);
 	}
 
 	@Unique
 	@Override
 	public int wilderWild$getBoatBoostTicks() {
-		return this.entityData.get(WILDER_WILD$BOOST_TICKS);
+		return this.wilderWild$boatBoostTicks;
+	}
+
+	@Unique
+	@Override
+	public void wilderWild$setBoatBoosted(boolean boosted) {
+		this.entityData.set(WILDER_WILD$BOOSTED, boosted);
+	}
+
+	@Unique
+	@Override
+	public boolean wilderWild$isBoatBoosted() {
+		return this.entityData.get(WILDER_WILD$BOOSTED);
 	}
 }

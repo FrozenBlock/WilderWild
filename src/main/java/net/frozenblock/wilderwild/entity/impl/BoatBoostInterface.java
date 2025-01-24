@@ -22,4 +22,6 @@ public interface BoatBoostInterface {
 	void wilderWild$boostBoatForTicks(int ticks);
 	void wilderWild$setBoatBoostTicks(int ticks);
 	int wilderWild$getBoatBoostTicks();
+	void wilderWild$setBoatBoosted(boolean boosted);
+	boolean wilderWild$isBoatBoosted();
 }

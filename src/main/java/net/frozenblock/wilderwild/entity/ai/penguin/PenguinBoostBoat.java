@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PenguinBoostBoat {
 	private static final double MAX_DISTANCE = 3D;
-	private static final int BOOST_TICKS = 200;
+	private static final int BOOST_TICKS = 100;
 
 	@Contract(" -> new")
 	public static @NotNull OneShot<LivingEntity> create() {
