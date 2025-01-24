@@ -44,7 +44,7 @@ public class PenguinEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
 	public static final MapCodec<PenguinEggBlock> CODEC = simpleCodec(PenguinEggBlock::new);
-	private static final VoxelShape SHAPE = Block.box(5D, 0D, 5D, 11D, 8D, 11D);
+	private static final VoxelShape SHAPE = Block.box(6D, 0D, 6D, 10D, 6D, 10D);
 
 	public PenguinEggBlock(Properties properties) {
 		super(properties);
