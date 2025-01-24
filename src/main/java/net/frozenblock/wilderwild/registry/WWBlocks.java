@@ -1321,7 +1321,7 @@ public final class WWBlocks {
 	}
 
 	public static void registerNotSoPlants() {
-		registerBlock("pollen", POLLEN);
+		registerBlockAfter(Items.GLOW_LICHEN, "pollen", POLLEN, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungi", RED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungi", BROWN_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.WARPED_FUNGUS, "crimson_shelf_fungi", CRIMSON_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);

@@ -91,7 +91,6 @@ public final class WWItems {
 		new Item.Properties().stacksTo(16)
 	);
 	public static final CoconutItem COCONUT = new CoconutItem(WWBlocks.COCONUT, new Item.Properties());
-	public static final BlockItem POLLEN = new BlockItem(WWBlocks.POLLEN, new Item.Properties());
 	public static final BlockItem SCORCHED_SAND = new BlockItem(WWBlocks.SCORCHED_SAND, new Item.Properties());
 	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(WWBlocks.SCORCHED_RED_SAND, new Item.Properties());
 	public static final BlockItem ECHO_GLASS = new BlockItem(WWBlocks.ECHO_GLASS, new Item.Properties());
@@ -173,7 +172,6 @@ public final class WWItems {
 		registerItemAfter(Blocks.CHERRY_HANGING_SIGN, MAPLE_SIGN, "maple_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(MAPLE_SIGN, MAPLE_HANGING_SIGN, "maple_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
-		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(Items.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
