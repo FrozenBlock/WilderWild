@@ -75,7 +75,7 @@ public final class WWBlockConfig {
 	public static volatile boolean SNOWLOGGING = true;
 	public static volatile boolean SNOWLOG_WALLS = false;
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
-	public static volatile boolean SHRIEKER_OUTLINE = false;
+	public static volatile boolean SHRIEKER_OUTLINE = true;
 	public static volatile boolean HANGING_TENDRIL_GENERATION = true;
 	public static volatile boolean OSSEOUS_SCULK_GENERATION = true;
 	public static volatile boolean SCULK_BUILDING_BLOCKS_GENERATION = true;
