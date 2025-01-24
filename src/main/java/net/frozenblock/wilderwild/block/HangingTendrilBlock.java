@@ -168,9 +168,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
-		if (level.isClientSide() || state.is(oldState.getBlock())) {
-			return;
-		} else if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
+		if (level.isClientSide() || state.is(oldState.getBlock())) return;
+		if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
 			level.setBlock(pos, state.setValue(POWER, 0), 18);
 		}
 		level.scheduleTick(pos, state.getBlock(), 1);
@@ -204,7 +203,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return !level.isClientSide ? createTickerHelper(type, WWBlockEntityTypes.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.serverTick(worldx, pos, statex)
 		) : createTickerHelper(type, WWBlockEntityTypes.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
-			blockEntity.clientTick(statex));
+			blockEntity.clientTick(worldx ,statex));
 	}
 
 	@Override
@@ -225,7 +224,15 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return OUTLINE_SHAPE;
 	}
 
-	public void activate(@Nullable Entity entity, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Holder<GameEvent> gameEvent, int power, int frequency) {
+	public void activate(
+		@Nullable Entity entity,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull Holder<GameEvent> gameEvent,
+		int power,
+		int frequency
+	) {
 		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), UPDATE_ALL);
 		boolean tendrilsCarryEvents = WWBlockConfig.get().sculk.tendrilsCarryEvents;
 		SculkSensorBlock.updateNeighbours(level, pos, state);
