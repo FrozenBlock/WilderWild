@@ -76,7 +76,6 @@
     "sculk.SculkSensorBlockEntityMixin",
     "sculk.SculkSensorBlockEntityMixin$VibrationUserMixin",
     "sculk.SculkSensorBlockMixin",
-    "sculk.SculkShriekerBlockEntityMixin",
     "sculk.SculkShriekerBlockMixin",
     "sculk.SculkSpreaderChargeCursorMixin",
     "sculk.SculkVeinBlockMixin",

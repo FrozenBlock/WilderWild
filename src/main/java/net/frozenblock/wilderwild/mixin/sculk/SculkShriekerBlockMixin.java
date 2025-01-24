@@ -18,26 +18,17 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.wilderwild.block.entity.impl.SculkShriekerTickInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkShriekerBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlock.class)
 public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
@@ -50,32 +41,9 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return Shapes.or(
-			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),
-			Block.box(1.0D, 8.0D, 1.0D, 15.0D, 15.0D, 15.0D)
+			Block.box(0D, 0D, 0D, 16D, 8D, 16D),
+			Block.box(1D, 8D, 1D, 15D, 15D, 15D)
 		);
-	}
-
-	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-	public <T extends BlockEntity> void wilderWild$getTicker(
-		Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info
-	) {
-		if (!level.isClientSide) {
-			info.setReturnValue(
-				BaseEntityBlock.createTickerHelper(
-					blockEntityType, BlockEntityType.SCULK_SHRIEKER,
-					(_world, pos, _state, blockEntity) -> {
-						if (blockEntity instanceof SculkShriekerTickInterface shriekerTickInterface) {
-							shriekerTickInterface.wilderWild$tickServer(level, pos);
-						}
-					}
-					)
-			);
-		}
-	}
-
-	@Shadow
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild SculkShriekerBlockMixin.");
 	}
 
 }

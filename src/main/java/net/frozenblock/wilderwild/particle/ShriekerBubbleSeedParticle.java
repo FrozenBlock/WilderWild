@@ -21,63 +21,54 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ChestBubbleSeedParticle extends NoRenderParticle {
+public class ShriekerBubbleSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
+	private final Vec3 centerPos;
 
-	ChestBubbleSeedParticle(ClientLevel world, double d, double e, double f) {
+	ShriekerBubbleSeedParticle(ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f, 0D, 0D, 0D);
-		this.lifetime = 5;
+		this.lifetime = 50;
 		this.pos = BlockPos.containing(d, e, f);
+		this.centerPos = Vec3.atCenterOf(this.pos);
 	}
 
 	@Override
 	public void tick() {
 		BlockState state = this.level.getBlockState(this.pos);
-		if (this.level.getBlockEntity(pos) instanceof ChestBlockEntity && state.getBlock() instanceof ChestBlock) {
-			if (state.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
-				double additionalX = 0.5D;
-				double additionalZ = 0.5D;
-				if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
-					Direction direction = ChestBlock.getConnectedDirection(state);
-					additionalX += (double) direction.getStepX() * 0.125D;
-					additionalZ += (double) direction.getStepZ() * 0.125D;
-				}
-
-				double particleY = this.pos.getY() + 0.625D;
-				for (int i = 0; i < this.random.nextInt(4, 10); i++) {
-					double particleX = (this.pos.getX() + additionalX) + this.random.nextGaussian() * 0.21875D;
-					double particleZ = (this.pos.getZ() + additionalZ)  + this.random.nextGaussian() * 0.21875D;
-
-					this.level.addParticle(
-						ParticleTypes.BUBBLE,
-						false,
-						particleX,
-						particleY,
-						particleZ,
-						this.random.nextGaussian() * 0.2D,
-						this.random.nextDouble() * 0.2D,
-						this.random.nextGaussian() * 0.2D
-					);
-				}
-			}
+		if (state.is(Blocks.SCULK_SHRIEKER) && state.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().sculk.shriekerGargling) {
+			this.level.addParticle(
+				new FloatingSculkBubbleParticleOptions(
+					this.level.random.nextDouble() > 0.7 ? 1 : 0,
+					20 + this.level.random.nextInt(80),
+					new Vec3(
+						FloatingSculkBubbleParticleOptions.getRandomVelocity(this.level.random, 0),
+						0.075F,
+						FloatingSculkBubbleParticleOptions.getRandomVelocity(this.level.random, 0)
+					)
+				),
+				false,
+				this.centerPos.x,
+				this.centerPos.y,
+				this.centerPos.z,
+				0D,
+				0D,
+				0D
+			);
 		} else {
 			this.remove();
 			return;
@@ -94,7 +85,7 @@ public class ChestBubbleSeedParticle extends NoRenderParticle {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			return new ChestBubbleSeedParticle(level, x, y, z);
+			return new ShriekerBubbleSeedParticle(level, x, y, z);
 		}
 	}
 }
