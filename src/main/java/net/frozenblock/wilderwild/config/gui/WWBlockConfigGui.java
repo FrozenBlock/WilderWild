@@ -371,7 +371,7 @@ public final class WWBlockConfigGui {
 				.requireRestart()
 				.setTooltip(tooltip("add_stone_chests"))
 				.build(),
-			clazz,
+			stoneChest.getClass(),
 			"addStoneChests",
 			configInstance
 		);
