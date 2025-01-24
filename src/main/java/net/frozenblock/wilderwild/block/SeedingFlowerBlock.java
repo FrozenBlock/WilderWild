@@ -47,16 +47,20 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Optional;
 
 public class SeedingFlowerBlock extends FlowerBlock {
-	public static final float SEED_SPAWN_CHANCE = 0.95F;
+	public static final float SEED_SPAWN_CHANCE = 0.04F;
 	public static final double SEED_SPAWN_HEIGHT = 0.5D;
 	public static final int MIN_SEEDS = 1;
-	public static final int MAX_SEEDS = 3;
+	public static final int MAX_SEEDS = 2;
 	public static final int MIN_SEEDS_DESTROY = 3;
 	public static final int MAX_SEEDS_DESTROY = 7;
 	public static final MapCodec<SeedingFlowerBlock> CODEC = RecordCodecBuilder.mapCodec(
@@ -134,48 +138,64 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (!level.isClientSide) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			this.spawnSeedsFrom(level, pos, state, true);
+			this.spawnSeedsFrom(level, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 			level.gameEvent(entity, GameEvent.SHEAR, pos);
 		}
 	}
 
-	public void spawnSeedsFrom(Level level, BlockPos pos, @NotNull BlockState blockState, boolean destroyed) {
+	public void spawnSeedsFrom(Level level, BlockPos pos, @NotNull BlockState blockState, int minSeeds, int maxSeeds, Vec3 velocity) {
 		Vec3 offset = blockState.getOffset(level, pos);
-		int min = destroyed ? MIN_SEEDS_DESTROY : MIN_SEEDS;
-		int max = destroyed ? MAX_SEEDS_DESTROY : MAX_SEEDS;
 
 		double x = pos.getX() + 0.5D + offset.x;
 		double y = pos.getY() + SEED_SPAWN_HEIGHT;
 		double z = pos.getZ() + 0.5D + offset.z;
+		int count = level.getRandom().nextIntBetweenInclusive(minSeeds, maxSeeds);
+
+		SeedParticleOptions options = velocity != null
+			? SeedParticleOptions.controlled(false, velocity.x, 0.3D, velocity.z)
+			: SeedParticleOptions.unControlled(false);
 
 		if (level instanceof ServerLevel server) {
 			server.sendParticles(
-				SeedParticleOptions.unControlled(false),
+				options,
 				x, y, z,
-				server.getRandom().nextIntBetweenInclusive(min, max),
+				count,
 				0D, 0D, 0D, 0D
 			);
 		} else {
-			level.addParticle(
-				SeedParticleOptions.unControlled(false),
-				x, y, z,
-				0D, 0D, 0D
-			);
+			for (int i = 0; i < count; i++) {
+				level.addParticle(
+					options,
+					x, y, z,
+					0D, 0D, 0D
+				);
+			}
 		}
 	}
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > SEED_SPAWN_CHANCE) {
-			this.spawnSeedsFrom(level, pos, state, false);
+		if (random.nextFloat() <= SEED_SPAWN_CHANCE) {
+			this.spawnSeedsFrom(level, pos, state, MIN_SEEDS, MAX_SEEDS, null);
 		}
 	}
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if (level instanceof ServerLevel server && server.getRandom().nextFloat() > SEED_SPAWN_CHANCE) {
-			this.spawnSeedsFrom(level, pos, state, false);
+		if (level.isClientSide) {
+			AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
+			if (shape.intersects(entity.getBoundingBox())) {
+				Vec3 movement = entity.getDeltaMovement();
+				double horizontalDistance = movement.horizontalDistance();
+				double horizontalVelocity = horizontalDistance * 1.5D;
+
+				if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
+					int min = Math.min((int) (horizontalVelocity * 2.5D), 3);
+					int max = Math.min((int) (horizontalVelocity * 3.5D), 5);
+					this.spawnSeedsFrom(level, pos, state, min, max, movement.normalize().scale(Math.min(horizontalDistance, 0.5D)));
+				}
+			}
 		}
 	}
 
@@ -184,7 +204,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		BlockState original = super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
-			this.spawnSeedsFrom(server, pos, state, true);
+			this.spawnSeedsFrom(server, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 		}
 		return original;
 	}

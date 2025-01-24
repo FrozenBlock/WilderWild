@@ -56,6 +56,7 @@ hi
 - Fixed an issue that prevented Crabs from properly loading and saving Vibration data.
 - Particles created by gargling Sculk Shriekers are now handled by the client, using the new `wilderwild:shrieker_bubbles` particle.
 - Added a new config option to toggle between the updated and original Sculk Shrieker selection outline.
+- Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
