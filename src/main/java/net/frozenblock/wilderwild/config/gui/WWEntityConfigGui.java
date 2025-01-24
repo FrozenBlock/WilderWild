@@ -408,7 +408,7 @@ public final class WWEntityConfigGui {
 				.setSaveConsumer(newValue -> penguin.spawnPenguins = newValue)
 				.setTooltip(tooltip("spawn_penguins"))
 				.build(),
-			moobloom.getClass(),
+			penguin.getClass(),
 			"spawnPenguins",
 			configInstance
 		);
