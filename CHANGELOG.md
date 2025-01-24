@@ -53,6 +53,7 @@ hi
 - Fixed the placement of the Ostrich Egg in the Creative Inventory.
 - Hanging Tendrils now play animations in sync with each other while being rendered as billboards.
 - Fixed an issue that prevented Hanging Tendrils from properly loading and saving Vibration data.
+- Fixed an issue that prevented Crabs from properly loading and saving Vibration data.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

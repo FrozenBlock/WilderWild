@@ -57,10 +57,12 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -860,10 +862,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		compound.putString("variant", this.getVariantLocation().toString());
 		compound.putBoolean("FromBucket", this.fromBucket());
 		compound.putInt("DigTicks", this.getDiggingTicks());
-		VibrationSystem.Data.CODEC
-			.encodeStart(NbtOps.INSTANCE, this.vibrationData)
-			.resultOrPartial(WWConstants.LOGGER::error)
-			.ifPresent(tag -> compound.put("listener", tag));
 		compound.putString("EntityPose", this.getPose().name());
 		compound.putDouble("PrevX", this.prevMovement.x);
 		compound.putDouble("PrevY", this.prevMovement.y);
@@ -872,6 +870,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		compound.putString("ClimbingFace", this.getClimbingFace().name());
 		compound.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
 		compound.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
+
+		RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+		VibrationSystem.Data.CODEC
+			.encodeStart(registryOps, this.vibrationData)
+			.resultOrPartial(string -> WWConstants.LOGGER.error("Failed to encode vibration listener for Crab: '{}'", string))
+			.ifPresent(tag -> compound.put("listener", tag));
 	}
 
 	@Override
@@ -883,12 +887,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			.ifPresent(reference -> this.setVariant(reference.value()));
 		this.setFromBucket(compound.getBoolean("FromBucket"));
 		this.setDiggingTicks(compound.getInt("DigTicks"));
-		if (compound.contains("listener", 10)) {
-			VibrationSystem.Data.CODEC
-				.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener")))
-				.resultOrPartial(WWConstants.LOGGER::error)
-				.ifPresent(data -> this.vibrationData = data);
-		}
 		if (compound.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose"))))) {
 			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
 		}
@@ -899,6 +897,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		this.setTargetClimbAnimX(compound.getFloat("TargetClimbAnimX"));
 		this.setTargetClimbAnimAmount(compound.getFloat("TargetClimbAnimAmount"));
+
+		if (compound.contains("listener", 10)) {
+			RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+			VibrationSystem.Data.CODEC
+				.parse(new Dynamic<>(registryOps, compound.getCompound("listener")))
+				.resultOrPartial(string -> WWConstants.LOGGER.error("Failed to decode vibration listener for Warden: '{}'", string))
+				.ifPresent(data -> this.vibrationData = data);
+		}
 	}
 
 	@Override
