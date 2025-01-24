@@ -501,6 +501,8 @@
   "tooltip.wilderwild.sculk": "Contains options for Sculk.",
   "option.wilderwild.shrieker_gargling": "Shrieker Gargling",
   "tooltip.wilderwild.shrieker_gargling": "Makes Sculk Shriekers 'gargle' when waterlogged.",
+  "option.wilderwild.shrieker_outline": "Shrieker Outline",
+  "tooltip.wilderwild.shrieker_outline": "Gives Sculk Shriekers a more fitting selection outline.",
   "option.wilderwild.tendrils_carry_events": "Hanging Tendrils Carry Events",
   "tooltip.wilderwild.tendrils_carry_events": "Whether Hanging Tendrils should retransmit game event context.\nWill allow Sculk Shriekers to be set off.",
   "option.wilderwild.billboard_tendrils": "Billboard Hanging Tendrils",

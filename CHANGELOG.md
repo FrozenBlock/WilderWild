@@ -55,6 +55,7 @@ hi
 - Fixed an issue that prevented Hanging Tendrils from properly loading and saving Vibration data.
 - Fixed an issue that prevented Crabs from properly loading and saving Vibration data.
 - Particles created by gargling Sculk Shriekers are now handled by the client, using the new `wilderwild:shrieker_bubbles` particle.
+- Added a new config options to toggle between the updated and original Sculk Shrieker selection outline.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

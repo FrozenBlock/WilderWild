@@ -56,6 +56,7 @@ public final class WWBlockConfig {
 				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
 				SNOWLOG_WALLS = SNOWLOGGING && config.snowlogging.snowlogWalls;
 				NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
+				SHRIEKER_OUTLINE = config.sculk.shriekerOutline;
 				HANGING_TENDRIL_GENERATION = config.sculk.tendrilGeneration;
 				OSSEOUS_SCULK_GENERATION = config.sculk.osseousSculkGeneration;
 				SCULK_BUILDING_BLOCKS_GENERATION = config.sculk.sculkBuildingBlocksGeneration;
@@ -74,6 +75,7 @@ public final class WWBlockConfig {
 	public static volatile boolean SNOWLOGGING = true;
 	public static volatile boolean SNOWLOG_WALLS = false;
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
+	public static volatile boolean SHRIEKER_OUTLINE = false;
 	public static volatile boolean HANGING_TENDRIL_GENERATION = true;
 	public static volatile boolean OSSEOUS_SCULK_GENERATION = true;
 	public static volatile boolean SCULK_BUILDING_BLOCKS_GENERATION = true;
@@ -269,8 +271,11 @@ public final class WWBlockConfig {
 	}
 
 	public static class SculkConfig {
-		@EntrySyncData("shriekerGargling")
+		@EntrySyncData(value = "shriekerGargling", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean shriekerGargling = true;
+
+		@EntrySyncData(value = "shriekerOutline", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean shriekerOutline = true;
 
 		@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean billboardTendrils = true;

@@ -174,6 +174,17 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
+		var shriekerOutline = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("shrieker_outline"), modifiedSculk.shriekerOutline)
+				.setDefaultValue(defaultConfig.sculk.shriekerOutline)
+				.setSaveConsumer(newValue -> sculk.shriekerOutline = newValue)
+				.setTooltip(tooltip("shrieker_outline"))
+				.build(),
+			sculk.getClass(),
+			"shriekerOutline",
+			configInstance
+		);
+
 		var billboardTendrils = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("billboard_tendrils"), modifiedSculk.billboardTendrils)
 				.setDefaultValue(defaultConfig.sculk.billboardTendrils)
@@ -232,7 +243,10 @@ public final class WWBlockConfigGui {
 		var sculkCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("sculk"),
 			false,
 			tooltip("sculk"),
-			shriekerGargling, tendrilsCarryEvents, billboardTendrils, tendrilGeneration, osseousSculkGeneration, sculkBuildingBlocksGeneration
+			shriekerGargling, shriekerOutline,
+			tendrilsCarryEvents, billboardTendrils, tendrilGeneration,
+			osseousSculkGeneration,
+			sculkBuildingBlocksGeneration
 		);
 
 		var mesogleaLiquid = FrozenClothConfig.syncedEntry(

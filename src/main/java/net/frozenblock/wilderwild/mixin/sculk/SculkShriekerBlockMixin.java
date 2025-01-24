@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -40,10 +41,13 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return Shapes.or(
-			Block.box(0D, 0D, 0D, 16D, 8D, 16D),
-			Block.box(1D, 8D, 1D, 15D, 15D, 15D)
-		);
+		if (WWBlockConfig.SHRIEKER_OUTLINE) {
+			return Shapes.or(
+				Block.box(0D, 0D, 0D, 16D, 8D, 16D),
+				Block.box(1D, 8D, 1D, 15D, 15D, 15D)
+			);
+		}
+		return super.getShape(state, level, pos, context);
 	}
 
 }
