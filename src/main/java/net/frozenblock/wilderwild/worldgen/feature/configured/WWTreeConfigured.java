@@ -1227,7 +1227,7 @@ public final class WWTreeConfigured {
 		);
 
 		SWAMP_OAK.makeAndSetHolder(Feature.TREE,
-			oak().decorators(
+			swampOak().decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_009
@@ -2430,6 +2430,22 @@ public final class WWTreeConfigured {
 			BlockStateProvider.simple(Blocks.OAK_LEAVES),
 			new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1),
 			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5))
+		).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder swampOak() {
+		return builder(
+			Blocks.OAK_LOG,
+			Blocks.OAK_LEAVES,
+			6,
+			2,
+			1,
+			0.1F,
+			UniformInt.of(1, 2),
+			UniformInt.of(1, 3),
+			ConstantInt.of(1),
+			3
 		).ignoreVines();
 	}
 
