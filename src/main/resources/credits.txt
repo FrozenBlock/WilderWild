@@ -26,6 +26,7 @@ Soro:
  - Baobab Nut concept.
  - Help with Maple tree variants in worldgen.
  - Huge help implementing and tweaking the Tundra biome.
+ - Redid flower distribution in the Flower Fields and Flower Forest biomes in 3.1.
 
 Zhen:
  - Retextured all Baobab Nut textures in 2.4.
@@ -97,6 +98,7 @@ zozozrob_:
 Xicad/Emma:
  - Echo Glass concept.
  - Consistently fantastic feedback!! An absolute treasure to have around.
+ - Scorched concept.
 
 Sculk Analyzer:
  - Sculk Echoer concept & inspiration.
@@ -112,6 +114,9 @@ embeddedt:
  - Helped set up Snowlogged rendering with Embeddium.
  - Pointed towards LevelRenderer for making Clouds move instead of using individual Mixins per-renderer.
  - Guidance with setting up much better fluid rendering for Mesoglea.
+
+magistermaks:
+ - Provided the base that would be used for Firefly rendering.
 
 Enri:
  - Italian translation.
