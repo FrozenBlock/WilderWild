@@ -420,7 +420,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		float animScale = this.getAnimScale();
 		this.setPrevAnimScale(animScale);
 		if (animScale < 1.5F) {
-			this.setAnimScale(Math.min(fallDistance + 0.025F, 1.5F));
+			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 		}
 
 		if (this.level() instanceof ServerLevel serverLevel) {
