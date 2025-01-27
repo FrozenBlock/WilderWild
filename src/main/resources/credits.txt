@@ -11,7 +11,8 @@ Treetrain1:
  - Bug fixer for more complex/technical issues.
  - Gradle work and fixes.
  - Lots of mixin help.
- - Firefly & Jellyfish AI.
+ - Jellyfish AI.
+ - Initial Firefly AI.
  - QA.
  - Tons of other fixes and tweaks and reorganization, etc., etc.
  - He's a genius.
