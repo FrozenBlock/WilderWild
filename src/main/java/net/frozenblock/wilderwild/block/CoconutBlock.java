@@ -276,4 +276,9 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 	}
+
+	@Override
+	public int getDustColor(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return 0;
+	}
 }

@@ -159,7 +159,7 @@ public class Scorched extends Spider {
 	}
 
 	@Override
-	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+	protected int calculateFallDamage(double fallDistance, float damageMultiplier) {
 		return super.calculateFallDamage(fallDistance, damageMultiplier) - FALL_DAMAGE_RESISTANCE;
 	}
 

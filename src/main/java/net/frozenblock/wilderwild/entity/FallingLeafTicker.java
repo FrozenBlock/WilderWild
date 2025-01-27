@@ -52,7 +52,7 @@ public class FallingLeafTicker extends SilentTicker {
 
 	public FallingLeafTicker(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
 		super(entityType, level);
-		this.moveTo(Vec3.atBottomCenterOf(pos));
+		this.snapTo(Vec3.atBottomCenterOf(pos));
 	}
 
 	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos, Block leafLitter) {

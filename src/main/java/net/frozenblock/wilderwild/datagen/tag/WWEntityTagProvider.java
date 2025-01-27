@@ -147,5 +147,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 				WWEntityTypes.MAPLE_BOAT,
 				WWEntityTypes.MAPLE_CHEST_BOAT
 			);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
+			.add(WWEntityTypes.OSTRICH);
 	}
 }

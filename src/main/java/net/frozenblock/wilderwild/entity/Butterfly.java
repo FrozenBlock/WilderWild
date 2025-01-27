@@ -431,7 +431,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	}
 
 	@Override
-	public boolean causeFallDamage(float fallDistance, float damageMultiplier, @NotNull DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageMultiplier, @NotNull DamageSource source) {
 		return false;
 	}
 

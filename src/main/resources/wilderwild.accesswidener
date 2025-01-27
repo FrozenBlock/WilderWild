@@ -87,7 +87,6 @@ accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/wo
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
-accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
 extendable method net/minecraft/world/entity/Mob getLootTable ()Ljava/util/Optional;
 
 # Projectiles
@@ -100,7 +99,6 @@ accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/mi
 
 # Blocks
 accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible method net/minecraft/client/renderer/Sheets chestMaterial (Ljava/lang/String;)Lnet/minecraft/client/resources/model/Material;
 accessible field net/minecraft/world/CompoundContainer container1 Lnet/minecraft/world/Container;
 accessible field net/minecraft/world/CompoundContainer container2 Lnet/minecraft/world/Container;
 accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z

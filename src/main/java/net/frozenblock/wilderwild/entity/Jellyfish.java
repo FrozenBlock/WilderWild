@@ -603,7 +603,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.setBaby(true);
 		float bbHeight = this.getBbHeight();
 		Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
-		jellyfish.moveTo(vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, -this.getYRot(), -this.getXRot());
+		jellyfish.snapTo(vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, -this.getYRot(), -this.getXRot());
 		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5D));
 		jellyfish.setVariant(this.getVariantByLocation());
 		level.broadcastEntityEvent(this, (byte) 18);

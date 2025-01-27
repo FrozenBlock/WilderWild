@@ -31,7 +31,7 @@ public final class WWVillagers {
 	}
 
 	public static void register() {
-		Map<ResourceKey<Biome>, VillagerType> villagerTypeMap = VillagerType.BY_BIOME;
+		Map<ResourceKey<Biome>, ResourceKey<VillagerType>> villagerTypeMap = VillagerType.BY_BIOME;
 		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
 		villagerTypeMap.put(WWBiomes.OASIS, VillagerType.DESERT);
 		villagerTypeMap.put(WWBiomes.FROZEN_CAVES, VillagerType.SNOW);

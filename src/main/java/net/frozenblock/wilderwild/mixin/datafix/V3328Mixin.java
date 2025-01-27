@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.fixes.References;
-import net.minecraft.util.datafix.schemas.V100;
 import net.minecraft.util.datafix.schemas.V3328;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -45,35 +44,31 @@ public class V3328Mixin {
 	)
 	public Map<String, Supplier<TypeTemplate>> wilderWild$registerEntities(V3328 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
 		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
-		schema.register(
+		schema.registerSimple(
 			map,
-			WWConstants.string("jellyfish"),
-			() -> V100.equipment(schema)
+			WWConstants.string("jellyfish")
 		);
 		schema.register(
 			map,
 			WWConstants.string("ostrich"),
-			() -> V100.equipment(schema)
+			() -> DSL.optionalFields("SaddleItem", References.ITEM_STACK.in(schema))
 		);
-		schema.register(
+		schema.registerSimple(
 			map,
-			WWConstants.string("crab"),
-			() -> V100.equipment(schema)
+			WWConstants.string("crab")
 		);
-		schema.register(
+		schema.registerSimple(
 			map,
-			WWConstants.string("firefly"),
-			() -> V100.equipment(schema)
+			WWConstants.string("firefly")
 		);
-		schema.register(
+		schema.registerSimple(
 			map,
-			WWConstants.string("butterfly"),
-			() -> V100.equipment(schema)
+			WWConstants.string("butterfly")
 		);
 		schema.register(
 			map,
 			WWConstants.string("tumbleweed"),
-			(string) -> DSL.optionalFields("Items", References.ITEM_STACK.in(schema), V100.equipment(schema))
+			(string) -> DSL.optionalFields("Items", References.ITEM_STACK.in(schema))
 		);
 		schema.register(
 			map,
@@ -90,15 +85,13 @@ public class V3328Mixin {
 			WWConstants.string("sculk_spreader"),
 			DSL::remainder
 		);
-		schema.register(
+		schema.registerSimple(
 			map,
-			WWConstants.string("scorched"),
-			() -> V100.equipment(schema)
+			WWConstants.string("scorched")
 		);
-		schema.register(
+		schema.registerSimple(
 			map,
-			WWConstants.string("moobloom"),
-			() -> V100.equipment(schema)
+			WWConstants.string("moobloom")
 		);
 		schema.register(
 			map,

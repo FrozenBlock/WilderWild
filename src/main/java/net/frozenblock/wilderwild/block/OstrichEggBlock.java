@@ -123,7 +123,7 @@ public class OstrichEggBlock extends Block {
 		Ostrich ostrich = WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 		if (ostrich != null) {
 			ostrich.setBaby(true);
-			ostrich.moveTo(
+			ostrich.snapTo(
 				pos.getX() + 0.5D,
 				pos.getY(),
 				pos.getZ() + 0.5D,

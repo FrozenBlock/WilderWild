@@ -21,17 +21,12 @@ package net.frozenblock.wilderwild.client.renderer.entity.state;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.client.renderer.entity.state.SaddleableRenderState;
+import net.minecraft.world.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
-public class OstrichRenderState extends LivingEntityRenderState implements SaddleableRenderState {
+public class OstrichRenderState extends LivingEntityRenderState {
+	public ItemStack saddle = ItemStack.EMPTY;
 	public boolean isInbred;
 	public float beakAnimProgress;
 	public float targetStraightProgress;
-	public boolean isSaddled;
-
-	@Override
-	public boolean isSaddled() {
-		return this.isSaddled;
-	}
 }

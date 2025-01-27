@@ -277,7 +277,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_OSTRICH_HURT = register("entity.ostrich.hurt");
 	public static final SoundEvent ENTITY_OSTRICH_DEATH = register("entity.ostrich.death");
 	public static final SoundEvent ENTITY_OSTRICH_STEP = register("entity.ostrich.step");
-	public static final SoundEvent ENTITY_OSTRICH_SADDLE = register("entity.ostrich.saddle");
+	public static final Holder<SoundEvent> ENTITY_OSTRICH_SADDLE = registerForHolder("entity.ostrich.saddle");
 	public static final SoundEvent ENTITY_OSTRICH_BEAK_STUCK = register("entity.ostrich.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_SWING = register("entity.ostrich.beak.swing");
 	public static final SoundEvent ENTITY_OSTRICH_EAT = register("entity.ostrich.eat");

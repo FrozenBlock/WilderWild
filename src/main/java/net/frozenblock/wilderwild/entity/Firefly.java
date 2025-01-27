@@ -422,7 +422,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		float animScale = this.getAnimScale();
 		this.setPrevAnimScale(animScale);
 		if (animScale < 1.5F) {
-			this.setAnimScale(Math.min(fallDistance + 0.025F, 1.5F));
+			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 		}
 
 		if (this.level() instanceof ServerLevel serverLevel) {
@@ -497,18 +497,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public boolean canDisableBlocking() {
-		return false;
-	}
-
-	@Override
 	protected void sendDebugPackets() {
 		super.sendDebugPackets();
 		DebugPackets.sendEntityBrain(this);
 	}
 
 	@Override
-	public boolean causeFallDamage(float fallDistance, float damageMultiplier, @NotNull DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageMultiplier, @NotNull DamageSource source) {
 		return false;
 	}
 

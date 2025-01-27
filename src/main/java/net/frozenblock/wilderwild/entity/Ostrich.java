@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -46,6 +47,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
@@ -61,9 +63,9 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PlayerRideableJumping;
-import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -76,6 +78,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -96,7 +99,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
+public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	public static final @NotNull ResourceLocation ATTACK_MODIFIER_UUID = WWConstants.id("additional_damage_rider");
 	public static final @NotNull ResourceLocation KNOCKBACK_MODIFIER_UUID = WWConstants.id("additional_knockback_rider");
 	public static final int BEAK_COOLDOWN_TICKS = 30;
@@ -640,7 +643,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float multiplier, @NotNull DamageSource source) {
 		int i = this.calculateFallDamage(fallDistance, multiplier);
 		if (i <= 0) {
 			return false;
@@ -911,10 +914,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return WWSounds.ENTITY_OSTRICH_EAT;
 	}
 
-	@NotNull
 	@Override
-	public SoundEvent getSaddleSoundEvent() {
-		return WWSounds.ENTITY_OSTRICH_SADDLE;
+	protected @NotNull Holder<SoundEvent> getEquipSound(EquipmentSlot equipmentSlot, ItemStack itemStack, Equippable equippable) {
+		return (equipmentSlot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_OSTRICH_SADDLE : super.getEquipSound(equipmentSlot, itemStack, equippable));
 	}
 
 	@Nullable

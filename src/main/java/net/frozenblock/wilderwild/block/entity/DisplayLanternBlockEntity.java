@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -156,12 +157,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		tag.putInt("age", this.age);
 	}
 
-	@SuppressWarnings("ClassEscapesDefinedScope")
 	@Override
-	public void applyImplicitComponents(DataComponentInput input) {
-		super.applyImplicitComponents(input);
+	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+		super.applyImplicitComponents(dataComponentGetter);
 		this.fireflies.clear();
-		List<Occupant> occupants = input.getOrDefault(WWDataComponents.FIREFLIES, List.of());
+		List<Occupant> occupants = dataComponentGetter.getOrDefault(WWDataComponents.FIREFLIES, List.of());
 		this.fireflies.addAll(occupants);
 	}
 
@@ -215,7 +215,13 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		for (Occupant firefly : this.getFireflies()) {
 			Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
 			if (entity != null) {
-				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
+				entity.snapTo(
+					this.worldPosition.getX() + firefly.pos.x,
+					this.worldPosition.getY() + firefly.y + extraHeight + 0.07D,
+					this.worldPosition.getZ() + firefly.pos.z,
+					0F,
+					0F
+				);
 				entity.setFromBottle(true);
 				if (level.addFreshEntity(entity)) {
 					FireflyAi.rememberHome(entity, entity.blockPosition());

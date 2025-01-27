@@ -33,6 +33,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.InstrumentComponent;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public final class CopperHornRecipeProvider {
@@ -54,13 +55,16 @@ public final class CopperHornRecipeProvider {
 			.define('C', Ingredient.of(Items.COPPER_INGOT))
 			.define('G', DefaultCustomIngredients.components(Ingredient.of(Items.GOAT_HORN),
 				DataComponentPatch.builder()
-					.set(DataComponents.INSTRUMENT, lookup.lookupOrThrow(Registries.INSTRUMENT).getOrThrow(goatHornInstrument))
+					.set(DataComponents.INSTRUMENT, new InstrumentComponent(lookup.lookupOrThrow(Registries.INSTRUMENT).getOrThrow(goatHornInstrument)))
 					.build()
 			))
 			.pattern("CGC")
 			.pattern(" C ")
 			.unlockedBy("has_horn", provider.has(Items.GOAT_HORN))
-		).frozenLib$patch(DataComponentPatch.builder().set(DataComponents.INSTRUMENT, lookup.lookupOrThrow(Registries.INSTRUMENT).getOrThrow(copperHornInstrument)).build())
+		).frozenLib$patch(DataComponentPatch.builder().set(
+			DataComponents.INSTRUMENT,
+				new InstrumentComponent(lookup.lookupOrThrow(Registries.INSTRUMENT).getOrThrow(copperHornInstrument))
+			).build())
 			.save(exporter, WWConstants.string(name + "_copper_horn"));
 	}
 

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.item;
 import com.mojang.serialization.MapCodec;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
@@ -48,6 +49,7 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -79,7 +81,7 @@ public class MobBottleItem extends Item {
 			Entity entity = this.type.create(server, EntitySpawnReason.BUCKET);
 			if (entity != null) {
 				entity.setDeltaMovement(f * 0.7D, g * 0.7D, h * 0.7D);
-				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
+				entity.snapTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
 				boolean spawned = server.addFreshEntity(entity);
 				if (spawned) {
 					if (entity instanceof Bottleable bottleable) {
@@ -104,8 +106,9 @@ public class MobBottleItem extends Item {
 		return ItemUtils.startUsingInstantly(level, player, interactionHand);
 	}
 
+	// TODO: Use ItemStack.addDetailsToTooltip() later
 	@Override
-	public void appendHoverText(@NotNull ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+	public void appendHoverText(@NotNull ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
 		CustomData customData = itemStack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
 		if (customData.isEmpty()) return;
 		if (this.type == WWEntityTypes.BUTTERFLY) {
@@ -113,7 +116,7 @@ public class MobBottleItem extends Item {
 			if (optional.isPresent()) {
 				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 				ResourceLocation variantKey = optional.get();
-				list.add(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
+				consumer.accept(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
 			}
 		} else if (this.type == WWEntityTypes.FIREFLY) {
 			Optional<ResourceLocation> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
@@ -122,7 +125,7 @@ public class MobBottleItem extends Item {
 				if (colorKey.equals(FireflyColors.DEFAULT.location())) return;
 
 				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-				list.add(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
+				consumer.accept(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
 			}
 		}
 	}

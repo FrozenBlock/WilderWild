@@ -39,8 +39,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class CopperHorn extends InstrumentItem {
 
-	public CopperHorn(@NotNull TagKey<Instrument> instruments, @NotNull Properties settings) {
-		super(instruments, settings);
+	public CopperHorn(@NotNull Properties settings) {
+		super(settings);
 	}
 
 	private static void playSound(@NotNull Instrument instrument, @NotNull Player user, @NotNull Level level) {

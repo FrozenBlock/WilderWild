@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.client.renderer.item.properties;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -56,6 +57,11 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Resou
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public @NotNull Codec<ResourceLocation> valueCodec() {
+		return ResourceLocation.CODEC;
 	}
 
 	@Override

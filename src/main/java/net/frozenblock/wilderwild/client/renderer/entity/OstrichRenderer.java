@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.OstrichModel;
@@ -29,8 +30,9 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.layers.SaddleLayer;
+import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
@@ -53,11 +55,13 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 		this.inbredBabyModel = new OstrichInbredModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY_INBRED));
 
 		this.addLayer(
-			new SaddleLayer<>(
+			new SimpleEquipmentLayer<>(
 				this,
+				context.getEquipmentRenderer(),
+				WWEquipmentClientInfo.OSTRICH_SADDLE,
+				ostrichRenderState -> ostrichRenderState.saddle,
 				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
-				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE)),
-				OSTRICH_SADDLE_LOCATION
+				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
 			)
 		);
 	}
@@ -96,7 +100,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 		renderState.isInbred = entity.isInbred();
 		renderState.beakAnimProgress = entity.getBeakAnimProgress(partialTick);
 		renderState.targetStraightProgress = entity.getTargetStraightProgress(partialTick);
-		renderState.isSaddled = entity.isSaddled();
+		renderState.saddle = entity.getItemBySlot(EquipmentSlot.SADDLE);
 	}
 }
 

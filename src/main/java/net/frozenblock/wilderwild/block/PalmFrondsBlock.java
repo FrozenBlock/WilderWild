@@ -18,40 +18,21 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
-	public static final MapCodec<PalmFrondsBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				ExtraCodecs.POSITIVE_INT.fieldOf("leaf_particle_chance").forGetter(leavesBlock -> leavesBlock.leafParticleChance),
-				ParticleTypes.CODEC.fieldOf("leaf_particle").forGetter(leavesBlock -> leavesBlock.leafParticle),
-				propertiesCodec()
-			)
-			.apply(instance, PalmFrondsBlock::new)
-	);
+public class PalmFrondsBlock extends TintedParticleLeavesBlock implements BonemealableBlock {
 	public static final int BONEMEAL_DISTANCE = CoconutBlock.VALID_FROND_DISTANCE;
 
-	public PalmFrondsBlock(int leafParticleChance, ParticleOptions leafParticle, @NotNull Properties settings) {
-		super(leafParticleChance, leafParticle, settings);
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends PalmFrondsBlock> codec() {
-		return CODEC;
+	public PalmFrondsBlock(float leafParticleChance, @NotNull Properties settings) {
+		super(leafParticleChance, settings);
 	}
 
 	@Override

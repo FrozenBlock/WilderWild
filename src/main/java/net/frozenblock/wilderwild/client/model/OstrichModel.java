@@ -148,7 +148,7 @@ public class OstrichModel extends EntityModel<OstrichRenderState> {
 	}
 
 	@Override
-	public void setupAnim(OstrichRenderState renderState) {
+	public void setupAnim(@NotNull OstrichRenderState renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.scale = renderState.ageScale;
 
@@ -161,7 +161,7 @@ public class OstrichModel extends EntityModel<OstrichRenderState> {
 			this.yOffset = 0F;
 		}
 
-		this.saddle.visible = renderState.isSaddled;
+		this.saddle.visible = !renderState.saddle.isEmpty();
 		float walkPos = renderState.walkAnimationPos;
 		float walkSpeed = renderState.walkAnimationSpeed;
 

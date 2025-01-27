@@ -118,6 +118,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
@@ -252,42 +253,30 @@ public final class WWBlocks {
 	);
 
 	public static final Block CYPRESS_LEAVES = register("cypress_leaves",
-		properties -> new LeavesBlock(100, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new TintedParticleLeavesBlock(0.01F, properties),
 		Blocks.leavesProperties(SoundType.GRASS)
 	); // in front so the other leaves can have a copy of its settings
 
 	public static final Block BAOBAB_LEAVES = register("baobab_leaves",
-		properties -> new LeavesBlock(100, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new BaobabLeavesBlock(0.01F, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
 
 	public static final PalmFrondsBlock PALM_FRONDS = register("palm_fronds",
-		properties -> new PalmFrondsBlock(200, ParticleTypes.TINTED_LEAVES, properties),
+		properties -> new PalmFrondsBlock(0.005F, properties),
 		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
 
 	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
-		properties -> new LeavesWithLitterBlock(
-			50,
-			WWFallingLeavesParticleOptions.create(WWParticleTypes.YELLOW_MAPLE_LEAVES, 5, 3F, 10F, true),
-			properties
-		),
+		LeavesWithLitterBlock::new,
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
-		properties -> new LeavesWithLitterBlock(
-			50,
-			WWFallingLeavesParticleOptions.create(WWParticleTypes.ORANGE_MAPLE_LEAVES, 5, 3F, 10F, true),
-			properties
-		),
+		LeavesWithLitterBlock::new,
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
-		properties -> new LeavesWithLitterBlock(
-			50,
-			WWFallingLeavesParticleOptions.create(WWParticleTypes.RED_MAPLE_LEAVES, 5, 3F, 10F, true),
-			properties
-		),
+		LeavesWithLitterBlock::new,
 		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 

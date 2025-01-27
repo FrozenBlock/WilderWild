@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.item.MobBottleItem;
-import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
@@ -46,6 +45,7 @@ import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.InstrumentComponent;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
@@ -185,11 +185,6 @@ public final class WWItems {
 	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = register("moobloom_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.MOOBLOOM, properties), new Item.Properties());
 
 	// INSTRUMENT
-	public static final CopperHorn COPPER_HORN = register("copper_horn",
-		properties -> new CopperHorn(WWInstrumentTags.COPPER_HORNS, properties),
-		new Item.Properties().stacksTo(1)
-	);
-
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
 	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("tuba_copper_horn"));
 	public static final ResourceKey<Instrument> RECORDER_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("recorder_copper_horn"));
@@ -198,6 +193,11 @@ public final class WWItems {
 	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("clarinet_copper_horn"));
 	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trumpet_copper_horn"));
 	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trombone_copper_horn"));
+
+	public static final CopperHorn COPPER_HORN = register("copper_horn",
+		CopperHorn::new,
+		new Item.Properties().stacksTo(1).component(DataComponents.INSTRUMENT, new InstrumentComponent(SAX_COPPER_HORN))
+	);
 
 	private WWItems() {
 		throw new UnsupportedOperationException("WWItems contains only static declarations.");

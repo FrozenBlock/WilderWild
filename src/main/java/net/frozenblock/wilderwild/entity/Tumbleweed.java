@@ -409,7 +409,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float multiplier, @NotNull DamageSource source) {
 		return false;
 	}
 
@@ -445,7 +445,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.yHeadRotO = this.yHeadRot;
 		this.setId(packet.getId());
 		this.setUUID(packet.getUUID());
-		this.absMoveTo(d, e, f, 0, 0);
+		this.absSnapTo(d, e, f, 0, 0);
 		this.setDeltaMovement(packet.getXa(), packet.getYa(), packet.getZa());
 	}
 
@@ -568,12 +568,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void playSwimSound(float volume) {
-	}
-
-	@Override
-	@NotNull
-	public Iterable<ItemStack> getArmorSlots() {
-		return NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
 	@Override

@@ -18,44 +18,41 @@
 
 package net.frozenblock.wilderwild.mixin.projectile;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.AbstractThrownPotion;
+import net.minecraft.world.entity.projectile.ThrownSplashPotion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ThrownPotion.class)
-public abstract class ThrownPotionMixin {
+@Mixin(AbstractThrownPotion.class)
+public class AbstractThrownPotionMixin {
 
 	@Inject(
 		method = "onHit",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/level/ServerLevel;levelEvent(ILnet/minecraft/core/BlockPos;I)V",
-			ordinal = 0
-
+			target = "Lnet/minecraft/server/level/ServerLevel;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
 		)
 	)
-	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
+	public void wilderWild$onHit(
+		HitResult hitResult, CallbackInfo info,
+		@Local PotionContents potionContents
+	) {
 		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
-			ThrownPotion potion = ThrownPotion.class.cast(this);
+			ThrownSplashPotion potion = ThrownSplashPotion.class.cast(this);
+
 			potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
-			if (potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getAllEffects().iterator().hasNext()) {
+
+			if (potionContents.hasEffects()) {
 				potion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
-				if (this.isLingering()) {
-					potion.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
-				}
 			}
 		}
 	}
-
-	@Shadow
-	protected abstract boolean isLingering();
 
 }
