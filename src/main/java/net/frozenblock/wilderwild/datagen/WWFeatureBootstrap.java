@@ -40,13 +40,11 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import org.jetbrains.annotations.NotNull;
 
 public final class WWFeatureBootstrap {
 
-	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
-		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-
+	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreeConfigured.registerTreeConfigured();
@@ -55,10 +53,7 @@ public final class WWFeatureBootstrap {
 		WWConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 
-	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
-		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-
+	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreePlaced.registerTreePlaced();
@@ -70,27 +65,50 @@ public final class WWFeatureBootstrap {
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
+	public static Holder<PlacedFeature> register(
+		BootstrapContext<PlacedFeature> entries,
+		ResourceKey<PlacedFeature> resourceKey,
+		ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey,
+		PlacementModifier... modifiers
+	) {
 		return register(entries, resourceKey, configuredResourceKey, Arrays.asList(modifiers));
 	}
 
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
+	public static Holder<PlacedFeature> register(
+		BootstrapContext<PlacedFeature> entries,
+		ResourceKey<PlacedFeature> resourceKey,
+		ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey,
+		List<PlacementModifier> modifiers
+	) {
 		return FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
 	}
 
 
-	public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
+	public static Holder<PlacedFeature> register(
+		BootstrapContext<PlacedFeature> entries,
+		ResourceKey<PlacedFeature> resourceKey,
+		Holder<ConfiguredFeature<?, ?>> configuredHolder,
+		PlacementModifier... modifiers
+	) {
 		return register(entries, resourceKey, configuredHolder, Arrays.asList(modifiers));
 	}
 
-	private static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
+	private static Holder<PlacedFeature> register(
+		BootstrapContext<PlacedFeature> entries,
+		ResourceKey<PlacedFeature> resourceKey,
+		Holder<ConfiguredFeature<?, ?>> configuredHolder,
+		List<PlacementModifier> modifiers) {
 		return FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
 	}
 
-	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstrapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
+	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(
+		BootstrapContext<ConfiguredFeature<?, ?>> entries,
+		ResourceKey<ConfiguredFeature<?, ?>> resourceKey,
+		F feature, FC featureConfiguration
+	) {
 		return FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
 	}
 }
