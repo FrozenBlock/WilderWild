@@ -71,6 +71,7 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
+import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -437,28 +438,28 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
-	public static final FlowerBlock YELLOW_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock YELLOW_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_YELLOW_HIBISCUS = Blocks.flowerPot(YELLOW_HIBISCUS);
 
-	public static final FlowerBlock WHITE_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock WHITE_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_WHITE_HIBISCUS = Blocks.flowerPot(WHITE_HIBISCUS);
 
-	public static final FlowerBlock PINK_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock PINK_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_PINK_HIBISCUS = Blocks.flowerPot(PINK_HIBISCUS);
 
-	public static final FlowerBlock PURPLE_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock PURPLE_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
