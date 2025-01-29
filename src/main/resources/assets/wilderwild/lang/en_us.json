@@ -762,6 +762,8 @@
   "tooltip.wilderwild.surface_decoration": "Whether Surface Decorators are placed in worldgen.\nThis includes things like Coarse Dirt and Packed Mud paths.",
   "option.wilderwild.surface_transitions": "Biome Surface Transitions",
   "tooltip.wilderwild.surface_transitions": "Whether unique biome surfaces should fizzle out in worldgen.",
+  "option.wilderwild.river_pool": "River Pools",
+  "tooltip.wilderwild.river_pool": "Whether pools of water generate in River biomes to lessen areas of Grass generating.",
   "option.wilderwild.termite_generation": "Termite Mound Generation",
   "tooltip.wilderwild.termite_generation": "Whether Termite Mounds are placed in worldgen.",
   "option.wilderwild.tree_generation": "Tree Generation",

@@ -699,6 +699,19 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
+		var riverPool = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("river_pool"), modifiedConfig.riverPool)
+					.setDefaultValue(defaultConfig.riverPool)
+					.setSaveConsumer(newValue -> config.riverPool = newValue)
+					.setTooltip(tooltip("river_pool"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"riverPool",
+				configInstance
+			)
+		);
 		var decayTrailRuins = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedConfig.decayTrailRuins)

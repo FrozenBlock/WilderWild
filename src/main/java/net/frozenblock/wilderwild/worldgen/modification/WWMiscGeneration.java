@@ -218,14 +218,6 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.RIVER_POOL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SMALL_RIVER_POOL.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 						}
@@ -293,6 +285,20 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.MUD_TRANSITION.getKey());
+						}
+					}
+				});
+
+		BiomeModifications.create(WWConstants.id("river_pools"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().riverPool) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.RIVER_POOL.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SMALL_RIVER_POOL.getKey());
 						}
 					}
 				});
