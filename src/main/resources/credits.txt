@@ -50,6 +50,7 @@ Zhen:
  - Pasqueflower idea and texture.
  - Butterfly textures.
  - Pale Fog textures.
+ - Hibiscus textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
