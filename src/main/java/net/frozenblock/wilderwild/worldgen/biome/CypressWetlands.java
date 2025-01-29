@@ -56,7 +56,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CypressWetlands extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.15F, 0.5F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.09F, 0.5F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
