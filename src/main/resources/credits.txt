@@ -51,6 +51,7 @@ Zhen:
  - Butterfly textures.
  - Pale Fog textures.
  - Hibiscus textures.
+ - Willow textures
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
