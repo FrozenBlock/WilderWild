@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
-import net.frozenblock.wilderwild.block.state.properties.FlowerColor;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -43,9 +42,6 @@ public final class WWBlockStateProperties {
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural"); // Also used for Geysers
 	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
 	public static final BooleanProperty CAN_SPAWN_TERMITE = BooleanProperty.create("can_spawn_termites");
-
-	// Glory of The Snow
-	public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
 
 	// Firefly Lantern
 	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, LightEngine.MAX_LEVEL);

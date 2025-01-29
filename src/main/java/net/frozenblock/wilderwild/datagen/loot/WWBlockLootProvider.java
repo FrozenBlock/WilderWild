@@ -184,16 +184,15 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.CARNATION);
 		this.dropSelf(WWBlocks.MARIGOLD);
 		this.dropSelf(WWBlocks.PASQUEFLOWER);
+		this.dropSelf(WWBlocks.YELLOW_HIBISCUS);
+		this.dropSelf(WWBlocks.WHITE_HIBISCUS);
+		this.dropSelf(WWBlocks.PINK_HIBISCUS);
+		this.dropSelf(WWBlocks.PURPLE_HIBISCUS);
 		this.dropSelf(WWBlocks.FLOWERING_LILY_PAD);
 		this.dropSelf(WWBlocks.PRICKLY_PEAR_CACTUS);
 		this.add(WWBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
-		this.dropSelf(WWBlocks.GLORY_OF_THE_SNOW);
-		this.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()

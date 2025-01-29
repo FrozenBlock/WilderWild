@@ -43,10 +43,8 @@ import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
-import net.frozenblock.wilderwild.block.FlowerLichenBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
-import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
@@ -439,29 +437,33 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
-	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
+	public static final FlowerBlock YELLOW_HIBISCUS = new FlowerBlock(
+		MobEffects.HUNGER,
+		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
-			.randomTicks()
 	);
-	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
-			.mapColor(MapColor.QUARTZ)
-			.sound(WWSoundTypes.FLOWER)
-			.noCollission()
-			.offsetType(BlockBehaviour.OffsetType.NONE)
+	public static final Block POTTED_YELLOW_HIBISCUS = Blocks.flowerPot(YELLOW_HIBISCUS);
+
+	public static final FlowerBlock WHITE_HIBISCUS = new FlowerBlock(
+		MobEffects.HUNGER,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final FlowerLichenBlock BLUE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.COLOR_BLUE)
+	public static final Block POTTED_WHITE_HIBISCUS = Blocks.flowerPot(WHITE_HIBISCUS);
+
+	public static final FlowerBlock PINK_HIBISCUS = new FlowerBlock(
+		MobEffects.HUNGER,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.COLOR_PINK)
+	public static final Block POTTED_PINK_HIBISCUS = Blocks.flowerPot(PINK_HIBISCUS);
+
+	public static final FlowerBlock PURPLE_HIBISCUS = new FlowerBlock(
+		MobEffects.HUNGER,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final FlowerLichenBlock PURPLE_GLORY_OF_THE_SNOW_PETALS = new FlowerLichenBlock(
-		BlockBehaviour.Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.COLOR_PURPLE)
-	);
+	public static final Block POTTED_PURPLE_HIBISCUS = Blocks.flowerPot(PURPLE_HIBISCUS);
 
 	public static final TallFlowerBlock DATURA = new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SUNFLOWER));
 
@@ -1302,11 +1304,14 @@ public final class WWBlocks {
 		registerBlock("potted_pasqueflower", POTTED_PASQUEFLOWER);
 		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
-		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "blue_glory_of_the_snow_petals", BLUE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "pink_glory_of_the_snow_petals", PINK_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "purple_glory_of_the_snow_petals", PURPLE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.WITHER_ROSE, "white_glory_of_the_snow_petals", WHITE_GLORY_OF_THE_SNOW_PETALS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.PINK_TULIP, "yellow_hibiscus", YELLOW_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_yellow_hibiscus", POTTED_YELLOW_HIBISCUS);
+		registerBlockBefore(YELLOW_HIBISCUS, "white_hibiscus", WHITE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_white_hibiscus", POTTED_WHITE_HIBISCUS);
+		registerBlockBefore(WHITE_HIBISCUS, "pink_hibiscus", PINK_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_pink_hibiscus", POTTED_PINK_HIBISCUS);
+		registerBlockBefore(PINK_HIBISCUS, "purple_hibiscus", PURPLE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_purple_hibiscus", POTTED_PURPLE_HIBISCUS);
 		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1671,11 +1676,10 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW_PETALS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1698,11 +1702,10 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(DATURA, 100, 60);
 		flammableBlockRegistry.add(MILKWEED, 100, 60);
 		flammableBlockRegistry.add(MARIGOLD, 100, 60);
-		flammableBlockRegistry.add(GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
-		flammableBlockRegistry.add(PINK_GLORY_OF_THE_SNOW_PETALS, 100, 60);
-		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
-		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(YELLOW_HIBISCUS, 100, 60);
+		flammableBlockRegistry.add(WHITE_HIBISCUS, 100, 60);
+		flammableBlockRegistry.add(PINK_HIBISCUS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_HIBISCUS, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);

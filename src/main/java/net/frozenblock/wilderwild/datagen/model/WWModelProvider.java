@@ -88,6 +88,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createDoublePlant(WWBlocks.DATURA, BlockModelGenerators.TintState.NOT_TINTED);
 
+		generator.createPlant(WWBlocks.YELLOW_HIBISCUS, WWBlocks.POTTED_YELLOW_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.WHITE_HIBISCUS, WWBlocks.POTTED_WHITE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
@@ -95,10 +100,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
 
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);

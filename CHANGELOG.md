@@ -28,9 +28,8 @@ hi
 - Added a config option to toggle Lily Pad bone mealing into Flowering Lily Pads.
 - Added a config option to toggle Flowering Lily Pad shearing into Lily Pads.
 - The sound of an Ostrich laying an egg no longer uses Frog Spawn sounds.
-- Updated Glory of the Snow petals to use softer sounds.
 - Fixed Palm, Maple, and Cypress blocks using the incorrect map colors.
-- Added Pollen and all Glory of the Snow Petals to the `minecraft:inside_step_sound_blocks` and `minecraft:combination_step_sound_blocks` block tags.
+- Added Pollen to the `minecraft:inside_step_sound_blocks` and `minecraft:combination_step_sound_blocks` block tags.
 - Removed the Bush from the `minecraft:inside_step_sound_blocks` block tag.
 - Slightly decreased the pitch of Magma block sounds.
 - Fixed Slimes and Magma Cubes not spawning.
@@ -57,6 +56,14 @@ hi
 - Particles created by gargling Sculk Shriekers are now handled by the client, using the new `wilderwild:shrieker_bubbles` particle.
 - Added a new config option to toggle between the updated and original Sculk Shrieker selection outline.
 - Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
+- Glories of the Snow have been removed.
+  - They are now replaced with four Hibiscus Blocks:
+    - Yellow Hibiscus.
+    - White Hibiscus.
+    - Pink Hibiscus.
+    - Purple Hibiscus.
+  - Glory of the Snows will be datafixed into random Hibiscuses.
+  - Glory of the Snow Petals will be datafixed into Pollen.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

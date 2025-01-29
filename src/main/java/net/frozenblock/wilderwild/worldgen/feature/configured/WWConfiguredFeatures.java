@@ -24,7 +24,6 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.state.properties.FlowerColor;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -200,8 +199,8 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = WWFeatureUtils.register("milkweed");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW = WWFeatureUtils.register("glory_of_the_snow");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW_JUNGLE = WWFeatureUtils.register("glory_of_the_snow_jungle");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> HIBISCUS = WWFeatureUtils.register("hibiscus");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> HIBISCUS_JUNGLE = WWFeatureUtils.register("hibiscus_jungle");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FLOWER_FIELD = WWFeatureUtils.register("flower_flower_field");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET = WWFeatureUtils.register("moss_carpet");
 
@@ -1837,7 +1836,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		Holder<PlacedFeature> gloryOfTheSnowNoise = PlacementUtils.onlyWhenEmpty(
+		Holder<PlacedFeature> hibiscusNoise = PlacementUtils.onlyWhenEmpty(
 			Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new NoiseProvider(
@@ -1845,26 +1844,26 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.048833334F,
 					List.of(
-						WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.WHITE),
-						WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PINK),
-						WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.PURPLE),
-						WWBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(WWBlockStateProperties.FLOWER_COLOR, FlowerColor.BLUE)
+						WWBlocks.YELLOW_HIBISCUS.defaultBlockState(),
+						WWBlocks.WHITE_HIBISCUS.defaultBlockState(),
+						WWBlocks.PINK_HIBISCUS.defaultBlockState(),
+						WWBlocks.PURPLE_HIBISCUS.defaultBlockState()
 					)
 				)
 			)
 		);
 
-		GLORY_OF_THE_SNOW.makeAndSetHolder(Feature.FLOWER,
+		HIBISCUS.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				28,
-				gloryOfTheSnowNoise
+				hibiscusNoise
 			)
 		);
 
-		GLORY_OF_THE_SNOW_JUNGLE.makeAndSetHolder(Feature.FLOWER,
+		HIBISCUS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				8,
-				gloryOfTheSnowNoise
+				10,
+				hibiscusNoise
 			)
 		);
 

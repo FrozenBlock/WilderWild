@@ -192,7 +192,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_WARPED_SHELF_FUNGI_RARE = bind("feature/has_warped_shelf_fungi_rare");
 	public static final TagKey<Biome> HAS_RAINFOREST_MUSHROOM = bind("feature/has_rainforest_mushroom");
 	public static final TagKey<Biome> HAS_MIXED_MUSHROOM = bind("feature/has_mixed_mushroom");
-	public static final TagKey<Biome> HAS_GLORY_OF_THE_SNOW = bind("feature/has_glory_of_the_snow");
+	public static final TagKey<Biome> HAS_HIBISCUS = bind("feature/has_hibiscus");
 	public static final TagKey<Biome> HAS_FLOWERING_WATER_LILY = bind("feature/has_flowering_water_lily");
 	public static final TagKey<Biome> HAS_BERRY_PATCH = bind("feature/has_berry_patch");
 	public static final TagKey<Biome> HAS_BUSH = bind("feature/has_bush");

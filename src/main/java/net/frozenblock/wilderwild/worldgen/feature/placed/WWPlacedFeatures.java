@@ -258,9 +258,9 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature CYPRESS_WETLANDS_FLOWERS_TALL = register("cypress_wetlands_flowers_tall");
 	public static final FrozenPlacedFeature MILKWEED = register("milkweed");
 	public static final FrozenPlacedFeature MILKWEED_RARE = register("milkweed_rare");
-	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW = register("glory_of_the_snow");
-	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_JUNGLE = register("glory_of_the_snow_jungle");
-	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_SPARSE_JUNGLE = register("glory_of_the_snow_sparse_jungle");
+	public static final FrozenPlacedFeature HIBISCUS = register("hibiscus");
+	public static final FrozenPlacedFeature HIBISCUS_JUNGLE = register("hibiscus_jungle");
+	public static final FrozenPlacedFeature HIBISCUS_SPARSE_JUNGLE = register("hibiscus_sparse_jungle");
 	public static final FrozenPlacedFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
 	public static final FrozenPlacedFeature FLOWER_TEMPERATE_RAINFOREST = register("flower_temperate_rainforest");
 	public static final FrozenPlacedFeature TALL_FLOWER_TEMPERATE_RAINFOREST = register("tall_flower_temperate_rainforest");
@@ -1534,20 +1534,20 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		GLORY_OF_THE_SNOW.makeAndSetHolder(WWConfiguredFeatures.GLORY_OF_THE_SNOW.getHolder(),
+		HIBISCUS.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS.getHolder(),
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		GLORY_OF_THE_SNOW_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.GLORY_OF_THE_SNOW_JUNGLE.getHolder(),
+		HIBISCUS_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE.getHolder(),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		GLORY_OF_THE_SNOW_SPARSE_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.GLORY_OF_THE_SNOW_JUNGLE.getHolder(),
+		HIBISCUS_SPARSE_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE.getHolder(),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

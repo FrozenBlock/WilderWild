@@ -67,6 +67,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
+			.add(WWBlocks.YELLOW_HIBISCUS)
+			.add(WWBlocks.WHITE_HIBISCUS)
+			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -80,6 +84,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
+			.add(WWBlocks.YELLOW_HIBISCUS)
+			.add(WWBlocks.WHITE_HIBISCUS)
+			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -94,7 +102,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
 			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.MAPLE_SAPLING)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
@@ -103,7 +110,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PASQUEFLOWER);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
-			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
 			.add(WWBlocks.RED_SHELF_FUNGI);
@@ -112,7 +118,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
-			.add(WWBlocks.GLORY_OF_THE_SNOW)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.WILLOW_SAPLING)
 			.add(WWBlocks.CYPRESS_SAPLING)
@@ -872,11 +877,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
-			.add(WWBlocks.POLLEN)
-			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
+			.add(WWBlocks.POLLEN);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
 			.add(WWBlocks.MYCELIUM_GROWTH)
@@ -893,11 +894,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
-			.add(WWBlocks.POLLEN)
-			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS);
+			.add(WWBlocks.POLLEN);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
 			.add(WWBlocks.POTTED_BAOBAB_NUT)
@@ -916,7 +913,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_CARNATION)
 			.add(WWBlocks.POTTED_MARIGOLD)
 			.add(WWBlocks.POTTED_SEEDING_DANDELION)
-			.add(WWBlocks.POTTED_PASQUEFLOWER);
+			.add(WWBlocks.POTTED_PASQUEFLOWER)
+			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
+			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
+			.add(WWBlocks.POTTED_PINK_HIBISCUS)
+			.add(WWBlocks.POTTED_PURPLE_HIBISCUS);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(WWBlocks.POLLEN);
@@ -926,11 +927,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.PASQUEFLOWER)
-			.add(WWBlocks.GLORY_OF_THE_SNOW)
-			.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS)
-			.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS)
+			.add(WWBlocks.YELLOW_HIBISCUS)
+			.add(WWBlocks.WHITE_HIBISCUS)
+			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
