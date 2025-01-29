@@ -62,6 +62,16 @@ public final class WWItems {
 		new Item.Properties()
 			.stacksTo(1)
 	);
+	public static final BoatItem WILLOW_BOAT = register("willow_boat",
+		properties -> new BoatItem(WWEntityTypes.WILLOW_BOAT, properties),
+		new Item.Properties()
+			.stacksTo(1)
+	);
+	public static final BoatItem WILLOW_CHEST_BOAT = register("willow_chest_boat",
+		properties -> new BoatItem(WWEntityTypes.WILLOW_CHEST_BOAT, properties),
+		new Item.Properties()
+			.stacksTo(1)
+	);
 	public static final BoatItem CYPRESS_BOAT = register("cypress_boat",
 		properties -> new BoatItem(WWEntityTypes.CYPRESS_BOAT, properties),
 		new Item.Properties()
@@ -104,6 +114,14 @@ public final class WWItems {
 	);
 	public static final Item BAOBAB_HANGING_SIGN = registerBlock(WWBlocks.BAOBAB_HANGING_SIGN,
 		(block, properties) -> new HangingSignItem(block, WWBlocks.BAOBAB_WALL_HANGING_SIGN, properties),
+		new Item.Properties().stacksTo(16)
+	);
+	public static final Item WILLOW_SIGN = registerBlock(WWBlocks.WILLOW_SIGN,
+		(block, properties) -> new SignItem(block, WWBlocks.WILLOW_WALL_SIGN, properties),
+		new Item.Properties().stacksTo(16)
+	);
+	public static final Item WILLOW_HANGING_SIGN = registerBlock(WWBlocks.WILLOW_HANGING_SIGN,
+		(block, properties) -> new HangingSignItem(block, WWBlocks.WILLOW_WALL_HANGING_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
 	public static final Item CYPRESS_SIGN = registerBlock(WWBlocks.CYPRESS_SIGN,
@@ -182,6 +200,7 @@ public final class WWItems {
 	public static final SpawnEggItem SCORCHED_SPAWN_EGG = register("scorched_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.SCORCHED, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16), properties), new Item.Properties());
 	public static final SpawnEggItem BUTTERFLY_SPAWN_EGG = register("butterfly_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.BUTTERFLY, Integer.parseInt("542003", 16), Integer.parseInt("FFCF60", 16), properties), new Item.Properties());
 	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = register("moobloom_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.MOOBLOOM, Integer.parseInt("FED639", 16), Integer.parseInt("F7EDC1", 16), properties), new Item.Properties());
+	public static final SpawnEggItem PENGUIN_SPAWN_EGG = register("penguin_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.PENGUIN, Integer.parseInt("2E2C40", 16), Integer.parseInt("E0B635", 16), properties), new Item.Properties());
 
 	// INSTRUMENT
 	public static final CopperHorn COPPER_HORN = register("copper_horn",
@@ -214,6 +233,8 @@ public final class WWItems {
 	private static void registerDispenses() {
 		DispenserBlock.registerBehavior(BAOBAB_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT));
 		DispenserBlock.registerBehavior(BAOBAB_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_CHEST_BOAT));
+		DispenserBlock.registerBehavior(WILLOW_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_BOAT));
+		DispenserBlock.registerBehavior(WILLOW_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_CHEST_BOAT));
 		DispenserBlock.registerBehavior(CYPRESS_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_BOAT));
 		DispenserBlock.registerBehavior(CYPRESS_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_CHEST_BOAT));
 		DispenserBlock.registerBehavior(PALM_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.PALM_BOAT));

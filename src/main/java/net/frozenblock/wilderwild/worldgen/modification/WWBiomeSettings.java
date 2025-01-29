@@ -99,6 +99,7 @@ public final class WWBiomeSettings {
 		WWSpawns.addJellyfish();
 		WWSpawns.addCrabs();
 		WWSpawns.addOstriches();
+		WWSpawns.addPenguins();
 		WWSpawns.addTumbleweed();
 		WWSpawns.addRabbits();
 		WWSpawns.addMooblooms();

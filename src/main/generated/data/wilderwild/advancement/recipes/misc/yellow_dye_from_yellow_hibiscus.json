@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:yellow_dye_from_yellow_hibiscus"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_hibiscus": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:yellow_hibiscus"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_hibiscus"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:yellow_dye_from_yellow_hibiscus"
+    ]
+  }
+}

@@ -18,15 +18,24 @@
 
 package net.frozenblock.wilderwild.datafix.wilderwild;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.FireflyBottleComponentizationFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
+import net.minecraft.Util;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.datafix.fixes.BlockRenameFix;
+import net.minecraft.util.datafix.fixes.ItemRenameFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -34,7 +43,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 25;
+	public static final int DATA_VERSION = 26;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WWDataFixer contains only static declarations.");
@@ -166,8 +175,86 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename white_firefly_bottle to firefly_bottle", WWConstants.id("white_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV25);
 		SimpleFixes.addItemRenameFix(builder, "Rename yellow_firefly_bottle to firefly_bottle", WWConstants.id("yellow_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV25);
 
+		Schema schemaV26 = builder.addSchema(26, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename white_glory_of_the_snow_petals to pollen", WWConstants.id("white_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addItemRenameFix(builder, "Rename white_glory_of_the_snow_petals to pollen", WWConstants.id("white_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addBlockRenameFix(builder, "Rename blue_glory_of_the_snow_petals to pollen", WWConstants.id("blue_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addItemRenameFix(builder, "Rename blue_glory_of_the_snow_petals to pollen", WWConstants.id("blue_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addBlockRenameFix(builder, "Rename pink_glory_of_the_snow_petals to pollen", WWConstants.id("pink_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addItemRenameFix(builder, "Rename pink_glory_of_the_snow_petals to pollen", WWConstants.id("pink_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addBlockRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addItemRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		addRandomBlockRenameFix(
+			builder,
+			"Random datafix of glory_of_the_snow to hibiscus variants",
+			WWConstants.id("glory_of_the_snow"),
+			ImmutableList.of(
+				WWConstants.id("yellow_hibiscus"),
+				WWConstants.id("white_hibiscus"),
+				WWConstants.id("pink_hibiscus"),
+				WWConstants.id("purple_hibiscus")
+			),
+			schemaV26
+		);
+		addRandomItemRenameFix(
+			builder,
+			"Random datafix of glory_of_the_snow to hibiscus variants",
+			WWConstants.id("glory_of_the_snow"),
+			ImmutableList.of(
+				WWConstants.id("yellow_hibiscus"),
+				WWConstants.id("white_hibiscus"),
+				WWConstants.id("pink_hibiscus"),
+				WWConstants.id("purple_hibiscus")
+			),
+			schemaV26
+		);
+
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
+	}
+
+	private static void addRandomBlockRenameFix(
+		@NotNull DataFixerBuilder builder,
+		@NotNull String name,
+		@NotNull ResourceLocation oldId,
+		List<ResourceLocation> newIds,
+		@NotNull Schema schema
+	) {
+		Objects.requireNonNull(builder, "DataFixerBuilder cannot be null");
+		Objects.requireNonNull(name, "Fix name cannot be null");
+		Objects.requireNonNull(oldId, "Old identifier cannot be null");
+		Objects.requireNonNull(newIds, "New identifiers cannot be null");
+		Objects.requireNonNull(schema, "Schema cannot be null");
+		String oldIdStr = oldId.toString();
+		builder.addFixer(
+			BlockRenameFix.create(
+				schema,
+				name,
+				(inputName) -> Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? Util.getRandom(newIds, AdvancedMath.random()).toString() : inputName
+			)
+		);
+	}
+
+	private static void addRandomItemRenameFix(
+		@NotNull DataFixerBuilder builder,
+		@NotNull String name,
+		@NotNull ResourceLocation oldId,
+		List<ResourceLocation> newIds,
+		@NotNull Schema schema
+	) {
+		Objects.requireNonNull(builder, "DataFixerBuilder cannot be null");
+		Objects.requireNonNull(name, "Fix name cannot be null");
+		Objects.requireNonNull(oldId, "Old identifier cannot be null");
+		Objects.requireNonNull(newIds, "New identifiers cannot be null");
+		Objects.requireNonNull(schema, "Schema cannot be null");
+		String oldIdStr = oldId.toString();
+		builder.addFixer(
+			ItemRenameFix.create(
+				schema,
+				name,
+				(inputName) -> Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? Util.getRandom(newIds, AdvancedMath.random()).toString() : inputName
+			)
+		);
 	}
 
 }

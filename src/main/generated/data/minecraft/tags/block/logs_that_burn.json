@@ -5,6 +5,10 @@
       "required": false
     },
     {
+      "id": "#wilderwild:willow_logs",
+      "required": false
+    },
+    {
       "id": "#wilderwild:cypress_logs",
       "required": false
     },

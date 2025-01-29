@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -42,7 +42,7 @@ public final class WWMusic {
 		// Music
 		BiomeModifications.create(WWConstants.id("modify_music_birch_forests")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(ConventionalBiomeTags.BIRCH_FOREST),
+			BiomeSelectors.tag(ConventionalBiomeTags.IS_BIRCH_FOREST),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
@@ -51,7 +51,7 @@ public final class WWMusic {
 
 		BiomeModifications.create(WWConstants.id("modify_music_forests")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(ConventionalBiomeTags.FOREST),
+			BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST).and(BiomeSelectors.excludeByKey(WWBiomes.MAPLE_FOREST)),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));

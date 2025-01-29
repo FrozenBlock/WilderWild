@@ -35,7 +35,6 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
@@ -47,7 +46,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -55,8 +53,6 @@ import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
 	// MESOGLEA CAVES
-	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = WWPlacementUtils.register("extra_glow_lichen");
-	public static final FrozenPlacedFeature STONE_POOL = WWPlacementUtils.register("stone_pool");
 	public static final FrozenPlacedFeature ORE_CALCITE = WWPlacementUtils.register("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
 	public static final FrozenPlacedFeature MESOGLEA_CAVES_STONE_POOL = WWPlacementUtils.register("mesoglea_caves_stone_pool");
@@ -128,23 +124,6 @@ public final class WWCavePlaced {
 		WWConstants.log("Registering WWCavePlaced.", true);
 
 		// MESOGLEA CAVES
-
-		EXTRA_GLOW_LICHEN.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.GLOW_LICHEN),
-			CountPlacement.of(UniformInt.of(104, 157)),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			InSquarePlacement.spread(),
-			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13),
-			BiomeFilter.biome()
-		);
-
-		STONE_POOL.makeAndSetHolder(WWCaveConfigured.STONE_POOL.getHolder(),
-			RarityFilter.onAverageOnceEvery(6),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(108)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
 
 		ORE_CALCITE.makeAndSetHolder(WWCaveConfigured.ORE_CALCITE.getHolder(),
 			modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
@@ -507,7 +486,6 @@ public final class WWCavePlaced {
 		);
 
 		POWDER_SNOW_DISK_LOWER.makeAndSetHolder(WWCaveConfigured.POWDER_SNOW_DISK.getHolder(),
-			CountPlacement.of(1),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),

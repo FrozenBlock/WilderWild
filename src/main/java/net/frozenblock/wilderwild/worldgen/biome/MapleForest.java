@@ -26,6 +26,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.minecraft.core.Holder;
@@ -35,7 +36,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
@@ -146,7 +146,7 @@ public final class MapleForest extends FrozenBiome {
 
 	@Override
 	public @Nullable Music backgroundMusic() {
-		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
+		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST);
 	}
 
 	@Override

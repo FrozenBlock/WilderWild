@@ -2,14 +2,6 @@
   "feature": "wilderwild:snow_blanket",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "MOTION_BLOCKING"
-    },
-    {
       "type": "minecraft:biome"
     }
   ]

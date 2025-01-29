@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -36,10 +37,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = RotatedPillarBlock.class, priority = 990)
 public class RotatedPillarBlockMixin {
 
+	@Unique
+	private static final boolean WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT = WWBlockConfig.get().termite.onlyEatNaturalBlocks;
+
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (FrozenBools.IS_DATAGEN) return;
-		if (WWBlockConfig.get().termite.onlyEatNaturalBlocks) {
+		if (WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) {
 			BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
 			if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) {
 				builder.add(WWBlockStateProperties.TERMITE_EDIBLE);

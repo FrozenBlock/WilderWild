@@ -1,12 +1,6 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "default": "wilderwild:spruce_short_checked",
-    "features": [
-      {
-        "chance": 0.33333334,
-        "feature": "wilderwild:spruce_short_checked"
-      }
-    ]
+    "features": "wilderwild:spruce_short_checked"
   }
 }

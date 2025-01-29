@@ -1,0 +1,49 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.048833333,
+            "seed": 5050,
+            "states": [
+              {
+                "Name": "wilderwild:yellow_hibiscus"
+              },
+              {
+                "Name": "wilderwild:white_hibiscus"
+              },
+              {
+                "Name": "wilderwild:pink_hibiscus"
+              },
+              {
+                "Name": "wilderwild:purple_hibiscus"
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 10,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

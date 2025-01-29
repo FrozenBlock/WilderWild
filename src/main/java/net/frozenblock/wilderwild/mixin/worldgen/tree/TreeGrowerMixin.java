@@ -19,15 +19,12 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -72,13 +69,6 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.OAK) {
-			if (this.wilderWild$getLevel() != null && this.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
-				Holder<Biome> biome = this.wilderWild$getLevel().getBiome(this.wilderWild$getPos());
-				if (biome.is(WWBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
-					info.setReturnValue(WWTreeConfigured.SWAMP_TREE.getKey());
-					return;
-				}
-			}
 			if (random.nextInt(10) == 0) {
 				info.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
@@ -106,22 +96,38 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			} else {
 				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
 			}
+		} else if (treeGrower == TreeGrower.JUNGLE) {
+			if (random.nextFloat() < 0.75F) {
+				info.setReturnValue(WWTreeConfigured.JUNGLE_TREE_NO_VINE.getKey());
+			}
+		} else if (treeGrower == TreeGrower.MANGROVE) {
+			if (random.nextFloat() < 0.85F) {
+				info.setReturnValue(WWTreeConfigured.TALL_MANGROVE.getKey());
+			} else {
+				info.setReturnValue(WWTreeConfigured.MANGROVE.getKey());
+			}
 		}
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
+	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (!WWWorldgenConfig.get().treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.SPRUCE) {
-			if (random.nextFloat() < 0.25F)
-				cir.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+			if (random.nextFloat() < 0.25F) {
+				info.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+			}
 		} else if (treeGrower == TreeGrower.DARK_OAK) {
-			if (random.nextFloat() < 0.2F)
-				cir.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
-			else if (random.nextFloat() < 0.2F)
-				cir.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+			if (random.nextFloat() < 0.2F) {
+				info.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
+			} else if (random.nextFloat() < 0.2F) {
+				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+			}
+		} else if (treeGrower == TreeGrower.JUNGLE) {
+			if (random.nextFloat() < 0.60F) {
+				info.setReturnValue(WWTreeConfigured.MEGA_JUNGLE_TREE.getKey());
+			}
 		}
 	}
 }

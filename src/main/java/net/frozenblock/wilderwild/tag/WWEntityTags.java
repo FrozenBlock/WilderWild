@@ -30,6 +30,7 @@ public final class WWEntityTags {
 	public static final TagKey<EntityType<?>> ANCIENT_HORN_IMMUNE = bind("ancient_horn_immune");
 	public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
 	public static final TagKey<EntityType<?>> CRAB_HUNT_TARGETS = bind("crab_hunt_targets");
+	public static final TagKey<EntityType<?>> PENGUIN_HUNT_TARGETS = bind("penguin_hunt_targets");
 	public static final TagKey<EntityType<?>> COCONUT_CANT_BONK = bind("coconut_cant_bonk");
 	public static final TagKey<EntityType<?>> COCONUT_CANT_SPLIT = bind("coconut_cant_split");
 	public static final TagKey<EntityType<?>> TUMBLEWEED_PASSES_THROUGH = bind("tumbleweed_passes_through");

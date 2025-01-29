@@ -247,6 +247,11 @@ public final class TermiteBlockBehaviors {
 		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
 		registerNaturalAndPlayer(bootstrapContext, WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
 
+		registerNaturalAndPlayer(bootstrapContext, WWBlocks.WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
+		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+		registerNaturalAndPlayer(bootstrapContext, WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
+
 		registerNaturalAndPlayer(bootstrapContext, WWBlocks.CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
 		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
 		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);

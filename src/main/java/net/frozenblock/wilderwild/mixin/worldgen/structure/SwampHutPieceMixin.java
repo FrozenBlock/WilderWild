@@ -26,9 +26,36 @@ import net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-
 @Mixin(value = SwampHutPiece.class, priority = 999)
 public class SwampHutPieceMixin {
+
+	@ModifyExpressionValue(
+		method = "postProcess",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/Blocks;OAK_FENCE:Lnet/minecraft/world/level/block/Block;"
+		)
+	)
+	public Block wilderWild$newFence(Block original) {
+		if (WWWorldgenConfig.NEW_WITCH_HUTS) {
+			return WWBlocks.WILLOW_FENCE;
+		}
+		return original;
+	}
+
+	@ModifyExpressionValue(
+		method = "postProcess",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/Blocks;OAK_LOG:Lnet/minecraft/world/level/block/Block;"
+		)
+	)
+	public Block wilderWild$newLog(Block original) {
+		if (WWWorldgenConfig.NEW_WITCH_HUTS) {
+			return WWBlocks.WILLOW_LOG;
+		}
+		return original;
+	}
 
 	@ModifyExpressionValue(
 		method = "postProcess",
@@ -39,7 +66,7 @@ public class SwampHutPieceMixin {
 	)
 	public Block wilderWild$newPlanks(Block original) {
 		if (WWWorldgenConfig.NEW_WITCH_HUTS) {
-			return WWBlocks.CYPRESS_PLANKS;
+			return WWBlocks.WILLOW_PLANKS;
 		}
 		return original;
 	}
@@ -53,7 +80,7 @@ public class SwampHutPieceMixin {
 	)
 	public Block wilderWild$newStairs(Block original) {
 		if (WWWorldgenConfig.NEW_WITCH_HUTS) {
-			return WWBlocks.CYPRESS_STAIRS;
+			return WWBlocks.WILLOW_STAIRS;
 		}
 		return original;
 	}

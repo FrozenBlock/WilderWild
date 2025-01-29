@@ -45,11 +45,11 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	@Override
 	public void prepare(@NotNull PathNavigationRegion level, @NotNull Mob mob) {
 		super.prepare(level, mob);
-		mob.setPathfindingMalus(PathType.WATER, 0.0F);
+		mob.setPathfindingMalus(PathType.WATER, 0F);
 		this.oldWalkableCost = mob.getPathfindingMalus(PathType.WALKABLE);
-		mob.setPathfindingMalus(PathType.WALKABLE, 0.0F);
+		mob.setPathfindingMalus(PathType.WALKABLE, 0F);
 		this.oldWaterBorderPenalty = mob.getPathfindingMalus(PathType.WATER_BORDER);
-		mob.setPathfindingMalus(PathType.WATER_BORDER, 4.0F);
+		mob.setPathfindingMalus(PathType.WATER_BORDER, 4F);
 	}
 
 	@Override

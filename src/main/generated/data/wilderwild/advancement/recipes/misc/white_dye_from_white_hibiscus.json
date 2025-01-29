@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:white_dye_from_white_hibiscus"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_hibiscus": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:white_hibiscus"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_white_hibiscus"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:white_dye_from_white_hibiscus"
+    ]
+  }
+}

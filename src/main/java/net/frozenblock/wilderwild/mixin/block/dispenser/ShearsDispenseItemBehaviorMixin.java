@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.mixin.block.dispenser;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
-import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
@@ -55,7 +54,6 @@ public class ShearsDispenseItemBehaviorMixin {
 
 		BlockState state = serverLevel.getBlockState(pos);
 		return wilderWild$tryShearMilkweed(state, serverLevel, pos) ||
-			wilderWild$tryShearGloryOfTheSnow(state, serverLevel, pos) ||
 			wilderWild$tryShearPricklyPear(state, serverLevel, pos) ||
 			wilderWild$tryShearShelfFungi(state, serverLevel, pos) ||
 			wilderWild$tryShearSpongeBud(state, serverLevel, pos) ||
@@ -70,15 +68,6 @@ public class ShearsDispenseItemBehaviorMixin {
 	private static boolean wilderWild$tryShearMilkweed(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
 		if (blockState.getBlock() == WWBlocks.MILKWEED && MilkweedBlock.isFullyGrown(blockState)) {
 			MilkweedBlock.onShear(level, pos, blockState, null);
-			return true;
-		}
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearGloryOfTheSnow(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.GLORY_OF_THE_SNOW && GloryOfTheSnowBlock.hasColor(blockState)) {
-			GloryOfTheSnowBlock.onShear(level, pos, blockState, null);
 			return true;
 		}
 		return false;
@@ -136,8 +125,10 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearSeedingFlower(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
 		if (blockState.getBlock() instanceof SeedingFlowerBlock seedingFlowerBlock) {
-			seedingFlowerBlock.onShear(level, pos, blockState, null);
-			return true;
+			if (seedingFlowerBlock.canShearIntoOriginalFlower(level, pos, blockState)) {
+				seedingFlowerBlock.onShear(level, pos, blockState, null);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -145,8 +136,10 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearFloweringLilypad(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
 		if (blockState.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlilyBlock) {
-			floweringWaterlilyBlock.onShear(level, pos, blockState, null);
-			return true;
+			if (floweringWaterlilyBlock.canShearIntoOriginalBlock(level, pos, blockState)) {
+				floweringWaterlilyBlock.onShear(level, pos, blockState, null);
+				return true;
+			}
 		}
 		return false;
 	}

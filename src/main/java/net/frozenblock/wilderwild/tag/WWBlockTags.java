@@ -46,6 +46,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
 
 	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
+	public static final TagKey<Block> HOLLOWED_WILLOW_LOGS = bind("hollowed_willow_logs");
 	public static final TagKey<Block> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
 	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Block> HOLLOWED_MAPLE_LOGS = bind("hollowed_maple_logs");
@@ -58,12 +59,16 @@ public final class WWBlockTags {
 	public static final TagKey<Block> LEAF_LITTER_CAN_SURVIVE_ON = bind("leaf_litter_can_survive_on");
 
 	public static final TagKey<Block> BAOBAB_LOGS = bind("baobab_logs");
+	public static final TagKey<Block> WILLOW_LOGS = bind("willow_logs");
 	public static final TagKey<Block> CYPRESS_LOGS = bind("cypress_logs");
 	public static final TagKey<Block> PALM_LOGS = bind("palm_logs");
 	public static final TagKey<Block> MAPLE_LOGS = bind("maple_logs");
 
+	public static final TagKey<Block> WILLOW_ROOTS_CAN_GROW_THROUGH = bind("willow_roots_can_grow_through");
+
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
+
 
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
@@ -83,6 +88,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> GEYSER_CAN_PASS_THROUGH = bind("geyser_can_pass_through");
 	public static final TagKey<Block> GEYSER_CANNOT_PASS_THROUGH = bind("geyser_cannot_pass_through");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
+	public static final TagKey<Block> PENGUIN_IGNORE_FRICTION = bind("penguin_ignore_friction");
+	public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = bind("penguins_spawnable_on");
 
 	public static final TagKey<Block> MYCELIUM_GROWTH_REPLACEABLE = bind("mycelium_growth_replaceable");
 

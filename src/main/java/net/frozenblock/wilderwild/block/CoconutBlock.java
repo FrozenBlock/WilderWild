@@ -171,10 +171,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockState stateAbove = level.getBlockState(pos.above());
-		return state.is(this) && isHanging(state) ?
-			stateAbove.is(WWBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= VALID_FROND_DISTANCE || stateAbove.getValue(BlockStateProperties.PERSISTENT))
-			: this.mayPlaceOn(level.getBlockState(pos.below()));
+		return state.is(this) && isHanging(state) ? level.getBlockState(pos.above()).is(WWBlocks.PALM_FRONDS) : this.mayPlaceOn(level.getBlockState(pos.below()));
 	}
 
 	protected boolean mayPlaceOn(@NotNull BlockState state) {
@@ -222,9 +219,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
-		if (type == PathComputationType.AIR && state.is(this) && !isHanging(state)) {
-			return true;
-		}
+		if (type == PathComputationType.AIR && state.is(this) && !isHanging(state)) return true;
 		return super.isPathfindable(state, type);
 	}
 
@@ -247,9 +242,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (pos.getY() < level.getMinY() || state.is(this) && !isHanging(state)) {
-			return;
-		}
+		if (pos.getY() <= level.getMinY() || state.is(this) && !isHanging(state)) return;
+
 		if (state.is(this) && isHanging(state) && !state.canSurvive(level, pos)) {
 			if (isFullyGrown(state)) {
 				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);

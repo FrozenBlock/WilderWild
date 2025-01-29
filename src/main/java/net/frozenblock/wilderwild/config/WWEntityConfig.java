@@ -112,6 +112,9 @@ public final class WWEntityConfig {
 	public final MoobloomConfig moobloom = new MoobloomConfig();
 
 	@CollapsibleObject
+	public final PenguinConfig penguin = new PenguinConfig();
+
+	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
 	@CollapsibleObject
@@ -219,6 +222,12 @@ public final class WWEntityConfig {
 		@EntrySyncData("spawnMooblooms")
 		public boolean spawnMooblooms = true;
 	}
+
+	public static class PenguinConfig {
+		@EntrySyncData("spawnPenguins")
+		public boolean spawnPenguins = true;
+	}
+
 
 	public static class TumbleweedConfig {
 		@EntrySyncData("spawnTumbleweed")

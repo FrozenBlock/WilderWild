@@ -107,6 +107,8 @@ public final class WWMixinsConfig {
 
 	public boolean entity_lightning = true;
 
+	public boolean entity_penguin = true;
+
 	public boolean entity_slime = true;
 
 	public boolean entity_stray = true;

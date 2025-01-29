@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:snow_block",
+    {
+      "id": "#minecraft:ice",
+      "required": false
+    },
+    "minecraft:sand",
+    "minecraft:gravel",
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    {
+      "id": "#minecraft:animals_spawnable_on",
+      "required": false
+    }
+  ]
+}

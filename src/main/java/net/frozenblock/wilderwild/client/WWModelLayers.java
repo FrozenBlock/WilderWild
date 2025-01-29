@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.model.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.OstrichModel;
+import net.frozenblock.wilderwild.client.model.PenguinModel;
 import net.frozenblock.wilderwild.client.model.TumbleweedModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
@@ -39,6 +40,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FlowerCowRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.PenguinRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -71,6 +73,8 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation OSTRICH_BABY_INBRED = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation OSTRICH_BABY_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "saddle");
+	public static final ModelLayerLocation PENGUIN = new ModelLayerLocation(WWConstants.id("penguin"), "main");
+	public static final ModelLayerLocation PENGUIN_BABY = new ModelLayerLocation(WWConstants.id("penguin_baby"), "main");
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
 	public static final ModelLayerLocation BUTTERFLY = new ModelLayerLocation(WWConstants.id("butterfly"), "main");
 	public static final ModelLayerLocation MOOBLOOM = new ModelLayerLocation(WWConstants.id("moobloom"), "main");
@@ -117,9 +121,12 @@ public final class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(MOOBLOOM, CowModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(MOOBLOOM_BABY, () -> CowModel.createBodyLayer().apply(CowModel.BABY_TRANSFORMER));
 
+		EntityRendererRegistry.register(WWEntityTypes.PENGUIN, PenguinRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(PENGUIN_BABY, PenguinModel::createBabyBodyLayer);
+
 		EntityRendererRegistry.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
 
-		EntityRendererRegistry.register(WWEntityTypes.CHEST_BUBBLER, NoopRenderer::new);
 		EntityRendererRegistry.register(WWEntityTypes.SCULK_SPREADER, NoopRenderer::new);
 		EntityRendererRegistry.register(WWEntityTypes.FALLING_LEAVES, NoopRenderer::new);
 

@@ -300,7 +300,11 @@ public class FrozenLibIntegration extends ModIntegration {
 			SEEDING_DANDELION,
 			CARNATION,
 			MARIGOLD,
-			GLORY_OF_THE_SNOW,
+			PASQUEFLOWER,
+			YELLOW_HIBISCUS,
+			WHITE_HIBISCUS,
+			PINK_HIBISCUS,
+			PURPLE_HIBISCUS,
 			DATURA,
 			MILKWEED,
 			SUNFLOWER,
@@ -322,6 +326,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			OAK_SAPLING,
 			PALE_OAK_SAPLING,
 			SPRUCE_SAPLING,
+			WILLOW_SAPLING,
 			CYPRESS_SAPLING,
 			MAPLE_SAPLING,
 			BUSH
@@ -336,6 +341,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			PALE_OAK_LEAVES,
 			SPRUCE_LEAVES,
 			BAOBAB_LEAVES,
+			WILLOW_LEAVES,
 			CYPRESS_LEAVES,
 			PALM_FRONDS,
 			YELLOW_MAPLE_LEAVES,
@@ -468,6 +474,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
@@ -606,7 +613,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WWWorldgenConfig.get().addStoneChests) {
+		if (WWBlockConfig.get().stoneChest.addStoneChests) {
 			StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
 				new RuleProcessor(
 					List.of(

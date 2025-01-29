@@ -92,6 +92,11 @@ public final class HollowedLogRecipeProvider {
 		planksFromHollowedStem(provider, WWItemTags.HOLLOWED_WARPED_STEMS, Items.WARPED_PLANKS, exporter, "warped");
 		hyphaeFromHollowed(provider, WWBlocks.HOLLOWED_WARPED_STEM, Items.WARPED_HYPHAE, exporter, "warped");
 		strippedHyphaeFromHollowed(provider, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Items.STRIPPED_WARPED_HYPHAE, exporter, "warped");
+
+		planksFromHollowed(provider, WWItemTags.HOLLOWED_WILLOW_LOGS, WWBlocks.WILLOW_PLANKS, exporter, "willow");
+		woodFromHollowed(provider, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.WILLOW_WOOD, exporter, "willow");
+		strippedWoodFromHollowed(provider, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_WOOD, exporter, "willow");
+
 	}
 
 	public static void planksFromHollowed(RecipeProvider provider, TagKey<Item> input, ItemLike output, RecipeOutput exporter, String name) {

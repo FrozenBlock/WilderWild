@@ -108,10 +108,10 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature BIG_SHRUB_RED_MAPLE_CHECKED = WWPlacementUtils.register("big_shrub_red_maple_checked");
 
 	public static final FrozenPlacedFeature FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("fallen_maple_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("mossy_fallen_maple_checked");
 	public static final FrozenPlacedFeature SNAPPED_MAPLE_CHECKED = WWPlacementUtils.register("snapped_maple_checked");
 	//OAK
 	public static final FrozenPlacedFeature OAK_CHECKED = WWPlacementUtils.register("oak_checked");
+	public static final FrozenPlacedFeature OAK_NO_FUNGI_CHECKED = WWPlacementUtils.register("oak_no_fungi_checked");
 	public static final FrozenPlacedFeature DYING_OAK_CHECKED = WWPlacementUtils.register("dying_oak_checked");
 	public static final FrozenPlacedFeature OAK_BEES_0004 = WWPlacementUtils.register("oak_bees_00004");
 	public static final FrozenPlacedFeature SHORT_OAK_CHECKED = WWPlacementUtils.register("short_oak_checked");
@@ -125,7 +125,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_OAK_CHECKED = WWPlacementUtils.register("fallen_oak_checked");
 	public static final FrozenPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = WWPlacementUtils.register("fallen_oak_no_moss_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_OAK_CHECKED = WWPlacementUtils.register("mossy_fallen_oak_checked");
-	public static final FrozenPlacedFeature MOSSY_FALLEN_STRAIGHT_OAK_CHECKED = WWPlacementUtils.register("mossy_fallen_straight_oak_checked");
+	public static final FrozenPlacedFeature MOSSY_FALLEN_WILLOW_CHECKED = WWPlacementUtils.register("mossy_fallen_willow_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("mossy_fallen_spruce_checked");
 	public static final FrozenPlacedFeature CLEAN_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("clean_fallen_spruce_checked");
 	public static final FrozenPlacedFeature OLD_DYING_FANCY_OAK_BEES_0004 = WWPlacementUtils.register("old_dying_fancy_oak_bees_0004");
@@ -137,6 +137,7 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature DEAD_OAK_CHECKED = WWPlacementUtils.register("dead_oak_checked");
 	public static final FrozenPlacedFeature DEAD_OAK_BRANCHES_CHECKED = WWPlacementUtils.register("dead_oak_branches_checked");
 	//DARK OAK
+	public static final FrozenPlacedFeature DARK_OAK_CHECKED = WWPlacementUtils.register("dark_oak_checked");
 	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("tall_dark_oak_checked");
 	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("fancy_tall_dark_oak_checked");
 	public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = WWPlacementUtils.register("dying_tall_dark_oak_checked");
@@ -150,7 +151,10 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature LARGE_FALLEN_PALE_OAK_CHECKED = WWPlacementUtils.register("large_fallen_pale_oak_checked");
 	public static final FrozenPlacedFeature LARGE_SNAPPED_PALE_OAK_CHECKED = WWPlacementUtils.register("large_snapped_pale_oak_checked");
 	//SWAMP TREE
-	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = WWPlacementUtils.register("swamp_tree_checked");
+	public static final FrozenPlacedFeature WILLOW_CHECKED = WWPlacementUtils.register("willow_checked");
+	public static final FrozenPlacedFeature WILLOW_TALL_CHECKED = WWPlacementUtils.register("willow_tall_checked");
+	public static final FrozenPlacedFeature WILLOW_TALLER_CHECKED = WWPlacementUtils.register("willow_taller_checked");
+	public static final FrozenPlacedFeature SWAMP_OAK_CHECKED = WWPlacementUtils.register("swamp_oak_checked");
 	//SPRUCE
 	public static final FrozenPlacedFeature SPRUCE_CHECKED = WWPlacementUtils.register("spruce_checked");
 	public static final FrozenPlacedFeature SPRUCE_ON_SNOW = WWPlacementUtils.register("spruce_on_snow");
@@ -212,6 +216,8 @@ public final class WWTreePlaced {
 	//JUNIPER
 	public static final FrozenPlacedFeature JUNIPER = WWPlacementUtils.register("juniper");
 	//JUNGLE
+	public static final FrozenPlacedFeature JUNGLE_TREE_CHECKED = WWPlacementUtils.register("jungle_tree_checked");
+	public static final FrozenPlacedFeature MEGA_JUNGLE_TREE_CHECKED = WWPlacementUtils.register("mega_jungle_tree_checked");
 	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = WWPlacementUtils.register("fallen_jungle_checked");
 	public static final FrozenPlacedFeature SNAPPED_JUNGLE_CHECKED = WWPlacementUtils.register("snapped_jungle_checked");
 	public static final FrozenPlacedFeature LARGE_FALLEN_JUNGLE_CHECKED = WWPlacementUtils.register("large_fallen_jungle_checked");
@@ -220,6 +226,8 @@ public final class WWTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = WWPlacementUtils.register("fallen_acacia_checked");
 	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = WWPlacementUtils.register("snapped_acacia_checked");
 	//MANGROVE
+	public static final FrozenPlacedFeature MANGROVE_CHECKED = WWPlacementUtils.register("mangrove_checked");
+	public static final FrozenPlacedFeature TALL_MANGROVE_CHECKED = WWPlacementUtils.register("tall_mangrove_checked");
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = WWPlacementUtils.register("fallen_mangrove_checked");
 	//CRIMSON
 	public static final FrozenPlacedFeature FALLEN_CRIMSON_FUNGI = WWPlacementUtils.register("fallen_crimson_fungi");
@@ -480,6 +488,10 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
+		OAK_NO_FUNGI_CHECKED.makeAndSetHolder(WWTreeConfigured.OAK_NO_FUNGI.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
 		DYING_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
@@ -532,7 +544,7 @@ public final class WWTreePlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
-		MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_STRAIGHT_OAK_TREE.getHolder(),
+		MOSSY_FALLEN_WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_WILLOW_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
@@ -577,6 +589,10 @@ public final class WWTreePlaced {
 		);
 
 		// DARK OAK
+
+		DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.DARK_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
 
 		TALL_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
@@ -624,8 +640,20 @@ public final class WWTreePlaced {
 
 		// SWAMP TREE
 
-		SWAMP_TREE_CHECKED.makeAndSetHolder(WWTreeConfigured.SWAMP_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
+		);
+
+		WILLOW_TALL_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW_TALL.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
+		);
+
+		WILLOW_TALLER_CHECKED.makeAndSetHolder(WWTreeConfigured.WILLOW_TALLER.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
+		);
+
+		SWAMP_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.SWAMP_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
 		);
 
 		// SPRUCE
@@ -814,6 +842,14 @@ public final class WWTreePlaced {
 
 		//JUNGLE
 
+		JUNGLE_TREE_CHECKED.makeAndSetHolder(WWTreeConfigured.JUNGLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
+		);
+
+		MEGA_JUNGLE_TREE_CHECKED.makeAndSetHolder(WWTreeConfigured.MEGA_JUNGLE_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
+		);
+
 		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_JUNGLE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
 		);
@@ -841,6 +877,14 @@ public final class WWTreePlaced {
 		);
 
 		//MANGROVE
+
+		MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.MANGROVE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		);
+
+		TALL_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_MANGROVE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
+		);
 
 		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MANGROVE_TREE.getHolder(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
