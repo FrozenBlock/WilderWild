@@ -619,6 +619,8 @@
   "tooltip.wilderwild.spawn_fireflies": "Whether Fireflies can spawn.",
   "option.wilderwild.firefly_spawn_cap": "Firefly Spawn Cap",
   "tooltip.wilderwild.firefly_spawn_cap": "Controls the Firefly's spawn cap.",
+  "option.wilderwild.firefly_swarm": "Firefly Swarms",
+  "tooltip.wilderwild.firefly_swarm": "Whether Fireflies will move in swarms.",
   "option.wilderwild.butterfly": "Butterfly",
   "tooltip.wilderwild.butterfly": "Contains options for the Butterfly.",
   "option.wilderwild.spawn_butterflies": "Spawn Butterflies",
