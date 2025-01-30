@@ -145,6 +145,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(
 				WWEntityTypes.BAOBAB_BOAT,
 				WWEntityTypes.BAOBAB_CHEST_BOAT,
+				WWEntityTypes.WILLOW_BOAT,
+				WWEntityTypes.WILLOW_CHEST_BOAT,
 				WWEntityTypes.CYPRESS_BOAT,
 				WWEntityTypes.CYPRESS_CHEST_BOAT,
 				WWEntityTypes.PALM_BOAT,

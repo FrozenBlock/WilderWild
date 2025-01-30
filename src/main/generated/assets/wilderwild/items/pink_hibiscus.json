@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/pink_hibiscus"
+    "model": "wilderwild:item/pink_hibiscus"
   }
 }

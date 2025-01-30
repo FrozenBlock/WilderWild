@@ -244,7 +244,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.MILKWEED, WWBlocks.CATTAIL);
 
 		// PLANTS
-		addAfterInNaturalBlocks(Items.GLOW_LICHEN, WWItems.POLLEN);
+		addAfterInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
 		addAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
 		addAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
 		addAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);

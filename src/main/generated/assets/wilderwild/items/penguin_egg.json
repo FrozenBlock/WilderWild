@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:block/penguin_egg"
+    "model": "wilderwild:item/penguin_egg"
   }
 }
