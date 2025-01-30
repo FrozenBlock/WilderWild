@@ -22,6 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -66,23 +67,25 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		SculkSpreader sculkBehavior, LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info,
 		@Local(ordinal = 1) BlockPos blockPos, @Local(ordinal = 1) BlockState blockState2, @Local(ordinal = 2) BlockState blockState3
 	) {
-		boolean canReturn = false;
-		if (blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			blockState3 = WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
-			canReturn = true;
-		} else if (blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
-			blockState3 = WWBlocks.SCULK_WALL.withPropertiesOf(blockState2);
-			canReturn = true;
-		} else if (blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			blockState3 = WWBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
-			canReturn = true;
-		}
+		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) {
+			boolean canReturn = false;
+			if (blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
+				blockState3 = WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState2);
+				canReturn = true;
+			} else if (blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
+				blockState3 = WWBlocks.SCULK_WALL.withPropertiesOf(blockState2);
+				canReturn = true;
+			} else if (blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
+				blockState3 = WWBlocks.SCULK_SLAB.withPropertiesOf(blockState2);
+				canReturn = true;
+			}
 
-		if (canReturn) {
-			level.setBlock(blockPos, blockState3, 3);
-			Block.pushEntitiesUp(blockState2, blockState3, level, blockPos);
-			SlabWallStairSculkBehavior.clearSculkVeins(level, blockPos);
-			this.veinSpreader.spreadAll(blockState3, level, blockPos, sculkBehavior.isWorldGeneration());
+			if (canReturn) {
+				level.setBlock(blockPos, blockState3, Block.UPDATE_ALL);
+				Block.pushEntitiesUp(blockState2, blockState3, level, blockPos);
+				SlabWallStairSculkBehavior.clearSculkVeins(level, blockPos);
+				this.veinSpreader.spreadAll(blockState3, level, blockPos, sculkBehavior.isWorldGeneration());
+			}
 		}
 	}
 

@@ -4,10 +4,6 @@
     "minecraft:birch_forest",
     "minecraft:old_growth_birch_forest",
     {
-      "id": "minecraft:cherry_grove",
-      "required": false
-    },
-    {
       "id": "wilderwild:birch_taiga",
       "required": false
     },

@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.SculkBehaviour;
@@ -50,21 +51,28 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
 					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 				}
-				level.setBlock(mutableBlockPos, stateReplace, 3);
+				level.setBlock(mutableBlockPos, stateReplace, Block.UPDATE_ALL);
 			}
 			mutableBlockPos.move(oppositeDirection);
 		}
 	}
 
 	@Override
-	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertToBlock) {
+	public int attemptUseCharge(
+		@NotNull SculkSpreader.ChargeCursor cursor,
+		@NotNull LevelAccessor level,
+		@NotNull BlockPos catalystPos,
+		@NotNull RandomSource random,
+		@NotNull SculkSpreader spreader,
+		boolean shouldConvertToBlock
+	) {
 		BlockPos cursorPos = cursor.getPos();
 		int i = cursor.getCharge();
 		if (i != 0 && random.nextInt(spreader.chargeDecayRate()) == 0) {
 			boolean bl = cursorPos.closerThan(catalystPos, spreader.noGrowthRadius());
 			BlockState placeState = switchBlockStates(level.getBlockState(cursorPos));
 			if (!bl && placeState != null) {
-				level.setBlock(cursorPos, placeState, 3);
+				level.setBlock(cursorPos, placeState, Block.UPDATE_ALL);
 				clearSculkVeins(level, cursorPos);
 			}
 			return random.nextInt(spreader.additionalDecayRate()) != 0 ? i : i - (bl ? 1 : SculkBlock.getDecayPenalty(spreader, cursorPos, catalystPos, i));
@@ -73,11 +81,16 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 	}
 
 	@Override
-	public boolean attemptSpreadVein(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+	public boolean attemptSpreadVein(
+		@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing
+	) {
 		BlockState placeState = switchBlockStates(level.getBlockState(pos));
 		if (placeState != null) {
-			level.setBlock(pos, placeState, 3);
+			level.setBlock(pos, placeState, Block.UPDATE_ALL);
 			clearSculkVeins(level, pos);
+			if (markForPostProcessing) {
+				level.getChunk(pos).markPosForPostprocessing(pos);
+			}
 		}
 		return true;
 	}

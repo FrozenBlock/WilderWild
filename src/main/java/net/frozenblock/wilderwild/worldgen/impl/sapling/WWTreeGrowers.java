@@ -98,6 +98,20 @@ public final class WWTreeGrowers {
 		}
 	};
 
+	public static final TreeGrower WILLOW = new TreeGrower(
+		WWConstants.string("willow"),
+		Optional.empty(),
+		Optional.empty(),
+		Optional.empty()
+	) {
+		@Override
+		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
+			return random.nextFloat() <= 0.25F ?
+				random.nextFloat() <= 0.35F ? WWTreeConfigured.WILLOW_TALLER.getKey() : WWTreeConfigured.WILLOW_TALL.getKey()
+				: WWTreeConfigured.WILLOW.getKey();
+		}
+	};
+
 	private WWTreeGrowers() {
 	}
 }

@@ -1,6 +1,7 @@
 {
   "values": [
     "wilderwild:potted_baobab_nut",
+    "wilderwild:potted_willow_sapling",
     "wilderwild:potted_cypress_sapling",
     "wilderwild:potted_coconut",
     "wilderwild:potted_maple_sapling",
@@ -15,6 +16,11 @@
     "wilderwild:potted_carnation",
     "wilderwild:potted_marigold",
     "wilderwild:potted_seeding_dandelion",
-    "wilderwild:potted_pasqueflower"
+    "wilderwild:potted_pasqueflower",
+    "wilderwild:potted_yellow_hibiscus",
+    "wilderwild:potted_white_hibiscus",
+    "wilderwild:potted_pink_hibiscus",
+    "wilderwild:potted_purple_hibiscus",
+    "wilderwild:potted_pale_mushroom"
   ]
 }

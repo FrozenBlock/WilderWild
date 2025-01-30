@@ -29,6 +29,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> PEARLESCENT_JELLYFISH_FOOD = bind("pearlescent_jellyfish_food");
 	public static final TagKey<Item> CRAB_FOOD = bind("crab_food");
 	public static final TagKey<Item> OSTRICH_FOOD = bind("ostrich_food");
+	public static final TagKey<Item> PENGUIN_FOOD = bind("penguin_food");
 	public static final TagKey<Item> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Item> NEMATOCYSTS = bind("nematocysts");
 	public static final TagKey<Item> PEARLESCENT_NEMATOCYSTS = bind("pearlescent_nematocysts");
@@ -38,6 +39,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> BROWN_MUSHROOM_STEW_INGREDIENTS = bind("brown_mushroom_stew_ingredients");
 	public static final TagKey<Item> RED_MUSHROOM_STEW_INGREDIENTS = bind("red_mushroom_stew_ingredients");
 	public static final TagKey<Item> BAOBAB_LOGS = bind("baobab_logs");
+	public static final TagKey<Item> WILLOW_LOGS = bind("willow_logs");
 	public static final TagKey<Item> CYPRESS_LOGS = bind("cypress_logs");
 	public static final TagKey<Item> PALM_LOGS = bind("palm_logs");
 	public static final TagKey<Item> MAPLE_LOGS = bind("maple_logs");
@@ -62,6 +64,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");
 	public static final TagKey<Item> HOLLOWED_PALE_OAK_LOGS = bind("hollowed_pale_oak_logs");
 	public static final TagKey<Item> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
+	public static final TagKey<Item> HOLLOWED_WILLOW_LOGS = bind("hollowed_willow_logs");
 
 	private WWItemTags() {
 		throw new UnsupportedOperationException("WilderItemTags contains only static declarations.");

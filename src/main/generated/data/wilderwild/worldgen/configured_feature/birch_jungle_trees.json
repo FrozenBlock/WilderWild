@@ -1,11 +1,11 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:jungle_tree",
+    "default": "wilderwild:jungle_tree_checked",
     "features": [
       {
         "chance": 0.1,
-        "feature": "minecraft:fancy_oak_checked"
+        "feature": "wilderwild:fancy_oak_checked"
       },
       {
         "chance": 0.049,
@@ -33,7 +33,7 @@
       },
       {
         "chance": 0.165,
-        "feature": "minecraft:mega_jungle_tree_checked"
+        "feature": "wilderwild:mega_jungle_tree_checked"
       }
     ]
   }

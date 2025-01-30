@@ -299,7 +299,11 @@ public class FrozenLibIntegration extends ModIntegration {
 			SEEDING_DANDELION,
 			CARNATION,
 			MARIGOLD,
-			GLORY_OF_THE_SNOW,
+			PASQUEFLOWER,
+			YELLOW_HIBISCUS,
+			WHITE_HIBISCUS,
+			PINK_HIBISCUS,
+			PURPLE_HIBISCUS,
 			DATURA,
 			MILKWEED,
 			SUNFLOWER,
@@ -307,7 +311,9 @@ public class FrozenLibIntegration extends ModIntegration {
 			PEONY,
 			LILAC,
 			TORCHFLOWER,
-			PINK_PETALS
+			PINK_PETALS,
+			CLOSED_EYEBLOSSOM,
+			OPEN_EYEBLOSSOM
 		}, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
 		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
 		addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
@@ -321,6 +327,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			OAK_SAPLING,
 			PALE_OAK_SAPLING,
 			SPRUCE_SAPLING,
+			WILLOW_SAPLING,
 			CYPRESS_SAPLING,
 			MAPLE_SAPLING,
 			BUSH
@@ -335,6 +342,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			PALE_OAK_LEAVES,
 			SPRUCE_LEAVES,
 			BAOBAB_LEAVES,
+			WILLOW_LEAVES,
 			CYPRESS_LEAVES,
 			PALM_FRONDS,
 			YELLOW_MAPLE_LEAVES,
@@ -343,8 +351,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{YELLOW_MAPLE_LEAF_LITTER, ORANGE_MAPLE_LEAF_LITTER, RED_MAPLE_LEAF_LITTER}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		addBlocks(new Block[]{Blocks.LILY_PAD, FLOWERING_LILY_PAD}, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
-		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM, PALE_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, PALE_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
 		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
 		addBlock(Blocks.REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
 		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
@@ -367,9 +375,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(WWBiomes.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 		WolfVariantBiomeRegistry.register(WWBiomes.MAPLE_FOREST, WolfVariants.CHESTNUT);
-
-		// TODO: make
-		// BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
 
 		if (WWWorldgenConfig.get().decayTrailRuins) {
 			StructureProcessorApi.addProcessor(
@@ -468,6 +473,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
+						addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
@@ -606,7 +612,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WWWorldgenConfig.get().addStoneChests) {
+		if (WWBlockConfig.get().stoneChest.addStoneChests) {
 			StructureProcessorApi.addProcessor(BuiltinStructures.ANCIENT_CITY.location(),
 				new RuleProcessor(
 					List.of(

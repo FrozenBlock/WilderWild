@@ -1,9 +1,6 @@
 {
   "values": [
-    {
-      "id": "minecraft:cherry_grove",
-      "required": false
-    },
+    "minecraft:cherry_grove",
     {
       "id": "wilderwild:dying_forest",
       "required": false

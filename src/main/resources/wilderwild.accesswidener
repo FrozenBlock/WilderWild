@@ -55,9 +55,12 @@ extendable method net/minecraft/world/entity/LivingEntity canBreatheUnderwater (
 accessible method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
 accessible method net/minecraft/world/entity/EntityType boatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
 accessible method net/minecraft/world/entity/EntityType chestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
+accessible field net/minecraft/world/entity/LivingEntity swimAmount F
+accessible field net/minecraft/world/entity/LivingEntity swimAmountO F
 
 # Entity Behaviors
 accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriority Ljava/util/Map;
+accessible field net/minecraft/world/entity/ai/behavior/LongJumpToRandomPos timeBetweenLongJumps Lnet/minecraft/util/valueproviders/UniformInt;
 
 # Entity Spawns
 accessible class net/minecraft/world/entity/SpawnPlacements$Data

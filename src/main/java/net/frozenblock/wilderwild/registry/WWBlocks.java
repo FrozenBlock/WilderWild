@@ -39,12 +39,11 @@ import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
-import net.frozenblock.wilderwild.block.FlowerLichenBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
-import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -53,7 +52,10 @@ import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
+import net.frozenblock.wilderwild.block.PaleMushroomBlock;
+import net.frozenblock.wilderwild.block.PaleShelfFungiBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
+import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
@@ -68,11 +70,14 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
+import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
+import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -138,13 +143,25 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
+	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("willow"));
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
 	public static final BlockSetType MAPLE_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("maple"));
 	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WWConstants.id("baobab"), BAOBAB_SET);
+	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("willow"), WILLOW_SET);
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
 	public static final WoodType MAPLE_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("maple"), MAPLE_SET);
+	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
+	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
+	private static final MapColor WILLOW_PLANKS_COLOR = MapColor.TERRACOTTA_LIGHT_GREEN;
+	private static final MapColor WILLOW_BARK_COLOR = MapColor.COLOR_BROWN;
+	private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.SAND;
+	private static final MapColor CYPRESS_BARK_COLOR = MapColor.CLAY;
+	private static final MapColor PALM_BARK_COLOR = MapColor.TERRACOTTA_ORANGE;
+	private static final MapColor PALM_PLANKS_COLOR = MapColor.COLOR_YELLOW;
+	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_BROWN;
+	private static final MapColor MAPLE_BARK_COLOR = MapColor.COLOR_BROWN;
 
 	// OTHER (BUILDING BLOCKS)
 
@@ -225,6 +242,15 @@ public final class WWBlocks {
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 
+	public static final WaterloggableSaplingBlock WILLOW_SAPLING = register("willow_sapling",
+		properties -> new WaterloggableSaplingBlock(WWTreeGrowers.WILLOW, properties),
+		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	);
+	public static final Block POTTED_WILLOW_SAPLING = registerWithoutItem("potted_willow_sapling",
+		properties -> new FlowerPotBlock(WILLOW_SAPLING, properties),
+		Blocks.flowerPotProperties()
+	);
+
 	public static final WaterloggableSaplingBlock CYPRESS_SAPLING = register("cypress_sapling",
 		properties -> new WaterloggableSaplingBlock(WWTreeGrowers.CYPRESS, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
@@ -252,32 +278,33 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+	public static final Block BAOBAB_LEAVES = register("baobab_leaves",
+		properties -> new BaobabLeavesBlock(0.01F, properties),
+		Blocks.leavesProperties(SoundType.GRASS)
+	);
+	public static final Block WILLOW_LEAVES = register("willow_leaves",
+		properties -> new TintedParticleLeavesBlock(0.01F, properties),
+		Blocks.leavesProperties(SoundType.GRASS)
+	);
 	public static final Block CYPRESS_LEAVES = register("cypress_leaves",
 		properties -> new TintedParticleLeavesBlock(0.01F, properties),
 		Blocks.leavesProperties(SoundType.GRASS)
-	); // in front so the other leaves can have a copy of its settings
-
-	public static final Block BAOBAB_LEAVES = register("baobab_leaves",
-		properties -> new BaobabLeavesBlock(0.01F, properties),
-		Properties.ofFullCopy(CYPRESS_LEAVES)
 	);
-
 	public static final PalmFrondsBlock PALM_FRONDS = register("palm_fronds",
 		properties -> new PalmFrondsBlock(0.005F, properties),
-		Properties.ofFullCopy(CYPRESS_LEAVES)
+		Blocks.leavesProperties(SoundType.GRASS)
 	);
-
 	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
 		LeavesWithLitterBlock::new,
-		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW)
+		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
 		LeavesWithLitterBlock::new,
-		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE)
+		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
 		LeavesWithLitterBlock::new,
-		Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED)
+		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_RED)
 	);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = register("hollowed_oak_log",
@@ -326,15 +353,23 @@ public final class WWBlocks {
 	);
 	public static final HollowedLogBlock HOLLOWED_BAOBAB_LOG = register("hollowed_baobab_log",
 		HollowedLogBlock::new,
-		hollowedLogProperties(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN)
+		hollowedLogProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR)
+	);
+	public static final HollowedLogBlock HOLLOWED_WILLOW_LOG = register("hollowed_willow_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(WILLOW_PLANKS_COLOR, WILLOW_BARK_COLOR)
 	);
 	public static final HollowedLogBlock HOLLOWED_CYPRESS_LOG = register("hollowed_cypress_log",
 		HollowedLogBlock::new,
-		hollowedLogProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.STONE)
+		hollowedLogProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR)
+	);
+	public static final HollowedLogBlock HOLLOWED_PALM_LOG = register("hollowed_palm_log",
+		HollowedLogBlock::new,
+		hollowedLogProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR)
 	);
 	public static final HollowedLogBlock HOLLOWED_MAPLE_LOG = register("hollowed_maple_log",
 		HollowedLogBlock::new,
-		hollowedLogProperties(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_YELLOW)
+		hollowedLogProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR)
 	);
 
 	// STRIPPED HOLLOWED LOGS
@@ -533,8 +568,12 @@ public final class WWBlocks {
 	public static final StoneChestBlock STONE_CHEST = register("stone_chest",
 		properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST, properties),
 		Properties.ofFullCopy(Blocks.CHEST)
+			.mapColor(MapColor.DEEPSLATE)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.strength(2.5F)
+			.requiresCorrectToolForDrops()
 			.sound(SoundType.DEEPSLATE)
-			.strength(35.0F, 12.0F)
+			.strength(35F, 12F)
 	);
 
 	// PLANTS
@@ -588,33 +627,57 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = register("glory_of_the_snow",
-		GloryOfTheSnowBlock::new,
-		Properties.ofFullCopy(Blocks.DANDELION)
-			.randomTicks()
+
+	public static final FlowerBlock YELLOW_HIBISCUS = register("yellow_hibiscus",
+		properties -> new FlowerBlock(
+			MobEffects.HUNGER,
+			8,
+			properties
+		),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW_PETALS = register("white_glory_of_the_snow_petals",
-		FlowerLichenBlock::new,
-		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
-			.mapColor(MapColor.QUARTZ)
-			.sound(SoundType.VINE)
-			.noCollission()
-			.offsetType(BlockBehaviour.OffsetType.NONE)
+	public static final Block POTTED_YELLOW_HIBISCUS = registerWithoutItem("potted_yellow_hibiscus",
+		properties -> new FlowerPotBlock(YELLOW_HIBISCUS, properties),
+		Blocks.flowerPotProperties()
 	);
-	public static final FlowerLichenBlock BLUE_GLORY_OF_THE_SNOW_PETALS = register("blue_glory_of_the_snow_petals",
-		FlowerLichenBlock::new,
-		Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.COLOR_BLUE)
+
+	public static final FlowerBlock WHITE_HIBISCUS = register("white_hibiscus",
+		properties -> new FlowerBlock(
+			MobEffects.HUNGER,
+			8,
+			properties
+		),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
-	public static final FlowerLichenBlock PINK_GLORY_OF_THE_SNOW_PETALS = register("pink_glory_of_the_snow_petals",
-		FlowerLichenBlock::new,
-		Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.CRIMSON_STEM)
+	public static final Block POTTED_WHITE_HIBISCUS = registerWithoutItem("potted_white_hibiscus",
+		properties -> new FlowerPotBlock(WHITE_HIBISCUS, properties),
+		Blocks.flowerPotProperties()
 	);
-	public static final FlowerLichenBlock PURPLE_GLORY_OF_THE_SNOW_PETALS = register("purple_glory_of_the_snow_petals",
-		FlowerLichenBlock::new,
-		Properties.ofFullCopy(WHITE_GLORY_OF_THE_SNOW_PETALS)
-			.mapColor(MapColor.COLOR_PURPLE)
+
+	public static final FlowerBlock PINK_HIBISCUS = register("pink_hibiscus",
+		properties -> new FlowerBlock(
+			MobEffects.HUNGER,
+			8,
+			properties
+		),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_PINK_HIBISCUS = registerWithoutItem("potted_pink_hibiscus",
+		properties -> new FlowerPotBlock(PINK_HIBISCUS, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final FlowerBlock PURPLE_HIBISCUS = register("purple_hibiscus",
+		properties -> new FlowerBlock(
+			MobEffects.HUNGER,
+			8,
+			properties
+		),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_PURPLE_HIBISCUS = registerWithoutItem("potted_purple_hibiscus",
+		properties -> new FlowerPotBlock(PURPLE_HIBISCUS, properties),
+		Blocks.flowerPotProperties()
 	);
 
 	public static final TallFlowerBlock DATURA = register("datura",
@@ -753,7 +816,42 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final PollenBlock POLLEN = registerWithoutItem("pollen",
+	public static final HugePaleMushroomBlock PALE_MUSHROOM_BLOCK = register("pale_mushroom_block",
+		HugePaleMushroomBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.instrument(NoteBlockInstrument.BASS)
+			.strength(0.2F)
+			.sound(SoundType.WOOD)
+			.ignitedByLava()
+	);
+	public static final PaleMushroomBlock PALE_MUSHROOM = register("pale_mushroom",
+		properties -> new PaleMushroomBlock(WWTreeConfigured.HUGE_PALE_MUSHROOM.getKey(), properties),
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.noCollission()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final Block POTTED_PALE_MUSHROOM = register("potted_pale_mushroom",
+		properties -> new FlowerPotBlock(PALE_MUSHROOM, properties),
+		Blocks.flowerPotProperties()
+	);
+	public static final PaleShelfFungiBlock PALE_SHELF_FUNGI = register("pale_shelf_fungi",
+		PaleShelfFungiBlock::new,
+		Properties.ofFullCopy(PALE_MUSHROOM_BLOCK)
+			.randomTicks()
+			.noCollission()
+			.noOcclusion()
+			.sound(WWSoundTypes.MUSHROOM)
+			.hasPostProcess(Blocks::always)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final PollenBlock POLLEN = register("pollen",
 		PollenBlock::new,
 		Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
@@ -772,6 +870,16 @@ public final class WWBlocks {
 
 	public static final OstrichEggBlock OSTRICH_EGG = register("ostrich_egg",
 		OstrichEggBlock::new,
+		Properties.of()
+			.mapColor(MapColor.TERRACOTTA_WHITE)
+			.strength(0.5F)
+			.sound(SoundType.METAL)
+			.noOcclusion()
+			.randomTicks()
+	);
+
+	public static final PenguinEggBlock PENGUIN_EGG = register("penguin_egg",
+		PenguinEggBlock::new,
 		Properties.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
@@ -804,8 +912,6 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
 	);
-
-	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
 
 	// WOOD
 
@@ -854,7 +960,6 @@ public final class WWBlocks {
 		strippedHollowedLogProperties(BAOBAB_PLANKS_COLOR)
 	);
 
-	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
 	public static final Block BAOBAB_LOG = register("baobab_log",
 		RotatedPillarBlock::new,
 		Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD)
@@ -913,7 +1018,113 @@ public final class WWBlocks {
 			.mapColor(BAOBAB_BARK_COLOR)
 	);
 
-	private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
+	public static final Block WILLOW_PLANKS = register("willow_planks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.OAK_PLANKS)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final StairBlock WILLOW_STAIRS = register("willow_stairs",
+		properties -> new StairBlock(WILLOW_PLANKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(WILLOW_PLANKS)
+	);
+	public static final Block WILLOW_FENCE_GATE = register("willow_fence_gate",
+		properties -> new FenceGateBlock(WILLOW_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final SlabBlock WILLOW_SLAB = register("willow_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(Blocks.OAK_SLAB)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final Block WILLOW_BUTTON = register("willow_button",
+		properties -> new ButtonBlock(WILLOW_SET, 30, properties),
+		Blocks.buttonProperties()
+	);
+	public static final PressurePlateBlock WILLOW_PRESSURE_PLATE = register("willow_pressure_plate",
+		properties -> new PressurePlateBlock(WILLOW_SET, properties),
+		Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final DoorBlock WILLOW_DOOR = register("willow_door",
+		properties -> new DoorBlock(WILLOW_SET, properties),
+		Properties.ofFullCopy(Blocks.OAK_DOOR)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final TrapDoorBlock WILLOW_TRAPDOOR = register("willow_trapdoor",
+		properties -> new TrapDoorBlock(WILLOW_SET, properties),
+		Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final FenceBlock WILLOW_FENCE = register("willow_fence",
+		FenceBlock::new,
+		Properties.ofFullCopy(Blocks.OAK_FENCE)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_WILLOW_LOG = register("stripped_hollowed_willow_log",
+		HollowedLogBlock::new,
+		strippedHollowedLogProperties(WILLOW_PLANKS_COLOR)
+	);
+
+	public static final Block WILLOW_LOG = register("willow_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(WILLOW_PLANKS_COLOR, WILLOW_BARK_COLOR, SoundType.WOOD)
+	);
+	public static final SignBlock WILLOW_SIGN = registerWithoutItem("willow_sign",
+		properties -> new StandingSignBlock(WILLOW_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_SIGN)
+			.mapColor(WILLOW_LOG.defaultMapColor())
+	);
+	public static final SignBlock WILLOW_WALL_SIGN = registerWithoutItem("willow_wall_sign",
+		properties -> new WallSignBlock(WILLOW_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
+			.mapColor(WILLOW_LOG.defaultMapColor())
+			.overrideDescription(WILLOW_SIGN.getDescriptionId())
+			.overrideLootTable(WILLOW_SIGN.getLootTable())
+	);
+
+	public static final BlockFamily FAMILY_WILLOW = BlockFamilies.familyBuilder(WILLOW_PLANKS)
+		.button(WILLOW_BUTTON)
+		.slab(WILLOW_SLAB)
+		.stairs(WILLOW_STAIRS)
+		.fence(WILLOW_FENCE)
+		.fenceGate(WILLOW_FENCE_GATE)
+		.pressurePlate(WILLOW_PRESSURE_PLATE)
+		.sign(WILLOW_SIGN, WILLOW_WALL_SIGN)
+		.door(WILLOW_DOOR)
+		.trapdoor(WILLOW_TRAPDOOR)
+		.recipeGroupPrefix("wooden")
+		.recipeUnlockedBy("has_planks")
+		.getFamily();
+
+	public static final CeilingHangingSignBlock WILLOW_HANGING_SIGN = registerWithoutItem("willow_hanging_sign",
+		properties -> new CeilingHangingSignBlock(WILLOW_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
+			.mapColor(WILLOW_LOG.defaultMapColor())
+	);
+	public static final WallHangingSignBlock WILLOW_WALL_HANGING_SIGN = registerWithoutItem("willow_wall_hanging_sign",
+		properties -> new WallHangingSignBlock(WILLOW_WOOD_TYPE, properties),
+		Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
+			.mapColor(WILLOW_LOG.defaultMapColor())
+			.overrideDescription(WILLOW_HANGING_SIGN.getDescriptionId())
+			.overrideLootTable(WILLOW_HANGING_SIGN.getLootTable())
+	);
+
+	public static final Block STRIPPED_WILLOW_LOG = register("stripped_willow_log",
+		RotatedPillarBlock::new,
+		Blocks.logProperties(WILLOW_PLANKS_COLOR, WILLOW_BARK_COLOR, SoundType.WOOD)
+	);
+	public static final RotatedPillarBlock STRIPPED_WILLOW_WOOD = register("stripped_willow_wood",
+		RotatedPillarBlock::new,
+		Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)
+			.mapColor(WILLOW_PLANKS_COLOR)
+	);
+	public static final RotatedPillarBlock WILLOW_WOOD = register("willow_wood",
+		RotatedPillarBlock::new,
+		Properties.ofFullCopy(Blocks.OAK_WOOD)
+			.mapColor(WILLOW_BARK_COLOR)
+	);
+
 	public static final Block CYPRESS_PLANKS = register("cypress_planks",
 		Block::new,
 		Properties.ofFullCopy(Blocks.OAK_PLANKS)
@@ -962,7 +1173,6 @@ public final class WWBlocks {
 		strippedHollowedLogProperties(CYPRESS_PLANKS_COLOR)
 	);
 
-	private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE;
 	public static final Block CYPRESS_LOG = register("cypress_log",
 		RotatedPillarBlock::new,
 		Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, SoundType.WOOD)
@@ -1022,7 +1232,6 @@ public final class WWBlocks {
 			.mapColor(CYPRESS_BARK_COLOR)
 	);
 
-	private static final MapColor PALM_PLANKS_COLOR = MapColor.TERRACOTTA_WHITE;
 	public static final Block PALM_PLANKS = register("palm_planks",
 		Block::new,
 		Properties.ofFullCopy(Blocks.OAK_PLANKS)
@@ -1071,7 +1280,6 @@ public final class WWBlocks {
 		strippedHollowedLogProperties(PALM_PLANKS_COLOR)
 	);
 
-	private static final MapColor PALM_BARK_COLOR = MapColor.COLOR_LIGHT_GRAY;
 	public static final Block PALM_LOG = register("palm_log",
 		RotatedPillarBlock::new,
 		Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, SoundType.WOOD)
@@ -1129,14 +1337,9 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(PALM_BARK_COLOR)
 	);
-	public static final HollowedLogBlock HOLLOWED_PALM_LOG = register("hollowed_palm_log",
-		HollowedLogBlock::new,
-		hollowedLogProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR)
-	);
 
 	// MAPLE
 
-	private static final MapColor MAPLE_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
 	public static final Block MAPLE_PLANKS = register("maple_planks",
 		Block::new,
 		Properties.ofFullCopy(Blocks.OAK_PLANKS)
@@ -1185,7 +1388,6 @@ public final class WWBlocks {
 		strippedHollowedLogProperties(MAPLE_PLANKS_COLOR)
 	);
 
-	private static final MapColor MAPLE_BARK_COLOR = MapColor.STONE;
 	public static final Block MAPLE_LOG = register("maple_log",
 		RotatedPillarBlock::new,
 		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, SoundType.WOOD)
@@ -1418,6 +1620,8 @@ public final class WWBlocks {
 
 		sign.addSupportedBlock(BAOBAB_SIGN);
 		sign.addSupportedBlock(BAOBAB_WALL_SIGN);
+		sign.addSupportedBlock(WILLOW_SIGN);
+		sign.addSupportedBlock(WILLOW_WALL_SIGN);
 		sign.addSupportedBlock(CYPRESS_SIGN);
 		sign.addSupportedBlock(CYPRESS_WALL_SIGN);
 		sign.addSupportedBlock(PALM_SIGN);
@@ -1427,6 +1631,8 @@ public final class WWBlocks {
 
 		hangingSign.addSupportedBlock(BAOBAB_HANGING_SIGN);
 		hangingSign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
+		hangingSign.addSupportedBlock(WILLOW_HANGING_SIGN);
+		hangingSign.addSupportedBlock(WILLOW_WALL_HANGING_SIGN);
 		hangingSign.addSupportedBlock(CYPRESS_HANGING_SIGN);
 		hangingSign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
 		hangingSign.addSupportedBlock(PALM_HANGING_SIGN);
@@ -1465,6 +1671,8 @@ public final class WWBlocks {
 	private static void registerStrippable() {
 		StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
 		StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+		StrippableBlockRegistry.register(WILLOW_LOG, STRIPPED_WILLOW_LOG);
+		StrippableBlockRegistry.register(WILLOW_WOOD, STRIPPED_WILLOW_WOOD);
 		StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
 		StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 		StrippableBlockRegistry.register(PALM_LOG, STRIPPED_PALM_LOG);
@@ -1483,6 +1691,7 @@ public final class WWBlocks {
 		StrippableBlockRegistry.register(HOLLOWED_PALE_OAK_LOG, STRIPPED_HOLLOWED_PALE_OAK_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM);
 		StrippableBlockRegistry.register(HOLLOWED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM);
+		StrippableBlockRegistry.register(HOLLOWED_WILLOW_LOG, STRIPPED_HOLLOWED_WILLOW_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
 		StrippableBlockRegistry.register(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
@@ -1499,22 +1708,23 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGI, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WILLOW_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAVES, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WILLOW_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW_PETALS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1537,11 +1747,10 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(DATURA, 100, 60);
 		flammableBlockRegistry.add(MILKWEED, 100, 60);
 		flammableBlockRegistry.add(MARIGOLD, 100, 60);
-		flammableBlockRegistry.add(GLORY_OF_THE_SNOW, 100, 60);
-		flammableBlockRegistry.add(BLUE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
-		flammableBlockRegistry.add(PINK_GLORY_OF_THE_SNOW_PETALS, 100, 60);
-		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
-		flammableBlockRegistry.add(PURPLE_GLORY_OF_THE_SNOW_PETALS, 100, 60);
+		flammableBlockRegistry.add(YELLOW_HIBISCUS, 100, 60);
+		flammableBlockRegistry.add(WHITE_HIBISCUS, 100, 60);
+		flammableBlockRegistry.add(PINK_HIBISCUS, 100, 60);
+		flammableBlockRegistry.add(PURPLE_HIBISCUS, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
 		flammableBlockRegistry.add(BUSH, 90, 40);
@@ -1587,6 +1796,27 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(BAOBAB_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_WALL_HANGING_SIGN, 5, 20);
+
+		flammableBlockRegistry.add(HOLLOWED_WILLOW_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_HOLLOWED_WILLOW_LOG, 5, 5);
+		flammableBlockRegistry.add(WILLOW_LOG, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_WILLOW_LOG, 5, 5);
+		flammableBlockRegistry.add(WILLOW_WOOD, 5, 5);
+		flammableBlockRegistry.add(STRIPPED_WILLOW_WOOD, 5, 5);
+		flammableBlockRegistry.add(WILLOW_PLANKS, 5, 20);
+		flammableBlockRegistry.add(WILLOW_STAIRS, 5, 20);
+		flammableBlockRegistry.add(WILLOW_DOOR, 5, 20);
+		flammableBlockRegistry.add(WILLOW_FENCE, 5, 20);
+		flammableBlockRegistry.add(WILLOW_SLAB, 5, 20);
+		flammableBlockRegistry.add(WILLOW_FENCE_GATE, 5, 20);
+		flammableBlockRegistry.add(WILLOW_PRESSURE_PLATE, 5, 20);
+		flammableBlockRegistry.add(WILLOW_TRAPDOOR, 5, 20);
+		flammableBlockRegistry.add(WILLOW_LEAVES, 100, 60);
+		flammableBlockRegistry.add(WILLOW_BUTTON, 5, 20);
+		flammableBlockRegistry.add(WILLOW_SIGN, 5, 20);
+		flammableBlockRegistry.add(WILLOW_WALL_SIGN, 5, 20);
+		flammableBlockRegistry.add(WILLOW_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WILLOW_WALL_HANGING_SIGN, 5, 20);
 
 		flammableBlockRegistry.add(HOLLOWED_CYPRESS_LOG, 5, 5);
 		flammableBlockRegistry.add(STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
@@ -1679,6 +1909,24 @@ public final class WWBlocks {
 			builder.add(WWItems.BAOBAB_HANGING_SIGN, 800);
 			builder.add(WWItems.BAOBAB_NUT, 100);
 
+			builder.add(WWItems.WILLOW_BOAT, 1200);
+			builder.add(WWItems.WILLOW_CHEST_BOAT, 1200);
+			builder.add(WILLOW_LOG.asItem(), 300);
+			builder.add(STRIPPED_WILLOW_LOG.asItem(), 300);
+			builder.add(WILLOW_WOOD.asItem(), 300);
+			builder.add(STRIPPED_WILLOW_WOOD.asItem(), 300);
+			builder.add(WILLOW_PLANKS.asItem(), 300);
+			builder.add(WILLOW_SLAB.asItem(), 150);
+			builder.add(WILLOW_STAIRS.asItem(), 300);
+			builder.add(WILLOW_PRESSURE_PLATE.asItem(), 300);
+			builder.add(WILLOW_BUTTON.asItem(), 100);
+			builder.add(WILLOW_TRAPDOOR.asItem(), 300);
+			builder.add(WILLOW_FENCE_GATE.asItem(), 300);
+			builder.add(WILLOW_FENCE.asItem(), 300);
+			builder.add(WWItems.WILLOW_SIGN, 300);
+			builder.add(WWItems.WILLOW_HANGING_SIGN, 800);
+			builder.add(WILLOW_SAPLING.asItem(), 100);
+
 			builder.add(WWItems.CYPRESS_BOAT, 1200);
 			builder.add(WWItems.CYPRESS_CHEST_BOAT, 1200);
 			builder.add(CYPRESS_LOG.asItem(), 300);
@@ -1745,6 +1993,7 @@ public final class WWBlocks {
 			builder.add(HOLLOWED_BIRCH_LOG.asItem(), 300);
 			builder.add(HOLLOWED_PALE_OAK_LOG.asItem(), 300);
 			builder.add(HOLLOWED_BAOBAB_LOG.asItem(), 300);
+			builder.add(HOLLOWED_WILLOW_LOG.asItem(), 300);
 			builder.add(HOLLOWED_CYPRESS_LOG.asItem(), 300);
 			builder.add(HOLLOWED_PALM_LOG.asItem(), 300);
 			builder.add(HOLLOWED_MAPLE_LOG.asItem(), 300);
@@ -1760,6 +2009,7 @@ public final class WWBlocks {
 			builder.add(STRIPPED_HOLLOWED_BIRCH_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_BAOBAB_LOG.asItem(), 300);
+			builder.add(STRIPPED_HOLLOWED_WILLOW_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_PALM_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_MAPLE_LOG.asItem(), 300);
@@ -1775,7 +2025,7 @@ public final class WWBlocks {
 			new BonemealBehaviors.BonemealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
-					return true;
+					return WWBlockConfig.get().flower.bonemealLilypads;
 				}
 
 				@Override
@@ -1790,7 +2040,7 @@ public final class WWBlocks {
 			new BonemealBehaviors.BonemealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
-					return true;
+					return WWBlockConfig.get().flower.bonemealDandelions;
 				}
 
 				@Override
@@ -1860,6 +2110,7 @@ public final class WWBlocks {
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.CRIMSON_STEM, HOLLOWED_CRIMSON_STEM);
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.WARPED_STEM, HOLLOWED_WARPED_STEM);
 		HollowedLogBlock.registerAxeHollowBehavior(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(WILLOW_LOG, HOLLOWED_WILLOW_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(PALM_LOG, HOLLOWED_PALM_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(MAPLE_LOG, HOLLOWED_MAPLE_LOG);
@@ -1876,6 +2127,7 @@ public final class WWBlocks {
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM);
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM);
 		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_WILLOW_LOG, STRIPPED_HOLLOWED_WILLOW_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_MAPLE_LOG, STRIPPED_HOLLOWED_MAPLE_LOG);

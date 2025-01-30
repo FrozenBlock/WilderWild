@@ -3,14 +3,10 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 8
+      "count": 6
     },
     {
       "type": "minecraft:in_square"
-    },
-    {
-      "type": "frozenlib:improved_heightmap",
-      "heightmap": "OCEAN_FLOOR_WG"
     },
     {
       "type": "minecraft:block_predicate_filter",

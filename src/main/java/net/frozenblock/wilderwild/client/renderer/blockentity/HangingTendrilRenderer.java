@@ -46,7 +46,7 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
-		if (WWBlockConfig.get().billboardTendrils) {
+		if (WWBlockConfig.Client.BILLBOARD_TENDRILS) {
 			super.render(entity, partialTick, poseStack, buffer, light, overlay);
 		}
 	}

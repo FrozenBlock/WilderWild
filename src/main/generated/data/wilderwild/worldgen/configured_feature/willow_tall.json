@@ -1,0 +1,109 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:leave_vine",
+        "probability": 0.125
+      },
+      {
+        "type": "wilderwild:shelf_fungi_tree_decorator",
+        "placement_chance": 0.25,
+        "probability": 0.09,
+        "red_shelf_fungi_chance": 0.3
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "wilderwild:willow_foliage_placer",
+      "hanging_leaves_chance": 0.5,
+      "hanging_leaves_extension_chance": 0.5,
+      "height": 2,
+      "offset": 1,
+      "radius": 3
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:willow_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 2,
+      "lower_size": 0,
+      "upper_size": 2
+    },
+    "root_placer": {
+      "type": "wilderwild:willow_root_placer",
+      "above_root_placement": {
+        "above_root_placement_chance": 0.45,
+        "above_root_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:moss_carpet"
+          }
+        }
+      },
+      "root_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:willow_log",
+          "Properties": {
+            "axis": "y"
+          }
+        }
+      },
+      "trunk_offset_y": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 1,
+        "min_inclusive": 1
+      },
+      "willow_root_placement": {
+        "can_grow_through": "#wilderwild:willow_roots_can_grow_through",
+        "max_root_length": 5,
+        "max_root_width": 3,
+        "random_skew_chance": 0.2
+      }
+    },
+    "trunk_placer": {
+      "type": "wilderwild:willow_trunk_placer",
+      "base_height": 7,
+      "branch_chance": 0.5,
+      "branch_split_gap_chance": 0.35,
+      "extra_branch_length": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 3,
+        "min_inclusive": 2
+      },
+      "height_rand_a": 2,
+      "height_rand_b": 2,
+      "trunk_split_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 5,
+        "min_inclusive": 2
+      }
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:willow_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

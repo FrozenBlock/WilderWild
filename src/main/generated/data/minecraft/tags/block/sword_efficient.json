@@ -10,11 +10,13 @@
     "wilderwild:algae",
     "wilderwild:brown_shelf_fungi",
     "wilderwild:red_shelf_fungi",
+    "wilderwild:pale_shelf_fungi",
     "wilderwild:crimson_shelf_fungi",
     "wilderwild:warped_shelf_fungi",
     "wilderwild:sponge_bud",
     "wilderwild:prickly_pear",
     "wilderwild:mycelium_growth",
+    "wilderwild:pale_mushroom",
     {
       "id": "#wilderwild:nematocysts",
       "required": false

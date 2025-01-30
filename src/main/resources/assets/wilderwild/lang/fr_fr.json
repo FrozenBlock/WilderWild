@@ -1,10 +1,6 @@
 {
   "biome.wilderwild.cypress_wetlands": "Marais de Cyprès",
   "biome.wilderwild.mixed_forest": "Forêt mixte",
-  "block.wilderwild.white_glory_of_the_snow_petals": "Gloire des neiges alba",
-  "block.wilderwild.blue_glory_of_the_snow_petals": "Gloire des neiges géante bleue",
-  "block.wilderwild.pink_glory_of_the_snow_petals": "Gloire des neiges géante rose",
-  "block.wilderwild.purple_glory_of_the_snow_petals": "Gloire des neiges violette magnifique",
   "block.wilderwild.algae": "Algue",
   "block.wilderwild.baobab_button": "Boutton en baobab",
   "block.wilderwild.baobab_door": "Porte en baobab",
@@ -43,7 +39,6 @@
   "block.wilderwild.datura": "Datura",
   "block.wilderwild.echo_glass": "Verre d'écho",
   "block.wilderwild.flowering_lily_pad": "Nénuphar fleuri",
-  "block.wilderwild.glory_of_the_snow": "Gloire des neiges",
   "block.wilderwild.hanging_tendril": "Vrille pendue",
   "block.wilderwild.hollowed_acacia_log": "Bûche d'acacia creusée",
   "block.wilderwild.hollowed_baobab_log": "Bûche de baobab creusée",

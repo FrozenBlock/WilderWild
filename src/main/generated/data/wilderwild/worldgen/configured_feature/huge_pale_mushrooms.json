@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "wilderwild:huge_pale_mushroom",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.0,
+        "feature": {
+          "feature": "wilderwild:huge_pale_mushroom",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

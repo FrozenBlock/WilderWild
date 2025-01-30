@@ -25,13 +25,10 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
-/**
- * Put custom Allay animations in here. for example, dancing, swimming. Not for overrides
- */
 @Environment(EnvType.CLIENT)
 public final class WWAllayAnimation {
 
-	public static final AnimationDefinition DANCING = AnimationDefinition.Builder.withLength(2.75F).looping()
+	public static final AnimationDefinition ALLAY_DANCING = AnimationDefinition.Builder.withLength(2.75F).looping()
 		.addAnimation(
 			"head",
 			new AnimationChannel(

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:mossy_fallen_oak_checked",
+    "features": [
+      {
+        "chance": 0.75,
+        "feature": "wilderwild:mossy_fallen_willow_checked"
+      },
+      {
+        "chance": 0.2,
+        "feature": "wilderwild:mossy_fallen_willow_checked"
+      }
+    ]
+  }
+}

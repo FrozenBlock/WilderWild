@@ -77,11 +77,6 @@ public class V3328Mixin {
 		);
 		schema.register(
 			map,
-			WWConstants.string("chest_bubbler"),
-			DSL::remainder
-		);
-		schema.register(
-			map,
 			WWConstants.string("sculk_spreader"),
 			DSL::remainder
 		);

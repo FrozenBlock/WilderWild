@@ -23,7 +23,6 @@ import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
-import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
@@ -31,6 +30,7 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -109,19 +109,19 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
+	public static final EntityType<Penguin> PENGUIN = register(
+		"penguin",
+		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
+			.sized(0.55F, 1F)
+			.eyeHeight(0.8F)
+	);
+
 	public static final EntityType<CoconutProjectile> COCONUT = register(
 		"coconut",
 		EntityType.Builder.<CoconutProjectile>of(CoconutProjectile::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
-	);
-
-	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
-		"chest_bubbler",
-		EntityType.Builder.<ChestBubbleTicker>of(ChestBubbleTicker::new, MobCategory.MISC)
-			.sized(0F, 0F)
-			.clientTrackingRange(0)
 	);
 
 	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
@@ -152,6 +152,24 @@ public final class WWEntityTypes {
 	public static final EntityType<ChestBoat> BAOBAB_CHEST_BOAT = register(
 		"baobab_chest_boat",
 		EntityType.Builder.of(EntityType.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<Boat> WILLOW_BOAT = register(
+		"willow_boat",
+		EntityType.Builder.of(EntityType.boatFactory(() -> WWItems.WILLOW_BOAT), MobCategory.MISC)
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<ChestBoat> WILLOW_CHEST_BOAT = register(
+		"willow_chest_boat",
+		EntityType.Builder.of(EntityType.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
@@ -278,6 +296,14 @@ public final class WWEntityTypes {
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			FlowerCow::checkFlowerCowSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createAttributes());
+		SpawnPlacements.register(
+			PENGUIN,
+			SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			Penguin::checkPenguinSpawnRules
 		);
 	}
 

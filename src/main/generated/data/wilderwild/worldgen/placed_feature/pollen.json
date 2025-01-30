@@ -2,10 +2,6 @@
   "feature": "wilderwild:pollen",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 1
-    },
-    {
       "type": "minecraft:count",
       "count": 2
     },

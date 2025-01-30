@@ -101,7 +101,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
 			.add(WWEntityTypes.CRAB)
-			.add(WWEntityTypes.JELLYFISH);
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.PENGUIN);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
 			.add(WWEntityTypes.JELLYFISH);
@@ -113,6 +114,10 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.SALMON)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
+
+		this.getOrCreateTagBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
+			.add(EntityType.SQUID)
+			.add(EntityType.GLOW_SQUID);
 
 		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
 			.add(EntityType.ARROW)
@@ -140,6 +145,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(
 				WWEntityTypes.BAOBAB_BOAT,
 				WWEntityTypes.BAOBAB_CHEST_BOAT,
+				WWEntityTypes.WILLOW_BOAT,
+				WWEntityTypes.WILLOW_CHEST_BOAT,
 				WWEntityTypes.CYPRESS_BOAT,
 				WWEntityTypes.CYPRESS_CHEST_BOAT,
 				WWEntityTypes.PALM_BOAT,

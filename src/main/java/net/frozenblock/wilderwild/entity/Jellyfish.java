@@ -121,7 +121,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
-	private static final Map<ServerLevelAccessor, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
+	private static final Map<ResourceKey<Level>, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
 	public float xRot1;
@@ -149,15 +149,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public static int getJellyfishPerLevel(@NotNull ServerLevel level, boolean pearlescent) {
 		AtomicInteger count = new AtomicInteger();
-		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(level)) {
+		ResourceKey<Level> dimension = level.dimension();
+		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(dimension)) {
 			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
 				if (entity instanceof Jellyfish jellyfish && (pearlescent == jellyfish.getVariantByLocation().isPearlescent())) {
 					count.addAndGet(1);
 				}
 			});
-			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(level, count.get());
+			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(dimension, count.get());
 		} else {
-			count.set(NON_PEARLESCENT_JELLYFISH_PER_LEVEL.get(level));
+			count.set(NON_PEARLESCENT_JELLYFISH_PER_LEVEL.get(dimension));
 		}
 		return count.get();
 	}
@@ -688,7 +689,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public boolean isRGB() {
 		var name = this.getName().getString();
-		return this.hasCustomName() && name.equals("AroundTheWorld");
+		return this.hasCustomName() && (name.equals("jeb_") || name.equals("AroundTheWorld"));
 	}
 
 	public void ageUp(int amount, boolean forced) {

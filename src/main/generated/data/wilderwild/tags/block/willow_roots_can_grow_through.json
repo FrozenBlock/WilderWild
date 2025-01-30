@@ -1,0 +1,15 @@
+{
+  "values": [
+    "minecraft:muddy_mangrove_roots",
+    "minecraft:mangrove_roots",
+    "minecraft:moss_carpet",
+    "minecraft:vine",
+    "minecraft:snow",
+    "minecraft:red_mushroom",
+    "minecraft:brown_mushroom",
+    {
+      "id": "#minecraft:small_flowers",
+      "required": false
+    }
+  ]
+}

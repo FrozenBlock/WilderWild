@@ -114,14 +114,14 @@ public final class WWWorldgenConfig {
 	@EntrySyncData("surfaceDecoration")
 	public boolean surfaceDecoration = true;
 
+	@EntrySyncData("riverPool")
+	public boolean riverPool = false;
+
 	@EntrySyncData("snowBelowTrees")
 	public boolean snowBelowTrees = true;
 
 	@EntrySyncData("surfaceTransitions")
 	public boolean surfaceTransitions = true;
-
-	@EntrySyncData("addStoneChests")
-	public boolean addStoneChests = true;
 
 	@EntrySyncData("newWitchHuts")
 	public boolean newWitchHuts = true;

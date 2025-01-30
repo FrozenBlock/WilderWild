@@ -46,6 +46,7 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -182,9 +183,10 @@ public final class WWCaveConfigured {
 				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
-					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA,
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -194,9 +196,10 @@ public final class WWCaveConfigured {
 				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
-					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA,
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -206,9 +209,10 @@ public final class WWCaveConfigured {
 				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
-					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA,
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -218,9 +222,10 @@ public final class WWCaveConfigured {
 				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
-					WWBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					WWBlocks.BLUE_PEARLESCENT_MESOGLEA,
+					WWBlocks.PURPLE_PEARLESCENT_MESOGLEA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -571,9 +576,10 @@ public final class WWCaveConfigured {
 				Blocks.MAGMA_BLOCK.defaultBlockState(),
 				UniformInt.of(1, 2),
 				HolderSet.direct(
-					Blocks.MAGMA_BLOCK.builtInRegistryHolder(),
-					Blocks.LAVA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					Blocks.MAGMA_BLOCK,
+					Blocks.LAVA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -583,9 +589,10 @@ public final class WWCaveConfigured {
 				Blocks.MAGMA_BLOCK.defaultBlockState(),
 				UniformInt.of(1, 4),
 				HolderSet.direct(
-					Blocks.MAGMA_BLOCK.builtInRegistryHolder(),
-					Blocks.LAVA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					Blocks.MAGMA_BLOCK,
+					Blocks.LAVA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -617,8 +624,9 @@ public final class WWCaveConfigured {
 				Blocks.BASALT.defaultBlockState(),
 				UniformInt.of(1, 6),
 				HolderSet.direct(
-					Blocks.LAVA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					Blocks.LAVA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -628,8 +636,9 @@ public final class WWCaveConfigured {
 				Blocks.BASALT.defaultBlockState(),
 				UniformInt.of(1, 6),
 				HolderSet.direct(
-					Blocks.LAVA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					Blocks.LAVA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -704,8 +713,9 @@ public final class WWCaveConfigured {
 				WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
 				UniformInt.of(2, 4),
 				HolderSet.direct(
-					Blocks.LAVA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					Blocks.LAVA,
+					Blocks.WATER
 				)
 			)
 		);
@@ -715,8 +725,9 @@ public final class WWCaveConfigured {
 				WWBlocks.GEYSER.defaultBlockState(),
 				UniformInt.of(3, 5),
 				HolderSet.direct(
-					Blocks.LAVA.builtInRegistryHolder(),
-					Blocks.WATER.builtInRegistryHolder()
+					Block::builtInRegistryHolder,
+					Blocks.LAVA,
+					Blocks.WATER
 				)
 			)
 		);

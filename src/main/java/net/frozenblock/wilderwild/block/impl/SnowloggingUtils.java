@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -42,6 +43,18 @@ import org.jetbrains.annotations.Nullable;
 public class SnowloggingUtils {
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
+	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogging;
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogWalls;
+
+	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
+		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
+		builder.add(SNOW_LAYERS);
+	}
+
+	public static void appendSnowlogPropertiesToBlockade(StateDefinition.Builder<Block, BlockState> builder) {
+		if (!CONFIG_SNOWLOGGING_ON_BOOT || !CONFIG_SNOWLOG_BLOCKADES_ON_BOOT) return;
+		builder.add(SNOW_LAYERS);
+	}
 
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
 		if (!WWBlockConfig.SNOWLOGGING) return false;

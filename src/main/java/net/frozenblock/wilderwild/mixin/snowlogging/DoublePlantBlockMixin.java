@@ -120,8 +120,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!WWBlockConfig.get().snowlogging.snowlogging) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 
 }

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.foliage;
 
+import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -29,15 +30,23 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class MapleFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
-		(instance) -> foliagePlacerParts(instance)
-			.and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length))
-			.apply(instance, MapleFoliagePlacer::new)
+		(instance) -> mapleFoliagePlacerParts(instance).apply(instance, MapleFoliagePlacer::new)
 	);
-	private final IntProvider length;
+
+	@Contract("_ -> new")
+	protected static <P extends MapleFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> mapleFoliagePlacerParts(
+		RecordCodecBuilder.Instance<P> instance
+	) {
+		return foliagePlacerParts(instance)
+			.and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length));
+	}
+
+	protected final IntProvider length;
 
 	public MapleFoliagePlacer(IntProvider radius, IntProvider offset, IntProvider foliageHeight) {
 		super(radius, offset);
@@ -85,8 +94,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		int trunkHeight
 	) {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		Vec3 center = centerPos.getCenter();
-		double radius = providedRadius + ((random.nextDouble() - 0.5D) * 0.4D);
+		double radius = providedRadius + ((random.nextDouble() - this.getRandomRadiusShrink()) * 0.4D);
 		double increment = radius * 0.05D;
 
 		for (double j = -radius; j <= radius; j += increment) {
@@ -97,6 +105,10 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 				}
 			}
 		}
+	}
+
+	protected double getRandomRadiusShrink() {
+		return -0.5D;
 	}
 
 	protected boolean shouldSkipMapleLocationSigned(
@@ -119,12 +131,11 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		 double xDistance, double zDistance, double radius, int totalHeight, int currentHeight, int trunkHeight
 	) {
 		double mapleFunction = this.getMapleFoliageFunction(totalHeight, currentHeight, radius, currentHeight <= trunkHeight);
-		Vec3 vec3 = new Vec3(xDistance, 0, zDistance);
-		double distance = Vec3.ZERO.distanceTo(vec3);
+		double distance = new Vec3(xDistance, 0, zDistance).horizontalDistance();
 		return distance > mapleFunction && distance > 0.4D;
 	}
 
-	private double getMapleFoliageFunction(
+	protected double getMapleFoliageFunction(
 		double totalHeight,
 		double height,
 		double radius,
