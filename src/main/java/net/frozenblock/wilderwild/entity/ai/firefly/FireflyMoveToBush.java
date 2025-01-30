@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity.ai.firefly;
 
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +38,10 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 
 	@Override
 	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Firefly firefly) {
-		return !firefly.hasHome() && super.checkExtraStartConditions(level, firefly) && !this.blockPos.closerThan(firefly.blockPosition(), this.returnDistance);
+		return WWEntityConfig.FIREFLY_SWARMS_BUSH
+			&& !firefly.hasHome()
+			&& super.checkExtraStartConditions(level, firefly)
+			&& !this.blockPos.closerThan(firefly.blockPosition(), this.returnDistance);
 	}
 
 	@Override

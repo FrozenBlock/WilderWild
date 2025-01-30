@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.ValidateOrSetHome;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -119,7 +120,7 @@ public class FireflyAi {
 				Pair.of(1, new FireflyHide(firefly, 1.75F, 10, 8)),
 				Pair.of(2, new FireflyMoveToBush(firefly, 1.25F, 10, 8, 5)),
 				Pair.of(3, StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1.25F)),
-				Pair.of(4, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 2, 3, 1.75F)),
+				Pair.of(4, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> WWEntityConfig.FIREFLY_SWARMS, 2, 3, 1.75F)),
 				Pair.of(5, new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1.25F), 2),

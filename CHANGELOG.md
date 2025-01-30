@@ -133,6 +133,7 @@ hi
 - Fireflies now move faster.
 - Fireflies now spawn and move in swarms.
   - When the leader of a swarm is killed or captured in a bottle, the nearest Firefly will become the new swarm leader.
+  - Firefly Swarms can be toggled in the config.
 - Removed unnecessary spawning mechanics that were unique only to the Firefly.
 - Moved multiple aspects of the Firefly to be managed by its brain.
 - Fireflies now only spawn at night.
