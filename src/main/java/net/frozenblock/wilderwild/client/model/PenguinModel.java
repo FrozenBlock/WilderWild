@@ -36,7 +36,7 @@ import org.joml.Math;
 import java.util.Set;
 
 public class PenguinModel<T extends PenguinRenderState> extends EntityModel<PenguinRenderState> {
-	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 0F, 0F, 1F, 0.4F, 36F, Set.of("neck"));
+	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 0F, 0F, 1F, 2.5F, 36F, Set.of());
 	private final ModelPart body;
 	private final ModelPart torso;
 	private final ModelPart head;
