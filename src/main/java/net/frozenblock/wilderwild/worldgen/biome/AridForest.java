@@ -146,6 +146,7 @@ public final class AridForest extends FrozenBiome {
 		BiomeDefaultFeatures.addSavannaGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		BiomeDefaultFeatures.addBushes(features);
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addSavannaExtraGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);

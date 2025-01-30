@@ -145,6 +145,7 @@ public final class MixedForest extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MIXED_TREES.getKey());
+		BiomeDefaultFeatures.addBushes(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addForestGrass(features);
 	}

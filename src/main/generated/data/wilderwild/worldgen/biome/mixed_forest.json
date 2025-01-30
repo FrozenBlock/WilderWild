@@ -83,6 +83,7 @@
     [
       "minecraft:glow_lichen",
       "wilderwild:mixed_trees",
+      "minecraft:patch_bush",
       "minecraft:flower_default",
       "minecraft:patch_grass_forest"
     ],

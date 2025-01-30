@@ -153,6 +153,7 @@ public final class SparseForest extends FrozenBiome {
 		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		BiomeDefaultFeatures.addBushes(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
