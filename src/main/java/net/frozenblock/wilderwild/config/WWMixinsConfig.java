@@ -48,6 +48,8 @@ public final class WWMixinsConfig {
 
 	public boolean client_easter = true;
 
+	public boolean client_firefly = true;
+
 	public boolean client_mesoglea = true;
 
 	public boolean client_shrieker = true;
@@ -102,6 +104,8 @@ public final class WWMixinsConfig {
 	public boolean entity_enderman = true;
 
 	public boolean entity_experience = true;
+
+	public boolean entity_firefly = true;
 
 	public boolean entity_jellyfish = true;
 

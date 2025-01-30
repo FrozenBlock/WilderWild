@@ -629,6 +629,8 @@
   "tooltip.wilderwild.moving_stare_sound": "Whether Enderman stare sounds will move\nwith the Enderman and able to be stopped early.",
   "option.wilderwild.firefly": "Firefly",
   "tooltip.wilderwild.firefly": "Contains options for the Firefly.",
+  "option.wilderwild.spawn_firefly_particles": "Spawn Firefly Particles",
+  "tooltip.wilderwild.spawn_firefly_particles": "Whether Firefly Particles can spawn from Firefly Bushes.",
   "option.wilderwild.spawn_fireflies": "Spawn Fireflies",
   "tooltip.wilderwild.spawn_fireflies": "Whether Fireflies can spawn.",
   "option.wilderwild.firefly_spawn_cap": "Firefly Spawn Cap",

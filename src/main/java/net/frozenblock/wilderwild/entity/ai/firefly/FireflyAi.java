@@ -102,8 +102,8 @@ public class FireflyAi {
 		brain.addActivity(
 			Activity.CORE,
 			0,
-			(ImmutableList) ImmutableList.of(
-				new Swim(0.8F),
+			ImmutableList.of(
+				new Swim<>(0.8F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				ValidateOrSetHome.create(),
@@ -117,8 +117,9 @@ public class FireflyAi {
 			Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(1, new FireflyHide(firefly, 1.75F, 10, 8)),
-				Pair.of(2, StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1.25F)),
-				Pair.of(3, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 2, 3, 1.75F)),
+				Pair.of(2, new FireflyMoveToBush(firefly, 1.25F, 10, 8, 5)),
+				Pair.of(3, StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1.25F)),
+				Pair.of(4, StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> true, 2, 3, 1.75F)),
 				Pair.of(5, new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1.25F), 2),

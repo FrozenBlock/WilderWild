@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -28,6 +29,7 @@ import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.MobBottleItem;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -75,6 +77,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -114,7 +117,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (EntitySpawnReason.ignoresLightRequirements(reason)) return true;
 
-		return level.getSkyDarken() >= 4 && level.canSeeSky(pos);
+		return level.getMaxLocalRawBrightness(pos) <= 13 && hasNearbyFireflyBush(level, pos, 3, 1);
 	}
 
 	@NotNull
@@ -385,6 +388,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 				super.travel(travelVector);
 			}
 		}
+	}
+
+	public static boolean hasNearbyFireflyBush(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
+		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
+		int count = 0;
+		do {
+			if (!posesToCheck.hasNext()) return false;
+			if (level.getBlockState(posesToCheck.next()).is(Blocks.FIREFLY_BUSH)) {
+				count = count + 1;
+			}
+		} while (count < threshold);
+		return true;
 	}
 
 	@Override

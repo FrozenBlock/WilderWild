@@ -35,5 +35,11 @@ public final class WWResources {
 			container, Component.literal("Minecraft Live Tendrils"),
 			ResourcePackActivationType.NORMAL
 		);
+
+		ResourceManagerHelper.registerBuiltinResourcePack(
+			WWConstants.id("original_firefly"),
+			container, Component.literal("Original Fireflies"),
+			ResourcePackActivationType.DEFAULT_ENABLED
+		);
 	}
 }

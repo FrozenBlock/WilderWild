@@ -57,6 +57,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
 		if (mixinClassName.contains("client.brush.")) return this.mixinsConfig.client_brush;
 		if (mixinClassName.contains("client.easter.")) return this.mixinsConfig.client_easter;
+		if (mixinClassName.contains("client.firefly.")) return this.mixinsConfig.client_firefly;
 		if (mixinClassName.contains("client.mesoglea.")) {
 			if ((mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("EntityRenderDispatcher")) && this.disableNonSodium)
 				return false;
@@ -95,6 +96,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.easter.")) return this.mixinsConfig.entity_easter;
 		if (mixinClassName.contains("entity.enderman.")) return this.mixinsConfig.entity_enderman;
 		if (mixinClassName.contains("entity.experience.")) return this.mixinsConfig.entity_experience;
+		if (mixinClassName.contains("entity.firefly.")) return this.mixinsConfig.entity_firefly;
 		if (mixinClassName.contains("entity.jellyfish.")) return this.mixinsConfig.entity_jellyfish;
 		if (mixinClassName.contains("entity.lightning.")) return this.mixinsConfig.entity_lightning;
 		if (mixinClassName.contains("entity.penguin.")) return this.mixinsConfig.entity_penguin;

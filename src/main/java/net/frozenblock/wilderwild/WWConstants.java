@@ -36,6 +36,7 @@ public final class WWConstants {
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static boolean MC_LIVE_TENDRILS = false;
+	public static boolean ORIGINAL_FIREFLIES = true;
 
 	// LOGGING
 	public static void log(String message, boolean shouldLog) {

@@ -166,6 +166,17 @@ public final class WWEntityConfigGui {
 			angerLoopSound, movingStareSound
 		);
 
+		var spawnFireflyParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_firefly_particles"), modifiedFirefly.spawnFireflyParticles)
+				.setDefaultValue(defaultConfig.firefly.spawnFireflyParticles)
+				.setSaveConsumer(newValue -> firefly.spawnFireflyParticles = newValue)
+				.setTooltip(tooltip("spawn_firefly_particles"))
+				.build(),
+			firefly.getClass(),
+			"spawnFireflyParticles",
+			configInstance
+		);
+
 		var spawnFireflies = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("spawn_fireflies"), modifiedFirefly.spawnFireflies)
 				.setDefaultValue(defaultConfig.firefly.spawnFireflies)
@@ -192,7 +203,7 @@ public final class WWEntityConfigGui {
 		var fireflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("firefly"),
 			false,
 			tooltip("firefly"),
-			spawnFireflies, fireflySpawnCap
+			spawnFireflyParticles, spawnFireflies, fireflySpawnCap
 		);
 
 		var spawnButterflies = FrozenClothConfig.syncedEntry(

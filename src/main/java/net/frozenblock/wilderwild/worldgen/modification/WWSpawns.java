@@ -31,8 +31,8 @@ import net.minecraft.world.level.biome.Biomes;
 public final class WWSpawns {
 
 	public static void addBugs() {
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_FIREFLY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 4, 12, 24);
+		BiomeModifications.addSpawn(BiomeSelectors.all(),
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 1, 12, 24);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);

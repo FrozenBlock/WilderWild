@@ -480,6 +480,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CATTAIL)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.SHRUB)
+			.add(Blocks.FIREFLY_BUSH)
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.CRAB_HIDEABLE)
