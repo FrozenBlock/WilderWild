@@ -158,7 +158,7 @@ public final class MapleForest extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 	}
 
 	@Override

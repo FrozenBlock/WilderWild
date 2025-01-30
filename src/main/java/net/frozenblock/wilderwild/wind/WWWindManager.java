@@ -18,41 +18,57 @@
 
 package net.frozenblock.wilderwild.wind;
 
-import net.frozenblock.lib.wind.api.WindManager;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.wind.api.WindManagerExtension;
 import net.frozenblock.lib.wind.impl.networking.WindSyncPacket;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.networking.packet.WWWindPacket;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public final class WWWindManager implements WindManagerExtension {
-	private static final ResourceLocation ID = WWConstants.id("cloud_extension");
+public final class WWWindManager extends WindManagerExtension {
+	private static final String WW_WIND_MANAGER_EXTENSION_FILE_ID = createSaveId(WWConstants.id("clouds"));
+	public static final Codec<WWWindManager> CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+				Codec.DOUBLE.fieldOf("cloudX").forGetter(windManager -> windManager.cloudX),
+				Codec.DOUBLE.fieldOf("cloudY").forGetter(windManager -> windManager.cloudY),
+				Codec.DOUBLE.fieldOf("cloudZ").forGetter(windManager -> windManager.cloudZ)
+			)
+			.apply(instance, WWWindManager::createFromCodec)
+	);
+	public static final SavedDataType<WWWindManager> TYPE = new SavedDataType<>(
+		WW_WIND_MANAGER_EXTENSION_FILE_ID,
+		WWWindManager::new,
+		CODEC,
+		DataFixTypes.SAVED_DATA_RANDOM_SEQUENCES
+	);
 
-	private final WindManager manager;
 	public double cloudX;
 	public double cloudY;
 	public double cloudZ;
 
-	public WWWindManager(WindManager manager) {
-		this.manager = manager;
+	public WWWindManager() {
 	}
 
-	@Override
-	public ResourceLocation extensionID() {
-		return ID;
+	public static @NotNull WWWindManager createFromCodec(double cloudX, double cloudY, double cloudZ) {
+		WWWindManager manager = new WWWindManager();
+		manager.cloudX = cloudX;
+		manager.cloudY = cloudY;
+		manager.cloudZ = cloudZ;
+		return manager;
 	}
 
 	@Override
 	public void tick(ServerLevel level) {
-		this.cloudX += (manager.laggedWindX * 0.007D);
-		this.cloudY += (manager.laggedWindY * 0.01D);
-		this.cloudZ += (manager.laggedWindZ * 0.007D);
+		this.cloudX += (this.getWindManager().laggedWindX * 0.007D);
+		this.cloudY += (this.getWindManager().laggedWindY * 0.01D);
+		this.cloudZ += (this.getWindManager().laggedWindZ * 0.007D);
 	}
 
 	@Override
@@ -83,19 +99,5 @@ public final class WWWindManager implements WindManagerExtension {
 	@Override
 	public @NotNull CustomPacketPayload syncPacket(WindSyncPacket packet) {
 		return new WWWindPacket(new Vec3(this.cloudX, this.cloudY, this.cloudZ));
-	}
-
-	@Override
-	public void load(@NotNull CompoundTag compoundTag) {
-		this.cloudX = compoundTag.getDouble(WWConstants.safeString("cloudX"));
-		this.cloudY = compoundTag.getDouble(WWConstants.safeString("cloudY"));
-		this.cloudZ = compoundTag.getDouble(WWConstants.safeString("cloudZ"));
-	}
-
-	@Override
-	public void save(@NotNull CompoundTag compoundTag) {
-		compoundTag.putDouble(WWConstants.safeString("cloudX"), this.cloudX);
-		compoundTag.putDouble(WWConstants.safeString("cloudY"), this.cloudY);
-		compoundTag.putDouble(WWConstants.safeString("cloudZ"), this.cloudZ);
 	}
 }

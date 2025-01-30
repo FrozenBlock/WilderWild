@@ -26,7 +26,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -35,10 +35,10 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(BushBlock.class)
-public class BushBlockMixin extends Block {
+@Mixin(VegetationBlock.class)
+public class VegetationBlockMixin extends Block {
 
-	public BushBlockMixin(Properties properties) {
+	public VegetationBlockMixin(Properties properties) {
 		super(properties);
 	}
 

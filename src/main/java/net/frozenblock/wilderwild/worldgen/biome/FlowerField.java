@@ -154,7 +154,7 @@ public final class FlowerField extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 	}
 
 	@Override

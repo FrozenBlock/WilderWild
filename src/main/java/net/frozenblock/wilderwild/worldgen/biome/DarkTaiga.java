@@ -153,7 +153,7 @@ public final class DarkTaiga extends FrozenBiome {
 		BiomeDefaultFeatures.addTaigaTrees(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addTaigaGrass(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		BiomeDefaultFeatures.addCommonBerryBushes(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DARK_TAIGA_VEGETATION.getKey());
 	}

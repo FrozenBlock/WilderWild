@@ -148,7 +148,7 @@ public final class ParchedForest extends FrozenBiome {
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addSavannaExtraGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 	}
 
 	@Override

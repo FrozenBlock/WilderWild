@@ -426,7 +426,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		}
 
 		if (this.level() instanceof ServerLevel serverLevel) {
-			Vec3 wind = WindManager.getWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
+			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D, serverLevel).scale(0.01D);
 			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
 			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}

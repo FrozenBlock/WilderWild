@@ -150,7 +150,7 @@ public final class OldGrowthBirchTaiga extends FrozenBiome {
 		BiomeDefaultFeatures.addBirchForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addTaigaGrass(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		BiomeDefaultFeatures.addCommonBerryBushes(features);
 	}
 

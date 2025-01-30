@@ -100,7 +100,7 @@ public class LeafLitterBlock extends CarpetBlock {
 
 	public void spawnWindParticle(Level level, BlockPos pos) {
 		if (level instanceof ServerLevel serverLevel) {
-			Vec3 windMovement = WindManager.getWindManager(serverLevel).getWindMovement(pos).normalize().scale(0.1D);
+			Vec3 windMovement = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(pos, serverLevel).normalize().scale(0.1D);
 			serverLevel.sendParticles(
 				new WindParticleOptions(5, windMovement),
 				pos.getX() + 0.5D,

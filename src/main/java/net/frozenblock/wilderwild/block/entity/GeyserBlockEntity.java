@@ -52,7 +52,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -194,7 +193,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 
 		if (level instanceof ServerLevel serverLevel) {
-			WindManager windManager = WindManager.getWindManager(serverLevel);
+			WindManager windManager = WindManager.getOrCreateWindManager(serverLevel);
 			windManager.addWindDisturbance(effectiveWindDisturbance);
 			windManager.addWindDisturbance(baseWindDisturbance);
 		} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {

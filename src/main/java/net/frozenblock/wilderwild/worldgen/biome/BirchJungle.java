@@ -148,7 +148,7 @@ public final class BirchJungle extends FrozenBiome {
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addJungleGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		BiomeDefaultFeatures.addJungleVines(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_MELON.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIRCH_JUNGLE_TREES.getKey());

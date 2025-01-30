@@ -30,6 +30,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -45,9 +46,9 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay, Vec3 cameraPos) {
 		if (WWBlockConfig.Client.BILLBOARD_TENDRILS) {
-			super.render(entity, partialTick, poseStack, buffer, light, overlay);
+			super.render(entity, partialTick, poseStack, buffer, light, overlay, cameraPos);
 		}
 	}
 

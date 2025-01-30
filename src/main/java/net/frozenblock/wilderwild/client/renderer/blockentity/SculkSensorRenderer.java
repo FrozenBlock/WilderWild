@@ -37,6 +37,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -87,7 +88,7 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay, Vec3 cameraPos) {
 		if (WWConstants.MC_LIVE_TENDRILS && entity instanceof SculkSensorTickInterface sculkSensorTickInterface) {
 			if (sculkSensorTickInterface.wilderWild$isActive()) {
 				int prevTicks = sculkSensorTickInterface.wilderWild$getPrevAnimTicks();

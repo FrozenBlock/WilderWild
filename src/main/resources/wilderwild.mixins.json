@@ -84,7 +84,7 @@
     "snowlogging.BlockMixin",
     "snowlogging.BlockStateBaseMixin",
     "snowlogging.BoneMealItemMixin",
-    "snowlogging.BushBlockMixin",
+    "snowlogging.VegetationBlockMixin",
     "snowlogging.DoublePlantBlockMixin",
     "snowlogging.EntityMixin",
     "snowlogging.FenceBlockMixin",

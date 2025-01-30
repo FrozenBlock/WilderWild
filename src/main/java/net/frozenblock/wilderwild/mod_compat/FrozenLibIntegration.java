@@ -276,7 +276,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		WindManager.addExtension(WWWindManager::new);
+		WindManager.addExtension(WWWindManager.TYPE);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
 		addBlocks(new Block[]{Blocks.CACTUS, PRICKLY_PEAR_CACTUS}, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
@@ -330,7 +330,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			WILLOW_SAPLING,
 			CYPRESS_SAPLING,
 			MAPLE_SAPLING,
-			BUSH
+			WWBlocks.BUSH
 		}, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
 		addBlocks(new Block[]{
 			ACACIA_LEAVES,

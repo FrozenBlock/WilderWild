@@ -31,8 +31,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -43,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DoublePlantBlock.class)
-public abstract class DoublePlantBlockMixin extends BushBlock {
+public abstract class DoublePlantBlockMixin extends VegetationBlock {
 
 	public DoublePlantBlockMixin(Properties properties) {
 		super(properties);
@@ -53,7 +53,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		method = "getStateForPlacement",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/BushBlock;getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;"
+			target = "Lnet/minecraft/world/level/block/VegetationBlock;getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
 	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
