@@ -44,7 +44,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_SHORT_GRASS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_TUMBLEWEED, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.POTTED_BUSH, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_SHRUB, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_PRICKLY_PEAR, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.DATURA, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CATTAIL, RenderType.cutout());
@@ -85,7 +85,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PINK_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PURPLE_HIBISCUS, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.BUSH, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.SHRUB, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TERMITE_MOUND, RenderType.solid());
 		renderLayerRegistry.putBlock(WWBlocks.DISPLAY_LANTERN, RenderType.cutout());

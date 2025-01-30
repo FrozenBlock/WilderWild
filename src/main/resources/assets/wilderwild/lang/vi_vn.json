@@ -197,8 +197,8 @@
   "block.wilderwild.pink_nematocyst": "Tế Bào Châm Hồng",
   "block.wilderwild.sponge_bud": "Bọt Biển Non",
 
-  "block.wilderwild.bush": "Bụi Cây",
-  "block.wilderwild.potted_bush": "Chậu Bụi Cây",
+  "block.wilderwild.shrub": "Bụi Cây",
+  "block.wilderwild.potted_shrub": "Chậu Bụi Cây",
 
   "block.wilderwild.carnation": "Hoa Cẩm Chướng",
   "block.wilderwild.potted_carnation": "Chậu Hoa Cẩm Chướng",
@@ -607,8 +607,8 @@
   "tooltip.wilderwild.algae_generation": "Tảo có nên được đặt trong tạo thế giới.",
   "option.wilderwild.beta_beaches": "Bãi Biển Beta",
   "tooltip.wilderwild.beta_beaches": "Kích hoạt bãi biển gần nước tạo ra độc lập với biome,\nphản ánh những bãi biển tồn tại trong Minecraft Beta.",
-  "option.wilderwild.bush_generation": "Sinh Sản Bụi Rậm",
-  "tooltip.wilderwild.bush_generation": "Tạo thế giới nên sử dụng cách sinh sản bụi rậm của Wilder Wild hay của Vanilla.",
+  "option.wilderwild.shrub_generation": "Sinh Sản Bụi Rậm",
+  "tooltip.wilderwild.shrub_generation": "Tạo thế giới nên sử dụng cách sinh sản bụi rậm của Wilder Wild hay của Vanilla.",
   "option.wilderwild.cactus_generation": "Sinh Sản Xương Rồng",
   "tooltip.wilderwild.cactus_generation": "Tạo thế giới nên sử dụng cách sinh sản xương rồng của Wilder Wild hay của Vanilla.",
   "option.wilderwild.dying_trees": "Cây Đang Chết",

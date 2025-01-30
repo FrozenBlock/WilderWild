@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
-import net.frozenblock.wilderwild.block.WilderBushBlock;
+import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
@@ -116,8 +116,8 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@Unique
 	private static boolean wilderWild$tryShearBush(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() instanceof WilderBushBlock bushBlock) {
-			return bushBlock.onShear(level, pos, blockState, null);
+		if (blockState.getBlock() instanceof ShrubBlock shrubBlock) {
+			return shrubBlock.onShear(level, pos, blockState, null);
 		}
 		return false;
 	}

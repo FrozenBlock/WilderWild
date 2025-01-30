@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:desert_bush",
+  "feature": "wilderwild:desert_shrub",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
@@ -17,7 +17,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "wilderwild:bush",
+          "Name": "wilderwild:shrub",
           "Properties": {
             "age": "0",
             "half": "lower"

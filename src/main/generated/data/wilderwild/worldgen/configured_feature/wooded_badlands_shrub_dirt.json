@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "wilderwild:shrub",
+                  "Properties": {
+                    "age": "0",
+                    "half": "lower"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "wilderwild:shrub",
+                  "Properties": {
+                    "age": "1",
+                    "half": "lower"
+                  }
+                },
+                "weight": 4
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:matching_block_tag",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ],
+                "tag": "minecraft:dirt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 15,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

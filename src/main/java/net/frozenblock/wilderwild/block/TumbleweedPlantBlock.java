@@ -124,7 +124,7 @@ public class TumbleweedPlantBlock extends VegetationBlock implements Bonemealabl
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(WWBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
+		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(WWBlockTags.SHRUB_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
 	@Override

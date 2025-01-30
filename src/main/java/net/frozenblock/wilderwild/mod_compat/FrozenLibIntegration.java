@@ -330,7 +330,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			WILLOW_SAPLING,
 			CYPRESS_SAPLING,
 			MAPLE_SAPLING,
-			WWBlocks.BUSH
+			WWBlocks.SHRUB
 		}, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
 		addBlocks(new Block[]{
 			ACACIA_LEAVES,

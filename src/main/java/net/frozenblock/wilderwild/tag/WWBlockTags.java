@@ -95,9 +95,9 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> MYCELIUM_GROWTH_REPLACEABLE = bind("mycelium_growth_replaceable");
 
-	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
+	public static final TagKey<Block> SHRUB_MAY_PLACE_ON = bind("shrub_may_place_on");
 
-	public static final TagKey<Block> BUSH_MAY_PLACE_ON_FEATURE_NO_SAND = bind("feature/bush_may_place_on_no_sand");
+	public static final TagKey<Block> SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND = bind("feature/shrub_may_place_on_no_sand");
 	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("feature/packed_mud_replaceable");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("feature/sand_pool_replaceable");
 	public static final TagKey<Block> RIVER_POOL_REPLACEABLE = bind("feature/river_pool_replaceable");

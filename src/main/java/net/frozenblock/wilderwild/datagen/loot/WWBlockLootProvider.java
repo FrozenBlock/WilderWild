@@ -321,42 +321,42 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 				)
 		);
 
-		this.add(WWBlocks.BUSH,
+		this.add(WWBlocks.SHRUB,
 			LootTable.lootTable()
 				.withPool(
 					this.applyExplosionCondition(
-						WWBlocks.BUSH,
+						WWBlocks.SHRUB,
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BUSH)
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SHRUB)
 									.setProperties(
 										StatePropertiesPredicate.Builder.properties()
 											.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
 									)
 							)
-							.add(LootItem.lootTableItem(WWBlocks.BUSH))
+							.add(LootItem.lootTableItem(WWBlocks.SHRUB))
 					)
 				).withPool(
 					this.applyExplosionDecay(
-						WWBlocks.BUSH,
+						WWBlocks.SHRUB,
 						LootPool.lootPool()
 							.setRolls(UniformGenerator.between(0F, 1F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BUSH)
+								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SHRUB)
 									.setProperties(
 										StatePropertiesPredicate.Builder.properties()
 											.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
 											.hasProperty(BlockStateProperties.AGE_2, 2)
 									)
 							)
-							.add(LootItem.lootTableItem(WWBlocks.BUSH))
+							.add(LootItem.lootTableItem(WWBlocks.SHRUB))
 					)
 				)
 		);
 
 		this.dropPottedContents(WWBlocks.POTTED_SHORT_GRASS);
-		this.dropPottedContents(WWBlocks.POTTED_BUSH);
+		this.dropPottedContents(WWBlocks.POTTED_SHRUB);
 		this.dropPottedContents(WWBlocks.POTTED_BAOBAB_NUT);
 		this.dropPottedContents(WWBlocks.POTTED_COCONUT);
 		this.dropPottedContents(WWBlocks.POTTED_WILLOW_SAPLING);

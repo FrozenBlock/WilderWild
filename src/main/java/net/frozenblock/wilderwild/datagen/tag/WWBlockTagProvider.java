@@ -23,7 +23,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.HolderLookup;
@@ -72,7 +71,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
 			.add(WWBlocks.PURPLE_HIBISCUS)
-			.add(WWBlocks.BUSH)
+			.add(WWBlocks.SHRUB)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.SEEDING_DANDELION)
@@ -89,7 +88,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
 			.add(WWBlocks.PURPLE_HIBISCUS)
-			.add(WWBlocks.BUSH)
+			.add(WWBlocks.SHRUB)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.SEEDING_DANDELION)
@@ -116,7 +115,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.RED_SHELF_FUNGI);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:unbreakable_infertile_crops"))
-			.add(WWBlocks.BUSH)
+			.add(WWBlocks.SHRUB)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.SEEDING_DANDELION)
@@ -428,7 +427,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE)
 			.add(Blocks.MUD);
 
-		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
+		this.getOrCreateTagBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
 			.addOptionalTag(BlockTags.DIRT);
 
@@ -480,7 +479,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.DEAD_BUSH)
 			.add(WWBlocks.CATTAIL)
 			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.BUSH)
+			.add(WWBlocks.SHRUB)
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.CRAB_HIDEABLE)
@@ -528,7 +527,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(ConventionalBlockTags.GLASS_BLOCKS)
 			.add(WWBlocks.ECHO_GLASS);
 
-		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON)
+		this.getOrCreateTagBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON)
 			.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)
@@ -862,7 +861,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TERMITE_MOUND);
 
 		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
-			.add(WWBlocks.BUSH)
+			.add(WWBlocks.SHRUB)
 			.add(WWBlocks.TUMBLEWEED)
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.MILKWEED)
@@ -922,7 +921,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.CATTAIL)
 			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.BUSH)
+			.add(WWBlocks.SHRUB)
 			.add(WWBlocks.POLLEN)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
@@ -936,7 +935,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_CYPRESS_SAPLING)
 			.add(WWBlocks.POTTED_COCONUT)
 			.add(WWBlocks.POTTED_MAPLE_SAPLING)
-			.add(WWBlocks.POTTED_BUSH)
+			.add(WWBlocks.POTTED_SHRUB)
 			.add(WWBlocks.POTTED_BIG_DRIPLEAF)
 			.add(WWBlocks.POTTED_SMALL_DRIPLEAF)
 			.add(WWBlocks.POTTED_SHORT_GRASS)

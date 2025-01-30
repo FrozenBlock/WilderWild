@@ -241,8 +241,8 @@
   "block.wilderwild.pink_nematocyst": "Pink Nematocyst",
   "block.wilderwild.sponge_bud": "Sponge Bud",
 
-  "block.wilderwild.bush": "Bush",
-  "block.wilderwild.potted_bush": "Potted Bush",
+  "block.wilderwild.shrub": "Shrub",
+  "block.wilderwild.potted_shrub": "Potted Shrub",
 
   "block.wilderwild.carnation": "Carnation",
   "block.wilderwild.potted_carnation": "Potted Carnation",
@@ -742,8 +742,8 @@
   "tooltip.wilderwild.algae_generation": "Whether Algae is placed in worldgen.",
   "option.wilderwild.beta_beaches": "Beta Beaches",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome,\nmirroring the beaches that existed in Minecraft Beta.",
-  "option.wilderwild.bush_generation": "Bush Generation",
-  "tooltip.wilderwild.bush_generation": "Whether worldgen should use Wilder Wild's or Vanilla's Bush generation.",
+  "option.wilderwild.shrub_generation": "Shrub Generation",
+  "tooltip.wilderwild.shrub_generation": "Whether worldgen should use Wilder Wild's or Vanilla's Shrub generation.",
   "option.wilderwild.cactus_generation": "Cactus Generation",
   "tooltip.wilderwild.cactus_generation": "Whether worldgen should use Wilder Wild's or Vanilla's Cactus generation.",
   "option.wilderwild.dying_trees": "Dying Trees",

@@ -202,20 +202,20 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature RAINFOREST_MUSHROOMS_PLACED = register("rainforest_mushroom_placed");
 	//GRASS AND FERNS
 	public static final FrozenPlacedFeature OASIS_GRASS_PLACED = register("oasis_grass_placed");
-	public static final FrozenPlacedFeature OASIS_BUSH_PLACED = register("oasis_bush_placed");
+	public static final FrozenPlacedFeature OASIS_SHRUB_PLACED = register("oasis_shrub_placed");
 	public static final FrozenPlacedFeature DEAD_BUSH_PLACED = register("dead_bush_placed");
-	public static final FrozenPlacedFeature DEAD_BUSH_AND_BUSH_PLACED = register("dead_bush_and_bush_placed");
-	public static final FrozenPlacedFeature BUSH_AND_DEAD_BUSH_PLACED = register("bush_and_dead_bush_placed");
-	public static final FrozenPlacedFeature JUNGLE_BUSH_PLACED = register("jungle_bush_placed");
-	public static final FrozenPlacedFeature SPARSE_BUSH_PLACED = register("sparse_bush_placed");
-	public static final FrozenPlacedFeature FLOWER_FIELD_BUSH_PLACED = register("flower_field_bush_placed");
-	public static final FrozenPlacedFeature GENERIC_BUSH_PLACED = register("bush_placed");
-	public static final FrozenPlacedFeature DESERT_BUSH_PLACED = register("desert_bush_placed");
-	public static final FrozenPlacedFeature BADLANDS_BUSH_SAND_PLACED = register("badlands_bush_sand_placed");
-	public static final FrozenPlacedFeature BADLANDS_BUSH_RARE_SAND_PLACED = register("badlands_bush_rare_sand_placed");
-	public static final FrozenPlacedFeature BADLANDS_BUSH_TERRACOTTA_PLACED = register("badlands_bush_terracotta_placed");
-	public static final FrozenPlacedFeature WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED = register("wooded_badlands_bush_terracotta_placed");
-	public static final FrozenPlacedFeature WOODED_BADLANDS_BUSH_DIRT_PLACED = register("wooded_badlands_bush_dirt_placed");
+	public static final FrozenPlacedFeature DEAD_BUSH_AND_SHRUB_PLACED = register("dead_bush_and_shrub_placed");
+	public static final FrozenPlacedFeature SHRUB_AND_DEAD_BUSH_PLACED = register("shrub_and_dead_bush_placed");
+	public static final FrozenPlacedFeature JUNGLE_SHRUB_PLACED = register("jungle_shrub_placed");
+	public static final FrozenPlacedFeature SPARSE_SHRUB_PLACED = register("sparse_shrub_placed");
+	public static final FrozenPlacedFeature FLOWER_FIELD_SHRUB_PLACED = register("flower_field_shrub_placed");
+	public static final FrozenPlacedFeature GENERIC_SHRUB_PLACED = register("shrub_placed");
+	public static final FrozenPlacedFeature DESERT_SHRUB_PLACED = register("desert_shrub_placed");
+	public static final FrozenPlacedFeature BADLANDS_SHRUB_SAND_PLACED = register("badlands_shrub_sand_placed");
+	public static final FrozenPlacedFeature BADLANDS_SHRUB_RARE_SAND_PLACED = register("badlands_shrub_rare_sand_placed");
+	public static final FrozenPlacedFeature BADLANDS_SHRUB_TERRACOTTA_PLACED = register("badlands_shrub_terracotta_placed");
+	public static final FrozenPlacedFeature WOODED_BADLANDS_SHRUB_TERRACOTTA_PLACED = register("wooded_badlands_shrub_terracotta_placed");
+	public static final FrozenPlacedFeature WOODED_BADLANDS_SHRUB_DIRT_PLACED = register("wooded_badlands_shrub_dirt_placed");
 	public static final FrozenPlacedFeature ARID_BUSH_PLACED = register("arid_bush_placed");
 	public static final FrozenPlacedFeature OASIS_CACTUS_PLACED = register("oasis_cactus_placed");
 	public static final FrozenPlacedFeature TALL_CACTUS_PLACED = register("tall_cactus_placed");
@@ -1134,11 +1134,11 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		OASIS_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.OASIS_BUSH.getHolder(),
+		OASIS_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.OASIS_SHRUB.getHolder(),
 			CountPlacement.of(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
@@ -1150,106 +1150,106 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		DEAD_BUSH_AND_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.DEAD_BUSH_AND_BUSH.getHolder(),
+		DEAD_BUSH_AND_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.DEAD_BUSH_AND_SHRUB.getHolder(),
 			CountPlacement.of(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		BUSH_AND_DEAD_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.BUSH_AND_DEAD_BUSH.getHolder(),
+		SHRUB_AND_DEAD_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.SHRUB_AND_DEAD_BUSH.getHolder(),
 			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		JUNGLE_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.JUNGLE_BUSH.getHolder(),
+		JUNGLE_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.JUNGLE_SHRUB.getHolder(),
 			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		SPARSE_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.SPARSE_BUSH.getHolder(),
+		SPARSE_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.SPARSE_SHRUB.getHolder(),
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		FLOWER_FIELD_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.FLOWER_FIELD_BUSH.getHolder(),
+		FLOWER_FIELD_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.FLOWER_FIELD_SHRUB.getHolder(),
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		GENERIC_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.GENERIC_BUSH.getHolder(),
+		GENERIC_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.GENERIC_SHRUB.getHolder(),
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		DESERT_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.DESERT_BUSH.getHolder(),
+		DESERT_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.DESERT_SHRUB.getHolder(),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		BADLANDS_BUSH_SAND_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_BUSH_SAND.getHolder(),
+		BADLANDS_SHRUB_SAND_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_SHRUB_SAND.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		BADLANDS_BUSH_RARE_SAND_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_BUSH_SAND.getHolder(),
+		BADLANDS_SHRUB_RARE_SAND_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_SHRUB_SAND.getHolder(),
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		BADLANDS_BUSH_TERRACOTTA_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_BUSH_TERRACOTTA.getHolder(),
+		BADLANDS_SHRUB_TERRACOTTA_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_SHRUB_TERRACOTTA.getHolder(),
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA.getHolder(),
+		WOODED_BADLANDS_SHRUB_TERRACOTTA_PLACED.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_SHRUB_TERRACOTTA.getHolder(),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		WOODED_BADLANDS_BUSH_DIRT_PLACED.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_BUSH_DIRT.getHolder(),
+		WOODED_BADLANDS_SHRUB_DIRT_PLACED.makeAndSetHolder(WWConfiguredFeatures.WOODED_BADLANDS_SHRUB_DIRT.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 
-		ARID_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.DESERT_BUSH.getHolder(),
+		ARID_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.DESERT_SHRUB.getHolder(),
 			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome()
 		);
 

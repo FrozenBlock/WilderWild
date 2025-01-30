@@ -38,7 +38,7 @@ public final class WWTints {
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.CYPRESS_LEAVES);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.PALM_FRONDS);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHORT_GRASS);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BUSH);
-		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_BUSH);
+		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.SHRUB);
+		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHRUB);
 	}
 }

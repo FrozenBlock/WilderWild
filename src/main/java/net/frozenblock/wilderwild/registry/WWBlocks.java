@@ -70,8 +70,7 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
-import net.frozenblock.wilderwild.block.WideFlowerBlock;
-import net.frozenblock.wilderwild.block.WilderBushBlock;
+import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -88,7 +87,6 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
@@ -113,7 +111,6 @@ import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -711,16 +708,16 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.ALGAE)
 	);
 
-	public static final WilderBushBlock BUSH = register("bush",
-		WilderBushBlock::new,
+	public static final ShrubBlock SHRUB = register("shrub",
+		ShrubBlock::new,
 		Properties.ofFullCopy(Blocks.DEAD_BUSH)
 			.mapColor(MapColor.PLANT)
 			.noOcclusion()
 			.randomTicks()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
-	public static final Block POTTED_BUSH = registerWithoutItem("potted_bush",
-		properties -> new FlowerPotBlock(BUSH, properties),
+	public static final Block POTTED_SHRUB = registerWithoutItem("potted_shrub",
+		properties -> new FlowerPotBlock(SHRUB, properties),
 		Blocks.flowerPotProperties()
 	);
 
@@ -1727,7 +1724,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(SHRUB, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
@@ -1753,7 +1750,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(PURPLE_HIBISCUS, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
-		flammableBlockRegistry.add(BUSH, 90, 40);
+		flammableBlockRegistry.add(SHRUB, 90, 40);
 		flammableBlockRegistry.add(MYCELIUM_GROWTH, 100, 60);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);

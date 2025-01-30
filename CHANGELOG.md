@@ -171,3 +171,4 @@ hi
 # 1.21.5
 - Added the `wilderwild:non_overriden_falling_leaves` block tag, controlling which leaves blocks won't have their particles entirely replaced by Wilder Wild.
 - Increased the frequency of Wilder Wild's falling leaves.
+- Renamed Wilder Wild's `Bush` to `Shrub.`

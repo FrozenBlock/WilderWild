@@ -250,7 +250,7 @@ public class WWCreativeInventorySorting {
 		addAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
 		addAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWBlocks.TUMBLEWEED_PLANT);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
-		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
+		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.SHRUB);
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 

@@ -207,40 +207,40 @@ public final class WWVegetationGeneration {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_JUNGLE_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.JUNGLE_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.JUNGLE_SHRUB_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPARSE_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPARSE_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPARSE_SHRUB_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_SAND_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_SAND_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_TERRACOTTA_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_TERRACOTTA_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WOODED_BADLANDS_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_BUSH_DIRT_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_SHRUB_TERRACOTTA_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_SHRUB_DIRT_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_BUSH_RARE_SAND_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_RARE_SAND_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DESERT_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DESERT_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DESERT_SHRUB_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OASIS_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_SHRUB_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ARID_BUSH)) {
@@ -248,11 +248,11 @@ public final class WWVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FIELD_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FIELD_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FIELD_SHRUB_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_BUSH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
 						}
 					}
 			});

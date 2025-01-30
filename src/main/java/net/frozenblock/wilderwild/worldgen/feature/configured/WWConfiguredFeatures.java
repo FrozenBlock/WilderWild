@@ -51,7 +51,6 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -59,7 +58,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
@@ -269,64 +267,64 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 5)
 		.build();
 
-	public static final WeightedList<BlockState> OASIS_BUSH_POOL = WeightedList.<BlockState>builder()
+	public static final WeightedList<BlockState> OASIS_SHRUB_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 8)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
-	public static final WeightedList<BlockState> DEAD_BUSH_AND_BUSH_POOL = WeightedList.<BlockState>builder()
+	public static final WeightedList<BlockState> DEAD_BUSH_AND_SHRUB_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 5)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
-	public static final WeightedList<BlockState> BUSH_AND_DEAD_BUSH_POOL = WeightedList.<BlockState>builder()
+	public static final WeightedList<BlockState> SHRUB_AND_DEAD_BUSH_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 2)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
-	public static final WeightedList<BlockState> JUNGLE_BUSH_POOL = WeightedList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+	public static final WeightedList<BlockState> JUNGLE_SHRUB_POOL = WeightedList.<BlockState>builder()
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
 		.build();
 
-	public static final WeightedList<BlockState> SPARSE_JUNGLE_BUSH_POOL = WeightedList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 3)
+	public static final WeightedList<BlockState> SPARSE_JUNGLE_SHRUB_POOL = WeightedList.<BlockState>builder()
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 3)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS = WWFeatureUtils.register("oasis_grass");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_BUSH = WWFeatureUtils.register("oasis_bush");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DEAD_BUSH_AND_BUSH = WWFeatureUtils.register("dead_bush_and_bush");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BUSH_AND_DEAD_BUSH = WWFeatureUtils.register("bush_and_dead_bush");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> JUNGLE_BUSH = WWFeatureUtils.register("jungle_bush");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_BUSH = WWFeatureUtils.register("sparse_bush");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_SHRUB = WWFeatureUtils.register("oasis_shrub");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DEAD_BUSH_AND_SHRUB = WWFeatureUtils.register("dead_bush_and_shrub");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SHRUB_AND_DEAD_BUSH = WWFeatureUtils.register("shrub_and_dead_bush");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> JUNGLE_SHRUB = WWFeatureUtils.register("jungle_shrub");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_SHRUB = WWFeatureUtils.register("sparse_shrub");
 
-	public static final WeightedList<BlockState> FLOWER_FIELD_BUSH_POOL = WeightedList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+	public static final WeightedList<BlockState> FLOWER_FIELD_SHRUB_POOL = WeightedList.<BlockState>builder()
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
 		.build();
 
-	public static final WeightedList<BlockState> BUSH_POOL = WeightedList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+	public static final WeightedList<BlockState> SHRUB_POOL = WeightedList.<BlockState>builder()
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_BUSH = WWFeatureUtils.register("flower_field_bush");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GENERIC_BUSH = WWFeatureUtils.register("bush");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_SHRUB = WWFeatureUtils.register("flower_field_shrub");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GENERIC_SHRUB = WWFeatureUtils.register("generic_shrub");
 
-	public static final WeightedList<BlockState> DESERT_BUSH_POOL = WeightedList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
+	public static final WeightedList<BlockState> DESERT_SHRUB_POOL = WeightedList.<BlockState>builder()
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
 		.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_BUSH = WWFeatureUtils.register("desert_bush");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_SAND = WWFeatureUtils.register("badlands_bush_sand");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA = WWFeatureUtils.register("badlands_bush_terracotta");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA = WWFeatureUtils.register("wooded_badlands_bush_terracotta");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_DIRT = WWFeatureUtils.register("wooded_badlands_bush_dirt");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_SHRUB = WWFeatureUtils.register("desert_shrub");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_SHRUB_SAND = WWFeatureUtils.register("badlands_shrub_sand");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_SHRUB_TERRACOTTA = WWFeatureUtils.register("badlands_shrub_terracotta");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_SHRUB_TERRACOTTA = WWFeatureUtils.register("wooded_badlands_shrub_terracotta");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_SHRUB_DIRT = WWFeatureUtils.register("wooded_badlands_shrub_dirt");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = WWFeatureUtils.register("patch_cactus_oasis");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = WWFeatureUtils.register("patch_cactus_tall");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = WWFeatureUtils.register("patch_cactus_tall_badlands");
@@ -2889,119 +2887,119 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		OASIS_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		OASIS_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				23,
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_SHRUB_POOL)),
 					BlockPredicate.allOf(
 						BlockPredicate.replaceable(),
 						BlockPredicate.noFluid(),
 						// TODO: Maybe remove sand again
-						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON)
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON)
 					)
 				)
 			)
 		);
 
-		DEAD_BUSH_AND_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		DEAD_BUSH_AND_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				4,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(DEAD_BUSH_AND_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(DEAD_BUSH_AND_SHRUB_POOL))
 				)
 			)
 		);
 
-		BUSH_AND_DEAD_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		SHRUB_AND_DEAD_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				4,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_AND_DEAD_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(SHRUB_AND_DEAD_BUSH_POOL))
 				)
 			)
 		);
 
-		JUNGLE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		JUNGLE_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				8,
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(JUNGLE_SHRUB_POOL)),
 					BlockPredicate.allOf(
 						BlockPredicate.replaceable(),
 						BlockPredicate.noFluid(),
-						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 					)
 				)
 			)
 		);
 
-		SPARSE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		SPARSE_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				4,
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(SPARSE_JUNGLE_SHRUB_POOL)),
 					BlockPredicate.allOf(
 						BlockPredicate.replaceable(),
 						BlockPredicate.noFluid(),
-						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 					)
 				)
 			)
 		);
 
-		FLOWER_FIELD_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		FLOWER_FIELD_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				18,
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_SHRUB_POOL)),
 					BlockPredicate.allOf(
 						BlockPredicate.replaceable(),
 						BlockPredicate.noFluid(),
-						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 					)
 				)
 			)
 		);
 
-		GENERIC_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		GENERIC_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				12,
 				PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(SHRUB_POOL)),
 					BlockPredicate.allOf(
 						BlockPredicate.replaceable(),
 						BlockPredicate.noFluid(),
-						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 					)
 				)
 			)
 		);
 
-		DESERT_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		DESERT_SHRUB.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				8,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL))
+					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_SHRUB_POOL))
 				)
 			)
 		);
 
-		BADLANDS_BUSH_SAND.makeAndSetHolder(Feature.RANDOM_PATCH,
+		BADLANDS_SHRUB_SAND.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				10,
 				PlacementUtils.inlinePlaced(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
-						new WeightedStateProvider(DESERT_BUSH_POOL)
+						new WeightedStateProvider(DESERT_SHRUB_POOL)
 					),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
@@ -3013,13 +3011,13 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		BADLANDS_BUSH_TERRACOTTA.makeAndSetHolder(Feature.RANDOM_PATCH,
+		BADLANDS_SHRUB_TERRACOTTA.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				6,
 				PlacementUtils.inlinePlaced(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
-						new WeightedStateProvider(DESERT_BUSH_POOL)
+						new WeightedStateProvider(DESERT_SHRUB_POOL)
 					),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
@@ -3031,12 +3029,12 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		WOODED_BADLANDS_BUSH_TERRACOTTA.makeAndSetHolder(Feature.RANDOM_PATCH,
+		WOODED_BADLANDS_SHRUB_TERRACOTTA.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				10,
 				PlacementUtils.inlinePlaced(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_SHRUB_POOL)),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
 							BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -3047,12 +3045,12 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		WOODED_BADLANDS_BUSH_DIRT.makeAndSetHolder(Feature.RANDOM_PATCH,
+		WOODED_BADLANDS_SHRUB_DIRT.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				15,
 				PlacementUtils.inlinePlaced(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)),
+					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_SHRUB_POOL)),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
 							BlockPredicate.ONLY_IN_AIR_PREDICATE,

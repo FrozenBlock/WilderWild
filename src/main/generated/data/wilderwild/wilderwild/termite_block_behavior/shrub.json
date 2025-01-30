@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "wilderwild:shrub",
+  "natural_termite_usable": false,
+  "output_block": "minecraft:dead_bush",
+  "player_placed_termite_usable": true
+}

@@ -170,7 +170,7 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
-		generator.generateFlatItem(WWBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.SHRUB.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.CATTAIL.asItem(), ModelTemplates.FLAT_ITEM);

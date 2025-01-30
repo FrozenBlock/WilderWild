@@ -30,11 +30,12 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWMinecraftDataFixer {
-	// 3 is 24w09a (components, display lantern fixes)
-	// 2 is 1.20.4 (short grass)
 	// 1 is 1.20.1 (base version)
+	// 2 is 1.20.4 (short grass)
+	// 3 is 24w09a (components, display lantern fixes)
+	// 4 is 25w05a (bush -> shrub)
 
-	public static final int DATA_VERSION = 3;
+	public static final int DATA_VERSION = 4;
 
 	private WWMinecraftDataFixer() {
 		throw new UnsupportedOperationException("WWMinecraftDataFixer contains only static declarations.");
@@ -51,6 +52,11 @@ public final class WWMinecraftDataFixer {
 		Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
 		builder.addFixer(new DisplayLanternComponentizationFix(schemaV3));
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
+
+		Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV4);
+		SimpleFixes.addItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV4);
+		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV4);
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);

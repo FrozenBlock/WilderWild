@@ -127,7 +127,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.KELP);
 
 		this.getOrCreateTagBuilder(WWItemTags.OSTRICH_FOOD)
-			.add(WWBlocks.BUSH.asItem());
+			.add(WWBlocks.SHRUB.asItem());
 
 		this.getOrCreateTagBuilder(WWItemTags.PENGUIN_FOOD)
 			.add(Items.INK_SAC)
@@ -177,7 +177,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
 			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
-			.add(WWBlocks.BUSH.asItem())
+			.add(WWBlocks.SHRUB.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
@@ -194,7 +194,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
 			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
-			.add(WWBlocks.BUSH.asItem())
+			.add(WWBlocks.SHRUB.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())

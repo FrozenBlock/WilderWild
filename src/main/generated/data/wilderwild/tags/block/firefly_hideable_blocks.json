@@ -9,7 +9,7 @@
     "minecraft:dead_bush",
     "wilderwild:cattail",
     "wilderwild:milkweed",
-    "wilderwild:bush",
+    "wilderwild:shrub",
     {
       "id": "#minecraft:small_flowers",
       "required": false

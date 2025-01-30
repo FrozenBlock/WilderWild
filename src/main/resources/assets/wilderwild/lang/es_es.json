@@ -202,8 +202,8 @@
   "block.wilderwild.potted_carnation": "Maceta con clavel",
   "block.wilderwild.marigold": "Caléndula",
   "block.wilderwild.potted_marigold": "Maceta con caléndula",
-  "block.wilderwild.bush": "Arbusto",
-  "block.wilderwild.potted_bush": "Maceta con arbusto",
+  "block.wilderwild.shrub": "Arbusto",
+  "block.wilderwild.potted_shrub": "Maceta con arbusto",
 
   "block.wilderwild.potted_prickly_big_dripleaf": "Maceta con plantaforma grande",
   "block.wilderwild.potted_prickly_small_dripleaf": "Maceta con plantaforma pequeña",
@@ -673,8 +673,8 @@
   "option.wilderwild.beta_beaches": "Redistribuir biomas de playa",
   "tooltip.wilderwild.beta_beaches": "Habilita la generación natural de biomas de playa en varias zonas del mundo, independientemente de los parámetros de generación",
 
-  "option.wilderwild.bush_generation": "Generar arbustos",
-  "tooltip.wilderwild.bush_generation": "Habilita la generación natural de arbustos",
+  "option.wilderwild.shrub_generation": "Generar arbustos",
+  "tooltip.wilderwild.shrub_generation": "Habilita la generación natural de arbustos",
 
   "option.wilderwild.cactus_generation": "Generar nopales",
   "tooltip.wilderwild.cactus_generation": "Habilita la generación natural de nopales",
