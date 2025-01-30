@@ -149,7 +149,6 @@ public final class WWItems {
 		new Item.Properties().stacksTo(16)
 	);
 	public static final Item COCONUT = registerBlock(WWBlocks.COCONUT, CoconutItem::new, new Item.Properties());
-	public static final Item POLLEN = registerBlock(WWBlocks.POLLEN, BlockItem::new, new Item.Properties());
 	public static final Item ALGAE = registerBlock(WWBlocks.ALGAE, PlaceOnWaterBlockItem::new, new Item.Properties());
 	public static final Item FLOWERING_LILY_PAD = registerBlock(WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new, new Item.Properties());
 	public static final Item ECHO_GLASS = registerBlock(WWBlocks.ECHO_GLASS, BlockItem::new, new Item.Properties());

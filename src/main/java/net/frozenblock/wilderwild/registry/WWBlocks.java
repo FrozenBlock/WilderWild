@@ -811,7 +811,7 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final PollenBlock POLLEN = registerWithoutItem("pollen",
+	public static final PollenBlock POLLEN = register("pollen",
 		PollenBlock::new,
 		Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
