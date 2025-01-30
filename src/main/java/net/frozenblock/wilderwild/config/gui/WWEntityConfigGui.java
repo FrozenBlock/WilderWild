@@ -189,10 +189,21 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var fireflySwarm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("firefly_swarm"), modifiedFirefly.fireflySwarm)
+				.setDefaultValue(defaultConfig.firefly.fireflySwarm)
+				.setSaveConsumer(newValue -> firefly.fireflySwarm = newValue)
+				.setTooltip(tooltip("firefly_swarm"))
+				.build(),
+			firefly.getClass(),
+			"fireflySwarm",
+			configInstance
+		);
+
 		var fireflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("firefly"),
 			false,
 			tooltip("firefly"),
-			spawnFireflies, fireflySpawnCap
+			spawnFireflies, fireflySpawnCap, fireflySwarm
 		);
 
 		var spawnButterflies = FrozenClothConfig.syncedEntry(

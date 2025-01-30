@@ -52,6 +52,7 @@ public final class WWEntityConfig {
 			public void onSync(WWEntityConfig syncInstance) {
 				var config = this.config();
 				WARDEN_SWIMS = config.warden.wardenSwims;
+				FIREFLY_SWARMS = config.firefly.fireflySwarm;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
 					Client.ALLAY_KEYFRAME_DANCE = config.allay.keyframeAllayDance;
@@ -68,6 +69,7 @@ public final class WWEntityConfig {
 	);
 
 	public static volatile boolean WARDEN_SWIMS = true;
+	public static volatile boolean FIREFLY_SWARMS = true;
 
 	public static final class Client {
 		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
@@ -164,9 +166,11 @@ public final class WWEntityConfig {
 	public static class FireflyConfig {
 		@EntrySyncData("spawnFireflies")
 		public boolean spawnFireflies = true;
-
 		@EntrySyncData("fireflySpawnCap")
 		public int fireflySpawnCap = 56;
+
+		@EntrySyncData("fireflySwarm")
+		public boolean fireflySwarm = true;
 	}
 
 	public static class ButterflyConfig {
