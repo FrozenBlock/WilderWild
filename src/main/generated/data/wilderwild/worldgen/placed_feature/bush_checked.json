@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:shrub",
+  "feature": "wilderwild:bush",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

@@ -37,14 +37,14 @@
       {
         "chance": 0.5,
         "feature": {
-          "feature": "wilderwild:big_shrub",
+          "feature": "wilderwild:big_bush",
           "placement": []
         }
       },
       {
         "chance": 0.3,
         "feature": {
-          "feature": "wilderwild:shrub",
+          "feature": "wilderwild:bush",
           "placement": []
         }
       },

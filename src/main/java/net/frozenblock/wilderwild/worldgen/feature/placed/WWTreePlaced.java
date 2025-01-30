@@ -238,10 +238,10 @@ public final class WWTreePlaced {
 		BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE)
 	);
 	//SHRUB
-	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_CHECKED = WWPlacementUtils.register("big_shrub_coarse_checked");
-	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_GRASS_CHECKED = WWPlacementUtils.register("big_shrub_coarse_grass_checked");
-	public static final FrozenPlacedFeature BIG_SHRUB_CHECKED = WWPlacementUtils.register("big_shrub_checked");
-	public static final FrozenPlacedFeature SHRUB_CHECKED = WWPlacementUtils.register("shrub_checked");
+	public static final FrozenPlacedFeature BIG_BUSH_COARSE_CHECKED = WWPlacementUtils.register("big_bush_coarse_checked");
+	public static final FrozenPlacedFeature BIG_BUSH_COARSE_GRASS_CHECKED = WWPlacementUtils.register("big_bush_coarse_grass_checked");
+	public static final FrozenPlacedFeature BIG_BUSH_CHECKED = WWPlacementUtils.register("big_bush_checked");
+	public static final FrozenPlacedFeature BUSH_CHECKED = WWPlacementUtils.register("bush_checked");
 	//PALM
 	public static final FrozenPlacedFeature PALM_CHECKED = WWPlacementUtils.register("palm_checked");
 	public static final FrozenPlacedFeature TALL_PALM_CHECKED = WWPlacementUtils.register("tall_palm_checked");
@@ -965,21 +965,21 @@ public final class WWTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
 		);
 
-		// SHRUB
+		// BUSH
 
-		BIG_SHRUB_COARSE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_COARSE.getHolder(),
+		BIG_BUSH_COARSE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH_COARSE.getHolder(),
 			SAND_TREE_FILTER_DECORATOR
 		);
 
-		BIG_SHRUB_COARSE_GRASS_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_COARSE.getHolder(),
+		BIG_BUSH_COARSE_GRASS_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH_COARSE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
-		BIG_SHRUB_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB.getHolder(),
+		BIG_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
-		SHRUB_CHECKED.makeAndSetHolder(WWTreeConfigured.SHRUB.getHolder(),
+		BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.BUSH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 

@@ -73,7 +73,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				info.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
 				if (random.nextFloat() < 0.075F) {
-					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.SHRUB.getKey() : WWTreeConfigured.BIG_SHRUB.getKey());
+					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.BUSH.getKey() : WWTreeConfigured.BIG_BUSH.getKey());
 					return;
 				}
 				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());

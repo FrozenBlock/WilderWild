@@ -2,7 +2,7 @@
   "type": "minecraft:random_selector",
   "config": {
     "default": {
-      "feature": "wilderwild:big_shrub",
+      "feature": "wilderwild:big_bush",
       "placement": []
     },
     "features": [
@@ -30,14 +30,14 @@
       {
         "chance": 0.35,
         "feature": {
-          "feature": "wilderwild:shrub",
+          "feature": "wilderwild:bush",
           "placement": []
         }
       },
       {
         "chance": 0.6,
         "feature": {
-          "feature": "wilderwild:big_shrub",
+          "feature": "wilderwild:big_bush",
           "placement": []
         }
       }

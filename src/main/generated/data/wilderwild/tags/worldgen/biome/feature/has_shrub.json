@@ -1,32 +1,5 @@
 {
   "values": [
-    "minecraft:windswept_savanna",
-    "minecraft:savanna_plateau",
-    "minecraft:savanna",
-    "minecraft:sunflower_plains",
-    {
-      "id": "wilderwild:flower_field",
-      "required": false
-    },
-    {
-      "id": "wilderwild:rainforest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:temperate_rainforest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:dying_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:dying_mixed_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:tundra",
-      "required": false
-    }
+    "minecraft:cherry_grove"
   ]
 }

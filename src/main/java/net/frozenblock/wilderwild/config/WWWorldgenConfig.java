@@ -87,8 +87,8 @@ public final class WWWorldgenConfig {
 	@EntrySyncData("flowerGeneration")
 	public boolean flowerGeneration = true;
 
-	@EntrySyncData("bushGeneration")
-	public boolean bushGeneration = true;
+	@EntrySyncData("shrubGeneration")
+	public boolean shrubGeneration = true;
 
 	@EntrySyncData("cactusGeneration")
 	public boolean cactusGeneration = true;

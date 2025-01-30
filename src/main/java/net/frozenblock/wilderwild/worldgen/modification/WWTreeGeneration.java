@@ -314,16 +314,16 @@ public final class WWTreeGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_COARSE_SHRUB)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIG_SHRUB.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_COARSE_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIG_COARSE_BUSHES.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FOREST_SHRUB)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS_FOREST.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FOREST_BIG_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BUSHES_FOREST.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHRUB)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_BUSH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BUSHES.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_MEGA_SPRUCE)) {

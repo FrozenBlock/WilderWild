@@ -90,9 +90,9 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature FALLEN_MAPLE_PLACED = register("fallen_maple_placed");
 	//TREES
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
-	public static final FrozenPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
-	public static final FrozenPlacedFeature SHRUBS = register("shrubs");
-	public static final FrozenPlacedFeature SHRUBS_WATER = register("shrubs_water");
+	public static final FrozenPlacedFeature BUSHES_FOREST = register("bushes_forest");
+	public static final FrozenPlacedFeature BUSHES = register("bushes");
+	public static final FrozenPlacedFeature BUSHES_WATER = register("bushes_water");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_DYING_FOREST = register("trees_dying_forest");
@@ -140,7 +140,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature SPARSE_BIRCH_JUNGLE_TREES = register("sparse_birch_jungle_trees");
 	public static final FrozenPlacedFeature CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees");
 	public static final FrozenPlacedFeature CYPRESS_WETLANDS_TREES_WATER = register("cypress_wetlands_trees_water");
-	public static final FrozenPlacedFeature BIG_SHRUB = register("big_shrub");
+	public static final FrozenPlacedFeature BIG_COARSE_BUSHES = register("big_coarse_bushes");
 	public static final FrozenPlacedFeature PALM = register("palm_placed");
 	public static final FrozenPlacedFeature PALM_JUNGLE = register("palm_jungle");
 	public static final FrozenPlacedFeature PALMS_OASIS = register("palms_oasis");
@@ -530,7 +530,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		SHRUBS_FOREST.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
+		BUSHES_FOREST.makeAndSetHolder(WWConfiguredFeatures.BUSHES.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1),
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
@@ -540,7 +540,7 @@ public final class WWPlacedFeatures {
 			WWPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
-		SHRUBS.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
+		BUSHES.makeAndSetHolder(WWConfiguredFeatures.BUSHES.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
@@ -551,7 +551,7 @@ public final class WWPlacedFeatures {
 			WWPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
-		SHRUBS_WATER.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
+		BUSHES_WATER.makeAndSetHolder(WWConfiguredFeatures.BUSHES.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1),
 			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
@@ -825,7 +825,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 
-		BIG_SHRUB.makeAndSetHolder(WWConfiguredFeatures.BIG_COARSE_SHRUBS.getHolder(),
+		BIG_COARSE_BUSHES.makeAndSetHolder(WWConfiguredFeatures.BIG_COARSE_BUSHES.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(5))
 		);
 

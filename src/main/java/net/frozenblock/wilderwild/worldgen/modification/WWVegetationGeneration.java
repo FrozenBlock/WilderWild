@@ -203,55 +203,55 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().bushGeneration) {
+					if (WWWorldgenConfig.get().shrubGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_JUNGLE_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_JUNGLE_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.JUNGLE_SHRUB_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPARSE_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPARSE_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPARSE_SHRUB_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_SAND_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_SAND_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_SAND_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_TERRACOTTA_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_TERRACOTTA_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_TERRACOTTA_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WOODED_BADLANDS_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WOODED_BADLANDS_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_SHRUB_TERRACOTTA_PLACED.getKey());
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_SHRUB_DIRT_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_RARE_SAND_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_RARE_SAND_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DESERT_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DESERT_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DESERT_SHRUB_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OASIS_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OASIS_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_SHRUB_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ARID_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ARID_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ARID_BUSH_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FIELD_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FIELD_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FIELD_SHRUB_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_BUSH)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
 						}
 					}

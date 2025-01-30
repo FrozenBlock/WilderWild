@@ -1,15 +1,15 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:big_shrub_checked",
+    "default": "wilderwild:big_bush_checked",
     "features": [
       {
         "chance": 0.3,
-        "feature": "wilderwild:shrub_checked"
+        "feature": "wilderwild:bush_checked"
       },
       {
         "chance": 0.6,
-        "feature": "wilderwild:big_shrub_checked"
+        "feature": "wilderwild:big_bush_checked"
       }
     ]
   }

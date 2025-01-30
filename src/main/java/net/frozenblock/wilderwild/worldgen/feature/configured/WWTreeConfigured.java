@@ -294,10 +294,10 @@ public final class WWTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_CYPRESS = register("swamp_cypress");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CYPRESS = register("snapped_cypress_tree");
-	//SHRUBS
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB_COARSE = register("big_shrub_coarse");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB = register("big_shrub");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHRUB = register("shrub");
+	//BUSHES
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_BUSH_COARSE = register("big_bush_coarse");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_BUSH = register("big_bush");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BUSH = register("bush");
 	//PALM
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALM = register("palm");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALM = register("tall_palm");
@@ -2162,7 +2162,7 @@ public final class WWTreeConfigured {
 
 		// SHRUBS
 
-		BIG_SHRUB_COARSE.makeAndSetHolder(Feature.TREE,
+		BIG_BUSH_COARSE.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
 				new StraightTrunkPlacer(1, 0, 0),
@@ -2172,7 +2172,7 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build()
 		);
 
-		BIG_SHRUB.makeAndSetHolder(Feature.TREE,
+		BIG_BUSH.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
 				new StraightTrunkPlacer(1, 0, 0),
@@ -2182,7 +2182,7 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		SHRUB.makeAndSetHolder(Feature.TREE,
+		BUSH.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
 				new StraightTrunkPlacer(1, 0, 0),

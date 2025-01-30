@@ -517,16 +517,16 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			));
 
-		var bushGeneration = category.addEntry(
+		var shrubGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("bush_generation"), modifiedConfig.bushGeneration)
-					.setDefaultValue(defaultConfig.bushGeneration)
-					.setSaveConsumer(newValue -> config.bushGeneration = newValue)
-					.setTooltip(tooltip("bush_generation"))
+				entryBuilder.startBooleanToggle(text("shrub_generation"), modifiedConfig.shrubGeneration)
+					.setDefaultValue(defaultConfig.shrubGeneration)
+					.setSaveConsumer(newValue -> config.shrubGeneration = newValue)
+					.setTooltip(tooltip("shrub_generation"))
 					.requireRestart()
 					.build(),
 				clazz,
-				"bushGeneration",
+				"shrubGeneration",
 				configInstance
 			)
 		);
