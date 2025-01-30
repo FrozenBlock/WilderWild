@@ -22,10 +22,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -36,36 +38,31 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class FireflyBottleColorProperty implements SelectItemModelProperty<ResourceLocation> {
+public class FireflyBottleColorProperty implements SelectItemModelProperty<String> {
 	public static final MapCodec<FireflyBottleColorProperty> MAP_CODEC = MapCodec.unit(new FireflyBottleColorProperty());
-	public static final SelectItemModelProperty.Type<FireflyBottleColorProperty, ResourceLocation> TYPE = SelectItemModelProperty.Type.create(
+	public static final SelectItemModelProperty.Type<FireflyBottleColorProperty, String> TYPE = SelectItemModelProperty.Type.create(
 		MAP_CODEC,
-		ResourceLocation.CODEC
+		Codec.STRING
 	);
 
 	@Override
-	public @Nullable ResourceLocation get(
+	public @Nullable String get(
 		@NotNull ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i, ItemDisplayContext itemDisplayContext
 	) {
-		CustomData customData = itemStack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
-		if (customData != null) {
-			CompoundTag tag = customData.copyTag();
-			if (tag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
-				try {
-					return ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD));
-				} catch (Exception ignored) {}
-			}
+		Holder<FireflyColor> fireflyColor = itemStack.get(WWDataComponents.FIREFLY_COLOR);
+		if (fireflyColor != null) {
+			return fireflyColor.value().name();
 		}
 		return null;
 	}
 
 	@Override
-	public @NotNull Codec<ResourceLocation> valueCodec() {
-		return ResourceLocation.CODEC;
+	public @NotNull Codec<String> valueCodec() {
+		return Codec.STRING;
 	}
 
 	@Override
-	public @NotNull Type<? extends SelectItemModelProperty<ResourceLocation>, ResourceLocation> type() {
+	public @NotNull Type<? extends SelectItemModelProperty<String>, String> type() {
 		return TYPE;
 	}
 

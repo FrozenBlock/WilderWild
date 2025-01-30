@@ -20,68 +20,81 @@ package net.frozenblock.wilderwild.entity.variant.firefly;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Objects;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
+import java.util.List;
+import java.util.function.Consumer;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.ClientAsset;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import org.jetbrains.annotations.NotNull;
 
-public final class FireflyColor {
+public final class FireflyColor implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ResourceLocation.CODEC.fieldOf("texture").forGetter(fireflyColor -> fireflyColor.texture),
-			RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(FireflyColor::biomes),
-			Codec.FLOAT.fieldOf("bottle_model_predicate_value").forGetter(FireflyColor::modelPredicate)
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::assetInfo),
+			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(FireflyColor::spawnConditions),
+			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name)
 		).apply(instance, FireflyColor::new)
 	);
+	public static final Codec<FireflyColor> NETWORK_CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::assetInfo),
+			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name)
+		).apply(instance, FireflyColor::new)
+	);
+	public static final Codec<Holder<FireflyColor>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.FIREFLY_COLOR);
+	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<FireflyColor>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_COLOR);
 
-	private final ResourceLocation texture;
-	private final ResourceLocation textureFull;
-	private final HolderSet<Biome> biomes;
-	private final float modelPredicate;
+	private final ClientAsset clientAsset;
+	SpawnPrioritySelectors spawnConditions;
+	private final String name;
 
-	public FireflyColor(@NotNull ResourceLocation texture, HolderSet<Biome> biomes, float modelPredicate) {
-		this.texture = texture;
-		this.textureFull = fullTextureId(texture);
-		this.biomes = biomes;
-		this.modelPredicate = modelPredicate;
+	public FireflyColor(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name) {
+		this.clientAsset = clientAsset;
+		this.spawnConditions = spawnConditions;
+		this.name = name;
 	}
 
-	private static @NotNull ResourceLocation fullTextureId(@NotNull ResourceLocation resourceLocation) {
-		return resourceLocation.withPath(string -> "textures/" + string + ".png");
+	private FireflyColor(ClientAsset clientAsset, String name) {
+		this(clientAsset, SpawnPrioritySelectors.EMPTY, name);
 	}
 
 	@NotNull
-	public ResourceLocation texture() {
-		return this.textureFull;
+	public ClientAsset assetInfo() {
+		return this.clientAsset;
 	}
 
-	public HolderSet<Biome> biomes() {
-		return this.biomes;
+	public SpawnPrioritySelectors spawnConditions() {
+		return this.spawnConditions;
 	}
 
-	public float modelPredicate() {
-		return this.modelPredicate;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object == this) {
-			return true;
-		} else {
-			return object instanceof FireflyColor fireflyColor && Objects.equals(this.texture, fireflyColor.texture)
-				&& Objects.equals(this.biomes, fireflyColor.biomes)
-				&& Objects.equals(this.modelPredicate, fireflyColor.modelPredicate);
-		}
+	public String name() {
+		return this.name;
 	}
 
 	@Override
-	public int hashCode() {
-		int i = 1;
-		i = 31 * i + this.texture.hashCode();
-		i = 31 * i + this.biomes.hashCode();
-		return 31 * i + Double.hashCode(this.modelPredicate);
+	public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
+		if (name.equals("on")) return;
+
+		ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+		consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + this.name).withStyle(chatFormattings));
+	}
+
+	@Override
+	public @NotNull List<Selector<SpawnContext, SpawnCondition>> selectors() {
+		return this.spawnConditions.selectors();
 	}
 }

@@ -37,6 +37,9 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -69,7 +72,9 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -145,9 +150,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
 			this.setColor(fireflySpawnGroupData.color.value());
 		} else {
-			Holder<FireflyColor> fireflyColorHolder = FireflyColors.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
-			spawnData = new FireflySpawnGroupData(fireflyColorHolder);
-			this.setColor(fireflyColorHolder.value());
+			Optional<Holder.Reference<FireflyColor>> fireflyColorHolder = FireflyColors.selectVariantToSpawn(level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition()));
+			if (fireflyColorHolder.isPresent()) {
+				spawnData = new FireflySpawnGroupData(fireflyColorHolder.get());
+				this.setColor(fireflyColorHolder.get().value());
+			}
 
 			if (!shouldSetHome) FireflyAi.setSwarmLeader(this);
 		}
@@ -235,21 +242,47 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
 		CompoundTag tag = new CompoundTag();
-		tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, this.getColorLocation().toString());
 		CustomData.set(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
 			itemStack,
 			tag
 		);
+		itemStack.copyFrom(WWDataComponents.FIREFLY_COLOR, this);
 	}
 
 	@Override
 	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
+		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
 		if (compoundTag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
 			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)))
 				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
 				.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
 				.ifPresent(reference -> this.setColor(reference.value()));
+		}
+	}
+
+	@Nullable
+	@Override
+	public <T> T get(DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) {
+			return castComponentValue(dataComponentType, this.getColorAsHolder());
+		}
+		return super.get(dataComponentType);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.FIREFLY_COLOR);
+		super.applyImplicitComponents(dataComponentGetter);
+	}
+
+	@Override
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) {
+			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR, object).value());
+			return true;
+		} else {
+			return super.applyImplicitComponent(dataComponentType, object);
 		}
 	}
 

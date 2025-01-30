@@ -22,10 +22,13 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.animal.frog.FrogVariant;
 import net.minecraft.world.item.component.CustomData;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +42,10 @@ public final class WWDataComponents {
 		"bottle_entity_data",
 		builder -> builder.persistent(CustomData.CODEC)
 			.networkSynchronized(CustomData.STREAM_CODEC)
+	);
+
+	public static final DataComponentType<Holder<FireflyColor>> FIREFLY_COLOR = register(
+		"firefly/color", builder -> builder.persistent(FireflyColor.CODEC).networkSynchronized(FireflyColor.STREAM_CODEC)
 	);
 
 	public static void init() {}

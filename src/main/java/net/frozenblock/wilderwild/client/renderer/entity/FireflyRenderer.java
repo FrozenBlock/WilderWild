@@ -98,7 +98,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
 
-		RenderType colorRenderType = RenderType.entityTranslucentEmissive(color.texture());
+		RenderType colorRenderType = RenderType.entityTranslucentEmissive(color.assetInfo().texturePath());
 		vertexConsumer = buffer.getBuffer(colorRenderType);
 
 		vertexConsumer

@@ -7,112 +7,112 @@
           "type": "minecraft:model",
           "model": "wilderwild:item/black_firefly_bottle"
         },
-        "when": "wilderwild:black"
+        "when": "black"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/blue_firefly_bottle"
         },
-        "when": "wilderwild:blue"
+        "when": "blue"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/brown_firefly_bottle"
         },
-        "when": "wilderwild:brown"
+        "when": "brown"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/cyan_firefly_bottle"
         },
-        "when": "wilderwild:cyan"
+        "when": "cyan"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/gray_firefly_bottle"
         },
-        "when": "wilderwild:gray"
+        "when": "gray"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/green_firefly_bottle"
         },
-        "when": "wilderwild:green"
+        "when": "green"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/light_blue_firefly_bottle"
         },
-        "when": "wilderwild:light_blue"
+        "when": "light_blue"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/light_gray_firefly_bottle"
         },
-        "when": "wilderwild:light_gray"
+        "when": "light_gray"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/lime_firefly_bottle"
         },
-        "when": "wilderwild:lime"
+        "when": "lime"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/magenta_firefly_bottle"
         },
-        "when": "wilderwild:magenta"
+        "when": "magenta"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/orange_firefly_bottle"
         },
-        "when": "wilderwild:orange"
+        "when": "orange"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/pink_firefly_bottle"
         },
-        "when": "wilderwild:pink"
+        "when": "pink"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/purple_firefly_bottle"
         },
-        "when": "wilderwild:purple"
+        "when": "purple"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/red_firefly_bottle"
         },
-        "when": "wilderwild:red"
+        "when": "red"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/white_firefly_bottle"
         },
-        "when": "wilderwild:white"
+        "when": "white"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "wilderwild:item/yellow_firefly_bottle"
         },
-        "when": "wilderwild:yellow"
+        "when": "yellow"
       }
     ],
     "fallback": {

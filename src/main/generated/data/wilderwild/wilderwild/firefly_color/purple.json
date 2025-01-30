@@ -1,5 +1,9 @@
 {
-  "biomes": [],
-  "bottle_model_predicate_value": 0.13,
-  "texture": "wilderwild:entity/firefly/firefly_purple"
+  "asset_id": "wilderwild:entity/firefly/firefly_purple",
+  "name": "firefly_purple",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
 }

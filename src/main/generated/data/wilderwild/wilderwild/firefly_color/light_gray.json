@@ -1,5 +1,9 @@
 {
-  "biomes": [],
-  "bottle_model_predicate_value": 0.08,
-  "texture": "wilderwild:entity/firefly/firefly_light_gray"
+  "asset_id": "wilderwild:entity/firefly/firefly_light_gray",
+  "name": "firefly_light_gray",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
 }

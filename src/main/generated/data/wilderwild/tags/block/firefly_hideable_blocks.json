@@ -10,6 +10,7 @@
     "wilderwild:cattail",
     "wilderwild:milkweed",
     "wilderwild:shrub",
+    "minecraft:firefly_bush",
     {
       "id": "#minecraft:small_flowers",
       "required": false

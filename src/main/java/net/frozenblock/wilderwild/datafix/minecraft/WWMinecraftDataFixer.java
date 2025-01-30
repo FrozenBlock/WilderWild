@@ -33,7 +33,8 @@ public final class WWMinecraftDataFixer {
 	// 1 is 1.20.1 (base version)
 	// 2 is 1.20.4 (short grass)
 	// 3 is 24w09a (components, display lantern fixes)
-	// 4 is 25w05a (bush -> shrub)
+	// 4 is 25w04a (entity components)
+	// 5 is 25w05a (bush -> shrub)
 
 	public static final int DATA_VERSION = 4;
 
@@ -54,9 +55,11 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
 		Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
-		SimpleFixes.addBlockRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV4);
-		SimpleFixes.addItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV4);
-		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV4);
+
+		Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
+		SimpleFixes.addItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
+		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV5);
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
