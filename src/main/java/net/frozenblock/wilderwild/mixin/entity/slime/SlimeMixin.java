@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.slime;
 
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -37,7 +37,8 @@ public class SlimeMixin {
 
 	@Inject(
 		method = "checkSlimeSpawnRules",
-		at = @At(value = "INVOKE",
+		at = @At(
+			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/LevelAccessor;getBiome(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;",
 			shift = At.Shift.BEFORE
 		),
@@ -46,9 +47,8 @@ public class SlimeMixin {
 	private static void wilderWild$spawnInAlgae(
 		EntityType<Slime> type, @NotNull LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
 	) {
-		if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
-			boolean test = spawnReason == EntitySpawnReason.SPAWNER || random.nextInt(5) == 0;
-			if (test && WWBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {
+		if (level.getBrightness(LightLayer.BLOCK, pos) <= random.nextInt(7)) {
+			if ((EntitySpawnReason.ignoresLightRequirements(spawnReason) || random.nextInt(5) == 0) && AlgaeBlock.hasNearbyAlgae(level, pos, 1, 3)) {
 				info.setReturnValue(true);
 			}
 		}

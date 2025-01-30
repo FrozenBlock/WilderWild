@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wilderwild:block/hollowed_willow_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wilderwild:block/hollowed_willow_log"
+    },
+    "axis=z": {
+      "model": "wilderwild:block/hollowed_willow_log_horizontal",
+      "x": 90
+    }
+  }
+}

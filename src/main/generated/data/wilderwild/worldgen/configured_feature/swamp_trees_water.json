@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": "wilderwild:willow_taller_checked"
+  }
+}

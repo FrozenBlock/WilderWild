@@ -20,13 +20,13 @@ package net.frozenblock.wilderwild.entity.variant.crab;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Objects;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
-import java.util.Objects;
 
 public final class CrabVariant {
 	public static final Codec<CrabVariant> DIRECT_CODEC = RecordCodecBuilder.create(

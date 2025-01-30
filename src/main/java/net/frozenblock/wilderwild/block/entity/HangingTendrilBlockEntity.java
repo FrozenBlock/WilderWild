@@ -23,13 +23,14 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -65,6 +66,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
 	private final VibrationSystem.Listener vibrationListener;
 	private final VibrationSystem.User vibrationUser = this.createVibrationUser();
+	private VibrationSystem.Data vibrationData;
+	private int lastVibrationFrequency;
 	public int ticksToStopTwitching;
 	private int storedXP;
 	public int ringOutTicksLeft;
@@ -74,9 +77,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	public boolean twitching;
 	public boolean active;
 	public boolean milking;
-	public int ticks;
-	private VibrationSystem.Data vibrationData;
-	private int lastVibrationFrequency;
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
@@ -98,7 +98,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
 				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
-				level.gameEvent(null, WWGameEvents.TENDRIL_EXTRACT_XP, pos);
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		}
 
@@ -111,19 +111,19 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
-	public void clientTick(@NotNull BlockState state) {
+	public void clientTick(@NotNull Level level, @NotNull BlockState state) {
 		this.twitching = this.ticksToStopTwitching > 0;
 		this.milking = this.ringOutTicksLeft > 0;
 		this.active = !SculkSensorBlock.canActivate(state);
-		++this.ticks;
+		long time = level.getGameTime();
 		if (milking) {
-			this.texture = WWConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "milk" + (((time / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
 		} else if (active) {
-			this.texture = WWConstants.id(BASE_TEXTURE + "active" + (((this.ticks / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "active" + (((time / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
 		} else if (twitching) {
-			this.texture = WWConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "twitch" + (((time / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
 		} else {
-			this.texture = WWConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
+			this.texture = WWConstants.id(BASE_TEXTURE + "inactive" + (((time / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
 		}
 	}
 
@@ -162,8 +162,12 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.storedXP = tag.getInt("storedXP");
 		this.ringOutTicksLeft = tag.getInt("ringOutTicksLeft");
 		this.activeTicks = tag.getInt("activeTicks");
+
 		if (tag.contains("listener", 10)) {
-			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener"))).resultOrPartial(LOGGER::error).ifPresent(data -> this.vibrationData = data);
+			RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
+			VibrationSystem.Data.CODEC.parse(new Dynamic<>(registryOps, tag.getCompound("listener")))
+				.resultOrPartial((string) -> LOGGER.error("Failed to parse vibration listener for Hanging Tendril: '{}'", string))
+				.ifPresent(data -> this.vibrationData = data);
 		}
 	}
 
@@ -175,7 +179,11 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		if (this.storedXP > 0) tag.putInt("storedXP", this.storedXP);
 		if (this.ringOutTicksLeft > 0) tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 		if (this.activeTicks > 0) tag.putInt("activeTicks", this.activeTicks);
-		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(LOGGER::error).ifPresent(nbt -> tag.put("listener", nbt));
+
+		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
+		VibrationSystem.Data.CODEC.encodeStart(registryOps, this.vibrationData)
+			.resultOrPartial((string) -> LOGGER.error("Failed to encode vibration listener for Hanging Tendril: '{}'", string))
+			.ifPresent(nbt -> tag.put("listener", nbt));
 	}
 
 	@NotNull
@@ -237,16 +245,26 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, @Nullable GameEvent.Context context) {
-			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) {
-				return false;
-			}
+		public boolean canReceiveVibration(
+			@NotNull ServerLevel level,
+			@NotNull BlockPos pos,
+			@NotNull Holder<GameEvent> gameEvent,
+			@Nullable GameEvent.Context context
+		) {
+			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) return false;
 			BlockState state = level.getBlockState(HangingTendrilBlockEntity.this.getBlockPos());
 			return state.getBlock() instanceof HangingTendrilBlock && HangingTendrilBlock.canActivate(state) && !state.getValue(HangingTendrilBlock.WRINGING_OUT);
 		}
 
 		@Override
-		public void onReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f) {
+		public void onReceiveVibration(
+			@NotNull ServerLevel world,
+			@NotNull BlockPos pos,
+			@NotNull Holder<GameEvent> gameEvent,
+			@Nullable Entity entity,
+			@Nullable Entity entity2,
+			float f
+		) {
 			BlockState blockState = HangingTendrilBlockEntity.this.getBlockState();
 			if (SculkSensorBlock.canActivate(blockState)) {
 				HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));

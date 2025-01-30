@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "wilderwild:block/white_glory_of_the_snow"
-  }
-}

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity.ai.crab;
 
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -35,8 +36,9 @@ public class CrabHeal {
 			instance.present(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS)
 		).apply(instance, (underground, digCooldown, healCooldown) -> (world, crab, l) -> {
-			if (crab.getBrain().getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).isPresent()) {
-				int cooldownTicks = crab.getBrain().getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).get();
+			Brain<Crab> brain = crab.getBrain();
+			if (brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).isPresent()) {
+				int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).get();
 				if (cooldownTicks > 0) {
 					healCooldown.setWithExpiry(cooldownTicks - 1, 5L);
 					return true;

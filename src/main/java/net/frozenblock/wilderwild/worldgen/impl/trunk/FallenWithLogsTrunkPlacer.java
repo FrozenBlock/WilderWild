@@ -153,8 +153,7 @@ public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
 	private void placeLog(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction direction, boolean hollow) {
 		BlockState setState = !hollow ? config.trunkProvider.getState(random, pos) : this.hollowedState.getState(random, pos);
 		if (setState.hasProperty(BlockStateProperties.AXIS)) {
-			Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : (direction.getStepY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
-			setState = setState.setValue(BlockStateProperties.AXIS, axis);
+			setState = setState.setValue(BlockStateProperties.AXIS, direction.getAxis());
 		}
 		if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
 			setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, pos));

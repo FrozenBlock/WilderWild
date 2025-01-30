@@ -2,10 +2,6 @@
   "feature": "wilderwild:moss_lake",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
       "type": "minecraft:rarity_filter",
       "chance": 1
     },

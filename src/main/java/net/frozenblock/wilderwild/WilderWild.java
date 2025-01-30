@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
+import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -91,6 +92,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWBlockEntityTypes.register();
 		WWEntityTypes.init();
 		WWDamageTypes.init();
+		WWActivities.init();
 		WWMemoryModuleTypes.register();
 		WWSensorTypes.register();
 		WWLootTables.init();

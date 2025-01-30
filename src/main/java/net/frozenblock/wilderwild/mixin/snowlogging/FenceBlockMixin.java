@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -91,8 +90,7 @@ public abstract class FenceBlockMixin extends CrossCollisionBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (!(WWBlockConfig.get().snowlogging.snowlogWalls && WWBlockConfig.get().snowlogging.snowlogging)) return;
-		builder.add(SnowloggingUtils.SNOW_LAYERS);
+		SnowloggingUtils.appendSnowlogPropertiesToBlockade(builder);
 	}
 
 }

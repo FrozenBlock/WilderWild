@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -52,7 +53,7 @@ public class FloweringWaterlilyBlock extends WaterlilyBlock {
 	}
 
 	public boolean canShearIntoOriginalBlock(LevelReader world, BlockPos pos, BlockState state) {
-		return true;
+		return WWBlockConfig.get().flower.shearFloweringLilypads;
 	}
 
 	@Override

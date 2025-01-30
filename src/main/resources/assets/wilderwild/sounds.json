@@ -2342,6 +2342,58 @@
     ],
     "subtitle": "subtitles.block.ostrich_egg.hatch"
   },
+  "entity.ostrich.lay_egg": {
+    "sounds": [
+      "mob/turtle/egg/drop_egg1",
+      "mob/turtle/egg/drop_egg2"
+    ],
+    "subtitle": "subtitles.entity.ostrich.lay_egg"
+  },
+  "block.penguin_egg.crack": {
+    "sounds": [
+      {
+        "name": "mob/turtle/egg/egg_crack1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack4",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_crack5",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.penguin_egg.crack"
+  },
+  "block.penguin_egg.hatch": {
+    "sounds": [
+      {
+        "name": "mob/turtle/egg/egg_break1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/turtle/egg/egg_break2",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.penguin_egg.hatch"
+  },
+  "entity.penguin.lay_egg": {
+    "sounds": [
+      "mob/turtle/egg/drop_egg1",
+      "mob/turtle/egg/drop_egg2"
+    ],
+    "subtitle": "subtitles.entity.penguin.lay_egg"
+  },
   "entity.firefly.hide": {
     "sounds": [
       {
@@ -2662,6 +2714,46 @@
       "wilderwild:mob/ostrich/inbred/inbred_swing4"
     ],
     "subtitle": "subtitles.entity.ostrich.inbred.beak.swing"
+  },
+  "entity.penguin.hurt": {
+    "sounds": [
+      "wilderwild:mob/penguin/hurt1",
+      "wilderwild:mob/penguin/hurt2",
+      "wilderwild:mob/penguin/hurt3",
+      "wilderwild:mob/penguin/hurt4"
+    ],
+    "subtitle": "subtitles.entity.penguin.hurt"
+  },
+  "entity.penguin.death": {
+    "sounds": [
+      "wilderwild:mob/penguin/hurt1",
+      "wilderwild:mob/penguin/hurt2",
+      "wilderwild:mob/penguin/hurt3",
+      "wilderwild:mob/penguin/hurt4"
+    ],
+    "subtitle": "subtitles.entity.penguin.death"
+  },
+  "entity.penguin.idle": {
+    "sounds": [
+      "wilderwild:mob/penguin/idle1",
+      "wilderwild:mob/penguin/idle2",
+      "wilderwild:mob/penguin/idle3",
+      "wilderwild:mob/penguin/idle4",
+      "wilderwild:mob/penguin/idle5"
+    ],
+    "subtitle": "subtitles.entity.penguin.idle"
+  },
+  "entity.penguin.idle_call": {
+    "sounds": [
+      "wilderwild:mob/penguin/call1",
+      "wilderwild:mob/penguin/call2",
+      "wilderwild:mob/penguin/call3",
+      "wilderwild:mob/penguin/call4",
+      "wilderwild:mob/penguin/call5",
+      "wilderwild:mob/penguin/call6",
+      "wilderwild:mob/penguin/call7"
+    ],
+    "subtitle": "subtitles.entity.penguin.idle"
   },
   "entity.scorched.ambient": {
     "sounds": [
@@ -3095,10 +3187,16 @@
         "weight": 25
       },
       {
-        "name": "wilderwild:music/willow/cave1",
+        "name": "wilderwild:music/pictochats/cave1",
         "stream": true,
         "volume": 0.4,
-        "weight": 5
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 3
       }
     ]
   },
@@ -3129,6 +3227,11 @@
         "stream": true,
         "volume": 0.8,
         "weight": 5
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave1",
+        "stream": true,
+        "weight": 2
       }
     ]
   },
@@ -3138,10 +3241,6 @@
         "name": "music/game/endless",
         "stream": true,
         "volume": 0.4
-      },
-      {
-        "name": "music/game/an_ordinary_day",
-        "stream": true
       },
       {
         "name": "music/game/puzzlebox",
@@ -3167,8 +3266,16 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/willow/cave1",
-        "stream": true
+        "name": "wilderwild:music/pictochats/cave1",
+        "stream": true,
+        "volume": 0.5,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 5
       }
     ]
   },
@@ -3211,8 +3318,93 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/willow/cave1",
+        "name": "wilderwild:music/pictochats/cave1",
+        "stream": true,
+        "weight": 3
+      }
+    ]
+  },
+  "music.overworld.maple_forest": {
+    "sounds": [
+      {
+        "name": "music/game/comforting_memories",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/bromeliad",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/key",
+        "stream": true,
+        "weight": 2
+      },
+      {
+        "name": "music/game/echo_in_the_wind",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/featherfall",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/watcher",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/komorebi",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/haggstrom",
         "stream": true
+      },
+      {
+        "name": "music/game/left_to_bloom",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/living_mice",
+        "stream": true
+      },
+      {
+        "name": "music/game/subwoofer_lullaby",
+        "stream": true
+      },
+      {
+        "name": "music/game/floating_dream",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/left_to_bloom",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/maple_forest1",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 6
       }
     ]
   },

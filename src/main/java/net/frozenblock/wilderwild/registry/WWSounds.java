@@ -229,6 +229,8 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_PRICKLY_PEAR_PICK = register("block.prickly_pear.pick");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_CRACK = register("block.ostrich_egg.crack");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
+	public static final SoundEvent BLOCK_PENGUIN_EGG_CRACK = register("block.penguin_egg.crack");
+	public static final SoundEvent BLOCK_PENGUIN_EGG_HATCH = register("block.ostrich_eggpenguin_egg.hatch");
 	public static final SoundEvent BLOCK_GEYSER_PLACE = register("block.geyser.place");
 	public static final SoundEvent BLOCK_GEYSER_HIT = register("block.geyser.hit");
 	public static final SoundEvent BLOCK_GEYSER_BREAK = register("block.geyser.break");
@@ -281,6 +283,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_OSTRICH_BEAK_STUCK = register("entity.ostrich.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_SWING = register("entity.ostrich.beak.swing");
 	public static final SoundEvent ENTITY_OSTRICH_EAT = register("entity.ostrich.eat");
+	public static final SoundEvent ENTITY_OSTRICH_LAY_EGG = register("entity.ostrich.lay_egg");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_BOCK = register("entity.ostrich.inbred.idle.bock");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_AH = register("entity.ostrich.inbred.idle.ah");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_HURT = register("entity.ostrich.inbred.hurt");
@@ -288,6 +291,11 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_STEP = register("entity.ostrich.inbred.step");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_BEAK_STUCK = register("entity.ostrich.inbred.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_SWING = register("entity.ostrich.inbred.beak.swing");
+	public static final SoundEvent ENTITY_PENGUIN_IDLE = register("entity.penguin.idle");
+	public static final SoundEvent ENTITY_PENGUIN_IDLE_CALL = register("entity.penguin.idle_call");
+	public static final SoundEvent ENTITY_PENGUIN_HURT = register("entity.penguin.hurt");
+	public static final SoundEvent ENTITY_PENGUIN_DEATH = register("entity.penguin.death");
+	public static final SoundEvent ENTITY_PENGUIN_LAY_EGG = register("entity.penguin.lay_egg");
 	public static final SoundEvent ENTITY_SCORCHED_AMBIENT = register("entity.scorched.ambient");
 	public static final SoundEvent ENTITY_SCORCHED_HURT = register("entity.scorched.hurt");
 	public static final SoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");
@@ -345,6 +353,7 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAPLE_FOREST = registerForHolder("music.overworld.maple_forest");
 
 	private WWSounds() {
 		throw new UnsupportedOperationException("WWSounds contains only static declarations.");

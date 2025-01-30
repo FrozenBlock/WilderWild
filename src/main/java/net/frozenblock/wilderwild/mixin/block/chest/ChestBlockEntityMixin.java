@@ -22,8 +22,7 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -37,6 +36,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -69,16 +69,34 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level != null) {
 			if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-				ChestBubbleTicker.createAndSpawn(WWEntityTypes.CHEST_BUBBLER, level, pos);
+				wilderWild$sendBubbleSeedParticle(level, pos);
 				this.wilderWild$canBubble = false;
 				Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);
 				possibleCoupledChest.ifPresent(coupledChest -> {
-					ChestBubbleTicker.createAndSpawn(WWEntityTypes.CHEST_BUBBLER, level, coupledChest.getBlockPos());
+					wilderWild$sendBubbleSeedParticle(level, coupledChest.getBlockPos());
 					if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) {
 						coupledChestInterface.wilderWild$setCanBubble(false);
 					}
 				});
 			}
+		}
+	}
+
+	@Unique
+	private static void wilderWild$sendBubbleSeedParticle(Level level, BlockPos pos) {
+		if (level instanceof ServerLevel serverLevel) {
+			Vec3 centerPos = Vec3.atCenterOf(pos);
+			serverLevel.sendParticles(
+				WWParticleTypes.CHEST_BUBBLE_SPAWNER,
+				centerPos.x(),
+				centerPos.y(),
+				centerPos.z(),
+				1,
+				0D,
+				0D,
+				0D,
+				0D
+			);
 		}
 	}
 

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.frozenblock.wilderwild.particle.ChestBubbleSeedParticle;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.LeafClusterSeedParticle;
@@ -28,6 +29,7 @@ import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PaleFogParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
+import net.frozenblock.wilderwild.particle.ShriekerBubbleSeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
 import net.frozenblock.wilderwild.particle.WindParticle;
@@ -58,7 +60,10 @@ public final class WWParticleEngine {
 		particleRegistry.register(WWParticleTypes.YELLOW_MAPLE_LEAVES, WWFallingLeavesParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.ORANGE_MAPLE_LEAVES, WWFallingLeavesParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.RED_MAPLE_LEAVES, WWFallingLeavesParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.WILLOW_LEAVES, WWFallingLeavesParticle.Factory::new);
 
+		particleRegistry.register(WWParticleTypes.CHEST_BUBBLE_SPAWNER, ChestBubbleSeedParticle.Factory::new);
+		particleRegistry.register(WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER, ShriekerBubbleSeedParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.POLLEN, PollenParticle.PollenFactory::new);
 		particleRegistry.register(WWParticleTypes.SEED, SeedParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.PALE_FOG, PaleFogParticle.LargeFactory::new);

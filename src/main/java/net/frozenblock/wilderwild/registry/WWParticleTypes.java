@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.particle.options.LeafClusterParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
@@ -59,9 +58,9 @@ public final class WWParticleTypes {
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
-	public static final ParticleType<LeafClusterParticleOptions> LEAF_CLUSTER_SPAWNER = register(
-		"leaf_cluster", false, particleType -> LeafClusterParticleOptions.CODEC, particleType -> LeafClusterParticleOptions.STREAM_CODEC
-	);
+	public static final SimpleParticleType LEAF_CLUSTER_SPAWNER = register("leaf_cluster");
+	public static final SimpleParticleType CHEST_BUBBLE_SPAWNER = register("chest_bubbles");
+	public static final SimpleParticleType SHRIEKER_BUBBLE_SPAWNER = register("shrieker_bubbles");
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = register("blue_pearlescent_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = register("blue_pearlescent_landing_mesoglea_drip");
@@ -237,9 +236,22 @@ public final class WWParticleTypes {
 		false,
 		true
 	);
+
 	public static final ParticleType<WWFallingLeavesParticleOptions> YELLOW_MAPLE_LEAVES = createLeafParticle(WWConstants.id("yellow_maple_leaves"));
 	public static final ParticleType<WWFallingLeavesParticleOptions> ORANGE_MAPLE_LEAVES = createLeafParticle(WWConstants.id("orange_maple_leaves"));
 	public static final ParticleType<WWFallingLeavesParticleOptions> RED_MAPLE_LEAVES = createLeafParticle(WWConstants.id("red_maple_leaves"));
+
+	public static final ParticleType<WWFallingLeavesParticleOptions> WILLOW_LEAVES = createLeafParticle(
+		WWConstants.id("willow_leaves"),
+		WWBlocks.WILLOW_LEAVES,
+		0.0045F,
+		() -> WWAmbienceAndMiscConfig.Client.WILLOW_LEAF_FREQUENCY,
+		5,
+		1.4F,
+		10F,
+		true,
+		true
+	);
 
 	private WWParticleTypes() {
 		throw new UnsupportedOperationException("WWParticleTypes contains only static declarations.");

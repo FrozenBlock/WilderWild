@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:mangrove_checked",
+    "features": [
+      {
+        "chance": 0.85,
+        "feature": "wilderwild:tall_mangrove_checked"
+      }
+    ]
+  }
+}

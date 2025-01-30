@@ -37,7 +37,6 @@ import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 
-//TODO : Make this work tree
 public final class FireflyBottleComponentizationFix extends DataFix {
 
 	public FireflyBottleComponentizationFix(Schema outputSchema) {

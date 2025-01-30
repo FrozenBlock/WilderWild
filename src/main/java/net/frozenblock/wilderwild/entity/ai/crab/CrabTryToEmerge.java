@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.entity.ai.crab;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -38,10 +39,11 @@ public class CrabTryToEmerge {
 			instance.registered(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(MemoryModuleType.NEAREST_PLAYERS)
 		).apply(instance, (isEmerging, underground, digCooldown, players) -> (world, crab, l) -> {
+			Brain<Crab> brain = crab.getBrain();
 			if (crab.canEmerge() || !crab.canHideOnGround()) {
-				if (crab.getBrain().checkMemory(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT) ||
-					(crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).isPresent() &&
-						crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).get().stream().anyMatch(player -> player.distanceTo(crab) < CrabAi.UNDERGROUND_PLAYER_RANGE))
+				if (brain.checkMemory(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT) ||
+					(brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).isPresent() &&
+						brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().stream().anyMatch(player -> player.distanceTo(crab) < CrabAi.UNDERGROUND_PLAYER_RANGE))
 				) {
 					isEmerging.setWithExpiry(Unit.INSTANCE, Crab.EMERGE_LENGTH_IN_TICKS);
 					digCooldown.setWithExpiry(Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));

@@ -11,7 +11,8 @@ Treetrain1:
  - Bug fixer for more complex/technical issues.
  - Gradle work and fixes.
  - Lots of mixin help.
- - Firefly & Jellyfish AI.
+ - Jellyfish AI.
+ - Initial Firefly AI.
  - QA.
  - Tons of other fixes and tweaks and reorganization, etc., etc.
  - He's a genius.
@@ -26,8 +27,7 @@ Soro:
  - Baobab Nut concept.
  - Help with Maple tree variants in worldgen.
  - Huge help implementing and tweaking the Tundra biome.
-
-Contributors:
+ - Redid flower distribution in the Flower Fields and Flower Forest biomes in 3.1.
 
 Zhen:
  - Retextured all Baobab Nut textures in 2.4.
@@ -49,6 +49,9 @@ Zhen:
  - New falling leaf textures in 3.0.9.
  - Pasqueflower idea and texture.
  - Butterfly textures.
+ - Pale Fog textures.
+ - Hibiscus textures.
+ - Willow textures
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -57,25 +60,37 @@ voxelotl:
  - Crimson and Warped Shelf Fungi textures.
  - New falling leaf textures in 3.0.9.
  - Moobloom textures.
- - Pale Mushroom and Huge Pale Mushroom concept.
- - Pale Mushroom, Huge Pale Mushroom, and Pale Shelf Fungi textures.
+ - Penguin texture.
+ - Penguin egg model and textures.
+ - Pale Mushroom texture.
+ - Pale Mushroom Block textures.
+ - Pale Shelf Fungi texture.
+ - Came up with Pale Mushrooms & the Pale Fog mechanic.
 
 LudoCrypt:
- - New Forest and Mesoglea Caves music.
+ - Composer.
+    - Horizon Afoot
+    - Serene Sonder
+    - Dove
 
 Willow/pictochats_:
- - New cave music.
+ - Composer.
+    - Unnamed Cave Song
+    - Unnamed Maple Forest Song
+    - Dahlia
 
-Enri:
- - Italian translation.
- - Came up with Jellyfish being in Shipwreck Chests.
- - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
+Contributors:
+
+DaDolphin:
+ - Original Penguin walking, laying down, sliding, wading, and standing up animations.
 
 LiukRast:
  - Baobab Tree generation.
 
 wet.noodle/Kluski42:
  - Thick Big Fungus growing from Fungi.
+ - Suggested adding Reach Boost to Beacons.
+ - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
 
 JarethTheRad:
  - Structure assistance.
@@ -86,6 +101,7 @@ zozozrob_:
 Xicad/Emma:
  - Echo Glass concept.
  - Consistently fantastic feedback!! An absolute treasure to have around.
+ - Scorched concept.
 
 Sculk Analyzer:
  - Sculk Echoer concept & inspiration.
@@ -102,6 +118,14 @@ embeddedt:
  - Pointed towards LevelRenderer for making Clouds move instead of using individual Mixins per-renderer.
  - Guidance with setting up much better fluid rendering for Mesoglea.
 
+magistermaks:
+ - Provided the base that would be used for Firefly rendering.
+
+Enri:
+ - Italian translation.
+ - Came up with Jellyfish being in Shipwreck Chests.
+ - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
+
 noah1510:
  - Fixed a crash relating to Sculk during worldgen.
 
@@ -113,10 +137,6 @@ Soulfate24:
 
 Rebel459
  - Revamped music pools in 2.4.5.
-
-wet.noodle/Ashlyn
- - Suggested adding Reach Boost to Beacons.
- - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
 
 Xfrtrex:
  - Prickly Pear and Tumbleweed ideas.
@@ -238,3 +258,9 @@ https://www.pond5.com/sound-effects/item/48146400-crab-injured-3
 https://www.pond5.com/sound-effects/item/48146399-crab-breathe-1
 
 All Copper Horn Sounds as of 3.0 are sourced from the Korg Nautilus keyboard.
+
+Penguin Sounds:
+https://freesound.org/people/Breviceps/sounds/705839/
+Animal Planet Sounds Vol. 1 (Library on videvo.net)
+Mike McDonough SFX Collection (Library on videvo.net)
+Just Birds and Animals (Library on videvo.net)

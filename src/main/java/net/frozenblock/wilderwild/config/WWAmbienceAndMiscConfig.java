@@ -73,6 +73,7 @@ public final class WWAmbienceAndMiscConfig {
 				Client.CYPRESS_LEAF_FREQUENCY = config.leafParticles.cypressFrequency / 100D;
 				Client.PALM_FROND_FREQUENCY = config.leafParticles.palmFrequency / 100D;
 				Client.MAPLE_LEAF_FREQUENCY = config.leafParticles.mapleFrequency / 100D;
+				Client.WILLOW_LEAF_FREQUENCY = config.leafParticles.willowFrequency / 100D;
 			}
 		}
 	);
@@ -119,6 +120,7 @@ public final class WWAmbienceAndMiscConfig {
 		public static volatile double CYPRESS_LEAF_FREQUENCY = 1D;
 		public static volatile double PALM_FROND_FREQUENCY = 1D;
 		public static volatile double MAPLE_LEAF_FREQUENCY = 1D;
+		public static volatile double WILLOW_LEAF_FREQUENCY = 1D;
 	}
 
 	@CollapsibleObject
@@ -292,5 +294,8 @@ public final class WWAmbienceAndMiscConfig {
 
 		@EntrySyncData(value = "mapleFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int mapleFrequency = 100;
+
+		@EntrySyncData(value = "willowFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int willowFrequency = 50;
 	}
 }

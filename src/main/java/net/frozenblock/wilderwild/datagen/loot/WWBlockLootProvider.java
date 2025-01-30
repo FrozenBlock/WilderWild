@@ -77,6 +77,26 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.BAOBAB_HANGING_SIGN);
 		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.BAOBAB_LEAVES, registryLookup);
 
+		this.dropSelf(WWBlocks.WILLOW_LOG);
+		this.dropSelf(WWBlocks.STRIPPED_WILLOW_LOG);
+		this.dropSelf(WWBlocks.WILLOW_WOOD);
+		this.dropSelf(WWBlocks.STRIPPED_WILLOW_WOOD);
+		this.dropSelf(WWBlocks.HOLLOWED_WILLOW_LOG);
+		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+		this.dropSelf(WWBlocks.WILLOW_PLANKS);
+		this.dropSelf(WWBlocks.WILLOW_BUTTON);
+		this.dropSelf(WWBlocks.WILLOW_PRESSURE_PLATE);
+		this.dropSelf(WWBlocks.WILLOW_TRAPDOOR);
+		this.dropSelf(WWBlocks.WILLOW_STAIRS);
+		this.add(WWBlocks.WILLOW_SLAB, this::createSlabItemTable);
+		this.dropSelf(WWBlocks.WILLOW_FENCE);
+		this.dropSelf(WWBlocks.WILLOW_FENCE_GATE);
+		this.add(WWBlocks.WILLOW_DOOR, this::createDoorTable);
+		this.dropSelf(WWBlocks.WILLOW_SIGN);
+		this.dropSelf(WWBlocks.WILLOW_HANGING_SIGN);
+		this.dropSelf(WWBlocks.WILLOW_SAPLING);
+		this.add(WWBlocks.WILLOW_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.WILLOW_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+
 		this.dropSelf(WWBlocks.CYPRESS_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_CYPRESS_LOG);
 		this.dropSelf(WWBlocks.CYPRESS_WOOD);
@@ -165,16 +185,16 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.SEEDING_DANDELION);
 		this.dropSelf(WWBlocks.CARNATION);
 		this.dropSelf(WWBlocks.MARIGOLD);
+		this.dropSelf(WWBlocks.PASQUEFLOWER);
+		this.dropSelf(WWBlocks.YELLOW_HIBISCUS);
+		this.dropSelf(WWBlocks.WHITE_HIBISCUS);
+		this.dropSelf(WWBlocks.PINK_HIBISCUS);
+		this.dropSelf(WWBlocks.PURPLE_HIBISCUS);
 		this.dropSelf(WWBlocks.FLOWERING_LILY_PAD);
 		this.dropSelf(WWBlocks.PRICKLY_PEAR_CACTUS);
 		this.add(WWBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
-		this.dropSelf(WWBlocks.GLORY_OF_THE_SNOW);
-		this.add(WWBlocks.BLUE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.PINK_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.PURPLE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.add(WWBlocks.WHITE_GLORY_OF_THE_SNOW_PETALS, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()
@@ -339,9 +359,12 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_BUSH);
 		this.dropPottedContents(WWBlocks.POTTED_BAOBAB_NUT);
 		this.dropPottedContents(WWBlocks.POTTED_COCONUT);
+		this.dropPottedContents(WWBlocks.POTTED_WILLOW_SAPLING);
 		this.dropPottedContents(WWBlocks.POTTED_CYPRESS_SAPLING);
 		this.dropPottedContents(WWBlocks.POTTED_MAPLE_SAPLING);
 		this.dropPottedContents(WWBlocks.POTTED_CARNATION);
+		this.dropPottedContents(WWBlocks.POTTED_MARIGOLD);
+		this.dropPottedContents(WWBlocks.POTTED_PASQUEFLOWER);
 		this.dropPottedContents(WWBlocks.POTTED_SEEDING_DANDELION);
 		this.dropPottedContents(WWBlocks.POTTED_TUMBLEWEED_PLANT);
 		this.dropPottedContents(WWBlocks.POTTED_TUMBLEWEED);

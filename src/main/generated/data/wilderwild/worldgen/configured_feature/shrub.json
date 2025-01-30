@@ -9,7 +9,7 @@
       }
     },
     "foliage_placer": {
-      "type": "minecraft:bush_foliage_placer",
+      "type": "wilderwild:small_bush_foliage_placer",
       "height": 2,
       "offset": 1,
       "radius": 1

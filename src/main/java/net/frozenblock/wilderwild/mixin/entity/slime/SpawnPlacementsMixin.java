@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.mixin.entity.slime;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.registry.WWSpawnTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementType;
-import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Mixin;
@@ -50,7 +50,7 @@ public class SpawnPlacementsMixin {
 	private static <T extends Mob> void wilderWild$register(
 		EntityType<T> type, SpawnPlacementType spawnPlacementType, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, Operation<Void> original
 	) {
-		original.call(type, SpawnPlacementTypes.NO_RESTRICTIONS, heightmapType, predicate);
+		original.call(type, WWSpawnTypes.ON_GROUND_OR_IN_ALGAE, heightmapType, predicate);
 	}
 
 }

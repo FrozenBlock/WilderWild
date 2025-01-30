@@ -41,7 +41,7 @@ public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	private boolean isClose(LivingEntity attacker, @NotNull LivingEntity target) {
-		return target.distanceToSqr(attacker) <= 64.0D;
+		return target.distanceToSqr(attacker) <= 64D;
 	}
 
 	@Override

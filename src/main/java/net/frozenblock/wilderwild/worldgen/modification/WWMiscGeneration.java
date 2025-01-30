@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -84,9 +83,6 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.DISK_MUD.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MUD_PATH.getKey());
 						}
 
@@ -215,7 +211,7 @@ public final class WWMiscGeneration {
 						}
 
 						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PILE_SNOW.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.SNOW_PILE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)) {
@@ -228,14 +224,6 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ROOTED_DIRT_CLEARING)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.RIVER_POOL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SMALL_RIVER_POOL.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {
@@ -265,16 +253,6 @@ public final class WWMiscGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}
-					}
-				});
-
-		BiomeModifications.create(WWConstants.id("stone_pool_caves"))
-			.add(ModificationPhase.ADDITIONS,
-				FrozenBiomeSelectors.foundInOverworldExcept(WWBiomeTags.NO_POOLS),
-				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().surfaceDecoration) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-						generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.STONE_POOL.getKey());
 					}
 				});
 
@@ -315,6 +293,20 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.MUD_TRANSITION.getKey());
+						}
+					}
+				});
+
+		BiomeModifications.create(WWConstants.id("river_pools"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().riverPool) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.RIVER_POOL.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SMALL_RIVER_POOL.getKey());
 						}
 					}
 				});

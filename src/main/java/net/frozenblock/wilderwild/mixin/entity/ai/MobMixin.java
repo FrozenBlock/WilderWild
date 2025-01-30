@@ -18,12 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.entity.ai;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,20 +42,6 @@ public class MobMixin {
 		if (WWEntityConfig.get().unpassableRail) {
 			this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 		}
-	}
-
-	@ModifyExpressionValue(
-		method = "checkSpawnObstruction",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/LevelReader;containsAnyLiquid(Lnet/minecraft/world/phys/AABB;)Z"
-		)
-	)
-	public boolean wilderWild$checkSpawnObstruction(boolean original) {
-		if (Mob.class.cast(this) instanceof Slime slime) {
-			return original || !WWBlocks.ALGAE.hasAmountNearby(slime.level(), slime.blockPosition(), 1, 3);
-		}
-		return original;
 	}
 
 }

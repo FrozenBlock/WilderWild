@@ -103,8 +103,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 			k += direction.getStepZ();
 			if (TreeFeature.validTreePos(level, pos.set(j, yOffset, k))) {
 				if (config.trunkProvider.getState(random, pos.set(j, yOffset, k)).hasProperty(BlockStateProperties.AXIS)) {
-					Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : Direction.Axis.Z;
-					replacer.accept(pos.set(j, yOffset, k), config.trunkProvider.getState(random, pos.set(j, yOffset, k)).setValue(BlockStateProperties.AXIS, axis));
+					replacer.accept(pos.set(j, yOffset, k), config.trunkProvider.getState(random, pos.set(j, yOffset, k)).setValue(BlockStateProperties.AXIS, direction.getAxis()));
 				} else {
 					this.placeLog(level, replacer, random, pos.set(j, yOffset, k), config);
 				}

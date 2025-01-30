@@ -1,12 +1,6 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "default": "wilderwild:large_snapped_dark_oak_checked",
-    "features": [
-      {
-        "chance": 1.0,
-        "feature": "wilderwild:large_snapped_dark_oak_checked"
-      }
-    ]
+    "features": "wilderwild:large_snapped_dark_oak_checked"
   }
 }

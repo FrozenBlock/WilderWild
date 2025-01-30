@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:dark_oak_checked",
+    "default": "wilderwild:dark_oak_checked",
     "features": [
       {
         "chance": 0.155,
@@ -21,7 +21,7 @@
       },
       {
         "chance": 0.235,
-        "feature": "minecraft:dark_oak_checked"
+        "feature": "wilderwild:dark_oak_checked"
       },
       {
         "chance": 0.075,

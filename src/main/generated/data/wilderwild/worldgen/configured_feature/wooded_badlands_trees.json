@@ -5,7 +5,7 @@
     "features": [
       {
         "chance": 0.095,
-        "feature": "wilderwild:oak_checked"
+        "feature": "wilderwild:oak_no_fungi_checked"
       },
       {
         "chance": 0.4,

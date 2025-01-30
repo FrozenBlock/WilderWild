@@ -49,6 +49,10 @@
       "required": false
     },
     {
+      "id": "#wilderwild:hollowed_willow_logs",
+      "required": false
+    },
+    {
       "id": "#wilderwild:hollowed_cypress_logs",
       "required": false
     },
