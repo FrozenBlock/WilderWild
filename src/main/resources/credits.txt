@@ -50,7 +50,7 @@ Zhen:
  - Pasqueflower idea and texture.
  - Butterfly textures.
  - Pale Fog textures.
- - Hibiscus textures.
+ - Hibiscus reference textures.
  - Willow textures
 
 voxelotl:
@@ -110,6 +110,9 @@ Shadownite64:
  - Ostrich concept.
  - Inbred Ostrich sound suggestions.
 
+blipinthecosmo5:
+ - Final Hibiscus textures.
+
 SaishoVibes:
  - Initial configs.
 
@@ -141,6 +144,7 @@ Rebel459
 Xfrtrex:
  - Prickly Pear and Tumbleweed ideas.
  - Came up with Firework Rockets being impacted by the wind.
+ - Feedback on Scorched not setting the player on fire while attacking.
 
 Lufurrius
  - Fixed Hollowed Log UV/rotations in 3.1.

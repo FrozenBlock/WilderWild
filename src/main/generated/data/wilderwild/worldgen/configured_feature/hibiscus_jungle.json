@@ -17,6 +17,9 @@
             "seed": 5050,
             "states": [
               {
+                "Name": "wilderwild:red_hibiscus"
+              },
+              {
                 "Name": "wilderwild:yellow_hibiscus"
               },
               {
@@ -42,7 +45,7 @@
         }
       ]
     },
-    "tries": 10,
+    "tries": 14,
     "xz_spread": 7,
     "y_spread": 3
   }

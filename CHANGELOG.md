@@ -58,6 +58,7 @@ hi
 - Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
 - Glories of the Snow have been removed.
   - They are now replaced with four Hibiscus Blocks:
+    - Red Hibiscus
     - Yellow Hibiscus.
     - White Hibiscus.
     - Pink Hibiscus.

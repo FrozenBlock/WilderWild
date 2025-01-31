@@ -438,6 +438,13 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
+	public static final WideFlowerBlock RED_HIBISCUS = new WideFlowerBlock(
+		MobEffects.HUNGER,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_RED_HIBISCUS = Blocks.flowerPot(RED_HIBISCUS);
+
 	public static final WideFlowerBlock YELLOW_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
@@ -1305,7 +1312,9 @@ public final class WWBlocks {
 		registerBlock("potted_pasqueflower", POTTED_PASQUEFLOWER);
 		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
-		registerBlockAfter(Items.PINK_TULIP, "yellow_hibiscus", YELLOW_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.PINK_TULIP, "red_hibiscus", RED_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_red_hibiscus", POTTED_RED_HIBISCUS);
+		registerBlockAfter(RED_HIBISCUS, "yellow_hibiscus", YELLOW_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_yellow_hibiscus", POTTED_YELLOW_HIBISCUS);
 		registerBlockBefore(YELLOW_HIBISCUS, "white_hibiscus", WHITE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_white_hibiscus", POTTED_WHITE_HIBISCUS);

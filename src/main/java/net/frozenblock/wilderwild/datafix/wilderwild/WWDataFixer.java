@@ -186,9 +186,10 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
 		addRandomBlockRenameFix(
 			builder,
-			"Random datafix of glory_of_the_snow to hibiscus variants",
+			"Random datafix of glory_of_the_snow to Hibiscus variants",
 			WWConstants.id("glory_of_the_snow"),
 			ImmutableList.of(
+				WWConstants.id("red_hibiscus"),
 				WWConstants.id("yellow_hibiscus"),
 				WWConstants.id("white_hibiscus"),
 				WWConstants.id("pink_hibiscus"),
@@ -198,9 +199,10 @@ public final class WWDataFixer {
 		);
 		addRandomItemRenameFix(
 			builder,
-			"Random datafix of glory_of_the_snow to hibiscus variants",
+			"Random datafix of glory_of_the_snow to Hibiscus variants",
 			WWConstants.id("glory_of_the_snow"),
 			ImmutableList.of(
+				WWConstants.id("red_hibiscus"),
 				WWConstants.id("yellow_hibiscus"),
 				WWConstants.id("white_hibiscus"),
 				WWConstants.id("pink_hibiscus"),

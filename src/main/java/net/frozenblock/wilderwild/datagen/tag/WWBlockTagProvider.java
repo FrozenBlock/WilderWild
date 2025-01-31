@@ -67,6 +67,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
+			.add(WWBlocks.RED_HIBISCUS)
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
@@ -84,6 +85,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT);
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
+			.add(WWBlocks.RED_HIBISCUS)
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
@@ -927,6 +929,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.SEEDING_DANDELION)
 			.add(WWBlocks.PASQUEFLOWER)
+			.add(WWBlocks.RED_HIBISCUS)
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
