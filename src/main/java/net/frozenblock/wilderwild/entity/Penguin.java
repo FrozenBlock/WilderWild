@@ -66,9 +66,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Penguin extends Animal {
-	public static final float CALL_SOUND_CHANCE = 0.4F;
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
+	public AnimationState callAnimationState = new AnimationState();
 	private float prevWadeProgress;
 	private float wadeProgress;
 	private float prevSlideProgress;
@@ -240,14 +240,22 @@ public class Penguin extends Animal {
 				case SLIDING:
 					this.layDownAnimationState.start(this.tickCount);
 					this.standUpAnimationState.stop();
+					this.callAnimationState.stop();
 					break;
 				case EMERGING:
 					this.standUpAnimationState.start(this.tickCount);
+					this.layDownAnimationState.stop();
+					this.callAnimationState.stop();
+					break;
+				case ROARING:
+					this.callAnimationState.start(this.tickCount);
+					this.standUpAnimationState.stop();
 					this.layDownAnimationState.stop();
 					break;
 				default:
 					this.standUpAnimationState.stop();
 					this.layDownAnimationState.stop();
+					this.callAnimationState.stop();
 			}
 			this.refreshDimensions();
 		}
@@ -263,7 +271,7 @@ public class Penguin extends Animal {
 
 	@Override
 	protected @Nullable SoundEvent getAmbientSound() {
-		return this.getRandom().nextFloat() < CALL_SOUND_CHANCE ? WWSounds.ENTITY_PENGUIN_IDLE_CALL : WWSounds.ENTITY_PENGUIN_IDLE;
+		return WWSounds.ENTITY_PENGUIN_IDLE;
 	}
 
 	@Override

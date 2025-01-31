@@ -82,7 +82,7 @@ Willow/pictochats_:
 Contributors:
 
 DaDolphin:
- - Original Penguin walking, laying down, sliding, wading, and standing up animations.
+ - Original Penguin walking, laying down, sliding, wading, standing up, and calling animations.
 
 LiukRast:
  - Baobab Tree generation.

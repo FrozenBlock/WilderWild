@@ -102,7 +102,7 @@ public final class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
-		
+
 		EntityRendererRegistry.register(WWEntityTypes.FALLING_LEAVES, NoopRenderer::new);
 
 		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorRenderer::new);

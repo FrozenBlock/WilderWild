@@ -21,8 +21,8 @@ package net.frozenblock.wilderwild.entity.ai.penguin;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
@@ -54,8 +54,8 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		penguin.stopInPlace();
-		penguin.setPose(Pose.EMERGING);
-		penguin.playSound(SoundEvents.RAVAGER_ROAR);
+		penguin.setPose(Pose.ROARING);
+		penguin.playSound(WWSounds.ENTITY_PENGUIN_CALL, 1.2F, 0.9F + penguin.getRandom().nextFloat() * 0.2F);
 
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALLING, Unit.INSTANCE);
 		PenguinAi.addCallerMemoryToNearbyPenguins(penguin);
@@ -63,7 +63,7 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		if (penguin.hasPose(Pose.EMERGING)) {
+		if (penguin.hasPose(Pose.ROARING)) {
 			penguin.setPose(Pose.STANDING);
 		}
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 2400);

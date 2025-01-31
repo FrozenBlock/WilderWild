@@ -421,7 +421,8 @@
 
   "entity.wilderwild.penguin": "Penguin",
   "item.wilderwild.penguin_spawn_egg": "Penguin Spawn Egg",
-  "subtitles.entity.penguin.idle": "Penguin calls",
+  "subtitles.entity.penguin.idle": "Penguin brays",
+  "subtitles.entity.penguin.call": "Penguin calls",
   "subtitles.entity.penguin.hurt": "Penguin hurts",
   "subtitles.entity.penguin.death": "Penguin dies",
   "subtitles.entity.penguin.lay_egg": "Penguin lays egg",

@@ -292,7 +292,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_BEAK_STUCK = register("entity.ostrich.inbred.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_SWING = register("entity.ostrich.inbred.beak.swing");
 	public static final SoundEvent ENTITY_PENGUIN_IDLE = register("entity.penguin.idle");
-	public static final SoundEvent ENTITY_PENGUIN_IDLE_CALL = register("entity.penguin.idle_call");
+	public static final SoundEvent ENTITY_PENGUIN_CALL = register("entity.penguin.call");
 	public static final SoundEvent ENTITY_PENGUIN_HURT = register("entity.penguin.hurt");
 	public static final SoundEvent ENTITY_PENGUIN_DEATH = register("entity.penguin.death");
 	public static final SoundEvent ENTITY_PENGUIN_LAY_EGG = register("entity.penguin.lay_egg");

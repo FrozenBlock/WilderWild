@@ -78,7 +78,7 @@ public class PenguinAi {
 	public static final UniformInt DIVE_TIME = UniformInt.of(400, 1200);
 
 	public static final int STAND_UP_DURATION = 48;
-	public static final int CALL_DURATION = 48;
+	public static final int CALL_DURATION = 60;
 
 	private static final ImmutableList<SensorType<? extends Sensor<? super Penguin>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
