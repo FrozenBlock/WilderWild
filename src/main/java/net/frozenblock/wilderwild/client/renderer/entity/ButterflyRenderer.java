@@ -44,6 +44,7 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 		renderState.downProgress = butterfly.getDownProgress(partialTick);
 		renderState.groundProgress = butterfly.getGroundProgress(partialTick);
 		renderState.flyingXRot = butterfly.getFlyingXRot(partialTick);
+		renderState.texture = butterfly.getVariantForRendering().assetInfo().texturePath();
 	}
 
 	@Override
