@@ -49,7 +49,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.woodProvider(WWBlocks.WILLOW_LOG).logWithHorizontal(WWBlocks.WILLOW_LOG).wood(WWBlocks.WILLOW_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_WILLOW_LOG).logWithHorizontal(WWBlocks.STRIPPED_WILLOW_LOG).wood(WWBlocks.STRIPPED_WILLOW_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN);
-		generator.createPlant(WWBlocks.WILLOW_SAPLING, WWBlocks.POTTED_WILLOW_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.WILLOW_SAPLING, WWBlocks.POTTED_WILLOW_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createTrivialBlock(WWBlocks.WILLOW_LEAVES, TexturedModel.LEAVES);
 
 		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.FAMILY_CYPRESS);
