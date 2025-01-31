@@ -1553,6 +1553,7 @@ public final class WWPlacedFeatures {
 		);
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

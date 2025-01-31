@@ -301,6 +301,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			CARNATION,
 			MARIGOLD,
 			PASQUEFLOWER,
+			RED_HIBISCUS,
 			YELLOW_HIBISCUS,
 			WHITE_HIBISCUS,
 			PINK_HIBISCUS,

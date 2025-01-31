@@ -622,6 +622,18 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+	public static final FlowerBlock RED_HIBISCUS = register("red_hibiscus",
+		properties -> new FlowerBlock(
+			MobEffects.HUNGER,
+			8,
+			properties
+		),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_RED_HIBISCUS = registerWithoutItem("potted_red_hibiscus",
+		properties -> new FlowerPotBlock(RED_HIBISCUS, properties),
+		Blocks.flowerPotProperties()
+	);
 
 	public static final FlowerBlock YELLOW_HIBISCUS = register("yellow_hibiscus",
 		properties -> new FlowerBlock(

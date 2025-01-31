@@ -127,7 +127,6 @@ public final class WWModelLayers {
 
 		EntityRendererRegistry.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
 
-		EntityRendererRegistry.register(WWEntityTypes.SCULK_SPREADER, NoopRenderer::new);
 		EntityRendererRegistry.register(WWEntityTypes.FALLING_LEAVES, NoopRenderer::new);
 
 		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorRenderer::new);

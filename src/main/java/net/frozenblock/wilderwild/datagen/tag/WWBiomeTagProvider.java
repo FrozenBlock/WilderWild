@@ -1161,7 +1161,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.PLAINS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MILKWEED)
-			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.FOREST)
 			.add(Biomes.SWAMP)

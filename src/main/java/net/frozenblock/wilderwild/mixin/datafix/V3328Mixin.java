@@ -82,11 +82,6 @@ public class V3328Mixin {
 		);
 		schema.register(
 			map,
-			WWConstants.string("sculk_spreader"),
-			DSL::remainder
-		);
-		schema.register(
-			map,
 			WWConstants.string("scorched"),
 			() -> V100.equipment(schema)
 		);
