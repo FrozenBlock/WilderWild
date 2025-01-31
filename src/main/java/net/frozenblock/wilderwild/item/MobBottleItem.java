@@ -32,6 +32,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -90,7 +91,17 @@ public class MobBottleItem extends Item {
 
 					if (!player.getAbilities().instabuild) player.setItemInHand(interactionHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-					player.playSound(this.releaseSound, 0.75F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+					server.playSound(
+						null,
+						player.getX(),
+						player.getEyeY(),
+						player.getZ(),
+						this.releaseSound,
+						SoundSource.NEUTRAL,
+						0.75F,
+						level.getRandom().nextFloat() * 0.2F + 0.9F
+					);
+
 					if (stack.has(DataComponents.CUSTOM_NAME)) {
 						entity.setCustomName(stack.getHoverName());
 					}

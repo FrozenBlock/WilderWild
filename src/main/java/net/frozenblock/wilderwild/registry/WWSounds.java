@@ -230,7 +230,7 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_OSTRICH_EGG_CRACK = register("block.ostrich_egg.crack");
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
 	public static final SoundEvent BLOCK_PENGUIN_EGG_CRACK = register("block.penguin_egg.crack");
-	public static final SoundEvent BLOCK_PENGUIN_EGG_HATCH = register("block.ostrich_eggpenguin_egg.hatch");
+	public static final SoundEvent BLOCK_PENGUIN_EGG_HATCH = register("block.penguin_egg.hatch");
 	public static final SoundEvent BLOCK_GEYSER_PLACE = register("block.geyser.place");
 	public static final SoundEvent BLOCK_GEYSER_HIT = register("block.geyser.hit");
 	public static final SoundEvent BLOCK_GEYSER_BREAK = register("block.geyser.break");
