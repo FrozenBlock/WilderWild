@@ -25,6 +25,7 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
+// Animations by DaDolphin! Edited by AViewFromTheTop.
 @Environment(EnvType.CLIENT)
 public class PenguinAnimation {
 
