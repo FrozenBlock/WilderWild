@@ -152,6 +152,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MARIGOLD.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.PASQUEFLOWER.asItem())
+			.add(WWBlocks.RED_HIBISCUS.asItem())
 			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
@@ -173,6 +174,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.POLLEN.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
+			.add(WWBlocks.RED_HIBISCUS.asItem())
 			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
@@ -190,6 +192,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.TUMBLEWEED_PLANT.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
+			.add(WWBlocks.RED_HIBISCUS.asItem())
 			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())

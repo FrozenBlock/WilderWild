@@ -55,6 +55,7 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 		renderState.slideProgress = penguin.getSlideProgress(partialTick);
 		renderState.layDownAnimationState = penguin.layDownAnimationState;
 		renderState.standUpAnimationState = penguin.standUpAnimationState;
+		renderState.callAnimationState = penguin.callAnimationState;
 	}
 
 	@Override

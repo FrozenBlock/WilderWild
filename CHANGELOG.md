@@ -58,6 +58,7 @@ hi
 - Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
 - Glories of the Snow have been removed.
   - They are now replaced with four Hibiscus Blocks:
+    - Red Hibiscus
     - Yellow Hibiscus.
     - White Hibiscus.
     - Pink Hibiscus.
@@ -66,6 +67,8 @@ hi
   - Glory of the Snow Petals will be datafixed into Pollen.
 - Added a config option to toggle pools of water generating in River biomes.
   - This is now disabled by default, unlike before.
+- Scorched now set entities on fire upon attacking.
+- Removed the `wilderwild:sculk_spreader` entity, and updated the `spreadsculk` command to place all Sculk at once.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

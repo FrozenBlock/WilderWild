@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.entity.ai.scorched.ScorchedNavigation;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -32,6 +33,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
@@ -129,22 +131,31 @@ public class Scorched extends Spider {
 	}
 
 	@Override
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
+		boolean hurtTarget =  super.doHurtTarget(serverLevel, entity);
+		if (hurtTarget) {
+			entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
+		}
+		return hurtTarget;
+	}
+
+	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA : WWSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected @NotNull SoundEvent getAmbientSound() {
 		return WWSounds.ENTITY_SCORCHED_AMBIENT;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSource) {
+	protected @NotNull SoundEvent getHurtSound(DamageSource damageSource) {
 		return WWSounds.ENTITY_SCORCHED_HURT;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected @NotNull SoundEvent getDeathSound() {
 		return WWSounds.ENTITY_SCORCHED_DEATH;
 	}
 
@@ -190,21 +201,18 @@ public class Scorched extends Spider {
 	}
 
 	public static boolean isDarkEnoughToSpawn(@NotNull ServerLevelAccessor level, BlockPos pos, @NotNull RandomSource random) {
-		if (level.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) {
-			return false;
-		}
+		if (level.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) return false;
 		DimensionType dimensionType = level.dimensionType();
-		int j = level.getLevel().isThundering() ? level.getBrightness(LightLayer.SKY, pos) - 10 : level.getBrightness(LightLayer.SKY, pos);
-		return j <= dimensionType.monsterSpawnLightTest().sample(random);
+		int skyLight = level.getLevel().isThundering() ? level.getBrightness(LightLayer.SKY, pos) - 10 : level.getBrightness(LightLayer.SKY, pos);
+		return skyLight <= dimensionType.monsterSpawnLightTest().sample(random);
 	}
 
-	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkScorchedSpawnRules(
+		EntityType<? extends Scorched> type, @NotNull ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random
+	) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().scorched.spawnScorched) return false;
-		if (EntitySpawnReason.ignoresLightRequirements(spawnType) || Scorched.isDarkEnoughToSpawn(level, pos, random)) {
-			return true;
-		}
-		return false;
+		if (!EntitySpawnReason.isSpawner(spawnReason) && !WWEntityConfig.get().scorched.spawnScorched) return false;
+		return EntitySpawnReason.ignoresLightRequirements(spawnReason) || Scorched.isDarkEnoughToSpawn(level, pos, random);
 	}
 
 }

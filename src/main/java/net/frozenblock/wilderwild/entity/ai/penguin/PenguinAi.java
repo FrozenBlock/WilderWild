@@ -80,7 +80,7 @@ public class PenguinAi {
 	public static final UniformInt DIVE_TIME = UniformInt.of(400, 1200);
 
 	public static final int STAND_UP_DURATION = 48;
-	public static final int CALL_DURATION = 48;
+	public static final int CALL_DURATION = 60;
 
 	private static final ImmutableList<SensorType<? extends Sensor<? super Penguin>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
@@ -241,7 +241,7 @@ public class PenguinAi {
 				Pair.of(0, PenguinMeetCaller.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> 1.35F,
+					entity -> 1.25F,
 					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.CALLER))
