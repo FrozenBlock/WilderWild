@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -59,7 +60,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				HollowedLogRecipeProvider.buildRecipes(this, exporter);
 				WWWoodRecipeProvider.buildRecipes(this, exporter);
 				MesogleaRecipeProvider.buildRecipes(this, exporter);
-				FireflyBottleRecipeProvider.buildRecipes(this, exporter);
+				FireflyBottleRecipeProvider.buildRecipes(this, exporter, registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));
 				CopperHornRecipeProvider.buildRecipes(this, registries, exporter);
 				WWNaturalRecipeProvider.buildRecipes(this, exporter);
 				WWCookRecipeProvider.buildRecipes(this, exporter);

@@ -8,17 +8,13 @@
       "fabric:type": "fabric:components",
       "base": "wilderwild:firefly_bottle",
       "components": {
-        "wilderwild:bottle_entity_data": {
-          "FireflyBottleVariantTag": "wilderwild:on"
-        }
+        "wilderwild:firefly/color": "wilderwild:on"
       }
     }
   ],
   "result": {
     "components": {
-      "wilderwild:bottle_entity_data": {
-        "FireflyBottleVariantTag": "wilderwild:purple"
-      }
+      "wilderwild:firefly/color": "wilderwild:purple"
     },
     "count": 1,
     "id": "wilderwild:firefly_bottle"
