@@ -49,11 +49,13 @@ public abstract class V4067Mixin {
 		schema.registerSimple(map, "wilderwild:cypress_boat");
 		schema.registerSimple(map, "wilderwild:palm_boat");
 		schema.registerSimple(map, "wilderwild:maple_boat");
+		schema.registerSimple(map, "wilderwild:willow_boat");
 
 		this.registerChestBoat(map, "wilderwild:boabab_chest_boat");
 		this.registerChestBoat(map, "wilderwild:cypress_chest_boat");
 		this.registerChestBoat(map, "wilderwild:palm_chest_boat");
 		this.registerChestBoat(map, "wilderwild:maple_chest_boat");
+		this.registerChestBoat(map, "wilderwild:willow_chest_boat");
 		return map;
 	}
 
