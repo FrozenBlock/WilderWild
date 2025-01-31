@@ -239,7 +239,7 @@ public class PenguinAi {
 				Pair.of(0, PenguinMeetCaller.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> 1.35F,
+					entity -> 1.25F,
 					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.CALLER))
