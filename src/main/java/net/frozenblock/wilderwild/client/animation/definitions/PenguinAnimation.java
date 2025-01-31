@@ -251,10 +251,10 @@ public class PenguinAnimation {
 		))
 		.addAnimation("torso", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 			new Keyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
-		new Keyframe(0.125F, KeyframeAnimations.degreeVec(2.5F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
-		new Keyframe(0.3333F, KeyframeAnimations.degreeVec(-3F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
+		new Keyframe(0.125F, KeyframeAnimations.degreeVec(5F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
+		new Keyframe(0.3333F, KeyframeAnimations.degreeVec(-8F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(0.5F, KeyframeAnimations.degreeVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
-		new Keyframe(1.0417F, KeyframeAnimations.degreeVec(-5F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
+		new Keyframe(1.0417F, KeyframeAnimations.degreeVec(-12.5F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(1.625F, KeyframeAnimations.degreeVec(2.5F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(2.25F, KeyframeAnimations.degreeVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM)
 		))
@@ -287,5 +287,6 @@ public class PenguinAnimation {
 		new Keyframe(1.625F, KeyframeAnimations.degreeVec(0.6543F, -4.9571F, -25.0283F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(1.7917F, KeyframeAnimations.degreeVec(0F, 0F, -5F), AnimationChannel.Interpolations.CATMULLROM),
 		new Keyframe(2.5F, KeyframeAnimations.degreeVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM)
-		)).build();
+		))
+		.build();
 }
