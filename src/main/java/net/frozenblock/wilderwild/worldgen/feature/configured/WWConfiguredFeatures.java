@@ -1842,7 +1842,7 @@ public final class WWConfiguredFeatures {
 				new NoiseProvider(
 					5050L,
 					new NormalNoise.NoiseParameters(0, 1D),
-					0.048833334F,
+					0.088833334F,
 					List.of(
 						WWBlocks.RED_HIBISCUS.defaultBlockState(),
 						WWBlocks.RED_HIBISCUS.defaultBlockState(),
