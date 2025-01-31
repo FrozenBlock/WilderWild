@@ -21,13 +21,13 @@ package net.frozenblock.wilderwild.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.SculkSpreader;
 import org.jetbrains.annotations.NotNull;
 
 public final class SpreadSculkCommand {
@@ -77,7 +77,12 @@ public final class SpreadSculkCommand {
 	}
 
 	private static int spreadSculk(@NotNull CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
-		SculkSpreadTicker.createAndSpawn(WWEntityTypes.SCULK_SPREADER, source.getLevel(), pos, worldGen, charge);
+		SculkSpreader sculkSpreader = worldGen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
+		sculkSpreader.addCursors(pos, charge);
+		ServerLevel level = source.getLevel();
+		while (!sculkSpreader.getCursors().isEmpty()) {
+			sculkSpreader.updateCursors(level, pos, level.getRandom(), true);
+		}
 		source.sendSuccess(
 			() -> Component.translatable(
 				worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success",

@@ -32,7 +32,6 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Scorched;
-import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -128,14 +127,6 @@ public final class WWEntityTypes {
 			.clientTrackingRange(64)
 			.updateInterval(10)
 			.build(WWConstants.string("coconut"))
-	);
-
-	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
-		"sculk_spreader",
-		EntityType.Builder.<SculkSpreadTicker>of(SculkSpreadTicker::new, MobCategory.MISC)
-			.sized(0F, 0F)
-			.clientTrackingRange(0)
-			.build(WWConstants.string("sculk_spreader"))
 	);
 
 	public static final EntityType<FallingLeafTicker> FALLING_LEAVES = register(
