@@ -18,21 +18,24 @@
 
 package net.frozenblock.wilderwild.entity.variant.moobloom;
 
-import java.util.List;
+import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.minecraft.Util;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.variant.BiomeCheck;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -64,48 +67,44 @@ public final class MoobloomVariants {
 		@NotNull BootstrapContext<MoobloomVariant> bootstrapContext,
 		ResourceKey<MoobloomVariant> resourceKey,
 		@NotNull Block flowerBlock,
-		String textureName,
-		TagKey<Biome> biomes
+		String name,
+		TagKey<Biome> biomeTag
 	) {
-		ResourceLocation textureLocation = WWConstants.id("entity/moobloom/" + textureName);
+		String texturePath = "entity/moobloom/moobloom_" + name;
+		HolderSet<Biome> holderSet = bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomeTag);
 		bootstrapContext.register(
 			resourceKey,
 			new MoobloomVariant(
+				new ClientAsset(WWConstants.id(texturePath)),
 				flowerBlock.defaultBlockState(),
-				textureLocation,
-				bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomes)
+				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1)
 			)
 		);
 	}
 
-	public static Holder<MoobloomVariant> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder, RandomSource random) {
-		Registry<MoobloomVariant> registry = registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT);
-		List<Holder.Reference<MoobloomVariant>> variants = registry.listElements()
-			.filter(reference -> (reference.value()).biomes().contains(holder))
-			.toList();
-
-		if (!variants.isEmpty()) {
-			return Util.getRandom(variants, random);
-		} else {
-			return registry.getRandom(random).orElseThrow();
-		}
+	public static @NotNull Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(
+		RandomSource randomSource,
+		@NotNull RegistryAccess registryAccess,
+		SpawnContext spawnContext
+	) {
+		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).listElements(), Holder::value, randomSource, spawnContext);
 	}
 
 	public static void bootstrap(BootstrapContext<MoobloomVariant> bootstrapContext) {
-		register(bootstrapContext, DANDELION, Blocks.DANDELION, "moobloom_dandelion", WWBiomeTags.MOOBLOOM_DANDELION);
-		register(bootstrapContext, POPPY, Blocks.POPPY, "moobloom_poppy", WWBiomeTags.MOOBLOOM_POPPY);
-		register(bootstrapContext, AZURE_BLUET, Blocks.AZURE_BLUET, "moobloom_azure_bluet", WWBiomeTags.MOOBLOOM_AZURE_BLUET);
-		register(bootstrapContext, RED_TULIP, Blocks.RED_TULIP, "moobloom_red_tulip", WWBiomeTags.MOOBLOOM_RED_TULIP);
-		register(bootstrapContext, ORANGE_TULIP, Blocks.ORANGE_TULIP, "moobloom_orange_tulip", WWBiomeTags.MOOBLOOM_ORANGE_TULIP);
-		register(bootstrapContext, WHITE_TULIP, Blocks.WHITE_TULIP, "moobloom_white_tulip", WWBiomeTags.MOOBLOOM_WHITE_TULIP);
-		register(bootstrapContext, PINK_TULIP, Blocks.PINK_TULIP, "moobloom_pink_tulip", WWBiomeTags.MOOBLOOM_PINK_TULIP);
-		register(bootstrapContext, OXEYE_DAISY, Blocks.OXEYE_DAISY, "moobloom_oxeye_daisy", WWBiomeTags.MOOBLOOM_OXEYE_DAISY);
-		register(bootstrapContext, CORNFLOWER, Blocks.CORNFLOWER, "moobloom_cornflower", WWBiomeTags.MOOBLOOM_CORNFLOWER);
-		register(bootstrapContext, LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, "moobloom_lily_of_the_valley", WWBiomeTags.MOOBLOOM_LILY_OF_THE_VALLEY);
-		register(bootstrapContext, ALLIUM, Blocks.ALLIUM, "moobloom_allium", WWBiomeTags.MOOBLOOM_ALLIUM);
-		register(bootstrapContext, BLUE_ORCHID, Blocks.BLUE_ORCHID, "moobloom_blue_orchid", WWBiomeTags.MOOBLOOM_BLUE_ORCHID);
-		register(bootstrapContext, CARNATION, WWBlocks.CARNATION, "moobloom_carnation", WWBiomeTags.MOOBLOOM_CARNATION);
-		register(bootstrapContext, MARIGOLD, WWBlocks.MARIGOLD, "moobloom_marigold", WWBiomeTags.MOOBLOOM_MARIGOLD);
-		register(bootstrapContext, PASQUEFLOWER, WWBlocks.PASQUEFLOWER, "moobloom_pasqueflower", WWBiomeTags.MOOBLOOM_PASQUEFLOWER);
+		register(bootstrapContext, DANDELION, Blocks.DANDELION, "dandelion", WWBiomeTags.MOOBLOOM_DANDELION);
+		register(bootstrapContext, POPPY, Blocks.POPPY, "poppy", WWBiomeTags.MOOBLOOM_POPPY);
+		register(bootstrapContext, AZURE_BLUET, Blocks.AZURE_BLUET, "azure_bluet", WWBiomeTags.MOOBLOOM_AZURE_BLUET);
+		register(bootstrapContext, RED_TULIP, Blocks.RED_TULIP, "red_tulip", WWBiomeTags.MOOBLOOM_RED_TULIP);
+		register(bootstrapContext, ORANGE_TULIP, Blocks.ORANGE_TULIP, "orange_tulip", WWBiomeTags.MOOBLOOM_ORANGE_TULIP);
+		register(bootstrapContext, WHITE_TULIP, Blocks.WHITE_TULIP, "white_tulip", WWBiomeTags.MOOBLOOM_WHITE_TULIP);
+		register(bootstrapContext, PINK_TULIP, Blocks.PINK_TULIP, "pink_tulip", WWBiomeTags.MOOBLOOM_PINK_TULIP);
+		register(bootstrapContext, OXEYE_DAISY, Blocks.OXEYE_DAISY, "oxeye_daisy", WWBiomeTags.MOOBLOOM_OXEYE_DAISY);
+		register(bootstrapContext, CORNFLOWER, Blocks.CORNFLOWER, "cornflower", WWBiomeTags.MOOBLOOM_CORNFLOWER);
+		register(bootstrapContext, LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, "lily_of_the_valley", WWBiomeTags.MOOBLOOM_LILY_OF_THE_VALLEY);
+		register(bootstrapContext, ALLIUM, Blocks.ALLIUM, "allium", WWBiomeTags.MOOBLOOM_ALLIUM);
+		register(bootstrapContext, BLUE_ORCHID, Blocks.BLUE_ORCHID, "blue_orchid", WWBiomeTags.MOOBLOOM_BLUE_ORCHID);
+		register(bootstrapContext, CARNATION, WWBlocks.CARNATION, "carnation", WWBiomeTags.MOOBLOOM_CARNATION);
+		register(bootstrapContext, MARIGOLD, WWBlocks.MARIGOLD, "marigold", WWBiomeTags.MOOBLOOM_MARIGOLD);
+		register(bootstrapContext, PASQUEFLOWER, WWBlocks.PASQUEFLOWER, "pasqueflower", WWBiomeTags.MOOBLOOM_PASQUEFLOWER);
 	}
 }

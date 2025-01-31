@@ -1,6 +1,14 @@
 {
-  "biomes": "#wilderwild:entity/variant/pearlescent_jellyfish",
+  "asset_id": "wilderwild:entity/jellyfish/jellyfish_pearlescent_purple",
   "pearlescent": true,
   "reproduction_food": "#wilderwild:pearlescent_jellyfish_food",
-  "texture": "wilderwild:entity/jellyfish/jellyfish_pearlescent_purple"
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/pearlescent_jellyfish"
+      },
+      "priority": 1
+    }
+  ]
 }

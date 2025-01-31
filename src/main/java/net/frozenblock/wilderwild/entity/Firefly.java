@@ -28,8 +28,6 @@ import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
-import net.frozenblock.wilderwild.item.MobBottleItem;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -39,7 +37,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -74,14 +71,11 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
@@ -149,7 +143,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
 			this.setColor(fireflySpawnGroupData.color.value());
 		} else {
-			Optional<Holder.Reference<FireflyColor>> fireflyColorHolder = FireflyColors.selectVariantToSpawn(level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition()));
+			Optional<Holder.Reference<FireflyColor>> fireflyColorHolder = FireflyColors.selectVariantToSpawn(
+				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			);
 			if (fireflyColorHolder.isPresent()) {
 				spawnData = new FireflySpawnGroupData(fireflyColorHolder.get());
 				this.setColor(fireflyColorHolder.get().value());

@@ -23,7 +23,10 @@ import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -52,6 +55,18 @@ public final class WWDataComponents {
 	public static final DataComponentType<Holder<ButterflyVariant>> BUTTERFLY_VARIANT = register(
 		"butterfly/variant",
 		builder -> builder.persistent(ButterflyVariant.CODEC).networkSynchronized(ButterflyVariant.STREAM_CODEC)
+	);
+	public static final DataComponentType<Holder<CrabVariant>> CRAB_VARIANT = register(
+		"crab/variant",
+		builder -> builder.persistent(CrabVariant.CODEC).networkSynchronized(CrabVariant.STREAM_CODEC)
+	);
+	public static final DataComponentType<Holder<JellyfishVariant>> JELLYFISH_VARIANT = register(
+		"jellyfish/variant",
+		builder -> builder.persistent(JellyfishVariant.CODEC).networkSynchronized(JellyfishVariant.STREAM_CODEC)
+	);
+	public static final DataComponentType<Holder<MoobloomVariant>> MOOBLOOM_VARIANT = register(
+		"moobloom/variant",
+		builder -> builder.persistent(MoobloomVariant.CODEC).networkSynchronized(MoobloomVariant.STREAM_CODEC)
 	);
 
 	public static void init() {}

@@ -34,6 +34,7 @@ import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -43,6 +44,8 @@ import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -85,6 +88,8 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -236,20 +241,26 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public SpawnGroupData finalizeSpawn(
 		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData
 	) {
-		JellyfishGroupData jellyfishGroupData;
+		JellyfishGroupData jellyfishGroupData = null;
 		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
 			this.setVariant(jellyGroupData.variant.value());
 			jellyfishGroupData = jellyGroupData;
 		} else {
-			Holder<Biome> holder = level.getBiome(this.blockPosition());
-			Holder<JellyfishVariant> jellyfishVariantHolder = JellyfishVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
-			spawnData = jellyfishGroupData = new JellyfishGroupData(true, jellyfishVariantHolder);
-			this.setVariant(jellyfishVariantHolder.value());
+			Optional<Holder.Reference<JellyfishVariant>> optionalJellyfishVariantReference = JellyfishVariants.selectVariantToSpawn(
+				level.getRandom(), level.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			);
+			if (optionalJellyfishVariantReference.isPresent()) {
+				spawnData = jellyfishGroupData = new JellyfishGroupData(true, optionalJellyfishVariantReference.get());
+				this.setVariant(optionalJellyfishVariantReference.get().value());
+			}
 		}
-		if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
-			this.setBaby(true);
+
+		if (jellyfishGroupData != null) {
+			if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
+				this.setBaby(true);
+			}
+			jellyfishGroupData.increaseGroupSizeByOne();
 		}
-		jellyfishGroupData.increaseGroupSizeByOne();
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
 
@@ -762,11 +773,36 @@ public class Jellyfish extends NoFlopAbstractFish {
 		);
 	}
 
+	@Nullable
+	@Override
+	public <T> T get(DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) {
+			return castComponentValue(dataComponentType, this.getVariantAsHolder());
+		}
+		return super.get(dataComponentType);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.JELLYFISH_VARIANT);
+		super.applyImplicitComponents(dataComponentGetter);
+	}
+
+	@Override
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) {
+			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT, object).value());
+			return true;
+		} else {
+			return super.applyImplicitComponent(dataComponentType, object);
+		}
+	}
+
 	@Override
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			compoundTag.putString("variant", this.getVariantLocation().toString());
+			VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
 			compoundTag.putBoolean("canReproduce", this.canReproduce());
 			compoundTag.putInt("fullness", this.fullness);
 			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
@@ -777,28 +813,26 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void loadFromBucketTag(@NotNull CompoundTag tag) {
-		Bucketable.loadDefaultDataFromBucketTag(this, tag);
+	public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+		Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
 
-		Optional.ofNullable(ResourceLocation.tryParse(tag.getString("variant")))
-			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.JELLYFISH_VARIANT, resourceLocation))
-			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).get(resourceKey))
-			.ifPresent(reference -> this.setVariant(reference.value()));
+		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.JELLYFISH_VARIANT)
+			.ifPresent(variant -> this.setVariant(variant.value()));
 
-		if (tag.contains("canReproduce")) {
-			this.setCanReproduce(tag.getBoolean("canReproduce"));
+		if (compoundTag.contains("canReproduce")) {
+			this.setCanReproduce(compoundTag.getBoolean("canReproduce"));
 		}
-		this.fullness = tag.getInt("fullness");
-		this.reproductionCooldown = tag.getInt("reproductionCooldown");
-		this.setAge(tag.getInt("age"));
-		this.forcedAge = tag.getInt("forcedAge");
-		this.setBaby(tag.getBoolean("isBaby"));
+		this.fullness = compoundTag.getInt("fullness");
+		this.reproductionCooldown = compoundTag.getInt("reproductionCooldown");
+		this.setAge(compoundTag.getInt("age"));
+		this.forcedAge = compoundTag.getInt("forcedAge");
+		this.setBaby(compoundTag.getBoolean("isBaby"));
 	}
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
-		compoundTag.putString("variant", this.getVariantLocation().toString());
+		VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
 		compoundTag.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
 		compoundTag.putBoolean("canReproduce", this.canReproduce());
 		compoundTag.putInt("fullness", this.fullness);
@@ -812,10 +846,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
 
-		Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("variant")))
-			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.JELLYFISH_VARIANT, resourceLocation))
-			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).get(resourceKey))
-			.ifPresent(reference -> this.setVariant(reference.value()));
+		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.JELLYFISH_VARIANT)
+			.ifPresent(variant -> this.setVariant(variant.value()));
 
 		this.ticksSinceSpawn = compoundTag.getInt("ticksSinceSpawn");
 		if (compoundTag.contains("canReproduce")) this.setCanReproduce(compoundTag.getBoolean("canReproduce"));

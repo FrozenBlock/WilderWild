@@ -1,7 +1,15 @@
 {
-  "biomes": "#wilderwild:entity/variant/moobloom_orange_tulip",
+  "asset_id": "wilderwild:entity/moobloom/moobloom_orange_tulip",
   "flower_block_state": {
     "Name": "minecraft:orange_tulip"
   },
-  "texture": "wilderwild:entity/moobloom/moobloom_orange_tulip"
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/moobloom_orange_tulip"
+      },
+      "priority": 1
+    }
+  ]
 }

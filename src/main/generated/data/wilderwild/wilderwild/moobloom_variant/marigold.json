@@ -1,7 +1,15 @@
 {
-  "biomes": "#wilderwild:entity/variant/moobloom_marigold",
+  "asset_id": "wilderwild:entity/moobloom/moobloom_marigold",
   "flower_block_state": {
     "Name": "wilderwild:marigold"
   },
-  "texture": "wilderwild:entity/moobloom/moobloom_marigold"
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/moobloom_marigold"
+      },
+      "priority": 1
+    }
+  ]
 }

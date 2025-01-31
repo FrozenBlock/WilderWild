@@ -1,7 +1,15 @@
 {
-  "biomes": "#wilderwild:entity/variant/moobloom_lily_of_the_valley",
+  "asset_id": "wilderwild:entity/moobloom/moobloom_lily_of_the_valley",
   "flower_block_state": {
     "Name": "minecraft:lily_of_the_valley"
   },
-  "texture": "wilderwild:entity/moobloom/moobloom_lily_of_the_valley"
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/moobloom_lily_of_the_valley"
+      },
+      "priority": 1
+    }
+  ]
 }

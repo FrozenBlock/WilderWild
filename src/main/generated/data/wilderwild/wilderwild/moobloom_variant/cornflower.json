@@ -1,7 +1,15 @@
 {
-  "biomes": "#wilderwild:entity/variant/moobloom_cornflower",
+  "asset_id": "wilderwild:entity/moobloom/moobloom_cornflower",
   "flower_block_state": {
     "Name": "minecraft:cornflower"
   },
-  "texture": "wilderwild:entity/moobloom/moobloom_cornflower"
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/moobloom_cornflower"
+      },
+      "priority": 1
+    }
+  ]
 }

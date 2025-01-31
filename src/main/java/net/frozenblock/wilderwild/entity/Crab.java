@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabNavigation;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -51,6 +52,8 @@ import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -101,6 +104,8 @@ import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Explosion;
@@ -280,14 +285,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			}
 		}
 
-		Holder<Biome> holder = level.getBiome(this.blockPosition());
 		if (spawnData instanceof CrabSpawnGroupData crabGroupData) {
 			if (crabGroupData.getGroupSize() >= 2) this.setAge(-24000);
 			this.setVariant(crabGroupData.type.value());
 		} else {
-			Holder<CrabVariant> crabVariantHolder = CrabVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
-			spawnData = new CrabSpawnGroupData(crabVariantHolder);
-			this.setVariant(crabVariantHolder.value());
+			Optional<Holder.Reference<CrabVariant>> optionalCrabVariantReference = CrabVariants.selectVariantToSpawn(
+				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			);
+			if (optionalCrabVariantReference.isPresent()) {
+				spawnData = new CrabSpawnGroupData(optionalCrabVariantReference.get());
+				this.setVariant(optionalCrabVariantReference.get().value());
+			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
@@ -535,7 +543,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel level, @NotNull Entity target) {
+	public boolean doHurtTarget(@NotNull ServerLevel level, @NotNull Entity target) {
 		level.broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
 		this.playSound(WWSounds.ENTITY_CRAB_ATTACK, this.getSoundVolume(), this.getVoicePitch());
 		return super.doHurtTarget(level, target);
@@ -766,28 +774,52 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
+	@Nullable
+	@Override
+	public <T> T get(DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.CRAB_VARIANT) {
+			return castComponentValue(dataComponentType, this.getVariantAsHolder());
+		}
+		return super.get(dataComponentType);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.CRAB_VARIANT);
+		super.applyImplicitComponents(dataComponentGetter);
+	}
+
+	@Override
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+		if (dataComponentType == WWDataComponents.CRAB_VARIANT) {
+			this.setVariant(castComponentValue(WWDataComponents.CRAB_VARIANT, object).value());
+			return true;
+		} else {
+			return super.applyImplicitComponent(dataComponentType, object);
+		}
+	}
+
 	@Override
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			compoundTag.putString("Variant", this.getVariantLocation().toString());
+			VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
 			compoundTag.putInt("Age", this.getAge());
 			Brain<Crab> brain = this.getBrain();
 			if (brain.hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN)) {
 				compoundTag.putLong("HuntingCooldown", brain.getTimeUntilExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN));
 			}
 		});
+		stack.copyFrom(WWDataComponents.CRAB_VARIANT, this);
 	}
 
 	@Override
-	public void loadFromBucketTag(@NotNull CompoundTag tag) {
-		Bucketable.loadDefaultDataFromBucketTag(this, tag);
-		if (tag.contains("Age")) this.setAge(tag.getInt("Age"));
-		if (tag.contains("HuntingCooldown")) this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, tag.getLong("HuntingCooldown"));
-		Optional.ofNullable(ResourceLocation.tryParse(tag.getString("Variant")))
-			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, resourceLocation))
-			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(resourceKey))
-			.ifPresent(reference -> this.setVariant(reference.value()));
+	public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+		Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+		if (compoundTag.contains("Age")) this.setAge(compoundTag.getInt("Age"));
+		if (compoundTag.contains("HuntingCooldown")) this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, compoundTag.getLong("HuntingCooldown"));
+		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.CRAB_VARIANT)
+			.ifPresent(variant -> this.setVariant(variant.value()));
 	}
 
 	@Override
@@ -857,51 +889,49 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putString("variant", this.getVariantLocation().toString());
-		compound.putBoolean("FromBucket", this.fromBucket());
-		compound.putInt("DigTicks", this.getDiggingTicks());
-		compound.putString("EntityPose", this.getPose().name());
-		compound.putDouble("PrevX", this.prevMovement.x);
-		compound.putDouble("PrevY", this.prevMovement.y);
-		compound.putDouble("PrevZ", this.prevMovement.z);
-		compound.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
-		compound.putString("ClimbingFace", this.getClimbingFace().name());
-		compound.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
-		compound.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
+	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+		super.addAdditionalSaveData(compoundTag);
+		compoundTag.putString("variant", this.getVariantLocation().toString());
+		compoundTag.putBoolean("FromBucket", this.fromBucket());
+		compoundTag.putInt("DigTicks", this.getDiggingTicks());
+		compoundTag.putString("EntityPose", this.getPose().name());
+		compoundTag.putDouble("PrevX", this.prevMovement.x);
+		compoundTag.putDouble("PrevY", this.prevMovement.y);
+		compoundTag.putDouble("PrevZ", this.prevMovement.z);
+		compoundTag.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
+		compoundTag.putString("ClimbingFace", this.getClimbingFace().name());
+		compoundTag.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
+		compoundTag.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
 
 		RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
 		VibrationSystem.Data.CODEC
 			.encodeStart(registryOps, this.vibrationData)
 			.resultOrPartial(string -> WWConstants.LOGGER.error("Failed to encode vibration listener for Crab: '{}'", string))
-			.ifPresent(tag -> compound.put("listener", tag));
+			.ifPresent(tag -> compoundTag.put("listener", tag));
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		Optional.ofNullable(ResourceLocation.tryParse(compound.getString("variant")))
-			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, resourceLocation))
-			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(resourceKey))
-			.ifPresent(reference -> this.setVariant(reference.value()));
-		this.setFromBucket(compound.getBoolean("FromBucket"));
-		this.setDiggingTicks(compound.getInt("DigTicks"));
-		if (compound.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose"))))) {
-			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
+	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+		super.readAdditionalSaveData(compoundTag);
+		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.CRAB_VARIANT)
+			.ifPresent(variant -> this.setVariant(variant.value()));
+		this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+		this.setDiggingTicks(compoundTag.getInt("DigTicks"));
+		if (compoundTag.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compoundTag.getString("EntityPose"))))) {
+			this.setPose(Pose.valueOf(compoundTag.getString("EntityPose")));
 		}
-		this.prevMovement = new Vec3(compound.getDouble("PrevX"), compound.getDouble("PrevY"), compound.getDouble("PrevZ"));
-		this.cancelMovementToDescend = compound.getBoolean("CancelMovementToDescend");
-		if (compound.contains("ClimbingFace") && (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(compound.getString("ClimbingFace"))))) {
-			this.setClimbingFace(ClimbingFace.valueOf(compound.getString("ClimbingFace")).direction);
+		this.prevMovement = new Vec3(compoundTag.getDouble("PrevX"), compoundTag.getDouble("PrevY"), compoundTag.getDouble("PrevZ"));
+		this.cancelMovementToDescend = compoundTag.getBoolean("CancelMovementToDescend");
+		if (compoundTag.contains("ClimbingFace") && (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(compoundTag.getString("ClimbingFace"))))) {
+			this.setClimbingFace(ClimbingFace.valueOf(compoundTag.getString("ClimbingFace")).direction);
 		}
-		this.setTargetClimbAnimX(compound.getFloat("TargetClimbAnimX"));
-		this.setTargetClimbAnimAmount(compound.getFloat("TargetClimbAnimAmount"));
+		this.setTargetClimbAnimX(compoundTag.getFloat("TargetClimbAnimX"));
+		this.setTargetClimbAnimAmount(compoundTag.getFloat("TargetClimbAnimAmount"));
 
-		if (compound.contains("listener", 10)) {
+		if (compoundTag.contains("listener", 10)) {
 			RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
 			VibrationSystem.Data.CODEC
-				.parse(new Dynamic<>(registryOps, compound.getCompound("listener")))
+				.parse(new Dynamic<>(registryOps, compoundTag.getCompound("listener")))
 				.resultOrPartial(string -> WWConstants.LOGGER.error("Failed to decode vibration listener for Warden: '{}'", string))
 				.ifPresent(data -> this.vibrationData = data);
 		}

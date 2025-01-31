@@ -163,7 +163,9 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		if (spawnData instanceof ButterflySpawnGroupData butterflySpawnGroupData) {
 			this.setVariant(butterflySpawnGroupData.type.value());
 		} else {
-			Optional<Holder.Reference<ButterflyVariant>> butterflyVariantHolder = ButterflyVariants.selectVariantToSpawn(level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition()));
+			Optional<Holder.Reference<ButterflyVariant>> butterflyVariantHolder = ButterflyVariants.selectVariantToSpawn(
+				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			);
 			if (butterflyVariantHolder.isPresent()) {
 				spawnData = new ButterflySpawnGroupData(butterflyVariantHolder.get());
 				this.setVariant(butterflyVariantHolder.get().value());

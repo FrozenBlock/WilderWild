@@ -20,50 +20,66 @@ package net.frozenblock.wilderwild.entity.variant.jellyfish;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Objects;
+import java.util.List;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.core.ClientAsset;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
-public final class JellyfishVariant {
+public final class JellyfishVariant implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<JellyfishVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ResourceLocation.CODEC.fieldOf("texture").forGetter(jellyfishVariant -> jellyfishVariant.texture),
-			Codec.BOOL.fieldOf("pearlescent").forGetter(jellyfishVariant -> jellyfishVariant.pearlescent),
-			RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(JellyfishVariant::biomes),
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::assetInfo),
+			Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::isPearlescent),
+			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(JellyfishVariant::spawnConditions),
 			RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::getReproductionFood)
 		).apply(instance, JellyfishVariant::new)
 	);
+	public static final Codec<JellyfishVariant> NETWORK_CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::assetInfo),
+			Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::isPearlescent),
+			RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::getReproductionFood)
+		).apply(instance, JellyfishVariant::new)
+	);
+	public static final Codec<Holder<JellyfishVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.JELLYFISH_VARIANT);
+	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<JellyfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.JELLYFISH_VARIANT);
 
-	private final ResourceLocation texture;
-	private final ResourceLocation textureFull;
+	private final ClientAsset clientAsset;
 	private final boolean pearlescent;
-	private final HolderSet<Biome> biomes;
+	private final SpawnPrioritySelectors spawnConditions;
 	private final HolderSet<Item> reproductionFood;
 
-	public JellyfishVariant(@NotNull ResourceLocation texture, boolean pearlescent, HolderSet<Biome> biomes, HolderSet<Item> reproductionFood) {
-		this.texture = texture;
-		this.textureFull = fullTextureId(texture);
+	public JellyfishVariant(ClientAsset clientAsset, boolean pearlescent, SpawnPrioritySelectors spawnConditions, HolderSet<Item> reproductionFood) {
+		this.clientAsset = clientAsset;
 		this.pearlescent = pearlescent;
-		this.biomes = biomes;
+		this.spawnConditions = spawnConditions;
 		this.reproductionFood = reproductionFood;
 	}
 
-	private static @NotNull ResourceLocation fullTextureId(@NotNull ResourceLocation resourceLocation) {
-		return resourceLocation.withPath(string -> "textures/" + string + ".png");
+	private JellyfishVariant(ClientAsset clientAsset, boolean pearlescent, HolderSet<Item> reproductionFood) {
+		this(clientAsset, pearlescent, SpawnPrioritySelectors.EMPTY, reproductionFood);
 	}
 
 	@NotNull
-	public ResourceLocation texture() {
-		return this.textureFull;
+	public ClientAsset assetInfo() {
+		return this.clientAsset;
 	}
 
-	public HolderSet<Biome> biomes() {
-		return this.biomes;
+	public SpawnPrioritySelectors spawnConditions() {
+		return this.spawnConditions;
 	}
 
 	public boolean isPearlescent() {
@@ -75,23 +91,7 @@ public final class JellyfishVariant {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (object == this) {
-			return true;
-		} else {
-			return object instanceof JellyfishVariant jellyfishVariant && Objects.equals(this.texture, jellyfishVariant.texture)
-				&& this.pearlescent == jellyfishVariant.pearlescent
-				&& Objects.equals(this.biomes, jellyfishVariant.biomes)
-				&& Objects.equals(this.reproductionFood, jellyfishVariant.reproductionFood);
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		int i = 1;
-		i = 31 * i + this.texture.hashCode();
-		i = 31 * i + Boolean.hashCode(this.pearlescent);
-		i = 31 * i + this.biomes.hashCode();
-		return 31 * i + this.reproductionFood.hashCode();
+	public @NotNull List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> selectors() {
+		return this.spawnConditions.selectors();
 	}
 }

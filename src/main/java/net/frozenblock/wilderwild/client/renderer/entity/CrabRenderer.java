@@ -82,7 +82,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.hidingAnimationState.copyFrom(entity.hidingAnimationState);
 		renderState.diggingAnimationState.copyFrom(entity.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(entity.emergingAnimationState);
-		renderState.texture = entity.getVariantForRendering().texture();
+		renderState.texture = entity.getVariantForRendering().assetInfo().texturePath();
 	}
 }
 

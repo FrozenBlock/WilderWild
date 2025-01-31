@@ -75,7 +75,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull JellyfishRenderState renderState) {
 		if (renderState.isRGB) return WHITE_TEXTURE;
-		return renderState.variant.texture();
+		return renderState.variant.assetInfo().texturePath();
 	}
 
 	@Override

@@ -25,19 +25,21 @@ import java.util.stream.Stream;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -54,6 +56,8 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +68,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -99,13 +102,16 @@ public class FlowerCow extends Cow implements Shearable {
 	public @NotNull SpawnGroupData finalizeSpawn(
 		@NotNull ServerLevelAccessor level, DifficultyInstance difficultyInstance, EntitySpawnReason reason, @Nullable SpawnGroupData spawnGroupData
 	) {
-		Holder<Biome> holder = level.getBiome(this.blockPosition());
 		if (spawnGroupData instanceof FlowerCowSpawnGroupData flowerCowSpawnGroupData) {
 			this.setVariant(flowerCowSpawnGroupData.type.value());
 		} else {
-			Holder<MoobloomVariant> moobloomVariantHolder = MoobloomVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
-			spawnGroupData = new FlowerCowSpawnGroupData(moobloomVariantHolder);
-			this.setVariant(moobloomVariantHolder.value());
+			Optional<Holder.Reference<MoobloomVariant>> optionalMoobloomVariantReference = MoobloomVariants.selectVariantToSpawn(
+				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			);
+			if (optionalMoobloomVariantReference.isPresent()) {
+				spawnGroupData = new FlowerCowSpawnGroupData(optionalMoobloomVariantReference.get());
+				this.setVariant(optionalMoobloomVariantReference.get().value());
+			}
 		}
 
 		return super.finalizeSpawn(level, difficultyInstance, reason, spawnGroupData);
@@ -201,21 +207,43 @@ public class FlowerCow extends Cow implements Shearable {
 		super.onSyncedDataUpdated(key);
 	}
 
+	@Nullable
+	@Override
+	public <T> T get(DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.MOOBLOOM_VARIANT) {
+			return castComponentValue(dataComponentType, this.getVariantAsHolder());
+		}
+		return super.get(dataComponentType);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.MOOBLOOM_VARIANT);
+		super.applyImplicitComponents(dataComponentGetter);
+	}
+
+	@Override
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+		if (dataComponentType == WWDataComponents.MOOBLOOM_VARIANT) {
+			this.setVariant(castComponentValue(WWDataComponents.MOOBLOOM_VARIANT, object).value());
+			return true;
+		} else {
+			return super.applyImplicitComponent(dataComponentType, object);
+		}
+	}
+
 	@Override
 	public void addAdditionalSaveData(CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
-		compoundTag.putString("variant", this.getVariantLocation().toString());
+		VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
 		compoundTag.putInt("FlowersLeft", this.getFlowersLeft());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
-		Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("variant")))
-			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.MOOBLOOM_VARIANT, resourceLocation))
-			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).get(resourceKey))
-			.ifPresent(reference -> this.setVariant(reference.value()));
-
+		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.MOOBLOOM_VARIANT)
+			.ifPresent(variant -> this.setVariant(variant.value()));
 		if (compoundTag.contains("FlowersLeft")) this.setFlowersLeft(compoundTag.getInt("FlowersLeft"));
 	}
 

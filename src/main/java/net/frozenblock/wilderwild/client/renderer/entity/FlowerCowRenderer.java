@@ -50,7 +50,7 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 		renderState.flowers = flowerCow.getFlowersLeft();
 
 		MoobloomVariant variant = flowerCow.getVariantForRendering();
-		renderState.texture = variant.texture();
+		renderState.texture = variant.assetInfo().texturePath();
 		renderState.flowerBlockState = variant.getFlowerBlockState();
 	}
 

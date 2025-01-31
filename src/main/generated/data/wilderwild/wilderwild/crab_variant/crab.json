@@ -1,4 +1,12 @@
 {
-  "biomes": [],
-  "texture": "wilderwild:entity/crab/crab"
+  "asset_id": "wilderwild:entity/crab/crab",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": []
+      },
+      "priority": 1
+    }
+  ]
 }

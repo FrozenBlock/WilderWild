@@ -20,70 +20,70 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Objects;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
+import java.util.List;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.core.ClientAsset;
+import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public final class MoobloomVariant {
+public final class MoobloomVariant implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::assetInfo),
 			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::getFlowerBlockState),
-			ResourceLocation.CODEC.fieldOf("texture").forGetter(moobloomVariant -> moobloomVariant.texture),
-			RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(MoobloomVariant::biomes)
+			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(MoobloomVariant::spawnConditions)
 		).apply(instance, MoobloomVariant::new)
 	);
+	public static final Codec<MoobloomVariant> NETWORK_CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::assetInfo),
+			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::getFlowerBlockState)
+		).apply(instance, MoobloomVariant::new)
+	);
+	public static final Codec<Holder<MoobloomVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.MOOBLOOM_VARIANT);
+	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<MoobloomVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT);
 
+
+	private final ClientAsset clientAsset;
 	private final BlockState flowerBlockState;
-	private final ResourceLocation texture;
-	private final ResourceLocation textureFull;
-	private final HolderSet<Biome> biomes;
+	private final SpawnPrioritySelectors spawnConditions;
 
-	public MoobloomVariant(BlockState flowerBlockState, @NotNull ResourceLocation texture, HolderSet<Biome> biomes) {
+
+	public MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState, SpawnPrioritySelectors spawnConditions) {
+		this.clientAsset = clientAsset;
 		this.flowerBlockState = flowerBlockState;
-		this.texture = texture;
-		this.textureFull = fullTextureId(texture);
-		this.biomes = biomes;
+		this.spawnConditions = spawnConditions;
 	}
 
-	private static @NotNull ResourceLocation fullTextureId(@NotNull ResourceLocation resourceLocation) {
-		return resourceLocation.withPath(string -> "textures/" + string + ".png");
+	private MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState) {
+		this(clientAsset, flowerBlockState, SpawnPrioritySelectors.EMPTY);
+	}
+
+	@NotNull
+	public ClientAsset assetInfo() {
+		return this.clientAsset;
 	}
 
 	public BlockState getFlowerBlockState() {
 		return this.flowerBlockState;
 	}
 
-	@NotNull
-	public ResourceLocation texture() {
-		return this.textureFull;
-	}
-
-	public HolderSet<Biome> biomes() {
-		return this.biomes;
+	public SpawnPrioritySelectors spawnConditions() {
+		return this.spawnConditions;
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (object == this) {
-			return true;
-		} else {
-			return object instanceof MoobloomVariant moobloomVariant && Objects.equals(this.texture, moobloomVariant.texture)
-				&& Objects.equals(this.flowerBlockState, moobloomVariant.flowerBlockState)
-				&& Objects.equals(this.biomes, moobloomVariant.biomes);
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		int i = 1;
-		i = 31 * i + this.texture.hashCode();
-		i = 31 * i + this.flowerBlockState.hashCode();
-		return 31 * i + this.biomes.hashCode();
+	public @NotNull List<Selector<SpawnContext, SpawnCondition>> selectors() {
+		return this.spawnConditions.selectors();
 	}
 
 }

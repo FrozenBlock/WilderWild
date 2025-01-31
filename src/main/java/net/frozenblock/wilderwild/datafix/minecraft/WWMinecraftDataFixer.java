@@ -80,6 +80,26 @@ public final class WWMinecraftDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
 		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV5);
 
+		// Unimplemented by Mojang currently, waiting for them to implement proper MobBucket component usage.
+		/*
+		builder.addFixer(
+			new MobBucketVariantComponentizationFix(
+				schemaVFuture,
+				"Crab Bucket Variant componentization fix",
+				WWConstants.id("crab_bucket"),
+				WWConstants.string("crab/variant")
+			)
+		);
+		builder.addFixer(
+			new MobBucketVariantComponentizationFix(
+				schemaVFuture,
+				"Jellyfish Bucket Variant componentization fix",
+				WWConstants.id("jellyfish_bucket"),
+				WWConstants.string("jellyfish/variant")
+			)
+		);
+		 */
+
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
 	}

@@ -18,21 +18,24 @@
 
 package net.frozenblock.wilderwild.entity.variant.jellyfish;
 
-import java.util.List;
+import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
-import net.minecraft.Util;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.variant.BiomeCheck;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -54,44 +57,40 @@ public final class JellyfishVariants {
 	private static void register(
 		@NotNull BootstrapContext<JellyfishVariant> bootstrapContext,
 		ResourceKey<JellyfishVariant> resourceKey,
-		String textureName,
+		String name,
 		boolean pearlescent,
-		TagKey<Biome> biomes,
+		TagKey<Biome> biomeTag,
 		TagKey<Item> items
 	) {
-		ResourceLocation textureLocation = WWConstants.id("entity/jellyfish/" + textureName);
+		String texturePath = "entity/jellyfish/jellyfish_" + name;
+		HolderSet<Biome> holderSet = bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomeTag);
 		bootstrapContext.register(
 			resourceKey,
 			new JellyfishVariant(
-				textureLocation,
+				new ClientAsset(WWConstants.id(texturePath)),
 				pearlescent,
-				bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomes),
+				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1),
 				bootstrapContext.lookup(Registries.ITEM).getOrThrow(items)
 			)
 		);
 	}
 
-	public static Holder<JellyfishVariant> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder, RandomSource random) {
-		Registry<JellyfishVariant> registry = registryAccess.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT);
-		List<Holder.Reference<JellyfishVariant>> variants = registry.listElements()
-			.filter(reference -> (reference.value()).biomes().contains(holder))
-			.toList();
-
-		if (!variants.isEmpty()) {
-			return Util.getRandom(variants, random);
-		} else {
-			return registry.get(DEFAULT).orElse(registry.getRandom(random).orElseThrow());
-		}
+	public static @NotNull Optional<Holder.Reference<JellyfishVariant>> selectVariantToSpawn(
+		RandomSource randomSource,
+		@NotNull RegistryAccess registryAccess,
+		SpawnContext spawnContext
+	) {
+		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).listElements(), Holder::value, randomSource, spawnContext);
 	}
 
 	public static void bootstrap(BootstrapContext<JellyfishVariant> bootstrapContext) {
-		register(bootstrapContext, BLUE, "jellyfish_blue", false, WWBiomeTags.BLUE_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(bootstrapContext, LIME, "jellyfish_lime", false, WWBiomeTags.LIME_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(bootstrapContext, PINK, "jellyfish_pink", false, WWBiomeTags.PINK_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(bootstrapContext, RED, "jellyfish_red", false, WWBiomeTags.RED_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(bootstrapContext, YELLOW, "jellyfish_yellow", false, WWBiomeTags.YELLOW_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(bootstrapContext, BLUE, "blue", false, WWBiomeTags.BLUE_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(bootstrapContext, LIME, "lime", false, WWBiomeTags.LIME_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(bootstrapContext, PINK, "pink", false, WWBiomeTags.PINK_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(bootstrapContext, RED, "red", false, WWBiomeTags.RED_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(bootstrapContext, YELLOW, "yellow", false, WWBiomeTags.YELLOW_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
 
-		register(bootstrapContext, PEARLESCENT_BLUE, "jellyfish_pearlescent_blue", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
-		register(bootstrapContext, PEARLESCENT_PURPLE, "jellyfish_pearlescent_purple", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
+		register(bootstrapContext, PEARLESCENT_BLUE, "pearlescent_blue", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
+		register(bootstrapContext, PEARLESCENT_PURPLE, "pearlescent_purple", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
 	}
 }
