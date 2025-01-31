@@ -33,14 +33,12 @@ public class BoatSplitFixMixin {
 		cancellable = true
 	)
 	private static void wilderWild$mapVariantToNormalBoat(String string, CallbackInfoReturnable<String> info) {
-		if (string.equals("wilderwildbaobab")) {
-			info.setReturnValue("wilderwild:baobab_boat");
-		} else if (string.equals("wilderwildcypress")) {
-			info.setReturnValue("wilderwild:cypress_boat");
-		} else if (string.equals("wilderwildpalm")) {
-			info.setReturnValue("wilderwild:palm_boat");
-		} else if (string.equals("wilderwildmaple")) {
-			info.setReturnValue("wilderwild:maple_boat");
+		switch (string) {
+			case "wilderwildbaobab" -> info.setReturnValue("wilderwild:baobab_boat");
+			case "wilderwildcypress" -> info.setReturnValue("wilderwild:cypress_boat");
+			case "wilderwildpalm" -> info.setReturnValue("wilderwild:palm_boat");
+			case "wilderwildmaple" -> info.setReturnValue("wilderwild:maple_boat");
+			case "wilderwildwillow" -> info.setReturnValue("wilderwild:willow_boat");
 		}
 	}
 
@@ -50,14 +48,12 @@ public class BoatSplitFixMixin {
 		cancellable = true
 	)
 	private static void wilderWild$mapVariantToChestBoat(String string, CallbackInfoReturnable<String> info) {
-		if (string.equals("wilderwildbaobab")) {
-			info.setReturnValue("wilderwild:baobab_chest_boat");
-		} else if (string.equals("wilderwildcypress")) {
-			info.setReturnValue("wilderwild:cypress_chest_boat");
-		} else if (string.equals("wilderwildpalm")) {
-			info.setReturnValue("wilderwild:palm_chest_boat");
-		} else if (string.equals("wilderwildmaple")) {
-			info.setReturnValue("wilderwild:maple_chest_boat");
+		switch (string) {
+			case "wilderwildbaobab" -> info.setReturnValue("wilderwild:baobab_chest_boat");
+			case "wilderwildcypress" -> info.setReturnValue("wilderwild:cypress_chest_boat");
+			case "wilderwildpalm" -> info.setReturnValue("wilderwild:palm_chest_boat");
+			case "wilderwildmaple" -> info.setReturnValue("wilderwild:maple_chest_boat");
+			case "wilderwildwillow" -> info.setReturnValue("wilderwild:willow_chest_boat");
 		}
 	}
 
