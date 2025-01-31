@@ -2743,7 +2743,7 @@
     ],
     "subtitle": "subtitles.entity.penguin.idle"
   },
-  "entity.penguin.idle_call": {
+  "entity.penguin.call": {
     "sounds": [
       "wilderwild:mob/penguin/call1",
       "wilderwild:mob/penguin/call2",
@@ -2753,7 +2753,7 @@
       "wilderwild:mob/penguin/call6",
       "wilderwild:mob/penguin/call7"
     ],
-    "subtitle": "subtitles.entity.penguin.idle"
+    "subtitle": "subtitles.entity.penguin.call"
   },
   "entity.scorched.ambient": {
     "sounds": [

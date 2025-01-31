@@ -1912,11 +1912,14 @@ public final class WWConfiguredFeatures {
 				new NoiseProvider(
 					5050L,
 					new NormalNoise.NoiseParameters(0, 1D),
-					0.048833334F,
+					0.088833334F,
 					List.of(
+						WWBlocks.RED_HIBISCUS.defaultBlockState(),
+						WWBlocks.RED_HIBISCUS.defaultBlockState(),
 						WWBlocks.YELLOW_HIBISCUS.defaultBlockState(),
 						WWBlocks.WHITE_HIBISCUS.defaultBlockState(),
 						WWBlocks.PINK_HIBISCUS.defaultBlockState(),
+						WWBlocks.PURPLE_HIBISCUS.defaultBlockState(),
 						WWBlocks.PURPLE_HIBISCUS.defaultBlockState()
 					)
 				)
@@ -1932,7 +1935,7 @@ public final class WWConfiguredFeatures {
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				10,
+				16,
 				hibiscusNoise
 			)
 		);

@@ -51,12 +51,12 @@ public class ScorchingMobEffect extends MobEffect {
 		MobEffectCategory type,
 		int color,
 		float chanceToScorch,
-		ToIntFunction<RandomSource> toIntFunction,
+		ToIntFunction<RandomSource> fireDurationInSeconds,
 		ToIntFunction<RandomSource> maxFires
 	) {
 		super(type, color, WWParticleTypes.SCORCHING_FLAME);
 		this.chanceToScorch = chanceToScorch;
-		this.fireDurationInSeconds = toIntFunction;
+		this.fireDurationInSeconds = fireDurationInSeconds;
 		this.maxFires = maxFires;
 	}
 
@@ -74,7 +74,6 @@ public class ScorchingMobEffect extends MobEffect {
 		if (reason == Entity.RemovalReason.KILLED && (entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))) {
 			this.spawnFireRandomlyAround(entity.level(), entity.getRandom(), entity.getOnPos());
 		}
-
 	}
 
 	private void spawnFireRandomlyAround(Level level, RandomSource random, BlockPos pos) {

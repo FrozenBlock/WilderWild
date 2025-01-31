@@ -143,6 +143,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		float limbSwingAmount = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);
 		this.animate(renderState.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, renderState.ageInTicks);
 		this.animate(renderState.standUpAnimationState, PenguinAnimation.PENGUIN_STAND_UP, renderState.ageInTicks);
+		this.animate(renderState.callAnimationState, PenguinAnimation.PENGUIN_CALL, renderState.ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
 		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), movementDelta, slideProgress * notSwimmingAmount * notWadingProgress);
 		//this.animateSlide(limbSwing * 2F, limbSwingAmount, slideProgress * notSwimmingAmount * notWadingProgress);
