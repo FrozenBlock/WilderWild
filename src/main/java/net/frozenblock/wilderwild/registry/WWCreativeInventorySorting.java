@@ -348,7 +348,6 @@ public class WWCreativeInventorySorting {
 			);
 			entries.accept(stack);
 		});
-		addInToolsAndUtilities(WWItems.FIREFLY_BOTTLE);
 
 		// BUTTERFLY
 		addAfterInSpawnEggs(Items.BREEZE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
