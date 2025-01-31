@@ -107,7 +107,11 @@ public final class FireflyColors {
 		bootstrapContext.register(resourceKey, new FireflyColor(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.fallback(spawnPriority), name));
 	}
 
-	public static @NotNull Optional<Holder.Reference<FireflyColor>> selectVariantToSpawn(RandomSource randomSource, @NotNull RegistryAccess registryAccess, SpawnContext spawnContext) {
+	public static @NotNull Optional<Holder.Reference<FireflyColor>> selectVariantToSpawn(
+		RandomSource randomSource,
+		@NotNull RegistryAccess registryAccess,
+		SpawnContext spawnContext
+	) {
 		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).listElements(), Holder::value, randomSource, spawnContext);
 	}
 

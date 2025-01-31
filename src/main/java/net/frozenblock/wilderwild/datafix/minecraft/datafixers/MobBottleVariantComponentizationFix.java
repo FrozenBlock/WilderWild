@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
-import com.google.common.collect.Lists;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.OpticFinder;
@@ -29,70 +28,70 @@ import com.mojang.datafixers.types.Type;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.OptionalDynamic;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WWConstants;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 
-public final class FireflyBottleColorComponentizationFix extends DataFix {
-	private static final String ITEM_ID = WWConstants.string("firefly_bottle");
+public final class MobBottleVariantComponentizationFix extends DataFix {
+	private static final String BOTTLE_ENTITY_DATA_FIELD = WWConstants.id("bottle_entity_data").toString();
 
-	public FireflyBottleColorComponentizationFix(Schema outputSchema) {
+	private final String fixName;
+	private final String itemId;
+	private final String oldTagField;
+	private final String newTagField;
+
+	public MobBottleVariantComponentizationFix(
+		Schema outputSchema,
+		String fixName,
+		@NotNull ResourceLocation itemId,
+		String oldTagField,
+		String newTagField
+	) {
         super(outputSchema, false);
+		this.fixName = fixName;
+		this.itemId = itemId.toString();
+		this.oldTagField = oldTagField;
+		this.newTagField = newTagField;
     }
-
-	@NotNull
-	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
-		OptionalDynamic<?> optionalFireflies = dynamic.get("Fireflies");
-		if (optionalFireflies.result().isPresent()) {
-			List<Dynamic<?>> list = optionalFireflies.orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
-				List<Dynamic<?>> newDynamics = Lists.newArrayList();
-			for (Dynamic<?> embeddedDynamic : list) {
-				newDynamics.add(DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
-			}
-
-			return ((Dynamic<?>) optionalFireflies.result().get()).createList(newDynamics.stream());
-		}
-		return dynamic.createList(Stream.empty());
-	}
 
 	@Override
 	public TypeRewriteRule makeRule() {
 		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
-			"Firefly Bottle ItemStack color componentization fix",
+			this.fixName,
 			type,
 			createFixer(type, this::fixItemStack)
 		);
 	}
 
-	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
+	private @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
 		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		OpticFinder<?> components = type.findField("components");
 		return typed -> {
 			Optional<Pair<String, String>> optional = typed.getOptional(idFinder);
-			return optional.isPresent() && (optional.get()).getSecond().equals(ITEM_ID)
+			return optional.isPresent() && (optional.get()).getSecond().equals(this.itemId)
 				? typed.updateTyped(components, typedx -> typedx.update(DSL.remainderFinder(), unaryOperator))
 				: typed;
 		};
 	}
 
 	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
-		OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WWConstants.vanillaId("block_entity_data").toString());
-		if (optionalBlockEntityTag.result().isPresent()) {
-			Dynamic<?> blockEntityTag = optionalBlockEntityTag.result().get();
+		OptionalDynamic<?> optionalBottleEntityData = componentData.get(BOTTLE_ENTITY_DATA_FIELD);
+		if (optionalBottleEntityData.result().isPresent()) {
+			Dynamic<?> bottleEntityTag = optionalBottleEntityData.result().get();
 
-			componentData = componentData.set(WWConstants.string("fireflies"), fixOccupants(blockEntityTag));
-			blockEntityTag = blockEntityTag.remove("Fireflies");
-
-			componentData = componentData.set(WWConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
+			OptionalDynamic<?> optionalVariant = bottleEntityTag.get(this.oldTagField);
+			if (optionalVariant.result().isPresent()) {
+				componentData = componentData.set(this.newTagField, optionalVariant.result().get());
+				bottleEntityTag = bottleEntityTag.remove(this.oldTagField);
+				componentData = componentData.set(BOTTLE_ENTITY_DATA_FIELD, bottleEntityTag);
+			}
 		}
+
 		return componentData;
 	}
 

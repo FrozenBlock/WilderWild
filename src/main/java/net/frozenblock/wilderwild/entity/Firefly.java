@@ -146,7 +146,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			FireflyAi.setNatural(this);
 		}
 
-		Holder<Biome> holder = level.getBiome(this.blockPosition());
 		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
 			this.setColor(fireflySpawnGroupData.color.value());
 		} else {
@@ -241,24 +240,19 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public void saveToBottleTag(ItemStack itemStack) {
-		CompoundTag tag = new CompoundTag();
-		CustomData.set(
-			WWDataComponents.BOTTLE_ENTITY_DATA,
-			itemStack,
-			tag
-		);
+		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
 		itemStack.copyFrom(WWDataComponents.FIREFLY_COLOR, this);
 	}
 
 	@Override
-	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
+	public void loadFromBottleEntityDataTag(@NotNull CompoundTag compoundTag) {
 		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
-		if (compoundTag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
-			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)))
-				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
-				.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
-				.ifPresent(reference -> this.setColor(reference.value()));
-		}
+	}
+
+	@Override
+	public void loadFromBottleItemStack(@NotNull ItemStack itemStack) {
+		Holder<FireflyColor> color = itemStack.getOrDefault(WWDataComponents.FIREFLY_COLOR, this.registryAccess().getOrThrow(FireflyColors.DEFAULT));
+		this.setColor(color.value());
 	}
 
 	@Nullable

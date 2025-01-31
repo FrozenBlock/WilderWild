@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
+import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -45,7 +46,12 @@ public final class WWDataComponents {
 	);
 
 	public static final DataComponentType<Holder<FireflyColor>> FIREFLY_COLOR = register(
-		"firefly/color", builder -> builder.persistent(FireflyColor.CODEC).networkSynchronized(FireflyColor.STREAM_CODEC)
+		"firefly/color",
+		builder -> builder.persistent(FireflyColor.CODEC).networkSynchronized(FireflyColor.STREAM_CODEC)
+	);
+	public static final DataComponentType<Holder<ButterflyVariant>> BUTTERFLY_VARIANT = register(
+		"butterfly/variant",
+		builder -> builder.persistent(ButterflyVariant.CODEC).networkSynchronized(ButterflyVariant.STREAM_CODEC)
 	);
 
 	public static void init() {}

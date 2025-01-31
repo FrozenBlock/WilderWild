@@ -123,11 +123,11 @@ public final class WWMixinsConfig {
 
 	public boolean entity_firework_rocket = true;
 
-	public boolean item_axe = true;
-
 	public boolean item_brush = true;
 
 	public boolean item_instrument = true;
+
+	public boolean item_tooltip = true;
 
 	public boolean loot = true;
 

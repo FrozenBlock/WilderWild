@@ -18,19 +18,10 @@
 
 package net.frozenblock.wilderwild.item;
 
-import com.mojang.serialization.MapCodec;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.Bottleable;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.Stats;
@@ -47,18 +38,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class MobBottleItem extends Item {
-	public static final String FIREFLY_BOTTLE_VARIANT_FIELD = "FireflyBottleVariantTag";
-	public static final String BUTTERFLY_BOTTLE_VARIANT_FIELD = "ButterflyBottleVariantTag";
-	private static final MapCodec<ResourceLocation> FIREFLY_VARIANT_FIELD_CODEC = ResourceLocation.CODEC.fieldOf(FIREFLY_BOTTLE_VARIANT_FIELD);
-	private static final MapCodec<ResourceLocation> BUTTERFLY_VARIANT_FIELD_CODEC = ResourceLocation.CODEC.fieldOf(BUTTERFLY_BOTTLE_VARIANT_FIELD);
 	private final EntityType<?> type;
 	private final SoundEvent releaseSound;
 
@@ -86,7 +71,8 @@ public class MobBottleItem extends Item {
 				if (spawned) {
 					if (entity instanceof Bottleable bottleable) {
 						CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
-						bottleable.loadFromBottleTag(customData.copyTag());
+						bottleable.loadFromBottleEntityDataTag(customData.copyTag());
+						bottleable.loadFromBottleItemStack(stack);
 						bottleable.setFromBottle(true);
 						bottleable.onBottleRelease();
 					}
@@ -104,30 +90,6 @@ public class MobBottleItem extends Item {
 			}
 		}
 		return ItemUtils.startUsingInstantly(level, player, interactionHand);
-	}
-
-	// TODO: Use ItemStack.addDetailsToTooltip() later
-	@Override
-	public void appendHoverText(@NotNull ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
-		CustomData customData = itemStack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
-		if (customData.isEmpty()) return;
-		if (this.type == WWEntityTypes.BUTTERFLY) {
-			Optional<ResourceLocation> optional = customData.read(BUTTERFLY_VARIANT_FIELD_CODEC).result();
-			if (optional.isPresent()) {
-				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-				ResourceLocation variantKey = optional.get();
-				consumer.accept(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
-			}
-		} else if (this.type == WWEntityTypes.FIREFLY) {
-			Optional<ResourceLocation> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
-			if (optional.isPresent()) {
-				ResourceLocation colorKey = optional.get();
-				if (colorKey.equals(FireflyColors.DEFAULT.location())) return;
-
-				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-				consumer.accept(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
-			}
-		}
 	}
 
 	@NotNull

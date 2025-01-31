@@ -43,7 +43,9 @@ public interface Bottleable {
 
 	void saveToBottleTag(ItemStack itemStack);
 
-	void loadFromBottleTag(CompoundTag compoundTag);
+	void loadFromBottleEntityDataTag(CompoundTag compoundTag);
+
+	void loadFromBottleItemStack(ItemStack itemStack);
 
 	void onCapture();
 

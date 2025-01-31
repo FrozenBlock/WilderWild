@@ -59,7 +59,7 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<FireflyColor>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_COLOR);
 
 	private final ClientAsset clientAsset;
-	SpawnPrioritySelectors spawnConditions;
+	private final SpawnPrioritySelectors spawnConditions;
 	private final String name;
 
 	public FireflyColor(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name) {
@@ -87,7 +87,7 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 
 	@Override
 	public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
-		if (name.equals("on")) return;
+		if (this.name.equals("on")) return;
 
 		ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 		consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + this.name).withStyle(chatFormattings));

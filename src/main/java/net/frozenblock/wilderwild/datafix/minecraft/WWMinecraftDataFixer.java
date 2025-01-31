@@ -23,6 +23,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
+import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBottleVariantComponentizationFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -55,6 +56,24 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
 		Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
+		builder.addFixer(
+			new MobBottleVariantComponentizationFix(
+				schemaV4,
+				"Firefly Bottle Color componentization fix",
+				WWConstants.id("firefly_bottle"),
+				"FireflyBottleVariantTag",
+				WWConstants.string("firefly/color")
+			)
+		);
+		builder.addFixer(
+			new MobBottleVariantComponentizationFix(
+				schemaV4,
+				"Butterfly Bottle Variant componentization fix",
+				WWConstants.id("butterfly_bottle"),
+				"ButterflyBottleVariantTag",
+				WWConstants.string("butterfly/variant")
+			)
+		);
 
 		Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);

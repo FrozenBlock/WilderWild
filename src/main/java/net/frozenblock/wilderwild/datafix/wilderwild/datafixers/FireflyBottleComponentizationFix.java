@@ -70,7 +70,7 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 				.set(
 					WWConstants.string("bottle_entity_data"),
 					dynamic.emptyMap()
-						.set(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, dynamic.createString(fireflyColor))
+						.set("FireflyBottleVariantTag", dynamic.createString(fireflyColor))
 				)
 		);
 	}

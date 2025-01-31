@@ -20,60 +20,80 @@ package net.frozenblock.wilderwild.entity.variant.butterfly;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Objects;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
+import java.util.List;
+import java.util.function.Consumer;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.ClientAsset;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import org.jetbrains.annotations.NotNull;
 
-public final class ButterflyVariant {
+public final class ButterflyVariant implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ResourceLocation.CODEC.fieldOf("texture").forGetter(butterflyVariant -> butterflyVariant.texture),
-			RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(ButterflyVariant::biomes)
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::assetInfo),
+			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(ButterflyVariant::spawnConditions),
+			Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
 		).apply(instance, ButterflyVariant::new)
 	);
+	public static final Codec<ButterflyVariant> NETWORK_CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::assetInfo),
+			Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
+		).apply(instance, ButterflyVariant::new)
+	);
+	public static final Codec<Holder<ButterflyVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.BUTTERFLY_VARIANT);
+	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ButterflyVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.BUTTERFLY_VARIANT);
 
-	private final ResourceLocation texture;
-	private final ResourceLocation textureFull;
-	private final HolderSet<Biome> biomes;
+	private final ClientAsset clientAsset;
+	private final SpawnPrioritySelectors spawnConditions;
+	private final String name;
 
-	public ButterflyVariant(@NotNull ResourceLocation texture, HolderSet<Biome> biomes) {
-		this.texture = texture;
-		this.textureFull = fullTextureId(texture);
-		this.biomes = biomes;
+	public ButterflyVariant(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name) {
+		this.clientAsset = clientAsset;
+		this.spawnConditions = spawnConditions;
+		this.name = name;
 	}
 
-	private static @NotNull ResourceLocation fullTextureId(@NotNull ResourceLocation resourceLocation) {
-		return resourceLocation.withPath(string -> "textures/" + string + ".png");
+	private ButterflyVariant(ClientAsset clientAsset, String name) {
+		this(clientAsset, SpawnPrioritySelectors.EMPTY, name);
 	}
 
 	@NotNull
-	public ResourceLocation texture() {
-		return this.textureFull;
+	public ClientAsset assetInfo() {
+		return this.clientAsset;
 	}
 
-	public HolderSet<Biome> biomes() {
-		return this.biomes;
+	public SpawnPrioritySelectors spawnConditions() {
+		return this.spawnConditions;
 	}
 
-	@Override
-	public boolean equals(Object object) {
-		if (object == this) {
-			return true;
-		} else {
-			return object instanceof ButterflyVariant butterflyVariant && Objects.equals(this.texture, butterflyVariant.texture)
-				&& Objects.equals(this.biomes, butterflyVariant.biomes);
-		}
+	public String name() {
+		return this.name;
 	}
 
 	@Override
-	public int hashCode() {
-		int i = 1;
-		i = 31 * i + this.texture.hashCode();
-		return 31 * i + this.biomes.hashCode();
+	public void addToTooltip(Item.TooltipContext tooltipContext, @NotNull Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
+		ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+		consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + this.name).withStyle(chatFormattings));
+	}
+
+	@Override
+	public @NotNull List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> selectors() {
+		return this.spawnConditions.selectors();
 	}
 
 }

@@ -43,7 +43,7 @@ public final class WilderWildRegistries {
 
 	public static void initRegistry() {
 		DynamicRegistries.registerSynced(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
-		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC);
+		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
 		DynamicRegistries.registerSynced(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(CRAB_VARIANT, CrabVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC);

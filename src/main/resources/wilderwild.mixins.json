@@ -62,6 +62,7 @@
     "entity.turtle.TurtleMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
+    "item.tooltip.ItemStackMixin",
     "loot.LootTableMixin",
     "projectile.AbstractArrowMixin",
     "projectile.AbstractThrownPotionMixin",

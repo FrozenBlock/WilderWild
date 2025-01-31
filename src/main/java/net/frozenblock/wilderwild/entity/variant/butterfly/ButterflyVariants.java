@@ -18,20 +18,23 @@
 
 package net.frozenblock.wilderwild.entity.variant.butterfly;
 
-import java.util.List;
+import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.minecraft.Util;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.variant.BiomeCheck;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,30 +55,33 @@ public final class ButterflyVariants {
 	private static void register(
 		@NotNull BootstrapContext<ButterflyVariant> bootstrapContext,
 		ResourceKey<ButterflyVariant> resourceKey,
-		String textureName,
-		TagKey<Biome> biomes
+		String name,
+		TagKey<Biome> biomeTag
 	) {
-		ResourceLocation textureLocation = WWConstants.id("entity/butterfly/" + textureName);
+		String texturePath = "entity/butterfly/" + name;
+		register(bootstrapContext, resourceKey, texturePath, name, biomeTag);
+	}
+
+	private static void register(
+		@NotNull BootstrapContext<ButterflyVariant> bootstrapContext,
+		ResourceKey<ButterflyVariant> resourceKey,
+		String texturePath,
+		String name,
+		TagKey<Biome> biomeTag
+	) {
+		HolderSet<Biome> holderSet = bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomeTag);
 		bootstrapContext.register(
 			resourceKey,
-			new ButterflyVariant(
-				textureLocation,
-				bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomes)
-			)
+			new ButterflyVariant(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1), name)
 		);
 	}
 
-	public static Holder<ButterflyVariant> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder, RandomSource random) {
-		Registry<ButterflyVariant> registry = registryAccess.lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT);
-		List<Holder.Reference<ButterflyVariant>> variants = registry.listElements()
-			.filter(reference -> (reference.value()).biomes().contains(holder))
-			.toList();
-
-		if (!variants.isEmpty()) {
-			return Util.getRandom(variants, random);
-		} else {
-			return registry.getRandom(random).orElseThrow();
-		}
+	public static @NotNull Optional<Holder.Reference<ButterflyVariant>> selectVariantToSpawn(
+		RandomSource randomSource,
+		@NotNull RegistryAccess registryAccess,
+		SpawnContext spawnContext
+	) {
+		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).listElements(), Holder::value, randomSource, spawnContext);
 	}
 
 	public static void bootstrap(BootstrapContext<ButterflyVariant> bootstrapContext) {

@@ -23,19 +23,19 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.item.MobBottleItem;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -46,7 +46,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -116,29 +115,24 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity instanceof DisplayLanternBlockEntity lantern) {
 			if (lantern.invEmpty()) {
-				if (stack.has(WWDataComponents.BOTTLE_ENTITY_DATA)) {
-					CustomData colorData = stack.get(WWDataComponents.BOTTLE_ENTITY_DATA);
-					if (colorData != null && !colorData.isEmpty()) {
-						CompoundTag tag = colorData.copyTag();
-						if (tag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
-							ResourceLocation color = ResourceLocation.tryParse(tag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD));
-
-							if (lantern.getFireflies().size() < MAX_FIREFLIES) {
-								String name = "";
-								if (stack.has(DataComponents.CUSTOM_NAME)) {
-									name = stack.getHoverName().getString();
-								}
-								lantern.addFirefly(level, color, name);
-								if (!player.isCreative()) {
-									player.getItemInHand(hand).shrink(1);
-								}
-								player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
-								level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-								level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-								lantern.updateSync();
-								level.updateNeighbourForOutputSignal(pos, this);
-								return InteractionResult.SUCCESS;
+				if (stack.has(WWDataComponents.FIREFLY_COLOR)) {
+					Holder<FireflyColor> colorData = stack.get(WWDataComponents.FIREFLY_COLOR);
+					if (colorData != null) {
+						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
+							String name = "";
+							if (stack.has(DataComponents.CUSTOM_NAME)) {
+								name = stack.getHoverName().getString();
 							}
+							lantern.addFirefly(level, colorData.unwrapKey().orElseThrow().location(), name);
+							if (!player.isCreative()) {
+								player.getItemInHand(hand).shrink(1);
+							}
+							player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
+							level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+							level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+							lantern.updateSync();
+							level.updateNeighbourForOutputSignal(pos, this);
+							return InteractionResult.SUCCESS;
 						}
 					}
 				} else if (stack.is(Items.GLASS_BOTTLE)) {
@@ -149,10 +143,11 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 							player.getItemInHand(hand).shrink(1);
 						}
 						ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
-						CustomData.update(
-							WWDataComponents.BOTTLE_ENTITY_DATA,
-							bottleStack,
-							compoundTag -> compoundTag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, fireflyInLantern.getColor().toString())
+						bottleStack.set(
+							WWDataComponents.FIREFLY_COLOR,
+							level.registryAccess()
+								.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+								.get(fireflyInLantern.getColor()).orElseThrow()
 						);
 						if (!Objects.equals(fireflyInLantern.customName, "")) {
 							bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));

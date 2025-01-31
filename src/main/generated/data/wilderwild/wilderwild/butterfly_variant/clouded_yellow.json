@@ -1,4 +1,13 @@
 {
-  "biomes": "#wilderwild:entity/variant/butterfly_clouded_yellow",
-  "texture": "wilderwild:entity/butterfly/butterfly_clouded_yellow"
+  "asset_id": "wilderwild:entity/butterfly/butterfly_clouded_yellow",
+  "name": "butterfly_clouded_yellow",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/butterfly_clouded_yellow"
+      },
+      "priority": 1
+    }
+  ]
 }

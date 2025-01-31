@@ -105,9 +105,9 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.tumbleweed.")) return this.mixinsConfig.entity_tumbleweed;
 		if (mixinClassName.contains("entity.turtle.")) return this.mixinsConfig.entity_turtle;
 		if (mixinClassName.contains("entity.firework_rocket.")) return this.mixinsConfig.entity_firework_rocket;
-		if (mixinClassName.contains("item.axe.")) return this.mixinsConfig.item_axe;
 		if (mixinClassName.contains("item.brush.")) return this.mixinsConfig.item_brush;
 		if (mixinClassName.contains("item.instrument.")) return this.mixinsConfig.item_instrument;
+		if (mixinClassName.contains("item.tooltip.")) return this.mixinsConfig.item_tooltip;
 		if (mixinClassName.contains("loot.")) return this.mixinsConfig.loot;
 		if (mixinClassName.contains("projectile.")) return this.mixinsConfig.projectile;
 		if (mixinClassName.contains("sculk.")) return this.mixinsConfig.sculk;
