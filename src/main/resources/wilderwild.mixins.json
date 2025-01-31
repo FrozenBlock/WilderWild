@@ -127,7 +127,6 @@
     "client.easter.StellaWardenRenderer",
     "client.easter.WardenEmissiveLayerMixin",
     "client.enderman.EnderManMixin",
-    "client.firefly.FireflyParticleMixin",
     "client.layer.LayerTypeMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",

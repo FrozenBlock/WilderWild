@@ -218,7 +218,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
 		// Spawn Eggs
-		generator.generateSpawnEgg(WWItems.FIREFLY_SPAWN_EGG, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16));
+		generator.generateSpawnEgg(WWItems.FIREFLY_SPAWN_EGG, Integer.parseInt("2A2B2B", 16), Integer.parseInt("FFFFE1", 16));
 		generator.generateSpawnEgg(WWItems.JELLYFISH_SPAWN_EGG, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16));
 		generator.generateSpawnEgg(WWItems.CRAB_SPAWN_EGG, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16));
 		generator.generateSpawnEgg(WWItems.OSTRICH_SPAWN_EGG, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16));

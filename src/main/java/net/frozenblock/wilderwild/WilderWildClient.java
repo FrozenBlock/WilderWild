@@ -71,18 +71,6 @@ public final class WilderWildClient implements ClientModInitializer {
 			}
 		});
 
-		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public ResourceLocation getFabricId() {
-				return WWConstants.id("original_firefly");
-			}
-
-			@Override
-			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				WWConstants.ORIGINAL_FIREFLIES = resourceManager.getResource(WWConstants.id("textures/entity/firefly/original_firefly_enabler.png")).isPresent();
-			}
-		});
-
 		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
 			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
 

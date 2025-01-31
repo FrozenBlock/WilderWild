@@ -48,8 +48,6 @@ public final class WWMixinsConfig {
 
 	public boolean client_easter = true;
 
-	public boolean client_firefly = true;
-
 	public boolean client_mesoglea = true;
 
 	public boolean client_shrieker = true;

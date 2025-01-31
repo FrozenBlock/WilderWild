@@ -90,7 +90,7 @@ public class MobBottleItem extends Item {
 						0.75F,
 						level.getRandom().nextFloat() * 0.2F + 0.9F
 					);
-					
+
 					if (stack.has(DataComponents.CUSTOM_NAME)) {
 						entity.setCustomName(stack.getHoverName());
 					}
