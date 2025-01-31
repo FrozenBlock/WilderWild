@@ -66,6 +66,7 @@ hi
   - Glory of the Snow Petals will be datafixed into Pollen.
 - Added a config option to toggle pools of water generating in River biomes.
   - This is now disabled by default, unlike before.
+- Scorched now set entities on fire upon attacking.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
