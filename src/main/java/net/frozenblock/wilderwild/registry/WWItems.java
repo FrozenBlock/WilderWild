@@ -166,12 +166,7 @@ public final class WWItems {
 			WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY,
 			properties
 		),
-		new Item.Properties()
-			.stacksTo(16)
-			.component(
-				WWDataComponents.BOTTLE_ENTITY_DATA,
-				CustomData.EMPTY.update(compoundTag -> compoundTag.putString("FireflyBottleVariantTag", FireflyColors.DEFAULT.location().toString()))
-			)
+		new Item.Properties().stacksTo(16).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
 	);
 	public static final MobBottleItem BUTTERFLY_BOTTLE = register("butterfly_bottle",
 		properties -> new MobBottleItem(

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -338,6 +339,15 @@ public class WWCreativeInventorySorting {
 
 		// FIREFLY
 		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+			var stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
+			stack.setCount(1);
+			stack.set(
+				WWDataComponents.FIREFLY_COLOR,
+				entries.getContext().holders().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getOrThrow(FireflyColors.DEFAULT)
+			);
+			entries.accept(stack);
+		});
 		addInToolsAndUtilities(WWItems.FIREFLY_BOTTLE);
 
 		// BUTTERFLY
