@@ -93,7 +93,7 @@ public final class FireflyColors {
 		String name,
 		int spawnPriority
 	) {
-		String texturePath = "entity/firefly/" + name;
+		String texturePath = "entity/firefly/firefly_" + name;
 		register(bootstrapContext, resourceKey, texturePath, name, spawnPriority);
 	}
 
@@ -121,22 +121,22 @@ public final class FireflyColors {
 	}
 
 	public static void bootstrap(BootstrapContext<FireflyColor> bootstrapContext) {
-		register(bootstrapContext, ON, "firefly_on", 1);
-		register(bootstrapContext, BLACK, "firefly_black", 0);
-		register(bootstrapContext, BLUE, "firefly_blue", 0);
-		register(bootstrapContext, BROWN, "firefly_brown", 0);
-		register(bootstrapContext, CYAN, "firefly_cyan", 0);
-		register(bootstrapContext, GRAY, "firefly_gray", 0);
-		register(bootstrapContext, GREEN, "firefly_green", 0);
-		register(bootstrapContext, LIGHT_BLUE, "firefly_light_blue", 0);
-		register(bootstrapContext, LIGHT_GRAY, "firefly_light_gray", 0);
-		register(bootstrapContext, LIME, "firefly_lime", 0);
-		register(bootstrapContext, MAGENTA, "firefly_magenta", 0);
-		register(bootstrapContext, ORANGE, "firefly_orange", 0);
-		register(bootstrapContext, PINK, "firefly_pink", 0);
-		register(bootstrapContext, PURPLE, "firefly_purple", 0);
-		register(bootstrapContext, RED, "firefly_red", 0);
-		register(bootstrapContext, WHITE, "firefly_white", 0);
-		register(bootstrapContext, YELLOW, "firefly_yellow", 0);
+		register(bootstrapContext, ON, "on", 1);
+		register(bootstrapContext, BLACK, "black", 0);
+		register(bootstrapContext, BLUE, "blue", 0);
+		register(bootstrapContext, BROWN, "brown", 0);
+		register(bootstrapContext, CYAN, "cyan", 0);
+		register(bootstrapContext, GRAY, "gray", 0);
+		register(bootstrapContext, GREEN, "green", 0);
+		register(bootstrapContext, LIGHT_BLUE, "light_blue", 0);
+		register(bootstrapContext, LIGHT_GRAY, "light_gray", 0);
+		register(bootstrapContext, LIME, "lime", 0);
+		register(bootstrapContext, MAGENTA, "magenta", 0);
+		register(bootstrapContext, ORANGE, "orange", 0);
+		register(bootstrapContext, PINK, "pink", 0);
+		register(bootstrapContext, PURPLE, "purple", 0);
+		register(bootstrapContext, RED, "red", 0);
+		register(bootstrapContext, WHITE, "white", 0);
+		register(bootstrapContext, YELLOW, "yellow", 0);
 	}
 }

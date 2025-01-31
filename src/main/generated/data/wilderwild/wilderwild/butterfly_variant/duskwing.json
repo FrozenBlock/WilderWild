@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/butterfly/butterfly_duskwing",
-  "name": "butterfly_duskwing",
+  "name": "duskwing",
   "spawn_conditions": [
     {
       "condition": {

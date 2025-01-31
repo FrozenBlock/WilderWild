@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/butterfly/butterfly_clouded_yellow",
-  "name": "butterfly_clouded_yellow",
+  "name": "clouded_yellow",
   "spawn_conditions": [
     {
       "condition": {

@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/butterfly/butterfly_marbled",
-  "name": "butterfly_marbled",
+  "name": "marbled",
   "spawn_conditions": [
     {
       "condition": {

@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_orange",
-  "name": "firefly_orange",
+  "name": "orange",
   "spawn_conditions": [
     {
       "priority": 0

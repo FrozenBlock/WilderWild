@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_magenta",
-  "name": "firefly_magenta",
+  "name": "magenta",
   "spawn_conditions": [
     {
       "priority": 0

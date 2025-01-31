@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_white",
-  "name": "firefly_white",
+  "name": "white",
   "spawn_conditions": [
     {
       "priority": 0

@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/butterfly/butterfly_red_lacewing",
-  "name": "butterfly_red_lacewing",
+  "name": "red_lacewing",
   "spawn_conditions": [
     {
       "condition": {

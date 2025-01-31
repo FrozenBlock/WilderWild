@@ -58,7 +58,7 @@ public final class ButterflyVariants {
 		String name,
 		TagKey<Biome> biomeTag
 	) {
-		String texturePath = "entity/butterfly/" + name;
+		String texturePath = "entity/butterfly/butterfly_" + name;
 		register(bootstrapContext, resourceKey, texturePath, name, biomeTag);
 	}
 
@@ -85,12 +85,12 @@ public final class ButterflyVariants {
 	}
 
 	public static void bootstrap(BootstrapContext<ButterflyVariant> bootstrapContext) {
-		register(bootstrapContext, MONARCH, "butterfly_monarch", WWBiomeTags.BUTTERFLY_MONARCH);
-		register(bootstrapContext, RED_LACEWING, "butterfly_red_lacewing", WWBiomeTags.BUTTERFLY_RED_LACEWING);
-		register(bootstrapContext, MARBLED, "butterfly_marbled", WWBiomeTags.BUTTERFLY_MARBLED);
-		register(bootstrapContext, MORPHO_BLUE, "butterfly_morpho_blue", WWBiomeTags.BUTTERFLY_MORPHO_BLUE);
-		register(bootstrapContext, GREEN_HAIRSTREAK, "butterfly_green_hairstreak", WWBiomeTags.BUTTERFLY_GREEN_HAIRSTREAK);
-		register(bootstrapContext, CLOUDED_YELLOW, "butterfly_clouded_yellow", WWBiomeTags.BUTTERFLY_CLOUDED_YELLOW);
-		register(bootstrapContext, DUSKWING, "butterfly_duskwing", WWBiomeTags.BUTTERFLY_DUSKWING);
+		register(bootstrapContext, MONARCH, "monarch", WWBiomeTags.BUTTERFLY_MONARCH);
+		register(bootstrapContext, RED_LACEWING, "red_lacewing", WWBiomeTags.BUTTERFLY_RED_LACEWING);
+		register(bootstrapContext, MARBLED, "marbled", WWBiomeTags.BUTTERFLY_MARBLED);
+		register(bootstrapContext, MORPHO_BLUE, "morpho_blue", WWBiomeTags.BUTTERFLY_MORPHO_BLUE);
+		register(bootstrapContext, GREEN_HAIRSTREAK, "green_hairstreak", WWBiomeTags.BUTTERFLY_GREEN_HAIRSTREAK);
+		register(bootstrapContext, CLOUDED_YELLOW, "clouded_yellow", WWBiomeTags.BUTTERFLY_CLOUDED_YELLOW);
+		register(bootstrapContext, DUSKWING, "duskwing", WWBiomeTags.BUTTERFLY_DUSKWING);
 	}
 }

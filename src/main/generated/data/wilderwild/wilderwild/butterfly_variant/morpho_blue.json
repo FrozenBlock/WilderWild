@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/butterfly/butterfly_morpho_blue",
-  "name": "butterfly_morpho_blue",
+  "name": "morpho_blue",
   "spawn_conditions": [
     {
       "condition": {

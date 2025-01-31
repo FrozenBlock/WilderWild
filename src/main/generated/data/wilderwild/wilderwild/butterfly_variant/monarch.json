@@ -1,6 +1,6 @@
 {
   "asset_id": "wilderwild:entity/butterfly/butterfly_monarch",
-  "name": "butterfly_monarch",
+  "name": "monarch",
   "spawn_conditions": [
     {
       "condition": {
