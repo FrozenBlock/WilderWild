@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import java.util.function.BooleanSupplier;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.SAPLING;
@@ -33,17 +33,17 @@ public class TraverseIntegration extends ModIntegration {
 	@Override
 	public void init() {
 		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		addBlock(id("brown_autumnal_leaves"), LEAVES, leavesCondition);
-		addBlock(id("fir_leaves"), LEAVES, leavesCondition);
-		addBlock(id("orange_autumnal_leaves"), LEAVES, leavesCondition);
-		addBlock(id("red_autumnal_leaves"), LEAVES, leavesCondition);
-		addBlock(id("yellow_autumnal_leaves"), LEAVES, leavesCondition);
+		BlockSoundTypeOverwrites.addBlock(id("brown_autumnal_leaves"), LEAVES, leavesCondition);
+		BlockSoundTypeOverwrites.addBlock(id("fir_leaves"), LEAVES, leavesCondition);
+		BlockSoundTypeOverwrites.addBlock(id("orange_autumnal_leaves"), LEAVES, leavesCondition);
+		BlockSoundTypeOverwrites.addBlock(id("red_autumnal_leaves"), LEAVES, leavesCondition);
+		BlockSoundTypeOverwrites.addBlock(id("yellow_autumnal_leaves"), LEAVES, leavesCondition);
 
 		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		addBlock(id("brown_autumnal_sapling"), SAPLING, saplingCondition);
-		addBlock(id("fir_sapling"), SAPLING, saplingCondition);
-		addBlock(id("orange_autumnal_sapling"), SAPLING, saplingCondition);
-		addBlock(id("red_autumnal_sapling"), SAPLING, saplingCondition);
-		addBlock(id("yellow_autumnal_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("brown_autumnal_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("fir_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("orange_autumnal_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("red_autumnal_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("yellow_autumnal_sapling"), SAPLING, saplingCondition);
 	}
 }

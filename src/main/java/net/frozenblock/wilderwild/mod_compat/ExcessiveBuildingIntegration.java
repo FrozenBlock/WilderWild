@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import java.util.function.BooleanSupplier;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.SAPLING;
@@ -33,11 +33,11 @@ public class ExcessiveBuildingIntegration extends ModIntegration {
 	@Override
 	public void init() {
 		BooleanSupplier condition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		addBlock(id("ancient_leaves"), LEAVES, condition);
-		addBlock(id("gloom_leaves"), LEAVES, condition);
+		BlockSoundTypeOverwrites.addBlock(id("ancient_leaves"), LEAVES, condition);
+		BlockSoundTypeOverwrites.addBlock(id("gloom_leaves"), LEAVES, condition);
 
 		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		addBlock(id("ancient_sapling"), SAPLING, saplingCondition);
-		addBlock(id("gloom_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("ancient_sapling"), SAPLING, saplingCondition);
+		BlockSoundTypeOverwrites.addBlock(id("gloom_sapling"), SAPLING, saplingCondition);
 	}
 }

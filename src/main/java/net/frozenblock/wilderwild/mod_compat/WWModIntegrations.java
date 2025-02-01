@@ -32,7 +32,6 @@ public final class WWModIntegrations {
 	public static final ModIntegration BLOCKUS_INTEGRATION = registerAndGet(BlockusIntegration::new, "blockus");
 	public static final ModIntegration EDENRING_INTEGRATION = registerAndGet(EdenRingIntegration::new, "edenring");
 	public static final ModIntegration TECHREBORN_INTEGRATION = registerAndGet(TechRebornIntegration::new, "techreborn");
-	public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
 	public static final ModIntegration NATURES_SPIRIT_INTEGRATION = registerAndGet(NaturesSpiritIntegration::new, "natures_spirit");
 	public static final ModIntegration BIOMES_O_PLENTY_INTEGRATION = registerAndGet(BiomesOPlentyIntegration::new, "biomesoplenty");
 	public static final ModIntegration TERRESTRIA_INTEGRATION = registerAndGet(TerrestriaIntegration::new, "terrestria");

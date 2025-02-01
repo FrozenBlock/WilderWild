@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import java.util.function.BooleanSupplier;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.LEAVES;
 
@@ -32,6 +32,6 @@ public class EdenRingIntegration extends ModIntegration {
 	@Override
 	public void init() {
 		BooleanSupplier condition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		addBlock(id("auritis_leaves"), LEAVES, condition);
+		BlockSoundTypeOverwrites.addBlock(id("auritis_leaves"), LEAVES, condition);
 	}
 }
