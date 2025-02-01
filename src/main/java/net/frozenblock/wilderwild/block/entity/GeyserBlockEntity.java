@@ -313,7 +313,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			if (player != null) {
 				double distance = player.distanceToSqr(gesyerCenter);
 				if (Math.sqrt(distance) <= 48) {
-					return random.nextInt(((int) (distance * 1.5D)) + 5) != 0;
+					return random.nextInt(((int) (distance * 1.5D)) + 5) == 0;
 				}
 			}
 			return false;
