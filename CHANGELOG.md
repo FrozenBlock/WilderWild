@@ -171,3 +171,11 @@ hi
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
 - Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.
+
+# Gabbro Branch
+- Added the Gabbro stone type.
+  - Generates naturally in Magmatic Caves.
+  - Can be polished.
+  - Can be crafted into bricks.
+  - Mossy brick variants and stair, slab, and wall variants of the base stone require Trailier Tales to be installed.
+  - Scorched can spawn on Gabbro.
