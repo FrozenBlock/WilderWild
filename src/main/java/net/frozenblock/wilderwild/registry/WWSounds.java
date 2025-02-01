@@ -231,11 +231,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
 	public static final SoundEvent BLOCK_PENGUIN_EGG_CRACK = register("block.penguin_egg.crack");
 	public static final SoundEvent BLOCK_PENGUIN_EGG_HATCH = register("block.penguin_egg.hatch");
-	public static final SoundEvent BLOCK_GEYSER_PLACE = register("block.geyser.place");
-	public static final SoundEvent BLOCK_GEYSER_HIT = register("block.geyser.hit");
-	public static final SoundEvent BLOCK_GEYSER_BREAK = register("block.geyser.break");
-	public static final SoundEvent BLOCK_GEYSER_STEP = register("block.geyser.step");
-	public static final SoundEvent BLOCK_GEYSER_FALL = register("block.geyser.fall");
+	public static final SoundEvent BLOCK_GABBRO_PLACE = register("block.gabbro.place");
+	public static final SoundEvent BLOCK_GABBRO_HIT = register("block.gabbro.hit");
+	public static final SoundEvent BLOCK_GABBRO_BREAK = register("block.gabbro.break");
+	public static final SoundEvent BLOCK_GABBRO_STEP = register("block.gabbro.step");
+	public static final SoundEvent BLOCK_GABBRO_FALL = register("block.gabbro.fall");
 	public static final SoundEvent BLOCK_GEYSER_BOIL = register("block.geyser.boil");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_AIR = register("block.geyser.erupt.air");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_WATER = register("block.geyser.erupt.water");

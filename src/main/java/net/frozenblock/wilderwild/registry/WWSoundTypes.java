@@ -100,12 +100,12 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_ECHO_GLASS_CRACK,
 		WWSounds.BLOCK_ECHO_GLASS_FALL
 	);
-	public static final SoundType GEYSER = new SoundType(1F, 1F,
-		WWSounds.BLOCK_GEYSER_BREAK,
-		WWSounds.BLOCK_GEYSER_STEP,
-		WWSounds.BLOCK_GEYSER_PLACE,
-		WWSounds.BLOCK_GEYSER_HIT,
-		WWSounds.BLOCK_GEYSER_FALL
+	public static final SoundType GABBRO = new SoundType(1F, 1F,
+		WWSounds.BLOCK_GABBRO_BREAK,
+		WWSounds.BLOCK_GABBRO_STEP,
+		WWSounds.BLOCK_GABBRO_PLACE,
+		WWSounds.BLOCK_GABBRO_HIT,
+		WWSounds.BLOCK_GABBRO_FALL
 	);
 	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
 		WWSounds.BLOCK_MAGMA_BREAK,

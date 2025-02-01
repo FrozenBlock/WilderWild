@@ -27,6 +27,7 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.config.api.instance.ConfigModification;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
+import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
@@ -74,6 +75,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		if (FrozenBools.IS_DATAGEN) {
 			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
+
+		WWFeatureFlags.init();
+		FrozenFeatureFlags.rebuild();
 
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);

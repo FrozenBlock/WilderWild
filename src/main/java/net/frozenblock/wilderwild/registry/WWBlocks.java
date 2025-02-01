@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
@@ -36,6 +37,7 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -616,9 +618,37 @@ public final class WWBlocks {
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
+	// GABBRO
+
+	public static final Block GABBRO = new Block(
+		BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
+			.sound(WWSoundTypes.GABBRO)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.requiresCorrectToolForDrops()
+			.strength(3F)
+	);
+	public static final Block GABBRO_STAIRS = new StairBlock(
+		WWBlocks.GABBRO.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final Block GABBRO_SLAB = new SlabBlock(
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final Block GABBRO_WALL = new WallBlock(
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final BlockFamily FAMILY_GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO)
+		.stairs(GABBRO_STAIRS)
+		.slab(GABBRO_SLAB)
+		.wall(GABBRO_WALL)
+		.getFamily();
+
 	public static final GeyserBlock GEYSER = new GeyserBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
-			.sound(WWSoundTypes.GEYSER)
+			.sound(WWSoundTypes.GABBRO)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
@@ -627,6 +657,60 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
 	);
+
+	public static final Block POLISHED_GABBRO = new Block(
+		BlockBehaviour.Properties.ofFullCopy(GABBRO)
+	);
+	public static final Block POLISHED_GABBRO_STAIRS = new StairBlock(
+		POLISHED_GABBRO.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(POLISHED_GABBRO)
+	);
+	public static final Block POLISHED_GABBRO_SLAB = new SlabBlock(
+		BlockBehaviour.Properties.ofFullCopy(POLISHED_GABBRO)
+	);
+	public static final Block POLISHED_GABBRO_WALL = new WallBlock(
+		BlockBehaviour.Properties.ofFullCopy(POLISHED_GABBRO)
+	);
+	public static final BlockFamily FAMILY_POLISHED_GABBRO = BlockFamilies.familyBuilder(POLISHED_GABBRO)
+		.stairs(POLISHED_GABBRO_STAIRS)
+		.slab(POLISHED_GABBRO_SLAB)
+		.wall(POLISHED_GABBRO_WALL)
+		.getFamily();
+
+	public static final Block GABBRO_BRICKS = new Block(
+		BlockBehaviour.Properties.ofFullCopy(GABBRO)
+	);
+	public static final Block GABBRO_BRICK_STAIRS = new StairBlock(
+		GABBRO_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(GABBRO_BRICKS)
+	);
+	public static final Block GABBRO_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GABBRO_BRICKS));
+	public static final Block GABBRO_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(GABBRO_BRICKS));
+	public static final Block CRACKED_GABBRO_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GABBRO_BRICKS));
+	public static final Block CHISELED_GABBRO_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GABBRO_BRICKS));
+	public static final BlockFamily FAMILY_GABBRO_BRICK = BlockFamilies.familyBuilder(GABBRO_BRICKS)
+		.stairs(GABBRO_BRICK_STAIRS)
+		.slab(GABBRO_BRICK_SLAB)
+		.wall(GABBRO_BRICK_WALL)
+		.cracked(CRACKED_GABBRO_BRICKS)
+		.chiseled(CHISELED_GABBRO_BRICKS)
+		.getFamily();
+
+	public static final Block MOSSY_GABBRO_BRICKS = new Block(
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final Block MOSSY_GABBRO_BRICK_STAIRS = new StairBlock(
+		MOSSY_GABBRO_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_GABBRO_BRICKS)
+	);
+	public static final Block MOSSY_GABBRO_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_GABBRO_BRICKS));
+	public static final Block MOSSY_GABBRO_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_GABBRO_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_GABBRO_BRICK = BlockFamilies.familyBuilder(MOSSY_GABBRO_BRICKS)
+		.stairs(MOSSY_GABBRO_BRICK_STAIRS)
+		.slab(MOSSY_GABBRO_BRICK_SLAB)
+		.wall(MOSSY_GABBRO_BRICK_WALL)
+		.getFamily();
 
 	// WOOD
 
@@ -1372,6 +1456,29 @@ public final class WWBlocks {
 
 		registerBlockAfter(Items.MAGMA_BLOCK, "geyser", GEYSER, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockBefore(Items.SCULK_SENSOR, "geyser", GEYSER, CreativeModeTabs.REDSTONE_BLOCKS);
+
+		registerBlockBefore(Items.BRICKS, "gabbro", GABBRO, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO, "geyser", GEYSER, CreativeModeTabs.BUILDING_BLOCKS);
+
+		// TRAILIER TALES
+		registerBlockAfter(GEYSER, "gabbro_stairs", GABBRO_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO_STAIRS, "gabbro_slab", GABBRO_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO_SLAB, "gabbro_wall", GABBRO_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(FrozenBools.hasMod("trailiertales") ? GABBRO_WALL : GEYSER, "polished_gabbro", POLISHED_GABBRO, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GABBRO, "polished_gabbro_stairs", POLISHED_GABBRO_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GABBRO_STAIRS, "polished_gabbro_slab", POLISHED_GABBRO_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GABBRO_SLAB, "polished_gabbro_wall", POLISHED_GABBRO_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GABBRO_WALL, "gabbro_bricks", GABBRO_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO_BRICKS, "cracked_gabbro_bricks", CRACKED_GABBRO_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CRACKED_GABBRO_BRICKS, "gabbro_brick_stairs", GABBRO_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO_BRICK_STAIRS, "gabbro_brick_slab", GABBRO_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO_BRICK_SLAB, "gabbro_brick_wall", GABBRO_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO_BRICK_WALL, "chiseled_gabbro_bricks", CHISELED_GABBRO_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHISELED_GABBRO_BRICKS, "mossy_gabbro_bricks", MOSSY_GABBRO_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_GABBRO_BRICKS, "mossy_gabbro_brick_stairs", MOSSY_GABBRO_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_GABBRO_BRICK_STAIRS, "mossy_gabbro_brick_slab", MOSSY_GABBRO_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_GABBRO_BRICK_SLAB, "mossy_gabbro_brick_wall", MOSSY_GABBRO_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 	}
 
 	public static void registerBlocks() {

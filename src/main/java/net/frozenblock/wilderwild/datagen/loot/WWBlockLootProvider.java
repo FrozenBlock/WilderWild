@@ -179,6 +179,25 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.HOLLOWED_WARPED_STEM);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
+		this.dropSelf(WWBlocks.GABBRO);
+		this.dropSelf(WWBlocks.GABBRO_STAIRS);
+		this.add(WWBlocks.GABBRO_SLAB, this::createSlabItemTable);
+		this.dropSelf(WWBlocks.GABBRO_WALL);
+		this.dropSelf(WWBlocks.POLISHED_GABBRO);
+		this.dropSelf(WWBlocks.POLISHED_GABBRO_STAIRS);
+		this.add(WWBlocks.POLISHED_GABBRO_SLAB, this::createSlabItemTable);
+		this.dropSelf(WWBlocks.POLISHED_GABBRO_WALL);
+		this.dropSelf(WWBlocks.CHISELED_GABBRO_BRICKS);
+		this.dropSelf(WWBlocks.GABBRO_BRICKS);
+		this.dropSelf(WWBlocks.CRACKED_GABBRO_BRICKS);
+		this.dropSelf(WWBlocks.GABBRO_BRICK_STAIRS);
+		this.add(WWBlocks.GABBRO_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(WWBlocks.GABBRO_BRICK_WALL);
+		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICKS);
+		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS);
+		this.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
+
 		this.add(WWBlocks.POLLEN, block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 		this.dropSelf(WWBlocks.SEEDING_DANDELION);
 		this.dropSelf(WWBlocks.CARNATION);

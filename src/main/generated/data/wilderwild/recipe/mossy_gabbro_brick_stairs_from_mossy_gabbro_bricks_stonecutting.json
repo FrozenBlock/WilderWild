@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "wilderwild:mossy_gabbro_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "wilderwild:mossy_gabbro_brick_stairs"
+  }
+}

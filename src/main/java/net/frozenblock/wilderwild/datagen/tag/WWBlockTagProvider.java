@@ -820,13 +820,32 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.DISPLAY_LANTERN)
 			.add(WWBlocks.SCORCHED_SAND)
 			.add(WWBlocks.SCORCHED_RED_SAND)
-			.add(WWBlocks.GEYSER)
 			.add(WWBlocks.CHISELED_MUD_BRICKS)
 			.add(WWBlocks.CRACKED_MUD_BRICKS)
 			.add(WWBlocks.MOSSY_MUD_BRICKS)
 			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS)
 			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB)
-			.add(WWBlocks.MOSSY_MUD_BRICK_WALL);
+			.add(WWBlocks.MOSSY_MUD_BRICK_WALL)
+
+			.add(WWBlocks.GABBRO)
+			.add(WWBlocks.GEYSER)
+			.add(WWBlocks.GABBRO_STAIRS)
+			.add(WWBlocks.GABBRO_SLAB)
+			.add(WWBlocks.GABBRO_WALL)
+			.add(WWBlocks.POLISHED_GABBRO)
+			.add(WWBlocks.POLISHED_GABBRO_STAIRS)
+			.add(WWBlocks.POLISHED_GABBRO_SLAB)
+			.add(WWBlocks.POLISHED_GABBRO_WALL)
+			.add(WWBlocks.CHISELED_GABBRO_BRICKS)
+			.add(WWBlocks.GABBRO_BRICKS)
+			.add(WWBlocks.CRACKED_GABBRO_BRICKS)
+			.add(WWBlocks.GABBRO_BRICK_STAIRS)
+			.add(WWBlocks.GABBRO_BRICK_SLAB)
+			.add(WWBlocks.GABBRO_BRICK_WALL)
+			.add(WWBlocks.MOSSY_GABBRO_BRICKS)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.addOptionalTag(WWBlockTags.MESOGLEA)
@@ -857,19 +876,55 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.SCORCHED_RED_SAND);
 
 		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
-			.add(WWBlocks.GEYSER);
+			.add(WWBlocks.GABBRO)
+			.add(WWBlocks.GEYSER)
+			.add(WWBlocks.GABBRO_STAIRS)
+			.add(WWBlocks.GABBRO_SLAB)
+			.add(WWBlocks.GABBRO_WALL)
+			.add(WWBlocks.POLISHED_GABBRO)
+			.add(WWBlocks.POLISHED_GABBRO_STAIRS)
+			.add(WWBlocks.POLISHED_GABBRO_SLAB)
+			.add(WWBlocks.POLISHED_GABBRO_WALL)
+			.add(WWBlocks.CHISELED_GABBRO_BRICKS)
+			.add(WWBlocks.GABBRO_BRICKS)
+			.add(WWBlocks.CRACKED_GABBRO_BRICKS)
+			.add(WWBlocks.GABBRO_BRICK_STAIRS)
+			.add(WWBlocks.GABBRO_BRICK_SLAB)
+			.add(WWBlocks.GABBRO_BRICK_WALL)
+			.add(WWBlocks.MOSSY_GABBRO_BRICKS)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
+
+		this.getOrCreateTagBuilder(BlockTags.BASE_STONE_OVERWORLD)
+			.add(WWBlocks.GABBRO);
+
+		this.getOrCreateTagBuilder(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
+			.add(WWBlocks.GABBRO);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
 			.add(WWBlocks.SCULK_STAIRS)
-			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS);
+			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS)
+			.add(WWBlocks.GABBRO_STAIRS)
+			.add(WWBlocks.POLISHED_GABBRO_STAIRS)
+			.add(WWBlocks.GABBRO_BRICK_STAIRS)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS);
 
 		this.getOrCreateTagBuilder(BlockTags.SLABS)
 			.add(WWBlocks.SCULK_SLAB)
-			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB);
+			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB)
+			.add(WWBlocks.GABBRO_SLAB)
+			.add(WWBlocks.POLISHED_GABBRO_SLAB)
+			.add(WWBlocks.GABBRO_BRICK_SLAB)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB);
 
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
 			.add(WWBlocks.SCULK_WALL)
-			.add(WWBlocks.MOSSY_MUD_BRICK_WALL);
+			.add(WWBlocks.MOSSY_MUD_BRICK_WALL)
+			.add(WWBlocks.GABBRO_WALL)
+			.add(WWBlocks.POLISHED_GABBRO_WALL)
+			.add(WWBlocks.GABBRO_BRICK_WALL)
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
 			.add(Blocks.COBWEB)
