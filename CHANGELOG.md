@@ -69,6 +69,7 @@ hi
   - This is now disabled by default, unlike before.
 - Scorched now set entities on fire upon attacking.
 - Removed the `wilderwild:sculk_spreader` entity, and updated the `spreadsculk` command to place all Sculk at once.
+- Updated the Chiseled Mud Bricks texture.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
