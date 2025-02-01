@@ -644,6 +644,7 @@ public final class WWBlocks {
 		.stairs(GABBRO_STAIRS)
 		.slab(GABBRO_SLAB)
 		.wall(GABBRO_WALL)
+		.dontGenerateModel()
 		.getFamily();
 
 	public static final GeyserBlock GEYSER = new GeyserBlock(
