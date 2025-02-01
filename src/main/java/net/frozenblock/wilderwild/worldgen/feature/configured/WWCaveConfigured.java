@@ -555,7 +555,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		OBSIDIAN_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_SCHEDULE_TICK_FEATURE,
+		OBSIDIAN_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
@@ -627,7 +627,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_SCHEDULE_TICK_FEATURE,
+		GABBRO_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),

@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:fading_disk_tag_schedule_tick_feature",
+  "type": "frozenlib:fading_disk_tag_feature",
   "config": {
     "fade_start_distance_percent": 0.675,
     "heightmap": "OCEAN_FLOOR_WG",
