@@ -80,8 +80,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.YELLOW_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
-
-
+		
 		generator.family(WWBlocks.GABBRO).generateFor(WWBlocks.FAMILY_GABBRO);
 		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);
 		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_GABBRO_BRICK);
