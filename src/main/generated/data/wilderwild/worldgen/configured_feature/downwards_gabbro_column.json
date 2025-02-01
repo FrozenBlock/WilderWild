@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:upwards_column",
+  "type": "frozenlib:downwards_column",
   "config": {
     "height": {
       "type": "minecraft:uniform",
@@ -11,10 +11,7 @@
       "minecraft:water"
     ],
     "state": {
-      "Name": "minecraft:basalt",
-      "Properties": {
-        "axis": "y"
-      }
+      "Name": "wilderwild:gabbro"
     }
   }
 }

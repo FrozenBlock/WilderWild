@@ -5,8 +5,8 @@
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "max_inclusive": 48,
-        "min_inclusive": 24
+        "max_inclusive": 64,
+        "min_inclusive": 48
       }
     },
     {
@@ -32,7 +32,11 @@
       "direction_of_search": "up",
       "max_steps": 12,
       "target_condition": {
-        "type": "minecraft:solid"
+        "type": "minecraft:matching_blocks",
+        "blocks": [
+          "wilderwild:gabbro",
+          "minecraft:magma_block"
+        ]
       }
     },
     {

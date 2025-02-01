@@ -99,18 +99,18 @@ public final class WWCaveConfigured {
 
 	// MAGMATIC CAVES
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
-	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_BASALT_PATH = register("magma_and_basalt_path");
+	public static final FrozenConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_GABBRO_PATH = register("magma_and_gabbro_path");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_PILE = register("magma_pile");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BASALT_PILE = register("basalt_pile");
-	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
-	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BASALT_COLUMN = register("basalt_column");
-	public static final FrozenConfiguredFeature<ColumnFeatureConfiguration, ConfiguredFeature<ColumnFeatureConfiguration, ?>> BASALT_SPIKE = register("basalt_spike");
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> GEYSER_PILE = register("geyser_pile");
+	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_GABBRO = register("ore_gabbro");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> GABBRO_DISK = register("gabbro_disk");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> GABBRO_COLUMN = register("gabbro_column");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> GABBRO_PILE = register("gabbro_pile");
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_UP = register("geyser_up");
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_DOWN = register("geyser_down");
 	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_NORTH = register("geyser_north");
@@ -481,7 +481,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_AND_BASALT_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
+		MAGMA_AND_GABBRO_PATH.makeAndSetHolder(FrozenFeatures.COMBO_FEATURE,
 			new ComboFeatureConfig(
 				List.of(
 					PlacementUtils.inlinePlaced(
@@ -504,7 +504,7 @@ public final class WWCaveConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 						new PathTagFeatureConfig(
-							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
 							4,
 							0.0325D,
@@ -521,7 +521,7 @@ public final class WWCaveConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 						new PathTagFeatureConfig(
-							BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
 							4,
 							0.0325D,
@@ -619,42 +619,59 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
-			new ColumnFeatureConfig(
-				Blocks.BASALT.defaultBlockState(),
-				UniformInt.of(1, 6),
-				HolderSet.direct(
-					Block::builtInRegistryHolder,
-					Blocks.LAVA,
-					Blocks.WATER
-				)
+		ORE_GABBRO.makeAndSetHolder(Feature.ORE,
+			new OreConfiguration(
+				new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD),
+				WWBlocks.GABBRO.defaultBlockState(),
+				64
 			)
 		);
 
-		BASALT_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
-			new ColumnFeatureConfig(
-				Blocks.BASALT.defaultBlockState(),
-				UniformInt.of(1, 6),
-				HolderSet.direct(
-					Block::builtInRegistryHolder,
-					Blocks.LAVA,
-					Blocks.WATER
-				)
-			)
-		);
-
-		BASALT_SPIKE.makeAndSetHolder(Feature.BASALT_COLUMNS,
-			new ColumnFeatureConfiguration(
-				UniformInt.of(0, 2),
-				UniformInt.of(2, 4)
-			)
-		);
-
-		BASALT_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+		GABBRO_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_SCHEDULE_TICK_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
-				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.BASALT.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
+				UniformInt.of(6, 12),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				BlockTags.BASE_STONE_OVERWORLD,
+				BlockTags.BASE_STONE_OVERWORLD,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				WWBlocks.GABBRO.defaultBlockState(),
+				UniformInt.of(1, 6),
+				HolderSet.direct(
+					Block::builtInRegistryHolder,
+					Blocks.LAVA,
+					Blocks.WATER
+				)
+			)
+		);
+
+		GABBRO_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				WWBlocks.GABBRO.defaultBlockState(),
+				UniformInt.of(1, 6),
+				HolderSet.direct(
+					Block::builtInRegistryHolder,
+					Blocks.LAVA,
+					Blocks.WATER
+				)
+			)
+		);
+
+		GABBRO_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
+				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 				UniformInt.of(2, 4),
 				0.8F,
 				0.7F,
@@ -663,12 +680,6 @@ public final class WWCaveConfigured {
 				WWBlockTags.MAGMA_REPLACEABLE,
 				WWBlockTags.MAGMA_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
-			)
-		);
-
-		GEYSER_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER)
 			)
 		);
 

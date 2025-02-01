@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.feature.placed;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.worldgen.feature.WWPlacementUtils.register;
@@ -79,8 +80,9 @@ public final class WWCavePlaced {
 	public static final FrozenPlacedFeature OBSIDIAN_DISK = WWPlacementUtils.register("obsidian_disk");
 	public static final FrozenPlacedFeature LAVA_SPRING_EXTRA = WWPlacementUtils.register("lava_spring_extra");
 	public static final FrozenPlacedFeature FIRE_PATCH_MAGMA = WWPlacementUtils.register("fire_patch_magma");
-	public static final FrozenPlacedFeature BASALT_PILE = WWPlacementUtils.register("basalt_pile");
-	public static final FrozenPlacedFeature GEYSER_PILE = WWPlacementUtils.register("geyser_pile");
+	public static final FrozenPlacedFeature ORE_GABBRO = WWPlacementUtils.register("ore_gabbro");
+	public static final FrozenPlacedFeature GABBRO_DISK = WWPlacementUtils.register("gabbro_disk");
+	public static final FrozenPlacedFeature GABBRO_PILE = WWPlacementUtils.register("gabbro_pile");
 	public static final FrozenPlacedFeature NETHER_GEYSER = WWPlacementUtils.register("nether_geyser");
 	public static final FrozenPlacedFeature NETHER_LAVA_GEYSER = WWPlacementUtils.register("nether_lava_geyser");
 	public static final FrozenPlacedFeature GEYSER_UP = WWPlacementUtils.register("geyser_up");
@@ -90,8 +92,7 @@ public final class WWCavePlaced {
 	public static final FrozenPlacedFeature GEYSER_SOUTH = WWPlacementUtils.register("geyser_south");
 	public static final FrozenPlacedFeature GEYSER_WEST = WWPlacementUtils.register("geyser_west");
 	public static final FrozenPlacedFeature DOWNWARDS_GEYSER_COLUMN = WWPlacementUtils.register("downwards_geyser_column");
-	public static final FrozenPlacedFeature DOWNWARDS_BASALT_COLUMN = WWPlacementUtils.register("downwards_basalt_column");
-	public static final FrozenPlacedFeature BASALT_SPIKE = WWPlacementUtils.register("basalt_spike");
+	public static final FrozenPlacedFeature DOWNWARDS_GABBRO_COLUMN = WWPlacementUtils.register("downwards_gabbro_column");
 	public static final FrozenPlacedFeature LAVA_LAKE_EXTRA = WWPlacementUtils.register("lava_lake_extra");
 	public static final FrozenPlacedFeature FOSSIL_LAVA = WWPlacementUtils.register("fossil_lava");
 	public static final FrozenPlacedFeature UPSIDE_DOWN_MAGMA = register("upside_down_magma");
@@ -251,7 +252,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.MAGMA_AND_BASALT_PATH.getHolder(),
+		MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.MAGMA_AND_GABBRO_PATH.getHolder(),
 			modifiersWithCount(64, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
@@ -277,7 +278,15 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		BASALT_PILE.makeAndSetHolder(WWCaveConfigured.BASALT_PILE.getHolder(),
+		ORE_GABBRO.makeAndSetHolder(WWCaveConfigured.ORE_GABBRO.getHolder(),
+			modifiersWithCount(4, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
+		);
+
+		GABBRO_DISK.makeAndSetHolder(WWCaveConfigured.GABBRO_DISK.getHolder(),
+			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+		);
+
+		GABBRO_PILE.makeAndSetHolder(WWCaveConfigured.GABBRO_PILE.getHolder(),
 			CountPlacement.of(UniformInt.of(24, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -287,14 +296,6 @@ public final class WWCavePlaced {
 
 		MAGMA_PILE.makeAndSetHolder(WWCaveConfigured.MAGMA_PILE.getHolder(),
 			CountPlacement.of(UniformInt.of(32, 72)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
-			BiomeFilter.biome()
-		);
-
-		GEYSER_PILE.makeAndSetHolder(WWCaveConfigured.GEYSER_PILE.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 4)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
@@ -333,23 +334,33 @@ public final class WWCavePlaced {
 		);
 
 		GEYSER_UP.makeAndSetHolder(WWCaveConfigured.GEYSER_UP.getHolder(),
-			CountPlacement.of(UniformInt.of(32, 64)),
+			CountPlacement.of(UniformInt.of(64, 72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
+				BlockPredicate.replaceable(),
+				12
+			),
 			BiomeFilter.biome()
 		);
 
 		GEYSER_DOWN.makeAndSetHolder(WWCaveConfigured.GEYSER_DOWN.getHolder(),
-			CountPlacement.of(UniformInt.of(24, 48)),
+			CountPlacement.of(UniformInt.of(48, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.UP,
+				BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
+				BlockPredicate.replaceable(),
+				12
+			),
 			BiomeFilter.biome()
 		);
 
 		GEYSER_NORTH.makeAndSetHolder(WWCaveConfigured.GEYSER_NORTH.getHolder(),
-			CountPlacement.of(UniformInt.of(72, 96)),
+			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
@@ -357,7 +368,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.NORTH.getNormal()),
-					BlockPredicate.solid(Direction.SOUTH.getNormal())
+					BlockPredicate.matchesBlocks(Direction.SOUTH.getNormal(), WWBlocks.GABBRO, Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -366,7 +377,7 @@ public final class WWCavePlaced {
 		);
 
 		GEYSER_EAST.makeAndSetHolder(WWCaveConfigured.GEYSER_EAST.getHolder(),
-			CountPlacement.of(UniformInt.of(72, 96)),
+			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
@@ -374,7 +385,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.EAST.getNormal()),
-					BlockPredicate.solid(Direction.WEST.getNormal())
+					BlockPredicate.matchesBlocks(Direction.WEST.getNormal(), WWBlocks.GABBRO, Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -383,7 +394,7 @@ public final class WWCavePlaced {
 		);
 
 		GEYSER_SOUTH.makeAndSetHolder(WWCaveConfigured.GEYSER_SOUTH.getHolder(),
-			CountPlacement.of(UniformInt.of(72, 96)),
+			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
@@ -391,7 +402,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.SOUTH.getNormal()),
-					BlockPredicate.solid(Direction.NORTH.getNormal())
+					BlockPredicate.matchesBlocks(Direction.NORTH.getNormal(), WWBlocks.GABBRO, Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -400,7 +411,7 @@ public final class WWCavePlaced {
 		);
 
 		GEYSER_WEST.makeAndSetHolder(WWCaveConfigured.GEYSER_WEST.getHolder(),
-			CountPlacement.of(UniformInt.of(72, 96)),
+			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
@@ -408,7 +419,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.WEST.getNormal()),
-					BlockPredicate.solid(Direction.EAST.getNormal())
+					BlockPredicate.matchesBlocks(Direction.EAST.getNormal(), WWBlocks.GABBRO, Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -420,23 +431,20 @@ public final class WWCavePlaced {
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.UP,
+				BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
+				BlockPredicate.replaceable(),
+				12
+			),
 			BiomeFilter.biome()
 		);
 
-		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
+		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GABBRO_COLUMN.getHolder(),
 			CountPlacement.of(UniformInt.of(72, 120)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
-			BiomeFilter.biome()
-		);
-
-		BASALT_SPIKE.makeAndSetHolder(WWCaveConfigured.BASALT_SPIKE.getHolder(),
-			CountPlacement.of(UniformInt.of(16, 40)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
 			BiomeFilter.biome()
 		);
 

@@ -1,12 +1,12 @@
 {
-  "feature": "wilderwild:geyser_pile",
+  "feature": "wilderwild:downwards_gabbro_column",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "max_inclusive": 4,
-        "min_inclusive": 1
+        "max_inclusive": 120,
+        "min_inclusive": 72
       }
     },
     {
@@ -29,7 +29,7 @@
       "allowed_search_condition": {
         "type": "minecraft:replaceable"
       },
-      "direction_of_search": "down",
+      "direction_of_search": "up",
       "max_steps": 12,
       "target_condition": {
         "type": "minecraft:solid"

@@ -44,10 +44,7 @@
             "state": {
               "type": "minecraft:simple_state_provider",
               "state": {
-                "Name": "minecraft:basalt",
-                "Properties": {
-                  "axis": "y"
-                }
+                "Name": "wilderwild:gabbro"
               }
             },
             "use_y": true
@@ -72,10 +69,7 @@
             "state": {
               "type": "minecraft:simple_state_provider",
               "state": {
-                "Name": "minecraft:basalt",
-                "Properties": {
-                  "axis": "y"
-                }
+                "Name": "wilderwild:gabbro"
               }
             },
             "use_y": true
