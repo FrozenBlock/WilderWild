@@ -52,6 +52,7 @@ Zhen:
  - Pale Fog textures.
  - Hibiscus reference textures.
  - Willow textures
+ - Polished Gabbro, Gabbro Bricks, Chiseled Gabbro Bricks, Mossy Gabbro Bricks, and Cracked Gabbro Bricks textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -128,7 +129,7 @@ magistermaks:
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
- - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
+ - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, Gabbro, and Geyser textures.
 
 noah1510:
  - Fixed a crash relating to Sculk during worldgen.
