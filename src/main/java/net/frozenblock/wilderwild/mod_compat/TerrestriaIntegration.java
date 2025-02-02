@@ -60,10 +60,6 @@ public class TerrestriaIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlock(id("willow_sapling"), SAPLING, saplingCondition);
 		BlockSoundTypeOverwrites.addBlock(id("yucca_palm_sapling"), SAPLING, saplingCondition);
 
-		BooleanSupplier flowerCondition = () -> WWBlockConfig.get().blockSounds.flowerSounds;
-		BlockSoundTypeOverwrites.addBlock(id("indian_paintbrush"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("monsteras"), FLOWER, flowerCondition);
-
 		BooleanSupplier cactusCondition = () -> WWBlockConfig.get().blockSounds.cactusSounds;
 		BlockSoundTypeOverwrites.addBlock(id("tiny_cactus"), CACTUS, cactusCondition);
 		BlockSoundTypeOverwrites.addBlock(id("saguaro_cactus_sapling"), CACTUS, cactusCondition);

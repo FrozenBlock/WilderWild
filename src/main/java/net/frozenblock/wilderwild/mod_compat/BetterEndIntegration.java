@@ -60,10 +60,5 @@ public class BetterEndIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlock(id("small_jellyshroom"), MUSHROOM, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("jellyshroom_cap_purple"), MUSHROOM_BLOCK, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("bolux_mushroom"), MUSHROOM, mushroomCondition);
-
-		BooleanSupplier flowerCondition = () -> WWBlockConfig.get().blockSounds.flowerSounds;
-		BlockSoundTypeOverwrites.addBlock(id("hydralux_petal_block"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.	addBlock(id("end_lotus_flower"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.	addBlock(id("tenanea_flowers"), FLOWER, flowerCondition);
 	}
 }

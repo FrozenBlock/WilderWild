@@ -78,28 +78,5 @@ public class BiomesOPlentyIntegration extends ModIntegration {
 		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
 		BlockSoundTypeOverwrites.addBlock(id("glowshroom"), MUSHROOM, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("glowshroom_block"), MUSHROOM_BLOCK, mushroomCondition);
-
-		BooleanSupplier flowerCondition = () -> WWBlockConfig.get().blockSounds.flowerSounds;
-		BlockSoundTypeOverwrites.addBlock(id("white_petals"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("wildflower"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("rose"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("violet"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lavender"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("white_lavender"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("orange_cosmos"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pink_daffodil"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pink_hibiscus"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("waterlily"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("glowflower"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("wilted_lily"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("burning_blossom"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("endbloom"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("tall_lavender"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("tall_white_lavender"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("blue_hydrangea"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("goldenrod"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("icy_iris"), FLOWER, flowerCondition);
-
-
 	}
 }

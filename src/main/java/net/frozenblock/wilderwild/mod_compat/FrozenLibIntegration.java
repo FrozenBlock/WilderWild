@@ -65,6 +65,7 @@ import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;
@@ -280,37 +281,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		BlockSoundTypeOverwrites.addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
 		BlockSoundTypeOverwrites.addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		BlockSoundTypeOverwrites.addBlocks(new Block[]{
-			DANDELION,
-			POPPY,
-			BLUE_ORCHID,
-			ALLIUM,
-			AZURE_BLUET,
-			RED_TULIP,
-			ORANGE_TULIP,
-			WHITE_TULIP,
-			PINK_TULIP,
-			OXEYE_DAISY,
-			CORNFLOWER,
-			LILY_OF_THE_VALLEY,
-			SEEDING_DANDELION,
-			CARNATION,
-			MARIGOLD,
-			PASQUEFLOWER,
-			RED_HIBISCUS,
-			YELLOW_HIBISCUS,
-			WHITE_HIBISCUS,
-			PINK_HIBISCUS,
-			PURPLE_HIBISCUS,
-			DATURA,
-			MILKWEED,
-			SUNFLOWER,
-			ROSE_BUSH,
-			PEONY,
-			LILAC,
-			TORCHFLOWER,
-			PINK_PETALS
-		}, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
 		BlockSoundTypeOverwrites.addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
 		BlockSoundTypeOverwrites.addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
 		BlockSoundTypeOverwrites.addBlock(GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);

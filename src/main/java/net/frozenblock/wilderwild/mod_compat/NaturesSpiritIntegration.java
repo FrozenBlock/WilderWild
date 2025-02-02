@@ -53,36 +53,6 @@ public class NaturesSpiritIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlock(id("shitake_mushroom"), MUSHROOM, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("shitake_mushroom_block"), MUSHROOM_BLOCK, mushroomCondition);
 
-		BooleanSupplier flowerCondition = () -> WWBlockConfig.get().blockSounds.flowerSounds;
-		BlockSoundTypeOverwrites.addBlock(id("anemone"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("begonia"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("black_iris"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("bleeding_heart"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("blue_bulbs"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("blue_iris"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("bluebell"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("carnation"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("dwarf_blossoms"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("foxglove"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("gardenia"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("hibiscus"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("iris"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lavender"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lotus_flower"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("marigold"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("protea"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("purple_heather"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("red_bearberries"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("red_heather"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("ruby_blossoms"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("snapdragon"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("tiger_lily"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("white_heather"), FLOWER, flowerCondition);
-
-		BlockSoundTypeOverwrites.addBlock(id("yellow_wildflower"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("purple_wildflower"), FLOWER, flowerCondition);
-		BlockSoundTypeOverwrites.addBlock(id("black_iris"), FLOWER, flowerCondition);
-
 		BooleanSupplier cactusCondition = () -> WWBlockConfig.get().blockSounds.cactusSounds;
 		BlockSoundTypeOverwrites.addBlock(id("aureate_succulent"), CACTUS, cactusCondition);
 		BlockSoundTypeOverwrites.addBlock(id("drowsy_succulent"), CACTUS, cactusCondition);

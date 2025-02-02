@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -32,6 +33,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
+import static net.frozenblock.wilderwild.registry.WWSoundTypes.FLOWER;
 
 public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
@@ -40,6 +42,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.generateSounds();
 		this.generateCompat();
 		this.generateLib();
 		this.generateFeatures();
@@ -53,6 +56,137 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	@NotNull
 	private TagKey<Block> getTag(String id) {
 		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+	}
+
+	private void generateSounds() {
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FLOWER)
+			.add(Blocks.DANDELION)
+			.add(Blocks.POPPY)
+			.add(Blocks.BLUE_ORCHID)
+			.add(Blocks.ALLIUM)
+			.add(Blocks.AZURE_BLUET)
+			.add(Blocks.ORANGE_TULIP)
+			.add(Blocks.PINK_TULIP)
+			.add(Blocks.RED_TULIP)
+			.add(Blocks.WHITE_TULIP)
+			.add(Blocks.OXEYE_DAISY)
+			.add(Blocks.CORNFLOWER)
+			.add(Blocks.LILY_OF_THE_VALLEY)
+			.add(WWBlocks.SEEDING_DANDELION)
+			.add(WWBlocks.CARNATION)
+			.add(WWBlocks.MARIGOLD)
+			.add(WWBlocks.PASQUEFLOWER)
+			.add(WWBlocks.RED_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
+			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.YELLOW_HIBISCUS)
+			.add(WWBlocks.WHITE_HIBISCUS)
+			.add(WWBlocks.DATURA)
+			.add(WWBlocks.MILKWEED)
+			.add(Blocks.SUNFLOWER)
+			.add(Blocks.ROSE_BUSH)
+			.add(Blocks.PEONY)
+			.add(Blocks.LILAC)
+			.add(Blocks.TORCHFLOWER)
+			.add(Blocks.PINK_PETALS)
+			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "hydralux_petal_block"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "end_lotus_flower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "tenanea_flowers"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("betternether", "soul_lily"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("betternether", "soul_lily_sapling"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "white_petals"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "wildflower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "rose"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "violet"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "lavendar"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "white_lavendar"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "orange_cosmos"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "pink_daffodil"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "pink_hibiscus"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "waterlily"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "glowflower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "wilted_lily"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "burning_blossom"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "endbloom"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "tall_lavendar"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "tall_white_lavendar"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "blue_hydrangea"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "goldenrod"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "icy_iris"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","anemone"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","begonia"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","black_iris"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","bleeding_heart"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","blue_bulbs"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","blue_iris"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","bluebell"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","carnation"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","dwarf_blossoms"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","foxglove"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","gardenia"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","hibiscus"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","iris"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","lavender"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","lotus_flower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","marigold"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","protea"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","purple_heather"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","red_bearberries"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","red_heather"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","ruby_blossoms"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","snapdragon"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","tiger_lily"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","white_heather"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","yellow_wildflower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","purple_wildflower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","black_iris"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","cactus_flower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","tassel"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","day_lily"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","aster"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","bleeding_heart"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","blue_lupine"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","daisy"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","dorcel"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","felicia_daisy"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","fireweed"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","hibiscus"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","mallow"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","hyssop"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","pink_lupine"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","poppy_bush"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","salmon_poppy_bush"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","purple_lupine"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","red_lupine"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","waratah"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","tsubaki"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","white_trillium"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","wilting_trillium"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","yellow_lupine"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","red_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","orange_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","yellow_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","lime_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","green_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","cyan_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","light_blue_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","blue_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","purple_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","magenta_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","pink_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","brown_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","white_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","light_gray_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","gray_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","black_snowbelle"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","hyacinth_flowers"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","orange_coneflower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","purple_coneflower"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","blue_magnolia_flowers"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","pink_magnolia_flowers"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","white_magnolia_flowers"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("terrestria","indian_paintbrush"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("terrestria","monsteras"));
 	}
 
 	private void generateCompat() {
