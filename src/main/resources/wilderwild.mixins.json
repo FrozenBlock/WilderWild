@@ -61,7 +61,7 @@
     "entity.tumbleweed.EntityMixin",
     "entity.tumbleweed.LivingEntityMixin",
     "entity.turtle.TurtleMixin",
-    "feature_flag.FeatureFlagsMixin",
+    "trailiertales.feature_flag.FeatureFlagsMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "loot.LootTableMixin",
