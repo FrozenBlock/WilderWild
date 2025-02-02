@@ -26,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_FLOWER = bind("sound/flower");
+	public static final TagKey<Block> SOUND_LEAVES = bind("sound/leaves");
+	public static final TagKey<Block> SOUND_SAPLING = bind("sound/sapling");
 
 	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Block> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");

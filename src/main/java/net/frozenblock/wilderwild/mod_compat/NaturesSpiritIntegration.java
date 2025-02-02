@@ -33,22 +33,6 @@ public class NaturesSpiritIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		try {
-			NSWoods.getWoodSets().forEach(woodSet -> {
-				woodSet.getLeavesList().forEach(leaves -> {
-					BlockSoundTypeOverwrites.addBlock(leaves, LEAVES, leavesCondition);
-				});
-				woodSet.getsaplingList().forEach(sapling -> {
-					BlockSoundTypeOverwrites.addBlock(sapling, SAPLING, saplingCondition);
-				});
-			});
-		} catch (Exception ignored) {
-		}
-
-		BlockSoundTypeOverwrites.addBlock(id("silverbush"), SAPLING, saplingCondition);
-
 		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
 		BlockSoundTypeOverwrites.addBlock(id("shitake_mushroom"), MUSHROOM, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("shitake_mushroom_block"), MUSHROOM_BLOCK, mushroomCondition);

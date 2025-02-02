@@ -31,50 +31,6 @@ public class BiomesOPlentyIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		BlockSoundTypeOverwrites.addBlock(id("bramble_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("cypress_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("dead_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("empyreal_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("fir_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("flowering_oak_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("hellbark_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("jacaranda_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("magic_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("mahogany_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("null_leaves"), NULL_BLOCK, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("orange_maple_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("palm_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pine_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("rainbow_birch_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("red_maple_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("redwood_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("snowblossom_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("umbran_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("willow_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("yellow_maple_leaves"), LEAVES, leavesCondition);
-
-		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		BlockSoundTypeOverwrites.addBlock(id("cypress_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("dead_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("empyreal_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("fir_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("flowering_oak_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("hellbark_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("jacaranda_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("magic_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("mahogany_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("orange_maple_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("palm_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pine_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("rainbow_birch_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("red_maple_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("redwood_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("snowblossom_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("umbran_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("willow_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("yellow_maple_sapling"), SAPLING, saplingCondition);
-
 		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
 		BlockSoundTypeOverwrites.addBlock(id("glowshroom"), MUSHROOM, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("glowshroom_block"), MUSHROOM_BLOCK, mushroomCondition);

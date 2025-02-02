@@ -31,12 +31,6 @@ public class BetterNetherIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		BlockSoundTypeOverwrites.addBlock(id("willow_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("rubeus_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("anchor_tree_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("nether_sakura_leaves"), LEAVES, leavesCondition);
-
 		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
 		BlockSoundTypeOverwrites.addBlock(id("red_large_mushroom"), MUSHROOM_BLOCK, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("brown_large_mushroom"), MUSHROOM_BLOCK, mushroomCondition);

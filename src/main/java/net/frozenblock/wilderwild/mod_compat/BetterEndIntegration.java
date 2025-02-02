@@ -31,27 +31,6 @@ public class BetterEndIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier leavesCondition = () -> WWBlockConfig.get().blockSounds.leafSounds;
-		BlockSoundTypeOverwrites.addBlock(id("pythadendron_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lacugrove_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("dragon_tree_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("tenanea_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("helix_tree_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lucernia_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lucernia_outer_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("glowing_pillar_leaves"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("cave_bush"), LEAVES, leavesCondition);
-		BlockSoundTypeOverwrites.addBlock(id("end_lotus_leaf"), LEAVES, leavesCondition);
-
-		BooleanSupplier saplingCondition = () -> WWBlockConfig.get().blockSounds.saplingSounds;
-		BlockSoundTypeOverwrites.addBlock(id("pythadendron_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lacugrove_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("dragon_tree_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("tenanea_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("helix_tree_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("umbrella_tree_sapling"), SAPLING, saplingCondition);
-		BlockSoundTypeOverwrites.addBlock(id("lucernia_sapling"), SAPLING, saplingCondition);
-
 		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
 		BlockSoundTypeOverwrites.addBlock(id("mossy_glowshroom_sapling"), MUSHROOM, mushroomCondition);
 		BlockSoundTypeOverwrites.addBlock(id("mossy_glowshroom_cap"), MUSHROOM_BLOCK, mushroomCondition);

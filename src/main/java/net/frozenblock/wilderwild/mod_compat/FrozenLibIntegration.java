@@ -277,44 +277,17 @@ public class FrozenLibIntegration extends ModIntegration {
 		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SAPLING, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
+
 		BlockSoundTypeOverwrites.addBlocks(new Block[]{Blocks.CACTUS, PRICKLY_PEAR_CACTUS}, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
 		BlockSoundTypeOverwrites.addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		BlockSoundTypeOverwrites.addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
 		BlockSoundTypeOverwrites.addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
 		BlockSoundTypeOverwrites.addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
 		BlockSoundTypeOverwrites.addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
 		BlockSoundTypeOverwrites.addBlock(GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
-		BlockSoundTypeOverwrites.addBlocks(new Block[]{
-			ACACIA_SAPLING,
-			BIRCH_SAPLING,
-			DARK_OAK_SAPLING,
-			JUNGLE_SAPLING,
-			MANGROVE_PROPAGULE,
-			OAK_SAPLING,
-			SPRUCE_SAPLING,
-			WILLOW_SAPLING,
-			CYPRESS_SAPLING,
-			MAPLE_SAPLING,
-			BUSH
-		}, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
-		BlockSoundTypeOverwrites.addBlocks(new Block[]{
-			ACACIA_LEAVES,
-			BIRCH_LEAVES,
-			DARK_OAK_LEAVES,
-			JUNGLE_LEAVES,
-			MANGROVE_LEAVES,
-			OAK_LEAVES,
-			SPRUCE_LEAVES,
-			BAOBAB_LEAVES,
-			WILLOW_LEAVES,
-			CYPRESS_LEAVES,
-			PALM_FRONDS,
-			YELLOW_MAPLE_LEAVES,
-			ORANGE_MAPLE_LEAVES,
-			RED_MAPLE_LEAVES
-		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
-		BlockSoundTypeOverwrites.addBlocks(new Block[]{YELLOW_MAPLE_LEAF_LITTER, ORANGE_MAPLE_LEAF_LITTER, RED_MAPLE_LEAF_LITTER}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		BlockSoundTypeOverwrites.addBlocks(new Block[]{Blocks.LILY_PAD, FLOWERING_LILY_PAD}, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
 		BlockSoundTypeOverwrites.addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
 		BlockSoundTypeOverwrites.addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
