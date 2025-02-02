@@ -18,13 +18,9 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
-import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
-import net.hibiscus.naturespirit.registration.NSWoods;
-import net.minecraft.world.level.block.SoundType;
 
 public class NaturesSpiritIntegration extends ModIntegration {
 	public NaturesSpiritIntegration() {
@@ -33,36 +29,6 @@ public class NaturesSpiritIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BooleanSupplier mushroomCondition = () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds;
-		BlockSoundTypeOverwrites.addBlock(id("shitake_mushroom"), MUSHROOM, mushroomCondition);
-		BlockSoundTypeOverwrites.addBlock(id("shitake_mushroom_block"), MUSHROOM_BLOCK, mushroomCondition);
-
-		BooleanSupplier cactusCondition = () -> WWBlockConfig.get().blockSounds.cactusSounds;
-		BlockSoundTypeOverwrites.addBlock(id("aureate_succulent"), CACTUS, cactusCondition);
-		BlockSoundTypeOverwrites.addBlock(id("drowsy_succulent"), CACTUS, cactusCondition);
-		BlockSoundTypeOverwrites.addBlock(id("foamy_succulent"), CACTUS, cactusCondition);
-		BlockSoundTypeOverwrites.addBlock(id("imperial_succulent"), CACTUS, cactusCondition);
-		BlockSoundTypeOverwrites.addBlock(id("ornate_succulent"), CACTUS, cactusCondition);
-		BlockSoundTypeOverwrites.addBlock(id("regal_succulent"), CACTUS, cactusCondition);
-		BlockSoundTypeOverwrites.addBlock(id("sage_succulent"), CACTUS, cactusCondition);
-
-		BooleanSupplier coarseDirtCondition = () -> WWBlockConfig.get().blockSounds.coarseDirtSounds;
-		BlockSoundTypeOverwrites.addBlock(id("sandy_soil"), COARSE_DIRT, coarseDirtCondition);
-
-		BooleanSupplier sandstoneCondition = () -> WWBlockConfig.get().blockSounds.sandstoneSounds;
-		BlockSoundTypeOverwrites.addBlock(id("pink_sandstone"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pink_sandstone_slab"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pink_sandstone_stairs"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("pink_sandstone_wall"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("smooth_pink_sandstone"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("smooth_pink_sandstone_slab"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("smooth_pink_sandstone_stairs"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("chiseled_pink_sandstone"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("cut_pink_sandstone"), SANDSTONE, sandstoneCondition);
-		BlockSoundTypeOverwrites.addBlock(id("cut_pink_sandstone_slab"), SANDSTONE, sandstoneCondition);
-
-		BlockSoundTypeOverwrites.addBlock(id("cattail"), SoundType.WET_GRASS, () -> true);
-
 		BlockSoundTypeOverwrites.addBlock(id("coconut"), COCONUT, () -> true);
 		BlockSoundTypeOverwrites.addBlock(id("young_coconut"), COCONUT, () -> true);
 	}

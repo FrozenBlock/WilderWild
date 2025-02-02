@@ -27,12 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWModIntegrations {
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
-	public static final ModIntegration BETTEREND_INTEGRATION = registerAndGet(BetterEndIntegration::new, "betterend");
-	public static final ModIntegration BETTERNETHER_INTEGRATION = registerAndGet(BetterNetherIntegration::new, "betternether");
 	public static final ModIntegration NATURES_SPIRIT_INTEGRATION = registerAndGet(NaturesSpiritIntegration::new, "natures_spirit");
-	public static final ModIntegration BIOMES_O_PLENTY_INTEGRATION = registerAndGet(BiomesOPlentyIntegration::new, "biomesoplenty");
-	public static final ModIntegration TERRESTRIA_INTEGRATION = registerAndGet(TerrestriaIntegration::new, "terrestria");
-	public static final ModIntegration REGIONS_UNEXPLORED_INTEGRATION = registerAndGet(RegionsUnexploredIntegration::new, "regions_unexplored");
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "simple_copper_pipes");
 
 	private WWModIntegrations() {

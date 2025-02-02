@@ -1,0 +1,38 @@
+{
+  "values": [
+    "minecraft:red_mushroom_block",
+    "minecraft:brown_mushroom_block",
+    {
+      "id": "betterend:mossy_glowshroom_cap",
+      "required": false
+    },
+    {
+      "id": "betterend:mossy_glowshroom_fur",
+      "required": false
+    },
+    {
+      "id": "betterend:jellyshroom_cap_purple",
+      "required": false
+    },
+    {
+      "id": "betternether:red_large_mushroom",
+      "required": false
+    },
+    {
+      "id": "betternether:brown_large_mushroom",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:glowshroom_block",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:shitake_mushroom_block",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_bioshroom",
+      "required": false
+    }
+  ]
+}

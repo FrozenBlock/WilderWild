@@ -70,6 +70,8 @@ hi
 - Scorched now set entities on fire upon attacking.
 - Removed the `wilderwild:sculk_spreader` entity, and updated the `spreadsculk` command to place all Sculk at once.
 - Updated the Chiseled Mud Bricks texture.
+- Wilder Wild's custom flower, leaves, sapling, cactus, coarse dirt, ice, frosted ice, mushroom, mushroom block, sandstone, lily pad, and melon block sounds now all rely on tags.
+  - These tags can be found in the `/sound` folder for block tags.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
