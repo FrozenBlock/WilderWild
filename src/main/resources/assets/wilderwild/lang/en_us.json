@@ -993,5 +993,7 @@
   "wilderwild.advancements.husbandry.butterfly_in_a_bottle.description": "Catch a Butterfly in a Bottle",
 
   "commands.sculkspread.success": "Spread Sculk at %s, %s, %s with a charge of %s.",
-  "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s."
+  "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s.",
+
+  "item.disabled.trailiertales": "Requires Trailier Tales"
 }
