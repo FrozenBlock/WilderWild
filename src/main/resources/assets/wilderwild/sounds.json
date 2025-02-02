@@ -3488,6 +3488,58 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.gabbro_bricks.break": {
+    "sounds": [
+      "wilderwild:block/gabbro_bricks/break1",
+      "wilderwild:block/gabbro_bricks/break2",
+      "wilderwild:block/gabbro_bricks/break3",
+      "wilderwild:block/gabbro_bricks/break4",
+      "wilderwild:block/gabbro_bricks/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.gabbro_bricks.fall": {
+    "sounds": [
+      "wilderwild:block/gabbro_bricks/step1",
+      "wilderwild:block/gabbro_bricks/step2",
+      "wilderwild:block/gabbro_bricks/step3",
+      "wilderwild:block/gabbro_bricks/step4",
+      "wilderwild:block/gabbro_bricks/step5",
+      "wilderwild:block/gabbro_bricks/step6"
+    ]
+  },
+  "block.gabbro_bricks.hit": {
+    "sounds": [
+      "wilderwild:block/gabbro_bricks/step1",
+      "wilderwild:block/gabbro_bricks/step2",
+      "wilderwild:block/gabbro_bricks/step3",
+      "wilderwild:block/gabbro_bricks/step4",
+      "wilderwild:block/gabbro_bricks/step5",
+      "wilderwild:block/gabbro_bricks/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.gabbro_bricks.place": {
+    "sounds": [
+      "wilderwild:block/gabbro_bricks/break1",
+      "wilderwild:block/gabbro_bricks/break2",
+      "wilderwild:block/gabbro_bricks/break3",
+      "wilderwild:block/gabbro_bricks/break4",
+      "wilderwild:block/gabbro_bricks/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.gabbro_bricks.step": {
+    "sounds": [
+      "wilderwild:block/gabbro_bricks/step1",
+      "wilderwild:block/gabbro_bricks/step2",
+      "wilderwild:block/gabbro_bricks/step3",
+      "wilderwild:block/gabbro_bricks/step4",
+      "wilderwild:block/gabbro_bricks/step5",
+      "wilderwild:block/gabbro_bricks/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.geyser.boil": {
     "sounds": [
       "wilderwild:block/geyser/boil1",

@@ -680,6 +680,7 @@ public final class WWBlocks {
 
 	public static final Block GABBRO_BRICKS = new Block(
 		BlockBehaviour.Properties.ofFullCopy(GABBRO)
+			.sound(WWSoundTypes.GABBRO_BRICKS)
 	);
 	public static final Block GABBRO_BRICK_STAIRS = new StairBlock(
 		GABBRO_BRICKS.defaultBlockState(),

@@ -107,6 +107,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_GABBRO_HIT,
 		WWSounds.BLOCK_GABBRO_FALL
 	);
+	public static final SoundType GABBRO_BRICKS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_GABBRO_BRICKS_BREAK,
+		WWSounds.BLOCK_GABBRO_BRICKS_STEP,
+		WWSounds.BLOCK_GABBRO_BRICKS_PLACE,
+		WWSounds.BLOCK_GABBRO_BRICKS_HIT,
+		WWSounds.BLOCK_GABBRO_BRICKS_FALL
+	);
 	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
 		WWSounds.BLOCK_MAGMA_BREAK,
 		WWSounds.BLOCK_MAGMA_STEP,
