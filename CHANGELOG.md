@@ -74,7 +74,7 @@ hi
   - These tags can be found in the `/sound` folder for block tags.
 - Fixed Wilder Wild's custom Flower Pot models having ambient occlusion enabled.
 - Fixed Wilder Wild's custom Flower Pot models not having the correct UV mapping.
-- Fixed some of Wilder Wild's custom Flower Pot models not using correct textures.
+- Fixed some of Wilder Wild's custom Flower Pot models not using correct particle textures.
 - Pink Petals can now be placed into Flower Pots.
 
 # Music
