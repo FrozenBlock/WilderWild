@@ -49,15 +49,27 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
 			.add(WWBlocks.SCULK_STAIRS.asItem())
-			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS.asItem());
+			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS.asItem())
+			.add(WWBlocks.GABBRO_STAIRS.asItem())
+			.add(WWBlocks.POLISHED_GABBRO_STAIRS.asItem())
+			.add(WWBlocks.GABBRO_BRICK_STAIRS.asItem())
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
 			.add(WWBlocks.SCULK_SLAB.asItem())
-			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB.asItem());
+			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB.asItem())
+			.add(WWBlocks.GABBRO_SLAB.asItem())
+			.add(WWBlocks.POLISHED_GABBRO_SLAB.asItem())
+			.add(WWBlocks.GABBRO_BRICK_SLAB.asItem())
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
 			.add(WWBlocks.SCULK_WALL.asItem())
-			.add(WWBlocks.MOSSY_MUD_BRICK_WALL.asItem());
+			.add(WWBlocks.MOSSY_MUD_BRICK_WALL.asItem())
+			.add(WWBlocks.GABBRO_WALL.asItem())
+			.add(WWBlocks.POLISHED_GABBRO_WALL.asItem())
+			.add(WWBlocks.GABBRO_BRICK_WALL.asItem())
+			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.ARMADILLO_FOOD)
 			.add(WWItems.SCORCHED_EYE);
@@ -171,7 +183,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.CATTAIL.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
-			.add(WWBlocks.POLLEN.asItem());
+			.add(WWBlocks.POLLEN.asItem())
+			.add(WWBlocks.WILDFLOWERS.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(WWBlocks.RED_HIBISCUS.asItem())
@@ -183,6 +196,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.WILDFLOWERS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
@@ -201,6 +215,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.WILDFLOWERS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())

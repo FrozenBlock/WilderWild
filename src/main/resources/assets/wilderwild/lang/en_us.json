@@ -222,6 +222,7 @@
   "block.wilderwild.potted_prickly_big_dripleaf": "Potted Big Dripleaf",
   "block.wilderwild.potted_prickly_small_dripleaf": "Potted Small Dripleaf",
   "block.wilderwild.potted_short_grass": "Potted Short Grass",
+  "block.wilderwild.potted_pink_petals": "Potted Pink Petals",
   "block.wilderwild.red_shelf_fungi": "Red Shelf Fungi",
   "block.wilderwild.scorched_sand": "Scorched Sand",
   "block.wilderwild.scorched_red_sand": "Scorched Red Sand",
@@ -247,12 +248,34 @@
   "block.wilderwild.carnation": "Carnation",
   "block.wilderwild.potted_carnation": "Potted Carnation",
 
+  "block.wilderwild.clovers": "Clovers",
+  "block.wilderwild.potted_clovers": "Potted Clovers",
+
   "block.wilderwild.display_lantern": "Display Lantern",
   "item.wilderwild.display_lantern": "Display Lantern",
 
   "block.wilderwild.geyser": "Geyser",
   "subtitles.block.geyser.boil": "Geyser boils",
   "subtitles.block.geyser.erupt": "Geyser erupts",
+
+  "block.wilderwild.gabbro": "Gabbro",
+  "block.wilderwild.gabbro_stairs": "Gabbro Stairs",
+  "block.wilderwild.gabbro_slab": "Gabbro Slab",
+  "block.wilderwild.gabbro_wall": "Gabbro Wall",
+  "block.wilderwild.polished_gabbro": "Polished Gabbro",
+  "block.wilderwild.polished_gabbro_stairs": "Polished Gabbro Stairs",
+  "block.wilderwild.polished_gabbro_slab": "Polished Gabbro Slab",
+  "block.wilderwild.polished_gabbro_wall": "Polished Gabbro Wall",
+  "block.wilderwild.chiseled_gabbro_bricks": "Chiseled Gabbro Bricks",
+  "block.wilderwild.gabbro_bricks": "Gabbro Bricks",
+  "block.wilderwild.cracked_gabbro_bricks": "Cracked Gabbro Bricks",
+  "block.wilderwild.gabbro_brick_stairs": "Gabbro Brick Stairs",
+  "block.wilderwild.gabbro_brick_slab": "Gabbro Brick Slab",
+  "block.wilderwild.gabbro_brick_wall": "Gabbro Brick Wall",
+  "block.wilderwild.mossy_gabbro_bricks": "Mossy Gabbro Bricks",
+  "block.wilderwild.mossy_gabbro_brick_stairs": "Mossy Gabbro Brick Stairs",
+  "block.wilderwild.mossy_gabbro_brick_slab": "Mossy Gabbro Brick Slab",
+  "block.wilderwild.mossy_gabbro_brick_wall": "Mossy Gabbro Brick Wall",
 
   "block.wilderwild.red_hibiscus": "Red Hibiscus",
   "block.wilderwild.yellow_hibiscus": "Yellow Hibiscus",
@@ -319,6 +342,9 @@
   "subtitles.block.termite_mound.exit": "Termites exit mound",
 
   "block.wilderwild.warped_shelf_fungi": "Warped Shelf Fungi",
+
+  "block.wilderwild.wildflowers": "Wildflowers",
+  "block.wilderwild.potted_wildflowers": "Potted Wildflowers",
 
   "item.wilderwild.copper_horn": "Copper Horn",
   "instrument.wilderwild.clarinet_copper_horn": "Clarinet",
@@ -990,5 +1016,7 @@
   "wilderwild.advancements.husbandry.butterfly_in_a_bottle.description": "Catch a Butterfly in a Bottle",
 
   "commands.sculkspread.success": "Spread Sculk at %s, %s, %s with a charge of %s.",
-  "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s."
+  "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s.",
+
+  "item.disabled.trailiertales": "Requires Trailier Tales"
 }

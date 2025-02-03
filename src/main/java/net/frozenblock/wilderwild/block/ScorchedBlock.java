@@ -23,7 +23,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
-import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
+import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -173,7 +173,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		Fluid fluid = DripstoneUtils.getDripstoneFluid(level, pos);
+		Fluid fluid = DripstoneDripApi.getDripstoneFluid(level, pos);
 		if (fluid == Fluids.LAVA) {
 			if (random.nextBoolean()) {
 				scorch(state, level, pos);

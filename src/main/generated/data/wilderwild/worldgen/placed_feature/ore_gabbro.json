@@ -1,0 +1,27 @@
+{
+  "feature": "wilderwild:ore_gabbro",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 4
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 64
+        },
+        "min_inclusive": {
+          "absolute": -54
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

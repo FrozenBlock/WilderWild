@@ -27,18 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWModIntegrations {
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
-	public static final ModIntegration BETTEREND_INTEGRATION = registerAndGet(BetterEndIntegration::new, "betterend");
-	public static final ModIntegration BETTERNETHER_INTEGRATION = registerAndGet(BetterNetherIntegration::new, "betternether");
-	public static final ModIntegration BLOCKUS_INTEGRATION = registerAndGet(BlockusIntegration::new, "blockus");
-	public static final ModIntegration EDENRING_INTEGRATION = registerAndGet(EdenRingIntegration::new, "edenring");
-	public static final ModIntegration TECHREBORN_INTEGRATION = registerAndGet(TechRebornIntegration::new, "techreborn");
-	public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
 	public static final ModIntegration NATURES_SPIRIT_INTEGRATION = registerAndGet(NaturesSpiritIntegration::new, "natures_spirit");
-	public static final ModIntegration BIOMES_O_PLENTY_INTEGRATION = registerAndGet(BiomesOPlentyIntegration::new, "biomesoplenty");
-	public static final ModIntegration TERRESTRIA_INTEGRATION = registerAndGet(TerrestriaIntegration::new, "terrestria");
-	public static final ModIntegration REGIONS_UNEXPLORED_INTEGRATION = registerAndGet(RegionsUnexploredIntegration::new, "regions_unexplored");
-	public static final ModIntegration TRAVERSE_INTEGRATION = registerAndGet(TraverseIntegration::new, "traverse");
-	public static final ModIntegration EXCESSIVE_BUILDING_INTEGRATION = registerAndGet(ExcessiveBuildingIntegration::new, "excessive_building");
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "simple_copper_pipes");
 
 	private WWModIntegrations() {

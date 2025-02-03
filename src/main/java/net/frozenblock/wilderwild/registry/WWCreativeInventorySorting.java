@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
@@ -237,6 +238,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.PINK_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
+		addAfterInNaturalBlocks(Items.PINK_PETALS, WWBlocks.WILDFLOWERS);
 
 		// TALL FLOWERS
 		addAfterInNaturalBlocks(Items.PEONY, WWBlocks.DATURA);
@@ -256,7 +258,8 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
 		// MYCELIUM
-		addAfterInNaturalBlocks(Items.FERN, WWBlocks.MYCELIUM_GROWTH);
+		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
+		addAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.MYCELIUM_GROWTH);
 
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);
@@ -330,7 +333,6 @@ public class WWCreativeInventorySorting {
 
 		// FUNCTIONAL BLOCK ENTITIES
 		addBeforeInNaturalBlocks(Items.BEE_NEST, WWBlocks.TERMITE_MOUND);
-		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
 		addBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWBlocks.GEYSER);
 
 		// MISC
@@ -371,6 +373,33 @@ public class WWCreativeInventorySorting {
 
 		// HORNS
 		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.COPPER_HORN, WWInstrumentTags.COPPER_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);
+
+		// GABBRO
+		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
+		addBeforeInNaturalBlocks(WWBlocks.GEYSER, WWBlocks.GABBRO);
+
+		addBeforeInBuildingBlocks(Items.BRICKS, WWBlocks.GABBRO);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO, WWBlocks.GEYSER);
+		// TT
+		addAfterInBuildingBlocks(WWBlocks.GEYSER, WWBlocks.GABBRO_STAIRS);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO_SLAB);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO_WALL);
+		// BACK TO WW
+		addAfterInBuildingBlocks(FrozenBools.HAS_TRAILIERTALES ? WWBlocks.GABBRO_WALL : WWBlocks.GEYSER, WWBlocks.POLISHED_GABBRO);
+		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO_STAIRS);
+		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_SLAB);
+		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO_WALL);
+		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.GABBRO_BRICKS);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICKS, WWBlocks.CRACKED_GABBRO_BRICKS);
+		addAfterInBuildingBlocks(WWBlocks.CRACKED_GABBRO_BRICKS, WWBlocks.GABBRO_BRICK_STAIRS);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICK_SLAB);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICK_WALL);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_WALL, WWBlocks.CHISELED_GABBRO_BRICKS);
+		// TT
+		addAfterInBuildingBlocks(WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICKS);
+		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS);
+		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB);
+		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 	}
 
 	private static void addBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {

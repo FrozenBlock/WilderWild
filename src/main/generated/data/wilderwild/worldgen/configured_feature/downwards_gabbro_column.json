@@ -1,0 +1,17 @@
+{
+  "type": "frozenlib:downwards_column",
+  "config": {
+    "height": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 6,
+      "min_inclusive": 1
+    },
+    "replaceable_blocks": [
+      "minecraft:lava",
+      "minecraft:water"
+    ],
+    "state": {
+      "Name": "wilderwild:gabbro"
+    }
+  }
+}

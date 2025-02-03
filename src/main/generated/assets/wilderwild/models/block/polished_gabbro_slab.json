@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "wilderwild:block/polished_gabbro",
+    "side": "wilderwild:block/polished_gabbro",
+    "top": "wilderwild:block/polished_gabbro"
+  }
+}

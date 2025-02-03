@@ -1,6 +1,10 @@
 {
   "values": [
     "wilderwild:sculk_wall",
-    "wilderwild:mossy_mud_brick_wall"
+    "wilderwild:mossy_mud_brick_wall",
+    "wilderwild:gabbro_wall",
+    "wilderwild:polished_gabbro_wall",
+    "wilderwild:gabbro_brick_wall",
+    "wilderwild:mossy_gabbro_brick_wall"
   ]
 }

@@ -1,0 +1,436 @@
+{
+  "values": [
+    "minecraft:dandelion",
+    "minecraft:poppy",
+    "minecraft:blue_orchid",
+    "minecraft:allium",
+    "minecraft:azure_bluet",
+    "minecraft:orange_tulip",
+    "minecraft:pink_tulip",
+    "minecraft:red_tulip",
+    "minecraft:white_tulip",
+    "minecraft:oxeye_daisy",
+    "minecraft:cornflower",
+    "minecraft:lily_of_the_valley",
+    "wilderwild:seeding_dandelion",
+    "wilderwild:carnation",
+    "wilderwild:marigold",
+    "wilderwild:pasqueflower",
+    "wilderwild:red_hibiscus",
+    "wilderwild:purple_hibiscus",
+    "wilderwild:pink_hibiscus",
+    "wilderwild:yellow_hibiscus",
+    "wilderwild:white_hibiscus",
+    "wilderwild:datura",
+    "wilderwild:milkweed",
+    "minecraft:sunflower",
+    "minecraft:rose_bush",
+    "minecraft:peony",
+    "minecraft:lilac",
+    "minecraft:torchflower",
+    "minecraft:pink_petals",
+    "wilderwild:wildflowers",
+    "minecraft:closed_eyeblossom",
+    "minecraft:open_eyeblossom",
+    {
+      "id": "trailiertales:cyan_rose",
+      "required": false
+    },
+    {
+      "id": "trailiertales:manedrop",
+      "required": false
+    },
+    {
+      "id": "betterend:hydralux_petal_block",
+      "required": false
+    },
+    {
+      "id": "betterend:end_lotus_flower",
+      "required": false
+    },
+    {
+      "id": "betterend:tenanea_flowers",
+      "required": false
+    },
+    {
+      "id": "betternether:soul_lily",
+      "required": false
+    },
+    {
+      "id": "betternether:soul_lily_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:white_petals",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:wildflower",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:rose",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:violet",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:lavendar",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:white_lavendar",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:orange_cosmos",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:pink_daffodil",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:pink_hibiscus",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:waterlily",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:glowflower",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:wilted_lily",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:burning_blossom",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:endbloom",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:tall_lavendar",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:tall_white_lavendar",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:blue_hydrangea",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:goldenrod",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:icy_iris",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:anemone",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:begonia",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:black_iris",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:bleeding_heart",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:blue_bulbs",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:blue_iris",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:bluebell",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:carnation",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:dwarf_blossoms",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:foxglove",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:gardenia",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:hibiscus",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:iris",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:lavender",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:lotus_flower",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:marigold",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:protea",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:purple_heather",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:red_bearberries",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:red_heather",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:ruby_blossoms",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:snapdragon",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:tiger_lily",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:white_heather",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:yellow_wildflower",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:purple_wildflower",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:black_iris",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cactus_flower",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:tassel",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:day_lily",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:aster",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:bleeding_heart",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_lupine",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:daisy",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dorcel",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:felicia_daisy",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:fireweed",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:hibiscus",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mallow",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:hyssop",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pink_lupine",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:poppy_bush",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:salmon_poppy_bush",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:purple_lupine",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:red_lupine",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:waratah",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:tsubaki",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:white_trillium",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:wilting_trillium",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:yellow_lupine",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:red_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:orange_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:yellow_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:lime_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:green_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cyan_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:light_blue_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:purple_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:magenta_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pink_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:brown_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:white_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:light_gray_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:gray_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:black_snowbelle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:hyacinth_flowers",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:orange_coneflower",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:purple_coneflower",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_magnolia_flowers",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pink_magnolia_flowers",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:white_magnolia_flowers",
+      "required": false
+    },
+    {
+      "id": "terrestria:indian_paintbrush",
+      "required": false
+    },
+    {
+      "id": "terrestria:monsteras",
+      "required": false
+    }
+  ]
+}

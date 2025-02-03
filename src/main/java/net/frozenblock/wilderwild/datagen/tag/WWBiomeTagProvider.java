@@ -532,11 +532,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MOOBLOOM)
 			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_DANDELION)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.PLAINS)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptionalTag(BiomeTags.IS_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_JUNGLE)
 			.addOptionalTag(BiomeTags.IS_FOREST)
@@ -545,6 +547,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_POPPY)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.PLAINS)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptionalTag(BiomeTags.IS_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_JUNGLE)
 			.addOptionalTag(BiomeTags.IS_FOREST)
@@ -616,6 +619,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_MARIGOLD)
 			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD_SPARSE);
@@ -1169,6 +1173,29 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)
 			.add(Biomes.PLAINS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS)
+			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPARSE_WILDFLOWERS)
+			.addOptionalTag(WWBiomeTags.MEADOW);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CLOVERS)
+			.addOptionalTag(ConventionalBiomeTags.IS_OCEAN)
+			.addOptionalTag(ConventionalBiomeTags.IS_RIVER)
+			.addOptionalTag(WWBiomeTags.MEADOW)
+			.add(WWBiomes.RAINFOREST)
+			.add(Biomes.SPARSE_JUNGLE)
+			.add(Biomes.JUNGLE)
+			.add(Biomes.BAMBOO_JUNGLE)
+			.add(Biomes.DARK_FOREST)
+			.addOptional(WWBiomes.CYPRESS_WETLANDS)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MILKWEED)
 			.add(Biomes.FLOWER_FOREST)

@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -33,10 +34,9 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -208,15 +208,70 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICKS);
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWBlocks.MOSSY_MUD_BRICK_WALL, WWBlocks.MOSSY_MUD_BRICKS);
 
+				// GABBRO
+
+				this.generateRecipes(WWBlocks.FAMILY_POLISHED_GABBRO, FeatureFlags.VANILLA_SET);
+				this.generateRecipes(WWBlocks.FAMILY_GABBRO_BRICK, FeatureFlags.VANILLA_SET);
+
+				this.generateRecipes(WWBlocks.FAMILY_GABBRO, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
+				this.generateRecipes(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
+
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_WALL, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.POLISHED_GABBRO);
+
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, 4)
+					.define('#', WWBlocks.GABBRO)
+					.pattern("##")
+					.pattern("##")
+					.unlockedBy("has_gabbro", has(WWBlocks.GABBRO))
+					.save(exporter);
+
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, WWBlocks.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICKS, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.POLISHED_GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_WALL, WWBlocks.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_WALL, WWBlocks.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_WALL, WWBlocks.GABBRO);
+
+				// MOSSY GABBRO
+
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICKS)
+					.requires(WWBlocks.GABBRO_BRICKS)
+					.requires(Blocks.VINE)
+					.group("mossy_gabbro_bricks")
+					.unlockedBy("has_vine", has(Blocks.VINE))
+					.save(exporter, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.VINE));
+
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICKS)
+					.requires(WWBlocks.GABBRO_BRICKS)
+					.requires(Blocks.MOSS_BLOCK)
+					.group("mossy_gabbro_bricks")
+					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+					.save(exporter, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.MOSS_BLOCK));
+
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICKS, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWBlocks.MOSSY_GABBRO_BRICK_WALL, WWBlocks.MOSSY_GABBRO_BRICKS);
+
 				GENERATING_WW_RECIPES = false;
 			}
 		};
-	}
-
-	public static void stonecutterResultFromBase(RecipeProvider provider, RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount) {
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), category, result, resultCount)
-			.unlockedBy(RecipeProvider.getHasName(material), provider.has(material))
-			.save(recipeOutput, WWConstants.string(RecipeProvider.getConversionRecipeName(result, material) + "_stonecutting"));
 	}
 
 	@Override

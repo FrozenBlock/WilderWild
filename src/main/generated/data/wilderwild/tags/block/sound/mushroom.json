@@ -1,0 +1,47 @@
+{
+  "values": [
+    "minecraft:red_mushroom",
+    "minecraft:brown_mushroom",
+    "wilderwild:pale_mushroom",
+    {
+      "id": "betterend:mossy_glowshroom_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:small_jellyshroom",
+      "required": false
+    },
+    {
+      "id": "betterend:bolux_mushroom",
+      "required": false
+    },
+    {
+      "id": "betternether:lucis_mushroom",
+      "required": false
+    },
+    {
+      "id": "betternether:wall_mushroom_red",
+      "required": false
+    },
+    {
+      "id": "betternether:wall_mushroom_brown",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:glowshroom",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:shitake_mushroom",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:brown_wall_mushroom",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mycotoxic_mushrooms",
+      "required": false
+    }
+  ]
+}

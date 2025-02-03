@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "wilderwild:block/polished_gabbro",
+    "side": "wilderwild:block/polished_gabbro",
+    "top": "wilderwild:block/polished_gabbro"
+  }
+}
