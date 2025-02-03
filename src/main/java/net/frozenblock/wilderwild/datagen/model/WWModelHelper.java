@@ -86,8 +86,6 @@ public final class WWModelHelper {
 				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 		)
 	);
-	private static final ModelTemplate LEAF_LITTER_MODEL = new ModelTemplate(Optional.of(WWConstants.id("block/template_leaf_litter")), Optional.empty(), TextureSlot.TEXTURE);
-	private static final TexturedModel.Provider LEAF_LITTER_PROVIDER = TexturedModel.createDefault(TextureMapping::defaultTexture, LEAF_LITTER_MODEL);
 	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
 		Optional.empty(),
@@ -138,17 +136,6 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.TEXTURE
 	);
-
-	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
-		createLeafLitter(generator, litter, litter);
-	}
-
-	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter, Block source) {
-		ResourceLocation modelId = LEAF_LITTER_PROVIDER.get(source).create(litter, generator.modelOutput);
-		generator.registerSimpleFlatItemModel(litter);
-		//generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(litter, BlockModelGenerators.createRotatedVariants(modelId)));
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(litter, modelId));
-	}
 
 	public static void createHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideAndEndSource, Block insideSource) {
 		createHollowedLog(generator, hollowedLog, sideAndEndSource, insideSource, sideAndEndSource);

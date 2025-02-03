@@ -1,9 +1,5 @@
 {
   "values": [
-    "wilderwild:mycelium_growth",
-    {
-      "id": "#wilderwild:leaf_litters",
-      "required": false
-    }
+    "wilderwild:mycelium_growth"
   ]
 }

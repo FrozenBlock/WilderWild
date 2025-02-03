@@ -30,6 +30,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -216,7 +217,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredPetalsDrops(this, WWBlocks.CLOVERS);
+		WWBlockLootHelper.createShearsOrSilkTouchRequiredSegmentedBlockDrops(this, WWBlocks.CLOVERS);
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()
@@ -502,9 +503,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE);
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.MYCELIUM_GROWTH);
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.RED_MAPLE_LEAF_LITTER);
+		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER));
+		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER));
+		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.RED_MAPLE_LEAF_LITTER));
 	}
 
 }

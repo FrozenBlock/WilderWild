@@ -6,22 +6,334 @@
     "inner_chance": 0.65,
     "inner_percent": 0.5,
     "inner_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:red_maple_leaf_litter",
-        "Properties": {
-          "persistent": "false"
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
         }
-      }
+      ]
     },
     "outer_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:red_maple_leaf_litter",
-        "Properties": {
-          "persistent": "false"
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "1"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "2"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "3"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "north",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "east",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "south",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:red_maple_leaf_litter",
+            "Properties": {
+              "facing": "west",
+              "segment_amount": "4"
+            }
+          },
+          "weight": 1
         }
-      }
+      ]
     },
     "placement_chance": 0.75,
     "radius": {

@@ -45,7 +45,6 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
-import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
@@ -113,6 +112,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -293,15 +293,15 @@ public final class WWBlocks {
 		properties -> new PalmFrondsBlock(0.005F, properties),
 		Blocks.leavesProperties(SoundType.GRASS)
 	);
-	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
+	public static final LeavesWithLitterBlock YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
 		LeavesWithLitterBlock::new,
 		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_YELLOW)
 	);
-	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
+	public static final LeavesWithLitterBlock ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
 		LeavesWithLitterBlock::new,
 		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_ORANGE)
 	);
-	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
+	public static final LeavesWithLitterBlock RED_MAPLE_LEAVES = register("red_maple_leaves",
 		LeavesWithLitterBlock::new,
 		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_RED)
 	);
@@ -1689,7 +1689,7 @@ public final class WWBlocks {
 		float windScale,
 		boolean swirl
 	) {
-		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType);
+		LeafLitterBlock leafLitterBlock = createLeafLitter(id);
 		FallingLeafUtil.registerFallingLeafWithLitter(
 			sourceBlock,
 			leafLitterBlock,
@@ -1705,17 +1705,8 @@ public final class WWBlocks {
 		return leafLitterBlock;
 	}
 
-	private static @NotNull LeafLitterBlock createLeafLitter(String id, Block sourceBlock, @NotNull ParticleType<WWFallingLeavesParticleOptions> particleType) {
-		Properties properties = Properties.ofFullCopy(sourceBlock)
-			.randomTicks()
-			.noCollission()
-			.instabreak()
-			.replaceable()
-			.pushReaction(PushReaction.DESTROY);
-
-		LeafLitterBlock leafLitterBlock = register(id, properties1 -> new LeafLitterBlock(sourceBlock, properties1), properties);
-		LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);
-		return leafLitterBlock;
+	private static @NotNull LeafLitterBlock createLeafLitter(String id) {
+		return register(id, LeafLitterBlock::new, Properties.ofFullCopy(Blocks.LEAF_LITTER));
 	}
 
 	@NotNull
@@ -1870,29 +1861,29 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
-		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.1F);
-		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.1F);
-		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.3F);
 	}
 
 	private static void registerFlammability() {
 		WWConstants.logWithModId("Registering Flammability for", WWConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
-		flammableBlockRegistry.add(POLLEN, 200, 60);
-		flammableBlockRegistry.add(SEEDING_DANDELION, 100, 60);
-		flammableBlockRegistry.add(CARNATION, 100, 60);
-		flammableBlockRegistry.add(CATTAIL, 100, 60);
-		flammableBlockRegistry.add(DATURA, 100, 60);
-		flammableBlockRegistry.add(MILKWEED, 100, 60);
-		flammableBlockRegistry.add(MARIGOLD, 100, 60);
-		flammableBlockRegistry.add(YELLOW_HIBISCUS, 100, 60);
-		flammableBlockRegistry.add(WHITE_HIBISCUS, 100, 60);
-		flammableBlockRegistry.add(PINK_HIBISCUS, 100, 60);
-		flammableBlockRegistry.add(PURPLE_HIBISCUS, 100, 60);
-		flammableBlockRegistry.add(TUMBLEWEED, 100, 60);
-		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 100, 60);
-		flammableBlockRegistry.add(SHRUB, 90, 40);
-		flammableBlockRegistry.add(MYCELIUM_GROWTH, 100, 60);
+		flammableBlockRegistry.add(POLLEN, 60, 100);
+		flammableBlockRegistry.add(SEEDING_DANDELION, 60, 100);
+		flammableBlockRegistry.add(CARNATION, 60, 100);
+		flammableBlockRegistry.add(CATTAIL, 60, 100);
+		flammableBlockRegistry.add(DATURA, 60, 100);
+		flammableBlockRegistry.add(MILKWEED, 60, 100);
+		flammableBlockRegistry.add(MARIGOLD, 60, 100);
+		flammableBlockRegistry.add(YELLOW_HIBISCUS, 60, 100);
+		flammableBlockRegistry.add(WHITE_HIBISCUS, 60, 100);
+		flammableBlockRegistry.add(PINK_HIBISCUS, 60, 100);
+		flammableBlockRegistry.add(PURPLE_HIBISCUS, 60, 100);
+		flammableBlockRegistry.add(TUMBLEWEED, 60, 100);
+		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
+		flammableBlockRegistry.add(SHRUB, 40, 90);
+		flammableBlockRegistry.add(MYCELIUM_GROWTH, 60, 100);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);
@@ -1928,7 +1919,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(BAOBAB_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(BAOBAB_LEAVES, 100, 60);
+		flammableBlockRegistry.add(BAOBAB_LEAVES, 30, 60);
 		flammableBlockRegistry.add(BAOBAB_BUTTON, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_SIGN, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_WALL_SIGN, 5, 20);
@@ -1949,7 +1940,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(WILLOW_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(WILLOW_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(WILLOW_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(WILLOW_LEAVES, 100, 60);
+		flammableBlockRegistry.add(WILLOW_LEAVES, 30, 60);
 		flammableBlockRegistry.add(WILLOW_BUTTON, 5, 20);
 		flammableBlockRegistry.add(WILLOW_SIGN, 5, 20);
 		flammableBlockRegistry.add(WILLOW_WALL_SIGN, 5, 20);
@@ -1970,7 +1961,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(CYPRESS_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(CYPRESS_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(CYPRESS_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(CYPRESS_LEAVES, 100, 60);
+		flammableBlockRegistry.add(CYPRESS_LEAVES, 30, 60);
 		flammableBlockRegistry.add(CYPRESS_BUTTON, 5, 20);
 		flammableBlockRegistry.add(CYPRESS_SIGN, 5, 20);
 		flammableBlockRegistry.add(CYPRESS_WALL_SIGN, 5, 20);
@@ -1991,7 +1982,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(PALM_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(PALM_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(PALM_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(PALM_FRONDS, 100, 60);
+		flammableBlockRegistry.add(PALM_FRONDS, 30, 60);
 		flammableBlockRegistry.add(PALM_BUTTON, 5, 20);
 		flammableBlockRegistry.add(PALM_SIGN, 5, 20);
 		flammableBlockRegistry.add(PALM_WALL_SIGN, 5, 20);
@@ -2012,12 +2003,12 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MAPLE_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(MAPLE_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(MAPLE_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(YELLOW_MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(ORANGE_MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(RED_MAPLE_LEAVES, 100, 60);
-		flammableBlockRegistry.add(YELLOW_MAPLE_LEAF_LITTER, 200, 60);
-		flammableBlockRegistry.add(ORANGE_MAPLE_LEAF_LITTER, 200, 60);
-		flammableBlockRegistry.add(RED_MAPLE_LEAF_LITTER, 200, 60);
+		flammableBlockRegistry.add(YELLOW_MAPLE_LEAVES, 30, 60);
+		flammableBlockRegistry.add(ORANGE_MAPLE_LEAVES, 30, 60);
+		flammableBlockRegistry.add(RED_MAPLE_LEAVES, 30, 60);
+		flammableBlockRegistry.add(YELLOW_MAPLE_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(ORANGE_MAPLE_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(RED_MAPLE_LEAF_LITTER, 60, 100);
 		flammableBlockRegistry.add(MAPLE_BUTTON, 5, 20);
 		flammableBlockRegistry.add(MAPLE_SIGN, 5, 20);
 		flammableBlockRegistry.add(MAPLE_WALL_SIGN, 5, 20);
@@ -2119,6 +2110,9 @@ public final class WWBlocks {
 			builder.add(WWItems.MAPLE_SIGN, 300);
 			builder.add(WWItems.MAPLE_HANGING_SIGN, 800);
 			builder.add(MAPLE_SAPLING.asItem(), 100);
+			builder.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.asItem(), 100);
+			builder.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.asItem(), 100);
+			builder.add(WWBlocks.RED_MAPLE_LEAF_LITTER.asItem(), 100);
 
 			builder.add(HOLLOWED_WARPED_STEM.asItem(), 300);
 			builder.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);

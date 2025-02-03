@@ -42,9 +42,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerBedBlock;
+import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -60,6 +64,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -1021,11 +1026,22 @@ public final class WWMiscConfigured {
 			)
 		);
 
+		WeightedList.Builder<BlockState> yellowLitterStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				yellowLitterStates.add(
+					WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()
+						.setValue(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(LeafLitterBlock.FACING, direction),
+					1
+				);
+			}
+		}
 		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
+				new WeightedStateProvider(yellowLitterStates.build()),
+				new WeightedStateProvider(yellowLitterStates.build()),
 				UniformInt.of(2, 4),
 				0.75F,
 				0.5F,
@@ -1035,11 +1051,22 @@ public final class WWMiscConfigured {
 			)
 		);
 
+		WeightedList.Builder<BlockState> orangeLitterStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				orangeLitterStates.add(
+					WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()
+						.setValue(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(LeafLitterBlock.FACING, direction),
+					1
+				);
+			}
+		}
 		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
+				new WeightedStateProvider(orangeLitterStates.build()),
+				new WeightedStateProvider(orangeLitterStates.build()),
 				UniformInt.of(2, 4),
 				0.75F,
 				0.5F,
@@ -1049,11 +1076,22 @@ public final class WWMiscConfigured {
 			)
 		);
 
+		WeightedList.Builder<BlockState> redLitterStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				redLitterStates.add(
+					WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()
+						.setValue(WWBlocks.RED_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(LeafLitterBlock.FACING, direction),
+					1
+				);
+			}
+		}
 		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
-				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),
+				new WeightedStateProvider(redLitterStates.build()),
+				new WeightedStateProvider(redLitterStates.build()),
 				UniformInt.of(2, 4),
 				0.75F,
 				0.5F,

@@ -974,8 +974,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POLLEN);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
-			.add(WWBlocks.MYCELIUM_GROWTH)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+			.add(WWBlocks.MYCELIUM_GROWTH);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlocks.MYCELIUM_GROWTH)
@@ -985,7 +984,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.SHRUB)
 			.add(WWBlocks.POLLEN)
 			.add(WWBlocks.CLOVERS)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
@@ -1569,11 +1570,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_LEAVES)
 			.add(WWBlocks.PALM_FRONDS)
 			.add(WWBlocks.YELLOW_MAPLE_LEAVES)
-			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.ORANGE_MAPLE_LEAVES)
-			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.RED_MAPLE_LEAVES)
-			.add(WWBlocks.RED_MAPLE_LEAF_LITTER)
 			.add(Blocks.PALE_OAK_LEAVES)
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "pythadendron_leaves"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "lacugrove_leaves"))

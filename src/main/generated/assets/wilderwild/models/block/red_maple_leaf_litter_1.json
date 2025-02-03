@@ -1,5 +1,5 @@
 {
-  "parent": "wilderwild:block/template_leaf_litter",
+  "parent": "minecraft:block/template_leaf_litter_1",
   "textures": {
     "texture": "wilderwild:block/red_maple_leaf_litter"
   }

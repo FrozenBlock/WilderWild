@@ -113,9 +113,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createShelfFungi(generator, WWBlocks.CRIMSON_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.WARPED_SHELF_FUNGI);
 
-		WWModelHelper.createLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
-		WWModelHelper.createLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
-		WWModelHelper.createLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.RED_MAPLE_LEAF_LITTER);
 
 		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_MESOGLEA);
 		WWModelHelper.createMesoglea(generator, WWBlocks.LIME_MESOGLEA);

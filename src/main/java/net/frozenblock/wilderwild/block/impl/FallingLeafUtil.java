@@ -22,7 +22,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.block.LeafLitterBlock;
+
+import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
@@ -39,6 +40,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -99,7 +101,6 @@ public class FallingLeafUtil {
 			if (leafParticleData != null) {
 				PARTICLE_TO_LEAF_PARTICLE_DATA.put(leafParticle, leafParticleData);
 			}
-			fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, leafParticle));
 		} else {
 			throw new IllegalStateException("Block should be an instance of LeavesBlock!");
 		}
@@ -154,7 +155,7 @@ public class FallingLeafUtil {
 
 	public static boolean isSafePosToPlaceLitter(@NotNull Level world, BlockPos pos, @NotNull BlockState stateToReplace, Block leafLitterBlock) {
 		if (stateToReplace.is(Blocks.SNOW) || SnowloggingUtils.isSnowlogged(stateToReplace)) return false;
-		if ((stateToReplace.isAir() || stateToReplace.canBeReplaced()) && stateToReplace.getFluidState().isEmpty()) {
+		if ((stateToReplace.isAir() || stateToReplace.canBeReplaced() || stateToReplace.is(leafLitterBlock)) && stateToReplace.getFluidState().isEmpty()) {
 			return leafLitterBlock.canSurvive(leafLitterBlock.defaultBlockState(), world, pos);
 		}
 		return false;

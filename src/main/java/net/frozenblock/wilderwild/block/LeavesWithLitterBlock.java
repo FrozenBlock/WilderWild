@@ -20,14 +20,15 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-// TODO 1.21.5 remove?
 public class LeavesWithLitterBlock extends LeavesBlock {
 	public static final MapCodec<LeavesWithLitterBlock> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(propertiesCodec())
@@ -48,6 +49,11 @@ public class LeavesWithLitterBlock extends LeavesBlock {
 		return !blockState.getValue(PERSISTENT);
 	}
 
+	@Override
+	protected void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+		FallingLeafUtil.onRandomTick(blockState, serverLevel, blockPos, randomSource);
+		super.randomTick(blockState, serverLevel, blockPos, randomSource);
+	}
 
 	@Override
 	protected void spawnFallingLeavesParticle(Level level, BlockPos blockPos, RandomSource randomSource) {

@@ -6,32 +6,65 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
+          "functions": [
             {
-              "condition": "minecraft:any_of",
-              "terms": [
+              "add": false,
+              "conditions": [
                 {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "minecraft:shears"
-                  }
-                },
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
-                    }
+                  "block": "wilderwild:red_maple_leaf_litter",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "segment_amount": "1"
                   }
                 }
-              ]
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "wilderwild:red_maple_leaf_litter",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "segment_amount": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "wilderwild:red_maple_leaf_litter",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "segment_amount": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "wilderwild:red_maple_leaf_litter",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "segment_amount": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:explosion_decay"
             }
           ],
           "name": "wilderwild:red_maple_leaf_litter"

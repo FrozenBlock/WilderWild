@@ -19,17 +19,20 @@
 package net.frozenblock.wilderwild.datagen.recipe;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 public final class WWCookRecipeProvider {
 
@@ -39,6 +42,18 @@ public final class WWCookRecipeProvider {
 			.save(exporter);
 		cookRecipes(provider, exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
 		cookRecipes(provider, exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+
+		/*
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_yellow_maple_leaves", provider.has(WWBlocks.YELLOW_MAPLE_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.ORANGE_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_orange_maple_leaves", provider.has(WWBlocks.ORANGE_MAPLE_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.RED_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_red_maple_leaves", provider.has(WWBlocks.RED_MAPLE_LEAVES))
+			.save(exporter);
+		 */
 	}
 
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
