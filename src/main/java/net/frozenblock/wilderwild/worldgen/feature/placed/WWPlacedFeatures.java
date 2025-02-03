@@ -233,6 +233,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_FIELD_GRASS_PLACED = register("flower_field_grass_placed");
 	public static final FrozenPlacedFeature PATCH_TALL_GRASS_FLOWER_FIELD = register("patch_tall_grass_flower_field");
 	//FLOWERS
+	public static final FrozenPlacedFeature WILDFLOWERS = register("wildflowers");
+	public static final FrozenPlacedFeature SPARSE_WILDFLOWERS = register("sparse_wildflowers");
 	public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
 	public static final FrozenPlacedFeature COMMON_SEEDING_DANDELION = register("common_seeding_dandelion");
 	public static final FrozenPlacedFeature RARE_SEEDING_DANDELION = register("rare_seeding_dandelion");
@@ -1358,6 +1360,20 @@ public final class WWPlacedFeatures {
 		);
 
 		// FLOWERS
+
+		WILDFLOWERS.makeAndSetHolder(WWConfiguredFeatures.WILDFLOWERS.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 3)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		SPARSE_WILDFLOWERS.makeAndSetHolder(WWConfiguredFeatures.WILDFLOWERS.getHolder(),
+			CountPlacement.of(UniformInt.of(0, 2)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
 
 		SEEDING_DANDELION.makeAndSetHolder(WWConfiguredFeatures.SEEDING_DANDELION.getHolder(),
 			RarityFilter.onAverageOnceEvery(9),

@@ -51,6 +51,7 @@ import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -183,6 +184,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_MAPLE = WWFeatureUtils.register("snapped_maple");
 
 	// FLOWERS
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WILDFLOWERS = WWFeatureUtils.register("wildflowers");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WWFeatureUtils.register("carnation");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = WWFeatureUtils.register("marigold");
@@ -1548,6 +1550,25 @@ public final class WWConfiguredFeatures {
 		);
 
 		// FLOWERS
+
+		SimpleWeightedRandomList.Builder<BlockState> wildflowerStates = SimpleWeightedRandomList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				wildflowerStates.add(WWBlocks.WILDFLOWERS.defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, i).setValue(PinkPetalsBlock.FACING, direction), 1);
+			}
+		}
+
+		WILDFLOWERS.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				32,
+				6,
+				2,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(wildflowerStates))
+				)
+			)
+		);
 
 		SEEDING_DANDELION.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(

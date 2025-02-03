@@ -76,6 +76,7 @@ hi
 - Fixed Wilder Wild's custom Flower Pot models not having the correct UV mapping.
 - Fixed some of Wilder Wild's custom Flower Pot models not using correct particle textures.
 - Pink Petals can now be placed into Flower Pots.
+- Backported Wildflowers.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

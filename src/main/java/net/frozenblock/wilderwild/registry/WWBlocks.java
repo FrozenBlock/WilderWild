@@ -115,6 +115,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -474,6 +475,11 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_PURPLE_HIBISCUS = Blocks.flowerPot(PURPLE_HIBISCUS);
+
+	public static final PinkPetalsBlock WILDFLOWERS = new PinkPetalsBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
+	public static final Block POTTED_WILDFLOWERS = Blocks.flowerPot(WILDFLOWERS);
 
 	public static final TallFlowerBlock DATURA = new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SUNFLOWER));
 
@@ -1422,6 +1428,9 @@ public final class WWBlocks {
 		registerBlock("prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlock("potted_prickly_pear", POTTED_PRICKLY_PEAR);
 		registerBlock("potted_pink_petals", POTTED_PINK_PETALS);
+
+		registerBlockAfter(Items.PINK_PETALS, "wildflowers", WILDFLOWERS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_wildflowers", POTTED_WILDFLOWERS);
 	}
 
 	public static void registerNotSoPlants() {

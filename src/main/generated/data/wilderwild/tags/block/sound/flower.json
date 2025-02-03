@@ -29,6 +29,7 @@
     "minecraft:lilac",
     "minecraft:torchflower",
     "minecraft:pink_petals",
+    "wilderwild:wildflowers",
     {
       "id": "trailiertales:cyan_rose",
       "required": false

@@ -99,6 +99,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 
+		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
+
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);

@@ -22,7 +22,6 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -33,7 +32,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
-import static net.frozenblock.wilderwild.registry.WWSoundTypes.FLOWER;
 
 public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
@@ -79,6 +77,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.SEEDING_DANDELION)
+			.add(WWBlocks.WILDFLOWERS)
 			.add(WWBlocks.WILLOW_SAPLING)
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BAOBAB_NUT)
@@ -97,6 +96,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.SEEDING_DANDELION)
+			.add(WWBlocks.WILDFLOWERS)
 			.add(WWBlocks.WILLOW_SAPLING)
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.BAOBAB_NUT)
@@ -815,7 +815,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.TUMBLEWEED)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
-			.add(WWBlocks.SPONGE_BUD);
+			.add(WWBlocks.SPONGE_BUD)
+			.add(WWBlocks.WILDFLOWERS);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(WWBlocks.STONE_CHEST)
@@ -872,6 +873,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
 			.add(WWBlocks.MYCELIUM_GROWTH)
+			.add(WWBlocks.WILDFLOWERS)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
@@ -937,7 +939,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
-			.add(WWBlocks.POLLEN);
+			.add(WWBlocks.POLLEN)
+			.add(WWBlocks.WILDFLOWERS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
 			.add(WWBlocks.MYCELIUM_GROWTH)
@@ -978,10 +981,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
 			.add(WWBlocks.POTTED_PURPLE_HIBISCUS)
-			.add(WWBlocks.POTTED_PINK_PETALS);
+			.add(WWBlocks.POTTED_PINK_PETALS)
+			.add(WWBlocks.POTTED_WILDFLOWERS);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
-			.add(WWBlocks.POLLEN);
+			.add(WWBlocks.POLLEN)
+			.add(WWBlocks.WILDFLOWERS);
 
 		this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS)
 			.add(WWBlocks.CARNATION)
@@ -1677,6 +1682,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.LILAC)
 			.add(Blocks.TORCHFLOWER)
 			.add(Blocks.PINK_PETALS)
+			.add(WWBlocks.WILDFLOWERS)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cyan_rose"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "manedrop"))

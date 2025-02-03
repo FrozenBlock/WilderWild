@@ -160,7 +160,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWItems.MAPLE_CHEST_BOAT);
 
 		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
-			.add(WWBlocks.POLLEN.asItem());
+			.add(WWBlocks.POLLEN.asItem())
+			.add(WWBlocks.WILDFLOWERS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
 			.add(WWBlocks.CARNATION.asItem())
@@ -189,6 +190,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.WILDFLOWERS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
@@ -207,6 +209,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.WILDFLOWERS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())

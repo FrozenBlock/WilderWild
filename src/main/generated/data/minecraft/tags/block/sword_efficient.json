@@ -15,6 +15,7 @@
     "wilderwild:sponge_bud",
     "wilderwild:prickly_pear",
     "wilderwild:mycelium_growth",
+    "wilderwild:wildflowers",
     {
       "id": "#wilderwild:nematocysts",
       "required": false
