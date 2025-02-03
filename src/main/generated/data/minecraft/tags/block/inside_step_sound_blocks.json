@@ -7,6 +7,10 @@
     "wilderwild:tumbleweed_plant",
     "wilderwild:sponge_bud",
     "wilderwild:prickly_pear",
-    "wilderwild:pollen"
+    "wilderwild:pollen",
+    {
+      "id": "#wilderwild:leaf_litters",
+      "required": false
+    }
   ]
 }

@@ -971,7 +971,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
-			.add(WWBlocks.POLLEN);
+			.add(WWBlocks.POLLEN)
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)
 			.add(WWBlocks.MYCELIUM_GROWTH);
@@ -1122,15 +1123,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.WARPED_STEMS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);
-
-		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)
-			.add(Blocks.BARRIER)
-			.addOptionalTag(BlockTags.LEAVES);
-
-		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON)
-			.add(Blocks.HONEY_BLOCK)
-			.add(Blocks.SOUL_SAND)
-			.add(Blocks.MUD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BAOBAB_LOGS)
 			.add(WWBlocks.BAOBAB_LOG)
