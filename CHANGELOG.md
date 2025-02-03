@@ -77,6 +77,7 @@ hi
 - Fixed some of Wilder Wild's custom Flower Pot models not using correct particle textures.
 - Pink Petals can now be placed into Flower Pots.
 - Backported Wildflowers.
+  - Wildflowers generate in biomes in the `wilderwild:feature/has_dense_wildflowers,` `wilderwild:feature/has_wildflowers,` and `wilderwild:feature/has_sparse_wildflowers,` tags.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

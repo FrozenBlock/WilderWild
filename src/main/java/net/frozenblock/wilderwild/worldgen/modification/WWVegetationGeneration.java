@@ -133,6 +133,11 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.VERY_RARE_SEEDING_DANDELION.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DENSE_WILDFLOWERS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_WILDFLOWERS.getKey());
+						}
+
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS.getKey());
 						}

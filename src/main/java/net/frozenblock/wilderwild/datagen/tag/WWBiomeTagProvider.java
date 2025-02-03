@@ -1153,6 +1153,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)
 			.add(Biomes.PLAINS);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DENSE_WILDFLOWERS)
+			.add(Biomes.SUNFLOWER_PLAINS);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS)
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST);
 

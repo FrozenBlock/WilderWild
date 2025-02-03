@@ -1,12 +1,12 @@
 {
-  "feature": "wilderwild:flowers_sunflower_plains",
+  "feature": "wilderwild:wildflowers",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "max_inclusive": 3,
-        "min_inclusive": 1
+        "max_inclusive": 5,
+        "min_inclusive": 2
       }
     },
     {
