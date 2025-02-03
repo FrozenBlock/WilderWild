@@ -4,8 +4,8 @@
 		"particle": "block/flower_pot",
 		"flowerpot": "block/flower_pot",
 		"dirt": "block/dirt",
-		"stem": "wilderwild:block/wildflowers_stem",
-		"flower": "wilderwild:block/wildflowers"
+		"stem": "block/wildflowers_stem",
+		"flower": "block/wildflowers"
 	},
 	"elements": [
     {
