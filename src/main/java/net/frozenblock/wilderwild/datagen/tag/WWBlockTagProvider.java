@@ -989,7 +989,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS)
 			.add(WWBlocks.POLLEN);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
@@ -1204,6 +1203,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.RED_MAPLE_LEAVES);
 
 		this.getOrCreateTagBuilder(WWBlockTags.LEAF_LITTERS)
+			.add(Blocks.LEAF_LITTER)
 			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
