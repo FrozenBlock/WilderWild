@@ -529,11 +529,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MOOBLOOM)
 			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_DANDELION)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.PLAINS)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptionalTag(BiomeTags.IS_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_JUNGLE)
 			.addOptionalTag(BiomeTags.IS_FOREST)
@@ -542,6 +544,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_POPPY)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.PLAINS)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptionalTag(BiomeTags.IS_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_JUNGLE)
 			.addOptionalTag(BiomeTags.IS_FOREST)
@@ -613,6 +616,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_MARIGOLD)
 			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD_SPARSE);
