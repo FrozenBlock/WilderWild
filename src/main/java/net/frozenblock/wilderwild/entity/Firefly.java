@@ -119,7 +119,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		return (EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)
 			&& hasNearbyFireflyBush(level, pos, 3, 1)
-			&& !reachedNearbyFireflyLimit(level, pos, 4, 10);
+			&& !reachedNearbyFireflyLimit(level, pos, 2, 12);
 	}
 
 	@NotNull
@@ -167,7 +167,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public int getMaxSpawnClusterSize() {
-		return 24;
+		return 12;
 	}
 
 	@Override
