@@ -53,6 +53,27 @@ public final class WWTints {
 			WWBlocks.POTTED_PINK_PETALS
 		);
 
+		ColorProviderRegistry.BLOCK.register(
+			((blockState, blockAndTintGetter, blockPos, i) -> {
+				if (i != 0) {
+					return blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
+				} else {
+					return -1;
+				}
+			}),
+			WWBlocks.WILDFLOWERS
+		);
+		ColorProviderRegistry.BLOCK.register(
+			((blockState, blockAndTintGetter, blockPos, i) -> {
+				if (i != 0) {
+					return blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
+				} else {
+					return -1;
+				}
+			}),
+			WWBlocks.POTTED_WILDFLOWERS
+		);
+
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BAOBAB_LEAVES);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.WILLOW_LEAVES);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.CYPRESS_LEAVES);
