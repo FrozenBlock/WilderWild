@@ -21,9 +21,9 @@ package net.frozenblock.wilderwild.registry;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
-import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
@@ -125,7 +125,7 @@ public final class WWItems {
 		new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
 	);
 
-	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
+	public static final DamageOnUseBlockItem PRICKLY_PEAR = new DamageOnUseBlockItem(WWBlocks.PRICKLY_PEAR_CACTUS, new Item.Properties().food(WWFood.PRICKLY_PEAR), 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new Item.Properties().food(Foods.APPLE));
 	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(WWEntityTypes.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, new Item.Properties().stacksTo(1));
 	public static final Item CRAB_CLAW = new Item(new Item.Properties().food(WWFood.CRAB_CLAW));

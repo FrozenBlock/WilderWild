@@ -23,7 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
+import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.model.HierarchicalModel;
@@ -56,7 +56,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public float blue;
 
 	public JellyfishModel(@NotNull ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveFixed);
+		super(FrozenLibRenderTypes::entityTranslucentEmissiveFixed);
 		this.root = root;
 		this.bone = root.getChild("bone");
 		this.body = this.bone.getChild("body");

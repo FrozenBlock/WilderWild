@@ -156,6 +156,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_VERY_RARE_SEEDING_DANDELION = bind("feature/has_very_rare_seeding_dandelion");
 	public static final TagKey<Biome> HAS_WILDFLOWERS = bind("feature/has_wildflowers");
 	public static final TagKey<Biome> HAS_SPARSE_WILDFLOWERS = bind("feature/has_sparse_wildflowers");
+	public static final TagKey<Biome> HAS_CLOVERS = bind("feature/has_clovers");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("feature/has_milkweed");
 	public static final TagKey<Biome> CHERRY_FLOWERS = bind("feature/cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("feature/has_sunflower_plains_flowers");

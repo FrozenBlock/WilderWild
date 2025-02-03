@@ -215,6 +215,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
 		this.add(WWBlocks.WILDFLOWERS, this.createPetalsDrops(WWBlocks.WILDFLOWERS));
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredPetalsDrops(this, WWBlocks.CLOVERS);
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()

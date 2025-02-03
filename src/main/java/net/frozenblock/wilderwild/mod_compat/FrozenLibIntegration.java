@@ -28,18 +28,17 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
-import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
-import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
+import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
+import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
-import net.frozenblock.lib.sound.api.damagesource.PlayerDamageTypeSounds;
+import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
-import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
@@ -243,28 +242,37 @@ public class FrozenLibIntegration extends ModIntegration {
 			)
 		);
 
-		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntityTypes.STONE_CHEST);
+		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
 
 		FrozenBools.useNewDripstoneLiquid = true;
-		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
-			BlockState blockState = Blocks.SPONGE.defaultBlockState();
-			level.setBlockAndUpdate(fluidInfo.pos(), blockState);
-			Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
-			level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
-			level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
-		});
-		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.MUD, (level, fluidInfo, blockPos) -> {
-			BlockState blockState = Blocks.CLAY.defaultBlockState();
-			level.setBlockAndUpdate(fluidInfo.pos(), blockState);
-			Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
-			level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
-			level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
-		});
-		BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (DripstoneUtils.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
-				serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3);
+		DripstoneDripApi.addWaterDrip(
+			Blocks.WET_SPONGE,
+			(level, pos, fluidInfo) -> {
+				BlockState blockState = Blocks.SPONGE.defaultBlockState();
+				level.setBlockAndUpdate(fluidInfo.pos(), blockState);
+				Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
+				level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
+				level.levelEvent(LevelEvent.DRIPSTONE_DRIP, pos, 0);
+			});
+		DripstoneDripApi.addWaterDrip(
+			Blocks.MUD,
+			(level, pos, fluidInfo) -> {
+				BlockState blockState = Blocks.CLAY.defaultBlockState();
+				level.setBlockAndUpdate(fluidInfo.pos(), blockState);
+				Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
+				level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
+				level.levelEvent(LevelEvent.DRIPSTONE_DRIP, pos, 0);
 			}
-		});
+		);
+
+		BlockScheduledTicks.addToBlock(
+			Blocks.DIRT,
+			(blockState, serverLevel, blockPos, randomSource) -> {
+				if (DripstoneDripApi.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
+					serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), Block.UPDATE_ALL);
+				}
+			}
+		);
 
 		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);

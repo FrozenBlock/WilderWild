@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.worldgen.feature.configured;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
-import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskCarpetFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
@@ -66,100 +66,100 @@ import net.minecraft.world.level.material.Fluids;
 
 public final class WWMiscConfigured {
 
-	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> EMPTY = register("empty");
+	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> EMPTY = register("empty");
 
-	public static final FrozenConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> SINGLE_MYCELIUM_GROWTH = register("single_mycelium_growth");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> SINGLE_MYCELIUM_GROWTH = register("single_mycelium_growth");
 
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_DISK_AND_PILE = register("stone_disk_and_pile");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 
 	// SWAMP
-	public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MUD_PATH = register("mud_path");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MUD_TRANSITION_DISK = register("mud_transition_disk");
+	public static final FrozenLibConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MUD_PATH = register("mud_path");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MUD_TRANSITION_DISK = register("mud_transition_disk");
 
 	// TAIGA
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
 
 	// CYPRESS WETLANDS
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_SAND_PATH = register("under_water_sand_path");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_SAND_PATH = register("under_water_sand_path");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 
 	// BEACH AND RIVER
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
-	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
 
 	// JUNGLE
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MOSS_PATH = register("moss_path");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MOSS_PATH = register("moss_path");
 
 	// DESERT
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WWBlockTags.PACKED_MUD_REPLACEABLE);
-	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = register("ore_packed_mud");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
-	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
+	public static final FrozenLibConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = register("ore_packed_mud");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
-	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
+	public static final FrozenLibConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
-	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = register("messy_sand_pool");
-	public static final FrozenConfiguredFeature<PathSwapUnderWaterFeatureConfig, ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = register("grass_path");
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = register("moss_path_oasis");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
+	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = register("messy_sand_pool");
+	public static final FrozenLibConfiguredFeature<PathSwapUnderWaterFeatureConfig, ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = register("grass_path");
+	public static final FrozenLibConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = register("moss_path_oasis");
 
 	// ARID SAVANNA
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = register("arid_coarse_dirt_path");
+	public static final FrozenLibConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
-	public static final FrozenConfiguredFeature<BlockStateConfiguration, ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = register("snow");
+	public static final FrozenLibConfiguredFeature<BlockStateConfiguration, ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = register("snow");
 
 	// TEMPERATE RAINFOREST & RAINFOREST
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = register("moss_pile");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_PODZOL = register("basin_podzol");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
-	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
+	public static final FrozenLibConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = register("moss_pile");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_PODZOL = register("basin_podzol");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
+	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
 	// MANGROVE SWAMP
-	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MUD = register("basin_mud");
-	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MUD_LAKE = register("mud_lake");
+	public static final FrozenLibConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MUD = register("basin_mud");
+	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
+	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE GROVE
-	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
-	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
-	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
+	public static final FrozenLibConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
+	public static final FrozenLibConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
+	public static final FrozenLibConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
 
 	// SNOW
-	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
-	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
+	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
+	public static final FrozenLibConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
 	private WWMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
@@ -176,7 +176,7 @@ public final class WWMiscConfigured {
 			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
 		);
 
-		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				6,
@@ -193,7 +193,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		GRAVEL_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		GRAVEL_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				6,
@@ -210,7 +210,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		STONE_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.STONE),
 				6,
@@ -227,7 +227,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				3,
@@ -244,7 +244,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				3,
@@ -261,7 +261,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.ROOTED_DIRT),
 				3,
@@ -278,7 +278,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_DISK_AND_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+		STONE_DISK_AND_PILE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
@@ -321,7 +321,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		MUD_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.MUD),
 				11,
@@ -338,7 +338,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.MUD),
@@ -354,7 +354,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		COARSE_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				11,
@@ -371,7 +371,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.SAND),
 				16,
@@ -388,7 +388,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				16,
@@ -405,7 +405,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.CLAY),
 				16,
@@ -422,7 +422,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.CLAY),
 				14,
@@ -439,7 +439,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				14,
@@ -456,7 +456,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.STONE),
@@ -472,7 +472,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
+		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
 			new FadingDiskTagBiomeFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.SAND),
@@ -489,7 +489,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.SAND),
@@ -505,7 +505,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.GRAVEL),
@@ -521,7 +521,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
+		RIVER_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
 				WWBlockTags.RIVER_POOL_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
@@ -535,7 +535,7 @@ public final class WWMiscConfigured {
 				0.7F
 			)
 		);
-		SMALL_RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
+		SMALL_RIVER_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
 				WWBlockTags.RIVER_POOL_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
@@ -550,7 +550,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		PACKED_MUD_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.PACKED_MUD),
 				9,
@@ -567,7 +567,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		MOSS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				9,
@@ -592,7 +592,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SANDSTONE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		SANDSTONE_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.SANDSTONE),
 				10,
@@ -609,7 +609,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
@@ -625,7 +625,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
@@ -641,7 +641,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
@@ -657,7 +657,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
+		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
 			new FadingDiskTagBiomeFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.SAND),
@@ -674,7 +674,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				8,
@@ -691,7 +691,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.PACKED_MUD),
 				4,
@@ -708,7 +708,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
@@ -724,7 +724,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
@@ -740,7 +740,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
@@ -756,7 +756,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
+		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
 			new FadingDiskTagBiomeFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.RED_SAND),
@@ -775,7 +775,7 @@ public final class WWMiscConfigured {
 
 		// OASIS
 
-		SAND_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		SAND_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.SAND_POOL_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.SAND),
@@ -797,7 +797,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		GRASS_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE,
+		GRASS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE,
 			new PathSwapUnderWaterFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 				BlockStateProvider.simple(Blocks.DIRT),
@@ -818,7 +818,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PATH_OASIS.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+		MOSS_PATH_OASIS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				9,
@@ -840,7 +840,7 @@ public final class WWMiscConfigured {
 
 		// ARID SAVANNA
 
-		ARID_COARSE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+		ARID_COARSE_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				12,
@@ -872,7 +872,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		BASIN_PODZOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		BASIN_PODZOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.BASIN_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.PODZOL),
@@ -887,7 +887,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		BASIN_MOSS.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		BASIN_MOSS.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.BASIN_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
@@ -915,7 +915,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		BASIN_MUD.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		BASIN_MUD.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				WWBlockTags.BASIN_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.MUD),
@@ -937,7 +937,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
@@ -953,7 +953,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+		COARSE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
 			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
@@ -969,7 +969,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
@@ -983,7 +983,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
@@ -997,7 +997,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
 			new FadingDiskCarpetFeatureConfig(
 				true,
 				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),

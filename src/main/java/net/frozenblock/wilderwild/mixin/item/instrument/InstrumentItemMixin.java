@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.item.instrument;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.lib.sound.impl.networking.FrozenLibSoundPackets;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -51,7 +51,7 @@ public final class InstrumentItemMixin {
 	) {
 		if (WWItemConfig.get().restrictInstrumentSound) {
 			if (!level.isClientSide) {
-				FrozenSoundPackets.createMovingRestrictionSound(
+				FrozenLibSoundPackets.createAndSendMovingRestrictionSound(
 					level,
 					player,
 					BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow(),

@@ -33,9 +33,9 @@ import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
+import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
-import net.frozenblock.lib.storage.api.NoInteractionStorage;
+import net.frozenblock.lib.item.api.bone_meal.BoneMealApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
@@ -480,6 +480,13 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
 	);
 	public static final Block POTTED_WILDFLOWERS = Blocks.flowerPot(WILDFLOWERS);
+
+	public static final PinkPetalsBlock CLOVERS = new PinkPetalsBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+			.sound(SoundType.GRASS)
+			.instabreak()
+	);
+	public static final Block POTTED_CLOVERS = Blocks.flowerPot(CLOVERS);
 
 	public static final TallFlowerBlock DATURA = new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SUNFLOWER));
 
@@ -1431,6 +1438,9 @@ public final class WWBlocks {
 
 		registerBlockAfter(Items.PINK_PETALS, "wildflowers", WILDFLOWERS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_wildflowers", POTTED_WILDFLOWERS);
+
+		registerBlockAfter(Items.FERN, "clovers", CLOVERS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_clovers", POTTED_CLOVERS);
 	}
 
 	public static void registerNotSoPlants() {
@@ -1789,7 +1799,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WILDFLOWERS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
@@ -1828,6 +1839,7 @@ public final class WWBlocks {
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableBlockRegistry.add(POLLEN, 200, 60);
 		flammableBlockRegistry.add(SEEDING_DANDELION, 100, 60);
+		flammableBlockRegistry.add(WILDFLOWERS, 100, 60);
 		flammableBlockRegistry.add(CARNATION, 100, 60);
 		flammableBlockRegistry.add(CATTAIL, 100, 60);
 		flammableBlockRegistry.add(DATURA, 100, 60);
@@ -2101,46 +2113,46 @@ public final class WWBlocks {
 	}
 
 	private static void registerBonemeal() {
-		BonemealBehaviors.register(
+		BoneMealApi.register(
 			Blocks.LILY_PAD,
-			new BonemealBehaviors.BonemealBehavior() {
+			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
 					return WWBlockConfig.get().flower.bonemealLilypads;
 				}
 
 				@Override
-				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					level.setBlock(pos, FLOWERING_LILY_PAD.defaultBlockState(), Block.UPDATE_CLIENTS);
 				}
 			}
 		);
 
-		BonemealBehaviors.register(
+		BoneMealApi.register(
 			Blocks.DANDELION,
-			new BonemealBehaviors.BonemealBehavior() {
+			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
 					return WWBlockConfig.get().flower.bonemealDandelions;
 				}
 
 				@Override
-				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					level.setBlock(pos, SEEDING_DANDELION.defaultBlockState(), Block.UPDATE_CLIENTS);
 				}
 			}
 		);
 
-		BonemealBehaviors.register(
+		BoneMealApi.register(
 			Blocks.MYCELIUM,
-			new BonemealBehaviors.BonemealBehavior() {
+			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
 					return level.getBlockState(pos.above()).isAir();
 				}
 
 				@Override
-				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					BlockPos blockPos = pos.above();
 					Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
 						.registryOrThrow(Registries.PLACED_FEATURE)

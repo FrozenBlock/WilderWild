@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
+import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;

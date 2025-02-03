@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.datagen;
 
 import java.util.Arrays;
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
-import net.frozenblock.lib.worldgen.feature.api.FrozenFeatureUtils;
-import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacementUtils;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWMiscConfigured;
@@ -45,7 +45,7 @@ import org.jetbrains.annotations.NotNull;
 public final class WWFeatureBootstrap {
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
-		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreeConfigured.registerTreeConfigured();
 		WWMiscConfigured.registerMiscConfigured();
@@ -54,7 +54,7 @@ public final class WWFeatureBootstrap {
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
-		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreePlaced.registerTreePlaced();
 		WWMiscPlaced.registerMiscPlaced(entries);
@@ -65,7 +65,7 @@ public final class WWFeatureBootstrap {
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(
+	public static @NotNull Holder<PlacedFeature> register(
 		BootstrapContext<PlacedFeature> entries,
 		ResourceKey<PlacedFeature> resourceKey,
 		ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey,
@@ -77,17 +77,17 @@ public final class WWFeatureBootstrap {
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(
+	public static @NotNull Holder<PlacedFeature> register(
 		BootstrapContext<PlacedFeature> entries,
 		ResourceKey<PlacedFeature> resourceKey,
 		ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey,
 		List<PlacementModifier> modifiers
 	) {
-		return FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
+		return FrozenLibPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
 	}
 
 
-	public static Holder<PlacedFeature> register(
+	public static @NotNull Holder<PlacedFeature> register(
 		BootstrapContext<PlacedFeature> entries,
 		ResourceKey<PlacedFeature> resourceKey,
 		Holder<ConfiguredFeature<?, ?>> configuredHolder,
@@ -96,19 +96,19 @@ public final class WWFeatureBootstrap {
 		return register(entries, resourceKey, configuredHolder, Arrays.asList(modifiers));
 	}
 
-	private static Holder<PlacedFeature> register(
+	private static @NotNull Holder<PlacedFeature> register(
 		BootstrapContext<PlacedFeature> entries,
 		ResourceKey<PlacedFeature> resourceKey,
 		Holder<ConfiguredFeature<?, ?>> configuredHolder,
 		List<PlacementModifier> modifiers) {
-		return FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
+		return FrozenLibPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
 	}
 
-	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(
+	private static <FC extends FeatureConfiguration, F extends Feature<FC>> @NotNull Holder<ConfiguredFeature<?, ?>> register(
 		BootstrapContext<ConfiguredFeature<?, ?>> entries,
 		ResourceKey<ConfiguredFeature<?, ?>> resourceKey,
 		F feature, FC featureConfiguration
 	) {
-		return FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
+		return FrozenLibConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
 	}
 }

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.item;
 
 import java.util.Optional;
-import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.lib.sound.impl.networking.FrozenLibSoundPackets;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.Holder;
@@ -51,9 +51,9 @@ public class CopperHorn extends InstrumentItem {
 
 		if (!level.isClientSide) {
 			float soundPitch = !user.isShiftKeyDown() ?
-				(float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
-				(float) Math.pow(2.0D, 0.01111F * -user.getXRot());
-			FrozenSoundPackets.createMovingRestrictionLoopingSound(
+				(float) Math.pow(2D, (note - 12F) / 12D) :
+				(float) Math.pow(2D, 0.01111F * -user.getXRot());
+			FrozenLibSoundPackets.createAndSendMovingRestrictionLoopingSound(
 				level,
 				user,
 				BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow(),

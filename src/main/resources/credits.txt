@@ -53,6 +53,7 @@ Zhen:
  - Hibiscus reference textures.
  - Willow textures
  - Polished Gabbro, Gabbro Bricks, Chiseled Gabbro Bricks, Mossy Gabbro Bricks, and Cracked Gabbro Bricks textures.
+ - Clovers textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -158,6 +159,7 @@ Kokoroto:
  - Spanish translation.
  - Updated Spanish translation as of 3.0.9.
  - Updated Spanish translation as of 3.0.10.
+ - Begged for Clovers for two years, before they finally got added in 3.1.
 
 demorogabrtz:
  - Brazilian Portuguese translation.

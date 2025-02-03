@@ -78,6 +78,8 @@ hi
 - Pink Petals can now be placed into Flower Pots.
 - Backported Wildflowers.
   - Wildflowers generate in biomes in the `wilderwild:feature/has_wildflowers` and `wilderwild:feature/has_sparse_wildflowers` tags.
+- Added Clovers.
+  - Clovers generate in biomes in the `wilderwild:feature/has_clovers` tag.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
