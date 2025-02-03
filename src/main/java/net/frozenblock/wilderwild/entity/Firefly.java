@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -56,6 +57,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -79,6 +81,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -114,9 +117,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 		@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, EntitySpawnReason reason, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
-		if (EntitySpawnReason.ignoresLightRequirements(reason)) return true;
-
-		return level.getMaxLocalRawBrightness(pos) <= 13 && hasNearbyFireflyBush(level, pos, 3, 1);
+		return (EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)
+			&& hasNearbyFireflyBush(level, pos, 3, 1)
+			&& !reachedNearbyFireflyLimit(level, pos, 4, 10);
 	}
 
 	@NotNull
@@ -423,6 +426,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			}
 		} while (count < threshold);
 		return true;
+	}
+
+	public static boolean reachedNearbyFireflyLimit(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
+		List<Firefly> nearbyFireflies = level.getEntitiesOfClass(
+			Firefly.class,
+			AABB.encapsulatingFullBlocks(
+				blockPos.offset(-distance, -distance, -distance),
+				blockPos.offset(distance, distance, distance)
+			),
+			LivingEntity::isAlive
+		);
+		return nearbyFireflies.size() > threshold;
 	}
 
 	@Override
