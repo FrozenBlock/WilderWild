@@ -69,6 +69,17 @@ hi
   - This is now disabled by default, unlike before.
 - Scorched now set entities on fire upon attacking.
 - Removed the `wilderwild:sculk_spreader` entity, and updated the `spreadsculk` command to place all Sculk at once.
+- Updated the Chiseled Mud Bricks texture.
+- Wilder Wild's custom flower, leaves, sapling, cactus, coarse dirt, ice, frosted ice, mushroom, mushroom block, sandstone, lily pad, and melon block sounds now all rely on tags.
+  - These tags can be found in the `/sound` folder for block tags.
+- Fixed Wilder Wild's custom Flower Pot models having ambient occlusion enabled.
+- Fixed Wilder Wild's custom Flower Pot models not having the correct UV mapping.
+- Fixed some of Wilder Wild's custom Flower Pot models not using correct particle textures.
+- Pink Petals can now be placed into Flower Pots.
+- Backported Wildflowers.
+  - Wildflowers generate in biomes in the `wilderwild:feature/has_wildflowers` and `wilderwild:feature/has_sparse_wildflowers` tags.
+- Added Clovers.
+  - Clovers generate in biomes in the `wilderwild:feature/has_clovers` tag.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -129,7 +140,7 @@ hi
   - Each flower can be sheared off the Moobloom.
     - These can each be regrown by feeding it Wheat.
     - Cannot breed unless all flowers are present.
-  - Spawn in the Flower Forest and Flower Fields biomes by default.
+  - Spawn in the Flower Forest, Flower Fields, and Sunflower Plains biomes by default.
   - Butterflies will follow Mooblooms.
 
 # Firefly Branch
@@ -171,6 +182,14 @@ hi
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
 - Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.
+
+# Gabbro Branch
+- Added the Gabbro stone type.
+    - Generates naturally in Magmatic Caves.
+    - Can be polished.
+    - Can be crafted into bricks.
+    - Mossy brick variants and stair, slab, and wall variants of the base stone require Trailier Tales to be installed.
+    - Scorched can spawn on Gabbro.
 
 # 1.21.5
 - Added the `wilderwild:non_overriden_falling_leaves` block tag, controlling which leaves blocks won't have their particles entirely replaced by Wilder Wild.

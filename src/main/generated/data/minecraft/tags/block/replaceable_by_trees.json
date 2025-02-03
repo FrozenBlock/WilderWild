@@ -6,6 +6,7 @@
     "wilderwild:milkweed",
     "wilderwild:shrub",
     "wilderwild:pollen",
+    "wilderwild:clovers",
     {
       "id": "#wilderwild:leaf_litters",
       "required": false

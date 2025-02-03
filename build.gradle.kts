@@ -166,6 +166,9 @@ repositories {
             includeGroup("com.jamieswhiteshirt")
         }
     }
+    maven("https://maven.frozenblock.net/release") {
+        name = "FrozenBlock"
+    }
 
     flatDir {
         dirs("libs")

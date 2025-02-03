@@ -19,8 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.frozenblock.lib.entity.api.spawnplacement.FrozenSpawnPlacementTypes;
-import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
+import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
@@ -277,7 +276,7 @@ public final class WWEntityTypes {
 		FabricDefaultAttributeRegistry.register(SCORCHED, Scorched.createAttributes());
 		SpawnPlacements.register(
 			SCORCHED,
-			FrozenSpawnPlacementTypes.ON_GROUND_OR_ON_LAVA_SURFACE,
+			WWSpawnTypes.SCORCHED,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
 		);

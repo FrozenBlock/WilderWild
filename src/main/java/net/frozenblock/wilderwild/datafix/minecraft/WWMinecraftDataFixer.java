@@ -34,7 +34,7 @@ public final class WWMinecraftDataFixer {
 	// 1 is 1.20.1 (base version)
 	// 2 is 1.20.4 (short grass)
 	// 3 is 24w09a (components, display lantern fixes)
-	// 4 is 25w04a (entity components)
+	// 4 is 25w04a (entity components + 25w02a w/ wildflowers)
 	// 5 is 25w05a (bush -> shrub)
 
 	public static final int DATA_VERSION = 4;
@@ -56,6 +56,8 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
 		Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
+		SimpleFixes.addItemRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
 		builder.addFixer(
 			new MobBottleVariantComponentizationFix(
 				schemaV4,

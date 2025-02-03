@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.feature;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
@@ -39,20 +39,20 @@ public final class WWPlacementUtils {
 
 	@NotNull
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static <FC extends FeatureConfiguration> FrozenPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(WWConstants.id(id))
+	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers) {
+		return new FrozenLibPlacedFeature(WWConstants.id(id))
 			.makeAndSetHolder((Holder) configured, modifiers);
 	}
 
 	@NotNull
-	public static <FC extends FeatureConfiguration> FrozenPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
+	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
 		return register(id, registryEntry, List.of(modifiers));
 	}
 
 	@NotNull
-	public static FrozenPlacedFeature register(@NotNull String id) {
+	public static FrozenLibPlacedFeature register(@NotNull String id) {
 		var key = WWConstants.id(id);
-		return new FrozenPlacedFeature(key);
+		return new FrozenLibPlacedFeature(key);
 	}
 
 }

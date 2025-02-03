@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "wilderwild:block/gabbro_bricks",
+    "side": "wilderwild:block/gabbro_bricks",
+    "top": "wilderwild:block/gabbro_bricks"
+  }
+}

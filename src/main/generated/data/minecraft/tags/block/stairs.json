@@ -1,6 +1,10 @@
 {
   "values": [
     "wilderwild:sculk_stairs",
-    "wilderwild:mossy_mud_brick_stairs"
+    "wilderwild:mossy_mud_brick_stairs",
+    "wilderwild:gabbro_stairs",
+    "wilderwild:polished_gabbro_stairs",
+    "wilderwild:gabbro_brick_stairs",
+    "wilderwild:mossy_gabbro_brick_stairs"
   ]
 }

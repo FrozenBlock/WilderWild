@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.worldgen.modification;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
+import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;

@@ -24,7 +24,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
-import net.frozenblock.lib.entity.behavior.api.FrozenBehaviorUtils;
+import net.frozenblock.lib.entity.api.behavior.FrozenBehaviorUtils;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

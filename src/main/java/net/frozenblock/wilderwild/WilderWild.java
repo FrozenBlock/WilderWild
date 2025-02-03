@@ -26,9 +26,10 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.config.api.instance.ConfigModification;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.entity.api.category.entrypoint.FrozenMobCategoryEntrypoint;
+import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
-import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
+import net.frozenblock.lib.feature_flag.api.FeatureFlagAPI;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -72,13 +73,17 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
-		WWMinecraftDataFixer.applyDataFixes(container);
-		WWDataFixer.applyDataFixes(container);
 		WWResources.register(container);
 
 		if (FrozenBools.IS_DATAGEN) {
 			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
+
+		WWFeatureFlags.init();
+		FeatureFlagAPI.rebuild();
+
+		WWMinecraftDataFixer.applyDataFixes(container);
+		WWDataFixer.applyDataFixes(container);
 
 		WilderWildRegistries.initRegistry();
 

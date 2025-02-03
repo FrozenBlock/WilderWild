@@ -27,6 +27,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
+import java.util.stream.IntStream;
 
 public class WWBlockLootHelper {
 
@@ -175,6 +177,30 @@ public class WWBlockLootHelper {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(block).when(lootProvider.hasShearsOrSilkTouch()))
 				)
+		);
+	}
+
+	public static void makeShearsOrSilkTouchRequiredPetalsDrops(@NotNull BlockLootSubProvider lootProvider, Block block) {
+		lootProvider.add(block,
+		LootTable.lootTable()
+			.withPool(
+				LootPool.lootPool()
+					.setRolls(ConstantValue.exactly(1F))
+					.add(
+						lootProvider.applyExplosionDecay(
+							block,
+							LootItem.lootTableItem(block)
+								.apply(
+									IntStream.rangeClosed(1, 4).boxed().toList(),
+									integer -> SetItemCountFunction.setCount(ConstantValue.exactly(integer))
+										.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FlowerBedBlock.AMOUNT, integer))
+										)
+								)
+								.when(lootProvider.hasShearsOrSilkTouch())
+						)
+					)
+			)
 		);
 	}
 }

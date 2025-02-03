@@ -1,0 +1,490 @@
+{
+  "values": [
+    "minecraft:acacia_leaves",
+    "minecraft:birch_leaves",
+    "minecraft:dark_oak_leaves",
+    "minecraft:jungle_leaves",
+    "minecraft:mangrove_leaves",
+    "minecraft:oak_leaves",
+    "minecraft:spruce_leaves",
+    "wilderwild:baobab_leaves",
+    "wilderwild:willow_leaves",
+    "wilderwild:cypress_leaves",
+    "wilderwild:palm_fronds",
+    "wilderwild:yellow_maple_leaves",
+    "wilderwild:yellow_maple_leaf_litter",
+    "wilderwild:orange_maple_leaves",
+    "wilderwild:orange_maple_leaf_litter",
+    "wilderwild:red_maple_leaves",
+    "wilderwild:red_maple_leaf_litter",
+    "minecraft:pale_oak_leaves",
+    {
+      "id": "betterend:pythadendron_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:lacugrove_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:dragon_tree_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:tenanea_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:helix_tree_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:lucernia_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:lucernia_outer_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:glowing_pillar_leaves",
+      "required": false
+    },
+    {
+      "id": "betterend:cave_bush",
+      "required": false
+    },
+    {
+      "id": "betterend:end_lotus_leaf",
+      "required": false
+    },
+    {
+      "id": "betternether:willow_leaves",
+      "required": false
+    },
+    {
+      "id": "betternether:rubeus_leaves",
+      "required": false
+    },
+    {
+      "id": "betternether:anchor_tree_leaves",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_sakura_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:bramble_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:dead_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:empyreal_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:fir_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:flowering_oak_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:hellbark_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:jacaranda_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:magic_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:mahogany_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:null_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:orange_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:palm_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:pine_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:rainbow_birch_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:red_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:snowblossom_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:umbran_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:willow_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:yellow_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "blockus:white_oak_leaves",
+      "required": false
+    },
+    {
+      "id": "excessive_building:ancient_leaves",
+      "required": false
+    },
+    {
+      "id": "excessive_building:gloom_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:part_pink_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:yellow_aspen_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:saxaul_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:fir_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:part_white_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:part_purple_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cedar_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:pink_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:blue_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:olive_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:joshua_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:frosty_fir_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:orange_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:white_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:larch_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:mahogany_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:purple_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:aspen_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:red_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:coconut_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:willow_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:sugi_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:yellow_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:palo_verde_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:frosty_redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:part_blue_wisteria_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:ghaf_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:apple_oak_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:ashen_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:bamboo_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:baobab_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blackwood_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_magnolia_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:brimwood_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dead_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dead_pine_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:enchanted_birch_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:eucalyptus_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:flowering_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:golden_larch_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:joshua_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:kapok_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:larch_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:magnolia_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:maple_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mauve_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:orange_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:palm_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pine_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pink_magnolia_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:red_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:silver_birch_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:small_oak_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:socotra_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:white_magnolia_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:willow_leaves",
+      "required": false
+    },
+    {
+      "id": "techreborn:rubber_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:dark_japanese_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:hemlock_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:japanese_maple_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:japanese_maple_shrub_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:jungle_palm_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:rainbow_eucalyptus_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:rubber_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:sakura_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:willow_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:yucca_palm_leaves",
+      "required": false
+    },
+    {
+      "id": "traverse:brown_autumnal_leaves",
+      "required": false
+    },
+    {
+      "id": "traverse:fir_leaves",
+      "required": false
+    },
+    {
+      "id": "traverse:orange_autumnal_leaves",
+      "required": false
+    },
+    {
+      "id": "traverse:red_autumnal_leaves",
+      "required": false
+    },
+    {
+      "id": "traverse:yellow_autumnal_leaves",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "wilderwild:block/gabbro"
+      },
+      {
+        "model": "wilderwild:block/gabbro_mirrored"
+      },
+      {
+        "model": "wilderwild:block/gabbro",
+        "y": 180
+      },
+      {
+        "model": "wilderwild:block/gabbro_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

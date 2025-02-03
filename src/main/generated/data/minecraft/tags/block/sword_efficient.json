@@ -17,6 +17,7 @@
     "wilderwild:prickly_pear",
     "wilderwild:mycelium_growth",
     "wilderwild:pale_mushroom",
+    "wilderwild:clovers",
     {
       "id": "#wilderwild:nematocysts",
       "required": false

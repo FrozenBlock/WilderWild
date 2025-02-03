@@ -52,6 +52,8 @@ Zhen:
  - Pale Fog textures.
  - Hibiscus reference textures.
  - Willow textures
+ - Polished Gabbro, Gabbro Bricks, Chiseled Gabbro Bricks, Mossy Gabbro Bricks, and Cracked Gabbro Bricks textures.
+ - Clovers textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -66,6 +68,7 @@ voxelotl:
  - Pale Mushroom Block textures.
  - Pale Shelf Fungi texture.
  - Came up with Pale Mushrooms & the Pale Fog mechanic.
+ - Retextured Chiseled Mud Bricks in 3.1.
 
 LudoCrypt:
  - Composer.
@@ -127,7 +130,7 @@ magistermaks:
 Enri:
  - Italian translation.
  - Came up with Jellyfish being in Shipwreck Chests.
- - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, and Geyser textures.
+ - Crab in Bucket, Ostrich, Ostrich Egg, Scorched, Gabbro, and Geyser textures.
 
 noah1510:
  - Fixed a crash relating to Sculk during worldgen.
@@ -156,6 +159,7 @@ Kokoroto:
  - Spanish translation.
  - Updated Spanish translation as of 3.0.9.
  - Updated Spanish translation as of 3.0.10.
+ - Begged for Clovers for two years, before they finally got added in 3.1.
 
 demorogabrtz:
  - Brazilian Portuguese translation.

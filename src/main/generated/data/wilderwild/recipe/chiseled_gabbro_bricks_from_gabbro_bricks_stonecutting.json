@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "wilderwild:gabbro_bricks",
+  "result": {
+    "count": 1,
+    "id": "wilderwild:chiseled_gabbro_bricks"
+  }
+}

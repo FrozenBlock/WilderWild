@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "mossy_gabbro_bricks",
+  "ingredients": [
+    "wilderwild:gabbro_bricks",
+    "minecraft:moss_block"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wilderwild:mossy_gabbro_bricks"
+  }
+}

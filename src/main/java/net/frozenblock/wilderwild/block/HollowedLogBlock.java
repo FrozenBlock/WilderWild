@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.item.api.axe.AxeBehaviors;
+import net.frozenblock.lib.item.api.axe.AxeApi;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
@@ -109,11 +109,11 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	@Contract(value = "_, _ -> new", pure = true)
-	public static AxeBehaviors.@NotNull AxeBehavior createHollowBehavior(
+	public static AxeApi.@NotNull AxeBehavior createHollowBehavior(
 		@NotNull Block result,
 		boolean isStem
 	) {
-		return new AxeBehaviors.AxeBehavior() {
+		return new AxeApi.AxeBehavior() {
 			@Override
 			public boolean meetsRequirements(LevelReader level, BlockPos pos, Direction direction, BlockState state) {
 				return WWBlockConfig.get().logHollowing && state.hasProperty(BlockStateProperties.AXIS) && direction.getAxis().equals(state.getValue(BlockStateProperties.AXIS));
@@ -132,11 +132,11 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	public static void registerAxeHollowBehavior(Block logBlock, Block hollowedLogBlock) {
-		AxeBehaviors.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, false));
+		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, false));
 	}
 
 	public static void registerAxeHollowBehaviorStem(Block logBlock, Block hollowedLogBlock) {
-		AxeBehaviors.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, true));
+		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, true));
 	}
 
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {

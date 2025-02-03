@@ -2,6 +2,7 @@
   "values": [
     "minecraft:flower_forest",
     "minecraft:plains",
+    "minecraft:sunflower_plains",
     {
       "id": "#minecraft:is_savanna",
       "required": false

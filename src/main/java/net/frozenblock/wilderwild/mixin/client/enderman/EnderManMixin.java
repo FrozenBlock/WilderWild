@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.mixin.client.enderman;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.lib.sound.client.api.sounds.RestrictedMovingSound;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;

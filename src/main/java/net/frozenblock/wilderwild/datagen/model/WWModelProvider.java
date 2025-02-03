@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.frozenblock.lib.datagen.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -94,6 +95,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlantWithDefaultItem(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.PlantType.NOT_TINTED);
 
+		FrozenLibModelHelper.createTintedFlowerBed(generator, WWBlocks.CLOVERS);
+
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
@@ -167,6 +170,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Blocks.STRIPPED_WARPED_STEM);
 
 		WWModelHelper.createStoneChest(generator, WWBlocks.STONE_CHEST, Blocks.DEEPSLATE, StoneChestSpecialRenderer.STONE_CHEST_TEXTURE);
+
+		generator.family(WWBlocks.GABBRO).generateFor(WWBlocks.FAMILY_GABBRO);
+		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);
+		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_GABBRO_BRICK);
+		generator.family(WWBlocks.MOSSY_GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK);
 	}
 
 	@Override

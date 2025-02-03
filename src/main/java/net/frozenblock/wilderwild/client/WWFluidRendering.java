@@ -24,7 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
+import net.frozenblock.lib.block.client.api.LiquidRenderUtils;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.Minecraft;
