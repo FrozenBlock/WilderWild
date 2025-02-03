@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:coarse_dirt",
+    {
+      "id": "natures_spirit:sandy_soil",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:peat_coarse_dirt",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:silt_coarse_dirt",
+      "required": false
+    }
+  ]
+}

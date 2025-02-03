@@ -1,0 +1,78 @@
+{
+  "values": [
+    "minecraft:cactus",
+    "wilderwild:prickly_pear",
+    {
+      "id": "betternether:barrel_cactus",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_cactus",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:aureate_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:drowsy_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:foamy_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:imperial_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:ornate_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:regal_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:sage_succulent",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:orange_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:white_wisteria_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:larch_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:barrel_cactus",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:saguaro_cactus",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:saguaro_cactus_corner",
+      "required": false
+    },
+    {
+      "id": "terrestria:tiny_cactus",
+      "required": false
+    },
+    {
+      "id": "terrestria:saguaro_cactus_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:saguaro_cactus",
+      "required": false
+    }
+  ]
+}

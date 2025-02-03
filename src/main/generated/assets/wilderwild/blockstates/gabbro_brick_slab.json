@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wilderwild:block/gabbro_brick_slab"
+    },
+    "type=double": {
+      "model": "wilderwild:block/gabbro_bricks"
+    },
+    "type=top": {
+      "model": "wilderwild:block/gabbro_brick_slab_top"
+    }
+  }
+}

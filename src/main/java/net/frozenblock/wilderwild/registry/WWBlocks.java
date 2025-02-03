@@ -29,9 +29,10 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
-import net.frozenblock.lib.storage.api.NoInteractionStorage;
+import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
+import net.frozenblock.lib.item.api.bone_meal.BoneMealApi;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -67,7 +68,6 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
-import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -110,6 +110,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -687,6 +688,26 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+	public static final PinkPetalsBlock WILDFLOWERS = register("wildflowers",
+		PinkPetalsBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
+	public static final Block POTTED_WILDFLOWERS = registerWithoutItem("potted_wildflowers",
+		properties -> new FlowerPotBlock(WILDFLOWERS, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final PinkPetalsBlock CLOVERS = register("clovers",
+		PinkPetalsBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+			.sound(SoundType.GRASS)
+			.instabreak()
+	);
+	public static final Block POTTED_CLOVERS = registerWithoutItem("potted_clovers",
+		properties -> new FlowerPotBlock(CLOVERS, properties),
+		Blocks.flowerPotProperties()
+	);
+
 	public static final TallFlowerBlock DATURA = register("datura",
 		TallFlowerBlock::new,
 		Properties.ofFullCopy(Blocks.SUNFLOWER)
@@ -766,6 +787,11 @@ public final class WWBlocks {
 
 	public static final Block POTTED_SHORT_GRASS = registerWithoutItem("potted_short_grass",
 		properties -> new FlowerPotBlock(Blocks.SHORT_GRASS, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final Block POTTED_PINK_PETALS = registerWithoutItem("potted_pink_petals",
+		properties -> new FlowerPotBlock(Blocks.PINK_PETALS, properties),
 		Blocks.flowerPotProperties()
 	);
 
@@ -872,18 +898,124 @@ public final class WWBlocks {
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
-	public static final GeyserBlock GEYSER = register("geyser",
-		GeyserBlock::new,
+	// GABBRO
+
+	public static final Block GABBRO = register("gabbro",
+		Block::new,
 		Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
-			.sound(WWSoundTypes.GEYSER)
+			.sound(WWSoundTypes.GABBRO)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
-			.lightLevel(blockState -> 2)
 			.strength(3F)
+	);
+	public static final StairBlock GABBRO_STAIRS = register("gabbro_stairs",
+		properties -> new StairBlock(GABBRO.defaultBlockState(), properties),
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final SlabBlock GABBRO_SLAB = register("gabbro_slab",
+		SlabBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final WallBlock GABBRO_WALL = register("gabbro_wall",
+		WallBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final BlockFamily FAMILY_GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO)
+		.stairs(GABBRO_STAIRS)
+		.slab(GABBRO_SLAB)
+		.wall(GABBRO_WALL)
+		.dontGenerateModel()
+		.getFamily();
+
+	public static final GeyserBlock GEYSER = register("geyser",
+		GeyserBlock::new,
+		Properties.ofFullCopy(GABBRO)
+			.lightLevel(blockState -> 2)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
 	);
+
+	public static final Block POLISHED_GABBRO = register("polished_gabbro",
+		Block::new,
+		Properties.ofFullCopy(GABBRO)
+	);
+	public static final StairBlock POLISHED_GABBRO_STAIRS = register("polished_gabbro_stairs",
+		properties -> new StairBlock(GABBRO.defaultBlockState(), properties),
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.POLISHED_GABBRO)
+	);
+	public static final SlabBlock POLISHED_GABBRO_SLAB = register("polished_gabbro_slab",
+		SlabBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.POLISHED_GABBRO)
+	);
+	public static final WallBlock POLISHED_GABBRO_WALL = register("polished_gabbro_wall",
+		WallBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.POLISHED_GABBRO)
+	);
+	public static final BlockFamily FAMILY_POLISHED_GABBRO = BlockFamilies.familyBuilder(POLISHED_GABBRO)
+		.stairs(POLISHED_GABBRO_STAIRS)
+		.slab(POLISHED_GABBRO_SLAB)
+		.wall(POLISHED_GABBRO_WALL)
+		.getFamily();
+
+	public static final Block GABBRO_BRICKS = register("gabbro_bricks",
+		Block::new,
+		Properties.ofFullCopy(GABBRO)
+			.sound(WWSoundTypes.GABBRO_BRICKS)
+	);
+	public static final StairBlock GABBRO_BRICK_STAIRS = register("gabbro_brick_stairs",
+		properties -> new StairBlock(GABBRO_BRICKS.defaultBlockState(), properties),
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS)
+	);
+	public static final SlabBlock GABBRO_BRICK_SLAB = register("gabbro_brick_slab",
+		SlabBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS)
+	);
+	public static final WallBlock GABBRO_BRICK_WALL = register("gabbro_brick_wall",
+		WallBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS)
+	);
+	public static final Block CRACKED_GABBRO_BRICKS = register("cracked_gabbro_bricks",
+		Block::new,
+		Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS)
+	);
+	public static final Block CHISELED_GABBRO_BRICKS = register("chiseled_gabbro_bricks",
+		Block::new,
+		Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS)
+	);
+	public static final BlockFamily FAMILY_GABBRO_BRICK = BlockFamilies.familyBuilder(GABBRO_BRICKS)
+		.stairs(GABBRO_BRICK_STAIRS)
+		.slab(GABBRO_BRICK_SLAB)
+		.wall(GABBRO_BRICK_WALL)
+		.cracked(CRACKED_GABBRO_BRICKS)
+		.chiseled(CHISELED_GABBRO_BRICKS)
+		.getFamily();
+
+	public static final Block MOSSY_GABBRO_BRICKS = register("mossy_gabbro_bricks",
+		Block::new,
+		Properties.ofFullCopy(GABBRO_BRICKS)
+			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+	);
+	public static final StairBlock MOSSY_GABBRO_BRICK_STAIRS = register("mossy_gabbro_brick_stairs",
+		properties -> new StairBlock(MOSSY_GABBRO_BRICKS.defaultBlockState(), properties),
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.MOSSY_GABBRO_BRICKS)
+	);
+	public static final SlabBlock MOSSY_GABBRO_BRICK_SLAB = register("mossy_gabbro_brick_slab",
+		SlabBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.MOSSY_GABBRO_BRICKS)
+	);
+	public static final WallBlock MOSSY_GABBRO_BRICK_WALL = register("mossy_gabbro_brick_wall",
+		WallBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(WWBlocks.MOSSY_GABBRO_BRICKS)
+	);
+	public static final BlockFamily FAMILY_MOSSY_GABBRO_BRICK = BlockFamilies.familyBuilder(MOSSY_GABBRO_BRICKS)
+		.stairs(MOSSY_GABBRO_BRICK_STAIRS)
+		.slab(MOSSY_GABBRO_BRICK_SLAB)
+		.wall(MOSSY_GABBRO_BRICK_WALL)
+		.getFamily();
 
 	// WOOD
 
@@ -1669,7 +1801,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WILDFLOWERS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
@@ -1708,6 +1841,7 @@ public final class WWBlocks {
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableBlockRegistry.add(POLLEN, 200, 60);
 		flammableBlockRegistry.add(SEEDING_DANDELION, 100, 60);
+		flammableBlockRegistry.add(WILDFLOWERS, 100, 60);
 		flammableBlockRegistry.add(CARNATION, 100, 60);
 		flammableBlockRegistry.add(CATTAIL, 100, 60);
 		flammableBlockRegistry.add(DATURA, 100, 60);
@@ -1986,46 +2120,46 @@ public final class WWBlocks {
 	}
 
 	private static void registerBonemeal() {
-		BonemealBehaviors.register(
+		BoneMealApi.register(
 			Blocks.LILY_PAD,
-			new BonemealBehaviors.BonemealBehavior() {
+			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
 					return WWBlockConfig.get().flower.bonemealLilypads;
 				}
 
 				@Override
-				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					level.setBlock(pos, FLOWERING_LILY_PAD.defaultBlockState(), Block.UPDATE_CLIENTS);
 				}
 			}
 		);
 
-		BonemealBehaviors.register(
+		BoneMealApi.register(
 			Blocks.DANDELION,
-			new BonemealBehaviors.BonemealBehavior() {
+			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
 					return WWBlockConfig.get().flower.bonemealDandelions;
 				}
 
 				@Override
-				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					level.setBlock(pos, SEEDING_DANDELION.defaultBlockState(), Block.UPDATE_CLIENTS);
 				}
 			}
 		);
 
-		BonemealBehaviors.register(
+		BoneMealApi.register(
 			Blocks.MYCELIUM,
-			new BonemealBehaviors.BonemealBehavior() {
+			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
 					return level.getBlockState(pos.above()).isAir();
 				}
 
 				@Override
-				public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 					BlockPos blockPos = pos.above();
 					Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
 						.lookupOrThrow(Registries.PLACED_FEATURE)

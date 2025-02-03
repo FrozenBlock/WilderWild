@@ -1,0 +1,88 @@
+{
+  "values": [
+    "minecraft:sandstone",
+    "minecraft:sandstone_slab",
+    "minecraft:sandstone_stairs",
+    "minecraft:sandstone_wall",
+    "minecraft:chiseled_sandstone",
+    "minecraft:cut_sandstone",
+    "minecraft:cut_sandstone_slab",
+    "minecraft:smooth_sandstone",
+    "minecraft:smooth_sandstone_slab",
+    "minecraft:smooth_sandstone_stairs",
+    {
+      "id": "trailiertales:smooth_sandstone_wall",
+      "required": false
+    },
+    {
+      "id": "trailiertales:cut_sandstone_stairs",
+      "required": false
+    },
+    {
+      "id": "trailiertales:cut_sandstone_wall",
+      "required": false
+    },
+    "minecraft:red_sandstone",
+    "minecraft:red_sandstone_slab",
+    "minecraft:red_sandstone_stairs",
+    "minecraft:red_sandstone_wall",
+    "minecraft:chiseled_red_sandstone",
+    "minecraft:cut_red_sandstone",
+    "minecraft:cut_red_sandstone_slab",
+    "minecraft:smooth_red_sandstone",
+    "minecraft:smooth_red_sandstone_slab",
+    "minecraft:smooth_red_sandstone_stairs",
+    {
+      "id": "trailiertales:smooth_red_sandstone_wall",
+      "required": false
+    },
+    {
+      "id": "trailiertales:cut_red_sandstone_stairs",
+      "required": false
+    },
+    {
+      "id": "trailiertales:cut_red_sandstone_wall",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:pink_sandstone",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:pink_sandstone_slab",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:pink_sandstone_stairs",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:pink_sandstone_wall",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:smooth_pink_sandstone",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:smooth_pink_sandstone_slab",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:smooth_pink_sandstone_stairs",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:chiseled_pink_sandstone",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cut_pink_sandstone",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cut_pink_sandstone_slab",
+      "required": false
+    }
+  ]
+}

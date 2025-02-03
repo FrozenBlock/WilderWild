@@ -1,0 +1,420 @@
+{
+  "values": [
+    "minecraft:acacia_sapling",
+    "minecraft:birch_sapling",
+    "minecraft:dark_oak_sapling",
+    "minecraft:jungle_sapling",
+    "minecraft:mangrove_propagule",
+    "minecraft:oak_sapling",
+    "minecraft:spruce_sapling",
+    "wilderwild:willow_sapling",
+    "wilderwild:cypress_sapling",
+    "wilderwild:palm_fronds",
+    "wilderwild:maple_sapling",
+    "wilderwild:bush",
+    {
+      "id": "betterend:pythadendron_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:lacugrove_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:dragon_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:tenanea_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:helix_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:umbrella_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:lucernia_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:cypress_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:dead_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:empyreal_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:fir_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:flowering_oak_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:hellbark_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:jacaranda_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:magic_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:mahogany_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:orange_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:palm_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:pine_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:rainbow_birch_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:red_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:redwood_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:snowblossom_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:umbran_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:willow_sapling",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:yellow_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "blockus:white_oak_sapling",
+      "required": false
+    },
+    {
+      "id": "excessive_building:ancient_sapling",
+      "required": false
+    },
+    {
+      "id": "excessive_building:gloom_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:saxaul_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:fir_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cedar_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:pink_wisteria_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:blue_wisteria_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:olive_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:joshua_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:orange_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:white_wisteria_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:larch_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:mahogany_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:redwood_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:purple_wisteria_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:aspen_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:red_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cypress_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:willow_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:sugi_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:yellow_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:palo_verde_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:ghaf_sapling",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:silverbush",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:apple_oak_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:ashen_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:bamboo_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blackwood_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_magnolia_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:brimwood_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cobalt_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cypress_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dead_pine_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dead_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:enchanted_birch_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:eucalyptus_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:flowering_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:golden_larch_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:joshua_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:kapok_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:larch_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:magnolia_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mauve_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:maple_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mauve_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:orange_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:palm_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pine_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pink_magnolia_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:red_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:redwood_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:silver_birch_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:small_oak_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:socotra_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:white_magnolia_sapling",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:willow_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:bryce_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:cypress_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:dark_japanese_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:hemlock_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:japanese_maple_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:japanese_maple_shrub_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:jungle_palm_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:rainbow_eucalyptus_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:redwood_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:rubber_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:sakura_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:willow_sapling",
+      "required": false
+    },
+    {
+      "id": "terrestria:yucca_palm_sapling",
+      "required": false
+    },
+    {
+      "id": "traverse:brown_autumnal_sapling",
+      "required": false
+    },
+    {
+      "id": "traverse:fir_sapling",
+      "required": false
+    },
+    {
+      "id": "traverse:orange_autumnal_sapling",
+      "required": false
+    },
+    {
+      "id": "traverse:red_autumnal_sapling",
+      "required": false
+    },
+    {
+      "id": "traverse:yellow_autumnal_sapling",
+      "required": false
+    }
+  ]
+}

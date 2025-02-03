@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "down": "wilderwild:block/geyser",
-    "east": "wilderwild:block/geyser",
-    "north": "wilderwild:block/geyser",
-    "particle": "wilderwild:block/geyser",
-    "south": "wilderwild:block/geyser",
-    "up": "wilderwild:block/geyser_top",
-    "west": "wilderwild:block/geyser"
+    "down": "wilderwild:block/gabbro",
+    "east": "wilderwild:block/gabbro",
+    "north": "wilderwild:block/gabbro",
+    "particle": "wilderwild:block/gabbro",
+    "south": "wilderwild:block/gabbro",
+    "up": "wilderwild:block/geyser",
+    "west": "wilderwild:block/gabbro"
   }
 }

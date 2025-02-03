@@ -32,6 +32,8 @@ import org.jetbrains.annotations.Nullable;
 public final class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
+		oneToOneConversionRecipe(provider, exporter, Items.YELLOW_DYE, WWBlocks.WILDFLOWERS, "yellow_dye");
+
 		oneToOneConversionRecipe(provider, exporter, Items.RED_DYE, WWBlocks.RED_HIBISCUS, "red_dye");
 		oneToOneConversionRecipe(provider, exporter, Items.YELLOW_DYE, WWBlocks.YELLOW_HIBISCUS, "yellow_dye");
 		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWBlocks.WHITE_HIBISCUS, "white_dye");
@@ -60,7 +62,7 @@ public final class WWNaturalRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(WWItems.PRICKLY_PEAR), provider.has(WWItems.PRICKLY_PEAR))
 			.save(exporter);
 
-		WWRecipeProvider.stonecutterResultFromBase(provider, exporter, RecipeCategory.MISC, WWItems.SPLIT_COCONUT, WWItems.COCONUT, 2);
+		provider.stonecutterResultFromBase(RecipeCategory.MISC, WWItems.SPLIT_COCONUT, WWItems.COCONUT, 2);
 
 		provider.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', WWItems.MILKWEED_POD)

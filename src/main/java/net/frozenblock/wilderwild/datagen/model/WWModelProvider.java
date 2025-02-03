@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.datagen.model;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.frozenblock.lib.datagen.api.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -81,6 +82,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
+		generator.family(WWBlocks.GABBRO).generateFor(WWBlocks.FAMILY_GABBRO);
+		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);
+		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_GABBRO_BRICK);
+		generator.family(WWBlocks.MOSSY_GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK);
+
 		generator.createPlant(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.CARNATION, WWBlocks.POTTED_CARNATION, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.MARIGOLD, WWBlocks.POTTED_MARIGOLD, BlockModelGenerators.TintState.NOT_TINTED);
@@ -93,6 +99,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(WWBlocks.WHITE_HIBISCUS, WWBlocks.POTTED_WHITE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+
+		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
+		FrozenLibModelHelper.createTintedFlowerBed(generator, WWBlocks.CLOVERS);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
@@ -213,6 +222,5 @@ public final class WWModelProvider extends FabricModelProvider {
 
 			ModelTemplates.FLAT_ITEM.create(location, TextureMapping.layer0(location), generator.output);
 		});
-
 	}
 }

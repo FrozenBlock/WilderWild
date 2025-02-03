@@ -159,6 +159,7 @@ public final class MagmaticCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features, false);
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_GABBRO.getKey());
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addPlainVegetation(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
@@ -168,13 +169,12 @@ public final class MagmaticCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.UPSIDE_DOWN_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.MAGMA_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.MAGMA_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GABBRO_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.OBSIDIAN_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.BASALT_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.BASALT_SPIKE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_BASALT_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GABBRO_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_GABBRO_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.MAGMA_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FIRE_PATCH_MAGMA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEYSER_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_UP.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_DOWN.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEYSER_NORTH.getKey());

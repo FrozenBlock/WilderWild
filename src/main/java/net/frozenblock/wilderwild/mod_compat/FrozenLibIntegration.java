@@ -28,19 +28,17 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
-import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
-import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
+import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
+import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
-import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlocks;
-import net.frozenblock.lib.sound.api.damagesource.PlayerDamageTypeSounds;
+import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
-import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
@@ -59,13 +57,12 @@ import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import static net.frozenblock.wilderwild.registry.WWBlocks.*;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
-import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;
@@ -103,12 +100,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import static net.minecraft.world.level.block.Blocks.CLAY;
-import static net.minecraft.world.level.block.Blocks.FROSTED_ICE;
-import static net.minecraft.world.level.block.Blocks.GRAVEL;
-import static net.minecraft.world.level.block.Blocks.ICE;
-import static net.minecraft.world.level.block.Blocks.SANDSTONE;
-import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SoundType;
@@ -254,112 +245,62 @@ public class FrozenLibIntegration extends ModIntegration {
 			)
 		);
 
-		HopperUntouchableList.BLACKLISTED_TYPES.add(WWBlockEntityTypes.STONE_CHEST);
+		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
 
 		FrozenBools.useNewDripstoneLiquid = true;
-		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
-			BlockState blockState = Blocks.SPONGE.defaultBlockState();
-			level.setBlockAndUpdate(fluidInfo.pos(), blockState);
-			Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
-			level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
-			level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
-		});
-		DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.MUD, (level, fluidInfo, blockPos) -> {
-			BlockState blockState = CLAY.defaultBlockState();
-			level.setBlockAndUpdate(fluidInfo.pos(), blockState);
-			Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
-			level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
-			level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
-		});
-		BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (DripstoneUtils.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
-				serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3);
+		DripstoneDripApi.addWaterDrip(
+			Blocks.WET_SPONGE,
+			(level, pos, fluidInfo) -> {
+				BlockState blockState = Blocks.SPONGE.defaultBlockState();
+				level.setBlockAndUpdate(fluidInfo.pos(), blockState);
+				Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
+				level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
+				level.levelEvent(LevelEvent.DRIPSTONE_DRIP, pos, 0);
+			});
+		DripstoneDripApi.addWaterDrip(
+			Blocks.MUD,
+			(level, pos, fluidInfo) -> {
+				BlockState blockState = Blocks.CLAY.defaultBlockState();
+				level.setBlockAndUpdate(fluidInfo.pos(), blockState);
+				Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
+				level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
+				level.levelEvent(LevelEvent.DRIPSTONE_DRIP, pos, 0);
 			}
-		});
+		);
+
+		BlockScheduledTicks.addToBlock(
+			Blocks.DIRT,
+			(blockState, serverLevel, blockPos, randomSource) -> {
+				if (DripstoneDripApi.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
+					serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), Block.UPDATE_ALL);
+				}
+			}
+		);
 
 		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
-		addBlocks(new Block[]{Blocks.CACTUS, PRICKLY_PEAR_CACTUS}, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
-		addBlock(CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
-		addBlock(Blocks.COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
-		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		addBlocks(new Block[]{
-			DANDELION,
-			POPPY,
-			BLUE_ORCHID,
-			ALLIUM,
-			AZURE_BLUET,
-			RED_TULIP,
-			ORANGE_TULIP,
-			WHITE_TULIP,
-			PINK_TULIP,
-			OXEYE_DAISY,
-			CORNFLOWER,
-			LILY_OF_THE_VALLEY,
-			SEEDING_DANDELION,
-			CARNATION,
-			MARIGOLD,
-			PASQUEFLOWER,
-			RED_HIBISCUS,
-			YELLOW_HIBISCUS,
-			WHITE_HIBISCUS,
-			PINK_HIBISCUS,
-			PURPLE_HIBISCUS,
-			DATURA,
-			MILKWEED,
-			SUNFLOWER,
-			ROSE_BUSH,
-			PEONY,
-			LILAC,
-			TORCHFLOWER,
-			PINK_PETALS
-		}, FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
-		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
-		addBlock(FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
-		addBlock(GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
-		addBlocks(new Block[]{
-			ACACIA_SAPLING,
-			BIRCH_SAPLING,
-			DARK_OAK_SAPLING,
-			JUNGLE_SAPLING,
-			MANGROVE_PROPAGULE,
-			OAK_SAPLING,
-			PALE_OAK_SAPLING,
-			SPRUCE_SAPLING,
-			WILLOW_SAPLING,
-			CYPRESS_SAPLING,
-			MAPLE_SAPLING,
-			BUSH
-		}, SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
-		addBlocks(new Block[]{
-			ACACIA_LEAVES,
-			BIRCH_LEAVES,
-			DARK_OAK_LEAVES,
-			JUNGLE_LEAVES,
-			MANGROVE_LEAVES,
-			OAK_LEAVES,
-			PALE_OAK_LEAVES,
-			SPRUCE_LEAVES,
-			BAOBAB_LEAVES,
-			WILLOW_LEAVES,
-			CYPRESS_LEAVES,
-			PALM_FRONDS,
-			YELLOW_MAPLE_LEAVES,
-			ORANGE_MAPLE_LEAVES,
-			RED_MAPLE_LEAVES
-		}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
-		addBlocks(new Block[]{YELLOW_MAPLE_LEAF_LITTER, ORANGE_MAPLE_LEAF_LITTER, RED_MAPLE_LEAF_LITTER}, LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
-		addBlocks(new Block[]{Blocks.LILY_PAD, FLOWERING_LILY_PAD}, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
-		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
-		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
-		addBlock(Blocks.REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
-		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
-		addBlock(SUGAR_CANE, SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
-		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
-		addBlock(MAGMA_BLOCK, MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
-		addBlocks(new Block[]{PUMPKIN, CARVED_PUMPKIN, JACK_O_LANTERN, Blocks.MELON}, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, WWSoundTypes.FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, WWSoundTypes.LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SAPLING, WWSoundTypes.SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CACTUS, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_ICE, WWSoundTypes.ICE, () -> WWBlockConfig.get().blockSounds.iceSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FROSTED_ICE, WWSoundTypes.FROSTED_ICE, () -> WWBlockConfig.get().blockSounds.frostedIceSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MUSHROOM, WWSoundTypes.MUSHROOM, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MUSHROOM_BLOCK, WWSoundTypes.MUSHROOM_BLOCK, () -> WWBlockConfig.get().blockSounds.mushroomBlockSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SANDSTONE, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LILY_PAD, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MELON, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
+
+		BlockSoundTypeOverwrites.addBlock(Blocks.CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.SUGAR_CANE, WWSoundTypes.SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
+		BlockSoundTypeOverwrites.addBlock(Blocks.MAGMA_BLOCK, WWSoundTypes.MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
 
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);
@@ -383,8 +324,8 @@ public class FrozenLibIntegration extends ModIntegration {
 				BuiltinStructures.TRAIL_RUINS.location(),
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, CRACKED_MUD_BRICKS.defaultBlockState()),
-						new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICKS.defaultBlockState())
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICKS.defaultBlockState())
 					)
 				)
 			);
@@ -392,9 +333,9 @@ public class FrozenLibIntegration extends ModIntegration {
 				BuiltinStructures.TRAIL_RUINS.location(),
 				new BlockStateRespectingRuleProcessor(
 					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_STAIRS),
-						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_SLAB),
-						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_WALL)
+						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
+						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_SLAB),
+						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_WALL)
 					)
 				)
 			);
@@ -405,26 +346,26 @@ public class FrozenLibIntegration extends ModIntegration {
 				BuiltinStructures.VILLAGE_DESERT.location(),
 				new BlockStateRespectingRuleProcessor(
 					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_BUTTON), AlwaysTrueTest.INSTANCE, PALM_BUTTON),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_DOOR), AlwaysTrueTest.INSTANCE, PALM_DOOR),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_FENCE), AlwaysTrueTest.INSTANCE, PALM_FENCE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_FENCE_GATE), AlwaysTrueTest.INSTANCE, PALM_FENCE_GATE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_WALL_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SIGN), AlwaysTrueTest.INSTANCE, PALM_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, PALM_WALL_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_LOG), AlwaysTrueTest.INSTANCE, PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, PALM_WOOD),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, STRIPPED_PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, STRIPPED_PALM_WOOD),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, HOLLOWED_PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(STRIPPED_HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, STRIPPED_HOLLOWED_PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_PLANKS), AlwaysTrueTest.INSTANCE, PALM_PLANKS),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, PALM_PRESSURE_PLATE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SLAB), AlwaysTrueTest.INSTANCE, PALM_SLAB),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_STAIRS), AlwaysTrueTest.INSTANCE, PALM_STAIRS),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.COCONUT),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(JUNGLE_LEAVES), AlwaysTrueTest.INSTANCE, PALM_FRONDS)
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_BUTTON), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_BUTTON),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_DOOR), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_DOOR),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_FENCE), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_FENCE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_FENCE_GATE), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_FENCE_GATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_PALM_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.HOLLOWED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_PLANKS), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_PLANKS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_PRESSURE_PLATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_SLAB), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_SLAB),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_STAIRS), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_STAIRS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.COCONUT),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_LEAVES), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_FRONDS)
 
 					)
 				)

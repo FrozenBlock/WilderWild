@@ -1,0 +1,7 @@
+{
+  "parent": "frozenlib:block/tinted_flowerbed_1",
+  "textures": {
+    "flowerbed": "wilderwild:block/clovers",
+    "stem": "wilderwild:block/clovers_stem"
+  }
+}

@@ -24,7 +24,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import java.util.List;
-import net.frozenblock.lib.sculk.api.BooleanPropertySculkBehavior;
+import net.frozenblock.lib.block.api.sculk.BooleanPropertySculkBehavior;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
