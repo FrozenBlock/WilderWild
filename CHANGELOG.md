@@ -72,6 +72,9 @@ hi
 - Updated the Chiseled Mud Bricks texture.
 - Wilder Wild's custom flower, leaves, sapling, cactus, coarse dirt, ice, frosted ice, mushroom, mushroom block, sandstone, lily pad, and melon block sounds now all rely on tags.
   - These tags can be found in the `/sound` folder for block tags.
+- Fixed Wilder Wild's custom Flower Pot models having ambient occlusion enabled.
+- Fixed Wilder Wild's custom Flower Pot models not having the correct UV mapping.
+- Pink Petals can now be placed into Flower Pots.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

@@ -977,7 +977,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
-			.add(WWBlocks.POTTED_PURPLE_HIBISCUS);
+			.add(WWBlocks.POTTED_PURPLE_HIBISCUS)
+			.add(WWBlocks.POTTED_PINK_PETALS);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(WWBlocks.POLLEN);

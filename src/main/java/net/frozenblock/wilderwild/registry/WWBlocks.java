@@ -530,6 +530,8 @@ public final class WWBlocks {
 
 	public static final Block POTTED_SHORT_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
 
+	public static final Block POTTED_PINK_PETALS = Blocks.flowerPot(Blocks.PINK_PETALS);
+
 	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
 
 	public static final ShelfFungiBlock BROWN_SHELF_FUNGI = new ShelfFungiBlock(
@@ -1419,6 +1421,7 @@ public final class WWBlocks {
 		registerBlock("potted_bush", POTTED_BUSH);
 		registerBlock("prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlock("potted_prickly_pear", POTTED_PRICKLY_PEAR);
+		registerBlock("potted_pink_petals", POTTED_PINK_PETALS);
 	}
 
 	public static void registerNotSoPlants() {

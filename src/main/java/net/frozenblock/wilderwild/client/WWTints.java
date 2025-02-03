@@ -23,6 +23,9 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.frozenblock.lib.client.TintRegistryHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.Blocks;
 
 @Environment(EnvType.CLIENT)
 public final class WWTints {
@@ -38,6 +41,16 @@ public final class WWTints {
 		ColorProviderRegistry.BLOCK.register(
 			((state, level, pos, tintIndex) -> level == null || pos == null ? 7455580 : 2129968),
 			WWBlocks.FLOWERING_LILY_PAD
+		);
+		ColorProviderRegistry.BLOCK.register(
+			((blockState, blockAndTintGetter, blockPos, i) -> {
+				if (i != 0) {
+					return blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
+				} else {
+					return -1;
+				}
+			}),
+			WWBlocks.POTTED_PINK_PETALS
 		);
 
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BAOBAB_LEAVES);

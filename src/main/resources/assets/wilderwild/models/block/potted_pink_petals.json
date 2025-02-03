@@ -1,11 +1,11 @@
 {
   "ambientocclusion": false,
 	"textures": {
-		"particle": "block/flower_pot",
 		"flowerpot": "block/flower_pot",
 		"dirt": "block/dirt",
-		"plant": "wilderwild:block/bush_stage0",
-		"overlay": "wilderwild:block/bush_stage0_overlay"
+		"stem": "block/pink_petals_stem",
+		"flower": "block/pink_petals",
+		"particle": "wilderwild:block/tumbleweed_stage_3"
 	},
 	"elements": [
     {   "from": [ 5, 0, 5 ],
@@ -56,43 +56,33 @@
       }
     },
 		{
-			"from": [0, 4, 8],
-			"to": [16, 20, 8],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"name": "stem",
+			"from": [7.5, 4, 8],
+			"to": [8.5, 6.99, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 4, 8]},
 			"faces": {
-				"north": {"uv": [16, 0, 0, 16], "texture": "#plant"},
-				"south": {"uv": [16, 0, 0, 16], "texture": "#plant"}
+				"north": {"uv": [0, 4, 1, 7], "texture": "#stem", "tintindex": 1},
+				"south": {"uv": [0, 4, 1, 7], "texture": "#stem", "tintindex": 1}
 			}
 		},
 		{
-			"from": [8, 4, 0],
-			"to": [8, 20, 16],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"name": "stem",
+			"from": [8, 4, 7.5],
+			"to": [8, 6.99, 8.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 4, 8]},
 			"faces": {
-				"east": {"uv": [16, 0, 0, 16], "texture": "#plant"},
-				"west": {"uv": [16, 0, 0, 16], "texture": "#plant"}
+				"east": {"uv": [0, 4, 1, 7], "texture": "#stem", "tintindex": 1},
+				"west": {"uv": [0, 4, 1, 7], "texture": "#stem", "tintindex": 1}
 			}
 		},
 		{
-			"from": [8, 4, 0],
-			"to": [8, 20, 16],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"name": "flower",
+			"from": [6, 7, 6],
+			"to": [10, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 7, 7]},
 			"faces": {
-				"east": {"uv": [16, 0, 0, 16], "texture": "#overlay", "tintindex": 0},
-				"west": {"uv": [16, 0, 0, 16], "texture": "#overlay", "tintindex": 0}
-			}
-		},
-		{
-			"from": [0, 4, 8],
-			"to": [16, 20, 8],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
-			"faces": {
-				"north": {"uv": [16, 0, 0, 16], "texture": "#overlay", "tintindex": 0},
-				"south": {"uv": [16, 0, 0, 16], "texture": "#overlay", "tintindex": 0}
+				"up": {"uv": [10, 12, 14, 16], "texture": "#flower"},
+				"down": {"uv": [10, 16, 14, 12], "texture": "#flower"}
 			}
 		}
 	],
@@ -104,10 +94,10 @@
 			"children": [0, 1, 2]
 		},
 		{
-			"name": "bush",
+			"name": "plant",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"children": [3, 4, 5, 6]
+			"children": [3, 4, 5]
 		}
 	]
 }
