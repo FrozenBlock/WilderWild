@@ -233,7 +233,6 @@ public final class WWPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_FIELD_GRASS_PLACED = register("flower_field_grass_placed");
 	public static final FrozenPlacedFeature PATCH_TALL_GRASS_FLOWER_FIELD = register("patch_tall_grass_flower_field");
 	//FLOWERS
-	public static final FrozenPlacedFeature DENSE_WILDFLOWERS = register("dense_wildflowers");
 	public static final FrozenPlacedFeature WILDFLOWERS = register("wildflowers");
 	public static final FrozenPlacedFeature SPARSE_WILDFLOWERS = register("sparse_wildflowers");
 	public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
@@ -1361,12 +1360,6 @@ public final class WWPlacedFeatures {
 		);
 
 		// FLOWERS
-		DENSE_WILDFLOWERS.makeAndSetHolder(WWConfiguredFeatures.WILDFLOWERS.getHolder(),
-			CountPlacement.of(UniformInt.of(2, 5)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
 
 		WILDFLOWERS.makeAndSetHolder(WWConfiguredFeatures.WILDFLOWERS.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 3)),
