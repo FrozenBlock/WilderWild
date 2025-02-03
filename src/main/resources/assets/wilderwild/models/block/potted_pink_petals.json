@@ -5,7 +5,7 @@
 		"dirt": "block/dirt",
 		"stem": "block/pink_petals_stem",
 		"flower": "block/pink_petals",
-		"particle": "wilderwild:block/tumbleweed_stage_3"
+		"particle": "block/flower_pot"
 	},
 	"elements": [
     {   "from": [ 5, 0, 5 ],
