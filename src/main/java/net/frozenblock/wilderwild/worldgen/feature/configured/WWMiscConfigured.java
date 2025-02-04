@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.worldgen.feature.configured;
 
-import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskCarpetFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskWithBiomeFeatureConfig;

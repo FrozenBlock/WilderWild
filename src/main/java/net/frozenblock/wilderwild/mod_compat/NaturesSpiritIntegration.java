@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mod_compat;
 
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import static net.frozenblock.wilderwild.registry.WWSoundTypes.*;
+import static net.frozenblock.wilderwild.registry.WWSoundTypes.COCONUT;
 
 public class NaturesSpiritIntegration extends ModIntegration {
 	public NaturesSpiritIntegration() {
