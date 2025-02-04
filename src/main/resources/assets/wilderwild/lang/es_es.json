@@ -584,8 +584,6 @@
   "tooltip.wilderwild.crab": "Opciones relativas a los cangrejos",
   "option.wilderwild.spawn_crabs": "Habilitar generación",
   "tooltip.wilderwild.spawn_crabs": "Habilita la generación natural de cangrejos",
-  "option.wilderwild.crab_spawn_cap": "Cantidad máxima",
-  "tooltip.wilderwild.crab_spawn_cap": "Ajusta la cantidad máxima de cangrejos generados por jugador",
   "option.wilderwild.reach_affects_attack": "Efecto de alcance afecta a la distancia de ataque",
   "tooltip.wilderwild.reach_affects_attack": "Permite al efecto de 'alcance' afectar a la distancia de ataque del jugador",
   "effect.wilderwild.reach.desc": "Aumenta la distancia de interacción con bloques y entidades",

@@ -463,8 +463,6 @@
   "tooltip.wilderwild.crab": "Містить параметри для краба.",
   "option.wilderwild.spawn_crabs": "Генерувати крабів",
   "tooltip.wilderwild.spawn_crabs": "Чи повинні краби з'являтися.",
-  "option.wilderwild.crab_spawn_cap": "Частота появи крабів",
-  "tooltip.wilderwild.crab_spawn_cap": "Визначає частоту появи крабів.",
   "option.wilderwild.reach_affects_attack": "Досяжність впливає на дальність атаки",
   "tooltip.wilderwild.reach_affects_attack": "Чи повинен ефект досяжності впливати\nна дальність атаки гравця.",
   "option.wilderwild.enderman": "Ендермен",

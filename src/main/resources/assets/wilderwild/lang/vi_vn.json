@@ -498,8 +498,6 @@
   "tooltip.wilderwild.crab": "Bao gồm các tùy chọn cho Cua.",
   "option.wilderwild.spawn_crabs": "Sinh Ra Cua",
   "tooltip.wilderwild.spawn_crabs": "Liệu Cua có thể xuất hiện hay không.",
-  "option.wilderwild.crab_spawn_cap": "Giới Hạn Xuất Hiện Của Cua",
-  "tooltip.wilderwild.crab_spawn_cap": "Kiểm soát giới hạn số lượng Cua có thể xuất hiện.",
   "option.wilderwild.reach_affects_attack": "Tăng Tầm Ảnh Hưởng Đến Phạm Vi Tấn Công",
   "tooltip.wilderwild.reach_affects_attack": "Liệu hiệu ứng Tăng Tầm có ảnh hưởng đến phạm vi tấn công của người chơi hay không.",
   "option.wilderwild.enderman": "Enderman",
