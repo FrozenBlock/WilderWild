@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.client.model;
 
+import java.util.Set;
 import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
 import net.minecraft.client.model.BabyModelTransform;
@@ -33,7 +34,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
-import java.util.Set;
 
 public class PenguinModel<T extends PenguinRenderState> extends EntityModel<PenguinRenderState> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 0F, 0F, 1F, 2.5F, 36F, Set.of());

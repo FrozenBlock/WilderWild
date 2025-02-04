@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.wind;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.api.ClientWindManager;
-import static net.frozenblock.lib.wind.api.ClientWindManager.*;
-import net.frozenblock.lib.wind.api.ClientWindManagerExtension;
+import net.frozenblock.lib.wind.client.api.ClientWindManagerExtension;
+import net.frozenblock.lib.wind.client.impl.ClientWindManager;
+import static net.frozenblock.lib.wind.client.impl.ClientWindManager.*;
 import net.frozenblock.lib.worldgen.heightmap.api.FrozenHeightmaps;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;

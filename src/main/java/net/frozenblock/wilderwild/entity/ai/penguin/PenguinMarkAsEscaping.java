@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
+import java.util.Map;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -25,8 +26,6 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
 
 public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 
