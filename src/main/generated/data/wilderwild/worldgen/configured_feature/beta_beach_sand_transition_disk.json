@@ -1,18 +1,18 @@
 {
-  "type": "frozenlib:fading_disk_tag_feature",
+  "type": "frozenlib:fading_disk_feature",
   "config": {
     "fade_start_distance_percent": 0.5,
     "heightmap": "OCEAN_FLOOR_WG",
     "inner_chance": 0.5,
     "inner_percent": 0.5,
-    "inner_replaceable_blocks": "wilderwild:feature/small_sand_transition_replaceable",
+    "inner_replaceable_blocks": "#wilderwild:feature/small_sand_transition_replaceable",
     "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:sand"
       }
     },
-    "outer_replaceable_blocks": "wilderwild:feature/small_sand_transition_replaceable",
+    "outer_replaceable_blocks": "#wilderwild:feature/small_sand_transition_replaceable",
     "outer_state": {
       "type": "minecraft:simple_state_provider",
       "state": {

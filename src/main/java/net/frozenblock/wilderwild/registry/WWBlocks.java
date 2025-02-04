@@ -1880,6 +1880,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(CLOVERS, 0.3F);
 	}
 
 	private static void registerFlammability() {
@@ -1900,6 +1901,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
 		flammableBlockRegistry.add(BUSH, 40, 90);
 		flammableBlockRegistry.add(MYCELIUM_GROWTH, 60, 100);
+		flammableBlockRegistry.add(CLOVERS, 60, 100);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);

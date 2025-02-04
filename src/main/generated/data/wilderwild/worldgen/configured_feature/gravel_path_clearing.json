@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:noise_path_tag_feature",
+  "type": "frozenlib:noise_path_feature",
   "config": {
     "is_3d": false,
     "max_threshold": 0.175,
@@ -9,7 +9,7 @@
     "only_place_when_exposed": false,
     "placement_chance": 0.7,
     "radius": 3,
-    "replaceable_blocks": "wilderwild:feature/gravel_clearing_replaceable",
+    "replaceable_blocks": "#wilderwild:feature/gravel_clearing_replaceable",
     "scale_y": false,
     "state": {
       "type": "minecraft:simple_state_provider",
