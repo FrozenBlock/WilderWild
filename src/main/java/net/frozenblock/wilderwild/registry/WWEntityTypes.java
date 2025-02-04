@@ -39,6 +39,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
@@ -116,6 +117,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
+			.immuneTo(Blocks.POWDER_SNOW)
 			.build(WWConstants.string("penguin"))
 	);
 

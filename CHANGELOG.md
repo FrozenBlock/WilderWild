@@ -83,6 +83,8 @@ hi
 - Fixed Wilder Wild's blocks having incorrect flammability values.
 - Removed shallow pools from the Oasis biome as they weren't visually pleasing.
 - Mesoglea features no longer carve "fake caves," instead only generating in areas with Water or Air nearby.
+- Ostriches now drop up to 4 feathers on death.
+- Maple Forests can no longer generate Beta Beaches.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

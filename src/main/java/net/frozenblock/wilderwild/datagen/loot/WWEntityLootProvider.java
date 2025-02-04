@@ -74,7 +74,7 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(Items.FEATHER)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
 				)
@@ -137,6 +137,20 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 							LootItem.lootTableItem(Items.BEEF)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
 								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
+
+		output.accept(
+			WWEntityTypes.PENGUIN.getDefaultLootTable(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.FEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
 				)

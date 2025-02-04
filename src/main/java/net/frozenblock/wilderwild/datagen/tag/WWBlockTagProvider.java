@@ -495,8 +495,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.PENGUINS_SPAWNABLE_ON)
+			.add(Blocks.ICE)
 			.add(Blocks.SNOW_BLOCK)
-			.addOptionalTag(BlockTags.ICE)
 			.add(Blocks.SAND)
 			.add(Blocks.GRAVEL)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
