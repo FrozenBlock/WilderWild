@@ -1,12 +1,12 @@
 {
   "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
   "config": {
-    "air_search_distance": 2,
+    "air_or_water_search_distance": 2,
     "is_3d": true,
     "max_threshold": -0.5125,
     "min_threshold": -0.5875,
-    "noise": 1,
     "noise_scale": 0.025,
+    "noise_type": "LOCAL",
     "placement_chance": 1.0,
     "radius": 12,
     "replaceable_blocks": "#wilderwild:feature/mesoglea_path_replaceable",

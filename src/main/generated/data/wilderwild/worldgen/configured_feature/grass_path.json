@@ -1,11 +1,11 @@
 {
-  "type": "frozenlib:noise_path_swap_under_water_feature",
+  "type": "frozenlib:noise_path_swap_under_fluid_feature",
   "config": {
     "is_3d": false,
     "max_threshold": 1.0,
     "min_threshold": 0.4,
-    "noise": 4,
     "noise_scale": 0.15,
+    "noise_type": "XORO",
     "only_place_when_exposed": false,
     "placement_chance": 0.8,
     "radius": 11,

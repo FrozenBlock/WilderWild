@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.feature.configured;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.AirOrWaterInAreaPathFeatureConfig;
@@ -234,7 +235,7 @@ public final class WWCaveConfigured {
 			new AirOrWaterInAreaPathFeatureConfig(
 				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				12,
-				1,
+				EasyNoiseSampler.NoiseType.LOCAL,
 				0.025,
 				0.5125,
 				0.5875,
@@ -254,7 +255,7 @@ public final class WWCaveConfigured {
 			new AirOrWaterInAreaPathFeatureConfig(
 				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
 				12,
-				1,
+				EasyNoiseSampler.NoiseType.LOCAL,
 				0.025,
 				-0.5875,
 				-0.5125,
@@ -489,7 +490,7 @@ public final class WWCaveConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 							14,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
 							-0.275D,
 							-0.15D,
@@ -509,7 +510,7 @@ public final class WWCaveConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
 							-0.31D,
 							-0.275D,
@@ -529,7 +530,7 @@ public final class WWCaveConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
 							-0.15D,
 							-0.115D,
@@ -833,7 +834,7 @@ public final class WWCaveConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							5,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
 							0.55D,
 							0.7D,
@@ -853,7 +854,7 @@ public final class WWCaveConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							5,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
 							-0.7D,
 							-0.55D,
@@ -873,7 +874,7 @@ public final class WWCaveConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							5,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
 							0.15D,
 							0.3D,
