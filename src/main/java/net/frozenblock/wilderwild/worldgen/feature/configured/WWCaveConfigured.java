@@ -19,14 +19,14 @@
 package net.frozenblock.wilderwild.worldgen.feature.configured;
 
 import java.util.List;
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.AirOrWaterInAreaPathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -100,17 +100,17 @@ public final class WWCaveConfigured {
 	// MAGMATIC CAVES
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_GABBRO_PATH = register("magma_and_gabbro_path");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_PILE = register("magma_pile");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_PILE = register("magma_pile");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenLibConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_GABBRO = register("ore_gabbro");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> GABBRO_DISK = register("gabbro_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> GABBRO_DISK = register("gabbro_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> GABBRO_COLUMN = register("gabbro_column");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> GABBRO_PILE = register("gabbro_pile");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> GABBRO_PILE = register("gabbro_pile");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_UP = register("geyser_up");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_DOWN = register("geyser_down");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> GEYSER_NORTH = register("geyser_north");
@@ -123,18 +123,18 @@ public final class WWCaveConfigured {
 
 	// FROZEN CAVES
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_PATH = register("packed_ice_path");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> PACKED_ICE_DISK = register("packed_ice_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> PACKED_ICE_DISK = register("packed_ice_disk");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_COLUMN = register("packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> ICE_DISK = register("ice_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> ICE_DISK = register("ice_disk");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_COLUMN = register("ice_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> SMALL_ICE_COLUMN = register("small_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_ICE_COLUMN = register("downwards_ice_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> SMALL_DOWNWARDS_ICE_COLUMN = register("small_downwards_ice_column");
 	public static final FrozenLibConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> ICE_PILE = register("ice_pile");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SNOW_DISK = register("snow_disk");
-	public static final FrozenLibConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> POWDER_SNOW_DISK = register("powder_snow_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SNOW_DISK = register("snow_disk");
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> POWDER_SNOW_DISK = register("powder_snow_disk");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> HANGING_ICICLES = WWFeatureUtils.register("hanging_icicles");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ICE_COLUMNS = WWFeatureUtils.register("ice_columns");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> ICICLE_PATCH = WWFeatureUtils.register("icicle_patch");
@@ -485,8 +485,8 @@ public final class WWCaveConfigured {
 			new ComboFeatureConfig(
 				List.of(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
-						new PathTagFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 							14,
 							4,
@@ -497,13 +497,16 @@ public final class WWCaveConfigured {
 							true,
 							true,
 							true,
-							WWBlockTags.MAGMA_REPLACEABLE,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
 							1F
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
-						new PathTagFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
 							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
 							4,
@@ -514,13 +517,16 @@ public final class WWCaveConfigured {
 							true,
 							true,
 							true,
-							WWBlockTags.MAGMA_REPLACEABLE,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
 							1F
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
-						new PathTagFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
 							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
 							4,
@@ -531,7 +537,10 @@ public final class WWCaveConfigured {
 							true,
 							true,
 							true,
-							WWBlockTags.MAGMA_REPLACEABLE,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
 							1F
 						)
 					)
@@ -539,8 +548,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_SCHEDULE_TICK_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		MAGMA_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_SCHEDULE_TICK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
@@ -549,14 +558,20 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				WWBlockTags.MAGMA_REPLACEABLE,
-				WWBlockTags.MAGMA_REPLACEABLE,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.MAGMA_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.MAGMA_REPLACEABLE
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
-		OBSIDIAN_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		OBSIDIAN_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
@@ -565,8 +580,14 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				WWBlockTags.MAGMA_REPLACEABLE,
-				WWBlockTags.MAGMA_REPLACEABLE,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.MAGMA_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.MAGMA_REPLACEABLE
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
@@ -597,19 +618,38 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_PILE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				false,
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.8F,
-				0.7F,
-				0.325F,
-				0.675F,
-				WWBlockTags.MAGMA_REPLACEABLE,
-				WWBlockTags.MAGMA_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
+		MAGMA_PILE.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				ImmutableList.of(
+					PlacementUtils.inlinePlaced(
+						Feature.BLOCK_PILE,
+						new BlockPileConfiguration(
+							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState())
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.FADING_DISK_FEATURE,
+						new FadingDiskFeatureConfig(
+							true,
+							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+							UniformInt.of(2, 4),
+							0.8F,
+							0.7F,
+							0.325F,
+							0.675F,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
+							Heightmap.Types.OCEAN_FLOOR_WG
+						)
+					)
+				)
 			)
 		);
 
@@ -627,8 +667,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		GABBRO_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
@@ -637,8 +677,14 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				BlockTags.BASE_STONE_OVERWORLD,
-				BlockTags.BASE_STONE_OVERWORLD,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					BlockTags.BASE_STONE_OVERWORLD
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					BlockTags.BASE_STONE_OVERWORLD
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
@@ -667,19 +713,38 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_PILE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
-				false,
-				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.8F,
-				0.7F,
-				0.325F,
-				0.675F,
-				WWBlockTags.MAGMA_REPLACEABLE,
-				WWBlockTags.MAGMA_REPLACEABLE,
-				Heightmap.Types.OCEAN_FLOOR_WG
+		GABBRO_PILE.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				ImmutableList.of(
+					PlacementUtils.inlinePlaced(
+						Feature.BLOCK_PILE,
+						new BlockPileConfiguration(
+							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState())
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.FADING_DISK_FEATURE,
+						new FadingDiskFeatureConfig(
+							true,
+							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
+							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
+							UniformInt.of(2, 4),
+							0.8F,
+							0.7F,
+							0.325F,
+							0.675F,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.MAGMA_REPLACEABLE
+							),
+							Heightmap.Types.OCEAN_FLOOR_WG
+						)
+					)
+				)
 			)
 		);
 
@@ -764,8 +829,8 @@ public final class WWCaveConfigured {
 			new ComboFeatureConfig(
 				List.of(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
-						new PathTagFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							5,
 							4,
@@ -776,13 +841,16 @@ public final class WWCaveConfigured {
 							true,
 							true,
 							true,
-							WWBlockTags.ICE_FEATURE_REPLACEABLE,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.ICE_FEATURE_REPLACEABLE
+							),
 							1F
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
-						new PathTagFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							5,
 							4,
@@ -793,13 +861,16 @@ public final class WWCaveConfigured {
 							true,
 							true,
 							true,
-							WWBlockTags.ICE_FEATURE_REPLACEABLE,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.ICE_FEATURE_REPLACEABLE
+							),
 							1F
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_TAG_FEATURE,
-						new PathTagFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_FEATURE,
+						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							5,
 							4,
@@ -810,7 +881,10 @@ public final class WWCaveConfigured {
 							true,
 							true,
 							true,
-							WWBlockTags.ICE_FEATURE_REPLACEABLE,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.ICE_FEATURE_REPLACEABLE
+							),
 							1F
 						)
 					)
@@ -818,8 +892,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PACKED_ICE_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		PACKED_ICE_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.PACKED_ICE),
 				BlockStateProvider.simple(Blocks.PACKED_ICE),
@@ -828,8 +902,14 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
@@ -995,8 +1075,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		ICE_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		ICE_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.ICE),
 				BlockStateProvider.simple(Blocks.ICE),
@@ -1005,8 +1085,14 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
@@ -1127,8 +1213,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		SNOW_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		SNOW_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.SNOW_BLOCK),
 				BlockStateProvider.simple(Blocks.SNOW_BLOCK),
@@ -1137,14 +1223,20 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
-		POWDER_SNOW_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_TAG_FEATURE,
-			new FadingDiskTagFeatureConfig(
+		POWDER_SNOW_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
 				false,
 				BlockStateProvider.simple(Blocks.POWDER_SNOW),
 				BlockStateProvider.simple(Blocks.POWDER_SNOW),
@@ -1153,8 +1245,14 @@ public final class WWCaveConfigured {
 				0.7F,
 				0.325F,
 				0.675F,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
-				WWBlockTags.ICE_FEATURE_REPLACEABLE,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.ICE_FEATURE_REPLACEABLE
+				),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
