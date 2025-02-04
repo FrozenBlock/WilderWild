@@ -1354,7 +1354,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_ICE)
 			.add(Blocks.ICE)
 			.add(Blocks.PACKED_ICE)
-			.add(Blocks.PACKED_ICE);
+			.add(Blocks.BLUE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COARSE_DIRT)
 			.add(Blocks.COARSE_DIRT)
