@@ -143,7 +143,6 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		//this.animateSlide(limbSwing * 2F, limbSwingAmount, slideProgress * notSwimmingAmount * notWadingProgress);
 		this.animateWade(ageInTicks, wadeProgress * notMovingDelta * notSlidingProgress);
 		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress);
-		this.animateWadeFeed(ageInTicks, wadeProgress * notSlidingProgress);
 		//this.animateSwimIdle(ageInTicks, wadeProgress * notMovingDelta);
 		this.animateSwim(limbSwing, limbSwingAmount, headPitch, swimAmount * notSlidingProgress);
 	}
@@ -259,26 +258,22 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		this.right_flipper.xRot += (-30.8475F - Mth.sin((animProgress * 2F) + 30F) * 15F) * wadeDegToRad;
 		this.right_flipper.yRot += (5.7559F - Mth.sin((animProgress * 2F) - 70F) * 20F) * wadeDegToRad;
 		this.right_flipper.zRot += (31.4462F + Mth.sin(animProgress + 30F) * 5F) * wadeDegToRad;
-	}
 
-	// Original Molang animation made by DaDolphin!
-	private void animateWadeFeed(float ageInTicks, float wadeAmount) {
-		ageInTicks *= 0.001F;
-		float wadeDegToRad = wadeAmount * Mth.DEG_TO_RAD;
-		float animProgress = ageInTicks * 90F * 0.75F;
 		this.feet.xRot += 92.1786F * wadeDegToRad;
 		this.feet.y -= 4.25F * wadeAmount;
 		this.feet.z += 5.75F * wadeAmount;
 
-		float footAnimProgress = ageInTicks * 90F * 6F;
-		this.left_foot.xRot += (36.0192F - Mth.sin(footAnimProgress) * 15F) * wadeDegToRad;
-		this.left_foot.yRot -= 11.5188F * wadeDegToRad;
-		this.left_foot.zRot -= 12.8719F * wadeDegToRad;
+		float footAnimProgress = limbSwing * 90F * 6F;
+		this.left_foot.xRot += (35.7474F - Mth.sin(footAnimProgress) * 15F) * wadeDegToRad;
+		this.left_foot.yRot -= 9.4931F * wadeDegToRad;
+		this.left_foot.zRot -= 11.3817F * wadeDegToRad;
+		this.left_foot.x -= 0.25F * wadeAmount;
 		this.left_foot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
 
 		this.right_foot.xRot += (42.7455F + Mth.sin(footAnimProgress - 40F) * 15F) * wadeDegToRad;
 		this.right_foot.yRot += 5.7415F * wadeDegToRad;
 		this.right_foot.zRot += 15.1165F * wadeDegToRad;
+		this.right_foot.x += 0.25F * wadeAmount;
 		this.right_foot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
 	}
 
@@ -306,6 +301,9 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		this.right_flipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
 		this.right_flipper.yRot += (Mth.sin((animProgress * 2F) - 40F) * 20F) * movementDeltaSlideToRad;
 		this.right_flipper.zRot += (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * movementDeltaSlideToRad;
+
+		this.left_foot.xRot -= (Mth.sin((animProgress * 2F) - 270F) * 2F) * slideRadSwing;
+		this.right_foot.xRot -= (Mth.sin((animProgress * 2F) - 240F) * 2F) * slideRadSwing;
 	}
 
 	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
