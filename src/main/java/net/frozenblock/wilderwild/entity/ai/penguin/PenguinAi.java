@@ -74,7 +74,7 @@ public class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.15F;
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.15F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(3, 16);
-	public static final UniformInt IDLE_TIME = UniformInt.of(600, 2400);
+	public static final UniformInt IDLE_TIME = UniformInt.of(1200, 2400);
 	public static final UniformInt DIVE_TIME = UniformInt.of(400, 1200);
 
 	public static final int STAND_UP_DURATION = 48;
