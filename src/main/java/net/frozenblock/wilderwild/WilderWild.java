@@ -29,7 +29,7 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.entity.api.category.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.lib.feature_flag.api.FeatureFlagAPI;
+import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -77,7 +77,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		}
 
 		WWFeatureFlags.init();
-		FeatureFlagAPI.rebuild();
+		FeatureFlagApi.rebuild();
 
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
