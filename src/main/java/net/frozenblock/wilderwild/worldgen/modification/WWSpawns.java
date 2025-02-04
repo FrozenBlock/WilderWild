@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.modification;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -27,6 +28,7 @@ import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public final class WWSpawns {
 
@@ -72,7 +74,21 @@ public final class WWSpawns {
 	}
 
 	public static void addMooblooms() {
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
-			MobCategory.CREATURE, WWEntityTypes.MOOBLOOM, 34, 2, 2);
+		BiomeModifications.create(WWConstants.id("moobloom_spawns")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
+			(biomeSelectionContext, biomeModificationContext) -> {
+				biomeModificationContext.getSpawnSettings().removeSpawnsOfEntityType(EntityType.COW);
+				biomeModificationContext.getSpawnSettings().addSpawn(
+					MobCategory.CREATURE,
+					new MobSpawnSettings.SpawnerData(
+						WWEntityTypes.MOOBLOOM,
+						34,
+						2,
+						4
+					)
+				);
+			}
+		);
 	}
 }
