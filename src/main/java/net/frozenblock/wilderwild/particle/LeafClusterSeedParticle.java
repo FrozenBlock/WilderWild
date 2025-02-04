@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.particle;
 
+import java.util.Optional;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
@@ -32,7 +33,6 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class LeafClusterSeedParticle extends NoRenderParticle {
