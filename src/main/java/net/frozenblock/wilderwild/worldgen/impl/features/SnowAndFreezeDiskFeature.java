@@ -46,7 +46,11 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 	}
 
 	public static boolean canPlaceSnow(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
+		return pos.getY() >= level.getMinBuildHeight()
+			&& pos.getY() < level.getMaxBuildHeight()
+			&& level.getBrightness(LightLayer.BLOCK, pos) < 10
+			&& (level.getBlockState(pos)).isAir()
+			&& Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
 	}
 
 	public static boolean canPlaceIce(@NotNull LevelReader level, @NotNull BlockPos water) {
