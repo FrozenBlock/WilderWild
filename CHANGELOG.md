@@ -80,6 +80,7 @@ hi
   - Wildflowers generate in biomes in the `wilderwild:feature/has_wildflowers` and `wilderwild:feature/has_sparse_wildflowers` tags.
 - Added Clovers.
   - Clovers generate in biomes in the `wilderwild:feature/has_clovers` tag.
+- Fixed Wilder Wild's blocks having incorrect flammability values.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
