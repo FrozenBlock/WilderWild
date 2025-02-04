@@ -4,7 +4,7 @@
     "features": [
       {
         "feature": {
-          "type": "frozenlib:noise_path_tag_feature",
+          "type": "frozenlib:noise_path_feature",
           "config": {
             "is_3d": true,
             "max_threshold": -0.15,
@@ -14,7 +14,7 @@
             "only_place_when_exposed": true,
             "placement_chance": 1.0,
             "radius": 14,
-            "replaceable_blocks": "wilderwild:feature/magma_replaceable",
+            "replaceable_blocks": "#wilderwild:feature/magma_replaceable",
             "scale_y": true,
             "state": {
               "type": "minecraft:simple_state_provider",
@@ -29,7 +29,7 @@
       },
       {
         "feature": {
-          "type": "frozenlib:noise_path_tag_feature",
+          "type": "frozenlib:noise_path_feature",
           "config": {
             "is_3d": true,
             "max_threshold": -0.275,
@@ -39,7 +39,7 @@
             "only_place_when_exposed": true,
             "placement_chance": 1.0,
             "radius": 14,
-            "replaceable_blocks": "wilderwild:feature/magma_replaceable",
+            "replaceable_blocks": "#wilderwild:feature/magma_replaceable",
             "scale_y": true,
             "state": {
               "type": "minecraft:simple_state_provider",
@@ -54,7 +54,7 @@
       },
       {
         "feature": {
-          "type": "frozenlib:noise_path_tag_feature",
+          "type": "frozenlib:noise_path_feature",
           "config": {
             "is_3d": true,
             "max_threshold": -0.115,
@@ -64,7 +64,7 @@
             "only_place_when_exposed": true,
             "placement_chance": 1.0,
             "radius": 14,
-            "replaceable_blocks": "wilderwild:feature/magma_replaceable",
+            "replaceable_blocks": "#wilderwild:feature/magma_replaceable",
             "scale_y": true,
             "state": {
               "type": "minecraft:simple_state_provider",

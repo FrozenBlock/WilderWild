@@ -33,9 +33,7 @@
     [],
     [
       "minecraft:lake_lava_underground",
-      "minecraft:lake_lava_surface",
-      "wilderwild:sand_pool",
-      "wilderwild:messy_sand_pool"
+      "minecraft:lake_lava_surface"
     ],
     [
       "minecraft:amethyst_geode"

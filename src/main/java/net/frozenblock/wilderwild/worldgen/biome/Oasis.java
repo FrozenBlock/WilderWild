@@ -66,7 +66,7 @@ public final class Oasis extends FrozenBiome {
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final int FOLIAGE_COLOR = 3193611;
-	public static final int GRASS_COLOR = 8569413;
+	public static final int OLD_GRASS_COLOR = 8569413;
 	public static final Oasis INSTANCE = new Oasis();
 
 	@Override
@@ -135,7 +135,7 @@ public final class Oasis extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable AmbientMoodSettings ambientMoodSettings() {
+	public @NotNull AmbientMoodSettings ambientMoodSettings() {
 		return AmbientMoodSettings.LEGACY_CAVE_SETTINGS;
 	}
 
@@ -145,7 +145,7 @@ public final class Oasis extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable Music backgroundMusic() {
+	public @NotNull Music backgroundMusic() {
 		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DESERT);
 	}
 
@@ -164,8 +164,6 @@ public final class Oasis extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		features.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SAND_POOL.getKey());
-		features.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MESSY_SAND_POOL.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRASS_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_GRASS_PLACED.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_CACTUS_PLACED.getKey());
