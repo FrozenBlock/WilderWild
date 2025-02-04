@@ -66,6 +66,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Penguin extends Animal {
+	public static final double BOAT_BOOST_SPEED = 1.7D;
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
 	public AnimationState callAnimationState = new AnimationState();
@@ -76,7 +77,7 @@ public class Penguin extends Animal {
 
 	public Penguin(EntityType<? extends Animal> entityType, Level level) {
 		super(entityType, level);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 30, 0.55F, 0.2F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 30, 0.4F, 0.2F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
 

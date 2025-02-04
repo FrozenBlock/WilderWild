@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.entity.penguin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.impl.BoatBoostInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -80,7 +81,7 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBoostInterf
 		)
 	)
 	public Vec3 wilderWild$speedBoost(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
-		double multiplier = this.wilderWild$isBoatBoosted() ? 2D : 1D;
+		double multiplier = this.wilderWild$isBoatBoosted() ? Penguin.BOAT_BOOST_SPEED : 1D;
 		return original.call(instance, x * multiplier, y * multiplier, z * multiplier);
 	}
 
