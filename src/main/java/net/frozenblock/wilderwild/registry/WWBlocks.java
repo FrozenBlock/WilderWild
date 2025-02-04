@@ -1832,6 +1832,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(CLOVERS, 0.3F);
 	}
 
 	private static void registerFlammability() {
