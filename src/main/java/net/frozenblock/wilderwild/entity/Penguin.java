@@ -292,7 +292,9 @@ public class Penguin extends Animal {
 
 	@Override
 	protected float nextStep() {
-		return this.isSlidingOrSwimming() ? super.nextStep() : this.moveDist + 0.4F;
+		if (this.isSliding()) return super.nextStep();
+		if (this.isSwimming()) return this.moveDist + 1F;
+		return this.moveDist + 0.4F;
 	}
 
 	@Override
