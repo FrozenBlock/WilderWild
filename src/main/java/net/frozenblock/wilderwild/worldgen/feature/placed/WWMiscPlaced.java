@@ -108,8 +108,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = WWPlacementUtils.register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenLibPlacedFeature SAND_POOL = WWPlacementUtils.register("sand_pool");
-	public static final FrozenLibPlacedFeature MESSY_SAND_POOL = WWPlacementUtils.register("messy_sand_pool");
 	public static final FrozenLibPlacedFeature GRASS_PATH = WWPlacementUtils.register("grass_path");
 	public static final FrozenLibPlacedFeature MOSS_PATH_OASIS = WWPlacementUtils.register("moss_path_oasis");
 	public static final FrozenLibPlacedFeature DESERT_WELL = WWPlacementUtils.register("desert_well");
@@ -420,25 +418,6 @@ public final class WWMiscPlaced {
 		);
 
 		// OASIS
-
-		SAND_POOL.makeAndSetHolder(WWMiscConfigured.SAND_POOL.getHolder(),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		MESSY_SAND_POOL.makeAndSetHolder(WWMiscConfigured.MESSY_SAND_POOL.getHolder(),
-			CountPlacement.of(2),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
 
 		GRASS_PATH.makeAndSetHolder(WWMiscConfigured.GRASS_PATH.getHolder(),
 			CountPlacement.of(4),

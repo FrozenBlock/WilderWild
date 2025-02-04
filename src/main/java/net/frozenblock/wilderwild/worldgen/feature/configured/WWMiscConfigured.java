@@ -125,8 +125,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
-	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = register("messy_sand_pool");
 	public static final FrozenLibConfiguredFeature<PathSwapUnderWaterFeatureConfig, ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = register("grass_path");
 	public static final FrozenLibConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = register("moss_path_oasis");
 
@@ -774,28 +772,6 @@ public final class WWMiscConfigured {
 		);
 
 		// OASIS
-
-		SAND_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				WWBlockTags.SAND_POOL_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.SAND),
-				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(5),
-				0.8F,
-				1,
-				0.000F,
-				UniformInt.of(8, 14),
-				0.7F
-			)
-		);
-
-		MESSY_SAND_POOL.makeAndSetHolder(Feature.LAKE,
-			new LakeFeature.Configuration(
-				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.SAND.defaultBlockState())
-			)
-		);
 
 		GRASS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE,
 			new PathSwapUnderWaterFeatureConfig(
