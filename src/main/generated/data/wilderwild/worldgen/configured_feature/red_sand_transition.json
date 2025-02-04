@@ -1,19 +1,19 @@
 {
-  "type": "frozenlib:fading_disk_tag_except_in_biome_feature",
+  "type": "frozenlib:fading_disk_except_in_biome_feature",
   "config": {
     "excluded_biomes": "wilderwild:feature/has_red_sand_transition",
     "fade_start_distance_percent": 0.5,
     "heightmap": "OCEAN_FLOOR_WG",
     "inner_chance": 0.875,
-    "inner_replaceable_blocks": "wilderwild:feature/red_sand_transition_replaceable",
-    "inner_rercent": 0.65,
+    "inner_percent": 0.65,
+    "inner_replaceable_blocks": "#wilderwild:feature/red_sand_transition_replaceable",
     "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:red_sand"
       }
     },
-    "outer_replaceable_blocks": "wilderwild:feature/red_sand_transition_replaceable",
+    "outer_replaceable_blocks": "#wilderwild:feature/red_sand_transition_replaceable",
     "outer_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
