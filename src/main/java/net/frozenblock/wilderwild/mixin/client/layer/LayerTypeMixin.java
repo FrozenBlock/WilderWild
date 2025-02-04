@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.layer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
@@ -31,8 +33,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Environment(EnvType.CLIENT)
 @Mixin(EquipmentClientInfo.LayerType.class)

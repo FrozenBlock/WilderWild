@@ -18,10 +18,12 @@
 
 package net.frozenblock.wilderwild.particle;
 
+import java.util.Optional;
+import java.util.function.Supplier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -36,8 +38,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {

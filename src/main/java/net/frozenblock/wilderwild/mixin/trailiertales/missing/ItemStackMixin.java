@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.trailiertales.missing;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import java.util.List;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -28,7 +29,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import java.util.List;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {

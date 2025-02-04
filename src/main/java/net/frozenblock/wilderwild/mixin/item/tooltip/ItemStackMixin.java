@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.item.tooltip;
 
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -19,7 +20,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {

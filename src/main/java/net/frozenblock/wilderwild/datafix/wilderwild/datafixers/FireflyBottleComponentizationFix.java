@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;

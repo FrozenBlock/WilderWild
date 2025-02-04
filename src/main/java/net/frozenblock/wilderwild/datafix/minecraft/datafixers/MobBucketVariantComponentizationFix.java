@@ -18,19 +18,23 @@
 
 package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
-import com.mojang.datafixers.*;
+import com.mojang.datafixers.DSL;
+import com.mojang.datafixers.DataFix;
+import com.mojang.datafixers.OpticFinder;
+import com.mojang.datafixers.TypeRewriteRule;
+import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.Type;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.OptionalDynamic;
+import java.util.Optional;
+import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
-import java.util.function.UnaryOperator;
 
 public final class MobBucketVariantComponentizationFix extends DataFix {
 	private static final String BUCKET_ENTITY_DATA_FIELD = WWConstants.vanillaId("bucket_entity_data").toString();
