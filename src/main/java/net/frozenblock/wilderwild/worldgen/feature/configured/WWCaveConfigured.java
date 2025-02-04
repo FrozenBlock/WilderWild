@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.AirOrWaterInAreaPathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
@@ -56,7 +57,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
@@ -80,8 +80,8 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BLUE_MESOGLEA_COLUMN = register("downwards_blue_mesoglea_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_COLUMN = register("downwards_purple_mesoglea_column");
-	public static final FrozenLibConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
-	public static final FrozenLibConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
+	public static final FrozenLibConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
+	public static final FrozenLibConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = WWFeatureUtils.register("mesoglea_cluster_purple");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = WWFeatureUtils.register("mesoglea_cluster_blue");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_WITH_DRIPLEAVES = WWFeatureUtils.register("blue_mesoglea_with_dripleaves");
@@ -230,10 +230,10 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		BLUE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(
+		BLUE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+			new AirOrWaterInAreaPathFeatureConfig(
 				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				14,
+				12,
 				1,
 				0.025,
 				0.5125,
@@ -241,7 +241,7 @@ public final class WWCaveConfigured {
 				true,
 				true,
 				true,
-				false,
+				2,
 				new HolderSet.Named<>(
 					BuiltInRegistries.BLOCK.holderOwner(),
 					WWBlockTags.MESOGLEA_PATH_REPLACEABLE
@@ -250,10 +250,10 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PURPLE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(
+		PURPLE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+			new AirOrWaterInAreaPathFeatureConfig(
 				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				14,
+				12,
 				1,
 				0.025,
 				-0.5875,
@@ -261,7 +261,7 @@ public final class WWCaveConfigured {
 				true,
 				true,
 				true,
-				false,
+				2,
 				new HolderSet.Named<>(
 					BuiltInRegistries.BLOCK.holderOwner(),
 					WWBlockTags.MESOGLEA_PATH_REPLACEABLE

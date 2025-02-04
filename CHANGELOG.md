@@ -82,6 +82,7 @@ hi
   - Clovers generate in biomes in the `wilderwild:feature/has_clovers` tag.
 - Fixed Wilder Wild's blocks having incorrect flammability values.
 - Removed shallow pools from the Oasis biome as they weren't visually pleasing.
+- Mesoglea features no longer carve "fake caves," instead only generating in areas with Water or Air nearby.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
