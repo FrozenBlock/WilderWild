@@ -35,7 +35,6 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
-import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;

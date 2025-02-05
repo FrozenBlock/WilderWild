@@ -72,7 +72,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -91,7 +90,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -984,7 +982,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
-			.add(WWBlocks.POTTED_PURPLE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_PETALS)
 			.add(WWBlocks.POTTED_WILDFLOWERS);
 
@@ -1001,7 +998,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
@@ -1674,7 +1670,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.PASQUEFLOWER)
 			.add(WWBlocks.RED_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)

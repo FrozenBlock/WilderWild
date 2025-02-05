@@ -15,7 +15,7 @@
   "biome.wilderwild.sparse_forest": "Sparse Forest",
   "biome.wilderwild.arid_savanna": "Arid Savanna",
   "biome.wilderwild.parched_forest": "Parched Forest",
-  "biome.wilderwild.arid_forest": "Arid Forest",
+  "biome.wilderwild.arid_forest": "Arid F orest",
   "biome.wilderwild.snowy_old_growth_pine_taiga": "Snowy Old Growth Pine Taiga",
   "biome.wilderwild.old_growth_dark_forest": "Old Growth Dark Forest",
   "biome.wilderwild.dark_birch_forest": "Dark Birch Forest",
@@ -264,10 +264,13 @@
   "block.wilderwild.mossy_gabbro_brick_wall": "Mossy Gabbro Brick Wall",
 
   "block.wilderwild.red_hibiscus": "Red Hibiscus",
+  "block.wilderwild.potted_red_hibiscus": "Potted Red Hibiscus",
   "block.wilderwild.yellow_hibiscus": "Yellow Hibiscus",
+  "block.wilderwild.potted_yellow_hibiscus": "Potted Yellow Hibiscus",
   "block.wilderwild.white_hibiscus": "White Hibiscus",
+  "block.wilderwild.potted_white_hibiscus": "Potted White Hibiscus",
   "block.wilderwild.pink_hibiscus": "Pink Hibiscus",
-  "block.wilderwild.purple_hibiscus": "Purple Hibiscus",
+  "block.wilderwild.potted_pink_hibiscus": "Potted Pink Hibiscus",
 
   "block.wilderwild.hanging_tendril": "Hanging Tendril",
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",

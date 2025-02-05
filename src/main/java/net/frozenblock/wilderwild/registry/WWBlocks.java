@@ -469,13 +469,6 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_PINK_HIBISCUS = Blocks.flowerPot(PINK_HIBISCUS);
 
-	public static final WideFlowerBlock PURPLE_HIBISCUS = new WideFlowerBlock(
-		MobEffects.HUNGER,
-		8,
-		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
-	);
-	public static final Block POTTED_PURPLE_HIBISCUS = Blocks.flowerPot(PURPLE_HIBISCUS);
-
 	public static final PinkPetalsBlock WILDFLOWERS = new PinkPetalsBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
 	);
@@ -1421,8 +1414,6 @@ public final class WWBlocks {
 		registerBlock("potted_white_hibiscus", POTTED_WHITE_HIBISCUS);
 		registerBlockBefore(WHITE_HIBISCUS, "pink_hibiscus", PINK_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_pink_hibiscus", POTTED_PINK_HIBISCUS);
-		registerBlockBefore(PINK_HIBISCUS, "purple_hibiscus", PURPLE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_purple_hibiscus", POTTED_PURPLE_HIBISCUS);
 		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1821,7 +1812,6 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1848,7 +1838,6 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(YELLOW_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(WHITE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(PINK_HIBISCUS, 60, 100);
-		flammableBlockRegistry.add(PURPLE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
 		flammableBlockRegistry.add(BUSH, 40, 90);
