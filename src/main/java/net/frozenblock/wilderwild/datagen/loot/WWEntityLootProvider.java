@@ -192,5 +192,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						)
 				)
 		);
+
+		output.accept(WWEntityTypes.FIREFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
+		output.accept(WWEntityTypes.BUTTERFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
 	}
 }
