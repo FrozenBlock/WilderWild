@@ -44,7 +44,7 @@
               "max_inclusive": 4,
               "min_inclusive": 2
             },
-            "use_heightmap_instead_of_circular_placement": true
+            "use_heightmap_instead_of_circular_placement": false
           }
         },
         "placement": []
