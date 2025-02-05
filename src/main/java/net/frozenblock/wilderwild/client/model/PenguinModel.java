@@ -148,7 +148,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), movementDelta, slideProgress * notSwimmingAmount * notWadingProgress);
 		//this.animateSlide(limbSwing * 2F, limbSwingAmount, slideProgress * notSwimmingAmount * notWadingProgress);
 		this.animateWade(renderState.ageInTicks, wadeProgress * notMovingDelta * notSlidingProgress);
-		this.animateWadeMove(limbSwing, limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress);
+		this.animateWadeMove(limbSwing,  Math.min(limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress * 1.75F, 1F));
 		//this.animateSwimIdle(ageInTicks, wadeProgress * notMovingDelta);
 		this.animateSwim(limbSwing, limbSwingAmount, renderState.xRot, swimAmount * notSlidingProgress);
 	}

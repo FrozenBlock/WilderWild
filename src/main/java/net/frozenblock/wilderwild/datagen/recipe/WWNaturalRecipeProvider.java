@@ -36,7 +36,6 @@ public final class WWNaturalRecipeProvider {
 		oneToOneConversionRecipe(provider, exporter, Items.YELLOW_DYE, WWBlocks.YELLOW_HIBISCUS, "yellow_dye");
 		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWBlocks.WHITE_HIBISCUS, "white_dye");
 		oneToOneConversionRecipe(provider, exporter, Items.PINK_DYE, WWBlocks.PINK_HIBISCUS, "pink_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.PURPLE_HIBISCUS, "purple_dye");
 
 		oneToOneConversionRecipe(provider, exporter, Items.LIGHT_GRAY_DYE, WWBlocks.DATURA, "light_gray_dye", 2);
 

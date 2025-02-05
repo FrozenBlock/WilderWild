@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.feature.configured;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
@@ -27,7 +28,7 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskCarpet
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskWithBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderFluidFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -130,7 +131,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenLibConfiguredFeature<PathSwapUnderWaterFeatureConfig, ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = register("grass_path");
+	public static final FrozenLibConfiguredFeature<PathSwapUnderFluidFeatureConfig, ConfiguredFeature<PathSwapUnderFluidFeatureConfig, ?>> GRASS_PATH = register("grass_path");
 	public static final FrozenLibConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = register("moss_path_oasis");
 
 	// ARID SAVANNA
@@ -187,7 +188,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				6,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.12,
 				-0.2,
 				0.3,
@@ -207,7 +208,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				6,
-				4,
+				EasyNoiseSampler.NoiseType.XORO,
 				0.12,
 				-0.2,
 				0.3,
@@ -227,7 +228,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.STONE),
 				6,
-				2,
+				EasyNoiseSampler.NoiseType.CHECKED,
 				0.12,
 				-0.2,
 				0.3,
@@ -247,7 +248,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				3,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.07,
 				-0.075,
 				0.175,
@@ -267,7 +268,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				3,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.07,
 				-0.075,
 				0.175,
@@ -287,7 +288,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.ROOTED_DIRT),
 				3,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.07,
 				-0.035,
 				0.135,
@@ -369,7 +370,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.MUD),
 				11,
-				4,
+				EasyNoiseSampler.NoiseType.XORO,
 				0.1,
 				0.23,
 				1,
@@ -411,7 +412,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				11,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.12,
 				-0.2,
 				0.3,
@@ -427,11 +428,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
+		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_NEAR_WATER_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.SAND),
 				16,
-				4,
+				EasyNoiseSampler.NoiseType.XORO,
 				0.05,
 				0.2,
 				0.54,
@@ -447,11 +448,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
+		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_NEAR_WATER_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				16,
-				1,
+				EasyNoiseSampler.NoiseType.LOCAL,
 				0.07,
 				-0.7,
 				-0.3,
@@ -467,11 +468,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
+		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_NEAR_WATER_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.CLAY),
 				16,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.07,
 				0.5,
 				0.85,
@@ -487,11 +488,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
+		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_NEAR_WATER_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.CLAY),
 				14,
-				2,
+				EasyNoiseSampler.NoiseType.CHECKED,
 				0.10,
 				0.5,
 				0.85,
@@ -507,11 +508,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
+		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_NEAR_WATER_FEATURE,
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
 				14,
-				2,
+				EasyNoiseSampler.NoiseType.CHECKED,
 				0.10,
 				0.5,
 				0.85,
@@ -649,7 +650,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.PACKED_MUD),
 				9,
-				1,
+				EasyNoiseSampler.NoiseType.LOCAL,
 				0.12,
 				0.20,
 				1,
@@ -669,7 +670,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				9,
-				1,
+				EasyNoiseSampler.NoiseType.LOCAL,
 				0.15,
 				0.18,
 				1,
@@ -697,7 +698,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.SANDSTONE),
 				10,
-				2,
+				EasyNoiseSampler.NoiseType.CHECKED,
 				0.2,
 				0.4,
 				1,
@@ -806,7 +807,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				8,
-				2,
+				EasyNoiseSampler.NoiseType.CHECKED,
 				0.15,
 				0.2,
 				1,
@@ -826,7 +827,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.PACKED_MUD),
 				4,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.7,
 				0.2,
 				1,
@@ -933,12 +934,12 @@ public final class WWMiscConfigured {
 
 		// OASIS
 
-		GRASS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE,
-			new PathSwapUnderWaterFeatureConfig(
+		GRASS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_SWAP_UNDER_FLUID_FEATURE,
+			new PathSwapUnderFluidFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 				BlockStateProvider.simple(Blocks.DIRT),
 				11,
-				4,
+				EasyNoiseSampler.NoiseType.XORO,
 				0.15,
 				0.4,
 				1.0,
@@ -958,7 +959,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				9,
-				2,
+				EasyNoiseSampler.NoiseType.CHECKED,
 				0.10,
 				0.12,
 				1,
@@ -980,7 +981,7 @@ public final class WWMiscConfigured {
 			new PathFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
 				12,
-				3,
+				EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE,
 				0.15,
 				-0.15,
 				0.55,
@@ -1087,7 +1088,7 @@ public final class WWMiscConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.GRAVEL),
 							9,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.1D,
 							-0.2D,
 							0.3D,
@@ -1107,7 +1108,7 @@ public final class WWMiscConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK),
 							9,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.1D,
 							-0.21D,
 							0.31D,

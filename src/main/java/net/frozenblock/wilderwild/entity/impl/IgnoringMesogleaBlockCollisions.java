@@ -32,7 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -121,11 +120,11 @@ public class IgnoringMesogleaBlockCollisions extends AbstractIterator<VoxelShape
 			this.pos.set(i, j, k);
 			BlockState blockState = blockGetter.getBlockState(this.pos);
 			Block block = blockState.getBlock();
-			if ((this.onlySuffocatingBlocks && !blockState.isSuffocating(blockGetter, this.pos) || l == 1 && !blockState.hasLargeCollisionShape() || l == 2 && !blockState.is(Blocks.MOVING_PISTON)) || (block instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)))
+			if ((this.onlySuffocatingBlocks && !blockState.isSuffocating(blockGetter, this.pos) || l == 1 && !blockState.hasLargeCollisionShape() || l == 2 && !blockState.is(Blocks.MOVING_PISTON)) || block instanceof MesogleaBlock)
 				continue;
 			VoxelShape voxelShape = blockState.getCollisionShape(this.collisionGetter, this.pos, this.context);
 			if (voxelShape == Shapes.block()) {
-				if (!this.box.intersects(i, j, k, (double) i + 1.0, (double) j + 1.0, (double) k + 1.0)) continue;
+				if (!this.box.intersects(i, j, k, (double) i + 1D, (double) j + 1D, (double) k + 1D)) continue;
 				return voxelShape.move(i, j, k);
 			}
 			VoxelShape voxelShape2 = voxelShape.move(i, j, k);

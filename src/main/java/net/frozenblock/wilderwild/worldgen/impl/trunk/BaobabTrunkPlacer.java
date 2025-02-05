@@ -57,7 +57,9 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		this.insideState = insideState;
 	}
 
-	protected static <P extends BaobabTrunkPlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider> baobabCodec(RecordCodecBuilder.Instance<P> builder) {
+	protected static <P extends BaobabTrunkPlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider> baobabCodec(
+		RecordCodecBuilder.Instance<P> builder
+	) {
 		return trunkPlacerParts(builder).and((BlockStateProvider.CODEC.fieldOf("inside_state")).forGetter(placer -> placer.insideState));
 	}
 
@@ -117,7 +119,6 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	 * 3- Add Branches and Foliage
 	 * Easy, I guess ._.
 	 **/
-
 	@Override
 	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(

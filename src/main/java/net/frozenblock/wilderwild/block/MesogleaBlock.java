@@ -21,14 +21,11 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,15 +51,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -72,7 +66,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
+public class MesogleaBlock extends HalfTransparentBlock {
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
 	public static final float COLLISION_FROM_SIDE = 0.05F;
 	public static final double ITEM_SLOWDOWN = 0.999D;
@@ -82,34 +76,31 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public static final double BOAT_VERTICAL_BOOST = 0.05D;
 	public static final double BOAT_VERTICAL_SLOWDOWN_SCALE_WHEN_FALLING = 0.125D;
 	public static final int DRIP_PARTICLE_CHANCE = 50;
-	public static final int WATERLOGGED_LIGHT_BLOCK = 2;
-	public static final int LIGHT_BLOCK = 5;
+	public static final int LIGHT_BLOCK = 2;
 	public static final int AMBIENT_WHIRLPOOL_SOUND_CHANCE = 200;
 	public static final int TICK_DELAY = 5;
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = WWBlockStateProperties.BUBBLE_DIRECTION;
 	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		Codec.BOOL.fieldOf("pearlescent").forGetter((mesogleaBlock) -> mesogleaBlock.pearlescent),
+		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
+		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(mesogleaBlock -> mesogleaBlock.dripParticle),
 		propertiesCodec()
 	).apply(instance, MesogleaBlock::new));
-	public final boolean pearlescent;
+	private final boolean pearlescent;
+	private final ParticleOptions dripParticle;
 
-	public MesogleaBlock(boolean pearlescent, @NotNull Properties properties) {
-		super(properties.pushReaction(PushReaction.DESTROY));
-		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
+	public MesogleaBlock(boolean pearlescent, ParticleOptions dripParticle, @NotNull Properties properties) {
+		super(properties);
+		this.registerDefaultState(this.stateDefinition.any().setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
 		this.pearlescent = pearlescent;
+		this.dripParticle = dripParticle;
 	}
 
 	public static boolean isMesoglea(@NotNull BlockState blockState) {
 		return blockState.hasProperty(BUBBLE_DIRECTION) && blockState.getBlock() instanceof MesogleaBlock;
 	}
 
-	public static boolean isWaterloggedMesoglea(BlockState blockState) {
-		return isMesoglea(blockState) && blockState.getValue(WATERLOGGED);
-	}
-
 	public static boolean isColumnSupportingMesoglea(BlockState blockState) {
-		return isWaterloggedMesoglea(blockState) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
+		return isMesoglea(blockState) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
 	}
 
 	public static boolean hasBubbleColumn(BlockState blockState) {
@@ -157,7 +148,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	@NotNull
 	private static BlockState getColumnState(@NotNull BlockState mesogleaState, @NotNull BlockState blockState) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS && mesogleaState.getValue(WATERLOGGED)) {
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			//Remember, blockState is for the block below.
 			if (blockState.is(Blocks.BUBBLE_COLUMN)) {
 				return mesogleaState.setValue(BUBBLE_DIRECTION, blockState.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP);
@@ -180,11 +171,15 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		return CODEC;
 	}
 
+	public boolean isPearlescent() {
+		return this.pearlescent;
+	}
+
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		Optional<Direction> dragDirection = getDragDirection(state);
-		if (this.pearlescent) {
-			if (state.getValue(WATERLOGGED) && (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS)) {
+		if (this.isPearlescent()) {
+			if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 				if (entity instanceof ItemEntity item) {
 					item.makeStuckInBlock(state, ITEM_SLOWDOWN_VEC3);
 					item.addDeltaMovement(new Vec3 (0D, ITEM_VERTICAL_BOOST, 0D));
@@ -239,35 +234,32 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		if (blockState.getValue(WATERLOGGED)) {
-			VoxelShape shape = Shapes.empty();
-			if (collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-				if (entityCollisionContext.getEntity() != null) {
-					Entity entity = entityCollisionContext.getEntity();
-					if (entity != null && entity.getType().is(WWEntityTags.STAYS_IN_MESOGLEA) && !entity.isPassenger() && !entity.isDescending()) {
-						if (entity instanceof Mob mob && mob.isLeashed()) {
-							return shape;
-						}
-						BlockState insideState = entity.getBlockStateOn();
-						if (entity.isInWater() || (insideState.getBlock() instanceof MesogleaBlock && insideState.getValue(BlockStateProperties.WATERLOGGED))) {
-							for (Direction direction : Direction.values()) {
-								if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
-									shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, JELLYFISH_COLLISION_FROM_SIDE));
-								}
+		VoxelShape shape = Shapes.empty();
+		if (collisionContext instanceof EntityCollisionContext entityCollisionContext) {
+			if (entityCollisionContext.getEntity() != null) {
+				Entity entity = entityCollisionContext.getEntity();
+				if (entity != null && entity.getType().is(WWEntityTags.STAYS_IN_MESOGLEA) && !entity.isPassenger() && !entity.isDescending()) {
+					if (entity instanceof Mob mob && mob.isLeashed()) {
+						return shape;
+					}
+					BlockState insideState = entity.getBlockStateOn();
+					if (entity.isInWater() || (insideState.getBlock() instanceof MesogleaBlock)) {
+						for (Direction direction : Direction.values()) {
+							if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
+								shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, JELLYFISH_COLLISION_FROM_SIDE));
 							}
 						}
 					}
-					return shape;
 				}
+				return shape;
 			}
-			for (Direction direction : Direction.values()) {
-				if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
-					shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, COLLISION_FROM_SIDE));
-				}
-			}
-			return shape;
 		}
-		return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+		for (Direction direction : Direction.values()) {
+			if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
+				shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, COLLISION_FROM_SIDE));
+			}
+		}
+		return shape;
 	}
 
 	@Override
@@ -276,15 +268,12 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		double d = blockPos.getX();
 		double e = blockPos.getY();
 		double f = blockPos.getZ();
-		if (blockState.getBlock() instanceof MesogleaBlock mesogleaBlock) {
-			Optional<ParticleOptions> dripParticle = MesogleaParticleRegistry.getParticleForMesoglea(mesogleaBlock);
-			if (dripParticle.isPresent()
-				&& randomSource.nextInt(0, DRIP_PARTICLE_CHANCE) == 0
-				&& (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER))
+		if (blockState.getBlock() instanceof MesogleaBlock) {
+			if (randomSource.nextInt(0, DRIP_PARTICLE_CHANCE) == 0
 				&& level.getFluidState(blockPos.below()).isEmpty()
 				&& level.getBlockState(blockPos.below()).isAir()
 			) {
-				level.addParticle(dripParticle.get(), d + randomSource.nextDouble(), e, f + randomSource.nextDouble(), 0D, 0D, 0D);
+				level.addParticle(this.dripParticle, d + randomSource.nextDouble(), e, f + randomSource.nextDouble(), 0D, 0D, 0D);
 			}
 		}
 		Optional<Direction> dragDirection = getDragDirection(blockState);
@@ -340,42 +329,46 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	@Override
 	public int getLightBlock(@NotNull BlockState blockState) {
-		return blockState.getValue(WATERLOGGED) ? WATERLOGGED_LIGHT_BLOCK : LIGHT_BLOCK;
+		return LIGHT_BLOCK;
 	}
 
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
-		FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
 		BlockState blockState = blockPlaceContext.getLevel().getBlockState(blockPlaceContext.getClickedPos());
-		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(BUBBLE_DIRECTION, blockState.is(Blocks.BUBBLE_COLUMN) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS ? blockState.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP : BubbleDirection.NONE);
+		return this.defaultBlockState()
+			.setValue(
+				BUBBLE_DIRECTION,
+				blockState.is(Blocks.BUBBLE_COLUMN)
+					&& WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS
+					? blockState.getValue(BlockStateProperties.DRAG)
+					? BubbleDirection.DOWN
+					: BubbleDirection.UP
+					: BubbleDirection.NONE
+			);
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
+		BlockState blockState,
 		LevelReader levelReader,
-		ScheduledTickAccess scheduledTickAccess,
+		@NotNull ScheduledTickAccess scheduledTickAccess,
 		BlockPos blockPos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource randomSource
 	) {
-		if (blockState.getValue(WATERLOGGED)) {
-			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-			if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-				if (hasBubbleColumn(blockState)) {
-					if (!canColumnSurvive(levelReader, blockPos) || direction == Direction.DOWN || direction == Direction.UP && !hasBubbleColumn(neighborState) && canExistIn(neighborState)) {
-						scheduledTickAccess.scheduleTick(blockPos, this, TICK_DELAY);
-					}
-				}
-				if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) {
+		scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+			if (hasBubbleColumn(blockState)) {
+				if (!canColumnSurvive(levelReader, blockPos) || direction == Direction.DOWN || direction == Direction.UP && !hasBubbleColumn(neighborState) && canExistIn(neighborState)) {
 					scheduledTickAccess.scheduleTick(blockPos, this, TICK_DELAY);
 				}
 			}
-		} else {
-			return blockState.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
+			if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) {
+				scheduledTickAccess.scheduleTick(blockPos, this, TICK_DELAY);
+			}
 		}
 		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}
@@ -398,43 +391,22 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	@Override
 	@NotNull
 	public FluidState getFluidState(@NotNull BlockState blockState) {
-		if (blockState.getValue(WATERLOGGED)) {
-			return Fluids.WATER.getSource(false);
-		}
-		return super.getFluidState(blockState);
+		return Fluids.WATER.getSource(false);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(WATERLOGGED, BUBBLE_DIRECTION);
+		builder.add(BUBBLE_DIRECTION);
 	}
 
 	@Override
 	public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
-		boolean isThisWaterlogged = blockState.getValue(WATERLOGGED);
-		return blockState2.is(this) && (isThisWaterlogged == blockState2.getValue(WATERLOGGED) || isThisWaterlogged);
+		return blockState2.is(this);
 	}
 
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.Client.MESOGLEA_LIQUID ? RenderShape.INVISIBLE : RenderShape.MODEL;
-	}
-
-	public static class MesogleaParticleRegistry {
-		private static final Map<MesogleaBlock, ParticleOptions> MESOGLEA_PARTICLE_MAP = new LinkedHashMap<>();
-
-		public static ParticleOptions registerDripParticle(@NotNull MesogleaBlock mesogleaBlock, @NotNull ParticleOptions particleOptions) {
-			MESOGLEA_PARTICLE_MAP.put(mesogleaBlock, particleOptions);
-			return particleOptions;
-		}
-
-		public static Optional<ParticleOptions> getParticleForMesoglea(@NotNull MesogleaBlock mesogleaBlock) {
-			return Optional.ofNullable(MESOGLEA_PARTICLE_MAP.getOrDefault(mesogleaBlock, null));
-		}
-
-		public static ParticleOptions getParticleForMesogleaOrDefault(@NotNull MesogleaBlock mesogleaBlock) {
-			return getParticleForMesoglea(mesogleaBlock).orElse(WWParticleTypes.BLUE_PEARLESCENT_FALLING_MESOGLEA);
-		}
+		return WWBlockConfig.Client.MESOGLEA_FLUID ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 }

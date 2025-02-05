@@ -47,12 +47,6 @@
                 "Properties": {
                   "half": "lower"
                 }
-              },
-              {
-                "Name": "minecraft:peony",
-                "Properties": {
-                  "half": "lower"
-                }
               }
             ]
           }

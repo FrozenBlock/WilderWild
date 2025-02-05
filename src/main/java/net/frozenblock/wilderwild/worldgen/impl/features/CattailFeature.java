@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.impl.features;
 
 import com.mojang.serialization.Codec;
-import java.util.Iterator;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureConfig;
@@ -43,18 +43,6 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		super(codec);
 	}
 
-	public static boolean isWaterNearby(@NotNull WorldGenLevel level, @NotNull BlockPos blockPos, int radius) {
-		Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-radius, -radius, -radius), blockPos.offset(radius, radius, radius)).iterator();
-		BlockPos blockPos2;
-		do {
-			if (!var2.hasNext()) {
-				return false;
-			}
-			blockPos2 = var2.next();
-		} while (!level.getBlockState(blockPos2).is(Blocks.WATER));
-		return true;
-	}
-
 	@Override
 	public boolean place(@NotNull FeaturePlaceContext<CattailFeatureConfig> context) {
 		boolean generated = false;
@@ -71,6 +59,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		int placementAttempts = config.placementAttempts().sample(random);
 		boolean waterPlacement = config.onlyPlaceInWater();
 		TagKey<Block> placeableBlocks = config.canBePlacedOn();
+
 		for (int l = 0; l < placementAttempts; l++) {
 			int randomX = config.width().sample(random);
 			int randomZ = config.width().sample(random);
@@ -84,11 +73,16 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 				BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState();
 				topBlockPos.set(bottomBlockPos).move(Direction.UP);
 				BlockState topState = level.getBlockState(topBlockPos);
-				if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater)) && topState.isAir() && bottomPlaceState.canSurvive(level, bottomBlockPos) && (!waterPlacement || (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) && level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) {
+				if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater))
+					&& topState.isAir()
+					&& bottomPlaceState.canSurvive(level, bottomBlockPos)
+					&& (!waterPlacement || (bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2)))
+					&& level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)
+				) {
 					bottomPlaceState = bottomPlaceState.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater);
-					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_ALL);
+					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
 					if (topPlaceState.canSurvive(level, topBlockPos)) {
-						level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_ALL);
+						level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
 					}
 					generated = true;
 				}

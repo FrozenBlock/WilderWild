@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.frozenblock.lib.feature_flag.api.FeatureFlagAPI;
+import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.datagen.advancement.WWAdvancementProvider;
@@ -53,7 +53,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
-		FeatureFlagAPI.rebuild();
+		FeatureFlagApi.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
 		// ASSETS

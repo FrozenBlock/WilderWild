@@ -1,11 +1,11 @@
 {
-  "type": "frozenlib:noise_path_under_water_feature",
+  "type": "frozenlib:noise_path_near_water_feature",
   "config": {
     "is_3d": false,
     "max_threshold": 0.85,
     "min_threshold": 0.5,
-    "noise": 2,
     "noise_scale": 0.1,
+    "noise_type": "CHECKED",
     "only_place_when_exposed": false,
     "placement_chance": 0.915,
     "radius": 14,

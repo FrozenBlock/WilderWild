@@ -29,6 +29,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Column;
@@ -205,7 +206,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 								BlockPos blockPos = windOffsetter.offset(mutableBlockPos);
 								if (isEmptyOrWaterOrLava(level, blockPos)) {
 									bl = true;
-									level.setBlock(blockPos, config.pathBlock.getState(random, mutableBlockPos), 3);
+									level.setBlock(blockPos, config.pathBlock.getState(random, mutableBlockPos), Block.UPDATE_ALL);
 								} else if (bl && level.getBlockState(blockPos).is(BlockTags.BASE_STONE_OVERWORLD)) {
 									break;
 								}

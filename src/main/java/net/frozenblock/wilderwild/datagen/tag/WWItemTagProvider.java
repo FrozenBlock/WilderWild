@@ -168,7 +168,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
 			.add(WWBlocks.FLOWERING_LILY_PAD.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.BEE_FOOD)
@@ -178,7 +177,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.POTTED_YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.POTTED_PINK_HIBISCUS.asItem())
-			.add(WWBlocks.POTTED_PURPLE_HIBISCUS.asItem())
 			.add(WWBlocks.FLOWERING_LILY_PAD.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.CATTAIL.asItem())
@@ -190,7 +188,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
 			.add(WWBlocks.SHRUB.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
@@ -208,7 +205,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
 			.add(WWBlocks.WHITE_HIBISCUS.asItem())
 			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
 			.add(WWBlocks.SHRUB.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())

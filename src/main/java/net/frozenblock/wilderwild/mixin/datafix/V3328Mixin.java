@@ -84,6 +84,10 @@ public class V3328Mixin {
 			map,
 			WWConstants.string("moobloom")
 		);
+		schema.registerSimple(
+			map,
+			WWConstants.string("penguin")
+		);
 		schema.register(
 			map,
 			WWConstants.string("falling_leaves"),

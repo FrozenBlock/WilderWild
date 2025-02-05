@@ -23,6 +23,7 @@
     "block.mesoglea.BreathAirGoalMixin",
     "block.mesoglea.BubbleColumnBlockMixin",
     "block.mesoglea.EntityMixin",
+    "block.mesoglea.LevelMixin",
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
@@ -53,6 +54,7 @@
     "entity.lightning.LightningBoltMixin",
     "entity.penguin.AbstractBoatMixin",
     "entity.penguin.LivingEntityMixin",
+    "entity.penguin.SmoothSwimmingMoveControlMixin",
     "entity.slime.MobMixin",
     "entity.slime.SlimeMixin",
     "entity.slime.SpawnPlacementsMixin",
@@ -94,7 +96,7 @@
     "snowlogging.FlowerBedBlockMixin",
     "snowlogging.PistonBaseBlockMixin",
     "snowlogging.SegmentableBlockMixin",
-    "snowlogging.ServerPlayerGameModeMixin",
+    "block.block_break.ServerPlayerGameModeMixin",
     "snowlogging.SimpleWaterloggedBlockMixin",
     "snowlogging.SnowLayerBlockMixin",
     "snowlogging.SnowyDirtBlockMixin",
@@ -159,7 +161,7 @@
     "client.wind.particlerain.SnowFlakeParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
-    "snowlogging.client.MultiPlayerGameModeMixin",
+    "client.block_break.MultiPlayerGameModeMixin",
     "snowlogging.client.TerrainRenderContextMixin"
   ],
   "injectors": {
