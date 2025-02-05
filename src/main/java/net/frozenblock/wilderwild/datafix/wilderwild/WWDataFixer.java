@@ -19,23 +19,15 @@
 package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.FireflyBottleComponentizationFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
-import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.datafix.fixes.BlockRenameFix;
-import net.minecraft.util.datafix.fixes.ItemRenameFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -184,7 +176,7 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename pink_glory_of_the_snow_petals to pollen", WWConstants.id("pink_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
 		SimpleFixes.addBlockRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
 		SimpleFixes.addItemRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
-		addRandomBlockRenameFix(
+		SimpleFixes.addRandomBlockRenameFix(
 			builder,
 			"Random datafix of glory_of_the_snow to Hibiscus variants",
 			WWConstants.id("glory_of_the_snow"),
@@ -192,12 +184,11 @@ public final class WWDataFixer {
 				WWConstants.id("red_hibiscus"),
 				WWConstants.id("yellow_hibiscus"),
 				WWConstants.id("white_hibiscus"),
-				WWConstants.id("pink_hibiscus"),
-				WWConstants.id("purple_hibiscus")
+				WWConstants.id("pink_hibiscus")
 			),
 			schemaV26
 		);
-		addRandomItemRenameFix(
+		SimpleFixes.addRandomItemRenameFix(
 			builder,
 			"Random datafix of glory_of_the_snow to Hibiscus variants",
 			WWConstants.id("glory_of_the_snow"),
@@ -205,8 +196,7 @@ public final class WWDataFixer {
 				WWConstants.id("red_hibiscus"),
 				WWConstants.id("yellow_hibiscus"),
 				WWConstants.id("white_hibiscus"),
-				WWConstants.id("pink_hibiscus"),
-				WWConstants.id("purple_hibiscus")
+				WWConstants.id("pink_hibiscus")
 			),
 			schemaV26
 		);
@@ -215,48 +205,5 @@ public final class WWDataFixer {
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
 	}
 
-	private static void addRandomBlockRenameFix(
-		@NotNull DataFixerBuilder builder,
-		@NotNull String name,
-		@NotNull ResourceLocation oldId,
-		List<ResourceLocation> newIds,
-		@NotNull Schema schema
-	) {
-		Objects.requireNonNull(builder, "DataFixerBuilder cannot be null");
-		Objects.requireNonNull(name, "Fix name cannot be null");
-		Objects.requireNonNull(oldId, "Old identifier cannot be null");
-		Objects.requireNonNull(newIds, "New identifiers cannot be null");
-		Objects.requireNonNull(schema, "Schema cannot be null");
-		String oldIdStr = oldId.toString();
-		builder.addFixer(
-			BlockRenameFix.create(
-				schema,
-				name,
-				(inputName) -> Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? Util.getRandom(newIds, AdvancedMath.random()).toString() : inputName
-			)
-		);
-	}
-
-	private static void addRandomItemRenameFix(
-		@NotNull DataFixerBuilder builder,
-		@NotNull String name,
-		@NotNull ResourceLocation oldId,
-		List<ResourceLocation> newIds,
-		@NotNull Schema schema
-	) {
-		Objects.requireNonNull(builder, "DataFixerBuilder cannot be null");
-		Objects.requireNonNull(name, "Fix name cannot be null");
-		Objects.requireNonNull(oldId, "Old identifier cannot be null");
-		Objects.requireNonNull(newIds, "New identifiers cannot be null");
-		Objects.requireNonNull(schema, "Schema cannot be null");
-		String oldIdStr = oldId.toString();
-		builder.addFixer(
-			ItemRenameFix.create(
-				schema,
-				name,
-				(inputName) -> Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? Util.getRandom(newIds, AdvancedMath.random()).toString() : inputName
-			)
-		);
-	}
 
 }

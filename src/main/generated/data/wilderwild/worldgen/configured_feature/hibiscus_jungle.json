@@ -32,10 +32,7 @@
                 "Name": "wilderwild:pink_hibiscus"
               },
               {
-                "Name": "wilderwild:purple_hibiscus"
-              },
-              {
-                "Name": "wilderwild:purple_hibiscus"
+                "Name": "wilderwild:pink_hibiscus"
               }
             ]
           }
@@ -51,7 +48,7 @@
         }
       ]
     },
-    "tries": 16,
+    "tries": 32,
     "xz_spread": 7,
     "y_spread": 3
   }

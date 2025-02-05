@@ -618,9 +618,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(WWBiomeTags.HAS_CARNATION);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_MARIGOLD)
-			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
-			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD_SPARSE);
 
@@ -630,14 +628,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRAB)
-			.add(Biomes.BEACH)
 			.addOptional(WWBiomes.WARM_BEACH)
 			.add(Biomes.OCEAN)
 			.add(Biomes.DEEP_OCEAN)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptionalTag(WWBiomeTags.HAS_COMMON_CRAB);
-
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_CRAB)
 			.add(Biomes.LUKEWARM_OCEAN)
 			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.WARM_OCEAN)
@@ -734,8 +727,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST);
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.SAND_BEACHES)
 			.add(Biomes.DARK_FOREST)
@@ -1447,8 +1439,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HIBISCUS)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWERING_WATER_LILY)
 			.add(Biomes.SWAMP)
@@ -1686,9 +1677,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
 			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)

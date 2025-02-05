@@ -92,6 +92,11 @@ public class V3328Mixin {
 		);
 		schema.register(
 			map,
+			WWConstants.string("penguin"),
+			() -> V100.equipment(schema)
+		);
+		schema.register(
+			map,
 			WWConstants.string("falling_leaves"),
 			(string) -> DSL.optionalFields("LeafLitterBlock", References.BLOCK_NAME.in(schema))
 		);

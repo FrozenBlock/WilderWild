@@ -72,7 +72,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -91,7 +90,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -502,8 +500,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.PENGUINS_SPAWNABLE_ON)
+			.add(Blocks.ICE)
 			.add(Blocks.SNOW_BLOCK)
-			.addOptionalTag(BlockTags.ICE)
 			.add(Blocks.SAND)
 			.add(Blocks.GRAVEL)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
@@ -1013,7 +1011,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
-			.add(WWBlocks.POTTED_PURPLE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_PETALS)
 			.add(WWBlocks.POTTED_WILDFLOWERS)
 			.add(WWBlocks.POTTED_PALE_MUSHROOM);
@@ -1033,7 +1030,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(BlockTags.BEE_ATTRACTIVE)
@@ -1043,7 +1039,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
-			.add(WWBlocks.POTTED_PURPLE_HIBISCUS)
 			.add(WWBlocks.FLOWERING_LILY_PAD)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.CATTAIL)
@@ -1401,7 +1396,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_ICE)
 			.add(Blocks.ICE)
 			.add(Blocks.PACKED_ICE)
-			.add(Blocks.PACKED_ICE);
+			.add(Blocks.BLUE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COARSE_DIRT)
 			.add(Blocks.COARSE_DIRT)
@@ -1723,7 +1718,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.PASQUEFLOWER)
 			.add(WWBlocks.RED_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)

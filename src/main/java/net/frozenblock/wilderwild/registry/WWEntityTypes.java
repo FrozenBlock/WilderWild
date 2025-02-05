@@ -43,6 +43,7 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.ChestBoat;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,7 +78,7 @@ public final class WWEntityTypes {
 
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
-		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
+		EntityType.Builder.of(Crab::new, MobCategory.WATER_CREATURE)
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
 	);
@@ -112,6 +113,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
+			.immuneTo(Blocks.POWDER_SNOW)
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(
@@ -263,7 +265,8 @@ public final class WWEntityTypes {
 			CRAB,
 			SpawnPlacementTypes.IN_WATER,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-			Crab::checkCrabSpawnRules);
+			Crab::checkCrabSpawnRules
+		);
 
 		FabricDefaultAttributeRegistry.register(OSTRICH, Ostrich.createAttributes());
 		SpawnPlacements.register(

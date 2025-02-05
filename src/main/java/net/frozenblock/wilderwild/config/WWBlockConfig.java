@@ -61,7 +61,7 @@ public final class WWBlockConfig {
 				OSSEOUS_SCULK_GENERATION = config.sculk.osseousSculkGeneration;
 				SCULK_BUILDING_BLOCKS_GENERATION = config.sculk.sculkBuildingBlocksGeneration;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-					Client.MESOGLEA_LIQUID = config.mesoglea.mesogleaLiquid;
+					Client.MESOGLEA_FLUID = config.mesoglea.mesogleaFluid;
 					Client.POLLEN_ENABLED = config.pollenParticles;
 					Client.SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
 					Client.BILLBOARD_TENDRILS = config.sculk.billboardTendrils;
@@ -93,7 +93,7 @@ public final class WWBlockConfig {
 	}
 
 	public static final class Client {
-		public static volatile boolean MESOGLEA_LIQUID = false;
+		public static volatile boolean MESOGLEA_FLUID = true;
 		public static volatile boolean POLLEN_ENABLED = true;
 		public static volatile boolean SOUL_FIRE_SOUNDS = true;
 		public static volatile boolean BILLBOARD_TENDRILS = true;
@@ -244,8 +244,8 @@ public final class WWBlockConfig {
 	}
 
 	public static class MesogleaConfig {
-		@EntrySyncData(value = "mesogleaLiquid", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean mesogleaLiquid = false;
+		@EntrySyncData(value = "mesogleaFluid", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean mesogleaFluid = true;
 
 		@EntrySyncData("mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;

@@ -52,6 +52,10 @@ public final class WWMixinsConfig {
 
 	public boolean client_shrieker = true;
 
+	public boolean client_enderman = true;
+
+	public boolean client_block_break = true;
+
 	@Comment("Only applies if Sodium is installed, otherwise ignores this option.")
 	public boolean client_sodium = true;
 
@@ -90,6 +94,8 @@ public final class WWMixinsConfig {
 	public boolean block_spawner = true;
 
 	public boolean block_termite = true;
+
+	public boolean block_break = true;
 
 	public boolean snowlogging = true;
 

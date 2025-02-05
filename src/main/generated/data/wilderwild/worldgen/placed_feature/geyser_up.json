@@ -32,10 +32,24 @@
       "direction_of_search": "down",
       "max_steps": 12,
       "target_condition": {
-        "type": "minecraft:matching_blocks",
-        "blocks": [
-          "wilderwild:gabbro",
-          "minecraft:magma_block"
+        "type": "minecraft:any_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+              "wilderwild:gabbro",
+              "minecraft:magma_block"
+            ]
+          },
+          {
+            "type": "minecraft:matching_fluids",
+            "fluids": "minecraft:lava",
+            "offset": [
+              0,
+              1,
+              0
+            ]
+          }
         ]
       }
     },

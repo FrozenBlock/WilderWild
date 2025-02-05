@@ -1,10 +1,7 @@
 {
   "values": [
+    "minecraft:ice",
     "minecraft:snow_block",
-    {
-      "id": "#minecraft:ice",
-      "required": false
-    },
     "minecraft:sand",
     "minecraft:gravel",
     {

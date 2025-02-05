@@ -1,10 +1,7 @@
 {
   "variants": {
-    "waterlogged=false": {
+    "": {
       "model": "wilderwild:block/red_mesoglea"
-    },
-    "waterlogged=true": {
-      "model": "wilderwild:block/red_mesoglea_waterlogged"
     }
   }
 }

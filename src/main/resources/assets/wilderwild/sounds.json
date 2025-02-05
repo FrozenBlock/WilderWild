@@ -2549,16 +2549,16 @@
     ],
     "subtitle": "subtitles.entity.crab.idle"
   },
-  "entity.crab.idle_rattle": {
+  "entity.crab.step": {
     "sounds": [
-      "wilderwild:mob/crab/idle_rattle1",
-      "wilderwild:mob/crab/idle_rattle2",
-      "wilderwild:mob/crab/idle_rattle3",
-      "wilderwild:mob/crab/idle_rattle4",
-      "wilderwild:mob/crab/idle_rattle5",
-      "wilderwild:mob/crab/idle_rattle6"
+      "wilderwild:mob/crab/step1",
+      "wilderwild:mob/crab/step2",
+      "wilderwild:mob/crab/step3",
+      "wilderwild:mob/crab/step4",
+      "wilderwild:mob/crab/step5",
+      "wilderwild:mob/crab/step6"
     ],
-    "subtitle": "subtitles.entity.crab.idle_rattle"
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "entity.crab.dig": {
     "sounds": [

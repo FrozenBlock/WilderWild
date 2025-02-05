@@ -54,6 +54,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.sodium.")) {
 			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddium;
 		}
+		if (mixinClassName.contains("client.block_break.")) return this.mixinsConfig.client_block_break;
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
 		if (mixinClassName.contains("client.brush.")) return this.mixinsConfig.client_brush;
 		if (mixinClassName.contains("client.easter.")) return this.mixinsConfig.client_easter;
@@ -62,6 +63,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 				return false;
 			return this.mixinsConfig.client_mesoglea;
 		}
+		if (mixinClassName.contains("client.enderman.")) return this.mixinsConfig.client_enderman;
 		if (mixinClassName.contains("client.shrieker.")) return this.mixinsConfig.client_shrieker;
 		if (mixinClassName.contains("client.warden.")) return this.mixinsConfig.client_warden;
 		if (mixinClassName.contains("client.wind.")) {
@@ -90,6 +92,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.reinforced_deepslate.")) return this.mixinsConfig.block_reinforced_deepslate;
 		if (mixinClassName.contains("block.spawner.")) return this.mixinsConfig.block_spawner;
 		if (mixinClassName.contains("block.termite.")) return this.mixinsConfig.block_termite;
+		if (mixinClassName.contains("block.block_break.")) return this.mixinsConfig.block_break;
 		if (mixinClassName.contains("snowlogging.")) return this.mixinsConfig.snowlogging && !FrozenBools.IS_DATAGEN;
 		if (mixinClassName.contains("entity.ai.")) return this.mixinsConfig.entity_ai;
 		if (mixinClassName.contains("entity.allay.")) return this.mixinsConfig.entity_allay;
