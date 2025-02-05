@@ -103,7 +103,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Jellyfish extends NoFlopAbstractFish {
-	private static final float MAX_TARGET_DISTANCE = 15F;
+	private static final float MAX_TARGET_DISTANCE = 4F;
 	public static final int POISON_DURATION_IN_SECONDS_BABY = 4;
 	public static final int POISON_DURATION_IN_SECONDS = 10;
 	public static final float STING_PITCH = 1F;
@@ -324,7 +324,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void setAttackTarget(LivingEntity entity) {
-		this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, entity);
+		this.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, entity, 60L);
 	}
 
 	@Override

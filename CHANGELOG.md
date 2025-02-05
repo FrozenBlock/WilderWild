@@ -86,6 +86,8 @@ hi
 - Ostriches now drop up to 4 feathers on death.
 - Maple Forests can no longer generate Beta Beaches.
 - Removed the unique Crab spawn cap, using `water_creature` instead.
+- Jellyfish can now only track their attackers within a 4 block range, and forget them after 60 ticks.
+  - This change was made to make Jellyfish more peaceful and realistic.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
