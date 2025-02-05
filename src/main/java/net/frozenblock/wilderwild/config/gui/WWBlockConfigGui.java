@@ -249,14 +249,14 @@ public final class WWBlockConfigGui {
 			sculkBuildingBlocksGeneration
 		);
 
-		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedMesoglea.mesogleaLiquid)
-				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
-				.setSaveConsumer(newValue -> mesoglea.mesogleaLiquid = newValue)
-				.setTooltip(tooltip("mesoglea_liquid"))
+		var mesogleaFluid = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mesoglea_fluid"), modifiedMesoglea.mesogleaFluid)
+				.setDefaultValue(defaultConfig.mesoglea.mesogleaFluid)
+				.setSaveConsumer(newValue -> mesoglea.mesogleaFluid = newValue)
+				.setTooltip(tooltip("mesoglea_fluid"))
 				.build(),
 			mesoglea.getClass(),
-			"mesogleaLiquid",
+			"mesogleaFluid",
 			configInstance
 		);
 
@@ -274,7 +274,7 @@ public final class WWBlockConfigGui {
 		var mesogleaCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("mesoglea"),
 			false,
 			tooltip("mesoglea"),
-			mesogleaBubbleColumns, mesogleaLiquid
+			mesogleaBubbleColumns, mesogleaFluid
 		);
 
 		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedEntry(

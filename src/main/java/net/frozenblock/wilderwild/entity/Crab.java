@@ -19,18 +19,14 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
-import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
@@ -44,7 +40,6 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;

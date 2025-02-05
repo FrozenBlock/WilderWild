@@ -73,7 +73,6 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
-import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -441,28 +440,28 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
-	public static final WideFlowerBlock RED_HIBISCUS = new WideFlowerBlock(
+	public static final FlowerBlock RED_HIBISCUS = new FlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_RED_HIBISCUS = Blocks.flowerPot(RED_HIBISCUS);
 
-	public static final WideFlowerBlock YELLOW_HIBISCUS = new WideFlowerBlock(
+	public static final FlowerBlock YELLOW_HIBISCUS = new FlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_YELLOW_HIBISCUS = Blocks.flowerPot(YELLOW_HIBISCUS);
 
-	public static final WideFlowerBlock WHITE_HIBISCUS = new WideFlowerBlock(
+	public static final FlowerBlock WHITE_HIBISCUS = new FlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_WHITE_HIBISCUS = Blocks.flowerPot(WHITE_HIBISCUS);
 
-	public static final WideFlowerBlock PINK_HIBISCUS = new WideFlowerBlock(
+	public static final FlowerBlock PINK_HIBISCUS = new FlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
@@ -1667,9 +1666,10 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
+	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleOptions, boolean pearlescent) {
 		MesogleaBlock mesogleaBlock = new MesogleaBlock(
 			pearlescent,
+			particleOptions,
 			BlockBehaviour.Properties.of()
 				.mapColor(mapColor)
 				.noOcclusion()
@@ -1681,8 +1681,8 @@ public final class WWBlocks {
 				.isSuffocating(Blocks::never)
 				.isViewBlocking(Blocks::never)
 				.dynamicShape()
+				.pushReaction(PushReaction.DESTROY)
 		);
-		MesogleaBlock.MesogleaParticleRegistry.registerDripParticle(mesogleaBlock, particleType);
 		return mesogleaBlock;
 	}
 

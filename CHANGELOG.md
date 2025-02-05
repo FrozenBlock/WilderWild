@@ -88,6 +88,9 @@ hi
 - Removed the unique Crab spawn cap, using `water_creature` instead.
 - Jellyfish can now only track their attackers within a 4 block range, and forget them after 60 ticks.
   - This change was made to make Jellyfish more peaceful and realistic.
+- Mesoglea is now always "waterlogged," maaking it much easier for players to utilize it properly.
+  - Mesoglea will no longer leave a water block behind when broken.
+  - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

@@ -460,8 +460,8 @@
   "tooltip.wilderwild.mesoglea": "Opciones relativas para los distintos tipos de mesoglea",
   "option.wilderwild.mesoglea_bubble_columns": "Generar columnas de burbujas",
   "tooltip.wilderwild.mesoglea_bubble_columns": "Permite la generación de columnas de burbujas dentro de la mesoglea sumergida en agua",
-  "option.wilderwild.mesoglea_liquid": "Renderizar como líquido",
-  "tooltip.wilderwild.mesoglea_liquid": "Renderiza un modelo acuoso de los diferentes tipos de mesoglea cuando están sumergidos en agua",
+  "option.wilderwild.mesoglea_fluid": "Renderizar como líquido",
+  "tooltip.wilderwild.mesoglea_fluid": "Renderiza un modelo acuoso de los diferentes tipos de mesoglea cuando están sumergidos en agua",
 
   "option.wilderwild.termite": "Termiteros",
   "tooltip.wilderwild.termite": "Opciones relativas a los termiteros",

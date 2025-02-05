@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.impl.features;
 
 import com.mojang.serialization.Codec;
+import java.util.List;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.SpongeBudFeatureConfig;
@@ -37,7 +38,6 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.List;
 
 public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 
