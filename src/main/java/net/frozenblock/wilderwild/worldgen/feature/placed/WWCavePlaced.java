@@ -181,7 +181,7 @@ public final class WWCavePlaced {
 		);
 
 		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_BLUE_MESOGLEA.getHolder(),
-			CountPlacement.of(9),
+			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
@@ -199,7 +199,7 @@ public final class WWCavePlaced {
 		);
 
 		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_PURPLE_MESOGLEA.getHolder(),
-			CountPlacement.of(9),
+			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
@@ -339,7 +339,10 @@ public final class WWCavePlaced {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
+				BlockPredicate.anyOf(
+					BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
+					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+				),
 				BlockPredicate.replaceable(),
 				12
 			),

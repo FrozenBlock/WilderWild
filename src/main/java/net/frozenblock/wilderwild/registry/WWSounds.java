@@ -272,7 +272,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
 	public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
 	public static final SoundEvent ENTITY_CRAB_IDLE = register("entity.crab.idle");
-	public static final SoundEvent ENTITY_CRAB_IDLE_RATTLE = register("entity.crab.idle_rattle");
+	public static final SoundEvent ENTITY_CRAB_STEP = register("entity.crab.step");
 	public static final SoundEvent ENTITY_CRAB_ATTACK = register("entity.crab.attack");
 	public static final SoundEvent ENTITY_CRAB_HURT = register("entity.crab.hurt");
 	public static final SoundEvent ENTITY_CRAB_DEATH = register("entity.crab.death");
