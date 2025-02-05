@@ -675,19 +675,6 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final FlowerBlock PURPLE_HIBISCUS = register("purple_hibiscus",
-		properties -> new FlowerBlock(
-			MobEffects.HUNGER,
-			8,
-			properties
-		),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
-	);
-	public static final Block POTTED_PURPLE_HIBISCUS = registerWithoutItem("potted_purple_hibiscus",
-		properties -> new FlowerPotBlock(PURPLE_HIBISCUS, properties),
-		Blocks.flowerPotProperties()
-	);
-
 	public static final PinkPetalsBlock WILDFLOWERS = register("wildflowers",
 		PinkPetalsBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
@@ -1681,7 +1668,7 @@ public final class WWBlocks {
 	@NotNull
 	public static MesogleaBlock mesoglea(String id, @NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
 		MesogleaBlock mesogleaBlock = register(id,
-			properties -> new MesogleaBlock(pearlescent, properties),
+			properties -> new MesogleaBlock(pearlescent, particleType, properties),
 			Properties.of()
 				.mapColor(mapColor)
 				.noOcclusion()
@@ -1693,8 +1680,8 @@ public final class WWBlocks {
 				.isSuffocating(Blocks::never)
 				.isViewBlocking(Blocks::never)
 				.dynamicShape()
+				.pushReaction(PushReaction.DESTROY)
 		);
-		MesogleaBlock.MesogleaParticleRegistry.registerDripParticle(mesogleaBlock, particleType);
 		return mesogleaBlock;
 	}
 
@@ -1823,7 +1810,6 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1850,7 +1836,6 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(YELLOW_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(WHITE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(PINK_HIBISCUS, 60, 100);
-		flammableBlockRegistry.add(PURPLE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
 		flammableBlockRegistry.add(BUSH, 40, 90);

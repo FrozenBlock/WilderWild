@@ -98,7 +98,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(WWBlocks.YELLOW_HIBISCUS, WWBlocks.POTTED_YELLOW_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.WHITE_HIBISCUS, WWBlocks.POTTED_WHITE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createPlant(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createPlant(WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
 		FrozenLibModelHelper.createTintedFlowerBed(generator, WWBlocks.CLOVERS);

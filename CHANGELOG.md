@@ -83,6 +83,14 @@ hi
 - Fixed Wilder Wild's blocks having incorrect flammability values.
 - Removed shallow pools from the Oasis biome as they weren't visually pleasing.
 - Mesoglea features no longer carve "fake caves," instead only generating in areas with Water or Air nearby.
+- Ostriches now drop up to 4 feathers on death.
+- Maple Forests can no longer generate Beta Beaches.
+- Removed the unique Crab spawn cap, using `water_creature` instead.
+- Jellyfish can now only track their attackers within a 4 block range, and forget them after 60 ticks.
+  - This change was made to make Jellyfish more peaceful and realistic.
+- Mesoglea is now always "waterlogged," maaking it much easier for players to utilize it properly.
+  - Mesoglea will no longer leave a water block behind when broken.
+  - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

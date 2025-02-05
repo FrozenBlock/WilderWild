@@ -19,18 +19,14 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
-import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
@@ -44,7 +40,6 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -142,7 +137,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
 	public static final int SPAWN_CHANCE = 30;
 	public static final int SPAWN_CHANCE_COMMON = 90;
-	private static final Map<ResourceKey<Level>, Integer> CRABS_PER_LEVEL = new Object2IntOpenHashMap<>();
 	private static final EntityDataAccessor<String> MOVE_STATE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
@@ -192,41 +186,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
-	public static void clearLevelToCrabCount() {
-		CRABS_PER_LEVEL.clear();
-	}
-
 	public static boolean checkCrabSpawnRules(
 		@NotNull EntityType<Crab> type, @NotNull ServerLevelAccessor level, @NotNull EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
 		if (EntitySpawnReason.isSpawner(spawnType)) return true;
 		if (!WWEntityConfig.get().crab.spawnCrabs) return false;
-		Holder<Biome> biome = level.getBiome(pos);
-		int randomBound = SPAWN_CHANCE;
-		if (!biome.is(WWBiomeTags.HAS_COMMON_CRAB)) {
-			randomBound = SPAWN_CHANCE_COMMON;
-			if (getCrabsPerLevel(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
-				return false;
-			}
-		}
 		int seaLevel = level.getSeaLevel();
-		return random.nextInt(0, randomBound) == 0 && pos.getY() >= seaLevel - 33 && level.getBlockState(pos.below()).is(WWBlockTags.CRAB_HIDEABLE);
-	}
-
-	public static int getCrabsPerLevel(@NotNull ServerLevel level) {
-		AtomicInteger count = new AtomicInteger();
-		ResourceKey<Level> dimension = level.dimension();
-		if (!CRABS_PER_LEVEL.containsKey(dimension)) {
-			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
-				if (entity instanceof Crab) {
-					count.addAndGet(1);
-				}
-			});
-			CRABS_PER_LEVEL.put(dimension, count.get());
-		} else {
-			count.set(CRABS_PER_LEVEL.get(dimension));
-		}
-		return count.get();
+		return pos.getY() >= seaLevel - 33 && level.getBlockState(pos.below()).is(WWBlockTags.CRAB_HIDEABLE);
 	}
 
 	private static float getAngleFromVec3(@NotNull Vec3 vec3) {
@@ -535,10 +501,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel level, @NotNull Entity target) {
-		level.broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
+	protected float nextStep() {
+		return this.moveDist + 0.4F;
+	}
+
+	@Override
+	public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
+		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
 		this.playSound(WWSounds.ENTITY_CRAB_ATTACK, this.getSoundVolume(), this.getVoicePitch());
-		return super.doHurtTarget(level, target);
+		return super.doHurtTarget(serverLevel, entity);
 	}
 
 	@Override

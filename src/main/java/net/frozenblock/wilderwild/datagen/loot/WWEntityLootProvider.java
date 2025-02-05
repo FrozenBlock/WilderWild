@@ -111,7 +111,7 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(Items.FEATHER)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
 				)
@@ -179,7 +179,18 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 		);
 
-		output.accept(WWEntityTypes.FIREFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
-		output.accept(WWEntityTypes.BUTTERFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
+		output.accept(
+			WWEntityTypes.PENGUIN.getDefaultLootTable().orElseThrow(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.FEATHER)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
 	}
 }

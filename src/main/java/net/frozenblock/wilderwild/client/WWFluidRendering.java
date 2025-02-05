@@ -32,7 +32,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
@@ -45,14 +44,7 @@ public final class WWFluidRendering {
 		// Assert that the original handler exists now, otherwise the crash will happen later inside our handler
 		Objects.requireNonNull(originalHandler);
 		var customWaterHandler = new FluidRenderHandler() {
-
-			private boolean isSingleTexture(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-				if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_LIQUID) {
-					BlockState state = view.getBlockState(pos);
-					return state.getBlock() instanceof MesogleaBlock && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
-				}
-				return false;
-			}
+			private final Minecraft minecraft = Minecraft.getInstance();
 
 			@Override
 			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos, FluidState state) {
@@ -61,8 +53,8 @@ public final class WWFluidRendering {
 
 			@Override
 			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState) {
-				if (isSingleTexture(world, pos)) {
-					TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getBlockModelShaper().getParticleIcon(world.getBlockState(pos));
+				if (WWBlockConfig.Client.MESOGLEA_FLUID && blockState.getBlock() instanceof MesogleaBlock) {
+					TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
 					LiquidRenderUtils.tesselateWithSingleTexture(
 						world,
 						pos,
@@ -71,19 +63,26 @@ public final class WWFluidRendering {
 						fluidState,
 						sprite
 					);
-				} else {
-					originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
+					return;
 				}
+				originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
 			}
 
 			// Delegate all other methods to the original
 
 			@Override
 			public int getFluidColor(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos, FluidState state) {
-				return isSingleTexture(view, pos) ? 0xFFFFFFFF : originalHandler.getFluidColor(view, pos, state);
+				return isMesoglea(view, pos) ? 0xFFFFFFFF : originalHandler.getFluidColor(view, pos, state);
 			}
 		};
 
 		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.WATER, Fluids.FLOWING_WATER, customWaterHandler);
+	}
+
+	private static boolean isMesoglea(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
+		if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_FLUID) {
+			return view.getBlockState(pos).getBlock() instanceof MesogleaBlock;
+		}
+		return false;
 	}
 }

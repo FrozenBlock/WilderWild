@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging.client;
+package net.frozenblock.wilderwild.mixin.client.block_break;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -25,10 +25,12 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,9 +48,9 @@ public class MultiPlayerGameModeMixin {
 	)
 	public BlockState wilderWild$destroyBlockA(
 		BlockState original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedStateRef
 	) {
-		destroyedState.set(original);
+		destroyedStateRef.set(original);
 		return original;
 	}
 
@@ -61,10 +63,14 @@ public class MultiPlayerGameModeMixin {
 	)
 	public boolean wilderWild$destroyBlockB(
 		Level instance, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original,
-		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedState
+		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedStateRef
 	) {
-		if (SnowloggingUtils.isSnowlogged(destroyedState.get())) {
-			instance.setBlock(pos, destroyedState.get().setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
+		BlockState destroyedState = destroyedStateRef.get();
+		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
+			instance.setBlock(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
+			return true;
+		} else if (destroyedState.getBlock() instanceof MesogleaBlock) {
+			instance.setBlock(pos, Blocks.AIR.defaultBlockState(), flags);
 			return true;
 		}
 		return original.call(instance, pos, newState, flags);

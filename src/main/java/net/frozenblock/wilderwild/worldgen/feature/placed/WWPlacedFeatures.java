@@ -1570,14 +1570,14 @@ public final class WWPlacedFeatures {
 		);
 
 		HIBISCUS.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS.getHolder(),
-			RarityFilter.onAverageOnceEvery(9),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)),
+			CountPlacement.of(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

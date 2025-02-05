@@ -1084,7 +1084,7 @@ public final class WWMiscConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.GRAVEL),
 							9,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.1D,
 							-0.2D,
 							0.3D,
@@ -1104,7 +1104,7 @@ public final class WWMiscConfigured {
 						new PathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK),
 							9,
-							4,
+							EasyNoiseSampler.NoiseType.XORO,
 							0.1D,
 							-0.21D,
 							0.31D,

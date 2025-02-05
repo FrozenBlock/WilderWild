@@ -1779,9 +1779,6 @@ public final class WWConfiguredFeatures {
 								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
-								Blocks.DANDELION.defaultBlockState(),
-								Blocks.DANDELION.defaultBlockState(),
-								Blocks.DANDELION.defaultBlockState(),
 								WWBlocks.MARIGOLD.defaultBlockState(),
 								WWBlocks.MARIGOLD.defaultBlockState(),
 								WWBlocks.MARIGOLD.defaultBlockState(),
@@ -1898,8 +1895,7 @@ public final class WWConfiguredFeatures {
 						WWBlocks.YELLOW_HIBISCUS.defaultBlockState(),
 						WWBlocks.WHITE_HIBISCUS.defaultBlockState(),
 						WWBlocks.PINK_HIBISCUS.defaultBlockState(),
-						WWBlocks.PURPLE_HIBISCUS.defaultBlockState(),
-						WWBlocks.PURPLE_HIBISCUS.defaultBlockState()
+						WWBlocks.PINK_HIBISCUS.defaultBlockState()
 					)
 				)
 			)
@@ -1914,7 +1910,7 @@ public final class WWConfiguredFeatures {
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				16,
+				32,
 				hibiscusNoise
 			)
 		);
@@ -1928,7 +1924,7 @@ public final class WWConfiguredFeatures {
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
 						new NoiseProvider(2345L,
-							new NormalNoise.NoiseParameters(0, 1.0F), 0.020833334F,
+							new NormalNoise.NoiseParameters(0, 1F), 0.020833334F,
 							List.of(
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
@@ -1951,8 +1947,6 @@ public final class WWConfiguredFeatures {
 				)
 			)
 		);
-
-
 
 		MOSS_CARPET.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
@@ -2019,8 +2013,7 @@ public final class WWConfiguredFeatures {
 								WWBlocks.MILKWEED.defaultBlockState(),
 								Blocks.ROSE_BUSH.defaultBlockState(),
 								WWBlocks.MILKWEED.defaultBlockState(),
-								Blocks.LILAC.defaultBlockState(),
-								Blocks.PEONY.defaultBlockState()
+								Blocks.LILAC.defaultBlockState()
 							)
 						)
 					)
@@ -2174,6 +2167,7 @@ public final class WWConfiguredFeatures {
 								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
+								Blocks.BLUE_ORCHID.defaultBlockState(),
 								Blocks.BLUE_ORCHID.defaultBlockState()
 							)
 						)
@@ -2198,8 +2192,7 @@ public final class WWConfiguredFeatures {
 								WWBlocks.DATURA.defaultBlockState(),
 								Blocks.ROSE_BUSH.defaultBlockState(),
 								WWBlocks.MILKWEED.defaultBlockState(),
-								Blocks.LILAC.defaultBlockState(),
-								Blocks.PEONY.defaultBlockState()
+								Blocks.LILAC.defaultBlockState()
 							)
 						)
 					)
@@ -2275,7 +2268,6 @@ public final class WWConfiguredFeatures {
 								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								Blocks.ALLIUM.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.BLUE_ORCHID.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState()
@@ -2301,9 +2293,7 @@ public final class WWConfiguredFeatures {
 							List.of(
 								WWBlocks.DATURA.defaultBlockState(),
 								WWBlocks.MILKWEED.defaultBlockState(),
-								Blocks.ROSE_BUSH.defaultBlockState(),
-								Blocks.LILAC.defaultBlockState(),
-								Blocks.PEONY.defaultBlockState()
+								Blocks.ROSE_BUSH.defaultBlockState()
 							)
 						)
 					)

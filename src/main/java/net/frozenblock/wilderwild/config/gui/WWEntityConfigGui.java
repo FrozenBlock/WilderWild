@@ -309,18 +309,6 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
-		var crabSpawnCap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("crab_spawn_cap"), modifiedCrab.crabSpawnCap, 1, 100)
-				.setDefaultValue(defaultConfig.crab.crabSpawnCap)
-				.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
-				.setTooltip(tooltip("crab_spawn_cap"))
-				.requireRestart()
-				.build(),
-			crab.getClass(),
-			"crabSpawnCap",
-			configInstance
-		);
-
 		var reachAffectsAttack = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("reach_affects_attack"), modifiedCrab.reachAffectsAttack)
 				.setDefaultValue(defaultConfig.crab.reachAffectsAttack)
@@ -336,7 +324,7 @@ public final class WWEntityConfigGui {
 		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
 			false,
 			tooltip("crab"),
-			spawnCrabs, crabSpawnCap, reachAffectsAttack
+			spawnCrabs, reachAffectsAttack
 		);
 
 		var spawnOstriches = FrozenClothConfig.syncedEntry(

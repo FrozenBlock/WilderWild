@@ -9,8 +9,7 @@
       "state": {
         "Name": "wilderwild:purple_pearlescent_mesoglea",
         "Properties": {
-          "bubble_direction": "none",
-          "waterlogged": "true"
+          "bubble_direction": "none"
         }
       }
     },

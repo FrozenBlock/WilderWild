@@ -181,7 +181,7 @@ public final class WWCaveConfigured {
 
 		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.UPWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState(),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
 					Block::builtInRegistryHolder,
@@ -194,7 +194,7 @@ public final class WWCaveConfigured {
 
 		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.UPWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState(),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
 					Block::builtInRegistryHolder,
@@ -207,7 +207,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState(),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
 					Block::builtInRegistryHolder,
@@ -220,7 +220,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.DOWNWARDS_COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
+				WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState(),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
 					Block::builtInRegistryHolder,
@@ -233,7 +233,7 @@ public final class WWCaveConfigured {
 
 		BLUE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
 			new AirOrWaterInAreaPathFeatureConfig(
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				12,
 				EasyNoiseSampler.NoiseType.LOCAL,
 				0.025,
@@ -253,7 +253,7 @@ public final class WWCaveConfigured {
 
 		PURPLE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
 			new AirOrWaterInAreaPathFeatureConfig(
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				12,
 				EasyNoiseSampler.NoiseType.LOCAL,
 				0.025,
@@ -275,7 +275,7 @@ public final class WWCaveConfigured {
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 10),
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				UniformFloat.of(0.2F, 0.75F),
 				0.15F,
 				UniformFloat.of(0.1F, 0.25F),
@@ -290,7 +290,7 @@ public final class WWCaveConfigured {
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 10),
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				UniformFloat.of(0.2F, 0.75F),
 				0.15F,
 				UniformFloat.of(0.1F, 0.25F),
@@ -304,7 +304,7 @@ public final class WWCaveConfigured {
 		BLUE_MESOGLEA_WITH_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -319,7 +319,7 @@ public final class WWCaveConfigured {
 		BLUE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -341,7 +341,7 @@ public final class WWCaveConfigured {
 		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				PlacementUtils.inlinePlaced(DOWNWARDS_BLUE_MESOGLEA_COLUMN.getHolder()),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -356,7 +356,7 @@ public final class WWCaveConfigured {
 		PURPLE_MESOGLEA_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -371,7 +371,7 @@ public final class WWCaveConfigured {
 		PURPLE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 				CaveSurface.FLOOR,
 				ConstantInt.of(3),
@@ -393,7 +393,7 @@ public final class WWCaveConfigured {
 		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				PlacementUtils.inlinePlaced(DOWNWARDS_PURPLE_MESOGLEA_COLUMN.getHolder()),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -439,7 +439,7 @@ public final class WWCaveConfigured {
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 19),
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				UniformFloat.of(0.2F, 2.0F),
 				0.33F,
 				UniformFloat.of(0.1F, 0.9F),
@@ -454,7 +454,7 @@ public final class WWCaveConfigured {
 			new LargeMesogleaConfig(
 				30,
 				UniformInt.of(3, 19),
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
 				UniformFloat.of(0.2F, 2.0F),
 				0.33F,
 				UniformFloat.of(0.1F, 0.9F),

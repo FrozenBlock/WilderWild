@@ -2,20 +2,19 @@ Luna/Lunade/AViewFromTheTop:
  - Lead developer & gameplay designer & idea generator (not gonna take the time to explain everything I did.)
  - Worldgen (don't forget Soro's worldgen, too!)
  - Crab entity, Reach Boost (2.2-2.4.3), and Wind particle textures.
+ - Final Hibiscus textures.
  - Sounds (2.2 onwards.)
  - QA.
  - Etc., etc.
 
 Treetrain1:
- - Porting the mod to newer Minecraft versions (THANK YOU TREE.)
+ - Porting the mod to newer Minecraft versions.
  - Bug fixer for more complex/technical issues.
  - Gradle work and fixes.
  - Lots of mixin help.
  - Jellyfish AI.
  - Initial Firefly AI.
  - QA.
- - Tons of other fixes and tweaks and reorganization, etc., etc.
- - He's a genius.
 
 Soro:
  - Initial biome additions.
@@ -114,7 +113,7 @@ Shadownite64:
  - Inbred Ostrich sound suggestions.
 
 blipinthecosmo5:
- - Final Hibiscus textures.
+ - Hibiscus reference textures.
 
 SaishoVibes:
  - Initial configs.

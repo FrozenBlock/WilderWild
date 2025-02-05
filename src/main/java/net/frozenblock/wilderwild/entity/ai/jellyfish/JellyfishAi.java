@@ -81,7 +81,7 @@ public class JellyfishAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic<>(2.0F),
+				new AnimalPanic<>(2F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink()
 			)
@@ -98,7 +98,10 @@ public class JellyfishAi {
 				new RunOne<>(
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 					ImmutableList.of(
-						Pair.of(BehaviorBuilder.triggerIf(jellyfish1 -> jellyfish1.getTarget() == null && jellyfish1.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1.0F))), 2),
+						Pair.of(
+							BehaviorBuilder.triggerIf(jellyfish1 -> jellyfish1.getTarget() == null && jellyfish1.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1F))),
+							2
+						),
 						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 1),
 						Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 1)
 					)
@@ -133,7 +136,7 @@ public class JellyfishAi {
 	}
 
 	private static float getSpeedModifierChasing(@NotNull LivingEntity livingEntity) {
-		return 2F;
+		return 1.5F;
 	}
 
 	private static void onTargetInvalid(ServerLevel level, @NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {

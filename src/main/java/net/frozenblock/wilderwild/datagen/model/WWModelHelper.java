@@ -90,11 +90,6 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.TEXTURE
 	);
-	private static final ModelTemplate WATERLOGGED_MESOGLEA_MODEL = new ModelTemplate(
-		Optional.of(WWConstants.id("block/template_mesoglea")),
-		Optional.of("_waterlogged"),
-		TextureSlot.TEXTURE
-	);
 	private static final ModelTemplate NEMATOCYST_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_nematocyst")),
 		Optional.empty(),
@@ -176,19 +171,9 @@ public final class WWModelHelper {
 	public static void createMesoglea(@NotNull BlockModelGenerators generator, Block mesogleaBlock) {
 		TextureMapping mesogleaTextureMapping = new TextureMapping();
 		mesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock));
-
-		TextureMapping waterloggedMesogleaTextureMapping = new TextureMapping();
-		waterloggedMesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock, "_waterlogged"));
-
 		ResourceLocation modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
-		ResourceLocation waterloggedModelId = WATERLOGGED_MESOGLEA_MODEL.create(mesogleaBlock, waterloggedMesogleaTextureMapping, generator.modelOutput);
 
-		MultiVariantGenerator multiVariantGenerator = MultiVariantGenerator.multiVariant(mesogleaBlock)
-			.with(PropertyDispatch.property(BlockStateProperties.WATERLOGGED)
-				.select(false, Variant.variant().with(VariantProperties.MODEL, modelId))
-				.select(true, Variant.variant().with(VariantProperties.MODEL, waterloggedModelId))
-			);
-		generator.blockStateOutput.accept(multiVariantGenerator);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(mesogleaBlock, modelId));
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(mesogleaBlock.asItem()), new DelegatedModel(modelId));
 	}
 
