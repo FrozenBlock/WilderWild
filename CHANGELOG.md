@@ -91,6 +91,7 @@ hi
 - Mesoglea is now always "waterlogged," maaking it much easier for players to utilize it properly.
   - Mesoglea will no longer leave a water block behind when broken.
   - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
+- Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

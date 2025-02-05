@@ -133,10 +133,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 	public static final float DIGGING_PARTICLE_OFFSET = 0.25F;
 	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.2F;
-	public static final float RATTLE_SOUND_CHANCE = 0.375F;
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
-	public static final int SPAWN_CHANCE = 30;
-	public static final int SPAWN_CHANCE_COMMON = 90;
 	private static final EntityDataAccessor<String> MOVE_STATE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
@@ -481,15 +478,20 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return WWSounds.ENTITY_CRAB_DEATH;
 	}
 
+	@Override
+	protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+		this.playSound(WWSounds.ENTITY_CRAB_STEP, 0.3F, this.getVoicePitch());
+	}
+
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return (this.isHidingUnderground() || this.random.nextFloat() <= RATTLE_SOUND_CHANCE) ? WWSounds.ENTITY_CRAB_IDLE_RATTLE : WWSounds.ENTITY_CRAB_IDLE;
+		return this.isHidingUnderground() ? null : WWSounds.ENTITY_CRAB_IDLE;
 	}
 
 	@Override
 	public int getAmbientSoundInterval() {
-		return 240;
+		return 400;
 	}
 
 	@Override
@@ -502,7 +504,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	protected float nextStep() {
-		return this.moveDist + 0.4F;
+		return this.moveDist + 0.55F;
 	}
 
 	@Override
