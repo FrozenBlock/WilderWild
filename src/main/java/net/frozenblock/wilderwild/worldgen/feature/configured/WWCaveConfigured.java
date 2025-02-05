@@ -631,7 +631,7 @@ public final class WWCaveConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenLibFeatures.FADING_DISK_FEATURE,
 						new FadingDiskFeatureConfig(
-							true,
+							false,
 							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 							UniformInt.of(2, 4),
@@ -726,7 +726,7 @@ public final class WWCaveConfigured {
 					PlacementUtils.inlinePlaced(
 						FrozenLibFeatures.FADING_DISK_FEATURE,
 						new FadingDiskFeatureConfig(
-							true,
+							false,
 							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							UniformInt.of(2, 4),
