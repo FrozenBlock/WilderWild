@@ -1884,8 +1884,10 @@ public final class WWConfiguredFeatures {
 					0.088833334F,
 					List.of(
 						WWBlocks.RED_HIBISCUS.defaultBlockState(),
+						WWBlocks.RED_HIBISCUS.defaultBlockState(),
 						WWBlocks.YELLOW_HIBISCUS.defaultBlockState(),
 						WWBlocks.WHITE_HIBISCUS.defaultBlockState(),
+						WWBlocks.PINK_HIBISCUS.defaultBlockState(),
 						WWBlocks.PINK_HIBISCUS.defaultBlockState()
 					)
 				)
