@@ -92,6 +92,10 @@ hi
   - Mesoglea will no longer leave a water block behind when broken.
   - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
+- Added the Phlox flower.
+  - Generates alongside Wildflowers in Birch Forest biomes.
+  - Generates occasionally in Dark Forest biomes.
+  - Can be crafted into Purple Dye.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

@@ -53,6 +53,7 @@ Zhen:
  - Willow textures
  - Polished Gabbro, Gabbro Bricks, Chiseled Gabbro Bricks, Mossy Gabbro Bricks, and Cracked Gabbro Bricks textures.
  - Clovers textures.
+ - Phlox Texture.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
