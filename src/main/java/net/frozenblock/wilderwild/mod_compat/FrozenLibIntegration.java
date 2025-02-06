@@ -277,7 +277,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		);
 
 		WindManager.addExtension(WWWindManager.TYPE);
-		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
+		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, equipmentSlot) -> true, true);
 
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, WWSoundTypes.FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, WWSoundTypes.LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);

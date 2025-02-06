@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#minecraft:dead_bush_may_place_on",
+      "id": "#minecraft:dry_vegetation_may_place_on",
       "required": false
     }
   ]

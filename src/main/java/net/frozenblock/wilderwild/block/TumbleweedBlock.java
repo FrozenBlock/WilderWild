@@ -104,7 +104,7 @@ public class TumbleweedBlock extends VegetationBlock implements SimpleWaterlogge
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
+		return state.is(BlockTags.DRY_VEGETATION_MAY_PLACE_ON);
 	}
 
 	@Override

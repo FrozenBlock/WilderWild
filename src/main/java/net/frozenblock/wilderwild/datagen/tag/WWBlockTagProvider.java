@@ -530,7 +530,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ECHO_GLASS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON)
-			.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
+			.addOptionalTag(BlockTags.DRY_VEGETATION_MAY_PLACE_ON);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)
 			.add(Blocks.SHORT_GRASS)
