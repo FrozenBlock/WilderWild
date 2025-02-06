@@ -1,0 +1,132 @@
+{
+  "values": [
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:jungle",
+    "minecraft:bamboo_jungle",
+    "minecraft:sparse_jungle",
+    "minecraft:windswept_forest",
+    "minecraft:windswept_hills",
+    "minecraft:windswept_gravelly_hills",
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:snowy_plains",
+    "minecraft:mushroom_fields",
+    "minecraft:frozen_ocean",
+    "minecraft:taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:dark_forest",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:river",
+    "minecraft:frozen_river",
+    "minecraft:beach",
+    "minecraft:snowy_beach",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:windswept_savanna",
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:warm_ocean",
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean",
+    "minecraft:frozen_ocean",
+    "minecraft:deep_frozen_ocean",
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:parched_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_beach",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_river",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_dark_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:tundra",
+      "required": false
+    },
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
+    },
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    }
+  ]
+}

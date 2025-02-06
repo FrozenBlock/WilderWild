@@ -28,7 +28,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
 	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
 	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("entity/spawn/common_butterfly");
-	public static final TagKey<Biome> HAS_FIREFLY = bind("entity/spawn/firefly");
 	public static final TagKey<Biome> HAS_JELLYFISH = bind("entity/spawn/jellyfish");
 	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("entity/spawn/jellyfish_special_spawn");
 	public static final TagKey<Biome> HAS_MOOBLOOM = bind("entity/spawn/moobloom");
@@ -252,6 +251,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_DRY_GRASS_DESERT = bind("feature/has_dry_grass_desert");
 	public static final TagKey<Biome> HAS_DRY_GRASS_BEACH = bind("feature/has_dry_grass_beach");
 	public static final TagKey<Biome> HAS_DRY_GRASS_BETA_BEACH = bind("feature/has_dry_grass_beta_beach");
+	public static final TagKey<Biome> HAS_FIREFLY_BUSH = bind("feature/has_firefly_bush");
+	public static final TagKey<Biome> HAS_FIREFLY_BUSH_SWAMP = bind("feature/has_firefly_bush_swamp");
 	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("feature/has_common_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE_COMMON = bind("feature/has_stone_pile_common");

@@ -320,6 +320,9 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BADLANDS = register("patch_dry_grass_badlands");
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BEACH = register("patch_dry_grass_beach");
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BETA_BEACH = register("patch_dry_grass_beta_beach");
+	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_NEAR_WATER = register("patch_firefly_bush_near_water");
+	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP = register("patch_firefly_bush_near_water_swamp");
+	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_SWAMP = register("patch_firefly_bush_swamp");
 
 	private WWPlacedFeatures() {
 		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
@@ -1969,6 +1972,27 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(sandNearby),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		PATCH_FIREFLY_BUSH_NEAR_WATER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH_NEAR_WATER),
+			RarityFilter.onAverageOnceEvery(6),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH),
+			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome(),
+			VegetationFeatures.nearWaterPredicate(Blocks.FIREFLY_BUSH)
+		);
+
+		PATCH_FIREFLY_BUSH_SWAMP.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH),
+			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
 		);

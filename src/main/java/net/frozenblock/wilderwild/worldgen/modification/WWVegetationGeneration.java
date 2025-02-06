@@ -322,6 +322,23 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
 						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIREFLY_BUSH)) {
+							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
+							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP);
+							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_SWAMP);
+
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FIREFLY_BUSH_NEAR_WATER.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIREFLY_BUSH_SWAMP)) {
+							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
+							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP);
+							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_SWAMP);
+
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FIREFLY_BUSH_SWAMP.getKey());
+						}
 					}
 			});
 	}

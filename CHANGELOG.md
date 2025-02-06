@@ -217,3 +217,4 @@ hi
 - Renamed Wilder Wild's `Bush` to `Shrub.`
 - Updated all Maple Leaf Litters to be consistent with Vanilla's new Leaf Litter block.
 - Dry Grass now generates on Beaches.
+- Firefly Bushes now generate in Mangrove Swamps.
