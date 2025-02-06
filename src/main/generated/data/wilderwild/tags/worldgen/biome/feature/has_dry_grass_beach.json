@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:beach",
+    {
+      "id": "wilderwild:warm_beach",
+      "required": false
+    },
+    {
+      "id": "wilderwild:arid_forest",
+      "required": false
+    }
+  ]
+}

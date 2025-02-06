@@ -147,6 +147,7 @@ public final class AridSavanna extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addSavannaExtraGrass(features);
+		BiomeDefaultFeatures.addDesertVegetation(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ARID_CACTUS_PLACED.getKey());

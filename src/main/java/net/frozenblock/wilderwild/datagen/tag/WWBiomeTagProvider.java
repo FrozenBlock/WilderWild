@@ -1639,6 +1639,25 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WOODED_BADLANDS)
 			.add(Biomes.ERODED_BADLANDS);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRY_GRASS_BADLANDS)
+			.add(Biomes.BADLANDS)
+			.add(Biomes.WOODED_BADLANDS)
+			.add(Biomes.ERODED_BADLANDS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRY_GRASS_DESERT)
+			.add(Biomes.DESERT)
+			.addOptional(WWBiomes.ARID_SAVANNA)
+			.addOptional(WWBiomes.ARID_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRY_GRASS_BEACH)
+			.add(Biomes.BEACH)
+			.addOptional(WWBiomes.WARM_BEACH)
+			.addOptional(WWBiomes.ARID_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRY_GRASS_BETA_BEACH)
+			.addOptionalTag(WWBiomeTags.SAND_BEACHES)
+			.addOptionalTag(WWBiomeTags.MULTI_LAYER_SAND_BEACHES);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MOSS_PILE)
 			.add(Biomes.SPARSE_JUNGLE)
 			.add(Biomes.BAMBOO_JUNGLE)

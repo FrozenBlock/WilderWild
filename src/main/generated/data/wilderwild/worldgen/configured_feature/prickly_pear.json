@@ -42,7 +42,7 @@
                     "age": "3"
                   }
                 },
-                "weight": 4
+                "weight": 2
               },
               {
                 "data": {
@@ -51,7 +51,7 @@
                     "age": "0"
                   }
                 },
-                "weight": 2
+                "weight": 3
               }
             ]
           }
@@ -67,7 +67,7 @@
         }
       ]
     },
-    "tries": 20,
+    "tries": 15,
     "xz_spread": 7,
     "y_spread": 3
   }

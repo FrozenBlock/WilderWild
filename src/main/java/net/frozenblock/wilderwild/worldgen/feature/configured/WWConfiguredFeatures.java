@@ -49,7 +49,10 @@ import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -331,13 +334,14 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = WWFeatureUtils.register("patch_cactus_oasis");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = WWFeatureUtils.register("patch_cactus_tall");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = WWFeatureUtils.register("patch_cactus_tall_badlands");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DRY_GRASS_SPARSE_ON_SAND = WWFeatureUtils.register("dry_grass_sparse_on_sand");
 
 	public static final WeightedList<BlockState> PRICKLY_PEAR_POOL = WeightedList.<BlockState>builder()
 		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
 		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
 		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
-		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 4)
-		.add(Blocks.CACTUS.defaultBlockState(), 2)
+		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 2)
+		.add(Blocks.CACTUS.defaultBlockState(), 3)
 		.build();
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PRICKLY_PEAR = WWFeatureUtils.register("prickly_pear");
@@ -3098,9 +3102,17 @@ public final class WWConfiguredFeatures {
 				10,
 				PlacementUtils.inlinePlaced(
 					Feature.BLOCK_COLUMN,
-					BlockColumnConfiguration.simple(
-						BiasedToBottomInt.of(3, 5),
-						BlockStateProvider.simple(Blocks.CACTUS)
+					new BlockColumnConfiguration(
+						List.of(
+							BlockColumnConfiguration.layer(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)),
+							BlockColumnConfiguration.layer(
+								new WeightedListInt(WeightedList.<IntProvider>builder().add(ConstantInt.of(0), 3).add(ConstantInt.of(1), 1).build()),
+								BlockStateProvider.simple(Blocks.CACTUS_FLOWER)
+							)
+						),
+						Direction.UP,
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						false
 					),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
@@ -3117,9 +3129,17 @@ public final class WWConfiguredFeatures {
 				8,
 				PlacementUtils.inlinePlaced(
 					Feature.BLOCK_COLUMN,
-					BlockColumnConfiguration.simple(
-						BiasedToBottomInt.of(4, 5),
-						BlockStateProvider.simple(Blocks.CACTUS)
+					new BlockColumnConfiguration(
+						List.of(
+							BlockColumnConfiguration.layer(BiasedToBottomInt.of(4, 5), BlockStateProvider.simple(Blocks.CACTUS)),
+							BlockColumnConfiguration.layer(
+								new WeightedListInt(WeightedList.<IntProvider>builder().add(ConstantInt.of(0), 4).add(ConstantInt.of(1), 1).build()),
+								BlockStateProvider.simple(Blocks.CACTUS_FLOWER)
+							)
+						),
+						Direction.UP,
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						false
 					),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
@@ -3136,9 +3156,17 @@ public final class WWConfiguredFeatures {
 				12,
 				PlacementUtils.inlinePlaced(
 					Feature.BLOCK_COLUMN,
-					BlockColumnConfiguration.simple(
-						BiasedToBottomInt.of(2, 6),
-						BlockStateProvider.simple(Blocks.CACTUS)
+					new BlockColumnConfiguration(
+						List.of(
+							BlockColumnConfiguration.layer(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)),
+							BlockColumnConfiguration.layer(
+								new WeightedListInt(WeightedList.<IntProvider>builder().add(ConstantInt.of(0), 4).add(ConstantInt.of(1), 1).build()),
+								BlockStateProvider.simple(Blocks.CACTUS_FLOWER)
+							)
+						),
+						Direction.UP,
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						false
 					),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
@@ -3150,9 +3178,27 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		DRY_GRASS_SPARSE_ON_SAND.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				28,
+				PlacementUtils.filtered(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new WeightedStateProvider(
+							WeightedList.<BlockState>builder().add(Blocks.SHORT_DRY_GRASS.defaultBlockState(), 1).add(Blocks.TALL_DRY_GRASS.defaultBlockState(), 1)
+						)
+					),
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SAND)
+					)
+				)
+			)
+		);
+
 		PRICKLY_PEAR.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				20,
+				15,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(PRICKLY_PEAR_POOL))

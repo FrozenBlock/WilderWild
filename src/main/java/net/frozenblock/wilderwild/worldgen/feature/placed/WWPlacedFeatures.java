@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.worldgen.feature.configured.WWConfiguredFeatur
 import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
@@ -306,6 +307,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature SPONGE_BUDS_RARE = register("sponge_buds_rare");
 	public static final FrozenLibPlacedFeature PATCH_MELON = register("patch_melon");
 	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
+	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_DESERT = register("patch_dry_grass_desert");
+	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BADLANDS = register("patch_dry_grass_badlands");
+	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BEACH = register("patch_dry_grass_beach");
+	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BETA_BEACH = register("patch_dry_grass_beta_beach");
 
 	private WWPlacedFeatures() {
 		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
@@ -1857,6 +1862,43 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_DRY_GRASS_BADLANDS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_DRY_GRASS),
+			RarityFilter.onAverageOnceEvery(6),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		PATCH_DRY_GRASS_DESERT.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_DRY_GRASS),
+			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		PATCH_DRY_GRASS_BEACH.makeAndSetHolder(WWConfiguredFeatures.DRY_GRASS_SPARSE_ON_SAND.getHolder(),
+			RarityFilter.onAverageOnceEvery(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		BlockPredicate sandNearby = BlockPredicate.allOf(
+			BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.SAND),
+			BlockPredicate.matchesBlocks(new Vec3i(-1, -1, 0), Blocks.SAND),
+			BlockPredicate.matchesBlocks(new Vec3i(0, -1, -1), Blocks.SAND),
+			BlockPredicate.matchesBlocks(new Vec3i(1, -1, 0), Blocks.SAND),
+			BlockPredicate.matchesBlocks(new Vec3i(0, -1, 1), Blocks.SAND)
+		);
+
+		PATCH_DRY_GRASS_BETA_BEACH.makeAndSetHolder(WWConfiguredFeatures.DRY_GRASS_SPARSE_ON_SAND.getHolder(),
+			RarityFilter.onAverageOnceEvery(2),
+			InSquarePlacement.spread(),
+			BlockPredicateFilter.forPredicate(sandNearby),
+			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
 		);
 	}

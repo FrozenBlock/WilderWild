@@ -239,6 +239,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_PRICKLY_PEAR = bind("feature/has_prickly_pear");
 	public static final TagKey<Biome> HAS_RARE_PRICKLY_PEAR = bind("feature/has_rare_prickly_pear");
 	public static final TagKey<Biome> HAS_TALL_BADLANDS_CACTUS = bind("feature/has_tall_badlands_cactus");
+	public static final TagKey<Biome> HAS_DRY_GRASS_BADLANDS = bind("feature/has_dry_grass_badlands");
+	public static final TagKey<Biome> HAS_DRY_GRASS_DESERT = bind("feature/has_dry_grass_desert");
+	public static final TagKey<Biome> HAS_DRY_GRASS_BEACH = bind("feature/has_dry_grass_beach");
+	public static final TagKey<Biome> HAS_DRY_GRASS_BETA_BEACH = bind("feature/has_dry_grass_beta_beach");
 	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("feature/has_common_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE_COMMON = bind("feature/has_stone_pile_common");

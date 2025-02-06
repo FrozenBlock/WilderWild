@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:desert",
+    {
+      "id": "wilderwild:arid_savanna",
+      "required": false
+    },
+    {
+      "id": "wilderwild:arid_forest",
+      "required": false
+    }
+  ]
+}

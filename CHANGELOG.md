@@ -208,3 +208,4 @@ hi
 - Increased the frequency of Wilder Wild's falling leaves.
 - Renamed Wilder Wild's `Bush` to `Shrub.`
 - Updated all Maple Leaf Litters to be consistent with Vanilla's new Leaf Litter block.
+- Dry Grass now generates on Beaches.

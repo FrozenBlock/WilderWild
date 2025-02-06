@@ -380,6 +380,25 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MYCELIUM_GROWTH)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MYCELIUM_GROWTH_PLACED.getKey());
 						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_BADLANDS)) {
+							generationSettings.removeFeature(VegetationPlacements.PATCH_DRY_GRASS_BADLANDS);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DRY_GRASS_BADLANDS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_DESERT)) {
+							generationSettings.removeFeature(VegetationPlacements.PATCH_DRY_GRASS_DESERT);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DRY_GRASS_DESERT.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_BEACH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DRY_GRASS_BEACH.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_BETA_BEACH)) {
+							generationSettings.removeFeature(VegetationPlacements.PATCH_DRY_GRASS_DESERT);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DRY_GRASS_BETA_BEACH.getKey());
+						}
 					}
 				});
 	}
