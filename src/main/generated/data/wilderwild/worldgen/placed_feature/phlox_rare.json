@@ -1,13 +1,9 @@
 {
-  "feature": "wilderwild:wildflowers",
+  "feature": "wilderwild:phlox",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 2,
-        "min_inclusive": 1
-      }
+      "type": "minecraft:rarity_filter",
+      "chance": 4
     },
     {
       "type": "minecraft:in_square"

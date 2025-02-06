@@ -137,8 +137,18 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS)) {
+						boolean hasWildflowers = biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS);
+						boolean hasPhlox = biomeSelectionContext.hasTag(WWBiomeTags.HAS_PHLOX);
+						if (hasWildflowers && hasPhlox) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_AND_PHLOX.getKey());
+						} else if (hasWildflowers) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS.getKey());
+						} else if (hasPhlox) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PHLOX.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PHLOX_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PHLOX_RARE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPARSE_WILDFLOWERS)) {

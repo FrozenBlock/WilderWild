@@ -473,6 +473,11 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_WILDFLOWERS = Blocks.flowerPot(WILDFLOWERS);
 
+	public static final PinkPetalsBlock PHLOX = new PinkPetalsBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
+	public static final Block POTTED_PHLOX = Blocks.flowerPot(PHLOX);
+
 	public static final PinkPetalsBlock CLOVERS = new PinkPetalsBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
 			.sound(SoundType.GRASS)
@@ -1428,6 +1433,9 @@ public final class WWBlocks {
 
 		registerBlockAfter(Items.PINK_PETALS, "wildflowers", WILDFLOWERS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_wildflowers", POTTED_WILDFLOWERS);
+
+		registerBlockAfter(WILDFLOWERS, "phlox", PHLOX, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_phlox", POTTED_PHLOX);
 
 		registerBlockAfter(Items.FERN, "clovers", CLOVERS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_clovers", POTTED_CLOVERS);

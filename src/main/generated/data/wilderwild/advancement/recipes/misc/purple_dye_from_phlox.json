@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_phlox": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:phlox"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:purple_dye_from_phlox"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_phlox"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:purple_dye_from_phlox"
+    ]
+  }
+}

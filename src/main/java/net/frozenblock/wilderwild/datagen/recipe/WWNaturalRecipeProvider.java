@@ -34,6 +34,8 @@ import org.jetbrains.annotations.Nullable;
 public final class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeOutput exporter) {
+		oneToOneConversionRecipe(exporter, Items.PURPLE_DYE, WWBlocks.PHLOX, "purple_dye");
+
 		oneToOneConversionRecipe(exporter, Items.YELLOW_DYE, WWBlocks.WILDFLOWERS, "yellow_dye");
 
 		oneToOneConversionRecipe(exporter, Items.RED_DYE, WWBlocks.RED_HIBISCUS, "red_dye");

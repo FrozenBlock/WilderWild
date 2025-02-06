@@ -1,7 +1,5 @@
 {
   "values": [
-    "minecraft:birch_forest",
-    "minecraft:old_growth_birch_forest",
     "minecraft:flower_forest",
     "minecraft:forest",
     "minecraft:dark_forest",
@@ -9,17 +7,8 @@
     "minecraft:jungle",
     "minecraft:bamboo_jungle",
     "minecraft:mangrove_swamp",
-    "minecraft:meadow",
-    {
-      "id": "wilderwild:birch_taiga",
-      "required": false
-    },
     {
       "id": "wilderwild:dark_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:semi_birch_forest",
       "required": false
     },
     {

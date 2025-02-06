@@ -1,12 +1,12 @@
 {
-  "feature": "wilderwild:wildflowers",
+  "feature": "wilderwild:phlox",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "max_inclusive": 2,
-        "min_inclusive": 1
+        "min_inclusive": 0
       }
     },
     {
