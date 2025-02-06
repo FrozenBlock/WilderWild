@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lantanas": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:lantanas"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:orange_dye_from_lantanas"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lantanas"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:orange_dye_from_lantanas"
+    ]
+  }
+}

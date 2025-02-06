@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "wilderwild:wildflowers",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.3,
+        "feature": {
+          "feature": "wilderwild:phlox",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

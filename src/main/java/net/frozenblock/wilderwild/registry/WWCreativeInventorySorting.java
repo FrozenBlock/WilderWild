@@ -238,7 +238,8 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
 		addAfterInNaturalBlocks(Items.PINK_PETALS, WWBlocks.WILDFLOWERS);
-
+		addAfterInNaturalBlocks(WWBlocks.WILDFLOWERS, WWBlocks.PHLOX);
+		addAfterInNaturalBlocks(WWBlocks.PHLOX, WWBlocks.LANTANAS);
 		// TALL FLOWERS
 		addAfterInNaturalBlocks(Items.PEONY, WWBlocks.DATURA);
 		addAfterInNaturalBlocks(WWBlocks.DATURA, WWBlocks.MILKWEED);

@@ -95,6 +95,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlantWithDefaultItem(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
+		generator.createFlowerBed(WWBlocks.PHLOX);
+		generator.createFlowerBed(WWBlocks.LANTANAS);
 		FrozenLibModelHelper.createTintedFlowerBed(generator, WWBlocks.CLOVERS);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);

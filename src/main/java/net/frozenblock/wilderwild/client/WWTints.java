@@ -46,6 +46,10 @@ public final class WWTints {
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_PINK_PETALS);
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.WILDFLOWERS);
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_WILDFLOWERS);
+		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.PHLOX);
+		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_PHLOX);
+		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.LANTANAS);
+		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_LANTANAS);
 		ColorProviderRegistry.BLOCK.register(tintedFlowerBedProvider, WWBlocks.CLOVERS);
 		ColorProviderRegistry.BLOCK.register(tintedFlowerBedProvider, WWBlocks.POTTED_CLOVERS);
 
