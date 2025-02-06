@@ -1,9 +1,5 @@
 {
   "values": [
-    "minecraft:sunflower_plains",
-    {
-      "id": "#c:is_birch_forest",
-      "required": false
-    }
+    "minecraft:sunflower_plains"
   ]
 }

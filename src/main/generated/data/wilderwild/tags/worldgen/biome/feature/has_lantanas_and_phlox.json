@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:old_growth_birch_forest",
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    }
+  ]
+}
