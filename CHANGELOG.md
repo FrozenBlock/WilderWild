@@ -77,9 +77,11 @@ hi
 - Fixed some of Wilder Wild's custom Flower Pot models not using correct particle textures.
 - Pink Petals can now be placed into Flower Pots.
 - Backported Wildflowers.
-  - Wildflowers generate in biomes in the `wilderwild:feature/has_wildflowers` and `wilderwild:feature/has_sparse_wildflowers` tags.
+  - Generates in Birch Forest, Meadow, and Sunflower Plains biomes..
+  - Can be crafted into Yellow Dye.
 - Added Clovers.
-  - Clovers generate in biomes in the `wilderwild:feature/has_clovers` tag.
+  - Clovers generate commonly in biomes in the `wilderwild:feature/has_clovers` tag.
+  - Clovers generate less commonly in biomes in the `wilderwild:feature/has_clovers_sparse` tag.
 - Fixed Wilder Wild's blocks having incorrect flammability values.
 - Removed shallow pools from the Oasis biome as they weren't visually pleasing.
 - Mesoglea features no longer carve "fake caves," instead only generating in areas with Water or Air nearby.
@@ -93,8 +95,8 @@ hi
   - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 - Added the Phlox flower.
-  - Generates alongside Wildflowers in Birch Forest biomes.
-  - Generates occasionally in Dark Forest biomes.
+  - Generates alongside Wildflowers in Birch Forest and Meadow biomes.
+  - Generates occasionally in Dark Forest and Swamp biomes.
   - Can be crafted into Purple Dye.
 
 # Music
