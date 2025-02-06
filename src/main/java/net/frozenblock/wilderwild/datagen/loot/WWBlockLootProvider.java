@@ -215,6 +215,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
+		this.add(WWBlocks.PHLOX, this.createSegmentedBlockDrops(WWBlocks.PHLOX));
+		this.add(WWBlocks.LANTANAS, this.createSegmentedBlockDrops(WWBlocks.LANTANAS));
 		WWBlockLootHelper.createShearsOrSilkTouchRequiredSegmentedBlockDrops(this, WWBlocks.CLOVERS);
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
@@ -403,6 +405,10 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_SHORT_DRY_GRASS);
 		this.dropPottedContents(WWBlocks.POTTED_TALL_DRY_GRASS);
 		this.dropPottedContents(WWBlocks.POTTED_CACTUS_FLOWER);
+		this.dropPottedContents(WWBlocks.POTTED_WILDFLOWERS);
+		this.dropPottedContents(WWBlocks.POTTED_PHLOX);
+		this.dropPottedContents(WWBlocks.POTTED_LANTANAS);
+
 
 		this.dropSelf(WWBlocks.NULL_BLOCK);
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS);

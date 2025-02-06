@@ -1,11 +1,10 @@
 {
-	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
 		"particle": "block/flower_pot",
 		"flowerpot": "block/flower_pot",
 		"dirt": "block/dirt",
-		"stem": "wilderwild:block/wildflowers_stem",
+		"stem": "wilderwild:block/clovers_stem",
 		"flower": "wilderwild:block/clovers"
 	},
 	"elements": [

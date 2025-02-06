@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.feature.WWFeatureUtils;
+import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.AlgaeFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.features.config.CattailFeatureConfig;
@@ -218,7 +219,11 @@ public final class WWConfiguredFeatures {
 
 	// FLOWERS
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CLOVERS = WWFeatureUtils.register("clovers");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PHLOX = WWFeatureUtils.register("phlox");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LANTANAS = WWFeatureUtils.register("lantanas");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WILDFLOWERS = WWFeatureUtils.register("wildflowers");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WILDFLOWERS_AND_PHLOX = WWFeatureUtils.register("wildflowers_and_phlox");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> LANTANAS_AND_PHLOX = WWFeatureUtils.register("lantanas_and_phlox");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WWFeatureUtils.register("carnation");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = WWFeatureUtils.register("marigold");
@@ -2026,6 +2031,42 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		WeightedList.Builder<BlockState> phloxStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				phloxStates.add(WWBlocks.PHLOX.defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
+			}
+		}
+		PHLOX.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				30,
+				6,
+				2,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(phloxStates))
+				)
+			)
+		);
+
+		WeightedList.Builder<BlockState> lantanasStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				lantanasStates.add(WWBlocks.LANTANAS.defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
+			}
+		}
+		LANTANAS.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				30,
+				6,
+				2,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(lantanasStates))
+				)
+			)
+		);
+
 		WeightedList.Builder<BlockState> wildflowerStates = WeightedList.builder();
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -2034,13 +2075,31 @@ public final class WWConfiguredFeatures {
 		}
 		WILDFLOWERS.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				32,
+				28,
 				6,
 				2,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(wildflowerStates))
 				)
+			)
+		);
+
+		WILDFLOWERS_AND_PHLOX.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(PHLOX.getHolder()), 0.3F)
+				),
+				PlacementUtils.inlinePlaced(WILDFLOWERS.getHolder())
+			)
+		);
+
+		LANTANAS_AND_PHLOX.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(LANTANAS.getHolder()), 0.375F)
+				),
+				PlacementUtils.inlinePlaced(PHLOX.getHolder())
 			)
 		);
 

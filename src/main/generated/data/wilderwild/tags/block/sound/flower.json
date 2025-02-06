@@ -28,9 +28,11 @@
     "minecraft:lilac",
     "minecraft:torchflower",
     "minecraft:pink_petals",
+    "minecraft:wildflowers",
+    "wilderwild:phlox",
+    "wilderwild:lantanas",
     "minecraft:closed_eyeblossom",
     "minecraft:open_eyeblossom",
-    "minecraft:wildflowers",
     {
       "id": "trailiertales:cyan_rose",
       "required": false

@@ -300,6 +300,9 @@
   "subtitles.particle.floating_sculk_bubble.big_pop": "Big Floating Sculk Bubble pops",
   "subtitles.particle.floating_sculk_bubble.pop": "Floating Sculk Bubble pops",
 
+  "block.wilderwild.lantanas": "Lantanas",
+  "block.wilderwild.potted_lantanas": "Potted Lantanas",
+
   "block.wilderwild.marigold": "Marigold",
   "block.wilderwild.potted_marigold": "Potted Marigold",
 
@@ -319,6 +322,9 @@
 
   "block.wilderwild.pasqueflower": "Pasqueflower",
   "block.wilderwild.potted_pasqueflower": "Potted Pasqueflower",
+
+  "block.wilderwild.phlox": "Phlox",
+  "block.wilderwild.potted_phlox": "Potted Phlox",
 
   "block.wilderwild.prickly_pear": "Prickly Pear",
   "block.wilderwild.potted_prickly_pear": "Potted Prickly Pear",

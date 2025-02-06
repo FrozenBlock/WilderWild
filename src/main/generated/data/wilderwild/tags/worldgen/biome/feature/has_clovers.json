@@ -3,43 +3,6 @@
     {
       "id": "#wilderwild:meadow",
       "required": false
-    },
-    "wilderwild:rainforest",
-    "minecraft:sparse_jungle",
-    "minecraft:jungle",
-    "minecraft:bamboo_jungle",
-    "minecraft:dark_forest",
-    "minecraft:ocean",
-    "minecraft:lukewarm_ocean",
-    "minecraft:warm_ocean",
-    "minecraft:river",
-    {
-      "id": "wilderwild:warm_river",
-      "required": false
-    },
-    {
-      "id": "wilderwild:cypress_wetlands",
-      "required": false
-    },
-    {
-      "id": "wilderwild:sparse_birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:dark_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:semi_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
-      "required": false
     }
   ]
 }

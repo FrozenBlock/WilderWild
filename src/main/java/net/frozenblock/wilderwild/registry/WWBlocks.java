@@ -683,6 +683,24 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+	public static final FlowerBedBlock PHLOX = register("phlox",
+		FlowerBedBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
+	public static final Block POTTED_PHLOX = registerWithoutItem("potted_phlox",
+		properties -> new FlowerPotBlock(PHLOX, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final FlowerBedBlock LANTANAS = register("lantanas",
+		FlowerBedBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
+	public static final Block POTTED_LANTANAS = registerWithoutItem("potted_lantanas",
+		properties -> new FlowerPotBlock(LANTANAS, properties),
+		Blocks.flowerPotProperties()
+	);
+
 	public static final FlowerBedBlock CLOVERS = register("clovers",
 		FlowerBedBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)

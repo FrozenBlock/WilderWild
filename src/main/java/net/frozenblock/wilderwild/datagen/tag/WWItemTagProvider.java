@@ -181,7 +181,9 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.CATTAIL.asItem())
 			.add(WWBlocks.MILKWEED.asItem())
-			.add(WWBlocks.POLLEN.asItem());
+			.add(WWBlocks.POLLEN.asItem())
+			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
 			.add(WWBlocks.RED_HIBISCUS.asItem())
@@ -192,6 +194,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
@@ -209,6 +213,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MILKWEED.asItem())
 			.add(WWBlocks.DATURA.asItem())
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
+			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
@@ -224,12 +230,17 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
 			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
 			.add(WWBlocks.MARIGOLD.asItem())
-			.add(WWBlocks.PASQUEFLOWER.asItem());
+			.add(WWBlocks.PASQUEFLOWER.asItem())
+			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGI.asItem());
+			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
+			.add(WWBlocks.MARIGOLD.asItem())
+			.add(WWBlocks.PASQUEFLOWER.asItem())
+			.add(WWBlocks.PHLOX.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
