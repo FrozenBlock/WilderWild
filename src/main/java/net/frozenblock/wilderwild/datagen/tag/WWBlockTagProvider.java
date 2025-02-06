@@ -1012,6 +1012,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_PETALS)
+			.add(WWBlocks.POTTED_BUSH)
+			.add(WWBlocks.POTTED_FIREFLY_BUSH)
+			.add(WWBlocks.POTTED_SHORT_DRY_GRASS)
+			.add(WWBlocks.POTTED_TALL_DRY_GRASS)
+			.add(WWBlocks.POTTED_CACTUS_FLOWER)
 			.add(WWBlocks.POTTED_WILDFLOWERS)
 			.add(WWBlocks.POTTED_PALE_MUSHROOM);
 

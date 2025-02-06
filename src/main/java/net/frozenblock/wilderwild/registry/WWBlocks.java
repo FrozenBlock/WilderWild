@@ -781,6 +781,31 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+	public static final Block POTTED_BUSH = registerWithoutItem("potted_bush",
+		properties -> new FlowerPotBlock(Blocks.BUSH, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final Block POTTED_FIREFLY_BUSH = registerWithoutItem("potted_firefly_bush",
+		properties -> new FlowerPotBlock(Blocks.FIREFLY_BUSH, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final Block POTTED_SHORT_DRY_GRASS = registerWithoutItem("potted_short_dry_grass",
+		properties -> new FlowerPotBlock(Blocks.SHORT_DRY_GRASS, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final Block POTTED_TALL_DRY_GRASS = registerWithoutItem("potted_tall_dry_grass",
+		properties -> new FlowerPotBlock(Blocks.TALL_DRY_GRASS, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final Block POTTED_CACTUS_FLOWER = registerWithoutItem("potted_cactus_flower",
+		properties -> new FlowerPotBlock(Blocks.CACTUS_FLOWER, properties),
+		Blocks.flowerPotProperties()
+	);
+
 	public static final Block POTTED_PRICKLY_PEAR = registerWithoutItem("potted_prickly_pear",
 		properties -> new FlowerPotBlock(PRICKLY_PEAR_CACTUS, properties),
 		Blocks.flowerPotProperties()

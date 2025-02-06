@@ -15,7 +15,7 @@
   "biome.wilderwild.sparse_forest": "Sparse Forest",
   "biome.wilderwild.arid_savanna": "Arid Savanna",
   "biome.wilderwild.parched_forest": "Parched Forest",
-  "biome.wilderwild.arid_forest": "Arid F orest",
+  "biome.wilderwild.arid_forest": "Arid Forest",
   "biome.wilderwild.snowy_old_growth_pine_taiga": "Snowy Old Growth Pine Taiga",
   "biome.wilderwild.old_growth_dark_forest": "Old Growth Dark Forest",
   "biome.wilderwild.dark_birch_forest": "Dark Birch Forest",
@@ -223,6 +223,13 @@
   "block.wilderwild.potted_prickly_small_dripleaf": "Potted Small Dripleaf",
   "block.wilderwild.potted_short_grass": "Potted Short Grass",
   "block.wilderwild.potted_pink_petals": "Potted Pink Petals",
+
+  "block.wilderwild.potted_bush": "Potted Bush",
+  "block.wilderwild.potted_firefly_bush": "Potted Firefly Bush",
+  "block.wilderwild.potted_cactus_flower": "Potted Cactus Flower",
+  "block.wilderwild.potted_short_dry_grass": "Potted Short Dry Grass",
+  "block.wilderwild.potted_tall_dry_grass": "Potted Tall Dry Grass",
+
   "block.wilderwild.red_shelf_fungi": "Red Shelf Fungi",
   "block.wilderwild.scorched_sand": "Scorched Sand",
   "block.wilderwild.scorched_red_sand": "Scorched Red Sand",

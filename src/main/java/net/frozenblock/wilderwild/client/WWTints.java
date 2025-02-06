@@ -40,13 +40,15 @@ public final class WWTints {
 			if (i != 0) return blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
 			return -1;
 		};
-		BlockColor tintedFlowerBedProvider = (blockState, blockAndTintGetter, blockPos, i) ->
+		BlockColor grassTintProvider = (blockState, blockAndTintGetter, blockPos, i) ->
 			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
 
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_PINK_PETALS);
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_WILDFLOWERS);
-		ColorProviderRegistry.BLOCK.register(tintedFlowerBedProvider, WWBlocks.CLOVERS);
-		ColorProviderRegistry.BLOCK.register(tintedFlowerBedProvider, WWBlocks.POTTED_CLOVERS);
+		ColorProviderRegistry.BLOCK.register(grassTintProvider, WWBlocks.CLOVERS);
+		ColorProviderRegistry.BLOCK.register(grassTintProvider, WWBlocks.POTTED_CLOVERS);
+
+		ColorProviderRegistry.BLOCK.register(grassTintProvider, WWBlocks.POTTED_BUSH);
 
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.BAOBAB_LEAVES);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.WILLOW_LEAVES);
