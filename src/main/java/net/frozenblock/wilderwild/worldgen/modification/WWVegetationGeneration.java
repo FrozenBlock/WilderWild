@@ -145,6 +145,48 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS_SPARSE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MILKWEED)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BERRY_PATCH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_BERRY_FOREST.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIELD_FLOWERS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FLOWER_FIELD.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CYPRESS_FLOWERS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_FLOWERS.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_FLOWERS_TALL.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_MILKWEED)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED_RARE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.MEADOW)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_MEADOW.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIRCH_CLEARING_FLOWERS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_BIRCH_CLEARING.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FOREST_CLEARING_FLOWERS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FOREST_CLEARING.getKey());
+						}
+					}
+				});
+
+		BiomeModifications.create(WWConstants.id("flower_replacement_generation"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().flowerGeneration) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 							generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
@@ -205,10 +247,6 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_AND_PHLOX_SPARSE.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MILKWEED)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PLAINS_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_PLAINS.getKey());
@@ -229,38 +267,9 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_BIRCH.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BERRY_PATCH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_BERRY_FOREST.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIELD_FLOWERS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FLOWER_FIELD.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CYPRESS_FLOWERS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_FLOWERS.getKey());
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_FLOWERS_TALL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_MILKWEED)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED_RARE.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_SUNFLOWER_PLAINS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.MEADOW)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_MEADOW.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIRCH_CLEARING_FLOWERS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_BIRCH_CLEARING.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FOREST_CLEARING_FLOWERS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FOREST_CLEARING.getKey());
 						}
 					}
 				});
@@ -322,6 +331,15 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
 						}
+					}
+			});
+
+		BiomeModifications.create(WWConstants.id("firefly_bush_generation"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().shrubGeneration) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIREFLY_BUSH)) {
 							generationSettings.removeFeature(VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
@@ -340,7 +358,7 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FIREFLY_BUSH_SWAMP.getKey());
 						}
 					}
-			});
+				});
 	}
 
 	public static void generateCacti() {
@@ -449,6 +467,15 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MYCELIUM_GROWTH)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MYCELIUM_GROWTH_PLACED.getKey());
 						}
+					}
+				});
+
+		BiomeModifications.create(WWConstants.id("dry_grass_generation"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().grassGeneration) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_BADLANDS)) {
 							generationSettings.removeFeature(VegetationPlacements.PATCH_DRY_GRASS_BADLANDS);
