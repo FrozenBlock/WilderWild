@@ -1019,7 +1019,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
-			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MARIGOLD)
@@ -1149,20 +1148,39 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PHLOX);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LANTANAS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LANTANAS_SPARSE)
+			.add(Biomes.SAVANNA)
+			.add(Biomes.WINDSWEPT_SAVANNA)
+			.addOptional(WWBiomes.PARCHED_FOREST);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PHLOX_SPARSE)
-			.add(Biomes.DARK_FOREST)
 			.add(Biomes.SWAMP)
-			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS_SPARSE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS_AND_PHLOX)
-			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST);
+			.add(Biomes.BIRCH_FOREST)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS_AND_PHLOX_SPARSE)
 			.addOptionalTag(WWBiomeTags.MEADOW);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LANTANAS_AND_PHLOX)
+			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+			.addOptional(WWBiomes.DARK_BIRCH_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LANTANAS_AND_PHLOX_SPARSE)
+			.add(Biomes.DARK_FOREST)
+			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
+			.addOptional(WWBiomes.DARK_TAIGA)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CLOVERS)
 			.addOptionalTag(WWBiomeTags.MEADOW);
@@ -1197,10 +1215,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptional(WWBiomes.DYING_FOREST);
+			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.CHERRY_FLOWERS)
 			.add(Biomes.CHERRY_GROVE);
@@ -1497,7 +1513,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RARE_MILKWEED)
-			.addOptional(WWBiomes.SPARSE_FOREST);
+			.addOptional(WWBiomes.SPARSE_FOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MYCELIUM_GROWTH)
 			.add(Biomes.MUSHROOM_FIELDS);

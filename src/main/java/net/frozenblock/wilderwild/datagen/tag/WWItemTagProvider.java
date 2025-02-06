@@ -162,7 +162,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
 			.add(WWBlocks.POLLEN.asItem())
 			.add(WWBlocks.WILDFLOWERS.asItem())
-			.add(WWBlocks.PHLOX.asItem());
+			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
 			.add(WWBlocks.CARNATION.asItem())
@@ -191,6 +192,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.WILDFLOWERS.asItem())
 			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
@@ -210,6 +212,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.WILDFLOWERS.asItem())
 			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem())
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWBlocks.BAOBAB_NUT.asItem())
@@ -226,14 +229,16 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
 			.add(WWBlocks.MARIGOLD.asItem())
 			.add(WWBlocks.PASQUEFLOWER.asItem())
-			.add(WWBlocks.PHLOX.asItem());
+			.add(WWBlocks.PHLOX.asItem())
+			.add(WWBlocks.LANTANAS.asItem());
 
 		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
 			.add(WWBlocks.SEEDING_DANDELION.asItem())
 			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
 			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
 			.add(WWBlocks.MARIGOLD.asItem())
-			.add(WWBlocks.PASQUEFLOWER.asItem());
+			.add(WWBlocks.PASQUEFLOWER.asItem())
+			.add(WWBlocks.PHLOX.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);

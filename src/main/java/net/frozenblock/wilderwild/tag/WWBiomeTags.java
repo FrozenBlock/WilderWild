@@ -155,10 +155,14 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_VERY_RARE_SEEDING_DANDELION = bind("feature/has_very_rare_seeding_dandelion");
 	public static final TagKey<Biome> HAS_PHLOX = bind("feature/has_phlox");
 	public static final TagKey<Biome> HAS_PHLOX_SPARSE = bind("feature/has_phlox_sparse");
+	public static final TagKey<Biome> HAS_LANTANAS = bind("feature/has_lantanas");
+	public static final TagKey<Biome> HAS_LANTANAS_SPARSE = bind("feature/has_lantanas_sparse");
 	public static final TagKey<Biome> HAS_WILDFLOWERS = bind("feature/has_wildflowers");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_SPARSE = bind("feature/has_wildflowers_sparse");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_PHLOX = bind("feature/has_wildflowers_and_phlox");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_PHLOX_SPARSE = bind("feature/has_wildflowers_and_phlox_sparse");
+	public static final TagKey<Biome> HAS_LANTANAS_AND_PHLOX = bind("feature/has_lantanas_and_phlox");
+	public static final TagKey<Biome> HAS_LANTANAS_AND_PHLOX_SPARSE = bind("feature/has_lantanas_and_phlox_sparse");
 	public static final TagKey<Biome> HAS_CLOVERS = bind("feature/has_clovers");
 	public static final TagKey<Biome> HAS_CLOVERS_SPARSE = bind("feature/has_clovers_sparse");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("feature/has_milkweed");

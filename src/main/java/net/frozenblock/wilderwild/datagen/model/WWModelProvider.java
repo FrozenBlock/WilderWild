@@ -101,6 +101,7 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
 		generator.createFlowerBed(WWBlocks.PHLOX);
+		generator.createFlowerBed(WWBlocks.LANTANAS);
 		FrozenLibModelHelper.createTintedFlowerBed(generator, WWBlocks.CLOVERS);
 
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);

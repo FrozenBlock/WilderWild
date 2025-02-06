@@ -153,6 +153,14 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PHLOX_SPARSE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_SPARSE.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_SPARSE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_SPARSE.getKey());
 						}
@@ -163,6 +171,14 @@ public final class WWVegetationGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_AND_PHLOX_SPARSE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_AND_PHLOX_SPARSE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS_AND_PHLOX)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_AND_PHLOX.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS_AND_PHLOX_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_AND_PHLOX_SPARSE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MILKWEED)) {

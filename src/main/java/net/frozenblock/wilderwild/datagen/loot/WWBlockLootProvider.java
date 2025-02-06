@@ -215,6 +215,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
 		this.add(WWBlocks.WILDFLOWERS, this.createPetalsDrops(WWBlocks.WILDFLOWERS));
 		this.add(WWBlocks.PHLOX, this.createPetalsDrops(WWBlocks.PHLOX));
+		this.add(WWBlocks.LANTANAS, this.createPetalsDrops(WWBlocks.LANTANAS));
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredPetalsDrops(this, WWBlocks.CLOVERS);
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
@@ -398,8 +399,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_SMALL_DRIPLEAF);
 		this.dropPottedContents(WWBlocks.POTTED_MYCELIUM_GROWTH);
 		this.dropPottedContents(WWBlocks.POTTED_PINK_PETALS);
-		this.dropPottedContents(WWBlocks.POTTED_PHLOX);
 		this.dropPottedContents(WWBlocks.POTTED_WILDFLOWERS);
+		this.dropPottedContents(WWBlocks.POTTED_PHLOX);
+		this.dropPottedContents(WWBlocks.POTTED_LANTANAS);
 
 		this.dropSelf(WWBlocks.NULL_BLOCK);
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS);

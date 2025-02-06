@@ -80,8 +80,7 @@ hi
   - Generates in Birch Forest, Meadow, and Sunflower Plains biomes..
   - Can be crafted into Yellow Dye.
 - Added Clovers.
-  - Clovers generate commonly in biomes in the `wilderwild:feature/has_clovers` tag.
-  - Clovers generate less commonly in biomes in the `wilderwild:feature/has_clovers_sparse` tag.
+  - Generates most commonly in Meadow biomes.
 - Fixed Wilder Wild's blocks having incorrect flammability values.
 - Removed shallow pools from the Oasis biome as they weren't visually pleasing.
 - Mesoglea features no longer carve "fake caves," instead only generating in areas with Water or Air nearby.
@@ -95,9 +94,12 @@ hi
   - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 - Added the Phlox flower.
-  - Generates alongside Wildflowers in Birch Forest and Meadow biomes.
-  - Generates occasionally in Dark Forest and Swamp biomes.
+  - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
+  - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Tundra biomes.
   - Can be crafted into Purple Dye.
+- Added the Lantanas flower.
+  - Generates in Old Growth Birch Forest, Savanna, and Dark Forest biomes.
+  - Can be crafted into Orange Dye.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

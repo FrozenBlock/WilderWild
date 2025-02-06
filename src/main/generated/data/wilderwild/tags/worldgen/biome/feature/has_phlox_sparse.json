@@ -1,17 +1,16 @@
 {
   "values": [
-    "minecraft:dark_forest",
     "minecraft:swamp",
     {
-      "id": "wilderwild:dark_birch_forest",
+      "id": "wilderwild:dying_forest",
       "required": false
     },
     {
-      "id": "wilderwild:dark_taiga",
+      "id": "wilderwild:maple_forest",
       "required": false
     },
     {
-      "id": "wilderwild:old_growth_dark_forest",
+      "id": "wilderwild:tundra",
       "required": false
     }
   ]

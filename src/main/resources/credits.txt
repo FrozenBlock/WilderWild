@@ -50,10 +50,11 @@ Zhen:
  - Butterfly textures.
  - Pale Fog textures.
  - Hibiscus reference textures.
- - Willow textures
+ - Willow textures.
  - Polished Gabbro, Gabbro Bricks, Chiseled Gabbro Bricks, Mossy Gabbro Bricks, and Cracked Gabbro Bricks textures.
  - Clovers textures.
- - Phlox Texture.
+ - Phlox textures and idea.
+ - Lantanas textures and idea.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.

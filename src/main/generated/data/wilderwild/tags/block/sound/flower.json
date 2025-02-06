@@ -30,6 +30,7 @@
     "minecraft:pink_petals",
     "wilderwild:wildflowers",
     "wilderwild:phlox",
+    "wilderwild:lantanas",
     {
       "id": "trailiertales:cyan_rose",
       "required": false
