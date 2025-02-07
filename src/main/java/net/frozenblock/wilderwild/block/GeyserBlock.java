@@ -169,7 +169,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull Direction direction, @NotNull BlockPos pos) {
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
-		if (GeyserBlockEntity.canEruptionPassThrough((Level) level, checkPos, checkState, direction)) {
+		if (GeyserBlockEntity.canEruptionPassThrough(level, checkPos, checkState, direction)) {
 			if (checkState.getFluidState().is(FluidTags.WATER)) {
 				return GeyserType.WATER;
 			} else if (checkState.getFluidState().is(FluidTags.LAVA)) {

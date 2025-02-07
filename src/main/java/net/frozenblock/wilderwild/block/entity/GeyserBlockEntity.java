@@ -55,6 +55,7 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SupportType;
@@ -123,7 +124,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.setChanged();
 	}
 
-	public static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
+	public static boolean canEruptionPassThrough(LevelAccessor level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
 		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WWBlockTags.GEYSER_CAN_PASS_THROUGH))
 				|| state.is(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}

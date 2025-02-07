@@ -204,6 +204,11 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_GENERIC.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GENERIC_FLOWERS_NO_CARNATIONS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_DEFAULT);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_GENERIC_NO_CARNATION.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIRCH_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FLOWER_DEFAULT);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_BIRCH.getKey());

@@ -211,6 +211,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FOREST_SHRUB = bind("feature/has_forest_shrub");
 	public static final TagKey<Biome> HAS_SHRUB = bind("feature/has_shrub");
 	public static final TagKey<Biome> HAS_GENERIC_FLOWERS = bind("feature/has_generic_flowers");
+	public static final TagKey<Biome> HAS_GENERIC_FLOWERS_NO_CARNATIONS = bind("feature/has_generic_flowers_no_carnations");
 	public static final TagKey<Biome> HAS_PLAINS_FLOWERS = bind("feature/has_plains_flowers");
 	public static final TagKey<Biome> HAS_TUNDRA_FLOWERS = bind("feature/has_tundra_flowers");
 	public static final TagKey<Biome> HAS_BIRCH_FLOWERS = bind("feature/has_birch_flowers");

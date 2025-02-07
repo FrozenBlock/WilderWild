@@ -1496,7 +1496,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GENERIC_FLOWERS)
-			.add(Biomes.FOREST)
+			.add(Biomes.FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GENERIC_FLOWERS_NO_CARNATIONS)
 			.addOptional(WWBiomes.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PLAINS_FLOWERS)

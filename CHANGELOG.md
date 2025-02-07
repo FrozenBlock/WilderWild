@@ -62,7 +62,6 @@ hi
     - Yellow Hibiscus.
     - White Hibiscus.
     - Pink Hibiscus.
-    - Purple Hibiscus.
   - Glory of the Snows will be datafixed into random Hibiscuses.
   - Glory of the Snow Petals will be datafixed into Pollen.
 - Added a config option to toggle pools of water generating in River biomes.
@@ -102,6 +101,7 @@ hi
   - Can be crafted into Orange Dye.
 - Fixed Geysers not being able to erupt when placed facing directly into a block in the `wilderwild:block/geyser_can_pass_through` tag, thanks to Kluski42/Ashlyn!
 - Magmatic Caves are now larger on average.
+- Lowered the average amount of Bushes that generate.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -197,9 +197,9 @@ hi
 # Pale Mushroom Branch
 - All Shelf Fungi can now be mined faster with an Axe.
 - Added the Pale Mushroom and Pale Shelf Fungi blocks.
-    - At night, these will emit gray spore-like particles.
+  - At night, these will emit gray spore-like particles.
 - Added the Pale Mushroom Block.
-    - Emits fog-like particles at night while above a Mushroom Stem block.
+  - Emits fog-like particles at night while above a Mushroom Stem block.
 - Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
