@@ -13,23 +13,11 @@
       "required": false
     },
     {
-      "id": "minecraft:dark_forest",
-      "required": false
-    },
-    {
       "id": "wilderwild:mixed_forest",
       "required": false
     },
     {
       "id": "wilderwild:semi_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:dark_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
       "required": false
     },
     {

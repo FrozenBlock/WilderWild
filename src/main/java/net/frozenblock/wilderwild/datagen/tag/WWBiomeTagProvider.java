@@ -190,11 +190,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(Biomes.FOREST)
 			.addOptional(Biomes.BIRCH_FOREST)
 			.addOptional(Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.addOptional(Biomes.DARK_FOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
-			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST);
