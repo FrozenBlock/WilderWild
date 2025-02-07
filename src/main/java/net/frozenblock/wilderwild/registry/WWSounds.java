@@ -354,11 +354,15 @@ public final class WWSounds {
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wilder_forests");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FLOWER_FORESTS = registerForHolder("music.overworld.wilder_flower_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_LUSH_CAVES = registerForHolder("music.overworld.wilder_lush_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_SNOWY = registerForHolder("music.overworld.wilder_snowy");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAPLE_FOREST = registerForHolder("music.overworld.maple_forest");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_DYING_FOREST = registerForHolder("music.overworld.dying_forest");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_SNOWY_DYING_FOREST = registerForHolder("music.overworld.snowy_dying_forest");
 
 	private WWSounds() {
 		throw new UnsupportedOperationException("WWSounds contains only static declarations.");

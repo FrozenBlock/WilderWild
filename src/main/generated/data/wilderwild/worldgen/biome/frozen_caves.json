@@ -19,7 +19,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.frozen_caves"
+      "sound": "minecraft:music.overworld.frozen_peaks"
     },
     "sky_color": 9476095,
     "water_color": 10601471,

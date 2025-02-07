@@ -383,10 +383,24 @@ public final class WWAmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var wilderSnowyMusic = entryBuilder.startBooleanToggle(text("wilder_snowy_music"), biomeMusic.wilderSnowyMusic)
+			.setDefaultValue(defaultConfig.biomeMusic.wilderSnowyMusic)
+			.setSaveConsumer(newValue -> biomeMusic.wilderSnowyMusic = newValue)
+			.setTooltip(tooltip("wilder_snowy_music"))
+			.requireRestart()
+			.build();
+
+		var distortedDyingForestMusic = entryBuilder.startBooleanToggle(text("distorted_dying_forest_music"), biomeMusic.distortedDyingForestMusic)
+			.setDefaultValue(defaultConfig.biomeMusic.distortedDyingForestMusic)
+			.setSaveConsumer(newValue -> biomeMusic.distortedDyingForestMusic = newValue)
+			.setTooltip(tooltip("distorted_dying_forest_music"))
+			.requireRestart()
+			.build();
+
 		var biomeMusicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_music"),
 			false,
 			tooltip("biome_music"),
-			wilderForestMusic, wilderLushCavesMusic
+			wilderForestMusic, wilderLushCavesMusic, wilderSnowyMusic, distortedDyingForestMusic
 		);
 	}
 }

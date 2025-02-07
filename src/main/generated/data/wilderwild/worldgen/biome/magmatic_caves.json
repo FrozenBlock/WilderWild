@@ -19,7 +19,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.magmatic_caves"
+      "sound": "minecraft:music.overworld.dripstone_caves"
     },
     "sky_color": 7254527,
     "water_color": 4566514,

@@ -295,6 +295,17 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CLAY_PATH = bind("feature/has_clay_path");
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
+	public static final TagKey<Biome> HAS_FOREST_MUSIC = bind("music_pool/has_forest_music");
+	public static final TagKey<Biome> HAS_FLOWERING_MUSIC = bind("music_pool/has_flowering_music");
+	public static final TagKey<Biome> HAS_SNOWY_MUSIC = bind("music_pool/has_snowy_music");
+	public static final TagKey<Biome> HAS_LUSH_MUSIC = bind("music_pool/has_lush_music");
+	public static final TagKey<Biome> HAS_FROZEN_MUSIC = bind("music_pool/has_frozen_music");
+	public static final TagKey<Biome> HAS_MAGMATIC_MUSIC = bind("music_pool/has_magmatic_music");
+	public static final TagKey<Biome> HAS_MESOGLEA_MUSIC = bind("music_pool/has_mesoglea_music");
+	public static final TagKey<Biome> HAS_MAPLE_MUSIC = bind("music_pool/has_maple_music");
+	public static final TagKey<Biome> HAS_DYING_MUSIC = bind("music_pool/has_dying_music");
+	public static final TagKey<Biome> HAS_SNOWY_DYING_MUSIC = bind("music_pool/has_snowy_dying_music");
+
 	private WWBiomeTags() {
 		throw new UnsupportedOperationException("WilderBiomeTags contains only static declarations.");
 	}

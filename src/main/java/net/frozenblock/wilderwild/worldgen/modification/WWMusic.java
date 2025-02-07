@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -39,32 +40,86 @@ public final class WWMusic {
 	public static void playMusic() {
 		WWConstants.logWithModId("Adding Music And Ambience To Biomes for", true);
 
-		// Music
-		BiomeModifications.create(WWConstants.id("modify_music_birch_forests")).add(
+		// Configurable Music
+		BiomeModifications.create(WWConstants.id("modify_music_forests")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(ConventionalBiomeTags.IS_BIRCH_FOREST),
+			BiomeSelectors.tag(WWBiomeTags.HAS_FOREST_MUSIC),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
-
-		BiomeModifications.create(WWConstants.id("modify_music_forests")).add(
+		BiomeModifications.create(WWConstants.id("modify_music_flower_forests")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST).and(BiomeSelectors.excludeByKey(WWBiomes.MAPLE_FOREST)),
+			BiomeSelectors.tag(WWBiomeTags.HAS_FLOWERING_MUSIC),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS));
 				}
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_lush_caves")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(Biomes.LUSH_CAVES),
+			BiomeSelectors.tag(WWBiomeTags.HAS_LUSH_MUSIC),
 			(selectionContext, modificationContext) -> {
 				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderLushCavesMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES));
 				}
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_snowy")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderSnowyMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_SNOWY));
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_dying")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_DYING_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().biomeMusic.distortedDyingForestMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_DYING_FOREST));
+				}
+			});
+		BiomeModifications.create(WWConstants.id("modify_music_snowy_dying")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_DYING_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().biomeMusic.distortedDyingForestMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST));
+				}
+			});
+
+		// Normal Music
+		BiomeModifications.create(WWConstants.id("modify_music_maple")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_MAPLE_MUSIC),
+			(selectionContext, modificationContext) -> {
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_frozen")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_FROZEN_MUSIC),
+			(selectionContext, modificationContext) -> {
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_FROZEN_CAVES));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_magmatic")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_MAGMATIC_MUSIC),
+			(selectionContext, modificationContext) -> {
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MAGMATIC_CAVES));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_mesoglea")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_MESOGLEA_MUSIC),
+			(selectionContext, modificationContext) -> {
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MESOGLEA_CAVES));
 			});
 
 		// Ambience
