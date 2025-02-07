@@ -649,8 +649,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CLAY_PATH)
-			.addOptionalTag(WWBiomeTags.SAND_BEACHES)
-			.addOptionalTag(WWBiomeTags.MULTI_LAYER_SAND_BEACHES)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND)
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.WARM_RIVER)
 			.addOptional(WWBiomes.WARM_BEACH);
@@ -706,7 +706,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.GRAVEL_BEACH)
+		this.getOrCreateTagBuilder(WWBiomeTags.BETA_BEACH_GRAVEL)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.FROZEN_RIVER)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -725,24 +725,23 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.SAND_BEACHES)
+		this.getOrCreateTagBuilder(WWBiomeTags.BETA_BEACH_SAND)
 			.add(Biomes.DARK_FOREST)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.FOREST)
 			.add(Biomes.FROZEN_RIVER)
 			.add(Biomes.RIVER)
+			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWBiomes.PARCHED_FOREST)
 			.addOptional(WWBiomes.ARID_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.MULTI_LAYER_SAND_BEACHES)
-			.add(Biomes.BAMBOO_JUNGLE)
+		this.getOrCreateTagBuilder(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND)
 			.add(Biomes.JUNGLE)
 			.add(Biomes.SAVANNA)
 			.add(Biomes.SPARSE_JUNGLE)
-			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.ARID_SAVANNA)
@@ -1781,9 +1780,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.DARK_FOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+			.addOptional(WWBiomes.RAINFOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SCORCHED_SAND)
 			.add(Biomes.DESERT)
@@ -1822,11 +1819,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_HILLS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)
-			.addOptionalTag(WWBiomeTags.SAND_BEACHES)
-			.addOptionalTag(WWBiomeTags.MULTI_LAYER_SAND_BEACHES);
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION)
-			.addOptionalTag(WWBiomeTags.GRAVEL_BEACH);
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_GRAVEL);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GRAVEL_TRANSITION)
 			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS);

@@ -1472,14 +1472,14 @@ public final class WWPlacedFeatures {
 		);
 
 		MARIGOLD.makeAndSetHolder(WWConfiguredFeatures.MARIGOLD.getHolder(),
-			RarityFilter.onAverageOnceEvery(4),
+			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		MARIGOLD_SPARSE.makeAndSetHolder(WWConfiguredFeatures.MARIGOLD_SPARSE.getHolder(),
-			RarityFilter.onAverageOnceEvery(7),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

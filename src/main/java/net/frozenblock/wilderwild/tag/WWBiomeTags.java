@@ -76,9 +76,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
 	public static final TagKey<Biome> MEADOW = bind("meadow");
 
-	public static final TagKey<Biome> GRAVEL_BEACH = bind("beta_beach/gravel");
-	public static final TagKey<Biome> SAND_BEACHES = bind("beta_beach/sand");
-	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("beta_beach/multi_layer_sand");
+	public static final TagKey<Biome> BETA_BEACH_GRAVEL = bind("beta_beach/gravel");
+	public static final TagKey<Biome> BETA_BEACH_SAND = bind("beta_beach/sand");
+	public static final TagKey<Biome> BETA_BEACH_MULTI_LAYER_SAND = bind("beta_beach/multi_layer_sand");
 
 	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("below_surface_snow");
 

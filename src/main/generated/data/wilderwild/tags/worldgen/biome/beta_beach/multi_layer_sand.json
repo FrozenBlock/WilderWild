@@ -1,10 +1,8 @@
 {
   "values": [
-    "minecraft:bamboo_jungle",
     "minecraft:jungle",
     "minecraft:savanna",
     "minecraft:sparse_jungle",
-    "minecraft:cherry_grove",
     {
       "id": "wilderwild:birch_jungle",
       "required": false
