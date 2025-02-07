@@ -1885,7 +1885,6 @@ public final class WWConfiguredFeatures {
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
@@ -2403,7 +2402,6 @@ public final class WWConfiguredFeatures {
 								Blocks.WHITE_TULIP.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.RED_TULIP.defaultBlockState(),
 								Blocks.ORANGE_TULIP.defaultBlockState()
 							)
