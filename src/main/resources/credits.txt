@@ -95,6 +95,7 @@ wet.noodle/Kluski42:
  - Thick Big Fungus growing from Fungi.
  - Suggested adding Reach Boost to Beacons.
  - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
+ - Fixed a bug not allowing Geysers to erupt when pointed into certain blocks that should let them erupt.
 
 JarethTheRad:
  - Structure assistance.

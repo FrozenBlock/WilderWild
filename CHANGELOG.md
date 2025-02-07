@@ -100,6 +100,7 @@ hi
 - Added the Lantanas flower.
   - Generates in Old Growth Birch Forest, Savanna, and Dark Forest biomes.
   - Can be crafted into Orange Dye.
+- Fixed Geysers not being able to erupt when placed facing directly into a block in the `wilderwild:block/geyser_can_pass_through` tag, thanks to Kluski42/Ashlyn!
 
 # Music
 - Added three new tracks by Willow/pictochats_.
