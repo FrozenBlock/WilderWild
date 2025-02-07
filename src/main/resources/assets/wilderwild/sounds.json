@@ -3166,13 +3166,13 @@
         "weight": 20
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
         "weight": 5
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
         "volume": 0.8,
         "weight": 5
@@ -3187,7 +3187,7 @@
         "weight": 11
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
         "volume": 0.8,
         "weight": 3
@@ -3218,7 +3218,7 @@
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8
       },
@@ -3493,12 +3493,12 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
         "volume": 0.8
       },
@@ -3516,13 +3516,19 @@
         "name": "music.overworld.old_growth_taiga",
         "type": "event",
         "pitch": 1.033,
-        "volume": 0.2
+        "volume": 0.2,
+        "weight": 3
       },
       {
         "name": "music.overworld.old_growth_taiga",
         "type": "event",
         "pitch": 0.967,
-        "volume": 0.2
+        "volume": 0.2,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/c418/excuse",
+        "stream": true
       }
     ]
   },
@@ -3532,13 +3538,19 @@
         "name": "wilderwild:music.overworld.wilder_snowy",
         "type": "event",
         "pitch": 1.033,
-        "volume": 0.2
+        "volume": 0.2,
+        "weight": 3
       },
       {
         "name": "wilderwild:music.overworld.wilder_snowy",
         "type": "event",
         "pitch": 0.967,
-        "volume": 0.2
+        "volume": 0.2,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/c418/excuse",
+        "stream": true
       }
     ]
   },

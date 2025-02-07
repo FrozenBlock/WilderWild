@@ -296,7 +296,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
 	public static final TagKey<Biome> HAS_FOREST_MUSIC = bind("music_pool/has_forest_music");
-	public static final TagKey<Biome> HAS_FLOWERING_MUSIC = bind("music_pool/has_flowering_music");
+	public static final TagKey<Biome> HAS_FLOWER_FOREST_MUSIC = bind("music_pool/has_flower_forest_music");
 	public static final TagKey<Biome> HAS_SNOWY_MUSIC = bind("music_pool/has_snowy_music");
 	public static final TagKey<Biome> HAS_LUSH_MUSIC = bind("music_pool/has_lush_music");
 	public static final TagKey<Biome> HAS_FROZEN_MUSIC = bind("music_pool/has_frozen_music");

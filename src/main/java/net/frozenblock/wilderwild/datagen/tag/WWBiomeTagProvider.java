@@ -198,7 +198,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST);
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWERING_MUSIC)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWER_FOREST_MUSIC)
 			.addOptional(Biomes.FLOWER_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
