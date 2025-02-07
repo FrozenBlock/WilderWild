@@ -404,91 +404,91 @@
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil1",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil2",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil3",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil4",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil5",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil6",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt1",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt2",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt3",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt4",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt5",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt6",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt7",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt8",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water1",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water2",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water3",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water4",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       }
     ]

@@ -53,6 +53,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -170,9 +171,10 @@ public class GeyserBlock extends BaseEntityBlock {
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
 		if (GeyserBlockEntity.canEruptionPassThrough(level, checkPos, checkState, direction)) {
-			if (checkState.getFluidState().is(FluidTags.WATER)) {
+			FluidState fluidState = checkState.getFluidState();
+			if (fluidState.is(FluidTags.WATER)) {
 				return GeyserType.WATER;
-			} else if (checkState.getFluidState().is(FluidTags.LAVA)) {
+			} else if (fluidState.is(FluidTags.LAVA)) {
 				return GeyserType.LAVA;
 			} else {
 				return GeyserType.AIR;
