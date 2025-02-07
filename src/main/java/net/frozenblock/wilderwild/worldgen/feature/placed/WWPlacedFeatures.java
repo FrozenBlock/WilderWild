@@ -243,6 +243,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature WILDFLOWERS_SPARSE = register("wildflowers_sparse");
 	public static final FrozenLibPlacedFeature WILDFLOWERS_AND_PHLOX = register("wildflowers_and_phlox");
 	public static final FrozenLibPlacedFeature WILDFLOWERS_AND_PHLOX_SPARSE = register("wildflowers_and_phlox_sparse");
+	public static final FrozenLibPlacedFeature WILDFLOWERS_AND_LANTANAS = register("wildflowers_and_lantanas");
 	public static final FrozenLibPlacedFeature LANTANAS_AND_PHLOX = register("lantanas_and_phlox");
 	public static final FrozenLibPlacedFeature LANTANAS_AND_PHLOX_SPARSE = register("lantanas_and_phlox_sparse");
 	public static final FrozenLibPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
@@ -1392,7 +1393,7 @@ public final class WWPlacedFeatures {
 		);
 
 		PHLOX_SPARSE.makeAndSetHolder(WWConfiguredFeatures.PHLOX.getHolder(),
-			RarityFilter.onAverageOnceEvery(4),
+			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
@@ -1440,6 +1441,13 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
+		WILDFLOWERS_AND_LANTANAS.makeAndSetHolder(WWConfiguredFeatures.WILDFLOWERS_AND_LANTANAS.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 2)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
 		LANTANAS_AND_PHLOX.makeAndSetHolder(WWConfiguredFeatures.LANTANAS_AND_PHLOX.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
@@ -1448,7 +1456,7 @@ public final class WWPlacedFeatures {
 		);
 
 		LANTANAS_AND_PHLOX_SPARSE.makeAndSetHolder(WWConfiguredFeatures.LANTANAS_AND_PHLOX.getHolder(),
-			CountPlacement.of(UniformInt.of(0, 2)),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

@@ -1143,8 +1143,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)
 			.add(Biomes.PLAINS);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS)
-			.add(Biomes.SUNFLOWER_PLAINS);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PHLOX);
 
@@ -1171,6 +1170,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS_AND_PHLOX_SPARSE)
 			.addOptionalTag(WWBiomeTags.MEADOW);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS_AND_LANTANAS)
+			.add(Biomes.SUNFLOWER_PLAINS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LANTANAS_AND_PHLOX)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

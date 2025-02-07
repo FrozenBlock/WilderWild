@@ -161,6 +161,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_WILDFLOWERS_SPARSE = bind("feature/has_wildflowers_sparse");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_PHLOX = bind("feature/has_wildflowers_and_phlox");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_PHLOX_SPARSE = bind("feature/has_wildflowers_and_phlox_sparse");
+	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_LANTANAS = bind("feature/has_wildflowers_and_lantanas");
 	public static final TagKey<Biome> HAS_LANTANAS_AND_PHLOX = bind("feature/has_lantanas_and_phlox");
 	public static final TagKey<Biome> HAS_LANTANAS_AND_PHLOX_SPARSE = bind("feature/has_lantanas_and_phlox_sparse");
 	public static final TagKey<Biome> HAS_CLOVERS = bind("feature/has_clovers");
