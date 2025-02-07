@@ -123,7 +123,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.setChanged();
 	}
 
-	private static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
+	public static boolean canEruptionPassThrough(Level level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
 		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WWBlockTags.GEYSER_CAN_PASS_THROUGH))
 				|| state.is(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}

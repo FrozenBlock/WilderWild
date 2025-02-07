@@ -44,7 +44,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -139,7 +138,7 @@ public class GeyserBlock extends BaseEntityBlock {
 					boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
 					if (!erupting && isActive(blockState.getValue(GEYSER_TYPE))) {
 						newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
-                    }
+					}
 				}
 				level.setBlock(blockPos, newState, UPDATE_ALL);
 			}
@@ -170,7 +169,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull Direction direction, @NotNull BlockPos pos) {
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
-		if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
+		if (GeyserBlockEntity.canEruptionPassThrough((Level) level, checkPos, checkState, direction)) {
 			if (checkState.getFluidState().is(FluidTags.WATER)) {
 				return GeyserType.WATER;
 			} else if (checkState.getFluidState().is(FluidTags.LAVA)) {
