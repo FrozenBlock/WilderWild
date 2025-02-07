@@ -85,6 +85,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature GABBRO_PILE = WWPlacementUtils.register("gabbro_pile");
 	public static final FrozenLibPlacedFeature NETHER_GEYSER = WWPlacementUtils.register("nether_geyser");
 	public static final FrozenLibPlacedFeature NETHER_LAVA_GEYSER = WWPlacementUtils.register("nether_lava_geyser");
+	public static final FrozenLibPlacedFeature GEYSER_LAVA = WWPlacementUtils.register("geyser_lava");
 	public static final FrozenLibPlacedFeature GEYSER_UP = WWPlacementUtils.register("geyser_up");
 	public static final FrozenLibPlacedFeature GEYSER_DOWN = WWPlacementUtils.register("geyser_down");
 	public static final FrozenLibPlacedFeature GEYSER_NORTH = WWPlacementUtils.register("geyser_north");
@@ -333,6 +334,22 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
+		GEYSER_LAVA.makeAndSetHolder(WWCaveConfigured.GEYSER_UP.getHolder(),
+			CountPlacement.of(UniformInt.of(64, 72)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.allOf(
+					BlockPredicate.solid(),
+					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+				),
+				BlockPredicate.replaceable(),
+				12
+			),
+			BiomeFilter.biome()
+		);
+
 		GEYSER_UP.makeAndSetHolder(WWCaveConfigured.GEYSER_UP.getHolder(),
 			CountPlacement.of(UniformInt.of(64, 72)),
 			InSquarePlacement.spread(),
@@ -341,7 +358,10 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.anyOf(
 					BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+					BlockPredicate.allOf(
+						BlockPredicate.solid(),
+						BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+					)
 				),
 				BlockPredicate.replaceable(),
 				12

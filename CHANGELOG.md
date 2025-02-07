@@ -101,6 +101,7 @@ hi
   - Generates in Old Growth Birch Forest, Savanna, and Dark Forest biomes.
   - Can be crafted into Orange Dye.
 - Fixed Geysers not being able to erupt when placed facing directly into a block in the `wilderwild:block/geyser_can_pass_through` tag, thanks to Kluski42/Ashlyn!
+- Magmatic Caves are now larger on average.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
