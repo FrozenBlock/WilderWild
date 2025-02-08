@@ -209,6 +209,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.YELLOW_HIBISCUS);
 		this.dropSelf(WWBlocks.WHITE_HIBISCUS);
 		this.dropSelf(WWBlocks.PINK_HIBISCUS);
+		this.dropSelf(WWBlocks.PURPLE_HIBISCUS);
 		this.dropSelf(WWBlocks.FLOWERING_LILY_PAD);
 		this.dropSelf(WWBlocks.PRICKLY_PEAR_CACTUS);
 		this.add(WWBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
@@ -393,6 +394,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_YELLOW_HIBISCUS);
 		this.dropPottedContents(WWBlocks.POTTED_WHITE_HIBISCUS);
 		this.dropPottedContents(WWBlocks.POTTED_PINK_HIBISCUS);
+		this.dropPottedContents(WWBlocks.POTTED_PURPLE_HIBISCUS);
 		this.dropPottedContents(WWBlocks.POTTED_SEEDING_DANDELION);
 		this.dropPottedContents(WWBlocks.POTTED_TUMBLEWEED_PLANT);
 		this.dropPottedContents(WWBlocks.POTTED_TUMBLEWEED);

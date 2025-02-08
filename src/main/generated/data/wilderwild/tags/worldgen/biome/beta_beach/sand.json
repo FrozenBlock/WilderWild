@@ -5,6 +5,7 @@
     "minecraft:forest",
     "minecraft:frozen_river",
     "minecraft:river",
+    "minecraft:cherry_grove",
     {
       "id": "wilderwild:parched_forest",
       "required": false

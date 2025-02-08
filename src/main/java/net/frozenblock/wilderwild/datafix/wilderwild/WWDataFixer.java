@@ -184,7 +184,8 @@ public final class WWDataFixer {
 				WWConstants.id("red_hibiscus"),
 				WWConstants.id("yellow_hibiscus"),
 				WWConstants.id("white_hibiscus"),
-				WWConstants.id("pink_hibiscus")
+				WWConstants.id("pink_hibiscus"),
+				WWConstants.id("purple_hibiscus")
 			),
 			schemaV26
 		);
@@ -196,7 +197,8 @@ public final class WWDataFixer {
 				WWConstants.id("red_hibiscus"),
 				WWConstants.id("yellow_hibiscus"),
 				WWConstants.id("white_hibiscus"),
-				WWConstants.id("pink_hibiscus")
+				WWConstants.id("pink_hibiscus"),
+				WWConstants.id("purple_hibiscus")
 			),
 			schemaV26
 		);
