@@ -236,6 +236,8 @@ public final class WWVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_AND_LANTANAS)) {
+							generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
+							generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_AND_LANTANAS.getKey());
 						}
 
