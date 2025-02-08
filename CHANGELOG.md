@@ -57,11 +57,12 @@ hi
 - Added a new config option to toggle between the updated and original Sculk Shrieker selection outline.
 - Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
 - Glories of the Snow have been removed.
-  - They are now replaced with four Hibiscus Blocks:
+  - They are now replaced with five Hibiscus Blocks:
     - Red Hibiscus
     - Yellow Hibiscus.
     - White Hibiscus.
     - Pink Hibiscus.
+    - Purple Hibiscus.
   - Glory of the Snows will be datafixed into random Hibiscuses.
   - Glory of the Snow Petals will be datafixed into Pollen.
 - Added a config option to toggle pools of water generating in River biomes.

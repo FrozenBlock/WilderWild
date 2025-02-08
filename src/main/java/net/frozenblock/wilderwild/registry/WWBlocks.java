@@ -73,6 +73,7 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
+import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -440,33 +441,40 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
-	public static final FlowerBlock RED_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock RED_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_RED_HIBISCUS = Blocks.flowerPot(RED_HIBISCUS);
 
-	public static final FlowerBlock YELLOW_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock YELLOW_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_YELLOW_HIBISCUS = Blocks.flowerPot(YELLOW_HIBISCUS);
 
-	public static final FlowerBlock WHITE_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock WHITE_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_WHITE_HIBISCUS = Blocks.flowerPot(WHITE_HIBISCUS);
 
-	public static final FlowerBlock PINK_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock PINK_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_PINK_HIBISCUS = Blocks.flowerPot(PINK_HIBISCUS);
+
+	public static final WideFlowerBlock PURPLE_HIBISCUS = new WideFlowerBlock(
+		MobEffects.HUNGER,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_PURPLE_HIBISCUS = Blocks.flowerPot(PURPLE_HIBISCUS);
 
 	public static final PinkPetalsBlock WILDFLOWERS = new PinkPetalsBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
@@ -1420,10 +1428,12 @@ public final class WWBlocks {
 		registerBlock("potted_red_hibiscus", POTTED_RED_HIBISCUS);
 		registerBlockAfter(RED_HIBISCUS, "yellow_hibiscus", YELLOW_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_yellow_hibiscus", POTTED_YELLOW_HIBISCUS);
-		registerBlockBefore(YELLOW_HIBISCUS, "white_hibiscus", WHITE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(YELLOW_HIBISCUS, "white_hibiscus", WHITE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_white_hibiscus", POTTED_WHITE_HIBISCUS);
-		registerBlockBefore(WHITE_HIBISCUS, "pink_hibiscus", PINK_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(WHITE_HIBISCUS, "pink_hibiscus", PINK_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_pink_hibiscus", POTTED_PINK_HIBISCUS);
+		registerBlockAfter(PINK_HIBISCUS, "purple_hibiscus", PURPLE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_purple_hibiscus", POTTED_PURPLE_HIBISCUS);
 		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1828,9 +1838,11 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RED_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1854,9 +1866,11 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(DATURA, 60, 100);
 		flammableBlockRegistry.add(MILKWEED, 60, 100);
 		flammableBlockRegistry.add(MARIGOLD, 60, 100);
+		flammableBlockRegistry.add(RED_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(YELLOW_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(WHITE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(PINK_HIBISCUS, 60, 100);
+		flammableBlockRegistry.add(PURPLE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
 		flammableBlockRegistry.add(BUSH, 40, 90);

@@ -250,4 +250,11 @@ public final class WWModelHelper {
 
 		generator.createMultiface(multifaceBlock);
 	}
+
+	public static void createHibiscus(@NotNull BlockModelGenerators generator, Block block, Block pottedBlock, BlockModelGenerators.TintState tintState) {
+		generator.createCrossBlockWithDefaultItem(block, tintState);
+		TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(block, "_potted"));
+		ResourceLocation resourceLocation = tintState.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, resourceLocation));
+	}
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "wilderwild:block/red_hibiscus_potted"
+    "plant": "wilderwild:block/purple_hibiscus_potted"
   }
 }

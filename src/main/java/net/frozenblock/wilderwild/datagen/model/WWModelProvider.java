@@ -94,10 +94,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlant(WWBlocks.MYCELIUM_GROWTH, WWBlocks.POTTED_MYCELIUM_GROWTH, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createDoublePlant(WWBlocks.DATURA, BlockModelGenerators.TintState.NOT_TINTED);
 
-		generator.createPlant(WWBlocks.RED_HIBISCUS, WWBlocks.POTTED_RED_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createPlant(WWBlocks.YELLOW_HIBISCUS, WWBlocks.POTTED_YELLOW_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createPlant(WWBlocks.WHITE_HIBISCUS, WWBlocks.POTTED_WHITE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
-		generator.createPlant(WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		WWModelHelper.createHibiscus(generator, WWBlocks.RED_HIBISCUS, WWBlocks.POTTED_RED_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		WWModelHelper.createHibiscus(generator, WWBlocks.YELLOW_HIBISCUS, WWBlocks.POTTED_YELLOW_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		WWModelHelper.createHibiscus(generator, WWBlocks.WHITE_HIBISCUS, WWBlocks.POTTED_WHITE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		WWModelHelper.createHibiscus(generator, WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
+		WWModelHelper.createHibiscus(generator, WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
 		generator.createFlowerBed(WWBlocks.PHLOX);
