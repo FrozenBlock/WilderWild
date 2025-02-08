@@ -1155,9 +1155,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PHLOX_SPARSE)
 			.add(Biomes.SWAMP)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WILDFLOWERS_SPARSE);
 
