@@ -102,6 +102,7 @@ hi
 - Fixed Geysers not being able to erupt when placed facing directly into a block in the `wilderwild:block/geyser_can_pass_through` tag, thanks to Kluski42/Ashlyn!
 - Magmatic Caves are now larger on average.
 - Lowered the average amount of Bushes that generate.
+- Increased the average amount of Tumbleweed that generate.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

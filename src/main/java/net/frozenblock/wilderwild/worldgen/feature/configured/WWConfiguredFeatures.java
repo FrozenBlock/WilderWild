@@ -2601,7 +2601,7 @@ public final class WWConfiguredFeatures {
 
 		DESERT_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				8,
+				4,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL))
@@ -2941,7 +2941,7 @@ public final class WWConfiguredFeatures {
 
 		TUMBLEWEED.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				5,
+				12,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL))

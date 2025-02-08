@@ -1153,7 +1153,7 @@ public final class WWPlacedFeatures {
 		);
 
 		DESERT_BUSH_PLACED.makeAndSetHolder(WWConfiguredFeatures.DESERT_BUSH.getHolder(),
-			RarityFilter.onAverageOnceEvery(7),
+			RarityFilter.onAverageOnceEvery(11),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
@@ -1381,7 +1381,7 @@ public final class WWPlacedFeatures {
 		);
 
 		LANTANAS_SPARSE.makeAndSetHolder(WWConfiguredFeatures.LANTANAS.getHolder(),
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
