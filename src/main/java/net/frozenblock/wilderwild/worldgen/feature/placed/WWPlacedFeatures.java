@@ -1627,6 +1627,7 @@ public final class WWPlacedFeatures {
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE.getHolder(),
 			CountPlacement.of(1),
+			RarityFilter.onAverageOnceEvery(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
@@ -1713,8 +1714,8 @@ public final class WWPlacedFeatures {
 		);
 
 		TALL_FLOWER_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.TALL_FLOWERS_JUNGLE.getHolder(),
-			CountPlacement.of(2),
-			RarityFilter.onAverageOnceEvery(4),
+			CountPlacement.of(3),
+			RarityFilter.onAverageOnceEvery(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
