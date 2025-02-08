@@ -1809,6 +1809,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WILDFLOWERS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(LANTANAS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PHLOX, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
@@ -1859,6 +1861,9 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
 		flammableBlockRegistry.add(BUSH, 40, 90);
 		flammableBlockRegistry.add(MYCELIUM_GROWTH, 60, 100);
+		flammableBlockRegistry.add(WILDFLOWERS, 60, 100);
+		flammableBlockRegistry.add(LANTANAS, 60, 100);
+		flammableBlockRegistry.add(PHLOX, 60, 100);
 		flammableBlockRegistry.add(CLOVERS, 60, 100);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
