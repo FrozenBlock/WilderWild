@@ -1381,7 +1381,7 @@ public final class WWPlacedFeatures {
 		);
 
 		LANTANAS_SPARSE.makeAndSetHolder(WWConfiguredFeatures.LANTANAS.getHolder(),
-			RarityFilter.onAverageOnceEvery(8),
+			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
