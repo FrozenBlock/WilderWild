@@ -387,7 +387,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.GRAVEL_BEACH),
+			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_GRAVEL),
 			SurfaceRules.ifTrue(
 				SurfaceRules.UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -407,7 +407,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.SAND_BEACHES),
+			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_SAND),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -427,7 +427,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@NotNull
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.MULTI_LAYER_SAND_BEACHES),
+			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(

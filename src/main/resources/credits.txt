@@ -2,7 +2,7 @@ Luna/Lunade/AViewFromTheTop:
  - Lead developer & gameplay designer & idea generator (not gonna take the time to explain everything I did.)
  - Worldgen (don't forget Soro's worldgen, too!)
  - Crab entity, Reach Boost (2.2-2.4.3), and Wind particle textures.
- - Final Hibiscus textures.
+ - Potted Hibiscus reference textures.
  - Sounds (2.2 onwards.)
  - QA.
  - Etc., etc.
@@ -49,7 +49,7 @@ Zhen:
  - Pasqueflower idea and texture.
  - Butterfly textures.
  - Pale Fog textures.
- - Hibiscus reference textures.
+ - Hibiscus textures.
  - Willow textures.
  - Polished Gabbro, Gabbro Bricks, Chiseled Gabbro Bricks, Mossy Gabbro Bricks, and Cracked Gabbro Bricks textures.
  - Clovers textures.
@@ -96,6 +96,7 @@ wet.noodle/Kluski42:
  - Thick Big Fungus growing from Fungi.
  - Suggested adding Reach Boost to Beacons.
  - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
+ - Fixed a bug not allowing Geysers to erupt when pointed into certain blocks that should let them erupt.
 
 JarethTheRad:
  - Structure assistance.
@@ -116,7 +117,7 @@ Shadownite64:
  - Inbred Ostrich sound suggestions.
 
 blipinthecosmo5:
- - Hibiscus reference textures.
+ - Hibiscus temp textures.
 
 SaishoVibes:
  - Initial configs.

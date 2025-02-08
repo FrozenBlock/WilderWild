@@ -1,6 +1,13 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:item/clovers"
+    "model": "wilderwild:item/clovers",
+    "tints": [
+      {
+        "type": "minecraft:grass",
+        "downfall": 1.0,
+        "temperature": 0.5
+      }
+    ]
   }
 }
