@@ -228,7 +228,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MESOGLEA_MUSIC)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
-
 	}
 
 	private void generateClimateAndVegetationTags() {

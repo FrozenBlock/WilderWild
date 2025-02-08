@@ -3513,14 +3513,14 @@
   "music.overworld.dying_forest": {
     "sounds": [
       {
-        "name": "music.overworld.old_growth_taiga",
+        "name": "music.overworld.forest",
         "type": "event",
         "pitch": 1.033,
         "volume": 0.2,
         "weight": 3
       },
       {
-        "name": "music.overworld.old_growth_taiga",
+        "name": "music.overworld.forest",
         "type": "event",
         "pitch": 0.967,
         "volume": 0.2,
