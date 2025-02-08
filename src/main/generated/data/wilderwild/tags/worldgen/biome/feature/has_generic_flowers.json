@@ -1,9 +1,5 @@
 {
   "values": [
-    "minecraft:forest",
-    {
-      "id": "wilderwild:dying_forest",
-      "required": false
-    }
+    "minecraft:forest"
   ]
 }

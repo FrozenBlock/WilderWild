@@ -94,7 +94,7 @@ public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 	}
 
 	private static final float FLAP_SPEED = 1.375F;
-	private static final float FLAP_HEIGHT = Mth.PI * 0.35F;
+	private static final float FLAP_HEIGHT = Mth.PI * 0.475F;
 	private static final float FLAP_ROW_OFFSET = -3F;
 	private static final float FLAP_ROW_WIDTH = Mth.PI * 0.025F;
 	private static final float FLAP_TILT_OFFSET = -6F;

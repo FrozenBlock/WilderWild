@@ -377,4 +377,11 @@ public final class WWModelHelper {
 			)
 		);
 	}
+
+	public static void createHibiscus(@NotNull BlockModelGenerators generator, Block block, Block pottedBlock, BlockModelGenerators.PlantType plantType) {
+		generator.createCrossBlockWithDefaultItem(block, plantType);
+		TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
+		ResourceLocation resourceLocation = plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, resourceLocation));
+	}
 }

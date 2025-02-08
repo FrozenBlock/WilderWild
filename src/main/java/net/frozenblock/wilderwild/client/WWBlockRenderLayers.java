@@ -51,6 +51,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_RED_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_YELLOW_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_PINK_HIBISCUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_PURPLE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.DATURA, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CATTAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.ALGAE, RenderType.cutout());
@@ -94,10 +95,11 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_SAPLING, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.WHITE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.RED_HIBISCUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WHITE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PINK_HIBISCUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PURPLE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BUSH, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TERMITE_MOUND, RenderType.solid());

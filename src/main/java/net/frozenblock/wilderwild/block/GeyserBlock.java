@@ -45,7 +45,6 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,6 +54,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -140,7 +140,7 @@ public class GeyserBlock extends BaseEntityBlock {
 					boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
 					if (!erupting && isActive(blockState.getValue(GEYSER_TYPE))) {
 						newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
-                    }
+					}
 				}
 				level.setBlock(blockPos, newState, UPDATE_ALL);
 			}
@@ -179,10 +179,11 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull Direction direction, @NotNull BlockPos pos) {
 		BlockPos checkPos = pos.relative(direction);
 		BlockState checkState = level.getBlockState(checkPos);
-		if (!checkState.isFaceSturdy(level, checkPos, direction.getOpposite(), SupportType.CENTER)) {
-			if (checkState.getFluidState().is(FluidTags.WATER)) {
+		if (GeyserBlockEntity.canEruptionPassThrough(level, checkPos, checkState, direction)) {
+			FluidState fluidState = checkState.getFluidState();
+			if (fluidState.is(FluidTags.WATER)) {
 				return GeyserType.WATER;
-			} else if (checkState.getFluidState().is(FluidTags.LAVA)) {
+			} else if (fluidState.is(FluidTags.LAVA)) {
 				return GeyserType.LAVA;
 			} else {
 				return GeyserType.AIR;

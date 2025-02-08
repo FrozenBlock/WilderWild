@@ -57,7 +57,7 @@ hi
 - Added a new config option to toggle between the updated and original Sculk Shrieker selection outline.
 - Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
 - Glories of the Snow have been removed.
-  - They are now replaced with four Hibiscus Blocks:
+  - They are now replaced with five Hibiscus Blocks:
     - Red Hibiscus
     - Yellow Hibiscus.
     - White Hibiscus.
@@ -98,8 +98,12 @@ hi
   - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Tundra biomes.
   - Can be crafted into Purple Dye.
 - Added the Lantanas flower.
-  - Generates in Old Growth Birch Forest, Savanna, and Dark Forest biomes.
+  - Generates in Old Growth Birch Forest, Savanna, Dark Forest, and Sunflower Plains biomes.
   - Can be crafted into Orange Dye.
+- Fixed Geysers not being able to erupt when placed facing directly into a block in the `wilderwild:block/geyser_can_pass_through` tag, thanks to Kluski42/Ashlyn!
+- Magmatic Caves are now larger on average.
+- Lowered the average amount of Bushes that generate.
+- Increased the average amount of Tumbleweed that generate.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -195,9 +199,9 @@ hi
 # Pale Mushroom Branch
 - All Shelf Fungi can now be mined faster with an Axe.
 - Added the Pale Mushroom and Pale Shelf Fungi blocks.
-    - At night, these will emit gray spore-like particles.
+  - At night, these will emit gray spore-like particles.
 - Added the Pale Mushroom Block.
-    - Emits fog-like particles at night while above a Mushroom Stem block.
+  - Emits fog-like particles at night while above a Mushroom Stem block.
 - Huge Pale Mushrooms generate naturally in the Pale Garden Biome.
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
