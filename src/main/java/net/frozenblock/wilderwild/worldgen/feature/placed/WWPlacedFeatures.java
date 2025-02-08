@@ -264,7 +264,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature FLOWER_BIRCH = register("flower_birch");
 	public static final FrozenLibPlacedFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenLibPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
-	public static final FrozenLibPlacedFeature FLOWER_FOREST_FLOWERS = register("flower_forest_flowers");
+	public static final FrozenLibPlacedFeature CYPRESS_WETLANDS_FLOWERS_SPARSE = register("cypress_wetlands_flowers_sparse");
 	public static final FrozenLibPlacedFeature CYPRESS_WETLANDS_FLOWERS = register("cypress_wetlands_flowers");
 	public static final FrozenLibPlacedFeature CYPRESS_WETLANDS_FLOWERS_TALL = register("cypress_wetlands_flowers_tall");
 	public static final FrozenLibPlacedFeature MILKWEED = register("milkweed");
@@ -1416,7 +1416,7 @@ public final class WWPlacedFeatures {
 		);
 
 		WILDFLOWERS_AND_LANTANAS.makeAndSetHolder(WWConfiguredFeatures.WILDFLOWERS_AND_LANTANAS.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
@@ -1583,7 +1583,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		FLOWER_FOREST_FLOWERS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FOREST_FLOWERS),
+		CYPRESS_WETLANDS_FLOWERS_SPARSE.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FOREST_FLOWERS),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

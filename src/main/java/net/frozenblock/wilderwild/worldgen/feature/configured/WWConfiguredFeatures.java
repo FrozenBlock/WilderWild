@@ -1988,7 +1988,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				86,
+				64,
 				6,
 				2,
 				PlacementUtils.onlyWhenEmpty(
