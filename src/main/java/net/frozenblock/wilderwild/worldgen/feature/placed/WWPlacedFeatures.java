@@ -1726,7 +1726,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FLOWER_SUNFLOWER_PLAINS.makeAndSetHolder(WWConfiguredFeatures.FLOWERS_SUNFLOWER_PLAINS.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 3)), InSquarePlacement.spread(),
+			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);

@@ -2374,7 +2374,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWERS_SUNFLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				20,
+				38,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
