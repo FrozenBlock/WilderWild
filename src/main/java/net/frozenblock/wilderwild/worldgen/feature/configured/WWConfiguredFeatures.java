@@ -2611,7 +2611,7 @@ public final class WWConfiguredFeatures {
 
 		BADLANDS_BUSH_SAND.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				10,
+				8,
 				PlacementUtils.inlinePlaced(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(

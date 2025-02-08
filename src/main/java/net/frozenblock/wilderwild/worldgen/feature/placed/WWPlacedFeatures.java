@@ -1161,7 +1161,7 @@ public final class WWPlacedFeatures {
 		);
 
 		BADLANDS_BUSH_SAND_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_BUSH_SAND.getHolder(),
-			RarityFilter.onAverageOnceEvery(5),
+			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
@@ -1169,7 +1169,7 @@ public final class WWPlacedFeatures {
 		);
 
 		BADLANDS_BUSH_RARE_SAND_PLACED.makeAndSetHolder(WWConfiguredFeatures.BADLANDS_BUSH_SAND.getHolder(),
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.BUSH),
