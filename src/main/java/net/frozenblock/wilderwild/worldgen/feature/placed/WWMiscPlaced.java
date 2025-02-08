@@ -280,21 +280,21 @@ public final class WWMiscPlaced {
 		);
 
 		STONE_TRANSITION.makeAndSetHolder(WWMiscConfigured.STONE_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(6),
+			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
 		SMALL_SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.SMALL_SAND_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(6),
+			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
 		BETA_BEACH_SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.BETA_BEACH_SAND_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(6),
+			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
@@ -302,7 +302,7 @@ public final class WWMiscPlaced {
 		);
 
 		BETA_BEACH_GRAVEL_TRANSITION.makeAndSetHolder(WWMiscConfigured.SMALL_GRAVEL_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(6),
+			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
@@ -310,7 +310,7 @@ public final class WWMiscPlaced {
 		);
 
 		SMALL_GRAVEL_TRANSITION.makeAndSetHolder(WWMiscConfigured.SMALL_GRAVEL_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(6),
+			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
@@ -378,7 +378,7 @@ public final class WWMiscPlaced {
 		);
 
 		SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.SAND_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(4),
+			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
@@ -411,7 +411,7 @@ public final class WWMiscPlaced {
 		);
 
 		RED_SAND_TRANSITION.makeAndSetHolder(WWMiscConfigured.RED_SAND_TRANSITION_DISK.getHolder(),
-			CountPlacement.of(4),
+			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
