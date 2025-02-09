@@ -70,7 +70,7 @@ public class LiquidBlockRendererMixin {
 		BlockAndTintGetter world, BlockPos pos, FluidState state, BlockState blockState, Direction direction, FluidState adjacentFluidState, Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea.get() && direction != Direction.UP) return false;
+		if (isMesoglea.get()) return false;
 		return original.call(world, pos, state, blockState, direction, adjacentFluidState);
 	}
 

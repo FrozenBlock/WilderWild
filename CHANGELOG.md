@@ -91,7 +91,8 @@ hi
   - This change was made to make Jellyfish more peaceful and realistic.
 - Mesoglea is now always "waterlogged," maaking it much easier for players to utilize it properly.
   - Mesoglea will no longer leave a water block behind when broken.
-  - Fluid-like rendering for Mesoglea is now enabled by default in the config, and has been optimized.
+  - Fluid-like rendering for Mesoglea has been optimized.
+  - Water no longer renders inside Mesoglea Blocks.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 - Added the Phlox flower.
   - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
