@@ -520,7 +520,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.WAXED_COPPER_GRATE)
 			.add(Blocks.WAXED_EXPOSED_COPPER_GRATE)
 			.add(Blocks.WAXED_WEATHERED_COPPER_GRATE)
-			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE);
+			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE)
+			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH)
 			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);

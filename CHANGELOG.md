@@ -94,6 +94,7 @@ hi
   - Fluid-like rendering for Mesoglea has been optimized.
   - Water no longer renders inside Mesoglea Blocks.
   - Mesoglea now overrides the water fog color with its own.
+  - Geysers can now erupt through Mesoglea.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 - Added the Phlox flower.
   - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
