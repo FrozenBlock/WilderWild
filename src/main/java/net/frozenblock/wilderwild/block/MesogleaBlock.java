@@ -80,16 +80,19 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = WWBlockStateProperties.BUBBLE_DIRECTION;
 	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
+		Codec.INT.fieldOf("water_fog_color").forGetter(MesogleaBlock::getWaterFogColorOverride),
 		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(mesogleaBlock -> mesogleaBlock.dripParticle),
 		propertiesCodec()
 	).apply(instance, MesogleaBlock::new));
 	private final boolean pearlescent;
+	private final int waterFogColor;
 	private final ParticleOptions dripParticle;
 
-	public MesogleaBlock(boolean pearlescent, ParticleOptions dripParticle, @NotNull Properties properties) {
+	public MesogleaBlock(boolean pearlescent, int waterFogColor, ParticleOptions dripParticle, @NotNull Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
 		this.pearlescent = pearlescent;
+		this.waterFogColor = waterFogColor;
 		this.dripParticle = dripParticle;
 	}
 
@@ -171,6 +174,10 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	public boolean isPearlescent() {
 		return this.pearlescent;
+	}
+
+	public int getWaterFogColorOverride() {
+		return this.waterFogColor;
 	}
 
 	@Override

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
+    "block.block_break.ServerPlayerGameModeMixin",
     "block.cactus.CactusBlockMixin",
     "block.cactus.EntityTypeMixin",
     "block.cactus.WalkNodeEvaluatorMixin",
@@ -95,7 +96,6 @@
     "snowlogging.FenceGateBlockMixin",
     "snowlogging.PinkPetalsBlockMixin",
     "snowlogging.PistonBaseBlockMixin",
-    "block.block_break.ServerPlayerGameModeMixin",
     "snowlogging.SimpleWaterloggedBlockMixin",
     "snowlogging.SnowLayerBlockMixin",
     "snowlogging.SnowyDirtBlockMixin",
@@ -123,6 +123,7 @@
   "client": [
     "block.echo_glass.client.MultiPlayerGameModeMixin",
     "client.allay.AllayModelMixin",
+    "client.block_break.MultiPlayerGameModeMixin",
     "client.brush.LevelRendererMixin",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",
@@ -130,6 +131,7 @@
     "client.enderman.EnderManMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
+    "client.mesoglea.FogRendererMixin",
     "client.mesoglea.LiquidBlockRendererMixin",
     "client.shrieker.LevelRendererMixin",
     "client.sodium.BlockRendererMixin",
@@ -154,7 +156,6 @@
     "client.wind.particlerain.SnowFlakeParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
-    "client.block_break.MultiPlayerGameModeMixin",
     "snowlogging.client.TerrainRenderContextMixin"
   ],
   "injectors": {
