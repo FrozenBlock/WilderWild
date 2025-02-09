@@ -342,42 +342,70 @@ public final class WWBlocks {
 	public static final MesogleaBlock BLUE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.QUARTZ,
 		WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_SPLASH,
 		true,
 		Integer.parseInt("B9DAED", 16)
 	);
 	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.COLOR_PURPLE,
 		WWParticleTypes.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_SPLASH,
 		true,
 		Integer.parseInt("C6B2F4", 16)
 	);
 	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea(
 		MapColor.COLOR_YELLOW,
 		WWParticleTypes.YELLOW_HANGING_MESOGLEA,
+		WWParticleTypes.YELLOW_MESOGLEA_BUBBLE,
+		WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.YELLOW_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.YELLOW_MESOGLEA_SPLASH,
 		false,
 		Integer.parseInt("FFCA51", 16)
 	);
 	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_BLUE,
 		WWParticleTypes.BLUE_HANGING_MESOGLEA,
+		WWParticleTypes.BLUE_MESOGLEA_BUBBLE,
+		WWParticleTypes.BLUE_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.BLUE_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.BLUE_MESOGLEA_SPLASH,
 		false,
 		Integer.parseInt("50A4FF", 16)
 	);
 	public static final MesogleaBlock LIME_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_GREEN,
 		WWParticleTypes.LIME_HANGING_MESOGLEA,
+		WWParticleTypes.LIME_MESOGLEA_BUBBLE,
+		WWParticleTypes.LIME_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.LIME_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.LIME_MESOGLEA_SPLASH,
 		false,
 		Integer.parseInt("0CCD40", 16)
 	);
 	public static final MesogleaBlock RED_MESOGLEA = mesoglea(
 		MapColor.COLOR_RED,
 		WWParticleTypes.RED_HANGING_MESOGLEA,
+		WWParticleTypes.RED_MESOGLEA_BUBBLE,
+		WWParticleTypes.RED_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.RED_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.RED_MESOGLEA_SPLASH,
 		false,
 		Integer.parseInt("FF3B3C", 16)
 	);
 	public static final MesogleaBlock PINK_MESOGLEA = mesoglea(
 		MapColor.COLOR_PINK,
 		WWParticleTypes.PINK_HANGING_MESOGLEA,
+		WWParticleTypes.PINK_MESOGLEA_BUBBLE,
+		WWParticleTypes.PINK_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.PINK_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.PINK_MESOGLEA_SPLASH,
 		false,
 		Integer.parseInt("DF71DC", 16)
 	);
@@ -1700,11 +1728,24 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleOptions, boolean pearlescent, int waterFogColor) {
+	public static MesogleaBlock mesoglea(
+		@NotNull MapColor mapColor,
+		@NotNull ParticleOptions dripParticle,
+		@NotNull ParticleOptions bubbleParticle,
+		@NotNull ParticleOptions bubbleColumnUpParticle,
+		@NotNull ParticleOptions currentDownParticle,
+		@NotNull ParticleOptions splashParticle,
+		boolean pearlescent,
+		int waterFogColor
+	) {
 		MesogleaBlock mesogleaBlock = new MesogleaBlock(
 			pearlescent,
 			waterFogColor,
-			particleOptions,
+			dripParticle,
+			bubbleParticle,
+			bubbleColumnUpParticle,
+			currentDownParticle,
+			splashParticle,
 			BlockBehaviour.Properties.of()
 				.mapColor(mapColor)
 				.noOcclusion()
