@@ -148,6 +148,13 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.WILLOW_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.PALM_FRONDS, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
