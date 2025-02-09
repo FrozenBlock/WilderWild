@@ -651,7 +651,7 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.GABBRO)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
-			.strength(3F)
+			.strength(4.5F)
 	);
 	public static final Block GABBRO_STAIRS = new StairBlock(
 		WWBlocks.GABBRO.defaultBlockState(),
@@ -679,7 +679,7 @@ public final class WWBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
-			.strength(3F)
+			.strength(8F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
