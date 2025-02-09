@@ -1982,7 +1982,7 @@ public final class WWConfiguredFeatures {
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				32,
+				52,
 				hibiscusNoise
 			)
 		);
