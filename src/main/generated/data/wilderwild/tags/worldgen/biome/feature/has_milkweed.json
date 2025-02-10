@@ -3,9 +3,6 @@
     "minecraft:flower_forest",
     "minecraft:forest",
     "minecraft:swamp",
-    "minecraft:sparse_jungle",
-    "minecraft:jungle",
-    "minecraft:bamboo_jungle",
     "minecraft:dark_forest",
     {
       "id": "wilderwild:sparse_birch_jungle",

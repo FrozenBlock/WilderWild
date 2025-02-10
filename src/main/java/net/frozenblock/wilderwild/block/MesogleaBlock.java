@@ -68,7 +68,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock {
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
-	public static final float COLLISION_FROM_SIDE = 0.05F;
 	public static final double ITEM_SLOWDOWN = 0.999D;
 	public static final double ITEM_VERTICAL_BOOST = 0.025D;
 	public static final Vec3 ITEM_SLOWDOWN_VEC3 = new Vec3(ITEM_SLOWDOWN, ITEM_SLOWDOWN, ITEM_SLOWDOWN);
@@ -82,17 +81,41 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = WWBlockStateProperties.BUBBLE_DIRECTION;
 	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
+		Codec.INT.fieldOf("water_fog_color").forGetter(MesogleaBlock::getWaterFogColorOverride),
 		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(mesogleaBlock -> mesogleaBlock.dripParticle),
+		ParticleTypes.CODEC.fieldOf("bubble_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleParticle),
+		ParticleTypes.CODEC.fieldOf("bubble_column_up_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleColumnUpParticle),
+		ParticleTypes.CODEC.fieldOf("current_down_particle").forGetter(mesogleaBlock -> mesogleaBlock.currentDownParticle),
+		ParticleTypes.CODEC.fieldOf("splash_particle").forGetter(mesogleaBlock -> mesogleaBlock.splashParticle),
 		propertiesCodec()
 	).apply(instance, MesogleaBlock::new));
 	private final boolean pearlescent;
+	private final int waterFogColor;
 	private final ParticleOptions dripParticle;
+	private final ParticleOptions bubbleParticle;
+	private final ParticleOptions bubbleColumnUpParticle;
+	private final ParticleOptions currentDownParticle;
+	private final ParticleOptions splashParticle;
 
-	public MesogleaBlock(boolean pearlescent, ParticleOptions dripParticle, @NotNull Properties properties) {
+	public MesogleaBlock(
+		boolean pearlescent,
+		int waterFogColor,
+		ParticleOptions dripParticle,
+		ParticleOptions bubbleParticle,
+		ParticleOptions bubbleColumnUpParticle,
+		ParticleOptions currentDownParticle,
+		ParticleOptions splashParticle,
+		@NotNull Properties properties
+	) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
 		this.pearlescent = pearlescent;
+		this.waterFogColor = waterFogColor;
 		this.dripParticle = dripParticle;
+		this.bubbleParticle = bubbleParticle;
+		this.bubbleColumnUpParticle = bubbleColumnUpParticle;
+		this.currentDownParticle = currentDownParticle;
+		this.splashParticle = splashParticle;
 	}
 
 	public static boolean isMesoglea(@NotNull BlockState blockState) {
@@ -175,6 +198,26 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		return this.pearlescent;
 	}
 
+	public int getWaterFogColorOverride() {
+		return this.waterFogColor;
+	}
+
+	public ParticleOptions getBubbleParticle() {
+		return this.bubbleParticle;
+	}
+
+	public ParticleOptions getBubbleColumnUpParticle() {
+		return this.bubbleColumnUpParticle;
+	}
+
+	public ParticleOptions getSplashParticle() {
+		return this.splashParticle;
+	}
+
+	public ParticleOptions getCurrentDownParticle() {
+		return this.currentDownParticle;
+	}
+
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		Optional<Direction> dragDirection = getDragDirection(state);
@@ -202,7 +245,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 				if (level instanceof ServerLevel serverLevel) {
 					for (int i = 0; i < 2; ++i) {
 						serverLevel.sendParticles(
-							ParticleTypes.SPLASH,
+							this.getSplashParticle(),
 							pos.getX() + level.random.nextDouble(),
 							pos.getY() + 1D,
 							pos.getZ() + level.random.nextDouble(),
@@ -213,7 +256,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 							1D
 						);
 						serverLevel.sendParticles(
-							ParticleTypes.BUBBLE,
+							this.getBubbleParticle(),
 							pos.getX() + level.random.nextDouble(),
 							pos.getY() + 1D,
 							pos.getZ() + level.random.nextDouble(),
@@ -254,11 +297,6 @@ public class MesogleaBlock extends HalfTransparentBlock {
 				return shape;
 			}
 		}
-		for (Direction direction : Direction.values()) {
-			if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
-				shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, COLLISION_FROM_SIDE));
-			}
-		}
 		return shape;
 	}
 
@@ -279,7 +317,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		Optional<Direction> dragDirection = getDragDirection(blockState);
 		if (dragDirection.isPresent()) {
 			if (dragDirection.get() == Direction.DOWN) {
-				level.addAlwaysVisibleParticle(ParticleTypes.CURRENT_DOWN, d + 0.5D, e + 0.8D, f, 0D, 0D, 0D);
+				level.addAlwaysVisibleParticle(this.getCurrentDownParticle(), d + 0.5D, e + 0.8D, f, 0D, 0D, 0D);
 				if (randomSource.nextInt(AMBIENT_WHIRLPOOL_SOUND_CHANCE) == 0) {
 					level.playLocalSound(
 						d,
@@ -294,7 +332,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 				}
 			} else if (dragDirection.get() == Direction.UP) {
 				level.addAlwaysVisibleParticle(
-					ParticleTypes.BUBBLE_COLUMN_UP,
+					this.getBubbleColumnUpParticle(),
 					d + 0.5D,
 					e,
 					f + 0.5D,
@@ -303,7 +341,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 					0D
 				);
 				level.addAlwaysVisibleParticle(
-					ParticleTypes.BUBBLE_COLUMN_UP,
+					this.getBubbleColumnUpParticle(),
 					d + randomSource.nextDouble(),
 					e + randomSource.nextDouble(),
 					f + randomSource.nextDouble(),

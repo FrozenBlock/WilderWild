@@ -86,6 +86,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -119,7 +120,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
 
-public class Crab extends Animal implements VibrationSystem, Bucketable {
+public class Crab extends Animal implements VibrationSystem, Bucketable, VariantHolder<CrabVariant> {
 	public static final float MAX_TARGET_DISTANCE = 16F;
 	public static final double MOVEMENT_SPEED = 0.16;
 	public static final float STEP_HEIGHT = 0.2F;
@@ -821,8 +822,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.crabVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getValue(CrabVariants.DEFAULT));
 	}
 
+	@Override
 	public void setVariant(@NotNull CrabVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getKey(variant)).toString());
+	}
+
+	@Override
+	public @NotNull CrabVariant getVariant() {
+		return this.getVariantByLocation();
 	}
 
 	public void setVariant(@NotNull ResourceLocation variant) {

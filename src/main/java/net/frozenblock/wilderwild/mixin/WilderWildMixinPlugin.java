@@ -81,7 +81,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.cactus.")) return this.mixinsConfig.block_cactus;
 		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
 		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
-		if (mixinClassName.contains("block.dripstone.")) return this.mixinsConfig.block_dripstone;
 		if (mixinClassName.contains("block.echo_glass.")) return this.mixinsConfig.block_echo_glass;
 		if (mixinClassName.contains("block.fire.")) return this.mixinsConfig.block_fire;
 		if (mixinClassName.contains("block.ice.")) return this.mixinsConfig.block_ice;
@@ -100,7 +99,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.easter.")) return this.mixinsConfig.entity_easter;
 		if (mixinClassName.contains("entity.enderman.")) return this.mixinsConfig.entity_enderman;
 		if (mixinClassName.contains("entity.experience.")) return this.mixinsConfig.entity_experience;
-		if (mixinClassName.contains("entity.jellyfish.")) return this.mixinsConfig.entity_jellyfish;
 		if (mixinClassName.contains("entity.lightning.")) return this.mixinsConfig.entity_lightning;
 		if (mixinClassName.contains("entity.penguin.")) return this.mixinsConfig.entity_penguin;
 		if (mixinClassName.contains("entity.slime.")) return this.mixinsConfig.entity_slime;

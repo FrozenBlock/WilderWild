@@ -93,7 +93,7 @@ public final class WWBlockConfig {
 	}
 
 	public static final class Client {
-		public static volatile boolean MESOGLEA_FLUID = true;
+		public static volatile boolean MESOGLEA_FLUID = false;
 		public static volatile boolean POLLEN_ENABLED = true;
 		public static volatile boolean SOUL_FIRE_SOUNDS = true;
 		public static volatile boolean BILLBOARD_TENDRILS = true;
@@ -245,7 +245,7 @@ public final class WWBlockConfig {
 
 	public static class MesogleaConfig {
 		@EntrySyncData(value = "mesogleaFluid", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean mesogleaFluid = true;
+		public boolean mesogleaFluid = false;
 
 		@EntrySyncData("mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;

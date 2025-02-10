@@ -14,16 +14,13 @@
               "firstOctave": 0
             },
             "scale": 0.054833334,
-            "seed": 5050,
+            "seed": 1234,
             "states": [
               {
                 "Name": "minecraft:lily_of_the_valley"
               },
               {
                 "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "minecraft:oxeye_daisy"
               },
               {
                 "Name": "minecraft:dandelion"

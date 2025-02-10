@@ -89,9 +89,7 @@ public class FluidRendererMixin {
 		Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea.get() && dir != Direction.UP) {
-			return true;
-		}
+		if (isMesoglea.get()) return true;
 		return original.call(instance, world, x, y, z, dir, blockState, fluid);
 	}
 }

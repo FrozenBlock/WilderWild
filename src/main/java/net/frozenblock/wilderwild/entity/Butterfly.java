@@ -25,7 +25,7 @@ import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.butterfly.ButterflyAi;
-import net.frozenblock.wilderwild.entity.impl.Bottleable;
+import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.item.MobBottleItem;
@@ -61,6 +61,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -85,7 +86,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable {
+public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleable, VariantHolder<ButterflyVariant> {
 	public static final int TICKS_PER_FLAP = 3;
 	public static final int SPAWN_CHANCE = 50;
 	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
@@ -200,7 +201,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	@Override
 	@NotNull
 	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		return Bottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+		return WWBottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
 	@Override
@@ -221,18 +222,18 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	}
 
 	@Override
-	public boolean fromBottle() {
+	public boolean wilderWild$fromBottle() {
 		return this.entityData.get(FROM_BOTTLE);
 	}
 
 	@Override
-	public void setFromBottle(boolean value) {
+	public void wilderWild$setFromBottle(boolean value) {
 		this.entityData.set(FROM_BOTTLE, value);
 	}
 
 	@Override
-	public void saveToBottleTag(ItemStack itemStack) {
-		Bottleable.saveDefaultDataToBottleTag(this, itemStack);
+	public void wilderWild$saveToBottleTag(ItemStack itemStack) {
+		WWBottleable.saveDefaultDataToBottleTag(this, itemStack);
 
 		CustomData.update(
 			WWDataComponents.BOTTLE_ENTITY_DATA,
@@ -242,8 +243,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	}
 
 	@Override
-	public void loadFromBottleTag(CompoundTag compoundTag) {
-		Bottleable.loadDefaultDataFromBottleTag(this, compoundTag);
+	public void wilderWild$loadFromBottleTag(CompoundTag compoundTag) {
+		WWBottleable.loadDefaultDataFromBottleTag(this, compoundTag);
 		if (compoundTag.contains(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)) {
 			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.BUTTERFLY_BOTTLE_VARIANT_FIELD)))
 				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.BUTTERFLY_VARIANT, resourceLocation))
@@ -253,21 +254,21 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 	}
 
 	@Override
-	public void onCapture() {
+	public void wilderWild$onCapture() {
 	}
 
 	@Override
-	public void onBottleRelease() {
+	public void wilderWild$onBottleRelease() {
 		ButterflyAi.rememberHome(this, this.blockPosition());
 	}
 
 	@Override
-	public ItemStack getBottleItemStack() {
+	public ItemStack wilderWild$getBottleItemStack() {
 		return new ItemStack(WWItems.BUTTERFLY_BOTTLE);
 	}
 
 	@Override
-	public SoundEvent getBottleCatchSound() {
+	public SoundEvent wilderWild$getBottleCatchSound() {
 		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY;
 	}
 
@@ -291,8 +292,14 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 		return this.butterflyVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getValue(ButterflyVariants.DEFAULT));
 	}
 
+	@Override
 	public void setVariant(@NotNull ButterflyVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getKey(variant)).toString());
+	}
+
+	@Override
+	public @NotNull ButterflyVariant getVariant() {
+		return this.getVariantByLocation();
 	}
 
 	public void setVariant(@NotNull ResourceLocation variant) {
@@ -301,7 +308,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.fromBottle();
+		return super.requiresCustomPersistence() || this.wilderWild$fromBottle();
 	}
 
 	@Override
@@ -404,14 +411,14 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return !this.fromBottle() && !this.hasCustomName();
+		return !this.wilderWild$fromBottle() && !this.hasCustomName();
 	}
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 		compoundTag.putString("variant", this.getVariantLocation().toString());
-		compoundTag.putBoolean("fromBottle", this.fromBottle());
+		compoundTag.putBoolean("fromBottle", this.wilderWild$fromBottle());
 	}
 
 	@Override
@@ -421,7 +428,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, Bottleable
 			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.BUTTERFLY_VARIANT, resourceLocation))
 			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).get(resourceKey))
 			.ifPresent(reference -> this.setVariant(reference.value()));
-		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
+		if (compoundTag.contains("fromBottle")) this.wilderWild$setFromBottle(compoundTag.getBoolean("fromBottle"));
 	}
 
 	@Override

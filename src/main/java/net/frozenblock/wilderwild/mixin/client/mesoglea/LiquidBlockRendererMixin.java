@@ -45,13 +45,13 @@ public class LiquidBlockRendererMixin {
 		method = "tesselate",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;shouldRenderFace(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z",
+			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;isNeighborSameFluid(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/material/FluidState;)Z",
 			ordinal = 0,
 			shift = At.Shift.BEFORE
 		),
 		require = 0
 	)
-	private void wilderWild$isMesoglea(
+	private void wilderWild$mesogleaCheck(
 		BlockAndTintGetter world, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState state, CallbackInfo info,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
@@ -62,15 +62,31 @@ public class LiquidBlockRendererMixin {
 		method = "tesselate",
 		at = @At(
 			value = "INVOKE",
+			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;isNeighborSameFluid(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/material/FluidState;)Z"
+		),
+		require = 0
+	)
+	private boolean wilderWild$dontRenderUpFaceIfMesoglea(
+		FluidState fluidState, FluidState fluidState2, Operation<Boolean> original,
+		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
+	) {
+		if (isMesoglea.get()) return true;
+		return original.call(fluidState, fluidState2);
+	}
+
+	@WrapOperation(
+		method = "tesselate",
+		at = @At(
+			value = "INVOKE",
 			target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;shouldRenderFace(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z"
 		),
 		require = 0
 	)
-	private boolean wilderWild$dontRenderFaceIfMesoglea(
+	private boolean wilderWild$dontRenderFacesIfMesoglea(
 		FluidState fluidState, BlockState blockState, Direction direction, FluidState fluidState2, Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea.get() && direction != Direction.UP) return false;
+		if (isMesoglea.get()) return false;
 		return original.call(fluidState, blockState, direction, fluidState2);
 	}
 
