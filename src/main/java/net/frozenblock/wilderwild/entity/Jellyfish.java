@@ -117,7 +117,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final float STING_PITCH_BABY = 1.2F;
 	public static final int SPAWN_CHANCE = 110;
 	public static final int SPAWN_HEIGHT_NORMAL_SEA_OFFSET = 13;
-	public static final float BUBBLE_SPAWN_CHANCE = 0.2F;
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
@@ -284,14 +283,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	protected SoundEvent getSwimSound() {
 		return WWSounds.ENTITY_JELLYFISH_SWIM;
-	}
-
-	@Override
-	protected void playSwimSound(float volume) {
-		super.playSwimSound(volume);
-		if (this.random.nextFloat() < BUBBLE_SPAWN_CHANCE) {
-			this.spawnBubbles();
-		}
 	}
 
 	@Override
@@ -630,19 +621,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		Vec3 vec3 = vector.xRot(this.xRot1 * Mth.DEG_TO_RAD);
 		vec3 = vec3.yRot(-this.yBodyRotO * Mth.DEG_TO_RAD);
 		return vec3;
-	}
-
-	private void spawnBubbles() {
-		if (this.level() instanceof ServerLevel serverLevel && !this.isBaby()) {
-			double deltaLength = this.getDeltaMovement().length();
-			float bbHeight = this.getBbHeight();
-			Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
-			for (int i = 0; i < this.random.nextInt(0, (int) (2D + (deltaLength * 25D))); ++i) {
-				Vec3 vec32 = this.rotateVector(new Vec3(this.random.nextDouble() * 0.6D - 0.3D, -1D, this.random.nextDouble() * 0.6D - 0.3D));
-				Vec3 vec33 = vec32.scale(0.3D + (this.random.nextFloat() * 2D));
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2D) + 0.1D);
-			}
-		}
 	}
 
 	@Override

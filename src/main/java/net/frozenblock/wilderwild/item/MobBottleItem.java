@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.impl.Bottleable;
+import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -70,12 +70,12 @@ public class MobBottleItem extends Item {
 				entity.snapTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
 				boolean spawned = server.addFreshEntity(entity);
 				if (spawned) {
-					if (entity instanceof Bottleable bottleable) {
+					if (entity instanceof WWBottleable bottleable) {
 						CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
-						bottleable.loadFromBottleEntityDataTag(customData.copyTag());
-						bottleable.loadFromBottleItemStack(stack);
-						bottleable.setFromBottle(true);
-						bottleable.onBottleRelease();
+						bottleable.wilderWild$loadFromBottleEntityDataTag(customData.copyTag());
+						bottleable.wilderWild$loadFromBottleItemStack(stack);
+						bottleable.wilderWild$setFromBottle(true);
+						bottleable.wilderWild$onBottleRelease();
 					}
 
 					if (!player.getAbilities().instabuild) player.setItemInHand(interactionHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));

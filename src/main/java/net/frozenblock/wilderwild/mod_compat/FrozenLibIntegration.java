@@ -246,7 +246,6 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
 
-		FrozenBools.useNewDripstoneLiquid = true;
 		DripstoneDripApi.addWaterDrip(
 			Blocks.WET_SPONGE,
 			(level, pos, fluidInfo) -> {

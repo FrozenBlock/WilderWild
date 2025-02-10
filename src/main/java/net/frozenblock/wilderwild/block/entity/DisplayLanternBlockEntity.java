@@ -222,7 +222,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 					0F,
 					0F
 				);
-				entity.setFromBottle(true);
+				entity.wilderWild$setFromBottle(true);
 				if (level.addFreshEntity(entity)) {
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);

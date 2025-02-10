@@ -2423,7 +2423,7 @@ public final class WWConfiguredFeatures {
 			Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new NoiseProvider(
-					5050L,
+					1234L,
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.088833334F,
 					List.of(
@@ -2448,7 +2448,7 @@ public final class WWConfiguredFeatures {
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				32,
+				52,
 				hibiscusNoise
 			)
 		);
@@ -2813,13 +2813,12 @@ public final class WWConfiguredFeatures {
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
 						new NoiseProvider(
-							5050L,
+							1234L,
 							new NormalNoise.NoiseParameters(0, 1D),
 							0.054833334F,
 							List.of(
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
@@ -2834,14 +2833,14 @@ public final class WWConfiguredFeatures {
 
 		TALL_FLOWERS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				10,
 				8,
+				6,
 				3,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
 						new NoiseProvider(
-							5050L,
+							1234L,
 							new NormalNoise.NoiseParameters(0, 1D),
 							0.054833334F,
 							List.of(

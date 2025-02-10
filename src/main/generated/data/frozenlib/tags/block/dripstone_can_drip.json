@@ -1,8 +1,6 @@
 {
   "values": [
     "minecraft:dirt",
-    "minecraft:sand",
-    "minecraft:red_sand",
     "wilderwild:scorched_sand",
     "wilderwild:scorched_red_sand"
   ]
