@@ -57,7 +57,7 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 		this.xd = xd * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
 		this.yd = yd * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
 		this.zd = zd * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
-		this.lifetime = (int)(40D / (Math.random() * 0.8 + 0.2)) * 2;
+		this.lifetime = (int)(40D / (Math.random() * 0.8 + 0.2)) * (this.yd < 0 ? 1 : 2);
 	}
 
 	@Override

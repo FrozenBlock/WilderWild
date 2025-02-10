@@ -95,6 +95,8 @@ hi
   - Water no longer renders inside Mesoglea Blocks.
   - Mesoglea now overrides the water fog color with its own.
   - Geysers can now erupt through Mesoglea.
+  - Mesoglea now has custom Bubble, Bubble Pop, and Splash particles.
+    - Mesoglea Bubbles float and can persist in the air for a short period of time.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 - Added the Phlox flower.
   - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
