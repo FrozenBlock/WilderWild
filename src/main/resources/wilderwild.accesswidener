@@ -210,3 +210,4 @@ accessible field net/minecraft/client/particle/Particle zd D
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)V
 accessible field net/minecraft/client/particle/CherryParticle rotSpeed F
 accessible field net/minecraft/client/particle/Particle gravity F
+accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V

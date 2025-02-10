@@ -72,7 +72,7 @@ public class FallingParticle extends TextureSheetParticle {
 	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+		public Particle createParticle(@NotNull SimpleParticleType particleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
 			return new FallingParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
 		}
 	}

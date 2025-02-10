@@ -51,6 +51,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -71,7 +72,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FlowerCow extends Cow implements Shearable {
+public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomVariant> {
 	public static final int MAX_FLOWERS = 4;
 	private static final byte GROW_FLOWER_EVENT_ID = 61;
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(FlowerCow.class, EntityDataSerializers.STRING);
@@ -235,8 +236,14 @@ public class FlowerCow extends Cow implements Shearable {
 		return this.moobloomVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getValue(MoobloomVariants.DEFAULT));
 	}
 
+	@Override
 	public void setVariant(@NotNull MoobloomVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getKey(variant)).toString());
+	}
+
+	@Override
+	public @NotNull MoobloomVariant getVariant() {
+		return this.getVariantByLocation();
 	}
 
 	public void setVariant(@NotNull ResourceLocation variant) {

@@ -216,7 +216,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07D, worldPosition.getZ() + firefly.pos.z, 0F, 0F);
-				entity.setFromBottle(true);
+				entity.wilderWild$setFromBottle(true);
 				if (level.addFreshEntity(entity)) {
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
