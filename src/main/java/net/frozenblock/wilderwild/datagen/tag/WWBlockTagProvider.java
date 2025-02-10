@@ -150,8 +150,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	private void generateLib() {
 		this.getOrCreateTagBuilder(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(Blocks.DIRT)
-			.add(Blocks.SAND)
-			.add(Blocks.RED_SAND)
 			.add(WWBlocks.SCORCHED_SAND)
 			.add(WWBlocks.SCORCHED_RED_SAND);
 	}

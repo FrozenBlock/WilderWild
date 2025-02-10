@@ -66,7 +66,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock {
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
-	public static final float COLLISION_FROM_SIDE = 0.05F;
 	public static final double ITEM_SLOWDOWN = 0.999D;
 	public static final double ITEM_VERTICAL_BOOST = 0.025D;
 	public static final Vec3 ITEM_SLOWDOWN_VEC3 = new Vec3(ITEM_SLOWDOWN, ITEM_SLOWDOWN, ITEM_SLOWDOWN);
@@ -294,11 +293,6 @@ public class MesogleaBlock extends HalfTransparentBlock {
 					}
 				}
 				return shape;
-			}
-		}
-		for (Direction direction : Direction.values()) {
-			if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
-				shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, COLLISION_FROM_SIDE));
 			}
 		}
 		return shape;

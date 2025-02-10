@@ -109,6 +109,7 @@ hi
 - Magmatic Caves are now larger on average.
 - Lowered the average amount of Bushes that generate.
 - Increased the average amount of Tumbleweed that generate.
+- Sand and Red Sand can no longer be scorched by Lava falling from Pointed Dripstone.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

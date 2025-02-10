@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2025 FrozenBlock
+ * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -16,31 +16,38 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.block.dripstone;
+package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
-import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
-import net.frozenblock.lib.tag.api.FrozenBlockTags;
-import net.frozenblock.wilderwild.block.ScorchedBlock;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(FallingBlock.class)
-public final class FallingBlockMixin {
+@Mixin(FlowingFluid.class)
+public class FlowingFluidMixin {
 
-	@Inject(at = @At("HEAD"), method = "tick")
-	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (state.is(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON) && random.nextBoolean()) {
-			if (DripstoneDripApi.getDripstoneFluid(level, pos) == Fluids.LAVA) {
-				ScorchedBlock.scorch(state, level, pos);
-			}
+	@Inject(
+		method = "spread",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/core/BlockPos;below()Lnet/minecraft/core/BlockPos;",
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
+	)
+	public void wilderWild$stopMesogleaWaterSpread(
+		Level level, BlockPos blockPos, FluidState fluidState, CallbackInfo info,
+		@Local BlockState state
+	) {
+		if (state.getBlock() instanceof MesogleaBlock) {
+			info.cancel();
 		}
 	}
 

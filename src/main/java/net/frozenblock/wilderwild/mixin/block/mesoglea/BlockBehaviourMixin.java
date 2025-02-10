@@ -35,7 +35,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged")
-	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+	public void wilderWild$neighborChanged(
+		@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info
+	) {
 		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock bubbleColumnBlock && !level.isClientSide && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			level.scheduleTick(pos, bubbleColumnBlock, 5);
 		}

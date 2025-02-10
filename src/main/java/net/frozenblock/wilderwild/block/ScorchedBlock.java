@@ -28,14 +28,12 @@ import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -55,7 +53,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
-	public static final int TICK_DELAY = 2;
 	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
@@ -131,17 +128,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
-		level.scheduleTick(pos, this, TICK_DELAY);
-	}
-
-	@Override
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		level.scheduleTick(currentPos, this, TICK_DELAY);
-		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-	}
-
-	@Override
 	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
 		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < RAIN_HYDRATION_CHANCE) {
 			hydrate(state, level, pos);
@@ -166,14 +152,11 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		Fluid fluid = DripstoneDripApi.getDripstoneFluid(level, pos);
 		if (fluid == Fluids.LAVA) {
-			if (random.nextBoolean()) {
-				scorch(state, level, pos);
-			}
+			if (random.nextBoolean()) scorch(state, level, pos);
 		} else if (fluid == Fluids.WATER) {
 			hydrate(state, level, pos);
 		}
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof ScorchedBlockEntity scorchedBlock) {
+		if (level.getBlockEntity(pos) instanceof ScorchedBlockEntity scorchedBlock) {
 			scorchedBlock.checkReset();
 		}
 	}
