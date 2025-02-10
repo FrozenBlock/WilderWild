@@ -36,22 +36,22 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public interface Bottleable {
-	boolean fromBottle();
+public interface WWBottleable {
+	boolean wilderWild$fromBottle();
 
-	void setFromBottle(boolean bl);
+	void wilderWild$setFromBottle(boolean bl);
 
-	void saveToBottleTag(ItemStack itemStack);
+	void wilderWild$saveToBottleTag(ItemStack itemStack);
 
-	void loadFromBottleTag(CompoundTag compoundTag);
+	void wilderWild$loadFromBottleTag(CompoundTag compoundTag);
 
-	void onCapture();
+	void wilderWild$onCapture();
 
-	void onBottleRelease();
+	void wilderWild$onBottleRelease();
 
-	ItemStack getBottleItemStack();
+	ItemStack wilderWild$getBottleItemStack();
 
-	SoundEvent getBottleCatchSound();
+	SoundEvent wilderWild$getBottleCatchSound();
 
 	@Deprecated
 	static void saveDefaultDataToBottleTag(@NotNull Mob mob, @NotNull ItemStack itemStack) {
@@ -76,13 +76,13 @@ public interface Bottleable {
 		if (compoundTag.contains("Health", 99)) mob.setHealth(compoundTag.getFloat("Health"));
 	}
 
-	static <T extends LivingEntity & Bottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {
+	static <T extends LivingEntity & WWBottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && livingEntity.isAlive()) {
-			livingEntity.onCapture();
-			livingEntity.playSound(livingEntity.getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
-			ItemStack bottleStack = livingEntity.getBottleItemStack();
-			livingEntity.saveToBottleTag(bottleStack);
+			livingEntity.wilderWild$onCapture();
+			livingEntity.playSound(livingEntity.wilderWild$getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
+			ItemStack bottleStack = livingEntity.wilderWild$getBottleItemStack();
+			livingEntity.wilderWild$saveToBottleTag(bottleStack);
 
 			Level level = livingEntity.level();
 			if (!level.isClientSide) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);

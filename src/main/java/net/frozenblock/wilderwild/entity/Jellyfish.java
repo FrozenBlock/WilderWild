@@ -74,6 +74,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -102,7 +103,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Jellyfish extends NoFlopAbstractFish {
+public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<JellyfishVariant> {
 	private static final float MAX_TARGET_DISTANCE = 4F;
 	public static final int POISON_DURATION_IN_SECONDS_BABY = 4;
 	public static final int POISON_DURATION_IN_SECONDS = 10;
@@ -650,8 +651,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.jellyfishVariant.orElse(this.registryAccess().registryOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).get(JellyfishVariants.DEFAULT));
 	}
 
+	@Override
 	public void setVariant(@NotNull JellyfishVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().registryOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).getKey(variant)).toString());
+	}
+
+	@Override
+	public @NotNull JellyfishVariant getVariant() {
+		return this.getVariantByLocation();
 	}
 
 	public void setVariant(@NotNull ResourceLocation variant) {

@@ -22,7 +22,7 @@ import com.mojang.serialization.MapCodec;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.impl.Bottleable;
+import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -82,11 +82,11 @@ public class MobBottleItem extends Item {
 				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
 				boolean spawned = server.addFreshEntity(entity);
 				if (spawned) {
-					if (entity instanceof Bottleable bottleable) {
+					if (entity instanceof WWBottleable bottleable) {
 						CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
-						bottleable.loadFromBottleTag(customData.copyTag());
-						bottleable.setFromBottle(true);
-						bottleable.onBottleRelease();
+						bottleable.wilderWild$loadFromBottleTag(customData.copyTag());
+						bottleable.wilderWild$setFromBottle(true);
+						bottleable.wilderWild$onBottleRelease();
 					}
 
 					if (!player.getAbilities().instabuild) player.setItemInHand(interactionHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
