@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -262,7 +263,7 @@ public final class WWCavePlaced {
 		);
 
 		OBSIDIAN_DISK.makeAndSetHolder(WWCaveConfigured.OBSIDIAN_DISK.getHolder(),
-			modifiersWithCount(8, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		LAVA_SPRING_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
@@ -300,6 +301,12 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.anyOf(
+					BlockPredicate.noFluid(Direction.UP.getNormal()),
+					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+				)
+			),
 			BiomeFilter.biome()
 		);
 
