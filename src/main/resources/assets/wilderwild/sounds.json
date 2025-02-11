@@ -2755,6 +2755,15 @@
     ],
     "subtitle": "subtitles.entity.penguin.call"
   },
+  "entity.penguin.step": {
+    "sounds": [
+      "wilderwild:mob/penguin/step1",
+      "wilderwild:mob/penguin/step2",
+      "wilderwild:mob/penguin/step3",
+      "wilderwild:mob/penguin/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.scorched.ambient": {
     "sounds": [
       "wilderwild:mob/scorched/say1",

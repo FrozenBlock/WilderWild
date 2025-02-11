@@ -83,6 +83,7 @@ Willow/pictochats_:
     - Unnamed Cave Song
     - Unnamed Maple Forest Song
     - Dahlia
+ - Penguin step sounds.
 
 Contributors:
 

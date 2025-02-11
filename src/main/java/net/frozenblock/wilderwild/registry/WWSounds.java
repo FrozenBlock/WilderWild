@@ -302,6 +302,7 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_PENGUIN_HURT = register("entity.penguin.hurt");
 	public static final SoundEvent ENTITY_PENGUIN_DEATH = register("entity.penguin.death");
 	public static final SoundEvent ENTITY_PENGUIN_LAY_EGG = register("entity.penguin.lay_egg");
+	public static final SoundEvent ENTITY_PENGUIN_STEP = register("entity.penguin.step");
 	public static final SoundEvent ENTITY_SCORCHED_AMBIENT = register("entity.scorched.ambient");
 	public static final SoundEvent ENTITY_SCORCHED_HURT = register("entity.scorched.hurt");
 	public static final SoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");

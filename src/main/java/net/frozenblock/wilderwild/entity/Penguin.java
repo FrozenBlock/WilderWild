@@ -61,6 +61,7 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -295,6 +296,15 @@ public class Penguin extends Animal {
 		if (this.isSliding()) return super.nextStep();
 		if (this.isSwimming()) return this.moveDist + 1F;
 		return this.moveDist + 0.4F;
+	}
+
+	@Override
+	protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+		if (!this.isSliding()) {
+			this.playSound(WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
+		} else {
+			super.playStepSound(blockPos, blockState);
+		}
 	}
 
 	@Override
