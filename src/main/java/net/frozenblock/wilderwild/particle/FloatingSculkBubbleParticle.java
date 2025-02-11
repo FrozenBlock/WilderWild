@@ -46,7 +46,16 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	private float currentInflation = 0F;
 	private float targetInflation = 2F;
 
-	protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, @NotNull SpriteSet spriteProvider) {
+	protected FloatingSculkBubbleParticle(
+		@NotNull ClientLevel clientLevel,
+		double x,
+		double y,
+		double z,
+		double size,
+		int maxAge,
+		@NotNull Vec3 velocity,
+		@NotNull SpriteSet spriteProvider
+	) {
 		super(clientLevel, x, y, z, 0D, 0D, 0D);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
@@ -161,7 +170,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		}
 
 		if (this.age == this.stayInflatedTime + 1) {
-			level.playSound(Minecraft.getInstance().player, this.x, this.y, this.z, this.sound, SoundSource.NEUTRAL, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
+			this.level.playSound(Minecraft.getInstance().player, this.x, this.y, this.z, this.sound, SoundSource.NEUTRAL, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
 			this.setParticleSpeed(0D, 0D, 0D);
 		}
 		this.setSpriteFromAge(this.spriteProvider);

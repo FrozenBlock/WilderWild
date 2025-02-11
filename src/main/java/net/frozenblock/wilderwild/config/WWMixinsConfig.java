@@ -73,8 +73,6 @@ public final class WWMixinsConfig {
 
 	public boolean block_dripleaf = true;
 
-	public boolean block_dripstone = true;
-
 	public boolean block_echo_glass = true;
 
 	public boolean block_fire = true;
@@ -110,8 +108,6 @@ public final class WWMixinsConfig {
 	public boolean entity_enderman = true;
 
 	public boolean entity_experience = true;
-
-	public boolean entity_jellyfish = true;
 
 	public boolean entity_lightning = true;
 

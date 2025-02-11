@@ -72,6 +72,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -92,6 +93,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.BUSH)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
@@ -148,8 +150,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	private void generateLib() {
 		this.getOrCreateTagBuilder(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(Blocks.DIRT)
-			.add(Blocks.SAND)
-			.add(Blocks.RED_SAND)
 			.add(WWBlocks.SCORCHED_SAND)
 			.add(WWBlocks.SCORCHED_RED_SAND);
 	}
@@ -518,7 +518,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.WAXED_COPPER_GRATE)
 			.add(Blocks.WAXED_EXPOSED_COPPER_GRATE)
 			.add(Blocks.WAXED_WEATHERED_COPPER_GRATE)
-			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE);
+			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE)
+			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH)
 			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
@@ -996,9 +997,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_MARIGOLD)
 			.add(WWBlocks.POTTED_SEEDING_DANDELION)
 			.add(WWBlocks.POTTED_PASQUEFLOWER)
+			.add(WWBlocks.POTTED_RED_HIBISCUS)
 			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
 			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_HIBISCUS)
+			.add(WWBlocks.POTTED_PURPLE_HIBISCUS)
 			.add(WWBlocks.POTTED_PINK_PETALS)
 			.add(WWBlocks.POTTED_WILDFLOWERS)
 			.add(WWBlocks.POTTED_PHLOX)
@@ -1019,6 +1022,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
 			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
@@ -1694,6 +1698,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PINK_HIBISCUS)
 			.add(WWBlocks.YELLOW_HIBISCUS)
 			.add(WWBlocks.WHITE_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.MILKWEED)
 			.add(Blocks.SUNFLOWER)

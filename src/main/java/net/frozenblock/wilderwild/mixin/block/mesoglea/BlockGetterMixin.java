@@ -71,10 +71,9 @@ public interface BlockGetterMixin {
 		ClipContext context
 	) {
 		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			if (
-				entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
-					&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
-					&& state.getBlock() instanceof MesogleaBlock
+			if (entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
+				&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
+				&& state.getBlock() instanceof MesogleaBlock
 			) {
 				shape = Shapes.empty();
 			}

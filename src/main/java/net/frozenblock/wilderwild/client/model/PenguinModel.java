@@ -129,6 +129,7 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		float notWadingProgress = 1F - wadeProgress;
 		float slideProgress = entity.getSlideProgress(partialTick);
 		float notSlidingProgress = 1F - slideProgress;
+		float idleWadeProgress = Math.max(swimAmount, wadeProgress);
 
 		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD * notSwimmingAmount * notSlidingProgress;
 		this.head.xRot += headPitch * Mth.DEG_TO_RAD * notSwimmingAmount * notSlidingProgress;
@@ -140,10 +141,8 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		this.animate(entity.callAnimationState, PenguinAnimation.PENGUIN_CALL, ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
 		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), movementDelta, slideProgress * notSwimmingAmount * notWadingProgress);
-		//this.animateSlide(limbSwing * 2F, limbSwingAmount, slideProgress * notSwimmingAmount * notWadingProgress);
-		this.animateWade(ageInTicks, wadeProgress * notMovingDelta * notSlidingProgress);
+		this.animateWade(ageInTicks, idleWadeProgress * notMovingDelta * notSlidingProgress);
 		this.animateWadeMove(limbSwing,  Math.min(limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress * 1.75F, 1F));
-		//this.animateSwimIdle(ageInTicks, wadeProgress * notMovingDelta);
 		this.animateSwim(limbSwing, limbSwingAmount, headPitch, swimAmount * notSlidingProgress);
 	}
 
@@ -306,49 +305,8 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		this.right_foot.xRot -= (Mth.sin((animProgress * 2F) - 240F) * 2F) * slideRadSwing;
 	}
 
+	// AViewFromTheTop/Lunade
 	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
-		// DaDolphin
-		/*
-		limbSwing *= 0.001F;
-		headPitch *= swimAmount;
-		float animProgress = limbSwing * 90F;
-		float swimLimbAmount = limbSwingAmount * swimAmount;
-		float swimLimbToRad = swimLimbAmount * Mth.DEG_TO_RAD;
-
-		this.body.xRot += headPitch * swimLimbToRad;
-		this.body.xRot -= (Mth.sin((animProgress * 2F) - 80F) * 3F) * swimLimbToRad;
-		this.body.yRot -= (Mth.sin((animProgress * 2F) - 180F)) * swimLimbToRad;
-		this.body.zRot += (Mth.sin((animProgress * 3F) - 50F) * 2F) * swimLimbToRad;
-		this.body.x -= (Mth.sin(animProgress) * 0.3F) * swimLimbAmount;
-		this.body.y += (Mth.sin(animProgress * 2F)) * swimLimbAmount;
-		this.body.z += (Mth.sin((animProgress * 3F) - 50F)) * swimLimbAmount;
-
-		this.torso.xRot += 90F * swimLimbToRad;
-		this.torso.y += 3.5F * swimLimbAmount;
-
-		this.head.xRot += (-90F + Mth.sin((animProgress * 2F) - 240F)) * swimLimbToRad;
-		this.head.yRot -= (Mth.sin((animProgress * 3F) - 50F) * 1.5F) * swimLimbToRad;
-		this.head.y -= 3F * swimLimbAmount;
-		this.head.z -= 1.63F * swimLimbAmount;
-
-		this.left_flipper.xRot -= 0.4104F * swimLimbToRad;
-		this.left_flipper.yRot += (-0.0179F - Mth.sin((animProgress * 3F) - 70F) * 5F) * swimLimbToRad;
-		this.left_flipper.zRot += (-22.5168F - Mth.sin((animProgress * 3F) - 20F) * 15F) * swimLimbToRad;
-
-		this.right_flipper.xRot -= 0.3343F * swimLimbToRad;
-		this.right_flipper.yRot += (0.0146F + Mth.sin((animProgress * 3F) - 50F) * 5F) * swimLimbToRad;
-		this.right_flipper.zRot += (22.5111F + Mth.sin(animProgress * 3F) * 15F) * swimLimbToRad;
-
-		this.feet.xRot += 92.1786F * swimLimbToRad;
-		this.feet.y -= 4.25F * swimLimbAmount;
-		this.feet.z += 5.75F * swimLimbAmount;
-
-		this.left_foot.xRot += (22.5F - Mth.sin((animProgress * 3F) - 80F) * 20F) * swimLimbToRad;
-
-		this.right_foot.xRot += (27.5F + Mth.sin((animProgress * 3F) - 80F) * 20F) * swimLimbToRad;
-		 */
-
-		// AViewFromTheTop/Lunade
 		float swimLimbAmount = limbSwingAmount * swimAmount;
 		float swimLimbToRad = swimLimbAmount * Mth.DEG_TO_RAD;
 
@@ -370,7 +328,7 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 		this.torso.xRot += swimXRot;
 		this.head.xRot -= swimXRot;
 		float swimXRotDelayed = Mth.cos((limbSwing - 5F) * 0.175F) * swimRotScale;
-		this.feet.xRot += swimXRotDelayed;
+		this.feet.xRot += swimXRotDelayed + (Mth.HALF_PI * swimLimbAmount);
 	}
 
 	@Override

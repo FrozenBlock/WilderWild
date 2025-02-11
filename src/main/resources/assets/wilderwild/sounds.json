@@ -404,91 +404,91 @@
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil1",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil2",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil3",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil4",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil5",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/boil6",
         "volume": 0.5,
-        "weight": 1
+        "weight": 2
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt1",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt2",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt3",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt4",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt5",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt6",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt7",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/erupt8",
-        "volume": 0.3,
+        "volume": 0.15,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water1",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water2",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water3",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient/cave/magmatic_caves/water4",
-        "volume": 0.4,
+        "volume": 0.2,
         "weight": 1
       }
     ]
@@ -2755,6 +2755,15 @@
     ],
     "subtitle": "subtitles.entity.penguin.call"
   },
+  "entity.penguin.step": {
+    "sounds": [
+      "wilderwild:mob/penguin/step1",
+      "wilderwild:mob/penguin/step2",
+      "wilderwild:mob/penguin/step3",
+      "wilderwild:mob/penguin/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.scorched.ambient": {
     "sounds": [
       "wilderwild:mob/scorched/say1",
@@ -3582,9 +3591,9 @@
   },
   "particle.floating_sculk_bubble.big_pop": {
     "sounds": [
-      "wilderwild:particle/floating_sculk_bubble/big_pop1",
-      "wilderwild:particle/floating_sculk_bubble/big_pop2",
-      "wilderwild:particle/floating_sculk_bubble/big_pop3"
+      "wilderwild:particle/bubble/pop1",
+      "wilderwild:particle/bubble/pop2",
+      "wilderwild:particle/bubble/pop3"
     ],
     "subtitle": "subtitles.particle.floating_sculk_bubble.big_pop"
   },
@@ -3598,6 +3607,14 @@
     ],
     "subtitle": "subtitles.particle.floating_sculk_bubble.pop"
   },
+  "particle.mesoglea_bubble.pop": {
+    "sounds": [
+      "wilderwild:particle/bubble/pop1",
+      "wilderwild:particle/bubble/pop2",
+      "wilderwild:particle/bubble/pop3"
+    ],
+    "subtitle": "subtitles.particle.mesoglea_bubble.pop"
+  },
   "particle.mesoglea_drip.land": {
     "sounds": [
       "wilderwild:particle/mesoglea_drip/land1",
@@ -3607,6 +3624,12 @@
       "wilderwild:particle/mesoglea_drip/land5"
     ],
     "subtitle": "subtitles.particle.mesoglea_drip.land"
+  },
+  "block.mesoglea.evaporate": {
+    "sounds": [
+      "random/fizz"
+    ],
+    "subtitle": "subtitles.block.mesoglea.evaporate"
   },
   "block.gabbro.break": {
     "sounds": [

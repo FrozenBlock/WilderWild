@@ -35,6 +35,8 @@ public final class WWTints {
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.WILLOW_LEAVES);
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.CYPRESS_LEAVES);
 		TintRegistryHelper.registerDefaultFoliageColorForItem(WWBlocks.PALM_FRONDS);
+
+		ColorProviderRegistry.ITEM.register((itemStack, i) -> GrassColor.getDefaultColor(), WWBlocks.CLOVERS);
 	}
 
 	public static void initBlocks() {
