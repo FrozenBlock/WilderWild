@@ -138,6 +138,7 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");
 	public static final SoundEvent BLOCK_MESOGLEA_STEP = register("block.mesoglea.step");
 	public static final SoundEvent BLOCK_MESOGLEA_FALL = register("block.mesoglea.fall");
+	public static final SoundEvent BLOCK_MESOGLEA_EVAPORATE = register("block.mesoglea.evaporate");
 	public static final SoundEvent BLOCK_MUSHROOM_PLACE = register("block.mushroom.place");
 	public static final SoundEvent BLOCK_MUSHROOM_HIT = register("block.mushroom.hit");
 	public static final SoundEvent BLOCK_MUSHROOM_BREAK = register("block.mushroom.break");
@@ -348,6 +349,7 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_POTION_MAGIC = register("item.potion.magic");
 	public static final SoundEvent ITEM_POTION_LINGERING = register("item.potion.lingering");
 	public static final SoundEvent PARTICLE_MESOGLEA_DRIP_LAND = register("particle.mesoglea_drip.land");
+	public static final SoundEvent PARTICLE_MESOGLEA_BUBBLE_POP = register("particle.mesoglea_bubble.pop");
 
 	//MISC
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");

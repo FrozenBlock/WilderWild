@@ -3410,9 +3410,9 @@
   },
   "particle.floating_sculk_bubble.big_pop": {
     "sounds": [
-      "wilderwild:particle/floating_sculk_bubble/big_pop1",
-      "wilderwild:particle/floating_sculk_bubble/big_pop2",
-      "wilderwild:particle/floating_sculk_bubble/big_pop3"
+      "wilderwild:particle/bubble/pop1",
+      "wilderwild:particle/bubble/pop2",
+      "wilderwild:particle/bubble/pop3"
     ],
     "subtitle": "subtitles.particle.floating_sculk_bubble.big_pop"
   },
@@ -3426,6 +3426,14 @@
     ],
     "subtitle": "subtitles.particle.floating_sculk_bubble.pop"
   },
+  "particle.mesoglea_bubble.pop": {
+    "sounds": [
+      "wilderwild:particle/bubble/pop1",
+      "wilderwild:particle/bubble/pop2",
+      "wilderwild:particle/bubble/pop3"
+    ],
+    "subtitle": "subtitles.particle.mesoglea_bubble.pop"
+  },
   "particle.mesoglea_drip.land": {
     "sounds": [
       "wilderwild:particle/mesoglea_drip/land1",
@@ -3435,6 +3443,12 @@
       "wilderwild:particle/mesoglea_drip/land5"
     ],
     "subtitle": "subtitles.particle.mesoglea_drip.land"
+  },
+  "block.mesoglea.evaporate": {
+    "sounds": [
+      "random/fizz"
+    ],
+    "subtitle": "subtitles.block.mesoglea.evaporate"
   },
   "block.gabbro.break": {
     "sounds": [

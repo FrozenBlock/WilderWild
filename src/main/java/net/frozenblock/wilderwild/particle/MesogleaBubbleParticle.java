@@ -23,18 +23,20 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaBubbleParticle extends TextureSheetParticle {
-	private final SoundEvent sound;
 	private final ParticleOptions popParticle;
 
 	protected MesogleaBubbleParticle(
@@ -49,7 +51,6 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 	) {
 		super(clientLevel, x, y, z, xd, yd, zd);
 		this.popParticle = popParticle;
-		this.sound = WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
 		this.gravity = -0.125F;
 		this.friction = 0.85F;
 		this.setSize(0.02F, 0.02F);
@@ -68,7 +69,7 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 	@Override
 	@NotNull
 	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 			this.x,
 			this.y,
 			this.z,
-			this.sound,
+			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
 			SoundSource.NEUTRAL,
 			0.1F,
 			this.random.nextFloat() * 0.2F + 0.8F
