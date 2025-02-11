@@ -24,7 +24,7 @@ import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
-import net.frozenblock.wilderwild.entity.impl.Bottleable;
+import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.MobBottleItem;
@@ -56,6 +56,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -79,7 +80,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
+public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable, VariantHolder<FireflyColor> {
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
@@ -192,7 +193,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	@Override
 	@NotNull
 	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		return Bottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+		return WWBottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
 	@Override
@@ -218,17 +219,17 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public boolean fromBottle() {
+	public boolean wilderWild$fromBottle() {
 		return this.entityData.get(FROM_BOTTLE);
 	}
 
 	@Override
-	public void setFromBottle(boolean value) {
+	public void wilderWild$setFromBottle(boolean value) {
 		this.entityData.set(FROM_BOTTLE, value);
 	}
 
 	@Override
-	public void saveToBottleTag(ItemStack itemStack) {
+	public void wilderWild$saveToBottleTag(ItemStack itemStack) {
 		CompoundTag tag = new CompoundTag();
 		tag.putString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD, this.getColorLocation().toString());
 		CustomData.set(
@@ -239,7 +240,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public void loadFromBottleTag(@NotNull CompoundTag compoundTag) {
+	public void wilderWild$loadFromBottleTag(@NotNull CompoundTag compoundTag) {
 		if (compoundTag.contains(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)) {
 			Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString(MobBottleItem.FIREFLY_BOTTLE_VARIANT_FIELD)))
 				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
@@ -249,24 +250,24 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 	}
 
 	@Override
-	public void onCapture() {
+	public void wilderWild$onCapture() {
 		if (this.isSwarmLeader()) {
 			FireflyAi.transferLeadershipToRandomFirefly(this);
 		}
 	}
 
 	@Override
-	public void onBottleRelease() {
+	public void wilderWild$onBottleRelease() {
 		FireflyAi.rememberHome(this, this.blockPosition());
 	}
 
 	@Override
-	public ItemStack getBottleItemStack() {
+	public ItemStack wilderWild$getBottleItemStack() {
 		return new ItemStack(WWItems.FIREFLY_BOTTLE);
 	}
 
 	@Override
-	public SoundEvent getBottleCatchSound() {
+	public SoundEvent wilderWild$getBottleCatchSound() {
 		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
 	}
 
@@ -324,7 +325,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.fromBottle();
+		return super.requiresCustomPersistence() || this.wilderWild$fromBottle();
 	}
 
 	@Override
@@ -453,7 +454,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return !this.fromBottle() && !this.hasCustomName();
+		return !this.wilderWild$fromBottle() && !this.hasCustomName();
 	}
 
 	@Override
@@ -472,7 +473,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			.unwrapKey()
 			.ifPresent(resourceKey -> compoundTag.putString("color", resourceKey.location().toString()));
 
-		compoundTag.putBoolean("fromBottle", this.fromBottle());
+		compoundTag.putBoolean("fromBottle", this.wilderWild$fromBottle());
 		compoundTag.putInt("flickerAge", this.getFlickerAge());
 		compoundTag.putFloat("scale", this.getAnimScale());
 		compoundTag.putFloat("prevScale", this.getPrevAnimScale());
@@ -487,7 +488,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 			.flatMap(resourceKey -> this.registryAccess().registryOrThrow(WilderWildRegistries.FIREFLY_COLOR).getHolder(resourceKey))
 			.ifPresent(reference -> this.setColor(reference.value()));
 
-		if (compoundTag.contains("fromBottle")) this.setFromBottle(compoundTag.getBoolean("fromBottle"));
+		if (compoundTag.contains("fromBottle")) this.wilderWild$setFromBottle(compoundTag.getBoolean("fromBottle"));
 		if (compoundTag.contains("flickerAge")) this.setFlickerAge(compoundTag.getInt("flickerAge"));
 		if (compoundTag.contains("scale")) this.setAnimScale(compoundTag.getFloat("scale"));
 		if (compoundTag.contains("prevScale")) this.setPrevAnimScale(compoundTag.getFloat("prevScale"));
@@ -520,6 +521,16 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, Bottleable {
 
 	@Override
 	protected void pushEntities() {
+	}
+
+	@Override
+	public void setVariant(FireflyColor color) {
+		this.setColor(color);
+	}
+
+	@Override
+	public @NotNull FireflyColor getVariant() {
+		return this.getColorByLocation();
 	}
 
 	public static class FireflySpawnGroupData implements SpawnGroupData {

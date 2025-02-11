@@ -51,6 +51,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_RED_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_YELLOW_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_PINK_HIBISCUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_PURPLE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.DATURA, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CATTAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.ALGAE, RenderType.cutout());
@@ -91,10 +92,11 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.COCONUT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MAPLE_SAPLING, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.WHITE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.RED_HIBISCUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WHITE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PINK_HIBISCUS, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PURPLE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BUSH, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TERMITE_MOUND, RenderType.solid());
@@ -146,6 +148,13 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.WILLOW_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.PALM_FRONDS, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAVES, RenderType.cutoutMipped());
+		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, RenderType.cutoutMipped());

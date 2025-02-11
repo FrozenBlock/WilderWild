@@ -42,12 +42,20 @@
             ]
           },
           {
-            "type": "minecraft:matching_fluids",
-            "fluids": "minecraft:lava",
-            "offset": [
-              0,
-              1,
-              0
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:solid"
+              },
+              {
+                "type": "minecraft:matching_fluids",
+                "fluids": "minecraft:lava",
+                "offset": [
+                  0,
+                  1,
+                  0
+                ]
+              }
             ]
           }
         ]

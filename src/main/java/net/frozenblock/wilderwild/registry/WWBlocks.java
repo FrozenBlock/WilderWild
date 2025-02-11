@@ -73,6 +73,7 @@ import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
+import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -341,37 +342,72 @@ public final class WWBlocks {
 	public static final MesogleaBlock BLUE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.QUARTZ,
 		WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA,
-		true
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_SPLASH,
+		true,
+		Integer.parseInt("B9DAED", 16)
 	);
 	public static final MesogleaBlock PURPLE_PEARLESCENT_MESOGLEA = mesoglea(
 		MapColor.COLOR_PURPLE,
 		WWParticleTypes.PURPLE_PEARLESCENT_HANGING_MESOGLEA,
-		true
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_SPLASH,
+		true,
+		Integer.parseInt("C6B2F4", 16)
 	);
 	public static final MesogleaBlock YELLOW_MESOGLEA = mesoglea(
 		MapColor.COLOR_YELLOW,
 		WWParticleTypes.YELLOW_HANGING_MESOGLEA,
-		false
+		WWParticleTypes.YELLOW_MESOGLEA_BUBBLE,
+		WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.YELLOW_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.YELLOW_MESOGLEA_SPLASH,
+		false,
+		Integer.parseInt("FFCA51", 16)
 	);
 	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_BLUE,
 		WWParticleTypes.BLUE_HANGING_MESOGLEA,
-		false
+		WWParticleTypes.BLUE_MESOGLEA_BUBBLE,
+		WWParticleTypes.BLUE_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.BLUE_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.BLUE_MESOGLEA_SPLASH,
+		false,
+		Integer.parseInt("50A4FF", 16)
 	);
 	public static final MesogleaBlock LIME_MESOGLEA = mesoglea(
 		MapColor.COLOR_LIGHT_GREEN,
 		WWParticleTypes.LIME_HANGING_MESOGLEA,
-		false
+		WWParticleTypes.LIME_MESOGLEA_BUBBLE,
+		WWParticleTypes.LIME_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.LIME_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.LIME_MESOGLEA_SPLASH,
+		false,
+		Integer.parseInt("0CCD40", 16)
 	);
 	public static final MesogleaBlock RED_MESOGLEA = mesoglea(
 		MapColor.COLOR_RED,
 		WWParticleTypes.RED_HANGING_MESOGLEA,
-		false
+		WWParticleTypes.RED_MESOGLEA_BUBBLE,
+		WWParticleTypes.RED_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.RED_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.RED_MESOGLEA_SPLASH,
+		false,
+		Integer.parseInt("FF3B3C", 16)
 	);
 	public static final MesogleaBlock PINK_MESOGLEA = mesoglea(
 		MapColor.COLOR_PINK,
 		WWParticleTypes.PINK_HANGING_MESOGLEA,
-		false
+		WWParticleTypes.PINK_MESOGLEA_BUBBLE,
+		WWParticleTypes.PINK_MESOGLEA_BUBBLE_COLUMN_UP,
+		WWParticleTypes.PINK_MESOGLEA_CURRENT_DOWN,
+		WWParticleTypes.PINK_MESOGLEA_SPLASH,
+		false,
+		Integer.parseInt("DF71DC", 16)
 	);
 
 	public static final NematocystBlock BLUE_PEARLESCENT_NEMATOCYST = nematocyst(MapColor.QUARTZ);
@@ -440,33 +476,40 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_MYCELIUM_GROWTH = Blocks.flowerPot(MYCELIUM_GROWTH);
 
-	public static final FlowerBlock RED_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock RED_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_RED_HIBISCUS = Blocks.flowerPot(RED_HIBISCUS);
 
-	public static final FlowerBlock YELLOW_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock YELLOW_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_YELLOW_HIBISCUS = Blocks.flowerPot(YELLOW_HIBISCUS);
 
-	public static final FlowerBlock WHITE_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock WHITE_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_WHITE_HIBISCUS = Blocks.flowerPot(WHITE_HIBISCUS);
 
-	public static final FlowerBlock PINK_HIBISCUS = new FlowerBlock(
+	public static final WideFlowerBlock PINK_HIBISCUS = new WideFlowerBlock(
 		MobEffects.HUNGER,
 		8,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
 	);
 	public static final Block POTTED_PINK_HIBISCUS = Blocks.flowerPot(PINK_HIBISCUS);
+
+	public static final WideFlowerBlock PURPLE_HIBISCUS = new WideFlowerBlock(
+		MobEffects.HUNGER,
+		8,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+	);
+	public static final Block POTTED_PURPLE_HIBISCUS = Blocks.flowerPot(PURPLE_HIBISCUS);
 
 	public static final PinkPetalsBlock WILDFLOWERS = new PinkPetalsBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)
@@ -643,7 +686,7 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.GABBRO)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
-			.strength(3F)
+			.strength(4.5F)
 	);
 	public static final Block GABBRO_STAIRS = new StairBlock(
 		WWBlocks.GABBRO.defaultBlockState(),
@@ -671,7 +714,7 @@ public final class WWBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
-			.strength(3F)
+			.strength(8F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
 			.emissiveRendering(Blocks::always)
@@ -1420,10 +1463,12 @@ public final class WWBlocks {
 		registerBlock("potted_red_hibiscus", POTTED_RED_HIBISCUS);
 		registerBlockAfter(RED_HIBISCUS, "yellow_hibiscus", YELLOW_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_yellow_hibiscus", POTTED_YELLOW_HIBISCUS);
-		registerBlockBefore(YELLOW_HIBISCUS, "white_hibiscus", WHITE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(YELLOW_HIBISCUS, "white_hibiscus", WHITE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_white_hibiscus", POTTED_WHITE_HIBISCUS);
-		registerBlockBefore(WHITE_HIBISCUS, "pink_hibiscus", PINK_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(WHITE_HIBISCUS, "pink_hibiscus", PINK_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_pink_hibiscus", POTTED_PINK_HIBISCUS);
+		registerBlockAfter(PINK_HIBISCUS, "purple_hibiscus", PURPLE_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_purple_hibiscus", POTTED_PURPLE_HIBISCUS);
 		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1683,10 +1728,24 @@ public final class WWBlocks {
 	}
 
 	@NotNull
-	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleOptions, boolean pearlescent) {
+	public static MesogleaBlock mesoglea(
+		@NotNull MapColor mapColor,
+		@NotNull ParticleOptions dripParticle,
+		@NotNull ParticleOptions bubbleParticle,
+		@NotNull ParticleOptions bubbleColumnUpParticle,
+		@NotNull ParticleOptions currentDownParticle,
+		@NotNull ParticleOptions splashParticle,
+		boolean pearlescent,
+		int waterFogColor
+	) {
 		MesogleaBlock mesogleaBlock = new MesogleaBlock(
 			pearlescent,
-			particleOptions,
+			waterFogColor,
+			dripParticle,
+			bubbleParticle,
+			bubbleColumnUpParticle,
+			currentDownParticle,
+			splashParticle,
 			BlockBehaviour.Properties.of()
 				.mapColor(mapColor)
 				.noOcclusion()
@@ -1809,6 +1868,8 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WILDFLOWERS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(LANTANAS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PHLOX, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
@@ -1826,9 +1887,11 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RED_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
@@ -1852,13 +1915,18 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(DATURA, 60, 100);
 		flammableBlockRegistry.add(MILKWEED, 60, 100);
 		flammableBlockRegistry.add(MARIGOLD, 60, 100);
+		flammableBlockRegistry.add(RED_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(YELLOW_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(WHITE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(PINK_HIBISCUS, 60, 100);
+		flammableBlockRegistry.add(PURPLE_HIBISCUS, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED, 60, 100);
 		flammableBlockRegistry.add(TUMBLEWEED_PLANT, 60, 100);
 		flammableBlockRegistry.add(BUSH, 40, 90);
 		flammableBlockRegistry.add(MYCELIUM_GROWTH, 60, 100);
+		flammableBlockRegistry.add(WILDFLOWERS, 60, 100);
+		flammableBlockRegistry.add(LANTANAS, 60, 100);
+		flammableBlockRegistry.add(PHLOX, 60, 100);
 		flammableBlockRegistry.add(CLOVERS, 60, 100);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);

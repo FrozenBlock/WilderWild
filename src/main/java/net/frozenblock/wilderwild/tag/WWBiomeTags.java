@@ -76,9 +76,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
 	public static final TagKey<Biome> MEADOW = bind("meadow");
 
-	public static final TagKey<Biome> GRAVEL_BEACH = bind("beta_beach/gravel");
-	public static final TagKey<Biome> SAND_BEACHES = bind("beta_beach/sand");
-	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("beta_beach/multi_layer_sand");
+	public static final TagKey<Biome> BETA_BEACH_GRAVEL = bind("beta_beach/gravel");
+	public static final TagKey<Biome> BETA_BEACH_SAND = bind("beta_beach/sand");
+	public static final TagKey<Biome> BETA_BEACH_MULTI_LAYER_SAND = bind("beta_beach/multi_layer_sand");
 
 	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("below_surface_snow");
 
@@ -161,6 +161,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_WILDFLOWERS_SPARSE = bind("feature/has_wildflowers_sparse");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_PHLOX = bind("feature/has_wildflowers_and_phlox");
 	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_PHLOX_SPARSE = bind("feature/has_wildflowers_and_phlox_sparse");
+	public static final TagKey<Biome> HAS_WILDFLOWERS_AND_LANTANAS = bind("feature/has_wildflowers_and_lantanas");
 	public static final TagKey<Biome> HAS_LANTANAS_AND_PHLOX = bind("feature/has_lantanas_and_phlox");
 	public static final TagKey<Biome> HAS_LANTANAS_AND_PHLOX_SPARSE = bind("feature/has_lantanas_and_phlox_sparse");
 	public static final TagKey<Biome> HAS_CLOVERS = bind("feature/has_clovers");
@@ -210,6 +211,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FOREST_SHRUB = bind("feature/has_forest_shrub");
 	public static final TagKey<Biome> HAS_SHRUB = bind("feature/has_shrub");
 	public static final TagKey<Biome> HAS_GENERIC_FLOWERS = bind("feature/has_generic_flowers");
+	public static final TagKey<Biome> HAS_GENERIC_FLOWERS_NO_CARNATIONS = bind("feature/has_generic_flowers_no_carnations");
 	public static final TagKey<Biome> HAS_PLAINS_FLOWERS = bind("feature/has_plains_flowers");
 	public static final TagKey<Biome> HAS_TUNDRA_FLOWERS = bind("feature/has_tundra_flowers");
 	public static final TagKey<Biome> HAS_BIRCH_FLOWERS = bind("feature/has_birch_flowers");

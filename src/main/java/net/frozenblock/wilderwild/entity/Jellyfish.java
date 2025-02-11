@@ -74,6 +74,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -102,7 +103,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Jellyfish extends NoFlopAbstractFish {
+public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<JellyfishVariant> {
 	private static final float MAX_TARGET_DISTANCE = 4F;
 	public static final int POISON_DURATION_IN_SECONDS_BABY = 4;
 	public static final int POISON_DURATION_IN_SECONDS = 10;
@@ -110,7 +111,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final float STING_PITCH_BABY = 1.2F;
 	public static final int SPAWN_CHANCE = 110;
 	public static final int SPAWN_HEIGHT_NORMAL_SEA_OFFSET = 13;
-	public static final float BUBBLE_SPAWN_CHANCE = 0.2F;
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
@@ -263,14 +263,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	protected SoundEvent getSwimSound() {
 		return WWSounds.ENTITY_JELLYFISH_SWIM;
-	}
-
-	@Override
-	protected void playSwimSound(float volume) {
-		super.playSwimSound(volume);
-		if (this.random.nextFloat() < BUBBLE_SPAWN_CHANCE) {
-			this.spawnBubbles();
-		}
 	}
 
 	@Override
@@ -610,19 +602,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return vec3;
 	}
 
-	private void spawnBubbles() {
-		if (this.level() instanceof ServerLevel serverLevel && !this.isBaby()) {
-			double deltaLength = this.getDeltaMovement().length();
-			float bbHeight = this.getBbHeight();
-			Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
-			for (int i = 0; i < this.random.nextInt(0, (int) (2D + (deltaLength * 25D))); ++i) {
-				Vec3 vec32 = this.rotateVector(new Vec3(this.random.nextDouble() * 0.6D - 0.3D, -1D, this.random.nextDouble() * 0.6D - 0.3D));
-				Vec3 vec33 = vec32.scale(0.3D + (this.random.nextFloat() * 2D));
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2D) + 0.1D);
-			}
-		}
-	}
-
 	@Override
 	public boolean hurt(@NotNull DamageSource source, float amount) {
 		if (super.hurt(source, amount)) {
@@ -672,8 +651,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.jellyfishVariant.orElse(this.registryAccess().registryOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).get(JellyfishVariants.DEFAULT));
 	}
 
+	@Override
 	public void setVariant(@NotNull JellyfishVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().registryOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).getKey(variant)).toString());
+	}
+
+	@Override
+	public @NotNull JellyfishVariant getVariant() {
+		return this.getVariantByLocation();
 	}
 
 	public void setVariant(@NotNull ResourceLocation variant) {

@@ -4,7 +4,7 @@
     "features": [
       {
         "feature": {
-          "type": "frozenlib:noise_path_feature",
+          "type": "frozenlib:noise_path_swap_under_fluid_feature",
           "config": {
             "is_3d": true,
             "max_threshold": -0.15,
@@ -20,6 +20,12 @@
               "type": "minecraft:simple_state_provider",
               "state": {
                 "Name": "minecraft:magma_block"
+              }
+            },
+            "under_water_state": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:gabbro"
               }
             },
             "use_y": true

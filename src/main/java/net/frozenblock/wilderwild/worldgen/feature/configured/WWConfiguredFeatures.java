@@ -190,6 +190,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LANTANAS = WWFeatureUtils.register("lantanas");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WILDFLOWERS = WWFeatureUtils.register("wildflowers");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WILDFLOWERS_AND_PHLOX = WWFeatureUtils.register("wildflowers_and_phlox");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WILDFLOWERS_AND_LANTANAS = WWFeatureUtils.register("wildflowers_and_lantanas");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> LANTANAS_AND_PHLOX = WWFeatureUtils.register("lantanas_and_phlox");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WWFeatureUtils.register("carnation");
@@ -202,6 +203,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PEONY = WWFeatureUtils.register("peony");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LILAC = WWFeatureUtils.register("lilac");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC = WWFeatureUtils.register("flower_generic");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC_NO_CARNATION = WWFeatureUtils.register("flower_generic_no_carnation");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WWFeatureUtils.register("flower_plains");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_TUNDRA = WWFeatureUtils.register("flower_tundra");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
@@ -248,18 +250,6 @@ public final class WWConfiguredFeatures {
 		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
-	public static final SimpleWeightedRandomList<BlockState> DEAD_BUSH_AND_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(Blocks.DEAD_BUSH.defaultBlockState(), 5)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
-		.build();
-
-	public static final SimpleWeightedRandomList<BlockState> BUSH_AND_DEAD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(Blocks.DEAD_BUSH.defaultBlockState(), 2)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
-		.build();
-
 	public static final SimpleWeightedRandomList<BlockState> JUNGLE_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
 		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
@@ -272,8 +262,6 @@ public final class WWConfiguredFeatures {
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS = WWFeatureUtils.register("oasis_grass");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_BUSH = WWFeatureUtils.register("oasis_bush");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DEAD_BUSH_AND_BUSH = WWFeatureUtils.register("dead_bush_and_bush");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BUSH_AND_DEAD_BUSH = WWFeatureUtils.register("bush_and_dead_bush");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> JUNGLE_BUSH = WWFeatureUtils.register("jungle_bush");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_BUSH = WWFeatureUtils.register("sparse_bush");
 
@@ -1638,6 +1626,15 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		WILDFLOWERS_AND_LANTANAS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(LANTANAS.getHolder()), 0.3F)
+				),
+				PlacementUtils.inlinePlaced(WILDFLOWERS.getHolder())
+			)
+		);
+
 		LANTANAS_AND_PHLOX.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
@@ -1771,6 +1768,32 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		FLOWER_GENERIC_NO_CARNATION.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				48,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new NoiseProvider(
+							5050L,
+							new NormalNoise.NoiseParameters(0, 1D),
+							0.048833334F,
+							List.of(
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.ALLIUM.defaultBlockState(),
+								Blocks.OXEYE_DAISY.defaultBlockState()
+							)
+						)
+					)
+				)
+			)
+		);
+
 		FLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
 				48,
@@ -1875,7 +1898,6 @@ public final class WWConfiguredFeatures {
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
@@ -1935,7 +1957,7 @@ public final class WWConfiguredFeatures {
 			Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new NoiseProvider(
-					5050L,
+					1234L,
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.088833334F,
 					List.of(
@@ -1944,7 +1966,8 @@ public final class WWConfiguredFeatures {
 						WWBlocks.YELLOW_HIBISCUS.defaultBlockState(),
 						WWBlocks.WHITE_HIBISCUS.defaultBlockState(),
 						WWBlocks.PINK_HIBISCUS.defaultBlockState(),
-						WWBlocks.PINK_HIBISCUS.defaultBlockState()
+						WWBlocks.PURPLE_HIBISCUS.defaultBlockState(),
+						WWBlocks.PURPLE_HIBISCUS.defaultBlockState()
 					)
 				)
 			)
@@ -1959,14 +1982,14 @@ public final class WWConfiguredFeatures {
 
 		HIBISCUS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				32,
+				52,
 				hibiscusNoise
 			)
 		);
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				86,
+				64,
 				6,
 				2,
 				PlacementUtils.onlyWhenEmpty(
@@ -2308,13 +2331,12 @@ public final class WWConfiguredFeatures {
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
 						new NoiseProvider(
-							5050L,
+							1234L,
 							new NormalNoise.NoiseParameters(0, 1D),
 							0.054833334F,
 							List.of(
 								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-								Blocks.OXEYE_DAISY.defaultBlockState(),
 								Blocks.DANDELION.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								WWBlocks.CARNATION.defaultBlockState(),
@@ -2329,14 +2351,14 @@ public final class WWConfiguredFeatures {
 
 		TALL_FLOWERS_JUNGLE.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				10,
 				8,
+				6,
 				3,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
 						new NoiseProvider(
-							5050L,
+							1234L,
 							new NormalNoise.NoiseParameters(0, 1D),
 							0.054833334F,
 							List.of(
@@ -2352,7 +2374,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWERS_SUNFLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				20,
+				38,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
@@ -2393,7 +2415,6 @@ public final class WWConfiguredFeatures {
 								Blocks.WHITE_TULIP.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.RED_TULIP.defaultBlockState(),
 								Blocks.ORANGE_TULIP.defaultBlockState()
 							)
@@ -2516,26 +2537,6 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		DEAD_BUSH_AND_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				4,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(DEAD_BUSH_AND_BUSH_POOL))
-				)
-			)
-		);
-
-		BUSH_AND_DEAD_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				4,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_AND_DEAD_BUSH_POOL))
-				)
-			)
-		);
-
 		JUNGLE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				8,
@@ -2600,7 +2601,7 @@ public final class WWConfiguredFeatures {
 
 		DESERT_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				8,
+				4,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL))
@@ -2610,7 +2611,7 @@ public final class WWConfiguredFeatures {
 
 		BADLANDS_BUSH_SAND.makeAndSetHolder(Feature.RANDOM_PATCH,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				10,
+				8,
 				PlacementUtils.inlinePlaced(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
@@ -2940,7 +2941,7 @@ public final class WWConfiguredFeatures {
 
 		TUMBLEWEED.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				5,
+				12,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL))
