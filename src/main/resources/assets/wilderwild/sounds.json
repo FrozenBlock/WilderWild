@@ -3158,19 +3158,26 @@
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },
+  "music.creative.wilder_creative": {
+    "sounds": [
+      {
+        "name": "wilderwild:music/pictochats/crescent",
+        "stream": true,
+        "volume": 0.8
+      }
+    ]
+  },
   "music.menu.wilder_menu": {
     "sounds": [
       {
-        "name": "wilderwild:music/ludocrypt/serene_sonder",
+        "name": "wilderwild:music/pictochats/crescent",
         "stream": true,
-        "volume": 0.8,
-        "weight": 5
+        "volume": 0.8
       },
       {
         "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
-        "volume": 0.8,
-        "weight": 5
+        "volume": 0.8
       }
     ]
   },
@@ -3185,7 +3192,7 @@
         "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
-        "weight": 5
+        "weight": 3
       },
       {
         "name": "wilderwild:music/ludocrypt/horizon_afoot",
@@ -3218,30 +3225,117 @@
         "weight": 25
       },
       {
-        "name": "wilderwild:music/pictochats/cave1",
+        "name": "wilderwild:music/pictochats/amber",
         "stream": true,
-        "volume": 0.4,
-        "weight": 3
+        "volume": 0.7,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_dripstone_caves": {
+    "sounds": [
+      {
+        "name": "music.overworld.dripstone_caves",
+        "type": "event",
+        "weight": 15
       },
       {
-        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "name": "wilderwild:music/pictochats/dahlia",
         "stream": true,
         "volume": 0.8,
-        "weight": 3
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_cherry_grove": {
+    "sounds": [
+      {
+        "name": "music.overworld.cherry_grove",
+        "type": "event",
+        "weight": 13
+      },
+      {
+        "name": "wilderwild:music/pictochats/amber",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_grove": {
+    "sounds": [
+      {
+        "name": "music.overworld.grove",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/amber",
+        "stream": true,
+        "volume": 0.7
+      }
+    ]
+  },
+  "music.overworld.wilder_jungle": {
+    "sounds": [
+      {
+        "name": "music.overworld.jungle",
+        "type": "event",
+        "weight": 13
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_sparse_jungle": {
+    "sounds": [
+      {
+        "name": "music.overworld.sparse_jungle",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8
+      }
+    ]
+  },
+  "music.overworld.wilder_bamboo_jungle": {
+    "sounds": [
+      {
+        "name": "music.overworld.bamboo_jungle",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8
       }
     ]
   },
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
-        "name": "wilderwild:music/ludocrypt/serene_sonder",
-        "stream": true,
-        "volume": 0.8
-      },
-      {
         "name": "wilderwild:music/c418/flake",
         "stream": true,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
+        "stream": true,
+        "volume": 0.8,
         "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave",
+        "stream": true,
+        "volume": 0.5
       },
       {
         "name": "music/game/minecraft",
@@ -3326,10 +3420,15 @@
   "music.overworld.wilder_under_water": {
     "sounds": [
       {
-        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "name": "wilderwild:music/pictochats/crescent",
         "stream": true,
-        "volume": 0.8,
-        "weight": 5
+        "volume": 0.6,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/dove",
+        "stream": true,
+        "volume": 0.6
       }
     ]
   },
@@ -3356,14 +3455,16 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "name": "wilderwild:music/ludocrypt/dove",
         "stream": true,
         "volume": 0.8,
         "weight": 5
       },
       {
-        "name": "wilderwild:music/pictochats/cave1",
-        "stream": true
+        "name": "wilderwild:music/pictochats/crescent",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
       }
     ]
   },
@@ -3396,11 +3497,6 @@
       {
         "name": "music/game/living_mice",
         "stream": true
-      },
-      {
-        "name": "wilderwild:music/pictochats/cave1",
-        "stream": true,
-        "volume": 0.5
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3449,7 +3545,12 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/pictochats/cave1",
+        "name": "wilderwild:music/c418/flake",
+        "stream": true,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave",
         "stream": true,
         "weight": 3
       }
@@ -3521,15 +3622,11 @@
       {
         "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
-        "volume": 0.8
+        "volume": 0.8,
+        "weight": 2
       },
       {
-        "name": "wilderwild:music/ludocrypt/horizon_afoot",
-        "stream": true,
-        "volume": 0.8
-      },
-      {
-        "name": "wilderwild:music/pictochats/maple_forest1",
+        "name": "wilderwild:music/pictochats/amber",
         "stream": true,
         "volume": 0.7,
         "weight": 5

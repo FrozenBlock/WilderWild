@@ -1,10 +1,18 @@
 {
+  "music.creative": {
+    "sounds": [
+      {
+        "name": "wilderwild:music.creative.wilder_creative",
+        "type": "event"
+      }
+    ]
+  },
   "music.menu": {
     "sounds": [
       {
         "name": "wilderwild:music.menu.wilder_menu",
         "type": "event",
-        "weight": 3
+        "weight": 2
       }
     ]
   },
@@ -12,7 +20,8 @@
     "sounds": [
       {
         "name": "wilderwild:music.overworld.wilder_under_water",
-        "type": "event"
+        "type": "event",
+        "weight": 2
       }
     ]
   }
