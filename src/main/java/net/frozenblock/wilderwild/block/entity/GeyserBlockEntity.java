@@ -44,7 +44,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -96,6 +95,16 @@ public class GeyserBlockEntity extends BlockEntity {
 		super(WWBlockEntityTypes.GEYSER, pos, state);
 	}
 
+	@Override
+	public boolean triggerEvent(int eventId, int data) {
+		if (eventId == 1) {
+			if (this.level.isClientSide) this.eruptionProgress = 0F;
+			this.tickUntilNextEvent = data;
+			return true;
+		}
+		return super.triggerEvent(eventId, data);
+	}
+
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
 		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
@@ -108,8 +117,11 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (GeyserBlock.isActive(geyserType)) {
 			if (geyserStage == GeyserStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
-					this.tickUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
+					int eruptionDuration = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
 					level.playSound(null, pos, geyserType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
+					this.level.blockEvent(pos, state.getBlock(), 1, eruptionDuration);
+					this.eruptionProgress = 0.001F;
+					return;
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
@@ -121,7 +133,6 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else {
 			this.setDormant(level, pos, state, random);
 		}
-		this.setChanged();
 	}
 
 	public static boolean canEruptionPassThrough(LevelAccessor level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
@@ -347,17 +358,6 @@ public class GeyserBlockEntity extends BlockEntity {
 				spawnEruptionParticles(level, pos, geyserType, direction, random);
 			}
 		}
-	}
-
-	@Override
-	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
-	}
-
-	@NotNull
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
 	}
 
 	@Override
