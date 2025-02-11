@@ -49,6 +49,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -214,6 +215,16 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	public ParticleOptions getCurrentDownParticle() {
 		return this.currentDownParticle;
+	}
+
+	@Override
+	protected void onPlace(BlockState blockState, @NotNull Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
+		if (level.dimensionType().ultraWarm()) {
+			level.destroyBlock(blockPos, false);
+			level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, blockPos, 0);
+			// TODO: SoundEvent
+			level.playSound(null, blockPos, SoundEvents.WET_SPONGE_DRIES, SoundSource.BLOCKS, 1F, (1F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
+		}
 	}
 
 	@Override
