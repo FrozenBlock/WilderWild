@@ -149,7 +149,7 @@ public class Penguin extends Animal {
 
 	@Override
 	public boolean isVisuallySwimming() {
-		return this.isSwimming();
+		return this.isSwimming() && this.isUnderWater();
 	}
 
 	public boolean isTouchingWaterOrSwimming() {
@@ -189,7 +189,7 @@ public class Penguin extends Animal {
 	public void tick() {
 		super.tick();
 		this.prevWadeProgress = this.wadeProgress;
-		this.wadeProgress += ((this.isTouchingWaterOrSwimming() ? 1F : 0F) - this.wadeProgress) * 0.175F;
+		this.wadeProgress += ((this.isTouchingWaterOrSwimming() && !this.isUnderWater() ? 1F : 0F) - this.wadeProgress) * 0.175F;
 		this.prevSlideProgress = this.slideProgress;
 		this.slideProgress += ((this.hasPose(Pose.SLIDING) ? 1F : 0F) - this.slideProgress) * 0.175F;
 	}
