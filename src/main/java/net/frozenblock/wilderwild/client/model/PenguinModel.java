@@ -308,7 +308,6 @@ public class PenguinModel<T extends Penguin> extends AgeableHierarchicalModel<T>
 	// AViewFromTheTop/Lunade
 	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
 		float swimLimbAmount = limbSwingAmount * swimAmount;
-		float swimLimbToRad = swimLimbAmount * Mth.DEG_TO_RAD;
 
 		float flipperZRot = Mth.clamp(Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount), 0F, Mth.PI);
 		this.left_flipper.zRot -= flipperZRot;
