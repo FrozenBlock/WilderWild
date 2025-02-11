@@ -3158,6 +3158,22 @@
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },
+  "music.menu.wilder_menu": {
+    "sounds": [
+      {
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 5
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 5
+      }
+    ]
+  },
   "music.overworld.wilder_forests": {
     "sounds": [
       {
@@ -3304,6 +3320,16 @@
         "name": "music/game/watcher",
         "stream": true,
         "volume": 0.4
+      }
+    ]
+  },
+  "music.overworld.wilder_under_water": {
+    "sounds": [
+      {
+        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 5
       }
     ]
   },

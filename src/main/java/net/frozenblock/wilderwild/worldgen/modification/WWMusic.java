@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
 
 public final class WWMusic {
 	private WWMusic() {
