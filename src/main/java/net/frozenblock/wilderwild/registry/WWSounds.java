@@ -359,6 +359,12 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wilder_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FLOWER_FORESTS = registerForHolder("music.overworld.wilder_flower_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_LUSH_CAVES = registerForHolder("music.overworld.wilder_lush_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES = registerForHolder("music.overworld.wilder_dripstone_caves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_CHERRY_GROVES = registerForHolder("music.overworld.wilder_cherry_groves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_GROVES = registerForHolder("music.overworld.wilder_groves");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_JUNGLES = registerForHolder("music.overworld.wilder_jungles");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES = registerForHolder("music.overworld.wilder_bamboo_jungles");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES = registerForHolder("music.overworld.wilder_sparse_jungles");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_SNOWY = registerForHolder("music.overworld.wilder_snowy");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");

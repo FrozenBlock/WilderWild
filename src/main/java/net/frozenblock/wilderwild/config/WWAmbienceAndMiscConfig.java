@@ -137,7 +137,7 @@ public final class WWAmbienceAndMiscConfig {
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
 
 	@CollapsibleObject
-	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
+	public MusicConfig music = new MusicConfig();
 
 	@CollapsibleObject
 	public VegetationColorConfig vegetationColors = new VegetationColorConfig();
@@ -191,15 +191,30 @@ public final class WWAmbienceAndMiscConfig {
 		public boolean magmaticCavesParticles = true;
 	}
 
-	public static class BiomeMusicConfig {
+	public static class MusicConfig {
 		@EntrySyncData(value = "wilderForestMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderForestMusic = true;
 
 		@EntrySyncData(value = "wilderLushCavesMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderLushCavesMusic = true;
 
+		@EntrySyncData(value = "wilderDripstoneCavesMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean wilderDripstoneCavesMusic = true;
+
+		@EntrySyncData(value = "wilderCherryGroveMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean wilderCherryGroveMusic = true;
+
+		@EntrySyncData(value = "wilderGroveMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean wilderGroveMusic = true;
+
+		@EntrySyncData(value = "wilderJungleMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean wilderJungleMusic = true;
+
 		@EntrySyncData(value = "wilderSnowyMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderSnowyMusic = true;
+
+		@EntrySyncData(value = "wilderExtraMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean wilderExtraMusic = true;
 
 		@EntrySyncData(value = "distortedDyingForestMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean distortedDyingForestMusic = true;

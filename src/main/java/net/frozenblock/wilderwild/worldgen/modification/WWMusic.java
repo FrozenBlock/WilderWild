@@ -22,12 +22,15 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -39,14 +42,14 @@ public final class WWMusic {
 	}
 
 	public static void playMusic() {
-		WWConstants.logWithModId("Adding Music And Ambience To Biomes for", true);
+		WWConstants.logWithModId("Adding Music And Ambience for", true);
 
 		// Configurable Music
 		BiomeModifications.create(WWConstants.id("modify_music_forests")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_FOREST_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (WWAmbienceAndMiscConfig.get().music.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 				}
 			});
@@ -54,7 +57,7 @@ public final class WWMusic {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_FLOWER_FOREST_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderForestMusic) {
+				if (WWAmbienceAndMiscConfig.get().music.wilderForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS));
 				}
 			});
@@ -63,8 +66,60 @@ public final class WWMusic {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_LUSH_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderLushCavesMusic) {
+				if (WWAmbienceAndMiscConfig.get().music.wilderLushCavesMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES));
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_dripstone_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_DRIPSTONE_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().music.wilderDripstoneCavesMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES));
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_cherry_groves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_CHERRY_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().music.wilderCherryGroveMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_CHERRY_GROVES));
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_groves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_GROVE_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().music.wilderGroveMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_GROVES));
+				}
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_jungles")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_JUNGLE_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().music.wilderJungleMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_JUNGLES));
+				}
+			});
+		BiomeModifications.create(WWConstants.id("modify_music_bamboo_jungles")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().music.wilderJungleMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES));
+				}
+			});
+		BiomeModifications.create(WWConstants.id("modify_music_sparse_jungles")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (WWAmbienceAndMiscConfig.get().music.wilderJungleMusic) {
+					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES));
 				}
 			});
 
@@ -72,7 +127,7 @@ public final class WWMusic {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeMusic.wilderSnowyMusic) {
+				if (WWAmbienceAndMiscConfig.get().music.wilderSnowyMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_SNOWY));
 				}
 			});
@@ -81,7 +136,7 @@ public final class WWMusic {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_DYING_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeMusic.distortedDyingForestMusic) {
+				if (WWAmbienceAndMiscConfig.get().music.distortedDyingForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_DYING_FOREST));
 				}
 			});
@@ -89,7 +144,7 @@ public final class WWMusic {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_DYING_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeMusic.distortedDyingForestMusic) {
+				if (WWAmbienceAndMiscConfig.get().music.distortedDyingForestMusic) {
 					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST));
 				}
 			});

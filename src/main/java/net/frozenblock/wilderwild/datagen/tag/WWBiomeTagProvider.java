@@ -202,6 +202,22 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LUSH_MUSIC)
 			.addOptional(Biomes.LUSH_CAVES);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRIPSTONE_MUSIC)
+			.addOptional(Biomes.DRIPSTONE_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_MUSIC)
+			.addOptional(Biomes.CHERRY_GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GROVE_MUSIC)
+			.addOptional(Biomes.GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_JUNGLE_MUSIC)
+			.addOptional(Biomes.JUNGLE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC)
+			.addOptional(Biomes.BAMBOO_JUNGLE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC)
+			.addOptional(Biomes.SPARSE_JUNGLE);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_MUSIC)
 			.addOptional(Biomes.SNOWY_TAIGA)
 			.addOptional(Biomes.SNOWY_PLAINS)

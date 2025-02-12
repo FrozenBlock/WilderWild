@@ -42,7 +42,7 @@ public final class WWAmbienceAndMiscConfigGui {
 		Config<? extends WWAmbienceAndMiscConfig> configInstance = WWAmbienceAndMiscConfig.INSTANCE;
 		var defaultConfig = WWAmbienceAndMiscConfig.INSTANCE.defaultInstance();
 		var biomeAmbience = config.biomeAmbience;
-		var biomeMusic = config.biomeMusic;
+		var music = config.music;
 		var waterColors = config.waterColors;
 		var vegetationColors = config.vegetationColors;
 		var leafParticles = config.leafParticles;
@@ -369,38 +369,73 @@ public final class WWAmbienceAndMiscConfigGui {
 			badlandsFoliage
 		);
 
-		var wilderForestMusic = entryBuilder.startBooleanToggle(text("wilder_forest_music"), biomeMusic.wilderForestMusic)
-			.setDefaultValue(defaultConfig.biomeMusic.wilderForestMusic)
-			.setSaveConsumer(newValue -> biomeMusic.wilderForestMusic = newValue)
+		var wilderForestMusic = entryBuilder.startBooleanToggle(text("wilder_forest_music"), music.wilderForestMusic)
+			.setDefaultValue(defaultConfig.music.wilderForestMusic)
+			.setSaveConsumer(newValue -> music.wilderForestMusic = newValue)
 			.setTooltip(tooltip("wilder_forest_music"))
 			.requireRestart()
 			.build();
 
-		var wilderLushCavesMusic = entryBuilder.startBooleanToggle(text("wilder_lush_caves_music"), biomeMusic.wilderLushCavesMusic)
-			.setDefaultValue(defaultConfig.biomeMusic.wilderLushCavesMusic)
-			.setSaveConsumer(newValue -> biomeMusic.wilderLushCavesMusic = newValue)
+		var wilderLushCavesMusic = entryBuilder.startBooleanToggle(text("wilder_lush_caves_music"), music.wilderLushCavesMusic)
+			.setDefaultValue(defaultConfig.music.wilderLushCavesMusic)
+			.setSaveConsumer(newValue -> music.wilderLushCavesMusic = newValue)
 			.setTooltip(tooltip("wilder_lush_caves_music"))
 			.requireRestart()
 			.build();
 
-		var wilderSnowyMusic = entryBuilder.startBooleanToggle(text("wilder_snowy_music"), biomeMusic.wilderSnowyMusic)
-			.setDefaultValue(defaultConfig.biomeMusic.wilderSnowyMusic)
-			.setSaveConsumer(newValue -> biomeMusic.wilderSnowyMusic = newValue)
+		var wilderDripstoneCavesMusic = entryBuilder.startBooleanToggle(text("wilder_dripstone_caves_music"), music.wilderDripstoneCavesMusic)
+			.setDefaultValue(defaultConfig.music.wilderDripstoneCavesMusic)
+			.setSaveConsumer(newValue -> music.wilderDripstoneCavesMusic = newValue)
+			.setTooltip(tooltip("wilder_dripstone_caves_music"))
+			.requireRestart()
+			.build();
+
+		var wilderCherryGroveMusic = entryBuilder.startBooleanToggle(text("wilder_cherry_grove_music"), music.wilderCherryGroveMusic)
+			.setDefaultValue(defaultConfig.music.wilderCherryGroveMusic)
+			.setSaveConsumer(newValue -> music.wilderCherryGroveMusic = newValue)
+			.setTooltip(tooltip("wilder_cherry_grove_music"))
+			.requireRestart()
+			.build();
+
+		var wilderGroveMusic = entryBuilder.startBooleanToggle(text("wilder_grove_music"), music.wilderGroveMusic)
+			.setDefaultValue(defaultConfig.music.wilderGroveMusic)
+			.setSaveConsumer(newValue -> music.wilderGroveMusic = newValue)
+			.setTooltip(tooltip("wilder_grove_music"))
+			.requireRestart()
+			.build();
+
+		var wilderJungleMusic = entryBuilder.startBooleanToggle(text("wilder_jungle_music"), music.wilderJungleMusic)
+			.setDefaultValue(defaultConfig.music.wilderJungleMusic)
+			.setSaveConsumer(newValue -> music.wilderJungleMusic = newValue)
+			.setTooltip(tooltip("wilder_jungle_music"))
+			.requireRestart()
+			.build();
+
+		var wilderSnowyMusic = entryBuilder.startBooleanToggle(text("wilder_snowy_music"), music.wilderSnowyMusic)
+			.setDefaultValue(defaultConfig.music.wilderSnowyMusic)
+			.setSaveConsumer(newValue -> music.wilderSnowyMusic = newValue)
 			.setTooltip(tooltip("wilder_snowy_music"))
 			.requireRestart()
 			.build();
 
-		var distortedDyingForestMusic = entryBuilder.startBooleanToggle(text("distorted_dying_forest_music"), biomeMusic.distortedDyingForestMusic)
-			.setDefaultValue(defaultConfig.biomeMusic.distortedDyingForestMusic)
-			.setSaveConsumer(newValue -> biomeMusic.distortedDyingForestMusic = newValue)
+		var wilderExtraMusic = entryBuilder.startBooleanToggle(text("wilder_extra_music"), music.wilderExtraMusic)
+			.setDefaultValue(defaultConfig.music.wilderExtraMusic)
+			.setSaveConsumer(newValue -> music.wilderExtraMusic = newValue)
+			.setTooltip(tooltip("wilder_extra_music"))
+			.requireRestart()
+			.build();
+
+		var distortedDyingForestMusic = entryBuilder.startBooleanToggle(text("distorted_dying_forest_music"), music.distortedDyingForestMusic)
+			.setDefaultValue(defaultConfig.music.distortedDyingForestMusic)
+			.setSaveConsumer(newValue -> music.distortedDyingForestMusic = newValue)
 			.setTooltip(tooltip("distorted_dying_forest_music"))
 			.requireRestart()
 			.build();
 
-		var biomeMusicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_music"),
+		var musicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("music"),
 			false,
 			tooltip("biome_music"),
-			wilderForestMusic, wilderLushCavesMusic, wilderSnowyMusic, distortedDyingForestMusic
+			wilderForestMusic, wilderLushCavesMusic, wilderDripstoneCavesMusic, wilderCherryGroveMusic, wilderGroveMusic, wilderJungleMusic, wilderSnowyMusic, wilderExtraMusic, distortedDyingForestMusic
 		);
 	}
 }
