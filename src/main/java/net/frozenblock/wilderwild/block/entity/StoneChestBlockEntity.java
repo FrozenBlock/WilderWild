@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -208,10 +207,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
 	}
 
-	public void liftLid(float liftAmount, boolean ancient) {
-		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2F : liftAmount), 0F, MAX_OPEN_PERCENTAGE);
+	public void liftLid(float liftAmount) {
+		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 2F), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -251,7 +250,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 						otherPos.getX() + 0.5D,
 						otherPos.getY() + 0.625D,
 						otherPos.getZ() + 0.5,
-						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(WWBlockStateProperties.ANCIENT) ? 4 : 2)),
+						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 3),
 						0.21875D,
 						0D,
 						0.21875D,

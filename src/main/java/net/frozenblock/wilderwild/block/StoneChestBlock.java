@@ -90,7 +90,6 @@ public class StoneChestBlock extends ChestBlock {
 	public static final double ITEM_DELTA_TRIANGLE_B = 0.11485D;
 	public static final double ITEM_DELTA_TRIANGLE_A_Y = 0.2D;
 	public static final double ITEM_DELTA_TRIANGLE_A_XZ = 0D;
-	public static final BooleanProperty ANCIENT = WWBlockStateProperties.ANCIENT;
 	public static final BooleanProperty SCULK = WWBlockStateProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
 
@@ -141,7 +140,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	public StoneChestBlock(@NotNull Properties settings, @NotNull Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
 		super(settings, supplier);
-		this.registerDefaultState(this.defaultBlockState().setValue(ANCIENT, false).setValue(SCULK, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(SCULK, false));
 	}
 
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
@@ -208,7 +207,6 @@ public class StoneChestBlock extends ChestBlock {
 			if (stoneChest.closing) {
 				return InteractionResult.FAIL;
 			}
-			boolean ancient = state.getValue(ANCIENT);
 			if (canInteract(level, pos)) {
 				MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
 				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && namedScreenHandlerFactory != null) {
@@ -220,12 +218,12 @@ public class StoneChestBlock extends ChestBlock {
 					boolean first = stoneChest.openProgress == 0F;
 					if (lidCheck == null) {
 						if (stoneChest.openProgress < MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK) {
-							stoneChest.setLid(!ancient ? stoneChest.openProgress + LIFT_AMOUNT : MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK);
+							stoneChest.setLid(stoneChest.openProgress + LIFT_AMOUNT);
 						} else {
 							return InteractionResult.PASS;
 						}
 					} else {
-						stoneChest.liftLid(LIFT_AMOUNT, ancient);
+						stoneChest.liftLid(LIFT_AMOUNT);
 					}
 					if (first) {
 						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
@@ -300,7 +298,6 @@ public class StoneChestBlock extends ChestBlock {
 			if (state.getValue(TYPE) == ChestType.SINGLE
 				&& chestType != ChestType.SINGLE
 				&& state.getValue(FACING) == neighborState.getValue(FACING)
-				&& state.getValue(ANCIENT) == neighborState.getValue(ANCIENT)
 				&& ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()
 			) {
 				retState = state.setValue(TYPE, chestType.getOpposite());
@@ -355,7 +352,7 @@ public class StoneChestBlock extends ChestBlock {
 	@Nullable
 	private Direction candidatePartnerFacing(@NotNull BlockPlaceContext ctx, @NotNull Direction dir) {
 		BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(dir));
-		return blockState.is(this) && !blockState.getValue(ANCIENT) && blockState.getValue(TYPE) == ChestType.SINGLE ? blockState.getValue(FACING) : null;
+		return blockState.is(this) && blockState.getValue(TYPE) == ChestType.SINGLE ? blockState.getValue(FACING) : null;
 	}
 
 	@Override
@@ -420,7 +417,8 @@ public class StoneChestBlock extends ChestBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, TYPE, WATERLOGGED, ANCIENT, SCULK);
+		super.createBlockStateDefinition(builder);
+		builder.add(SCULK);
 	}
 
 }
