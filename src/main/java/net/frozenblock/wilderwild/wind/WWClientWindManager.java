@@ -23,7 +23,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.client.api.ClientWindManagerExtension;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import static net.frozenblock.lib.wind.client.impl.ClientWindManager.*;
-import net.frozenblock.lib.worldgen.heightmap.api.FrozenHeightmaps;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.client.Minecraft;
@@ -33,6 +32,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -99,7 +99,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		int k = posZ + random.nextIntBetweenInclusive(-range, range);
 		blockPos.set(i, j, k);
 
-		blockPos.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_NO_LEAVES_SYNCED, blockPos));
+		blockPos.set(level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos));
 		int heightmapY = blockPos.getY();
 		if (heightmapY > highestPossibleY) {
 			return;

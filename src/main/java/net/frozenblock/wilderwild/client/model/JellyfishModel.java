@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.client.model;
 import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.model.EntityModel;
@@ -32,6 +31,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,7 +46,8 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private final ModelPart[] planeTentacles = new ModelPart[JELLYFISH_TENTACLES];
 
 	public JellyfishModel(@NotNull ModelPart root) {
-		super(root, FrozenLibRenderTypes::entityTranslucentEmissiveFixed);
+		// TODO: Render type?
+		super(root, RenderType::entityTranslucentEmissive);
 		this.bone = root.getChild("bone");
 		this.body = this.bone.getChild("body");
 		this.tentacleBase = this.bone.getChild("tentacleBase");

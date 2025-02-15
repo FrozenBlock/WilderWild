@@ -27,11 +27,11 @@ import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
@@ -52,7 +52,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 			if (!renderState.isInvisible|| bl) {
 				BlockState blockState = renderState.flowerBlockState;
 				int m = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
-				BakedModel bakedModel = this.blockRenderer.getBlockModel(blockState);
+				BlockStateModel blockStateModel = this.blockRenderer.getBlockModel(blockState);
 				int flowersLeft = renderState.flowers;
 
 				// BACK MIDDLE
@@ -61,7 +61,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.translate(0F, -0.35F, 0.5F);
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 
@@ -72,7 +72,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.mulPose(Axis.YP.rotationDegrees(-32));
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 
@@ -83,7 +83,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.mulPose(Axis.YP.rotationDegrees(112));
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 
@@ -95,7 +95,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
+					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 			}
@@ -103,7 +103,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 	}
 
 	private void renderFlowerBlock(
-		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, boolean bl, BlockState blockState, int j, BakedModel bakedModel
+		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, boolean bl, BlockState blockState, int j, BlockStateModel blockStateModel
 	) {
 		if (bl) {
 			this.blockRenderer.getModelRenderer()
@@ -111,7 +111,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.last(),
 					multiBufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
 					blockState,
-					bakedModel,
+					blockStateModel,
 					0F,
 					0F,
 					0F,

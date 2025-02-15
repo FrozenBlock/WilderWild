@@ -140,18 +140,6 @@ accessible class net/minecraft/world/level/block/entity/SculkShriekerBlockEntity
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
 
-# Render Types
-accessible class net/minecraft/client/renderer/RenderType$CompositeState
-accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard COLOR_DEPTH_WRITE Lnet/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard OVERLAY Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;
-accessible method net/minecraft/client/renderer/RenderType$CompositeRenderType <init> (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)V
-accessible method net/minecraft/client/renderer/RenderStateShard$TextureStateShard <init> (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/util/TriState;Z)V
-accessible field net/minecraft/client/renderer/RenderStateShard TRANSLUCENT_TRANSPARENCY Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_TRANSLUCENT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
-accessible method net/minecraft/client/renderer/RenderStateShard$ShaderStateShard <init> (Lnet/minecraft/client/renderer/ShaderProgram;)V
-
 # Spawn Placements
 accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 accessible field net/minecraft/world/entity/SpawnPlacements$Data predicate Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;

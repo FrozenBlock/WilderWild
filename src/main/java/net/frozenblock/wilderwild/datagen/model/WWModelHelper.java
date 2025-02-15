@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen.model;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.Util;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.data.models.blockstates.Condition;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
@@ -49,6 +51,8 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.MultiVariant;
+import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.core.Direction;
@@ -61,30 +65,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWModelHelper {
-	public static final List<Pair<BooleanProperty, Function<ResourceLocation, Variant>>> MULTIFACE_GENERATOR_NO_UV_LOCK = List.of(
-		Pair.of(BlockStateProperties.NORTH, model -> Variant.variant().with(VariantProperties.MODEL, model)),
-		Pair.of(
-			BlockStateProperties.EAST,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-		),
-		Pair.of(
-			BlockStateProperties.SOUTH,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-		),
-		Pair.of(
-			BlockStateProperties.WEST,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-		),
-		Pair.of(
-			BlockStateProperties.UP,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
-		),
-		Pair.of(
-			BlockStateProperties.DOWN,
-			resourceLocation -> Variant.variant()
-				.with(VariantProperties.MODEL, resourceLocation)
-				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-		)
+	public static final Map<Direction, VariantMutator> MULTIFACE_GENERATOR_NO_UV_LOCK = ImmutableMap.of(
+		Direction.NORTH, BlockModelGenerators.NOP,
+		Direction.EAST, BlockModelGenerators.Y_ROT_90,
+		Direction.SOUTH, BlockModelGenerators.Y_ROT_180,
+		Direction.WEST, BlockModelGenerators.Y_ROT_270,
+		Direction.UP, BlockModelGenerators.X_ROT_270,
+		Direction.DOWN, BlockModelGenerators.X_ROT_90
 	);
 	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
@@ -150,22 +137,19 @@ public final class WWModelHelper {
 		hollowedTextureMapping.put(TextureSlot.INSIDE, insideTextureMapping.get(TextureSlot.SIDE));
 		hollowedTextureMapping.put(TextureSlot.END, endTextureMapping.get(TextureSlot.END));
 
-		ResourceLocation verticalModelId = VERTICAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
-		ResourceLocation horizontalModelId = HORIZONTAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
-		MultiVariantGenerator multiVariantGenerator = MultiVariantGenerator.multiVariant(hollowedLog)
-			.with(PropertyDispatch.property(BlockStateProperties.AXIS)
-				.select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, verticalModelId))
-				.select(
-					Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, horizontalModelId)
-						.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-				).select(
-					Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, horizontalModelId)
-						.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-						.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-				)
+		ResourceLocation verticalModelLocation = VERTICAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
+		MultiVariant verticalModel = BlockModelGenerators.plainVariant(verticalModelLocation);
+		MultiVariant horizontalModel = BlockModelGenerators.plainVariant(HORIZONTAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput));
+
+		BlockModelDefinitionGenerator blockModelDefinitionGenerator = MultiVariantGenerator.dispatch(hollowedLog)
+			.with(
+				PropertyDispatch.initial(BlockStateProperties.AXIS)
+					.select(Direction.Axis.Y, verticalModel)
+					.select(Direction.Axis.Z, horizontalModel.with(BlockModelGenerators.X_ROT_90))
+					.select(Direction.Axis.X, horizontalModel.with(BlockModelGenerators.X_ROT_90).with(BlockModelGenerators.Y_ROT_90))
 			);
-		generator.blockStateOutput.accept(multiVariantGenerator);
-		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(hollowedLog.asItem()), new DelegatedModel(verticalModelId));
+		generator.blockStateOutput.accept(blockModelDefinitionGenerator);
+		generator.registerSimpleItemModel(hollowedLog, verticalModelLocation);
 	}
 
 	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, ResourceLocation texture) {
@@ -191,20 +175,20 @@ public final class WWModelHelper {
 		TextureMapping nematocystTextureMapping = new TextureMapping();
 		nematocystTextureMapping.put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(nematocystBlock));
 		nematocystTextureMapping.put(TextureSlot.FAN, TextureMapping.getBlockTexture(nematocystBlock, "_outer"));
-		ResourceLocation nematocystModel = NEMATOCYST_MODEL.create(nematocystBlock, nematocystTextureMapping, generator.modelOutput);
+		MultiVariant nematocystModel = BlockModelGenerators.plainVariant(NEMATOCYST_MODEL.create(nematocystBlock, nematocystTextureMapping, generator.modelOutput));
 
 		Condition.TerminalCondition terminalCondition = Util.make(
-			Condition.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
+			BlockModelGenerators.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
 				terminalConditionx.term(booleanPropertyx, false);
 			})
 		);
 
-		for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : MULTIFACE_GENERATOR_NO_UV_LOCK) {
+		for (Pair<BooleanProperty, Function<ResourceLocation, VariantMutator>> pair : MULTIFACE_GENERATOR_NO_UV_LOCK) {
 			BooleanProperty booleanProperty = pair.getFirst();
-			Function<ResourceLocation, Variant> function = pair.getSecond();
+			Function<ResourceLocation, VariantMutator> function = pair.getSecond();
 			if (nematocystBlock.defaultBlockState().hasProperty(booleanProperty)) {
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true), function.apply(nematocystModel));
-				multiPartGenerator.with(terminalCondition, function.apply(nematocystModel));
+				multiPartGenerator.with(BlockModelGenerators.condition().term(booleanProperty, true), nematocystModel);
+				multiPartGenerator.with(terminalCondition, nematocystModel);
 			}
 		}
 
@@ -296,44 +280,21 @@ public final class WWModelHelper {
 
 	public static void generatePaleMushroomBlock(@NotNull BlockModelGenerators generator) {
 		Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
-		ResourceLocation resourceLocation = ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput);
-		ResourceLocation insideTexture = TextureMapping.getBlockTexture(block, "_inside");
-		generator.blockStateOutput.accept(
-			MultiPartGenerator.multiPart(block)
-				.with(Condition.condition().term(BlockStateProperties.NORTH, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation))
-				.with(Condition.condition().term(BlockStateProperties.EAST, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-					.with(VariantProperties.UV_LOCK, true)
-				).with(Condition.condition().term(BlockStateProperties.SOUTH, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-					.with(VariantProperties.UV_LOCK, true)
-				).with(Condition.condition().term(BlockStateProperties.WEST, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-					.with(VariantProperties.UV_LOCK, true)
-				).with(Condition.condition().term(BlockStateProperties.UP, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
-					.with(VariantProperties.UV_LOCK, true)
-				).with(Condition.condition().term(BlockStateProperties.DOWN, true), Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-					.with(VariantProperties.UV_LOCK, true)
-				).with(Condition.condition().term(BlockStateProperties.NORTH, false), Variant.variant().with(VariantProperties.MODEL, insideTexture))
-				.with(Condition.condition().term(BlockStateProperties.EAST, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
-					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-					.with(VariantProperties.UV_LOCK, false)
-				).with(Condition.condition().term(BlockStateProperties.SOUTH, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
-					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-					.with(VariantProperties.UV_LOCK, false)
-				).with(Condition.condition().term(BlockStateProperties.WEST, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
-					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-					.with(VariantProperties.UV_LOCK, false)
-				).with(Condition.condition().term(BlockStateProperties.UP, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
-					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
-					.with(VariantProperties.UV_LOCK, false)
-				).with(Condition.condition().term(BlockStateProperties.DOWN, false), Variant.variant().with(VariantProperties.MODEL, insideTexture)
-					.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-					.with(VariantProperties.UV_LOCK, false)
-				)
-		);
+		MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));
+		MultiVariant inside = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_inside"));
+		generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.NORTH, true), outside)
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.EAST, true), outside.with(BlockModelGenerators.Y_ROT_90).with(BlockModelGenerators.UV_LOCK))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.SOUTH, true), outside.with(BlockModelGenerators.Y_ROT_180).with(BlockModelGenerators.UV_LOCK))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.WEST, true), outside.with(BlockModelGenerators.Y_ROT_270).with(BlockModelGenerators.UV_LOCK))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.UP, true), outside.with(BlockModelGenerators.X_ROT_270).with(BlockModelGenerators.UV_LOCK))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.DOWN, true), outside.with(BlockModelGenerators.X_ROT_90).with(BlockModelGenerators.UV_LOCK))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.NORTH, false), inside)
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.EAST, false), inside.with(BlockModelGenerators.Y_ROT_90))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.SOUTH, false), inside.with(BlockModelGenerators.Y_ROT_180))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.WEST, false), inside.with(BlockModelGenerators.Y_ROT_270))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.UP, false), inside.with(BlockModelGenerators.X_ROT_270))
+			.with(BlockModelGenerators.condition().term(BlockStateProperties.DOWN, false), inside.with(BlockModelGenerators.X_ROT_90)));
 		generator.registerSimpleItemModel(block, TexturedModel.CUBE.createWithSuffix(block, "_inventory", generator.modelOutput));
 	}
 
@@ -368,7 +329,7 @@ public final class WWModelHelper {
 	public static void createHibiscus(@NotNull BlockModelGenerators generator, Block block, Block pottedBlock, BlockModelGenerators.PlantType plantType) {
 		generator.createCrossBlockWithDefaultItem(block, plantType);
 		TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
-		ResourceLocation resourceLocation = plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput);
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, resourceLocation));
+		MultiVariant pot = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput));
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 }
