@@ -90,10 +90,10 @@
       "minecraft:glow_lichen",
       "minecraft:patch_grass_forest",
       "minecraft:patch_waterlily",
-      "minecraft:patch_firefly_bush_swamp",
-      "minecraft:patch_firefly_bush_near_water_swamp",
       "minecraft:patch_sugar_cane_swamp",
       "minecraft:patch_pumpkin",
+      "minecraft:patch_firefly_bush_swamp",
+      "minecraft:patch_firefly_bush_near_water_swamp",
       "minecraft:seagrass_swamp"
     ],
     [

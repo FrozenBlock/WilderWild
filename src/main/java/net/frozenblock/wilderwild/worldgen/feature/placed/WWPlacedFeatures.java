@@ -1967,15 +1967,16 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		PATCH_FIREFLY_BUSH_NEAR_WATER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH_NEAR_WATER),
-			RarityFilter.onAverageOnceEvery(6),
+		PATCH_FIREFLY_BUSH_NEAR_WATER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			VegetationFeatures.nearWaterPredicate(Blocks.FIREFLY_BUSH)
 		);
 
 		PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH),
-			RarityFilter.onAverageOnceEvery(4),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
@@ -1983,6 +1984,7 @@ public final class WWPlacedFeatures {
 		);
 
 		PATCH_FIREFLY_BUSH_SWAMP.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_FIREFLY_BUSH),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()

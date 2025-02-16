@@ -30,6 +30,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -100,7 +101,13 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+	public void entityInside(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Entity entity,
+		InsideBlockEffectApplier insideBlockEffectApplier
+	) {
 		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
 		if (!(entity instanceof ItemEntity)) {
 			entity.hurt(level.damageSources().cactus(), DAMAGE);

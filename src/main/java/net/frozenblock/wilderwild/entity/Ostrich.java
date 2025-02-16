@@ -37,6 +37,7 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -1036,7 +1037,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		compound.putInt("StuckTicks", this.getStuckTicks());
 		compound.putFloat("BeakAnimProgress", this.beakAnimProgress);
 		if (this.lastAttackCommander != null) {
-			compound.putUUID("LastAttackCommander", this.lastAttackCommander);
+			compound.store("LastAttackCommander", UUIDUtil.CODEC, this.lastAttackCommander);
 		}
 		compound.putBoolean("AttackHasCommander", this.attackHasCommander);
 		compound.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
@@ -1052,7 +1053,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		this.setStuckTicks(compound.getInt("StuckTicks"));
 		this.beakAnimProgress = compound.getFloat("BeakAnimProgress");
 		if (compound.contains("LastAttackCommander")) {
-			this.lastAttackCommander = compound.getUUID("LastAttackCommander");
+			compound.read("LastAttackCommander", UUIDUtil.CODEC).ifPresent(uuid -> {
+				this.lastAttackCommander = uuid;
+			});
 		}
 		this.attackHasCommander = compound.getBoolean("AttackHasCommander");
 		this.commanderWasPlayer = compound.getBoolean("CommanderWasPlayer");

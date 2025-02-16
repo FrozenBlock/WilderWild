@@ -25,7 +25,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockModelShaper;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,12 +35,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+// TODO: 1.21.5
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin(BlockRenderer.class)
 public abstract class BlockRendererMixin {
 	//extends AbstractBlockRenderContext {
 
+	/*
 	@Unique
 	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
 
@@ -56,5 +57,6 @@ public abstract class BlockRendererMixin {
 			this.renderModel(snowModel, snowState, pos, origin);
 		}
 	}
+	 */
 
 }

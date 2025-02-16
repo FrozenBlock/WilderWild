@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -109,7 +110,13 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+	public void entityInside(
+	@NotNull BlockState state,
+	@NotNull Level level,
+	@NotNull BlockPos pos,
+	@NotNull Entity entity,
+	InsideBlockEffectApplier insideBlockEffectApplier
+	) {
 		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
 			if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
 				level.destroyBlock(pos, false);

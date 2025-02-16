@@ -18,32 +18,35 @@
 
 package net.frozenblock.wilderwild.mixin.datagen.client;
 
-import com.google.common.collect.ImmutableMap;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.world.level.block.Block;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-@Mixin(BlockModelGenerators.class)
+@Mixin(value = BlockModelGenerators.class, priority = 1)
 public class BlockModelGeneratorsMixin {
 
-	@WrapOperation(
-		method = "<init>",
-		at = @At(
-			value = "INVOKE",
-			target = "Lcom/google/common/collect/ImmutableMap$Builder;put(Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableMap$Builder;",
-			ordinal = 0
-		)
-	)
-	public ImmutableMap.Builder wilderWild$addRotatedGabbroGeneration(
-		ImmutableMap.Builder instance, Object key, Object value, Operation<ImmutableMap.Builder> original
-	) {
-		original.call(instance, WWBlocks.GABBRO, value);
-		return original.call(instance, key, value);
+	@Shadow
+	@Final
+	@Mutable
+	static Map<Block, BlockModelGenerators.BlockStateGeneratorSupplier> FULL_BLOCK_MODEL_CUSTOM_GENERATORS;
+
+	@Inject(method = "<clinit>", at = @At("TAIL"))
+	private static void wilderWild$addRotatedGabbroGeneration(CallbackInfo info) {
+		Map<Block, BlockModelGenerators.BlockStateGeneratorSupplier> newMap = new Object2ObjectLinkedOpenHashMap<>(FULL_BLOCK_MODEL_CUSTOM_GENERATORS);
+		newMap.put(WWBlocks.GABBRO, BlockModelGenerators::createMirroredCubeGenerator);
+
+		FULL_BLOCK_MODEL_CUSTOM_GENERATORS = Map.copyOf(newMap);
 	}
 }

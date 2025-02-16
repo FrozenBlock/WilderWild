@@ -32,7 +32,6 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -56,14 +55,12 @@ public class LevelRendererMixin {
 		method = "renderLevel",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;FIF)V"
+			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;FIF)V"
 		)
 	)
 	public void wilderWild$changeCloudPosition(
 		LevelRenderer instance,
 		FrameGraphBuilder frameGraphBuilder,
-		Matrix4f matrix4f,
-		Matrix4f matrix4f2,
 		CloudStatus cloudStatus,
 		Vec3 vec3,
 		float ticks,
@@ -82,7 +79,7 @@ public class LevelRendererMixin {
 			vec3 = new Vec3(cameraX, cameraY, cameraZ);
 		}
 
-		original.call(instance, frameGraphBuilder, matrix4f, matrix4f2, cloudStatus, vec3, ticks, cloudColor, cloudHeight);
+		original.call(instance, frameGraphBuilder, cloudStatus, vec3, ticks, cloudColor, cloudHeight);
 	}
 
 }
