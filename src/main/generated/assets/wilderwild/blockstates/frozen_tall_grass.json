@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "wilderwild:block/frozen_tall_grass_bottom"
+    },
+    "half=upper": {
+      "model": "wilderwild:block/frozen_tall_grass_top"
+    }
+  }
+}

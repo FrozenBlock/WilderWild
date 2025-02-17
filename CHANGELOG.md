@@ -113,6 +113,8 @@ hi
 - Removed the `ancient` property from Stone Chests.
   - As a result of this change, Stone Chests found in Ancient Cities will be quicker to open.
 - Carnations now yield magenta dye instead of purple dye.
+- Added Frozen Short Grass, Frozen Tall Grass, Frozen Fern, and Frozen Large Fern blocks.
+  - Shoutout to just_jose2006 for the textures!
 
 # Music
 - Added three new tracks by Willow/pictochats_.

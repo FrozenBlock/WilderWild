@@ -240,6 +240,13 @@
   "block.wilderwild.display_lantern": "Display Lantern",
   "item.wilderwild.display_lantern": "Display Lantern",
 
+  "block.wilderwild.frozen_fern": "Frozen Fern",
+  "block.wilderwild.potted_frozen_fern": "Potted Frozen Fern",
+  "block.wilderwild.frozen_large_fern": "Frozen Large Fern",
+  "block.wilderwild.frozen_short_grass": "Frozen Short Grass",
+  "block.wilderwild.potted_frozen_short_grass": "Potted Frozen Short Grass",
+  "block.wilderwild.frozen_tall_grass": "Frozen Tall Grass",
+
   "block.wilderwild.geyser": "Geyser",
   "subtitles.block.geyser.boil": "Geyser boils",
   "subtitles.block.geyser.erupt": "Geyser erupts",

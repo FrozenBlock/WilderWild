@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
+import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
@@ -112,6 +113,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -123,6 +125,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WaterlilyBlock;
@@ -583,6 +586,24 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 	public static final Block POTTED_TUMBLEWEED = Blocks.flowerPot(TUMBLEWEED);
+
+	public static final Block FROZEN_SHORT_GRASS = new FrozenTallGrassBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+	);
+	public static final Block POTTED_FROZEN_SHORT_GRASS = Blocks.flowerPot(FROZEN_SHORT_GRASS);
+
+	public static final DoublePlantBlock FROZEN_TALL_GRASS = new DoublePlantBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+	);
+
+	public static final Block FROZEN_FERN = new FrozenTallGrassBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.FERN)
+	);
+	public static final Block POTTED_FROZEN_FERN = Blocks.flowerPot(FROZEN_FERN);
+
+	public static final DoublePlantBlock FROZEN_LARGE_FERN = new DoublePlantBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.LARGE_FERN)
+	);
 
 	public static final Block POTTED_BIG_DRIPLEAF = Blocks.flowerPot(Blocks.BIG_DRIPLEAF);
 	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
@@ -1493,6 +1514,13 @@ public final class WWBlocks {
 
 		registerBlockAfter(Items.FERN, "clovers", CLOVERS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_clovers", POTTED_CLOVERS);
+
+		registerBlockAfter(Items.SHORT_GRASS, "frozen_short_grass", FROZEN_SHORT_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_frozen_short_grass", POTTED_FROZEN_SHORT_GRASS);
+		registerBlockAfter(Items.TALL_GRASS, "frozen_tall_grass", FROZEN_TALL_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.FERN, "frozen_fern", FROZEN_FERN, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_frozen_fern", POTTED_FROZEN_FERN);
+		registerBlockAfter(Items.LARGE_FERN, "frozen_large_fern", FROZEN_LARGE_FERN, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerNotSoPlants() {
@@ -1903,6 +1931,10 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CLOVERS, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_SHORT_GRASS, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_TALL_GRASS, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_FERN, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_LARGE_FERN, 0.65F);
 	}
 
 	private static void registerFlammability() {
@@ -1928,6 +1960,11 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(LANTANAS, 60, 100);
 		flammableBlockRegistry.add(PHLOX, 60, 100);
 		flammableBlockRegistry.add(CLOVERS, 60, 100);
+
+		flammableBlockRegistry.add(FROZEN_SHORT_GRASS, 60, 100);
+		flammableBlockRegistry.add(FROZEN_TALL_GRASS, 60, 100);
+		flammableBlockRegistry.add(FROZEN_FERN, 60, 100);
+		flammableBlockRegistry.add(FROZEN_LARGE_FERN, 60, 100);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);

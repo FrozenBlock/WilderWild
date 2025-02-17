@@ -260,6 +260,25 @@ public final class WWConfiguredFeatures {
 		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 3)
 		.build();
 
+	public static final SimpleWeightedRandomList<BlockState> FROZEN_VEGETATION_TAIGA_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 1)
+		.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 4)
+		.build();
+	public static final SimpleWeightedRandomList<BlockState> FROZEN_LARGE_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(WWBlocks.FROZEN_LARGE_FERN.defaultBlockState(), 3)
+		.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 2)
+		.build();
+	public static final SimpleWeightedRandomList<BlockState> FROZEN_TALL_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(WWBlocks.FROZEN_TALL_GRASS.defaultBlockState(), 3)
+		.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 2)
+		.build();
+
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_TAIGA_FROZEN_GRASS = WWFeatureUtils.register("patch_taiga_frozen_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_GRASS = WWFeatureUtils.register("patch_frozen_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_LARGE_FERN = WWFeatureUtils.register("patch_frozen_large_fern");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_TALL_GRASS = WWFeatureUtils.register("patch_frozen_tall_grass");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> SINGLE_PIECE_OF_FROZEN_GRASS = WWFeatureUtils.register("single_piece_of_frozen_grass");
+
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS = WWFeatureUtils.register("oasis_grass");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_BUSH = WWFeatureUtils.register("oasis_bush");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> JUNGLE_BUSH = WWFeatureUtils.register("jungle_bush");
@@ -2509,6 +2528,42 @@ public final class WWConfiguredFeatures {
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_CHERRY_POOL))
 				)
 			)
+		);
+
+		PATCH_TAIGA_FROZEN_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				32,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new WeightedStateProvider(FROZEN_VEGETATION_TAIGA_POOL)
+					)
+				)
+			)
+		);
+
+		PATCH_FROZEN_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				32,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS)
+					)
+				)
+			)
+		);
+
+		PATCH_FROZEN_LARGE_FERN.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(FROZEN_LARGE_FERN_POOL)))
+		);
+
+		PATCH_FROZEN_TALL_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(FROZEN_TALL_GRASS_POOL)))
+		);
+
+		SINGLE_PIECE_OF_FROZEN_GRASS.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState()))
 		);
 
 		OASIS_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,

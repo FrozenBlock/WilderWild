@@ -1966,6 +1966,30 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_FOREST_GRASS)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_NORMAL_GRASS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_PLAIN_GRASS)
+			.add(Biomes.SNOWY_PLAINS)
+			.addOptional(WWBiomes.FROZEN_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_TAIGA_GRASS)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_TAIGA_2_GRASS)
+			.add(Biomes.SNOWY_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_LARGE_FERNS)
+			.add(Biomes.SNOWY_TAIGA)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_PLAIN_TALL_GRASS)
+			.add(Biomes.SNOWY_PLAINS)
+			.addOptional(WWBiomes.FROZEN_CAVES);
 	}
 
 	private void generateStructureTags() {

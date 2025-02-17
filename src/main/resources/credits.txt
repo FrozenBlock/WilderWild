@@ -110,6 +110,9 @@ Xicad/Emma:
  - Consistently fantastic feedback!! An absolute treasure to have around.
  - Scorched concept.
 
+just_jose2006:
+ - Frozen vegetation textures.
+
 Sculk Analyzer:
  - Sculk Echoer concept & inspiration.
 

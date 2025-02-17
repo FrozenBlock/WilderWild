@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging.worldgen;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.impl.SnowyBlockUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,7 +47,7 @@ public class SnowAndFreezeFeatureMixin {
 		)
 	)
 	public boolean wilderWild$place(WorldGenLevel instance, BlockPos pos, BlockState state, int i, Operation<Boolean> original) {
-		BlockState blockState = instance.getBlockState(pos);
+		BlockState blockState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(instance, instance.getBlockState(pos), pos);
 		if (SnowloggingUtils.canSnowlog(blockState) && !SnowloggingUtils.isSnowlogged(blockState)) {
 			return original.call(instance, pos, blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), i);
 		}

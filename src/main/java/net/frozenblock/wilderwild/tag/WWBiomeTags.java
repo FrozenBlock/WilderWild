@@ -87,6 +87,14 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> SNOWY_WATER = bind("water_color/snowy");
 	public static final TagKey<Biome> FROZEN_WATER = bind("water_color/frozen");
 
+	public static final TagKey<Biome> HAS_FROZEN_FOREST_GRASS = bind("feature/has_frozen_forest_grass");
+	public static final TagKey<Biome> HAS_FROZEN_NORMAL_GRASS = bind("feature/has_frozen_normal_grass");
+	public static final TagKey<Biome> HAS_FROZEN_PLAIN_GRASS = bind("feature/has_frozen_plain_grass");
+	public static final TagKey<Biome> HAS_FROZEN_TAIGA_GRASS = bind("feature/has_frozen_taiga_grass");
+	public static final TagKey<Biome> HAS_FROZEN_TAIGA_2_GRASS = bind("feature/has_frozen_taiga_2_grass");
+	public static final TagKey<Biome> HAS_FROZEN_PLAIN_TALL_GRASS = bind("feature/has_frozen_plain_tall_grass");
+	public static final TagKey<Biome> HAS_FROZEN_LARGE_FERNS = bind("feature/has_frozen_large_ferns");
+
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
 	public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");
