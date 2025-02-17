@@ -111,7 +111,7 @@ hi
 - Increased the average amount of Tumbleweed that generate.
 - Sand and Red Sand can no longer be scorched by Lava falling from Pointed Dripstone.
 - Removed the `ancient` property from Stone Chests.
-  - As a result of this change, Stone Chests found in Ancient Cities will be quicker to open, just like player-placed ones.
+  - As a result of this change, Stone Chests found in Ancient Cities will be quicker to open.
 - Carnations now yield magenta dye instead of purple dye.
 
 # Music

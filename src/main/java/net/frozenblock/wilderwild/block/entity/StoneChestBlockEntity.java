@@ -58,8 +58,7 @@ import org.jetbrains.annotations.Nullable;
 public class StoneChestBlockEntity extends ChestBlockEntity {
 	public static final float LID_SLAM_INTERVAL = 0.0425F;
 	public static final float MAX_OPEN_PERCENTAGE = 0.5F;
-	public static final int MAX_TIME_OPEN = 220;
-	public static final int MAX_TIME_OPEN_ANCIENT = 160;
+	public static final int MAX_TIME_OPEN = 180;
 	public static final double MIN_PERCENTAGE_OF_TIME_OPEN = 0.2D;
 	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
@@ -208,7 +207,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public void liftLid(float liftAmount) {
-		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 2F), 0F, MAX_OPEN_PERCENTAGE);
+		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 1.5F), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
@@ -219,7 +218,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * WWBlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
