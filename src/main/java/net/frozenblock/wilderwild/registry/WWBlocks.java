@@ -937,7 +937,7 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	
+
 	public static final HugePaleMushroomBlock PALE_MUSHROOM_BLOCK = register("pale_mushroom_block",
 		HugePaleMushroomBlock::new,
 		BlockBehaviour.Properties.of()
@@ -1856,8 +1856,6 @@ public final class WWBlocks {
 			.mapColor(mapColor)
 			.noCollission()
 			.noOcclusion()
-			.emissiveRendering(Blocks::always)
-			.lightLevel(state -> 4)
 			.sound(WWSoundTypes.NEMATOCYST)
 			.pushReaction(PushReaction.DESTROY);
 	}
