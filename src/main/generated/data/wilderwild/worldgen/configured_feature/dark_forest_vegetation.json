@@ -7,7 +7,7 @@
     },
     "features": [
       {
-        "chance": 0.15,
+        "chance": 0.175,
         "feature": {
           "feature": "wilderwild:dark_forest_vegetation_leaf_litter",
           "placement": []

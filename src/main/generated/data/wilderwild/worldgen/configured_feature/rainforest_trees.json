@@ -7,7 +7,7 @@
     },
     "features": [
       {
-        "chance": 0.1,
+        "chance": 0.15,
         "feature": {
           "feature": "wilderwild:rainforest_trees_leaf_litter",
           "placement": []

@@ -629,7 +629,7 @@ public final class WWConfiguredFeatures {
 						PlacementUtils.inlinePlaced(
 							TREES_BIRCH_AND_OAK_ORIGINAL_LEAF_LITTER.getHolder()
 						),
-						0.1F
+						0.15F
 					)
 				),
 				PlacementUtils.inlinePlaced(
@@ -669,7 +669,7 @@ public final class WWConfiguredFeatures {
 						PlacementUtils.inlinePlaced(
 							TREES_BIRCH_AND_OAK_LEAF_LITTER.getHolder()
 						),
-						0.1F
+						0.15F
 					)
 				),
 				PlacementUtils.inlinePlaced(
@@ -998,7 +998,7 @@ public final class WWConfiguredFeatures {
 						PlacementUtils.inlinePlaced(
 							RAINFOREST_TREES_LEAF_LITTER.getHolder()
 						),
-						0.1F
+						0.15F
 					)
 				),
 				PlacementUtils.inlinePlaced(
@@ -1116,7 +1116,7 @@ public final class WWConfiguredFeatures {
 						PlacementUtils.inlinePlaced(
 							DARK_FOREST_VEGETATION_LEAF_LITTER.getHolder()
 						),
-						0.15F
+						0.175F
 					)
 				),
 				PlacementUtils.inlinePlaced(

@@ -7,7 +7,7 @@
     },
     "features": [
       {
-        "chance": 0.1,
+        "chance": 0.15,
         "feature": {
           "feature": "wilderwild:trees_birch_and_oak_leaf_litter",
           "placement": []
