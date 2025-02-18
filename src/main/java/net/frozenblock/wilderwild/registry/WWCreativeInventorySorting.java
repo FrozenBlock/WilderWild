@@ -266,7 +266,7 @@ public class WWCreativeInventorySorting {
 
 		// MYCELIUM
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
-		addAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.MYCELIUM_GROWTH);
+		addBeforeInNaturalBlocks(Items.DEAD_BUSH, WWBlocks.MYCELIUM_GROWTH);
 
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);

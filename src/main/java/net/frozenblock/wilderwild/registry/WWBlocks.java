@@ -1874,8 +1874,6 @@ public final class WWBlocks {
 			.mapColor(mapColor)
 			.noCollission()
 			.noOcclusion()
-			.emissiveRendering(Blocks::always)
-			.lightLevel(state -> 4)
 			.sound(WWSoundTypes.NEMATOCYST)
 			.pushReaction(PushReaction.DESTROY);
 	}
