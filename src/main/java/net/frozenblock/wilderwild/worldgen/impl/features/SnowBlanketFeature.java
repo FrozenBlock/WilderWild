@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.impl.features;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.impl.SnowyBlockUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -80,7 +81,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 
 	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos, @NotNull Holder<Biome> biomeHolder) {
 		if (biomeHolder.value().shouldSnow(level, pos)) {
-			BlockState replacingState = level.getBlockState(pos);
+			BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(pos), pos);
 			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
 				level.setBlock(pos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
 			} else {

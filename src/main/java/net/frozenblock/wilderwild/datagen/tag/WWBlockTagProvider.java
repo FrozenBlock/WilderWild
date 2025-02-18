@@ -832,7 +832,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WARPED_SHELF_FUNGI)
 			.add(WWBlocks.PALE_MUSHROOM_BLOCK)
 			.add(WWBlocks.PALE_MUSHROOM)
-			.add(WWBlocks.CLOVERS);
+			.add(WWBlocks.CLOVERS)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_BUSH);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(Blocks.SWEET_BERRY_BUSH)
@@ -915,6 +920,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PHLOX)
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.CLOVERS)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_BUSH)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
 
 		this.getOrCreateTagBuilder(BlockTags.ENDERMAN_HOLDABLE)
@@ -1003,7 +1013,33 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CLOVERS)
 			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
 			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
-			.add(WWBlocks.RED_MAPLE_LEAF_LITTER);
+			.add(WWBlocks.RED_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_BUSH)
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+
+		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_MUSHROOMS)
+			.add(WWBlocks.MYCELIUM_GROWTH)
+			.add(WWBlocks.DATURA)
+			.add(WWBlocks.CATTAIL)
+			.add(WWBlocks.MILKWEED)
+			.add(WWBlocks.SHRUB)
+			.add(WWBlocks.POLLEN)
+			.add(WWBlocks.PHLOX)
+			.add(WWBlocks.LANTANAS)
+			.add(WWBlocks.CLOVERS)
+			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.RED_MAPLE_LEAF_LITTER)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_BUSH)
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
 			.add(WWBlocks.POLLEN);
@@ -1040,6 +1076,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_WILDFLOWERS)
 			.add(WWBlocks.POTTED_PHLOX)
 			.add(WWBlocks.POTTED_LANTANAS)
+			.add(WWBlocks.POTTED_FROZEN_SHORT_GRASS)
+			.add(WWBlocks.POTTED_FROZEN_FERN)
+			.add(WWBlocks.POTTED_FROZEN_BUSH)
 			.add(WWBlocks.POTTED_PALE_MUSHROOM);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
@@ -1101,6 +1140,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
 			.addOptionalTag(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)
 			.addOptionalTag(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN);
+
+		this.getOrCreateTagBuilder(BlockTags.EDIBLE_FOR_SHEEP)
+			.add(WWBlocks.FROZEN_SHORT_GRASS);
 	}
 
 	private void generateWoods() {

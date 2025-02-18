@@ -26,6 +26,7 @@ import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -51,6 +52,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -217,6 +219,15 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	public ParticleOptions getCurrentDownParticle() {
 		return this.currentDownParticle;
+	}
+
+	@Override
+	protected void onPlace(BlockState blockState, @NotNull Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
+		if (level.dimensionType().ultraWarm()) {
+			level.destroyBlock(blockPos, false);
+			level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, blockPos, 0);
+			level.playSound(null, blockPos, WWSounds.BLOCK_MESOGLEA_EVAPORATE, SoundSource.BLOCKS, 1F, (1F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
+		}
 	}
 
 	@Override

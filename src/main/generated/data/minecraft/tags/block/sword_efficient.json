@@ -20,6 +20,11 @@
     "wilderwild:phlox",
     "wilderwild:lantanas",
     "wilderwild:clovers",
+    "wilderwild:frozen_short_grass",
+    "wilderwild:frozen_tall_grass",
+    "wilderwild:frozen_fern",
+    "wilderwild:frozen_large_fern",
+    "wilderwild:frozen_bush",
     {
       "id": "#wilderwild:nematocysts",
       "required": false

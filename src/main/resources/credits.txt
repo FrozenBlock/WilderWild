@@ -84,6 +84,7 @@ Willow/pictochats_:
     - Unnamed Cave Song
     - Unnamed Maple Forest Song
     - Dahlia
+ - Penguin step sounds.
 
 Contributors:
 
@@ -109,6 +110,9 @@ Xicad/Emma:
  - Echo Glass concept.
  - Consistently fantastic feedback!! An absolute treasure to have around.
  - Scorched concept.
+
+just_jose2006:
+ - Frozen vegetation textures.
 
 Sculk Analyzer:
  - Sculk Echoer concept & inspiration.

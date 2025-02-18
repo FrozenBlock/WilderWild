@@ -1,0 +1,25 @@
+{
+  "feature": "wilderwild:patch_frozen_tall_grass",
+  "placement": [
+    {
+      "type": "minecraft:noise_threshold_count",
+      "above_noise": 3,
+      "below_noise": 0,
+      "noise_level": -0.8
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 36
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

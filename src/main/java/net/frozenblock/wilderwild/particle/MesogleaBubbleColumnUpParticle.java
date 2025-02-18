@@ -33,7 +33,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.phys.Vec3;
@@ -41,7 +40,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaBubbleColumnUpParticle extends RisingParticle {
-	private final SoundEvent sound;
 	private final ParticleOptions popParticle;
 
 	protected MesogleaBubbleColumnUpParticle(
@@ -56,7 +54,6 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	) {
 		super(clientLevel, x, y, z, xd, yd, zd);
 		this.popParticle = popParticle;
-		this.sound = WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
 	}
 
 	@Override
@@ -67,7 +64,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	@Override
 	@NotNull
 	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
 	@Override
@@ -91,7 +88,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 			this.x,
 			this.y,
 			this.z,
-			this.sound,
+			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
 			SoundSource.NEUTRAL,
 			0.025F,
 			this.random.nextFloat() * 0.2F + 0.8F
