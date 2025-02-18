@@ -415,6 +415,8 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_WILDFLOWERS);
 		this.dropPottedContents(WWBlocks.POTTED_PHLOX);
 		this.dropPottedContents(WWBlocks.POTTED_LANTANAS);
+		this.dropPottedContents(WWBlocks.POTTED_FROZEN_SHORT_GRASS);
+		this.dropPottedContents(WWBlocks.POTTED_FROZEN_FERN);
 
 		this.dropSelf(WWBlocks.NULL_BLOCK);
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS);
