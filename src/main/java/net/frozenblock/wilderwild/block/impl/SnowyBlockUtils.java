@@ -33,6 +33,7 @@ public class SnowyBlockUtils {
 	public static final Map<Block, Block> SNOWY_BLOCK_MAP = ImmutableMap.<Block, Block>builder()
 		.put(Blocks.SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS)
 		.put(Blocks.FERN, WWBlocks.FROZEN_FERN)
+		.put(Blocks.BUSH, WWBlocks.FROZEN_BUSH)
 		.build();
 
 	@Contract("_ -> param1")
