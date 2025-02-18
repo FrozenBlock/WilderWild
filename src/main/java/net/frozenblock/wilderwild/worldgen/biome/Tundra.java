@@ -57,7 +57,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.305F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-2.233F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.110F, 0.030F);
@@ -68,7 +68,7 @@ public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(0.050F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS_B = Climate.Parameter.span(-0.110F, 0.030F);
 
-	public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(-0.450F, -0.200F);
+	public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(-0.450F, -0.255F);
 	public static final Climate.Parameter HUMIDITY_D = Climate.Parameter.span(-1.0F, -0.100F);
 	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(-0.750F, -0.05F);
 	public static final Climate.Parameter EROSION_C = Climate.Parameter.span(-0.223F, 0.450F);
@@ -83,7 +83,7 @@ public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter EROSION_MAPLE = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_2);
 	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 
-	public static final Climate.Parameter TEMPERATURE_MAPLE_BORDER = Climate.Parameter.span(-0.255F, -0.215F);
+	public static final Climate.Parameter TEMPERATURE_MAPLE_BORDER = Climate.Parameter.span(-0.255F, -0.235F);
 	public static final Climate.Parameter HUMIDITY_MAPLE_BORDER = Climate.Parameter.span(-0.2F, -0.16F);
 	public static final Climate.Parameter WEIRDNESS_MAPLE_BORDER_CENTER = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING);
 	public static final Climate.Parameter EROSION_MAPLE_BORDER = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
