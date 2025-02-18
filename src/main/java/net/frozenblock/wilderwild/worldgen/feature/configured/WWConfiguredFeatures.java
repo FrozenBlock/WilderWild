@@ -266,12 +266,12 @@ public final class WWConfiguredFeatures {
 		.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 4)
 		.build();
 	public static final SimpleWeightedRandomList<BlockState> FROZEN_LARGE_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.FROZEN_LARGE_FERN.defaultBlockState(), 2)
-		.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 3)
+		.add(WWBlocks.FROZEN_LARGE_FERN.defaultBlockState(), 1)
+		.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 2)
 		.build();
 	public static final SimpleWeightedRandomList<BlockState> FROZEN_TALL_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.FROZEN_TALL_GRASS.defaultBlockState(), 2)
-		.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 3)
+		.add(WWBlocks.FROZEN_TALL_GRASS.defaultBlockState(), 1)
+		.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 2)
 		.build();
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_TAIGA_FROZEN_GRASS = WWFeatureUtils.register("patch_taiga_frozen_grass");

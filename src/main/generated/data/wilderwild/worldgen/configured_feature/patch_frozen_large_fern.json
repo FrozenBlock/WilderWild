@@ -15,13 +15,13 @@
                     "half": "lower"
                   }
                 },
-                "weight": 2
+                "weight": 1
               },
               {
                 "data": {
                   "Name": "wilderwild:frozen_fern"
                 },
-                "weight": 3
+                "weight": 2
               }
             ]
           }

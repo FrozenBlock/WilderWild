@@ -1980,6 +1980,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_PLAIN_GRASS)
 			.add(Biomes.SNOWY_PLAINS)
+			.add(Biomes.ICE_SPIKES)
+			.add(Biomes.GROVE)
 			.addOptional(WWBiomes.FROZEN_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_TAIGA_GRASS)
@@ -1994,6 +1996,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_PLAIN_TALL_GRASS)
 			.add(Biomes.SNOWY_PLAINS)
+			.add(Biomes.ICE_SPIKES)
 			.addOptional(WWBiomes.FROZEN_CAVES);
 	}
 
