@@ -42,7 +42,7 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return true;
+		return false;
 	}
 
 	@Override
