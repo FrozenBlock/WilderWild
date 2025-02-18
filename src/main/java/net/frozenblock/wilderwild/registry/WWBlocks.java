@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
+import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
@@ -592,7 +593,7 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_FROZEN_SHORT_GRASS = Blocks.flowerPot(FROZEN_SHORT_GRASS);
 
-	public static final DoublePlantBlock FROZEN_TALL_GRASS = new DoublePlantBlock(
+	public static final FrozenDoublePlantBlock FROZEN_TALL_GRASS = new FrozenDoublePlantBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
 	);
 
@@ -601,7 +602,7 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_FROZEN_FERN = Blocks.flowerPot(FROZEN_FERN);
 
-	public static final DoublePlantBlock FROZEN_LARGE_FERN = new DoublePlantBlock(
+	public static final FrozenDoublePlantBlock FROZEN_LARGE_FERN = new FrozenDoublePlantBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.LARGE_FERN)
 	);
 
