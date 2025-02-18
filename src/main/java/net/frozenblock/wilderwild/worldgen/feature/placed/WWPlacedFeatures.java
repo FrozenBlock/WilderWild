@@ -1138,14 +1138,14 @@ public final class WWPlacedFeatures {
 		);
 
 		PATCH_GRASS_FROZEN_TAIGA_2.makeAndSetHolder(WWConfiguredFeatures.PATCH_TAIGA_FROZEN_GRASS.getHolder(),
-			RarityFilter.onAverageOnceEvery(5),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		PATCH_GRASS_FROZEN_TAIGA.makeAndSetHolder(WWConfiguredFeatures.PATCH_TAIGA_FROZEN_GRASS.getHolder(),
-			RarityFilter.onAverageOnceEvery(5),
+			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

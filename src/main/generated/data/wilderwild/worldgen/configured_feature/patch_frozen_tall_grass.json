@@ -15,13 +15,13 @@
                     "half": "lower"
                   }
                 },
-                "weight": 3
+                "weight": 2
               },
               {
                 "data": {
                   "Name": "wilderwild:frozen_short_grass"
                 },
-                "weight": 2
+                "weight": 3
               }
             ]
           }
