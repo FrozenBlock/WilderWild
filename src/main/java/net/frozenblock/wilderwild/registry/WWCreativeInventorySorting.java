@@ -258,6 +258,11 @@ public class WWCreativeInventorySorting {
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
+		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);
+		addAfterInNaturalBlocks(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_FERN);
+		addAfterInNaturalBlocks(Items.LARGE_FERN, WWBlocks.FROZEN_TALL_GRASS);
+		addAfterInNaturalBlocks(WWBlocks.FROZEN_TALL_GRASS, WWBlocks.FROZEN_LARGE_FERN);
+
 		// MYCELIUM
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
 		addAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.MYCELIUM_GROWTH);

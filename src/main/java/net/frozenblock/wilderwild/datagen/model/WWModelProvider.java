@@ -105,6 +105,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createFlowerBed(WWBlocks.LANTANAS);
 		FrozenLibModelHelper.createTintedFlowerBed(generator, WWBlocks.CLOVERS);
 
+		generator.createCrossBlockWithDefaultItem(WWBlocks.FROZEN_SHORT_GRASS, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlant(WWBlocks.FROZEN_TALL_GRASS, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.FROZEN_FERN, WWBlocks.POTTED_FROZEN_FERN, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlant(WWBlocks.FROZEN_LARGE_FERN, BlockModelGenerators.TintState.NOT_TINTED);
+
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);

@@ -62,6 +62,7 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -149,7 +150,7 @@ public class Penguin extends Animal {
 
 	@Override
 	public boolean isVisuallySwimming() {
-		return this.isSwimming();
+		return this.isSwimming() && this.isUnderWater();
 	}
 
 	public boolean isTouchingWaterOrSwimming() {
@@ -189,7 +190,7 @@ public class Penguin extends Animal {
 	public void tick() {
 		super.tick();
 		this.prevWadeProgress = this.wadeProgress;
-		this.wadeProgress += ((this.isTouchingWaterOrSwimming() ? 1F : 0F) - this.wadeProgress) * 0.175F;
+		this.wadeProgress += ((this.isTouchingWaterOrSwimming() && !this.isUnderWater() ? 1F : 0F) - this.wadeProgress) * 0.175F;
 		this.prevSlideProgress = this.slideProgress;
 		this.slideProgress += ((this.hasPose(Pose.SLIDING) ? 1F : 0F) - this.slideProgress) * 0.175F;
 	}
@@ -296,6 +297,15 @@ public class Penguin extends Animal {
 		if (this.isSliding()) return super.nextStep();
 		if (this.isSwimming()) return this.moveDist + 1F;
 		return this.moveDist + 0.4F;
+	}
+
+	@Override
+	protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+		if (!this.isSliding()) {
+			this.playSound(WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
+		} else {
+			super.playStepSound(blockPos, blockState);
+		}
 	}
 
 	@Override

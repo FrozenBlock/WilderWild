@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "purple_Dye",
+  "group": "magenta_dye",
   "ingredients": [
     "wilderwild:carnation"
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:purple_dye"
+    "id": "minecraft:magenta_dye"
   }
 }

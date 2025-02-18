@@ -819,7 +819,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.RED_SHELF_FUNGI)
 			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
 			.add(WWBlocks.WARPED_SHELF_FUNGI)
-			.add(WWBlocks.CLOVERS);
+			.add(WWBlocks.CLOVERS)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(Blocks.SWEET_BERRY_BUSH)
@@ -902,6 +906,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PHLOX)
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.CLOVERS)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
@@ -987,6 +995,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PHLOX)
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.CLOVERS)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
@@ -1019,7 +1031,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_PINK_PETALS)
 			.add(WWBlocks.POTTED_WILDFLOWERS)
 			.add(WWBlocks.POTTED_PHLOX)
-			.add(WWBlocks.POTTED_LANTANAS);
+			.add(WWBlocks.POTTED_LANTANAS)
+			.add(WWBlocks.POTTED_FROZEN_SHORT_GRASS)
+			.add(WWBlocks.POTTED_FROZEN_FERN);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(WWBlocks.POLLEN)

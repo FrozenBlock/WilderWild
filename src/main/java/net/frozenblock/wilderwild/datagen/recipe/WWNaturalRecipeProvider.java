@@ -49,7 +49,7 @@ public final class WWNaturalRecipeProvider {
 
 		oneToOneConversionRecipe(provider, exporter, Items.ORANGE_DYE, WWBlocks.MILKWEED, "orange_dye", 2);
 
-		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.CARNATION, "purple_Dye");
+		oneToOneConversionRecipe(provider, exporter, Items.MAGENTA_DYE, WWBlocks.CARNATION, "magenta_dye");
 
 		oneToOneConversionRecipe(provider, exporter, Items.ORANGE_DYE, WWBlocks.MARIGOLD, "orange_dye");
 

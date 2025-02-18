@@ -41,6 +41,8 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
+import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
+import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
@@ -106,6 +108,7 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -121,6 +124,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
@@ -837,6 +841,34 @@ public final class WWBlocks {
 	public static final Block POTTED_SMALL_DRIPLEAF = registerWithoutItem("potted_small_dripleaf",
 		properties -> new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, properties),
 		Blocks.flowerPotProperties()
+	);
+
+	public static final FrozenTallGrassBlock FROZEN_SHORT_GRASS = register("frozen_short_grass",
+		FrozenTallGrassBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+	);
+	public static final Block POTTED_FROZEN_SHORT_GRASS = registerWithoutItem("potted_frozen_short_grass",
+		properties -> new FlowerPotBlock(FROZEN_SHORT_GRASS, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final FrozenDoublePlantBlock FROZEN_TALL_GRASS = register("frozen_tall_grass",
+		FrozenDoublePlantBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+	);
+
+	public static final FrozenTallGrassBlock FROZEN_FERN = register("frozen_fern",
+		FrozenTallGrassBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.FERN)
+	);
+	public static final Block POTTED_FROZEN_FERN = registerWithoutItem("potted_frozen_fern",
+		properties -> new FlowerPotBlock(FROZEN_FERN, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final FrozenDoublePlantBlock FROZEN_LARGE_FERN = register("frozen_large_fern",
+		FrozenDoublePlantBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.LARGE_FERN)
 	);
 
 	public static final Block POTTED_SHORT_GRASS = registerWithoutItem("potted_short_grass",
@@ -1912,6 +1944,10 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.1F);
 		CompostingChanceRegistry.INSTANCE.add(CLOVERS, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_SHORT_GRASS, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_TALL_GRASS, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_FERN, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(FROZEN_LARGE_FERN, 0.65F);
 	}
 
 	private static void registerFlammability() {
@@ -1937,6 +1973,11 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(LANTANAS, 60, 100);
 		flammableBlockRegistry.add(PHLOX, 60, 100);
 		flammableBlockRegistry.add(CLOVERS, 60, 100);
+
+		flammableBlockRegistry.add(FROZEN_SHORT_GRASS, 60, 100);
+		flammableBlockRegistry.add(FROZEN_TALL_GRASS, 60, 100);
+		flammableBlockRegistry.add(FROZEN_FERN, 60, 100);
+		flammableBlockRegistry.add(FROZEN_LARGE_FERN, 60, 100);
 
 		flammableBlockRegistry.add(HOLLOWED_BIRCH_LOG, 5, 5);
 		flammableBlockRegistry.add(HOLLOWED_CHERRY_LOG, 5, 5);
