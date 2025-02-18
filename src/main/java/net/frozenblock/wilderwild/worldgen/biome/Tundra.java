@@ -58,7 +58,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.255F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.495F, -0.295F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-2.233F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.110F, 0.030F);
@@ -69,14 +69,14 @@ public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter EROSION_B = Climate.Parameter.span(0.050F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS_B = Climate.Parameter.span(-0.110F, 0.030F);
 
-	public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(-0.450F, -0.200F);
+	public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(-0.495F, -0.245F);
 	public static final Climate.Parameter HUMIDITY_D = Climate.Parameter.span(-1.0F, -0.100F);
 	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(-0.750F, -0.05F);
-	public static final Climate.Parameter EROSION_C = Climate.Parameter.span(-0.223F, 0.450F);
+	public static final Climate.Parameter EROSION_C = Climate.Parameter.span(-0.375F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS_C = Climate.Parameter.span(0.030F, 0.800F);
 
 	// WITH MAPLE FOREST
-	public static final Climate.Parameter TEMPERATURE_MAPLE = Climate.Parameter.span(-0.45F, -0.255F);
+	public static final Climate.Parameter TEMPERATURE_MAPLE = Climate.Parameter.span(-0.495F, -0.255F);
 	public static final Climate.Parameter HUMIDITY_MAPLE = Climate.Parameter.span(-1F, -0.2F);
 
 	public static final Climate.Parameter WEIRDNESS_A_MAPLE = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
@@ -84,8 +84,14 @@ public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter EROSION_MAPLE = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_2);
 	public static final Climate.Parameter CONTINENTALNESS_MAPLE = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 
+	public static final Climate.Parameter TEMPERATURE_MAPLE_BORDER = Climate.Parameter.span(-0.255F, -0.235F);
+	public static final Climate.Parameter HUMIDITY_MAPLE_BORDER = Climate.Parameter.span(-0.2F, -0.16F);
+	public static final Climate.Parameter WEIRDNESS_MAPLE_BORDER_CENTER = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING);
+	public static final Climate.Parameter EROSION_MAPLE_BORDER = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
+	public static final Climate.Parameter EROSION_MAPLE_BORDER_CENTER = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
+
 	public static final Climate.Parameter WEIRDNESS_MAPLE_PEAK = Weirdness.PEAK_VARIANT;
-	public static final Climate.Parameter EROSION_MAPLE_PEAK = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_3);
+	public static final Climate.Parameter EROSION_MAPLE_PEAK = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
 	public static final Climate.Parameter CONTINENTALNESS_MAPLE_PEAK = Climate.Parameter.span(Continentalness.COAST, Continentalness.MID_INLAND);
 
 	public static final float TEMP = 0.25F;
@@ -279,8 +285,8 @@ public final class Tundra extends FrozenBiome {
 				);
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE,
-					HUMIDITY,
+					TEMPERATURE_MAPLE,
+					HUMIDITY_MAPLE,
 					CONTINENTALNESS,
 					EROSION_MAPLE,
 					WEIRDNESS_B_MAPLE,
@@ -293,6 +299,94 @@ public final class Tundra extends FrozenBiome {
 					CONTINENTALNESS_MAPLE_PEAK,
 					EROSION_MAPLE_PEAK,
 					WEIRDNESS_MAPLE_PEAK,
+					0F
+				);
+
+				// SURROUNDING
+				// A
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE_BORDER,
+					HUMIDITY_MAPLE,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER,
+					WEIRDNESS_A_MAPLE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE,
+					HUMIDITY_MAPLE_BORDER,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER,
+					WEIRDNESS_A_MAPLE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE_BORDER,
+					HUMIDITY_MAPLE_BORDER,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER,
+					WEIRDNESS_A_MAPLE,
+					0F
+				);
+
+				// B
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE_BORDER,
+					HUMIDITY_MAPLE,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER_CENTER,
+					WEIRDNESS_MAPLE_BORDER_CENTER,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE,
+					HUMIDITY_MAPLE_BORDER,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER_CENTER,
+					WEIRDNESS_MAPLE_BORDER_CENTER,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE_BORDER,
+					HUMIDITY_MAPLE_BORDER,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER_CENTER,
+					WEIRDNESS_MAPLE_BORDER_CENTER,
+					0F
+				);
+
+				// C
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE_BORDER,
+					HUMIDITY_MAPLE,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER,
+					WEIRDNESS_B_MAPLE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE,
+					HUMIDITY_MAPLE_BORDER,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER,
+					WEIRDNESS_B_MAPLE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE_BORDER,
+					HUMIDITY_MAPLE_BORDER,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE_BORDER,
+					WEIRDNESS_B_MAPLE,
 					0F
 				);
 			}
