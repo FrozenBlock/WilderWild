@@ -1516,12 +1516,12 @@ public final class WWBlocks {
 		registerBlockAfter(Items.FERN, "clovers", CLOVERS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_clovers", POTTED_CLOVERS);
 
-		registerBlockAfter(Items.SHORT_GRASS, "frozen_short_grass", FROZEN_SHORT_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.FERN, "frozen_short_grass", FROZEN_SHORT_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_frozen_short_grass", POTTED_FROZEN_SHORT_GRASS);
-		registerBlockAfter(Items.TALL_GRASS, "frozen_tall_grass", FROZEN_TALL_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.FERN, "frozen_fern", FROZEN_FERN, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.LARGE_FERN, "frozen_tall_grass", FROZEN_TALL_GRASS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(FROZEN_SHORT_GRASS, "frozen_fern", FROZEN_FERN, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_frozen_fern", POTTED_FROZEN_FERN);
-		registerBlockAfter(Items.LARGE_FERN, "frozen_large_fern", FROZEN_LARGE_FERN, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(FROZEN_TALL_GRASS, "frozen_large_fern", FROZEN_LARGE_FERN, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerNotSoPlants() {
