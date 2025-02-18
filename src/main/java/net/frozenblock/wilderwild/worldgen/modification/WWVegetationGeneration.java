@@ -79,7 +79,7 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LILAC.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.CHERRY_FLOWERS)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CHERRY_FLOWERS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_CHERRY.getKey());
 						}
 
@@ -281,6 +281,12 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_SUNFLOWER_PLAINS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNOWY_PLAINS_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_PLAINS);
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_DEFAULT);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_SNOWY_PLAINS.getKey());
 						}
 					}
 				});

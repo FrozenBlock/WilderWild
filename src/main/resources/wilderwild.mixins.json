@@ -54,6 +54,7 @@
     "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.lightning.LightningBoltMixin",
     "entity.penguin.AbstractBoatMixin",
+    "entity.penguin.BlocksMixin",
     "entity.penguin.LivingEntityMixin",
     "entity.penguin.SmoothSwimmingMoveControlMixin",
     "entity.slime.MobMixin",

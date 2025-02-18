@@ -1,9 +1,10 @@
 {
   "values": [
     "minecraft:snowy_plains",
+    "minecraft:snowy_taiga",
     "minecraft:ice_spikes",
     {
-      "id": "wilderwild:frozen_caves",
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false
     }
   ]
