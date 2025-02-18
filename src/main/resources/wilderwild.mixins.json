@@ -55,6 +55,7 @@
     "entity.enderman.EnderManMixin",
     "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.lightning.LightningBoltMixin",
+    "entity.penguin.BlocksMixin",
     "entity.penguin.BoatMixin",
     "entity.penguin.LivingEntityMixin",
     "entity.penguin.SmoothSwimmingMoveControlMixin",

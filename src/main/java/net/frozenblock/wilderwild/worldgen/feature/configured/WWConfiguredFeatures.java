@@ -205,6 +205,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC = WWFeatureUtils.register("flower_generic");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC_NO_CARNATION = WWFeatureUtils.register("flower_generic_no_carnation");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WWFeatureUtils.register("flower_plains");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_SNOWY_PLAINS = WWFeatureUtils.register("flower_snowy_plains");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_TUNDRA = WWFeatureUtils.register("flower_tundra");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
@@ -1843,6 +1844,34 @@ public final class WWConfiguredFeatures {
 								Blocks.WHITE_TULIP.defaultBlockState(),
 								Blocks.ORANGE_TULIP.defaultBlockState(),
 								Blocks.RED_TULIP.defaultBlockState()
+							)
+						)
+					)
+				)
+			)
+		);
+
+		FLOWER_SNOWY_PLAINS.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				32,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new NoiseProvider(
+							5050L,
+							new NormalNoise.NoiseParameters(0, 1D),
+							0.048833334F,
+							List.of(
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								WWBlocks.SEEDING_DANDELION.defaultBlockState()
 							)
 						)
 					)

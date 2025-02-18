@@ -175,7 +175,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CLOVERS = bind("feature/has_clovers");
 	public static final TagKey<Biome> HAS_CLOVERS_SPARSE = bind("feature/has_clovers_sparse");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("feature/has_milkweed");
-	public static final TagKey<Biome> CHERRY_FLOWERS = bind("feature/cherry_flowers");
+	public static final TagKey<Biome> HAS_SNOWY_PLAINS_FLOWERS = bind("feature/has_snowy_plains_flowers");
+	public static final TagKey<Biome> HAS_CHERRY_FLOWERS = bind("feature/has_cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("feature/has_sunflower_plains_flowers");
 	public static final TagKey<Biome> HAS_PALMS = bind("feature/has_palms");
 	public static final TagKey<Biome> HAS_WARM_BEACH_PALMS = bind("feature/has_warm_beach_palms");

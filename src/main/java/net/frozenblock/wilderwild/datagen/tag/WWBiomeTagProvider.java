@@ -639,7 +639,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_SAVANNA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PENGUIN)
-			.add(Biomes.SNOWY_BEACH)
 			.add(Biomes.FROZEN_OCEAN)
 			.add(Biomes.DEEP_FROZEN_OCEAN);
 
@@ -1211,7 +1210,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.CHERRY_FLOWERS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_PLAINS_FLOWERS)
+			.add(Biomes.SNOWY_PLAINS)
+			.add(Biomes.SNOWY_TAIGA)
+			.add(Biomes.ICE_SPIKES)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_FLOWERS)
 			.add(Biomes.CHERRY_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)
