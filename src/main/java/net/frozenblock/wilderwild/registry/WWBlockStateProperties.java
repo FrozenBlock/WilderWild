@@ -47,7 +47,6 @@ public final class WWBlockStateProperties {
 	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, LightEngine.MAX_LEVEL);
 
 	// Stone Chest
-	public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
 	public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
 
 	// Mesoglea

@@ -28,6 +28,7 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureCon
 import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderFluidFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -486,9 +487,10 @@ public final class WWCaveConfigured {
 			new ComboFeatureConfig(
 				List.of(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
+						FrozenLibFeatures.NOISE_PATH_SWAP_UNDER_FLUID_FEATURE,
+						new PathSwapUnderFluidFeatureConfig(
 							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
 							14,
 							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,

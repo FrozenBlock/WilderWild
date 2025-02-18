@@ -201,6 +201,15 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature MIXED_MUSHROOMS_PLACED = register("mixed_mushroom_placed");
 	public static final FrozenLibPlacedFeature RAINFOREST_MUSHROOMS_PLACED = register("rainforest_mushroom_placed");
 	//GRASS AND FERNS
+	public static final FrozenLibPlacedFeature PATCH_GRASS_FROZEN_PLAIN = register("patch_grass_frozen_plain");
+	public static final FrozenLibPlacedFeature PATCH_GRASS_FROZEN_FOREST = register("patch_grass_frozen_forest");
+	public static final FrozenLibPlacedFeature PATCH_GRASS_FROZEN_NORMAL = register("patch_grass_frozen_normal");
+	public static final FrozenLibPlacedFeature PATCH_GRASS_FROZEN_TAIGA_2 = register("patch_grass_frozen_taiga_2");
+	public static final FrozenLibPlacedFeature PATCH_GRASS_FROZEN_TAIGA = register("patch_grass_frozen_taiga");
+	public static final FrozenLibPlacedFeature PATCH_GRASS_FROZEN_BONEMEAL = register("grass_frozen_bonemeal");
+	public static final FrozenLibPlacedFeature PATCH_FROZEN_TALL_GRASS_2 = register("patch_frozen_tall_grass2");
+	public static final FrozenLibPlacedFeature PATCH_FROZEN_TALL_GRASS = register("patch_frozen_tall_grass");
+	public static final FrozenLibPlacedFeature PATCH_FROZEN_LARGE_FERN = register("patch_frozen_large_fern");
 	public static final FrozenLibPlacedFeature OASIS_GRASS_PLACED = register("oasis_grass_placed");
 	public static final FrozenLibPlacedFeature OASIS_BUSH_PLACED = register("oasis_bush_placed");
 	public static final FrozenLibPlacedFeature JUNGLE_BUSH_PLACED = register("jungle_bush_placed");
@@ -1137,6 +1146,68 @@ public final class WWPlacedFeatures {
 		);
 
 		// GRASS AND FERNS
+
+		PATCH_GRASS_FROZEN_PLAIN.makeAndSetHolder(WWConfiguredFeatures.PATCH_FROZEN_GRASS.getHolder(),
+			NoiseThresholdCountPlacement.of(-0.8, 1, 3),
+			RarityFilter.onAverageOnceEvery(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_GRASS_FROZEN_FOREST.makeAndSetHolder(WWConfiguredFeatures.PATCH_FROZEN_GRASS.getHolder(),
+			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_GRASS_FROZEN_NORMAL.makeAndSetHolder(WWConfiguredFeatures.PATCH_FROZEN_GRASS.getHolder(),
+			RarityFilter.onAverageOnceEvery(6),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_GRASS_FROZEN_TAIGA_2.makeAndSetHolder(WWConfiguredFeatures.PATCH_TAIGA_FROZEN_GRASS.getHolder(),
+			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_GRASS_FROZEN_TAIGA.makeAndSetHolder(WWConfiguredFeatures.PATCH_TAIGA_FROZEN_GRASS.getHolder(),
+			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_GRASS_FROZEN_BONEMEAL.makeAndSetHolder(WWConfiguredFeatures.SINGLE_PIECE_OF_FROZEN_GRASS.getHolder(),
+			PlacementUtils.isEmpty()
+		);
+
+		PATCH_FROZEN_TALL_GRASS_2.makeAndSetHolder(WWConfiguredFeatures.PATCH_FROZEN_TALL_GRASS.getHolder(),
+			NoiseThresholdCountPlacement.of(-0.8, 0, 3),
+			RarityFilter.onAverageOnceEvery(36),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		PATCH_FROZEN_TALL_GRASS.makeAndSetHolder(WWConfiguredFeatures.PATCH_FROZEN_TALL_GRASS.getHolder(),
+			RarityFilter.onAverageOnceEvery(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		PATCH_FROZEN_LARGE_FERN.makeAndSetHolder(WWConfiguredFeatures.PATCH_FROZEN_LARGE_FERN.getHolder(),
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
 
 		OASIS_GRASS_PLACED.makeAndSetHolder(WWConfiguredFeatures.OASIS_GRASS.getHolder(),
 			CountPlacement.of(19),

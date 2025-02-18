@@ -43,7 +43,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -87,11 +86,21 @@ public class GeyserBlockEntity extends BlockEntity {
 	public static final double BASE_WIND_INTENSITY = 0.5D;
 	public static final int FIRE_TICKS_MAX = 260;
 	private boolean hasRunFirstCheck = false;
-	private int tickUntilNextEvent;
+	private int ticksUntilNextEvent;
 	private float eruptionProgress;
 
 	public GeyserBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(WWBlockEntityTypes.GEYSER, pos, state);
+	}
+
+	@Override
+	public boolean triggerEvent(int eventId, int data) {
+		if (eventId == 1 && this.level.isClientSide) {
+			this.eruptionProgress = 0F;
+			this.ticksUntilNextEvent = data;
+			return true;
+		}
+		return super.triggerEvent(eventId, data);
 	}
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
@@ -106,20 +115,20 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (GeyserBlock.isActive(geyserType)) {
 			if (geyserStage == GeyserStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
-					this.tickUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
+					this.ticksUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
 					level.playSound(null, pos, geyserType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
+					this.level.blockEvent(pos, state.getBlock(), 1, this.ticksUntilNextEvent);
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
 			}
-			this.tickUntilNextEvent -= 1;
-			if (this.tickUntilNextEvent <= 0) {
+			this.ticksUntilNextEvent -= 1;
+			if (this.ticksUntilNextEvent <= 0) {
 				this.advanceStage(level, pos, state, geyserStage, natural, random);
 			}
 		} else {
 			this.setDormant(level, pos, state, random);
 		}
-		this.setChanged();
 	}
 
 	public static boolean canEruptionPassThrough(LevelReader level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
@@ -327,9 +336,9 @@ public class GeyserBlockEntity extends BlockEntity {
 	public void setStageAndCooldown(@NotNull Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
 		level.setBlock(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage), Block.UPDATE_ALL);
 		if (geyserStage == GeyserStage.ACTIVE) {
-			this.tickUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
+			this.ticksUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
 		} else if (geyserStage != GeyserStage.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly
-			this.tickUntilNextEvent = random.nextInt(MIN_DORMANT_TICKS, MAX_DORMANT_TICKS);
+			this.ticksUntilNextEvent = random.nextInt(MIN_DORMANT_TICKS, MAX_DORMANT_TICKS);
 		}
 	}
 
@@ -348,21 +357,10 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
-	}
-
-	@NotNull
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
-	}
-
-	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
 		tag.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
-		tag.putInt("TicksUntilNextEvent", this.tickUntilNextEvent);
+		tag.putInt("TicksUntilNextEvent", this.ticksUntilNextEvent);
 		tag.putFloat("EruptionProgress", this.eruptionProgress);
 	}
 
@@ -370,7 +368,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.loadAdditional(tag, provider);
 		this.hasRunFirstCheck = tag.getBoolean("HasRunFirstCheck");
-		this.tickUntilNextEvent = tag.getInt("TicksUntilNextEvent");
+		this.ticksUntilNextEvent = tag.getInt("TicksUntilNextEvent");
 		this.eruptionProgress = tag.getFloat("EruptionProgress");
 	}
 

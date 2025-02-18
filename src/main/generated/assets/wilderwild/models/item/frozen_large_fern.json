@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wilderwild:block/frozen_large_fern_top"
+  }
+}

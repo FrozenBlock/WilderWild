@@ -30,16 +30,20 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
@@ -220,6 +224,11 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.PHLOX, this.createPetalsDrops(WWBlocks.PHLOX));
 		this.add(WWBlocks.LANTANAS, this.createPetalsDrops(WWBlocks.LANTANAS));
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredPetalsDrops(this, WWBlocks.CLOVERS);
+
+		this.add(WWBlocks.FROZEN_LARGE_FERN, block -> this.createDoublePlantWithSeedDrops(block, WWBlocks.FROZEN_FERN));
+		this.add(WWBlocks.FROZEN_TALL_GRASS, block -> this.createDoublePlantWithSeedDrops(block, WWBlocks.FROZEN_SHORT_GRASS));
+		this.add(WWBlocks.FROZEN_FERN, this::createGrassDrops);
+		this.add(WWBlocks.FROZEN_SHORT_GRASS, this::createGrassDrops);
 
 		this.add(WWBlocks.TUMBLEWEED_PLANT,
 			LootTable.lootTable()
