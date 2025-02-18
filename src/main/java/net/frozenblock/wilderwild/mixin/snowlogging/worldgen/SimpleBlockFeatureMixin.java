@@ -21,25 +21,26 @@ package net.frozenblock.wilderwild.mixin.snowlogging.worldgen;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Biome.class)
-public class BiomeMixin {
+@Mixin(SimpleBlockFeature.class)
+public class SimpleBlockFeatureMixin {
 
 	@WrapOperation(
-		method = "shouldSnow",
+		method = "place",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
 		)
 	)
-	public boolean wilderWild$shouldSnow(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || (SnowloggingUtils.canSnowlog(instance) && WWBlockConfig.canSnowlogNaturally());
+	public boolean wilderWild$snowlogShortBlocks(WorldGenLevel instance, BlockPos pos, BlockState state, int i, Operation<Boolean> original) {
+		state = SnowloggingUtils.getSnowloggedState(state, instance.getBlockState(pos));
+		return original.call(instance, pos, state, i);
 	}
 
 }

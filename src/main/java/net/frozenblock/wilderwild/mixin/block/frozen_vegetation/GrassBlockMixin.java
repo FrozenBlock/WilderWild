@@ -23,6 +23,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import java.util.Optional;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
 import net.minecraft.core.BlockPos;
@@ -30,11 +32,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import java.util.Optional;
 
 @Mixin(GrassBlock.class)
 public class GrassBlockMixin {
@@ -75,8 +77,7 @@ public class GrassBlockMixin {
 		method = "performBonemeal",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/core/Registry;getHolder(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;",
-			ordinal = 0
+			target = "Lnet/minecraft/core/Registry;getHolder(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;"
 		)
 	)
 	public Optional<Holder.Reference> wilderWild$replaceWithFrozenGrassFeature(
@@ -84,6 +85,21 @@ public class GrassBlockMixin {
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
 		return isSnowy.get() ? original.call(instance, WWPlacedFeatures.PATCH_GRASS_FROZEN_BONEMEAL.getKey()) : original.call(instance, key);
+	}
+
+	@WrapOperation(
+		method = "performBonemeal",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"
+		)
+	)
+	public boolean wilderWild$allowSnowlogging(
+		BlockState instance, Operation<Boolean> original,
+		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
+	) {
+		boolean originalValue = original.call(instance);
+		return isSnowy.get() ? originalValue || (WWBlockConfig.SNOWLOGGING && instance.is(Blocks.SNOW)) : originalValue;
 	}
 
 }

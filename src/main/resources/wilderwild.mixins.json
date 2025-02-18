@@ -108,6 +108,7 @@
     "snowlogging.WallBlockMixin",
     "snowlogging.worldgen.BiomeMixin",
     "snowlogging.worldgen.ServerLevelMixin",
+    "snowlogging.worldgen.SimpleBlockFeatureMixin",
     "snowlogging.worldgen.SnowAndFreezeFeatureMixin",
     "trailiertales.installed.FeatureFlagsMixin",
     "trailiertales.missing.ItemStackMixin",
