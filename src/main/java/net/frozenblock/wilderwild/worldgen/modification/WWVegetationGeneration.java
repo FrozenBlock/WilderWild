@@ -194,7 +194,7 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_PLAINS.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUNDRA_FLOWERS)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUTUMNAL_PLAINS_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FOREST_FLOWERS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TUNDRA.getKey());
 						}
