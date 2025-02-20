@@ -23,6 +23,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.EntityTextureOverride;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)

@@ -55,7 +55,7 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
 		penguin.stopInPlace();
 		penguin.setPose(Pose.ROARING);
-		penguin.playSound(WWSounds.ENTITY_PENGUIN_CALL, 1.2F, 0.9F + penguin.getRandom().nextFloat() * 0.2F);
+		penguin.playSound(penguin.isLinux() ? WWSounds.ENTITY_LINUX_CALL : WWSounds.ENTITY_PENGUIN_CALL, 1.2F, 0.9F + penguin.getRandom().nextFloat() * 0.2F);
 
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALLING, Unit.INSTANCE);
 		PenguinAi.addCallerMemoryToNearbyPenguins(penguin);

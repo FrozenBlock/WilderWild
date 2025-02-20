@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PenguinRenderer<T extends Penguin> extends MobRenderer<T, EntityModel<T>> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
+	private static final ResourceLocation LINUX = WWConstants.id("textures/entity/penguin/linux.png");
 
 	public PenguinRenderer(EntityRendererProvider.Context context) {
 		super(context, new PenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN)), 0.5F);
@@ -38,7 +39,7 @@ public class PenguinRenderer<T extends Penguin> extends MobRenderer<T, EntityMod
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return TEXTURE;
+		return entity.isLinux() ? LINUX : TEXTURE;
 	}
 
 }
