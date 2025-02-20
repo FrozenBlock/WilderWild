@@ -236,14 +236,14 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
 		// Spawn Eggs
-		generator.generateSpawnEgg(WWItems.FIREFLY_SPAWN_EGG, Integer.parseInt("2A2B2B", 16), Integer.parseInt("FFFFE1", 16));
-		generator.generateSpawnEgg(WWItems.JELLYFISH_SPAWN_EGG, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16));
-		generator.generateSpawnEgg(WWItems.CRAB_SPAWN_EGG, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16));
-		generator.generateSpawnEgg(WWItems.OSTRICH_SPAWN_EGG, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16));
-		generator.generateSpawnEgg(WWItems.SCORCHED_SPAWN_EGG, Integer.parseInt("4C2516", 16), Integer.parseInt("FFB800", 16));
-		generator.generateSpawnEgg(WWItems.BUTTERFLY_SPAWN_EGG, Integer.parseInt("542003", 16), Integer.parseInt("FFCF60", 16));
-		generator.generateSpawnEgg(WWItems.MOOBLOOM_SPAWN_EGG, Integer.parseInt("FED639", 16), Integer.parseInt("F7EDC1", 16));
-		generator.generateSpawnEgg(WWItems.PENGUIN_SPAWN_EGG, Integer.parseInt("2E2C40", 16), Integer.parseInt("E0B635", 16));
+		generator.generateFlatItem(WWItems.FIREFLY_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.JELLYFISH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CRAB_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.OSTRICH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.SCORCHED_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BUTTERFLY_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MOOBLOOM_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PENGUIN_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 
 		// Firefly Bottles
 		WWModelHelper.generateFireflyBottles(generator);

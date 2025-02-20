@@ -118,6 +118,11 @@ public final class SparseForest extends FrozenBiome {
 	}
 
 	@Override
+	public @Nullable Integer dryFoliageColorOverride() {
+		return null;
+	}
+
+	@Override
 	public @Nullable Integer grassColorOverride() {
 		return null;
 	}
@@ -126,6 +131,7 @@ public final class SparseForest extends FrozenBiome {
 	public @Nullable AmbientParticleSettings ambientParticleSettings() {
 		return null;
 	}
+
 
 	@Override
 	public @Nullable Holder<SoundEvent> ambientLoopSound() {

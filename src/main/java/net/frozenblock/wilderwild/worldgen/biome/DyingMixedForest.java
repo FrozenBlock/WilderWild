@@ -115,6 +115,11 @@ public final class DyingMixedForest extends FrozenBiome {
 	}
 
 	@Override
+	public @Nullable Integer dryFoliageColorOverride() {
+		return null;
+	}
+
+	@Override
 	public @Nullable Integer grassColorOverride() {
 		return GRASS_COLOR;
 	}

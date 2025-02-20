@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -13751232
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -2050507
-      }
-    ]
+    "model": "wilderwild:item/penguin_spawn_egg"
   }
 }

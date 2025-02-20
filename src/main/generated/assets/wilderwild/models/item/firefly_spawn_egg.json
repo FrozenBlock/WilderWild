@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:item/orange_maple_leaf_litter"
+    "layer0": "wilderwild:item/firefly_spawn_egg"
   }
 }

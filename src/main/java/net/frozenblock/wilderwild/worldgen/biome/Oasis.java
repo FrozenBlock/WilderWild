@@ -120,6 +120,11 @@ public final class Oasis extends FrozenBiome {
 	}
 
 	@Override
+	public @Nullable Integer dryFoliageColorOverride() {
+		return null;
+	}
+
+	@Override
 	public @Nullable Integer grassColorOverride() {
 		return null;
 	}

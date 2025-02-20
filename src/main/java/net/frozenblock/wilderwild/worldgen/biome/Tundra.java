@@ -182,6 +182,11 @@ public final class Tundra extends FrozenBiome {
 	}
 
 	@Override
+	public @Nullable Integer dryFoliageColorOverride() {
+		return null;
+	}
+
+	@Override
 	public @NotNull Integer grassColorOverride() {
 		return GRASS_COLOR_MAPLE;
 	}

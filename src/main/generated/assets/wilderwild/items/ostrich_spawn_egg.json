@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -335664
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -10797020
-      }
-    ]
+    "model": "wilderwild:item/ostrich_spawn_egg"
   }
 }

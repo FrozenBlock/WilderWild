@@ -113,6 +113,11 @@ public final class TemperateRainforest extends FrozenBiome {
 	}
 
 	@Override
+	public @Nullable Integer dryFoliageColorOverride() {
+		return null;
+	}
+
+	@Override
 	public @Nullable Integer grassColorOverride() {
 		return null;
 	}
