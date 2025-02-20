@@ -53,7 +53,7 @@ public class LivingEntityMixin {
 			Level level = warden.level();
 			int deathTicks = wilderWarden.wilderWild$getDeathTicks() + 1;
 			wilderWarden.wilderWild$setDeathTicks(deathTicks);
-			if (!level.isClientSide()) {
+			if (!level.isClientSide) {
 				if (deathTicks == 35) {
 					warden.deathTime = 35;
 				} else if (deathTicks == 53) {
@@ -67,7 +67,13 @@ public class LivingEntityMixin {
 		}
 	}
 
-	@Inject(method = "die", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V"))
+	@Inject(
+		method = "die",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V"
+		)
+	)
 	public void wilderWild$die(DamageSource damageSource, CallbackInfo info) {
 		if (this.wilderWild$isWardenWithDeathAnimation()) {
 			Warden warden = Warden.class.cast(this);
@@ -76,9 +82,9 @@ public class LivingEntityMixin {
 			WilderWarden wilderWarden = (WilderWarden) warden;
 			if (!wilderWarden.wilderWild$isStella()) {
 				if (!(warden instanceof SwimmingWardenInterface swimmingWardenInterface) || !swimmingWardenInterface.wilderWild$isSubmergedInWaterOrLava()) {
-					warden.playSound(WWSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+					warden.playSound(WWSounds.ENTITY_WARDEN_DYING, 5F, 1F);
 				} else {
-					warden.playSound(WWSounds.ENTITY_WARDEN_UNDERWATER_DYING, 5.0F, warden.getVoicePitch());
+					warden.playSound(WWSounds.ENTITY_WARDEN_UNDERWATER_DYING, 5F, warden.getVoicePitch());
 				}
 			}
 		}
