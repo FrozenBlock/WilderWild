@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.api.Requirement;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
@@ -460,6 +461,19 @@ public final class WWWorldgenConfigGui {
 			"modifyStonyShorePlacement",
 			configInstance
 		);
+		var modifyAutumnalPlainsPlacement = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("modify_autumnal_plains_placement"), modifiedBiomePlacement.modifyAutumnalPlainsPlacement)
+				.setDefaultValue(defaultConfig.biomePlacement.modifyAutumnalPlainsPlacement)
+				.setSaveConsumer(newValue -> biomePlacement.modifyAutumnalPlainsPlacement = newValue)
+				.setYesNoTextSupplier(bool -> text("biome_placement.autumnal_plains." + bool))
+				.setTooltip(tooltip("modify_autumnal_plains_placement"))
+				.setDisplayRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains))
+				.requireRestart()
+				.build(),
+			biomePlacement.getClass(),
+			"modifyAutumnalPlainsPlacement",
+			configInstance
+		);
 		var swamp = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("modify_swamp_placement"), modifiedBiomePlacement.modifySwampPlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifySwampPlacement)
@@ -488,7 +502,7 @@ public final class WWWorldgenConfigGui {
 		var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
 			false,
 			tooltip("biome_placement"),
-			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna
+			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna, modifyAutumnalPlainsPlacement
 		);
 
 		var fallenTrees = category.addEntry(

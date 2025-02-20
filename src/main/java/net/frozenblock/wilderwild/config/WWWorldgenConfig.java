@@ -170,6 +170,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("modifyStonyShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
+
+		@EntrySyncData("modifyAutumnalPlainsPlacement")
+		public boolean modifyAutumnalPlainsPlacement = false;
 	}
 
 	public static class BiomeGeneration {

@@ -31,6 +31,7 @@ import org.joml.Math;
 
 public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel<PenguinRenderState>> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
+	private static final ResourceLocation LINUX = WWConstants.id("textures/entity/penguin/linux.png");
 
 	public PenguinRenderer(EntityRendererProvider.Context context) {
 		super(
@@ -53,14 +54,15 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 		renderState.swimAmount = penguin.getSwimAmount(partialTick);
 		renderState.wadeProgress = penguin.getWadeProgress(partialTick);
 		renderState.slideProgress = penguin.getSlideProgress(partialTick);
+		renderState.isLinux = penguin.isLinux();
 		renderState.layDownAnimationState = penguin.layDownAnimationState;
 		renderState.standUpAnimationState = penguin.standUpAnimationState;
 		renderState.callAnimationState = penguin.callAnimationState;
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(PenguinRenderState livingEntityRenderState) {
-		return TEXTURE;
+	public @NotNull ResourceLocation getTextureLocation(@NotNull PenguinRenderState livingEntityRenderState) {
+		return livingEntityRenderState.isLinux ? LINUX : TEXTURE;
 	}
 }
 
