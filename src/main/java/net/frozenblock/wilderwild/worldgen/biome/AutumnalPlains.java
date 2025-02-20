@@ -20,11 +20,13 @@ package net.frozenblock.wilderwild.worldgen.biome;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.FrozenGrassColorModifiers;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
@@ -73,6 +75,12 @@ public final class AutumnalPlains extends FrozenBiome {
 	public static final Climate.Parameter WEIRDNESS_D = Climate.Parameter.span(-0.750F, -0.05F);
 	public static final Climate.Parameter EROSION_C = Climate.Parameter.span(-0.375F, 0.450F);
 	public static final Climate.Parameter CONTINENTALNESS_C = Climate.Parameter.span(0.030F, 0.800F);
+
+	// SNOWY SLOPES TRANSITION
+	public static final Climate.Parameter WEIRDNESS_SLOPE_A = Climate.Parameter.span(Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_SLOPE_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING);
+	public static final Climate.Parameter WEIRDNESS_SLOPE_C = Climate.Parameter.span(Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
+	public static final Climate.Parameter WEIRDNESS_SLOPE_D = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
 
 	// WITH MAPLE FOREST
 	public static final Climate.Parameter TEMPERATURE_MAPLE = Climate.Parameter.span(-0.495F, -0.255F);
@@ -272,6 +280,54 @@ public final class AutumnalPlains extends FrozenBiome {
 					0F
 				);
 			}
+
+			if (WWWorldgenConfig.get().biomePlacement.modifyAutumnalPlainsPlacement) {
+				List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
+					OverworldBiomeBuilderParameters.points(Biomes.PLAINS),
+					OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES),
+					0.15F
+				);
+
+				plainsSnowySlopesBorders.forEach(parameterPoint -> {
+					this.addSurfaceBiome(
+						parameters,
+						parameterPoint.temperature(),
+						parameterPoint.humidity(),
+						parameterPoint.continentalness(),
+						parameterPoint.erosion(),
+						WEIRDNESS_SLOPE_A,
+						parameterPoint.offset()
+					);
+					this.addSurfaceBiome(
+						parameters,
+						parameterPoint.temperature(),
+						parameterPoint.humidity(),
+						parameterPoint.continentalness(),
+						parameterPoint.erosion(),
+						WEIRDNESS_SLOPE_B,
+						parameterPoint.offset()
+					);
+					this.addSurfaceBiome(
+						parameters,
+						parameterPoint.temperature(),
+						parameterPoint.humidity(),
+						parameterPoint.continentalness(),
+						parameterPoint.erosion(),
+						WEIRDNESS_SLOPE_C,
+						parameterPoint.offset()
+					);
+					this.addSurfaceBiome(
+						parameters,
+						parameterPoint.temperature(),
+						parameterPoint.humidity(),
+						parameterPoint.continentalness(),
+						parameterPoint.erosion(),
+						WEIRDNESS_SLOPE_D,
+						parameterPoint.offset()
+					);
+				});
+			}
+
 			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
 				this.addSurfaceBiome(
 					parameters,

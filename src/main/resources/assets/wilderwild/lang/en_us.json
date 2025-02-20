@@ -845,8 +845,12 @@
   "tooltip.wilderwild.modify_cherry_grove_placement": "Whether Cherry Groves should use Wilder Wild's or Vanilla's placement.\nWilder Wild's placement allows Cherry Groves to also generate near Rivers.",
   "option.wilderwild.modify_stony_shore_placement": "Stony Shore Placement",
   "tooltip.wilderwild.modify_stony_shore_placement": "Whether Stony Shores should use Wilder Wild's or Vanilla's placement.\nWilder Wild's placement replaces Beaches with Stony Shores when near Taigas.",
+  "option.wilderwild.modify_autumnal_plains_placement": "Autumnal Plains Placement",
+  "tooltip.wilderwild.modify_autumnal_plains_placement": "Whether Autumnal Plains should use default placement, or also be generated between Plains and Snowy Slopes.",
   "option.wilderwild.biome_placement.false": "§cVanilla",
   "option.wilderwild.biome_placement.true": "§aNew",
+  "option.wilderwild.biome_placement.autumnal_plains.false": "§cDefault",
+  "option.wilderwild.biome_placement.autumnal_plains.true": "§aInclude On Slopes",
 
   "option.wilderwild.biome_generation": "Biome Generation",
   "tooltip.wilderwild.biome_generation": "Contains options that dictate whether Wilder Wild's biomes should generate or not.",

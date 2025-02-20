@@ -144,7 +144,7 @@ hi
 - Added the Penguin.
   - Penguins spawn in Snowy Beaches and Frozen Oceans.
   - Will dive underwater to hunt for Squid.
-  - Can be bred with an Ink Sac or Glow Ink Sac, laying an egg after afterward.
+  - Can be bred with an Ink Sac or Glow Ink Sac, laying an egg afterward.
   - Chases Boats controlled by players, granting them a temporary speed boost.
   - Will occasionally "call" out for other Penguins, grouping together for a short time.
   - The Penguin will spawn in any biomes within the `wilderwild:entity/spawn/penguin` biome tag.
