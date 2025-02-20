@@ -1591,55 +1591,55 @@ public final class WWTreeConfigured {
 		// PALE OAK
 
 		PALE_OAK.makeAndSetHolder(Feature.TREE,
-			paleOak(true, false, false).build()
+			paleOak(true, false, false, true).build()
 		);
 
 		PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			paleOak(false, false, false).build()
+			paleOak(false, false, false, false).build()
 		);
 
 		PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			paleOak(true, true, false).build()
+			paleOak(true, true, false, true).build()
 		);
 
 		TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, false, false).build()
+			tallPaleOak(true, false, false, true).build()
 		);
 
 		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(false, false, false).build()
+			tallPaleOak(false, false, false, false).build()
 		);
 
 		TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, true, false).build()
+			tallPaleOak(true, true, false, true).build()
 		);
 
 		FANCY_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, false, false).build()
+			fancyPaleOak(true, false, false, true).build()
 		);
 
 		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(false, false, false).build()
+			fancyPaleOak(false, false, false, false).build()
 		);
 
 		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, true, false).build()
+			fancyPaleOak(true, true, false, true).build()
 		);
 
 		COBWEB_TALL_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, false, true).build()
+			tallPaleOak(true, false, true, true).build()
 		);
 
 		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			tallPaleOak(true, true, true).build()
+			tallPaleOak(true, true, true, true).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, false, true).build()
+			fancyPaleOak(true, false, true, true).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(Feature.TREE,
-			fancyPaleOak(true, true, true).build()
+			fancyPaleOak(true, true, true, true).build()
 		);
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(Feature.TREE,
@@ -3011,32 +3011,34 @@ public final class WWTreeConfigured {
 			new TwoLayersFeatureSize(1, 0, 2)).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking, boolean cobweb) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 6, 2, 1);
-		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb);
+		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb, leafLitter);
 		return builder;
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking, boolean cobweb) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4);
-		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb);
+		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb, leafLitter);
 		return builder;
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking, boolean cobweb) {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		TreeConfiguration.TreeConfigurationBuilder builder = fancyPaleOakBuilder(
 			Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4, 1F, UniformInt.of(1, 2), UniformInt.of(1, 4)
 		);
-		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb);
+		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb, leafLitter);
 		return builder;
 	}
 
-	private static void appendPaleOakDecorators(TreeConfiguration.TreeConfigurationBuilder builder, boolean paleMoss, boolean creaking, boolean cobweb) {
+	private static void appendPaleOakDecorators(TreeConfiguration.TreeConfigurationBuilder builder, boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		List<TreeDecorator> treeDecorators = new ArrayList<>();
 		treeDecorators.add(PALE_SHELF_FUNGI_00875);
 		if (paleMoss) treeDecorators.add(PALE_MOSS_DECORATOR);
 		if (creaking) treeDecorators.add(CREAKING_HEARTS);
 		if (cobweb) treeDecorators.add(COBWEB_1_UNDER_260_025);
+		if (leafLitter) treeDecorators.add(LEAF_LITTERS_A);
+		if (leafLitter) treeDecorators.add(LEAF_LITTERS_B);
 		builder.decorators(ImmutableList.copyOf(treeDecorators));
 	}
 

@@ -1251,6 +1251,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_FLOWERS)
 			.add(Biomes.CHERRY_GROVE);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LEAF_LITTER)
+			.add(Biomes.DARK_FOREST)
+			.add(Biomes.PALE_GARDEN)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)

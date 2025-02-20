@@ -333,6 +333,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_NEAR_WATER = register("patch_firefly_bush_near_water");
 	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP = register("patch_firefly_bush_near_water_swamp");
 	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_SWAMP = register("patch_firefly_bush_swamp");
+	public static final FrozenLibPlacedFeature PATCH_LEAF_LITTER = register("patch_leaf_litter");
 
 	private WWPlacedFeatures() {
 		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
@@ -2075,6 +2076,10 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
+		);
+
+		PATCH_LEAF_LITTER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_LEAF_LITTER),
+			VegetationPlacements.worldSurfaceSquaredWithCount(2)
 		);
 	}
 

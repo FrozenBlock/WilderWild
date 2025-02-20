@@ -647,6 +647,32 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
+		var fireflyBushGen = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("firefly_bush_generation"), modifiedConfig.fireflyBushGen)
+					.setDefaultValue(defaultConfig.fireflyBushGen)
+					.setSaveConsumer(newValue -> config.fireflyBushGen = newValue)
+					.setTooltip(tooltip("firefly_bush_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"fireflyBushGen",
+				configInstance
+			)
+		);
+		var leafLitterGen = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("leaf_litter_generation"), modifiedConfig.leafLitterGen)
+					.setDefaultValue(defaultConfig.leafLitterGen)
+					.setSaveConsumer(newValue -> config.leafLitterGen = newValue)
+					.setTooltip(tooltip("leaf_litter_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"leafLitterGen",
+				configInstance
+			)
+		);
 		var netherGeyserGen = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("nether_geyser_generation"), modifiedConfig.netherGeyserGen)

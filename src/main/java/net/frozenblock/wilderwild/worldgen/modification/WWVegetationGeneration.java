@@ -367,7 +367,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().shrubGeneration) {
+					if (WWWorldgenConfig.get().fireflyBushGen) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIREFLY_BUSH)) {
@@ -566,6 +566,20 @@ public final class WWVegetationGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_BETA_BEACH)) {
 							generationSettings.removeFeature(VegetationPlacements.PATCH_DRY_GRASS_DESERT);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DRY_GRASS_BETA_BEACH.getKey());
+						}
+					}
+				});
+
+		BiomeModifications.create(WWConstants.id("leaf_litter_generation"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().leafLitterGen) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LEAF_LITTER)) {
+							generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LEAF_LITTER.getKey());
 						}
 					}
 				});

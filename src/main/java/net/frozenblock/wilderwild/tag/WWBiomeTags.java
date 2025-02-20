@@ -97,6 +97,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FROZEN_LARGE_FERNS = bind("feature/has_frozen_large_ferns");
 	public static final TagKey<Biome> HAS_FROZEN_BUSH = bind("feature/has_frozen_bush");
 
+	public static final TagKey<Biome> HAS_LEAF_LITTER = bind("feature/has_leaf_litter");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
 	public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");

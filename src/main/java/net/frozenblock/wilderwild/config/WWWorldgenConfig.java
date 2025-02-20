@@ -108,6 +108,12 @@ public final class WWWorldgenConfig {
 	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
 
+	@EntrySyncData("fireflyBushGen")
+	public boolean fireflyBushGen = true;
+
+	@EntrySyncData("leafLitterGen")
+	public boolean leafLitterGen = true;
+
 	@EntrySyncData("netherGeyserGen")
 	public boolean netherGeyserGen = true;
 
