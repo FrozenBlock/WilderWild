@@ -59,7 +59,8 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Unique
 	private boolean wilderWild$particlesEnded = false;
 
-	@ModifyVariable(method = "method_43265",
+	@ModifyVariable(
+		method = "method_43265",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
