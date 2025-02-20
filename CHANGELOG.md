@@ -4,7 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Bumped Wilder Wild's protocol version to 12.
-- Added the Tundra biome.
+- Added the Autumnal Plains biome.
   - This biome generates near the colder regions of the world where Plains would be, before the snow takes over.
 - Revamped flower distribution and generation.
 - Added a new config option to disable Pollen generation.
@@ -100,7 +100,7 @@ hi
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
 - Added the Phlox flower.
   - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
-  - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Tundra biomes.
+  - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Autumnal Plains biomes.
   - Can be crafted into Purple Dye.
 - Added the Lantanas flower.
   - Generates in Old Growth Birch Forest, Savanna, Dark Forest, and Sunflower Plains biomes.
@@ -115,6 +115,7 @@ hi
 - Carnations now yield magenta dye instead of purple dye.
 - Added Frozen Short Grass, Frozen Tall Grass, Frozen Fern, and Frozen Large Fern blocks.
   - Shoutout to just_jose2006 for the textures!
+- Changed the Warm River's surface rules to likely reduce lag caused by Sand blocks falling.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -123,7 +124,7 @@ hi
   - Caves Temp
     - Plays in Frozen Caves, Magmatic Caves, Mesoglea Caves, and Lush Caves biomes.
   - Maple Temp
-    - Plays in Maple Forest and Tundra biomes.
+    - Plays in Maple Forest and Autumnal Plains biomes.
 - Ludocrypt's `Dove` now also plays in Lush Caves.
 
 # Swamp Overhaul

@@ -392,24 +392,24 @@ public final class WWWorldgenConfigGui {
 			"generateMapleForest",
 			configInstance
 		);
-		var tundra = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("generate_tundra"), modifiedBiomes.generateTundra)
-				.setDefaultValue(defaultConfig.biomeGeneration.generateTundra)
-				.setSaveConsumer(newValue -> biomes.generateTundra = newValue)
-				.setTooltip(tooltip("generate_tundra"))
+		var generateAutumnalPlains = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_autumnal_plains"), modifiedBiomes.generateAutumnalPlains)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateAutumnalPlains)
+				.setSaveConsumer(newValue -> biomes.generateAutumnalPlains = newValue)
+				.setTooltip(tooltip("generate_autumnal_plains"))
 				.requireRestart()
 				.build(),
 			biomes.getClass(),
-			"generateTundra",
+			"generateAutumnalPlains",
 			configInstance
 		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
-			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField, frozenCaves,
-			magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
-			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, tundra, warmBeach, warmRiver
+			aridForest, aridSavanna, generateAutumnalPlains, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
+			frozenCaves, magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
+			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(

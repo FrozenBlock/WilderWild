@@ -35,7 +35,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 26;
+	public static final int DATA_VERSION = 27;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WWDataFixer contains only static declarations.");
@@ -202,6 +202,10 @@ public final class WWDataFixer {
 			),
 			schemaV26
 		);
+
+		Schema schemaV27 = builder.addSchema(27, NamespacedSchema::new);
+		SimpleFixes.addBiomeRenameFix(builder, "Rename tundra to autumnal_plains", Map.of(WWConstants.id("tundra"), WWConstants.id("autumnal_plains")), schemaV27);
+
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

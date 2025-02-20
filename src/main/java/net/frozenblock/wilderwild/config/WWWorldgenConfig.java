@@ -254,7 +254,7 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("generateSparseForest")
 		public boolean generateSparseForest = true;
 
-		@EntrySyncData("generateTundra")
-		public boolean generateTundra = true;
+		@EntrySyncData("generateAutumnalPlains")
+		public boolean generateAutumnalPlains = true;
 	}
 }

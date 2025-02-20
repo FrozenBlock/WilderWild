@@ -109,7 +109,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTes
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -410,7 +409,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
+						addBiomeRequirement(advancement, WWBiomes.AUTUMNAL_PLAINS, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
