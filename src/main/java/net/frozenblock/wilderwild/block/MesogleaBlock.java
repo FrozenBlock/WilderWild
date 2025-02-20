@@ -310,6 +310,11 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
+	protected @NotNull VoxelShape getBlockSupportShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return Shapes.block();
+	}
+
+	@Override
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
 		super.animateTick(blockState, level, blockPos, randomSource);
 		double d = blockPos.getX();
