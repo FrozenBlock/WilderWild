@@ -2394,6 +2394,15 @@
     ],
     "subtitle": "subtitles.entity.penguin.lay_egg"
   },
+  "entity.penguin.linux.lay_egg": {
+    "sounds": [
+      "wilderwild:mob/penguin/linux/out1",
+      "wilderwild:mob/penguin/linux/out2",
+      "wilderwild:mob/penguin/linux/out3",
+      "wilderwild:mob/penguin/linux/out4"
+    ],
+    "subtitle": "subtitles.entity.penguin.linux.lay_egg"
+  },
   "entity.firefly.hide": {
     "sounds": [
       {
@@ -2756,6 +2765,51 @@
     "subtitle": "subtitles.entity.penguin.call"
   },
   "entity.penguin.step": {
+    "sounds": [
+      "wilderwild:mob/penguin/step1",
+      "wilderwild:mob/penguin/step2",
+      "wilderwild:mob/penguin/step3",
+      "wilderwild:mob/penguin/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.penguin.linux.hurt": {
+    "sounds": [
+      "wilderwild:mob/penguin/hurt1",
+      "wilderwild:mob/penguin/hurt2",
+      "wilderwild:mob/penguin/hurt3",
+      "wilderwild:mob/penguin/hurt4"
+    ],
+    "subtitle": "subtitles.entity.penguin.linux.hurt"
+  },
+  "entity.penguin.linux.death": {
+    "sounds": [
+      "wilderwild:mob/penguin/hurt1",
+      "wilderwild:mob/penguin/hurt2",
+      "wilderwild:mob/penguin/hurt3",
+      "wilderwild:mob/penguin/hurt4"
+    ],
+    "subtitle": "subtitles.entity.penguin.linux.death"
+  },
+  "entity.penguin.linux.idle": {
+    "sounds": [
+      "wilderwild:mob/penguin/linux/idle1"
+    ],
+    "subtitle": "subtitles.entity.penguin.linux.idle"
+  },
+  "entity.penguin.linux.call": {
+    "sounds": [
+      "wilderwild:mob/penguin/call1",
+      "wilderwild:mob/penguin/call2",
+      "wilderwild:mob/penguin/call3",
+      "wilderwild:mob/penguin/call4",
+      "wilderwild:mob/penguin/call5",
+      "wilderwild:mob/penguin/call6",
+      "wilderwild:mob/penguin/call7"
+    ],
+    "subtitle": "subtitles.entity.penguin.linux.call"
+  },
+  "entity.penguin.linux.step": {
     "sounds": [
       "wilderwild:mob/penguin/step1",
       "wilderwild:mob/penguin/step2",

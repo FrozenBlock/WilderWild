@@ -29,6 +29,7 @@ public class PenguinRenderState extends LivingEntityRenderState {
 	public float swimAmount;
 	public float wadeProgress;
 	public float slideProgress;
+	public boolean isLinux;
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
 	public AnimationState callAnimationState = new AnimationState();

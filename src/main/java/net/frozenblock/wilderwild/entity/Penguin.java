@@ -18,14 +18,17 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
+import java.util.stream.Stream;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -68,6 +71,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Penguin extends Animal {
+	private static final Stream<String> VALID_LINUX_NAMES = ImmutableList.of("Linux", "Tux", "Treetrain", "Treetrain1").stream();
 	public static final double BOAT_BOOST_SPEED = 1.7D;
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
@@ -274,17 +278,17 @@ public class Penguin extends Animal {
 
 	@Override
 	protected @Nullable SoundEvent getAmbientSound() {
-		return WWSounds.ENTITY_PENGUIN_IDLE;
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_IDLE : WWSounds.ENTITY_PENGUIN_IDLE;
 	}
 
 	@Override
 	protected @Nullable SoundEvent getHurtSound(DamageSource damageSource) {
-		return WWSounds.ENTITY_PENGUIN_HURT;
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_HURT : WWSounds.ENTITY_PENGUIN_HURT;
 	}
 
 	@Override
 	protected @Nullable SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_PENGUIN_DEATH;
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_DEATH : WWSounds.ENTITY_PENGUIN_DEATH;
 	}
 
 	@Override
@@ -302,7 +306,7 @@ public class Penguin extends Animal {
 	@Override
 	protected void playStepSound(BlockPos blockPos, BlockState blockState) {
 		if (!this.isSliding()) {
-			this.playSound(WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
+			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP : WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
 		} else {
 			super.playStepSound(blockPos, blockState);
 		}
@@ -338,5 +342,10 @@ public class Penguin extends Animal {
 		if (compoundTag.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compoundTag.getString("EntityPose"))))) {
 			this.setPose(Pose.valueOf(compoundTag.getString("EntityPose")));
 		}
+	}
+
+	public boolean isLinux() {
+		String string = ChatFormatting.stripFormatting(this.getName().getString());
+		return VALID_LINUX_NAMES.anyMatch(string::equalsIgnoreCase);
 	}
 }
