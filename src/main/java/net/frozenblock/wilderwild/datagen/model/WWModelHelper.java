@@ -258,6 +258,15 @@ public final class WWModelHelper {
 		);
 	}
 
+	public static void createUntintedLeafLitter(@NotNull BlockModelGenerators generator, Block block) {
+		MultiVariant multiVariant = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_1.create(block, generator.modelOutput));
+		MultiVariant multiVariant2 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_2.create(block, generator.modelOutput));
+		MultiVariant multiVariant3 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_3.create(block, generator.modelOutput));
+		MultiVariant multiVariant4 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_4.create(block, generator.modelOutput));
+		generator.registerSimpleFlatItemModel(block);
+		generator.createSegmentedBlock(block, BlockStateProperties.SEGMENT_AMOUNT, multiVariant, multiVariant2, multiVariant3, multiVariant4);
+	}
+
 	public static void generatePaleMushroomBlock(@NotNull BlockModelGenerators generator) {
 		Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
 		MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:item/yellow_maple_leaf_litter"
+    "layer0": "wilderwild:block/yellow_maple_leaf_litter"
   }
 }
