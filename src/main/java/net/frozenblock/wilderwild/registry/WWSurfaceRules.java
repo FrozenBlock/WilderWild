@@ -100,10 +100,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	public static SurfaceRules.RuleSource warmRiverRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.WARM_RIVER),
-			SurfaceRules.ifTrue(
-				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
-				fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
-			)
+			desertAndBeachRules()
 		);
 	}
 
