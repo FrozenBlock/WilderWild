@@ -56,7 +56,7 @@ import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class Tundra extends FrozenBiome {
+public final class AutumnalPlains extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.495F, -0.295F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-2.233F, 0.450F);
@@ -107,9 +107,9 @@ public final class Tundra extends FrozenBiome {
 	public static final int GRASS_COLOR_RED = 14909535;
 	public static final int FOLIAGE_COLOR = 14995819;
 		//15648619;
-	public static final Tundra INSTANCE = new Tundra();
+	public static final AutumnalPlains INSTANCE = new AutumnalPlains();
 
-	public Tundra() {
+	public AutumnalPlains() {
 		super();
 		FrozenGrassColorModifiers.addGrassColorModifier(
 			this.getKey().location(),
@@ -138,7 +138,7 @@ public final class Tundra extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "tundra";
+		return "autumnal_plains";
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public final class Tundra extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
+		if (WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
