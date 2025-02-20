@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.api.Requirement;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
@@ -466,6 +467,7 @@ public final class WWWorldgenConfigGui {
 				.setSaveConsumer(newValue -> biomePlacement.modifyAutumnalPlainsPlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement.autumnal_plains." + bool))
 				.setTooltip(tooltip("modify_autumnal_plains_placement"))
+				.setDisplayRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains))
 				.requireRestart()
 				.build(),
 			biomePlacement.getClass(),
