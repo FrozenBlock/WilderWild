@@ -101,7 +101,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		return this.wilderWild$newSwimming || super.isVisuallySwimming();
 	}
 
-	@Inject(at = @At("RETURN"), method = "createNavigation", cancellable = true)
+	@Inject(method = "createNavigation", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$createNavigation(Level level, CallbackInfoReturnable<PathNavigation> info) {
 		info.setReturnValue(new WardenNavigation(Warden.class.cast(this), level));
 	}
