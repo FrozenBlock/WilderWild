@@ -278,7 +278,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
 			Vec3 deltaMovement = this.getDeltaMovement();
 			WindManager windManager = WindManager.getOrCreateWindManager(serverLevel);
-			Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP, serverLevel).scale(this.wasTouchingWater ? 0.16777216D : 1D);
+			Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
 			deltaMovement = deltaMovement.add((windVec.x * 0.2D), 0D, (windVec.z * 0.2D));
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88D : deltaMovement.y, deltaMovement.z);
