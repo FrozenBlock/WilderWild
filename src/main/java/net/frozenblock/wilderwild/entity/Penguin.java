@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.entity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.List;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -71,7 +71,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Penguin extends Animal {
-	private static final Stream<String> VALID_LINUX_NAMES = ImmutableList.of("Linux", "Tux", "Treetrain", "Treetrain1").stream();
+	private static final List<String> VALID_LINUX_NAMES = ImmutableList.of("Linux", "Tux", "Treetrain", "Treetrain1");
 	public static final double BOAT_BOOST_SPEED = 1.7D;
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
@@ -346,6 +346,6 @@ public class Penguin extends Animal {
 
 	public boolean isLinux() {
 		String string = ChatFormatting.stripFormatting(this.getName().getString());
-		return VALID_LINUX_NAMES.anyMatch(string::equalsIgnoreCase);
+		return VALID_LINUX_NAMES.stream().anyMatch(string::equalsIgnoreCase);
 	}
 }
