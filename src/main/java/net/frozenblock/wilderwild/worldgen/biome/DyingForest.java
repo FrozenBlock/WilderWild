@@ -50,8 +50,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class DyingForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.465F, -0.300F);
-	public static final Climate.Parameter HUMIDITY_A = Climate.Parameter.span(-0.105F, 0.050F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.300F);
+	public static final Climate.Parameter TEMPERATURE_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.495F, -0.300F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.65F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -164,11 +165,13 @@ public final class DyingForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateDyingForest) {
+			boolean generateAutumnalPlains = WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains;
+
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_A,
+					generateAutumnalPlains ? TEMPERATURE_AUTUMNAL_PLAINS : TEMPERATURE,
+					HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
