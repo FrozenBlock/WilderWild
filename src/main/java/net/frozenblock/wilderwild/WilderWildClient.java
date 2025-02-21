@@ -70,7 +70,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
 			ResourceManagerHelper.registerBuiltinResourcePack(
-				ResourceLocation.fromNamespaceAndPath(WWConstants.MOD_ID, "wilder_extra_music"), modContainer.get(),
+				WWConstants.id("wilder_extra_music"), modContainer.get(),
 				Component.translatable("pack.wilderwild.wilder_extra_music"),
 				ResourcePackActivationType.ALWAYS_ENABLED
 			);

@@ -227,7 +227,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MAPLE_MUSIC)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DYING_MUSIC)
 			.addOptional(WWBiomes.DYING_FOREST)
