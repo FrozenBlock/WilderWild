@@ -100,10 +100,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	public static SurfaceRules.RuleSource warmRiverRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.WARM_RIVER),
-			SurfaceRules.ifTrue(
-				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
-				fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
-			)
+			desertAndBeachRules()
 		);
 	}
 
@@ -353,9 +350,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource tundraRules() {
+	public static SurfaceRules.RuleSource autumnalPlainsRules() {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.TUNDRA),
+			SurfaceRules.isBiome(WWBiomes.AUTUMNAL_PLAINS),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -473,7 +470,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				rainforestRules(),
 				dyingForestRules(),
 				mapleForestRules(),
-				tundraRules()
+				autumnalPlainsRules()
 			)
 		);
 		WWConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);

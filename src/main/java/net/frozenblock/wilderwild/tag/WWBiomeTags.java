@@ -87,6 +87,14 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> SNOWY_WATER = bind("water_color/snowy");
 	public static final TagKey<Biome> FROZEN_WATER = bind("water_color/frozen");
 
+	public static final TagKey<Biome> HAS_FROZEN_FOREST_GRASS = bind("feature/has_frozen_forest_grass");
+	public static final TagKey<Biome> HAS_FROZEN_NORMAL_GRASS = bind("feature/has_frozen_normal_grass");
+	public static final TagKey<Biome> HAS_FROZEN_PLAIN_GRASS = bind("feature/has_frozen_plain_grass");
+	public static final TagKey<Biome> HAS_FROZEN_TAIGA_GRASS = bind("feature/has_frozen_taiga_grass");
+	public static final TagKey<Biome> HAS_FROZEN_TAIGA_2_GRASS = bind("feature/has_frozen_taiga_2_grass");
+	public static final TagKey<Biome> HAS_FROZEN_PLAIN_TALL_GRASS = bind("feature/has_frozen_plain_tall_grass");
+	public static final TagKey<Biome> HAS_FROZEN_LARGE_FERNS = bind("feature/has_frozen_large_ferns");
+
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
 	public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");
@@ -167,7 +175,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CLOVERS = bind("feature/has_clovers");
 	public static final TagKey<Biome> HAS_CLOVERS_SPARSE = bind("feature/has_clovers_sparse");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("feature/has_milkweed");
-	public static final TagKey<Biome> CHERRY_FLOWERS = bind("feature/cherry_flowers");
+	public static final TagKey<Biome> HAS_SNOWY_PLAINS_FLOWERS = bind("feature/has_snowy_plains_flowers");
+	public static final TagKey<Biome> HAS_CHERRY_FLOWERS = bind("feature/has_cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("feature/has_sunflower_plains_flowers");
 	public static final TagKey<Biome> HAS_PALMS = bind("feature/has_palms");
 	public static final TagKey<Biome> HAS_WARM_BEACH_PALMS = bind("feature/has_warm_beach_palms");
@@ -213,7 +222,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_GENERIC_FLOWERS = bind("feature/has_generic_flowers");
 	public static final TagKey<Biome> HAS_GENERIC_FLOWERS_NO_CARNATIONS = bind("feature/has_generic_flowers_no_carnations");
 	public static final TagKey<Biome> HAS_PLAINS_FLOWERS = bind("feature/has_plains_flowers");
-	public static final TagKey<Biome> HAS_TUNDRA_FLOWERS = bind("feature/has_tundra_flowers");
+	public static final TagKey<Biome> HAS_AUTUMNAL_PLAINS_FLOWERS = bind("feature/has_autumnal_plains_flowers");
 	public static final TagKey<Biome> HAS_BIRCH_FLOWERS = bind("feature/has_birch_flowers");
 	public static final TagKey<Biome> HAS_CYPRESS_FLOWERS = bind("feature/has_cypress_flowers");
 	public static final TagKey<Biome> HAS_RARE_MILKWEED = bind("feature/has_rare_milkweed");

@@ -90,15 +90,15 @@ public class SnowloggingUtils {
 
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
 		int layers;
-		return (SnowloggingUtils.canSnowlog(state) && isItemSnow(context.getItemInHand())) &&
+		return (canSnowlog(state) && isItemSnow(context.getItemInHand())) &&
 			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos()) &&
-			((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
+			((layers = getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
 	}
 
 	@Nullable
 	public static BlockState onUpdateShape(BlockState state, LevelAccessor level, BlockPos pos) {
 		if (isSnowlogged(state)) {
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			BlockState snowEquivalent = getSnowEquivalent(state);
 			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
 				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
 				state = state.setValue(SNOW_LAYERS, 0);
@@ -108,18 +108,17 @@ public class SnowloggingUtils {
 	}
 
 	public static BlockState getSnowPlacementState(BlockState state, @NotNull BlockPlaceContext context) {
-		BlockState blockState;
-		BlockState placementState = state;
-		if (placementState != null
-			&& SnowloggingUtils.supportsSnowlogging(placementState) &&
-			(blockState = context.getLevel().getBlockState(context.getClickedPos())).is(Blocks.SNOW)
-		) {
-			int layers = blockState.getValue(BlockStateProperties.LAYERS);
+		return getSnowloggedState(state, context.getLevel().getBlockState(context.getClickedPos()));
+	}
+
+	public static BlockState getSnowloggedState(BlockState state, BlockState snowState) {
+		if (state != null && snowState != null && canSnowlog(state) && snowState.is(Blocks.SNOW)) {
+			int layers = snowState.getValue(BlockStateProperties.LAYERS);
 			if (layers < 8) {
-				placementState = placementState.setValue(SNOW_LAYERS, layers);
+				state = state.setValue(SNOW_LAYERS, layers);
 			}
 		}
-		return placementState;
+		return state;
 	}
 
 	public static float getSnowDestroySpeed(BlockState state, BlockGetter level, BlockPos pos) {
@@ -127,9 +126,9 @@ public class SnowloggingUtils {
 	}
 
 	public static void onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
+		if (isSnowlogged(state)) {
 			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
-				Block.dropResources(SnowloggingUtils.getSnowEquivalent(state), level, pos);
+				Block.dropResources(getSnowEquivalent(state), level, pos);
 				level.setBlock(pos, state.setValue(SNOW_LAYERS, 0), Block.UPDATE_ALL);
 			}
 		}

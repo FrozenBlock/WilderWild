@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,8 +58,7 @@ import org.jetbrains.annotations.Nullable;
 public class StoneChestBlockEntity extends ChestBlockEntity {
 	public static final float LID_SLAM_INTERVAL = 0.0425F;
 	public static final float MAX_OPEN_PERCENTAGE = 0.5F;
-	public static final int MAX_TIME_OPEN = 220;
-	public static final int MAX_TIME_OPEN_ANCIENT = 160;
+	public static final int MAX_TIME_OPEN = 180;
 	public static final double MIN_PERCENTAGE_OF_TIME_OPEN = 0.2D;
 	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
@@ -208,10 +206,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
 	}
 
-	public void liftLid(float liftAmount, boolean ancient) {
-		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2F : liftAmount), 0F, MAX_OPEN_PERCENTAGE);
+	public void liftLid(float liftAmount) {
+		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 1.5F), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (!ancient ? MAX_TIME_OPEN : MAX_TIME_OPEN_ANCIENT) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -220,7 +218,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN_ANCIENT * WWBlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN * WWBlockConfig.get().stoneChest.getStoneChestTimer());
 		if (this.level != null) {
 			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 		}
@@ -251,7 +249,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 						otherPos.getX() + 0.5D,
 						otherPos.getY() + 0.625D,
 						otherPos.getZ() + 0.5,
-						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(WWBlockStateProperties.ANCIENT) ? 4 : 2)),
+						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 3),
 						0.21875D,
 						0D,
 						0.21875D,

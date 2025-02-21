@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:snowy_plains",
+    "minecraft:ice_spikes",
+    {
+      "id": "wilderwild:frozen_caves",
+      "required": false
+    }
+  ]
+}

@@ -50,9 +50,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class DyingMixedForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.465F, -0.255F);
-	public static final Climate.Parameter HUMIDITY_A = Climate.Parameter.span(0.050F, 0.155F);
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.255F);
+	public static final Climate.Parameter TEMPERATURE_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.495F, -0.255F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
 	public static final Climate.Parameter TEMPERATURE_WEIRD = Climate.Parameter.span(-0.465F, -0.425F);
+	public static final Climate.Parameter TEMPERATURE_WEIRD_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.495F, -0.425F);
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.100F);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.55F;
@@ -166,12 +168,14 @@ public final class DyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateDyingMixedForest) {
+			boolean generateAutumnalPlains = WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains;
+
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				boolean weird = point.weirdness().max() < 0L;
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_A,
+					generateAutumnalPlains ? TEMPERATURE_AUTUMNAL_PLAINS : TEMPERATURE,
+					HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
@@ -180,7 +184,7 @@ public final class DyingMixedForest extends FrozenBiome {
 				if (weird) {
 					this.addSurfaceBiome(
 						parameters,
-						TEMPERATURE_WEIRD,
+						generateAutumnalPlains ? TEMPERATURE_WEIRD_AUTUMNAL_PLAINS : TEMPERATURE_WEIRD,
 						HUMIDITY_WEIRD,
 						point.continentalness(),
 						point.erosion(),

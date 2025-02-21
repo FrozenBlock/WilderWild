@@ -164,6 +164,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("modifyStonyShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
+
+		@EntrySyncData("modifyAutumnalPlainsPlacement")
+		public boolean modifyAutumnalPlainsPlacement = false;
 	}
 
 	public static class BiomeGeneration {
@@ -254,7 +257,7 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("generateSparseForest")
 		public boolean generateSparseForest = true;
 
-		@EntrySyncData("generateTundra")
-		public boolean generateTundra = true;
+		@EntrySyncData("generateAutumnalPlains")
+		public boolean generateAutumnalPlains = true;
 	}
 }
