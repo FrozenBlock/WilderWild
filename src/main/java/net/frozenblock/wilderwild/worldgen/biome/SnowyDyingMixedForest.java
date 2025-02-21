@@ -55,9 +55,9 @@ import org.jetbrains.annotations.Nullable;
 
 public final class SnowyDyingMixedForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
+	public static final Climate.Parameter TEMPERATURE_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.505F, -0.495F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.155F);
-	public static final Climate.Parameter TEMPERATURE_MAPLE = Climate.Parameter.span(-0.475F, -0.45F);
 	public static final Climate.Parameter HUMIDITY_MAPLE = Climate.Parameter.span(-1F, 0.105F);
 	public static final Climate.Parameter WEIRDNESS_MAPLE = Climate.Parameter.span(-0.205F, 0.605F);
 	public static final Climate.Parameter EROSION_MAPLE = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_6);
@@ -177,11 +177,13 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
+			boolean generateAutumnalPlains = WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains;
+
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				boolean weird = FrozenBiomeParameters.isWeird(point);
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE,
+					generateAutumnalPlains ? TEMPERATURE_AUTUMNAL_PLAINS : TEMPERATURE,
 					weird ? HUMIDITY_WEIRD : HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
@@ -189,10 +191,10 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 					point.offset()
 				);
 			}
-			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
+			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest || generateAutumnalPlains) {
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE_MAPLE,
+					TEMPERATURE_AUTUMNAL_PLAINS,
 					HUMIDITY_MAPLE,
 					CONTINENTALNESS_MAPLE,
 					EROSION_MAPLE,
