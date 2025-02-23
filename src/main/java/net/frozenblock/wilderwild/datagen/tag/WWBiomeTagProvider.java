@@ -223,6 +223,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(Biomes.SNOWY_PLAINS)
 			.addOptional(Biomes.SNOWY_BEACH)
 			.addOptional(Biomes.ICE_SPIKES)
+			.addOptional(Biomes.FROZEN_RIVER)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MAPLE_MUSIC)
