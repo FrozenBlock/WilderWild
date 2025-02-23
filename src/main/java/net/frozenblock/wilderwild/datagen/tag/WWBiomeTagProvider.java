@@ -47,6 +47,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.generateUtilityTags();
 		this.generateFeatureTags();
 		this.generateStructureTags();
+		this.generateMusicPoolTags();
 	}
 
 	@NotNull
@@ -182,6 +183,68 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
+	}
+
+	private void generateMusicPoolTags() {
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FOREST_MUSIC)
+			.addOptional(Biomes.FOREST)
+			.addOptional(Biomes.BIRCH_FOREST)
+			.addOptional(Biomes.OLD_GROWTH_BIRCH_FOREST)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWER_FOREST_MUSIC)
+			.addOptional(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LUSH_MUSIC)
+			.addOptional(Biomes.LUSH_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRIPSTONE_MUSIC)
+			.addOptional(Biomes.DRIPSTONE_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_MUSIC)
+			.addOptional(Biomes.CHERRY_GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GROVE_MUSIC)
+			.addOptional(Biomes.GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_JUNGLE_MUSIC)
+			.addOptional(Biomes.JUNGLE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC)
+			.addOptional(Biomes.BAMBOO_JUNGLE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC)
+			.addOptional(Biomes.SPARSE_JUNGLE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_MUSIC)
+			.addOptional(Biomes.SNOWY_TAIGA)
+			.addOptional(Biomes.SNOWY_PLAINS)
+			.addOptional(Biomes.SNOWY_BEACH)
+			.addOptional(Biomes.ICE_SPIKES)
+			.addOptional(Biomes.FROZEN_RIVER)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MAPLE_MUSIC)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DYING_MUSIC)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_DYING_MUSIC)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MAGMATIC_MUSIC)
+			.addOptional(WWBiomes.MAGMATIC_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_MUSIC)
+			.addOptional(WWBiomes.FROZEN_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MESOGLEA_MUSIC)
+			.addOptional(WWBiomes.MESOGLEA_CAVES);
 	}
 
 	private void generateClimateAndVegetationTags() {

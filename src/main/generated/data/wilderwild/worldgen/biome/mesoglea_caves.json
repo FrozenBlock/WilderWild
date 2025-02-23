@@ -19,7 +19,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.mesoglea_caves"
+      "sound": "minecraft:music.game"
     },
     "sky_color": 8364543,
     "water_color": 9817343,
