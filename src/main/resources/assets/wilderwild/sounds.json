@@ -3412,6 +3412,51 @@
         "volume": 0.5
       },
       {
+        "name": "music/game/stand_tall",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/left_to_bloom",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/wending",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/infinite_amethyst",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/an_ordinary_day",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/watcher",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/puzzlebox",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/komorebi",
+        "stream": true,
+        "volume": 0.8
+      },
+      {
+        "name": "music/game/yakusoku",
+        "stream": true,
+        "volume": 0.8
+      },
+      {
         "name": "music/game/minecraft",
         "stream": true
       },
@@ -3422,16 +3467,6 @@
       {
         "name": "music/game/sweden",
         "stream": true
-      },
-      {
-        "name": "music/game/comforting_memories",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/floating_dream",
-        "stream": true,
-        "volume": 0.4
       },
       {
         "name": "music/game/subwoofer_lullaby",
@@ -3450,22 +3485,12 @@
         "stream": true
       },
       {
-        "name": "music/game/left_to_bloom",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
         "name": "music/game/key",
         "stream": true
       },
       {
         "name": "music/game/oxygene",
         "stream": true
-      },
-      {
-        "name": "music/game/one_more_day",
-        "stream": true,
-        "volume": 0.4
       },
       {
         "name": "music/game/dry_hands",
@@ -3478,16 +3503,6 @@
       {
         "name": "music/game/mice_on_venus",
         "stream": true
-      },
-      {
-        "name": "music/game/puzzlebox",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/watcher",
-        "stream": true,
-        "volume": 0.4
       }
     ]
   },
