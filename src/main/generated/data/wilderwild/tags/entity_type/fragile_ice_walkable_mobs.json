@@ -1,0 +1,31 @@
+{
+  "values": [
+    "minecraft:bat",
+    "minecraft:bee",
+    "minecraft:allay",
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:tropical_fish",
+    "minecraft:axolotl",
+    "minecraft:turtle",
+    "minecraft:pufferfish",
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "minecraft:frog",
+    "minecraft:stray",
+    "minecraft:vex",
+    "wilderwild:tumbleweed",
+    "wilderwild:crab",
+    "wilderwild:jellyfish",
+    "wilderwild:firefly",
+    "wilderwild:butterfly",
+    {
+      "id": "#minecraft:freeze_immune_entity_types",
+      "required": false
+    },
+    {
+      "id": "#minecraft:powder_snow_walkable_mobs",
+      "required": false
+    }
+  ]
+}

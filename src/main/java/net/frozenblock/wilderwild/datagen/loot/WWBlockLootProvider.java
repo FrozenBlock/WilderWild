@@ -515,6 +515,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.RED_MAPLE_LEAF_LITTER);
+
+		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE);
+		this.dropWhenSilkTouch(WWBlocks.ICICLE);
 	}
 
 }

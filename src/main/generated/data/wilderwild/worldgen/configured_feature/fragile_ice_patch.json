@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:vegetation_patch",
+  "config": {
+    "depth": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 3,
+      "min_inclusive": 2
+    },
+    "extra_bottom_block_chance": 0.4,
+    "extra_edge_column_chance": 0.6,
+    "ground_state": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:fragile_ice",
+            "Properties": {
+              "age": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "minecraft:packed_ice"
+          },
+          "weight": 8
+        }
+      ]
+    },
+    "replaceable": "#wilderwild:feature/cave_ice_replaceable",
+    "surface": "floor",
+    "vegetation_chance": 0.035,
+    "vegetation_feature": {
+      "feature": "wilderwild:small_fragile_ice_column",
+      "placement": []
+    },
+    "vertical_range": 4,
+    "xz_radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 10,
+      "min_inclusive": 4
+    }
+  }
+}

@@ -1219,6 +1219,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_FLOWERS)
 			.add(Biomes.CHERRY_GROVE);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ICICLES)
+			.add(Biomes.ICE_SPIKES);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)

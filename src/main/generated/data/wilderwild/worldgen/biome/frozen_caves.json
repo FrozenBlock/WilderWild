@@ -33,7 +33,8 @@
     ],
     [
       "minecraft:amethyst_geode",
-      "wilderwild:packed_ice_path"
+      "wilderwild:packed_ice_path",
+      "wilderwild:icicle_cluster"
     ],
     [
       "minecraft:fossil_upper",
@@ -76,17 +77,13 @@
       "wilderwild:ore_diorite_extra"
     ],
     [
-      "wilderwild:snow_disk_upper",
-      "wilderwild:powder_snow_disk_upper",
-      "wilderwild:snow_disk_lower",
-      "wilderwild:powder_snow_disk_lower",
+      "wilderwild:fragile_ice_disk",
       "wilderwild:packed_ice_disk",
-      "wilderwild:ice_pile",
-      "wilderwild:ice_disk",
-      "wilderwild:icicle_patch",
+      "wilderwild:fragile_ice_pile",
+      "wilderwild:hanging_packed_ice",
       "wilderwild:ice_patch_ceiling",
-      "wilderwild:ice_column_patch",
-      "wilderwild:ice_patch"
+      "wilderwild:fragile_ice_column_patch",
+      "wilderwild:fragile_ice_patch"
     ],
     [],
     [

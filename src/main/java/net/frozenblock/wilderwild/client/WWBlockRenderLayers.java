@@ -156,6 +156,9 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.TUMBLEWEED, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(WWBlocks.FRAGILE_ICE, RenderType.translucent());
+		renderLayerRegistry.putBlock(WWBlocks.ICICLE, RenderType.cutout());
+
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.WILLOW_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAVES, RenderType.cutoutMipped());

@@ -46,11 +46,13 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
+import net.frozenblock.wilderwild.block.FragileIceBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.IcicleBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -101,6 +103,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -1256,6 +1259,24 @@ public final class WWBlocks {
 			.mapColor(MAPLE_BARK_COLOR)
 	);
 
+	public static final FragileIceBlock FRAGILE_ICE = new FragileIceBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
+	);
+
+	public static final IcicleBlock ICICLE = new IcicleBlock(
+		BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
+			.forceSolidOn()
+			.friction(0.98F)
+			.randomTicks()
+			.strength(0.5F)
+			.sound(SoundType.GLASS)
+			.noOcclusion()
+			.dynamicShape()
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.pushReaction(PushReaction.DESTROY)
+			.isRedstoneConductor(Blocks::never)
+	);
+
 	private WWBlocks() {
 		throw new UnsupportedOperationException("WWBlocks contains only static declarations.");
 	}
@@ -1558,6 +1579,9 @@ public final class WWBlocks {
 		registerBlockAfter(PINK_NEMATOCYST, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(RED_NEMATOCYST, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(YELLOW_NEMATOCYST, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+
+		registerBlockAfter(Items.ICE, "fragile_ice", FRAGILE_ICE, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.BLUE_ICE, "icicle", ICICLE, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockAfter(Items.MAGMA_BLOCK, "geyser", GEYSER, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockBefore(Items.SCULK_SENSOR, "geyser", GEYSER, CreativeModeTabs.REDSTONE_BLOCKS);

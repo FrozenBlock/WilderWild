@@ -245,6 +245,11 @@ public final class WWMiscGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ICICLES)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE_WG.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE.getKey());
+						}
 					}
 				});
 

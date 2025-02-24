@@ -158,20 +158,17 @@ public final class FrozenCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_DIORITE_EXTRA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FRAGILE_ICE_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.PACKED_ICE_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SNOW_DISK_UPPER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.POWDER_SNOW_DISK_UPPER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SNOW_DISK_LOWER.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.POWDER_SNOW_DISK_LOWER.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PACKED_ICE_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PILE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICICLE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FRAGILE_ICE_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.HANGING_PACKED_ICE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PATCH_CEILING.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_COLUMN_PATCH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.ICE_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FRAGILE_ICE_COLUMN_PATCH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FRAGILE_ICE_PATCH.getKey());
 		features.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.DIORITE_PATCH.getKey());
 		features.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.DIORITE_PATCH_CEILING.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.ICICLE_CLUSTER.getKey());
 	}
 
 	@Override

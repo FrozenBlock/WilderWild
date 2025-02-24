@@ -29,6 +29,7 @@ import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
+import net.frozenblock.lib.block.api.tick.BlockRandomTicks;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
@@ -47,6 +48,7 @@ import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProces
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.IcicleBlock;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -137,7 +139,7 @@ public class FrozenLibIntegration extends ModIntegration {
 	@Override
 	public void initPreFreeze() {
 		WWConstants.log("FrozenLib pre-freeze mod integration ran!", WWConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WWConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		SpottingIconPredicate.register(WWConstants.id("stella"), entity ->entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
@@ -268,6 +270,15 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		);
 
+		BlockRandomTicks.addToBlock(
+			Blocks.ICE,
+			(blockState, serverLevel, blockPos, randomSource) -> {
+				if (IcicleBlock.isValidWaterForGrowing(serverLevel.getBlockState(blockPos.above()))) {
+
+				}
+			}
+		);
+
 		WindManager.addExtension(WWWindManager::new);
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
@@ -283,15 +294,14 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SANDSTONE, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LILY_PAD, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MELON, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
-
-		BlockSoundTypeOverwrites.addBlock(Blocks.CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.SUGAR_CANE, WWSoundTypes.SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
-		BlockSoundTypeOverwrites.addBlock(Blocks.MAGMA_BLOCK, WWSoundTypes.MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PODZOL, SoundType.ROOTED_DIRT, () -> WWBlockConfig.get().blockSounds.podzolSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, () -> WWBlockConfig.get().blockSounds.reinforcedDeepslateSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SUGAR_CANE, WWSoundTypes.SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MAGMA_BLOCK, WWSoundTypes.MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
 
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);

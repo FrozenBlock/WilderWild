@@ -123,6 +123,32 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.ARROW)
 			.add(EntityType.SPECTRAL_ARROW);
 
+		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_WALKABLE_MOBS)
+			.add(EntityType.BAT)
+			.add(EntityType.BEE)
+			.add(EntityType.ALLAY)
+			.add(EntityType.COD)
+			.add(EntityType.SALMON)
+			.add(EntityType.TROPICAL_FISH)
+			.add(EntityType.AXOLOTL)
+			.add(EntityType.TURTLE)
+			.add(EntityType.PUFFERFISH)
+			.add(EntityType.SPIDER)
+			.add(EntityType.CAVE_SPIDER)
+			.add(EntityType.FROG)
+			.add(EntityType.STRAY)
+			.add(EntityType.VEX)
+			.add(WWEntityTypes.TUMBLEWEED)
+			.add(WWEntityTypes.CRAB)
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.BUTTERFLY)
+			.addOptionalTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+			.addOptionalTag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+			.add(WWEntityTypes.PENGUIN);
+
 		this.getOrCreateTagBuilder(EntityTypeTags.FROG_FOOD)
 			.add(WWEntityTypes.BUTTERFLY);
 

@@ -1,0 +1,17 @@
+{
+  "type": "frozenlib:downwards_column",
+  "config": {
+    "height": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 0
+    },
+    "replaceable_blocks": [],
+    "state": {
+      "Name": "wilderwild:fragile_ice",
+      "Properties": {
+        "age": "0"
+      }
+    }
+  }
+}
