@@ -138,6 +138,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.FROG)
 			.add(EntityType.STRAY)
 			.add(EntityType.VEX)
+			.add(EntityType.ITEM)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(WWEntityTypes.CRAB)
 			.add(WWEntityTypes.JELLYFISH)

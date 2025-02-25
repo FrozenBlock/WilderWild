@@ -20,7 +20,9 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -105,8 +107,14 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
 		if (serverLevel.getBrightness(LightLayer.BLOCK, blockPos) > 11 - blockState.getLightBlock(serverLevel, blockPos)) {
 			this.melt(serverLevel, blockPos);
-		} else if (randomSource.nextFloat() <= 0.01F) {
-
+		} else if (randomSource.nextFloat() <= 0.075F) {
+			BlockPos belowPos = blockPos.below();
+			BlockState belowState = serverLevel.getBlockState(belowPos);
+			if (belowState.isAir()) {
+				IcicleUtils.growIcicle(serverLevel, belowPos, Direction.DOWN, 1, false);
+			}
+		} else {
+			this.heal(blockState, serverLevel, blockPos, true);
 		}
 	}
 
@@ -123,6 +131,13 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		} else {
 			level.setBlockAndUpdate(blockPos, Blocks.WATER.defaultBlockState());
 			level.neighborChanged(blockPos, Blocks.WATER, blockPos);
+		}
+	}
+
+	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos, boolean healCompletely) {
+		int age = blockState.getValue(AGE);
+		if (age > 0) {
+			level.setBlock(blockPos, blockState.setValue(AGE,  healCompletely ? 0 : age - 1), UPDATE_CLIENTS);
 		}
 	}
 

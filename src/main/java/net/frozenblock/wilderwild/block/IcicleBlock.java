@@ -31,7 +31,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -71,6 +73,7 @@ import java.util.function.Predicate;
 
 public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWaterloggedBlock {
 	public static final MapCodec<IcicleBlock> CODEC = simpleCodec(IcicleBlock::new);
+	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	public static final EnumProperty<Direction> TIP_DIRECTION = BlockStateProperties.VERTICAL_DIRECTION;
 	public static final EnumProperty<DripstoneThickness> THICKNESS = BlockStateProperties.DRIPSTONE_THICKNESS;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -121,11 +124,11 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		if (direction != Direction.UP && direction != Direction.DOWN) {
 			return blockState;
 		} else {
-			Direction direction2 = blockState.getValue(TIP_DIRECTION);
-			if (direction2 == Direction.DOWN && levelAccessor.getBlockTicks().hasScheduledTick(blockPos, this)) {
+			Direction tipDirection = blockState.getValue(TIP_DIRECTION);
+			if (tipDirection == Direction.DOWN && levelAccessor.getBlockTicks().hasScheduledTick(blockPos, this)) {
 				return blockState;
-			} else if (direction == direction2.getOpposite() && !this.canSurvive(blockState, levelAccessor, blockPos)) {
-				if (direction2 == Direction.DOWN) {
+			} else if (direction == tipDirection.getOpposite() && !this.canSurvive(blockState, levelAccessor, blockPos)) {
+				if (tipDirection == Direction.DOWN) {
 					levelAccessor.scheduleTick(blockPos, this, DELAY_BEFORE_FALLING);
 				} else {
 					levelAccessor.scheduleTick(blockPos, this, 1);
@@ -133,9 +136,9 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 				return blockState;
 			} else {
-				boolean bl = blockState.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
-				DripstoneThickness dripstoneThickness = calculateIcicleThickness(levelAccessor, blockPos, direction2, bl);
-				return blockState.setValue(THICKNESS, dripstoneThickness);
+				boolean merged = blockState.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
+				DripstoneThickness icicleThickness = calculateIcicleThickness(levelAccessor, blockPos, tipDirection, merged);
+				return blockState.setValue(THICKNESS, icicleThickness);
 			}
 		}
 	}
@@ -168,9 +171,27 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	protected void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (randomSource.nextFloat() < 0.011377778F && isHangingIcicleStartPos(blockState, serverLevel, blockPos)) {
-			growIcicleIfPossible(blockState, serverLevel, blockPos, randomSource);
+		if (isHangingIcicleStartPos(blockState, serverLevel, blockPos)) {
+			if (randomSource.nextFloat() <= 0.15377778F) {
+				growIcicleIfPossible(blockState, serverLevel, blockPos);
+			} else if (this.canRandomFall(serverLevel, blockPos, randomSource)) {
+				this.triggerFall(serverLevel, blockPos);
+			}
 		}
+	}
+
+	private boolean canRandomFall(Level level, BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.05F && level.getBlockState(pos.above()).is(WWBlockTags.ICICLE_FALLS_FROM)) {
+			Vec3 centerPos = Vec3.atCenterOf(pos);
+			Player player = level.getNearestPlayer(TARGETING_CONDITIONS, centerPos.x(), centerPos.y(), centerPos.z());
+			if (player != null) {
+				boolean isPlayerAbove = player.blockPosition().getY() > pos.getY();
+				double distance = player.distanceToSqr(centerPos);
+				return Math.sqrt(distance) <= 32D && (!isPlayerAbove || random.nextFloat() <= 0.25F);
+			}
+			return false;
+		}
+		return false;
 	}
 
 	@Nullable
@@ -272,17 +293,15 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@VisibleForTesting
-	public static void growIcicleIfPossible(BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, RandomSource randomSource) {
-		BlockState blockState2 = serverLevel.getBlockState(blockPos.above(1));
-		BlockState blockState3 = serverLevel.getBlockState(blockPos.above(2));
-		if (canGrow(blockState2, blockState3)) {
-			BlockPos blockPos2 = findTip(blockState, serverLevel, blockPos, 7, false);
-			if (blockPos2 != null) {
-				BlockState blockState4 = serverLevel.getBlockState(blockPos2);
-				if (canDrip(blockState4) && canTipGrow(blockState4, serverLevel, blockPos2)) {
-					if (randomSource.nextBoolean()) {
-						grow(serverLevel, blockPos2, Direction.DOWN);
-					}
+	public static void growIcicleIfPossible(BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
+		BlockState aboveState = serverLevel.getBlockState(blockPos.above(1));
+		BlockState aboveTwiceState = serverLevel.getBlockState(blockPos.above(2));
+		if (canGrow(aboveState, aboveTwiceState)) {
+			BlockPos tipPos = findTip(blockState, serverLevel, blockPos, 7, false);
+			if (tipPos != null) {
+				BlockState tipState = serverLevel.getBlockState(tipPos);
+				if (canDrip(tipState) && canTipGrow(tipState, serverLevel, tipPos)) {
+					grow(serverLevel, tipPos, Direction.DOWN);
 				}
 			}
 		}

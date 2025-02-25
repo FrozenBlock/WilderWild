@@ -107,41 +107,20 @@ public class IcicleClusterFeature extends Feature<IcicleClusterConfig> {
 					o = 0;
 				}
 
-				boolean canPlaceIcicleB = randomSource.nextDouble() < icicleChance;
-				int m;
-				if (optionalInt3.isPresent() && canPlaceIcicleB && !this.isLava(worldGenLevel, blockPos.atY(optionalInt3.getAsInt()))) {
-					int p = icicleClusterConfig.iceLayerThickness.sample(randomSource);
-					this.replaceBlocksWithIceBlocks(worldGenLevel, blockPos.atY(optionalInt3.getAsInt()), p, Direction.DOWN);
-					if (optionalInt.isPresent()) {
-						m = Math.max(
-							0,
-							o + Mth.randomBetweenInclusive(
-								randomSource,
-								-icicleClusterConfig.maxIcicleHeightDiff,
-								icicleClusterConfig.maxIcicleHeightDiff
-							)
-						);
-					} else {
-						m = this.getIcicleHeight(randomSource, i, j, g, height, icicleClusterConfig);
-					}
-				} else {
-					m = 0;
-				}
-
 				int w;
 				int p;
-				if (optionalInt.isPresent() && optionalInt3.isPresent() && optionalInt.getAsInt() - o <= optionalInt3.getAsInt() + m) {
+				if (optionalInt.isPresent() && optionalInt3.isPresent() && optionalInt.getAsInt() - o <= optionalInt3.getAsInt()) {
 					int q = optionalInt3.getAsInt();
 					int r = optionalInt.getAsInt();
 					int s = Math.max(r - o, q + 1);
-					int t = Math.min(q + m, r - 1);
+					int t = Math.min(q, r - 1);
 					int u = Mth.randomBetweenInclusive(randomSource, s, t + 1);
 					int v = u - 1;
 					p = r - u;
 					w = v - q;
 				} else {
 					p = o;
-					w = m;
+					w = 0;
 				}
 
 				boolean bl4 = randomSource.nextBoolean() && p > 0 && w > 0 && column.getHeight().isPresent() && p + w == column.getHeight().getAsInt();

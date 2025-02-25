@@ -1430,14 +1430,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","mycotoxic_mushrooms"));
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FROSTED_ICE)
-			.add(Blocks.FROSTED_ICE);
+			.add(Blocks.FROSTED_ICE)
+			.add(WWBlocks.FRAGILE_ICE)
+			.add(WWBlocks.ICICLE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_ICE)
 			.add(Blocks.ICE)
 			.add(Blocks.PACKED_ICE)
-			.add(Blocks.BLUE_ICE)
-			.add(WWBlocks.ICICLE)
-			.add(WWBlocks.FRAGILE_ICE);
+			.add(Blocks.BLUE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COARSE_DIRT)
 			.add(Blocks.COARSE_DIRT)

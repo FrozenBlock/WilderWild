@@ -131,7 +131,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<IcicleClusterConfig, ConfiguredFeature<IcicleClusterConfig, ?>> ICICLE_CLUSTER = register("icicle_cluster");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> CAVE_ICICLE = register("cave_icicle");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> ICICLE = register("icicle");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_PATH = register("packed_ice_path");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_PATHS = register("ice_paths");
 	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> PACKED_ICE_DISK = register("packed_ice_disk");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_COLUMN = register("packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
@@ -887,22 +887,22 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PACKED_ICE_PATH.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
+		ICE_PATHS.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
 			new ComboFeatureConfig(
 				List.of(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
-							5,
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+							6,
 							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
-							0.55D,
-							0.7D,
+							-0.8D,
+							-0.75D,
 							true,
 							true,
 							true,
-							true,
+							2,
 							new HolderSet.Named<>(
 								BuiltInRegistries.BLOCK.holderOwner(),
 								WWBlockTags.CAVE_ICE_REPLACEABLE
@@ -911,18 +911,18 @@ public final class WWCaveConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
-							5,
+							6,
 							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
-							-0.7D,
-							-0.55D,
+							-0.75D,
+							-0.35D,
 							true,
 							true,
 							true,
-							true,
+							2,
 							new HolderSet.Named<>(
 								BuiltInRegistries.BLOCK.holderOwner(),
 								WWBlockTags.CAVE_ICE_REPLACEABLE
@@ -931,18 +931,220 @@ public final class WWCaveConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
-							5,
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+							6,
 							EasyNoiseSampler.NoiseType.XORO,
 							0.0325D,
-							0.15D,
-							0.3D,
+							-0.35D,
+							-0.3D,
 							true,
 							true,
 							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							-0.25D,
+							-0.225D,
 							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							-0.225D,
+							-0.15D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(Blocks.BLUE_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							-0.2D,
+							-0.25D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							-0.25D,
+							-0.175D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							-0.175D,
+							-0.15D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							0.025D,
+							0.05D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							0.05D,
+							0.25D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(Blocks.BLUE_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							0.25D,
+							0.45D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							0.45D,
+							0.65D,
+							true,
+							true,
+							true,
+							2,
+							new HolderSet.Named<>(
+								BuiltInRegistries.BLOCK.holderOwner(),
+								WWBlockTags.CAVE_ICE_REPLACEABLE
+							),
+							1F
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
+						new AirOrWaterInAreaPathFeatureConfig(
+							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+							6,
+							EasyNoiseSampler.NoiseType.XORO,
+							0.0325D,
+							0.65D,
+							0.675D,
+							true,
+							true,
+							true,
+							2,
 							new HolderSet.Named<>(
 								BuiltInRegistries.BLOCK.holderOwner(),
 								WWBlockTags.CAVE_ICE_REPLACEABLE

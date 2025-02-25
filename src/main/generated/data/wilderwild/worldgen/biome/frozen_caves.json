@@ -33,8 +33,7 @@
     ],
     [
       "minecraft:amethyst_geode",
-      "wilderwild:packed_ice_path",
-      "wilderwild:icicle_cluster"
+      "wilderwild:ice_paths"
     ],
     [
       "minecraft:fossil_upper",
@@ -100,7 +99,9 @@
     [
       "minecraft:freeze_top_layer",
       "wilderwild:diorite_patch",
-      "wilderwild:diorite_patch_ceiling"
+      "wilderwild:diorite_patch_ceiling",
+      "wilderwild:icicle_cluster",
+      "wilderwild:cave_icicles"
     ]
   ],
   "has_precipitation": true,

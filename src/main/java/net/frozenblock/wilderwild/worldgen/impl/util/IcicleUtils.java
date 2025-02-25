@@ -25,11 +25,8 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
@@ -37,44 +34,9 @@ import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class IcicleUtils {
-	public static double getIcicleHeight(double d, double e, double f, double g) {
-		if (d < g) {
-			d = g;
-		}
-
-		double i = d / e * 0.384D;
-		double j = 0.75D * Math.pow(i, 1.3333333333333333D);
-		double k = Math.pow(i, 0.6666666666666666D);
-		double l = 0.3333333333333333D * Math.log(i);
-		double m = f * (j - k - l);
-		m = Math.max(m, 0D);
-		return m / 0.384D * e;
-	}
-
-	public static boolean isCircleMostlyEmbeddedInStone(WorldGenLevel worldGenLevel, BlockPos blockPos, int i) {
-		if (isEmptyOrWaterOrLava(worldGenLevel, blockPos)) {
-			return false;
-		} else {
-			float g = 6F / (float)i;
-
-			for (float h = 0F; h < (float) (Math.PI * 2F); h += g) {
-				int j = (int)(Mth.cos(h) * (float)i);
-				int k = (int)(Mth.sin(h) * (float)i);
-				if (isEmptyOrWaterOrLava(worldGenLevel, blockPos.offset(j, 0, k))) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-	}
 
 	public static boolean isEmptyOrWater(@NotNull LevelAccessor levelAccessor, BlockPos blockPos) {
 		return levelAccessor.isStateAtPosition(blockPos, DripstoneUtils::isEmptyOrWater);
-	}
-
-	public static boolean isEmptyOrWaterOrLava(@NotNull LevelAccessor levelAccessor, BlockPos blockPos) {
-		return levelAccessor.isStateAtPosition(blockPos, DripstoneUtils::isEmptyOrWaterOrLava);
 	}
 
 	public static void buildBaseToTipColumn(Direction direction, int length, boolean merge, Consumer<BlockState> consumer) {
@@ -124,10 +86,6 @@ public class IcicleUtils {
 			.defaultBlockState()
 			.setValue(PointedDripstoneBlock.TIP_DIRECTION, direction)
 			.setValue(PointedDripstoneBlock.THICKNESS, icicleThickness);
-	}
-
-	public static boolean isIcicleBaseOrLava(BlockState blockState) {
-		return isIcicleBase(blockState) || blockState.is(Blocks.LAVA);
 	}
 
 	public static boolean isIcicleBase(@NotNull BlockState blockState) {
