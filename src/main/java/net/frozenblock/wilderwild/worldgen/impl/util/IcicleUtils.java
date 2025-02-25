@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -73,7 +74,7 @@ public class IcicleUtils {
 
 	public static boolean placeIceBlockIfPossible(@NotNull LevelAccessor levelAccessor, BlockPos blockPos) {
 		BlockState blockState = levelAccessor.getBlockState(blockPos);
-		if (blockState.is(WWBlockTags.CAVE_ICE_REPLACEABLE)) {
+		if (blockState.is(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)) {
 			levelAccessor.setBlock(blockPos, WWBlocks.FRAGILE_ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
 			return true;
 		} else {
@@ -90,5 +91,13 @@ public class IcicleUtils {
 
 	public static boolean isIcicleBase(@NotNull BlockState blockState) {
 		return blockState.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) || blockState.is(BlockTags.ICE) || blockState.is(WWBlockTags.CAVE_ICE_REPLACEABLE);
+	}
+
+	public static void growIcicleOnRandomTick(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
+		BlockPos belowPos = blockPos.below();
+		BlockState belowState = serverLevel.getBlockState(belowPos);
+		if (belowState.isAir()) {
+			IcicleUtils.growIcicle(serverLevel, belowPos, Direction.DOWN, 1, false);
+		}
 	}
 }

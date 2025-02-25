@@ -30,6 +30,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -45,6 +46,7 @@ import org.jetbrains.annotations.NotNull;
 public class FragileIceBlock extends HalfTransparentBlock {
 	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
+	public static final int SHEET_SHATTER_DELAY = 1;
 	public static final int DELAY_BETWEEN_CRACKS = 20;
 
 	@Override
@@ -94,13 +96,17 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, @NotNull Block block, BlockPos blockPos2, boolean bl) {
-		if (block.defaultBlockState().is(this)) {
-			if (level.getBlockState(blockPos2).isAir()) {
-				level.destroyBlock(blockPos, false);
-			}
+		if (block.defaultBlockState().is(this) && level.getBlockState(blockPos2).isAir()) {
+			level.setBlock(blockPos, blockState.setValue(AGE, 2), UPDATE_CLIENTS);
+			level.scheduleTick(blockPos, this, SHEET_SHATTER_DELAY);
 		}
 
 		super.neighborChanged(blockState, level, blockPos, block, blockPos2, bl);
+	}
+
+	@Override
+	public void destroy(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState) {
+		super.destroy(levelAccessor, blockPos, blockState);
 	}
 
 	@Override
@@ -108,11 +114,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		if (serverLevel.getBrightness(LightLayer.BLOCK, blockPos) > 11 - blockState.getLightBlock(serverLevel, blockPos)) {
 			this.melt(serverLevel, blockPos);
 		} else if (randomSource.nextFloat() <= 0.075F) {
-			BlockPos belowPos = blockPos.below();
-			BlockState belowState = serverLevel.getBlockState(belowPos);
-			if (belowState.isAir()) {
-				IcicleUtils.growIcicle(serverLevel, belowPos, Direction.DOWN, 1, false);
-			}
+			IcicleUtils.growIcicleOnRandomTick(serverLevel, blockPos);
 		} else {
 			this.heal(blockState, serverLevel, blockPos, true);
 		}
