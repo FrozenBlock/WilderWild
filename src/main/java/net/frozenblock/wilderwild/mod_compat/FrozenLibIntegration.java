@@ -79,6 +79,7 @@ import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -274,7 +275,17 @@ public class FrozenLibIntegration extends ModIntegration {
 			Blocks.ICE,
 			(blockState, serverLevel, blockPos, randomSource) -> {
 				if (IcicleBlock.isValidWaterForGrowing(serverLevel.getBlockState(blockPos.above()))) {
-
+					BlockState aboveState = serverLevel.getBlockState(blockPos.above(1));
+					BlockState aboveTwiceState = serverLevel.getBlockState(blockPos.above(2));
+					if (IcicleBlock.canGrow(aboveState, aboveTwiceState)) {
+						BlockPos tipPos = IcicleBlock.findTip(blockState, serverLevel, blockPos, 7, false);
+						if (tipPos != null) {
+							BlockState tipState = serverLevel.getBlockState(tipPos);
+							if (IcicleBlock.canDrip(tipState) && IcicleBlock.canTipGrow(tipState, serverLevel, tipPos)) {
+								IcicleBlock.grow(serverLevel, tipPos, Direction.DOWN);
+							}
+						}
+					}
 				}
 			}
 		);

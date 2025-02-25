@@ -21,6 +21,7 @@
     "block.ice.EntityMixin",
     "block.ice.FrostedIceBlockMixin",
     "block.ice.SpawnUtilStrategyMixin",
+    "block.ice.VibrationSystemTickerMixin",
     "block.ice.WalkNodeEvaluatorMixin",
     "block.lava.LavaFluidMixin",
     "block.leaves.LeavesBlockMixin",

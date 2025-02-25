@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -44,7 +45,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Fallable;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -172,7 +172,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	@Override
 	protected void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
 		if (isHangingIcicleStartPos(blockState, serverLevel, blockPos)) {
-			if (randomSource.nextFloat() <= 0.15377778F) {
+			if (randomSource.nextFloat() <= 0.17377778F) {
 				growIcicleIfPossible(blockState, serverLevel, blockPos);
 			} else if (this.canRandomFall(serverLevel, blockPos, randomSource)) {
 				this.triggerFall(serverLevel, blockPos);
@@ -181,7 +181,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	private boolean canRandomFall(Level level, BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.05F && level.getBlockState(pos.above()).is(WWBlockTags.ICICLE_FALLS_FROM)) {
+		if (random.nextFloat() <= 0.075F && level.getBlockState(pos.above()).is(WWBlockTags.ICICLE_FALLS_FROM)) {
 			Vec3 centerPos = Vec3.atCenterOf(pos);
 			Player player = level.getNearestPlayer(TARGETING_CONDITIONS, centerPos.x(), centerPos.y(), centerPos.z());
 			if (player != null) {
@@ -264,7 +264,15 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	@Override
 	public void onBrokenAfterFall(Level level, BlockPos blockPos, @NotNull FallingBlockEntity fallingBlockEntity) {
 		if (!fallingBlockEntity.isSilent()) {
-			level.levelEvent(LevelEvent.SOUND_POINTED_DRIPSTONE_LAND, blockPos, 0);
+			level.playSound(
+				null,
+				blockPos.getX(),
+				blockPos.getY(),
+				blockPos.getZ(),
+				fallingBlockEntity.getBlockState().getSoundType().getBreakSound(), SoundSource.BLOCKS,
+				0.7F,
+				1F
+			);
 		}
 	}
 
@@ -307,7 +315,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		}
 	}
 
-	private static void grow(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, Direction direction) {
+	public static void grow(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, Direction direction) {
 		BlockPos blockPos2 = blockPos.relative(direction);
 		BlockState blockState = serverLevel.getBlockState(blockPos2);
 		if (isUnmergedTipWithDirection(blockState, direction.getOpposite())) {
@@ -342,7 +350,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Nullable
-	private static BlockPos findTip(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, int i, boolean bl) {
+	public static BlockPos findTip(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, int i, boolean bl) {
 		if (isTip(blockState, bl)) return blockPos;
 		Direction direction = blockState.getValue(TIP_DIRECTION);
 		BiPredicate<BlockPos, BlockState> biPredicate = (blockPosx, blockStatex) -> blockStatex.is(WWBlocks.ICICLE)
@@ -380,7 +388,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return isHangingIcicle(blockState) && blockState.getValue(THICKNESS) == DripstoneThickness.TIP && !blockState.getValue(WATERLOGGED);
 	}
 
-	private static boolean canTipGrow(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
+	public static boolean canTipGrow(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
 		Direction direction = blockState.getValue(TIP_DIRECTION);
 		BlockPos blockPos2 = blockPos.relative(direction);
 		BlockState blockState2 = serverLevel.getBlockState(blockPos2);
@@ -431,7 +439,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return blockState.is(WWBlocks.ICICLE) && blockState.getValue(TIP_DIRECTION) == direction;
 	}
 
-	private static boolean canGrow(@NotNull BlockState blockState, BlockState aboveState) {
+	public static boolean canGrow(@NotNull BlockState blockState, BlockState aboveState) {
 		return blockState.is(WWBlocks.FRAGILE_ICE) || (blockState.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) && isValidWaterForGrowing(aboveState));
 	}
 

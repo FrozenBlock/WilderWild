@@ -22,7 +22,6 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -30,10 +29,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -105,41 +101,24 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public void destroy(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState) {
-		super.destroy(levelAccessor, blockPos, blockState);
-	}
-
-	@Override
-	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		if (serverLevel.getBrightness(LightLayer.BLOCK, blockPos) > 11 - blockState.getLightBlock(serverLevel, blockPos)) {
-			this.melt(serverLevel, blockPos);
-		} else if (randomSource.nextFloat() <= 0.075F) {
+	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
+		if (randomSource.nextFloat() <= 0.075F) {
 			IcicleUtils.growIcicleOnRandomTick(serverLevel, blockPos);
 		} else {
-			this.heal(blockState, serverLevel, blockPos, true);
+			this.heal(blockState, serverLevel, blockPos);
 		}
 	}
 
 	@Override
 	public void stepOn(Level level, BlockPos blockPos, BlockState blockState, @NotNull Entity entity) {
-		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_WALKABLE_MOBS)) {
+		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) {
 			this.scheduleCrackIfNotScheduled(level, blockPos);
 		}
 	}
 
-	protected void melt(@NotNull Level level, BlockPos blockPos) {
-		if (level.dimensionType().ultraWarm()) {
-			level.removeBlock(blockPos, false);
-		} else {
-			level.setBlockAndUpdate(blockPos, Blocks.WATER.defaultBlockState());
-			level.neighborChanged(blockPos, Blocks.WATER, blockPos);
-		}
-	}
-
-	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos, boolean healCompletely) {
-		int age = blockState.getValue(AGE);
-		if (age > 0) {
-			level.setBlock(blockPos, blockState.setValue(AGE,  healCompletely ? 0 : age - 1), UPDATE_CLIENTS);
+	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
+		if (blockState.getValue(AGE) > 0) {
+			level.setBlock(blockPos, blockState.setValue(AGE,  0), UPDATE_CLIENTS);
 		}
 	}
 

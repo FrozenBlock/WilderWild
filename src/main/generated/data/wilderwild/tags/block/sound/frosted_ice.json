@@ -1,7 +1,6 @@
 {
   "values": [
     "minecraft:frosted_ice",
-    "wilderwild:fragile_ice",
-    "wilderwild:icicle"
+    "wilderwild:fragile_ice"
   ]
 }
