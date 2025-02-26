@@ -29,7 +29,6 @@ import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -46,6 +45,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -272,17 +272,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	public void onBrokenAfterFall(@NotNull Level level, BlockPos blockPos, @NotNull FallingBlockEntity fallingBlockEntity) {
-		if (!fallingBlockEntity.isSilent()) {
-			level.playSound(
-				null,
-				blockPos.getX(),
-				blockPos.getY(),
-				blockPos.getZ(),
-				fallingBlockEntity.getBlockState().getSoundType().getBreakSound(), SoundSource.BLOCKS,
-				0.7F,
-				0.9F + fallingBlockEntity.getRandom().nextFloat() * 0.2F
-			);
-		}
+		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(fallingBlockEntity.getBlockState()));
 	}
 
 	@Override
