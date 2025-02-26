@@ -465,6 +465,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(WWBlockTags.ICICLE_FALLS_FROM)
 			.add(Blocks.ICE)
+			.add(Blocks.PACKED_ICE)
+			.add(Blocks.BLUE_ICE)
 			.add(WWBlocks.FRAGILE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.ICICLE_GROWS_WHEN_UNDER)
