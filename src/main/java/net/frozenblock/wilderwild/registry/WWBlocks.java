@@ -1261,6 +1261,8 @@ public final class WWBlocks {
 
 	public static final FragileIceBlock FRAGILE_ICE = new FragileIceBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
+			.strength(0.2F)
+			.pushReaction(PushReaction.DESTROY)
 	);
 
 	public static final IcicleBlock ICICLE = new IcicleBlock(
@@ -1268,7 +1270,7 @@ public final class WWBlocks {
 			.forceSolidOn()
 			.friction(0.98F)
 			.randomTicks()
-			.strength(0.5F)
+			.strength(0.2F)
 			.sound(SoundType.GLASS)
 			.noOcclusion()
 			.dynamicShape()
