@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -67,6 +68,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -176,6 +178,23 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 				growIcicleIfPossible(blockState, serverLevel, blockPos);
 			} else if (this.canRandomFall(serverLevel, blockPos, randomSource)) {
 				this.triggerFall(serverLevel, blockPos);
+			} else if (randomSource.nextFloat() <= 0.15F) {
+				placeIciclesNearby(serverLevel, blockPos, 3, 2);
+			}
+		}
+	}
+
+	public static void placeIciclesNearby(@NotNull ServerLevel level, @NotNull BlockPos blockPos, int distance, int maxNewIcicles) {
+		if (canGrow(level.getBlockState(blockPos.above()), level.getBlockState(blockPos.above(2)))) {
+			Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
+			int count = 0;
+			while (count < maxNewIcicles) {
+				if (!posesToCheck.hasNext()) return;
+
+				BlockPos nextPos = posesToCheck.next();
+				if (level.getBlockState(nextPos).is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER)) {
+					if (IcicleUtils.spreadIcicleOnRandomTick(level, nextPos)) count++;
+				}
 			}
 		}
 	}
@@ -441,6 +460,10 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	public static boolean canGrow(@NotNull BlockState blockState, BlockState aboveState) {
 		return blockState.is(WWBlocks.FRAGILE_ICE) || (blockState.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) && isValidWaterForGrowing(aboveState));
+	}
+
+	public static boolean canSpreadTo(@NotNull BlockState blockState) {
+		return blockState.is(WWBlocks.FRAGILE_ICE) || blockState.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER);
 	}
 
 	public static boolean isValidWaterForGrowing(@NotNull BlockState blockState) {

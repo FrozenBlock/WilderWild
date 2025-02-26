@@ -29,7 +29,6 @@ import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
-import net.frozenblock.lib.block.api.tick.BlockRandomTicks;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
@@ -48,7 +47,6 @@ import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProces
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.IcicleBlock;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -79,7 +77,6 @@ import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -267,25 +264,6 @@ public class FrozenLibIntegration extends ModIntegration {
 			(blockState, serverLevel, blockPos, randomSource) -> {
 				if (DripstoneDripApi.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
 					serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), Block.UPDATE_ALL);
-				}
-			}
-		);
-
-		BlockRandomTicks.addToBlock(
-			Blocks.ICE,
-			(blockState, serverLevel, blockPos, randomSource) -> {
-				if (IcicleBlock.isValidWaterForGrowing(serverLevel.getBlockState(blockPos.above()))) {
-					BlockState aboveState = serverLevel.getBlockState(blockPos.above(1));
-					BlockState aboveTwiceState = serverLevel.getBlockState(blockPos.above(2));
-					if (IcicleBlock.canGrow(aboveState, aboveTwiceState)) {
-						BlockPos tipPos = IcicleBlock.findTip(blockState, serverLevel, blockPos, 7, false);
-						if (tipPos != null) {
-							BlockState tipState = serverLevel.getBlockState(tipPos);
-							if (IcicleBlock.canDrip(tipState) && IcicleBlock.canTipGrow(tipState, serverLevel, tipPos)) {
-								IcicleBlock.grow(serverLevel, tipPos, Direction.DOWN);
-							}
-						}
-					}
 				}
 			}
 		);

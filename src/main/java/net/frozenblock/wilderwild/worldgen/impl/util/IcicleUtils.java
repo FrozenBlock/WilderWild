@@ -26,6 +26,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
@@ -58,7 +59,7 @@ public class IcicleUtils {
 		}
 	}
 
-	public static void growIcicle(@NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull Direction direction, int i, boolean merge) {
+	public static boolean growIcicle(@NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull Direction direction, int i, boolean merge) {
 		if (isIcicleBase(levelAccessor.getBlockState(blockPos.relative(direction.getOpposite())))) {
 			BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 			buildBaseToTipColumn(direction, i, merge, blockState -> {
@@ -69,7 +70,9 @@ public class IcicleUtils {
 				levelAccessor.setBlock(mutableBlockPos, blockState, Block.UPDATE_CLIENTS);
 				mutableBlockPos.move(direction);
 			});
+			return true;
 		}
+		return false;
 	}
 
 	public static boolean placeIceBlockIfPossible(@NotNull LevelAccessor levelAccessor, BlockPos blockPos) {
@@ -93,11 +96,20 @@ public class IcicleUtils {
 		return blockState.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) || blockState.is(BlockTags.ICE) || blockState.is(WWBlockTags.CAVE_ICE_REPLACEABLE);
 	}
 
-	public static void growIcicleOnRandomTick(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
+	public static boolean growIcicleOnRandomTick(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
 		BlockPos belowPos = blockPos.below();
 		BlockState belowState = serverLevel.getBlockState(belowPos);
 		if (belowState.isAir()) {
-			IcicleUtils.growIcicle(serverLevel, belowPos, Direction.DOWN, 1, false);
+			return IcicleUtils.growIcicle(serverLevel, belowPos, Direction.DOWN, 1, false);
 		}
+		return false;
+	}
+
+	public static boolean spreadIcicleOnRandomTick(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
+		BlockState blockState = serverLevel.getBlockState(blockPos);
+		if (IcicleBlock.canSpreadTo(blockState)) {
+			return growIcicleOnRandomTick(serverLevel, blockPos);
+		}
+		return false;
 	}
 }
