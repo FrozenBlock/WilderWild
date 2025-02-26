@@ -227,3 +227,16 @@ hi
   - Can be crafted into bricks.
   - Mossy brick variants and stair, slab, and wall variants of the base stone require Trailier Tales to be installed.
   - Scorched can spawn on Gabbro.
+
+# Icicle Branch
+- Added Icicles.
+  - Grows naturally from the bottom of Fragile Ice.
+  - Grows in length if below a Fragile Ice block, or an ice block with water above.
+  - Occasionally spreads to other ice blocks if able to grow in length.
+  - Will occasionally fall if placed under an ice block.
+    - Certain vibrations, such as explosions and falling, will cause icicles to fall.
+- Added Fragile Ice.
+  - Will crack twice when stood on before shattering.
+  - Shatters when an entity falls onto the block.
+  - When shattered, all adjacent Fragile Ice blocks will shatter.
+- Revamped the Frozen Caves biome, removing snow patches and utilizing Fragile Ice and Icicles.

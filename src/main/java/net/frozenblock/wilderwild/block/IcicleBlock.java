@@ -271,7 +271,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	public void onBrokenAfterFall(Level level, BlockPos blockPos, @NotNull FallingBlockEntity fallingBlockEntity) {
+	public void onBrokenAfterFall(@NotNull Level level, BlockPos blockPos, @NotNull FallingBlockEntity fallingBlockEntity) {
 		if (!fallingBlockEntity.isSilent()) {
 			level.playSound(
 				null,
@@ -280,7 +280,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 				blockPos.getZ(),
 				fallingBlockEntity.getBlockState().getSoundType().getBreakSound(), SoundSource.BLOCKS,
 				0.7F,
-				1F
+				0.9F + fallingBlockEntity.getRandom().nextFloat() * 0.2F
 			);
 		}
 	}

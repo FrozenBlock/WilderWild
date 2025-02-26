@@ -93,8 +93,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	@Override
 	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, @NotNull Block block, BlockPos blockPos2, boolean bl) {
 		if (block.defaultBlockState().is(this) && level.getBlockState(blockPos2).isAir()) {
-			level.setBlock(blockPos, blockState.setValue(AGE, 2), UPDATE_CLIENTS);
-			level.scheduleTick(blockPos, this, SHEET_SHATTER_DELAY);
+			this.scheduleShatter(level, blockPos, blockState);
 		}
 
 		super.neighborChanged(blockState, level, blockPos, block, blockPos2, bl);
@@ -114,6 +113,17 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) {
 			this.scheduleCrackIfNotScheduled(level, blockPos);
 		}
+	}
+
+	@Override
+	public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float fallDistance) {
+		super.fallOn(level, blockState, blockPos, entity, fallDistance);
+		if (fallDistance >= 4F) this.scheduleShatter(level, blockPos, blockState);
+	}
+
+	public void scheduleShatter(@NotNull Level level, BlockPos blockPos, @NotNull BlockState blockState) {
+		level.setBlock(blockPos, blockState.setValue(AGE, 2), UPDATE_CLIENTS);
+		level.scheduleTick(blockPos, this, SHEET_SHATTER_DELAY);
 	}
 
 	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
