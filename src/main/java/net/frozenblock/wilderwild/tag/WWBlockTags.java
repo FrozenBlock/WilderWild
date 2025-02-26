@@ -46,6 +46,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_WITHER_ROSE = bind("sound/wither_rose");
 	public static final TagKey<Block> SOUND_MAGMA_BLOCK = bind("sound/magma_block");
 
+	public static final TagKey<Block> SNOW_GENERATION_CAN_SEARCH_THROUGH = bind("snow_generation_can_search_through");
+
 	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Block> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");
 	public static final TagKey<Block> HOLLOWED_LOGS_THAT_BURN = bind("hollowed_logs_that_burn");

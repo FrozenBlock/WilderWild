@@ -553,6 +553,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)
 			.add(Blocks.SHORT_GRASS)
 			.add(Blocks.FERN);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
+			.add(Blocks.LADDER)
+			.add(WWBlocks.ICICLE)
+			.addOptionalTag(BlockTags.LEAVES)
+			.addOptionalTag(BlockTags.WALLS)
+			.addOptionalTag(BlockTags.FENCE_GATES)
+			.addOptionalTag(BlockTags.FENCES);
 	}
 
 	private void generateDeepDark() {

@@ -116,6 +116,7 @@ hi
 - Added Frozen Short Grass, Frozen Tall Grass, Frozen Fern, and Frozen Large Fern blocks.
   - Shoutout to just_jose2006 for the textures!
 - Changed the Warm River's surface rules to likely reduce lag caused by Sand blocks falling.
+- Added the `wilderwild:snow_generation_can_search_through` block tag, listing non-air blocks that will be iterated through while searching for the lowest possible Snow layer generation position in worldgen.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.worldgen.impl.features;
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.block.impl.SnowyBlockUtils;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 
@@ -43,43 +45,24 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	private static boolean placeSnowAtPos(
-			@NotNull WorldGenLevel level,
-			@NotNull BlockPos.MutableBlockPos motionBlockingPos,
-			@NotNull BlockPos.MutableBlockPos belowLeavesPos,
-			@NotNull Holder<Biome> biomeHolder
+		@NotNull WorldGenLevel level,
+		@NotNull BlockPos.MutableBlockPos topPos,
+		@NotNull BlockPos.MutableBlockPos bottomPos,
+		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
 	) {
 		boolean returnValue = false;
-		int lowestY = belowLeavesPos.getY() - 1;
-		while (motionBlockingPos.getY() > lowestY) {
-			if (placeSnowLayer(level, motionBlockingPos, biomeHolder)) {
+		int lowestY = bottomPos.getY() - 1;
+		while (topPos.getY() > lowestY) {
+			if (placeSnowLayer(level, topPos, optionalBiomeHolder)) {
 				returnValue = true;
 			}
-			motionBlockingPos.move(Direction.DOWN);
+			topPos.move(Direction.DOWN);
 		}
 		return returnValue;
 	}
 
-	private static boolean placeSnowAtPos(
-			@NotNull WorldGenLevel level,
-			@NotNull BlockPos.MutableBlockPos motionBlockingPos,
-			@NotNull BlockPos.MutableBlockPos belowLeavesPos
-	) {
-		boolean returnValue = false;
-		int lowestY = belowLeavesPos.getY() - 1;
-		while (motionBlockingPos.getY() > lowestY) {
-			if (placeSnowLayer(level, motionBlockingPos)) {
-				returnValue = true;
-			}
-			motionBlockingPos.move(Direction.DOWN);
-		}
-		return returnValue;
-	}
-
-	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos) {
-		return placeSnowLayer(level, pos, level.getBiome(pos));
-	}
-
-	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos, @NotNull Holder<Biome> biomeHolder) {
+	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos, @NotNull Optional<Holder<Biome>> optionalBiomeHolder) {
+		Holder<Biome> biomeHolder = optionalBiomeHolder.orElse(level.getBiome(pos));
 		if (biomeHolder.value().shouldSnow(level, pos)) {
 			BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(pos), pos);
 			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
@@ -97,12 +80,20 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		return false;
 	}
 
+	private static int findLowestHeightForSnow(@NotNull WorldGenLevel level, int x, int z) {
+		int bottomHeight = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos().set(x, bottomHeight, z);
+		while (level.getBlockState(pos.move(Direction.DOWN)).is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)) bottomHeight -= 1;
+		return bottomHeight;
+	}
+
 	@Override
 	public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> context) {
 		BlockPos pos = context.origin();
 		WorldGenLevel level = context.level();
 		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-		BlockPos.MutableBlockPos mutablePlacementPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableSnowPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableIcePos = new BlockPos.MutableBlockPos();
 		boolean returnValue = false;
 		int posX = pos.getX();
 		int posZ = pos.getZ();
@@ -111,25 +102,20 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			for (int j = 0; j < 16; j++) {
 				int z = posZ + j;
 				int height = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
-				int belowLeavesHeight = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
-				if (height > belowLeavesHeight) {
+				int bottomHeight = findLowestHeightForSnow(level, x, z);
+
+				if (height > bottomHeight) {
 					mutablePos.set(x, height, z);
-					mutablePlacementPos.set(x, belowLeavesHeight, z);
+					mutableSnowPos.set(x, bottomHeight, z);
+					mutableIcePos.setWithOffset(mutableSnowPos, Direction.DOWN);
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
-					Holder<Biome> lowerBiomeHolder = level.getBiome(mutablePlacementPos);
-					if (lowerBiomeHolder.value().shouldFreeze(level, mutablePlacementPos.move(Direction.DOWN), false)) {
-						level.setBlock(mutablePlacementPos, Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
+					Holder<Biome> lowerBiomeHolder = level.getBiome(mutableSnowPos);
+					if (lowerBiomeHolder.value().shouldFreeze(level, mutableIcePos, false)) {
+						level.setBlock(mutableIcePos, Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
 					}
-					mutablePlacementPos.move(Direction.UP);
-					if (biomeHolder.equals(lowerBiomeHolder)) {
-						if (placeSnowAtPos(level, mutablePos, mutablePlacementPos, biomeHolder)) {
-							returnValue = true;
-						}
-					} else {
-						if (placeSnowAtPos(level, mutablePos, mutablePlacementPos)) {
-							returnValue = true;
-						}
-					}
+
+					Optional<Holder<Biome>> optionalBiomeHolder = biomeHolder.equals(lowerBiomeHolder) ? Optional.of(biomeHolder) : Optional.empty();
+					returnValue = returnValue || placeSnowAtPos(level, mutablePos, mutableSnowPos, optionalBiomeHolder);
 				}
 			}
 		}
