@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.worldgen.impl.root;
+package net.frozenblock.wilderwild.worldgen.impl.rootplacers;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;

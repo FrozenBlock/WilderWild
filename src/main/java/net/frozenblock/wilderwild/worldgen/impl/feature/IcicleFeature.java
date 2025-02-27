@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.impl.feature;
 
 import com.mojang.serialization.Codec;
+import java.util.Optional;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleConfig;
 import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
@@ -29,7 +30,6 @@ import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class IcicleFeature extends Feature<IcicleConfig> {
 

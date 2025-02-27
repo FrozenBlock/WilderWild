@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.worldgen.impl.feature;
 
 import com.mojang.serialization.Codec;
+import java.util.Optional;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.block.impl.SnowyBlockUtils;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -36,7 +37,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 

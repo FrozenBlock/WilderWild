@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.worldgen.impl.root;
+package net.frozenblock.wilderwild.worldgen.impl.rootplacers;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -37,7 +37,6 @@ public record WillowRootPlacement(
 				Codec.intRange(1, 12).fieldOf("max_root_width").forGetter(willowRootPlacement -> willowRootPlacement.maxRootWidth),
 				Codec.intRange(1, 64).fieldOf("max_root_length").forGetter(willowRootPlacement -> willowRootPlacement.maxRootLength),
 				Codec.floatRange(0F, 1F).fieldOf("random_skew_chance").forGetter(willowRootPlacement -> willowRootPlacement.randomSkewChance)
-			)
-			.apply(instance, WillowRootPlacement::new)
+			).apply(instance, WillowRootPlacement::new)
 	);
 }

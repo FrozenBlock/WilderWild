@@ -46,7 +46,7 @@ import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.SmallBushFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.root.WillowRootPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.rootplacers.WillowRootPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;

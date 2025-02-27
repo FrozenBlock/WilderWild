@@ -117,6 +117,16 @@ hi
   - Shoutout to just_jose2006 for the textures!
 - Changed the Warm River's surface rules to likely reduce lag caused by Sand blocks falling.
 - Added the `wilderwild:snow_generation_can_search_through` block tag, listing non-air blocks that will be iterated through while searching for the lowest possible Snow layer generation position in worldgen.
+- Significantly updated how many of Wilder Wild's trees place branches.
+  - Related tree features now have a `trunk_branch_placement` array in them, containing the fields:
+    - `branch_cutoff_from_top`: How far below the top of the tree branches can start generating at.
+    - `branch_length`: An integer provider defining the min and max branch lengths.
+    - `branch_placement_chance`: The chance per-block for a branch to generate.
+    - `foliage_placement_chance`: The chance for foliage to be placed at the end of a branch.
+    - `foliage_radius_shrink`: How many blocks the radius of the placed foliage should be shrunk by.
+    - `max_branch_count`: The maximum number of branches allowed to generate per-tree.
+    - `offset_last_log_chance`: The chance for the last log on a branch to be offset upwards.
+    - `minimum_branch_length_for_offset`: The minimum length of a branch required to be able to offset a log upwards.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

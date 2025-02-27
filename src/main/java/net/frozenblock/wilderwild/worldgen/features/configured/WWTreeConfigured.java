@@ -35,8 +35,8 @@ import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.SmallBushFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.root.WillowRootPlacement;
-import net.frozenblock.wilderwild.worldgen.impl.root.WillowRootPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.rootplacers.WillowRootPlacement;
+import net.frozenblock.wilderwild.worldgen.impl.rootplacers.WillowRootPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
@@ -53,6 +53,7 @@ import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.WillowTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.branch.TrunkBranchPlacement;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -386,7 +387,7 @@ public final class WWTreeConfigured {
 				2,
 				0.185F,
 				UniformInt.of(1, 2),
-				1
+				1F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -1053,10 +1054,12 @@ public final class WWTreeConfigured {
 					6,
 					2,
 					1,
-					0.225F,
-					UniformInt.of(1, 2),
-					UniformInt.of(0, 2),
-					ConstantInt.of(1)
+					new TrunkBranchPlacement.Builder()
+						.branchChance(0.225F)
+						.maxBranchCount(UniformInt.of(1, 2))
+						.branchCutoffFromTop(UniformInt.of(0, 2))
+						.branchLength(ConstantInt.of(1))
+						.build()
 				),
 				BlockStateProvider.simple(Blocks.AIR),
 				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
@@ -1077,10 +1080,12 @@ public final class WWTreeConfigured {
 					7,
 					2,
 					1,
-					0.235F,
-					UniformInt.of(2, 3),
-					UniformInt.of(0, 2),
-					UniformInt.of(1, 2)
+					new TrunkBranchPlacement.Builder()
+						.branchChance(0.235F)
+						.maxBranchCount(UniformInt.of(2, 3))
+						.branchCutoffFromTop(UniformInt.of(0, 2))
+						.branchLength(UniformInt.of(1, 2))
+						.build()
 				),
 				BlockStateProvider.simple(Blocks.AIR),
 				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
@@ -1236,14 +1241,16 @@ public final class WWTreeConfigured {
 		);
 
 		MOSSY_FALLEN_WILLOW_TREE.makeAndSetHolder(Feature.TREE,
-			fallenTrunkBuilder(
+			fallenWillowTrunkBuilder(
 				WWBlocks.WILLOW_LOG,
 				WWBlocks.HOLLOWED_WILLOW_LOG,
 				3,
 				1,
 				2,
-				0.125F,
+				0.3F,
 				UniformInt.of(1, 2),
+				UniformInt.of(1, 3),
+				1F,
 				0.075F
 			).ignoreVines().decorators(
 				List.of(
@@ -2050,15 +2057,25 @@ public final class WWTreeConfigured {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		float logChance,
-		IntProvider maxLogs,
-		IntProvider logHeightFromTop,
-		IntProvider extraBranchLength,
+		float branchChance,
+		IntProvider maxBranchCount,
+		IntProvider branchCutoffFromTop,
+		IntProvider branchLength,
 		int radius
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new StraightWithBranchesTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
+			new StraightWithBranchesTrunkPlacer(
+				baseHeight,
+				firstRandomHeight,
+				secondRandomHeight,
+				new TrunkBranchPlacement.Builder()
+					.branchChance(branchChance)
+					.maxBranchCount(maxBranchCount)
+					.branchCutoffFromTop(branchCutoffFromTop)
+					.branchLength(branchLength)
+					.build()
+			),
 			BlockStateProvider.simple(leaves),
 			new BlobFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), 3),
 			new TwoLayersFeatureSize(1, 0, 1)
@@ -2071,14 +2088,23 @@ public final class WWTreeConfigured {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		float logChance,
-		IntProvider maxLogs,
-		IntProvider logHeightFromTop,
-		IntProvider extraBranchLength
+		float branchChance,
+		IntProvider maxBranches,
+		IntProvider branchCutoffFromTop,
+		IntProvider branchLength
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new StraightWithBranchesTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
+			new StraightWithBranchesTrunkPlacer(
+				baseHeight, firstRandomHeight,
+				secondRandomHeight,
+				new TrunkBranchPlacement.Builder()
+					.branchChance(branchChance)
+					.maxBranchCount(maxBranches)
+					.branchCutoffFromTop(branchCutoffFromTop)
+					.branchLength(branchLength)
+					.build()
+			),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1)
@@ -2092,8 +2118,8 @@ public final class WWTreeConfigured {
 		int baseHeight,
 		int firstRHeight,
 		int secondRHeight,
-		float logChance,
-		IntProvider maxLogs,
+		float branchPlacementChance,
+		IntProvider maxBranchCount,
 		float hollowedChance
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2102,11 +2128,48 @@ public final class WWTreeConfigured {
 				baseHeight,
 				firstRHeight,
 				secondRHeight,
-				BlockStateProvider.simple(hollowedLog),
-				logChance,
 				0.8F,
+				BlockStateProvider.simple(hollowedLog),
 				hollowedChance,
-				maxLogs
+				new TrunkBranchPlacement.Builder()
+					.branchChance(branchPlacementChance)
+					.maxBranchCount(maxBranchCount)
+					.branchLength(ConstantInt.of(1))
+					.build()
+			),
+			BlockStateProvider.simple(Blocks.AIR),
+			NoOpFoliagePlacer.INSTANCE,
+			new TwoLayersFeatureSize(1, 0, 1));
+	}
+
+	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenWillowTrunkBuilder(
+		Block log,
+		Block hollowedLog,
+		int baseHeight,
+		int firstRHeight,
+		int secondRHeight,
+		float branchPlacementChance,
+		IntProvider maxBranchCount,
+		IntProvider branchLength,
+		float offsetLastLogChance,
+		float hollowedChance
+	) {
+		return new TreeConfiguration.TreeConfigurationBuilder(
+			BlockStateProvider.simple(log),
+			new FallenWithLogsTrunkPlacer(
+				baseHeight,
+				firstRHeight,
+				secondRHeight,
+				0.8F,
+				BlockStateProvider.simple(hollowedLog),
+				hollowedChance,
+				new TrunkBranchPlacement.Builder()
+					.branchChance(branchPlacementChance)
+					.maxBranchCount(maxBranchCount)
+					.branchLength(branchLength)
+					.offsetLastLogChance(offsetLastLogChance)
+					.build()
 			),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
@@ -2137,13 +2200,25 @@ public final class WWTreeConfigured {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		float logChance,
-		IntProvider maxLogs, IntProvider extraBranchLength,
+		float branchChance,
+		IntProvider maxBranchCount,
+		IntProvider branchLength,
 		int radius
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new FancyDarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, extraBranchLength),
+			new FancyDarkOakTrunkPlacer(
+				baseHeight,
+				firstRandomHeight,
+				secondRandomHeight,
+				new TrunkBranchPlacement.Builder()
+					.branchChance(branchChance)
+					.maxBranchCount(maxBranchCount)
+					.branchLength(branchLength)
+					.foliagePlacementChance(1F)
+					.offsetLastLogChance(1F)
+					.build()
+			),
 			BlockStateProvider.simple(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
@@ -2300,15 +2375,16 @@ public final class WWTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
-		return fallenTrunkBuilder
-			(Blocks.BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG,
-				3,
-				1,
-				2,
-				0.15F,
-				UniformInt.of(1, 2),
-				0.075F
-			).ignoreVines();
+		return fallenTrunkBuilder(
+			Blocks.BIRCH_LOG,
+			WWBlocks.HOLLOWED_BIRCH_LOG,
+			3,
+			1,
+			2,
+			0.15F,
+			UniformInt.of(1, 2),
+			0.075F
+		).ignoreVines();
 	}
 
 	@NotNull
@@ -2729,9 +2805,15 @@ public final class WWTreeConfigured {
 				randomHeight1,
 				randomHeight2,
 				UniformInt.of(2, 5),
-				0.5F,
 				0.35F,
-				UniformInt.of(2, 3)
+				new TrunkBranchPlacement.Builder()
+					.branchChance(0.5F)
+					.maxBranchCount(4)
+					.branchLength(UniformInt.of(2, 3))
+					.offsetLastLogChance(1F)
+					.foliagePlacementChance(1F)
+					.foliageRadiusShrink(1)
+					.build()
 			),
 			BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES),
 			new WillowFoliagePlacer(

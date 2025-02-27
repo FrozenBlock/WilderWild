@@ -19,61 +19,56 @@
 package net.frozenblock.wilderwild.worldgen.impl.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.registry.WWFeatures;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.worldgen.impl.util.TrunkPlacerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<FallenWithLogsTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		fallenTrunkCodec(instance).apply(instance, FallenWithLogsTrunkPlacer::new));
+	public static final MapCodec<FallenWithLogsTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+		trunkPlacerParts(instance)
+			.and(Codec.floatRange(0F, 1F).fieldOf("success_in_water_chance").forGetter(trunkPlacer -> trunkPlacer.successInWaterChance))
+			.and(BlockStateProvider.CODEC.fieldOf("hollowed_trunk_provider").forGetter(trunkPlacer -> trunkPlacer.hollowedTrunkProvider))
+			.and(Codec.floatRange(0F, 1F).fieldOf("hollowed_log_chance").forGetter(trunkPlacer -> trunkPlacer.hollowedLogChance))
+			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
+			.apply(instance, FallenWithLogsTrunkPlacer::new));
 
-	public final BlockStateProvider hollowedState;
-	public final float branchChance;
-	public final IntProvider maxBranchCount;
-	public final float hollowedLogChance;
 	public final float successInWaterChance;
+	public final BlockStateProvider hollowedTrunkProvider;
+	public final float hollowedLogChance;
+	public final TrunkBranchPlacement trunkBranchPlacement;
 
-	public FallenWithLogsTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float branchChance, float successInWaterChance, float hollowedLogProbability, @NotNull IntProvider maxBranchCount) {
+
+	public FallenWithLogsTrunkPlacer(
+		int baseHeight,
+		int firstRandomHeight,
+		int secondRandomHeight,
+		float successInWaterChance,
+		BlockStateProvider hollowedTrunkProvider,
+		float hollowedLogProbability,
+		TrunkBranchPlacement trunkBranchPlacement
+	) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.hollowedState = hollowedState;
-		this.branchChance = branchChance;
-		this.maxBranchCount = maxBranchCount;
-		this.hollowedLogChance = hollowedLogProbability;
 		this.successInWaterChance = successInWaterChance;
-	}
-
-	@Contract("_ -> new")
-	protected static <P extends FallenWithLogsTrunkPlacer> Products.@NotNull P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider, Float, Float, Float, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
-		return trunkPlacerParts(builder)
-			.and(BlockStateProvider.CODEC.fieldOf("hollowed_state").forGetter((trunkPlacer) -> trunkPlacer.hollowedState))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("hollowed_log_chance").forGetter((trunkPlacer) -> trunkPlacer.hollowedLogChance))
-			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_branch_count").forGetter((trunkPlacer) -> trunkPlacer.maxBranchCount));
-	}
-
-	private static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
-		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
+		this.hollowedTrunkProvider = hollowedTrunkProvider;
+		this.hollowedLogChance = hollowedLogProbability;
+		this.trunkBranchPlacement = trunkBranchPlacement;
 	}
 
 	@Override
@@ -84,20 +79,25 @@ public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	@NotNull
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
-		List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
-		List<BlockPos> logs = Lists.newArrayList();
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
+		@NotNull LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> replacer,
+		@NotNull RandomSource random,
+		int height,
+		@NotNull BlockPos startPos,
+		@NotNull TreeConfiguration config
+	) {
+		List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		int maxLogs = this.maxBranchCount.sample(random);
-		boolean hollow = random.nextFloat() < this.hollowedLogChance;
-		Direction logDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		int extraLogs = 0;
-		if (isWaterAt(level, startPos) && random.nextFloat() > this.successInWaterChance) {
-			return list;
-		}
+		BlockStateProvider blockStateProvider = random.nextFloat() <= this.hollowedLogChance ? this.hollowedTrunkProvider : config.trunkProvider;
+		int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);
+		Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		int generatedBranches = 0;
 
-		BlockPos endPos = startPos.relative(logDir, height);
-		BlockPos secondToEndPos = endPos.relative(logDir.getOpposite());
+		if (TrunkPlacerHelper.isWaterAt(level, startPos) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
+
+		BlockPos endPos = startPos.relative(trunkDirection, height);
+		BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
 		int aboveSolidAmount = 0;
 		boolean isEndAboveSolid = false;
 		Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
@@ -107,59 +107,51 @@ public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
 				if (!TreeFeature.validTreePos(level, mutable.move(Direction.DOWN)) && !TreeFeature.isAirOrLeaves(level, mutable)) {
 					aboveSolidAmount += 1;
 					mutable.move(Direction.UP);
-					if (mutable.equals(endPos) || mutable.equals(secondToEndPos)) {
-						isEndAboveSolid = true;
-					}
+					if (mutable.equals(endPos) || mutable.equals(secondToEndPos)) isEndAboveSolid = true;
 				} else {
 					mutable.move(Direction.UP);
-					if (mutable.equals(startPos)) {
-						return list;
-					}
+					if (mutable.equals(startPos)) return foliageAttachments;
 				}
 			} else {
-				return list;
+				return foliageAttachments;
 			}
 		}
 
-		if (isEndAboveSolid || ((double) aboveSolidAmount / (double) height) > 0.5) {
+		if (isEndAboveSolid || ((double) aboveSolidAmount / (double) height) > 0.5D) {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
-				placeLog(logs, level, replacer, random, config, mutable, logDir, hollow);
-				if (random.nextFloat() < this.branchChance && extraLogs < maxLogs) {
-					Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
-					this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, direction, hollow);
-					++extraLogs;
+				this.placeLog(level, replacer, random, blockStateProvider, mutable, trunkDirection);
+				if (this.trunkBranchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
+					Direction branchDirection = random.nextFloat() <= 0.66F ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
+					if (trunkDirection.getAxis() != branchDirection.getAxis()) {
+						this.trunkBranchPlacement.generateExtraBranchForFallenLog(
+							level,
+							replacer,
+							random,
+							blockStateProvider,
+							mutable,
+							branchDirection,
+							trunkDirection
+						);
+					}
+					generatedBranches += 1;
 				}
 			}
 		}
 
-		return list;
+		return foliageAttachments;
 	}
 
-	private void generateExtraBranch(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction offsetDir, @NotNull Direction direction, boolean hollow) {
-		int x = pos.getX();
-		int z = pos.getZ();
-		int y = pos.getY();
-		if (offsetDir.getAxis() != direction.getAxis()) {
-			x += direction.getStepX();
-			z += direction.getStepZ();
-			y += direction.getStepY();
-			if (TreeFeature.validTreePos(level, pos.set(x, y, z))) {
-				placeLog(logs, level, replacer, random, config, pos, direction, hollow);
-			}
-		}
-	}
-
-	private void placeLog(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction direction, boolean hollow) {
-		BlockState setState = !hollow ? config.trunkProvider.getState(random, pos) : this.hollowedState.getState(random, pos);
-		if (setState.hasProperty(BlockStateProperties.AXIS)) {
-			setState = setState.setValue(BlockStateProperties.AXIS, direction.getAxis());
-		}
-		if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-			setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, pos));
-		}
-		replacer.accept(pos, setState);
-		logs.add(pos.immutable());
+	private void placeLog(
+		LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> replacer,
+		@NotNull RandomSource random,
+		@NotNull BlockStateProvider blockStateProvider,
+		@NotNull BlockPos.MutableBlockPos pos,
+		@NotNull Direction trunkDirection
+	) {
+		BlockState placementState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, pos, trunkDirection, random);
+		replacer.accept(pos, placementState);
 	}
 
 }
