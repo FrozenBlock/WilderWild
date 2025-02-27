@@ -26,9 +26,9 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWCavePlaced;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWMiscGeneration {

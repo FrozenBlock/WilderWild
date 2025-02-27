@@ -26,8 +26,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWTreePlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWTreePlaced;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
