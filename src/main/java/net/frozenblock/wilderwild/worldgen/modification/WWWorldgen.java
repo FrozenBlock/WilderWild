@@ -352,9 +352,9 @@ public final class WWWorldgen {
 				}
 			});
 
-		BiomeModifications.create(WWConstants.id("replace_snowy_plains_trees")).add(
+		BiomeModifications.create(WWConstants.id("replace_snowy_trees")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWBiomeTags.SNOWY_PLAINS),
+			BiomeSelectors.tag(WWBiomeTags.HAS_TREES_SNOWY),
 			context -> {
 				if (WWWorldgenConfig.get().treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();

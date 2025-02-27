@@ -807,7 +807,7 @@
   "option.wilderwild.dying_trees": "Dying Trees",
   "tooltip.wilderwild.dying_trees": "Whether Dying Trees should generate in the world.",
   "option.wilderwild.fallen_trees": "Fallen Trees",
-  "tooltip.wilderwild.fallen_trees": "Whether Fallen Trees will generate naturally.",
+  "tooltip.wilderwild.fallen_trees": "Whether Wilder Wild's Fallen Trees will generate naturally.\nIf enabled alongside Vanilla tree generation, can cause duplicate fallen trees.",
   "option.wilderwild.flower_generation": "Flower Generation",
   "tooltip.wilderwild.flower_generation": "Whether worldgen should use Wilder Wild's or Vanilla's Flower generation.",
   "option.wilderwild.grass_generation": "Grass Generation",

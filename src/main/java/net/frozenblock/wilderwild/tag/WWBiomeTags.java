@@ -68,14 +68,13 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");
 	public static final TagKey<Biome> WINDSWEPT_SAVANNA = bind("windswept_savanna");
-	public static final TagKey<Biome> SNOWY_PLAINS = bind("snowy_plains");
 	public static final TagKey<Biome> WINDSWEPT_HILLS = bind("windswept_hills");
 	public static final TagKey<Biome> WINDSWEPT_FOREST = bind("windswept_forest");
 	public static final TagKey<Biome> RAINFOREST = bind("rainforest");
-
 	public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
 	public static final TagKey<Biome> PALE_GARDEN = bind("pale_garden");
 	public static final TagKey<Biome> MEADOW = bind("meadow");
+	public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
 
 	public static final TagKey<Biome> BETA_BEACH_GRAVEL = bind("beta_beach/gravel");
 	public static final TagKey<Biome> BETA_BEACH_SAND = bind("beta_beach/sand");
@@ -99,7 +98,7 @@ public final class WWBiomeTags {
 
 	public static final TagKey<Biome> HAS_LEAF_LITTER = bind("feature/has_leaf_litter");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
-	public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
+	public static final TagKey<Biome> HAS_TREES_SNOWY = bind("has_trees_snowy");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");
 	public static final TagKey<Biome> SHORT_TAIGA = bind("feature/short_taiga");
 	public static final TagKey<Biome> TALL_PINE_TAIGA = bind("feature/tall_pine_taiga");

@@ -145,9 +145,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.TAIGA)
 			.add(Biomes.SNOWY_TAIGA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.SNOWY_PLAINS)
-			.add(Biomes.SNOWY_PLAINS);
-
 		this.getOrCreateTagBuilder(WWBiomeTags.TALL_PINE_TAIGA)
 			.add(Biomes.OLD_GROWTH_PINE_TAIGA);
 
@@ -793,6 +790,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 	}
 
 	private void generateFeatureTags() {
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TREES_SNOWY)
+			.add(Biomes.SNOWY_PLAINS)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FALLEN_BIRCH_TREES)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
