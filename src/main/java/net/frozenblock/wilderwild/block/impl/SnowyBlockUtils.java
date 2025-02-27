@@ -39,17 +39,13 @@ public class SnowyBlockUtils {
 	@NotNull
 	public static BlockState getWorldgenSnowyEquivalent(@NotNull BlockState state) {
 		Block block = state.getBlock();
-		if (SNOWY_BLOCK_MAP.containsKey(block)) {
-			return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
-		}
+		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
 	public static @NotNull BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
 		BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
-		if (!state.equals(snowyEquivalent)) {
-			level.setBlock(pos, snowyEquivalent, Block.UPDATE_CLIENTS);
-		}
+		if (!state.equals(snowyEquivalent)) level.setBlock(pos, snowyEquivalent, Block.UPDATE_CLIENTS);
 		return snowyEquivalent;
 	}
 }

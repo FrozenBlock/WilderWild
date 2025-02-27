@@ -48,33 +48,37 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		@NotNull WorldGenLevel level,
 		@NotNull BlockPos.MutableBlockPos topPos,
 		@NotNull BlockPos.MutableBlockPos bottomPos,
+		@NotNull BlockPos.MutableBlockPos mutable,
 		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
 	) {
 		boolean returnValue = false;
 		int lowestY = bottomPos.getY() - 1;
 		while (topPos.getY() > lowestY) {
-			if (placeSnowLayer(level, topPos, optionalBiomeHolder)) {
-				returnValue = true;
-			}
+			if (placeSnowLayer(level, topPos, mutable, optionalBiomeHolder)) returnValue = true;
 			topPos.move(Direction.DOWN);
 		}
 		return returnValue;
 	}
 
-	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos, @NotNull Optional<Holder<Biome>> optionalBiomeHolder) {
-		Holder<Biome> biomeHolder = optionalBiomeHolder.orElse(level.getBiome(pos));
-		if (biomeHolder.value().shouldSnow(level, pos)) {
+	private static boolean placeSnowLayer(
+		@NotNull WorldGenLevel level,
+		@NotNull BlockPos.MutableBlockPos mutablePos,
+		@NotNull BlockPos.MutableBlockPos mutablePos2,
+		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
+	) {
+		BlockPos pos = mutablePos.immutable();
+		if (optionalBiomeHolder.orElse(level.getBiome(pos)).value().shouldSnow(level, pos)) {
 			BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(pos), pos);
 			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
 				level.setBlock(pos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
 			} else {
 				level.setBlock(pos, Blocks.SNOW.defaultBlockState(), Block.UPDATE_CLIENTS);
 			}
-			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
+
+			BlockState belowState = level.getBlockState(mutablePos2.setWithOffset(pos, Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
+				level.setBlock(mutablePos2, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
 			}
-			pos.move(Direction.UP);
 			return true;
 		}
 		return false;
@@ -83,7 +87,10 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	private static int findLowestHeightForSnow(@NotNull WorldGenLevel level, int x, int z) {
 		int bottomHeight = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
 		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos().set(x, bottomHeight, z);
-		while (level.getBlockState(pos.move(Direction.DOWN)).is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)) bottomHeight -= 1;
+
+		BlockState state = level.getBlockState(pos.move(Direction.DOWN));
+		while ((state.is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH) || state.isAir()) && state.getFluidState().isEmpty()) bottomHeight -= 1;
+
 		return bottomHeight;
 	}
 
@@ -93,13 +100,15 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		WorldGenLevel level = context.level();
 		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 		BlockPos.MutableBlockPos mutableSnowPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableSnowPos2 = new BlockPos.MutableBlockPos();
 		BlockPos.MutableBlockPos mutableIcePos = new BlockPos.MutableBlockPos();
 		boolean returnValue = false;
 		int posX = pos.getX();
 		int posZ = pos.getZ();
+
 		for (int i = 0; i < 16; i++) {
-			int x = posX + i;
 			for (int j = 0; j < 16; j++) {
+				int x = posX + i;
 				int z = posZ + j;
 				int height = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
 				int bottomHeight = findLowestHeightForSnow(level, x, z);
@@ -107,15 +116,16 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 				if (height > bottomHeight) {
 					mutablePos.set(x, height, z);
 					mutableSnowPos.set(x, bottomHeight, z);
-					mutableIcePos.setWithOffset(mutableSnowPos, Direction.DOWN);
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
 					Holder<Biome> lowerBiomeHolder = level.getBiome(mutableSnowPos);
+
+					mutableIcePos.setWithOffset(mutableSnowPos, Direction.DOWN);
 					if (lowerBiomeHolder.value().shouldFreeze(level, mutableIcePos, false)) {
 						level.setBlock(mutableIcePos, Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
 					}
 
 					Optional<Holder<Biome>> optionalBiomeHolder = biomeHolder.equals(lowerBiomeHolder) ? Optional.of(biomeHolder) : Optional.empty();
-					returnValue = returnValue || placeSnowAtPos(level, mutablePos, mutableSnowPos, optionalBiomeHolder);
+					returnValue = returnValue || placeSnowAtPos(level, mutablePos, mutableSnowPos, mutableSnowPos2, optionalBiomeHolder);
 				}
 			}
 		}
