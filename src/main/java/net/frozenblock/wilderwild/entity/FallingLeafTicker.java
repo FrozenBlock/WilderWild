@@ -136,7 +136,7 @@ public class FallingLeafTicker extends SilentTicker {
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.put("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec().encodeStart(NbtOps.INSTANCE, this.leafLitter).getOrThrow());
-		this.yd = compound.getDouble("LeafFallVelocity");
+		this.yd = compound.getDoubleOr("LeafFallVelocity", 0D);
 	}
 
 	@Override

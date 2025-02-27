@@ -69,13 +69,13 @@ public interface WWBottleable {
 	}
 
 	@Deprecated
-	static void loadDefaultDataFromBottleTag(Mob mob, @NotNull CompoundTag compoundTag) {
-		if (compoundTag.contains("NoAI")) mob.setNoAi(compoundTag.getBoolean("NoAI"));
-		if (compoundTag.contains("Silent")) mob.setSilent(compoundTag.getBoolean("Silent"));
-		if (compoundTag.contains("NoGravity")) mob.setNoGravity(compoundTag.getBoolean("NoGravity"));
-		if (compoundTag.contains("Glowing")) mob.setGlowingTag(compoundTag.getBoolean("Glowing"));
-		if (compoundTag.contains("Invulnerable")) mob.setInvulnerable(compoundTag.getBoolean("Invulnerable"));
-		if (compoundTag.contains("Health", 99)) mob.setHealth(compoundTag.getFloat("Health"));
+	static void loadDefaultDataFromBottleTag(@NotNull Mob mob, @NotNull CompoundTag compoundTag) {
+		compoundTag.getBoolean("NoAI").ifPresent(mob::setNoAi);
+		compoundTag.getBoolean("Silent").ifPresent(mob::setSilent);
+		compoundTag.getBoolean("NoGravity").ifPresent(mob::setNoGravity);
+		compoundTag.getBoolean("Glowing").ifPresent(mob::setGlowingTag);
+		compoundTag.getBoolean("Invulnerable").ifPresent(mob::setInvulnerable);
+		compoundTag.getFloat("Health").ifPresent(mob::setHealth);
 	}
 
 	static <T extends LivingEntity & WWBottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {

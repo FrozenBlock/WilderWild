@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
-import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -157,18 +156,14 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	@Override
 	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.loadAdditional(tag, provider);
-		this.lastVibrationFrequency = tag.getInt("last_vibration_frequency");
-		this.ticksToStopTwitching = tag.getInt("ticksToStopTwitching");
-		this.storedXP = tag.getInt("storedXP");
-		this.ringOutTicksLeft = tag.getInt("ringOutTicksLeft");
-		this.activeTicks = tag.getInt("activeTicks");
+		this.lastVibrationFrequency = tag.getIntOr("last_vibration_frequency", 0);
+		this.ticksToStopTwitching = tag.getIntOr("ticksToStopTwitching", 0);
+		this.storedXP = tag.getIntOr("storedXP", 0);
+		this.ringOutTicksLeft = tag.getIntOr("ringOutTicksLeft", 0);
+		this.activeTicks = tag.getIntOr("activeTicks", 0);
 
-		if (tag.contains("listener", 10)) {
-			RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-			VibrationSystem.Data.CODEC.parse(new Dynamic<>(registryOps, tag.getCompound("listener")))
-				.resultOrPartial((string) -> LOGGER.error("Failed to parse vibration listener for Hanging Tendril: '{}'", string))
-				.ifPresent(data -> this.vibrationData = data);
-		}
+		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
+		this.vibrationData = tag.read("listener", VibrationSystem.Data.CODEC, registryOps).orElseGet(VibrationSystem.Data::new);
 	}
 
 	@Override
@@ -181,9 +176,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		if (this.activeTicks > 0) tag.putInt("activeTicks", this.activeTicks);
 
 		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-		VibrationSystem.Data.CODEC.encodeStart(registryOps, this.vibrationData)
-			.resultOrPartial((string) -> LOGGER.error("Failed to encode vibration listener for Hanging Tendril: '{}'", string))
-			.ifPresent(nbt -> tag.put("listener", nbt));
+		tag.store("listener", VibrationSystem.Data.CODEC, registryOps, this.vibrationData);
 	}
 
 	@NotNull

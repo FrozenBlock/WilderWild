@@ -60,9 +60,7 @@ public abstract class EnderManMixin implements WilderEnderman {
 
 	@Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		if (compound.contains("canPlayLoopingSound")) {
-			this.wilderWild$canPlayLoopingSound = compound.getBoolean("canPlayLoopingSound");
-		}
+		this.wilderWild$canPlayLoopingSound = compound.getBooleanOr("canPlayLoopingSound", false);
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("TAIL"))

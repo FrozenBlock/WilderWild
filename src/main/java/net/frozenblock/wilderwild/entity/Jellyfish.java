@@ -797,14 +797,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.JELLYFISH_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
 
-		if (compoundTag.contains("canReproduce")) {
-			this.setCanReproduce(compoundTag.getBoolean("canReproduce"));
-		}
-		this.fullness = compoundTag.getInt("fullness");
-		this.reproductionCooldown = compoundTag.getInt("reproductionCooldown");
-		this.setAge(compoundTag.getInt("age"));
-		this.forcedAge = compoundTag.getInt("forcedAge");
-		this.setBaby(compoundTag.getBoolean("isBaby"));
+		compoundTag.getBoolean("canReproduce").ifPresent(this::setCanReproduce);
+		this.fullness = compoundTag.getIntOr("fullness", 0);
+		this.reproductionCooldown = compoundTag.getIntOr("reproductionCooldown", 0);
+		this.setAge(compoundTag.getIntOr("age", 0));
+		this.forcedAge = compoundTag.getIntOr("forcedAge", 0);
+		this.setBaby(compoundTag.getBooleanOr("isBaby", false));
 	}
 
 	@Override
@@ -827,13 +825,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.JELLYFISH_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
 
-		this.ticksSinceSpawn = compoundTag.getInt("ticksSinceSpawn");
-		if (compoundTag.contains("canReproduce")) this.setCanReproduce(compoundTag.getBoolean("canReproduce"));
-		this.fullness = compoundTag.getInt("fullness");
-		this.reproductionCooldown = compoundTag.getInt("reproductionCooldown");
-		this.setAge(compoundTag.getInt("age"));
-		this.forcedAge = compoundTag.getInt("forcedAge");
-		this.setBaby(compoundTag.getBoolean("isBaby"));
+		this.ticksSinceSpawn = compoundTag.getIntOr("ticksSinceSpawn", 0);
+		compoundTag.getBoolean("canReproduce").ifPresent(this::setCanReproduce);
+		this.fullness = compoundTag.getIntOr("fullness", 0);
+		this.reproductionCooldown = compoundTag.getIntOr("reproductionCooldown", 0);
+		this.setAge(compoundTag.getIntOr("age", 0));
+		this.forcedAge = compoundTag.getIntOr("forcedAge", 0);
+		this.setBaby(compoundTag.getBooleanOr("isBaby", false));
 	}
 
 	public static class JellyfishGroupData implements SpawnGroupData {

@@ -66,7 +66,7 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 		List<Dynamic<?>> list = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		String colorID = WWConstants.string("on");
 		if (!list.isEmpty()) {
-			colorID = ((StringTag) list.getFirst().getValue()).getAsString();
+			colorID = ((StringTag) list.getFirst().getValue()).asString().orElse(colorID);
 		}
 		return dynamic.set("color", dynamic.createString(colorID));
 	}

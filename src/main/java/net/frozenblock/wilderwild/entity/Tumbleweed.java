@@ -452,16 +452,16 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.spawnedFromShears = compound.getBoolean("SpawnedFromShears");
-		this.ticksSinceActive = compound.getInt("TicksSinceActive");
-		this.isItemNatural = compound.getBoolean("IsTumbleweedItemNatural");
-		this.setItemX(compound.getFloat("ItemX"));
-		this.setItemZ(compound.getFloat("ItemZ"));
-		this.pitch = compound.getFloat("TumblePitch");
-		this.roll = compound.getFloat("TumbleRoll");
-		this.isTouchingStickingBlock = compound.getBoolean("isTouchingStickingBlock");
-		this.isTouchingStoppingBlock = compound.getBoolean("IsTouchingStoppingBlock");
-		this.lookRot = compound.getFloat("LookRot");
+		this.spawnedFromShears = compound.getBooleanOr("SpawnedFromShears", false);
+		this.ticksSinceActive = compound.getIntOr("TicksSinceActive", 0);
+		this.isItemNatural = compound.getBooleanOr("IsTumbleweedItemNatural", false);
+		this.setItemX(compound.getFloatOr("ItemX", 0F));
+		this.setItemZ(compound.getFloatOr("ItemZ", 0F));
+		this.pitch = compound.getFloatOr("TumblePitch", 0F);
+		this.roll = compound.getFloatOr("TumbleRoll", 0F);
+		this.isTouchingStickingBlock = compound.getBooleanOr("isTouchingStickingBlock", false);
+		this.isTouchingStoppingBlock = compound.getBooleanOr("IsTouchingStoppingBlock", false);
+		this.lookRot = compound.getFloatOr("LookRot", 0F);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory, this.registryAccess());
 	}

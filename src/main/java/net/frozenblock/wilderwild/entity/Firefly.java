@@ -533,15 +533,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
 
-		Optional.ofNullable(ResourceLocation.tryParse(compoundTag.getString("color")))
-			.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
-			.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
-			.ifPresent(reference -> this.setColor(reference.value()));
+		compoundTag.getString("color").flatMap(string -> Optional.ofNullable(ResourceLocation.tryParse(string))
+				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
+				.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
+		).ifPresent(reference -> this.setColor(reference.value()));
 
-		if (compoundTag.contains("fromBottle")) this.wilderWild$setFromBottle(compoundTag.getBoolean("fromBottle"));
-		if (compoundTag.contains("flickerAge")) this.setFlickerAge(compoundTag.getInt("flickerAge"));
-		if (compoundTag.contains("scale")) this.setAnimScale(compoundTag.getFloat("scale"));
-		if (compoundTag.contains("prevScale")) this.setPrevAnimScale(compoundTag.getFloat("prevScale"));
+		compoundTag.getBoolean("fromBottle").ifPresent(this::wilderWild$setFromBottle);
+		compoundTag.getInt("flickerAge").ifPresent(this::setFlickerAge);
+		compoundTag.getFloat("scale").ifPresent(this::setAnimScale);
+		compoundTag.getFloat("prevScale").ifPresent(this::setPrevAnimScale);
 	}
 
 	@Override

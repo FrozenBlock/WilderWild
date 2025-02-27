@@ -197,7 +197,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$newSwimming = nbt.getBoolean("newSwimming");
+		this.wilderWild$newSwimming = nbt.getBooleanOr("newSwimming", false);
 	}
 
 	@Unique

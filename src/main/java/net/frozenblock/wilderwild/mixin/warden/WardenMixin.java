@@ -257,7 +257,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$deathTicks = nbt.getInt("wilderDeathTicks");
+		this.wilderWild$deathTicks = nbt.getIntOr("wilderDeathTicks", 0);
 	}
 
 	@Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)

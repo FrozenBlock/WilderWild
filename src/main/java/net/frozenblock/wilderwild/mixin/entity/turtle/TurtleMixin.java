@@ -59,7 +59,7 @@ public class TurtleMixin implements TurtleCooldownInterface {
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		this.wilderWild$attackCooldown = compoundTag.getInt("AttackCooldown");
+		this.wilderWild$attackCooldown = compoundTag.getIntOr("AttackCooldown", 0);
 	}
 
 	@Inject(method = "aiStep", at = @At("TAIL"))

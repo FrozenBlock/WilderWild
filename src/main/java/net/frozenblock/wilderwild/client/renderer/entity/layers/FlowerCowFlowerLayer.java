@@ -110,7 +110,6 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 				.renderModel(
 					poseStack.last(),
 					multiBufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
-					blockState,
 					blockStateModel,
 					0F,
 					0F,

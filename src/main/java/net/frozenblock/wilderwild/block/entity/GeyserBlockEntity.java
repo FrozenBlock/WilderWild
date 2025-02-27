@@ -367,9 +367,9 @@ public class GeyserBlockEntity extends BlockEntity {
 	@Override
 	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.loadAdditional(tag, provider);
-		this.hasRunFirstCheck = tag.getBoolean("HasRunFirstCheck");
-		this.ticksUntilNextEvent = tag.getInt("TicksUntilNextEvent");
-		this.eruptionProgress = tag.getFloat("EruptionProgress");
+		this.hasRunFirstCheck = tag.getBooleanOr("HasRunFirstCheck", false);
+		this.ticksUntilNextEvent = tag.getIntOr("TicksUntilNextEvent", 0);
+		this.eruptionProgress = tag.getFloatOr("EruptionProgress", 0F);
 	}
 
 	@Environment(EnvType.CLIENT)

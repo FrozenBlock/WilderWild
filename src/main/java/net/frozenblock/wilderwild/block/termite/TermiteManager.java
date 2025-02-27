@@ -161,24 +161,15 @@ public class TermiteManager {
 	}
 
 	public void saveAdditional(@NotNull CompoundTag tag) {
-		Termite.LIST_CODEC
-			.encodeStart(NbtOps.INSTANCE, this.termites)
-			.resultOrPartial(WWConstants.LOGGER::error)
-			.ifPresent((nbt) -> tag.put("termites", nbt));
+		tag.store("termites", Termite.LIST_CODEC, NbtOps.INSTANCE, this.termites);
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		tag.putInt("highestID", this.highestID);
 	}
 
 	public void load(@NotNull CompoundTag tag) {
-		if (tag.contains("termites", 9)) {
-			this.termites.clear();
-			Termite.LIST_CODEC
-				.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
-				.resultOrPartial(WWConstants.LOGGER::error)
-				.ifPresent(this.termites::addAll);
-		}
-		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
-		this.highestID = tag.getInt("highestID");
+		tag.read("termites", Termite.LIST_CODEC, NbtOps.INSTANCE).ifPresent(this.termites::addAll);
+		this.ticksToNextTermite = tag.getIntOr("ticksToNextTermite", 0);
+		this.highestID = tag.getIntOr("highestID", 0);
 	}
 
 	public static class Termite {

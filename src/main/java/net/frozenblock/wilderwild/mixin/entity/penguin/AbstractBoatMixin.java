@@ -61,7 +61,7 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		if (nbt.contains("WilderWildBoatBoostTicks")) this.wilderWild$boatBoostTicks = nbt.getInt("WilderWildBoatBoostTicks");
+		this.wilderWild$boatBoostTicks = nbt.getIntOr("WilderWildBoatBoostTicks", 0);
 		this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);
 	}
 

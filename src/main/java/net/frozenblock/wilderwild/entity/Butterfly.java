@@ -442,7 +442,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		super.readAdditionalSaveData(compoundTag);
 		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.BUTTERFLY_VARIANT)
 			.ifPresent(butterflyVariantHolder -> this.setVariant(butterflyVariantHolder.value()));
-		if (compoundTag.contains("fromBottle")) this.wilderWild$setFromBottle(compoundTag.getBoolean("fromBottle"));
+		compoundTag.getBoolean("fromBottle").ifPresent(this::wilderWild$setFromBottle);
 	}
 
 	@Override

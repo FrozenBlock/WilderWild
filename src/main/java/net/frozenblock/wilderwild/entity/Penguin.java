@@ -339,9 +339,11 @@ public class Penguin extends Animal {
 	@Override
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
-		if (compoundTag.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compoundTag.getString("EntityPose"))))) {
-			this.setPose(Pose.valueOf(compoundTag.getString("EntityPose")));
-		}
+		compoundTag.getString("EntityPose").ifPresent(entityPose -> {
+			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {
+				this.setPose(Pose.valueOf(entityPose));
+			}
+		});
 	}
 
 	public boolean isLinux() {

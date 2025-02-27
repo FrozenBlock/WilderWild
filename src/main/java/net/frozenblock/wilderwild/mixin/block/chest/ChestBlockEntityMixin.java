@@ -125,7 +125,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	public void load(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		if (tag.contains("wilderwild_can_bubble")) {
-			this.wilderWild$canBubble = tag.getBoolean("wilderwild_can_bubble");
+			this.wilderWild$canBubble = tag.getBooleanOr("wilderwild_can_bubble", true);
 		}
 	}
 

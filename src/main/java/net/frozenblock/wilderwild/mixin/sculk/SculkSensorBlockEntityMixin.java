@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import java.util.Objects;
+import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
@@ -192,14 +192,12 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	private void wilderWild$load(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
-		this.wilderWild$setAge(nbt.getInt("age"));
-		this.wilderWild$setAnimTicks(nbt.getInt("animTicks"));
-		this.wilderWild$setPrevAnimTicks(nbt.getInt("prevAnimTicks"));
-		this.wilderWild$setActive(nbt.getBoolean("active"));
-		this.wilderWild$setPrevActive(nbt.getBoolean("prevActive"));
-
-		Direction facing = Direction.byName(nbt.getString("facing"));
-		this.wilderWild$setFacing(Objects.requireNonNullElse(facing, Direction.SOUTH));
+		nbt.getInt("age").ifPresent(this::wilderWild$setAge);
+		nbt.getInt("animTicks").ifPresent(this::wilderWild$setAnimTicks);
+		nbt.getInt("prevAnimTicks").ifPresent(this::wilderWild$setPrevAnimTicks);
+		nbt.getBoolean("active").ifPresent(this::wilderWild$setActive);
+		nbt.getBoolean("prevActive").ifPresent(this::wilderWild$setPrevActive);
+		nbt.getString("facing").flatMap(facing -> Optional.ofNullable(Direction.byName(facing))).ifPresent(this::wilderWild$setFacing);
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))

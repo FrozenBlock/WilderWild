@@ -1046,18 +1046,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.setBeakCooldown(compound.getInt("BeakCooldown"));
-		this.setTargetBeakAnimProgress(compound.getFloat("TargetBeakAnimProgress"));
-		this.setTargetStraightProgress(compound.getFloat("TargetStraightProgress"));
-		this.setAttacking(compound.getBoolean("IsAttacking"));
-		this.setStuckTicks(compound.getInt("StuckTicks"));
-		this.beakAnimProgress = compound.getFloat("BeakAnimProgress");
-		if (compound.contains("LastAttackCommander")) {
-			compound.read("LastAttackCommander", UUIDUtil.CODEC).ifPresent(uuid -> {
-				this.lastAttackCommander = uuid;
-			});
-		}
-		this.attackHasCommander = compound.getBoolean("AttackHasCommander");
-		this.commanderWasPlayer = compound.getBoolean("CommanderWasPlayer");
+		this.setBeakCooldown(compound.getIntOr("BeakCooldown", 0));
+		this.setTargetBeakAnimProgress(compound.getFloatOr("TargetBeakAnimProgress", 0F));
+		this.setTargetStraightProgress(compound.getFloatOr("TargetStraightProgress", 0F));
+		this.setAttacking(compound.getBooleanOr("IsAttacking", false));
+		this.setStuckTicks(compound.getIntOr("StuckTicks", 0));
+		this.beakAnimProgress = compound.getFloatOr("BeakAnimProgress", 0F);
+		compound.read("LastAttackCommander", UUIDUtil.CODEC).ifPresent(uuid -> this.lastAttackCommander = uuid);
+		this.attackHasCommander = compound.getBooleanOr("AttackHasCommander", false);
+		this.commanderWasPlayer = compound.getBooleanOr("CommanderWasPlayer", false);
 	}
 }

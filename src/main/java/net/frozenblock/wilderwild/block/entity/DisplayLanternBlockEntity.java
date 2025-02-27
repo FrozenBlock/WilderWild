@@ -138,15 +138,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.loadAdditional(tag, provider);
 		this.fireflies.clear();
-		if (tag.contains("fireflies")) {
-			Occupant.LIST_CODEC
-				.parse(NbtOps.INSTANCE, tag.get("fireflies"))
-				.resultOrPartial(WWConstants.LOGGER::error)
-				.ifPresent(this.fireflies::addAll);
-		}
+		tag.read("fireflies", Occupant.LIST_CODEC, NbtOps.INSTANCE).ifPresent(this.fireflies::addAll);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(tag, this.inventory, provider);
-		this.age = tag.getInt("age");
+		this.age = tag.getIntOr("age", 0);
 	}
 
 	@Override

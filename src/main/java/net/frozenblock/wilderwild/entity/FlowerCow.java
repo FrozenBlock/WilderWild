@@ -244,7 +244,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		super.readAdditionalSaveData(compoundTag);
 		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.MOOBLOOM_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-		if (compoundTag.contains("FlowersLeft")) this.setFlowersLeft(compoundTag.getInt("FlowersLeft"));
+		compoundTag.getInt("FlowersLeft").ifPresent(this::setFlowersLeft);
 	}
 
 	public ResourceLocation getVariantLocation() {
