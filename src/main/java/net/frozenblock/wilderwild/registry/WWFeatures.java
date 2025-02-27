@@ -49,7 +49,7 @@ import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlace
 import net.frozenblock.wilderwild.worldgen.impl.rootplacers.WillowRootPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
@@ -73,8 +73,8 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class WWFeatures {
-	public static final TrunkPlacerType<StraightWithBranchesTrunkPlacer> STRAIGHT_WITH_LOGS_TRUNK_PLACER = registerTrunk("straight_with_logs_trunk_placer", StraightWithBranchesTrunkPlacer.CODEC);
-	public static final TrunkPlacerType<FallenWithLogsTrunkPlacer> FALLEN_WITH_LOGS_TRUNK_PLACER = registerTrunk("fallen_with_logs_trunk_placer", FallenWithLogsTrunkPlacer.CODEC);
+	public static final TrunkPlacerType<StraightWithBranchesTrunkPlacer> STRAIGHT_WITH_BRANCHES_TRUNK_PLACER = registerTrunk("straight_with_branches_trunk_placer", StraightWithBranchesTrunkPlacer.CODEC);
+	public static final TrunkPlacerType<FallenWithBranchesTrunkPlacer> FALLEN_WITH_BRANCHES_TRUNK_PLACER = registerTrunk("fallen_with_branches_trunk_placer", FallenWithBranchesTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<FallenLargeTrunkPlacer> FALLEN_LARGE_TRUNK_PLACER = registerTrunk("fallen_large_trunk_placer", FallenLargeTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);

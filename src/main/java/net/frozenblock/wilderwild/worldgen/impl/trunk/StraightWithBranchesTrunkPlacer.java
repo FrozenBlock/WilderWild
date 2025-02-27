@@ -57,7 +57,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.STRAIGHT_WITH_LOGS_TRUNK_PLACER;
+		return WWFeatures.STRAIGHT_WITH_BRANCHES_TRUNK_PLACER;
 	}
 
 	@Override

@@ -45,7 +45,7 @@ import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PollenTreeDecorat
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.ShelfFungiTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenLargeTrunkPlacer;
-import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithLogsTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
@@ -2124,7 +2124,7 @@ public final class WWTreeConfigured {
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new FallenWithLogsTrunkPlacer(
+			new FallenWithBranchesTrunkPlacer(
 				baseHeight,
 				firstRHeight,
 				secondRHeight,
@@ -2157,7 +2157,7 @@ public final class WWTreeConfigured {
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new FallenWithLogsTrunkPlacer(
+			new FallenWithBranchesTrunkPlacer(
 				baseHeight,
 				firstRHeight,
 				secondRHeight,

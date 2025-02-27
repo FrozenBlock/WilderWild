@@ -46,7 +46,7 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "wilderwild:straight_with_logs_trunk_placer",
+      "type": "wilderwild:straight_with_branches_trunk_placer",
       "base_height": 7,
       "height_rand_a": 2,
       "height_rand_b": 1,

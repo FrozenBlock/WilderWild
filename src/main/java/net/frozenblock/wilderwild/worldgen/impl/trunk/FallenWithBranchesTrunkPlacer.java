@@ -40,14 +40,14 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
-public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<FallenWithLogsTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
+	public static final MapCodec<FallenWithBranchesTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
 			.and(Codec.floatRange(0F, 1F).fieldOf("success_in_water_chance").forGetter(trunkPlacer -> trunkPlacer.successInWaterChance))
 			.and(BlockStateProvider.CODEC.fieldOf("hollowed_trunk_provider").forGetter(trunkPlacer -> trunkPlacer.hollowedTrunkProvider))
 			.and(Codec.floatRange(0F, 1F).fieldOf("hollowed_log_chance").forGetter(trunkPlacer -> trunkPlacer.hollowedLogChance))
 			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
-			.apply(instance, FallenWithLogsTrunkPlacer::new));
+			.apply(instance, FallenWithBranchesTrunkPlacer::new));
 
 	public final float successInWaterChance;
 	public final BlockStateProvider hollowedTrunkProvider;
@@ -55,7 +55,7 @@ public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
 	public final TrunkBranchPlacement trunkBranchPlacement;
 
 
-	public FallenWithLogsTrunkPlacer(
+	public FallenWithBranchesTrunkPlacer(
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
@@ -74,7 +74,7 @@ public class FallenWithLogsTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.FALLEN_WITH_LOGS_TRUNK_PLACER;
+		return WWFeatures.FALLEN_WITH_BRANCHES_TRUNK_PLACER;
 	}
 
 	@Override
