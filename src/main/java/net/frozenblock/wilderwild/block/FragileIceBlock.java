@@ -27,6 +27,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -42,7 +44,8 @@ import org.jetbrains.annotations.NotNull;
 public class FragileIceBlock extends HalfTransparentBlock {
 	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-	public static final int SHEET_SHATTER_DELAY = 1;
+	public static final IntProvider SHEET_SHATTER_DELAY = UniformInt.of(1, 5);
+	public static final float NEIGHBOR_CHANGE_CHANCE = 0.55F;
 	public static final int DELAY_BETWEEN_CRACKS = 20;
 
 	@Override
@@ -92,8 +95,8 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, @NotNull Block block, BlockPos blockPos2, boolean bl) {
-		if (block.defaultBlockState().is(this) && level.getBlockState(blockPos2).isAir()) {
-			this.scheduleShatter(level, blockPos, blockState);
+		if (block.defaultBlockState().is(this) && level.getBlockState(blockPos2).isAir() && level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
+			this.scheduleShatter(level, blockPos, blockState, level.getRandom());
 		}
 
 		super.neighborChanged(blockState, level, blockPos, block, blockPos2, bl);
@@ -119,13 +122,13 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float fallDistance) {
 		super.fallOn(level, blockState, blockPos, entity, fallDistance);
 		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
-			if (fallDistance >= 4F) this.scheduleShatter(level, blockPos, blockState);
+			if (fallDistance >= 4F) level.destroyBlock(blockPos, false);
 		}
 	}
 
-	public void scheduleShatter(@NotNull Level level, BlockPos blockPos, @NotNull BlockState blockState) {
+	public void scheduleShatter(@NotNull Level level, BlockPos blockPos, @NotNull BlockState blockState, RandomSource randomSource) {
 		level.setBlock(blockPos, blockState.setValue(AGE, 2), UPDATE_CLIENTS);
-		level.scheduleTick(blockPos, this, SHEET_SHATTER_DELAY);
+		level.scheduleTick(blockPos, this, SHEET_SHATTER_DELAY.sample(randomSource));
 	}
 
 	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
