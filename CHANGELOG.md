@@ -246,9 +246,12 @@ hi
   - Grows in length if below a Fragile Ice block, or an ice block with water above.
   - Occasionally spreads to other ice blocks if able to grow in length.
   - Will occasionally fall if placed under an ice block.
-    - Certain vibrations, such as explosions and falling, will cause icicles to fall.
+    - Game Events in the `wilderwild:makes_icicle_fall` game event tag will cause nearby Icicles to fall.
 - Added Fragile Ice.
   - Will crack twice when stood on before shattering.
   - Shatters when an entity falls onto the block.
   - When shattered, all adjacent Fragile Ice blocks will shatter.
+  - Ice can be smelted into Fragile Ice.
+  - Mobs in the `wilderwild:fragile_ice_unwalkable_mobs` entity tag will crack, then shatter Fragile Ice when standing on it.
+  - Mobs not in the `wilderwild:fragile_ice_doesnt_crack_on_fall` entity tag will cause Fragile Ice to shatter when falling onto it.
 - Revamped the Frozen Caves biome, removing snow patches and utilizing Fragile Ice and Icicles.

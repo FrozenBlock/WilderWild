@@ -165,6 +165,9 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
+	// ICE
+	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
+
 	private WWMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
 	}
@@ -1171,6 +1174,28 @@ public final class WWMiscConfigured {
 				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
 				)
+			)
+		);
+
+		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
+			new FadingDiskFeatureConfig(
+				true,
+				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
+				UniformInt.of(2, 6),
+				0.95F,
+				0.925F,
+				0.65F,
+				0.8F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.SURFACE_FRAGILE_ICE_REPLACEABLE
+				),
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WWBlockTags.SURFACE_FRAGILE_ICE_REPLACEABLE
+				),
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
 			)
 		);
 	}

@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
@@ -277,8 +278,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	public @NotNull DamageSource getFallDamageSource(@NotNull Entity entity) {
-		// TODO: Icicle damage source
-		return entity.damageSources().fallingStalactite(entity);
+		return entity.damageSources().source(WWDamageTypes.FALLING_ICICLE, entity);
 	}
 
 	private static void spawnFallingIcicle(BlockState blockState, ServerLevel serverLevel, @NotNull BlockPos blockPos) {

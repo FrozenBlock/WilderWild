@@ -36,6 +36,7 @@ public final class WWEntityTags {
 	public static final TagKey<EntityType<?>> TUMBLEWEED_PASSES_THROUGH = bind("tumbleweed_passes_through");
 	public static final TagKey<EntityType<?>> GEYSER_PUSHES_FURTHER = bind("geyser_pushes_further");
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_UNWALKABLE_MOBS = bind("fragile_ice_unwalkable_mobs");
+	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_ON_FALL = bind("fragile_ice_doesnt_crack_on_fall");
 
 	private WWEntityTags() {
 		throw new UnsupportedOperationException("WilderEntityTags contains only static declarations.");

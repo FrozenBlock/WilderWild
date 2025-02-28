@@ -151,6 +151,12 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy(getHasName(WWBlocks.SPONGE_BUD), has(WWBlocks.SPONGE_BUD))
 			.save(exporter, WWConstants.id(getConversionRecipeName(Items.SPONGE, WWBlocks.SPONGE_BUD)));
 
+		// ICE
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.ICE), RecipeCategory.DECORATIONS, WWBlocks.FRAGILE_ICE.asItem(), 0.05F, 100)
+			.unlockedBy("has_ice", has(Blocks.ICE))
+			.save(exporter);
+
 		// MUD BRICKS
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, WWBlocks.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)

@@ -134,6 +134,23 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.MAGMA_CUBE)
 			.add(EntityType.GIANT);
 
+		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
+			.add(EntityType.PHANTOM)
+			.add(EntityType.BREEZE)
+			.add(EntityType.CHICKEN)
+			.add(EntityType.CAT)
+			.add(EntityType.OCELOT)
+			.add(EntityType.RABBIT)
+			.add(EntityType.ITEM)
+			.add(EntityType.PARROT)
+			.add(EntityType.BEE)
+			.add(EntityType.BAT)
+			.add(EntityType.ALLAY)
+			.add(EntityType.EXPERIENCE_ORB)
+			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.BUTTERFLY)
+			.add(WWEntityTypes.TUMBLEWEED);
+
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(WWEntityTypes.PENGUIN);
 

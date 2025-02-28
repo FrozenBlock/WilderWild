@@ -289,6 +289,8 @@
   "subtitles.particle.floating_sculk_bubble.pop": "Floating Sculk Bubble pops",
 
   "block.wilderwild.icicle": "Icicle",
+  "death.attack.fallingIcicle": "%1$s was picked by a falling icicle",
+  "death.attack.fallingIcicle.player": "%1$s was picked by a falling icicle while fighting %2$s",
   "block.wilderwild.fragile_ice": "Fragile Ice",
 
   "block.wilderwild.lantanas": "Lantanas",
