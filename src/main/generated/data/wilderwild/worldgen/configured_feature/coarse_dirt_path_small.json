@@ -14,21 +14,25 @@
             "type": "minecraft:all_of",
             "predicates": [
               {
-                "type": "frozenlib:search",
+                "type": "frozenlib:search_in_area",
                 "block_predicate": {
                   "type": "minecraft:matching_blocks",
                   "blocks": "minecraft:air"
                 },
-                "search_type": "near_within_two_blocks"
+                "search_area": 2
               },
               {
-                "type": "frozenlib:search",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": "minecraft:water"
-                },
-                "invert_search_condition": true,
-                "search_type": "below_within_three_blocks"
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:water"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 3
+                }
               }
             ]
           },

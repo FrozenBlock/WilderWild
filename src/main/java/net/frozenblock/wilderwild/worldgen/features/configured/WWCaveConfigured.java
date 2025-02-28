@@ -23,7 +23,9 @@ import java.util.List;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
-import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchingBlockPredicate;
+import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInAreaBlockPredicate;
+import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.worldgen.feature.api.block_predicate.TouchingBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ColumnFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.FadingDiskFeatureConfig;
@@ -250,12 +252,12 @@ public final class WWCaveConfigured {
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA))
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
 							.within(0.5125D, 0.5875D)
-							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrWaterWithinTwoBlocks().build())
+							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA))
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
 							.within(-0.5875D, -0.5125D)
-							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrWaterWithinTwoBlocks().build())
+							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build()
 					).build(),
 				12
@@ -485,15 +487,16 @@ public final class WWCaveConfigured {
 							.within(-0.275D, -0.15D)
 							.searchingBlockPredicate(
 								BlockPredicate.allOf(
-									SearchingBlockPredicate.Builder.exposed().build(),
-									SearchingBlockPredicate.Builder.belowWaterWithinThreeBlocks().invertSearchCondition().build()
+									TouchingBlockPredicate.exposed(),
+									BlockPredicate.not(TouchingBlockPredicate.exposedToWater()),
+									BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3))
 								)
 							).scheduleTickOnPlacement()
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.31D, -0.115D)
-							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrFluidWithinThreeBlocks().build())
+							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(3))
 							.build()
 
 					).build(),
@@ -876,8 +879,8 @@ public final class WWCaveConfigured {
 		);
 
 		BlockPredicate iceSearchPredicate = BlockPredicate.allOf(
-			SearchingBlockPredicate.Builder.hasAirOrWaterWithinTwoBlocks().build(),
-			SearchingBlockPredicate.Builder.belowLavaWithinTwoBlocks().invertSearchCondition().build()
+			SearchInAreaBlockPredicate.hasAirOrWaterWithin(2),
+			BlockPredicate.not(SearchInDirectionBlockPredicate.hasLavaAbove(2))
 		);
 
 		ICE_PATHS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
