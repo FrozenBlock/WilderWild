@@ -123,7 +123,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 					}
 
 					Optional<Holder<Biome>> optionalBiomeHolder = biomeHolder.equals(lowerBiomeHolder) ? Optional.of(biomeHolder) : Optional.empty();
-					returnValue = returnValue || placeSnowAtPos(level, mutablePos, mutableSnowPos, mutableSnowPos2, optionalBiomeHolder);
+					returnValue = placeSnowAtPos(level, mutablePos, mutableSnowPos, mutableSnowPos2, optionalBiomeHolder) || returnValue;
 				}
 			}
 		}
