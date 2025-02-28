@@ -4,7 +4,7 @@
     "noise_band_placement": {
       "block_placements": [
         {
-          "minimum_noise_threshold": -0.4,
+          "minimum_noise_threshold": 0.4,
           "placement_chance": 0.8,
           "replacement_block_predicate": {
             "type": "minecraft:matching_block_tag",

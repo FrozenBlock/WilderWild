@@ -915,7 +915,7 @@ public final class WWMiscConfigured {
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRASS_BLOCK))
-							.within(-0.4D, 1D)
+							.within(0.4D, 1D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OASIS_PATH_REPLACEABLE))
 							.searchingBlockPredicate(
 								BlockPredicate.allOf(
