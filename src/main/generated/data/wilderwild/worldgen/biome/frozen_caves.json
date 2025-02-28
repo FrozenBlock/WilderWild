@@ -32,8 +32,7 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode",
-      "wilderwild:ice_paths"
+      "minecraft:amethyst_geode"
     ],
     [
       "minecraft:fossil_upper",
@@ -76,6 +75,7 @@
       "wilderwild:ore_diorite_extra"
     ],
     [
+      "wilderwild:ice_paths",
       "wilderwild:fragile_ice_disk",
       "wilderwild:packed_ice_disk",
       "wilderwild:fragile_ice_pile",
