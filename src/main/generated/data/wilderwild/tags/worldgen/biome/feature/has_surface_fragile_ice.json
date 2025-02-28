@@ -1,0 +1,23 @@
+{
+  "values": [
+    "minecraft:snowy_plains",
+    "minecraft:ice_spikes",
+    "minecraft:snowy_taiga",
+    "minecraft:snowy_beach",
+    "minecraft:frozen_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:frozen_river",
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
+    }
+  ]
+}

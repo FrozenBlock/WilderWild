@@ -116,7 +116,7 @@ public final class WWWorldGen {
 		BiomeModifications.create(WWConstants.id("add_new_snow"))
 			.add(ModificationPhase.POST_PROCESSING,
 				BiomeSelectors.all(),
-				context -> {
+				(biomeSelectionContext, context) -> {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					if (generationSettings.removeFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER)) {
 						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
@@ -125,6 +125,12 @@ public final class WWWorldGen {
 						}
 						if (WWWorldgenConfig.get().surfaceTransitions) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
+						}
+					}
+
+					if (WWWorldgenConfig.get().surfaceTransitions) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
 						}
 					}
 				});

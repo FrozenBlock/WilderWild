@@ -1183,10 +1183,10 @@ public final class WWMiscConfigured {
 				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
 				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
 				UniformInt.of(2, 6),
-				0.95F,
+				0.85F,
 				0.925F,
 				0.65F,
-				0.8F,
+				0.7F,
 				new HolderSet.Named<>(
 					BuiltInRegistries.BLOCK.holderOwner(),
 					WWBlockTags.SURFACE_FRAGILE_ICE_REPLACEABLE

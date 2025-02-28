@@ -358,7 +358,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.CAVE_ICE_REPLACEABLE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SURFACE_FRAGILE_ICE_REPLACEABLE)
-			.addOptionalTag(BlockTags.ICE);
+			.add(Blocks.ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.DIORITE_ICE_REPLACEABLE)
 			.add(Blocks.GRAVEL)

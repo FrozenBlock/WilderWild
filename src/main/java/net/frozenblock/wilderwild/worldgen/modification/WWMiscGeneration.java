@@ -51,7 +51,7 @@ public final class WWMiscGeneration {
 					}
 				});
 
-		BiomeModifications.create(WWConstants.id("termite_transitions"))
+		BiomeModifications.create(WWConstants.id("termite_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -246,7 +246,7 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ICICLES)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_ICICLES)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE_WG.getKey());
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE.getKey());
 						}

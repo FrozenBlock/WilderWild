@@ -1219,8 +1219,20 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_FLOWERS)
 			.add(Biomes.CHERRY_GROVE);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ICICLES)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SURFACE_ICICLES)
 			.add(Biomes.ICE_SPIKES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)
+			.add(Biomes.SNOWY_PLAINS)
+			.add(Biomes.ICE_SPIKES)
+			.add(Biomes.SNOWY_TAIGA)
+			.add(Biomes.SNOWY_BEACH)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN)
+			.add(Biomes.FROZEN_RIVER)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)
 			.add(Biomes.DESERT)

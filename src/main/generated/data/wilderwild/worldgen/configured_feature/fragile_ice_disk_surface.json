@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:fading_disk_feature",
   "config": {
-    "fade_start_distance_percent": 0.8,
+    "fade_start_distance_percent": 0.7,
     "heightmap": "MOTION_BLOCKING_NO_LEAVES",
     "inner_chance": 0.925,
     "inner_percent": 0.65,
@@ -25,7 +25,7 @@
         }
       }
     },
-    "placement_chance": 0.95,
+    "placement_chance": 0.85,
     "radius": {
       "type": "minecraft:uniform",
       "max_inclusive": 6,

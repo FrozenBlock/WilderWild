@@ -6,12 +6,12 @@
       "count": {
         "type": "minecraft:uniform",
         "max_inclusive": 30,
-        "min_inclusive": 18
+        "min_inclusive": 20
       }
     },
     {
       "type": "minecraft:rarity_filter",
-      "chance": 3
+      "chance": 2
     },
     {
       "type": "minecraft:in_square"

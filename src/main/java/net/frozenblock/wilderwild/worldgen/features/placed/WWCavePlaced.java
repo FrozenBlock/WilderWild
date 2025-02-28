@@ -513,8 +513,8 @@ public final class WWCavePlaced {
 		);
 
 		ICICLES_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.ICICLE.getHolder(),
-			CountPlacement.of(UniformInt.of(18, 30)),
-			RarityFilter.onAverageOnceEvery(3),
+			CountPlacement.of(UniformInt.of(20, 30)),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
@@ -524,7 +524,7 @@ public final class WWCavePlaced {
 		);
 
 		ICICLES_SURFACE.makeAndSetHolder(WWCaveConfigured.ICICLE.getHolder(),
-			CountPlacement.of(UniformInt.of(18, 30)),
+			CountPlacement.of(UniformInt.of(22, 30)),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,

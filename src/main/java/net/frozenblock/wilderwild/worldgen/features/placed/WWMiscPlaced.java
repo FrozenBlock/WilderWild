@@ -146,6 +146,7 @@ public final class WWMiscPlaced {
 	// SNOW
 	public static final FrozenLibPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
 	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = WWPlacementUtils.register("snow_and_freeze_transition");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = WWPlacementUtils.register("fragile_ice_disk_surface");
 
 	private WWMiscPlaced() {
 		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
@@ -624,6 +625,13 @@ public final class WWMiscPlaced {
 		SNOW_AND_ICE_TRANSITION.makeAndSetHolder(WWMiscConfigured.SNOW_AND_ICE_TRANSITION_DISK.getHolder(),
 			CountPlacement.of(2),
 			InSquarePlacement.spread(),
+			BiomeFilter.biome()
+		);
+
+		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(WWMiscConfigured.FRAGILE_ICE_DISK_SURFACE.getHolder(),
+			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
 		);
 	}

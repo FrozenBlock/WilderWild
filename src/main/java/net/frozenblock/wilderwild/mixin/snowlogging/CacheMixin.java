@@ -32,13 +32,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(BlockBehaviour.BlockStateBase.Cache.class)
 public class CacheMixin {
 
-	@WrapOperation(method = "<init>",
+	@WrapOperation(
+		method = "<init>",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;propagatesSkylightDown(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
-	public boolean wilderWild$init(Block instance, BlockState blockState, BlockGetter blockGetter, BlockPos pos, Operation<Boolean> original) {
+	public boolean wilderWild$propagatesSkylightDown(Block instance, BlockState blockState, BlockGetter blockGetter, BlockPos pos, Operation<Boolean> original) {
 		return original.call(instance, blockState, blockGetter, pos)
 			&& !(SnowloggingUtils.isSnowlogged(blockState)
 			&& SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);

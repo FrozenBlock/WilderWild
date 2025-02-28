@@ -48,6 +48,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
@@ -82,7 +83,10 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			return SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
+			VoxelShape snowShape = SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
+			return !original.isEmpty() && (!(context instanceof EntityCollisionContext entityCollisionContext) || entityCollisionContext.getEntity() == null)
+				? Shapes.or(original, snowShape)
+				: snowShape;
 		}
 		return original;
 	}
