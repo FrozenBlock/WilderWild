@@ -52,8 +52,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
 	) {
 		boolean returnValue = false;
-		int lowestY = bottomPos.getY() - 1;
-		while (topPos.getY() > lowestY) {
+		while (topPos.getY() >= bottomPos.getY()) {
 			if (placeSnowLayer(level, topPos, mutable, optionalBiomeHolder)) returnValue = true;
 			topPos.move(Direction.DOWN);
 		}
@@ -66,16 +65,15 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		@NotNull BlockPos.MutableBlockPos mutablePos2,
 		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
 	) {
-		BlockPos pos = mutablePos.immutable();
-		if (optionalBiomeHolder.orElse(level.getBiome(pos)).value().shouldSnow(level, pos)) {
-			BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(pos), pos);
+		if (optionalBiomeHolder.orElse(level.getBiome(mutablePos)).value().shouldSnow(level, mutablePos)) {
+			BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(mutablePos), mutablePos);
 			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
-				level.setBlock(pos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
+				level.setBlock(mutablePos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
 			} else {
-				level.setBlock(pos, Blocks.SNOW.defaultBlockState(), Block.UPDATE_CLIENTS);
+				level.setBlock(mutablePos, Blocks.SNOW.defaultBlockState(), Block.UPDATE_CLIENTS);
 			}
 
-			BlockState belowState = level.getBlockState(mutablePos2.setWithOffset(pos, Direction.DOWN));
+			BlockState belowState = level.getBlockState(mutablePos2.setWithOffset(mutablePos, Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(mutablePos2, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
 			}
@@ -88,8 +86,8 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		int bottomHeight = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
 		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos().set(x, bottomHeight, z);
 
-		BlockState state = level.getBlockState(pos.move(Direction.DOWN));
-		while ((state.is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH) || state.isAir()) && state.getFluidState().isEmpty()) bottomHeight -= 1;
+		BlockState state;
+		while (((state = level.getBlockState(pos.move(Direction.DOWN))).is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH) || state.isAir()) && state.getFluidState().isEmpty()) bottomHeight -= 1;
 
 		return bottomHeight;
 	}

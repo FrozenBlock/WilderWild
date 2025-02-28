@@ -919,18 +919,12 @@ public final class WWMiscConfigured {
 								BlockPredicate.allOf(
 									SearchingBlockPredicate.Builder.exposed().build(),
 									new SearchingBlockPredicate.Builder(SearchingBlockPredicate.SearchType.BELOW)
-										.blockPredicate(BlockPredicate.matchesFluids(Fluids.WATER, Fluids.FLOWING_WATER, Fluids.LAVA, Fluids.FLOWING_WATER))
+										.blockPredicate(BlockPredicate.matchesFluids(Fluids.WATER, Fluids.FLOWING_WATER, Fluids.LAVA, Fluids.FLOWING_LAVA))
 										.invertSearchCondition()
 										.build()
 								)
 							)
 							.placementChance(0.8F)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.DIRT))
-							.within(-0.4D, 1D)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OASIS_PATH_REPLACEABLE))
-							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrFluidWithinThreeBlocks().build())
-							.placementChance(1F)
 							.build()
 					).build(),
 				11
