@@ -61,8 +61,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature MESOGLEA_CAVES_STONE_POOL = WWPlacementUtils.register("mesoglea_caves_stone_pool");
 	public static final FrozenLibPlacedFeature MESOGLEA_PILLAR = WWPlacementUtils.register("blue_mesoglea_pillar");
 	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_PILLAR = WWPlacementUtils.register("purple_mesoglea_pillar");
-	public static final FrozenLibPlacedFeature BLUE_MESOGLEA_PATH = WWPlacementUtils.register("blue_mesoglea_path");
-	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_PATH = WWPlacementUtils.register("purple_mesoglea_path");
+	public static final FrozenLibPlacedFeature MESOGLEA_PATHS = WWPlacementUtils.register("mesoglea_paths");
 	public static final FrozenLibPlacedFeature BLUE_MESOGLEA = register("blue_mesoglea");
 	public static final FrozenLibPlacedFeature UPSIDE_DOWN_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
 	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA = register("purple_mesoglea");
@@ -160,15 +159,8 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		BLUE_MESOGLEA_PATH.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA_PATH.getHolder(),
-			CountPlacement.of(24),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
-			BiomeFilter.biome()
-		);
-
-		PURPLE_MESOGLEA_PATH.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA_PATH.getHolder(),
-			CountPlacement.of(24),
+		MESOGLEA_PATHS.makeAndSetHolder(WWCaveConfigured.MESOGLEA_PATHS.getHolder(),
+			CountPlacement.of(30),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			BiomeFilter.biome()

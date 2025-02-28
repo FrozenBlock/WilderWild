@@ -1,651 +1,755 @@
 {
-  "type": "frozenlib:combo_feature",
+  "type": "frozenlib:noise_path_feature",
   "config": {
-    "features": [
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": -0.7,
-            "min_threshold": -1.0,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_ice_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:noise_provider",
-              "noise": {
-                "amplitudes": [
-                  1.0
-                ],
-                "firstOctave": 0
+    "noise_band_placement": {
+      "block_placements": [
+        {
+          "maximum_noise_threshold": -0.7,
+          "minimum_noise_threshold": -1.0,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
               },
-              "scale": 0.020833334,
-              "seed": 153,
-              "states": [
-                {
-                  "Name": "minecraft:packed_ice"
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
                 },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                }
-              ]
-            },
-            "use_y": true
-          }
-        },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": -0.6,
-            "min_threshold": -0.7,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_fragile_ice_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "wilderwild:fragile_ice",
-                "Properties": {
-                  "age": "0"
-                }
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
               }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
             },
-            "use_y": true
-          }
-        },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": 0.2,
-            "min_threshold": -0.6,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_ice_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:noise_provider",
-              "noise": {
-                "amplitudes": [
-                  1.0
-                ],
-                "firstOctave": 0
+            "scale": 0.020833334,
+            "seed": 153,
+            "states": [
+              {
+                "Name": "minecraft:packed_ice"
               },
-              "scale": 0.020833334,
-              "seed": 153,
-              "states": [
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                }
-              ]
-            },
-            "use_y": true
-          }
-        },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": 0.25,
-            "min_threshold": 0.2,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_ice_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "wilderwild:fragile_ice",
-                "Properties": {
-                  "age": "0"
-                }
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
               }
-            },
-            "use_y": true
+            ]
           }
         },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": 0.6,
-            "min_threshold": 0.25,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_ice_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:noise_provider",
-              "noise": {
-                "amplitudes": [
-                  1.0
-                ],
-                "firstOctave": 0
+        {
+          "maximum_noise_threshold": -0.6,
+          "minimum_noise_threshold": -0.7,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_fragile_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
               },
-              "scale": 0.020833334,
-              "seed": 153,
-              "states": [
-                {
-                  "Name": "minecraft:packed_ice"
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
                 },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                }
-              ]
-            },
-            "use_y": true
-          }
-        },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": 0.7,
-            "min_threshold": 0.6,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_fragile_ice_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "wilderwild:fragile_ice",
-                "Properties": {
-                  "age": "0"
-                }
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
               }
-            },
-            "use_y": true
-          }
-        },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:requires_air_or_water_in_area_noise_path_feature",
-          "config": {
-            "air_or_water_search_distance": 2,
-            "is_3d": true,
-            "max_threshold": 1.0,
-            "min_threshold": 0.7,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "placement_chance": 1.0,
-            "radius": 6,
-            "replaceable_blocks": "#wilderwild:feature/cave_ice_replaceable",
-            "scale_y": true,
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
             "state": {
-              "type": "minecraft:noise_provider",
-              "noise": {
-                "amplitudes": [
-                  1.0
-                ],
-                "firstOctave": 0
-              },
-              "scale": 0.020833334,
-              "seed": 153,
-              "states": [
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:blue_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                },
-                {
-                  "Name": "minecraft:packed_ice"
-                }
-              ]
-            },
-            "use_y": true
+              "Name": "wilderwild:fragile_ice",
+              "Properties": {
+                "age": "0"
+              }
+            }
           }
         },
-        "placement": []
-      }
-    ]
+        {
+          "maximum_noise_threshold": 0.2,
+          "minimum_noise_threshold": -0.6,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
+              },
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
+                },
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
+              }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.020833334,
+            "seed": 153,
+            "states": [
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              }
+            ]
+          }
+        },
+        {
+          "maximum_noise_threshold": 0.25,
+          "minimum_noise_threshold": 0.2,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_fragile_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
+              },
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
+                },
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
+              }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "wilderwild:fragile_ice",
+              "Properties": {
+                "age": "0"
+              }
+            }
+          }
+        },
+        {
+          "maximum_noise_threshold": 0.6,
+          "minimum_noise_threshold": 0.25,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
+              },
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
+                },
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
+              }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.020833334,
+            "seed": 153,
+            "states": [
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              }
+            ]
+          }
+        },
+        {
+          "maximum_noise_threshold": 0.7,
+          "minimum_noise_threshold": 0.6,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_fragile_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
+              },
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
+                },
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
+              }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "wilderwild:fragile_ice",
+              "Properties": {
+                "age": "0"
+              }
+            }
+          }
+        },
+        {
+          "minimum_noise_threshold": 0.7,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/cave_ice_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ]
+                },
+                "search_type": "near_within_two_blocks"
+              },
+              {
+                "type": "frozenlib:search",
+                "block_predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:lava"
+                },
+                "invert_search_condition": true,
+                "search_type": "below_within_two_blocks"
+              }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:noise_provider",
+            "noise": {
+              "amplitudes": [
+                1.0
+              ],
+              "firstOctave": 0
+            },
+            "scale": 0.020833334,
+            "seed": 153,
+            "states": [
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:blue_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              },
+              {
+                "Name": "minecraft:packed_ice"
+              }
+            ]
+          }
+        }
+      ],
+      "include_y_in_noise_calculation": true,
+      "noise_scale": 0.0325,
+      "noise_type": "XORO",
+      "scale_noise_y": true
+    },
+    "placement_radius": 12
   }
 }

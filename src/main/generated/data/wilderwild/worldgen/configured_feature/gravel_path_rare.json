@@ -1,22 +1,35 @@
 {
   "type": "frozenlib:noise_path_feature",
   "config": {
-    "is_3d": false,
-    "max_threshold": 0.3,
-    "min_threshold": -0.2,
-    "noise_scale": 0.12,
-    "noise_type": "XORO",
-    "only_place_when_exposed": false,
-    "placement_chance": 0.21,
-    "radius": 6,
-    "replaceable_blocks": "#wilderwild:feature/gravel_path_replaceable",
-    "scale_y": false,
-    "state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:gravel"
-      }
+    "noise_band_placement": {
+      "block_placements": [
+        {
+          "maximum_noise_threshold": 0.3,
+          "minimum_noise_threshold": -0.2,
+          "placement_chance": 0.21,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/gravel_path_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "frozenlib:search",
+            "block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "search_type": "touching"
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:gravel"
+            }
+          }
+        }
+      ],
+      "heightmap": "OCEAN_FLOOR",
+      "noise_scale": 0.12,
+      "noise_type": "XORO"
     },
-    "use_y": false
+    "placement_radius": 6
   }
 }

@@ -23,12 +23,13 @@ import java.util.List;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
-import net.frozenblock.lib.worldgen.feature.api.features.config.AirOrWaterInAreaPathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.ComboFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderFluidFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchingBlockPredicate;
+import net.frozenblock.lib.worldgen.feature.api.feature.config.ColumnFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
+import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
+import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -88,8 +89,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BLUE_MESOGLEA_COLUMN = register("downwards_blue_mesoglea_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_COLUMN = register("downwards_purple_mesoglea_column");
-	public static final FrozenLibConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
-	public static final FrozenLibConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ConfiguredFeature<AirOrWaterInAreaPathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
+	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> MESOGLEA_PATHS = register("mesoglea_paths");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = WWFeatureUtils.register("mesoglea_cluster_purple");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = WWFeatureUtils.register("mesoglea_cluster_blue");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_WITH_DRIPLEAVES = WWFeatureUtils.register("blue_mesoglea_with_dripleaves");
@@ -107,7 +107,7 @@ public final class WWCaveConfigured {
 
 	// MAGMATIC CAVES
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_AND_GABBRO_PATH = register("magma_and_gabbro_path");
+	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> MAGMA_AND_GABBRO_PATH = register("magma_and_gabbro_path");
 	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
 	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
@@ -133,7 +133,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<IcicleClusterConfig, ConfiguredFeature<IcicleClusterConfig, ?>> ICICLE_CLUSTER = register("icicle_cluster");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> CAVE_ICICLE = register("cave_icicle");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> ICICLE = register("icicle");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ICE_PATHS = register("ice_paths");
+	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> ICE_PATHS = register("ice_paths");
 	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> PACKED_ICE_DISK = register("packed_ice_disk");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_COLUMN = register("packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
@@ -240,43 +240,25 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		BLUE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-			new AirOrWaterInAreaPathFeatureConfig(
-				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState()),
-				12,
-				EasyNoiseSampler.NoiseType.LOCAL,
-				0.025,
-				0.5125,
-				0.5875,
-				true,
-				true,
-				true,
-				2,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MESOGLEA_PATH_REPLACEABLE
-				),
-				1F
-			)
-		);
-
-		PURPLE_MESOGLEA_PATH.makeAndSetHolder(FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-			new AirOrWaterInAreaPathFeatureConfig(
-				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState()),
-				12,
-				EasyNoiseSampler.NoiseType.LOCAL,
-				0.025,
-				-0.5875,
-				-0.5125,
-				true,
-				true,
-				true,
-				2,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MESOGLEA_PATH_REPLACEABLE
-				),
-				1F
+		MESOGLEA_PATHS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
+			new NoisePathFeatureConfig(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
+					.noiseScale(0.025D)
+					.calculateNoiseWithY()
+					.scaleYNoise()
+					.noiseBandBlockPlacements(
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_MESOGLEA))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
+							.within(0.5125D, 0.5875D)
+							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrWaterWithinTwoBlocks().build())
+							.build(),
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
+							.within(-0.5875D, -0.5125D)
+							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrWaterWithinTwoBlocks().build())
+							.build()
+					).build(),
+				12
 			)
 		);
 
@@ -491,71 +473,32 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_AND_GABBRO_PATH.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_SWAP_UNDER_FLUID_FEATURE,
-						new PathSwapUnderFluidFeatureConfig(
-							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-							14,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							-0.275D,
-							-0.15D,
-							true,
-							true,
-							true,
-							true,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
-							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-							14,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							-0.31D,
-							-0.275D,
-							true,
-							true,
-							true,
-							true,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new PathFeatureConfig(
-							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-							14,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							-0.15D,
-							-0.115D,
-							true,
-							true,
-							true,
-							true,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							1F
-						)
-					)
-				)
+		MAGMA_AND_GABBRO_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
+			new NoisePathFeatureConfig(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
+					.noiseScale(0.0325D)
+					.calculateNoiseWithY()
+					.scaleYNoise()
+					.noiseBandBlockPlacements(
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.within(-0.275D, -0.15D)
+							.searchingBlockPredicate(
+								BlockPredicate.allOf(
+									SearchingBlockPredicate.Builder.exposed().build(),
+									SearchingBlockPredicate.Builder.belowWaterWithinThreeBlocks().invertSearchCondition().build()
+								)
+							).scheduleTickOnPlacement()
+							.build(),
+						// TODO: Check if this works as intended
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.within(-0.31D, -0.115D)
+							.searchingBlockPredicate(SearchingBlockPredicate.Builder.hasAirOrFluidWithinThreeBlocks().build())
+							.build()
+
+					).build(),
+				12
 			)
 		);
 
@@ -933,150 +876,55 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		ICE_PATHS.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				ImmutableList.of(
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							icePathProvider,
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							-1D,
-							-0.7D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							-0.7D,
-							-0.6D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							icePathProvider,
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							-0.6D,
-							0.2D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							0.2D,
-							0.25D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							icePathProvider,
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							0.25D,
-							0.6D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							0.6D,
-							0.7D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.REQUIRES_AIR_OR_WATER_IN_AREA_NOISE_PATH_FEATURE,
-						new AirOrWaterInAreaPathFeatureConfig(
-							icePathProvider,
-							6,
-							EasyNoiseSampler.NoiseType.XORO,
-							0.0325D,
-							0.7D,
-							1D,
-							true,
-							true,
-							true,
-							2,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.CAVE_ICE_REPLACEABLE
-							),
-							1F
-						)
-					)
-				)
+		BlockPredicate iceSearchPredicate = BlockPredicate.allOf(
+			SearchingBlockPredicate.Builder.hasAirOrWaterWithinTwoBlocks().build(),
+			SearchingBlockPredicate.Builder.belowLavaWithinTwoBlocks().invertSearchCondition().build()
+		);
+
+		ICE_PATHS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
+			new NoisePathFeatureConfig(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
+					.noiseScale(0.0325D)
+					.calculateNoiseWithY()
+					.scaleYNoise()
+					.noiseBandBlockPlacements(
+						new NoiseBandBlockPlacement.Builder(icePathProvider)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.within(-1D, -0.7D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
+							.within(-0.7D, -0.6D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(icePathProvider)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.within(-0.6D, 0.2D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
+							.within(0.2D, 0.25D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(icePathProvider)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.within(0.25D, 0.6D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
+							.within(0.6D, 0.7D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(icePathProvider)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.within(0.7D, 1D)
+							.searchingBlockPredicate(iceSearchPredicate)
+							.build()
+					).build(),
+				12
 			)
 		);
 

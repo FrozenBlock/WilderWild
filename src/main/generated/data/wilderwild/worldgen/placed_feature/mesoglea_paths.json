@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:purple_mesoglea_path",
+  "feature": "wilderwild:mesoglea_paths",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 24
+      "count": 30
     },
     {
       "type": "minecraft:in_square"
