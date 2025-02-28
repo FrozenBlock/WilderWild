@@ -490,7 +490,6 @@ public final class WWCaveConfigured {
 								)
 							).scheduleTickOnPlacement()
 							.build(),
-						// TODO: Check if this works as intended
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.31D, -0.115D)
