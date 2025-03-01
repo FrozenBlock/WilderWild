@@ -82,7 +82,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			return SnowloggingUtils.getSnowEquivalent(blockState).getCollisionShape(level, pos, context);
+			return SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
 		}
 		return original;
 	}
