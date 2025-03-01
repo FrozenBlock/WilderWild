@@ -12,29 +12,17 @@
             "tag": "wilderwild:feature/coarse_path_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:touching",
-                "all_must_match": false,
-                "block_predicate": {
-                  "type": "minecraft:replaceable"
-                }
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "frozenlib:search_in_direction",
+              "all_must_match": false,
+              "block_predicate": {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:water"
               },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:water"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 3
-                }
-              }
-            ]
+              "search_direction": "up",
+              "search_steps": 3
+            }
           },
           "state_provider": {
             "type": "minecraft:simple_state_provider",

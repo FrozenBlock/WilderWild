@@ -248,7 +248,7 @@ public final class WWCavePlaced {
 		);
 
 		MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.MAGMA_AND_GABBRO_PATH.getHolder(),
-			modifiersWithCount(64, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		MAGMA_DISK.makeAndSetHolder(WWCaveConfigured.MAGMA_DISK.getHolder(),

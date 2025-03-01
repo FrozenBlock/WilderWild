@@ -487,8 +487,14 @@ public final class WWCaveConfigured {
 							.within(-0.275D, -0.15D)
 							.searchingBlockPredicate(
 								BlockPredicate.allOf(
-									TouchingBlockPredicate.exposed(),
-									BlockPredicate.not(TouchingBlockPredicate.exposedToWater()),
+									TouchingBlockPredicate.exposedTo(
+										BlockPredicate.allOf(
+											BlockPredicate.replaceable(),
+											BlockPredicate.not(
+												BlockPredicate.matchesBlocks(Blocks.WATER)
+											)
+										)
+									),
 									BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3))
 								)
 							).scheduleTickOnPlacement()
@@ -496,11 +502,11 @@ public final class WWCaveConfigured {
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.31D, -0.115D)
-							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(3))
+							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
 							.build()
 
 					).build(),
-				12
+				8
 			)
 		);
 
