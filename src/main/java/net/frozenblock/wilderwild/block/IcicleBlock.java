@@ -262,6 +262,11 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
+	protected @NotNull VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+		return this.getShape(blockState, blockGetter, blockPos, collisionContext);
+	}
+
+	@Override
 	protected boolean isCollisionShapeFullBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
 		return false;
 	}
