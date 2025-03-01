@@ -129,6 +129,7 @@ hi
     - `minimum_branch_length_for_offset`: The minimum length of a branch required to be able to offset a log upwards.
   - Renamed `straight_with_logs_trunk_placer` to `straight_with_branches_trunk_placer.`
   - Renamed `fallen_with_logs_trunk_placer` to `fallen_with_branches_trunk_placer.`
+- Optimized Wilder Wild's worldgen.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
