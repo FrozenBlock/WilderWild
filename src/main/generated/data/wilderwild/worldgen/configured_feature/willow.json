@@ -85,7 +85,6 @@
       "height_rand_a": 2,
       "height_rand_b": 1,
       "trunk_branch_placement": {
-        "branch_cutoff_from_top": 1,
         "branch_length": {
           "type": "minecraft:uniform",
           "max_inclusive": 3,
@@ -94,7 +93,6 @@
         "branch_placement_chance": 0.5,
         "foliage_placement_chance": 1.0,
         "foliage_radius_shrink": 1,
-        "max_branch_count": 4,
         "minimum_branch_length_for_offset": 1,
         "offset_last_log_chance": 1.0
       },

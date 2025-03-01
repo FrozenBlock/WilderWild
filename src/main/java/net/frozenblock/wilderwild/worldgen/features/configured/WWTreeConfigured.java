@@ -2808,7 +2808,6 @@ public final class WWTreeConfigured {
 				0.35F,
 				new TrunkBranchPlacement.Builder()
 					.branchChance(0.5F)
-					.maxBranchCount(4)
 					.branchLength(UniformInt.of(2, 3))
 					.offsetLastLogChance(1F)
 					.foliagePlacementChance(1F)

@@ -43,11 +43,9 @@
       },
       "success_in_water_chance": 0.8,
       "trunk_branch_placement": {
-        "branch_cutoff_from_top": 1,
         "branch_length": 1,
         "branch_placement_chance": 0.0,
         "foliage_placement_chance": 0.0,
-        "foliage_radius_shrink": 0,
         "max_branch_count": {
           "type": "minecraft:uniform",
           "max_inclusive": 2,

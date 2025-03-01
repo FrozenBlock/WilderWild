@@ -40,13 +40,13 @@ public class TrunkBranchPlacement {
 	public static final MapCodec<TrunkBranchPlacement> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 			Codec.floatRange(0F, 1F).fieldOf("branch_placement_chance").forGetter(trunkPlacer -> trunkPlacer.branchChance),
-			IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_branch_count").forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
-			IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_cutoff_from_top").forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
+			IntProvider.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_branch_count", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
+			IntProvider.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("branch_cutoff_from_top", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
 			IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter(trunkPlacer -> trunkPlacer.branchLength),
 			Codec.FLOAT.fieldOf("offset_last_log_chance").forGetter(trunkPlacer -> trunkPlacer.offsetLastLogChance),
 			Codec.intRange(0, 16).fieldOf("minimum_branch_length_for_offset").forGetter(trunkPlacer -> trunkPlacer.minBranchLengthForOffset),
 			Codec.FLOAT.fieldOf("foliage_placement_chance").forGetter(trunkPlacer -> trunkPlacer.foliagePlacementChance),
-			Codec.intRange(0, 3).fieldOf("foliage_radius_shrink").forGetter(trunkPlacer -> trunkPlacer.foliageRadiusShrink)
+			Codec.intRange(0, 3).lenientOptionalFieldOf("foliage_radius_shrink", 0).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusShrink)
 		).apply(instance, TrunkBranchPlacement::new)
 	);
 
@@ -165,9 +165,9 @@ public class TrunkBranchPlacement {
 
 	public static class Builder {
 		private float branchChance = 0F;
-		private IntProvider maxBranchCount = ConstantInt.of(0);
-		private IntProvider branchCutoffFromTop = ConstantInt.of(1);
-		private IntProvider branchLength = ConstantInt.of(0);
+		private IntProvider maxBranchCount = ConstantInt.ZERO;
+		private IntProvider branchCutoffFromTop = ConstantInt.ZERO;
+		private IntProvider branchLength = ConstantInt.ZERO;
 		private float offsetLastLogChance = 0F;
 		private int minBranchLengthForOffset = 1;
 		private float foliagePlacementChance = 0F;
