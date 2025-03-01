@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.features.placed;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -59,13 +60,13 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature ORE_CALCITE = WWPlacementUtils.register("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
 	public static final FrozenLibPlacedFeature MESOGLEA_CAVES_STONE_POOL = WWPlacementUtils.register("mesoglea_caves_stone_pool");
-	public static final FrozenLibPlacedFeature MESOGLEA_PILLAR = WWPlacementUtils.register("blue_mesoglea_pillar");
-	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_PILLAR = WWPlacementUtils.register("purple_mesoglea_pillar");
+	public static final FrozenLibPlacedFeature BLUE_MESOGLEA_COLUMN = WWPlacementUtils.register("blue_mesoglea_column");
+	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_COLUMN = WWPlacementUtils.register("purple_mesoglea_column");
 	public static final FrozenLibPlacedFeature MESOGLEA_PATHS = WWPlacementUtils.register("mesoglea_paths");
 	public static final FrozenLibPlacedFeature BLUE_MESOGLEA = register("blue_mesoglea");
-	public static final FrozenLibPlacedFeature UPSIDE_DOWN_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
+	public static final FrozenLibPlacedFeature DOWNWARD_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
 	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA = register("purple_mesoglea");
-	public static final FrozenLibPlacedFeature UPSIDE_DOWN_PURPLE_MESOGLEA = register("upside_down_purple_mesoglea");
+	public static final FrozenLibPlacedFeature DOWNWARD_PURLE_MESOGLEA = register("upside_down_purple_mesoglea");
 	public static final FrozenLibPlacedFeature NEMATOCYST_BLUE = register("nematocyst_blue");
 	public static final FrozenLibPlacedFeature NEMATOCYST_PURPLE = register("nematocyst_purple");
 	public static final FrozenLibPlacedFeature MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple");
@@ -140,7 +141,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		MESOGLEA_PILLAR.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA_COLUMN.getHolder(),
+		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA_COLUMN.getHolder(),
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
@@ -149,7 +150,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		PURPLE_MESOGLEA_PILLAR.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA_COLUMN.getHolder(),
+		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA_COLUMN.getHolder(),
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
@@ -174,7 +175,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_BLUE_MESOGLEA.getHolder(),
+		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_BLUE_MESOGLEA.getHolder(),
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -192,7 +193,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_PURPLE_MESOGLEA.getHolder(),
+		DOWNWARD_PURLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_PURPLE_MESOGLEA.getHolder(),
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -296,7 +297,7 @@ public final class WWCavePlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.anyOf(
 					BlockPredicate.noFluid(Direction.UP.getNormal()),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+					SearchInDirectionBlockPredicate.hasLavaAbove(1)
 				)
 			),
 			BiomeFilter.biome()
@@ -323,9 +324,7 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.matchesTag(WWBlockTags.NETHER_GEYSER_REPLACEABLE),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal().above(), Fluids.LAVA),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal().above().above(), Fluids.LAVA)
+					SearchInDirectionBlockPredicate.hasLavaAbove(3)
 				),
 				BlockPredicate.replaceable(),
 				12
@@ -341,7 +340,7 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+					SearchInDirectionBlockPredicate.hasLavaAbove(1)
 				),
 				BlockPredicate.replaceable(),
 				12
@@ -359,7 +358,7 @@ public final class WWCavePlaced {
 					BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
 					BlockPredicate.allOf(
 						BlockPredicate.solid(),
-						BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.LAVA)
+						SearchInDirectionBlockPredicate.hasLavaAbove(1)
 					)
 				),
 				BlockPredicate.replaceable(),
@@ -453,12 +452,8 @@ public final class WWCavePlaced {
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(
-				Direction.UP,
-				BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK),
-				BlockPredicate.replaceable(),
-				12
-			),
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.matchesBlocks(WWBlocks.GABBRO, Blocks.MAGMA_BLOCK), BlockPredicate.replaceable(), 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
@@ -467,6 +462,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
@@ -489,7 +485,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
