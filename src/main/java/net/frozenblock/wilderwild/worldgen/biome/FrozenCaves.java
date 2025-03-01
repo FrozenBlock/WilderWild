@@ -54,7 +54,7 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
 	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(-1F, -0.6F);
-	public static final ImmutableList<Float> DEPTHS = ImmutableList.of(0.065F, 0.1F, 0.15F);
+	public static final ImmutableList<Float> DEPTHS = ImmutableList.of(0.065F, 0.1F, 0.15F, 0.2F, 0.25F, 0.3F, 0.35F, 0.4F);
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 10601471;
