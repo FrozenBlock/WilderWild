@@ -11,33 +11,15 @@
             "tag": "wilderwild:feature/cave_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:noise_provider",
@@ -169,33 +151,15 @@
             "tag": "wilderwild:feature/cave_fragile_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:simple_state_provider",
@@ -215,33 +179,15 @@
             "tag": "wilderwild:feature/cave_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:noise_provider",
@@ -373,33 +319,15 @@
             "tag": "wilderwild:feature/cave_fragile_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:simple_state_provider",
@@ -419,33 +347,15 @@
             "tag": "wilderwild:feature/cave_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:noise_provider",
@@ -577,33 +487,15 @@
             "tag": "wilderwild:feature/cave_fragile_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:simple_state_provider",
@@ -622,33 +514,15 @@
             "tag": "wilderwild:feature/cave_ice_replaceable"
           },
           "searching_block_predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "frozenlib:search_in_area",
-                "block_predicate": {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:air",
-                    "minecraft:water"
-                  ]
-                },
-                "search_area": 2
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "frozenlib:search_in_direction",
-                  "all_must_match": false,
-                  "block_predicate": {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:lava"
-                  },
-                  "search_direction": "up",
-                  "search_steps": 2
-                }
-              }
-            ]
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
           },
           "state_provider": {
             "type": "minecraft:noise_provider",

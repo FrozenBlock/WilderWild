@@ -192,7 +192,7 @@ public final class WWMiscConfigured {
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 							.within(-0.2D, 0.3D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_PATH_REPLACEABLE))
-							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3)))
+							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							.placementChance(0.25F)
 							.build()
 					).build(),
@@ -243,7 +243,7 @@ public final class WWMiscConfigured {
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 							.within(-0.075D, 0.175D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_CLEARING_REPLACEABLE))
-							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3)))
+							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							.placementChance(0.7F)
 							.build()
 					).build(),
@@ -393,7 +393,7 @@ public final class WWMiscConfigured {
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 							.within(-0.2D, 0.3D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_PATH_REPLACEABLE))
-							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3)))
+							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							.placementChance(0.65F)
 							.build()
 					).build(),
@@ -775,7 +775,7 @@ public final class WWMiscConfigured {
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 							.within(0.2D, 1D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE))
-							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3)))
+							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							.placementChance(0.715F)
 							.build()
 					).build(),
@@ -946,7 +946,7 @@ public final class WWMiscConfigured {
 							.within(-0.15D, 0.55D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.DIRT))
 							.searchingBlockPredicate(
-								BlockPredicate.allOf(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(3)))
+								BlockPredicate.allOf(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							)
 							.placementChance(0.825F)
 							.build()

@@ -24,7 +24,7 @@
                     "blocks": "minecraft:water"
                   },
                   "search_direction": "up",
-                  "search_steps": 3
+                  "search_steps": 1
                 }
               }
             ]
