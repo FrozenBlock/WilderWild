@@ -255,3 +255,4 @@ hi
   - Mobs in the `wilderwild:fragile_ice_unwalkable_mobs` entity tag will crack, then shatter Fragile Ice when standing on it.
   - Mobs not in the `wilderwild:fragile_ice_doesnt_crack_on_fall` entity tag will cause Fragile Ice to shatter when falling onto it.
 - Revamped the Frozen Caves biome, removing snow patches and utilizing Fragile Ice and Icicles.
+- The `Snow Under Mountains` config option has been set to off by default.

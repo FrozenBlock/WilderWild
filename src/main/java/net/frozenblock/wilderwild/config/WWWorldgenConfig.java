@@ -70,7 +70,7 @@ public final class WWWorldgenConfig {
 	public boolean betaBeaches = true;
 
 	@EntrySyncData("snowUnderMountains")
-	public boolean snowUnderMountains = true;
+	public boolean snowUnderMountains = false;
 
 	@EntrySyncData("fallenTrees")
 	public boolean fallenTrees = true;
