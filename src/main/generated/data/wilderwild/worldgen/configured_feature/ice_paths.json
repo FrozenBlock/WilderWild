@@ -16,25 +16,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
@@ -173,25 +174,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
@@ -218,25 +220,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
@@ -375,25 +378,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
@@ -420,25 +424,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
@@ -577,25 +582,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
@@ -621,25 +627,26 @@
               {
                 "type": "frozenlib:search_in_area",
                 "block_predicate": {
-                  "type": "minecraft:all_of",
-                  "predicates": [
-                    {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": [
-                        "minecraft:air",
-                        "minecraft:water"
-                      ]
-                    },
-                    {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:lava"
-                      }
-                    }
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
                   ]
                 },
                 "search_area": 2
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:lava"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 2
+                }
               }
             ]
           },
