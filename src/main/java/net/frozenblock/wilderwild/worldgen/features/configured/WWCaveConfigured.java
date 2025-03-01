@@ -879,8 +879,13 @@ public final class WWCaveConfigured {
 		);
 
 		BlockPredicate iceSearchPredicate = BlockPredicate.allOf(
-			SearchInAreaBlockPredicate.hasAirOrWaterWithin(2),
-			BlockPredicate.not(SearchInDirectionBlockPredicate.hasLavaAbove(2))
+			new SearchInAreaBlockPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+					BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.LAVA))
+				),
+				2
+			)
 		);
 
 		ICE_PATHS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
