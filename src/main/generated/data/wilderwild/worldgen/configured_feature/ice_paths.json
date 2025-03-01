@@ -778,6 +778,6 @@
       "noise_type": "XORO",
       "scale_noise_y": true
     },
-    "placement_radius": 12
+    "placement_radius": 8
   }
 }

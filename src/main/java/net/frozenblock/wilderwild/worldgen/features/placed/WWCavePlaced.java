@@ -535,7 +535,7 @@ public final class WWCavePlaced {
 		);
 
 		ICE_PATHS.makeAndSetHolder(WWCaveConfigured.ICE_PATHS.getHolder(),
-			modifiersWithCount(92, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		PACKED_ICE_DISK.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_DISK.getHolder(),

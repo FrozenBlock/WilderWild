@@ -926,7 +926,7 @@ public final class WWCaveConfigured {
 							.searchingBlockPredicate(iceSearchPredicate)
 							.build()
 					).build(),
-				12
+				8
 			)
 		);
 
