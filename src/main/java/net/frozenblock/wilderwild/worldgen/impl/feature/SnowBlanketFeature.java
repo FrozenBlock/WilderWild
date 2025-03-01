@@ -51,21 +51,32 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		@NotNull BlockPos.MutableBlockPos mutable,
 		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
 	) {
-		boolean returnValue = false;
-		while (topPos.getY() >= bottomPos.getY()) {
-			if (placeSnowLayer(level, topPos, mutable, optionalBiomeHolder)) returnValue = true;
-			topPos.move(Direction.DOWN);
+		boolean returnValue;
+		if (placeSnowLayer(level, bottomPos, mutable, optionalBiomeHolder, true) == SnowGenerationState.CANCEL) {
+			return false;
+		} else {
+			returnValue = true;
+			bottomPos.move(Direction.UP);
+		}
+
+		while (bottomPos.getY() <= topPos.getY()) {
+			placeSnowLayer(level, bottomPos, mutable, optionalBiomeHolder, false);
+			bottomPos.move(Direction.UP);
 		}
 		return returnValue;
 	}
 
-	private static boolean placeSnowLayer(
+	private static @NotNull SnowGenerationState placeSnowLayer(
 		@NotNull WorldGenLevel level,
 		@NotNull BlockPos.MutableBlockPos mutablePos,
 		@NotNull BlockPos.MutableBlockPos mutablePos2,
-		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
+		@NotNull Optional<Holder<Biome>> optionalBiomeHolder,
+		boolean cancelIfCantSnow
 	) {
-		if (optionalBiomeHolder.orElse(level.getBiome(mutablePos)).value().shouldSnow(level, mutablePos)) {
+		Biome biome = optionalBiomeHolder.orElse(level.getBiome(mutablePos)).value();
+		if (cancelIfCantSnow && biome.warmEnoughToRain(mutablePos)) return SnowGenerationState.CANCEL;
+
+		if (biome.shouldSnow(level, mutablePos)) {
 			BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(mutablePos), mutablePos);
 			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
 				level.setBlock(mutablePos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
@@ -77,9 +88,9 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(mutablePos2, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
 			}
-			return true;
+			return SnowGenerationState.SUCCESS;
 		}
-		return false;
+		return SnowGenerationState.FAIL;
 	}
 
 	private static int findLowestHeightForSnow(@NotNull WorldGenLevel level, int x, int z) {
@@ -128,5 +139,11 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			}
 		}
 		return returnValue;
+	}
+
+	private enum SnowGenerationState {
+		CANCEL,
+		SUCCESS,
+		FAIL;
 	}
 }
