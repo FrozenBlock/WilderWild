@@ -1,23 +1,30 @@
 {
-  "type": "frozenlib:combo_feature",
+  "type": "frozenlib:combo",
   "config": {
     "features": [
       {
         "feature": {
-          "type": "frozenlib:upwards_column",
+          "type": "frozenlib:column",
           "config": {
-            "height": {
+            "block_state_provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:fragile_ice",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            "direction": "up",
+            "length": {
               "type": "minecraft:uniform",
               "max_inclusive": 9,
               "min_inclusive": 2
             },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "wilderwild:fragile_ice",
-              "Properties": {
-                "age": "0"
-              }
-            }
+            "replacement_block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "stop_when_encountering_unreplaceable_block": true
           }
         },
         "placement": [
@@ -41,25 +48,37 @@
             "target_condition": {
               "type": "minecraft:solid"
             }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
           }
         ]
       },
       {
         "feature": {
-          "type": "frozenlib:upwards_column",
+          "type": "frozenlib:column",
           "config": {
-            "height": {
+            "block_state_provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:fragile_ice",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            "direction": "up",
+            "length": {
               "type": "minecraft:uniform",
               "max_inclusive": 4,
               "min_inclusive": 0
             },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "wilderwild:fragile_ice",
-              "Properties": {
-                "age": "0"
-              }
-            }
+            "replacement_block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "stop_when_encountering_unreplaceable_block": true
           }
         },
         "placement": [
@@ -83,25 +102,37 @@
             "target_condition": {
               "type": "minecraft:solid"
             }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
           }
         ]
       },
       {
         "feature": {
-          "type": "frozenlib:upwards_column",
+          "type": "frozenlib:column",
           "config": {
-            "height": {
+            "block_state_provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:fragile_ice",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            "direction": "up",
+            "length": {
               "type": "minecraft:uniform",
               "max_inclusive": 4,
               "min_inclusive": 0
             },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "wilderwild:fragile_ice",
-              "Properties": {
-                "age": "0"
-              }
-            }
+            "replacement_block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "stop_when_encountering_unreplaceable_block": true
           }
         },
         "placement": [
@@ -125,25 +156,37 @@
             "target_condition": {
               "type": "minecraft:solid"
             }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
           }
         ]
       },
       {
         "feature": {
-          "type": "frozenlib:upwards_column",
+          "type": "frozenlib:column",
           "config": {
-            "height": {
+            "block_state_provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:fragile_ice",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            "direction": "up",
+            "length": {
               "type": "minecraft:uniform",
               "max_inclusive": 4,
               "min_inclusive": 0
             },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "wilderwild:fragile_ice",
-              "Properties": {
-                "age": "0"
-              }
-            }
+            "replacement_block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "stop_when_encountering_unreplaceable_block": true
           }
         },
         "placement": [
@@ -167,25 +210,37 @@
             "target_condition": {
               "type": "minecraft:solid"
             }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
           }
         ]
       },
       {
         "feature": {
-          "type": "frozenlib:upwards_column",
+          "type": "frozenlib:column",
           "config": {
-            "height": {
+            "block_state_provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:fragile_ice",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            "direction": "up",
+            "length": {
               "type": "minecraft:uniform",
               "max_inclusive": 4,
               "min_inclusive": 0
             },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "wilderwild:fragile_ice",
-              "Properties": {
-                "age": "0"
-              }
-            }
+            "replacement_block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "stop_when_encountering_unreplaceable_block": true
           }
         },
         "placement": [
@@ -209,25 +264,37 @@
             "target_condition": {
               "type": "minecraft:solid"
             }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
           }
         ]
       },
       {
         "feature": {
-          "type": "frozenlib:upwards_column",
+          "type": "frozenlib:column",
           "config": {
-            "height": {
+            "block_state_provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "Name": "wilderwild:fragile_ice",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            "direction": "up",
+            "length": {
               "type": "minecraft:uniform",
               "max_inclusive": 4,
               "min_inclusive": 0
             },
-            "replaceable_blocks": [],
-            "state": {
-              "Name": "wilderwild:fragile_ice",
-              "Properties": {
-                "age": "0"
-              }
-            }
+            "replacement_block_predicate": {
+              "type": "minecraft:replaceable"
+            },
+            "stop_when_encountering_unreplaceable_block": true
           }
         },
         "placement": [
@@ -251,6 +318,11 @@
             "target_condition": {
               "type": "minecraft:solid"
             }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
           }
         ]
       }

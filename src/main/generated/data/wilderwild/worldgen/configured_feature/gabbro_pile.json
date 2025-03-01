@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:combo_feature",
+  "type": "frozenlib:combo",
   "config": {
     "features": [
       {

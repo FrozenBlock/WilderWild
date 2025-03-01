@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:column_with_disk_feature",
+  "type": "frozenlib:column_with_disk",
   "config": {
     "disk_blocks": "#wilderwild:feature/termite_disk_blocks",
     "height": {

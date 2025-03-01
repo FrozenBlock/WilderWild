@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:noise_path_feature",
+  "type": "frozenlib:noise_path",
   "config": {
     "noise_band_placement": {
       "block_placements": [

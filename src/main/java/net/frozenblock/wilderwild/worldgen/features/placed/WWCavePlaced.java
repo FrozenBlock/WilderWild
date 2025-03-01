@@ -105,7 +105,6 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature ICICLES_SURFACE_WG = WWPlacementUtils.register("icicles_surface_wg");
 	public static final FrozenLibPlacedFeature ICICLES_SURFACE = WWPlacementUtils.register("icicles_surface");
 	public static final FrozenLibPlacedFeature ICE_PATHS = WWPlacementUtils.register("ice_paths");
-	public static final FrozenLibPlacedFeature PACKED_ICE_DISK = WWPlacementUtils.register("packed_ice_disk");
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK = WWPlacementUtils.register("fragile_ice_disk");
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_PILE = WWPlacementUtils.register("fragile_ice_pile");
 	public static final FrozenLibPlacedFeature HANGING_PACKED_ICE = WWPlacementUtils.register("hanging_packed_ice");
@@ -536,10 +535,6 @@ public final class WWCavePlaced {
 
 		ICE_PATHS.makeAndSetHolder(WWCaveConfigured.ICE_PATHS.getHolder(),
 			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
-		);
-
-		PACKED_ICE_DISK.makeAndSetHolder(WWCaveConfigured.PACKED_ICE_DISK.getHolder(),
-			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		FRAGILE_ICE_DISK.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_DISK.getHolder(),

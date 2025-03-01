@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:fading_disk_except_in_biome_feature",
+  "type": "frozenlib:fading_disk_except_in_biome",
   "config": {
     "excluded_biomes": "wilderwild:feature/has_small_sand_transition",
     "fade_start_distance_percent": 0.5,
