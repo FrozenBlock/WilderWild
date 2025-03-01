@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 public class ScorchedBlockEntity extends BlockEntity {
+	private static final int RESET_DELAY = 40;
 	private int brushCount;
 	private long brushCountResetsAtTick;
 	private long coolDownEndsAtTick;
@@ -39,7 +40,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 	}
 
 	public boolean brush(long l) {
-		this.brushCountResetsAtTick = l + 40L;
+		this.brushCountResetsAtTick = l + RESET_DELAY;
 		if (l < this.coolDownEndsAtTick || !(this.level instanceof ServerLevel)) {
 			return false;
 		}
@@ -49,20 +50,18 @@ public class ScorchedBlockEntity extends BlockEntity {
 			this.brushingCompleted();
 			return true;
 		}
-		this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 40);
-		int j = this.getCompletionState();
-		if (i != j) {
+		this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), RESET_DELAY);
+		int completionState = this.getCompletionState();
+		if (i != completionState) {
 			BlockState blockState = this.getBlockState();
-			BlockState blockState2 = blockState.setValue(BlockStateProperties.DUSTED, j);
-			this.level.setBlock(this.getBlockPos(), blockState2, 3);
+			BlockState blockState2 = blockState.setValue(BlockStateProperties.DUSTED, completionState);
+			this.level.setBlockAndUpdate(this.getBlockPos(), blockState2);
 		}
 		return false;
 	}
 
 	private void brushingCompleted() {
-		if (this.level == null || this.level.getServer() == null) {
-			return;
-		}
+		if (this.level == null || this.level.getServer() == null) return;
 		this.level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_BRUSH_BLOCK_COMPLETE, this.worldPosition, Block.getId(this.getBlockState()));
 		ScorchedBlock.hydrate(this.getBlockState(), this.level, this.worldPosition);
 		this.brushCount = 0;
@@ -79,7 +78,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 			this.brushCount = Math.max(0, this.brushCount - 2);
 			int j = this.getCompletionState();
 			if (i != j) {
-				this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j), Block.UPDATE_ALL);
+				this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j));
 			}
 			this.brushCountResetsAtTick = this.level.getGameTime() + 4L;
 		}
@@ -92,17 +91,10 @@ public class ScorchedBlockEntity extends BlockEntity {
 	}
 
 	private int getCompletionState() {
-		if (this.brushCount == 0) {
-			return 0;
-		}
-		if (this.brushCount < 3) {
-			return 1;
-		}
-		if (this.brushCount < 6) {
-			return 2;
-		}
+		if (this.brushCount == 0) return 0;
+		if (this.brushCount < 3) return 1;
+		if (this.brushCount < 6) return 2;
 		return 3;
 	}
 
 }
-

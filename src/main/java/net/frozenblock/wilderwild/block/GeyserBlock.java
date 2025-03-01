@@ -141,7 +141,7 @@ public class GeyserBlock extends BaseEntityBlock {
 						newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
 					}
 				}
-				level.setBlock(blockPos, newState, UPDATE_ALL);
+				level.setBlockAndUpdate(blockPos, newState);
 			}
 		}
 	}
@@ -187,7 +187,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
 		if (geyserType != state.getValue(GEYSER_TYPE)) {
-			level.setBlock(pos, state.setValue(GEYSER_TYPE, geyserType), UPDATE_ALL);
+			level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
 		}
 	}
 

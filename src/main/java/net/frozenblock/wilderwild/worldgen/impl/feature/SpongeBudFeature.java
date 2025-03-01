@@ -45,16 +45,20 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 		super(codec);
 	}
 
-	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SpongeBudFeatureConfig config, @NotNull List<Direction> directions) {
+	public static boolean generate(
+		@NotNull WorldGenLevel level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull SpongeBudFeatureConfig config,
+		@NotNull List<Direction> directions
+	) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for (Direction direction : directions) {
 			BlockState blockState = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 			if (blockState.is(config.canPlaceOn)) {
 				BlockState blockState2 = getStateForPlacement(level.getRandom(), state, level, pos, direction);
-				if (blockState2 == null) {
-					return false;
-				}
+				if (blockState2 == null) return false;
 
 				if (blockState2.getValue(SpongeBudBlock.WATERLOGGED)) {
 					level.setBlock(pos, blockState2, Block.UPDATE_ALL);
@@ -67,7 +71,13 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 	}
 
 	@Nullable
-	private static BlockState getStateForPlacement(RandomSource random, @NotNull BlockState currentState, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction lookingDirection) {
+	private static BlockState getStateForPlacement(
+		RandomSource random,
+		@NotNull BlockState currentState,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull Direction lookingDirection
+	) {
 		Block sponge = WWBlocks.SPONGE_BUD;
 		if (!isValidStateForPlacement(level, pos, lookingDirection)) {
 			return null;
@@ -82,9 +92,12 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 			}
 
 			if (lookingDirection.getAxis() == Direction.Axis.Y) {
-				blockState = blockState.setValue(SpongeBudBlock.FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
+				blockState = blockState
+					.setValue(SpongeBudBlock.FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+					.setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
 			} else {
-				blockState = blockState.setValue(SpongeBudBlock.FACE, AttachFace.WALL).setValue(SpongeBudBlock.FACING, lookingDirection.getOpposite());
+				blockState = blockState.setValue(SpongeBudBlock.FACE, AttachFace.WALL)
+					.setValue(SpongeBudBlock.FACING, lookingDirection.getOpposite());
 			}
 
 			return blockState.setValue(SpongeBudBlock.AGE, random.nextInt(SpongeBudBlock.MAX_AGE));
@@ -110,34 +123,23 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 		BlockPos blockPos = context.origin();
 		RandomSource randomSource = context.random();
 		SpongeBudFeatureConfig config = context.config();
-		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) {
-			return false;
-		} else {
-			List<Direction> list = config.shuffleDirections(randomSource);
-			if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, list)) {
-				return true;
-			} else {
-				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 
-				for (Direction direction : list) {
-					mutableBlockPos.set(blockPos);
-					List<Direction> list2 = config.shuffleDirections(randomSource, direction.getOpposite());
+		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) return false;
+		List<Direction> list = config.shuffleDirections(randomSource);
+		if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, list)) return true;
 
-					for (int i = 0; i < config.searchRange; ++i) {
-						mutableBlockPos.setWithOffset(blockPos, direction);
-						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-						if (!isAirOrWater(blockState) && !blockState.is(WWBlocks.SPONGE_BUD)) {
-							break;
-						}
-
-						if (generate(worldGenLevel, mutableBlockPos, blockState, config, list2)) {
-							return true;
-						}
-					}
-				}
-				return false;
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+		for (Direction direction : list) {
+			mutableBlockPos.set(blockPos);
+			List<Direction> list2 = config.shuffleDirections(randomSource, direction.getOpposite());
+			for (int i = 0; i < config.searchRange; ++i) {
+				mutableBlockPos.setWithOffset(blockPos, direction);
+				BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
+				if (!isAirOrWater(blockState) && !blockState.is(WWBlocks.SPONGE_BUD)) break;
+				if (generate(worldGenLevel, mutableBlockPos, blockState, config, list2)) return true;
 			}
 		}
+		return false;
 	}
-}
 
+}

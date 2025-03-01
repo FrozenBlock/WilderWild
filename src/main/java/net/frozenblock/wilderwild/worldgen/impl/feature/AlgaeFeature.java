@@ -94,7 +94,13 @@ public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 		return bl;
 	}
 
-	private boolean genAlgae(boolean bl, WorldGenLevel level, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos mutableDisk, boolean fade) {
+	private boolean genAlgae(
+		boolean bl,
+		WorldGenLevel level,
+		@NotNull RandomSource random,
+		@NotNull BlockPos.MutableBlockPos mutableDisk,
+		boolean fade
+	) {
 		if (random.nextFloat() > 0.2F) {
 			if (fade) {
 				if (random.nextFloat() > 0.5F) {

@@ -88,9 +88,8 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(mutablePos2, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
 			}
-			return SnowGenerationState.SUCCESS;
 		}
-		return SnowGenerationState.FAIL;
+		return SnowGenerationState.CONTINUE;
 	}
 
 	private static int findLowestHeightForSnow(@NotNull WorldGenLevel level, int x, int z) {
@@ -143,7 +142,6 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 
 	private enum SnowGenerationState {
 		CANCEL,
-		SUCCESS,
-		FAIL;
+		CONTINUE;
 	}
 }

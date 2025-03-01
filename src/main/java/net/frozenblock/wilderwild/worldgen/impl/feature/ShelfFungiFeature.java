@@ -40,7 +40,12 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 		super(codec);
 	}
 
-	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungiFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
+	public static boolean generate(
+		@NotNull WorldGenLevel level,
+		@NotNull BlockPos pos,
+		@NotNull ShelfFungiFeatureConfig config,
+		@NotNull RandomSource random
+	) {
 		MutableBlockPos mutable = pos.mutable();
 
 		Direction placementDirection = null;
@@ -78,33 +83,22 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 		RandomSource abstractRandom = context.random();
 		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
 		ShelfFungiFeatureConfig shelfFungusFeatureConfig = context.config();
-		if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) {
-			return false;
-		} else {
-			List<Direction> list = shelfFungusFeatureConfig.shuffleDirections(abstractRandom);
-			if (generate(structureWorldAccess, blockPos, shelfFungusFeatureConfig, abstractRandom, list)) {
-				return true;
-			} else {
-				MutableBlockPos mutable = blockPos.mutable();
 
-				for (Direction direction : list) {
-					mutable.set(blockPos);
-					List<Direction> list2 = shelfFungusFeatureConfig.shuffleDirections(abstractRandom, direction.getOpposite());
+		if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) return false;
+		List<Direction> list = shelfFungusFeatureConfig.shuffleDirections(abstractRandom);
+		if (generate(structureWorldAccess, blockPos, shelfFungusFeatureConfig, abstractRandom)) return true;
 
-					for (int i = 0; i < shelfFungusFeatureConfig.searchRange; ++i) {
-						mutable.setWithOffset(blockPos, direction);
-						BlockState blockState = structureWorldAccess.getBlockState(mutable);
-						if (!isAirOrWater(blockState) && !blockState.is(shelfFungusFeatureConfig.fungus)) {
-							break;
-						}
-
-						if (generate(structureWorldAccess, mutable, shelfFungusFeatureConfig, abstractRandom, list2)) {
-							return true;
-						}
-					}
-				}
-				return false;
+		MutableBlockPos mutable = blockPos.mutable();
+		for (Direction direction : list) {
+			mutable.set(blockPos);
+			for (int i = 0; i < shelfFungusFeatureConfig.searchRange; ++i) {
+				mutable.setWithOffset(blockPos, direction);
+				BlockState blockState = structureWorldAccess.getBlockState(mutable);
+				if (!isAirOrWater(blockState) && !blockState.is(shelfFungusFeatureConfig.fungus)) break;
+				if (generate(structureWorldAccess, mutable, shelfFungusFeatureConfig, abstractRandom)) return true;
 			}
 		}
+		return false;
 	}
+
 }

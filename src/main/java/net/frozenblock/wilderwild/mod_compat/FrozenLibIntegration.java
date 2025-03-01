@@ -263,7 +263,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			Blocks.DIRT,
 			(blockState, serverLevel, blockPos, randomSource) -> {
 				if (DripstoneDripApi.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
-					serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), Block.UPDATE_ALL);
+					serverLevel.setBlockAndUpdate(blockPos, Blocks.MUD.defaultBlockState());
 				}
 			}
 		);

@@ -199,7 +199,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		this.wilderWild$setPrevActive(nbt.getBoolean("prevActive"));
 
 		Direction facing = Direction.byName(nbt.getString("facing"));
-		this.wilderWild$setFacing(Objects.requireNonNullElse(facing, Direction.SOUTH));
+		this.wilderWild$setFacing(Objects.requireNonNullElse(facing, Direction.NORTH));
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))

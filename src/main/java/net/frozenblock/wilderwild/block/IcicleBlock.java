@@ -20,6 +20,10 @@ package net.frozenblock.wilderwild.block;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.MapCodec;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -69,10 +73,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWaterloggedBlock {
 	public static final MapCodec<IcicleBlock> CODEC = simpleCodec(IcicleBlock::new);

@@ -37,16 +37,21 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		super(codec);
 	}
 
-	public static boolean placeGrowthIfPossible(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull MultifaceGrowthConfiguration config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
+	public static boolean placeGrowthIfPossible(
+		@NotNull WorldGenLevel level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull MultifaceGrowthConfiguration config,
+		@NotNull RandomSource random,
+		@NotNull List<Direction> directions
+	) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for (Direction direction : directions) {
 			BlockState blockState = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 			if (blockState.is(config.canBePlacedOn)) {
 				BlockState blockState2 = config.placeBlock.getStateForPlacement(state, level, pos, direction);
-				if (blockState2 == null) {
-					return false;
-				}
+				if (blockState2 == null) return false;
 
 				level.setBlock(pos, blockState2, Block.UPDATE_ALL);
 				level.getChunk(pos).markPosForPostprocessing(pos);
@@ -71,34 +76,23 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		BlockPos blockPos = context.origin();
 		RandomSource randomSource = context.random();
 		MultifaceGrowthConfiguration multifaceGrowthConfiguration = context.config();
-		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) {
-			return false;
-		} else {
-			List<Direction> list = multifaceGrowthConfiguration.getShuffledDirections(randomSource);
-			if (placeGrowthIfPossible(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), multifaceGrowthConfiguration, randomSource, list)) {
-				return true;
-			} else {
-				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 
-				for (Direction direction : list) {
-					mutableBlockPos.set(blockPos);
-					List<Direction> list2 = multifaceGrowthConfiguration.getShuffledDirectionsExcept(randomSource, direction.getOpposite());
+		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) return false;
+		List<Direction> list = multifaceGrowthConfiguration.getShuffledDirections(randomSource);
+		if (placeGrowthIfPossible(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), multifaceGrowthConfiguration, randomSource, list)) return true;
 
-					for (int i = 0; i < multifaceGrowthConfiguration.searchRange; ++i) {
-						mutableBlockPos.setWithOffset(blockPos, direction);
-						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-						if (!isAirOrWater(blockState) && !blockState.is(multifaceGrowthConfiguration.placeBlock)) {
-							break;
-						}
-
-						if (placeGrowthIfPossible(worldGenLevel, mutableBlockPos, blockState, multifaceGrowthConfiguration, randomSource, list2)) {
-							return true;
-						}
-					}
-				}
-				return false;
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+		for (Direction direction : list) {
+			mutableBlockPos.set(blockPos);
+			List<Direction> list2 = multifaceGrowthConfiguration.getShuffledDirectionsExcept(randomSource, direction.getOpposite());
+			for (int i = 0; i < multifaceGrowthConfiguration.searchRange; ++i) {
+				mutableBlockPos.setWithOffset(blockPos, direction);
+				BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
+				if (!isAirOrWater(blockState) && !blockState.is(multifaceGrowthConfiguration.placeBlock)) break;
+				if (placeGrowthIfPossible(worldGenLevel, mutableBlockPos, blockState, multifaceGrowthConfiguration, randomSource, list2)) return true;
 			}
 		}
+		return false;
 	}
-}
 
+}

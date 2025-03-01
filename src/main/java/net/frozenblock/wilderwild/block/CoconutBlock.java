@@ -255,7 +255,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		if (!level.isClientSide) {
-			level.setBlock(pos, replaceableState, UPDATE_ALL);
+			level.setBlockAndUpdate(pos, replaceableState);
 		}
 	}
 
