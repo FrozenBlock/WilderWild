@@ -127,12 +127,6 @@ public final class WWWorldGen {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 						}
 					}
-
-					if (WWWorldgenConfig.get().surfaceTransitions) {
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
-						}
-					}
 				});
 
 		BiomeModifications.create(WWConstants.id("replace_forest_grass"))

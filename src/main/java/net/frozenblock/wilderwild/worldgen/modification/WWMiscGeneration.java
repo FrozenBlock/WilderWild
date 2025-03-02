@@ -250,6 +250,10 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE_WG.getKey());
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE.getKey());
 						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
+						}
 					}
 				});
 
