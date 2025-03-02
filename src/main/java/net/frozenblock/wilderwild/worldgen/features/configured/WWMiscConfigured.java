@@ -20,16 +20,18 @@ package net.frozenblock.wilderwild.worldgen.features.configured;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.TouchingBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.FadingDiskCarpetFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.FadingDiskFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.FadingDiskWithBiomeFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallBlockPlacement;
+import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
@@ -42,8 +44,8 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
@@ -87,7 +89,7 @@ public final class WWMiscConfigured {
 	// SWAMP
 	public static final FrozenLibConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> MUD_PATH = register("mud_path");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> MUD_TRANSITION_DISK = register("mud_transition_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> MUD_TRANSITION_DISK = register("mud_transition_disk");
 
 	// TAIGA
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
@@ -100,10 +102,10 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 
 	// BEACH AND RIVER
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
-	public static final FrozenLibConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
 
@@ -117,18 +119,18 @@ public final class WWMiscConfigured {
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WWBlockTags.PACKED_MUD_REPLACEABLE);
 	public static final FrozenLibConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = register("ore_packed_mud");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
-	public static final FrozenLibConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
-	public static final FrozenLibConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ConfiguredFeature<FadingDiskWithBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// OASIS
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> GRASS_PATH = register("grass_path");
@@ -153,12 +155,12 @@ public final class WWMiscConfigured {
 
 	// DYING FOREST
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE GROVE
-	public static final FrozenLibConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
-	public static final FrozenLibConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
-	public static final FrozenLibConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
 
 	// SNOW
 	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
@@ -166,7 +168,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
 	// ICE
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
 	private WWMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
@@ -295,25 +297,21 @@ public final class WWMiscConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.FADING_DISK_FEATURE,
-						new FadingDiskFeatureConfig(
-							true,
-							BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
-							BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
-							UniformInt.of(2, 4),
-							0.95F,
-							0.925F,
-							0.65F,
-							0.8F,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.STONE_TRANSITION_REPLACEABLE
-							),
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.STONE_TRANSITION_REPLACEABLE
-							),
-							Heightmap.Types.OCEAN_FLOOR_WG
+						FrozenLibFeatures.BALL_FEATURE,
+						new BallFeatureConfig(
+							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+								.placementChance(0.95F)
+								.fadeStartPercentage(0.8F)
+								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
+								.outerRingBlockPlacement(
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+										.placementChance(0.7F)
+										.outerRingStartPercentage(0.7F)
+										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
+										.build()
+								).build(),
+							Optional.of(Heightmap.Types.OCEAN_FLOOR),
+							UniformInt.of(2, 4)
 						)
 					)
 				)
@@ -362,25 +360,21 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.MUD),
-				BlockStateProvider.simple(Blocks.MUD),
-				UniformInt.of(3, 5),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MUD_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MUD_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MUD))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.75F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MUD))
+							.placementChance(0.5F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(3, 5)
 			)
 		);
 
@@ -496,92 +490,78 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.STONE),
-				BlockStateProvider.simple(Blocks.STONE),
-				UniformInt.of(6, 7),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.STONE_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.STONE_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.75F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+							.placementChance(0.5F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(6, 7)
 			)
 		);
 
-		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_EXCEPT_IN_BIOME_FEATURE,
-			new FadingDiskWithBiomeFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.SAND),
-				BlockStateProvider.simple(Blocks.SAND),
-				UniformInt.of(6, 7),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG,
-				WWBiomeTags.HAS_SMALL_SAND_TRANSITION
+		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.75F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+							.placementChance(0.75F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
+							.build()
+					).excludedBiomes(
+						FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SMALL_SAND_TRANSITION)
+					)
+					.build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(6, 7)
 			)
 		);
 
-		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.SAND),
-				BlockStateProvider.simple(Blocks.SAND),
-				UniformInt.of(3, 5),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.75F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+							.placementChance(0.5F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(4, 6)
 			)
 		);
 
-		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				BlockStateProvider.simple(Blocks.GRAVEL),
-				UniformInt.of(3, 5),
-				0.65F,
-				0.5F,
-				0.5F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.75F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+							.placementChance(0.5F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(4, 5)
 			)
 		);
 
@@ -677,92 +657,78 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
-				UniformInt.of(2, 8),
-				0.95F,
-				0.925F,
-				0.65F,
-				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.8F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()))
+							.placementChance(0.895F)
+							.outerRingStartPercentage(0.7F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(2, 8)
 			)
 		);
 
-		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
-				UniformInt.of(11, 15),
-				0.95F,
-				0.875F,
-				0.65F,
-				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.8F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()))
+							.placementChance(0.895F)
+							.outerRingStartPercentage(0.7F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(11, 15)
 			)
 		);
 
-		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				false,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
-				BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()),
-				UniformInt.of(1, 3),
-				0.85F,
-				0.925F,
-				0.55F,
-				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.8F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+							.placementChance(0.895F)
+							.outerRingStartPercentage(0.6F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.empty(),
+				UniformInt.of(1, 3)
 			)
 		);
 
-		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_EXCEPT_IN_BIOME_FEATURE,
-			new FadingDiskWithBiomeFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.SAND),
-				BlockStateProvider.simple(Blocks.SAND),
-				UniformInt.of(7, 12),
-				0.65F,
-				0.875F,
-				0.65F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SAND_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SAND_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG,
-				WWBiomeTags.HAS_SAND_TRANSITION
+		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.5F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+							.placementChance(0.6F)
+							.outerRingStartPercentage(0.4F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_REPLACEABLE))
+							.build()
+					).excludedBiomes(
+						FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SAND_TRANSITION)
+					)
+					.build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(7, 12)
 			)
 		);
 
@@ -800,92 +766,78 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
-				UniformInt.of(2, 8),
-				0.95F,
-				0.925F,
-				0.65F,
-				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.8F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
+							.placementChance(0.895F)
+							.outerRingStartPercentage(0.7F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(2, 8)
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
-				UniformInt.of(11, 15),
-				0.95F,
-				0.875F,
-				0.65F,
-				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.8F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
+							.placementChance(0.895F)
+							.outerRingStartPercentage(0.7F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(11, 15)
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				false,
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)),
-				BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()),
-				UniformInt.of(1, 3),
-				0.85F,
-				0.925F,
-				0.55F,
-				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.8F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
+							.placementChance(0.895F)
+							.outerRingStartPercentage(0.6F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.empty(),
+				UniformInt.of(1, 3)
 			)
 		);
 
-		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_EXCEPT_IN_BIOME_FEATURE,
-			new FadingDiskWithBiomeFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.RED_SAND),
-				BlockStateProvider.simple(Blocks.RED_SAND),
-				UniformInt.of(7, 12),
-				0.65F,
-				0.875F,
-				0.65F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG,
-				WWBiomeTags.HAS_RED_SAND_TRANSITION
+		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.RED_SAND))
+					.placementChance(0.65F)
+					.fadeStartPercentage(0.5F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.RED_SAND))
+							.placementChance(0.6F)
+							.outerRingStartPercentage(0.4F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE))
+							.build()
+					).excludedBiomes(
+						FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_RED_SAND_TRANSITION)
+					)
+					.build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(7, 12)
 			)
 		);
 
@@ -1042,92 +994,96 @@ public final class WWMiscConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.FADING_DISK_FEATURE,
-						new FadingDiskFeatureConfig(
-							true,
-							BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-							BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-							UniformInt.of(2, 4),
-							0.95F,
-							0.925F,
-							0.65F,
-							0.8F,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE
-							),
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE
-							),
-							Heightmap.Types.OCEAN_FLOOR_WG
+						FrozenLibFeatures.BALL_FEATURE,
+						new BallFeatureConfig(
+							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+								.placementChance(0.95F)
+								.fadeStartPercentage(0.5F)
+								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
+								.outerRingBlockPlacement(
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+										.placementChance(0.875F)
+										.outerRingStartPercentage(0.7F)
+										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
+										.build()
+								).build(),
+							Optional.of(Heightmap.Types.OCEAN_FLOOR),
+							UniformInt.of(2, 4)
 						)
 					)
 				)
 			)
 		);
 
-		COARSE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.95F,
-				0.925F,
-				0.65F,
-				0.5F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		COARSE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+					.placementChance(0.95F)
+					.fadeStartPercentage(0.5F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+							.placementChance(0.875F)
+							.outerRingStartPercentage(0.7F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.OCEAN_FLOOR),
+				UniformInt.of(2, 4)
 			)
 		);
 
-		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
-			new FadingDiskCarpetFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.75F,
-				0.5F,
-				0.65F,
-				0.5F,
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
+					.placementChance(0.75F)
+					.fadeStartPercentage(0.5F)
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
+							.placementChance(0.65F)
+							.outerRingStartPercentage(0.7F)
+							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+				UniformInt.of(2, 4)
 			)
 		);
 
-		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
-			new FadingDiskCarpetFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.75F,
-				0.5F,
-				0.65F,
-				0.5F,
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
+					.placementChance(0.75F)
+					.fadeStartPercentage(0.5F)
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
+							.placementChance(0.65F)
+							.outerRingStartPercentage(0.7F)
+							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+				UniformInt.of(2, 4)
 			)
 		);
 
-		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_CARPET_FEATURE,
-			new FadingDiskCarpetFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.75F,
-				0.5F,
-				0.65F,
-				0.5F,
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER))
+					.placementChance(0.75F)
+					.fadeStartPercentage(0.5F)
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER))
+							.placementChance(0.65F)
+							.outerRingStartPercentage(0.7F)
+							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+				UniformInt.of(2, 4)
 			)
 		);
 
@@ -1151,25 +1107,33 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				true,
-				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-				UniformInt.of(2, 6),
-				0.85F,
-				0.925F,
-				0.65F,
-				0.7F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SURFACE_FRAGILE_ICE_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.SURFACE_FRAGILE_ICE_REPLACEABLE
-				),
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES
+		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+					.placementChance(0.85F)
+					.fadeStartPercentage(0.75F)
+					.replacementBlockPredicate(
+						BlockPredicate.anyOf(
+							BlockPredicate.replaceable(),
+							BlockPredicate.matchesBlocks(Blocks.ICE)
+						)
+					)
+					.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.WATER))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+							.placementChance(0.75F)
+							.outerRingStartPercentage(0.675F)
+							.replacementBlockPredicate(
+								BlockPredicate.anyOf(
+									BlockPredicate.replaceable(),
+									BlockPredicate.matchesBlocks(Blocks.ICE)
+								)
+							)
+							.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.WATER))
+							.build()
+					).build(),
+				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+				UniformInt.of(4, 5)
 			)
 		);
 	}

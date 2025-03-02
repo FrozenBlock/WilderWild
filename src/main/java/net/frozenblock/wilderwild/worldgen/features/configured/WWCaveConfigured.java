@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.features.configured;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
@@ -28,7 +29,9 @@ import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectio
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.TouchingBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ColumnFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallBlockPlacement;
+import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
@@ -57,7 +60,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -109,14 +111,14 @@ public final class WWCaveConfigured {
 	// MAGMATIC CAVES
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> MAGMA_AND_GABBRO_PATH = register("magma_and_gabbro_path");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> OBSIDIAN_DISK = register("obsidian_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> MAGMA_PILE = register("magma_pile");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenLibConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_GABBRO = register("ore_gabbro");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> GABBRO_DISK = register("gabbro_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> GABBRO_DISK = register("gabbro_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> GABBRO_COLUMN = register("gabbro_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> GABBRO_PILE = register("gabbro_pile");
@@ -139,7 +141,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> FRAGILE_ICE_BIG_COLUMN = register("fragile_ice_big_column");
-	public static final FrozenLibConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> FRAGILE_ICE_DISK = register("fragile_ice_disk");
+	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> FRAGILE_ICE_DISK = register("fragile_ice_disk");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> FRAGILE_ICE_COLUMN = register("fragile_ice_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> SMALL_FRAGILE_ICE_COLUMN = register("small_fragile_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> DOWNWARDS_FRAGILE_ICE_COLUMN = register("downwards_fragile_ice_column");
@@ -508,47 +510,40 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_SCHEDULE_TICK_FEATURE,
-			new FadingDiskFeatureConfig(
-				false,
-				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-				UniformInt.of(2, 6),
-				0.8F,
-				0.7F,
-				0.325F,
-				0.675F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MAGMA_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MAGMA_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		MAGMA_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
+					.placementChance(0.8F)
+					.fadeStartPercentage(0.675F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
+							.placementChance(0.7F)
+							.chanceToChooseInInnerRing(0.7F)
+							.outerRingStartPercentage(0.75F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.empty(),
+				UniformInt.of(2, 6)
 			)
 		);
 
-		OBSIDIAN_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				false,
-				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
-				UniformInt.of(2, 4),
-				0.8F,
-				0.7F,
-				0.325F,
-				0.675F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MAGMA_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.MAGMA_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		OBSIDIAN_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
+					.placementChance(0.8F)
+					.fadeStartPercentage(0.675F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
+							.placementChance(0.7F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.empty(),
+				UniformInt.of(2, 4)
 			)
 		);
 
@@ -588,25 +583,21 @@ public final class WWCaveConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.FADING_DISK_FEATURE,
-						new FadingDiskFeatureConfig(
-							false,
-							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
-							UniformInt.of(2, 4),
-							0.8F,
-							0.7F,
-							0.325F,
-							0.675F,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							Heightmap.Types.OCEAN_FLOOR_WG
+						FrozenLibFeatures.BALL_FEATURE,
+						new BallFeatureConfig(
+							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
+								.placementChance(0.8F)
+								.fadeStartPercentage(0.675F)
+								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+								.outerRingBlockPlacement(
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
+										.placementChance(0.7F)
+										.outerRingStartPercentage(0.5F)
+										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+										.build()
+								).build(),
+							Optional.empty(),
+							UniformInt.of(2, 4)
 						)
 					)
 				)
@@ -627,25 +618,21 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				false,
-				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-				BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-				UniformInt.of(6, 12),
-				0.8F,
-				0.7F,
-				0.325F,
-				0.675F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					BlockTags.BASE_STONE_OVERWORLD
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					BlockTags.BASE_STONE_OVERWORLD
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		GABBRO_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
+					.placementChance(0.8F)
+					.fadeStartPercentage(0.675F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
+							.placementChance(0.7F)
+							.outerRingStartPercentage(0.75F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
+							.build()
+					).build(),
+				Optional.empty(),
+				UniformInt.of(6, 12)
 			)
 		);
 
@@ -685,25 +672,21 @@ public final class WWCaveConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.FADING_DISK_FEATURE,
-						new FadingDiskFeatureConfig(
-							false,
-							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-							BlockStateProvider.simple(WWBlocks.GABBRO.defaultBlockState()),
-							UniformInt.of(2, 4),
-							0.8F,
-							0.7F,
-							0.325F,
-							0.675F,
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							new HolderSet.Named<>(
-								BuiltInRegistries.BLOCK.holderOwner(),
-								WWBlockTags.MAGMA_REPLACEABLE
-							),
-							Heightmap.Types.OCEAN_FLOOR_WG
+						FrozenLibFeatures.BALL_FEATURE,
+						new BallFeatureConfig(
+							new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
+								.placementChance(0.8F)
+								.fadeStartPercentage(0.675F)
+								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+								.outerRingBlockPlacement(
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
+										.placementChance(0.7F)
+										.outerRingStartPercentage(0.75F)
+										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+										.build()
+								).build(),
+							Optional.empty(),
+							UniformInt.of(2, 4)
 						)
 					)
 				)
@@ -929,25 +912,21 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_DISK.makeAndSetHolder(FrozenLibFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
-				false,
-				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE),
-				UniformInt.of(4, 8),
-				0.8F,
-				0.7F,
-				0.325F,
-				0.675F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.CAVE_ICE_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WWBlockTags.CAVE_ICE_REPLACEABLE
-				),
-				Heightmap.Types.OCEAN_FLOOR_WG
+		FRAGILE_ICE_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
+			new BallFeatureConfig(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+					.placementChance(0.8F)
+					.fadeStartPercentage(0.675F)
+					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+					.outerRingBlockPlacement(
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+							.placementChance(0.7F)
+							.outerRingStartPercentage(0.5F)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.build()
+					).build(),
+				Optional.empty(),
+				UniformInt.of(4, 8)
 			)
 		);
 

@@ -1,36 +1,79 @@
 {
-  "type": "frozenlib:fading_disk_feature",
+  "type": "frozenlib:ball",
   "config": {
-    "fade_start_distance_percent": 0.7,
+    "block_placement": {
+      "fade_start_percentage": 0.75,
+      "outer_placement": {
+        "outer_ring_start_percentage": 0.675,
+        "placement_chance": 0.75,
+        "replacement_block_predicate": {
+          "type": "minecraft:any_of",
+          "predicates": [
+            {
+              "type": "minecraft:replaceable"
+            },
+            {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:ice"
+            }
+          ]
+        },
+        "searching_block_predicate": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:water",
+          "offset": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "wilderwild:fragile_ice",
+            "Properties": {
+              "age": "0"
+            }
+          }
+        }
+      },
+      "placement_chance": 0.85,
+      "replacement_block_predicate": {
+        "type": "minecraft:any_of",
+        "predicates": [
+          {
+            "type": "minecraft:replaceable"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:ice"
+          }
+        ]
+      },
+      "searching_block_predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:water",
+        "offset": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "state_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:fragile_ice",
+          "Properties": {
+            "age": "0"
+          }
+        }
+      }
+    },
     "heightmap": "MOTION_BLOCKING_NO_LEAVES",
-    "inner_chance": 0.925,
-    "inner_percent": 0.65,
-    "inner_replaceable_blocks": "#wilderwild:feature/surface_fragile_ice_replaceable",
-    "inner_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:fragile_ice",
-        "Properties": {
-          "age": "0"
-        }
-      }
-    },
-    "outer_replaceable_blocks": "#wilderwild:feature/surface_fragile_ice_replaceable",
-    "outer_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:fragile_ice",
-        "Properties": {
-          "age": "0"
-        }
-      }
-    },
-    "placement_chance": 0.85,
-    "radius": {
+    "placement_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 6,
-      "min_inclusive": 2
-    },
-    "use_heightmap_instead_of_circular_placement": true
+      "max_inclusive": 5,
+      "min_inclusive": 4
+    }
   }
 }

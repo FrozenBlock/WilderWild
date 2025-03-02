@@ -171,7 +171,6 @@ public final class WWBlockTags {
 	public static final TagKey<Block> DIORITE_ICE_REPLACEABLE = bind("feature/diorite_ice_replaceable");
 	public static final TagKey<Block> CAVE_ICE_REPLACEABLE = bind("feature/cave_ice_replaceable");
 	public static final TagKey<Block> CAVE_FRAGILE_ICE_REPLACEABLE = bind("feature/cave_fragile_ice_replaceable");
-	public static final TagKey<Block> SURFACE_FRAGILE_ICE_REPLACEABLE = bind("feature/surface_fragile_ice_replaceable");
 	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("feature/mesoglea_path_replaceable");
 	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("feature/magma_replaceable");
 	public static final TagKey<Block> NETHER_GEYSER_REPLACEABLE = bind("feature/nether_geyser_replaceable");

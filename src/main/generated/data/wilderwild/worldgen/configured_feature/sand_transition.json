@@ -1,31 +1,46 @@
 {
-  "type": "frozenlib:fading_disk_except_in_biome",
+  "type": "frozenlib:ball",
   "config": {
-    "excluded_biomes": "wilderwild:feature/has_sand_transition",
-    "fade_start_distance_percent": 0.5,
-    "heightmap": "OCEAN_FLOOR_WG",
-    "inner_chance": 0.875,
-    "inner_percent": 0.65,
-    "inner_replaceable_blocks": "#wilderwild:feature/sand_transition_replaceable",
-    "inner_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:sand"
+    "block_placement": {
+      "excluded_biomes": "#wilderwild:feature/has_sand_transition",
+      "fade_start_percentage": 0.5,
+      "outer_placement": {
+        "outer_ring_start_percentage": 0.4,
+        "placement_chance": 0.6,
+        "replacement_block_predicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "wilderwild:feature/sand_transition_replaceable"
+        },
+        "searching_block_predicate": {
+          "type": "minecraft:true"
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:sand"
+          }
+        }
+      },
+      "placement_chance": 0.65,
+      "replacement_block_predicate": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "wilderwild:feature/sand_transition_replaceable"
+      },
+      "searching_block_predicate": {
+        "type": "minecraft:true"
+      },
+      "state_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:sand"
+        }
       }
     },
-    "outer_replaceable_blocks": "#wilderwild:feature/sand_transition_replaceable",
-    "outer_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:sand"
-      }
-    },
-    "placement_chance": 0.65,
-    "radius": {
+    "heightmap": "OCEAN_FLOOR",
+    "placement_radius": {
       "type": "minecraft:uniform",
       "max_inclusive": 12,
       "min_inclusive": 7
-    },
-    "use_heightmap_instead_of_circular_placement": true
+    }
   }
 }
