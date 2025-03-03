@@ -38,9 +38,7 @@ public final class WWEntityConfig {
 			MOD_ID,
 			WWEntityConfig.class,
 			WWPreLoadConstants.configPath("entity", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {

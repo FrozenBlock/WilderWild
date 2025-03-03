@@ -35,9 +35,7 @@ public final class WWAmbienceAndMiscConfig {
 			MOD_ID,
 			WWAmbienceAndMiscConfig.class,
 			WWPreLoadConstants.configPath("misc", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {

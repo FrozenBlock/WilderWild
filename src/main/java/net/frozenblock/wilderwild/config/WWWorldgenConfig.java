@@ -36,9 +36,7 @@ public final class WWWorldgenConfig {
 			MOD_ID,
 			WWWorldgenConfig.class,
 			WWPreLoadConstants.configPath("worldgen", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {
