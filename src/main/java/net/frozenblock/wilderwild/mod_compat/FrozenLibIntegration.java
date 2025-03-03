@@ -29,6 +29,7 @@ import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
+import net.frozenblock.lib.block.api.friction.BlockFrictionAPI;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
@@ -52,6 +53,7 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -308,6 +310,12 @@ public class FrozenLibIntegration extends ModIntegration {
 		WolfVariantBiomeRegistry.register(WWBiomes.MAPLE_FOREST, WolfVariants.CHESTNUT);
 
 		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
+
+		BlockFrictionAPI.MODIFICATIONS.register(ctx -> {
+			if (ctx.entity instanceof Penguin && ctx.state.is(WWBlockTags.PENGUIN_IGNORE_FRICTION)) {
+				ctx.friction = 0.6F;
+			}
+		});
 
 		if (WWWorldgenConfig.get().decayTrailRuins) {
 			StructureProcessorApi.addProcessor(
