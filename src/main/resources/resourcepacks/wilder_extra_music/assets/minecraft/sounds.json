@@ -1,18 +1,9 @@
 {
-  "music.creative": {
-    "sounds": [
-      {
-        "name": "wilderwild:music.creative.wilder_creative",
-        "type": "event"
-      }
-    ]
-  },
   "music.menu": {
     "sounds": [
       {
         "name": "wilderwild:music.menu.wilder_menu",
-        "type": "event",
-        "weight": 2
+        "type": "event"
       }
     ]
   },

@@ -3221,22 +3221,8 @@
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },
-  "music.creative.wilder_creative": {
-    "sounds": [
-      {
-        "name": "wilderwild:music/pictochats/crescent",
-        "stream": true,
-        "volume": 0.7
-      }
-    ]
-  },
   "music.menu.wilder_menu": {
     "sounds": [
-      {
-        "name": "wilderwild:music/pictochats/crescent",
-        "stream": true,
-        "volume": 0.7
-      },
       {
         "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
@@ -3291,12 +3277,6 @@
         "name": "wilderwild:music/pictochats/amber",
         "stream": true,
         "volume": 0.7,
-        "weight": 2
-      },
-      {
-        "name": "wilderwild:music/ludocrypt/dove",
-        "stream": true,
-        "volume": 0.8,
         "weight": 2
       }
     ]
@@ -3509,9 +3489,9 @@
   "music.overworld.wilder_under_water": {
     "sounds": [
       {
-        "name": "wilderwild:music/pictochats/crescent",
+        "name": "wilderwild:music/ludocrypt/dove",
         "stream": true,
-        "volume": 0.7
+        "volume": 0.8
       }
     ]
   },
@@ -3542,12 +3522,6 @@
         "stream": true,
         "volume": 0.8,
         "weight": 5
-      },
-      {
-        "name": "wilderwild:music/pictochats/crescent",
-        "stream": true,
-        "volume": 0.8,
-        "weight": 2
       }
     ]
   },

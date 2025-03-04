@@ -968,7 +968,7 @@
   "option.wilderwild.wilder_snowy_music": "Snowy Music",
   "tooltip.wilderwild.wilder_snowy_music": "Whether to use new music in Snowy biomes.",
   "option.wilderwild.wilder_extra_music": "Extra Music",
-  "tooltip.wilderwild.wilder_extra_music": "Whether to use new music in the Menus, whilst Under Water and in Creative Mode.",
+  "tooltip.wilderwild.wilder_extra_music": "Whether to use new music in the Menus and whilst Under Water.",
   "option.wilderwild.distorted_dying_forest_music": "Distorted Dying Forest Music",
   "tooltip.wilderwild.distorted_dying_forest_music": "Whether Dying Forests should play slightly distorted versions of vanilla music.",
   "option.wilderwild.wind": "Wind",
