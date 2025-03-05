@@ -516,12 +516,14 @@ public final class WWCaveConfigured {
 					.placementChance(0.8F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
 							.placementChance(0.7F)
 							.chanceToChooseInInnerRing(0.7F)
 							.outerRingStartPercentage(0.75F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -535,11 +537,13 @@ public final class WWCaveConfigured {
 					.placementChance(0.8F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.5F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -624,11 +628,13 @@ public final class WWCaveConfigured {
 					.placementChance(0.8F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
+					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.75F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
+							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -918,11 +924,13 @@ public final class WWCaveConfigured {
 					.placementChance(0.8F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.5F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),

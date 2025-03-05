@@ -699,11 +699,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -808,11 +810,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
+					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
+							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
